@@ -31,7 +31,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useStyles } from './styles';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
-import useGetSwapInfo from './useGetSwapInfo';
+import useGetSwapInfo, { SwapError } from './useGetSwapInfo';
 
 const tokens = Object.values(PANCAKE_SWAP_TOKENS);
 
@@ -54,13 +54,15 @@ export interface SwapPageUiProps {
   toTokenUserBalanceWei?: BigNumber;
   onSubmit: (swap: Swap) => Promise<TransactionReceipt>;
   isSubmitting: boolean;
-  swapInfo?: Swap;
+  swap?: Swap;
+  swapError?: SwapError;
 }
 
 const SwapPageUi: React.FC<SwapPageUiProps> = ({
   formValues,
   setFormValues,
-  swapInfo,
+  swap,
+  swapError,
   onSubmit,
   isSubmitting,
   fromTokenUserBalanceWei,
@@ -71,29 +73,27 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  // TODO: reinitialize form values if swap becomes invalid
-
   useEffect(() => {
-    if (swapInfo?.direction === 'exactAmountIn') {
+    if (swap?.direction === 'exactAmountIn') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
         toTokenAmountTokens: convertWeiToTokens({
-          valueWei: swapInfo.expectedToTokenAmountReceivedWei,
-          token: swapInfo.toToken,
+          valueWei: swap.expectedToTokenAmountReceivedWei,
+          token: swap.toToken,
         }).toFixed(),
       }));
     }
 
-    if (swapInfo?.direction === 'exactAmountOut') {
+    if (swap?.direction === 'exactAmountOut') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
         fromTokenAmountTokens: convertWeiToTokens({
-          valueWei: swapInfo.expectedFromTokenAmountSoldWei,
-          token: swapInfo.fromToken,
+          valueWei: swap.expectedFromTokenAmountSoldWei,
+          token: swap.fromToken,
         }).toFixed(),
       }));
     }
-  }, [swapInfo]);
+  }, [swap]);
 
   const switchTokens = () =>
     setFormValues(currentFormValues => ({
@@ -113,9 +113,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     }));
 
   const handleSubmit = async () => {
-    if (swapInfo) {
+    if (swap) {
       try {
-        const transactionReceipt = await onSubmit(swapInfo);
+        const transactionReceipt = await onSubmit(swap);
 
         openSuccessfulTransactionModal({
           title: t('swapPage.successfulConvertTransactionModal.title'),
@@ -147,7 +147,11 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   }, [formValues.fromToken.address, formValues.toToken.address]);
 
   // Form validation
-  const { isValid, errors } = useFormValidation({ swapInfo, formValues, fromTokenUserBalanceWei });
+  const { isValid, errors: formErrors } = useFormValidation({
+    swap,
+    formValues,
+    fromTokenUserBalanceWei,
+  });
 
   return (
     <Paper css={styles.container}>
@@ -156,12 +160,18 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           label={t('swapPage.fromTokenAmountField.label')}
           selectedToken={formValues.fromToken}
           value={formValues.fromTokenAmountTokens}
-          hasError={errors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
+          hasError={formErrors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
           disabled={isSubmitting}
           onChange={amount =>
             setFormValues(currentFormValues => ({
               ...currentFormValues,
               fromTokenAmountTokens: amount,
+              // Reset toTokenAmount field value if users resets toTokenAmount
+              // field value
+              toTokenAmountTokens:
+                amount === ''
+                  ? initialFormValues.toTokenAmountTokens
+                  : currentFormValues.toTokenAmountTokens,
               direction: 'exactAmountIn',
             }))
           }
@@ -195,6 +205,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             setFormValues(currentFormValues => ({
               ...currentFormValues,
               toTokenAmountTokens: amount,
+              // Reset fromTokenAmount field value if users resets toTokenAmount
+              // field value
+              fromTokenAmountTokens:
+                amount === ''
+                  ? initialFormValues.fromTokenAmountTokens
+                  : currentFormValues.fromTokenAmountTokens,
               direction: 'exactAmountOut',
             }))
           }
@@ -215,13 +231,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        {swapInfo && (
+        {swap && (
           <>
             <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
                 toTokenSymbol: formValues.toToken.symbol,
-                rate: swapInfo.exchangeRate.toFixed(),
+                rate: swap.exchangeRate.toFixed(),
               })}
             </LabeledInlineContent>
 
@@ -234,7 +250,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
             <LabeledInlineContent
               label={
-                swapInfo.direction === 'exactAmountIn'
+                swap.direction === 'exactAmountIn'
                   ? t('swapPage.minimumReceived.label')
                   : t('swapPage.maximumSold.label')
               }
@@ -242,11 +258,10 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             >
               {convertWeiToTokens({
                 valueWei:
-                  swapInfo.direction === 'exactAmountIn'
-                    ? swapInfo.minimumToTokenAmountReceivedWei
-                    : swapInfo.maximumFromTokenAmountSoldWei,
-                token:
-                  swapInfo.direction === 'exactAmountIn' ? swapInfo.toToken : swapInfo.fromToken,
+                  swap.direction === 'exactAmountIn'
+                    ? swap.minimumToTokenAmountReceivedWei
+                    : swap.maximumFromTokenAmountSoldWei,
+                token: swap.direction === 'exactAmountIn' ? swap.toToken : swap.fromToken,
                 returnInReadableFormat: true,
               })}
             </LabeledInlineContent>
@@ -260,37 +275,44 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           onClick={handleSubmit}
           loading={isSubmitting}
         >
-          {errors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
+          {swapError === 'INSUFFICIENT_LIQUIDITY' &&
+            t('swapPage.submitButton.disabledLabels.insufficientLiquidity')}
+
+          {!swapError &&
+            formErrors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
             t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
 
-          {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
+          {!swapError &&
+            formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
             t('swapPage.submitButton.disabledLabels.insufficientUserBalance', {
               tokenSymbol: formValues.fromToken.symbol,
             })}
 
-          {errors[0] === 'UNSUPPORTED_WRAPPING' &&
+          {!swapError &&
+            formErrors[0] === 'WRAPPING_UNSUPPORTED' &&
             t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
 
-          {errors[0] === 'UNSUPPORTED_UNWRAPPING' &&
+          {!swapError &&
+            formErrors[0] === 'UNWRAPPING_UNSUPPORTED' &&
             t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
 
           {isValid &&
-            swapInfo &&
+            swap &&
             t('swapPage.submitButton.enabledLabel', {
               fromTokenAmount: convertWeiToTokens({
                 valueWei:
-                  swapInfo.direction === 'exactAmountIn'
-                    ? swapInfo.fromTokenAmountSoldWei
-                    : swapInfo.maximumFromTokenAmountSoldWei,
-                token: swapInfo.fromToken,
+                  swap.direction === 'exactAmountIn'
+                    ? swap.fromTokenAmountSoldWei
+                    : swap.maximumFromTokenAmountSoldWei,
+                token: swap.fromToken,
                 returnInReadableFormat: true,
               }),
               toTokenAmount: convertWeiToTokens({
                 valueWei:
-                  swapInfo.direction === 'exactAmountIn'
-                    ? swapInfo.minimumToTokenAmountReceivedWei
-                    : swapInfo.toTokenAmountReceivedWei,
-                token: swapInfo.toToken,
+                  swap.direction === 'exactAmountIn'
+                    ? swap.minimumToTokenAmountReceivedWei
+                    : swap.toTokenAmountReceivedWei,
+                token: swap.toToken,
                 returnInReadableFormat: true,
               }),
             })}
@@ -344,7 +366,8 @@ const SwapPage: React.FC = () => {
     <SwapPageUi
       formValues={formValues}
       setFormValues={setFormValues}
-      swapInfo={swapInfo}
+      swap={swapInfo.swap}
+      swapError={swapInfo.error}
       fromTokenUserBalanceWei={fromTokenUserBalanceData?.balanceWei}
       toTokenUserBalanceWei={toTokenUserBalanceData?.balanceWei}
       onSubmit={onSwap}

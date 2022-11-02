@@ -411,6 +411,7 @@
     },
     "submitButton": {
       "disabledLabels": {
+        "insufficientLiquidity": "Insufficient liquidity for this swap",
         "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
         "unwrappingUnsupported": "Unwrapping unsupported",

@@ -13,7 +13,7 @@ export interface UseGetSwapInfoInput {
   toTokenAmountTokens?: string;
 }
 
-export type UseGetSwapInfoOutput = Swap | undefined;
+export type SwapError = 'INSUFFICIENT_LIQUIDITY' | 'WRAPPING_UNWRAPPING_UNSUPPORTED';
 
 export interface FormatToSwapInput {
   input: UseGetSwapInfoInput;

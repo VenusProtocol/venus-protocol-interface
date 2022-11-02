@@ -13,11 +13,13 @@ import { convertTokensToWei } from 'utilities';
 import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
-import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
+import { SwapError, UseGetSwapInfoInput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
+export * from './types';
+
+const useGetSwapInfo = (input: UseGetSwapInfoInput) => {
   // Determine all possible token combination based on input tokens
   const tokenCombinations = useGetTokenCombinations({
     fromToken: input.fromToken,
@@ -30,13 +32,17 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   // Find the best trade based on pairs
   return useMemo(() => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
+    let error: SwapError | undefined;
 
     const wrappedFromToken = wrapToken(input.fromToken);
     const wrappedToToken = wrapToken(input.toToken);
 
     // Return no trade if user is trying to wrap or unwrap BNB/wBNB
     if (wrappedFromToken.address === wrappedToToken.address) {
-      return undefined;
+      return {
+        swap: undefined,
+        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED' as SwapError,
+      };
     }
 
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
@@ -78,6 +84,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           maxNumResults: 1,
         },
       );
+
+      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
     }
 
     // Handle "exactAmountOut" direction (sell as few fromTokens as possible for
@@ -119,6 +127,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           maxNumResults: 1,
         },
       );
+
+      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
     }
 
     const swap =
@@ -128,7 +138,10 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
         trade,
       });
 
-    return swap;
+    return {
+      swap,
+      error,
+    };
   }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 

@@ -10,7 +10,7 @@ import { FormError, FormValues } from './types';
 interface UseFormValidationInput {
   formValues: FormValues;
   fromTokenUserBalanceWei?: BigNumber;
-  swapInfo?: Swap;
+  swap?: Swap;
 }
 
 interface UseFormValidationOutput {
@@ -19,7 +19,7 @@ interface UseFormValidationOutput {
 }
 
 const useFormValidation = ({
-  swapInfo,
+  swap,
   formValues,
   fromTokenUserBalanceWei,
 }: UseFormValidationInput): UseFormValidationOutput => {
@@ -56,21 +56,21 @@ const useFormValidation = ({
       formValues.fromToken.isNative &&
       formValues.toToken.address === PANCAKE_SWAP_TOKENS.wbnb.address
     ) {
-      errorsTmp.push('UNSUPPORTED_WRAPPING');
+      errorsTmp.push('WRAPPING_UNSUPPORTED');
     }
 
     if (
       formValues.toToken.isNative &&
       formValues.fromToken.address === PANCAKE_SWAP_TOKENS.wbnb.address
     ) {
-      errorsTmp.push('UNSUPPORTED_UNWRAPPING');
+      errorsTmp.push('UNWRAPPING_UNSUPPORTED');
     }
 
     return errorsTmp;
   }, [formValues.fromToken, formValues.toToken]);
 
   const errors = wrapUnwrapErrors.concat(fromTokenAmountErrors);
-  const isValid = !!swapInfo && errors.length === 0;
+  const isValid = !!swap && errors.length === 0;
 
   return {
     isValid,
