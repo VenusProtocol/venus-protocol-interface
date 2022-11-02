@@ -14,7 +14,6 @@ import {
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
 import {
   convertTokensToWei,
   convertWeiToTokens,
