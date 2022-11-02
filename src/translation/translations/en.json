@@ -392,6 +392,7 @@
     }
   },
   "swapPage": {
+    "connectWalletToSwap": "Please connect your wallet to swap tokens",
     "exchangeRate": {
       "label": "Exchange rate",
       "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"

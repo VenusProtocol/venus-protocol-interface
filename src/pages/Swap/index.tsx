@@ -2,6 +2,7 @@
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import {
+  ConnectWallet,
   Icon,
   LabeledInlineContent,
   PrimaryButton,
@@ -150,148 +151,151 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
   return (
     <Paper css={styles.container}>
-      <SelectTokenTextField
-        label={t('swapPage.fromTokenAmountField.label')}
-        selectedToken={formValues.fromToken}
-        value={formValues.fromTokenAmountTokens}
-        hasError={errors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
-        disabled={isSubmitting}
-        onChange={amount =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            fromTokenAmountTokens: amount,
-            direction: 'exactAmountIn',
-          }))
-        }
-        onChangeSelectedToken={token =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            fromToken: token,
-            // Invert toToken and fromToken if selected token is the same as
-            // toToken
-            toToken:
-              token.address === formValues.toToken.address
-                ? currentFormValues.fromToken
-                : currentFormValues.toToken,
-          }))
-        }
-        tokens={fromTokenList}
-        userTokenBalanceWei={fromTokenUserBalanceWei}
-        css={styles.selectTokenTextField}
-      />
+      <ConnectWallet message={t('swapPage.connectWalletToSwap')}>
+        <SelectTokenTextField
+          label={t('swapPage.fromTokenAmountField.label')}
+          selectedToken={formValues.fromToken}
+          value={formValues.fromTokenAmountTokens}
+          hasError={errors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
+          disabled={isSubmitting}
+          onChange={amount =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              fromTokenAmountTokens: amount,
+              direction: 'exactAmountIn',
+            }))
+          }
+          onChangeSelectedToken={token =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              fromToken: token,
+              // Invert toToken and fromToken if selected token is the same as
+              // toToken
+              toToken:
+                token.address === formValues.toToken.address
+                  ? currentFormValues.fromToken
+                  : currentFormValues.toToken,
+            }))
+          }
+          tokens={fromTokenList}
+          userTokenBalanceWei={fromTokenUserBalanceWei}
+          css={styles.selectTokenTextField}
+        />
 
-      <TertiaryButton css={styles.switchButton} onClick={switchTokens} disabled={isSubmitting}>
-        <Icon name="convert" css={styles.switchButtonIcon} />
-      </TertiaryButton>
+        <TertiaryButton css={styles.switchButton} onClick={switchTokens} disabled={isSubmitting}>
+          <Icon name="convert" css={styles.switchButtonIcon} />
+        </TertiaryButton>
 
-      <SelectTokenTextField
-        label={t('swapPage.toTokenAmountField.label')}
-        selectedToken={formValues.toToken}
-        value={formValues.toTokenAmountTokens}
-        disabled={isSubmitting}
-        onChange={amount =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            toTokenAmountTokens: amount,
-            direction: 'exactAmountOut',
-          }))
-        }
-        onChangeSelectedToken={token =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            toToken: token,
-            // Invert fromToken and toToken if selected token is the same as
-            // fromToken
-            fromToken:
-              token.address === formValues.fromToken.address
-                ? currentFormValues.toToken
-                : currentFormValues.fromToken,
-          }))
-        }
-        tokens={toTokenList}
-        userTokenBalanceWei={toTokenUserBalanceWei}
-        css={styles.selectTokenTextField}
-      />
+        <SelectTokenTextField
+          label={t('swapPage.toTokenAmountField.label')}
+          selectedToken={formValues.toToken}
+          value={formValues.toTokenAmountTokens}
+          disabled={isSubmitting}
+          onChange={amount =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              toTokenAmountTokens: amount,
+              direction: 'exactAmountOut',
+            }))
+          }
+          onChangeSelectedToken={token =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              toToken: token,
+              // Invert fromToken and toToken if selected token is the same as
+              // fromToken
+              fromToken:
+                token.address === formValues.fromToken.address
+                  ? currentFormValues.toToken
+                  : currentFormValues.fromToken,
+            }))
+          }
+          tokens={toTokenList}
+          userTokenBalanceWei={toTokenUserBalanceWei}
+          css={styles.selectTokenTextField}
+        />
 
-      {swapInfo && (
-        <>
-          <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
-            {t('swapPage.exchangeRate.value', {
-              fromTokenSymbol: formValues.fromToken.symbol,
-              toTokenSymbol: formValues.toToken.symbol,
-              rate: swapInfo.exchangeRate,
+        {swapInfo && (
+          <>
+            <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
+              {t('swapPage.exchangeRate.value', {
+                fromTokenSymbol: formValues.fromToken.symbol,
+                toTokenSymbol: formValues.toToken.symbol,
+                rate: swapInfo.exchangeRate,
+              })}
+            </LabeledInlineContent>
+
+            <LabeledInlineContent
+              label={t('swapPage.slippageTolerance.label')}
+              css={styles.swapInfoRow}
+            >
+              {readableSlippageTolerancePercentage}
+            </LabeledInlineContent>
+
+            <LabeledInlineContent
+              label={
+                swapInfo.direction === 'exactAmountIn'
+                  ? t('swapPage.minimumReceived.label')
+                  : t('swapPage.maximumSold.label')
+              }
+              css={styles.swapInfoRow}
+            >
+              {convertWeiToTokens({
+                valueWei:
+                  swapInfo.direction === 'exactAmountIn'
+                    ? swapInfo.minimumToTokenAmountReceivedWei
+                    : swapInfo.maximumFromTokenAmountSoldWei,
+                token:
+                  swapInfo.direction === 'exactAmountIn' ? swapInfo.toToken : swapInfo.fromToken,
+                returnInReadableFormat: true,
+              })}
+            </LabeledInlineContent>
+          </>
+        )}
+
+        <PrimaryButton
+          fullWidth
+          disabled={!isValid}
+          css={styles.submitButton}
+          onClick={handleSubmit}
+          loading={isSubmitting}
+        >
+          {errors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
+            t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
+
+          {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
+            t('swapPage.submitButton.disabledLabels.insufficientUserBalance', {
+              tokenSymbol: formValues.fromToken.symbol,
             })}
-          </LabeledInlineContent>
 
-          <LabeledInlineContent
-            label={t('swapPage.slippageTolerance.label')}
-            css={styles.swapInfoRow}
-          >
-            {readableSlippageTolerancePercentage}
-          </LabeledInlineContent>
+          {errors[0] === 'UNSUPPORTED_WRAPPING' &&
+            t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
 
-          <LabeledInlineContent
-            label={
-              swapInfo.direction === 'exactAmountIn'
-                ? t('swapPage.minimumReceived.label')
-                : t('swapPage.maximumSold.label')
-            }
-            css={styles.swapInfoRow}
-          >
-            {convertWeiToTokens({
-              valueWei:
-                swapInfo.direction === 'exactAmountIn'
-                  ? swapInfo.minimumToTokenAmountReceivedWei
-                  : swapInfo.maximumFromTokenAmountSoldWei,
-              token: swapInfo.direction === 'exactAmountIn' ? swapInfo.toToken : swapInfo.fromToken,
-              returnInReadableFormat: true,
+          {errors[0] === 'UNSUPPORTED_UNWRAPPING' &&
+            t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
+
+          {isValid &&
+            swapInfo &&
+            t('swapPage.submitButton.enabledLabel', {
+              fromTokenAmount: convertWeiToTokens({
+                valueWei:
+                  swapInfo.direction === 'exactAmountIn'
+                    ? swapInfo.fromTokenAmountSoldWei
+                    : swapInfo.maximumFromTokenAmountSoldWei,
+                token: swapInfo.fromToken,
+                returnInReadableFormat: true,
+              }),
+              toTokenAmount: convertWeiToTokens({
+                valueWei:
+                  swapInfo.direction === 'exactAmountIn'
+                    ? swapInfo.minimumToTokenAmountReceivedWei
+                    : swapInfo.toTokenAmountReceivedWei,
+                token: swapInfo.toToken,
+                returnInReadableFormat: true,
+              }),
             })}
-          </LabeledInlineContent>
-        </>
-      )}
-
-      <PrimaryButton
-        fullWidth
-        disabled={!isValid}
-        css={styles.submitButton}
-        onClick={handleSubmit}
-        loading={isSubmitting}
-      >
-        {errors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
-          t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
-
-        {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
-          t('swapPage.submitButton.disabledLabels.insufficientUserBalance', {
-            tokenSymbol: formValues.fromToken.symbol,
-          })}
-
-        {errors[0] === 'UNSUPPORTED_WRAPPING' &&
-          t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
-
-        {errors[0] === 'UNSUPPORTED_UNWRAPPING' &&
-          t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
-
-        {isValid &&
-          swapInfo &&
-          t('swapPage.submitButton.enabledLabel', {
-            fromTokenAmount: convertWeiToTokens({
-              valueWei:
-                swapInfo.direction === 'exactAmountIn'
-                  ? swapInfo.fromTokenAmountSoldWei
-                  : swapInfo.maximumFromTokenAmountSoldWei,
-              token: swapInfo.fromToken,
-              returnInReadableFormat: true,
-            }),
-            toTokenAmount: convertWeiToTokens({
-              valueWei:
-                swapInfo.direction === 'exactAmountIn'
-                  ? swapInfo.minimumToTokenAmountReceivedWei
-                  : swapInfo.toTokenAmountReceivedWei,
-              token: swapInfo.toToken,
-              returnInReadableFormat: true,
-            }),
-          })}
-      </PrimaryButton>
+        </PrimaryButton>
+      </ConnectWallet>
     </Paper>
   );
 };
