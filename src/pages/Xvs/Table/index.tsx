@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset } from 'types';
 import {
   convertWeiToTokens,
   formatToReadablePercentage,

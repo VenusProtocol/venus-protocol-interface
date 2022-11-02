@@ -556,6 +556,10 @@
       "message": "You successfully swapped your tokens",
       "title": "Your swap was successful"
     },
+    "successfulConvertTransactionModal": {
+      "message": "You successfully swapped your tokens",
+      "title": "Your swap was successful"
+    },
     "toTokenAmountField": {
       "label": "To"
     }
