@@ -31,6 +31,14 @@ import xvs from 'assets/img/tokens/xvs.svg';
 import TOKEN_ADDRESSES from '../../contracts/addresses/tokens.json';
 
 export const MAINNET_TOKENS = {
+  bnb: {
+    id: 'bnb',
+    symbol: 'BNB',
+    decimals: 18,
+    address: '',
+    asset: bnb,
+    isNative: true,
+  } as Token,
   sxp: {
     id: 'sxp',
     symbol: 'SXP',
@@ -58,13 +66,6 @@ export const MAINNET_TOKENS = {
     decimals: 18,
     address: TOKEN_ADDRESSES.busd[BscChainId.MAINNET],
     asset: busd,
-  } as Token,
-  bnb: {
-    id: 'bnb',
-    symbol: 'BNB',
-    decimals: 18,
-    address: '',
-    asset: bnb,
   } as Token,
   xvs: {
     id: 'xvs',

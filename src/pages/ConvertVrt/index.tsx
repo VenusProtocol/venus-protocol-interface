@@ -77,7 +77,7 @@ const ConvertVrt = () => {
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(
-    { accountAddress: accountAddress || '', tokenId: TOKENS.vrt.id },
+    { accountAddress: accountAddress || '', token: TOKENS.vrt },
     { enabled: !!accountAddress },
   );
 

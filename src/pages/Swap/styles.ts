@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
     container: css`
       max-width: ${theme.spacing(136)};

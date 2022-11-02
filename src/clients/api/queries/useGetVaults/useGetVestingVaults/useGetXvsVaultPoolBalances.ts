@@ -22,19 +22,24 @@ const useGetXvsVaultPoolBalances = ({
   // Fetch total amount of tokens staked in each pool
   const queries: UseQueryOptions<GetBalanceOfOutput>[] = stakedTokenAddresses.map(
     stakedTokenAddress => {
-      const stakedTokenId = stakedTokenAddress
-        ? getTokenByAddress(stakedTokenAddress)?.id
-        : undefined;
+      const stakedToken = stakedTokenAddress ? getTokenByAddress(stakedTokenAddress) : undefined;
 
       return {
         queryFn: () =>
           getBalanceOf({
             web3,
-            tokenId: stakedTokenId || '',
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            token: stakedToken!,
             accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
           }),
-        queryKey: [FunctionKey.GET_BALANCE_OF, XVS_VAULT_PROXY_CONTRACT_ADDRESS, stakedTokenId],
-        enabled: !!stakedTokenId,
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            tokenAddress: stakedToken?.address,
+          },
+        ],
+        enabled: !!stakedToken,
         refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       };
     },

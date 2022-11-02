@@ -3,6 +3,7 @@ import { Story as StoryType, addDecorator } from '@storybook/react';
 import React, { useState } from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
+import { Token } from 'types';
 
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
 import { Web3Wrapper } from 'clients/web3';
@@ -60,7 +61,7 @@ export const withEnabledToken =
     spenderAddress,
     accountAddress,
   }: {
-    tokenId: string;
+    token: Token;
     spenderAddress: string;
     accountAddress: string;
   }) =>

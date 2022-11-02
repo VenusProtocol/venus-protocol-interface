@@ -32,7 +32,7 @@ describe('api/queries/getBalanceOf', () => {
         await getBalanceOf({
           web3: fakeWeb3,
           accountAddress: fakeAccountAddress,
-          tokenId: TOKENS.xvs.id,
+          token: TOKENS.xvs,
         });
 
         throw new Error('getBalanceOf should have thrown an error but did not');
@@ -60,7 +60,7 @@ describe('api/queries/getBalanceOf', () => {
       const response = await getBalanceOf({
         web3: fakeWeb3,
         accountAddress: fakeAccountAddress,
-        tokenId: TOKENS.xvs.id,
+        token: TOKENS.xvs,
       });
 
       expect(balanceOfMock).toHaveBeenCalledTimes(1);
@@ -86,7 +86,7 @@ describe('api/queries/getBalanceOf', () => {
         await getBalanceOf({
           web3: fakeWeb3,
           accountAddress: fakeAccountAddress,
-          tokenId: TOKENS.bnb.id,
+          token: TOKENS.bnb,
         });
 
         throw new Error('getBalanceOf should have thrown an error but did not');
@@ -109,7 +109,7 @@ describe('api/queries/getBalanceOf', () => {
       const response = await getBalanceOf({
         web3: fakeWeb3,
         accountAddress: fakeAccountAddress,
-        tokenId: TOKENS.bnb.id,
+        token: TOKENS.bnb,
       });
 
       expect(getBalanceMock).toHaveBeenCalledTimes(1);

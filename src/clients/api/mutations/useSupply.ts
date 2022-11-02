@@ -38,7 +38,7 @@ const useSupply = (
 
   const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
 
-  return asset.token.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
+  return asset.token.isNative ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 
 export default useSupply;

@@ -14,7 +14,7 @@ interface UseFormValidationInput {
 }
 
 interface UseFormValidationOutput {
-  isFormValid: boolean;
+  isValid: boolean;
   errors: FormError[];
 }
 
@@ -70,10 +70,10 @@ const useFormValidation = ({
   }, [formValues.fromToken, formValues.toToken]);
 
   const errors = wrapUnwrapErrors.concat(fromTokenAmountErrors);
-  const isFormValid = !!swap && errors.length === 0;
+  const isValid = !!swap && errors.length === 0;
 
   return {
-    isFormValid,
+    isValid,
     errors,
   };
 };

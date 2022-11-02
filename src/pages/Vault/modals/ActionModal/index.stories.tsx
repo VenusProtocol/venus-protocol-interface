@@ -45,7 +45,7 @@ Default.args = {
 Default.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: TOKENS.vai.id,
+    token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiUnitroller'),
   }),
@@ -101,7 +101,7 @@ WithIsInitialLoading.args = {
 WithIsInitialLoading.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: TOKENS.vai.id,
+    token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiUnitroller'),
   }),
