@@ -1,27 +1,15 @@
-import BigNumber from 'bignumber.js';
-import { Token } from 'types';
+import { SwapDirection, Token } from 'types';
 
-export type SwapDirection = 'exactAmountIn' | 'exactAmountOut';
-
-interface SwapBase {
+export interface FormValues {
   fromToken: Token;
+  fromTokenAmountTokens: string;
   toToken: Token;
-  exchangeRate: BigNumber;
+  toTokenAmountTokens: string;
   direction: SwapDirection;
 }
 
-export interface ExactAmountInSwap extends SwapBase {
-  fromTokenAmountSoldWei: BigNumber;
-  expectedToTokenAmountReceivedWei: BigNumber;
-  minimumToTokenAmountReceivedWei: BigNumber;
-  direction: 'exactAmountIn';
-}
-
-export interface ExactAmountOutSwap extends SwapBase {
-  expectedFromTokenAmountSoldWei: BigNumber;
-  maximumFromTokenAmountSoldWei: BigNumber;
-  toTokenAmountReceivedWei: BigNumber;
-  direction: 'exactAmountOut';
-}
-
-export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
+export type FormError =
+  | 'INVALID_FROM_TOKEN_AMOUNT'
+  | 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE'
+  | 'WRAPPING_UNSUPPORTED'
+  | 'UNWRAPPING_UNSUPPORTED';

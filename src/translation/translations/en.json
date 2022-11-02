@@ -386,7 +386,13 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
   },
+  "swap": {
+    "errors": {
+      "incorrectSwapInput": "Incorrect input provided for swap"
+    }
+  },
   "swapPage": {
+    "connectWalletToSwap": "Please connect your wallet to swap tokens",
     "exchangeRate": {
       "label": "Exchange rate",
       "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
@@ -404,8 +410,18 @@
       "label": "Slippage tolerance"
     },
     "submitButton": {
-      "disabledLabel": "Enter a valid amount to swap",
+      "disabledLabels": {
+        "insufficientLiquidity": "Insufficient liquidity for this swap",
+        "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
+        "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
+    },
+    "successfulConvertTransactionModal": {
+      "message": "You successfully swapped your tokens",
+      "title": "Your swap was successful"
     },
     "toTokenAmountField": {
       "label": "To"

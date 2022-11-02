@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
 import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from 'clients/api';
 import { useTokenContract } from 'clients/contracts/hooks';
@@ -7,7 +8,7 @@ import FunctionKey from 'constants/functionKey';
 import setCachedTokenAllowanceToMax from '../../queries/getAllowance/setCachedTokenAllowanceToMax';
 
 const useApproveToken = (
-  { tokenId }: { tokenId: string },
+  { token }: { token: Token },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,

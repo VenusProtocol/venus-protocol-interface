@@ -20,7 +20,7 @@ const tokens = [
   TESTNET_PANCAKE_SWAP_TOKENS.busd,
   TESTNET_PANCAKE_SWAP_TOKENS.cake,
   TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
-] as Token[];
+];
 
 const initialData: { value: string; token: Token } = {
   value: '',

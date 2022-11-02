@@ -1,4 +1,5 @@
 import { QueryClient } from 'react-query';
+import { Token } from 'types';
 
 import { GetAllowanceOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -13,7 +14,7 @@ const setCachedTokenAllowanceToMax = ({
   accountAddress,
 }: {
   queryClient: QueryClient;
-  tokenId: string;
+  token: Token;
   spenderAddress: string;
   accountAddress: string;
 }) => {
