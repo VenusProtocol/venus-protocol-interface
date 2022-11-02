@@ -10,9 +10,9 @@ import {
   toast,
 } from 'components';
 import { VError } from 'errors';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Swap, SwapDirection, Token } from 'types';
+import { Swap, Token } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
@@ -23,6 +23,8 @@ import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from './styles';
+import { FormValues } from './types';
+import useFormValidation from './useFormValidation';
 import useGetSwapInfo from './useGetSwapInfo';
 
 const tokens = Object.values(PANCAKE_SWAP_TOKENS) as Token[];
@@ -30,14 +32,6 @@ const tokens = Object.values(PANCAKE_SWAP_TOKENS) as Token[];
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
-
-interface FormValues {
-  fromToken: Token;
-  fromTokenAmountTokens: string;
-  toToken: Token;
-  toTokenAmountTokens: string;
-  direction: SwapDirection;
-}
 
 const initialFormValues: FormValues = {
   // TODO: handle mainnet
@@ -137,12 +131,27 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     }
   };
 
+  // Define lists of tokens for each text field
+  const { fromTokenList, toTokenList } = useMemo(() => {
+    const fromTokenListTmp = tokens.filter(token => token.address !== formValues.fromToken.address);
+    const toTokenListTmp = tokens.filter(token => token.address !== formValues.toToken.address);
+
+    return {
+      fromTokenList: fromTokenListTmp,
+      toTokenList: toTokenListTmp,
+    };
+  }, [formValues.fromToken.address, formValues.toToken.address]);
+
+  // Form validation
+  const { isValid, errors } = useFormValidation({ swapInfo, formValues, fromTokenUserBalanceWei });
+
   return (
     <Paper css={styles.container}>
       <SelectTokenTextField
         label={t('swapPage.fromTokenAmountField.label')}
         selectedToken={formValues.fromToken}
         value={formValues.fromTokenAmountTokens}
+        hasError={errors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
         disabled={isSubmitting}
         onChange={amount =>
           setFormValues(currentFormValues => ({
@@ -163,7 +172,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                 : currentFormValues.toToken,
           }))
         }
-        tokens={tokens.filter(token => token.address !== formValues.fromToken.address)}
+        tokens={fromTokenList}
         userTokenBalanceWei={fromTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
@@ -196,7 +205,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                 : currentFormValues.fromToken,
           }))
         }
-        tokens={tokens.filter(token => token.address !== formValues.toToken.address)}
+        tokens={toTokenList}
         userTokenBalanceWei={toTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
@@ -240,31 +249,37 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
       <PrimaryButton
         fullWidth
-        disabled={!swapInfo}
+        disabled={!isValid}
         css={styles.submitButton}
         onClick={handleSubmit}
         loading={isSubmitting}
       >
-        {swapInfo
-          ? t('swapPage.submitButton.enabledLabel', {
-              fromTokenAmount: convertWeiToTokens({
-                valueWei:
-                  swapInfo.direction === 'exactAmountIn'
-                    ? swapInfo.fromTokenAmountSoldWei
-                    : swapInfo.maximumFromTokenAmountSoldWei,
-                token: swapInfo.fromToken,
-                returnInReadableFormat: true,
-              }),
-              toTokenAmount: convertWeiToTokens({
-                valueWei:
-                  swapInfo.direction === 'exactAmountIn'
-                    ? swapInfo.minimumToTokenAmountReceivedWei
-                    : swapInfo.toTokenAmountReceivedWei,
-                token: swapInfo.toToken,
-                returnInReadableFormat: true,
-              }),
-            })
-          : t('swapPage.submitButton.disabledLabel')}
+        {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
+          t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
+        {errors[0] === 'IS_WRAP' && t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
+        {errors[0] === 'IS_UNWRAP' &&
+          t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
+
+        {isValid &&
+          swapInfo &&
+          t('swapPage.submitButton.enabledLabel', {
+            fromTokenAmount: convertWeiToTokens({
+              valueWei:
+                swapInfo.direction === 'exactAmountIn'
+                  ? swapInfo.fromTokenAmountSoldWei
+                  : swapInfo.maximumFromTokenAmountSoldWei,
+              token: swapInfo.fromToken,
+              returnInReadableFormat: true,
+            }),
+            toTokenAmount: convertWeiToTokens({
+              valueWei:
+                swapInfo.direction === 'exactAmountIn'
+                  ? swapInfo.minimumToTokenAmountReceivedWei
+                  : swapInfo.toTokenAmountReceivedWei,
+              token: swapInfo.toToken,
+              returnInReadableFormat: true,
+            }),
+          })}
       </PrimaryButton>
     </Paper>
   );

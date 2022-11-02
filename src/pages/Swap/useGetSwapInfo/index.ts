@@ -34,6 +34,11 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     const wrappedFromToken = wrapToken(input.fromToken);
     const wrappedToToken = wrapToken(input.toToken);
 
+    // Return no trade if user is trying to wrap or unwrap BNB/wBNB
+    if (wrappedFromToken.address === wrappedToToken.address) {
+      return undefined;
+    }
+
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
     // as many toTokens as possible)
     if (
@@ -116,13 +121,14 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
       );
     }
 
-    return (
+    const swap =
       trade &&
       formatToSwap({
         input,
         trade,
-      })
-    );
+      });
+
+    return swap;
   }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 

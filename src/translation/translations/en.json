@@ -409,7 +409,11 @@
       "label": "Slippage tolerance"
     },
     "submitButton": {
-      "disabledLabel": "Enter a valid amount to swap",
+      "disabledLabels": {
+        "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
     },
     "successfulConvertTransactionModal": {
