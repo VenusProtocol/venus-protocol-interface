@@ -410,6 +410,7 @@
     },
     "submitButton": {
       "disabledLabels": {
+        "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"

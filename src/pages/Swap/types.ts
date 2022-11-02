@@ -8,4 +8,8 @@ export interface FormValues {
   direction: SwapDirection;
 }
 
-export type FormError = 'IS_WRAP' | 'IS_UNWRAP' | 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE';
+export type FormError =
+  | 'INVALID_FROM_TOKEN_AMOUNT'
+  | 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE'
+  | 'UNSUPPORTED_WRAPPING'
+  | 'UNSUPPORTED_UNWRAPPING';

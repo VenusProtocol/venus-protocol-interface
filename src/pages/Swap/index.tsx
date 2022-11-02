@@ -257,10 +257,18 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         onClick={handleSubmit}
         loading={isSubmitting}
       >
-        {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
+        {errors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
           t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
-        {errors[0] === 'IS_WRAP' && t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
-        {errors[0] === 'IS_UNWRAP' &&
+
+        {errors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
+          t('swapPage.submitButton.disabledLabels.insufficientUserBalance', {
+            tokenSymbol: formValues.fromToken.symbol,
+          })}
+
+        {errors[0] === 'UNSUPPORTED_WRAPPING' &&
+          t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
+
+        {errors[0] === 'UNSUPPORTED_UNWRAPPING' &&
           t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
 
         {isValid &&
