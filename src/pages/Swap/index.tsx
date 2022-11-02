@@ -221,7 +221,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
                 toTokenSymbol: formValues.toToken.symbol,
-                rate: swapInfo.exchangeRate,
+                rate: swapInfo.exchangeRate.toFixed(),
               })}
             </LabeledInlineContent>
 

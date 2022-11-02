@@ -31,7 +31,9 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
         value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
         token: input.fromToken,
       }),
-      exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
+      exchangeRate: new BigNumber(trade.executionPrice.toFixed(input.toToken.decimals)).dp(
+        input.toToken.decimals,
+      ),
     };
 
     return swap;
@@ -55,7 +57,9 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
       value: new BigNumber(trade.outputAmount.toFixed()),
       token: input.fromToken,
     }),
-    exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
+    exchangeRate: new BigNumber(trade.executionPrice.toFixed(input.toToken.decimals)).dp(
+      input.toToken.decimals,
+    ),
   };
 
   return swap;
