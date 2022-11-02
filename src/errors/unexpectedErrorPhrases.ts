@@ -12,4 +12,5 @@ export const unexpectedErrorPhrases = {
     'convertVrt.internalErrorXvsToVrtConversionRatioUndefined',
   ),
   accountError: t('markets.errors.accountError'),
+  incorrectSwapInput: t('swap.errors.incorrectSwapInput'),
 };

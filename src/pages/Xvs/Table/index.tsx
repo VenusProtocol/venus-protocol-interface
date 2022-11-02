@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Table, TableProps, TokenIcon } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset } from 'types';
 import {
   convertWeiToTokens,
   formatToReadablePercentage,
@@ -68,7 +68,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
           {formatTokensToReadableValue({
             value: asset.xvsPerDay,
-            token: TOKENS.xvs as Token,
+            token: TOKENS.xvs,
             minimizeDecimals: true,
           })}
         </Typography>
@@ -127,7 +127,7 @@ const XvsTable: React.FC = () => {
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
-      tokenId: 'vai',
+      token: TOKENS.vai,
       accountAddress: getContractAddress('vaiVault'),
     },
     {
@@ -142,12 +142,12 @@ const XvsTable: React.FC = () => {
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
-        token: TOKENS.xvs as Token,
+        token: TOKENS.xvs,
       });
 
       const vaultVaiStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedData.balanceWei,
-        token: TOKENS.vai as Token,
+        token: TOKENS.vai,
       });
 
       const vaiApy = venusVaiVaultDailyRateTokens

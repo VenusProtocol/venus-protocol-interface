@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { Token } from 'types';
 
 import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import { useWeb3 } from 'clients/web3';
@@ -9,18 +10,30 @@ type Options = QueryObserverOptions<
   Error,
   GetBalanceOfOutput,
   GetBalanceOfOutput,
-  [FunctionKey.GET_BALANCE_OF, string, string]
+  [
+    FunctionKey.GET_BALANCE_OF,
+    {
+      accountAddress: string;
+      tokenAddress: string;
+    },
+  ]
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, tokenId }: Omit<GetBalanceOfInput, 'web3'> & { tokenId: string },
+  { accountAddress, token }: Omit<GetBalanceOfInput, 'web3'> & { token: Token },
   options?: Options,
 ) => {
   const web3 = useWeb3();
 
   return useQuery(
-    [FunctionKey.GET_BALANCE_OF, accountAddress, tokenId],
-    () => getBalanceOf({ web3, accountAddress, tokenId }),
+    [
+      FunctionKey.GET_BALANCE_OF,
+      {
+        accountAddress,
+        tokenAddress: token.address,
+      },
+    ],
+    () => getBalanceOf({ web3, accountAddress, token }),
     options,
   );
 };

@@ -14,7 +14,6 @@ import {
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
 import {
   convertTokensToWei,
   convertWeiToTokens,
@@ -177,7 +176,7 @@ const Convert: React.FC<ConvertProps> = ({
                       {t('convertVrt.convertVrt')}
                     </Typography>
                     <FormikTokenTextField
-                      token={TOKENS.vrt as Token}
+                      token={TOKENS.vrt}
                       name="amount"
                       css={styles.input}
                       description={
@@ -208,7 +207,7 @@ const Convert: React.FC<ConvertProps> = ({
                       {t('convertVrt.youWillReceive')}
                     </Typography>
                     <TokenTextField
-                      token={TOKENS.xvs as Token}
+                      token={TOKENS.xvs}
                       name="xvs"
                       css={styles.input}
                       description={t('convertVrt.vrtEqualsXvs', {

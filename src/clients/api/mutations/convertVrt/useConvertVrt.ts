@@ -25,7 +25,14 @@ const useConvertVrt = (
       onSuccess: async (...onSuccessParams) => {
         const { accountAddress } = onSuccessParams[1];
 
-        queryClient.invalidateQueries([FunctionKey.GET_BALANCE_OF, accountAddress, TOKENS.vrt.id]);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress,
+            tokenAddress: TOKENS.vrt.address,
+          },
+        ]);
+
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           { accountAddress, tokenId: TOKENS.vrt.id },

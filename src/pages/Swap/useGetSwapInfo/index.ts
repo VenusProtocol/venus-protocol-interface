@@ -13,10 +13,13 @@ import { convertTokensToWei } from 'utilities';
 import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
-import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
+import { SwapError, UseGetSwapInfoInput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
+import wrapToken from './wrapToken';
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
+export * from './types';
+
+const useGetSwapInfo = (input: UseGetSwapInfoInput) => {
   // Determine all possible token combination based on input tokens
   const tokenCombinations = useGetTokenCombinations({
     fromToken: input.fromToken,
@@ -29,6 +32,18 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   // Find the best trade based on pairs
   return useMemo(() => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
+    let error: SwapError | undefined;
+
+    const wrappedFromToken = wrapToken(input.fromToken);
+    const wrappedToToken = wrapToken(input.toToken);
+
+    // Return no trade if user is trying to wrap or unwrap BNB/wBNB
+    if (wrappedFromToken.address === wrappedToToken.address) {
+      return {
+        swap: undefined,
+        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED' as SwapError,
+      };
+    }
 
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
     // as many toTokens as possible)
@@ -39,24 +54,24 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     ) {
       const fromTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.fromTokenAmountTokens),
-        token: input.fromToken,
+        token: wrappedFromToken,
       });
 
       const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
         new PSToken(
           config.chainId,
-          input.fromToken.address,
-          input.fromToken.decimals,
-          input.fromToken.symbol,
+          wrappedFromToken.address,
+          wrappedFromToken.decimals,
+          wrappedFromToken.symbol,
         ),
         fromTokenAmountWei.toFixed(),
       );
 
       const currencyOut = new PSToken(
         config.chainId,
-        input.toToken.address,
-        input.toToken.decimals,
-        input.toToken.symbol,
+        wrappedToToken.address,
+        wrappedToToken.decimals,
+        wrappedToToken.symbol,
       );
 
       // Find best trade
@@ -69,6 +84,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           maxNumResults: 1,
         },
       );
+
+      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
     }
 
     // Handle "exactAmountOut" direction (sell as few fromTokens as possible for
@@ -80,22 +97,22 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     ) {
       const currencyIn = new PSToken(
         config.chainId,
-        input.fromToken.address,
-        input.fromToken.decimals,
-        input.fromToken.symbol,
+        wrappedFromToken.address,
+        wrappedFromToken.decimals,
+        wrappedFromToken.symbol,
       );
 
       const toTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.toTokenAmountTokens),
-        token: input.toToken,
+        token: wrappedToToken,
       });
 
       const currencyAmountOut = PSCurrencyAmount.fromRawAmount(
         new PSToken(
           config.chainId,
-          input.toToken.address,
-          input.toToken.decimals,
-          input.toToken.symbol,
+          wrappedToToken.address,
+          wrappedToToken.decimals,
+          wrappedToToken.symbol,
         ),
         toTokenAmountWei.toFixed(),
       );
@@ -110,15 +127,21 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           maxNumResults: 1,
         },
       );
+
+      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
     }
 
-    return (
+    const swap =
       trade &&
       formatToSwap({
         input,
         trade,
-      })
-    );
+      });
+
+    return {
+      swap,
+      error,
+    };
   }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 

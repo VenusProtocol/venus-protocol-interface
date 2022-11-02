@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     accountAddress: account?.address,
   });
   const { data: xvsRemainingDistributionData } = useGetBalanceOf({
-    tokenId: 'xvs',
+    token: TOKENS.xvs,
     accountAddress: getContractAddress('comptroller'),
   });
 

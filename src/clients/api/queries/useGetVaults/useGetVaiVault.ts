@@ -25,7 +25,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: VAI_VAULT_ADDRESS,
-      tokenId: TOKENS.vai.id,
+      token: TOKENS.vai,
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,

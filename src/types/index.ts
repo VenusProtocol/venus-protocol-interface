@@ -33,11 +33,12 @@ export interface Asset {
 }
 
 export interface Token {
-  id: string; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
+  id: string; // TODO: remove (related to VEN-723)
   symbol: Uppercase<string>;
   decimals: number;
   address: string | '';
   asset: string;
+  isNative?: boolean;
 }
 
 export interface Setting {
@@ -331,3 +332,29 @@ export interface VoterHistory {
   updatedAt: Date;
   votesWei: BigNumber;
 }
+
+export type SwapDirection = 'exactAmountIn' | 'exactAmountOut';
+
+interface SwapBase {
+  fromToken: Token;
+  toToken: Token;
+  exchangeRate: BigNumber;
+  direction: SwapDirection;
+  routePath: string[]; // Token addresses
+}
+
+export interface ExactAmountInSwap extends SwapBase {
+  fromTokenAmountSoldWei: BigNumber;
+  expectedToTokenAmountReceivedWei: BigNumber;
+  minimumToTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountIn';
+}
+
+export interface ExactAmountOutSwap extends SwapBase {
+  expectedFromTokenAmountSoldWei: BigNumber;
+  maximumFromTokenAmountSoldWei: BigNumber;
+  toTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountOut';
+}
+
+export type Swap = ExactAmountInSwap | ExactAmountOutSwap;

@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { Token } from 'types';
 
 import getAllowance, {
   GetAllowanceInput,
@@ -10,7 +11,7 @@ import FunctionKey from 'constants/functionKey';
 export type UseGetAllowanceQueryKey = [
   FunctionKey.GET_TOKEN_ALLOWANCE,
   {
-    tokenId: string;
+    tokenAddress: string;
     spenderAddress: string;
     accountAddress: string;
   },
@@ -26,19 +27,19 @@ type Options = QueryObserverOptions<
 
 const useGetAllowance = (
   {
-    tokenId,
+    token,
     spenderAddress,
     accountAddress,
-  }: Omit<GetAllowanceInput, 'tokenContract'> & { tokenId: string },
+  }: Omit<GetAllowanceInput, 'tokenContract'> & { token: Token },
   options?: Options,
 ) => {
-  const tokenContract = useTokenContract(tokenId);
+  const tokenContract = useTokenContract(token);
 
   return useQuery(
     [
       FunctionKey.GET_TOKEN_ALLOWANCE,
       {
-        tokenId,
+        tokenAddress: token.address,
         spenderAddress,
         accountAddress,
       },

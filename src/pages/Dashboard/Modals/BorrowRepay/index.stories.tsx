@@ -1,7 +1,6 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
-import { unsafelyGetVToken } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -49,9 +48,9 @@ export const Default = Template.bind({});
 Default.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    tokenId: assetData[0].token.id,
+    token: assetData[0].token,
     accountAddress: fakeAddress,
-    spenderAddress: unsafelyGetVToken(assetData[0].token.id).address,
+    spenderAddress: assetData[0].token.address,
   }),
 ];
 Default.args = {

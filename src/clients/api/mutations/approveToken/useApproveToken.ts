@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
 import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from 'clients/api';
 import { useTokenContract } from 'clients/contracts/hooks';
@@ -7,7 +8,7 @@ import FunctionKey from 'constants/functionKey';
 import setCachedTokenAllowanceToMax from '../../queries/getAllowance/setCachedTokenAllowanceToMax';
 
 const useApproveToken = (
-  { tokenId }: { tokenId: string },
+  { token }: { token: Token },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,
@@ -15,10 +16,10 @@ const useApproveToken = (
     Omit<ApproveTokenInput, 'tokenContract'>
   >,
 ) => {
-  const tokenContract = useTokenContract(tokenId);
+  const tokenContract = useTokenContract(token);
 
   return useMutation(
-    [FunctionKey.APPROVE_TOKEN, { tokenId }],
+    [FunctionKey.APPROVE_TOKEN, { token }],
     params =>
       approveToken({
         tokenContract,
@@ -28,7 +29,7 @@ const useApproveToken = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         const { spenderAddress, accountAddress } = onSuccessParams[1];
-        setCachedTokenAllowanceToMax({ queryClient, tokenId, spenderAddress, accountAddress });
+        setCachedTokenAllowanceToMax({ queryClient, token, spenderAddress, accountAddress });
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

@@ -342,3 +342,7 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
     executeWithdrawalFromXvsVault,
     options,
   );
+
+export const swapTokens = jest.fn();
+export const useSwapTokens = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);

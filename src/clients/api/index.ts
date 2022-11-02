@@ -133,6 +133,10 @@ export { default as executeWithdrawalFromXvsVault } from './mutations/executeWit
 export * from './mutations/executeWithdrawalFromXvsVault';
 export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
 
+export { default as swapTokens } from './mutations/swapTokens';
+export * from './mutations/swapTokens';
+export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

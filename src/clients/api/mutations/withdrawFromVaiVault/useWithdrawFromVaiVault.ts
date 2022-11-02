@@ -40,15 +40,19 @@ const useWithdrawFromVaiVault = (options?: Options) => {
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          fromAccountAddress,
-          TOKENS.vai.id,
+          {
+            accountAddress: fromAccountAddress,
+            tokenAddress: TOKENS.vai.address,
+          },
         ]);
 
         // Invalidate cached vault data
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          VAI_VAULT_ADDRESS,
-          TOKENS.vai.id,
+          {
+            accountAddress: VAI_VAULT_ADDRESS,
+            tokenAddress: TOKENS.vai.address,
+          },
         ]);
 
         queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
