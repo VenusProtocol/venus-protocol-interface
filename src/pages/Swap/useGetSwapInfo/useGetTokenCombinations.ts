@@ -4,7 +4,7 @@ import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { Token } from 'types';
 
-import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { MAINNET_PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
 import wrapToken from './wrapToken';
 
@@ -13,7 +13,7 @@ export interface UseGetTokenCombinationsInput {
   toToken: Token;
 }
 
-// Define tokens to check trades against
+// List tokens to check trades against
 const BASE_TRADE_TOKENS = config.isOnTestnet
   ? [
       TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
@@ -21,7 +21,13 @@ const BASE_TRADE_TOKENS = config.isOnTestnet
       TESTNET_PANCAKE_SWAP_TOKENS.cake,
     ]
   : [
-      // TODO: add mainnet tokens
+      MAINNET_PANCAKE_SWAP_TOKENS.wbnb,
+      MAINNET_PANCAKE_SWAP_TOKENS.cake,
+      MAINNET_PANCAKE_SWAP_TOKENS.busd,
+      MAINNET_PANCAKE_SWAP_TOKENS.usdt,
+      MAINNET_PANCAKE_SWAP_TOKENS.btcb,
+      MAINNET_PANCAKE_SWAP_TOKENS.eth,
+      MAINNET_PANCAKE_SWAP_TOKENS.usdc,
     ];
 
 const useGetTokenCombinations = ({

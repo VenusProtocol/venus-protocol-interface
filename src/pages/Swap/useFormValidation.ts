@@ -36,7 +36,7 @@ const useFormValidation = ({
 
     const errorsTmp: FormError[] = [];
 
-    if (isFromTokensAmountInputValid) {
+    if (!isFromTokensAmountInputValid) {
       errorsTmp.push('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE');
     }
 

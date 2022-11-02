@@ -9,16 +9,21 @@ import {
   TertiaryButton,
   toast,
 } from 'components';
+import config from 'config';
 import { VError } from 'errors';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Swap, Token } from 'types';
+import { Swap } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useGetBalanceOf, useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import {
+  MAINNET_PANCAKE_SWAP_TOKENS,
+  PANCAKE_SWAP_TOKENS,
+  TESTNET_PANCAKE_SWAP_TOKENS,
+} from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -27,18 +32,16 @@ import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
 import useGetSwapInfo from './useGetSwapInfo';
 
-const tokens = Object.values(PANCAKE_SWAP_TOKENS) as Token[];
+const tokens = Object.values(PANCAKE_SWAP_TOKENS);
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
 
 const initialFormValues: FormValues = {
-  // TODO: handle mainnet
-  fromToken: TESTNET_PANCAKE_SWAP_TOKENS.bnb as Token,
+  fromToken: PANCAKE_SWAP_TOKENS.bnb,
   fromTokenAmountTokens: '',
-  // TODO: handle mainnet
-  toToken: TESTNET_PANCAKE_SWAP_TOKENS.cake as Token,
+  toToken: config.isOnTestnet ? TESTNET_PANCAKE_SWAP_TOKENS.busd : MAINNET_PANCAKE_SWAP_TOKENS.xvs,
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
