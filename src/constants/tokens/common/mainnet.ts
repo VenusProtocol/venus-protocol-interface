@@ -67,7 +67,6 @@ export const MAINNET_TOKENS = {
     address: TOKEN_ADDRESSES.busd[BscChainId.MAINNET],
     asset: busd,
   } as Token,
-
   xvs: {
     id: 'xvs',
     symbol: 'XVS',

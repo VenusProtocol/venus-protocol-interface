@@ -33,7 +33,7 @@ export interface Asset {
 }
 
 export interface Token {
-  id: string; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
+  id: string; // TODO: remove (related to VEN-723)
   symbol: Uppercase<string>;
   decimals: number;
   address: string | '';
