@@ -1,16 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
+import type { TransactionReceipt } from 'web3-core/types';
 
-import { useApproveToken, useGetAllowance } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
+import { toast } from '../Toast';
 import { TokenIcon } from '../TokenIcon';
 import useStyles from './styles';
 
@@ -18,7 +21,7 @@ export interface EnableTokenUiProps {
   token: Token;
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
-  enableToken: () => void;
+  enableToken: () => Promise<TransactionReceipt | undefined>;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
   tokenInfo?: LabeledInlineContentProps[];
@@ -42,6 +45,22 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
   if (isTokenEnabled) {
     return <>{children}</>;
   }
+
+  const handleEnableToken = async () => {
+    try {
+      await enableToken();
+    } catch (error) {
+      let { message } = error as Error;
+
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+
+      toast.error({
+        message,
+      });
+    }
+  };
 
   return (
     <div css={styles.container}>
@@ -73,7 +92,7 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
             disabled={disabled || isEnableTokenLoading}
             loading={isEnableTokenLoading}
             fullWidth
-            onClick={enableToken}
+            onClick={handleEnableToken}
           >
             {t('enableToken.enableButtonLabel')}
           </SecondaryButton>
@@ -91,42 +110,21 @@ export interface EnableTokenProps
 export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
   const { account } = useContext(AuthContext);
 
-  const { data: getTokenAllowanceData, isLoading: isGetAllowanceLoading } = useGetAllowance(
-    {
-      accountAddress: account?.address || '',
-      spenderAddress,
+  const { isTokenApprovalStatusLoading, isTokenApproved, approveToken, isApproveTokenLoading } =
+    useTokenApproval({
       token,
-    },
-    {
-      enabled: !!account?.address,
-    },
-  );
-
-  const isTokenApproved =
-    token.isNative ||
-    (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
-
-  const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
-    token,
-  });
-
-  const approveToken = () => {
-    if (account?.address) {
-      contractApproveToken({
-        accountAddress: account.address,
-        spenderAddress,
-      });
-    }
-  };
+      spenderAddress,
+      accountAddress: account?.address,
+    });
 
   return (
     <EnableTokenUi
       {...rest}
       token={token}
       enableToken={approveToken}
-      isTokenEnabled={isTokenApproved}
+      isTokenEnabled={isTokenApproved ?? false}
       isEnableTokenLoading={isApproveTokenLoading}
-      isInitialLoading={isGetAllowanceLoading}
+      isInitialLoading={isTokenApprovalStatusLoading}
       disabled={!account}
     />
   );

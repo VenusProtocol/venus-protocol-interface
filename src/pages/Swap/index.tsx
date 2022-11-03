@@ -5,7 +5,6 @@ import {
   ConnectWallet,
   Icon,
   LabeledInlineContent,
-  PrimaryButton,
   SelectTokenTextField,
   TertiaryButton,
   toast,
@@ -28,6 +27,7 @@ import {
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
+import SubmitSection from './SubmitSection';
 import { useStyles } from './styles';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -50,10 +50,10 @@ const initialFormValues: FormValues = {
 export interface SwapPageUiProps {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  fromTokenUserBalanceWei?: BigNumber;
-  toTokenUserBalanceWei?: BigNumber;
   onSubmit: (swap: Swap) => Promise<TransactionReceipt>;
   isSubmitting: boolean;
+  fromTokenUserBalanceWei?: BigNumber;
+  toTokenUserBalanceWei?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -147,7 +147,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   }, [formValues.fromToken.address, formValues.toToken.address]);
 
   // Form validation
-  const { isValid, errors: formErrors } = useFormValidation({
+  const { isFormValid, errors: formErrors } = useFormValidation({
     swap,
     formValues,
     fromTokenUserBalanceWei,
@@ -268,55 +268,15 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           </>
         )}
 
-        <PrimaryButton
-          fullWidth
-          disabled={!isValid}
-          css={styles.submitButton}
-          onClick={handleSubmit}
-          loading={isSubmitting}
-        >
-          {swapError === 'INSUFFICIENT_LIQUIDITY' &&
-            t('swapPage.submitButton.disabledLabels.insufficientLiquidity')}
-
-          {!swapError &&
-            formErrors[0] === 'INVALID_FROM_TOKEN_AMOUNT' &&
-            t('swapPage.submitButton.disabledLabels.invalidFromTokenAmount')}
-
-          {!swapError &&
-            formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE' &&
-            t('swapPage.submitButton.disabledLabels.insufficientUserBalance', {
-              tokenSymbol: formValues.fromToken.symbol,
-            })}
-
-          {!swapError &&
-            formErrors[0] === 'WRAPPING_UNSUPPORTED' &&
-            t('swapPage.submitButton.disabledLabels.wrappingUnsupported')}
-
-          {!swapError &&
-            formErrors[0] === 'UNWRAPPING_UNSUPPORTED' &&
-            t('swapPage.submitButton.disabledLabels.unwrappingUnsupported')}
-
-          {isValid &&
-            swap &&
-            t('swapPage.submitButton.enabledLabel', {
-              fromTokenAmount: convertWeiToTokens({
-                valueWei:
-                  swap.direction === 'exactAmountIn'
-                    ? swap.fromTokenAmountSoldWei
-                    : swap.maximumFromTokenAmountSoldWei,
-                token: swap.fromToken,
-                returnInReadableFormat: true,
-              }),
-              toTokenAmount: convertWeiToTokens({
-                valueWei:
-                  swap.direction === 'exactAmountIn'
-                    ? swap.minimumToTokenAmountReceivedWei
-                    : swap.toTokenAmountReceivedWei,
-                token: swap.toToken,
-                returnInReadableFormat: true,
-              }),
-            })}
-        </PrimaryButton>
+        <SubmitSection
+          onSubmit={handleSubmit}
+          fromToken={formValues.fromToken}
+          isSubmitting={isSubmitting}
+          isFormValid={isFormValid}
+          formErrors={formErrors}
+          swap={swap}
+          swapError={swapError}
+        />
       </ConnectWallet>
     </Paper>
   );

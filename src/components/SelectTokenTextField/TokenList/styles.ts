@@ -16,6 +16,7 @@ export const useStyles = () => {
       border-radius: ${theme.spacing(3)};
       background-color: ${theme.palette.background.default};
       box-shadow: 0 4px 15px 0 rgba(22, 23, 30, 0.8);
+      overflow: hidden;
     `,
     searchField: css`
       margin: ${theme.spacing(3, 3, 2)};
