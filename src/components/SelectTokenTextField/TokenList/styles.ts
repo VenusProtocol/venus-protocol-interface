@@ -18,7 +18,7 @@ export const useStyles = () => {
       box-shadow: 0 4px 15px 0 rgba(22, 23, 30, 0.8);
     `,
     searchField: css`
-      margin: ${theme.spacing(4, 4, 3)};
+      margin: ${theme.spacing(3, 3, 2)};
 
       > div {
         background-color: ${theme.palette.secondary.main};
