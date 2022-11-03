@@ -4,7 +4,7 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { TextField } from '../../TextField';
-import { TokenIcon } from '../../TokenIcon';
+import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
 import { useStyles } from './styles';
 
@@ -59,7 +59,7 @@ export const TokenList: React.FC<TokenListProps> = ({ tokens, onTokenClick }) =>
             onClick={() => onTokenClick(token)}
             key={`select-token-text-field-item-${token.symbol}`}
           >
-            <TokenIcon css={parentStyles.token} token={token} showSymbol />
+            <TokenIconWithSymbol css={parentStyles.token} token={token} />
           </div>
         ))}
       </div>
