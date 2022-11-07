@@ -106,6 +106,7 @@ interface GovernanceProposalProps {
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
+  isUserConnected: boolean;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -118,6 +119,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   forVotesWei,
   againstVotesWei,
   abstainedVotesWei,
+  isUserConnected,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -151,7 +153,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
           <ActiveChip text={t('voteProposalUi.proposalState.active')} />
         ) : undefined
       }
-      headerLeftItem={<Typography variant="small2">{voteStatusText}</Typography>}
+      headerLeftItem={
+        isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
+      }
       title={proposalTitle}
       contentRightItem={
         proposalState === 'Active' ? (
@@ -189,10 +193,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   );
 };
 
-const GovernanceProposal: React.FC<Omit<GovernanceProposalProps, 'userVoteStatus'>> = ({
-  proposalId,
-  ...props
-}) => {
+const GovernanceProposal: React.FC<
+  Omit<GovernanceProposalProps, 'userVoteStatus' | 'isUserConnected'>
+> = ({ proposalId, ...props }) => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
 
@@ -205,6 +208,7 @@ const GovernanceProposal: React.FC<Omit<GovernanceProposalProps, 'userVoteStatus
     <GovernanceProposalUi
       userVoteStatus={userVoteReceipt?.voteSupport}
       proposalId={proposalId}
+      isUserConnected={!!account}
       {...props}
     />
   );
