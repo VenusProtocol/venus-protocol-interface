@@ -1,42 +1,11 @@
 import { Token } from 'types';
 
-import bnb from 'assets/img/tokens/bnb.svg';
-import vai from 'assets/img/tokens/vai.svg';
-import vrt from 'assets/img/tokens/vrt.svg';
-import xvs from 'assets/img/tokens/xvs.svg';
+import { MAINNET_TOKENS } from '../common/mainnet';
 
 // List adapted from PancakeSwap's repository:
 // https://github.com/pancakeswap/token-list/blob/main/src/tokens/pancakeswap-extended.json
 export const MAINNET_PANCAKE_SWAP_TOKENS = {
-  bnb: {
-    id: 'bnb',
-    symbol: 'BNB',
-    decimals: 18,
-    address: '',
-    asset: bnb,
-    isNative: true,
-  } as Token,
-  xvs: {
-    id: 'xvs',
-    symbol: 'XVS',
-    decimals: 18,
-    address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
-    asset: xvs,
-  } as Token,
-  vai: {
-    id: 'vai',
-    symbol: 'VAI',
-    decimals: 18,
-    address: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
-    asset: vai,
-  } as Token,
-  vrt: {
-    id: 'vrt',
-    symbol: 'VRT',
-    decimals: 18,
-    address: '0x5F84ce30DC3cF7909101C69086c50De191895883',
-    asset: vrt,
-  } as Token,
+  ...MAINNET_TOKENS,
   wbnb: {
     id: 'wbnb',
     symbol: 'WBNB',
@@ -44,46 +13,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
     asset:
       'https://tokens.pancakeswap.finance/images/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png',
-  } as Token,
-  cake: {
-    id: 'cake',
-    symbol: 'CAKE',
-    decimals: 18,
-    address: '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png',
-  } as Token,
-  busd: {
-    id: 'busd',
-    symbol: 'BUSD',
-    decimals: 18,
-    address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56.png',
-  } as Token,
-  usdt: {
-    id: 'usdt',
-    symbol: 'USDT',
-    decimals: 18,
-    address: '0x55d398326f99059fF775485246999027B3197955',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x55d398326f99059fF775485246999027B3197955.png',
-  } as Token,
-  btcb: {
-    id: 'btcb',
-    symbol: 'BTCB',
-    decimals: 18,
-    address: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c.png',
-  } as Token,
-  eth: {
-    id: 'eth',
-    symbol: 'ETH',
-    decimals: 18,
-    address: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x2170Ed0880ac9A755fd29B2688956BD959F933F8.png',
   } as Token,
   bunny: {
     id: 'bunny',
@@ -93,7 +22,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51.png',
   } as Token,
-
   alpaca: {
     id: 'alpaca',
     symbol: 'ALPACA',
@@ -101,14 +29,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F',
     asset:
       'https://tokens.pancakeswap.finance/images/0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F.png',
-  } as Token,
-  dot: {
-    id: 'dot',
-    symbol: 'DOT',
-    decimals: 18,
-    address: '0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402.png',
   } as Token,
   fine: {
     id: 'fine',
@@ -118,15 +38,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0x4e6415a5727ea08aAE4580057187923aeC331227.png',
   } as Token,
-  dai: {
-    id: 'dai',
-    symbol: 'DAI',
-    decimals: 18,
-    address: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3.png',
-  } as Token,
-
   bake: {
     id: 'bake',
     symbol: 'BAKE',
@@ -150,38 +61,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x56b6fB708fC5732DEC1Afc8D8556423A2EDcCbD6',
     asset:
       'https://tokens.pancakeswap.finance/images/0x56b6fB708fC5732DEC1Afc8D8556423A2EDcCbD6.png',
-  } as Token,
-  xrp: {
-    id: 'xrp',
-    symbol: 'XRP',
-    decimals: 18,
-    address: '0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE.png',
-  } as Token,
-  bch: {
-    id: 'bch',
-    symbol: 'BCH',
-    decimals: 18,
-    address: '0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf.png',
-  } as Token,
-  ltc: {
-    id: 'ltc',
-    symbol: 'LTC',
-    decimals: 18,
-    address: '0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x4338665CBB7B2485A8855A139b75D5e34AB0DB94.png',
-  } as Token,
-  ada: {
-    id: 'ada',
-    symbol: 'ADA',
-    decimals: 18,
-    address: '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47.png',
   } as Token,
   atom: {
     id: 'atom',
@@ -247,14 +126,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xf307910A4c7bbc79691fD374889b36d8531B08e3.png',
   } as Token,
-  link: {
-    id: 'link',
-    symbol: 'LINK',
-    decimals: 18,
-    address: '0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD.png',
-  } as Token,
   burger: {
     id: 'burger',
     symbol: 'BURGER',
@@ -311,14 +182,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xBf5140A22578168FD562DCcF235E5D43A02ce9B1.png',
   } as Token,
-  fil: {
-    id: 'fil',
-    symbol: 'FIL',
-    decimals: 18,
-    address: '0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153.png',
-  } as Token,
   kava: {
     id: 'kava',
     symbol: 'KAVA',
@@ -342,14 +205,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
     asset:
       'https://tokens.pancakeswap.finance/images/0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A.png',
-  } as Token,
-  usdc: {
-    id: 'usdc',
-    symbol: 'USDC',
-    decimals: 18,
-    address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d.png',
   } as Token,
   ctk: {
     id: 'ctk',
@@ -575,14 +430,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0x62D71B23bF15218C7d2D7E48DBbD9e9c650B173f.png',
   } as Token,
-  ust: {
-    id: 'ust',
-    symbol: 'UST',
-    decimals: 18,
-    address: '0x23396cF899Ca06c4472205fC903bDB4de249D6fC',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x23396cF899Ca06c4472205fC903bDB4de249D6fC.png',
-  } as Token,
   bfi: {
     id: 'bfi',
     symbol: 'BFI',
@@ -638,14 +485,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x762539b45A1dCcE3D36d080F74d1AED37844b878',
     asset:
       'https://tokens.pancakeswap.finance/images/0x762539b45A1dCcE3D36d080F74d1AED37844b878.png',
-  } as Token,
-  beth: {
-    id: 'beth',
-    symbol: 'BETH',
-    decimals: 18,
-    address: '0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B.png',
   } as Token,
   lusd: {
     id: 'lusd',
@@ -1159,14 +998,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0x352Cb5E19b12FC216548a2677bD0fce83BaE434B.png',
   } as Token,
-  trx: {
-    id: 'trx',
-    symbol: 'TRX',
-    decimals: 18,
-    address: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B.png',
-  } as Token,
   win: {
     id: 'win',
     symbol: 'WIN',
@@ -1190,14 +1021,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x07AaA29E63FFEB2EBf59B33eE61437E1a91A3bb2',
     asset:
       'https://tokens.pancakeswap.finance/images/0x07AaA29E63FFEB2EBf59B33eE61437E1a91A3bb2.png',
-  } as Token,
-  doge: {
-    id: 'doge',
-    symbol: 'DOGE',
-    decimals: 8,
-    address: '0xbA2aE424d960c26247Dd6c32edC70B295c744C43',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0xbA2aE424d960c26247Dd6c32edC70B295c744C43.png',
   } as Token,
   oin: {
     id: 'oin',
@@ -1327,14 +1150,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0x431e0cD023a32532BF3969CddFc002c00E98429d',
     asset:
       'https://tokens.pancakeswap.finance/images/0x431e0cD023a32532BF3969CddFc002c00E98429d.png',
-  } as Token,
-  tusd: {
-    id: 'tusd',
-    symbol: 'TUSD',
-    decimals: 18,
-    address: '0x14016E85a25aeb13065688cAFB43044C2ef86784',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x14016E85a25aeb13065688cAFB43044C2ef86784.png',
   } as Token,
   mtrg: {
     id: 'mtrg',

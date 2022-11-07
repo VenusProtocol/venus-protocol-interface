@@ -4,6 +4,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
+import type { TransactionReceipt } from 'web3-core/types';
 
 import { AuthContext } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -12,6 +13,7 @@ import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
+import { toast } from '../Toast';
 import { TokenIcon } from '../TokenIcon';
 import useStyles from './styles';
 
@@ -112,29 +114,8 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
     useTokenApproval({
       token,
       spenderAddress,
-      token,
-    },
-    {
-      enabled: !!account?.address,
-    },
-  );
-
-  const isTokenApproved =
-    token.isNative ||
-    (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
-
-  const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
-    token,
-  });
-
-  const approveToken = () => {
-    if (account?.address) {
-      contractApproveToken({
-        accountAddress: account.address,
-        spenderAddress,
-      });
-    }
-  };
+      accountAddress: account?.address,
+    });
 
   return (
     <EnableTokenUi
