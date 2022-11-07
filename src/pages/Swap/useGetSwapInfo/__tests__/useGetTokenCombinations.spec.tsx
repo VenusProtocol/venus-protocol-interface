@@ -1,5 +1,5 @@
-import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import React from 'react';
+import { PSTokenCombination } from 'types';
 
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
@@ -8,7 +8,7 @@ import useGetTokenCombinations from '../useGetTokenCombinations';
 
 describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
   it('returns all possible combinations between the tokens provided and the base trade ones', () => {
-    let tokenCombinations: [PSToken, PSToken][] = [];
+    let tokenCombinations: PSTokenCombination[] = [];
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
@@ -32,7 +32,7 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
       );
 
       return [...acc, tokenCombination];
-    }, [] as [PSToken, PSToken][]);
+    }, [] as PSTokenCombination[]);
 
     expect(hasDuplicate).toBe(false);
 
@@ -40,7 +40,7 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
   });
 
   it('uses wBNB when BNB is provided', () => {
-    let tokenCombinations: [PSToken, PSToken][] = [];
+    let tokenCombinations: PSTokenCombination[] = [];
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
