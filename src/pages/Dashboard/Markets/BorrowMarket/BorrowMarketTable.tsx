@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, TokenIcon } from 'components';
+import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -43,7 +43,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <TokenIcon token={asset.token} showSymbol />,
+        render: () => <TokenIconWithSymbol token={asset.token} />,
         value: asset.token.id,
         align: 'left',
       },

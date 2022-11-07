@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { LayeredValues, Table, TableProps, TokenIcon } from 'components';
+import { LayeredValues, Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Market } from 'types';
@@ -69,7 +69,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
         {
           key: 'asset',
           render: () => (
-            <TokenIcon token={unsafelyGetToken(market.id)} css={localStyles.whiteText} showSymbol />
+            <TokenIconWithSymbol token={unsafelyGetToken(market.id)} css={localStyles.whiteText} />
           ),
           value: market.id,
         },
