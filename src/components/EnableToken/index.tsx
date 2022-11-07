@@ -49,7 +49,7 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
         <Spinner />
       ) : (
         <>
-          <TokenIcon token={token} css={styles.mainLogo} showSymbol />
+          <TokenIcon token={token} css={styles.mainLogo} />
 
           <Typography component="h3" variant="h3" css={styles.mainText}>
             {title}
