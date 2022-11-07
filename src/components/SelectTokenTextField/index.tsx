@@ -9,7 +9,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
-import { TokenIcon } from '../TokenIcon';
+import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
@@ -64,7 +64,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
               >
-                <TokenIcon token={selectedToken} css={styles.token} showSymbol />
+                <TokenIconWithSymbol token={selectedToken} css={styles.token} />
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
