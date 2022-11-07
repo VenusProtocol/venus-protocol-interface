@@ -2,6 +2,7 @@ import Typography from '@mui/material/Typography';
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 

@@ -142,7 +142,13 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput) => {
       swap,
       error,
     };
-  }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
+  }, [
+    getPancakeSwapPairsData?.pairs,
+    input.fromToken,
+    input.toToken,
+    input.fromTokenAmountTokens,
+    input.toTokenAmountTokens,
+  ]);
 };
 
 export default useGetSwapInfo;
