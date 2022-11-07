@@ -5,12 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
-      display: flex;
-      align-items: center;
-    `,
     icon: css`
-      margin-right: ${theme.spacing(2)};
+      margin-top: -2px;
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
     `,

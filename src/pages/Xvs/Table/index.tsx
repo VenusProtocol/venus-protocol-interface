@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Table, TableProps, TokenIcon } from 'components';
+import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -58,7 +58,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <TokenIcon token={asset.token} showSymbol />,
+      render: () => <TokenIconWithSymbol token={asset.token} />,
       value: asset.token.id,
       align: 'left',
     },
