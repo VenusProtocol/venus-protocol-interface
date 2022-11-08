@@ -13,6 +13,7 @@ import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
+import TEST_ID_FRAGMENTS from './testIdFragments';
 
 export interface SelectTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
@@ -20,6 +21,7 @@ export interface SelectTokenTextFieldProps
   tokens: Token[];
   onChangeSelectedToken: (token: Token) => void;
   userTokenBalanceWei?: BigNumber;
+  'data-testid'?: string;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
@@ -30,6 +32,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   className,
   userTokenBalanceWei,
   value,
+  'data-testid': testId,
   ...otherTokenTextFieldProps
 }) => {
   const styles = useStyles();
@@ -63,6 +66,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 small
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
+                data-testid={`${testId}${TEST_ID_FRAGMENTS.tokenSelectButton}`}
               >
                 <TokenIconWithSymbol token={selectedToken} css={styles.token} />
 
@@ -70,6 +74,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               </PrimaryButton>
             </>
           }
+          data-testid={`${testId}${TEST_ID_FRAGMENTS.tokenTextField}`}
           {...otherTokenTextFieldProps}
         />
 
@@ -80,7 +85,11 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
         <div css={styles.tokenListContainer}>
           {isTokenListShown && (
-            <TokenList tokens={tokens} onTokenClick={handleChangeSelectedToken} />
+            <TokenList
+              tokens={tokens}
+              data-testid={testId}
+              onTokenClick={handleChangeSelectedToken}
+            />
           )}
         </div>
       </div>

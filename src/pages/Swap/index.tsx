@@ -29,6 +29,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import SubmitSection from './SubmitSection';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
 import useGetSwapInfo, { SwapError } from './useGetSwapInfo';
@@ -119,8 +120,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
         openSuccessfulTransactionModal({
           title: t('swapPage.successfulConvertTransactionModal.title'),
-          transactionHash: transactionReceipt.transactionHash,
           content: t('swapPage.successfulConvertTransactionModal.message'),
+          transactionHash: transactionReceipt.transactionHash,
         });
 
         // Reset form on success
@@ -161,12 +162,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           selectedToken={formValues.fromToken}
           value={formValues.fromTokenAmountTokens}
           hasError={formErrors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
+          data-testid={TEST_IDS.fromTokenSelectTokenTextField}
           disabled={isSubmitting}
           onChange={amount =>
             setFormValues(currentFormValues => ({
               ...currentFormValues,
               fromTokenAmountTokens: amount,
-              // Reset toTokenAmount field value if users resets toTokenAmount
+              // Reset toTokenAmount field value if users resets fromTokenAmount
               // field value
               toTokenAmountTokens:
                 amount === ''
@@ -192,7 +194,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <TertiaryButton css={styles.switchButton} onClick={switchTokens} disabled={isSubmitting}>
+        <TertiaryButton
+          css={styles.switchButton}
+          onClick={switchTokens}
+          disabled={isSubmitting}
+          data-testid={TEST_IDS.switchTokensButton}
+        >
           <Icon name="convert" css={styles.switchButtonIcon} />
         </TertiaryButton>
 
@@ -201,6 +208,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           selectedToken={formValues.toToken}
           value={formValues.toTokenAmountTokens}
           disabled={isSubmitting}
+          data-testid={TEST_IDS.toTokenSelectTokenTextField}
           onChange={amount =>
             setFormValues(currentFormValues => ({
               ...currentFormValues,
@@ -232,7 +240,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         />
 
         {swap && (
-          <>
+          <div data-testid={TEST_IDS.swapDetails}>
             <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
@@ -265,7 +273,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                 returnInReadableFormat: true,
               })}
             </LabeledInlineContent>
-          </>
+          </div>
         )}
 
         <SubmitSection
