@@ -13,14 +13,15 @@ import { convertTokensToWei } from 'utilities';
 import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
-import { SwapError, UseGetSwapInfoInput } from './types';
+import { SwapError, UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 
 export * from './types';
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput) => {
-  // Determine all possible token combination based on input tokens
+const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
+  // Determine all possible token combinations based on input and base trade
+  // tokens
   const tokenCombinations = useGetTokenCombinations({
     fromToken: input.fromToken,
     toToken: input.toToken,
@@ -41,7 +42,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput) => {
     if (wrappedFromToken.address === wrappedToToken.address) {
       return {
         swap: undefined,
-        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED' as SwapError,
+        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
       };
     }
 

@@ -359,3 +359,5 @@ export interface ExactAmountOutSwap extends SwapBase {
 }
 
 export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
+
+export type PSTokenCombination = [PSToken, PSToken];

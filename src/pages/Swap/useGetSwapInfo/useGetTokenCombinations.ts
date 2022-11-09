@@ -2,7 +2,7 @@ import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import config from 'config';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
-import { Token } from 'types';
+import { PSTokenCombination, Token } from 'types';
 
 import { MAINNET_PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
@@ -33,7 +33,7 @@ const BASE_TRADE_TOKENS = config.isOnTestnet
 const useGetTokenCombinations = ({
   fromToken,
   toToken,
-}: UseGetTokenCombinationsInput): [PSToken, PSToken][] =>
+}: UseGetTokenCombinationsInput): PSTokenCombination[] =>
   useMemo(() => {
     const wrappedFromToken = wrapToken(fromToken);
     const wrappedToToken = wrapToken(toToken);
@@ -62,23 +62,23 @@ const useGetTokenCombinations = ({
       psToToken,
     ];
 
-    const baseCombinations: [PSToken, PSToken][] = flatMap(
+    const baseCombinations: PSTokenCombination[] = flatMap(
       baseTradeTokens,
-      (base): [PSToken, PSToken][] => baseTradeTokens.map(otherBase => [base, otherBase]),
+      (base): PSTokenCombination[] => baseTradeTokens.map(otherBase => [base, otherBase]),
     );
 
     const allCombinations = [
       // The direct combination
       [psFromToken, psToToken],
       // fromToken against all bases
-      ...baseTradeTokens.map((token): [PSToken, PSToken] => [psFromToken, token]),
+      ...baseTradeTokens.map((token): PSTokenCombination => [psFromToken, token]),
       // toToken against all bases
-      ...baseTradeTokens.map((token): [PSToken, PSToken] => [psToToken, token]),
+      ...baseTradeTokens.map((token): PSTokenCombination => [psToToken, token]),
       // Each base against all bases
       ...baseCombinations,
     ]
       // Remove invalid combinations
-      .filter((tokens): tokens is [PSToken, PSToken] => Boolean(tokens[0] && tokens[1]))
+      .filter((tokens): tokens is PSTokenCombination => Boolean(tokens[0] && tokens[1]))
       .filter(([t0, t1]) => t0.address !== t1.address)
       // Remove duplicates
       .reduce(
@@ -90,7 +90,7 @@ const useGetTokenCombinations = ({
           )
             ? acc
             : [...acc, unfilteredCombination],
-        [] as [PSToken, PSToken][],
+        [] as PSTokenCombination[],
       );
 
     return allCombinations;
