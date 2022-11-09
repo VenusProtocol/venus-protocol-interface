@@ -33,8 +33,8 @@ import { getEnabledSubmitButton, getLastUseGetSwapInfoCallArgs } from './testUti
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('../useGetSwapInfo');
 jest.mock('hooks/useTokenApproval');
+jest.mock('../useGetSwapInfo');
 
 const useTokenApprovalOriginal = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
@@ -175,7 +175,7 @@ describe('pages/Swap', () => {
     // Check swap direction is correct
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn');
 
-    // Click on switch tokens buttons
+    // Click on switch tokens button
     fireEvent.click(getByTestId(TEST_IDS.switchTokensButton));
 
     // Check input values were updated correctly
@@ -199,6 +199,31 @@ describe('pages/Swap', () => {
 
     // Check swap direction was updated correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountOut');
+
+    // Click on switch tokens button again
+    fireEvent.click(getByTestId(TEST_IDS.switchTokensButton));
+
+    // Check input values were updated back correctly
+    expect(fromTokenInput.value).toBe(FAKE_BNB_BALANCE_TOKENS);
+    expect(toTokenInput.value).toBe('');
+
+    // Check tokens were updated correctly
+    expect(
+      getTokenSelectButton({
+        container,
+        selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }).textContent,
+    ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
+
+    expect(
+      getTokenSelectButton({
+        container,
+        selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }).textContent,
+    ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
+
+    // Check swap direction was updated back correctly
+    expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn');
   });
 
   it('disables submit button on mount', () => {
