@@ -4177,6 +4177,191 @@ Object {
         },
       ],
     },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            918022167,
+            412151096,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "CAKE",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            277536913,
+            496438797,
+            522526193,
+            13272,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            643774452,
+            780406,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            651436994,
+            253882,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            928319747,
+            128668632,
+            89,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "CAKE",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            366397423,
+            356542575,
+            452513792,
+            386521,
+          ],
+        },
+      ],
+    },
   ],
 }
 `;
@@ -4365,6 +4550,129 @@ Object {
             496438797,
             522526193,
             13272,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            643774452,
+            780406,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            651436994,
+            253882,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            928319747,
+            128668632,
+            89,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "CAKE",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            366397423,
+            356542575,
+            452513792,
+            386521,
           ],
         },
       ],
