@@ -168,6 +168,9 @@
     "workerDirectory": "public"
   },
   "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
     "transformIgnorePatterns": [
       "/node_modules/?!(react-markdown)"
     ],

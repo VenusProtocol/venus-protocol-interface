@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { ExactAmountInSwap, ExactAmountOutSwap, Token } from 'types';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -11,77 +11,30 @@ import {
   getTokenInput,
   getTokenSelectButton,
   selectToken,
-} from 'components/SelectTokenTextField/testUtils';
+} from 'components/SelectTokenTextField/__tests__/testUtils';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import SwapPage from '.';
-import TEST_IDS from './testIds';
-import useGetSwapInfo from './useGetSwapInfo';
+import SwapPage from '..';
+import TEST_IDS from '../testIds';
+import useGetSwapInfo from '../useGetSwapInfo';
+import {
+  FAKE_BNB_BALANCE_TOKENS,
+  FAKE_BUSD_BALANCE_TOKENS,
+  FAKE_DEFAULT_BALANCE_TOKENS,
+  fakeExactAmountInSwap,
+  fakeExactAmountOutSwap,
+  fakeNonNativeSwap,
+} from './fakeData';
+import { getEnabledSubmitButton, getLastUseGetSwapInfoCallArgs } from './testUtils';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('./useGetSwapInfo');
+jest.mock('../useGetSwapInfo');
 jest.mock('hooks/useTokenApproval');
-
-const getLastUseGetSwapInfoCallArgs = () =>
-  (useGetSwapInfo as jest.Mock).mock.calls[(useGetSwapInfo as jest.Mock).mock.calls.length - 1];
-
-const FAKE_DEFAULT_BALANCE_TOKENS = '1';
-
-const FAKE_BNB_BALANCE_TOKENS = '10';
-const FAKE_BNB_BALANCE_WEI = convertTokensToWei({
-  value: new BigNumber(FAKE_BNB_BALANCE_TOKENS),
-  token: PANCAKE_SWAP_TOKENS.bnb,
-});
-
-const FAKE_BUSD_BALANCE_TOKENS = '20';
-const FAKE_BUSD_BALANCE_WEI = convertTokensToWei({
-  value: new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
-  token: PANCAKE_SWAP_TOKENS.busd,
-});
-
-const FAKE_CAKE_BALANCE_TOKENS = '30';
-const FAKE_CAKE_BALANCE_WEI = convertTokensToWei({
-  value: new BigNumber(FAKE_CAKE_BALANCE_TOKENS),
-  token: PANCAKE_SWAP_TOKENS.cake,
-});
-
-const fakeExactAmountInSwap: ExactAmountInSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.bnb,
-  fromTokenAmountSoldWei: FAKE_BNB_BALANCE_WEI,
-  toToken: PANCAKE_SWAP_TOKENS.busd,
-  minimumToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(1.5),
-  expectedToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(2),
-  direction: 'exactAmountIn',
-  routePath: [PANCAKE_SWAP_TOKENS.bnb.address, PANCAKE_SWAP_TOKENS.busd.address],
-  exchangeRate: new BigNumber(2),
-};
-
-const fakeExactAmountOutSwap: ExactAmountOutSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.bnb,
-  expectedFromTokenAmountSoldWei: FAKE_BUSD_BALANCE_WEI.multipliedBy(1.5),
-  maximumFromTokenAmountSoldWei: FAKE_BUSD_BALANCE_WEI.multipliedBy(2),
-  toToken: PANCAKE_SWAP_TOKENS.busd,
-  toTokenAmountReceivedWei: FAKE_BUSD_BALANCE_WEI,
-  direction: 'exactAmountOut',
-  routePath: [PANCAKE_SWAP_TOKENS.bnb.address, PANCAKE_SWAP_TOKENS.busd.address],
-  exchangeRate: new BigNumber(2),
-};
-
-const fakeNonNativeSwap: ExactAmountInSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.cake,
-  fromTokenAmountSoldWei: FAKE_CAKE_BALANCE_WEI,
-  toToken: PANCAKE_SWAP_TOKENS.busd,
-  minimumToTokenAmountReceivedWei: FAKE_CAKE_BALANCE_WEI.multipliedBy(1.5),
-  expectedToTokenAmountReceivedWei: FAKE_CAKE_BALANCE_WEI.multipliedBy(2),
-  direction: 'exactAmountIn',
-  routePath: [PANCAKE_SWAP_TOKENS.cake.address, PANCAKE_SWAP_TOKENS.busd.address],
-  exchangeRate: new BigNumber(2),
-};
 
 const useTokenApprovalOriginal = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
@@ -204,12 +157,12 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     const toTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     // Check fromToken and toToken inputs are empty on mount
     expect(fromTokenInput.value).toBe('');
@@ -282,40 +235,18 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
-    const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.fromTokenAmountSoldWei,
-      token: fakeExactAmountInSwap.fromToken,
-    });
-
-    const expectedMinimumToTokenAmountReceivedTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.minimumToTokenAmountReceivedWei,
-      token: fakeExactAmountInSwap.fromToken,
-    });
-
     // Check submit button is enabled
-    const enabledSubmitButtonText = getByText(
-      en.swapPage.submitButton.enabledLabel
-        .replace(
-          '{{fromTokenAmount}}',
-          `${expectedFromTokenAmountSoldTokens.toFixed()} ${
-            fakeExactAmountInSwap.fromToken.symbol
-          }`,
-        )
-        .replace(
-          '{{toTokenAmount}}',
-          `${expectedMinimumToTokenAmountReceivedTokens.toFixed()} ${
-            fakeExactAmountInSwap.toToken.symbol
-          }`,
-        ),
-    );
+    const enabledSubmitButton = getEnabledSubmitButton({
+      container,
+      swap: fakeExactAmountInSwap,
+    });
 
-    expect(enabledSubmitButtonText);
-    await waitFor(() => expect(enabledSubmitButtonText.closest('button')).toBeEnabled());
+    await waitFor(() => expect(enabledSubmitButton).toBeEnabled());
 
     // Enter amount higher than user balance in fromToken input
     fireEvent.change(fromTokenInput, {
@@ -349,7 +280,7 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
@@ -429,7 +360,7 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
@@ -438,7 +369,7 @@ describe('pages/Swap', () => {
     const toTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     const expectedToTokenAmountReceivedTokens = convertWeiToTokens({
       valueWei: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
@@ -472,7 +403,7 @@ describe('pages/Swap', () => {
     const toTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     // Enter valid amount in toToken input
     fireEvent.change(toTokenInput, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
@@ -481,7 +412,7 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
       valueWei: fakeExactAmountOutSwap.expectedFromTokenAmountSoldWei,
@@ -516,7 +447,7 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -527,7 +458,7 @@ describe('pages/Swap', () => {
     const toTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     fireEvent.change(toTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -561,7 +492,7 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -598,37 +529,16 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_DEFAULT_BALANCE_TOKENS } });
 
     // Check submit button is disabled
-    const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-      valueWei: fakeNonNativeSwap.fromTokenAmountSoldWei,
-      token: fakeNonNativeSwap.fromToken,
+    const submitButton = getEnabledSubmitButton({
+      swap: fakeNonNativeSwap,
+      container,
     });
-
-    const expectedMinimumToTokenAmountReceivedTokens = convertWeiToTokens({
-      valueWei: fakeNonNativeSwap.minimumToTokenAmountReceivedWei,
-      token: fakeNonNativeSwap.fromToken,
-    });
-
-    const submitButtonText = getByText(
-      en.swapPage.submitButton.enabledLabel
-        .replace(
-          '{{fromTokenAmount}}',
-          `${expectedFromTokenAmountSoldTokens.toFixed()} ${fakeNonNativeSwap.fromToken.symbol}`,
-        )
-        .replace(
-          '{{toTokenAmount}}',
-          `${expectedMinimumToTokenAmountReceivedTokens.toFixed()} ${
-            fakeNonNativeSwap.toToken.symbol
-          }`,
-        ),
-    );
-
-    await waitFor(() => expect(submitButtonText));
-    await waitFor(() => expect(submitButtonText.closest('button')).toBeDisabled());
+    await waitFor(() => expect(submitButton).toBeDisabled());
 
     // Check enable token button is showing and enabled
     const enableTokenButtonTextContent = en.swapPage.enablingStep.enableTokenButton.text.replace(
@@ -657,7 +567,7 @@ describe('pages/Swap', () => {
 
     (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    const { container, getByText } = renderComponent(<SwapPage />, {
+    const { container } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -669,42 +579,20 @@ describe('pages/Swap', () => {
     const fromTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
-    const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.fromTokenAmountSoldWei,
-      token: fakeExactAmountInSwap.fromToken,
-    });
-
-    const expectedMinimumToTokenAmountReceivedTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.minimumToTokenAmountReceivedWei,
-      token: fakeExactAmountInSwap.fromToken,
-    });
-
     // Check submit button is enabled
-    const enabledSubmitButtonText = getByText(
-      en.swapPage.submitButton.enabledLabel
-        .replace(
-          '{{fromTokenAmount}}',
-          `${expectedFromTokenAmountSoldTokens.toFixed()} ${
-            fakeExactAmountInSwap.fromToken.symbol
-          }`,
-        )
-        .replace(
-          '{{toTokenAmount}}',
-          `${expectedMinimumToTokenAmountReceivedTokens.toFixed()} ${
-            fakeExactAmountInSwap.toToken.symbol
-          }`,
-        ),
-    );
-
-    expect(enabledSubmitButtonText);
-    await waitFor(() => expect(enabledSubmitButtonText.closest('button')).toBeEnabled());
+    const submitButton = getEnabledSubmitButton({
+      swap: fakeExactAmountInSwap,
+      container,
+    });
+    await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Submit form
-    fireEvent.click(enabledSubmitButtonText);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    fireEvent.click(submitButton!);
 
     // Check swap was executed
     await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
@@ -727,7 +615,7 @@ describe('pages/Swap', () => {
     const toTokenInput = getTokenInput({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    }) as HTMLInputElement;
+    });
 
     expect(toTokenInput.value).toBe('');
   });

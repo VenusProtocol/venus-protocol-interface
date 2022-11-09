@@ -1,7 +1,7 @@
 import { fireEvent, getByTestId } from '@testing-library/react';
 import { Token } from 'types';
 
-import TEST_ID_FRAGMENTS from './testIdFragments';
+import TEST_ID_FRAGMENTS from '../testIdFragments';
 
 export const getTokenInput = ({
   selectTokenTextFieldTestId,
@@ -9,7 +9,11 @@ export const getTokenInput = ({
 }: {
   selectTokenTextFieldTestId: string;
   container: HTMLElement;
-}) => getByTestId(container, `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenTextField}`);
+}) =>
+  getByTestId(
+    container,
+    `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenTextField}`,
+  ) as HTMLInputElement;
 
 export const getTokenSelectButton = ({
   selectTokenTextFieldTestId,
@@ -17,7 +21,11 @@ export const getTokenSelectButton = ({
 }: {
   selectTokenTextFieldTestId: string;
   container: HTMLElement;
-}) => getByTestId(container, `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenSelectButton}`);
+}) =>
+  getByTestId(
+    container,
+    `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenSelectButton}`,
+  ) as HTMLButtonElement;
 
 export const selectToken = ({
   token,
