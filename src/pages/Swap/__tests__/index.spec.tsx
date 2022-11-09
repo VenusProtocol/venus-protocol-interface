@@ -7,11 +7,11 @@ import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getBalanceOf, swapTokens } from 'clients/api';
+import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
-  getTokenInput,
-  getTokenSelectButton,
-  selectToken,
-} from 'components/SelectTokenTextField/__tests__/testUtils';
+  getTokenSelectButtonTestId,
+  getTokenTextFieldTestId,
+} from 'components/SelectTokenTextField/testIdGetters';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -92,7 +92,7 @@ describe('pages/Swap', () => {
   });
 
   it('updates toToken when changing fromToken for toToken', () => {
-    const { container } = renderComponent(<SwapPage />, {
+    const { container, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -109,17 +109,19 @@ describe('pages/Swap', () => {
 
     // Check toToken was updated to fromToken
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
 
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
 
     // Revert toToken back to BUSD
@@ -131,22 +133,24 @@ describe('pages/Swap', () => {
 
     // Check fromToken was updated to toToken
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
 
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
   });
 
   it('switches form values when pressing on switch tokens button', () => {
-    const { container, getByTestId } = renderComponent(<SwapPage />, {
+    const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -154,15 +158,17 @@ describe('pages/Swap', () => {
       },
     });
 
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
-    const toTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    });
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     // Check fromToken and toToken inputs are empty on mount
     expect(fromTokenInput.value).toBe('');
@@ -184,17 +190,19 @@ describe('pages/Swap', () => {
 
     // Check tokens were updated correctly
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
 
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
 
     // Check swap direction was updated correctly
@@ -209,17 +217,19 @@ describe('pages/Swap', () => {
 
     // Check tokens were updated correctly
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
 
     expect(
-      getTokenSelectButton({
-        container,
-        selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      }).textContent,
+      getByTestId(
+        getTokenSelectButtonTestId({
+          parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+        }),
+      ).textContent,
     ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
 
     // Check swap direction was updated back correctly
@@ -249,7 +259,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    const { container, getByText } = renderComponent(<SwapPage />, {
+    const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -257,10 +267,11 @@ describe('pages/Swap', () => {
       },
     });
 
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
@@ -294,7 +305,7 @@ describe('pages/Swap', () => {
       error: 'INSUFFICIENT_LIQUIDITY',
     }));
 
-    const { container, getByText } = renderComponent(<SwapPage />, {
+    const { getByTestId, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -302,10 +313,11 @@ describe('pages/Swap', () => {
       },
     });
 
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
@@ -374,7 +386,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    const { container } = renderComponent(<SwapPage />, {
+    const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -382,19 +394,21 @@ describe('pages/Swap', () => {
       },
     });
 
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     // Check toToken input value was updated correctly
-    const toTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    });
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     const expectedToTokenAmountReceivedTokens = convertWeiToTokens({
       valueWei: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
@@ -417,7 +431,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    const { container } = renderComponent(<SwapPage />, {
+    const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -425,19 +439,21 @@ describe('pages/Swap', () => {
       },
     });
 
-    const toTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    });
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     // Enter valid amount in toToken input
     fireEvent.change(toTokenInput, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     // Check fromToken input value was updated correctly
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
       valueWei: fakeExactAmountOutSwap.expectedFromTokenAmountSoldWei,
@@ -460,7 +476,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    const { container } = renderComponent(<SwapPage />, {
+    const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -469,10 +485,11 @@ describe('pages/Swap', () => {
     });
 
     // Update fromToken input value
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -480,10 +497,11 @@ describe('pages/Swap', () => {
     await waitFor(() => expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn'));
 
     // Update toToken input value
-    const toTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    });
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     fireEvent.change(toTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -496,7 +514,7 @@ describe('pages/Swap', () => {
     [fakeExactAmountInSwap.direction, fakeExactAmountInSwap],
     [fakeExactAmountOutSwap.direction, fakeExactAmountOutSwap],
   ])('displays %s swap details correctly ', async (_swapDirection, swap) => {
-    const { queryByTestId, container, getByTestId } = renderComponent(<SwapPage />, {
+    const { queryByTestId, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -514,10 +532,11 @@ describe('pages/Swap', () => {
     }));
 
     // Update fromToken input value to trigger rerender and display swap details
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -535,7 +554,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    const { container, getByText } = renderComponent(<SwapPage />, {
+    const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -551,10 +570,11 @@ describe('pages/Swap', () => {
     });
 
     // Enter valid amount in fromToken input
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_DEFAULT_BALANCE_TOKENS } });
 
@@ -592,7 +612,7 @@ describe('pages/Swap', () => {
 
     (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    const { container } = renderComponent(<SwapPage />, {
+    const { container, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -601,10 +621,11 @@ describe('pages/Swap', () => {
     });
 
     // Enter valid amount in fromToken input
-    const fromTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
@@ -637,10 +658,11 @@ describe('pages/Swap', () => {
     // Check form was reset
     await waitFor(() => expect(fromTokenInput.value).toBe(''));
 
-    const toTokenInput = getTokenInput({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-    });
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
 
     expect(toTokenInput.value).toBe('');
   });

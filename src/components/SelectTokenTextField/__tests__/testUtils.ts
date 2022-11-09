@@ -1,31 +1,7 @@
 import { fireEvent, getByTestId } from '@testing-library/react';
 import { Token } from 'types';
 
-import TEST_ID_FRAGMENTS from '../testIdFragments';
-
-export const getTokenInput = ({
-  selectTokenTextFieldTestId,
-  container,
-}: {
-  selectTokenTextFieldTestId: string;
-  container: HTMLElement;
-}) =>
-  getByTestId(
-    container,
-    `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenTextField}`,
-  ) as HTMLInputElement;
-
-export const getTokenSelectButton = ({
-  selectTokenTextFieldTestId,
-  container,
-}: {
-  selectTokenTextFieldTestId: string;
-  container: HTMLElement;
-}) =>
-  getByTestId(
-    container,
-    `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenSelectButton}`,
-  ) as HTMLButtonElement;
+import { getTokenListItemTestId, getTokenSelectButtonTestId } from '../testIdGetters';
 
 export const selectToken = ({
   token,
@@ -37,13 +13,21 @@ export const selectToken = ({
   container: HTMLElement;
 }) => {
   // Open token list
-  fireEvent.click(getTokenSelectButton({ container, selectTokenTextFieldTestId }));
+  fireEvent.click(
+    getByTestId(
+      container,
+      getTokenSelectButtonTestId({ parentTestId: selectTokenTextFieldTestId }),
+    ),
+  );
 
   // Select token
   fireEvent.click(
     getByTestId(
       container,
-      `${selectTokenTextFieldTestId}${TEST_ID_FRAGMENTS.tokenListItem}-${token.address}`,
+      getTokenListItemTestId({
+        parentTestId: selectTokenTextFieldTestId,
+        tokenAddress: token.address,
+      }),
     ),
   );
 };

@@ -6,7 +6,7 @@ import { Token } from 'types';
 import { TextField } from '../../TextField';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
-import TEST_ID_FRAGMENTS from '../testIdFragments';
+import { getTokenListItemTestId } from '../testIdGetters';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
@@ -64,7 +64,13 @@ export const TokenList: React.FC<TokenListProps> = ({
             css={styles.item}
             onClick={() => onTokenClick(token)}
             key={`select-token-text-field-item-${token.symbol}`}
-            data-testid={`${testId}${TEST_ID_FRAGMENTS.tokenListItem}-${token.address}`}
+            data-testid={
+              !!testId &&
+              getTokenListItemTestId({
+                parentTestId: testId,
+                tokenAddress: token.address,
+              })
+            }
           >
             <TokenIconWithSymbol css={parentStyles.token} token={token} />
           </div>

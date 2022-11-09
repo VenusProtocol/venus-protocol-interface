@@ -13,7 +13,7 @@ import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
-import TEST_ID_FRAGMENTS from './testIdFragments';
+import { getTokenSelectButtonTestId, getTokenTextFieldTestId } from './testIdGetters';
 
 export interface SelectTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
@@ -66,7 +66,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 small
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
-                data-testid={`${testId}${TEST_ID_FRAGMENTS.tokenSelectButton}`}
+                data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
               >
                 <TokenIconWithSymbol token={selectedToken} css={styles.token} />
 
@@ -74,7 +74,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               </PrimaryButton>
             </>
           }
-          data-testid={`${testId}${TEST_ID_FRAGMENTS.tokenTextField}`}
+          data-testid={!!testId && getTokenTextFieldTestId({ parentTestId: testId })}
           {...otherTokenTextFieldProps}
         />
 
