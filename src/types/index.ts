@@ -1,3 +1,4 @@
+import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
 export enum BscChainId {
@@ -358,3 +359,5 @@ export interface ExactAmountOutSwap extends SwapBase {
 }
 
 export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
+
+export type PSTokenCombination = [PSToken, PSToken];

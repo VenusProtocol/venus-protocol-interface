@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Swap/useGetSwapInfo exactAmountIn returns swap in correct format if a trade is found 1`] = `
+Object {
+  "error": undefined,
+  "swap": Object {
+    "direction": "exactAmountIn",
+    "exchangeRate": "0.499374217772215269",
+    "expectedToTokenAmountReceivedWei": "499374217772215269",
+    "fromToken": Object {
+      "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+      "asset": "https://pancakeswap.finance/images/tokens/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56.svg",
+      "decimals": 18,
+      "id": "busd",
+      "symbol": "BUSD",
+    },
+    "fromTokenAmountSoldWei": "1000000000000000000",
+    "minimumToTokenAmountReceivedWei": "496889768927577382",
+    "routePath": Array [
+      "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+      "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+    ],
+    "toToken": Object {
+      "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+      "asset": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.svg",
+      "decimals": 18,
+      "id": "cake",
+      "symbol": "CAKE",
+    },
+  },
+}
+`;
+
+exports[`pages/Swap/useGetSwapInfo exactAmountOut returns swap in correct format if a trade is found 1`] = `
+Object {
+  "error": undefined,
+  "swap": Object {
+    "direction": "exactAmountOut",
+    "exchangeRate": "0.49875",
+    "expectedFromTokenAmountSoldWei": "1002506265664160402",
+    "fromToken": Object {
+      "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+      "asset": "https://pancakeswap.finance/images/tokens/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56.svg",
+      "decimals": 18,
+      "id": "busd",
+      "symbol": "BUSD",
+    },
+    "maximumFromTokenAmountSoldWei": "1007518796992481204",
+    "routePath": Array [
+      "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+      "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+    ],
+    "toToken": Object {
+      "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+      "asset": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.svg",
+      "decimals": 18,
+      "id": "cake",
+      "symbol": "CAKE",
+    },
+    "toTokenAmountReceivedWei": "500000000000000000",
+  },
+}
+`;
