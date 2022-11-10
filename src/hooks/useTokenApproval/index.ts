@@ -63,8 +63,8 @@ const useTokenApproval = ({
   return {
     isTokenApproved,
     isTokenApprovalStatusLoading,
-    approveToken,
     isApproveTokenLoading,
+    approveToken,
   };
 };
 
