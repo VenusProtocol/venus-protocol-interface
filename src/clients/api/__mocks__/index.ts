@@ -8,6 +8,8 @@ import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
+import { GetBalanceOfInput } from '../queries/getBalanceOf';
+
 // Queries
 export const getBlockNumber = jest.fn();
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
@@ -54,7 +56,17 @@ export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
-export const useGetBalanceOf = () => useQuery(FunctionKey.GET_BALANCE_OF, getBalanceOf);
+export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'web3'>) =>
+  useQuery(
+    [
+      FunctionKey.GET_BALANCE_OF,
+      {
+        accountAddress: input.accountAddress,
+        tokenAddress: input.token.address,
+      },
+    ],
+    () => getBalanceOf(input),
+  );
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
