@@ -85,8 +85,10 @@ const useGetTokenCombinations = ({
         (acc, unfilteredCombination) =>
           acc.find(
             combination =>
-              combination[0].address === unfilteredCombination[0].address &&
-              combination[1].address === unfilteredCombination[1].address,
+              (combination[0].address === unfilteredCombination[0].address &&
+                combination[1].address === unfilteredCombination[1].address) ||
+              (combination[0].address === unfilteredCombination[1].address &&
+                combination[1].address === unfilteredCombination[0].address),
           )
             ? acc
             : [...acc, unfilteredCombination],
