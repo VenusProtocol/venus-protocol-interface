@@ -37,7 +37,7 @@ const swapTokens = async ({
   }
 
   // Sell BNBs for as many toTokens as possible
-  if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative) {
+  if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
     return pancakeRouterContract.methods
       .swapExactETHForTokens(
         swap.minimumToTokenAmountReceivedWei.toFixed(),
@@ -49,7 +49,7 @@ const swapTokens = async ({
   }
 
   // Sell fromTokens for as many BNBs as possible
-  if (swap.direction === 'exactAmountIn' && swap.toToken.isNative) {
+  if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && swap.toToken.isNative) {
     return pancakeRouterContract.methods
       .swapExactTokensForETH(
         swap.fromTokenAmountSoldWei.toFixed(),
@@ -75,7 +75,7 @@ const swapTokens = async ({
   }
 
   // Buy toTokens by selling as few BNBs as possible
-  if (swap.direction === 'exactAmountOut' && swap.fromToken.isNative) {
+  if (swap.direction === 'exactAmountOut' && swap.fromToken.isNative && !swap.toToken.isNative) {
     return pancakeRouterContract.methods
       .swapETHForExactTokens(
         swap.toTokenAmountReceivedWei.toFixed(),
@@ -87,7 +87,7 @@ const swapTokens = async ({
   }
 
   // Buy BNBs by selling as few fromTokens as possible
-  if (swap.direction === 'exactAmountOut' && swap.toToken.isNative) {
+  if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && swap.toToken.isNative) {
     return pancakeRouterContract.methods
       .swapTokensForExactETH(
         swap.toTokenAmountReceivedWei.toFixed(),

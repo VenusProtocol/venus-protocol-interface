@@ -34,6 +34,13 @@ const formatToPairs = ({
       PSCurrencyAmount.fromRawAmount(token1, new BigNumber(reserveCallResult[1].hex).toFixed()),
     );
 
+    // Exclude pair if it already exists
+    if (
+      acc.find(existingPair => existingPair.liquidityToken.address === pair.liquidityToken.address)
+    ) {
+      return acc;
+    }
+
     return [...acc, pair];
   }, [] as PSPair[]);
 
