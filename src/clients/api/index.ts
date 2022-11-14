@@ -218,12 +218,6 @@ export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
 export { default as useGetCurrentVotes } from './queries/getCurrentVotes/useGetCurrentVotes';
 
-export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
-export * from './queries/getVTokenBorrowRate';
-
-export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
-export * from './queries/getVTokenSupplyRate';
-
 export { default as getTransactions } from './queries/getTransactions';
 export * from './queries/getTransactions';
 export { default as useGetTransactions } from './queries/getTransactions/useGetTransactions';

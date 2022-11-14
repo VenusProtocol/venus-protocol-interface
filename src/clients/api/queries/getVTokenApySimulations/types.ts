@@ -4,7 +4,7 @@ import { Multicall } from 'ethereum-multicall';
 export interface GetVTokenInterestRatesInput {
   multicall: Multicall;
   reserveFactorMantissa: BigNumber;
-  interestRateModelDataContractAddress: string;
+  interestRateModelContractAddress: string;
 }
 
 export interface VTokenApySnapshot {

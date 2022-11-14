@@ -29,7 +29,7 @@ const useGetVTokenApySimulations = (
       getVTokenApySimulations({
         multicall,
         reserveFactorMantissa: reserveFactorMantissa || new BigNumber(0),
-        interestRateModelDataContractAddress: interestRateModelData?.contractAddress || '',
+        interestRateModelContractAddress: interestRateModelData?.contractAddress || '',
       }),
     {
       ...options,

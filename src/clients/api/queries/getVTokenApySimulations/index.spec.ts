@@ -20,7 +20,7 @@ describe('api/queries/getVTokenApySimulations', () => {
       await getVTokenApySimulations({
         multicall,
         reserveFactorMantissa: fakeReserveFactorMantissa,
-        interestRateModelDataContractAddress: fakeAddress,
+        interestRateModelContractAddress: fakeAddress,
       });
 
       throw new Error('getVTokenApySimulations should have thrown an error but did not');
@@ -37,7 +37,7 @@ describe('api/queries/getVTokenApySimulations', () => {
     const response = await getVTokenApySimulations({
       multicall,
       reserveFactorMantissa: fakeReserveFactorMantissa,
-      interestRateModelDataContractAddress: fakeAddress,
+      interestRateModelContractAddress: fakeAddress,
     });
 
     expect(response).toMatchSnapshot();

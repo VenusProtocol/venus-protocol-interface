@@ -3,9 +3,6 @@ import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 
-// TODO: delete these utils (no longer used)
-// import getVTokenBorrowRate from '../getVTokenBorrowRate';
-// import getVTokenSupplyRate from '../getVTokenSupplyRate';
 import formatToApySnapshots from './formatToApySnapshots';
 import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
 
@@ -16,7 +13,7 @@ const REFERENCE_AMOUNT_WEI = 1e4;
 const getVTokenApySimulations = async ({
   multicall,
   reserveFactorMantissa,
-  interestRateModelDataContractAddress,
+  interestRateModelContractAddress,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
   const calls: ContractCallContext<any>['calls'] = [];
 
@@ -50,7 +47,7 @@ const getVTokenApySimulations = async ({
 
   const contractCallContext: ContractCallContext = {
     reference: 'getVTokenRates',
-    contractAddress: interestRateModelDataContractAddress,
+    contractAddress: interestRateModelContractAddress,
     abi: interestModelAbi,
     calls,
   };
