@@ -8,6 +8,8 @@ import MuiTableRow from '@mui/material/TableRow';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+
 import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';

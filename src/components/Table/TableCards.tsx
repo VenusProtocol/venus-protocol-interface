@@ -3,6 +3,8 @@ import { Paper, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+
 import { Delimiter } from '../Delimiter';
 import { useStyles } from './styles';
 import { TableProps } from './types';
