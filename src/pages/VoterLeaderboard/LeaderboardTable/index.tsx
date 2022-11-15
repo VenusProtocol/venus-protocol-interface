@@ -8,7 +8,7 @@ import { useTranslation } from 'translation';
 import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
-import Path from 'constants/path';
+import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
@@ -69,7 +69,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
             <Typography css={styles.inline} color="textPrimary" variant="small2">
               {idx + 1 + offset}
               <Link
-                to={Path.GOVERNANCE_ADDRESS.replace(':address', voter.address)}
+                to={routes.governanceVoter.path.replace(':address', voter.address)}
                 css={styles.address}
               >
                 <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
@@ -129,9 +129,8 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         orderBy: 'rank',
         orderDirection: 'asc',
       }}
-      rowKeyIndex={0}
-      tableCss={styles.table}
-      cardsCss={styles.cards}
+      rowKeyExtractor={row => `${row[0].value}`}
+      breakpoint="xl"
       css={styles.cardContentGrid}
     />
   );

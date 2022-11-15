@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
-import React from 'react';
 import { act } from 'react-dom/test-utils';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
@@ -16,7 +15,7 @@ import {
   setVoteDelegate,
   useGetVestingVaults,
 } from 'clients/api';
-import PATHS from 'constants/path';
+import { routes } from 'constants/routing';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -49,11 +48,11 @@ describe('pages/Vote', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<Vote />);
+    renderComponent(Vote);
   });
 
   it('opens create proposal modal when clicking text', async () => {
-    const { getByText } = renderComponent(<Vote />);
+    const { getByText } = renderComponent(Vote);
     const createProposalButton = getByText(en.vote.createProposalPlus);
 
     act(() => {
@@ -68,7 +67,7 @@ describe('pages/Vote', () => {
       votesWei: new BigNumber('50000000000000000000'),
     }));
     (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '0' }));
-    const { getByText } = renderComponent(<Vote />);
+    const { getByText } = renderComponent(Vote);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
     expect(createProposalButton).toBeDisabled();
@@ -79,14 +78,14 @@ describe('pages/Vote', () => {
       votesWei: new BigNumber('50000000000000000000'),
     }));
     (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '1' }));
-    const { getByText } = renderComponent(<Vote />);
+    const { getByText } = renderComponent(Vote);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
     expect(createProposalButton).toBeDisabled();
   });
 
   it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {
-    const { getByText, getAllByText, getByTestId } = renderComponent(<Vote />);
+    const { getByText, getAllByText, getByTestId } = renderComponent(Vote);
     const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     act(() => {
@@ -98,7 +97,7 @@ describe('pages/Vote', () => {
   });
 
   it('opens delegate modal when clicking text with delegate button when authenticated', async () => {
-    const { getByText, getByTestId } = renderComponent(<Vote />, {
+    const { getByText, getByTestId } = renderComponent(Vote, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -116,16 +115,16 @@ describe('pages/Vote', () => {
   });
 
   it('can navigate to vault when clicking deposit tokens', async () => {
-    const { getByTestId } = renderComponent(<Vote />);
+    const { getByTestId } = renderComponent(Vote);
     const deposityYourTokensText = getByTestId(VOTING_WALLET_TEST_IDS.depositYourTokens);
 
-    expect(deposityYourTokensText).toHaveAttribute('href', PATHS.VAULTS);
+    expect(deposityYourTokensText).toHaveAttribute('href', routes.vaults.path);
   });
 
   it('prompts user to connect Wallet', async () => {
     (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
 
-    const { getByText } = renderComponent(<Vote />);
+    const { getByText } = renderComponent(Vote);
     getByText(en.connectWallet.connectButton);
   });
 
@@ -138,7 +137,7 @@ describe('pages/Vote', () => {
       isLoading: false,
     }));
 
-    const { getByText, getByTestId } = renderComponent(<Vote />, {
+    const { getByText, getByTestId } = renderComponent(Vote, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -149,7 +148,7 @@ describe('pages/Vote', () => {
 
     expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0');
     expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('0');
-    expect(depositXvsButton).toHaveAttribute('href', PATHS.VAULTS);
+    expect(depositXvsButton).toHaveAttribute('href', routes.vaults.path);
   });
 
   it('successfully delegates to other address', async () => {
@@ -166,7 +165,7 @@ describe('pages/Vote', () => {
       isLoading: false,
     }));
 
-    const { getByText, getByPlaceholderText, getByTestId } = renderComponent(<Vote />, {
+    const { getByText, getByPlaceholderText, getByTestId } = renderComponent(Vote, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -213,7 +212,7 @@ describe('pages/Vote', () => {
 
   it('successfully delegates to me', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const { getByText, getByTestId } = renderComponent(<Vote />, {
+    const { getByText, getByTestId } = renderComponent(Vote, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -247,7 +246,7 @@ describe('pages/Vote', () => {
   });
 
   it('proposals navigate to details', async () => {
-    const { getAllByTestId } = renderComponent(<Vote />);
+    const { getAllByTestId } = renderComponent(Vote);
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
       getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal('98')),
@@ -255,7 +254,7 @@ describe('pages/Vote', () => {
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
       'href',
-      PATHS.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', '98'),
+      routes.governanceProposal.path.replace(':proposalId', '98'),
     );
   });
 });

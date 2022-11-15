@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Icon, Pagination, Spinner, TextButton, Tooltip } from 'components';
+import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
@@ -16,6 +16,7 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { AuthContext } from 'context/AuthContext';
+import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
 import CreateProposalModal from '../CreateProposalModal';
 import GovernanceProposal from '../GovernanceProposal';
@@ -62,9 +63,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
             {t('vote.createProposalPlus')}
           </TextButton>
 
-          <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIconWrapper}>
-            <Icon name="info" css={styles.infoIcon} />
-          </Tooltip>
+          <InfoIcon tooltip={t('vote.requiredVotingPower')} css={styles.infoIconWrapper} />
         </div>
       </div>
 
@@ -77,6 +76,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
             description,
             state,
             endDate,
+            cancelDate,
             forVotesWei,
             abstainedVotesWei,
             againstVotesWei,
@@ -88,6 +88,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
               proposalTitle={description.title}
               proposalState={state}
               endDate={endDate}
+              cancelDate={cancelDate}
               forVotesWei={forVotesWei}
               againstVotesWei={againstVotesWei}
               abstainedVotesWei={abstainedVotesWei}
@@ -120,10 +121,11 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
   );
 };
 
-const Governance: React.FC = () => {
+export type GovernancePageProps = UseUrlPaginationOutput;
+
+const Governance: React.FC<GovernancePageProps> = ({ currentPage, setCurrentPage }) => {
   const { account } = React.useContext(AuthContext);
   const accountAddress = account?.address || '';
-  const [currentPage, setCurrentPage] = useState(0);
 
   const {
     data: { proposals, total, limit = 5 } = { proposals: [] },

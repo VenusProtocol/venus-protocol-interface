@@ -106,9 +106,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         orderBy: 'xvsPerDay',
         orderDirection: 'desc',
       }}
-      rowKeyIndex={0}
-      tableCss={styles.table}
-      cardsCss={styles.cards}
+      rowKeyExtractor={row => `${row[0].value}`}
+      breakpoint="sm"
       css={styles.cardContentGrid}
     />
   );
@@ -116,7 +115,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  // TODO: handle loading state (see VEN-591)
   const {
     data: { assets },
   } = useGetUserMarketInfo({

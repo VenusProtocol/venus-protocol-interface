@@ -1,33 +1,51 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    root: css`
+    getRoot: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
       overflow: hidden;
       padding-left: 0;
       padding-right: 0;
 
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down(breakpoint)} {
         background-color: transparent;
-        padding-top: ${theme.spacing(2)};
-        padding-bottom: ${theme.spacing(2)};
+        padding-top: 0;
+        padding-bottom: 0;
       }
     `,
-    title: css`
+    getTitle: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
-      ${theme.breakpoints.down('sm')} {
+
+      ${theme.breakpoints.down(breakpoint)} {
         padding: 0;
       }
     `,
+    getTableContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+      css`
+        ${theme.breakpoints.down(breakpoint)} {
+          display: none;
+        }
+      `,
+    getCardsContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+      css`
+        display: none;
+
+        ${theme.breakpoints.down(breakpoint)} {
+          display: block;
+        }
+      `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
-      &:not(:first-of-type) {
-        margin-top: ${theme.spacing(6)};
+      &:not(:last-of-type) {
+        margin-bottom: ${theme.spacing(6)};
       }
 
       padding: ${theme.spacing(4, 0)};
+
       ${clickable &&
       `
         cursor: pointer;
@@ -44,6 +62,8 @@ export const useStyles = () => {
       margin: ${theme.spacing(4)};
     `,
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
+      height: ${theme.spacing(14)};
+
       ${clickable &&
       css`
         cursor: pointer;
@@ -59,15 +79,14 @@ export const useStyles = () => {
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
     `,
-    columnLabelMobile: css`
-      font-size: ${theme.spacing(3)};
-      font-weight: 400;
+    cellTitleMobile: css`
+      color: ${theme.palette.text.secondary};
     `,
     cellValueMobile: css`
       padding-top: ${theme.spacing(2)};
       overflow: hidden;
       text-overflow: ellipsis;
-      font-weight: 400;
+      color: ${theme.palette.text.primary};
     `,
     loader: css`
       margin-bottom: ${theme.spacing(6)};
@@ -137,13 +156,15 @@ export const useStyles = () => {
       }
     `,
     getCellWrapper: ({ containsLink }: { containsLink: boolean }) => css`
+      height: 1px;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: ${containsLink ? 0 : theme.spacing(4)};
+      padding: ${containsLink ? 0 : theme.spacing(0, 4)};
 
       > a {
+        color: inherit;
         display: block;
-        padding: ${theme.spacing(4)};
+        padding: ${containsLink ? theme.spacing(0, 4) : 0};
       }
 
       :first-of-type > a {

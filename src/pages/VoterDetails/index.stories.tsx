@@ -25,7 +25,7 @@ export const Default = () => (
     voterTransactions={voterDetails.voterTransactions}
     address={NULL_ADDRESS}
     voterHistory={voterHistory.voterHistory}
-    setCurrentHistoryPage={noop}
+    setCurrentPage={noop}
     total={60}
     limit={6}
     isHistoryFetching={false}

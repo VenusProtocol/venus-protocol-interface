@@ -96,7 +96,6 @@ export const SHAPE = {
     xxLarge: SPACING * 10,
   },
   footerHeight: '56px',
-  bannerHeight: '56px',
   drawerWidthDesktop: '224px',
   drawerWidthTablet: '80px',
 };
@@ -109,44 +108,52 @@ export default createTheme({
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
-    lineHeight: 1.5,
     h1: {
       fontSize: '2.5rem',
       fontWeight: 600,
+      lineHeight: 1.5,
     },
     h2: {
       fontSize: '2rem',
       fontWeight: 600,
+      lineHeight: 1.5,
     },
     h3: {
       fontSize: '1.5rem',
       fontWeight: 700,
+      lineHeight: 1.5,
     },
     h4: {
       fontSize: '1.25rem',
       fontWeight: 600,
+      lineHeight: 1.5,
     },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
+      lineHeight: 1.5,
     },
     body2: {
       fontSize: '1rem',
       fontWeight: 600,
       letterSpacing: '0.3px',
+      lineHeight: 1.5,
     },
     small1: {
       fontSize: '0.875rem',
       fontWeight: 600,
       color: PALETTE.text.secondary,
+      lineHeight: 1.5,
     },
     small2: {
       fontSize: '0.875rem',
       fontWeight: 400,
       color: PALETTE.text.secondary,
+      lineHeight: 1.5,
     },
     tiny: {
       fontSize: '0.75rem',
+      lineHeight: 1.5,
     },
   },
   components: {

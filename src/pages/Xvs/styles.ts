@@ -100,18 +100,6 @@ export const useStyles = () => {
     fontWeight400: css`
       font-weight: 400;
     `,
-    table: css`
-      display: block;
-      ${theme.breakpoints.down('sm')} {
-        display: none;
-      }
-    `,
-    cards: css`
-      display: none;
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-      }
-    `,
     cardContentGrid: css`
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr minmax(${theme.spacing(30)}, 1fr);

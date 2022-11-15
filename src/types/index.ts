@@ -17,9 +17,11 @@ export interface Asset {
   walletBalance: BigNumber;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
+  xvsBorrowApr: BigNumber;
   borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
+  xvsSupplyApr: BigNumber;
   supplyApy: BigNumber;
   collateralFactor: BigNumber;
   collateral: boolean;
@@ -133,18 +135,6 @@ export interface VotersDetails {
   };
 }
 
-export interface Pool {
-  poolId: BigNumber;
-  stakedToken: string;
-  rewardToken: string;
-  userStakedAmount: BigNumber;
-  pendingReward: BigNumber;
-  lockPeriodSecond: BigNumber;
-  apr: BigNumber;
-  totalStaked: BigNumber;
-  dailyEmission: BigNumber;
-}
-
 export interface VoteTransaction {
   support: boolean;
   type: 'vote';
@@ -161,6 +151,7 @@ export interface Market {
   borrowCaps: string;
   borrowRatePerBlock: string;
   borrowVenusApy: BigNumber;
+  borrowVenusApr: BigNumber;
   borrowerCount: number;
   borrowerDailyVenus: string;
   cash: string;
@@ -175,6 +166,7 @@ export interface Market {
   supplyApy: BigNumber;
   supplyRatePerBlock: string;
   supplyVenusApy: BigNumber;
+  supplyVenusApr: BigNumber;
   symbol: string;
   tokenPrice: BigNumber;
   totalBorrows: string;
@@ -361,3 +353,14 @@ export interface ExactAmountOutSwap extends SwapBase {
 export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
 export type PSTokenCombination = [PSToken, PSToken];
+
+export type PoolRiskLevel = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+
+export interface Pool {
+  id: string;
+  name: string;
+  riskLevel: PoolRiskLevel;
+  assets: Asset[];
+  description: string;
+  isIsolated: boolean;
+}

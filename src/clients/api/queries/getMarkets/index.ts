@@ -24,8 +24,10 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
   if ('result' in response && response.result === 'error') {
     throw new Error(response.message);
   }
+
   let markets: Market[] = [];
   let dailyVenusWei;
+
   if (response && response.data && response.data.data) {
     dailyVenusWei = new BigNumber(response.data.data.dailyVenus);
     markets = Object.keys(VBEP_TOKENS).reduce<Market[]>((acc: Market[], curr: string) => {
@@ -39,7 +41,9 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
           tokenPrice: new BigNumber(activeMarket.tokenPrice),
           liquidity: new BigNumber(activeMarket.liquidity),
           borrowVenusApy: new BigNumber(activeMarket.borrowVenusApy),
+          borrowVenusApr: new BigNumber(activeMarket.borrowVenusApr),
           borrowApy: new BigNumber(activeMarket.borrowApy),
+          supplyVenusApr: new BigNumber(activeMarket.supplyVenusApr),
           supplyVenusApy: new BigNumber(activeMarket.supplyVenusApy),
           supplyApy: new BigNumber(activeMarket.supplyApy),
           treasuryTotalBorrowsCents: new BigNumber(activeMarket.totalBorrowsUsd).times(100),
@@ -50,6 +54,7 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
       return acc;
     }, []);
   }
+
   return { markets, dailyVenusWei };
 };
 

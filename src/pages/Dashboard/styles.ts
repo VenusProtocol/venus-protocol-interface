@@ -3,26 +3,40 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
-  const gap = theme.spacing(8);
 
   return {
-    row: css`
+    header: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    headerBottomRow: css`
       display: flex;
-      flex-direction: row;
+      align-items: center;
       justify-content: space-between;
-      margin-bottom: ${gap};
 
-      ${theme.breakpoints.down('xl')} {
-        flex-direction: column;
-        margin-bottom: 0;
+      ${theme.breakpoints.down('md')} {
+        display: block;
       }
     `,
-    column: css`
-      width: calc(50% - ${gap} / 2);
+    rightColumn: css`
+      display: flex;
+      align-items: center;
+    `,
+    tabletButtonGroup: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    tabletSearchTextField: css`
+      width: 100%;
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    desktopSearchTextField: css`
+      margin-left: ${theme.spacing(8)};
+      min-width: ${theme.spacing(75)};
+    `,
+    mobileSelect: css`
+      width: ${theme.spacing(56)};
 
-      ${theme.breakpoints.down('xl')} {
-        width: 100%;
-        margin-bottom: ${gap};
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(6)};
       }
     `,
   };

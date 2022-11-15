@@ -43,6 +43,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
 
   // Summing contract totals because there is a delay getting the totals from the server
@@ -127,9 +128,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
 const Proposal = () => {
   const { account } = useContext(AuthContext);
-  const { id } = useParams<{ id: string }>();
+  const { proposalId } = useParams<{ proposalId: string }>();
   const accountAddress = account?.address;
-  const { data: proposal } = useGetProposal({ id }, { enabled: !!id });
+  const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });
 
   const {
     data: votingWeightData = {
@@ -158,21 +159,21 @@ const Proposal = () => {
     },
   };
   const { data: againstVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 0 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 0 },
+    { enabled: !!proposalId },
   );
   const { data: forVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 1 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 1 },
+    { enabled: !!proposalId },
   );
   const { data: abstainVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 2 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 2 },
+    { enabled: !!proposalId },
   );
 
   const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
   const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId: parseInt(id, 10), accountAddress },
+    { proposalId: parseInt(proposalId, 10), accountAddress },
     { enabled: !!accountAddress },
   );
 

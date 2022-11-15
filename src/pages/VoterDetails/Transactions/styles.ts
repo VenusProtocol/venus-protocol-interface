@@ -15,19 +15,9 @@ export const useStyles = () => {
     `,
     horizontalPadding: css`
       margin: 0 ${theme.spacing(6)};
-    `,
-    table: css`
-      display: block;
 
       ${theme.breakpoints.down('sm')} {
-        display: none;
-      }
-    `,
-    cards: css`
-      display: none;
-
-      ${theme.breakpoints.down('sm')} {
-        display: block;
+        margin: 0 0 ${theme.spacing(6)};
       }
     `,
     cardContentGrid: css`

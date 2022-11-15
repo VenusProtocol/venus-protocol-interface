@@ -12,16 +12,16 @@ export const useStyles = () => {
         border-right: none;
       }
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         width: ${theme.shape.drawerWidthTablet};
       }
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         display: none;
       }
     `,
     drawerContent: css`
       width: ${theme.shape.drawerWidthDesktop};
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         width: ${theme.shape.drawerWidthTablet};
       }
       display: block;
@@ -35,7 +35,7 @@ export const useStyles = () => {
       justify-content: center;
       padding: ${theme.spacing(10, 8, 12)};
       min-height: 0;
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         min-height: initial;
       }
       ${theme.breakpoints.down('sm')} {
@@ -46,7 +46,7 @@ export const useStyles = () => {
         padding: 0;
         min-width: 0;
       }
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         padding-left: 0 !important;
         padding-right: 0 !important;
       }
@@ -56,7 +56,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.secondary};
       padding: 0;
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         :hover {
           background-color: transparent;
         }
@@ -73,7 +73,7 @@ export const useStyles = () => {
         align-items: center;
         width: 100%;
 
-        ${theme.breakpoints.down('lg')} {
+        ${theme.breakpoints.down('xl')} {
           width: auto;
           margin: auto;
           border-radius: ${theme.shape.borderRadius.medium}px;
@@ -81,7 +81,7 @@ export const useStyles = () => {
           justify-content: center;
         }
 
-        ${theme.breakpoints.down('md')} {
+        ${theme.breakpoints.down('lg')} {
           border-radius: 0;
         }
       }
@@ -97,7 +97,7 @@ export const useStyles = () => {
           top: 0;
           bottom: 0;
 
-          ${theme.breakpoints.down('lg')} {
+          ${theme.breakpoints.down('xl')} {
             display: none;
           }
         }
@@ -109,7 +109,7 @@ export const useStyles = () => {
     `,
     listItemIcon: css`
       min-width: ${theme.spacing(8)};
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         min-width: 0;
         justify-content: center;
       }
@@ -121,10 +121,10 @@ export const useStyles = () => {
     `,
     listItemText: css`
       display: block;
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: none;
       }
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         display: block;
       }
     `,
@@ -149,7 +149,7 @@ export const useStyles = () => {
     `,
     logo: css`
       display: block;
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: none;
       }
       height: 33px;
@@ -159,7 +159,7 @@ export const useStyles = () => {
     `,
     logoClosed: css`
       display: none;
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: block;
       }
     `,
@@ -169,7 +169,7 @@ export const useStyles = () => {
       justify-content: space-between;
       align-items: center;
       padding: ${theme.spacing(4)};
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         display: flex;
       }
     `,

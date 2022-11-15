@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React, { useContext, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
+import useUrlPagination from 'hooks/useUrlPagination';
 
 import Filters, { ALL_VALUE, FilterProps } from './Filters';
 import HistoryTable from './HistoryTable';
@@ -37,24 +39,26 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       walletConnected={walletConnected}
     />
+
     <HistoryTable transactions={transactions} isFetching={isFetching} />
+
     {total ? (
-      <Pagination
-        itemsCount={total}
-        onChange={(nextIndex: number) => {
-          setCurrentPage(nextIndex);
-          window.scrollTo(0, 0);
-        }}
-        itemsPerPageCount={limit || 20}
-      />
+      <Pagination itemsCount={total} onChange={setCurrentPage} itemsPerPageCount={limit || 20} />
     ) : null}
   </div>
 );
 
-const History: React.FC = () => {
+export type HistoryPageProps = RouteComponentProps;
+
+const History: React.FC<RouteComponentProps> = ({ history, location }) => {
+  const { currentPage, setCurrentPage } = useUrlPagination({
+    history,
+    location,
+  });
+
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const [currentPage, setCurrentPage] = useState(0);
+
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const { data: { transactions, total, limit } = { transactions: [] }, isFetching } =
