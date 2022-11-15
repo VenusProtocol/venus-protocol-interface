@@ -111,6 +111,10 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     isTransactionLoading: boolean;
     onSubmit: AmountFormProps['onSubmit'];
   }) => {
+    if (!asset) {
+      return <></>;
+    }
+
     const maxInput = React.useMemo(() => {
       if (!asset) {
         return new BigNumber(0);
