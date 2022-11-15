@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 1`] = `"Dashboard"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 2`] = `"Account"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 3`] = `"Governance"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 4`] = `"Governance/Leaderboard"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 5`] = `"Governance/Proposal #FAKE_PROPOSAL_ID"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 6`] = `"Governance/Leaderboard/FAKE_VOTER_ADDRESSFAKE...RESS"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 7`] = `"History"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 8`] = `"Pools"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 9`] = `"Pools/Fake pool name"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 10`] = `"Pools/Fake pool name"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 11`] = `"XVS"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 12`] = `"VAI"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 13`] = `"Vaults"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 14`] = `"Convert VRT"`;

@@ -74,10 +74,10 @@ export const useStyles = () => {
       }
     `,
     subtitle: css`
-      margin-bottom: ${theme.spacing(1)};
       ${theme.breakpoints.down('md')} {
         font-size: ${theme.typography.small1.fontSize};
       }
+
       ${theme.breakpoints.down('sm')} {
         font-size: ${theme.typography.body1.fontSize};
       }
@@ -121,13 +121,13 @@ export const useStyles = () => {
       }
     `,
     infoIcon: css`
-      display: flex;
       align-self: center;
     `,
     totalLockedTitle: css`
       display: flex;
       flex-direction: row;
       align-items: flex-end;
+      margin-bottom: ${theme.spacing(1)};
     `,
   };
 };

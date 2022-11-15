@@ -56,5 +56,9 @@ export const useStyles = () => {
         padding-bottom: ${theme.spacing(10)};
       }
     `,
+    timestamp: css`
+      display: flex;
+      justify-content: space-between;
+    `,
   };
 };

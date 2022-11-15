@@ -55,9 +55,5 @@ export const useStyles = () => {
       border-radius: 50%;
       stroke-width: ${theme.spacing(0.5)};
     `,
-    timestamp: css`
-      display: flex;
-      justify-content: space-between;
-    `,
   };
 };

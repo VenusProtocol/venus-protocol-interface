@@ -15,27 +15,9 @@ export const useStyles = () => {
         color: ${theme.palette.button.medium};
       }
     `,
-    table: css`
-      display: block;
+    cardContentGrid: css`
       .MuiTableCell-root:first-of-type {
         overflow: visible;
-      }
-
-      ${theme.breakpoints.down('xl')} {
-        display: none;
-      }
-    `,
-    cards: css`
-      display: none;
-
-      ${theme.breakpoints.down('xl')} {
-        display: block;
-      }
-    `,
-    cardContentGrid: css`
-      ${theme.breakpoints.down('xl')} {
-        background-color: initial;
-        padding-top: 0;
       }
 
       .table__table-cards__card-content {

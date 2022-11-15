@@ -7,19 +7,6 @@ export const useStyles = () => {
     whiteText: css`
       color: ${theme.palette.text.primary};
     `,
-    table: css`
-      display: block;
-
-      ${theme.breakpoints.down('xl')} {
-        display: none;
-      }
-    `,
-    cards: css`
-      display: none;
-      ${theme.breakpoints.down('xl')} {
-        display: block;
-      }
-    `,
     cardContentGrid: css`
       border-top-right-radius: 0;
       border-top-left-radius: 0;

@@ -9,7 +9,7 @@ import { useTranslation } from 'translation';
 import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import Path from 'constants/path';
+import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
@@ -84,7 +84,7 @@ const VoteSummary = ({
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
               <Link
-                to={Path.GOVERNANCE_ADDRESS.replace(':address', address)}
+                to={routes.governanceVoter.path.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
               >
                 <EllipseAddress address={address} />

@@ -70,7 +70,10 @@ const ProposalPreview: React.FC = () => {
         </Typography>
 
         {actions.map(action => (
-          <ReadableActionSignature action={action} />
+          <ReadableActionSignature
+            key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}`}
+            action={action}
+          />
         ))}
       </div>
     </div>

@@ -41,7 +41,7 @@ export const useModalStyles = ({
       top: 0;
       z-index: 10;
       background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
-      margin-bottom: ${hasTitleComponent ? theme.spacing(10) : 0};
+      margin-bottom: ${hasTitleComponent ? theme.spacing(6) : 0};
       display: flex;
       align-items: center;
       justify-content: center;

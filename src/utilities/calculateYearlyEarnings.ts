@@ -1,9 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-
-export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
+export const calculateYearlyEarningsForAsset = ({
+  asset,
+  includeXvs,
+}: {
+  asset: Asset;
+  includeXvs: boolean;
+}) => {
   const assetBorrowBalanceCents = asset.borrowBalance
     .multipliedBy(asset.tokenPrice)
     .multipliedBy(100);
@@ -14,23 +18,38 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
   const supplyYearlyEarningsCents = assetSupplyBalanceCents.multipliedBy(
     asset.supplyApy.dividedBy(100),
   );
-  // Note that borrowYearlyInterests will always be negative (or 0), since
+  // Note that borrowYearlyEarningsCents will always be negative (or 0), since
   // the borrow APY is expressed with a negative percentage)
-  const borrowYearlyInterestsCents = assetBorrowBalanceCents.multipliedBy(
+  const borrowYearlyEarningsCents = assetBorrowBalanceCents.multipliedBy(
     asset.borrowApy.dividedBy(100),
   );
 
-  return supplyYearlyEarningsCents.plus(borrowYearlyInterestsCents);
+  const yearlyEarningsCents = supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents);
+
+  if (!includeXvs || !asset.xvsSupplyApr.isFinite() || !asset.xvsBorrowApr.isFinite()) {
+    return yearlyEarningsCents;
+  }
+
+  // Add earnings from XVS distribution
+  const supplyYearlyXvsDistributionEarningsCents = supplyYearlyEarningsCents.multipliedBy(
+    asset.xvsSupplyApr.dividedBy(100),
+  );
+
+  const borrowYearlyXvsDistributionEarningsCents = borrowYearlyEarningsCents.multipliedBy(
+    asset.xvsBorrowApr.dividedBy(100),
+  );
+
+  return yearlyEarningsCents
+    .plus(supplyYearlyXvsDistributionEarningsCents)
+    .plus(borrowYearlyXvsDistributionEarningsCents);
 };
 
 export const calculateYearlyEarningsForAssets = ({
   assets,
-  isXvsEnabled,
-  dailyXvsDistributionInterestsCents,
+  includeXvs,
 }: {
   assets: Asset[];
-  isXvsEnabled: boolean;
-  dailyXvsDistributionInterestsCents: BigNumber;
+  includeXvs: boolean;
 }) => {
   // We use the yearly earnings to calculate the daily earnings the net APY
   let yearlyEarningsCents: BigNumber | undefined;
@@ -42,17 +61,11 @@ export const calculateYearlyEarningsForAssets = ({
 
     const assetYearlyEarningsCents = calculateYearlyEarningsForAsset({
       asset,
+      includeXvs,
     });
 
     yearlyEarningsCents = yearlyEarningsCents.plus(assetYearlyEarningsCents);
   });
-
-  if (yearlyEarningsCents && isXvsEnabled) {
-    const yearlyXvsDistributionInterestsCents =
-      dailyXvsDistributionInterestsCents.multipliedBy(DAYS_PER_YEAR);
-
-    yearlyEarningsCents = yearlyEarningsCents.plus(yearlyXvsDistributionInterestsCents);
-  }
 
   return yearlyEarningsCents;
 };

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Delimiter, Icon, LinkButton, PrimaryButton, TokenIcon, Tooltip } from 'components';
+import { Delimiter, InfoIcon, LinkButton, PrimaryButton, TokenIcon } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -13,7 +13,7 @@ import {
   useGetVoteDelegateAddress,
   useSetVoteDelegate,
 } from 'clients/api';
-import PATHS from 'constants/path';
+import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -100,12 +100,10 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             </Typography>
 
             {previouslyDelegated && (
-              <Tooltip
-                title={t('vote.youDelegatedTo', { delegate })}
+              <InfoIcon
+                tooltip={t('vote.youDelegatedTo', { delegate })}
                 css={[styles.infoIcon, styles.subtitle]}
-              >
-                <Icon name="info" />
-              </Tooltip>
+              />
             )}
           </div>
 
@@ -125,7 +123,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         )}
 
         {connectedWallet && !userHasLockedXVS && (
-          <LinkButton css={styles.actionButton} to={PATHS.VAULTS}>
+          <LinkButton css={styles.actionButton} to={routes.vaults.path}>
             {t('vote.depositXvs')}
           </LinkButton>
         )}
@@ -148,7 +146,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             components={{
               Link: (
                 <Link
-                  to={PATHS.VAULTS}
+                  to={routes.vaults.path}
                   css={styles.clickableText}
                   data-testid={TEST_IDS.depositYourTokens}
                 />

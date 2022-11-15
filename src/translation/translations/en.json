@@ -1,4 +1,37 @@
 {
+  "account": {
+    "accountSummary": {
+      "dailyEarnings": "Daily Earnings",
+      "includeXvsToggleLabel": "Include XVS distribution APR",
+      "includeXvsToggleTooltip": "Choose whether to include the XVS distribution APR in calculations",
+      "netApy": "Net APY",
+      "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+      "title": "Account summary",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "marketBreakdown": {
+      "cellGroup": {
+        "dailyEarnings": "Daily Earnings",
+        "netApy": "Net APY",
+        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "totalBorrow": "Total Borrow",
+        "totalSupply": "Total Supply"
+      },
+      "tables": {
+        "borrowTableTitle": "Borrowed assets",
+        "mobileSelect": {
+          "ariaLabelFor": "sort by",
+          "label": "Sort by:",
+          "title": "Sort by"
+        },
+        "supplyTableTitle": "Supplied assets",
+        "tabletborrowTabTitle": "Borrow",
+        "tabletsupplyTabTitle": "Supplied",
+        "tabletTitle": "Assets"
+      }
+    }
+  },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
@@ -14,6 +47,11 @@
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"
+    }
+  },
+  "asset": {
+    "marketInfo": {
+      "title": "Market info"
     }
   },
   "authModal": {
@@ -74,6 +112,19 @@
     },
     "repayTabTitle": "Repay"
   },
+  "breadcrumbs": {
+    "account": "Account",
+    "convertVrt": "Convert VRT",
+    "dashboard": "Dashboard",
+    "governance": "Governance",
+    "history": "History",
+    "leaderboard": "Leaderboard",
+    "pools": "Pools",
+    "proposal": "Proposal #{{proposalId}}",
+    "vai": "VAI",
+    "vaults": "Vaults",
+    "xvs": "XVS"
+  },
   "bscLink": {
     "content": "View on bscscan.com"
   },
@@ -112,11 +163,27 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
-    "markets": {
-      "tabBorrow": "Borrow",
-      "tabSupply": "Supply",
-      "title": "Markets"
-    }
+    "borrowTabTitle": "Borrow",
+    "connectWalletBanner": {
+      "buttonLabel": "Connect wallet",
+      "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
+      "title": "Connect your wallet"
+    },
+    "higherRiskTokensNotice": {
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
+      "title": "What are higher risk tokens?"
+    },
+    "mobileSelect": {
+      "ariaLabelFor": "sort by",
+      "label": "Sort by:",
+      "title": "Sort by"
+    },
+    "riskyTokensToggleLabel": "Display higher risk tokens",
+    "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
+    "searchInput": {
+      "placeholder": "Search pool or asset"
+    },
+    "supplyTabTitle": "Supply"
   },
   "enableToken": {
     "enableButtonLabel": "Enable"
@@ -132,10 +199,6 @@
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
-  },
-  "header": {
-    "proposalDetailsTitle": "Overview",
-    "voteLeaderboardTitle": "Vote"
   },
   "history": {
     "all": "All",
@@ -187,8 +250,21 @@
       "utilizationRate": "Utilization rate"
     }
   },
+  "isolatedAssetWarning": {
+    "assetTable": {
+      "assetColumnTitle": "Asset",
+      "borrowApyColumnTitle": "Borrow APY",
+      "liquidityColumnTitle": "Liquidity",
+      "supplyApyColumnTitle": "Supply APY"
+    },
+    "borrowDescription": "TBD",
+    "hideAssetsButtonLabel": "Hide assets",
+    "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
+    "supplyDescription": "You are looking at an isolated token. By supplying {{tokenSymbol}} to the {{poolName}} pool, you will be able to borrow tokens from this pool only."
+  },
   "layout": {
     "menuItems": {
+      "account": "Account",
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
       "dashboard": "Dashboard",
@@ -196,6 +272,8 @@
       "history": "History",
       "markets": "Markets",
       "swap": "Swap",
+      "pools": "Pools",
+      "vai": "VAI",
       "vaults": "Vaults",
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
@@ -208,21 +286,7 @@
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
-    "columns": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "collateralFactor": "Collateral F.",
-      "liquidity": "Liquidity",
-      "price": "Price",
-      "supplyApy": "Supply APY",
-      "totalBorrow": "Total Borrow",
-      "totalSupply": "Total Supply"
-    },
-    "totalBorrow": "Total Borrow",
-    "totalSupply": "Total Supply",
-    "totalTreasury": "Total Treasury"
-  },
-  "marketDetails": {
+    "borrowButtonLabel": "Borrow",
     "borrowInfo": {
       "stats": {
         "apy": "APY",
@@ -256,9 +320,9 @@
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
         "unlimitedBorrowCap": "Uncapped"
-      },
-      "title": "Market info"
+      }
     },
+    "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "stats": {
         "apy": "APY",
@@ -266,24 +330,23 @@
         "totalSupply": "Total supply"
       },
       "title": "Supply info"
-    }
+    },
+    "tables": {
+      "mobileSelect": {
+        "ariaLabelFor": "sort by",
+        "label": "Sort by:",
+        "title": "Sort by"
+      }
+    },
+    "totalBorrow": "Total Borrow",
+    "totalSupply": "Total Supply",
+    "totalTreasury": "Total Treasury"
   },
   "markets": {
-    "borrowingTableTitle": "Borrowing",
-    "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
       "disable": "Disable {{asset}} as collateral",
       "enable": "Enable {{asset}} as collateral"
-    },
-    "columns": {
-      "apy": "APY",
-      "asset": "Asset",
-      "balance": "Balance",
-      "collateral": "Collateral",
-      "liquidity": "Liquidity",
-      "percentOfLimit": "% of Limit",
-      "wallet": "Wallet"
     },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
@@ -291,49 +354,34 @@
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
-    "suppliedTableTitle": "Supplied",
-    "supplyMarketTableTitle": "Supply market"
+    "mobileSelect": {
+      "ariaLabelFor": "sort by",
+      "label": "Sort by:",
+      "title": "Sort by"
+    }
   },
-  "mintRepayVai": {
-    "mintVai": {
-      "btnMintVai": "Mint VAI",
-      "connectWallet": "Please connect your wallet to mint VAI",
-      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
-      "mintFeeLabel": "Mint fee",
-      "rightMaxButtonLabel": "SAFE MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully minted",
-        "title": "Your mint was successful"
-      },
-      "vaiLimitLabel": "Available VAI limit"
-    },
-    "repayVai": {
-      "btnRepayVai": "Repay VAI",
-      "connectWallet": "Please connect your wallet to repay VAI",
-      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
-      "repayVaiBalance": "Repay VAI balance",
-      "rightMaxButtonLabel": "MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
-      }
-    },
-    "tabMint": "Mint VAI",
-    "tabRepay": "Repay VAI",
-    "title": "Mint/Repay VAI"
+  "marketTable": {
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "APY",
+      "borrowBalance": "Balance",
+      "collateral": "Collateral",
+      "labeledBorrowApy": "Borrow APY",
+      "labeledSupplyApyLtv": "Supply APY / LTV",
+      "liquidity": "Liquidity",
+      "percentOfLimit": "% of limit",
+      "pool": "Pool",
+      "riskLevel": "Risk level",
+      "supplyApyLtv": "APY / LTV",
+      "supplyBalance": "Balance",
+      "treasuryTotalBorrow": "Total borrow",
+      "treasuryTotalSupply": "Total supply",
+      "walletBalance": "Wallet"
+    }
   },
   "myAccount": {
-    "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APR in calculations",
-    "borrowBalance": "Borrow balance",
-    "dailyEarnings": "Daily earnings",
-    "includingMintedVai": "Including minted VAI",
-    "netApy": "Net APY",
-    "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
     "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
-    "supplyBalance": "Supply balance",
-    "title": "My account"
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe."
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
@@ -347,6 +395,44 @@
   },
   "sidebar": {
     "newBadge": "NEW"
+  },
+  "pool": {
+    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
+    "header": {
+      "assetsLabel": "Assets",
+      "availableLiquidityLabel": "Available Liquidity",
+      "totalBorrowLabel": "Total Borrow",
+      "totalSupplyLabel": "Total Supply"
+    }
+  },
+  "pools": {
+    "poolTable": {
+      "columns": {
+        "assets": "Assets",
+        "liquidity": "Liquidity",
+        "pool": "Pool",
+        "riskLevel": "Risk level",
+        "totalBorrow": "Total borrow",
+        "totalSupply": "Total supply"
+      }
+    }
+  },
+  "proposalCard": {
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "canceled": "Canceled: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "defeated": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "executed": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "expired": "Expired: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
+  },
+  "riskLevel": {
+    "high": "High risk",
+    "low": "Low risk",
+    "medium": "Medium risk",
+    "minimal": "Minimal risk",
+    "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
+    "veryHigh": "Very high risk"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
@@ -593,6 +679,35 @@
     "vaiMintExchangeCalculationFailed": "VAI Mint Exchange Calculation Failed",
     "vaiMintRejection": "VAI Mint Rejected"
   },
+  "vai": {
+    "mintVai": {
+      "connectWallet": "Please connect your wallet to mint VAI",
+      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
+      "mintFeeLabel": "Mint fee",
+      "rightMaxButtonLabel": "SAFE MAX",
+      "submitButtonDisabledLabel": "Enter a valid amount to mint",
+      "submitButtonLabel": "Mint",
+      "successfulTransactionModal": {
+        "message": "You successfully minted",
+        "title": "Your mint was successful"
+      },
+      "vaiLimitLabel": "Available VAI limit"
+    },
+    "repayVai": {
+      "connectWallet": "Please connect your wallet to repay VAI",
+      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "repayVaiBalance": "Repay VAI balance",
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonDisabledLabel": "Enter a valid amount to repay",
+      "submitButtonLabel": "Repay",
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      }
+    },
+    "tabMint": "Mint",
+    "tabRepay": "Repay"
+  },
   "vault": {
     "transactionForm": {
       "lockingPeriod": {
@@ -692,7 +807,7 @@
     "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
-    "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -706,17 +821,11 @@
     "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active",
-      "activeTimestamp": "Active: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceled": "Canceled",
-      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "defeated": "Defeated",
-      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "executed": "Executed",
-      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "passed": "Passed",
-      "queued": "Queued",
-      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "queued": "Queued"
     },
     "queue": "Queue",
     "statusCard": {

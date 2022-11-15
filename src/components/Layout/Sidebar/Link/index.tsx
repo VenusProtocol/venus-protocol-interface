@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, matchPath } from 'react-router-dom';
 
 import { MenuItem } from '../../types';
 
@@ -15,7 +15,23 @@ export const Link: React.FC<LinkProps> = ({ children, onClick, href, isMobile = 
     const activeClassName = isMobile ? 'active-mobile-menu-item' : 'active-menu-item';
 
     return (
-      <NavLink to={href} exact={href === '/'} onClick={onClick} activeClassName={activeClassName}>
+      <NavLink
+        to={href}
+        exact={href === '/'}
+        isActive={(_match, location) => {
+          // Handle home page
+          if (location.pathname === '/' && href !== '/') {
+            return false;
+          }
+
+          // Only match against the first part of the pathname since the sidebar
+          // nav items represent the top level pages
+          const formattedPathname = location.pathname.split('/').slice(0, 2).join('/');
+          return !!matchPath(href, formattedPathname);
+        }}
+        onClick={onClick}
+        activeClassName={activeClassName}
+      >
         {children}
       </NavLink>
     );

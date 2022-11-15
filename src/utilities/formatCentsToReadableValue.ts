@@ -16,13 +16,14 @@ const formatCentsToReadableValue = ({
 
   const wrappedValueDollars = new BigNumber(value).dividedBy(100);
 
-  if (!shortenLargeValue) {
-    return `$${wrappedValueDollars.toFormat(2)}`;
-  }
+  const formattedValueDollars = shortenLargeValue
+    ? shortenTokensWithSuffix(wrappedValueDollars)
+    : wrappedValueDollars.toFormat(2);
 
-  // Shorten value
-  const shortenedValue = shortenTokensWithSuffix(wrappedValueDollars);
-  return `$${shortenedValue}`;
+  return formattedValueDollars[0] === '-'
+    ? // Format negative values to place minus sign before dollar sign
+      `-$${formattedValueDollars.substring(1)}`
+    : `$${formattedValueDollars}`;
 };
 
 export default formatCentsToReadableValue;

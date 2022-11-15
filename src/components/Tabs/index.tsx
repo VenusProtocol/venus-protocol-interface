@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { ReactElement, useState } from 'react';
 
-import { TertiaryButton } from '../Button';
+import { ButtonGroup } from '../ButtonGroup';
 import useStyles from './styles';
 
 export type TabContent = {
@@ -11,7 +11,6 @@ export type TabContent = {
 
 export interface TabsProps {
   tabsContent: TabContent[];
-  componentTitle?: string;
   initialActiveTabIndex?: number;
   onTabChange?: (newIndex: number) => void;
   className?: string;
@@ -22,7 +21,6 @@ export const Tabs = ({
   initialActiveTabIndex = 0,
   onTabChange,
   className,
-  componentTitle,
 }: TabsProps) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
@@ -36,37 +34,16 @@ export const Tabs = ({
   };
 
   return (
-    <>
-      <div
-        css={styles.getContainer({
-          hasTitle: !!componentTitle,
-        })}
-        className={className}
-      >
-        {componentTitle && (
-          <div css={[styles.headerTitle]}>
-            <h4>{componentTitle}</h4>
-          </div>
-        )}
-
-        <div css={styles.getButtonsContainer({ fullWidth: !componentTitle })}>
-          {tabsContent.map(({ title }, index) => (
-            <TertiaryButton
-              key={title}
-              onClick={() => handleChange(index)}
-              css={styles.getButton({
-                active: index === activeTabIndex,
-                last: index === tabsContent.length - 1,
-                fullWidth: !componentTitle,
-              })}
-            >
-              {title}
-            </TertiaryButton>
-          ))}
-        </div>
-      </div>
+    <div className={className}>
+      <ButtonGroup
+        buttonLabels={tabsContent.map(({ title }) => title)}
+        css={styles.buttonsContainer}
+        activeButtonIndex={activeTabIndex}
+        onButtonClick={handleChange}
+        fullWidth
+      />
 
       {tabsContent[activeTabIndex].content}
-    </>
+    </div>
   );
 };

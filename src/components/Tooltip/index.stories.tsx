@@ -7,7 +7,7 @@ import { withCenterStory } from 'stories/decorators';
 import { Tooltip } from '.';
 
 export default {
-  title: 'Tooltip',
+  title: 'components/Tooltip',
   component: Tooltip,
   decorators: [withCenterStory({ width: 200 })],
   parameters: {

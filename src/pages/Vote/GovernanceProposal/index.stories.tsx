@@ -23,6 +23,7 @@ export const Active = () => (
     forVotesWei={new BigNumber('500000000000000000')}
     againstVotesWei={new BigNumber('2000000000000000000')}
     abstainedVotesWei={new BigNumber('0')}
+    cancelDate={undefined}
     endDate={new Date(Date.now() + 3650000)}
   />
 );
@@ -31,6 +32,7 @@ export const Queued = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
+    cancelDate={undefined}
     endDate={new Date()}
   />
 );
@@ -39,6 +41,7 @@ export const Pending = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
+    cancelDate={undefined}
     endDate={new Date()}
   />
 );
@@ -47,6 +50,7 @@ export const Executed = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
+    cancelDate={undefined}
     endDate={new Date()}
   />
 );
@@ -55,7 +59,8 @@ export const Cancelled = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
-    endDate={new Date(Date.now())}
+    cancelDate={new Date(Date.now())}
+    endDate={undefined}
   />
 );
 
@@ -64,6 +69,7 @@ export const Defeated = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Defeated"
+    cancelDate={undefined}
     endDate={new Date(Date.now())}
   />
 );
@@ -73,6 +79,7 @@ export const Succeeded = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Succeeded"
+    cancelDate={undefined}
     endDate={new Date(Date.now())}
   />
 );
@@ -82,6 +89,7 @@ export const Expired = () => (
     proposalId={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Expired"
+    cancelDate={undefined}
     endDate={new Date(Date.now())}
   />
 );

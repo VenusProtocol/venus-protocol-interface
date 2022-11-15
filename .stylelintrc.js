@@ -5,6 +5,7 @@ module.exports = {
   customSyntax: '@stylelint/postcss-css-in-js',
   rules: {
     'at-rule-empty-line-before': null,
+    'function-name-case': null,
     'at-rule-no-unknown': [
       true,
       {

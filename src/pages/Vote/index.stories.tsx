@@ -1,14 +1,23 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
+import { State } from 'react-powerplug';
 
 import { withRouter } from 'stories/decorators';
 
-import Vote from '.';
+import { VoteUi } from '.';
 
 export default {
   title: 'Pages/Vote',
-  component: Vote,
+  component: VoteUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof Vote>;
+} as ComponentMeta<typeof VoteUi>;
 
-export const Default = () => <Vote />;
+const initialData: { value: number } = { value: 0 };
+
+export const Default = () => (
+  <State initial={initialData}>
+    {({ state, setState }) => (
+      <VoteUi currentPage={state.value} setCurrentPage={value => setState({ value })} />
+    )}
+  </State>
+);

@@ -60,27 +60,6 @@ export const useStyles = () => {
       max-height: ${theme.spacing(33)};
       overflow: hidden;
       overflow-y: auto;
-
-      &::-webkit-scrollbar {
-        width: ${theme.spacing(1)};
-      }
-
-      /* Track */
-      &::-webkit-scrollbar-track {
-        border-radius: ${theme.spacing(1)};
-        background-color: ${theme.palette.background.default};
-      }
-
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background-color: ${theme.palette.text.secondary};
-        border-radius: ${theme.spacing(1)};
-      }
-
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background-color: ${theme.palette.text.primary};
-      }
     `,
     voteFrom: css`
       margin-top: ${theme.spacing(2)};

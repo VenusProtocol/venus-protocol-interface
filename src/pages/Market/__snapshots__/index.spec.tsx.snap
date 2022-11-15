@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Market fetches market details and displays them correctly 1`] = `"Supply infoSupply APYTotal supply$4.23MAPY0%Distribution APY0.11%"`;
+
+exports[`pages/Market fetches market details and displays them correctly 2`] = `"Borrow infoBorrow APYTotal borrow$33.14KAPY-0.16%Distribution APY14.75%"`;
+
+exports[`pages/Market fetches market details and displays them correctly 3`] = `"Interest Rate ModelUtilization rateBorrow APYSupply APY"`;
+
+exports[`pages/Market fetches market details and displays them correctly 4`] = `"Market infoPrice$399.24Market liquidity$4,198,428.82# of suppliers144# of borrowers6Borrow capUncappedDaily supplying interests$0.14Daily borrowing interests$0.14Daily XVS distributed25Reserves0 AAVEReserve factor0%Collateral factor55%vAAVE minted52,965,104,736,226.0635259Exchange rate1 AAVE=4997145456.364805 vAAVE"`;

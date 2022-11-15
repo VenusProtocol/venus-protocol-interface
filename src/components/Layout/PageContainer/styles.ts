@@ -22,11 +22,11 @@ export const useStyles = () => {
       bottom: 0;
       right: 0;
       width: calc(100% - ${theme.shape.drawerWidthDesktop});
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         width: calc(100% - ${theme.shape.drawerWidthTablet});
       }
 
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         width: 100%;
       }
     `,

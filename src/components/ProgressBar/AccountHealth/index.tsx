@@ -9,10 +9,7 @@ import {
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import { Icon } from '../../Icon';
-import { Tooltip } from '../../Tooltip';
 import { LabeledProgressBar } from '../LabeledProgressBar';
-import { useStyles } from './styles';
 
 export interface AccountHealthProps {
   borrowBalanceCents: number | undefined;
@@ -32,7 +29,6 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
   safeBorrowLimitPercentage,
 }) => {
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
 
   const borrowLimitUsedPercentage =
     typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
@@ -78,14 +74,7 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
             : t('accountHealth.borrowLimitUsed')
         }
         whiteLeftText={
-          <span css={styles.textWithTooltip}>
-            {variant === 'borrowBalance'
-              ? readableBorrowBalance
-              : readableBorrowLimitUsedPercentage}
-            <Tooltip css={styles.tooltip} title={t('myAccount.includingMintedVai')}>
-              <Icon css={styles.infoIcon} name="info" />
-            </Tooltip>
-          </span>
+          variant === 'borrowBalance' ? readableBorrowBalance : readableBorrowLimitUsedPercentage
         }
         greyRightText={
           variant === 'borrowBalance' ? t('accountHealth.max') : t('accountHealth.limit')

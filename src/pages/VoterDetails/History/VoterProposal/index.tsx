@@ -13,7 +13,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
 
-import Path from 'constants/path';
+import { routes } from 'constants/routing';
 
 import { useStyles } from './styles';
 
@@ -27,7 +27,6 @@ interface VoterProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   endDate: Date | undefined;
-  createdDate: Date | undefined;
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
@@ -42,14 +41,14 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   forVotesWei,
   againstVotesWei,
   abstainedVotesWei,
-  createdDate,
   cancelDate,
   queuedDate,
   endDate,
   executedDate,
 }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
+
   const voteChipText = useMemo(() => {
     switch (userVoteStatus) {
       case 'FOR':
@@ -69,100 +68,22 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     abstainedVotesWei || 0,
   ]);
 
-  const [stateChip, stateTimestamp] = useMemo(() => {
+  const stateChip = useMemo(() => {
     switch (proposalState) {
       case 'Active':
-        return [
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />,
-          createdDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.activeTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: createdDate,
-              }}
-            />
-          ),
-        ];
+        return <ActiveChip text={t('voteProposalUi.proposalState.active')} />;
       case 'Canceled':
-        return [
-          <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />,
-          cancelDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.canceledTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: cancelDate,
-              }}
-            />
-          ),
-        ];
+        return <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />;
       case 'Succeeded':
-        return [
-          <ActiveChip text={t('voteProposalUi.proposalState.passed')} />,
-          endDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.succeededTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: endDate,
-              }}
-            />
-          ),
-        ];
+        return <ActiveChip text={t('voteProposalUi.proposalState.passed')} />;
       case 'Queued':
-        return [
-          <InactiveChip text={t('voteProposalUi.proposalState.queued')} />,
-          queuedDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.queuedTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: queuedDate,
-              }}
-            />
-          ),
-        ];
+        return <InactiveChip text={t('voteProposalUi.proposalState.queued')} />;
       case 'Defeated':
-        return [
-          <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />,
-          endDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.defeatedTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: endDate,
-              }}
-            />
-          ),
-        ];
+        return <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />;
       case 'Executed':
-        return [
-          <BlueChip text={t('voteProposalUi.proposalState.executed')} />,
-          executedDate && (
-            <Trans
-              i18nKey="voteProposalUi.proposalState.executedTimestamp"
-              components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
-              }}
-              values={{
-                date: executedDate,
-              }}
-            />
-          ),
-        ];
+        return <BlueChip text={t('voteProposalUi.proposalState.executed')} />;
       default:
-        return [];
+        return undefined;
     }
   }, [proposalState]);
 
@@ -170,16 +91,11 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     <ProposalCard
       css={styles.root}
       className={className}
-      linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
+      linkTo={routes.governanceProposal.path.replace(':proposalId', proposalNumber.toString())}
       proposalNumber={proposalNumber}
       headerLeftItem={stateChip}
       headerRightItem={voteChipText}
       title={proposalTitle}
-      footer={
-        <Typography variant="small2" component="span">
-          {stateTimestamp}
-        </Typography>
-      }
       contentRightItem={
         <ActiveVotingProgress
           votedForWei={forVotesWei}
@@ -188,6 +104,11 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
           votedTotalWei={votedTotalWei}
         />
       }
+      proposalState={proposalState}
+      endDate={endDate}
+      cancelDate={cancelDate}
+      queuedDate={queuedDate}
+      executedDate={executedDate}
     />
   );
 };
