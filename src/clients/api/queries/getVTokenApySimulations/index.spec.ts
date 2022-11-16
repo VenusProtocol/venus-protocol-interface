@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { Multicall } from 'ethereum-multicall';
 
-import { InterestModel } from 'types/contracts';
+import fakeMulticallResponses from '__mocks__/contracts/multicall';
+import fakeAddress from '__mocks__/models/address';
 
 import getVTokenApySimulations from '.';
 
@@ -8,58 +10,36 @@ const fakeReserveFactorMantissa = new BigNumber(18);
 
 describe('api/queries/getVTokenApySimulations', () => {
   test('throws an error when request fails', async () => {
-    const fakeInterestModelContract = {
-      methods: {
-        getBorrowRate: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-        getSupplyRate: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
+    const multicall = {
+      call: async () => {
+        throw new Error('Fake error message');
       },
-    } as unknown as InterestModel;
+    } as unknown as Multicall;
 
     try {
       await getVTokenApySimulations({
-        interestModelContract: fakeInterestModelContract,
+        multicall,
         reserveFactorMantissa: fakeReserveFactorMantissa,
+        interestRateModelContractAddress: fakeAddress,
       });
 
-      throw new Error('getVTokenBorrowBalance should have thrown an error but did not');
+      throw new Error('getVTokenApySimulations should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
   });
 
   test('returns the APY simulations in the correct format on success', async () => {
-    const fakeBorrowRate = '10000000000';
-    const fakeSupplyRate = '20000000000';
-
-    const getBorrowRateCallMock = jest.fn(async () => fakeBorrowRate);
-    const getSupplyRateCallMock = jest.fn(async () => fakeSupplyRate);
-
-    const fakeInterestModelContract = {
-      methods: {
-        getBorrowRate: () => ({
-          call: getBorrowRateCallMock,
-        }),
-        getSupplyRate: () => ({
-          call: getSupplyRateCallMock,
-        }),
-      },
-    } as unknown as InterestModel;
+    const multicall = {
+      call: jest.fn(async () => fakeMulticallResponses.interestRateModel.getVTokenBalances),
+    } as unknown as Multicall;
 
     const response = await getVTokenApySimulations({
-      interestModelContract: fakeInterestModelContract,
+      multicall,
       reserveFactorMantissa: fakeReserveFactorMantissa,
+      interestRateModelContractAddress: fakeAddress,
     });
 
-    expect(getBorrowRateCallMock).toHaveBeenCalledTimes(100);
-    expect(getSupplyRateCallMock).toHaveBeenCalledTimes(100);
     expect(response).toMatchSnapshot();
   });
 });

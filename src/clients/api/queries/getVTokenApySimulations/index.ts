@@ -1,85 +1,60 @@
 import BigNumber from 'bignumber.js';
+import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 
-import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { InterestModel } from 'types/contracts';
+import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 
-import getVTokenBorrowRate from '../getVTokenBorrowRate';
-import getVTokenSupplyRate from '../getVTokenSupplyRate';
+import formatToApySnapshots from './formatToApySnapshots';
+import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
+
+export * from './types';
 
 const REFERENCE_AMOUNT_WEI = 1e4;
 
-export interface GetVTokenInterestRatesInput {
-  interestModelContract: InterestModel;
-  reserveFactorMantissa: BigNumber;
-}
-
-export interface VTokenApySnapshot {
-  utilizationRate: number;
-  borrowApyPercentage: number;
-  supplyApyPercentage: number;
-}
-
-export type GetVTokenApySimulationsOutput = {
-  apySimulations: VTokenApySnapshot[];
-};
-
 const getVTokenApySimulations = async ({
-  interestModelContract,
+  multicall,
   reserveFactorMantissa,
+  interestRateModelContractAddress,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
-  const promises: Promise<VTokenApySnapshot>[] = [];
+  const calls: ContractCallContext<any>['calls'] = [];
 
   for (let u = 1; u <= 100; u++) {
     const utilizationRate = u / 100;
+    const cashAmountWei = new BigNumber(1 / utilizationRate - 1)
+      .times(REFERENCE_AMOUNT_WEI)
+      .dp(0)
+      .toFixed();
 
-    const getRates = async () => {
-      const borrowRateData = await getVTokenBorrowRate({
-        interestModelContract,
-        cashAmountWei: new BigNumber(1 / utilizationRate - 1).times(REFERENCE_AMOUNT_WEI).dp(0),
-        borrowsAmountWei: new BigNumber(REFERENCE_AMOUNT_WEI),
-        reservesAmountWei: new BigNumber(0),
-      });
+    const borrowsAmountWei = new BigNumber(REFERENCE_AMOUNT_WEI).toFixed();
+    const reservesAmountWei = new BigNumber(0).toFixed();
 
-      const borrowBase = borrowRateData.borrowRate
-        .div(COMPOUND_MANTISSA)
-        .times(BLOCKS_PER_DAY)
-        .plus(1);
+    calls.push({
+      reference: 'getBorrowRate',
+      methodName: 'getBorrowRate',
+      methodParameters: [cashAmountWei, borrowsAmountWei, reservesAmountWei],
+    });
 
-      const borrowApyPercentage = borrowBase
-        .pow(DAYS_PER_YEAR - 1)
-        .minus(1)
-        .times(100)
-        .toNumber();
-
-      const { supplyRateWei } = await getVTokenSupplyRate({
-        interestModelContract,
-        cashAmountWei: new BigNumber(1 / utilizationRate - 1).times(REFERENCE_AMOUNT_WEI).dp(0),
-        borrowsAmountWei: new BigNumber(REFERENCE_AMOUNT_WEI),
-        reservesAmountWei: new BigNumber(0),
-        reserveFactorMantissa,
-      });
-
-      const supplyBase = supplyRateWei.div(COMPOUND_MANTISSA).times(BLOCKS_PER_DAY).plus(1);
-
-      const supplyApyPercentage = supplyBase
-        .pow(DAYS_PER_YEAR - 1)
-        .minus(1)
-        .times(100)
-        .toNumber();
-
-      return {
-        utilizationRate: utilizationRate * 100,
-        borrowApyPercentage,
-        supplyApyPercentage,
-      };
-    };
-
-    promises.push(getRates());
+    calls.push({
+      reference: 'getSupplyRate',
+      methodName: 'getSupplyRate',
+      methodParameters: [
+        cashAmountWei,
+        borrowsAmountWei,
+        reservesAmountWei,
+        reserveFactorMantissa.toFixed(),
+      ],
+    });
   }
 
-  const apySimulations = await Promise.all(promises);
+  const contractCallContext: ContractCallContext = {
+    reference: 'getVTokenRates',
+    contractAddress: interestRateModelContractAddress,
+    abi: interestModelAbi,
+    calls,
+  };
+
+  const vTokenBalanceCallResults: ContractCallResults = await multicall.call(contractCallContext);
+  const apySimulations = formatToApySnapshots({ vTokenBalanceCallResults });
+
   return { apySimulations };
 };
 
