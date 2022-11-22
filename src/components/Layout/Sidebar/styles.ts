@@ -138,8 +138,12 @@ export const useStyles = () => {
       padding: ${theme.spacing(0, 1)};
       margin-left: ${theme.spacing(3)};
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: none;
+      }
+
+      ${theme.breakpoints.down('lg')} {
+        display: flex;
       }
     `,
     listItemNewBadgeText: css`
