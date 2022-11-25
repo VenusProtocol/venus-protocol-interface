@@ -72,8 +72,8 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
-      rewardTokenId: TOKENS.vrt.id,
-      stakedTokenId: TOKENS.vrt.id,
+      rewardToken: TOKENS.vrt,
+      stakedToken: TOKENS.vrt,
       dailyEmissionWei,
       totalStakedWei: totalVrtStakedData.balanceWei,
       stakingAprPercentage,

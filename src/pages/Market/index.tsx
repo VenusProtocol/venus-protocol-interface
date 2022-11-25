@@ -13,6 +13,7 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -37,7 +38,7 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface MarketUiProps {
-  vTokenId: string;
+  vToken: Token;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
@@ -64,7 +65,7 @@ export interface MarketUiProps {
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
-  vTokenId,
+  vToken,
   totalBorrowBalanceCents,
   borrowApyPercentage,
   borrowDistributionApyPercentage,
@@ -92,8 +93,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const token = unsafelyGetToken(vTokenId);
-  const vToken = unsafelyGetVToken(vTokenId);
+  const token = unsafelyGetToken(vToken.id);
 
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
@@ -272,7 +272,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       dailyBorrowingInterestsCents,
       dailyDistributionXvs?.toFixed(),
       reserveTokens?.toFixed(),
-      vTokenId,
+      vToken,
       reserveFactor?.toFixed(),
       collateralFactor?.toFixed(),
       mintedTokens?.toFixed(),
@@ -291,7 +291,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <Button
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openSupplyWithdrawModal(vTokenId)}
+        onClick={() => openSupplyWithdrawModal({ token, vToken })}
       >
         {t('market.supplyButtonLabel')}
       </Button>
@@ -299,7 +299,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <SecondaryButton
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openBorrowRepayModal(vTokenId)}
+        onClick={() => openBorrowRepayModal({ token, vToken })}
       >
         {t('market.borrowButtonLabel')}
       </SecondaryButton>
@@ -364,6 +364,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   );
 };
 
+// TODO: pass vTokenAddress and poolAddress instead of IDs
 export type MarketProps = RouteComponentProps<{ vTokenId: string; poolId: string }>;
 
 const Market: React.FC<MarketProps> = ({
@@ -371,19 +372,20 @@ const Market: React.FC<MarketProps> = ({
     params: { vTokenId },
   },
 }) => {
+  // TODO: update to use token address
   const vToken = unsafelyGetVToken(vTokenId);
 
-  // Redirect to markets page if vTokenId passed through route params is invalid
+  // Redirect to markets page if vToken passed through route params is invalid
   if (!vToken) {
     return <Redirect to={routes.pools.path} />;
   }
 
   const { reserveFactorMantissa, ...marketData } = useGetMarketData({
-    vTokenId,
+    vToken,
   });
 
   const chartData = useGetChartData({
-    vTokenId,
+    vToken,
   });
 
   const {
@@ -391,13 +393,13 @@ const Market: React.FC<MarketProps> = ({
       apySimulations: [],
     },
   } = useGetVTokenApySimulations({
-    vTokenId,
+    vToken,
     reserveFactorMantissa,
   });
 
   return (
     <MarketUi
-      vTokenId={vTokenId}
+      vToken={vToken}
       {...marketData}
       {...chartData}
       interestRateChartData={interestRateChartData.apySimulations}

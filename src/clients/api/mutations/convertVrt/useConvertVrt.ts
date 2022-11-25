@@ -35,7 +35,7 @@ const useConvertVrt = (
 
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
-          { accountAddress, tokenId: TOKENS.vrt.id },
+          { accountAddress, vTokenAddress: TOKENS.vrt.address },
         ]);
 
         if (options?.onSuccess) {

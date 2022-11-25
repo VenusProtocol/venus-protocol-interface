@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
 import redeemUnderlying, {
   RedeemUnderlyingInput,
@@ -9,7 +10,7 @@ import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 const useRedeemUnderlying = (
-  { vTokenId, accountAddress }: { vTokenId: string; accountAddress: string },
+  { vToken, accountAddress }: { vToken: Token; accountAddress: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemUnderlyingOutput,
@@ -17,7 +18,7 @@ const useRedeemUnderlying = (
     Omit<RedeemUnderlyingInput, 'vTokenContract' | 'accountAddress'>
   >,
 ) => {
-  const vTokenContract = useVTokenContract(vTokenId);
+  const vTokenContract = useVTokenContract(vToken);
 
   return useMutation(
     FunctionKey.REDEEM_UNDERLYING,
@@ -35,7 +36,7 @@ const useRedeemUnderlying = (
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
             accountAddress,
-            vTokenId,
+            vTokenAddress: vToken.address,
           },
         ]);
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);

@@ -2,41 +2,42 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { getContractAddress, unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
+import { getContractAddress } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useStakeInVault from 'hooks/useStakeInVault';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
 export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
-  stakedTokenId: string;
-  rewardTokenId: string;
+  stakedToken: Token;
+  rewardToken: Token;
   poolIndex?: number;
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
-  stakedTokenId,
-  rewardTokenId,
+  stakedToken,
+  rewardToken,
   poolIndex,
   handleClose,
 }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
       return getContractAddress('xvsVaultProxy');
     }
 
-    if (stakedTokenId === 'vai') {
+    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
       return getContractAddress('vaiVault');
     }
 
     return getContractAddress('vrtVaultProxy');
-  }, [stakedTokenId, poolIndex]);
+  }, [stakedToken, poolIndex]);
 
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
@@ -49,8 +50,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
   );
 
   const { stake, isLoading: isStakeLoading } = useStakeInVault({
-    stakedTokenId,
-    rewardTokenId,
+    stakedToken,
+    rewardToken,
     poolIndex,
   });
 

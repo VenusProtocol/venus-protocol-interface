@@ -1,22 +1,19 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
-import { BorrowVTokenInput, BorrowVTokenOutput, borrowVToken, queryClient } from 'clients/api';
+import { BorrowInput, BorrowOutput, borrow, queryClient } from 'clients/api';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
-type Options = MutationObserverOptions<
-  BorrowVTokenOutput,
-  Error,
-  Omit<BorrowVTokenInput, 'vTokenContract'>
->;
+type Options = MutationObserverOptions<BorrowOutput, Error, Omit<BorrowInput, 'vTokenContract'>>;
 
-const useBorrowVToken = ({ vTokenId }: { vTokenId: string }, options?: Options) => {
-  const vTokenContract = useVTokenContract(vTokenId);
+const useBorrow = ({ vToken }: { vToken: Token }, options?: Options) => {
+  const vTokenContract = useVTokenContract(vToken);
 
   return useMutation(
-    FunctionKey.BORROW_V_TOKEN,
+    FunctionKey.BORROW,
     params =>
-      borrowVToken({
+      borrow({
         vTokenContract,
         ...params,
       }),
@@ -30,7 +27,7 @@ const useBorrowVToken = ({ vTokenId }: { vTokenId: string }, options?: Options) 
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
             accountAddress: fromAccountAddress,
-            vTokenId,
+            vTokenAddress: vToken.address,
           },
         ]);
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
@@ -39,7 +36,7 @@ const useBorrowVToken = ({ vTokenId }: { vTokenId: string }, options?: Options) 
           FunctionKey.GET_V_TOKEN_BORROW_BALANCE,
           {
             accountAddress: fromAccountAddress,
-            vTokenId,
+            vTokenAddress: vToken.address,
           },
         ]);
 
@@ -51,4 +48,4 @@ const useBorrowVToken = ({ vTokenId }: { vTokenId: string }, options?: Options) 
   );
 };
 
-export default useBorrowVToken;
+export default useBorrow;

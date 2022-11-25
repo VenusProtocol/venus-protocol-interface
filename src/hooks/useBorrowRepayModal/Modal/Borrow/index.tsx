@@ -7,21 +7,20 @@ import {
   FormikTokenTextField,
   IsolatedAssetWarning,
   NoticeWarning,
+  Spinner,
 } from 'components';
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  unsafelyGetToken,
-  unsafelyGetVToken,
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
+import { useBorrow, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -165,16 +164,19 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 };
 
 export interface BorrowProps {
-  asset: Asset;
+  token: Token;
+  vToken: Token;
   includeXvs: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<BorrowProps> = ({ asset, onClose, includeXvs }) => {
+const Borrow: React.FC<BorrowProps> = ({ token, vToken, onClose, includeXvs }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
+  const {
+    data: { asset },
+  } = useGetUserAsset({ token });
 
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
@@ -185,11 +187,11 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, includeXvs }) => {
   const hasUserCollateralizedSuppliedAssets = React.useMemo(
     () =>
       assets.some(userAsset => userAsset.collateral && userAsset.supplyBalance.isGreaterThan(0)),
-    [JSON.stringify(assets)],
+    [assets],
   );
 
-  const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrowVToken({
-    vTokenId: asset.token.id,
+  const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
+    vToken,
   });
 
   const handleBorrow: BorrowFormProps['borrow'] = async amountWei => {
@@ -207,8 +209,9 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, includeXvs }) => {
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
-    // Return 0 values if borrow limit has been reached
-    if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
+    // Return 0 values while asset is loading or  if borrow limit has been
+    // reached
+    if (!asset || userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
       return ['0', '0'];
     }
 
@@ -233,49 +236,52 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, includeXvs }) => {
         marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
       : new BigNumber(0);
 
-    const tokenDecimals = unsafelyGetToken(asset.token.id).decimals;
     const formatValue = (value: BigNumber) =>
-      value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
+      value.dp(token.decimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
-    asset.token.id,
-    asset.tokenPrice,
-    asset.liquidity,
+    asset?.token.id,
+    asset?.tokenPrice,
+    asset?.liquidity,
     userTotalBorrowLimitCents.toFixed(),
     userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
-      <EnableToken
-        token={asset.token}
-        spenderAddress={vBepTokenContractAddress}
-        title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.token.symbol })}
-        tokenInfo={[
-          {
-            label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
-            iconSrc: asset.token,
-            children: formatToReadablePercentage(asset.borrowApy),
-          },
-          {
-            label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
-            iconSrc: TOKENS.xvs,
-            children: formatToReadablePercentage(asset.xvsBorrowApy),
-          },
-        ]}
-      >
-        <BorrowForm
-          asset={asset}
-          includeXvs={includeXvs}
-          limitTokens={limitTokens}
-          safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-          safeLimitTokens={safeLimitTokens}
-          borrow={handleBorrow}
-          isBorrowLoading={isBorrowLoading}
-          hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
-        />
-      </EnableToken>
+      {asset ? (
+        <EnableToken
+          token={token}
+          spenderAddress={vToken.address}
+          title={t('borrowRepayModal.borrow.enableToken.title', { symbol: token.symbol })}
+          tokenInfo={[
+            {
+              label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
+              iconSrc: token,
+              children: formatToReadablePercentage(asset.borrowApy),
+            },
+            {
+              label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
+              iconSrc: TOKENS.xvs,
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
+            },
+          ]}
+        >
+          <BorrowForm
+            asset={asset}
+            includeXvs={includeXvs}
+            limitTokens={limitTokens}
+            safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+            safeLimitTokens={safeLimitTokens}
+            borrow={handleBorrow}
+            isBorrowLoading={isBorrowLoading}
+            hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
+          />
+        </EnableToken>
+      ) : (
+        <Spinner />
+      )}
     </ConnectWallet>
   );
 };
