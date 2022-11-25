@@ -1,28 +1,27 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
-import supplyBnb, { SupplyBnbInput, SupplyBnbOutput } from 'clients/api/mutations/supplyBnb';
+import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
-import { useVTokenContract } from 'clients/contracts/hooks';
 import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
-import { VBnbToken } from 'types/contracts';
 
-export type SupplyBnbParams = Omit<SupplyBnbInput, 'tokenContract' | 'account' | 'web3'>;
+export type SupplyParams = Omit<SupplyInput, 'tokenContract' | 'accountAddress' | 'web3'>;
 
-const useSupplyBnb = (
-  { account }: { account: string },
+const useSupply = (
+  { vToken, accountAddress }: { vToken: Token; accountAddress: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<SupplyBnbOutput, Error, SupplyBnbParams>,
+  options?: MutationObserverOptions<SupplyOutput, Error, Omit<SupplyParams, 'vToken'>>,
 ) => {
-  const vBnbContract = useVTokenContract<'bnb'>('bnb');
   const web3 = useWeb3();
+
   return useMutation(
-    FunctionKey.SUPPLY_BNB,
+    FunctionKey.SUPPLY,
     params =>
-      supplyBnb({
-        tokenContract: vBnbContract as VBnbToken,
+      supply({
+        vToken,
         web3,
-        account,
+        accountAddress,
         ...params,
       }),
     {
@@ -32,8 +31,8 @@ const useSupplyBnb = (
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
-            accountAddress: account,
-            vTokenId: 'bnb',
+            accountAddress,
+            vTokenAddress: vToken.address,
           },
         ]);
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
@@ -48,4 +47,4 @@ const useSupplyBnb = (
   );
 };
 
-export default useSupplyBnb;
+export default useSupply;

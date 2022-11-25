@@ -2,7 +2,7 @@
 import { Modal, ModalProps, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
 
 import RequestWithdrawal from './RequestWithdrawal';
 import Withdraw from './Withdraw';
@@ -11,13 +11,13 @@ import { useStyles } from './styles';
 
 export interface WithdrawFromVestingVaultModalProps {
   handleClose: ModalProps['handleClose'];
-  stakedTokenId: string;
+  stakedToken: Token;
   poolIndex: number;
 }
 
 const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps> = ({
   handleClose,
-  stakedTokenId,
+  stakedToken,
   poolIndex,
 }) => {
   const [initialActiveTabIndex, setInitialActiveTabIndex] = useState(0);
@@ -32,7 +32,6 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
     setInitialActiveTabIndex(1);
   };
 
-  const stakedToken = unsafelyGetToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -41,7 +40,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       title: t('withdrawFromVestingVaultModalModal.withdrawTabTitle'),
       content: (
         <div css={styles.tabContainer}>
-          <Withdraw stakedTokenId={stakedTokenId} poolIndex={poolIndex} handleClose={handleClose} />
+          <Withdraw stakedToken={stakedToken} poolIndex={poolIndex} handleClose={handleClose} />
         </div>
       ),
     },
@@ -50,7 +49,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       content: (
         <div css={styles.tabContainer}>
           <RequestWithdrawal
-            stakedTokenId={stakedTokenId}
+            stakedToken={stakedToken}
             poolIndex={poolIndex}
             handleClose={handleClose}
             handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestList}

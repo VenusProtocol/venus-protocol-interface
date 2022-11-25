@@ -12,19 +12,18 @@ import {
   getVTokenBalanceOf,
   redeem,
   redeemUnderlying,
-  supplyBnb,
-  supplyNonBnb,
+  supply,
+  useGetUserAsset,
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS } from 'constants/tokens';
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import SupplyWithdraw from '.';
 
-const asset = assetData[1];
 const fakeGetVTokenBalance = new BigNumber('111');
 
 const fakeAsset: Asset = {
@@ -42,6 +41,13 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal', () => {
   beforeEach(() => {
+    (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        asset: fakeAsset,
+      },
+    }));
+
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
@@ -58,12 +64,24 @@ describe('hooks/useSupplyWithdrawModal', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(() => <SupplyWithdraw onClose={jest.fn()} asset={asset} includeXvs />);
+    renderComponent(() => (
+      <SupplyWithdraw
+        onClose={jest.fn()}
+        token={fakeAsset.token}
+        vToken={VBEP_TOKENS.sxp}
+        includeXvs
+      />
+    ));
   });
 
   it('asks the user to connect if wallet is not connected', async () => {
     const { getByText } = renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} asset={asset} includeXvs />
+      <SupplyWithdraw
+        onClose={jest.fn()}
+        token={fakeAsset.token}
+        vToken={VBEP_TOKENS.sxp}
+        includeXvs
+      />
     ));
 
     const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
@@ -76,7 +94,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} asset={asset} includeXvs />,
+      () => (
+        <SupplyWithdraw
+          onClose={jest.fn()}
+          token={fakeAsset.token}
+          vToken={VBEP_TOKENS.sxp}
+          includeXvs
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -112,6 +137,13 @@ describe('hooks/useSupplyWithdrawModal', () => {
         token,
       };
 
+      (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+        isLoading: false,
+        data: {
+          asset: customFakeAsset,
+        },
+      }));
+
       (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
         data: {
           assets: [customFakeAsset],
@@ -122,7 +154,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { queryByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={customFakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={customFakeAsset.token}
+            vToken={token}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -137,7 +176,12 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
-        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} includeXvs />,
+        <SupplyWithdraw
+          onClose={jest.fn()}
+          token={fakeAsset.token}
+          vToken={VBEP_TOKENS.sxp}
+          includeXvs
+        />,
         {
           authContextValue: {
             account: {
@@ -152,7 +196,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token supply balance', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={fakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -171,6 +222,13 @@ describe('hooks/useSupplyWithdrawModal', () => {
         walletBalance: new BigNumber(1),
       };
 
+      (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+        isLoading: false,
+        data: {
+          asset: customFakeAsset,
+        },
+      }));
+
       (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
         data: {
           assets: [customFakeAsset],
@@ -181,7 +239,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={customFakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={customFakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -210,7 +275,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('submit is disabled with no amount', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={fakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -235,6 +307,13 @@ describe('hooks/useSupplyWithdrawModal', () => {
         walletBalance: new BigNumber('11'),
       };
 
+      (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+        isLoading: false,
+        data: {
+          asset: customFakeAsset,
+        },
+      }));
+
       (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
         data: {
           assets: [customFakeAsset],
@@ -247,10 +326,17 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const onCloseMock = jest.fn();
       const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-      (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+      (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} asset={customFakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={onCloseMock}
+            token={customFakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -273,7 +359,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
         new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
-      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
+      await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
       expect(onCloseMock).toHaveBeenCalledTimes(1);
       await waitFor(() =>
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
@@ -295,6 +381,13 @@ describe('hooks/useSupplyWithdrawModal', () => {
         walletBalance: new BigNumber('11'),
       };
 
+      (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+        isLoading: false,
+        data: {
+          asset: customFakeAsset,
+        },
+      }));
+
       (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
         data: {
           assets: [customFakeAsset],
@@ -307,10 +400,17 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const onCloseMock = jest.fn();
       const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-      (supplyNonBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+      (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} asset={customFakeAsset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={onCloseMock}
+            token={customFakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -335,9 +435,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
         new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
-      await waitFor(() =>
-        expect(supplyNonBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
-      );
+      await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
       expect(onCloseMock).toHaveBeenCalledTimes(1);
       await waitFor(() =>
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
@@ -358,8 +456,28 @@ describe('hooks/useSupplyWithdrawModal', () => {
       (getVTokenBalanceOf as jest.Mock).mockImplementationOnce(async () => ({
         balanceWei: fakeGetVTokenBalance,
       }));
+
+      const customFakeAsset: Asset = {
+        ...fakeAsset,
+        collateral: false,
+      };
+
+      (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+        isLoading: false,
+        data: {
+          asset: customFakeAsset,
+        },
+      }));
+
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={asset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={customFakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -378,6 +496,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const submitButton = await waitFor(
         () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
       );
+
       await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
       fireEvent.click(submitButton);
       await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: fakeGetVTokenBalance }));
@@ -385,7 +504,14 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('redeemUnderlying is called when partial amount is withdrawn', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={asset} includeXvs />,
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            token={fakeAsset.token}
+            vToken={VBEP_TOKENS.sxp}
+            includeXvs
+          />
+        ),
         {
           authContextValue: {
             account: {
@@ -411,7 +537,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(asset.token.decimals),
+        new BigNumber(10).pow(fakeAsset.token.decimals),
       );
 
       await waitFor(() =>

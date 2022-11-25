@@ -1,44 +1,32 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
+import { Token } from 'types';
 
-import { useGetUserMarketInfo } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import Modal from './Modal';
 
 const useSupplyWithdrawModal = () => {
-  const { account } = useContext(AuthContext);
   const { includeXvs } = useContext(IncludeXvsContext);
-  const [selectedAssetId, setSelectedAssetId] = useState<undefined | string>();
-
-  const {
-    data: { assets },
-  } = useGetUserMarketInfo({
-    accountAddress: account?.address,
-  });
-
-  const selectedAsset = useMemo(
-    () => assets.find(marketAsset => marketAsset.token.id === selectedAssetId),
-    [selectedAssetId, JSON.stringify(assets)],
-  );
+  const [selectedToken, setSelectedToken] = useState<undefined | { token: Token; vToken: Token }>();
 
   const SupplyWithdrawModal: React.FC = useCallback(() => {
-    if (!selectedAsset) {
+    if (!selectedToken) {
       return <></>;
     }
 
     return (
       <Modal
-        asset={selectedAsset}
-        onClose={() => setSelectedAssetId(undefined)}
+        {...selectedToken}
+        onClose={() => setSelectedToken(undefined)}
         includeXvs={includeXvs}
       />
     );
-  }, [selectedAsset]);
+  }, [selectedToken]);
 
   return {
-    openSupplyWithdrawModal: (assetId: string) => setSelectedAssetId(assetId),
-    closeSupplyWithdrawModal: () => setSelectedAssetId(undefined),
+    openSupplyWithdrawModal: ({ token, vToken }: { token: Token; vToken: Token }) =>
+      setSelectedToken({ token, vToken }),
+    closeSupplyWithdrawModal: () => setSelectedToken(undefined),
     SupplyWithdrawModal,
   };
 };

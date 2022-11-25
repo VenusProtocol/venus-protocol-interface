@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { VaultItemUi } from '.';
@@ -20,8 +21,8 @@ export default {
 
 export const Default = () => (
   <VaultItemUi
-    stakedTokenId="vai"
-    rewardTokenId="xvs"
+    stakedToken={TOKENS.vai}
+    rewardToken={TOKENS.xvs}
     userPendingRewardWei={new BigNumber(0)}
     userStakedWei={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}
@@ -37,8 +38,8 @@ export const Default = () => (
 
 export const WithPendingReward = () => (
   <VaultItemUi
-    stakedTokenId="vrt"
-    rewardTokenId="vrt"
+    stakedToken={TOKENS.vrt}
+    rewardToken={TOKENS.vrt}
     userPendingRewardWei={new BigNumber('900000000000000')}
     userStakedWei={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}

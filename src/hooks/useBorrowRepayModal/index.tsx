@@ -1,44 +1,32 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
+import { Token } from 'types';
 
-import { useGetUserMarketInfo } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import Modal from './Modal';
 
 const useBorrowRepayModal = () => {
-  const { account } = useContext(AuthContext);
   const { includeXvs } = useContext(IncludeXvsContext);
-  const [selectedAssetId, setSelectedAssetId] = useState<undefined | string>();
-
-  const {
-    data: { assets },
-  } = useGetUserMarketInfo({
-    accountAddress: account?.address,
-  });
-
-  const selectedAsset = useMemo(
-    () => assets.find(marketAsset => marketAsset.token.id === selectedAssetId),
-    [selectedAssetId, JSON.stringify(assets)],
-  );
+  const [selectedToken, setSelectedToken] = useState<undefined | { token: Token; vToken: Token }>();
 
   const BorrowRepayModal: React.FC = useCallback(() => {
-    if (!selectedAsset) {
+    if (!selectedToken) {
       return <></>;
     }
 
     return (
       <Modal
-        asset={selectedAsset}
-        onClose={() => setSelectedAssetId(undefined)}
+        {...selectedToken}
+        onClose={() => setSelectedToken(undefined)}
         includeXvs={includeXvs}
       />
     );
-  }, [selectedAsset]);
+  }, [selectedToken]);
 
   return {
-    openBorrowRepayModal: (assetId: string) => setSelectedAssetId(assetId),
-    closeBorrowRepayModal: () => setSelectedAssetId(undefined),
+    openBorrowRepayModal: ({ token, vToken }: { token: Token; vToken: Token }) =>
+      setSelectedToken({ token, vToken }),
+    closeBorrowRepayModal: () => setSelectedToken(undefined),
     BorrowRepayModal,
   };
 };

@@ -134,9 +134,9 @@ const useGetVestingVaults = ({
           const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
           const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
 
-          const stakedTokenId =
+          const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
-            getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress)?.id;
+            getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress);
 
           const poolRewardWeiPerBlock =
             xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
@@ -159,15 +159,15 @@ const useGetVestingVaults = ({
               .toNumber();
 
           if (
-            stakedTokenId &&
+            stakedToken &&
             lockingPeriodMs &&
             dailyEmissionWei &&
             totalStakedWeiData &&
             stakingAprPercentage
           ) {
             const vault: Vault = {
-              rewardTokenId: TOKENS.xvs.id,
-              stakedTokenId,
+              rewardToken: TOKENS.xvs,
+              stakedToken,
               lockingPeriodMs,
               dailyEmissionWei,
               totalStakedWei: totalStakedWeiData.balanceWei,

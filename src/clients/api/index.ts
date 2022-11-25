@@ -25,27 +25,18 @@ export { default as convertVrt } from './mutations/convertVrt';
 export * from './mutations/convertVrt';
 export { default as useConvertVrt } from './mutations/convertVrt/useConvertVrt';
 
-export { default as supplyNonBnb } from './mutations/supplyNonBnb';
-export * from './mutations/supplyNonBnb';
-export { default as useSupplyNonBnb } from './mutations/supplyNonBnb/useSupplyNonBnb';
-export * from './mutations/supplyNonBnb/useSupplyNonBnb';
-
-export { default as supplyBnb } from './mutations/supplyBnb';
-export * from './mutations/supplyBnb';
-export { default as useSupplyBnb } from './mutations/supplyBnb/useSupplyBnb';
-export * from './mutations/supplyBnb/useSupplyBnb';
+export { default as supply } from './mutations/supply';
+export * from './mutations/supply';
+export { default as useSupply } from './mutations/supply/useSupply';
+export * from './mutations/supply/useSupply';
 
 export { default as redeem } from './mutations/redeem';
 export * from './mutations/redeem';
 export { default as useRedeem } from './mutations/redeem/useRedeem';
 
-export { default as repayNonBnbVToken } from './mutations/repayNonBnbVToken';
-export * from './mutations/repayNonBnbVToken';
-export { default as useRepayNonBnbVToken } from './mutations/repayNonBnbVToken/useRepayNonBnbVToken';
-
-export { default as repayBnb } from './mutations/repayBnb';
-export * from './mutations/repayBnb';
-export { default as useRepayBnb } from './mutations/repayBnb/useRepayBnb';
+export { default as repay } from './mutations/repay';
+export * from './mutations/repay';
+export { default as useRepay } from './mutations/repay/useRepay';
 
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
@@ -55,11 +46,9 @@ export { default as claimXvsReward } from './mutations/claimXvsReward';
 export * from './mutations/claimXvsReward';
 export { default as useClaimXvsReward } from './mutations/claimXvsReward/useClaimXvsReward';
 
-export { default as borrowVToken } from './mutations/borrowVToken';
-export * from './mutations/borrowVToken';
-export { default as useBorrowVToken } from './mutations/borrowVToken/useBorrowVToken';
-
-export { default as useRepayVToken } from './mutations/useRepayVToken';
+export { default as borrow } from './mutations/borrow';
+export * from './mutations/borrow';
+export { default as useBorrow } from './mutations/borrow/useBorrow';
 
 export { default as withdrawXvs } from './mutations/withdrawXvs';
 export * from './mutations/withdrawXvs';
@@ -195,6 +184,8 @@ export * from './queries/getXvsWithdrawableAmount';
 export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
 
 export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
+
+export { default as useGetUserAsset } from './queries/useGetUserAsset';
 
 export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
 

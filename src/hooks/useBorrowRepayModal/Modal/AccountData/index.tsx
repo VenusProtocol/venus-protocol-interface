@@ -76,7 +76,7 @@ const AccountData: React.FC<AccountDataProps> = ({
       const updatedAssets = assets.map(assetData => ({
         ...assetData,
         borrowBalance:
-          assetData.token.address === asset.token.address
+          assetData.token.address.toLowerCase() === asset.token.address.toLowerCase()
             ? assetData.borrowBalance.plus(tokenAmount)
             : assetData.borrowBalance,
       }));
