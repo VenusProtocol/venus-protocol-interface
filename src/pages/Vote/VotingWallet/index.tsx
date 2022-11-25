@@ -204,7 +204,9 @@ const VotingWallet: React.FC = () => {
 
   const { data: vaults } = useGetVestingVaults({ accountAddress });
 
-  const [xvsVault] = vaults.filter(v => v.stakedTokenId === TOKENS.xvs.id);
+  const [xvsVault] = vaults.filter(
+    v => v.stakedToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+  );
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();

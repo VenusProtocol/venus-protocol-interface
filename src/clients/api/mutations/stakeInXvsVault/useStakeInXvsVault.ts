@@ -1,5 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { getContractAddress, unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
+import { getContractAddress } from 'utilities';
 
 import {
   StakeInXvsVaultInput,
@@ -19,7 +20,7 @@ type Options = MutationObserverOptions<
   Omit<StakeInXvsVaultInput, 'xvsVaultContract'>
 >;
 
-const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, options?: Options) => {
+const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: Options) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
@@ -45,8 +46,6 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, option
           FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
           { accountAddress: fromAccountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
-
-        const stakedToken = unsafelyGetToken(stakedTokenId);
 
         // Invalidate cached user balance
         queryClient.invalidateQueries([

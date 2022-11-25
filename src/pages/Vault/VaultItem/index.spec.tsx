@@ -52,7 +52,7 @@ describe('pages/Vault/VaultItem', () => {
   it('hides withdraw button when displaying non-vesting VRT vault and userStakedWei is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id,
+      stakedToken: TOKENS.vrt,
       userStakedWei: new BigNumber(0),
     };
 
@@ -82,8 +82,8 @@ describe('pages/Vault/VaultItem', () => {
     expect(claimReward).toHaveBeenCalledWith({
       accountAddress: fakeAddress,
       poolIndex: baseProps.poolIndex,
-      rewardTokenId: baseProps.rewardTokenId,
-      stakedTokenId: baseProps.stakedTokenId,
+      rewardToken: baseProps.rewardToken,
+      stakedToken: baseProps.stakedToken,
     });
 
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
@@ -101,7 +101,7 @@ describe('pages/Vault/VaultItem', () => {
 
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id,
+      stakedToken: TOKENS.vrt,
     };
 
     const { getByText } = renderComponent(<VaultItem {...customBaseProps} />, {

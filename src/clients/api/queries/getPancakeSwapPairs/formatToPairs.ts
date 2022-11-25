@@ -36,7 +36,11 @@ const formatToPairs = ({
 
     // Exclude pair if it already exists
     if (
-      acc.find(existingPair => existingPair.liquidityToken.address === pair.liquidityToken.address)
+      acc.find(
+        existingPair =>
+          existingPair.liquidityToken.address.toLowerCase() ===
+          pair.liquidityToken.address.toLowerCase(),
+      )
     ) {
       return acc;
     }

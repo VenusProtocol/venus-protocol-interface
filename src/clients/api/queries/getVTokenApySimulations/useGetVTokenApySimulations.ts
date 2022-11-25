@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { Token } from 'types';
 
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
@@ -13,18 +14,18 @@ type Options = QueryObserverOptions<
   Error,
   GetVTokenApySimulationsOutput,
   GetVTokenApySimulationsOutput,
-  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, string]
+  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: string }]
 >;
 
 const useGetVTokenApySimulations = (
-  { vTokenId, reserveFactorMantissa }: { vTokenId: string; reserveFactorMantissa?: BigNumber },
+  { vToken, reserveFactorMantissa }: { vToken: Token; reserveFactorMantissa?: BigNumber },
   options?: Options,
 ) => {
   const multicall = useMulticall();
-  const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vTokenId });
+  const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, vTokenId],
+    [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address }],
     () =>
       getVTokenApySimulations({
         multicall,

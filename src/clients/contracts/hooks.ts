@@ -32,9 +32,9 @@ export const useTokenContractByAddress = (address: string) => {
   return useMemo(() => getTokenContractByAddress(address, web3), [web3, address]);
 };
 
-export const useVTokenContract = <T extends string>(name: T) => {
+export const useVTokenContract = (vToken: Token) => {
   const web3 = useWeb3();
-  return useMemo(() => getVTokenContract<T>(name, web3), [web3, name]);
+  return useMemo(() => getVTokenContract(vToken, web3), [web3, vToken]);
 };
 
 export const useVaiUnitrollerContract = () => {

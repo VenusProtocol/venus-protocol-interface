@@ -4,6 +4,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
+import { unsafelyGetToken, unsafelyGetVToken } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -14,23 +15,6 @@ import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 import { useStyles } from './styles';
 import { ColumnName } from './types';
 import useGenerateData from './useGenerateData';
-
-// Translation keys: do not remove this comment
-// t('marketTable.columns.asset')
-// t('marketTable.columns.supplyApyLtv')
-// t('marketTable.columns.labeledSupplyApyLtv')
-// t('marketTable.columns.borrowApy')
-// t('marketTable.columns.labeledBorrowApy')
-// t('marketTable.columns.pool')
-// t('marketTable.columns.supplyBalance')
-// t('marketTable.columns.borrowBalance')
-// t('marketTable.columns.riskLevel')
-// t('marketTable.columns.collateral')
-// t('marketTable.columns.treasuryTotalBorrow')
-// t('marketTable.columns.treasuryTotalSupply')
-// t('marketTable.columns.walletBalance')
-// t('marketTable.columns.percentOfLimit')
-// t('marketTable.columns.liquidity')
 
 export interface MarketTableProps
   extends Partial<Omit<TableProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
@@ -118,10 +102,15 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       return;
     }
 
+    // TODO: get token and vToken from row directly (requires update of Table
+    // component, see VEN-490)
+    const token = unsafelyGetToken(assetId);
+    const vToken = unsafelyGetVToken(assetId);
+
     if (marketType === 'borrow') {
-      openBorrowRepayModal(assetId);
+      openBorrowRepayModal({ token, vToken });
     } else {
-      openSupplyWithdrawModal(assetId);
+      openSupplyWithdrawModal({ token, vToken });
     }
   };
 

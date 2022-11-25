@@ -6,6 +6,7 @@ import {
   LabeledInlineContent,
   NoticeWarning,
   PrimaryButton,
+  Spinner,
   TertiaryButton,
   TokenTextField,
   toast,
@@ -13,15 +14,14 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  unsafelyGetVToken,
 } from 'utilities';
 
-import { useRepayVToken } from 'clients/api';
+import { useGetUserAsset, useRepay } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -207,24 +207,27 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 };
 
 export interface RepayProps {
-  asset: Asset;
+  token: Token;
+  vToken: Token;
   includeXvs: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<RepayProps> = ({ asset, onClose, includeXvs }) => {
+const Repay: React.FC<RepayProps> = ({ token, vToken, onClose, includeXvs }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
+  const {
+    data: { asset },
+  } = useGetUserAsset({ token });
 
   const limitTokens = React.useMemo(
-    () => BigNumber.min(asset.borrowBalance, asset.walletBalance),
-    [asset.borrowBalance, asset.walletBalance],
+    () => (asset ? BigNumber.min(asset.borrowBalance, asset.walletBalance) : new BigNumber(0)),
+    [asset?.borrowBalance, asset?.walletBalance],
   );
 
-  const { mutateAsync: repay, isLoading: isRepayLoading } = useRepayVToken({
-    vTokenId: asset.token.id,
+  const { mutateAsync: repay, isLoading: isRepayLoading } = useRepay({
+    vToken,
   });
 
   const handleRepay: RepayFormProps['repay'] = async amountWei => {
@@ -233,12 +236,12 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, includeXvs }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertTokensToWei({ value: asset.borrowBalance, token: asset.token }),
+      convertTokensToWei({ value: asset!.borrowBalance, token: asset!.token }),
     );
 
     const res = await repay({
       amountWei,
-      fromAccountAddress: account.address,
+      accountAddress: account.address,
       isRepayingFullLoan,
     });
 
@@ -250,31 +253,35 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, includeXvs }) => {
 
   return (
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
-      <EnableToken
-        token={asset.token}
-        spenderAddress={vBepTokenContractAddress}
-        title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.token.symbol })}
-        tokenInfo={[
-          {
-            label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
-            iconSrc: asset.token,
-            children: formatToReadablePercentage(asset.borrowApy),
-          },
-          {
-            label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
-            iconSrc: TOKENS.xvs,
-            children: formatToReadablePercentage(asset.xvsBorrowApy),
-          },
-        ]}
-      >
-        <RepayForm
-          asset={asset}
-          repay={handleRepay}
-          includeXvs={includeXvs}
-          isRepayLoading={isRepayLoading}
-          limitTokens={limitTokens.toFixed()}
-        />
-      </EnableToken>
+      {asset ? (
+        <EnableToken
+          token={token}
+          spenderAddress={vToken.address}
+          title={t('borrowRepayModal.repay.enableToken.title', { symbol: token.symbol })}
+          tokenInfo={[
+            {
+              label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
+              iconSrc: token,
+              children: formatToReadablePercentage(asset.borrowApy),
+            },
+            {
+              label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
+              iconSrc: TOKENS.xvs,
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
+            },
+          ]}
+        >
+          <RepayForm
+            asset={asset}
+            repay={handleRepay}
+            includeXvs={includeXvs}
+            isRepayLoading={isRepayLoading}
+            limitTokens={limitTokens.toFixed()}
+          />
+        </EnableToken>
+      ) : (
+        <Spinner />
+      )}
     </ConnectWallet>
   );
 };

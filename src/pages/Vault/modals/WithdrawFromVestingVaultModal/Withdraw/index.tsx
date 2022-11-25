@@ -4,7 +4,7 @@ import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'com
 import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -15,7 +15,7 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface WithdrawUiProps {
-  stakedTokenId: string;
+  stakedToken: Token;
   isInitialLoading: boolean;
   onSubmitSuccess: () => void;
   onSubmit: () => Promise<unknown>;
@@ -24,7 +24,7 @@ export interface WithdrawUiProps {
 }
 
 const WithdrawUi: React.FC<WithdrawUiProps> = ({
-  stakedTokenId,
+  stakedToken,
   isInitialLoading,
   onSubmit,
   onSubmitSuccess,
@@ -39,8 +39,6 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
     onSubmitSuccess();
   };
-
-  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
     valueWei: withdrawableWei,
@@ -81,12 +79,12 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 export interface WithdrawProps {
-  stakedTokenId: string;
+  stakedToken: Token;
   poolIndex: number;
   handleClose: () => void;
 }
 
-const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
+const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
 
@@ -125,7 +123,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
     mutateAsync: executeWithdrawalFromXvsVault,
     isLoading: isExecutingWithdrawalFromXvsVault,
   } = useExecuteWithdrawalFromXvsVault({
-    stakedTokenId,
+    stakedToken,
   });
 
   const handleSubmit = () =>
@@ -142,7 +140,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
       message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
     >
       <WithdrawUi
-        stakedTokenId={stakedTokenId}
+        stakedToken={stakedToken}
         isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
         isSubmitting={isExecutingWithdrawalFromXvsVault}
         withdrawableWei={withdrawableWei}

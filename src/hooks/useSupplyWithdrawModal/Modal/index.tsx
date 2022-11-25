@@ -13,21 +13,17 @@ import {
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
-import {
-  convertTokensToWei,
-  formatToReadablePercentage,
-  isAssetEnabled,
-  unsafelyGetVToken,
-} from 'utilities';
+import { Asset, Token } from 'types';
+import { convertTokensToWei, formatToReadablePercentage, isAssetEnabled } from 'utilities';
 
 import {
+  useGetUserAsset,
   useGetUserMarketInfo,
   useGetVTokenBalanceOf,
   useRedeem,
   useRedeemUnderlying,
+  useSupply,
 } from 'clients/api';
-import useSupply from 'clients/api/mutations/useSupply';
 import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -39,20 +35,20 @@ import { useStyles } from './styles';
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];
   includeXvs: boolean;
-  asset: Asset;
+  token: Token;
+  vToken: Token;
 }
 
 export interface SupplyWithdrawUiProps extends SupplyWithdrawProps {
-  className?: string;
-  onClose: ModalProps['handleClose'];
-  assets: Asset[];
-  includeXvs: boolean;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
   onSubmitSupply: AmountFormProps['onSubmit'];
   onSubmitWithdraw: AmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
   isWithdrawLoading: boolean;
+  assets: Asset[];
+  className?: string;
+  asset?: Asset;
 }
 
 /**
@@ -63,6 +59,8 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   className,
   onClose,
   asset,
+  token,
+  vToken,
   assets,
   userTotalBorrowBalanceCents,
   userTotalBorrowLimitCents,
@@ -76,8 +74,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 
   const { id: assetId, symbol } = asset?.token || {};
   const { t } = useTranslation();
-
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
 
   const tokenInfo: LabeledInlineContentProps[] = asset
     ? [
@@ -115,11 +111,11 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     isTransactionLoading: boolean;
     onSubmit: AmountFormProps['onSubmit'];
   }) => {
-    if (!asset) {
-      return <></>;
-    }
-
     const maxInput = React.useMemo(() => {
+      if (!asset) {
+        return new BigNumber(0);
+      }
+
       let maxInputTokens = asset.walletBalance;
 
       // If asset isn't used as collateral user can withdraw the entire supply
@@ -150,7 +146,11 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
       }
 
       return maxInputTokens;
-    }, []);
+    }, [asset]);
+
+    if (!asset) {
+      return <></>;
+    }
 
     return (
       <div className={className} css={styles.container}>
@@ -158,7 +158,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
           {asset ? (
             <EnableToken
               token={asset.token}
-              spenderAddress={vBepTokenContractAddress}
+              spenderAddress={vToken.address}
               title={title}
               tokenInfo={tokenInfo}
             >
@@ -227,15 +227,24 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     <Modal
       isOpen={!!assetId}
       handleClose={onClose}
-      title={assetId ? <TokenIconWithSymbol token={asset.token} variant="h4" /> : undefined}
+      title={assetId ? <TokenIconWithSymbol token={token} variant="h4" /> : undefined}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );
 };
 
-const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ asset, includeXvs, onClose }) => {
+const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
+  token,
+  vToken,
+  includeXvs,
+  onClose,
+}) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+
+  const {
+    data: { asset },
+  } = useGetUserAsset({ token });
 
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
@@ -247,30 +256,30 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ asset, includeXvs,
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const { data: vTokenBalanceData } = useGetVTokenBalanceOf(
-    { accountAddress, vTokenId: asset.token.id },
+    { accountAddress, vToken },
     { enabled: !!accountAddress },
   );
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
-    asset,
-    account: accountAddress,
+    vToken,
+    accountAddress,
   });
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
-    vTokenId: asset?.token.id,
+    vToken,
     accountAddress,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
-      vTokenId: asset?.token.id,
+      vToken,
       accountAddress,
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
-    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token: asset.token });
+    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token });
     const res = await supply({
       amountWei: supplyAmountWei,
     });
@@ -281,7 +290,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ asset, includeXvs,
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
         valueWei: supplyAmountWei,
-        token: asset.token,
+        token,
       },
       transactionHash: res.transactionHash,
     });
@@ -321,8 +330,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ asset, includeXvs,
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertTokensToWei({ value: amount, token: asset.token }),
-          token: asset.token,
+          valueWei: convertTokensToWei({ value: amount, token }),
+          token,
         },
         transactionHash,
       });
@@ -331,6 +340,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ asset, includeXvs,
   return (
     <SupplyWithdrawUi
       onClose={onClose}
+      token={token}
+      vToken={vToken}
       asset={asset}
       assets={assets}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}

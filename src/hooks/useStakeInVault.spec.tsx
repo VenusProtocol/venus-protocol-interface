@@ -20,8 +20,8 @@ describe('hooks/useStakeInVault', () => {
 
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedTokenId: TOKENS.vai.id,
-        rewardTokenId: TOKENS.xvs.id,
+        stakedToken: TOKENS.vai,
+        rewardToken: TOKENS.xvs,
         poolIndex: fakePoolIndex,
       });
 
@@ -52,15 +52,15 @@ describe('hooks/useStakeInVault', () => {
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAccountAddress,
       poolIndex: fakePoolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardToken: TOKENS.xvs,
     });
   });
 
-  it('calls stakeInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vai"', async () => {
+  it('calls stakeInVaiVault with correct parameters when calling stake without a poolIndex and stakedToken is equal VAI', async () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedTokenId: TOKENS.vai.id,
-        rewardTokenId: TOKENS.xvs.id,
+        stakedToken: TOKENS.vai,
+        rewardToken: TOKENS.xvs,
       });
 
       return (
@@ -92,11 +92,11 @@ describe('hooks/useStakeInVault', () => {
     });
   });
 
-  it('calls stakeInVrtVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vrt"', async () => {
+  it('calls stakeInVrtVault with correct parameters when calling stake without a poolIndex and stakedToken is VRT', async () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedTokenId: TOKENS.vrt.id,
-        rewardTokenId: TOKENS.xvs.id,
+        stakedToken: TOKENS.vrt,
+        rewardToken: TOKENS.xvs,
       });
 
       return (

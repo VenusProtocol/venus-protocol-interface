@@ -1,15 +1,16 @@
 import { VError } from 'errors';
-import { unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
 
 import {
   useClaimVaiVaultReward,
   useClaimVrtVaultReward,
   useClaimXvsVaultReward,
 } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 
 interface StakeInput {
-  rewardTokenId: string;
-  stakedTokenId: string;
+  rewardToken: Token;
+  stakedToken: Token;
   accountAddress: string;
   poolIndex?: number;
 }
@@ -27,28 +28,26 @@ const useClaimVaultReward = () => {
   const isLoading = isClaimXvsVaultRewardLoading || isClaimVaiVaultReward || isClaimVrtVaultReward;
 
   const claimReward = async ({
-    rewardTokenId,
-    stakedTokenId,
+    rewardToken,
+    stakedToken,
     accountAddress,
     poolIndex,
   }: StakeInput) => {
     if (typeof poolIndex === 'number') {
-      const rewardTokenAddress = unsafelyGetToken(rewardTokenId).address;
-
       return claimXvsVaultRewardLoading({
         poolIndex,
         fromAccountAddress: accountAddress,
-        rewardTokenAddress,
+        rewardToken,
       });
     }
 
-    if (stakedTokenId === 'vai') {
+    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
       return claimVaiVaultReward({
         fromAccountAddress: accountAddress,
       });
     }
 
-    if (stakedTokenId === 'vrt') {
+    if (stakedToken.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
       return claimVrtVaultReward({
         fromAccountAddress: accountAddress,
       });

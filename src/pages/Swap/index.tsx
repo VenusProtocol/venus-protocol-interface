@@ -184,7 +184,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               // Invert toToken and fromToken if selected token is the same as
               // toToken
               toToken:
-                token.address === formValues.toToken.address
+                token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
                   ? currentFormValues.fromToken
                   : currentFormValues.toToken,
             }))
@@ -229,7 +229,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               // Invert fromToken and toToken if selected token is the same as
               // fromToken
               fromToken:
-                token.address === formValues.fromToken.address
+                token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
                   ? currentFormValues.toToken
                   : currentFormValues.fromToken,
             }))

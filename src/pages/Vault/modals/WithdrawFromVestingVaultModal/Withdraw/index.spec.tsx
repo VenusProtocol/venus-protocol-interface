@@ -16,7 +16,7 @@ import TEST_IDS from './testIds';
 jest.mock('clients/api');
 
 const fakePoolIndex = 6;
-const fakeStokedTokenId = TOKENS.vai.id;
+const fakeStakedToken = TOKENS.vai;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
 
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
-      <Withdraw poolIndex={fakePoolIndex} stakedTokenId={fakeStokedTokenId} handleClose={noop} />,
+      <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
         authContextValue: { account: { address: fakeAddress } },
       },
@@ -39,7 +39,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
 
   it('fetches available tokens amount and displays it correctly', async () => {
     const { getByTestId } = renderComponent(
-      <Withdraw poolIndex={fakePoolIndex} stakedTokenId={fakeStokedTokenId} handleClose={noop} />,
+      <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
         authContextValue: { account: { address: fakeAddress } },
       },
@@ -56,7 +56,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(
-      <Withdraw poolIndex={fakePoolIndex} stakedTokenId={fakeStokedTokenId} handleClose={noop} />,
+      <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
         authContextValue: { account: { address: fakeAddress } },
       },
@@ -76,7 +76,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     const { getByTestId, getByText } = renderComponent(
       <Withdraw
         poolIndex={fakePoolIndex}
-        stakedTokenId={fakeStokedTokenId}
+        stakedToken={fakeStakedToken}
         handleClose={handleCloseMock}
       />,
       {

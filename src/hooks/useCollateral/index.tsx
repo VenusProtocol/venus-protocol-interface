@@ -67,7 +67,7 @@ const useCollateral = () => {
     setSelectedAsset(asset);
 
     if (asset.collateral) {
-      const vTokenContract = getVTokenContract(vToken.id, web3);
+      const vTokenContract = getVTokenContract(vToken, web3);
 
       try {
         const vTokenBalanceOf = await getVTokenBalanceOf({

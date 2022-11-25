@@ -117,6 +117,13 @@ export const useGetUserMarketInfo = jest.fn(() => ({
   },
 }));
 
+export const useGetUserAsset = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    assets: assetData[0],
+  },
+}));
+
 export const getXvsVaultPoolInfo = jest.fn();
 export const useGetXvsVaultPoolInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
@@ -261,22 +268,11 @@ export const claimVrtVaultReward = jest.fn();
 export const useClaimVrtVaultReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_VRT_VAULT_REWARD, claimVrtVaultReward, options);
 
-export const repayBnb = jest.fn();
-export const useRepayBnb = () => useMutation(FunctionKey.REPAY_BNB, repayBnb);
-
-export const repayNonBnbVToken = jest.fn();
-export const useRepayNonBnbVToken = () =>
-  useMutation(FunctionKey.REPAY_NON_BNB_V_TOKEN, repayNonBnbVToken);
-
-export const useRepayVToken = useRepayNonBnbVToken;
+export const repay = jest.fn();
+export const useRepay = () => useMutation(FunctionKey.REPAY, repay);
 
 export const supply = jest.fn();
 export const useSupply = () => useMutation(FunctionKey.SUPPLY, supply);
-export const supplyNonBnb = jest.fn();
-export const useSupplyNonBnb = () => useMutation(FunctionKey.SUPPLY, supplyNonBnb);
-
-export const supplyBnb = jest.fn();
-export const useSupplyBnb = () => useMutation(FunctionKey.SUPPLY_BNB, supplyBnb);
 
 export const redeem = jest.fn();
 export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
@@ -284,8 +280,8 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
 
-export const borrowVToken = jest.fn();
-export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);
+export const borrow = jest.fn();
+export const useBorrow = () => useMutation(FunctionKey.BORROW, borrow);
 
 export const withdrawXvs = jest.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>

@@ -15,7 +15,7 @@ export interface VaultUiProps {
 }
 
 const generateVaultKey = (vault: Vault) =>
-  `vault-${vault.stakedTokenId}-${vault.rewardTokenId}-${vault.lockingPeriodMs || 0}`;
+  `vault-${vault.stakedToken.address}-${vault.rewardToken.address}-${vault.lockingPeriodMs || 0}`;
 
 export const VaultUi: React.FC<VaultUiProps> = ({ vaults, isInitialLoading }) => {
   const styles = useStyles();

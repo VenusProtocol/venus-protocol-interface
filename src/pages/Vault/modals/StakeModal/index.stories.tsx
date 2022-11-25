@@ -29,8 +29,8 @@ const authContext = {
 
 export const Default = Template.bind({});
 Default.args = {
-  stakedTokenId: 'vai',
-  rewardTokenId: 'xvs',
+  stakedToken: TOKENS.vai,
+  rewardToken: TOKENS.xvs,
   handleClose: noop,
 };
 Default.decorators = [
@@ -44,23 +44,23 @@ Default.decorators = [
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
-  stakedTokenId: 'vai',
-  rewardTokenId: 'xvs',
+  stakedToken: TOKENS.vai,
+  rewardToken: TOKENS.xvs,
   handleClose: noop,
 };
 
 export const WithDisabledToken = Template.bind({});
 WithDisabledToken.args = {
-  stakedTokenId: 'vai',
-  rewardTokenId: 'xvs',
+  stakedToken: TOKENS.vai,
+  rewardToken: TOKENS.xvs,
   handleClose: noop,
 };
 WithDisabledToken.decorators = [withAuthContext(authContext)];
 
 export const WithIsInitialLoading = Template.bind({});
 WithIsInitialLoading.args = {
-  stakedTokenId: 'vai',
-  rewardTokenId: 'xvs',
+  stakedToken: TOKENS.vai,
+  rewardToken: TOKENS.xvs,
   handleClose: noop,
 };
 WithIsInitialLoading.decorators = [

@@ -1,34 +1,35 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { Token } from 'types';
 
-import { RepayBnbInput, RepayBnbOutput, queryClient, repayBnb } from 'clients/api';
+import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
 import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
 
-type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<RepayBnbInput, 'web3'>>;
+type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'web3' | 'vToken'>>;
 
-const useRepayNonBnbVToken = (options?: Options) => {
+const useRepay = ({ vToken }: { vToken: Token }, options?: Options) => {
   const web3 = useWeb3();
 
   return useMutation(
-    FunctionKey.REPAY_BNB,
+    FunctionKey.REPAY,
     params =>
-      repayBnb({
+      repay({
         web3,
+        vToken,
         ...params,
       }),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        const { fromAccountAddress } = onSuccessParams[1];
+        const { accountAddress } = onSuccessParams[1];
 
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BORROW_BALANCE,
           {
-            accountAddress: fromAccountAddress,
-            vTokenId: TOKENS.bnb.id,
+            accountAddress,
+            vTokenAddress: vToken.address,
           },
         ]);
 
@@ -40,4 +41,4 @@ const useRepayNonBnbVToken = (options?: Options) => {
   );
 };
 
-export default useRepayNonBnbVToken;
+export default useRepay;

@@ -52,7 +52,7 @@ describe('pages/Swap', () => {
 
       if (token.isNative) {
         fakeBalanceTokens = FAKE_BNB_BALANCE_TOKENS;
-      } else if (token.address === PANCAKE_SWAP_TOKENS.busd.address) {
+      } else if (token.address.toLowerCase() === PANCAKE_SWAP_TOKENS.busd.address.toLowerCase()) {
         fakeBalanceTokens = FAKE_BUSD_BALANCE_TOKENS;
       }
 

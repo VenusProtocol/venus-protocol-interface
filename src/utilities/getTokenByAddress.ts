@@ -9,7 +9,7 @@ const getTokenByAddress = (address: string) => {
     .filter(key => Object.prototype.hasOwnProperty.call(TOKENS, key))
     .forEach(tokenId => {
       const currentToken = TOKENS[tokenId as keyof typeof TOKENS];
-      if (currentToken?.address === address) {
+      if (currentToken?.address.toLowerCase() === address.toLowerCase()) {
         token = currentToken;
       }
     });

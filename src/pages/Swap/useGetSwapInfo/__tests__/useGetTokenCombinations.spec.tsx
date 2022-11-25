@@ -27,8 +27,10 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
     tokenCombinations.reduce((acc, tokenCombination) => {
       hasDuplicate = acc.some(
         prevTokenCombination =>
-          prevTokenCombination[0].address === tokenCombination[0].address &&
-          prevTokenCombination[1].address === tokenCombination[1].address,
+          prevTokenCombination[0].address.toLowerCase() ===
+            tokenCombination[0].address.toLowerCase() &&
+          prevTokenCombination[1].address.toLowerCase() ===
+            tokenCombination[1].address.toLowerCase(),
       );
 
       return [...acc, tokenCombination];

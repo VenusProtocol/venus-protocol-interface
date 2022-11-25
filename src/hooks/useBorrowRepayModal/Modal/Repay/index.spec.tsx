@@ -7,9 +7,9 @@ import { Asset } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
+import { getAllowance, repay, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -29,10 +29,18 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Repay', () => {
   beforeEach(() => {
+    (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        asset: fakeAsset,
+      },
+    }));
+
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
+
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [],
@@ -44,29 +52,37 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />);
+    renderComponent(
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+    );
   });
 
   it('displays correct token borrow balance', async () => {
-    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />, {
-      authContextValue: {
-        account: {
-          address: fakeAccountAddress,
+    const { getByText } = renderComponent(
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
         },
       },
-    });
+    );
 
     await waitFor(() => getByText(`1,000 ${fakeAsset.token.symbol.toUpperCase()}`));
   });
 
   it('displays correct token wallet balance', async () => {
-    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />, {
-      authContextValue: {
-        account: {
-          address: fakeAccountAddress,
+    const { getByText } = renderComponent(
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
         },
       },
-    });
+    );
 
     await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
   });
@@ -77,8 +93,15 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       walletBalance: new BigNumber(1),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -109,7 +132,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} onClose={noop} includeXvs />,
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -145,8 +168,15 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       walletBalance: new BigNumber(10),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -181,8 +211,15 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       walletBalance: new BigNumber(100),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -217,8 +254,15 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       walletBalance: new BigNumber(100),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -258,10 +302,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} onClose={onCloseMock} includeXvs />,
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={onCloseMock} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -291,10 +335,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       new BigNumber(10).pow(fakeAsset.token.decimals),
     );
 
-    await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
-    expect(repayNonBnbVToken).toHaveBeenCalledWith({
+    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
+    expect(repay).toHaveBeenCalledWith({
       amountWei: expectedAmountWei,
-      fromAccountAddress: fakeAccountAddress,
+      accountAddress: fakeAccountAddress,
       isRepayingFullLoan: false,
     });
 
@@ -311,11 +355,11 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     });
   });
 
-  it('lets user repay full loan that is not in BNB', async () => {
-    (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+  it('lets user repay full loan', async () => {
+    (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} onClose={jest.fn()} includeXvs />,
+      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={jest.fn()} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -342,55 +386,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
     fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
 
-    await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
-    expect(repayNonBnbVToken).toHaveBeenCalledWith({
+    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
+    expect(repay).toHaveBeenCalledWith({
       amountWei: fakeAsset.borrowBalance.multipliedBy(1e18), // Convert borrow balance to wei
-      fromAccountAddress: fakeAccountAddress,
-      isRepayingFullLoan: true,
-    });
-  });
-
-  it('lets user repay full loan that is in BNB', async () => {
-    (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
-
-    const fakeBnbAsset: Asset = {
-      ...fakeAsset,
-      token: TOKENS.bnb,
-    };
-
-    const { getByText } = renderComponent(
-      <Repay asset={fakeBnbAsset} onClose={jest.fn()} includeXvs />,
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
-        },
-      },
-    );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
-
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toBeDisabled();
-
-    // Press on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
-
-    // Check notice is displayed
-    await waitFor(() =>
-      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
-    );
-
-    // Click on submit button
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
-    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
-
-    await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
-
-    expect(repayNonBnbVToken).toHaveBeenCalledWith({
-      amountWei: fakeBnbAsset.borrowBalance.multipliedBy(1e18), // Convert borrow balance to wei
-      fromAccountAddress: fakeAccountAddress,
+      accountAddress: fakeAccountAddress,
       isRepayingFullLoan: true,
     });
   });

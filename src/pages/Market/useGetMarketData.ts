@@ -1,28 +1,24 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { Token } from 'types';
-import {
-  convertPercentageFromSmartContract,
-  convertWeiToTokens,
-  unsafelyGetToken,
-  unsafelyGetVToken,
-} from 'utilities';
+import { convertPercentageFromSmartContract, convertWeiToTokens } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { TOKENS } from 'constants/tokens';
 
-const useGetMarketData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
+const useGetMarketData = ({ vToken }: { vToken: Token }) => {
   const { data: vTokenCashData } = useGetVTokenCash({
-    vTokenId,
+    vToken,
   });
 
   const { data: getMarketData } = useGetMarkets();
-  const assetMarket = (getMarketData?.markets || []).find(market => market.id === vTokenId);
+  const assetMarket = (getMarketData?.markets || []).find(
+    market => market.address.toLowerCase() === vToken.address.toLowerCase(),
+  );
 
   return React.useMemo(() => {
-    const vToken = unsafelyGetVToken(vTokenId);
     const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
     const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
     const borrowApyPercentage = assetMarket?.borrowApy;
@@ -91,7 +87,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
       assetMarket &&
       new BigNumber(1).div(
         new BigNumber(assetMarket.exchangeRate).div(
-          new BigNumber(10).pow(18 + unsafelyGetToken(vTokenId).decimals - vToken.decimals),
+          new BigNumber(10).pow(18 + assetMarket.underlyingDecimal - vToken.decimals),
         ),
       );
 

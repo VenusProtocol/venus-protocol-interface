@@ -11,6 +11,7 @@ export interface User {
 }
 
 export interface Asset {
+  // TODO: add vToken
   token: Token;
   tokenPrice: BigNumber;
   borrowBalance: BigNumber;
@@ -249,8 +250,8 @@ export interface Transaction {
 }
 
 export interface Vault {
-  stakedTokenId: string;
-  rewardTokenId: string;
+  stakedToken: Token;
+  rewardToken: Token;
   stakingAprPercentage: number;
   totalStakedWei: BigNumber;
   dailyEmissionWei: BigNumber;

@@ -5,12 +5,13 @@ import {
   VaiVaultErrorReporterError,
   VaiVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
+import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
 import claimXvsVaultReward from '.';
 
 const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
+const fakeRewardToken = TOKENS.xvs;
 const fakePoolIndex = 4;
 
 describe('api/mutation/claimXvsVaultReward', () => {
@@ -29,7 +30,7 @@ describe('api/mutation/claimXvsVaultReward', () => {
       await claimXvsVaultReward({
         xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
-        rewardTokenAddress: fakeRewardTokenAddress,
+        rewardToken: fakeRewardToken,
         poolIndex: fakePoolIndex,
       });
 
@@ -61,7 +62,7 @@ describe('api/mutation/claimXvsVaultReward', () => {
       await claimXvsVaultReward({
         xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
-        rewardTokenAddress: fakeRewardTokenAddress,
+        rewardToken: fakeRewardToken,
         poolIndex: fakePoolIndex,
       });
 
@@ -92,13 +93,13 @@ describe('api/mutation/claimXvsVaultReward', () => {
     const response = await claimXvsVaultReward({
       xvsVaultContract: fakeContract,
       fromAccountAddress: fakeFromAccountsAddress,
-      rewardTokenAddress: fakeRewardTokenAddress,
+      rewardToken: fakeRewardToken,
       poolIndex: fakePoolIndex,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
     expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(fakeRewardTokenAddress, fakePoolIndex, 0);
+    expect(depositMock).toHaveBeenCalledWith(fakeRewardToken.address, fakePoolIndex, 0);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });

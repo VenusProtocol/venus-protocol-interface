@@ -6,13 +6,13 @@ import { formatPercentage } from 'utilities';
 
 import { useGetMarketHistory } from 'clients/api';
 
-const useGetChartData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
+const useGetChartData = ({ vToken }: { vToken: Token }) => {
   const {
     data: marketSnapshotsData = {
       marketSnapshots: [],
     },
   } = useGetMarketHistory({
-    vTokenId,
+    vToken,
   });
 
   return React.useMemo(() => {

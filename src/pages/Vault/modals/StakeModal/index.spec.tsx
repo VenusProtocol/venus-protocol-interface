@@ -6,6 +6,7 @@ import React from 'react';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance, getBalanceOf } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useStakeInVault from 'hooks/useStakeInVault';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -19,8 +20,8 @@ jest.mock('hooks/useStakeInVault');
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
 const baseProps: StakeModalProps = {
-  stakedTokenId: 'vai',
-  rewardTokenId: 'xvs',
+  stakedToken: TOKENS.vai,
+  rewardToken: TOKENS.xvs,
   poolIndex: 6,
   handleClose: noop,
 };
@@ -59,8 +60,8 @@ describe('pages/Vault/modals/StakeModal', () => {
     };
 
     const { stake } = useStakeInVault({
-      stakedTokenId: customProps.stakedTokenId,
-      rewardTokenId: customProps.rewardTokenId,
+      stakedToken: customProps.stakedToken,
+      rewardToken: customProps.rewardToken,
       poolIndex: customProps.poolIndex,
     });
 

@@ -8,9 +8,9 @@ import {
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
 
-import borrowVToken from '.';
+import borrow from '.';
 
-describe('api/mutation/borrowVToken', () => {
+describe('api/mutation/borrow', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -23,13 +23,13 @@ describe('api/mutation/borrowVToken', () => {
     } as unknown as VTokenContract<'xvs'>;
 
     try {
-      await borrowVToken({
+      await borrow({
         vTokenContract: fakeContract,
         amountWei: new BigNumber('10000000000000000'),
         fromAccountAddress: address,
       });
 
-      throw new Error('borrowVToken should have thrown an error but did not');
+      throw new Error('borrow should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -54,13 +54,13 @@ describe('api/mutation/borrowVToken', () => {
     } as unknown as VTokenContract<'xvs'>;
 
     try {
-      await borrowVToken({
+      await borrow({
         vTokenContract: fakeContract,
         amountWei: new BigNumber('10000000000000000'),
         fromAccountAddress: address,
       });
 
-      throw new Error('borrowVToken should have thrown an error but did not');
+      throw new Error('borrow should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[1]}]`);
       expect(error).toBeInstanceOf(VError);
@@ -86,7 +86,7 @@ describe('api/mutation/borrowVToken', () => {
       },
     } as unknown as VTokenContract<'xvs'>;
 
-    const response = await borrowVToken({
+    const response = await borrow({
       vTokenContract: fakeContract,
       amountWei: fakeAmountWei,
       fromAccountAddress: address,

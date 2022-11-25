@@ -110,7 +110,9 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         ...asset,
         supplyBalance: calculateNewBalance(asset.supplyBalance, amount),
       };
-      const currentIndex = assets.findIndex(a => a.token.address === asset.token.address);
+      const currentIndex = assets.findIndex(
+        a => a.token.address.toLowerCase() === asset.token.address.toLowerCase(),
+      );
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
 
       const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({

@@ -8,7 +8,8 @@ import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { convertWeiToTokens, formatToReadablePercentage, unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
+import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useWithdrawFromVrtVault } from 'clients/api';
@@ -26,8 +27,8 @@ import TEST_IDS from './testIds';
 type ActiveModal = 'stake' | 'withdraw';
 
 export interface VaultItemUiProps {
-  stakedTokenId: string;
-  rewardTokenId: string;
+  stakedToken: Token;
+  rewardToken: Token;
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
@@ -46,8 +47,8 @@ export interface VaultItemUiProps {
 }
 
 export const VaultItemUi: React.FC<VaultItemUiProps> = ({
-  stakedTokenId,
-  rewardTokenId,
+  stakedToken,
+  rewardToken,
   userPendingRewardWei,
   userStakedWei,
   stakingAprPercentage,
@@ -88,9 +89,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         transactionHash: transactionReceipt.transactionHash,
       }),
     });
-
-  const rewardToken = unsafelyGetToken(rewardTokenId);
-  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
@@ -145,8 +143,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       },
     ],
     [
-      stakedTokenId,
-      rewardTokenId,
+      stakedToken,
+      rewardToken,
       stakingAprPercentage,
       dailyEmissionWei.toFixed(),
       totalStakedWei.toFixed(),
@@ -161,7 +159,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
             <TokenIcon css={styles.tokenIcon} token={stakedToken} />
 
             <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
-              {unsafelyGetToken(stakedTokenId).symbol}
+              {stakedToken.symbol}
             </Typography>
           </div>
 
@@ -246,21 +244,23 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
       {activeModal === 'stake' && (
         <StakeModal
-          stakedTokenId={stakedTokenId}
-          rewardTokenId={rewardTokenId}
+          stakedToken={stakedToken}
+          rewardToken={rewardToken}
           handleClose={closeActiveModal}
           poolIndex={poolIndex}
         />
       )}
 
-      {activeModal === 'withdraw' && poolIndex === undefined && stakedTokenId === TOKENS.vai.id && (
-        <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
-      )}
+      {activeModal === 'withdraw' &&
+        poolIndex === undefined &&
+        stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase() && (
+          <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+        )}
 
       {activeModal === 'withdraw' && poolIndex !== undefined && (
         <WithdrawFromVestingVaultModal
           handleClose={closeActiveModal}
-          stakedTokenId={stakedTokenId}
+          stakedToken={stakedToken}
           poolIndex={poolIndex}
         />
       )}
@@ -280,8 +280,8 @@ export type VaultItemProps = Omit<
 >;
 
 const VaultItem: React.FC<VaultItemProps> = ({
-  stakedTokenId,
-  rewardTokenId,
+  stakedToken,
+  rewardToken,
   poolIndex,
   ...vaultItemUiProps
 }) => {
@@ -312,7 +312,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
       return;
     }
 
-    if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
+    if (stakedToken.address !== TOKENS.vrt.address || typeof poolIndex === 'number') {
       // Handle withdrawing from any vault except the VRT non-vesting vault
       setActiveModal('withdraw');
       return;
@@ -341,8 +341,8 @@ const VaultItem: React.FC<VaultItemProps> = ({
     }
 
     return claimReward({
-      stakedTokenId,
-      rewardTokenId,
+      stakedToken,
+      rewardToken,
       poolIndex,
       // account.address has to exist at this point since users are prompted to
       // connect their wallet before they're able to stake
@@ -358,13 +358,13 @@ const VaultItem: React.FC<VaultItemProps> = ({
       onWithdraw={onWithdraw}
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
-      stakedTokenId={stakedTokenId}
-      rewardTokenId={rewardTokenId}
+      stakedToken={stakedToken}
+      rewardToken={rewardToken}
       poolIndex={poolIndex}
       // Hide withdraw button of non-vesting VRT vault when user doesn't have
       // any tokens staked in it
       canWithdraw={
-        stakedTokenId !== TOKENS.vrt.id ||
+        stakedToken.address !== TOKENS.vrt.address ||
         typeof poolIndex === 'number' ||
         !vaultItemUiProps.userStakedWei ||
         vaultItemUiProps.userStakedWei.isGreaterThan(0)
