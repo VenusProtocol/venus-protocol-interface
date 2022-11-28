@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TokenId, VTokenId } from 'types';
+import { Token } from 'types';
 
 import { useWeb3 } from 'clients/web3';
 
@@ -7,6 +7,7 @@ import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
   getInterestModelContract,
+  getPancakeRouterContract,
   getPriceOracleContract,
   getTokenContract,
   getTokenContractByAddress,
@@ -21,9 +22,9 @@ import {
   getXvsVestingProxyContract,
 } from './getters';
 
-export const useTokenContract = <T extends TokenId>(name: T) => {
+export const useTokenContract = (token: Token) => {
   const web3 = useWeb3();
-  return useMemo(() => getTokenContract<T>(name, web3), [web3, name]);
+  return useMemo(() => getTokenContract(token, web3), [web3, token]);
 };
 
 export const useTokenContractByAddress = (address: string) => {
@@ -31,7 +32,7 @@ export const useTokenContractByAddress = (address: string) => {
   return useMemo(() => getTokenContractByAddress(address, web3), [web3, address]);
 };
 
-export const useVTokenContract = <T extends VTokenId>(name: T) => {
+export const useVTokenContract = <T extends string>(name: T) => {
   const web3 = useWeb3();
   return useMemo(() => getVTokenContract<T>(name, web3), [web3, name]);
 };
@@ -95,4 +96,9 @@ export const useXvsVestingProxyContract = () => {
 export const useVrtVaultProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVrtVaultProxyContract(web3), [web3]);
+};
+
+export const usePancakeRouterContract = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getPancakeRouterContract(web3), [web3]);
 };

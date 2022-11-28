@@ -10,13 +10,12 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { TokenId, VTokenId } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  getToken,
-  getVBepToken,
+  unsafelyGetToken,
+  unsafelyGetVToken,
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
@@ -32,7 +31,7 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface MarketDetailsUiProps {
-  vTokenId: VTokenId;
+  vTokenId: string;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
@@ -87,8 +86,8 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const token = getToken(vTokenId);
-  const vToken = getVBepToken(vTokenId);
+  const token = unsafelyGetToken(vTokenId);
+  const vToken = unsafelyGetVToken(vTokenId);
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
@@ -189,7 +188,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           : formatTokensToReadableValue({
               value: borrowCapTokens,
               minimizeDecimals: true,
-              tokenId: vTokenId,
+              token: vToken,
             }),
       },
       {
@@ -210,7 +209,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           value: dailyDistributionXvs,
           minimizeDecimals: true,
           addSymbol: false,
-          tokenId: TOKENS.xvs.id as TokenId,
+          token: TOKENS.xvs,
         }),
       },
       {
@@ -218,7 +217,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
         value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
-          tokenId: vTokenId,
+          token,
         }),
       },
       {
@@ -237,7 +236,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,
-          tokenId: vTokenId,
+          token: vToken,
         }),
       },
       {
@@ -324,14 +323,14 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   );
 };
 
-export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
+export type MarketDetailsProps = RouteComponentProps<{ vTokenId: string }>;
 
 const MarketDetails: React.FC<MarketDetailsProps> = ({
   match: {
     params: { vTokenId },
   },
 }) => {
-  const vToken = getVBepToken(vTokenId);
+  const vToken = unsafelyGetVToken(vTokenId);
 
   // Redirect to market page if vTokenId passed through route params is invalid
   if (!vToken) {

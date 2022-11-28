@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { LayeredValues, Table, TableProps, Toggle, Token } from 'components';
+import { LayeredValues, Table, TableProps, Toggle, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -50,8 +50,8 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token tokenId={asset.id} />,
-      value: asset.id,
+      render: () => <TokenIconWithSymbol token={asset.token} />,
+      value: asset.token.id,
       align: 'left',
     },
     {
@@ -72,7 +72,7 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
           })}
           bottomValue={formatTokensToReadableValue({
             value: asset.supplyBalance,
-            tokenId: asset.id,
+            token: asset.token,
             minimizeDecimals: true,
           })}
         />

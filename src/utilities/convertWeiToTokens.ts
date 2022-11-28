@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { TokenId } from 'types';
+import { Token } from 'types';
 
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
-import { getToken } from './getToken';
 
 export interface ConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;
-  tokenId: TokenId;
+  token: Token;
   returnInReadableFormat?: T;
   minimizeDecimals?: boolean;
   addSymbol?: boolean;
@@ -17,22 +16,21 @@ export type ConvertWeiToTokensOutput<T> = T extends true ? string : BigNumber;
 
 export function convertWeiToTokens<T extends boolean | undefined = false>({
   valueWei,
-  tokenId,
+  token,
   returnInReadableFormat = false,
   minimizeDecimals = false,
   addSymbol = true,
   shortenLargeValue = false,
 }: ConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
-  const tokenDecimals = getToken(tokenId).decimals;
   const valueTokens = valueWei
-    .dividedBy(new BigNumber(10).pow(tokenDecimals))
-    .decimalPlaces(tokenDecimals);
+    .dividedBy(new BigNumber(10).pow(token.decimals))
+    .decimalPlaces(token.decimals);
 
   return (
     returnInReadableFormat
       ? formatTokensToReadableValue({
           value: valueTokens,
-          tokenId,
+          token,
           minimizeDecimals,
           addSymbol,
           shortenLargeValue,

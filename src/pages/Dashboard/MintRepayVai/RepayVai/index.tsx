@@ -11,7 +11,6 @@ import {
 import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -23,7 +22,6 @@ import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 
 const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
@@ -56,13 +54,13 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
         : new BigNumber(0);
 
-    return convertWeiToTokens({ valueWei: limitWei, tokenId: VAI_ID }).toFixed();
+    return convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai }).toFixed();
   }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
     valueWei: userMintedWei,
-    tokenId: VAI_ID,
+    token: TOKENS.vai,
   });
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
@@ -70,7 +68,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
-      tokenId: VAI_ID,
+      token: TOKENS.vai,
     });
 
     return handleTransactionMutation({
@@ -80,7 +78,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
         content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          tokenId: 'vai',
+          token: TOKENS.vai,
         },
         transactionHash: transactionReceipt.transactionHash,
       }),
@@ -91,7 +89,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
     <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
       <EnableToken
         title={t('mintRepayVai.repayVai.enableToken')}
-        vTokenId={VAI_ID}
+        token={TOKENS.vai}
         spenderAddress={vaiUnitrollerContractAddress}
       >
         {isInitialLoading ? (
@@ -104,7 +102,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
                   <FormikTokenTextField
                     name="amount"
                     css={styles.textField}
-                    tokenId={VAI_ID}
+                    token={TOKENS.vai}
                     max={limitTokens}
                     disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
                     rightMaxButton={{
@@ -115,7 +113,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
 
                   <LabeledInlineContent
                     css={styles.getRow({ isLast: true })}
-                    iconName={VAI_ID}
+                    iconSrc={TOKENS.vai}
                     label={t('mintRepayVai.repayVai.repayVaiBalance')}
                   >
                     {readableRepayableVai}
@@ -148,7 +146,7 @@ const RepayVai: React.FC = () => {
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
-      tokenId: TOKENS.vai.id as TokenId,
+      token: TOKENS.vai,
     },
     {
       enabled: !!account?.address,

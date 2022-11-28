@@ -10,7 +10,7 @@ const getTokenByAddress = (address: string) => {
     .forEach(tokenId => {
       const currentToken = TOKENS[tokenId as keyof typeof TOKENS];
       if (currentToken?.address === address) {
-        token = currentToken as Token;
+        token = currentToken;
       }
     });
 

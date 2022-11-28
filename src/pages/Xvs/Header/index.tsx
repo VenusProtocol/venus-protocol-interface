@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { EllipseAddress, Icon, LabeledProgressBar } from 'components';
+import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import {
@@ -9,10 +9,10 @@ import {
   formatTokensToReadableValue,
   generateBscScanUrl,
   getContractAddress,
-  getToken,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
@@ -40,26 +40,25 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const xvsAddress = getToken('xvs').address;
   const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
-  const copyAddress = () => copy(xvsAddress);
+  const copyAddress = () => copy(TOKENS.xvs.address);
 
   const readableDailyDistribution = useMemo(() => {
     const dailyVenusTokens = convertWeiToTokens({
       valueWei: dailyVenusWei,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
     });
 
     const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
     });
 
     const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
 
     return formatTokensToReadableValue({
       value: dailyDistribution,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
       minimizeDecimals: true,
     });
   }, [dailyVenusWei.toFixed(), venusVaiVaultDailyRateWei.toFixed()]);
@@ -68,7 +67,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: remainingDistributionWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         returnInReadableFormat: true,
         minimizeDecimals: true,
       }),
@@ -84,7 +83,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     <Paper className={className} css={styles.headerRoot}>
       <div css={styles.addressContainer}>
         <div css={styles.xvsIconContainer}>
-          <Icon name="xvs" size={styles.iconSize} />
+          <TokenIcon token={TOKENS.xvs} css={styles.icon} />
         </div>
 
         <Typography
@@ -95,7 +94,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
           component="a"
           css={[styles.whiteText, styles.addressText]}
         >
-          <EllipseAddress address={xvsAddress} ellipseBreakpoint="xl" />
+          <EllipseAddress address={TOKENS.xvs.address} ellipseBreakpoint="xl" />
         </Typography>
 
         <div css={styles.copyIconContainer}>
@@ -130,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     accountAddress: account?.address,
   });
   const { data: xvsRemainingDistributionData } = useGetBalanceOf({
-    tokenId: 'xvs',
+    token: TOKENS.xvs,
     accountAddress: getContractAddress('comptroller'),
   });
 

@@ -9,6 +9,7 @@ import { convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
@@ -140,7 +141,7 @@ const Proposal = () => {
     () =>
       convertWeiToTokens({
         valueWei: votingWeightData.votesWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),

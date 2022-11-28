@@ -13,15 +13,16 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VTokenId } from 'types';
+import { Asset } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  getVBepToken,
+  unsafelyGetVToken,
 } from 'utilities';
 
 import { useRepayVToken } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -63,27 +64,27 @@ export const RepayForm: React.FC<RepayFormProps> = ({
     (percentage: number) =>
       asset.borrowBalance
         .multipliedBy(percentage / 100)
-        .decimalPlaces(asset.decimals)
+        .decimalPlaces(asset.token.decimals)
         .toFixed(),
-    [asset.borrowBalance.toFixed(), asset.decimals],
+    [asset.borrowBalance.toFixed(), asset.token.decimals],
   );
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
         value: asset.borrowBalance,
-        tokenId: asset.id,
+        token: asset.token,
       }),
-    [asset.borrowBalance.toFixed(), asset.id],
+    [asset.borrowBalance.toFixed(), asset.token],
   );
 
   const readableTokenWalletBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
         value: asset.walletBalance,
-        tokenId: asset.id,
+        token: asset.token,
       }),
-    [asset.walletBalance.toFixed(), asset.id],
+    [asset.walletBalance.toFixed(), asset.token],
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
@@ -91,7 +92,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
     const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
-      tokenId: asset.id,
+      token: asset.token,
     });
 
     try {
@@ -104,7 +105,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
           amount: {
             valueWei: amountWei,
-            tokenId: asset.id,
+            token: asset.token,
           },
           transactionHash,
         });
@@ -123,7 +124,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
   const shouldDisplayFullRepaymentWarning = React.useCallback(
     (repayAmountTokens: string) =>
       repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
-    [asset.id, asset.borrowBalance.toFixed()],
+    [asset.token, asset.borrowBalance.toFixed()],
   );
 
   return (
@@ -140,7 +141,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           <div css={[styles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
-              tokenId={asset.id}
+              token={asset.token}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}
@@ -219,7 +220,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
+  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
 
   const limitTokens = React.useMemo(
     () => BigNumber.min(asset.borrowBalance, asset.walletBalance),
@@ -227,7 +228,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   );
 
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepayVToken({
-    vTokenId: asset.id as VTokenId,
+    vTokenId: asset.token.id,
   });
 
   const handleRepay: RepayFormProps['repay'] = async amountWei => {
@@ -236,7 +237,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertTokensToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+      convertTokensToWei({ value: asset.borrowBalance, token: asset.token }),
     );
 
     const res = await repay({
@@ -255,18 +256,18 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          vTokenId={asset.id}
+          token={asset.token}
           spenderAddress={vBepTokenContractAddress}
-          title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
+          title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.token.symbol })}
           tokenInfo={[
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
-              iconName: asset.id,
+              iconSrc: asset.token,
               children: formatToReadablePercentage(asset.borrowApy),
             },
             {
               label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
-              iconName: 'xvs',
+              iconSrc: TOKENS.xvs,
               children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}

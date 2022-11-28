@@ -5,6 +5,7 @@ import React from 'react';
 import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
+import { TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import ActionModal, { ActionModalProps } from '.';
@@ -29,7 +30,7 @@ const authContext = {
 
 export const Default = Template.bind({});
 Default.args = {
-  tokenId: 'vai',
+  token: TOKENS.vai,
   handleClose: noop,
   isInitialLoading: false,
   isSubmitting: false,
@@ -44,7 +45,7 @@ Default.args = {
 Default.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: 'vai',
+    token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiUnitroller'),
   }),
@@ -52,7 +53,7 @@ Default.decorators = [
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
-  tokenId: 'vai',
+  token: TOKENS.vai,
   handleClose: noop,
   isInitialLoading: false,
   isSubmitting: false,
@@ -67,7 +68,7 @@ WithoutConnectedAccount.args = {
 
 export const WithDisabledToken = Template.bind({});
 WithDisabledToken.args = {
-  tokenId: 'vai',
+  token: TOKENS.vai,
   handleClose: noop,
   isInitialLoading: false,
   isSubmitting: false,
@@ -85,7 +86,7 @@ WithDisabledToken.decorators = [withAuthContext(authContext)];
 
 export const WithIsInitialLoading = Template.bind({});
 WithIsInitialLoading.args = {
-  tokenId: 'vai',
+  token: TOKENS.vai,
   handleClose: noop,
   isInitialLoading: true,
   isSubmitting: false,
@@ -100,7 +101,7 @@ WithIsInitialLoading.args = {
 WithIsInitialLoading.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: 'vai',
+    token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiUnitroller'),
   }),

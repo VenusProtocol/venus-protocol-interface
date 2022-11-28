@@ -1,10 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { Token } from 'types';
+import Web3 from 'web3';
 
-import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
+import { getTokenContract } from 'clients/contracts';
 
 export interface GetBalanceOfInput {
-  tokenContract: VrtToken | XvsToken | Bep20 | VaiToken;
+  web3: Web3;
   accountAddress: string;
+  token: Token;
 }
 
 export type GetBalanceOfOutput = {
@@ -12,13 +15,23 @@ export type GetBalanceOfOutput = {
 };
 
 const getBalanceOf = async ({
-  tokenContract,
+  web3,
   accountAddress,
+  token,
 }: GetBalanceOfInput): Promise<GetBalanceOfOutput> => {
-  const resp = await tokenContract.methods.balanceOf(accountAddress).call();
+  let balanceWei: BigNumber;
+
+  if (token.isNative) {
+    const resp = await web3.eth.getBalance(accountAddress);
+    balanceWei = new BigNumber(resp);
+  } else {
+    const tokenContract = getTokenContract(token, web3);
+    const resp = await tokenContract.methods.balanceOf(accountAddress).call();
+    balanceWei = new BigNumber(resp);
+  }
 
   return {
-    balanceWei: new BigNumber(resp),
+    balanceWei,
   };
 };
 

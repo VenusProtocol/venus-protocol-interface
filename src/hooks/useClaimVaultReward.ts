@@ -1,6 +1,5 @@
 import { VError } from 'errors';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import {
   useClaimVaiVaultReward,
@@ -9,8 +8,8 @@ import {
 } from 'clients/api';
 
 interface StakeInput {
-  rewardTokenId: TokenId;
-  stakedTokenId: TokenId;
+  rewardTokenId: string;
+  stakedTokenId: string;
   accountAddress: string;
   poolIndex?: number;
 }
@@ -34,7 +33,7 @@ const useClaimVaultReward = () => {
     poolIndex,
   }: StakeInput) => {
     if (typeof poolIndex === 'number') {
-      const rewardTokenAddress = getToken(rewardTokenId).address;
+      const rewardTokenAddress = unsafelyGetToken(rewardTokenId).address;
 
       return claimXvsVaultRewardLoading({
         poolIndex,

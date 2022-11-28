@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Table, TableProps, Token } from 'components';
+import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -14,11 +14,13 @@ import {
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
 
-type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
+type TableAsset = {
+  token: Asset['token'];
   xvsPerDay: Asset['xvsPerDay'] | undefined;
   xvsSupplyApy: Asset['xvsSupplyApy'] | undefined;
   xvsBorrowApy: Asset['xvsBorrowApy'] | undefined;
@@ -56,8 +58,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token tokenId={asset.id} />,
-      value: asset.id,
+      render: () => <TokenIconWithSymbol token={asset.token} />,
+      value: asset.token.id,
       align: 'left',
     },
     {
@@ -66,7 +68,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
           {formatTokensToReadableValue({
             value: asset.xvsPerDay,
-            tokenId: 'xvs',
+            token: TOKENS.xvs,
             minimizeDecimals: true,
           })}
         </Typography>
@@ -125,7 +127,7 @@ const XvsTable: React.FC = () => {
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
-      tokenId: 'vai',
+      token: TOKENS.vai,
       accountAddress: getContractAddress('vaiVault'),
     },
     {
@@ -135,17 +137,17 @@ const XvsTable: React.FC = () => {
 
   const assetsWithVai = useMemo(() => {
     const allAssets: TableAsset[] = [...assets];
-    const xvsAsset = assets.find(asset => asset.id === 'xvs');
+    const xvsAsset = assets.find(asset => asset.token.id === 'xvs');
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
       });
 
       const vaultVaiStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedData.balanceWei,
-        tokenId: 'vai',
+        token: TOKENS.vai,
       });
 
       const vaiApy = venusVaiVaultDailyRateTokens
@@ -155,8 +157,7 @@ const XvsTable: React.FC = () => {
         .div(vaultVaiStakedTokens);
 
       allAssets.unshift({
-        id: 'vai',
-        symbol: 'VAI',
+        token: TOKENS.vai,
         xvsPerDay: venusVaiVaultDailyRateTokens,
         xvsSupplyApy: vaiApy,
         xvsBorrowApy: undefined,

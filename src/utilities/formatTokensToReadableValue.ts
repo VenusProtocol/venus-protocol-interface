@@ -1,20 +1,19 @@
 import BigNumber from 'bignumber.js';
-import { TokenId } from 'types';
+import { Token } from 'types';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import { getToken } from './getToken';
 import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 
 export const formatTokensToReadableValue = ({
   value,
-  tokenId,
+  token,
   minimizeDecimals = false,
   shortenLargeValue = false,
   addSymbol = true,
 }: {
   value: BigNumber | undefined;
-  tokenId: TokenId;
+  token: Token;
   minimizeDecimals?: boolean;
   shortenLargeValue?: boolean;
   addSymbol?: boolean;
@@ -27,13 +26,11 @@ export const formatTokensToReadableValue = ({
   if (minimizeDecimals) {
     decimalPlaces = 8;
   } else {
-    const token = getToken(tokenId);
     decimalPlaces = token.decimals;
   }
 
   let symbolPlacement = '';
   if (addSymbol) {
-    const token = getToken(tokenId);
     symbolPlacement = ` ${token.symbol}`;
   }
 

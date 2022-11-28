@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VTokenId } from 'types';
 
 import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
 import queryClient from 'clients/api/queryClient';
@@ -8,7 +7,7 @@ import FunctionKey from 'constants/functionKey';
 import { VBep20 } from 'types/contracts';
 
 const useRedeem = (
-  { vTokenId, accountAddress }: { vTokenId: VTokenId; accountAddress: string },
+  { vTokenId, accountAddress }: { vTokenId: string; accountAddress: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemOutput,

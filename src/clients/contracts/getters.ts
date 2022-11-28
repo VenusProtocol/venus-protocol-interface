@@ -1,5 +1,5 @@
-import { TokenId, VTokenId } from 'types';
-import { getContractAddress, getToken, getVBepToken } from 'utilities';
+import { Token } from 'types';
+import { getContractAddress, unsafelyGetVToken } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -10,6 +10,7 @@ import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDele
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import oracleAbi from 'constants/contracts/abis/oracle.json';
+import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
@@ -23,6 +24,7 @@ import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import xvsVestingAbi from 'constants/contracts/abis/xvsVesting.json';
+import { TOKENS } from 'constants/tokens';
 import {
   Bep20,
   Comptroller,
@@ -30,6 +32,7 @@ import {
   InterestModel,
   Maximillion,
   Oracle,
+  PancakeRouter,
   VaiUnitroller,
   VaiVault,
   VenusLens,
@@ -47,32 +50,27 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
   return new web3.eth.Contract(abi, address) as unknown as T;
 };
 
-export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {
-  const tokenAddress = getToken(tokenId).address;
-
-  if (tokenId === 'xvs') {
-    return getContract<TokenContract<T>>(xvsTokenAbi as AbiItem[], tokenAddress, web3);
+export const getTokenContract = (token: Token, web3: Web3) => {
+  if (token.address === TOKENS.xvs.address) {
+    return getContract<TokenContract<'xvs'>>(xvsTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (tokenId === 'vai') {
-    return getContract<TokenContract<T>>(vaiTokenAbi as AbiItem[], tokenAddress, web3);
+  if (token.address === TOKENS.vai.address) {
+    return getContract<TokenContract<'vai'>>(vaiTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (tokenId === 'vrt') {
-    return getContract<TokenContract<T>>(vrtTokenAbi as AbiItem[], tokenAddress, web3);
+  if (token.address === TOKENS.vrt.address) {
+    return getContract<TokenContract<'vrt'>>(vrtTokenAbi as AbiItem[], token.address, web3);
   }
 
-  return getContract<TokenContract<T>>(bep20Abi as AbiItem[], tokenAddress, web3);
+  return getContract<TokenContract>(bep20Abi as AbiItem[], token.address, web3);
 };
 
 export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
   getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
 
-export const getVTokenContract = <T extends VTokenId>(
-  tokenId: T,
-  web3: Web3,
-): VTokenContract<T> => {
-  const vBepTokenAddress = getVBepToken(tokenId).address;
+export const getVTokenContract = <T extends string>(tokenId: T, web3: Web3): VTokenContract<T> => {
+  const vBepTokenAddress = unsafelyGetVToken(tokenId).address;
 
   if (tokenId === 'bnb') {
     return getContract(
@@ -180,3 +178,11 @@ export const getVrtVaultProxyContract = (web3: Web3) =>
     getContractAddress('vrtVaultProxy'),
     web3,
   ) as unknown as VrtVault;
+
+// PancakeSwap router
+export const getPancakeRouterContract = (web3: Web3) =>
+  getContract(
+    pancakeRouterAbi as AbiItem[],
+    getContractAddress('pancakeRouter'),
+    web3,
+  ) as unknown as PancakeRouter;

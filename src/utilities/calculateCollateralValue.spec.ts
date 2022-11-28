@@ -8,7 +8,7 @@ describe('utilities/calculateCollateralValue', () => {
   test('calculate collateral value for a given amount of an asset', () => {
     const collateralValue = calculateCollateralValue({
       amountWei: new BigNumber('100000000000000000'),
-      tokenId: assetData[0].id,
+      token: assetData[0].token,
       tokenPriceTokens: assetData[0].tokenPrice,
       collateralFactor: assetData[0].collateralFactor,
     });

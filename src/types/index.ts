@@ -1,6 +1,5 @@
+import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export enum BscChainId {
   'MAINNET' = 56,
@@ -12,16 +11,12 @@ export interface User {
 }
 
 export interface Asset {
-  id: TokenId;
+  token: Token;
   tokenPrice: BigNumber;
-  symbol: string;
   borrowBalance: BigNumber;
-  decimals: number;
   walletBalance: BigNumber;
-  vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
-  img: string;
   borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
@@ -29,12 +24,8 @@ export interface Asset {
   collateralFactor: BigNumber;
   collateral: boolean;
   supplyBalance: BigNumber;
-  key: number;
   percentOfLimit: string;
-  tokenAddress: string;
-  treasuryBalance: BigNumber;
-  vimg: string | undefined;
-  vsymbol: string;
+  // treasuryBalance: BigNumber;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
@@ -42,23 +33,13 @@ export interface Asset {
   xvsPerDay: BigNumber;
 }
 
-export type TokenId = keyof typeof TOKENS;
-export type VTokenId = keyof typeof VBEP_TOKENS;
-
 export interface Token {
-  id: TokenId;
-  symbol: Uppercase<TokenId>;
+  id: string; // TODO: remove (related to VEN-723)
+  symbol: Uppercase<string>;
   decimals: number;
   address: string | '';
   asset: string;
-  vasset: string;
-}
-
-export interface VBepToken {
-  id: VTokenId;
-  symbol: `v${Uppercase<VTokenId>}`;
-  address: string | '';
-  decimals: number;
+  isNative?: boolean;
 }
 
 export interface Setting {
@@ -154,8 +135,8 @@ export interface VotersDetails {
 
 export interface Pool {
   poolId: BigNumber;
-  stakedToken: TokenId;
-  rewardToken: TokenId;
+  stakedToken: string;
+  rewardToken: string;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;
@@ -174,7 +155,7 @@ export interface VoteTransaction {
 }
 
 export interface Market {
-  id: TokenId;
+  id: string;
   address: string;
   borrowApy: BigNumber;
   borrowCaps: string;
@@ -276,8 +257,8 @@ export interface Transaction {
 }
 
 export interface Vault {
-  stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
+  stakedTokenId: string;
+  rewardTokenId: string;
   stakingAprPercentage: number;
   totalStakedWei: BigNumber;
   dailyEmissionWei: BigNumber;
@@ -352,3 +333,31 @@ export interface VoterHistory {
   updatedAt: Date;
   votesWei: BigNumber;
 }
+
+export type SwapDirection = 'exactAmountIn' | 'exactAmountOut';
+
+interface SwapBase {
+  fromToken: Token;
+  toToken: Token;
+  exchangeRate: BigNumber;
+  direction: SwapDirection;
+  routePath: string[]; // Token addresses
+}
+
+export interface ExactAmountInSwap extends SwapBase {
+  fromTokenAmountSoldWei: BigNumber;
+  expectedToTokenAmountReceivedWei: BigNumber;
+  minimumToTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountIn';
+}
+
+export interface ExactAmountOutSwap extends SwapBase {
+  expectedFromTokenAmountSoldWei: BigNumber;
+  maximumFromTokenAmountSoldWei: BigNumber;
+  toTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountOut';
+}
+
+export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
+
+export type PSTokenCombination = [PSToken, PSToken];

@@ -4,6 +4,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
@@ -13,7 +14,7 @@ import TEST_IDS from './testIds';
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const baseProps: TransactionFormProps = {
-  tokenId: 'xvs',
+  token: TOKENS.xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'Fake submit button disabled label',
   onSubmit: noop,
@@ -77,7 +78,7 @@ describe('pages/Vault/TransactionForm', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: baseProps.tokenId,
+        token: baseProps.token,
         valueWei: fakeWeiSubmitted,
       },
       content: expect.any(String),

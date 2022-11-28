@@ -1,9 +1,9 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
-import { getVBepToken } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
+import { VBEP_TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import WithdrawFromVestingVaultModal, { WithdrawFromVestingVaultModalProps } from '.';
@@ -31,13 +31,13 @@ const authContext = {
 export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
-  stakedTokenId: 'xvs',
+  stakedTokenId: VBEP_TOKENS.xvs.id,
 };
 Default.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: 'xvs',
+    token: VBEP_TOKENS.xvs,
     accountAddress: fakeAddress,
-    spenderAddress: getVBepToken('xvs').address,
+    spenderAddress: VBEP_TOKENS.xvs.address,
   }),
 ];

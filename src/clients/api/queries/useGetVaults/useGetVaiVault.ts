@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { TokenId, Vault } from 'types';
+import { Vault } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
 
 import {
@@ -25,7 +25,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: VAI_VAULT_ADDRESS,
-      tokenId: TOKENS.vai.id as TokenId,
+      token: TOKENS.vai,
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
@@ -68,22 +68,22 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
     const stakingAprPercentage = convertWeiToTokens({
       valueWei: vaiVaultDailyRateData.dailyRateWei,
-      tokenId: TOKENS.xvs.id as TokenId,
+      token: TOKENS.xvs,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
         convertWeiToTokens({
           valueWei: totalVaiStakedData.balanceWei,
-          tokenId: TOKENS.vai.id as TokenId,
+          token: TOKENS.vai,
         }),
       )
       .multipliedBy(100)
       .toNumber();
 
     return {
-      rewardTokenId: TOKENS.xvs.id as TokenId,
-      stakedTokenId: TOKENS.vai.id as TokenId,
+      rewardTokenId: TOKENS.xvs.id,
+      stakedTokenId: TOKENS.vai.id,
       dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,

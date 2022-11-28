@@ -8,6 +8,8 @@ import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
+import { GetBalanceOfInput } from '../queries/getBalanceOf';
+
 // Queries
 export const getBlockNumber = jest.fn();
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
@@ -54,7 +56,17 @@ export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
-export const useGetBalanceOf = () => useQuery(FunctionKey.GET_BALANCE_OF, getBalanceOf);
+export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'web3'>) =>
+  useQuery(
+    [
+      FunctionKey.GET_BALANCE_OF,
+      {
+        accountAddress: input.accountAddress,
+        tokenAddress: input.token.address,
+      },
+    ],
+    () => getBalanceOf(input),
+  );
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
@@ -200,6 +212,10 @@ export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE
 export const getProposalEta = jest.fn();
 export const useGetProposalEta = () => useQuery(FunctionKey.GET_PROPOSAL_ETA, getProposalEta);
 
+export const getPancakeSwapPairs = jest.fn();
+export const useGetPancakeSwapPairs = () =>
+  useQuery(FunctionKey.GET_PANCAKE_SWAP_PAIRS, getPancakeSwapPairs);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
@@ -338,3 +354,7 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
     executeWithdrawalFromXvsVault,
     options,
   );
+
+export const swapTokens = jest.fn();
+export const useSwapTokens = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);

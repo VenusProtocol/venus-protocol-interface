@@ -13,7 +13,7 @@ import {
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
@@ -36,14 +36,14 @@ const useGetVestingVaults = ({
   // Fetch data generic to all XVS pools
   const { data: xvsVaultRewardWeiPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
     useGetXvsVaultRewardPerBlock({
-      tokenAddress: XVS_TOKEN_ADDRESS,
+      tokenAddress: TOKENS.xvs.address,
     });
 
   const {
     data: xvsVaultTotalAllocationPointsData,
     isLoading: isGetXvsVaultTotalAllocationPointsLoading,
   } = useGetXvsVaultTotalAllocationPoints({
-    tokenAddress: XVS_TOKEN_ADDRESS,
+    tokenAddress: TOKENS.xvs.address,
   });
 
   // Fetch pools
@@ -166,7 +166,7 @@ const useGetVestingVaults = ({
             stakingAprPercentage
           ) {
             const vault: Vault = {
-              rewardTokenId: XVS_TOKEN_ID,
+              rewardTokenId: TOKENS.xvs.id,
               stakedTokenId,
               lockingPeriodMs,
               dailyEmissionWei,

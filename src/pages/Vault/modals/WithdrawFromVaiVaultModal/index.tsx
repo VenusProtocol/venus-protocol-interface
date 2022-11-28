@@ -2,8 +2,6 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -13,12 +11,9 @@ import ActionModal, { ActionModalProps } from '../ActionModal';
 
 export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose'>;
 
-const VAI_ID = TOKENS.vai.id as TokenId;
-
 const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ handleClose }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const vaiSymbol = getToken(VAI_ID).symbol;
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
@@ -49,18 +44,18 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
 
   return (
     <ActionModal
-      title={t('withdrawFromVaiVaultModal.title', { tokenSymbol: vaiSymbol })}
-      tokenId={VAI_ID}
+      title={t('withdrawFromVaiVaultModal.title', { tokenSymbol: TOKENS.vai.symbol })}
+      token={TOKENS.vai}
       handleClose={handleClose}
       availableTokensWei={vaiVaultUserInfo?.stakedVaiWei || new BigNumber(0)}
       isInitialLoading={isGetVaiVaultUserInfoLoading}
       onSubmit={handleWithdraw}
       isSubmitting={isWithdrawLoading}
       connectWalletMessage={t('withdrawFromVaiVaultModal.connectWalletMessage', {
-        tokenSymbol: vaiSymbol,
+        tokenSymbol: TOKENS.vai.symbol,
       })}
       availableTokensLabel={t('withdrawFromVaiVaultModal.availableTokensLabel', {
-        tokenSymbol: vaiSymbol,
+        tokenSymbol: TOKENS.vai.symbol,
       })}
       submitButtonLabel={t('withdrawFromVaiVaultModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('withdrawFromVaiVaultModal.submitButtonDisabledLabel')}

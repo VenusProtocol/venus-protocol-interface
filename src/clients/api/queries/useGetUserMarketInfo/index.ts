@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Market, TokenId } from 'types';
+import { Asset } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
-  getToken,
-  getVBepToken,
   indexBy,
+  unsafelyGetToken,
+  unsafelyGetVToken,
 } from 'utilities';
 
 import {
@@ -33,9 +33,9 @@ export interface UseGetUserMarketInfoOutput {
   data: Data;
 }
 
-const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
+const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
-  [],
+  [] as string[],
 );
 
 // TODO: decouple, this hook handles too many things (see https://app.clickup.com/t/2d4rfx6)
@@ -65,15 +65,6 @@ const useGetUserMarketInfo = ({
       dailyVenusWei: new BigNumber(0),
     },
   });
-
-  const marketsMap = useMemo(
-    () =>
-      indexBy(
-        (item: Market) => item.underlyingSymbol.toLowerCase(), // index by symbol of underlying token
-        getMarketsData.markets,
-      ),
-    [getMarketsData?.markets],
-  );
 
   const {
     data: assetsInAccount = {
@@ -120,20 +111,16 @@ const useGetUserMarketInfo = ({
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
       totalXvsDistributedWei,
-    } = Object.values(TOKENS).reduce(
-      (acc, item, index) => {
-        const { assets: assetAcc } = acc;
+    } = (getMarketsData?.markets || []).reduce(
+      (acc, market) => {
+        const token = unsafelyGetToken(market.id);
+        const vBepToken = unsafelyGetVToken(token.id);
 
-        const toDecimalAmount = (mantissa: string) =>
-          new BigNumber(mantissa).shiftedBy(-item.decimals);
-
-        const vBepToken = getVBepToken(item.id);
-        // if no corresponding vassets, skip
-        if (!vBepToken) {
+        // Skip token if it isn't listed
+        if (!token || !vBepToken) {
           return acc;
         }
 
-        const market = marketsMap[item.id];
         const vtokenAddress = vBepToken.address.toLowerCase();
         const collateral = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
@@ -146,21 +133,16 @@ const useGetUserMarketInfo = ({
 
         const wallet = vTokenBalances && vTokenBalances[vtokenAddress];
         if (accountAddress && wallet) {
+          const toDecimalAmount = (mantissa: string) =>
+            new BigNumber(mantissa).shiftedBy(-token.decimals);
+
           walletBalance = toDecimalAmount(wallet.tokenBalance);
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
 
         const asset = {
-          key: index,
-          id: item.id,
-          img: item.asset,
-          vimg: item.vasset,
-          symbol: market?.underlyingSymbol || item.id.toUpperCase(),
-          decimals: item.decimals,
-          tokenAddress: market?.underlyingAddress,
-          vsymbol: market?.symbol,
-          vtokenAddress,
+          token,
           supplyApy: new BigNumber(market?.supplyApy || 0),
           borrowApy: new BigNumber(market?.borrowApy || 0),
           xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
@@ -180,7 +162,7 @@ const useGetUserMarketInfo = ({
           percentOfLimit,
           xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
             .plus(new BigNumber(market?.borrowerDailyVenus || 0))
-            .div(new BigNumber(10).pow(getToken('xvs').decimals)),
+            .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
         };
 
         // user totals
@@ -191,7 +173,7 @@ const useGetUserMarketInfo = ({
 
         acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
           new BigNumber(market?.totalDistributed || 0).times(
-            new BigNumber(10).pow(getToken('xvs').decimals),
+            new BigNumber(10).pow(TOKENS.xvs.decimals),
           ),
         );
 
@@ -199,18 +181,18 @@ const useGetUserMarketInfo = ({
         if (asset.collateral) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
-              amountWei: convertTokensToWei({ value: asset.supplyBalance, tokenId: asset.id }),
-              tokenId: asset.id,
+              amountWei: convertTokensToWei({ value: asset.supplyBalance, token }),
+              token: asset.token,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,
             }).times(100),
           );
         }
 
-        return { ...acc, assets: [...assetAcc, asset] };
+        return { ...acc, assets: [...acc.assets, asset] };
       },
       {
-        assets: [],
+        assets: [] as Asset[],
         userTotalBorrowBalanceCents: new BigNumber(0),
         userTotalBorrowLimitCents: new BigNumber(0),
         userTotalSupplyBalanceCents: new BigNumber(0),
@@ -224,7 +206,7 @@ const useGetUserMarketInfo = ({
       userMintedVaiData
         ? convertWeiToTokens({
             valueWei: userMintedVaiData.mintedVaiWei,
-            tokenId: TOKENS.vai.id as TokenId,
+            token: TOKENS.vai,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
             .times(100)
@@ -254,7 +236,7 @@ const useGetUserMarketInfo = ({
     };
   }, [
     userMintedVaiData?.mintedVaiWei.toFixed(),
-    JSON.stringify(marketsMap),
+    JSON.stringify(getMarketsData?.markets),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
     JSON.stringify(getMarketsData),

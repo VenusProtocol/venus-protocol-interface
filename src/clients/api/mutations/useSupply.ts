@@ -1,5 +1,5 @@
 import { MutationObserverOptions } from 'react-query';
-import { Asset, VTokenId } from 'types';
+import { Asset } from 'types';
 
 import {
   SupplyBnbInput,
@@ -30,7 +30,7 @@ const useSupply = (
 ) => {
   const useSupplyNonBnbResult = useSupplyNonBnb(
     {
-      assetId: asset?.id as VTokenId,
+      assetId: asset?.token.id,
       account,
     },
     options as OptionsSupplyNonBnb,
@@ -38,7 +38,7 @@ const useSupply = (
 
   const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
 
-  return asset.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
+  return asset.token.isNative ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 
 export default useSupply;

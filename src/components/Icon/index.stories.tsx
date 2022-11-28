@@ -19,14 +19,12 @@ export const IconDefault = () => {
     .map(path => path.replace('./', '').replace('tokens/', '').replace('.tsx', '')) as IconName[];
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px 24px' }}>
       {svgFileNames.map(svgFileName => (
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
-            flex: '0 0 21%',
           }}
         >
           <h4 style={{ marginRight: '8px' }}>{svgFileName}</h4>

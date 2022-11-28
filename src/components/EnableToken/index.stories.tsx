@@ -1,8 +1,9 @@
 import Typography from '@mui/material/Typography';
 import { ComponentMeta } from '@storybook/react';
-import { noop } from 'lodash';
 import React from 'react';
 
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { EnableTokenUi } from '.';
@@ -15,10 +16,10 @@ export default {
 
 export const Disabled = () => (
   <EnableTokenUi
-    title="To withdraw BNB to the Venus Protocol, you need to enable it first."
-    vTokenId="eth"
+    title="To withdraw XVS to the Venus Protocol, you need to enable it first."
+    token={TOKENS.xvs}
     isTokenEnabled={false}
-    enableToken={noop}
+    enableToken={async () => fakeTransactionReceipt}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -26,14 +27,14 @@ export const Disabled = () => (
 
 export const DisabledWithTokenInfo = () => (
   <EnableTokenUi
-    title="To withdraw BNB to the Venus Protocol, you need to enable it first."
-    vTokenId="eth"
+    title="To withdraw USDC to the Venus Protocol, you need to enable it first."
+    token={TOKENS.usdc}
     isTokenEnabled={false}
     tokenInfo={[
-      { iconName: 'vai', label: 'Supply APY', children: '77.36' },
-      { iconName: 'vai', label: 'Distribution APY', children: '0.82' },
+      { iconSrc: TOKENS.usdc, label: 'Supply APY', children: '77.36' },
+      { iconSrc: TOKENS.usdc, label: 'Distribution APY', children: '0.82' },
     ]}
-    enableToken={noop}
+    enableToken={async () => fakeTransactionReceipt}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -43,9 +44,9 @@ export const Enabled = () => (
   <EnableTokenUi
     title="Enable Token"
     isTokenEnabled
-    vTokenId="eth"
+    token={TOKENS.usdc}
     tokenInfo={[]}
-    enableToken={noop}
+    enableToken={async () => fakeTransactionReceipt}
   >
     <Typography>Visible Content</Typography>
   </EnableTokenUi>

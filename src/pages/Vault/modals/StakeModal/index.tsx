@@ -2,8 +2,7 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { getContractAddress, getToken } from 'utilities';
+import { getContractAddress, unsafelyGetToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
@@ -12,8 +11,8 @@ import useStakeInVault from 'hooks/useStakeInVault';
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
 export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
-  stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
+  stakedTokenId: string;
+  rewardTokenId: string;
   poolIndex?: number;
 }
 
@@ -25,7 +24,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const stakedTokenSymbol = getToken(stakedTokenId).symbol;
+  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
@@ -42,7 +41,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
-      tokenId: stakedTokenId,
+      token: stakedToken,
     },
     {
       enabled: !!account?.address,
@@ -72,21 +71,21 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <ActionModal
-      title={t('stakeModal.title', { tokenSymbol: stakedTokenSymbol })}
-      tokenId={stakedTokenId}
+      title={t('stakeModal.title', { tokenSymbol: stakedToken.symbol })}
+      token={stakedToken}
       handleClose={handleClose}
       availableTokensWei={availableTokensData?.balanceWei || new BigNumber(0)}
       isInitialLoading={isGetWalletBalanceWeiLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}
       connectWalletMessage={t('stakeModal.connectWalletMessage', {
-        tokenSymbol: stakedTokenSymbol,
+        tokenSymbol: stakedToken.symbol,
       })}
       tokenNeedsToBeEnabled
-      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedTokenSymbol })}
+      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedToken.symbol })}
       spenderAddress={spenderAddress}
       availableTokensLabel={t('stakeModal.availableTokensLabel', {
-        tokenSymbol: stakedTokenSymbol,
+        tokenSymbol: stakedToken.symbol,
       })}
       submitButtonLabel={t('stakeModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('stakeModal.submitButtonDisabledLabel')}

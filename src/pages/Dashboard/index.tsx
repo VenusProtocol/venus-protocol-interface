@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { Asset } from 'types';
 
 import { useGetUserMarketInfo } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import Markets from './Markets';
@@ -42,7 +42,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
           if (curr.borrowBalance.isGreaterThan(0)) {
             acc.borrowingAssets.push(curr);
-          } else if (curr.id !== XVS_TOKEN_ID) {
+          } else if (curr.token.address !== TOKENS.xvs.address) {
             acc.borrowMarketAssets.push(curr);
           }
           return acc;

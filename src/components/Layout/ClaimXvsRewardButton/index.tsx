@@ -3,21 +3,19 @@ import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { ButtonProps, SecondaryButton } from '../../Button';
-import { Icon } from '../../Icon';
+import { TokenIcon } from '../../TokenIcon';
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
-
-const XVS_SYMBOL = 'xvs';
 
 export interface ClaimXvsRewardButtonProps extends Omit<ButtonProps, 'onClick'> {
   onClaimReward: () => Promise<TransactionReceipt | void>;
@@ -36,7 +34,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
 
   const readableAmount = useConvertWeiToReadableTokenString({
     valueWei: amountWei,
-    tokenId: XVS_SYMBOL,
+    token: TOKENS.xvs,
     minimizeDecimals: true,
   });
 
@@ -53,7 +51,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
         content: t('claimXvsRewardButton.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          tokenId: 'xvs' as TokenId,
+          token: TOKENS.xvs,
         },
         transactionHash: transactionReceipt.transactionHash,
       }),
@@ -69,7 +67,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
       <Trans
         i18nKey="claimXvsRewardButton.title"
         components={{
-          Icon: <Icon css={styles.icon} name={XVS_SYMBOL} />,
+          Icon: <TokenIcon token={TOKENS.xvs} css={styles.icon} />,
         }}
         values={{
           amount: readableAmount,

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, Icon, PrimaryButton } from 'components';
+import { ConnectWallet, PrimaryButton, TokenIcon } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -33,7 +33,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
 
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
-    tokenId: XVS_TOKEN_ID,
+    token: TOKENS.xvs,
   });
 
   const handleTransactionMutation = useHandleTransactionMutation();
@@ -52,7 +52,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
         transactionHash: transactionReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
+            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {readableXvsAvailable}
             </Typography>

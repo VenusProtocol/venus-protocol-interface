@@ -70,6 +70,7 @@ export const useStyles = () => {
         padding: ${theme.spacing(4)} ${theme.spacing(4)} ${theme.spacing(4)} ${theme.spacing(8)};
         display: inline-flex;
         justify-content: start;
+        align-items: center;
         width: 100%;
 
         ${theme.breakpoints.down('lg')} {
@@ -126,6 +127,25 @@ export const useStyles = () => {
       ${theme.breakpoints.down('md')} {
         display: block;
       }
+    `,
+    listItemNewBadge: css`
+      border: 1px solid ${theme.palette.interactive.success};
+      background-color: ${theme.palette.interactive.success10};
+      border-radius: ${theme.spacing(1)};
+      height: ${theme.spacing(5)};
+      display: flex;
+      align-items: center;
+      padding: ${theme.spacing(0, 1)};
+      margin-left: ${theme.spacing(3)};
+
+      ${theme.breakpoints.down('lg')} {
+        display: none;
+      }
+    `,
+    listItemNewBadgeText: css`
+      font-weight: ${theme.typography.fontWeightBold};
+      color: ${theme.palette.interactive.success};
+      margin-top: 1px;
     `,
     logo: css`
       display: block;

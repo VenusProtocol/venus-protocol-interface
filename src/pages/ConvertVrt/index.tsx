@@ -14,13 +14,12 @@ import {
   useGetXvsWithdrawableAmount,
   useWithdrawXvs,
 } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { VError } from 'errors/VError';
 
 import Convert, { ConvertProps } from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
-import { VRT_ID } from './constants';
 import { useStyles } from './styles';
 
 export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
@@ -78,7 +77,7 @@ const ConvertVrt = () => {
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(
-    { accountAddress: accountAddress || '', tokenId: VRT_ID },
+    { accountAddress: accountAddress || '', token: TOKENS.vrt },
     { enabled: !!accountAddress },
   );
 
@@ -116,7 +115,7 @@ const ConvertVrt = () => {
     if (vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
         valueWei: new BigNumber(vrtConversionRatioData.conversionRatio),
-        tokenId: XVS_TOKEN_ID,
+        token: TOKENS.xvs,
       });
     }
 

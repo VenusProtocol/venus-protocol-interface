@@ -2,6 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import { Button } from 'components';
 import React from 'react';
 
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TextField } from '.';
@@ -20,8 +21,10 @@ export const WithDescription = () => (
   <TextField description="This is a fake description" placeholder="0.0" type="number" min={0} />
 );
 
+export const WithIsSmall = () => <TextField placeholder="0.0" type="number" min={0} isSmall />;
+
 export const WithLeftIcon = () => (
-  <TextField leftIconName="xvs" placeholder="0.0" type="number" min={0} />
+  <TextField leftIconSrc={TOKENS.xvs} placeholder="0.0" type="number" min={0} />
 );
 
 export const WithRightAdornment = () => (

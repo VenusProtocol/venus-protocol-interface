@@ -4,6 +4,7 @@ import React from 'react';
 import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
+import { TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import MintRepayVai, { MintRepayVaiProps } from '.';
@@ -40,7 +41,7 @@ export const Default = Template.bind({});
 Default.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    tokenId: 'vai',
+    token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiUnitroller'),
   }),

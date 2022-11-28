@@ -1,13 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';
 
 export interface UseStakeInVaultInput {
-  stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
+  stakedTokenId: string;
+  rewardTokenId: string;
   poolIndex?: number;
 }
 
@@ -32,7 +31,7 @@ const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: UseStakeIn
 
   const stake = async ({ amountWei, accountAddress }: StakeInput) => {
     if (typeof poolIndex === 'number') {
-      const rewardTokenAddress = getToken(rewardTokenId).address;
+      const rewardTokenAddress = unsafelyGetToken(rewardTokenId).address;
 
       return stakeInXvsVault({
         poolIndex,

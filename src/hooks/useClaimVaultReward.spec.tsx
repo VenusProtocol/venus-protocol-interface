@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { TokenId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { claimVaiVaultReward, claimVrtVaultReward, claimXvsVaultReward } from 'clients/api';
@@ -25,8 +24,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vai.id as TokenId,
-                rewardTokenId: TOKENS.xvs.id as TokenId,
+                stakedTokenId: TOKENS.vai.id,
+                rewardTokenId: TOKENS.xvs.id,
                 accountAddress: fakeAccountAddress,
                 poolIndex: fakePoolIndex,
               })
@@ -61,8 +60,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vai.id as TokenId,
-                rewardTokenId: TOKENS.xvs.id as TokenId,
+                stakedTokenId: TOKENS.vai.id,
+                rewardTokenId: TOKENS.xvs.id,
                 accountAddress: fakeAccountAddress,
               })
             }
@@ -94,8 +93,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vrt.id as TokenId,
-                rewardTokenId: TOKENS.xvs.id as TokenId,
+                stakedTokenId: TOKENS.vrt.id,
+                rewardTokenId: TOKENS.xvs.id,
                 accountAddress: fakeAccountAddress,
               })
             }

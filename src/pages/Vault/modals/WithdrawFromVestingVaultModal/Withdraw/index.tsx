@@ -4,8 +4,7 @@ import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'com
 import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -16,7 +15,7 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface WithdrawUiProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   isInitialLoading: boolean;
   onSubmitSuccess: () => void;
   onSubmit: () => Promise<unknown>;
@@ -41,11 +40,11 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
     onSubmitSuccess();
   };
 
-  const stakedToken = getToken(stakedTokenId);
+  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
     valueWei: withdrawableWei,
-    tokenId: stakedTokenId,
+    token: stakedToken,
     minimizeDecimals: true,
   });
 
@@ -57,7 +56,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
         <>
           <LabeledInlineContent
             css={styles.content}
-            iconName={stakedTokenId}
+            iconSrc={stakedToken}
             data-testid={TEST_IDS.availableTokens}
             label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
               tokenSymbol: stakedToken.symbol,
@@ -82,7 +81,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 export interface WithdrawProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   poolIndex: number;
   handleClose: () => void;
 }

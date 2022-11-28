@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs, Token } from 'components';
+import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -30,7 +30,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
     },
   ];
 
-  if (isAssetEnabled(asset.id)) {
+  if (isAssetEnabled(asset.token.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
@@ -42,7 +42,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   }
 
   return (
-    <Modal isOpen title={<Token tokenId={asset.id} variant="h4" />} handleClose={onClose}>
+    <Modal
+      isOpen
+      title={<TokenIconWithSymbol token={asset.token} variant="h4" />}
+      handleClose={onClose}
+    >
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );

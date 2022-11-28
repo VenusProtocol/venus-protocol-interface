@@ -3,22 +3,21 @@ import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
   EnableToken,
-  IconName,
   LabeledInlineContentProps,
   Modal,
   ModalProps,
   TabContent,
   Tabs,
-  Token,
+  TokenIconWithSymbol,
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, TokenId, VTokenId } from 'types';
+import { Asset } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
-  getVBepToken,
   isAssetEnabled,
+  unsafelyGetVToken,
 } from 'utilities';
 
 import {
@@ -28,6 +27,7 @@ import {
   useRedeemUnderlying,
 } from 'clients/api';
 import useSupply from 'clients/api/mutations/useSupply';
+import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -71,21 +71,21 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
 }) => {
   const styles = useStyles();
 
-  const { id: assetId, symbol } = asset || {};
+  const { id: assetId, symbol } = asset?.token || {};
   const { t } = useTranslation();
 
-  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
+  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
 
   const tokenInfo: LabeledInlineContentProps[] = asset
     ? [
         {
           label: t('supplyWithdraw.supplyApy'),
-          iconName: assetId as IconName,
+          iconSrc: asset.token,
           children: formatToReadablePercentage(asset.supplyApy),
         },
         {
           label: t('supplyWithdraw.distributionApy'),
-          iconName: 'xvs' as IconName,
+          iconSrc: TOKENS.xvs,
           children: formatToReadablePercentage(asset.xvsSupplyApy),
         },
       ]
@@ -137,7 +137,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
         );
         const maxTokensBeforeLiquidation = marginWithBorrowLimitDollars
           .dividedBy(collateralAmountPerTokenDollars)
-          .dp(asset.decimals, BigNumber.ROUND_DOWN);
+          .dp(asset.token.decimals, BigNumber.ROUND_DOWN);
 
         maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
       }
@@ -150,7 +150,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
         <ConnectWallet message={message}>
           {asset && (
             <EnableToken
-              vTokenId={asset.id}
+              token={asset.token}
               spenderAddress={vBepTokenContractAddress}
               title={title}
               tokenInfo={tokenInfo}
@@ -218,7 +218,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
     <Modal
       isOpen={!!assetId}
       handleClose={onClose}
-      title={assetId ? <Token tokenId={assetId as TokenId} variant="h4" /> : undefined}
+      title={assetId ? <TokenIconWithSymbol token={asset.token} variant="h4" /> : undefined}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
@@ -238,7 +238,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   });
 
   const { data: vTokenBalanceData } = useGetVTokenBalanceOf(
-    { accountAddress, vTokenId: asset.id as VTokenId },
+    { accountAddress, vTokenId: asset.token.id },
     { enabled: !!accountAddress },
   );
 
@@ -248,22 +248,22 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   });
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
-    vTokenId: asset?.id as VTokenId,
+    vTokenId: asset?.token.id,
     accountAddress,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
-      vTokenId: asset?.id as VTokenId,
+      vTokenId: asset?.token.id,
       accountAddress,
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
-    const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
+    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token: asset.token });
     const res = await supply({
-      amountWei: supplyAmount,
+      amountWei: supplyAmountWei,
     });
     onClose();
 
@@ -271,8 +271,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
-        valueWei: convertTokensToWei({ value: new BigNumber(value), tokenId: asset.id }),
-        tokenId: asset.id,
+        valueWei: supplyAmountWei,
+        token: asset.token,
       },
       transactionHash: res.transactionHash,
     });
@@ -287,12 +287,17 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       const res = await redeem({ amountWei: new BigNumber(vTokenBalanceData.balanceWei) });
 
       ({ transactionHash } = res);
-      // Display successful transaction modal
+      // Successful transaction modal will display
     } else {
-      const withdrawAmount = amount.times(new BigNumber(10).pow(asset.decimals)).integerValue();
-      const res = await redeemUnderlying({
-        amountWei: withdrawAmount,
+      const withdrawAmountWei = convertTokensToWei({
+        value: new BigNumber(value),
+        token: asset.token,
       });
+
+      const res = await redeemUnderlying({
+        amountWei: withdrawAmountWei,
+      });
+
       ({ transactionHash } = res);
     }
 
@@ -303,8 +308,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertTokensToWei({ value: amount, tokenId: asset.id }),
-          tokenId: asset.id,
+          valueWei: convertTokensToWei({ value: amount, token: asset.token }),
+          token: asset.token,
         },
         transactionHash,
       });

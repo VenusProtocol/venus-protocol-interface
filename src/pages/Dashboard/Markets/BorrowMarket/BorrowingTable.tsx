@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { LayeredValues, ProgressBar, Table, TableProps, Token } from 'components';
+import { LayeredValues, ProgressBar, Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -57,8 +57,8 @@ const BorrowingTable: React.FC<BorrowingUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token tokenId={asset.id} />,
-        value: asset.id,
+        render: () => <TokenIconWithSymbol token={asset.token} />,
+        value: asset.token.id,
         align: 'left',
       },
       {
@@ -76,7 +76,7 @@ const BorrowingTable: React.FC<BorrowingUiProps> = ({
             })}
             bottomValue={formatTokensToReadableValue({
               value: asset.borrowBalance,
-              tokenId: asset.id,
+              token: asset.token,
               minimizeDecimals: true,
             })}
           />

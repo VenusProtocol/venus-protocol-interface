@@ -4,7 +4,8 @@ import BigNumber from 'bignumber.js';
 import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useState } from 'react';
-import { Asset, VTokenId } from 'types';
+import { Asset } from 'types';
+import { unsafelyGetVToken } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -46,7 +47,9 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   confirmCollateral,
   setConfirmCollateral,
 }) => {
-  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
+  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['token']['id'] | undefined>(
+    undefined,
+  );
   const styles = useStyles();
 
   const collateralOnChange = async (asset: Asset) => {
@@ -62,7 +65,7 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   };
 
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
-    const assetId = row[0].value as VTokenId;
+    const assetId = row[0].value as string;
 
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the supply modal of other assets
@@ -79,7 +82,7 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   const selectedAsset = React.useMemo(
     () =>
       [...supplyMarketAssets, ...suppliedAssets].find(
-        marketAsset => marketAsset.id === selectedAssetId,
+        marketAsset => marketAsset.token.id === selectedAssetId,
       ),
     [selectedAssetId, JSON.stringify(supplyMarketAssets), JSON.stringify(suppliedAssets)],
   );
@@ -149,8 +152,8 @@ const SupplyMarket: React.FC<
     // (see rowOnClick function above)
     if (
       hasLunaOrUstCollateralEnabled &&
-      asset.id !== TOKENS.ust.id &&
-      asset.id !== TOKENS.luna.id
+      asset.token.id !== TOKENS.ust.id &&
+      asset.token.id !== TOKENS.luna.id
     ) {
       return;
     }
@@ -169,8 +172,10 @@ const SupplyMarket: React.FC<
       });
     }
 
+    const vToken = unsafelyGetVToken(asset.token.id);
+
     if (asset.collateral) {
-      const vTokenContract = getVTokenContract(asset.id as VTokenId, web3);
+      const vTokenContract = getVTokenContract(asset.token.id, web3);
 
       let assetHypotheticalLiquidity;
       try {
@@ -182,7 +187,7 @@ const SupplyMarket: React.FC<
         assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
           comptrollerContract,
           accountAddress,
-          vTokenAddress: asset.vtokenAddress,
+          vTokenAddress: vToken.address,
           vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
         });
       } catch (error) {
@@ -193,14 +198,14 @@ const SupplyMarket: React.FC<
         throw new VError({
           type: 'interaction',
           code: 'collateralDisableError',
-          data: { assetName: asset.symbol },
+          data: { assetName: asset.token.symbol },
         });
       }
 
       if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
         try {
           setConfirmCollateral(asset);
-          await exitMarket({ vtokenAddress: asset.vtokenAddress, accountAddress });
+          await exitMarket({ vtokenAddress: vToken.address, accountAddress });
         } catch (error) {
           if (error instanceof VError) {
             throw error;
@@ -210,7 +215,7 @@ const SupplyMarket: React.FC<
             type: 'interaction',
             code: 'collateralDisableError',
             data: {
-              assetName: asset.symbol,
+              assetName: asset.token.symbol,
             },
           });
         }
@@ -221,7 +226,7 @@ const SupplyMarket: React.FC<
 
     try {
       setConfirmCollateral(asset);
-      await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
+      await enterMarkets({ vTokenAddresses: [vToken.address], accountAddress });
     } catch (error) {
       if (error instanceof VError) {
         throw error;
@@ -230,7 +235,7 @@ const SupplyMarket: React.FC<
         type: 'interaction',
         code: 'collateralEnableError',
         data: {
-          assetName: asset.symbol,
+          assetName: asset.token.symbol,
         },
       });
     }

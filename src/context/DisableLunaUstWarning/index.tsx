@@ -34,7 +34,10 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
   const hasLunaOrUstCollateralEnabled = useMemo(
     () =>
       assets.some(
-        asset => (asset.id === TOKENS.luna.id || asset.id === TOKENS.ust.id) && asset.collateral,
+        asset =>
+          (asset.token.address === TOKENS.luna.address ||
+            asset.token.address === TOKENS.ust.address) &&
+          asset.collateral,
       ),
     [JSON.stringify(assets)],
   );

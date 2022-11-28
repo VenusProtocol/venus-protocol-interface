@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TokenId, Vault } from 'types';
+import { Vault } from 'types';
 import { getContractAddress } from 'utilities';
 
 import {
@@ -29,7 +29,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: totalVrtStakedData, isLoading: isGetTotalVrtStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: vrtVaultProxyAddress,
-      tokenId: TOKENS.vrt.id as TokenId,
+      token: TOKENS.vrt,
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
@@ -72,8 +72,8 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
-      rewardTokenId: TOKENS.vrt.id as TokenId,
-      stakedTokenId: TOKENS.vrt.id as TokenId,
+      rewardTokenId: TOKENS.vrt.id,
+      stakedTokenId: TOKENS.vrt.id,
       dailyEmissionWei,
       totalStakedWei: totalVrtStakedData.balanceWei,
       stakingAprPercentage,

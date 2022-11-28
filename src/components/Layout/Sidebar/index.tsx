@@ -52,6 +52,8 @@ export const SidebarUi: React.FC = () => {
                 disableRipple
               >
                 <Link href={menuItem.href}>
+                  <div className="left-border" />
+
                   <ListItemIcon css={styles.listItemIcon}>
                     <Icon name={menuItem.icon} />
                   </ListItemIcon>
@@ -60,7 +62,13 @@ export const SidebarUi: React.FC = () => {
                     {t(menuItem.i18nKey)}
                   </Typography>
 
-                  <div className="left-border" />
+                  {menuItem.isNew && (
+                    <div css={styles.listItemNewBadge}>
+                      <Typography variant="tiny" css={styles.listItemNewBadgeText}>
+                        {t('sidebar.newBadge')}
+                      </Typography>
+                    </div>
+                  )}
                 </Link>
               </ListItemButton>
             ))}
@@ -104,7 +112,7 @@ export const SidebarUi: React.FC = () => {
           </div>
 
           <List>
-            {menuItems.map(({ href, icon, i18nKey }) => (
+            {menuItems.map(({ href, icon, i18nKey, isNew }) => (
               <ListItemButton
                 key={i18nKey}
                 component="li"
@@ -124,6 +132,14 @@ export const SidebarUi: React.FC = () => {
                     >
                       {t(i18nKey)}
                     </Typography>
+
+                    {isNew && (
+                      <div css={styles.listItemNewBadge}>
+                        <Typography variant="tiny" css={styles.listItemNewBadgeText}>
+                          {t('sidebar.newBadge')}
+                        </Typography>
+                      </div>
+                    )}
                   </div>
 
                   <Icon name="arrowRight" css={styles.mobileArrow} />

@@ -133,6 +133,10 @@ export { default as executeWithdrawalFromXvsVault } from './mutations/executeWit
 export * from './mutations/executeWithdrawalFromXvsVault';
 export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
 
+export { default as swapTokens } from './mutations/swapTokens';
+export * from './mutations/swapTokens';
+export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -213,12 +217,6 @@ export { default as useGetVTokenApySimulations } from './queries/getVTokenApySim
 export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
 export { default as useGetCurrentVotes } from './queries/getCurrentVotes/useGetCurrentVotes';
-
-export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
-export * from './queries/getVTokenBorrowRate';
-
-export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
-export * from './queries/getVTokenSupplyRate';
 
 export { default as getTransactions } from './queries/getTransactions';
 export * from './queries/getTransactions';
@@ -334,3 +332,7 @@ export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlo
 export { default as getProposalEta } from './queries/getProposalEta';
 export * from './queries/getProposalEta';
 export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';
+
+export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
+export * from './queries/getPancakeSwapPairs';
+export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';

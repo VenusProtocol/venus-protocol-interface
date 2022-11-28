@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
@@ -15,7 +15,7 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface TransactionFormProps {
-  tokenId: TokenId;
+  token: Token;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
   successfulTransactionTitle: string;
@@ -28,7 +28,7 @@ export interface TransactionFormProps {
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({
-  tokenId,
+  token,
   availableTokensWei,
   availableTokensLabel,
   submitButtonLabel,
@@ -48,14 +48,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: availableTokensWei,
-        tokenId,
+        token,
       }).toFixed(),
     [availableTokensWei.toFixed()],
   );
 
   const readableAvailableTokens = useConvertWeiToReadableTokenString({
     valueWei: availableTokensWei,
-    tokenId,
+    token,
     minimizeDecimals: true,
   });
 
@@ -73,7 +73,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleSubmit = async (amountTokens: string) => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
-      tokenId,
+      token,
     });
 
     return handleTransactionMutation({
@@ -83,7 +83,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         content: successfulTransactionDescription,
         amount: {
           valueWei: amountWei,
-          tokenId,
+          token,
         },
         transactionHash: transactionReceipt.transactionHash,
       }),
@@ -96,7 +96,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         <>
           <FormikTokenTextField
             name="amount"
-            tokenId={tokenId}
+            token={token}
             disabled={isSubmitting}
             rightMaxButton={{
               label: t('vault.transactionForm.rightMaxButtonLabel'),
@@ -109,7 +109,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
           <LabeledInlineContent
             data-testid={TEST_IDS.availableTokens}
-            iconName={tokenId}
+            iconSrc={token}
             label={availableTokensLabel}
             css={styles.getRow({ isLast: !readableLockingPeriod })}
           >

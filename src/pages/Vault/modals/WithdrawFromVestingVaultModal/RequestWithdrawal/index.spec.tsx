@@ -2,7 +2,6 @@ import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
-import { TokenId } from 'types';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
@@ -26,7 +25,7 @@ import TEST_IDS from '../../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 
-const fakeStakedTokenId = TOKENS.vai.id as TokenId;
+const fakeStakedTokenId = TOKENS.vai.id;
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {

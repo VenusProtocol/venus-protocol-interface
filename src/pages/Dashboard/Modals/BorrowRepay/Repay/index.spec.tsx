@@ -9,6 +9,7 @@ import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -55,7 +56,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
       },
     });
 
-    await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
+    await waitFor(() => getByText(`1,000 ${fakeAsset.token.symbol.toUpperCase()}`));
   });
 
   it('displays correct token wallet balance', async () => {
@@ -67,7 +68,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
       },
     });
 
-    await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
+    await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
   });
 
   it('disables submit button if an amount entered in input is higher than token borrow balance', async () => {
@@ -163,7 +164,9 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
-    const expectedInputValue = customFakeAsset.walletBalance.dp(customFakeAsset.decimals).toFixed();
+    const expectedInputValue = customFakeAsset.walletBalance
+      .dp(customFakeAsset.token.decimals)
+      .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -197,7 +200,9 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
-    const expectedInputValue = customFakeAsset.borrowBalance.dp(customFakeAsset.decimals).toFixed();
+    const expectedInputValue = customFakeAsset.borrowBalance
+      .dp(customFakeAsset.token.decimals)
+      .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -236,7 +241,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
       const expectedInputValue = customFakeAsset.borrowBalance
         .multipliedBy(presetPercentage / 100)
-        .dp(customFakeAsset.decimals)
+        .dp(customFakeAsset.token.decimals)
         .toFixed();
 
       // eslint-disable-next-line
@@ -283,7 +288,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.decimals),
+      new BigNumber(10).pow(fakeAsset.token.decimals),
     );
 
     await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
@@ -298,7 +303,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: fakeAsset.id,
+        token: fakeAsset.token,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),
@@ -350,7 +355,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     const fakeBnbAsset: Asset = {
       ...fakeAsset,
-      id: 'bnb',
+      token: TOKENS.bnb,
     };
 
     const { getByText } = renderComponent(

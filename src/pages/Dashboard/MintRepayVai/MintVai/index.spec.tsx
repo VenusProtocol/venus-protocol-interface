@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
@@ -28,7 +27,7 @@ jest.mock('clients/api');
 jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeVai = { ...assetData, id: TOKENS.vai.id as TokenId, symbol: TOKENS.vai.symbol };
+const fakeVai = { ...assetData[0], token: TOKENS.vai };
 
 const fakeGetMintableVaiOutput = formatToGetMintableVaiOutput(
   vaiUnitrollerResponses.getMintableVAI,
@@ -37,7 +36,7 @@ const fakeGetMintableVaiOutput = formatToGetMintableVaiOutput(
 const fakeMintableVaiTokens = fakeGetMintableVaiOutput.mintableVaiWei.dividedBy(1e18);
 const formattedFakeMintableVai = formatTokensToReadableValue({
   value: fakeMintableVaiTokens,
-  tokenId: TOKENS.vai.id as TokenId,
+  token: TOKENS.vai,
 });
 const fakeVaiTreasuryPercentage = 7.19;
 
@@ -130,7 +129,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: TOKENS.vai.id as TokenId,
+        token: TOKENS.vai,
         valueWei: fakeWeiMinted,
       },
       content: expect.any(String),

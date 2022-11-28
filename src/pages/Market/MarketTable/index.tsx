@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { LayeredValues, Table, TableProps, Token } from 'components';
+import { LayeredValues, Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Market, TokenId } from 'types';
+import { Market } from 'types';
 import {
   convertPercentageFromSmartContract,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
+  unsafelyGetToken,
 } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
@@ -67,7 +68,9 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       markets.map(market => [
         {
           key: 'asset',
-          render: () => <Token tokenId={market.id as TokenId} css={localStyles.whiteText} />,
+          render: () => (
+            <TokenIconWithSymbol token={unsafelyGetToken(market.id)} css={localStyles.whiteText} />
+          ),
           value: market.id,
         },
         {
@@ -80,7 +83,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
+                token: unsafelyGetToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}
@@ -111,7 +114,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
+                token: unsafelyGetToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}

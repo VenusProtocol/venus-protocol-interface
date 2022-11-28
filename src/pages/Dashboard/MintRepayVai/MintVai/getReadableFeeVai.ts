@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { convertWeiToTokens } from 'utilities';
 
-import { VAI_ID } from '../constants';
+import { TOKENS } from 'constants/tokens';
 
 const getReadableFeeVai = ({
   valueWei,
@@ -13,7 +13,7 @@ const getReadableFeeVai = ({
   const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
   return convertWeiToTokens({
     valueWei: feeWei,
-    tokenId: VAI_ID,
+    token: TOKENS.vai,
     returnInReadableFormat: true,
   });
 };

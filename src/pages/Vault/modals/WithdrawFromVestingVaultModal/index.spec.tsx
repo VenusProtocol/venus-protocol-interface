@@ -1,7 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
-import { TokenId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
@@ -13,7 +12,7 @@ import WithdrawFromVestingVaultModal from '.';
 jest.mock('clients/api');
 
 const fakePoolIndex = 6;
-const fakeStokedTokenId = TOKENS.vai.id as TokenId;
+const fakeStokedTokenId = TOKENS.vai.id;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal', () => {
   it('renders without crashing', async () => {

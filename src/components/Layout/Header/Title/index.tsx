@@ -3,8 +3,7 @@ import { Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import Path from 'constants/path';
@@ -14,6 +13,7 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { TertiaryButton } from '../../../Button';
 import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
+import { TokenIcon } from '../../../TokenIcon';
 import { menuItems } from '../../constants';
 import BackButton from './BackButton';
 import { useStyles } from './styles';
@@ -24,7 +24,7 @@ const Title: React.FC = () => {
   const { account } = useContext(AuthContext);
 
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
-  const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
+  const marketDetailsMatch = useRouteMatch<{ vTokenId: string }>(Path.MARKET_DETAILS);
   const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
   const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.GOVERNANCE_PROPOSAL_DETAILS);
   const { t } = useTranslation();
@@ -33,14 +33,14 @@ const Title: React.FC = () => {
   // Handle special case of Market Details page
   if (marketDetailsMatch) {
     const { vTokenId } = marketDetailsMatch.params;
-    const token = getToken(vTokenId);
+    const token = unsafelyGetToken(vTokenId);
 
     const onAddTokenToWallet = () => addTokenToWallet(vTokenId);
 
     return (
       <div css={styles.marketDetailsLeftColumn}>
         <BackButton>
-          <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
+          <TokenIcon token={token} css={styles.backButtonTokenIcon} />
           <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
         </BackButton>
 

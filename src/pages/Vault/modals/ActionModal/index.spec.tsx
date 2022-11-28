@@ -2,12 +2,14 @@ import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
+import { BscChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance } from 'clients/api';
 import TEST_IDS from 'components/Spinner/testIds';
 import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
@@ -18,7 +20,7 @@ const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,
   connectWalletMessage: 'Fake connect wallet message',
-  tokenId: 'xvs',
+  token: TOKENS.xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'fake submit button disabled label',
   handleClose: noop,
@@ -28,7 +30,7 @@ const baseProps: ActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeEnabled: true,
   enableTokenMessage: 'Fake enable token message',
-  spenderAddress: mainContractAddresses.xvsVaultProxy[97],
+  spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

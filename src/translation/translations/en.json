@@ -195,6 +195,7 @@
       "governance": "Governance",
       "history": "History",
       "markets": "Markets",
+      "swap": "Swap",
       "vaults": "Vaults",
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
@@ -338,6 +339,15 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
+  },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
@@ -375,6 +385,56 @@
     "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+  },
+  "swap": {
+    "errors": {
+      "incorrectSwapInput": "Incorrect input provided for swap"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "Please connect your wallet to swap tokens",
+    "enablingStep": {
+      "enableTokenButton": {
+        "text": "Enable {{tokenSymbol}}",
+        "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
+      },
+      "step1": "Step 1",
+      "step2": "Step 2"
+    },
+    "exchangeRate": {
+      "label": "Exchange rate",
+      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    },
+    "fromTokenAmountField": {
+      "label": "From"
+    },
+    "maximumSold": {
+      "label": "Maximum sold"
+    },
+    "minimumReceived": {
+      "label": "Minimum received"
+    },
+    "slippageTolerance": {
+      "label": "Slippage tolerance"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "Insufficient liquidity for this swap",
+        "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
+        "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
+      "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}",
+      "processing": "Processing"
+    },
+    "successfulConvertTransactionModal": {
+      "message": "You successfully swapped your tokens",
+      "title": "Your swap was successful"
+    },
+    "toTokenAmountField": {
+      "label": "To"
+    }
   },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
