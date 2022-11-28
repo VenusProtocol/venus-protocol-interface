@@ -7,9 +7,9 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
 import { FormatToSwapInput, FormatToSwapOutput } from './types';
 
-// Format trade to swap info
 const slippagePercent = new PSPercent(`${SLIPPAGE_TOLERANCE_PERCENTAGE * 10}`, 1000);
 
+// Format trade to swap info
 const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput => {
   const routePath = trade.route.path.map(token => token.address);
 
@@ -25,11 +25,11 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
       }),
       expectedToTokenAmountReceivedWei: convertTokensToWei({
         value: new BigNumber(trade.outputAmount.toFixed()),
-        token: input.fromToken,
+        token: input.toToken,
       }),
       minimumToTokenAmountReceivedWei: convertTokensToWei({
         value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
-        token: input.fromToken,
+        token: input.toToken,
       }),
       exchangeRate: new BigNumber(trade.executionPrice.toFixed(input.toToken.decimals)).dp(
         input.toToken.decimals,
@@ -51,11 +51,11 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
     }),
     maximumFromTokenAmountSoldWei: convertTokensToWei({
       value: new BigNumber(trade.maximumAmountIn(slippagePercent).toFixed()),
-      token: input.fromToken,
+      token: input.toToken,
     }),
     toTokenAmountReceivedWei: convertTokensToWei({
       value: new BigNumber(trade.outputAmount.toFixed()),
-      token: input.fromToken,
+      token: input.toToken,
     }),
     exchangeRate: new BigNumber(trade.executionPrice.toFixed(input.toToken.decimals)).dp(
       input.toToken.decimals,
