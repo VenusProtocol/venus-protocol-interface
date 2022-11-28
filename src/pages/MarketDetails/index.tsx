@@ -188,7 +188,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           : formatTokensToReadableValue({
               value: borrowCapTokens,
               minimizeDecimals: true,
-              token: vToken,
+              token,
             }),
       },
       {
@@ -236,7 +236,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,
-          token: vToken,
+          token,
         }),
       },
       {
