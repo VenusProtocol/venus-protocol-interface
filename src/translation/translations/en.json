@@ -295,6 +295,16 @@
       },
       "title": "Borrow info"
     },
+    "columns": {
+      "asset": "TRANSLATION NEEDED",
+      "borrowApy": "TRANSLATION NEEDED",
+      "collateralFactor": "TRANSLATION NEEDED",
+      "liquidity": "TRANSLATION NEEDED",
+      "price": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "totalBorrow": "TRANSLATION NEEDED",
+      "totalSupply": "TRANSLATION NEEDED"
+    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },
@@ -518,6 +528,15 @@
     "minimal": "Minimal risk",
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
