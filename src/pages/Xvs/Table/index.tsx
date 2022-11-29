@@ -9,6 +9,7 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getContractAddress,
+  sortBigNumbers,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
@@ -29,22 +30,6 @@ type TableAsset = {
 interface XvsTableProps {
   assets: TableAsset[];
 }
-
-const sortBigNumberRows: TableColumn<TableAsset>['sortRows'] = (rowA, rowB, direction) => {
-  if (!rowA.xvsPerDay || !rowB.xvsPerDay) {
-    return 0;
-  }
-
-  if (rowA.xvsPerDay.isLessThan(rowB.xvsPerDay)) {
-    return direction === 'asc' ? -1 : 1;
-  }
-
-  if (rowA.xvsPerDay.isGreaterThan(rowB.xvsPerDay)) {
-    return direction === 'asc' ? 1 : -1;
-  }
-
-  return 0;
-};
 
 const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const { t } = useTranslation();
@@ -70,7 +55,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
             })}
           </Typography>
         ),
-        sortRows: sortBigNumberRows,
+        sortRows: (rowA, rowB, direction) =>
+          sortBigNumbers(rowA.xvsPerDay, rowB.xvsPerDay, direction),
       },
       {
         key: 'supplyXvsApy',
@@ -81,7 +67,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
             {formatToReadablePercentage(xvsSupplyApy)}
           </Typography>
         ),
-        sortRows: sortBigNumberRows,
+        sortRows: (rowA, rowB, direction) =>
+          sortBigNumbers(rowA.xvsSupplyApy, rowB.xvsSupplyApy, direction),
       },
       {
         key: 'borrowXvsApy',
@@ -92,7 +79,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
             {formatToReadablePercentage(xvsBorrowApy)}
           </Typography>
         ),
-        sortRows: sortBigNumberRows,
+        sortRows: (rowA, rowB, direction) =>
+          sortBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
     [],

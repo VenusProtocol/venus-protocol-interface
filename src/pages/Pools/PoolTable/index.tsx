@@ -126,7 +126,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
       },
       {
         key: 'liquidity',
-        label: t('pools.poolTable.columns.totalBorrow'),
+        label: t('pools.poolTable.columns.liquidity'),
         align: 'right',
         renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
           formatCentsToReadableValue({

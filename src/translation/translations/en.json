@@ -209,9 +209,9 @@
       "block": "Block",
       "created": "Created",
       "from": "From",
+      "hash": "Hash",
       "id": "ID",
       "to": "To",
-      "txnHash": "Txn Hash",
       "type": "Type"
     },
     "createdAt": "{{ date, distanceToNow }} ago",
@@ -270,9 +270,8 @@
       "dashboard": "Dashboard",
       "governance": "Governance",
       "history": "History",
-      "markets": "Markets",
-      "swap": "Swap",
       "pools": "Pools",
+      "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
       "xvs": "XVS",
@@ -294,6 +293,16 @@
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"
+    },
+    "columns": {
+      "asset": "TRANSLATION NEEDED",
+      "borrowApy": "TRANSLATION NEEDED",
+      "collateralFactor": "TRANSLATION NEEDED",
+      "liquidity": "TRANSLATION NEEDED",
+      "price": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "totalBorrow": "TRANSLATION NEEDED",
+      "totalSupply": "TRANSLATION NEEDED"
     },
     "interestRateModel": {
       "title": "Interest Rate Model"
@@ -387,15 +396,6 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
-  "selectTokenTextField": {
-    "searchInput": {
-      "placeholder": "Search asset"
-    },
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
-  },
-  "sidebar": {
-    "newBadge": "NEW"
-  },
   "pool": {
     "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
     "header": {
@@ -433,6 +433,15 @@
     "minimal": "Minimal risk",
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
@@ -513,10 +522,6 @@
       },
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}",
       "processing": "Processing"
-    },
-    "successfulConvertTransactionModal": {
-      "message": "You successfully swapped your tokens",
-      "title": "Your swap was successful"
     },
     "successfulConvertTransactionModal": {
       "message": "You successfully swapped your tokens",
