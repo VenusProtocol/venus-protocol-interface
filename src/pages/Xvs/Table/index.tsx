@@ -5,11 +5,11 @@ import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
+  compareBigNumbers,
   convertWeiToTokens,
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getContractAddress,
-  sortBigNumbers,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
@@ -56,7 +56,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
           </Typography>
         ),
         sortRows: (rowA, rowB, direction) =>
-          sortBigNumbers(rowA.xvsPerDay, rowB.xvsPerDay, direction),
+          compareBigNumbers(rowA.xvsPerDay, rowB.xvsPerDay, direction),
       },
       {
         key: 'supplyXvsApy',
@@ -68,7 +68,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
           </Typography>
         ),
         sortRows: (rowA, rowB, direction) =>
-          sortBigNumbers(rowA.xvsSupplyApy, rowB.xvsSupplyApy, direction),
+          compareBigNumbers(rowA.xvsSupplyApy, rowB.xvsSupplyApy, direction),
       },
       {
         key: 'borrowXvsApy',
@@ -80,7 +80,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
           </Typography>
         ),
         sortRows: (rowA, rowB, direction) =>
-          sortBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
+          compareBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
     [],

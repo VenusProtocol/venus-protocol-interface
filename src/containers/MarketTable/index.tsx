@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, TableRowProps, switchAriaLabel, toast } from 'components';
+import { Table, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import { unsafelyGetToken, unsafelyGetVToken } from 'utilities';
+import { unsafelyGetVToken } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -13,14 +12,20 @@ import useCollateral from 'hooks/useCollateral';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
 import { useStyles } from './styles';
-import { ColumnName } from './types';
-import useGenerateData from './useGenerateData';
+import { ColumnKey } from './types';
+import useGenerateColumns from './useGenerateColumns';
 
 export interface MarketTableProps
-  extends Partial<Omit<TableProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
-    Pick<TableProps, 'breakpoint'> {
+  extends Partial<
+      Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'breakpoint' | 'initialOrder'>
+    >,
+    Pick<TableProps<Asset>, 'breakpoint'> {
   assets: Asset[];
-  columns: ColumnName[];
+  columns: ColumnKey[];
+  initialOrder?: {
+    orderBy: ColumnKey;
+    orderDirection: 'asc' | 'desc';
+  };
   marketType?: 'supply' | 'borrow';
   className?: string;
 }
@@ -28,11 +33,11 @@ export interface MarketTableProps
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
   marketType,
-  columns,
+  columns: columnKeys,
   getRowHref,
+  initialOrder,
   ...otherTableProps
 }) => {
-  const { t } = useTranslation();
   const styles = useStyles();
 
   const { BorrowRepayModal, openBorrowRepayModal } = useBorrowRepayModal();
@@ -55,41 +60,35 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     }
   };
 
-  const rowKeyExtractor = (row: TableRowProps[]) => {
-    // Generate key using data that's unique to the row (asset and market)
-    let key = `${row.find(cell => cell.key === 'asset')?.value || ''}`;
-
-    const marketCell = row.find(cell => cell.key === 'market');
-    if (marketCell) {
-      key += `-${marketCell.value}`;
-    }
-
-    return key;
-  };
-
-  const headColumns = useMemo(
-    () =>
-      columns.map((column, index) => ({
-        key: column,
-        label: t(`marketTable.columns.${column}`),
-        orderable: true,
-        align: index === 0 ? 'left' : 'right',
-      })),
-    [JSON.stringify(columns)],
-  );
-
-  const data = useGenerateData({
+  const columns = useGenerateColumns({
     assets,
-    columns,
+    columnKeys,
     collateralOnChange: handleCollateralChange,
   });
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
-    const assetId = row[0].value as string;
+  const formattedInitialOrder = useMemo(() => {
+    if (!initialOrder) {
+      return undefined;
+    }
 
+    const oderByColumn = columns.find(column => column.key === initialOrder.orderBy);
+
+    return (
+      oderByColumn && {
+        orderBy: oderByColumn,
+        orderDirection: initialOrder.orderDirection,
+      }
+    );
+  }, [columns, initialOrder]);
+
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: Asset) => {
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the supply modal of other assets
-    if (hasLunaOrUstCollateralEnabled && assetId !== TOKENS.luna.id && assetId !== TOKENS.ust.id) {
+    if (
+      hasLunaOrUstCollateralEnabled &&
+      row.token.address !== TOKENS.luna.address &&
+      row.token.address !== TOKENS.ust.address
+    ) {
       e.preventDefault();
       e.stopPropagation();
       openLunaUstWarningModal();
@@ -102,27 +101,26 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       return;
     }
 
-    // TODO: get token and vToken from row directly (requires update of Table
-    // component, see VEN-490)
-    const token = unsafelyGetToken(assetId);
-    const vToken = unsafelyGetVToken(assetId);
+    // TODO: get vToken from asset directly
+    const vToken = unsafelyGetVToken(row.token.id);
 
     if (marketType === 'borrow') {
-      openBorrowRepayModal({ token, vToken });
+      openBorrowRepayModal({ token: row.token, vToken });
     } else {
-      openSupplyWithdrawModal({ token, vToken });
+      openSupplyWithdrawModal({ token: row.token, vToken });
     }
   };
 
   return (
     <>
       <Table
-        columns={headColumns}
-        data={data}
+        columns={columns}
+        data={assets}
         css={styles.cardContentGrid}
-        rowKeyExtractor={rowKeyExtractor}
+        rowKeyExtractor={row => `market-table-row-${marketType}-${row.token.address}`}
         rowOnClick={getRowHref ? undefined : rowOnClick}
         getRowHref={getRowHref}
+        initialOrder={formattedInitialOrder}
         {...otherTableProps}
       />
 
