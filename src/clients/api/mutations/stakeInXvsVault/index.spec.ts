@@ -6,13 +6,13 @@ import {
   VaiVaultErrorReporterError,
   VaiVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
+import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
 import stakeInXvsVault from '.';
 
 const fakeAmountWei = new BigNumber('1000000000000');
 const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
 const fakePoolIndex = 4;
 
 describe('api/mutation/stakeInXvsVault', () => {
@@ -31,7 +31,7 @@ describe('api/mutation/stakeInXvsVault', () => {
       await stakeInXvsVault({
         xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
-        rewardTokenAddress: fakeRewardTokenAddress,
+        rewardToken: TOKENS.busd,
         amountWei: fakeAmountWei,
         poolIndex: fakePoolIndex,
       });
@@ -64,7 +64,7 @@ describe('api/mutation/stakeInXvsVault', () => {
       await stakeInXvsVault({
         xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
-        rewardTokenAddress: fakeRewardTokenAddress,
+        rewardToken: TOKENS.busd,
         amountWei: fakeAmountWei,
         poolIndex: fakePoolIndex,
       });
@@ -96,7 +96,7 @@ describe('api/mutation/stakeInXvsVault', () => {
     const response = await stakeInXvsVault({
       xvsVaultContract: fakeContract,
       fromAccountAddress: fakeFromAccountsAddress,
-      rewardTokenAddress: fakeRewardTokenAddress,
+      rewardToken: TOKENS.busd,
       amountWei: fakeAmountWei,
       poolIndex: fakePoolIndex,
     });
@@ -104,7 +104,7 @@ describe('api/mutation/stakeInXvsVault', () => {
     expect(response).toBe(fakeTransactionReceipt);
     expect(depositMock).toHaveBeenCalledTimes(1);
     expect(depositMock).toHaveBeenCalledWith(
-      fakeRewardTokenAddress,
+      TOKENS.busd.address,
       fakePoolIndex,
       fakeAmountWei.toFixed(),
     );

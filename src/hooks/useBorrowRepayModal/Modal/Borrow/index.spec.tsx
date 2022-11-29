@@ -7,9 +7,10 @@ import { Asset } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { borrowVToken, getAllowance, useGetUserMarketInfo } from 'clients/api';
+import { borrow, getAllowance, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -32,10 +33,18 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Borrow', () => {
   beforeEach(() => {
+    (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        asset: fakeAsset,
+      },
+    }));
+
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
+
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeAsset],
@@ -47,7 +56,9 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Borrow asset={fakeAsset} onClose={noop} includeXvs />);
+    renderComponent(
+      <Borrow token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+    );
   });
 
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
@@ -56,8 +67,15 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidity: new BigNumber(100000000),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -83,8 +101,15 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidity: new BigNumber(200),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -114,8 +139,15 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidity: new BigNumber(200),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -150,8 +182,15 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidity: new BigNumber(200),
     };
 
+    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+      isLoading: false,
+      data: {
+        asset: customFakeAsset,
+      },
+    }));
+
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -186,7 +225,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -227,7 +266,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('updates input value correctly when pressing on max button', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={noop} includeXvs />,
+      <Borrow token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -264,10 +303,10 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (borrowVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (borrow as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={onCloseMock} includeXvs />,
+      <Borrow token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={onCloseMock} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -296,8 +335,8 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       new BigNumber(10).pow(fakeAsset.token.decimals),
     );
 
-    await waitFor(() => expect(borrowVToken).toHaveBeenCalledTimes(1));
-    expect(borrowVToken).toHaveBeenCalledWith({
+    await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
+    expect(borrow).toHaveBeenCalledWith({
       amountWei: expectedAmountWei,
       fromAccountAddress: fakeAccountAddress,
     });

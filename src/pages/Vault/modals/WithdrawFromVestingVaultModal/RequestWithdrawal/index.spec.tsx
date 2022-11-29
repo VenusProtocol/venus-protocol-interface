@@ -25,7 +25,7 @@ import TEST_IDS from '../../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 
-const fakeStakedTokenId = TOKENS.vai.id;
+const fakeStakedToken = TOKENS.vai;
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {
@@ -48,7 +48,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
   it('renders without crashing', async () => {
     const { getByTestId } = renderComponent(
       <RequestWithdrawal
-        stakedTokenId={fakeStakedTokenId}
+        stakedToken={fakeStakedToken}
         poolIndex={fakePoolIndex}
         handleClose={noop}
         handleDisplayWithdrawalRequestList={noop}
@@ -64,7 +64,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
   it('fetches staked tokens and locking period and displays them correctly', async () => {
     const { getByTestId } = renderComponent(
       <RequestWithdrawal
-        stakedTokenId={fakeStakedTokenId}
+        stakedToken={fakeStakedToken}
         poolIndex={fakePoolIndex}
         handleClose={noop}
         handleDisplayWithdrawalRequestList={noop}
@@ -85,7 +85,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
 
     const { getByText } = renderComponent(
       <RequestWithdrawal
-        stakedTokenId={fakeStakedTokenId}
+        stakedToken={fakeStakedToken}
         poolIndex={fakePoolIndex}
         handleClose={noop}
         handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestListMock}
@@ -117,7 +117,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
 
     const { getByTestId, getByText } = renderComponent(
       <RequestWithdrawal
-        stakedTokenId={fakeStakedTokenId}
+        stakedToken={fakeStakedToken}
         poolIndex={fakePoolIndex}
         handleClose={handleCloseMock}
         handleDisplayWithdrawalRequestList={noop}

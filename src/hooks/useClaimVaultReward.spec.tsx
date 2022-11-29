@@ -24,8 +24,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vai.id,
-                rewardTokenId: TOKENS.xvs.id,
+                stakedToken: TOKENS.vai,
+                rewardToken: TOKENS.xvs,
                 accountAddress: fakeAccountAddress,
                 poolIndex: fakePoolIndex,
               })
@@ -47,11 +47,11 @@ describe('hooks/useClaimVaultReward', () => {
     expect(claimXvsVaultReward).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
       poolIndex: fakePoolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardToken: TOKENS.xvs,
     });
   });
 
-  it('calls claimVaiVaultReward with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vai"', async () => {
+  it('calls claimVaiVaultReward with correct parameters when calling stake without a poolIndex and stakedToken is VAI', async () => {
     const TestComponent: React.FC = () => {
       const { claimReward } = useClaimVaultReward();
 
@@ -60,8 +60,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vai.id,
-                rewardTokenId: TOKENS.xvs.id,
+                stakedToken: TOKENS.vai,
+                rewardToken: TOKENS.xvs,
                 accountAddress: fakeAccountAddress,
               })
             }
@@ -84,7 +84,7 @@ describe('hooks/useClaimVaultReward', () => {
     });
   });
 
-  it('calls claimVrtVaultReward with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vrt"', async () => {
+  it('calls claimVrtVaultReward with correct parameters when calling stake without a poolIndex and stakedToken is VRT', async () => {
     const TestComponent: React.FC = () => {
       const { claimReward } = useClaimVaultReward();
 
@@ -93,8 +93,8 @@ describe('hooks/useClaimVaultReward', () => {
           <button
             onClick={() =>
               claimReward({
-                stakedTokenId: TOKENS.vrt.id,
-                rewardTokenId: TOKENS.xvs.id,
+                stakedToken: TOKENS.vrt,
+                rewardToken: TOKENS.xvs,
                 accountAddress: fakeAccountAddress,
               })
             }

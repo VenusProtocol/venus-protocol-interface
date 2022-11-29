@@ -54,14 +54,14 @@ const useFormValidation = ({
 
     if (
       formValues.fromToken.isNative &&
-      formValues.toToken.address === PANCAKE_SWAP_TOKENS.wbnb.address
+      formValues.toToken.address.toLowerCase() === PANCAKE_SWAP_TOKENS.wbnb.address.toLowerCase()
     ) {
       errorsTmp.push('WRAPPING_UNSUPPORTED');
     }
 
     if (
       formValues.toToken.isNative &&
-      formValues.fromToken.address === PANCAKE_SWAP_TOKENS.wbnb.address
+      formValues.fromToken.address.toLowerCase() === PANCAKE_SWAP_TOKENS.wbnb.address.toLowerCase()
     ) {
       errorsTmp.push('UNWRAPPING_UNSUPPORTED');
     }

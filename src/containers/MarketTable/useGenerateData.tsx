@@ -29,6 +29,23 @@ import { IncludeXvsContext } from 'context/IncludeXvsContext';
 import { useStyles } from './styles';
 import { ColumnName } from './types';
 
+// Translation keys: do not remove this comment
+// t('marketTable.columns.asset')
+// t('marketTable.columns.supplyApyLtv')
+// t('marketTable.columns.labeledSupplyApyLtv')
+// t('marketTable.columns.borrowApy')
+// t('marketTable.columns.labeledBorrowApy')
+// t('marketTable.columns.pool')
+// t('marketTable.columns.supplyBalance')
+// t('marketTable.columns.borrowBalance')
+// t('marketTable.columns.riskLevel')
+// t('marketTable.columns.collateral')
+// t('marketTable.columns.treasuryTotalBorrow')
+// t('marketTable.columns.treasuryTotalSupply')
+// t('marketTable.columns.walletBalance')
+// t('marketTable.columns.percentOfLimit')
+// t('marketTable.columns.liquidity')
+
 const useGenerateData = ({
   assets,
   columns,

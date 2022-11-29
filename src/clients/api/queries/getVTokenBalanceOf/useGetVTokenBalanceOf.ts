@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { Token } from 'types';
 
 import getVTokenBalanceOf, {
   GetVTokenBalanceOfInput,
@@ -8,7 +9,7 @@ import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 interface TrimmedParams extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {
-  vTokenId: string;
+  vToken: Token;
 }
 
 type Options = QueryObserverOptions<
@@ -16,14 +17,14 @@ type Options = QueryObserverOptions<
   Error,
   GetVTokenBalanceOfOutput,
   GetVTokenBalanceOfOutput,
-  [FunctionKey.GET_V_TOKEN_BALANCE, TrimmedParams]
+  [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress: string; vTokenAddress: string }]
 >;
 
-const useGetVTokenBalanceOf = ({ accountAddress, vTokenId }: TrimmedParams, options?: Options) => {
-  const vTokenContract = useVTokenContract(vTokenId);
+const useGetVTokenBalanceOf = ({ accountAddress, vToken }: TrimmedParams, options?: Options) => {
+  const vTokenContract = useVTokenContract(vToken);
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenId }],
+    [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenAddress: vToken.address }],
     () => getVTokenBalanceOf({ vTokenContract, accountAddress }),
     options,
   );

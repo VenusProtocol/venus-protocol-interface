@@ -2,25 +2,25 @@ import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VTokenContract } from 'clients/contracts/types';
+import { VBep20, VBnbToken } from 'types/contracts';
 
-export interface BorrowVTokenInput {
-  vTokenContract: VTokenContract<string>;
+export interface BorrowInput {
+  vTokenContract: VBep20 | VBnbToken;
   fromAccountAddress: string;
   amountWei: BigNumber;
 }
 
-export type BorrowVTokenOutput = TransactionReceipt;
+export type BorrowOutput = TransactionReceipt;
 
-const borrowVToken = async ({
+const borrow = async ({
   vTokenContract,
   fromAccountAddress,
   amountWei,
-}: BorrowVTokenInput): Promise<BorrowVTokenOutput> => {
+}: BorrowInput): Promise<BorrowOutput> => {
   const resp = await vTokenContract.methods
     .borrow(amountWei.toFixed())
     .send({ from: fromAccountAddress });
   return checkForTokenTransactionError(resp);
 };
 
-export default borrowVToken;
+export default borrow;

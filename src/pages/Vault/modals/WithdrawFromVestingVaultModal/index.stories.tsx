@@ -31,7 +31,7 @@ const authContext = {
 export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
-  stakedTokenId: VBEP_TOKENS.xvs.id,
+  stakedToken: VBEP_TOKENS.xvs,
 };
 Default.decorators = [
   withAuthContext(authContext),

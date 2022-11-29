@@ -82,8 +82,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
-      rewardTokenId: TOKENS.xvs.id,
-      stakedTokenId: TOKENS.vai.id,
+      rewardToken: TOKENS.xvs,
+      stakedToken: TOKENS.vai,
       dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,

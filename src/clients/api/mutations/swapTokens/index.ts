@@ -12,8 +12,6 @@ export interface SwapTokensInput {
 
 export type SwapTokensOutput = TransactionReceipt;
 
-// TODO: add tests
-
 const TRANSACTION_DEADLINE_MS = 60 * 1000 * 10; // 10 minutes
 
 const swapTokens = async ({

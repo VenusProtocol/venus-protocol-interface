@@ -39,7 +39,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     const wrappedToToken = wrapToken(input.toToken);
 
     // Return no trade if user is trying to wrap or unwrap BNB/wBNB
-    if (wrappedFromToken.address === wrappedToToken.address) {
+    if (wrappedFromToken.address.toLowerCase() === wrappedToToken.address.toLowerCase()) {
       return {
         swap: undefined,
         error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',

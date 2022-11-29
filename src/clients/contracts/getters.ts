@@ -1,5 +1,5 @@
 import { Token } from 'types';
-import { getContractAddress, unsafelyGetVToken } from 'utilities';
+import { getContractAddress } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -51,15 +51,15 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
 };
 
 export const getTokenContract = (token: Token, web3: Web3) => {
-  if (token.address === TOKENS.xvs.address) {
+  if (token.address.toLowerCase() === TOKENS.xvs.address.toLowerCase()) {
     return getContract<TokenContract<'xvs'>>(xvsTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (token.address === TOKENS.vai.address) {
+  if (token.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
     return getContract<TokenContract<'vai'>>(vaiTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (token.address === TOKENS.vrt.address) {
+  if (token.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
     return getContract<TokenContract<'vrt'>>(vrtTokenAbi as AbiItem[], token.address, web3);
   }
 
@@ -69,22 +69,16 @@ export const getTokenContract = (token: Token, web3: Web3) => {
 export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
   getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
 
-export const getVTokenContract = <T extends string>(tokenId: T, web3: Web3): VTokenContract<T> => {
-  const vBepTokenAddress = unsafelyGetVToken(tokenId).address;
-
-  if (tokenId === 'bnb') {
+export const getVTokenContract = (vToken: Token, web3: Web3) => {
+  if (vToken.symbol === 'vBNB') {
     return getContract(
       vBnbTokenAbi as AbiItem[],
-      vBepTokenAddress,
+      vToken.address,
       web3,
-    ) as unknown as VTokenContract<T>;
+    ) as unknown as VTokenContract<'bnb'>;
   }
 
-  return getContract(
-    vBep20Abi as AbiItem[],
-    vBepTokenAddress,
-    web3,
-  ) as unknown as VTokenContract<T>;
+  return getContract(vBep20Abi as AbiItem[], vToken.address, web3) as unknown as VTokenContract;
 };
 
 export const getVaiUnitrollerContract = (web3: Web3) =>

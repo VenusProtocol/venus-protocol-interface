@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import { unsafelyGetToken } from 'utilities';
+import { Token } from 'types';
 
 import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 
 export interface UseStakeInVaultInput {
-  stakedTokenId: string;
-  rewardTokenId: string;
+  stakedToken: Token;
+  rewardToken: Token;
   poolIndex?: number;
 }
 
@@ -15,9 +16,9 @@ interface StakeInput {
   accountAddress: string;
 }
 
-const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: UseStakeInVaultInput) => {
+const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
-    stakedTokenId,
+    stakedToken,
   });
 
   const { mutateAsync: stakeInVaiVault, isLoading: isStakeInVaiVaultLoading } =
@@ -31,24 +32,22 @@ const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: UseStakeIn
 
   const stake = async ({ amountWei, accountAddress }: StakeInput) => {
     if (typeof poolIndex === 'number') {
-      const rewardTokenAddress = unsafelyGetToken(rewardTokenId).address;
-
       return stakeInXvsVault({
         poolIndex,
         fromAccountAddress: accountAddress,
-        rewardTokenAddress,
+        rewardToken,
         amountWei,
       });
     }
 
-    if (stakedTokenId === 'vai') {
+    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
       return stakeInVaiVault({
         fromAccountAddress: accountAddress,
         amountWei,
       });
     }
 
-    if (stakedTokenId === 'vrt') {
+    if (stakedToken.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
       return stakeInVrtVault({
         fromAccountAddress: accountAddress,
         amountWei,
