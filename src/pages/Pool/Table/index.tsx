@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Select, TableRowProps } from 'components';
+import { Select } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Pool } from 'types';
+import { Asset, Pool } from 'types';
 
 import { routes } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
@@ -20,8 +20,9 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
 
   const showMdDownCss = useShowMdDownCss();
 
-  const getRowHref = (row: TableRowProps[]) =>
-    routes.market.path.replace(':poolId', pool.id).replace(':vTokenId', `${row[0].value}`);
+  const getRowHref = (row: Asset) =>
+    // TODO: use token address (and pool address?) instead (see VEN-547)
+    routes.market.path.replace(':poolId', pool.id).replace(':vTokenId', row.token.id);
 
   // TODO: add all options
   const mobileSelectOptions = [

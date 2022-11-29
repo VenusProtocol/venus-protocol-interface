@@ -62,6 +62,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         key: 'type',
         label: t('history.columns.type'),
         renderCell: transaction => {
+          // TODO: get vToken from transaction (see: VEN-815)
           const vToken = getVTokenByAddress(transaction.vTokenAddress);
           const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
@@ -154,6 +155,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         key: 'amount',
         label: t('history.columns.amount'),
         renderCell: transaction => {
+          // TODO: get vToken from transaction (see: VEN-815)
           const vToken = getVTokenByAddress(transaction.vTokenAddress);
           const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
