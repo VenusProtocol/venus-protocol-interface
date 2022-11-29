@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
+import Web3 from 'web3';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
@@ -21,7 +22,7 @@ jest.mock('clients/contracts');
 describe('api/mutation/repay', () => {
   describe('repay non-BNB loan', () => {
     test('throws an error when request fails', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeVTokenContract = {
         methods: {
@@ -50,7 +51,7 @@ describe('api/mutation/repay', () => {
     });
 
     test('throws a transaction error when Failure event is present', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeVTokenContract = {
         methods: {
@@ -93,7 +94,7 @@ describe('api/mutation/repay', () => {
     });
 
     test('returns receipt when request to partially repay a loan succeeds', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const sendMock = jest.fn(() => fakeTransactionReceipt);
       const repayBorrowMock = jest.fn(() => ({ send: sendMock }));
@@ -123,7 +124,7 @@ describe('api/mutation/repay', () => {
     });
 
     test('returns receipt when request to fully repay a loan succeeds', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const sendMock = jest.fn(() => fakeTransactionReceipt);
       const repayBorrowMock = jest.fn(() => ({ send: sendMock }));
@@ -156,7 +157,7 @@ describe('api/mutation/repay', () => {
 
   describe('repay full BNB loan', () => {
     test('throws an error when request fails', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeMaximillionContract = {
         methods: {
@@ -186,7 +187,7 @@ describe('api/mutation/repay', () => {
     });
 
     test('throws a transaction error when Failure event is present', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeMaximillionContract = {
         methods: {
@@ -230,7 +231,7 @@ describe('api/mutation/repay', () => {
     });
 
     test('returns receipt when request succeeds', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const sendMock = jest.fn(() => fakeTransactionReceipt);
       const repayBehalfExplicitMock = jest.fn(() => ({ send: sendMock }));

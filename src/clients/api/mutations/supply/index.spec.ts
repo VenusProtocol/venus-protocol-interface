@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
+import Web3 from 'web3';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
@@ -20,7 +21,7 @@ jest.mock('clients/contracts');
 describe('api/mutation/supply', () => {
   describe('supply non-BNB token', () => {
     test('throws an error when request fails', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeVTokenContract = {
         methods: {
@@ -49,7 +50,7 @@ describe('api/mutation/supply', () => {
     });
 
     test('throws a transaction error when Failure event is present', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const fakeVTokenContract = {
         methods: {
@@ -92,7 +93,7 @@ describe('api/mutation/supply', () => {
     });
 
     test('returns receipt when request succeeds', async () => {
-      const fakeWeb3 = {} as any;
+      const fakeWeb3 = {} as unknown as Web3;
 
       const sendMock = jest.fn(() => fakeTransactionReceipt);
       const mintMock = jest.fn(() => ({ send: sendMock }));
