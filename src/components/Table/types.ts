@@ -8,7 +8,7 @@ export interface TableColumn<R extends TableRow> {
   key: string;
   label: string;
   renderCell: (row: R, rowIndex: number) => React.ReactNode | string;
-  sortRows?: (rowA: R, rowB: R, direction: 'asc' | 'desc') => -1 | 0 | 1;
+  sortRows?: (rowA: R, rowB: R, direction: 'asc' | 'desc') => number;
   align?: 'left' | 'center' | 'right';
 }
 
