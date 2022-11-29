@@ -7,8 +7,6 @@ import { Token } from 'types';
 
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';

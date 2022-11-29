@@ -5,7 +5,7 @@ import React from 'react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { Table } from '.';
-import { columns, rows, useTableStyles } from './storiesUtils';
+import { columns, data, orderableColumns, useTableStyles } from './storiesUtils';
 
 export default {
   title: 'Components/Table',
@@ -20,64 +20,36 @@ export default {
 
 export const TableDefault = () => {
   const styles = useTableStyles();
+
   return (
     <Table
+      data={data}
       columns={columns}
-      data={rows}
       title="Market Data"
       minWidth="650px"
-      rowKeyExtractor={row => `${row[0].value}`}
+      rowKeyExtractor={row => row.token.address}
       breakpoint="lg"
       css={styles.table}
     />
   );
 };
 
-export const WithInitialOrderDefault = () => {
+export const WithOrderableColumns = () => {
   const styles = useTableStyles();
+
   return (
     <Table
-      columns={columns}
-      data={rows}
+      data={data}
+      columns={orderableColumns}
       title="Market Data"
       minWidth="650px"
+      rowKeyExtractor={row => row.token.address}
+      breakpoint="lg"
+      css={styles.table}
       initialOrder={{
-        orderBy: 'apy',
+        orderBy: columns[1],
         orderDirection: 'desc',
       }}
-      rowKeyExtractor={row => `${row[0].value}`}
-      breakpoint="lg"
-      css={styles.table}
-    />
-  );
-};
-
-export const WithCustomColumnsWidth = () => {
-  const styles = useTableStyles();
-  return (
-    <Table
-      columns={columns}
-      data={rows}
-      title="Market Data"
-      rowKeyExtractor={row => `${row[0].value}`}
-      gridTemplateColumnsCards="100px 1fr 1fr 140px"
-      breakpoint="lg"
-      css={styles.table}
-    />
-  );
-};
-
-export const WithMultipleRows = () => {
-  const styles = useTableStyles();
-  return (
-    <Table
-      columns={columns}
-      data={rows}
-      title="Market Data"
-      minWidth="650px"
-      rowKeyExtractor={row => `${row[0].value}`}
-      breakpoint="lg"
-      css={[styles.table, styles.cardContentGrid]}
     />
   );
 };

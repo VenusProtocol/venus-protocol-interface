@@ -2,15 +2,23 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { formatToReadablePercentage, unsafelyGetToken } from 'utilities';
+import { formatToReadablePercentage } from 'utilities';
 
-import { Icon } from '../Icon';
+import { TOKENS } from 'constants/tokens';
+
 import { Toggle } from '../Toggle';
+import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
+import { TableColumn } from './types';
 
 export const useTableStyles = () => {
   const theme = useTheme();
+
   return {
     table: css`
+      .table__table-cards__card-content {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
       h4 {
         display: initial;
         ${theme.breakpoints.down('lg')} {
@@ -33,81 +41,74 @@ export const useTableStyles = () => {
         display: initial;
       }
     `,
-
-    /* multiple rows styles */
-
-    cardContentGrid: `
-      .table__table-cards__card-content {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        row-gap: 20px;
-    `,
   };
 };
-const createData = (asset: string, apy: number, wallet: number, collateral: boolean) => {
-  const styles = {
-    asset: css`
-      display: flex;
-      align-items: center;
-      img {
-        height: 18px;
-        width: 18px;
-        margin-right: 4px;
-      }
-      span {
-        display: flex;
-        justify-self: flex-end;
-      }
-    `,
-    apy: css`
-      color: #18df8b;
-      svg {
-        margin-right: 12px;
-        fill: #18df8b;
-      }
-    `,
-  };
-  return [
-    {
-      key: 'asset',
-      value: asset,
-      render: () => (
-        <div css={styles.asset}>
-          <img src={unsafelyGetToken(asset).asset} alt={asset} />
-          <span>{asset.toUpperCase()}</span>
-        </div>
-      ),
-    },
-    {
-      key: 'apy',
-      value: apy,
-      render: () => (
-        <div css={styles.apy}>
-          <Icon name="longArrow" size="12px" />
-          {formatToReadablePercentage(apy)} {asset.toUpperCase()}
-        </div>
-      ),
-    },
-    { key: 'wallet', value: wallet, render: () => `${wallet} ${asset}` },
-    {
-      key: 'collateral',
-      value: collateral,
-      render: () => <Toggle onChange={console.log} value={collateral} />,
-    },
-  ];
-};
 
-export const rows = [
-  createData('sxp', 0.18, 0, true),
-  createData('usdc', 12.05, 90, false),
-  createData('usdt', 0.8, 160, true),
-  createData('bnb', 1.18, 37, false),
-  createData('xvs', 0.15, 160, true),
+export const data = [
+  {
+    token: TOKENS.sxp,
+    apy: 0.18,
+    wallet: 0,
+    collateral: true,
+  },
+  { token: TOKENS.usdc, apy: 12.05, wallet: 90, collateral: false },
+  { token: TOKENS.usdt, apy: 0.8, wallet: 160, collateral: true },
+  { token: TOKENS.bnb, apy: 1.18, wallet: 37, collateral: false },
+  { token: TOKENS.xvs, apy: 0.15, wallet: 160, collateral: true },
 ];
 
-export const columns = [
-  { key: 'asset', label: 'Asset', orderable: false },
-  { key: 'apy', label: 'APY', orderable: true },
-  { key: 'wallet', label: 'Wallet', orderable: true },
-  { key: 'collateral', label: 'Collateral', orderable: true },
+type Row = typeof data[number];
+
+export const columns: TableColumn<Row>[] = [
+  {
+    key: 'asset',
+    label: 'Asset',
+    renderCell: ({ token }) => <TokenIconWithSymbol token={token} />,
+  },
+  {
+    key: 'apy',
+    label: 'APY',
+    renderCell: ({ apy }) => (
+      <div style={{ color: '#18df8b' }}>{formatToReadablePercentage(apy)}</div>
+    ),
+  },
+  {
+    key: 'wallet',
+    label: 'Wallet',
+    renderCell: ({ wallet, token }) => `${wallet} ${token.symbol}`,
+  },
+  {
+    key: 'collateral',
+    label: 'Collateral',
+    renderCell: ({ collateral }) => <Toggle onChange={console.log} value={collateral} />,
+  },
 ];
+
+export const orderableColumns: TableColumn<Row>[] = columns.map(column => ({
+  ...column,
+  sortRows:
+    column.key === 'collateral'
+      ? undefined
+      : (rowA, rowB, direction) => {
+          let comparisonValueA: string | number | boolean = rowA.token.symbol;
+          let comparisonValueB: string | number | boolean = rowB.token.symbol;
+
+          if (column.key === 'apy') {
+            comparisonValueA = rowA.apy;
+            comparisonValueB = rowB.apy;
+          } else if (column.key === 'wallet') {
+            comparisonValueA = rowA.wallet;
+            comparisonValueB = rowB.wallet;
+          }
+
+          // Compare values
+          if (comparisonValueA < comparisonValueB) {
+            return direction === 'asc' ? -1 : 1;
+          }
+          if (comparisonValueA > comparisonValueB) {
+            return direction === 'asc' ? 1 : -1;
+          }
+
+          return 0;
+        },
+}));
