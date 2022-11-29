@@ -33,3 +33,4 @@ export { default as calculatePercentage } from './calculatePercentage';
 export { truncateAddress } from './truncateAddress';
 export { default as parseFunctionSignature } from './parseFunctionSignature';
 export { default as formatToProposal } from './formatToProposal';
+export { default as sortBigNumbers } from './sortBigNumbers';

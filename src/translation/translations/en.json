@@ -210,9 +210,9 @@
       "block": "Block",
       "created": "Created",
       "from": "From",
+      "hash": "Hash",
       "id": "ID",
       "to": "To",
-      "txnHash": "Txn Hash",
       "type": "Type"
     },
     "createdAt": "{{ date, distanceToNow }} ago",
@@ -294,6 +294,16 @@
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"
+    },
+    "columns": {
+      "asset": "TRANSLATION NEEDED",
+      "borrowApy": "TRANSLATION NEEDED",
+      "collateralFactor": "TRANSLATION NEEDED",
+      "liquidity": "TRANSLATION NEEDED",
+      "price": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "totalBorrow": "TRANSLATION NEEDED",
+      "totalSupply": "TRANSLATION NEEDED"
     },
     "interestRateModel": {
       "title": "Interest Rate Model"
@@ -472,6 +482,15 @@
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
   },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
+  },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
@@ -551,10 +570,6 @@
       },
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}",
       "processing": "Processing"
-    },
-    "successfulConvertTransactionModal": {
-      "message": "You successfully swapped your tokens",
-      "title": "Your swap was successful"
     },
     "successfulConvertTransactionModal": {
       "message": "You successfully swapped your tokens",
