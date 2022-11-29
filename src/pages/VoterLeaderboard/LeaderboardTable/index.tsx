@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Table, TableProps } from 'components';
+import { EllipseAddress, Table, TableColumn } from 'components';
 import { cloneDeep } from 'lodash';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
 
-export interface LeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {
+export interface LeaderboardTableProps {
   voterAccounts: VoterAccount[];
   offset: number;
   isFetching: boolean;
@@ -27,26 +27,58 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const columns = useMemo(
+  const columns: TableColumn<VoterAccount>[] = useMemo(
     () => [
-      { key: 'rank', label: t('voterLeaderboard.columns.rank'), orderable: false, align: 'left' },
+      {
+        key: 'rank',
+        label: t('voterLeaderboard.columns.rank'),
+        renderCell: (voter, rowIndex) => (
+          <Typography css={styles.inline} color="textPrimary" variant="small2">
+            {rowIndex + 1 + offset}
+            <Link
+              to={routes.governanceVoter.path.replace(':address', voter.address)}
+              css={styles.address}
+            >
+              <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
+            </Link>
+          </Typography>
+        ),
+      },
       {
         key: 'votes',
         label: t('voterLeaderboard.columns.votes'),
-        orderable: false,
         align: 'right',
+        renderCell: voter => (
+          <Typography color="textPrimary" variant="small2">
+            {convertWeiToTokens({
+              valueWei: voter.votesWei,
+              token: TOKENS.xvs,
+              returnInReadableFormat: true,
+              addSymbol: false,
+              minimizeDecimals: true,
+            })}
+          </Typography>
+        ),
       },
       {
         key: 'voteWeight',
         label: t('voterLeaderboard.columns.voteWeight'),
-        orderable: false,
         align: 'right',
+        renderCell: voter => (
+          <Typography color="textPrimary" variant="small2">
+            {formatToReadablePercentage(voter.voteWeightPercent)}
+          </Typography>
+        ),
       },
       {
         key: 'proposalsVoted',
         label: t('voterLeaderboard.columns.proposalsVoted'),
-        orderable: false,
         align: 'right',
+        renderCell: voter => (
+          <Typography color="textPrimary" variant="small2">
+            {voter.proposalsVoted}
+          </Typography>
+        ),
       },
     ],
     [],
@@ -59,77 +91,18 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
     return newColumns;
   }, [columns]);
 
-  // Format voters to rows
-  const rows: TableProps['data'] = useMemo(
-    () =>
-      voterAccounts.map((voter, idx) => [
-        {
-          key: 'rank',
-          render: () => (
-            <Typography css={styles.inline} color="textPrimary" variant="small2">
-              {idx + 1 + offset}
-              <Link
-                to={routes.governanceVoter.path.replace(':address', voter.address)}
-                css={styles.address}
-              >
-                <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
-              </Link>
-            </Typography>
-          ),
-          value: idx + 1 + offset,
-        },
-        {
-          key: 'votes',
-          render: () => (
-            <Typography color="textPrimary" variant="small2">
-              {convertWeiToTokens({
-                valueWei: voter.votesWei,
-                token: TOKENS.xvs,
-                returnInReadableFormat: true,
-                addSymbol: false,
-                minimizeDecimals: true,
-              })}
-            </Typography>
-          ),
-          align: 'right',
-          value: voter.votesWei.toFixed(),
-        },
-        {
-          key: 'voteWeight',
-          render: () => (
-            <Typography color="textPrimary" variant="small2">
-              {formatToReadablePercentage(voter.voteWeightPercent)}
-            </Typography>
-          ),
-          value: voter.voteWeightPercent,
-          align: 'right',
-        },
-        {
-          key: 'proposalsVoted',
-          render: () => (
-            <Typography color="textPrimary" variant="small2">
-              {voter.proposalsVoted}
-            </Typography>
-          ),
-          value: voter.proposalsVoted,
-          align: 'right',
-        },
-      ]),
-    [JSON.stringify(voterAccounts)],
-  );
-
   return (
     <Table
       title={t('voterLeaderboard.addressesByVotingWeight')}
       columns={columns}
       cardColumns={cardColumns}
-      data={rows}
+      data={voterAccounts}
       isFetching={isFetching}
       initialOrder={{
-        orderBy: 'rank',
+        orderBy: columns[0],
         orderDirection: 'asc',
       }}
-      rowKeyExtractor={row => `${row[0].value}`}
+      rowKeyExtractor={row => `voter-leaderboard-table-row-${row.id}`}
       breakpoint="xl"
       css={styles.cardContentGrid}
     />

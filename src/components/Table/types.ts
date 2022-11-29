@@ -2,12 +2,12 @@ import React from 'react';
 
 import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
-export type TableRow = Record<string, unknown>;
+export type TableRow = object;
 
 export interface TableColumn<R extends TableRow> {
   key: string;
   label: string;
-  renderCell: (row: R) => React.ReactNode | string;
+  renderCell: (row: R, rowIndex: number) => React.ReactNode | string;
   sortRows?: (rowA: R, rowB: R, direction: 'asc' | 'desc') => -1 | 0 | 1;
   align?: 'left' | 'center' | 'right';
 }

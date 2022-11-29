@@ -26,7 +26,7 @@ export function TableCards<R extends TableRow>({
 
   return (
     <div css={styles.getCardsContainer({ breakpoint })}>
-      {data.map(row => {
+      {data.map((row, rowIndex) => {
         const rowKey = rowKeyExtractor(row);
 
         return (
@@ -44,7 +44,7 @@ export function TableCards<R extends TableRow>({
                 : 'div'
             }
           >
-            <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row)}</div>
+            <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row, rowIndex)}</div>
 
             <Delimiter css={styles.delimiterMobile} />
 
@@ -56,7 +56,7 @@ export function TableCards<R extends TableRow>({
                   </Typography>
 
                   <Typography variant="small2" css={styles.cellValueMobile}>
-                    {column.renderCell(row)}
+                    {column.renderCell(row, rowIndex)}
                   </Typography>
                 </div>
               ))}

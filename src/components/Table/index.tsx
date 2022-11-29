@@ -80,7 +80,7 @@ export function Table<R extends TableRow>({
           />
 
           <MuiTableBody>
-            {sortedData.map(row => {
+            {sortedData.map((row, rowIndex) => {
               const rowKey = rowKeyExtractor(row);
 
               return (
@@ -95,7 +95,7 @@ export function Table<R extends TableRow>({
                   }
                 >
                   {columns.map(column => {
-                    const cellContent = column.renderCell(row);
+                    const cellContent = column.renderCell(row, rowIndex);
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
 
                     return (
