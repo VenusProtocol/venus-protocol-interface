@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { RiskLevel, Select, Table, TableProps, TokenGroup } from 'components';
+import { RiskLevel, Select, Table, TableColumn, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -10,6 +10,20 @@ import { routes } from 'constants/routing';
 import { useShowXxlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
+
+interface PoolRow {
+  pool: Pool;
+  poolTotalSupplyCents: number;
+  poolTotalBorrowCents: number;
+}
+
+const riskLevelMap = {
+  MINIMAL: 0,
+  LOW: 1,
+  MEDIUM: 2,
+  HIGH: 3,
+  VERY_HIGH: 4,
+};
 
 export interface PoolTableProps {
   pools: Pool[];
@@ -29,111 +43,107 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
     },
   ];
 
-  const columns = useMemo(
+  // Format pools into rows
+  const data: PoolRow[] = useMemo(
+    () =>
+      pools.map(pool => {
+        const { poolTotalSupplyCents, poolTotalBorrowCents } = pool.assets.reduce(
+          (acc, item) => ({
+            poolTotalSupplyCents: item.treasuryTotalSupplyCents
+              .plus(acc.poolTotalSupplyCents)
+              .toNumber(),
+            poolTotalBorrowCents: item.treasuryTotalBorrowsCents
+              .plus(acc.poolTotalBorrowCents)
+              .toNumber(),
+          }),
+          {
+            poolTotalSupplyCents: 0,
+            poolTotalBorrowCents: 0,
+          },
+        );
+
+        return { pool, poolTotalSupplyCents, poolTotalBorrowCents };
+      }),
+    [pools],
+  );
+
+  const columns: TableColumn<PoolRow>[] = useMemo(
     () => [
-      { key: 'assets', label: t('pools.poolTable.columns.assets'), orderable: false },
+      {
+        key: 'assets',
+        label: t('pools.poolTable.columns.assets'),
+        renderCell: ({ pool }) => (
+          <TokenGroup tokens={pool.assets.map(asset => asset.token)} limit={4} />
+        ),
+      },
       {
         key: 'pool',
         label: t('pools.poolTable.columns.pool'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ pool }) => pool.name,
+        sortRows: (rowA, rowB, direction) =>
+          direction === 'asc'
+            ? rowA.pool.name.localeCompare(rowB.pool.name)
+            : rowB.pool.name.localeCompare(rowA.pool.name),
       },
       {
         key: 'riskLevel',
         label: t('pools.poolTable.columns.riskLevel'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ pool }) => <RiskLevel variant={pool.riskLevel} />,
+        sortRows: (rowA, rowB, direction) =>
+          direction === 'asc'
+            ? riskLevelMap[rowA.pool.riskLevel] - riskLevelMap[rowB.pool.riskLevel]
+            : riskLevelMap[rowB.pool.riskLevel] - riskLevelMap[rowA.pool.riskLevel],
       },
       {
         key: 'totalSupply',
         label: t('pools.poolTable.columns.totalSupply'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ poolTotalSupplyCents }) =>
+          formatCentsToReadableValue({
+            value: poolTotalSupplyCents,
+            shortenLargeValue: true,
+          }),
+        sortRows: (rowA, rowB, direction) =>
+          direction === 'asc'
+            ? rowA.poolTotalSupplyCents - rowB.poolTotalSupplyCents
+            : rowB.poolTotalSupplyCents - rowA.poolTotalSupplyCents,
       },
       {
         key: 'totalBorrow',
         label: t('pools.poolTable.columns.totalBorrow'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ poolTotalBorrowCents }) =>
+          formatCentsToReadableValue({
+            value: poolTotalBorrowCents,
+            shortenLargeValue: true,
+          }),
+        sortRows: (rowA, rowB, direction) =>
+          direction === 'asc'
+            ? rowA.poolTotalBorrowCents - rowB.poolTotalBorrowCents
+            : rowB.poolTotalBorrowCents - rowA.poolTotalBorrowCents,
       },
       {
         key: 'liquidity',
-        label: t('pools.poolTable.columns.liquidity'),
-        orderable: true,
+        label: t('pools.poolTable.columns.totalBorrow'),
         align: 'right',
+        renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
+          formatCentsToReadableValue({
+            value: poolTotalSupplyCents - poolTotalBorrowCents,
+            shortenLargeValue: true,
+          }),
+        sortRows: (rowA, rowB, direction) => {
+          const poolALiquidityCents = rowA.poolTotalSupplyCents - rowA.poolTotalBorrowCents;
+          const poolBLiquidityCents = rowB.poolTotalSupplyCents - rowB.poolTotalBorrowCents;
+
+          return direction === 'asc'
+            ? poolALiquidityCents - poolBLiquidityCents
+            : poolBLiquidityCents - poolALiquidityCents;
+        },
       },
     ],
     [],
-  );
-
-  // Format pools to rows
-  const rows: TableProps['data'] = useMemo(
-    () =>
-      pools.map(pool => {
-        const { totalSupplyCents, totalBorrowCents } = pool.assets.reduce(
-          (acc, item) => ({
-            totalSupplyCents: item.treasuryTotalSupplyCents.plus(acc.totalSupplyCents).toNumber(),
-            totalBorrowCents: item.treasuryTotalBorrowsCents.plus(acc.totalBorrowCents).toNumber(),
-          }),
-          {
-            totalSupplyCents: 0,
-            totalBorrowCents: 0,
-          },
-        );
-
-        const liquidityCents = totalSupplyCents - totalBorrowCents;
-
-        return [
-          {
-            key: 'assets',
-            render: () => <TokenGroup tokens={pool.assets.map(asset => asset.token)} limit={4} />,
-            value: pool.id,
-          },
-          {
-            key: 'pool',
-            render: () => pool.name,
-            value: pool.name,
-            align: 'right',
-          },
-          {
-            key: 'riskLevel',
-            render: () => <RiskLevel variant={pool.riskLevel} />,
-            value: pool.riskLevel,
-            align: 'right',
-          },
-          {
-            key: 'totalSupply',
-            render: () =>
-              formatCentsToReadableValue({
-                value: totalSupplyCents,
-                shortenLargeValue: true,
-              }),
-            align: 'right',
-            value: totalSupplyCents,
-          },
-          {
-            key: 'totalBorrow',
-            render: () =>
-              formatCentsToReadableValue({
-                value: totalBorrowCents,
-                shortenLargeValue: true,
-              }),
-            value: totalBorrowCents,
-            align: 'right',
-          },
-          {
-            key: 'liquidity',
-            render: () =>
-              formatCentsToReadableValue({
-                value: liquidityCents,
-                shortenLargeValue: true,
-              }),
-            value: liquidityCents,
-            align: 'right',
-          },
-        ];
-      }),
-    [JSON.stringify(pools)],
   );
 
   return (
@@ -151,13 +161,13 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
 
       <Table
         columns={columns}
-        data={rows}
+        data={data}
         initialOrder={{
-          orderBy: 'liquidity',
+          orderBy: columns[5],
           orderDirection: 'desc',
         }}
-        rowKeyExtractor={row => `${row[0].value}`}
-        getRowHref={row => routes.pool.path.replace(':poolId', `${row[0].value}`)}
+        rowKeyExtractor={row => `pool-table-row-${row.pool.id}`}
+        getRowHref={row => routes.pool.path.replace(':poolId', row.pool.id)}
         breakpoint="xxl"
         css={styles.cardContentGrid}
       />

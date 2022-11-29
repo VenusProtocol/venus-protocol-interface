@@ -25,6 +25,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
   const columns: TableColumn<VoteDetailTransaction>[] = useMemo(
     () => [
       {
