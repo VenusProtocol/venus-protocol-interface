@@ -1,7 +1,8 @@
+import { Token } from 'types';
+
 import { TOKENS } from 'constants/tokens';
 
 export const DISABLED_TOKENS = [TOKENS.ust, TOKENS.luna];
 
-// TODO: update to use vToken address
-export const isAssetEnabled = (assetId: string) =>
-  !DISABLED_TOKENS.some(disabledToken => disabledToken.id === assetId);
+export const isTokenEnabled = (token: Token) =>
+  !DISABLED_TOKENS.some(disabledToken => disabledToken.address === token.address);
