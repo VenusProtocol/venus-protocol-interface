@@ -63,7 +63,7 @@ export const ConvertVrtUi = ({
   ];
 
   return (
-    <div css={[styles.root, styles.marginTop]}>
+    <div css={[styles.root]}>
       <Paper css={styles.tabs}>
         <Tabs tabsContent={tabsContent} />
       </Paper>

@@ -4,20 +4,12 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    marginTop: css`
-      margin-top: ${theme.spacing(34)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-top: ${theme.spacing(0)};
-      }
-    `,
     root: css`
       display: flex;
       align-items: center;
       min-height: 100%;
       flex: 1;
       flex-direction: column;
-      margin-top: ${theme.spacing(12)};
     `,
     tabs: css`
       max-width: ${theme.spacing(136)};
