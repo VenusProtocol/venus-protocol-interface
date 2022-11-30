@@ -9,12 +9,11 @@ export const useStyles = () => {
       max-width: ${theme.spacing(136)};
       width: 100%;
       padding: ${theme.spacing(10)};
-      margin: ${theme.spacing(34, 'auto', 0)};
+      margin: ${theme.spacing(0, 'auto')};
 
       ${theme.breakpoints.down('md')} {
         max-width: 100%;
         padding: ${theme.spacing(4)};
-        margin-top: ${theme.spacing(0)};
       }
     `,
     selectTokenTextField: css`
