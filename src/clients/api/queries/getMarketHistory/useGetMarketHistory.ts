@@ -11,10 +11,14 @@ type Options = QueryObserverOptions<
   Error,
   GetMarketHistoryOutput,
   GetMarketHistoryOutput,
-  FunctionKey.GET_MARKET_HISTORY
+  [FunctionKey.GET_MARKET_HISTORY, { vTokenId: string }]
 >;
 
 const useGetMarketHistory = (input: GetMarketHistoryInput, options?: Options) =>
-  useQuery(FunctionKey.GET_MARKET_HISTORY, () => getMarketHistory(input), options);
+  useQuery(
+    [FunctionKey.GET_MARKET_HISTORY, { vTokenId: input.vTokenId }],
+    () => getMarketHistory(input),
+    options,
+  );
 
 export default useGetMarketHistory;
