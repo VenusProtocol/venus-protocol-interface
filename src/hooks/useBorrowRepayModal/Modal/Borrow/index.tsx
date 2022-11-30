@@ -241,7 +241,6 @@ const Borrow: React.FC<BorrowProps> = ({ token, vToken, onClose, includeXvs }) =
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
-    asset?.token.id,
     asset?.tokenPrice,
     asset?.liquidity,
     userTotalBorrowLimitCents.toFixed(),

@@ -36,7 +36,6 @@ export interface Asset {
 }
 
 export interface Token {
-  id: string; // TODO: remove (related to VEN-723)
   symbol: Uppercase<string>;
   decimals: number;
   address: string | '';

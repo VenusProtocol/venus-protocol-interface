@@ -114,7 +114,7 @@ const useGetUserMarketInfo = ({
     } = (getMarketsData?.markets || []).reduce(
       (acc, market) => {
         const token = unsafelyGetToken(market.id);
-        const vToken = unsafelyGetVToken(token.id);
+        const vToken = unsafelyGetVToken(market.id);
 
         // Skip token if it isn't listed
         if (!token || !vToken) {
