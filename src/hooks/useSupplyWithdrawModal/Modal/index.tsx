@@ -14,7 +14,7 @@ import {
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
-import { convertTokensToWei, formatToReadablePercentage, isAssetEnabled } from 'utilities';
+import { convertTokensToWei, formatToReadablePercentage, isTokenEnabled } from 'utilities';
 
 import {
   useGetUserAsset,
@@ -39,7 +39,7 @@ export interface SupplyWithdrawProps {
   vToken: Token;
 }
 
-export interface SupplyWithdrawUiProps extends SupplyWithdrawProps {
+export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'token' | 'vToken'> {
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
   onSubmitSupply: AmountFormProps['onSubmit'];
@@ -59,8 +59,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   className,
   onClose,
   asset,
-  token,
-  vToken,
   assets,
   userTotalBorrowBalanceCents,
   userTotalBorrowLimitCents,
@@ -72,7 +70,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 }) => {
   const styles = useStyles();
 
-  const { id: assetId, symbol } = asset?.token || {};
   const { t } = useTranslation();
 
   const tokenInfo: LabeledInlineContentProps[] = asset
@@ -162,7 +159,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
           {asset ? (
             <EnableToken
               token={asset.token}
-              spenderAddress={vToken.address}
+              spenderAddress={asset.vToken.address}
               title={title}
               tokenInfo={tokenInfo}
             >
@@ -198,7 +195,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
       content: renderTabContent({
         type: 'withdraw',
         message: t('supplyWithdraw.connectWalletToWithdraw'),
-        title: t('supplyWithdraw.enableToWithdraw', { symbol }),
+        title: t('supplyWithdraw.enableToWithdraw', { symbol: asset?.token.symbol }),
         inputLabel: t('supplyWithdraw.withdrawableAmount'),
         enabledButtonKey: t('supplyWithdraw.withdraw'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
@@ -210,13 +207,13 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (assetId && isAssetEnabled(assetId)) {
+  if (asset && isTokenEnabled(asset.token)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
         type: 'supply',
         message: t('supplyWithdraw.connectWalletToSupply'),
-        title: t('supplyWithdraw.enableToSupply', { symbol }),
+        title: t('supplyWithdraw.enableToSupply', { symbol: asset?.token.symbol }),
         inputLabel: t('supplyWithdraw.walletBalance'),
         enabledButtonKey: t('supplyWithdraw.supply'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
@@ -229,9 +226,9 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 
   return (
     <Modal
-      isOpen={!!assetId}
+      isOpen={!!asset}
       handleClose={onClose}
-      title={assetId ? <TokenIconWithSymbol token={token} variant="h4" /> : undefined}
+      title={asset && <TokenIconWithSymbol token={asset.token} variant="h4" />}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
@@ -344,8 +341,6 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
   return (
     <SupplyWithdrawUi
       onClose={onClose}
-      token={token}
-      vToken={vToken}
       asset={asset}
       assets={assets}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}

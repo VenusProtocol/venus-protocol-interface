@@ -3,7 +3,7 @@ import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'compon
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { isAssetEnabled } from 'utilities';
+import { isTokenEnabled } from 'utilities';
 
 import Borrow from './Borrow';
 import Repay from './Repay';
@@ -31,7 +31,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, token, vToken, inclu
     },
   ];
 
-  if (isAssetEnabled(vToken.id)) {
+  if (isTokenEnabled(token)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (

@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
-import { unsafelyGetVToken } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -62,12 +61,10 @@ const useCollateral = () => {
       });
     }
 
-    const vToken = unsafelyGetVToken(asset.token.id);
-
     setSelectedAsset(asset);
 
     if (asset.collateral) {
-      const vTokenContract = getVTokenContract(vToken, web3);
+      const vTokenContract = getVTokenContract(asset.vToken, web3);
 
       try {
         const vTokenBalanceOf = await getVTokenBalanceOf({
@@ -78,12 +75,12 @@ const useCollateral = () => {
         const assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
           comptrollerContract,
           accountAddress,
-          vTokenAddress: vToken.address,
+          vTokenAddress: asset.vToken.address,
           vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
         });
 
         if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
-          await exitMarket({ vtokenAddress: vToken.address, accountAddress });
+          await exitMarket({ vtokenAddress: asset.vToken.address, accountAddress });
         }
       } catch (error) {
         if (error instanceof VError) {
@@ -100,7 +97,7 @@ const useCollateral = () => {
       }
     } else {
       try {
-        await enterMarkets({ vTokenAddresses: [vToken.address], accountAddress });
+        await enterMarkets({ vTokenAddresses: [asset.vToken.address], accountAddress });
       } catch (error) {
         if (error instanceof VError) {
           throw error;
