@@ -95,7 +95,7 @@ const useGenerateColumns = ({
     () =>
       columnKeys.map((column, index) => ({
         key: column,
-        label: t(`marketTable.columns.${column}`),
+        label: t(`marketTable.columnKeys.${column}`),
         align: index === 0 ? 'left' : 'right',
         renderCell: asset => {
           if (column === 'asset') {

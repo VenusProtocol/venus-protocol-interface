@@ -114,14 +114,14 @@ const useGetUserMarketInfo = ({
     } = (getMarketsData?.markets || []).reduce(
       (acc, market) => {
         const token = unsafelyGetToken(market.id);
-        const vBepToken = unsafelyGetVToken(token.id);
+        const vToken = unsafelyGetVToken(token.id);
 
         // Skip token if it isn't listed
-        if (!token || !vBepToken) {
+        if (!token || !vToken) {
           return acc;
         }
 
-        const vtokenAddress = vBepToken.address.toLowerCase();
+        const vtokenAddress = vToken.address.toLowerCase();
         const collateral = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
           .includes(vtokenAddress);
@@ -143,6 +143,7 @@ const useGetUserMarketInfo = ({
 
         const asset = {
           token,
+          vToken,
           supplyApy: new BigNumber(market?.supplyApy || 0),
           borrowApy: new BigNumber(market?.borrowApy || 0),
           xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
