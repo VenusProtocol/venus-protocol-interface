@@ -9,9 +9,9 @@ import React from 'react';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
-import { TableColumn, TableRow } from './types';
+import { TableColumn } from './types';
 
-interface HeadProps<R extends TableRow> {
+interface HeadProps<R> {
   columns: TableColumn<R>[];
   orderBy: TableColumn<R> | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
@@ -19,13 +19,7 @@ interface HeadProps<R extends TableRow> {
   className?: string;
 }
 
-function Head<R extends TableRow>({
-  columns,
-  orderBy,
-  orderDirection,
-  onRequestOrder,
-  className,
-}: HeadProps<R>) {
+function Head<R>({ columns, orderBy, orderDirection, onRequestOrder, className }: HeadProps<R>) {
   const styles = useStyles();
   return (
     <MuiTableHead>

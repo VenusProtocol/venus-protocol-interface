@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 
 import { Delimiter } from '../Delimiter';
 import { useStyles } from './styles';
-import { TableProps, TableRow } from './types';
+import { TableProps } from './types';
 
-type TableCardProps<R extends TableRow> = Pick<
+type TableCardProps<R> = Pick<
   TableProps<R>,
   'data' | 'rowKeyExtractor' | 'rowOnClick' | 'getRowHref' | 'breakpoint' | 'columns'
 >;
 
-export function TableCards<R extends TableRow>({
+export function TableCards<R>({
   data,
   rowKeyExtractor,
   rowOnClick,

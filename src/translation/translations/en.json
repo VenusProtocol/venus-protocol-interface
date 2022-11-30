@@ -295,16 +295,6 @@
       },
       "title": "Borrow info"
     },
-    "columns": {
-      "asset": "TRANSLATION NEEDED",
-      "borrowApy": "TRANSLATION NEEDED",
-      "collateralFactor": "TRANSLATION NEEDED",
-      "liquidity": "TRANSLATION NEEDED",
-      "price": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "totalBorrow": "TRANSLATION NEEDED",
-      "totalSupply": "TRANSLATION NEEDED"
-    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },
@@ -371,7 +361,7 @@
     }
   },
   "marketTable": {
-    "columns": {
+    "columnKeys": {
       "asset": "Asset",
       "borrowApy": "APY",
       "borrowBalance": "Balance",
