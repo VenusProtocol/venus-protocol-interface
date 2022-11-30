@@ -2,9 +2,7 @@ import React from 'react';
 
 import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
-export type TableRow = object;
-
-export interface TableColumn<R extends TableRow> {
+export interface TableColumn<R> {
   key: string;
   label: string;
   renderCell: (row: R, rowIndex: number) => React.ReactNode | string;
@@ -12,7 +10,7 @@ export interface TableColumn<R extends TableRow> {
   align?: 'left' | 'center' | 'right';
 }
 
-export interface TableProps<R extends TableRow> {
+export interface TableProps<R> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   breakpoint: keyof typeof BREAKPOINTS['values'];

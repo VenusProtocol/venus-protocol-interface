@@ -12,11 +12,11 @@ import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';
-import { TableColumn, TableProps, TableRow } from './types';
+import { TableColumn, TableProps } from './types';
 
 export * from './types';
 
-export function Table<R extends TableRow>({
+export function Table<R>({
   columns,
   cardColumns,
   data,
