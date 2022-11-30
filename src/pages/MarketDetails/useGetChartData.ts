@@ -29,17 +29,13 @@ const useGetChartData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
         supplyChartData.push({
           apyPercentage: formatPercentage(marketSnapshot.supplyApy),
           timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
-            marketSnapshot.priceUSD,
-          ),
+          balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(100),
         });
 
         borrowChartData.push({
           apyPercentage: formatPercentage(marketSnapshot.borrowApy),
           timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
-            marketSnapshot.priceUSD,
-          ),
+          balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(100),
         });
       });
 
