@@ -10,7 +10,6 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getContractAddress,
-  sortBigNumbers,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
