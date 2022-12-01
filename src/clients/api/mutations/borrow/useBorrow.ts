@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import { BorrowInput, BorrowOutput, borrow, queryClient } from 'clients/api';
 import { useVTokenContract } from 'clients/contracts/hooks';
@@ -7,7 +7,7 @@ import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<BorrowOutput, Error, Omit<BorrowInput, 'vTokenContract'>>;
 
-const useBorrow = ({ vToken }: { vToken: Token }, options?: Options) => {
+const useBorrow = ({ vToken }: { vToken: VToken }, options?: Options) => {
   const vTokenContract = useVTokenContract(vToken);
 
   return useMutation(

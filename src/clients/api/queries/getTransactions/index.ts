@@ -68,7 +68,11 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.map(data => formatTransaction(data));
+  const transactions = payload.result.reduce((acc, data) => {
+    const transaction = formatTransaction(data);
+    return transaction ? [...acc, transaction] : acc;
+  }, [] as Transaction[]);
+
   return { limit, page: payloadPage, total, transactions };
 };
 

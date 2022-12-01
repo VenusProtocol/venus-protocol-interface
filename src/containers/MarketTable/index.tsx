@@ -101,9 +101,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     }
 
     if (marketType === 'borrow') {
-      openBorrowRepayModal({ token: row.token, vToken: row.vToken });
+      openBorrowRepayModal(row.vToken);
     } else {
-      openSupplyWithdrawModal({ token: row.token, vToken: row.vToken });
+      openSupplyWithdrawModal(row.vToken);
     }
   };
 

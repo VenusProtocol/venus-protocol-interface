@@ -12,7 +12,7 @@ import {
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset, VToken } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -164,19 +164,18 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 };
 
 export interface BorrowProps {
-  token: Token;
-  vToken: Token;
+  vToken: VToken;
   includeXvs: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<BorrowProps> = ({ token, vToken, onClose, includeXvs }) => {
+const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token });
+  } = useGetUserAsset({ token: vToken.underlyingToken });
 
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
@@ -237,7 +236,7 @@ const Borrow: React.FC<BorrowProps> = ({ token, vToken, onClose, includeXvs }) =
       : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
-      value.dp(token.decimals, BigNumber.ROUND_DOWN).toFixed();
+      value.dp(vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
@@ -251,13 +250,15 @@ const Borrow: React.FC<BorrowProps> = ({ token, vToken, onClose, includeXvs }) =
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
       {asset ? (
         <EnableToken
-          token={token}
+          token={vToken.underlyingToken}
           spenderAddress={vToken.address}
-          title={t('borrowRepayModal.borrow.enableToken.title', { symbol: token.symbol })}
+          title={t('borrowRepayModal.borrow.enableToken.title', {
+            symbol: vToken.underlyingToken.symbol,
+          })}
           tokenInfo={[
             {
               label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
-              iconSrc: token,
+              iconSrc: vToken.underlyingToken,
               children: formatToReadablePercentage(asset.borrowApy),
             },
             {

@@ -1,8 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { TransactionCategory, TransactionEvent } from 'types';
-import { convertTokensToWei, getVTokenByAddress, unsafelyGetToken } from 'utilities';
-
-import { TOKENS } from 'constants/tokens';
+import { convertTokensToWei, getVTokenByAddress } from 'utilities';
 
 import { TransactionResponse } from './types';
 
@@ -16,11 +14,14 @@ const formatTransaction = ({
   ...rest
 }: TransactionResponse) => {
   const vToken = getVTokenByAddress(vTokenAddress);
-  const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
+
+  if (!vToken) {
+    return undefined;
+  }
 
   return {
     ...rest,
-    amountWei: convertTokensToWei({ value: new BigNumber(amount), token }),
+    amountWei: convertTokensToWei({ value: new BigNumber(amount), token: vToken?.underlyingToken }),
     createdAt: new Date(createdAt),
     updatedAt: new Date(updatedAt),
     category: category as TransactionCategory,

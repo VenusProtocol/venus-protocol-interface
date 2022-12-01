@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Token } from 'types';
+import { VToken } from 'types';
 import { convertPercentageFromSmartContract, convertWeiToTokens } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
@@ -8,7 +8,7 @@ import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { TOKENS } from 'constants/tokens';
 
-const useGetMarketData = ({ vToken }: { vToken: Token }) => {
+const useGetMarketData = ({ vToken }: { vToken: VToken }) => {
   const { data: vTokenCashData } = useGetVTokenCash({
     vToken,
   });

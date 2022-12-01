@@ -1,4 +1,4 @@
-import { Token } from 'types';
+import { Token, VToken } from 'types';
 import { getContractAddress } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
@@ -69,7 +69,7 @@ export const getTokenContract = (token: Token, web3: Web3) => {
 export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
   getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
 
-export const getVTokenContract = (vToken: Token, web3: Web3) => {
+export const getVTokenContract = (vToken: VToken, web3: Web3) => {
   if (vToken.symbol === 'vBNB') {
     return getContract(
       vBnbTokenAbi as AbiItem[],

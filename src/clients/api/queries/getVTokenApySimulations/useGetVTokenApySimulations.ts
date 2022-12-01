@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
@@ -18,7 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenApySimulations = (
-  { vToken, reserveFactorMantissa }: { vToken: Token; reserveFactorMantissa?: BigNumber },
+  { vToken, reserveFactorMantissa }: { vToken: VToken; reserveFactorMantissa?: BigNumber },
   options?: Options,
 ) => {
   const multicall = useMulticall();

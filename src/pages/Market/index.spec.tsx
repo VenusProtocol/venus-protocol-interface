@@ -8,13 +8,11 @@ import { markets } from '__mocks__/models/markets';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMarketHistory, getMarkets, getVTokenApySimulations } from 'clients/api';
 import { routes } from 'constants/routing';
+import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import Market from '.';
 import TEST_IDS from './testIds';
-
-const fakeVTokenId = 'aave';
-const fakePoolId = 'fake-pool-id';
 
 jest.mock('clients/api');
 
@@ -40,8 +38,7 @@ describe('pages/Market', () => {
         location="/"
         match={{
           params: {
-            vTokenId: fakeVTokenId,
-            poolId: fakePoolId,
+            vTokenAddress: VBEP_TOKENS.aave.address,
           },
           isExact: true,
           path: routes.market.path,
@@ -59,8 +56,7 @@ describe('pages/Market', () => {
         location="/"
         match={{
           params: {
-            vTokenId: fakeVTokenId,
-            poolId: fakePoolId,
+            vTokenAddress: VBEP_TOKENS.aave.address,
           },
           isExact: true,
           path: routes.market.path,

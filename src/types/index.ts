@@ -11,8 +11,8 @@ export interface User {
 }
 
 export interface Asset {
-  token: Token;
-  vToken: Token;
+  token: Token; // TODO: remove (contained in vToken)
+  vToken: VToken;
   tokenPrice: BigNumber;
   borrowBalance: BigNumber;
   walletBalance: BigNumber;
@@ -36,11 +36,16 @@ export interface Asset {
 }
 
 export interface Token {
-  symbol: Uppercase<string>;
+  symbol: string;
   decimals: number;
-  address: string | '';
   asset: string;
+  address: string | '';
   isNative?: boolean;
+}
+
+export interface VToken extends Omit<Token, 'isNative'> {
+  decimals: 8; // VBep tokens all have 8 decimals
+  underlyingToken: Token;
 }
 
 export interface Setting {

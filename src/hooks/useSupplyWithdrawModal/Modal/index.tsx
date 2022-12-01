@@ -13,7 +13,7 @@ import {
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset, VToken } from 'types';
 import { convertTokensToWei, formatToReadablePercentage, isTokenEnabled } from 'utilities';
 
 import {
@@ -35,8 +35,7 @@ import { useStyles } from './styles';
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];
   includeXvs: boolean;
-  token: Token;
-  vToken: Token;
+  vToken: VToken;
 }
 
 export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'token' | 'vToken'> {
@@ -235,17 +234,12 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   );
 };
 
-const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
-  token,
-  vToken,
-  includeXvs,
-  onClose,
-}) => {
+const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token });
+  } = useGetUserAsset({ token: vToken.underlyingToken });
 
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
@@ -280,7 +274,10 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
-    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token });
+    const supplyAmountWei = convertTokensToWei({
+      value: new BigNumber(value),
+      token: vToken.underlyingToken,
+    });
     const res = await supply({
       amountWei: supplyAmountWei,
     });
@@ -291,7 +288,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
         valueWei: supplyAmountWei,
-        token,
+        token: vToken.underlyingToken,
       },
       transactionHash: res.transactionHash,
     });
@@ -331,8 +328,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertTokensToWei({ value: amount, token }),
-          token,
+          valueWei: convertTokensToWei({ value: amount, token: vToken.underlyingToken }),
+          token: vToken.underlyingToken,
         },
         transactionHash,
       });

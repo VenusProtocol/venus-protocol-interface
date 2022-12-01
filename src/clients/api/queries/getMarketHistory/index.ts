@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { MarketSnapshot, Token } from 'types';
+import { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
 
 export interface GetMarketHistoryResponse {
@@ -9,7 +9,7 @@ export interface GetMarketHistoryResponse {
 }
 
 export interface GetMarketHistoryInput {
-  vToken: Token;
+  vToken: VToken;
   limit?: number;
   type?: string;
 }
