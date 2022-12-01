@@ -5,7 +5,6 @@ on: [push]
 env:
   REACT_APP_CHAIN_ID: 97
   IS_CI_ENV: true
-  SUBGRAPH_GRAPHQL_ENDPOINT: https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-chapel
 
 jobs:
   typecheck:
