@@ -210,9 +210,9 @@
       "block": "Block",
       "created": "Created",
       "from": "From",
+      "hash": "Hash",
       "id": "ID",
       "to": "To",
-      "txnHash": "Txn Hash",
       "type": "Type"
     },
     "createdAt": "{{ date, distanceToNow }} ago",
@@ -361,7 +361,7 @@
     }
   },
   "marketTable": {
-    "columns": {
+    "columnKeys": {
       "asset": "Asset",
       "borrowApy": "APY",
       "borrowBalance": "Balance",
@@ -386,6 +386,53 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+  },
+  "pool": {
+    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
+    "header": {
+      "assetsLabel": "Assets",
+      "availableLiquidityLabel": "Available Liquidity",
+      "totalBorrowLabel": "Total Borrow",
+      "totalSupplyLabel": "Total Supply"
+    }
+  },
+  "pools": {
+    "poolTable": {
+      "columns": {
+        "assets": "Assets",
+        "liquidity": "Liquidity",
+        "pool": "Pool",
+        "riskLevel": "Risk level",
+        "totalBorrow": "Total borrow",
+        "totalSupply": "Total supply"
+      }
+    }
+  },
+  "proposalCard": {
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "canceled": "Canceled: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "defeated": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "executed": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "expired": "Expired: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
+  },
+  "riskLevel": {
+    "high": "High risk",
+    "low": "Low risk",
+    "medium": "Medium risk",
+    "minimal": "Minimal risk",
+    "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
+    "veryHigh": "Very high risk"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
   },
   "pool": {
     "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",

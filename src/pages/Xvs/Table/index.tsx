@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Table, TableProps, TokenIconWithSymbol } from 'components';
+import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
+  compareBigNumbers,
   convertWeiToTokens,
   formatToReadablePercentage,
   formatTokensToReadableValue,
@@ -34,79 +35,68 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const columns = useMemo(
+  const columns: TableColumn<TableAsset>[] = useMemo(
     () => [
-      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
-      { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
+      {
+        key: 'asset',
+        label: t('xvs.columns.asset'),
+        renderCell: ({ token }) => <TokenIconWithSymbol token={token} />,
+      },
+      {
+        key: 'xvsPerDay',
+        label: t('xvs.columns.xvsPerDay'),
+        align: 'right',
+        renderCell: ({ xvsPerDay }) => (
+          <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
+            {formatTokensToReadableValue({
+              value: xvsPerDay,
+              token: TOKENS.xvs,
+              minimizeDecimals: true,
+            })}
+          </Typography>
+        ),
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.xvsPerDay, rowB.xvsPerDay, direction),
+      },
       {
         key: 'supplyXvsApy',
         label: t('xvs.columns.supplyXvsApy'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ xvsSupplyApy }) => (
+          <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
+            {formatToReadablePercentage(xvsSupplyApy)}
+          </Typography>
+        ),
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.xvsSupplyApy, rowB.xvsSupplyApy, direction),
       },
       {
         key: 'borrowXvsApy',
         label: t('xvs.columns.borrowXvsApy'),
-        orderable: true,
         align: 'right',
+        renderCell: ({ xvsBorrowApy }) => (
+          <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
+            {formatToReadablePercentage(xvsBorrowApy)}
+          </Typography>
+        ),
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
     [],
   );
 
-  // Format assets to rows
-  const rows: TableProps['data'] = assets.map(asset => [
-    {
-      key: 'asset',
-      render: () => <TokenIconWithSymbol token={asset.token} />,
-      value: asset.token.id,
-      align: 'left',
-    },
-    {
-      key: 'xvsPerDay',
-      render: () => (
-        <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-          {formatTokensToReadableValue({
-            value: asset.xvsPerDay,
-            token: TOKENS.xvs,
-            minimizeDecimals: true,
-          })}
-        </Typography>
-      ),
-      value: asset.xvsPerDay?.toFixed() || 0,
-      align: 'right',
-    },
-    {
-      key: 'supplyXvsApy',
-      render: () => (
-        <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-          {formatToReadablePercentage(asset.xvsSupplyApy)}
-        </Typography>
-      ),
-      value: asset.xvsSupplyApy?.toFixed() || 0,
-      align: 'right',
-    },
-    {
-      key: 'borrowXvsApy',
-      render: () => (
-        <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-          {formatToReadablePercentage(asset.xvsBorrowApy)}
-        </Typography>
-      ),
-      value: asset.xvsBorrowApy?.toFixed() || 0,
-      align: 'right',
-    },
-  ]);
-
   return (
     <Table
+      data={assets}
       columns={columns}
-      data={rows}
       initialOrder={{
-        orderBy: 'xvsPerDay',
+        orderBy: columns[1],
         orderDirection: 'desc',
       }}
-      rowKeyExtractor={row => `${row[0].value}`}
+      rowKeyExtractor={row =>
+        `xvs-table-row-${row.token.address}-${row.xvsBorrowApy}-${row.xvsPerDay}-${row.xvsSupplyApy}`
+      }
       breakpoint="sm"
       css={styles.cardContentGrid}
     />

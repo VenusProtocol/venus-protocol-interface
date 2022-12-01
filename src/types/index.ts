@@ -11,8 +11,8 @@ export interface User {
 }
 
 export interface Asset {
-  // TODO: add vToken
   token: Token;
+  vToken: Token;
   tokenPrice: BigNumber;
   borrowBalance: BigNumber;
   walletBalance: BigNumber;
@@ -28,7 +28,6 @@ export interface Asset {
   collateral: boolean;
   supplyBalance: BigNumber;
   percentOfLimit: string;
-  // treasuryBalance: BigNumber;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;

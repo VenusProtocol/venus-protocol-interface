@@ -1,4 +1,4 @@
-export type ColumnName =
+export type ColumnKey =
   | 'asset'
   | 'supplyApyLtv'
   | 'labeledSupplyApyLtv'

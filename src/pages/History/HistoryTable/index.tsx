@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Table, TableProps, TokenIcon } from 'components';
+import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
@@ -29,31 +29,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
 
-  const columns = useMemo(
-    () => [
-      { key: 'id', label: t('history.columns.id'), orderable: true, align: 'left' },
-      { key: 'type', label: t('history.columns.type'), orderable: true, align: 'left' },
-      { key: 'txnHash', label: t('history.columns.txnHash'), orderable: true, align: 'left' },
-      { key: 'block', label: t('history.columns.block'), orderable: true, align: 'left' },
-      { key: 'from', label: t('history.columns.from'), orderable: true, align: 'left' },
-      { key: 'to', label: t('history.columns.to'), orderable: true, align: 'left' },
-      { key: 'amount', label: t('history.columns.amount'), orderable: true, align: 'right' },
-      { key: 'created', label: t('history.columns.created'), orderable: true, align: 'right' },
-    ],
-    [],
-  );
-
-  const cardColumns = useMemo(() => {
-    // Copy columns to order them for mobile
-    const newColumns = [...columns];
-    // Remove id column, mobile title is handled by type component
-    newColumns.shift();
-    // Place account as the third position on the top row
-    const [amountCol] = newColumns.splice(5, 1);
-    newColumns.splice(3, 0, amountCol);
-    return newColumns;
-  }, [columns]);
-
   const eventTranslationKeys = {
     All: t('history.all'),
     Mint: t('history.mint'),
@@ -76,150 +51,161 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
     ProposalCanceled: t('history.proposalCanceled'),
   };
 
-  // Format transactions to rows
-  const rows: TableProps['data'] = useMemo(
-    () =>
-      transactions.map(txn => {
-        const vToken = getVTokenByAddress(txn.vTokenAddress);
-        const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
+  const columns: TableColumn<Transaction>[] = useMemo(
+    () => [
+      {
+        key: 'id',
+        label: t('history.columns.id'),
+        renderCell: transaction => <Typography variant="small2">{transaction.id}</Typography>,
+      },
+      {
+        key: 'type',
+        label: t('history.columns.type'),
+        renderCell: transaction => {
+          // TODO: get vToken from transaction (see: VEN-815)
+          const vToken = getVTokenByAddress(transaction.vTokenAddress);
+          const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
-        return [
-          {
-            key: 'id',
-            render: () => <Typography variant="small2">{txn.id}</Typography>,
-            value: txn.id,
-            align: 'left',
-          },
-          {
-            key: 'type',
-            render: () => (
-              <>
-                <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
+          return (
+            <>
+              <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
+                <TokenIcon token={token} css={styles.icon} />
+
+                <Typography variant="small2" color="textPrimary">
+                  {eventTranslationKeys[transaction.event]}
+                </Typography>
+              </div>
+
+              <div css={[styles.cardTitle, showXlDownCss]}>
+                <div css={styles.typeCol}>
                   <TokenIcon token={token} css={styles.icon} />
+
                   <Typography variant="small2" color="textPrimary">
-                    {eventTranslationKeys[txn.event]}
+                    {transaction.event}
                   </Typography>
                 </div>
 
-                <div css={[styles.cardTitle, showXlDownCss]}>
-                  <div css={styles.typeCol}>
-                    <TokenIcon token={token} css={styles.icon} />
-                    <Typography variant="small2" color="textPrimary">
-                      {txn.event}
-                    </Typography>
-                  </div>
-                  <Typography variant="small2">{txn.id}</Typography>
-                </div>
-              </>
-            ),
-            value: txn.event,
-            align: 'left',
-          },
-          {
-            key: 'txnHash',
-            render: () => (
-              <Typography
-                component="a"
-                href={generateBscScanUrl(txn.transactionHash, 'tx')}
-                target="_blank"
-                rel="noreferrer"
-                variant="small2"
-                css={styles.txnHashText}
-              >
-                <EllipseAddress address={txn.transactionHash} />
-              </Typography>
-            ),
-            value: txn.transactionHash,
-            align: 'left',
-          },
-          {
-            key: 'block',
-            render: () => (
-              <Typography variant="small2" color="textPrimary">
-                {txn.blockNumber}
-              </Typography>
-            ),
-            value: txn.blockNumber,
-            align: 'left',
-          },
-          {
-            key: 'from',
-            render: () => (
-              <Typography
-                component="a"
-                href={generateBscScanUrl(txn.from, 'address')}
-                target="_blank"
-                rel="noreferrer"
-                variant="small2"
-                css={styles.txnHashText}
-              >
-                <EllipseAddress address={txn.from} />
-              </Typography>
-            ),
-            value: txn.from,
-            align: 'left',
-          },
-          {
-            key: 'to',
-            render: () =>
-              txn.to ? (
-                <Typography
-                  component="a"
-                  href={generateBscScanUrl(txn.to, 'address')}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="small2"
-                  css={styles.txnHashText}
-                >
-                  <EllipseAddress address={txn.to} />
-                </Typography>
-              ) : (
-                PLACEHOLDER_KEY
-              ),
-            value: txn.to,
-            align: 'left',
-          },
-          {
-            key: 'amount',
-            render: () => (
-              <Typography variant="small2" css={styles.whiteText}>
-                {convertWeiToTokens({
-                  valueWei: txn.amountWei,
-                  token,
-                  returnInReadableFormat: true,
-                  minimizeDecimals: true,
-                  addSymbol: false,
-                })}
-              </Typography>
-            ),
-            value: txn.amountWei.toFixed(),
-            align: 'right',
-          },
-          {
-            key: 'created',
-            render: () => (
-              <Typography variant="small2" css={styles.whiteText}>
-                {t('history.createdAt', { date: txn.createdAt })}
-              </Typography>
-            ),
-            value: txn.createdAt.getTime(),
-            align: 'right',
-          },
-        ];
-      }),
-    [JSON.stringify(transactions)],
+                <Typography variant="small2">{transaction.id}</Typography>
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        key: 'hash',
+        label: t('history.columns.hash'),
+        renderCell: transaction => (
+          <Typography
+            component="a"
+            href={generateBscScanUrl(transaction.transactionHash, 'tx')}
+            target="_blank"
+            rel="noreferrer"
+            variant="small2"
+            css={styles.txnHashText}
+          >
+            <EllipseAddress address={transaction.transactionHash} />
+          </Typography>
+        ),
+      },
+      {
+        key: 'block',
+        label: t('history.columns.block'),
+        renderCell: transaction => (
+          <Typography variant="small2" color="textPrimary">
+            {transaction.blockNumber}
+          </Typography>
+        ),
+      },
+      {
+        key: 'from',
+        label: t('history.columns.from'),
+        renderCell: transaction => (
+          <Typography
+            component="a"
+            href={generateBscScanUrl(transaction.from, 'address')}
+            target="_blank"
+            rel="noreferrer"
+            variant="small2"
+            css={styles.txnHashText}
+          >
+            <EllipseAddress address={transaction.from} />
+          </Typography>
+        ),
+      },
+      {
+        key: 'to',
+        label: t('history.columns.to'),
+        renderCell: transaction =>
+          transaction.to ? (
+            <Typography
+              component="a"
+              href={generateBscScanUrl(transaction.to, 'address')}
+              target="_blank"
+              rel="noreferrer"
+              variant="small2"
+              css={styles.txnHashText}
+            >
+              <EllipseAddress address={transaction.to} />
+            </Typography>
+          ) : (
+            PLACEHOLDER_KEY
+          ),
+      },
+      {
+        key: 'amount',
+        label: t('history.columns.amount'),
+        renderCell: transaction => {
+          // TODO: get vToken from transaction (see: VEN-815)
+          const vToken = getVTokenByAddress(transaction.vTokenAddress);
+          const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
+
+          return (
+            <Typography variant="small2" css={styles.whiteText}>
+              {convertWeiToTokens({
+                valueWei: transaction.amountWei,
+                token,
+                returnInReadableFormat: true,
+                minimizeDecimals: true,
+                addSymbol: false,
+              })}
+            </Typography>
+          );
+        },
+      },
+      {
+        key: 'created',
+        label: t('history.columns.created'),
+        renderCell: transaction => (
+          <Typography variant="small2" css={styles.whiteText}>
+            {t('history.createdAt', { date: transaction.createdAt })}
+          </Typography>
+        ),
+      },
+    ],
+    [],
   );
+
+  const cardColumns = useMemo(() => {
+    // Copy columns to order them for mobile
+    const newColumns = [...columns];
+    // Remove id column, mobile title is handled by type component
+    newColumns.shift();
+    // Place account as the third position on the top row
+    const [amountCol] = newColumns.splice(5, 1);
+    newColumns.splice(3, 0, amountCol);
+    return newColumns;
+  }, [columns]);
 
   return (
     <Table
       columns={columns}
       cardColumns={cardColumns}
-      data={rows}
+      data={transactions}
       initialOrder={{
-        orderBy: 'created',
+        orderBy: columns[7],
         orderDirection: 'desc',
       }}
-      rowKeyExtractor={row => `${row[0].value}`}
+      rowKeyExtractor={row => `history-table-row-${row.id}`}
       breakpoint="xl"
       css={styles.cardContentGrid}
       isFetching={isFetching}

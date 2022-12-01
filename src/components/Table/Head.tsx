@@ -1,60 +1,50 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import MuiTableCell from '@mui/material/TableCell';
+import MuiTableHead from '@mui/material/TableHead';
+import MuiTableRow from '@mui/material/TableRow';
+import MuiTableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import React from 'react';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
+import { TableColumn } from './types';
 
-interface ColProps {
-  key: string;
-  label: string;
-  orderable: boolean;
-  align?: 'left' | 'center' | 'right';
-}
-
-interface HeadProps<C extends ColProps[]> {
-  columns: C;
-  orderBy: string | undefined;
+interface HeadProps<R> {
+  columns: TableColumn<R>[];
+  orderBy: TableColumn<R> | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
-  onRequestOrder: (property: C[number]['key']) => void;
+  onRequestOrder: (column: TableColumn<R>) => void;
   className?: string;
 }
 
-function Head<C extends ColProps[]>({
-  columns,
-  orderBy,
-  orderDirection,
-  onRequestOrder,
-  className,
-}: HeadProps<C>) {
+function Head<R>({ columns, orderBy, orderDirection, onRequestOrder, className }: HeadProps<R>) {
   const styles = useStyles();
   return (
-    <TableHead>
-      <TableRow className={className}>
-        {columns.map((col: C[number]) => {
-          const active = orderBy === col.key;
+    <MuiTableHead>
+      <MuiTableRow className={className}>
+        {columns.map(column => {
+          const active = orderBy?.key === column.key;
+
           return (
-            <TableCell
-              key={col.key}
+            <MuiTableCell
+              key={column.key}
               sortDirection={active ? orderDirection : false}
-              align={col.align}
+              align={column.align}
             >
-              <TableSortLabel
-                css={styles.tableSortLabel({ orderable: col.orderable })}
+              <MuiTableSortLabel
+                css={styles.tableSortLabel({ orderable: !!column.sortRows })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={col.orderable ? () => onRequestOrder(col.key) : undefined}
+                onClick={column.sortRows ? () => onRequestOrder(column) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
-                <span>{col.label}</span>
-                {col.orderable && (
+                <span>{column.label}</span>
+
+                {!!column.sortRows && (
                   <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"
@@ -74,17 +64,18 @@ function Head<C extends ColProps[]>({
                     />
                   </div>
                 )}
-                {active && col.orderable && (
+
+                {active && !!column.sortRows && (
                   <Box component="span" sx={visuallyHidden}>
                     {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
                   </Box>
                 )}
-              </TableSortLabel>
-            </TableCell>
+              </MuiTableSortLabel>
+            </MuiTableCell>
           );
         })}
-      </TableRow>
-    </TableHead>
+      </MuiTableRow>
+    </MuiTableHead>
   );
 }
 
