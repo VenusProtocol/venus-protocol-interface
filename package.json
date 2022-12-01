@@ -17,7 +17,7 @@
     "lint-styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "typecheck": "tsc",
     "extract-translation-keys": "i18next",
-    "generate-subgraph-types": "yarn graphclient build --dir ./src/types/subgraph/",
+    "generate-subgraph-types": "./scripts/run-generate-subgraph-types.sh",
     "generate-contract-types": "typechain --target=web3-v1 --out-dir=src/types/contracts 'src/constants/contracts/abis/*.json'",
     "postinstall": "yarn generate-contract-types && yarn generate-subgraph-types",
     "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
