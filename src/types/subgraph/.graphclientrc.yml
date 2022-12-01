@@ -1,0 +1,8 @@
+sources:
+  - name: isolated-pools-subgraph
+    handler:
+      graphql:
+        endpoint: ${SUBGRAPH_GRAPHQL_ENDPOINT} 
+
+documents:
+  - '../../clients/subgraph/**/*.graphql'
