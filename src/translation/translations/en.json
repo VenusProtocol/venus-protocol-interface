@@ -121,6 +121,7 @@
     "leaderboard": "Leaderboard",
     "pools": "Pools",
     "proposal": "Proposal #{{proposalId}}",
+    "swap": "Swap",
     "vai": "VAI",
     "vaults": "Vaults",
     "xvs": "XVS"
@@ -270,9 +271,8 @@
       "dashboard": "Dashboard",
       "governance": "Governance",
       "history": "History",
-      "markets": "Markets",
-      "swap": "Swap",
       "pools": "Pools",
+      "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
       "xvs": "XVS",
@@ -387,15 +387,6 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
-  "selectTokenTextField": {
-    "searchInput": {
-      "placeholder": "Search asset"
-    },
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
-  },
-  "sidebar": {
-    "newBadge": "NEW"
-  },
   "pool": {
     "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
     "header": {
@@ -433,6 +424,15 @@
     "minimal": "Minimal risk",
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+  },
+  "sidebar": {
+    "newBadge": "NEW"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",

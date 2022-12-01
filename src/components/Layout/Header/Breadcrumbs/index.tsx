@@ -143,6 +143,9 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.CONVERT_VRT:
           dom = t('breadcrumbs.convertVrt');
           break;
+        case Subdirectory.SWAP:
+          dom = t('breadcrumbs.swap');
+          break;
         case Subdirectory.VAI:
           dom = t('breadcrumbs.vai');
           break;
