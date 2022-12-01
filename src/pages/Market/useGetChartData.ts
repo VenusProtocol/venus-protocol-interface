@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { ApyChartProps } from 'components';
 import React from 'react';
-import { Token } from 'types';
+import { VToken } from 'types';
 import { formatPercentage } from 'utilities';
 
 import { useGetMarketHistory } from 'clients/api';
 
-const useGetChartData = ({ vToken }: { vToken: Token }) => {
+const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   const {
     data: marketSnapshotsData = {
       marketSnapshots: [],

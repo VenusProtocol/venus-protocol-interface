@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Token } from 'types';
+import { Token, VToken } from 'types';
 
 import { useWeb3 } from 'clients/web3';
 
@@ -32,7 +32,7 @@ export const useTokenContractByAddress = (address: string) => {
   return useMemo(() => getTokenContractByAddress(address, web3), [web3, address]);
 };
 
-export const useVTokenContract = (vToken: Token) => {
+export const useVTokenContract = (vToken: VToken) => {
   const web3 = useWeb3();
   return useMemo(() => getVTokenContract(vToken, web3), [web3, vToken]);
 };

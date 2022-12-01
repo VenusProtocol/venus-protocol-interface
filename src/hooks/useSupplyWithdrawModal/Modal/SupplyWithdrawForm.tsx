@@ -26,6 +26,7 @@ import {
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 
 import { useStyles } from './styles';
@@ -129,7 +130,8 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
-  const isSupplyingLuna = type === 'supply' && asset.token.id === 'luna';
+  const isSupplyingLuna =
+    type === 'supply' && asset.vToken.underlyingToken.address === TOKENS.luna.address;
 
   // TODO: fetch actual value (see VEN-546)
   const isIsolatedAsset = true;

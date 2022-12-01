@@ -5,9 +5,8 @@ import {
   calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
+  getVTokenByAddress,
   indexBy,
-  unsafelyGetToken,
-  unsafelyGetVToken,
 } from 'utilities';
 
 import {
@@ -113,11 +112,10 @@ const useGetUserMarketInfo = ({
       totalXvsDistributedWei,
     } = (getMarketsData?.markets || []).reduce(
       (acc, market) => {
-        const token = unsafelyGetToken(market.id);
-        const vToken = unsafelyGetVToken(token.id);
+        const vToken = getVTokenByAddress(market.address);
 
         // Skip token if it isn't listed
-        if (!token || !vToken) {
+        if (!vToken) {
           return acc;
         }
 
@@ -134,7 +132,7 @@ const useGetUserMarketInfo = ({
         const wallet = vTokenBalances && vTokenBalances[vtokenAddress];
         if (accountAddress && wallet) {
           const toDecimalAmount = (mantissa: string) =>
-            new BigNumber(mantissa).shiftedBy(-token.decimals);
+            new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
 
           walletBalance = toDecimalAmount(wallet.tokenBalance);
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
@@ -142,7 +140,7 @@ const useGetUserMarketInfo = ({
         }
 
         const asset = {
-          token,
+          token: vToken.underlyingToken,
           vToken,
           supplyApy: new BigNumber(market?.supplyApy || 0),
           borrowApy: new BigNumber(market?.borrowApy || 0),
@@ -184,7 +182,10 @@ const useGetUserMarketInfo = ({
         if (asset.collateral) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
-              amountWei: convertTokensToWei({ value: asset.supplyBalance, token }),
+              amountWei: convertTokensToWei({
+                value: asset.supplyBalance,
+                token: vToken.underlyingToken,
+              }),
               token: asset.token,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,

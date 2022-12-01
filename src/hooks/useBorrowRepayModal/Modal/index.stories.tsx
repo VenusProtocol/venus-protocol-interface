@@ -4,7 +4,7 @@ import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import BorrowRepay, { BorrowRepayProps } from '.';
@@ -34,7 +34,6 @@ const context = {
 
 export const Disconnected = Template.bind({});
 Disconnected.args = {
-  token: TOKENS.xvs,
   vToken: VBEP_TOKENS.xvs,
   onClose: noop,
 };
@@ -42,7 +41,6 @@ Disconnected.args = {
 export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 Disabled.args = {
-  token: TOKENS.xvs,
   vToken: VBEP_TOKENS.xvs,
   onClose: noop,
 };
@@ -57,7 +55,6 @@ Default.decorators = [
   }),
 ];
 Default.args = {
-  token: TOKENS.xvs,
   vToken: VBEP_TOKENS.xvs,
   onClose: noop,
 };

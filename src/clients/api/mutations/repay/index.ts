@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { Token } from 'types';
+import { VToken } from 'types';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core/types';
 
@@ -11,7 +11,7 @@ import { VBep20, VBnbToken } from 'types/contracts';
 export interface RepayInput {
   web3: Web3;
   accountAddress: string;
-  vToken: Token;
+  vToken: VToken;
   amountWei: BigNumber;
   isRepayingFullLoan?: boolean;
 }
@@ -28,7 +28,7 @@ const repay = async ({
   isRepayingFullLoan = false,
 }: RepayInput): Promise<RepayOutput> => {
   // Handle repaying tokens other than BNB
-  if (vToken.symbol !== 'vBNB') {
+  if (!vToken.underlyingToken.isNative) {
     const vTokenContract = getVTokenContract(vToken, web3) as VBep20;
 
     const resp = await vTokenContract.methods

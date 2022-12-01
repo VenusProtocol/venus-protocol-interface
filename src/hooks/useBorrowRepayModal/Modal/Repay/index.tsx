@@ -14,7 +14,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset, VToken } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -207,19 +207,18 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 };
 
 export interface RepayProps {
-  token: Token;
-  vToken: Token;
+  vToken: VToken;
   includeXvs: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<RepayProps> = ({ token, vToken, onClose, includeXvs }) => {
+const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token });
+  } = useGetUserAsset({ token: vToken.underlyingToken });
 
   const limitTokens = React.useMemo(
     () => (asset ? BigNumber.min(asset.borrowBalance, asset.walletBalance) : new BigNumber(0)),
@@ -255,13 +254,15 @@ const Repay: React.FC<RepayProps> = ({ token, vToken, onClose, includeXvs }) => 
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
       {asset ? (
         <EnableToken
-          token={token}
+          token={vToken.underlyingToken}
           spenderAddress={vToken.address}
-          title={t('borrowRepayModal.repay.enableToken.title', { symbol: token.symbol })}
+          title={t('borrowRepayModal.repay.enableToken.title', {
+            symbol: vToken.underlyingToken.symbol,
+          })}
           tokenInfo={[
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
-              iconSrc: token,
+              iconSrc: vToken.underlyingToken,
               children: formatToReadablePercentage(asset.borrowApy),
             },
             {

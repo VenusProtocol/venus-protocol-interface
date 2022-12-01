@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { Token } from 'types';
+import { VToken } from 'types';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -9,7 +9,7 @@ import { VBEP_TOKENS } from 'constants/tokens';
 import { VBep20, VBnbToken } from 'types/contracts';
 
 export interface SupplyInput {
-  vToken: Token;
+  vToken: VToken;
   web3: Web3;
   accountAddress: string;
   amountWei: BigNumber;

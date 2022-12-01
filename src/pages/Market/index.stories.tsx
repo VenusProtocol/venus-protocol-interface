@@ -4,7 +4,7 @@ import { ApyChartProps } from 'components';
 import React from 'react';
 
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 import { withRouter } from 'stories/decorators';
 
 import { MarketUi } from '.';
@@ -55,7 +55,7 @@ export default {
 
 export const Default = () => (
   <MarketUi
-    vToken={TOKENS.bnb}
+    vToken={VBEP_TOKENS.bnb}
     totalBorrowBalanceCents={100000000}
     borrowApyPercentage={new BigNumber(2.24)}
     borrowDistributionApyPercentage={1.1}

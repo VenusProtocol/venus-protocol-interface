@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { VToken } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
@@ -29,14 +30,19 @@ describe('hooks/useBorrowRepayModal', () => {
 
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
-      <BorrowRepay onClose={jest.fn()} token={asset.token} vToken={VBEP_TOKENS.usdc} includeXvs />,
+      <BorrowRepay onClose={jest.fn()} vToken={asset.vToken} includeXvs />,
     );
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
   });
 
   it.each(DISABLED_TOKENS)('does not display borrow tab when asset is %s', async token => {
+    const fakeVToken: VToken = {
+      ...VBEP_TOKENS.xvs, // This doesn't matter, only the underlying token is used
+      underlyingToken: token,
+    };
+
     const { queryByText } = renderComponent(() => (
-      <BorrowRepay onClose={jest.fn()} token={token} vToken={token} includeXvs />
+      <BorrowRepay onClose={jest.fn()} vToken={fakeVToken} includeXvs />
     ));
 
     await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());

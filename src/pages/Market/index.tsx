@@ -13,13 +13,12 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { VToken } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  unsafelyGetToken,
-  unsafelyGetVToken,
+  getVTokenByAddress,
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
@@ -38,7 +37,7 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface MarketUiProps {
-  vToken: Token;
+  vToken: VToken;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
@@ -92,8 +91,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
-  const token = unsafelyGetToken(vToken.id);
 
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
@@ -229,7 +226,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
-          token,
+          token: vToken.underlyingToken,
         }),
       },
       {
@@ -255,7 +252,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.marketInfo.stats.exchangeRateLabel'),
         value: exchangeRateVTokens
           ? t('market.marketInfo.stats.exchangeRateValue', {
-              tokenSymbol: token.symbol,
+              tokenSymbol: vToken.underlyingToken.symbol,
               vTokenSymbol: vToken.symbol,
               rate: exchangeRateVTokens.dp(6).toFixed(),
             })
@@ -291,7 +288,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <Button
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openSupplyWithdrawModal({ token, vToken })}
+        onClick={() => openSupplyWithdrawModal(vToken)}
       >
         {t('market.supplyButtonLabel')}
       </Button>
@@ -299,7 +296,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <SecondaryButton
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openBorrowRepayModal({ token, vToken })}
+        onClick={() => openBorrowRepayModal(vToken)}
       >
         {t('market.borrowButtonLabel')}
       </SecondaryButton>
@@ -364,18 +361,16 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   );
 };
 
-// TODO: pass vTokenAddress and poolAddress instead of IDs
-export type MarketProps = RouteComponentProps<{ vTokenId: string; poolId: string }>;
+export type MarketProps = RouteComponentProps<{ vTokenAddress: string }>;
 
 const Market: React.FC<MarketProps> = ({
   match: {
-    params: { vTokenId },
+    params: { vTokenAddress },
   },
 }) => {
-  // TODO: update to use token address
-  const vToken = unsafelyGetVToken(vTokenId);
+  const vToken = getVTokenByAddress(vTokenAddress);
 
-  // Redirect to markets page if vToken passed through route params is invalid
+  // Redirect to markets page if params are invalid
   if (!vToken) {
     return <Redirect to={routes.pools.path} />;
   }
