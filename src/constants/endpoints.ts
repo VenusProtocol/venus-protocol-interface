@@ -6,7 +6,7 @@ export const API_ENDPOINT_URLS = {
 };
 
 export const SUBGRAPH_ENDPOINT_URLS = {
-  [BscChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-subgraph',
+  [BscChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools',
   [BscChainId.TESTNET]:
     'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-chapel',
 };
