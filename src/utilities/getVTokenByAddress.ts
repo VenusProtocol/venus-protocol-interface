@@ -1,9 +1,9 @@
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import { VBEP_TOKENS } from 'constants/tokens';
 
 const getVTokenByAddress = (address: string) => {
-  let token: Token | undefined;
+  let token: VToken | undefined;
 
   Object.keys(VBEP_TOKENS)
     .filter(key => Object.prototype.hasOwnProperty.call(VBEP_TOKENS, key))

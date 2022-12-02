@@ -87,7 +87,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         </div>
 
         <Typography
-          href={generateBscScanUrl('xvs', 'token')}
+          href={generateBscScanUrl(TOKENS.xvs.address, 'token')}
           target="_blank"
           rel="noreferrer"
           variant="small2"

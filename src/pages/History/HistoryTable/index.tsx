@@ -4,15 +4,9 @@ import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import {
-  convertWeiToTokens,
-  generateBscScanUrl,
-  getVTokenByAddress,
-  unsafelyGetToken,
-} from 'utilities';
+import { convertWeiToTokens, generateBscScanUrl, getVTokenByAddress } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
@@ -62,32 +56,32 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         key: 'type',
         label: t('history.columns.type'),
         renderCell: transaction => {
-          // TODO: get vToken from transaction (see: VEN-815)
           const vToken = getVTokenByAddress(transaction.vTokenAddress);
-          const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
           return (
-            <>
-              <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
-                <TokenIcon token={token} css={styles.icon} />
-
-                <Typography variant="small2" color="textPrimary">
-                  {eventTranslationKeys[transaction.event]}
-                </Typography>
-              </div>
-
-              <div css={[styles.cardTitle, showXlDownCss]}>
-                <div css={styles.typeCol}>
-                  <TokenIcon token={token} css={styles.icon} />
+            vToken && (
+              <>
+                <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
+                  <TokenIcon token={vToken.underlyingToken} css={styles.icon} />
 
                   <Typography variant="small2" color="textPrimary">
-                    {transaction.event}
+                    {eventTranslationKeys[transaction.event]}
                   </Typography>
                 </div>
 
-                <Typography variant="small2">{transaction.id}</Typography>
-              </div>
-            </>
+                <div css={[styles.cardTitle, showXlDownCss]}>
+                  <div css={styles.typeCol}>
+                    <TokenIcon token={vToken.underlyingToken} css={styles.icon} />
+
+                    <Typography variant="small2" color="textPrimary">
+                      {transaction.event}
+                    </Typography>
+                  </div>
+
+                  <Typography variant="small2">{transaction.id}</Typography>
+                </div>
+              </>
+            )
           );
         },
       },
@@ -155,20 +149,20 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         key: 'amount',
         label: t('history.columns.amount'),
         renderCell: transaction => {
-          // TODO: get vToken from transaction (see: VEN-815)
           const vToken = getVTokenByAddress(transaction.vTokenAddress);
-          const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
           return (
-            <Typography variant="small2" css={styles.whiteText}>
-              {convertWeiToTokens({
-                valueWei: transaction.amountWei,
-                token,
-                returnInReadableFormat: true,
-                minimizeDecimals: true,
-                addSymbol: false,
-              })}
-            </Typography>
+            vToken && (
+              <Typography variant="small2" css={styles.whiteText}>
+                {convertWeiToTokens({
+                  valueWei: transaction.amountWei,
+                  token: vToken.underlyingToken,
+                  returnInReadableFormat: true,
+                  minimizeDecimals: true,
+                  addSymbol: false,
+                })}
+              </Typography>
+            )
           );
         },
       },

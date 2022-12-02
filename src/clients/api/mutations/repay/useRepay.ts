@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
 import { useWeb3 } from 'clients/web3';
@@ -7,7 +7,7 @@ import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'web3' | 'vToken'>>;
 
-const useRepay = ({ vToken }: { vToken: Token }, options?: Options) => {
+const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
   const web3 = useWeb3();
 
   return useMutation(

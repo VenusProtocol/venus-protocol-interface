@@ -22,7 +22,7 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
 
   const getRowHref = (row: Asset) =>
     // TODO: use token address (and pool address?) instead (see VEN-547)
-    routes.market.path.replace(':poolId', pool.id).replace(':vTokenId', row.token.id);
+    routes.market.path.replace(':poolId', pool.id).replace(':vTokenAddress', row.vToken.address);
 
   // TODO: add all options
   const mobileSelectOptions = [

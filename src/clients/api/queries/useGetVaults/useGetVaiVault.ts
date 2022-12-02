@@ -12,7 +12,7 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import { TOKENS } from 'constants/tokens';
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
@@ -57,7 +57,10 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
-    () => (getMarketsData?.markets || []).find(market => market.id === TOKENS.xvs.id)?.tokenPrice,
+    () =>
+      (getMarketsData?.markets || []).find(
+        market => market.address.toLowerCase() === VBEP_TOKENS.xvs.address.toLowerCase(),
+      )?.tokenPrice,
     [JSON.stringify(getMarketsData?.markets)],
   );
 

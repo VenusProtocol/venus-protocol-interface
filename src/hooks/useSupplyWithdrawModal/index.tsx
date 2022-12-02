@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
@@ -7,26 +7,25 @@ import Modal from './Modal';
 
 const useSupplyWithdrawModal = () => {
   const { includeXvs } = useContext(IncludeXvsContext);
-  const [selectedToken, setSelectedToken] = useState<undefined | { token: Token; vToken: Token }>();
+  const [selectedVToken, setSelectedVToken] = useState<VToken>();
 
   const SupplyWithdrawModal: React.FC = useCallback(() => {
-    if (!selectedToken) {
+    if (!selectedVToken) {
       return <></>;
     }
 
     return (
       <Modal
-        {...selectedToken}
-        onClose={() => setSelectedToken(undefined)}
+        vToken={selectedVToken}
+        onClose={() => setSelectedVToken(undefined)}
         includeXvs={includeXvs}
       />
     );
-  }, [selectedToken]);
+  }, [selectedVToken]);
 
   return {
-    openSupplyWithdrawModal: ({ token, vToken }: { token: Token; vToken: Token }) =>
-      setSelectedToken({ token, vToken }),
-    closeSupplyWithdrawModal: () => setSelectedToken(undefined),
+    openSupplyWithdrawModal: (vToken: VToken) => setSelectedVToken(vToken),
+    closeSupplyWithdrawModal: () => setSelectedVToken(undefined),
     SupplyWithdrawModal,
   };
 };

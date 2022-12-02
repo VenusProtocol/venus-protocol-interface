@@ -1,3 +1,5 @@
+import { Transaction } from 'types';
+
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
 import { TransactionResponse } from 'clients/api/queries/getTransactions/types';
 
@@ -284,6 +286,9 @@ export const transactionResponse: TransactionResponse[] = [
   },
 ];
 
-const transactions = transactionResponse.map(d => formatTransaction(d));
+const transactions = transactionResponse.reduce((acc, data) => {
+  const transaction = formatTransaction(data);
+  return transaction ? [...acc, transaction] : acc;
+}, [] as Transaction[]);
 
 export default transactions;

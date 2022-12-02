@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import React, { useContext, useMemo } from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { unsafelyGetToken } from 'utilities';
+import { getVTokenByAddress } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import { Subdirectory, routes } from 'constants/routing';
@@ -62,7 +62,7 @@ const Breadcrumbs: React.FC = () => {
           href += Subdirectory.POOL.replace(':poolId', params.poolId);
           break;
         case Subdirectory.MARKET:
-          href += Subdirectory.MARKET.replace(':vTokenId', params.vTokenId);
+          href += Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
           break;
         case Subdirectory.VOTER:
           href += Subdirectory.VOTER.replace(':address', params.address);
@@ -87,17 +87,17 @@ const Breadcrumbs: React.FC = () => {
           dom = <>Fake pool name</>;
           break;
         case Subdirectory.MARKET: {
-          const token = unsafelyGetToken(params.vTokenId);
+          const vToken = getVTokenByAddress(params.vTokenAddress);
 
-          if (token) {
+          if (vToken) {
             dom = (
               <div css={styles.tokenSymbol}>
-                <span>{token.symbol}</span>
+                <span>{vToken.underlyingToken.symbol}</span>
 
                 {!!account && (
                   <TertiaryButton
                     css={styles.addTokenButton}
-                    onClick={() => addTokenToWallet(params.vTokenId)}
+                    onClick={() => addTokenToWallet(vToken.underlyingToken)}
                   >
                     <Icon name="wallet" css={styles.walletIcon} />
                   </TertiaryButton>

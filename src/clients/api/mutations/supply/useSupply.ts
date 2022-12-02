@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { Token } from 'types';
+import { VToken } from 'types';
 
 import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
@@ -9,7 +9,7 @@ import FunctionKey from 'constants/functionKey';
 export type SupplyParams = Omit<SupplyInput, 'tokenContract' | 'accountAddress' | 'web3'>;
 
 const useSupply = (
-  { vToken, accountAddress }: { vToken: Token; accountAddress: string },
+  { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<SupplyOutput, Error, Omit<SupplyParams, 'vToken'>>,
 ) => {

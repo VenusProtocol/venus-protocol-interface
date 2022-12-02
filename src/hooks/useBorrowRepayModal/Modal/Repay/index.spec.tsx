@@ -9,7 +9,6 @@ import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repay, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -52,14 +51,12 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
-    );
+    renderComponent(<Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />);
   });
 
   it('displays correct token borrow balance', async () => {
     const { getByText } = renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -74,7 +71,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('displays correct token wallet balance', async () => {
     const { getByText } = renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -101,7 +98,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -132,7 +129,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -176,7 +173,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -219,7 +216,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -262,7 +259,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={customFakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -305,7 +302,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={onCloseMock} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={onCloseMock} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -359,7 +356,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText } = renderComponent(
-      <Repay token={fakeAsset.token} vToken={VBEP_TOKENS.sxp} onClose={jest.fn()} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={jest.fn()} includeXvs />,
       {
         authContextValue: {
           account: {

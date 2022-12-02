@@ -3,7 +3,6 @@ import { Table, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { Asset } from 'types';
-import { unsafelyGetVToken } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -101,13 +100,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       return;
     }
 
-    // TODO: get vToken from asset directly
-    const vToken = unsafelyGetVToken(row.token.id);
-
     if (marketType === 'borrow') {
-      openBorrowRepayModal({ token: row.token, vToken });
+      openBorrowRepayModal(row.vToken);
     } else {
-      openSupplyWithdrawModal({ token: row.token, vToken });
+      openSupplyWithdrawModal(row.vToken);
     }
   };
 

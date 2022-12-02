@@ -2,7 +2,7 @@ import { VError } from 'errors';
 import { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 import getMarketHistory from '.';
 
@@ -37,7 +37,7 @@ describe('api/queries/getMarketHistory', () => {
 
     try {
       await getMarketHistory({
-        vToken: TOKENS.aave,
+        vToken: VBEP_TOKENS.aave,
       });
 
       throw new Error('getMarketHistory should have thrown an error but did not');
@@ -57,7 +57,7 @@ describe('api/queries/getMarketHistory', () => {
     }));
 
     const response = await getMarketHistory({
-      vToken: TOKENS.aave,
+      vToken: VBEP_TOKENS.aave,
     });
 
     expect(response).toEqual({
@@ -72,15 +72,14 @@ describe('api/queries/getMarketHistory', () => {
     }));
 
     await getMarketHistory({
-      vToken: TOKENS.aave,
+      vToken: VBEP_TOKENS.aave,
       type: 'fake-type',
       limit: 6,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint:
-        '/market_history/graph?asset=0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144&type=fake-type&limit=6',
+      endpoint: `/market_history/graph?asset=${VBEP_TOKENS.aave.address}&type=fake-type&limit=6`,
       method: 'GET',
     });
   });
