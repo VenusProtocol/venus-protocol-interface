@@ -17,8 +17,9 @@
     "lint-styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "typecheck": "tsc",
     "extract-translation-keys": "i18next",
+    "generate-subgraph-types": "./scripts/run-generate-subgraph-types.sh",
     "generate-contract-types": "typechain --target=web3-v1 --out-dir=src/types/contracts 'src/constants/contracts/abis/*.json'",
-    "postinstall": "yarn generate-contract-types",
+    "postinstall": "yarn generate-contract-types && yarn generate-subgraph-types",
     "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
     "build-storybook": "STORYBOOK=true build-storybook -s public",
     "loki": "loki update --reactUri file:./storybook-static",
@@ -46,6 +47,8 @@
     "ethereum-multicall": "2.15.0",
     "ethers": "^5.0.17",
     "formik": "^2.2.9",
+    "graphql": "16.6.0",
+    "graphql-tag": "2.12.6",
     "i18next": "^21.6.15",
     "lodash": "^4.17.21",
     "moment": "^2.24.0",
@@ -68,6 +71,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@graphprotocol/client-cli": "^2.2.15",
     "@storybook/addon-actions": "6.4.9",
     "@storybook/addon-essentials": "6.4.9",
     "@storybook/addon-links": "6.4.9",
