@@ -282,11 +282,32 @@ describe('pages/Proposal', () => {
     abstainVoteSummary.getByText(voters.result[2].address);
   });
 
-  it('allows user with enough voting weight to cancel', async () => {
+  it('proposer can always cancel their own proposal', async () => {
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    const proposerAddress = activeProposal.proposer;
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        account: {
+          address: proposerAddress,
+        },
+      },
+    });
+    const cancelButton = await waitFor(async () =>
+      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
+    );
+
+    act(() => {
+      fireEvent.click(cancelButton);
+    });
+    await waitFor(() => expect(cancelButton).toBeEnabled());
+    expect(cancelProposal).toBeCalledWith({ accountAddress: proposerAddress, proposalId: 97 });
+  });
+
+  it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
     (getCurrentVotes as jest.Mock).mockImplementation(() => ({
       votesWei: new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
     }));
-    const { getByText } = renderComponent(<Proposal />, {
+    const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
           address: fakeAddress,
@@ -294,18 +315,14 @@ describe('pages/Proposal', () => {
       },
     });
 
-    const cancelButton = await waitFor(
-      async () => getByText(en.voteProposalUi.cancel).closest('button') as HTMLButtonElement,
+    const cancelButton = await waitFor(async () =>
+      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
     );
 
-    act(() => {
-      fireEvent.click(cancelButton);
-    });
-    await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 97 });
+    await waitFor(() => expect(cancelButton).toBeDisabled());
   });
 
-  it('user with not enough voting weight cannot cancel', async () => {
+  it('user can cancel if voting power of the proposer dropped below threshold', async () => {
     (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -317,7 +334,13 @@ describe('pages/Proposal', () => {
     const cancelButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
     );
-    expect(cancelButton).toBeDisabled();
+
+    act(() => {
+      fireEvent.click(cancelButton);
+    });
+
+    await waitFor(() => expect(cancelButton).toBeEnabled());
+    expect(cancelProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 97 });
   });
 
   it('user can queue succeeded proposal', async () => {
