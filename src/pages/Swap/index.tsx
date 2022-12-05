@@ -113,6 +113,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
 
+  const maxFromInput = useMemo(() => {
+    if (!fromTokenUserBalanceWei) {
+      return new BigNumber(0).toFixed();
+    }
+
+    const maxFromInputTokens = convertWeiToTokens({
+      valueWei: fromTokenUserBalanceWei,
+      token: formValues.fromToken,
+    });
+
+    return maxFromInputTokens.toFixed();
+  }, [formValues.fromToken, fromTokenUserBalanceWei]);
+
   const handleSubmit = async () => {
     if (swap) {
       try {
@@ -189,6 +202,10 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                   : currentFormValues.toToken,
             }))
           }
+          rightMaxButton={{
+            label: t('swapPage.fromTokenAmountField.max').toUpperCase(),
+            valueOnClick: maxFromInput,
+          }}
           tokens={fromTokenList}
           userTokenBalanceWei={fromTokenUserBalanceWei}
           css={styles.selectTokenTextField}

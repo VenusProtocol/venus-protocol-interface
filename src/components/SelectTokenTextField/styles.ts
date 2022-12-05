@@ -77,5 +77,8 @@ export const useStyles = () => {
     whiteLabel: css`
       color: ${theme.palette.text.primary};
     `,
+    maxButton: css`
+      margin-left: ${theme.spacing(2)};
+    `,
   };
 };
