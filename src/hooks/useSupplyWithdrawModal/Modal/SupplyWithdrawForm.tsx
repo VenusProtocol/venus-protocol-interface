@@ -131,7 +131,8 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
   const isSupplyingLuna =
-    type === 'supply' && asset.vToken.underlyingToken.address === TOKENS.luna.address;
+    type === 'supply' &&
+    asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.luna.address.toLowerCase();
 
   // TODO: fetch actual value (see VEN-546)
   const isIsolatedAsset = true;

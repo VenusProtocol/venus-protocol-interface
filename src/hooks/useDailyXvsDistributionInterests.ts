@@ -16,8 +16,9 @@ const useDailyXvsDistributionInterests = () => {
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (getMarketsData?.markets || []).find(market => market.address === TOKENS.xvs.address)
-        ?.tokenPrice,
+      (getMarketsData?.markets || []).find(
+        market => market.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+      )?.tokenPrice,
     [JSON.stringify(getMarketsData?.markets)],
   );
 
