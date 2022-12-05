@@ -6,7 +6,9 @@ export const useStyles = () => {
   return {
     main: css`
       flex-grow: 1;
-      padding: ${theme.spacing(8)} ${theme.spacing(10)} ${theme.shape.footerHeight};
+      padding: ${theme.spacing(8, 10, theme.shape.footerHeight)};
+      max-width: ${theme.spacing(280)};
+      margin: 0 auto;
 
       ${theme.breakpoints.down('lg')} {
         padding-left: ${theme.spacing(6)};

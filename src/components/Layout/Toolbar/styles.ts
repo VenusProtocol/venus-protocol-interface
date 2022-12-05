@@ -6,7 +6,8 @@ export const useStyles = () => {
   return css`
     padding-top: ${theme.spacing(3)};
     padding-bottom: ${theme.spacing(3)};
-    [${theme.breakpoints.down('md')}]: {
+
+    ${theme.breakpoints.down('md')} {
       min-height: none;
     }
   `;
