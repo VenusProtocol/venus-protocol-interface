@@ -12,11 +12,6 @@ export const useStyles = () => {
       min-height: 100%;
       flex: 1;
       flex-direction: column;
-      margin-top: ${theme.spacing(34)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-top: ${theme.spacing(0)};
-      }
     `,
     tabs: css`
       max-width: ${theme.spacing(136)};
