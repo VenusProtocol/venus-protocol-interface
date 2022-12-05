@@ -126,7 +126,9 @@ const XvsTable: React.FC = () => {
 
   const assetsWithVai = useMemo(() => {
     const allAssets: TableAsset[] = [...assets];
-    const xvsAsset = assets.find(asset => asset.token.address === TOKENS.xvs.address);
+    const xvsAsset = assets.find(
+      asset => asset.token.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+    );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
