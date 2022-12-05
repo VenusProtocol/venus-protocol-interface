@@ -9,6 +9,7 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getBalanceOf, swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
+  getTokenMaxButtonTestId,
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
@@ -665,5 +666,72 @@ describe('pages/Swap', () => {
     ) as HTMLInputElement;
 
     expect(toTokenInput.value).toBe('');
+  });
+
+  it('updates fromToken input value correctly when user clicks on the max toToken button', async () => {
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: fakeExactAmountInSwap,
+      error: undefined,
+    }));
+
+    const { container, getByTestId, getByText } = renderComponent(<SwapPage />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
+
+    // wait for the balance to be updated
+    await waitFor(() => expect(getByText(`${FAKE_BNB_BALANCE_TOKENS} BNB`)));
+
+    // get and click the MAX from token button
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    const fromTokenMaxButton = getByTestId(
+      getTokenMaxButtonTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.click(fromTokenMaxButton);
+
+    const toTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.toTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Check if toInput input value was updated correctly
+    const expectedToTokenAmountSoldTokens = convertWeiToTokens({
+      valueWei: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
+      token: fakeExactAmountInSwap.toToken,
+    });
+
+    await waitFor(() => expect(fromTokenInput.value).toBe(FAKE_BNB_BALANCE_TOKENS));
+
+    await waitFor(() => expect(toTokenInput.value).toBe(expectedToTokenAmountSoldTokens.toFixed()));
+
+    // Check submit button is enabled
+    const submitButton = getEnabledSubmitButton({
+      swap: fakeExactAmountInSwap,
+      container,
+    });
+    await waitFor(() => expect(submitButton).toBeEnabled());
+
+    // Submit form
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    fireEvent.click(submitButton!);
+
+    // Check swap was executed
+    await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
+    expect(swapTokens).toHaveBeenCalledWith({
+      fromAccountAddress: fakeAccountAddress,
+      swap: fakeExactAmountInSwap,
+    });
   });
 });
