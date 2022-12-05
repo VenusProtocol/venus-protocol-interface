@@ -9,7 +9,7 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getBalanceOf, swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
-  getTokenMaxButton,
+  getTokenMaxButtonTestId,
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
@@ -693,7 +693,7 @@ describe('pages/Swap', () => {
     ) as HTMLInputElement;
 
     const fromTokenMaxButton = getByTestId(
-      getTokenMaxButton({
+      getTokenMaxButtonTestId({
         parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
       }),
     ) as HTMLInputElement;

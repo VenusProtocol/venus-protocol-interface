@@ -78,7 +78,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     maxButton: css`
-      margin-left: ${theme.spacing(1)};
+      margin-left: ${theme.spacing(2)};
     `,
   };
 };

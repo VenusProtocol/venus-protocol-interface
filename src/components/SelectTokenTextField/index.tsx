@@ -14,7 +14,7 @@ import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
 import {
-  getTokenMaxButton,
+  getTokenMaxButtonTestId,
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from './testIdGetters';
@@ -84,17 +84,17 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
-              {rightMaxButton ? (
+              {rightMaxButton && (
                 <TertiaryButton
                   onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
                   small
                   disabled={disabled}
                   css={styles.maxButton}
-                  data-testid={!!testId && getTokenMaxButton({ parentTestId: testId })}
+                  data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}
                 >
                   {rightMaxButton.label}
                 </TertiaryButton>
-              ) : undefined}
+              )}
             </>
           }
           data-testid={!!testId && getTokenTextFieldTestId({ parentTestId: testId })}
