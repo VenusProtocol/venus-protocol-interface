@@ -539,7 +539,8 @@
       "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
     },
     "fromTokenAmountField": {
-      "label": "From"
+      "label": "From",
+      "max": "Max"
     },
     "maximumSold": {
       "label": "Maximum sold"

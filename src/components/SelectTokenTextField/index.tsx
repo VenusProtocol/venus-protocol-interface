@@ -7,16 +7,19 @@ import { Token } from 'types';
 
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
-import { PrimaryButton } from '../Button';
+import { PrimaryButton, TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
-import { getTokenSelectButtonTestId, getTokenTextFieldTestId } from './testIdGetters';
+import {
+  getTokenMaxButton,
+  getTokenSelectButtonTestId,
+  getTokenTextFieldTestId,
+} from './testIdGetters';
 
-export interface SelectTokenTextFieldProps
-  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
+export interface SelectTokenTextFieldProps extends Omit<TokenTextFieldProps, 'max' | 'token'> {
   selectedToken: Token;
   tokens: Token[];
   onChangeSelectedToken: (token: Token) => void;
@@ -28,10 +31,12 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   selectedToken,
   disabled,
   tokens,
+  onChange,
   onChangeSelectedToken,
   className,
   userTokenBalanceWei,
   value,
+  rightMaxButton,
   'data-testid': testId,
   ...otherTokenTextFieldProps
 }) => {
@@ -51,6 +56,12 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
     token: selectedToken,
   });
 
+  const setMaxValue = (newValue: string) => {
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
+
   return (
     <div className={className}>
       <div css={styles.tokenTextFieldContainer}>
@@ -59,6 +70,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           disabled={disabled}
           displayTokenIcon={false}
           value={value}
+          onChange={onChange}
           rightAdornment={
             <>
               <PrimaryButton
@@ -72,6 +84,17 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
+              {rightMaxButton ? (
+                <TertiaryButton
+                  onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
+                  small
+                  disabled={disabled}
+                  css={styles.maxButton}
+                  data-testid={!!testId && getTokenMaxButton({ parentTestId: testId })}
+                >
+                  {rightMaxButton.label}
+                </TertiaryButton>
+              ) : undefined}
             </>
           }
           data-testid={!!testId && getTokenTextFieldTestId({ parentTestId: testId })}

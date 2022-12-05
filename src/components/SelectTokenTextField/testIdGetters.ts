@@ -4,6 +4,9 @@ export const getTokenTextFieldTestId = ({ parentTestId }: { parentTestId: string
 export const getTokenSelectButtonTestId = ({ parentTestId }: { parentTestId: string }) =>
   `${parentTestId}-token-select-button`;
 
+export const getTokenMaxButton = ({ parentTestId }: { parentTestId: string }) =>
+  `${parentTestId}-token-max-button`;
+
 export const getTokenListItemTestId = ({
   parentTestId,
   tokenAddress,
