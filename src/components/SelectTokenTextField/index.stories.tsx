@@ -1,5 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
@@ -32,21 +31,6 @@ export const Default = () => (
     {({ state, setState }) => (
       <SelectTokenTextField
         selectedToken={state.token}
-        value={state.value}
-        onChange={value => setState({ value })}
-        onChangeSelectedToken={token => setState({ token })}
-        tokens={tokens}
-      />
-    )}
-  </State>
-);
-
-export const WithUserTokenBalance = () => (
-  <State initial={initialData}>
-    {({ state, setState }) => (
-      <SelectTokenTextField
-        selectedToken={state.token}
-        userTokenBalanceWei={new BigNumber('10000000000000')}
         value={state.value}
         onChange={value => setState({ value })}
         onChangeSelectedToken={token => setState({ token })}

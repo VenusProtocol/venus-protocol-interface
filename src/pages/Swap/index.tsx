@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import {
@@ -25,6 +26,7 @@ import {
   TESTNET_PANCAKE_SWAP_TOKENS,
 } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import SubmitSection from './SubmitSection';
@@ -70,7 +72,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   toTokenUserBalanceWei,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -160,6 +162,16 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     };
   }, [formValues.fromToken.address, formValues.toToken.address]);
 
+  const readableFromTokenUserBalance = useConvertWeiToReadableTokenString({
+    valueWei: fromTokenUserBalanceWei,
+    token: formValues.fromToken,
+  });
+
+  const readableToToTokenUserBalance = useConvertWeiToReadableTokenString({
+    valueWei: toTokenUserBalanceWei,
+    token: formValues.toToken,
+  });
+
   // Form validation
   const { isFormValid, errors: formErrors } = useFormValidation({
     swap,
@@ -207,9 +219,20 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             valueOnClick: maxFromInput,
           }}
           tokens={fromTokenList}
-          userTokenBalanceWei={fromTokenUserBalanceWei}
           css={styles.selectTokenTextField}
         />
+
+        <Typography component="div" variant="small2" css={styles.greyLabel}>
+          <Trans
+            i18nKey="selectTokenTextField.walletBalance"
+            components={{
+              White: <span css={styles.whiteLabel} />,
+            }}
+            values={{
+              balance: readableFromTokenUserBalance,
+            }}
+          />
+        </Typography>
 
         <TertiaryButton
           css={styles.switchButton}
@@ -252,9 +275,20 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             }))
           }
           tokens={toTokenList}
-          userTokenBalanceWei={toTokenUserBalanceWei}
           css={styles.selectTokenTextField}
         />
+
+        <Typography component="div" variant="small2" css={styles.greyLabel}>
+          <Trans
+            i18nKey="selectTokenTextField.walletBalance"
+            components={{
+              White: <span css={styles.whiteLabel} />,
+            }}
+            values={{
+              balance: readableToToTokenUserBalance,
+            }}
+          />
+        </Typography>
 
         {swap && (
           <div data-testid={TEST_IDS.swapDetails}>
