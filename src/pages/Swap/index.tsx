@@ -14,11 +14,11 @@ import config from 'config';
 import { VError } from 'errors';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Swap } from 'types';
+import { Swap, TokenBalance } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { useGetBalanceOf, useSwapTokens } from 'clients/api';
+import { useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import {
   MAINNET_PANCAKE_SWAP_TOKENS,
@@ -27,6 +27,7 @@ import {
 } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import SubmitSection from './SubmitSection';
@@ -35,8 +36,6 @@ import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
 import useGetSwapInfo, { SwapError } from './useGetSwapInfo';
-
-const tokens = Object.values(PANCAKE_SWAP_TOKENS);
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -55,8 +54,7 @@ export interface SwapPageUiProps {
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   onSubmit: (swap: Swap) => Promise<TransactionReceipt>;
   isSubmitting: boolean;
-  fromTokenUserBalanceWei?: BigNumber;
-  toTokenUserBalanceWei?: BigNumber;
+  tokenBalances: TokenBalance[];
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -68,13 +66,39 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   swapError,
   onSubmit,
   isSubmitting,
-  fromTokenUserBalanceWei,
-  toTokenUserBalanceWei,
+  tokenBalances,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const { fromTokenUserBalanceWei, toTokenUserBalanceWei } = useMemo(() => {
+    console.log(tokenBalances, formValues.fromToken.address);
+
+    return tokenBalances.reduce(
+      (acc, tokenBalance) => {
+        if (
+          tokenBalance.token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
+        ) {
+          acc.fromTokenUserBalanceWei = tokenBalance.balanceWei;
+        } else if (
+          tokenBalance.token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
+        ) {
+          acc.toTokenUserBalanceWei = tokenBalance.balanceWei;
+        }
+
+        return acc;
+      },
+      {
+        fromTokenUserBalanceWei: undefined,
+        toTokenUserBalanceWei: undefined,
+      } as {
+        fromTokenUserBalanceWei?: BigNumber;
+        toTokenUserBalanceWei?: BigNumber;
+      },
+    );
+  }, [tokenBalances, formValues.fromToken, formValues.toToken]);
 
   useEffect(() => {
     if (swap?.direction === 'exactAmountIn') {
@@ -152,15 +176,21 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   };
 
   // Define lists of tokens for each text field
-  const { fromTokenList, toTokenList } = useMemo(() => {
-    const fromTokenListTmp = tokens.filter(token => token.address !== formValues.fromToken.address);
-    const toTokenListTmp = tokens.filter(token => token.address !== formValues.toToken.address);
+  const { fromTokenBalances, toTokenBalances } = useMemo(() => {
+    const fromTokenBalancesTmp = tokenBalances.filter(
+      tokenBalance =>
+        tokenBalance.token.address.toLowerCase() !== formValues.fromToken.address.toLowerCase(),
+    );
+    const toTokenBalancesTmp = tokenBalances.filter(
+      tokenBalance =>
+        tokenBalance.token.address.toLowerCase() !== formValues.toToken.address.toLowerCase(),
+    );
 
     return {
-      fromTokenList: fromTokenListTmp,
-      toTokenList: toTokenListTmp,
+      fromTokenBalances: fromTokenBalancesTmp,
+      toTokenBalances: toTokenBalancesTmp,
     };
-  }, [formValues.fromToken.address, formValues.toToken.address]);
+  }, [tokenBalances, formValues.fromToken.address, formValues.toToken.address]);
 
   const readableFromTokenUserBalance = useConvertWeiToReadableTokenString({
     valueWei: fromTokenUserBalanceWei,
@@ -218,7 +248,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             label: t('swapPage.fromTokenAmountField.max').toUpperCase(),
             valueOnClick: maxFromInput,
           }}
-          tokens={fromTokenList}
+          tokenBalances={fromTokenBalances}
           css={styles.selectTokenTextField}
         />
 
@@ -274,7 +304,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                   : currentFormValues.fromToken,
             }))
           }
-          tokens={toTokenList}
+          tokenBalances={toTokenBalances}
           css={styles.selectTokenTextField}
         />
 
@@ -354,19 +384,9 @@ const SwapPage: React.FC = () => {
     direction: formValues.direction,
   });
 
-  const { data: fromTokenUserBalanceData } = useGetBalanceOf(
-    { accountAddress: account?.address || '', token: formValues.fromToken },
-    {
-      enabled: !!account?.address,
-    },
-  );
-
-  const { data: toTokenUserBalanceData } = useGetBalanceOf(
-    { accountAddress: account?.address || '', token: formValues.toToken },
-    {
-      enabled: !!account?.address,
-    },
-  );
+  const { data: tokenBalances } = useGetSwapTokenUserBalances({
+    accountAddress: account?.address,
+  });
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens();
 
@@ -387,8 +407,7 @@ const SwapPage: React.FC = () => {
       setFormValues={setFormValues}
       swap={swapInfo.swap}
       swapError={swapInfo.error}
-      fromTokenUserBalanceWei={fromTokenUserBalanceData?.balanceWei}
-      toTokenUserBalanceWei={toTokenUserBalanceData?.balanceWei}
+      tokenBalances={tokenBalances}
       onSubmit={onSwap}
       isSubmitting={isSwapTokensLoading}
     />

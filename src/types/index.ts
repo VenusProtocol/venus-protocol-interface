@@ -42,6 +42,11 @@ export interface Token {
   isNative?: boolean;
 }
 
+export interface TokenBalance {
+  token: Token;
+  balanceWei: BigNumber;
+}
+
 export interface Setting {
   marketType?: string; // 'supply'
   withXVS?: boolean;

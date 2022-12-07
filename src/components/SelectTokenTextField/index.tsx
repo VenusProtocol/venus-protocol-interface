@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import { Token } from 'types';
+import { Token, TokenBalance } from 'types';
 
 import { PrimaryButton, TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
@@ -16,7 +16,7 @@ import {
 
 export interface SelectTokenTextFieldProps extends Omit<TokenTextFieldProps, 'max' | 'token'> {
   selectedToken: Token;
-  tokens: Token[];
+  tokenBalances: TokenBalance[];
   onChangeSelectedToken: (token: Token) => void;
   'data-testid'?: string;
 }
@@ -24,7 +24,7 @@ export interface SelectTokenTextFieldProps extends Omit<TokenTextFieldProps, 'ma
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   selectedToken,
   disabled,
-  tokens,
+  tokenBalances,
   onChange,
   onChangeSelectedToken,
   className,
@@ -96,7 +96,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
       <div css={styles.tokenListContainer}>
         {isTokenListShown && (
           <TokenList
-            tokens={tokens}
+            tokenBalances={tokenBalances}
             data-testid={testId}
             onTokenClick={handleChangeSelectedToken}
           />

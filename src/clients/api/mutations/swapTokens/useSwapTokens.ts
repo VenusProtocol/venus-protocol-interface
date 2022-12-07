@@ -41,6 +41,13 @@ const useSwapTokens = (options?: Options) => {
           },
         ]);
 
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            accountAddress: fromAccountAddress,
+          },
+        ]);
+
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
 
         if (options?.onSuccess) {

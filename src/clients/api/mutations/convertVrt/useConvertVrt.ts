@@ -38,6 +38,13 @@ const useConvertVrt = (
           { accountAddress, tokenId: TOKENS.vrt.id },
         ]);
 
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            accountAddress,
+          },
+        ]);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }
