@@ -73,32 +73,32 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const { fromTokenUserBalanceWei, toTokenUserBalanceWei } = useMemo(() => {
-    console.log(tokenBalances, formValues.fromToken.address);
+  const { fromTokenUserBalanceWei, toTokenUserBalanceWei } = useMemo(
+    () =>
+      tokenBalances.reduce(
+        (acc, tokenBalance) => {
+          if (
+            tokenBalance.token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
+          ) {
+            acc.fromTokenUserBalanceWei = tokenBalance.balanceWei;
+          } else if (
+            tokenBalance.token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
+          ) {
+            acc.toTokenUserBalanceWei = tokenBalance.balanceWei;
+          }
 
-    return tokenBalances.reduce(
-      (acc, tokenBalance) => {
-        if (
-          tokenBalance.token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
-        ) {
-          acc.fromTokenUserBalanceWei = tokenBalance.balanceWei;
-        } else if (
-          tokenBalance.token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
-        ) {
-          acc.toTokenUserBalanceWei = tokenBalance.balanceWei;
-        }
-
-        return acc;
-      },
-      {
-        fromTokenUserBalanceWei: undefined,
-        toTokenUserBalanceWei: undefined,
-      } as {
-        fromTokenUserBalanceWei?: BigNumber;
-        toTokenUserBalanceWei?: BigNumber;
-      },
-    );
-  }, [tokenBalances, formValues.fromToken, formValues.toToken]);
+          return acc;
+        },
+        {
+          fromTokenUserBalanceWei: undefined,
+          toTokenUserBalanceWei: undefined,
+        } as {
+          fromTokenUserBalanceWei?: BigNumber;
+          toTokenUserBalanceWei?: BigNumber;
+        },
+      ),
+    [tokenBalances, formValues.fromToken, formValues.toToken],
+  );
 
   useEffect(() => {
     if (swap?.direction === 'exactAmountIn') {
