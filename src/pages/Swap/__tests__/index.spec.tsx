@@ -1,12 +1,12 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Token } from 'types';
+import { TokenBalance } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { getBalanceOf, swapTokens } from 'clients/api';
+import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
   getTokenMaxButtonTestId,
@@ -14,6 +14,7 @@ import {
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
@@ -35,6 +36,7 @@ import { getEnabledSubmitButton, getLastUseGetSwapInfoCallArgs } from './testUti
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 jest.mock('hooks/useTokenApproval');
+jest.mock('hooks/useGetSwapTokenUserBalances');
 jest.mock('../useGetSwapInfo');
 
 const useTokenApprovalOriginal = useTokenApproval(
@@ -46,24 +48,29 @@ const useTokenApprovalOriginal = useTokenApproval(
   },
 );
 
+const fakeTokenBalances: TokenBalance[] = Object.values(PANCAKE_SWAP_TOKENS).map(token => {
+  let fakeBalanceTokens = FAKE_DEFAULT_BALANCE_TOKENS;
+
+  if (token.isNative) {
+    fakeBalanceTokens = FAKE_BNB_BALANCE_TOKENS;
+  } else if (token.address === PANCAKE_SWAP_TOKENS.busd.address) {
+    fakeBalanceTokens = FAKE_BUSD_BALANCE_TOKENS;
+  }
+
+  return {
+    token,
+    balanceWei: convertTokensToWei({
+      value: new BigNumber(fakeBalanceTokens),
+      token,
+    }),
+  };
+});
+
 describe('pages/Swap', () => {
   beforeEach(() => {
-    (getBalanceOf as jest.Mock).mockImplementation(({ token }: { token: Token }) => {
-      let fakeBalanceTokens = FAKE_DEFAULT_BALANCE_TOKENS;
-
-      if (token.isNative) {
-        fakeBalanceTokens = FAKE_BNB_BALANCE_TOKENS;
-      } else if (token.address === PANCAKE_SWAP_TOKENS.busd.address) {
-        fakeBalanceTokens = FAKE_BUSD_BALANCE_TOKENS;
-      }
-
-      return {
-        balanceWei: convertTokensToWei({
-          value: new BigNumber(fakeBalanceTokens),
-          token,
-        }),
-      };
-    });
+    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+      data: fakeTokenBalances,
+    }));
   });
 
   beforeEach(() => {
