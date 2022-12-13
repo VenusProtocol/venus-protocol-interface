@@ -28,6 +28,15 @@ export const menuItems: MenuItem[] = [
     icon: 'vault',
   },
   {
+    href: Path.SWAP,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.swap')
+    i18nKey: 'layout.menuItems.swap',
+    i18nTitleKey: 'layout.menuItems.swap',
+    icon: 'convert',
+    isNew: true,
+  },
+  {
     href: Path.HISTORY,
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
@@ -60,15 +69,7 @@ export const menuItems: MenuItem[] = [
     i18nTitleKey: 'layout.menuItems.convertVrtTitle',
     icon: 'convert',
   },
-  {
-    href: Path.SWAP,
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.swap')
-    i18nKey: 'layout.menuItems.swap',
-    i18nTitleKey: 'layout.menuItems.swap',
-    icon: 'convert',
-    isNew: true,
-  },
+
   {
     href: 'https://prdt.finance/XVS',
     // Translation key: do not remove this comment
