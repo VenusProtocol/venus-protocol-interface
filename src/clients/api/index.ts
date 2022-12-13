@@ -177,6 +177,10 @@ export { default as getBalanceOf } from './queries/getBalanceOf';
 export * from './queries/getBalanceOf';
 export { default as useGetBalanceOf } from './queries/getBalanceOf/useGetBalanceOf';
 
+export { default as getTokenBalances } from './queries/getTokenBalances';
+export * from './queries/getTokenBalances';
+export { default as useGetTokenBalances } from './queries/getTokenBalances/useGetTokenBalances';
+
 export { default as getVrtConversionEndTime } from './queries/getVrtConversionEndTime';
 export * from './queries/getVrtConversionEndTime';
 export { default as useGetVrtConversionEndTime } from './queries/getVrtConversionEndTime/useGetVrtConversionEndTime';

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
-import { Token } from 'types';
+import { Token, TokenBalance } from 'types';
 
 import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
@@ -16,15 +16,24 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof SelectTokenTextField>;
 
-const tokens = [
-  TESTNET_PANCAKE_SWAP_TOKENS.busd,
-  TESTNET_PANCAKE_SWAP_TOKENS.cake,
-  TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+const tokenBalances: TokenBalance[] = [
+  {
+    token: TESTNET_PANCAKE_SWAP_TOKENS.busd,
+    balanceWei: new BigNumber('1000000000000'),
+  },
+  {
+    token: TESTNET_PANCAKE_SWAP_TOKENS.cake,
+    balanceWei: new BigNumber('2000000000000'),
+  },
+  {
+    token: TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+    balanceWei: new BigNumber('3000000000000'),
+  },
 ];
 
 const initialData: { value: string; token: Token } = {
   value: '',
-  token: tokens[0],
+  token: tokenBalances[0].token,
 };
 
 export const Default = () => (
@@ -35,22 +44,7 @@ export const Default = () => (
         value={state.value}
         onChange={value => setState({ value })}
         onChangeSelectedToken={token => setState({ token })}
-        tokens={tokens}
-      />
-    )}
-  </State>
-);
-
-export const WithUserTokenBalance = () => (
-  <State initial={initialData}>
-    {({ state, setState }) => (
-      <SelectTokenTextField
-        selectedToken={state.token}
-        userTokenBalanceWei={new BigNumber('10000000000000')}
-        value={state.value}
-        onChange={value => setState({ value })}
-        onChangeSelectedToken={token => setState({ token })}
-        tokens={tokens}
+        tokenBalances={tokenBalances}
       />
     )}
   </State>
@@ -58,11 +52,11 @@ export const WithUserTokenBalance = () => (
 
 export const Disabled = () => (
   <SelectTokenTextField
-    selectedToken={tokens[0]}
+    selectedToken={tokenBalances[0].token}
     value=""
     onChange={noop}
     onChangeSelectedToken={noop}
-    tokens={tokens}
+    tokenBalances={tokenBalances}
     disabled
   />
 );

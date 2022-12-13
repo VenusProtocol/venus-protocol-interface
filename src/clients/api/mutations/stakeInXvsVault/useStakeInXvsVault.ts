@@ -57,6 +57,13 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, option
           },
         ]);
 
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            accountAddress: fromAccountAddress,
+          },
+        ]);
+
         // Invalidate cached vault data
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,

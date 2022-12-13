@@ -15,7 +15,7 @@ const getVTokenApySimulations = async ({
   reserveFactorMantissa,
   interestRateModelContractAddress,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
-  const calls: ContractCallContext<any>['calls'] = [];
+  const calls: ContractCallContext['calls'] = [];
 
   for (let u = 1; u <= 100; u++) {
     const utilizationRate = u / 100;
