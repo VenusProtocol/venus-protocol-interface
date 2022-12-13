@@ -8,7 +8,7 @@ export const useStyles = () => {
       flex-grow: 1;
       padding: ${theme.spacing(8, 10, theme.shape.footerHeight)};
       width: 100%;
-      max-width: ${theme.spacing(280)};
+      max-width: ${theme.spacing(340)};
       margin: 0 auto;
 
       ${theme.breakpoints.down('lg')} {
