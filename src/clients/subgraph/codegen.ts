@@ -1,10 +1,10 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
-const config: CodegenConfig = {
+const codegenConfig: CodegenConfig = {
   schema: process.env.SUBGRAPH_GRAPHQL_ENDPOINT,
   documents: ['src/clients/subgraph/**/*.graphql'],
   generates: {
-    './src/types/subgraph/gql/queries.ts': {
+    './src/clients/subgraph/gql/queries.ts': {
       plugins: [
         {
           add: {
@@ -20,4 +20,4 @@ const config: CodegenConfig = {
   },
 };
 
-export default config;
+export default codegenConfig;
