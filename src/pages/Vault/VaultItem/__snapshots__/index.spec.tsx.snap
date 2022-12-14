@@ -10,4 +10,4 @@ exports[`pages/Vault/VaultItem renders vault correctly 4`] = `"12665.06%"`;
 
 exports[`pages/Vault/VaultItem renders vault correctly 5`] = `"144"`;
 
-exports[`pages/Vault/VaultItem renders vault correctly 6`] = `"415.00"`;
+exports[`pages/Vault/VaultItem renders vault correctly 6`] = `"415"`;

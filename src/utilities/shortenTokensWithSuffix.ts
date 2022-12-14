@@ -5,7 +5,7 @@ export const shortenTokensWithSuffix = (value: BigNumber) => {
   const ONE_MILLION = 1000000;
   const ONE_THOUSAND = 1000;
 
-  let shortenedValue = value.toFixed(2);
+  let shortenedValue = value.dp(2).toFormat();
   if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
     shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFormat()}B`;
   } else if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {

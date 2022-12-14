@@ -69,11 +69,12 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
         <LayeredValues
           topValue={formatCentsToReadableValue({
             value: asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+            shortenLargeValue: true,
           })}
           bottomValue={formatTokensToReadableValue({
             value: asset.supplyBalance,
             token: asset.token,
-            minimizeDecimals: true,
+            shortenLargeValue: true,
           })}
         />
       ),

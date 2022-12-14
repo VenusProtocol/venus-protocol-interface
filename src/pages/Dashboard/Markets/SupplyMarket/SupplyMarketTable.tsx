@@ -65,7 +65,7 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
           formatTokensToReadableValue({
             value: asset.walletBalance,
             token: asset.token,
-            minimizeDecimals: true,
+            shortenLargeValue: true,
           }),
         value: asset.walletBalance.toFixed(),
         align: 'right',
