@@ -48,6 +48,11 @@ export interface VToken extends Omit<Token, 'isNative'> {
   underlyingToken: Token;
 }
 
+export interface TokenBalance {
+  token: Token;
+  balanceWei: BigNumber;
+}
+
 export interface Setting {
   marketType?: string; // 'supply'
   withXVS?: boolean;

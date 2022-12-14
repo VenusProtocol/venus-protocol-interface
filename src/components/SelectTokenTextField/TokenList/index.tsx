@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { Token, TokenBalance } from 'types';
+import { convertWeiToTokens } from 'utilities';
 
 import { TextField } from '../../TextField';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
@@ -10,13 +12,13 @@ import { getTokenListItemTestId } from '../testIdGetters';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
-  tokens: Token[];
+  tokenBalances: TokenBalance[];
   onTokenClick: (token: Token) => void;
   'data-testid'?: string;
 }
 
 export const TokenList: React.FC<TokenListProps> = ({
-  tokens,
+  tokenBalances,
   onTokenClick,
   'data-testid': testId,
 }) => {
@@ -30,21 +32,24 @@ export const TokenList: React.FC<TokenListProps> = ({
     setSearchValue(event.currentTarget.value);
 
   // Sort tokens alphabetically by their symbols
-  const sortedTokens = useMemo(
-    () => [...tokens].sort((a, b) => a.symbol.localeCompare(b.symbol)) as Token[],
-    [tokens],
+  const sortedTokenBalances = useMemo(
+    () =>
+      [...tokenBalances].sort((a, b) =>
+        a.token.symbol.localeCompare(b.token.symbol),
+      ) as TokenBalance[],
+    [tokenBalances],
   );
 
   // Filter tokens based on search
-  const filteredTokens = useMemo(() => {
+  const filteredTokenBalances = useMemo(() => {
     if (!searchValue) {
-      return sortedTokens;
+      return sortedTokenBalances;
     }
 
-    return sortedTokens.filter(token =>
-      token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
+    return sortedTokenBalances.filter(tokenBalance =>
+      tokenBalance.token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
     );
-  }, [sortedTokens, searchValue]);
+  }, [sortedTokenBalances, searchValue]);
 
   return (
     <div css={styles.container}>
@@ -59,20 +64,30 @@ export const TokenList: React.FC<TokenListProps> = ({
       />
 
       <div css={styles.list}>
-        {filteredTokens.map(token => (
+        {filteredTokenBalances.map(tokenBalance => (
           <div
             css={styles.item}
-            onClick={() => onTokenClick(token)}
-            key={`select-token-text-field-item-${token.symbol}`}
+            onClick={() => onTokenClick(tokenBalance.token)}
+            key={`select-token-text-field-item-${tokenBalance.token.symbol}`}
             data-testid={
               !!testId &&
               getTokenListItemTestId({
                 parentTestId: testId,
-                tokenAddress: token.address,
+                tokenAddress: tokenBalance.token.address,
               })
             }
           >
-            <TokenIconWithSymbol css={parentStyles.token} token={token} />
+            <TokenIconWithSymbol css={parentStyles.token} token={tokenBalance.token} />
+
+            <Typography variant="small2">
+              {convertWeiToTokens({
+                valueWei: tokenBalance.balanceWei,
+                token: tokenBalance.token,
+                returnInReadableFormat: true,
+                minimizeDecimals: true,
+                addSymbol: false,
+              })}
+            </Typography>
           </div>
         ))}
       </div>
