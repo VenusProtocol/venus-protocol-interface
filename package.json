@@ -29,6 +29,7 @@
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.9.3",
     "@infinitywallet/infinity-connector": "^1.0.5",
+    "@graphql-codegen/cli": "^2.16.1",
     "@lottiefiles/react-lottie-player": "^3.4.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.4",
@@ -49,6 +50,7 @@
     "formik": "^2.2.9",
     "graphql": "16.6.0",
     "graphql-tag": "2.12.6",
+    "graphql-request": "^5.0.0",
     "i18next": "^21.6.15",
     "lodash": "^4.17.21",
     "moment": "^2.24.0",
@@ -71,7 +73,10 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@graphprotocol/client-cli": "^2.2.15",
+    "@graphql-codegen/add": "^3.2.3",
+    "@graphql-codegen/client-preset": "^1.2.3",
+    "@graphql-codegen/typescript-operations": "2.5.10",
+    "@graphql-codegen/typed-document-node": "2.3.10",
     "@storybook/addon-actions": "6.4.9",
     "@storybook/addon-essentials": "6.4.9",
     "@storybook/addon-links": "6.4.9",

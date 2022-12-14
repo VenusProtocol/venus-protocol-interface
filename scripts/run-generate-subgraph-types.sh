@@ -6,4 +6,4 @@ else
   export SUBGRAPH_GRAPHQL_ENDPOINT="https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-chapel"
 fi
 
-yarn graphclient build --dir ./src/types/subgraph/
+yarn graphql-code-generator --config ./src/clients/subgraph/codegen.ts
