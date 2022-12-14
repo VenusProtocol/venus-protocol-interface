@@ -52,6 +52,13 @@ const useConvertVrt = (
           },
         ]);
 
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            accountAddress,
+          },
+        ]);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }
