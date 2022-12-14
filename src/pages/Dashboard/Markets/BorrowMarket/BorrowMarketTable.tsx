@@ -59,7 +59,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
           formatTokensToReadableValue({
             value: asset.walletBalance,
             token: asset.token,
-            minimizeDecimals: true,
+            shortenLargeValue: true,
           }),
         value: asset.walletBalance.toFixed(),
         align: 'right',

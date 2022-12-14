@@ -73,11 +73,12 @@ const BorrowingTable: React.FC<BorrowingUiProps> = ({
           <LayeredValues
             topValue={formatCentsToReadableValue({
               value: asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+              shortenLargeValue: true,
             })}
             bottomValue={formatTokensToReadableValue({
               value: asset.borrowBalance,
               token: asset.token,
-              minimizeDecimals: true,
+              shortenLargeValue: true,
             })}
           />
         ),
