@@ -1,4 +1,4 @@
 src/assets/images
 src/assets/font
 src/types/contracts
-src/types/subgraph/.graphclient
+src/types/subgraph/gql
