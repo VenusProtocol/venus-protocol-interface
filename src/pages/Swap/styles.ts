@@ -17,7 +17,14 @@ export const useStyles = () => {
       }
     `,
     selectTokenTextField: css`
+      margin-bottom: ${theme.spacing(1)};
+    `,
+    greyLabel: css`
       margin-bottom: ${theme.spacing(8)};
+      color: ${theme.palette.text.secondary};
+    `,
+    whiteLabel: css`
+      color: ${theme.palette.text.primary};
     `,
     switchButton: css`
       margin: ${theme.spacing(0, 'auto', 4)};

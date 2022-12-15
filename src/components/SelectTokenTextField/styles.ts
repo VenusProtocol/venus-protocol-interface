@@ -5,9 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    tokenTextFieldContainer: css`
-      margin-bottom: ${theme.spacing(1)};
-    `,
     tokenListContainer: css`
       position: relative;
     `,
@@ -71,12 +68,7 @@ export const useStyles = () => {
         color: ${theme.palette.interactive.primary};
       `}
     `,
-    greyLabel: css`
-      color: ${theme.palette.text.secondary};
-    `,
-    whiteLabel: css`
-      color: ${theme.palette.text.primary};
-    `,
+
     maxButton: css`
       margin-left: ${theme.spacing(2)};
     `,

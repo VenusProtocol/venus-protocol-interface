@@ -68,6 +68,9 @@ export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'web3'>) =>
     () => getBalanceOf(input),
   );
 
+export const getTokenBalances = jest.fn();
+export const useGetTokenBalances = () => useQuery(FunctionKey.GET_TOKEN_BALANCES, getTokenBalances);
+
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
   useQuery(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
