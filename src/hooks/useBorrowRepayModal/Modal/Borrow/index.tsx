@@ -185,7 +185,9 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
 
   const hasUserCollateralizedSuppliedAssets = React.useMemo(
     () =>
-      assets.some(userAsset => userAsset.collateral && userAsset.supplyBalance.isGreaterThan(0)),
+      assets.some(
+        userAsset => userAsset.collateral && userAsset.userSupplyBalanceTokens.isGreaterThan(0),
+      ),
     [assets],
   );
 

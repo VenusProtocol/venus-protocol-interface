@@ -92,11 +92,11 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
         );
 
         acc.treasuryTotalSupplyBalanceCents = acc.treasuryTotalSupplyBalanceCents.plus(
-          curr.treasuryTotalSupplyCents,
+          curr.supplyBalanceCents,
         );
 
         acc.treasuryTotalBorrowBalanceCents = acc.treasuryTotalBorrowBalanceCents.plus(
-          curr.treasuryTotalBorrowsCents,
+          curr.borrowBalanceCents,
         );
 
         acc.treasuryTotalAvailableLiquidityBalanceCents =

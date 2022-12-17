@@ -8,10 +8,10 @@ export const calculateYearlyEarningsForAsset = ({
   asset: Asset;
   includeXvs: boolean;
 }) => {
-  const assetBorrowBalanceCents = asset.borrowBalance
+  const assetBorrowBalanceCents = asset.userBorrowBalanceTokens
     .multipliedBy(asset.tokenPriceDollars)
     .multipliedBy(100);
-  const assetSupplyBalanceCents = asset.supplyBalance
+  const assetSupplyBalanceCents = asset.userSupplyBalanceTokens
     .multipliedBy(asset.tokenPriceDollars)
     .multipliedBy(100);
 

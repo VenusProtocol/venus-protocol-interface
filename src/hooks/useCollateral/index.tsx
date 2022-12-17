@@ -54,7 +54,7 @@ const useCollateral = () => {
       });
     }
 
-    if (!asset || !asset.borrowBalance.isZero()) {
+    if (!asset || !asset.userBorrowBalanceTokens.isZero()) {
       throw new VError({
         type: 'interaction',
         code: 'collateralRequired',

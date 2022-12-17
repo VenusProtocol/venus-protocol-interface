@@ -71,7 +71,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
 
   const hypotheticalTokenSupplyBalance = amountValue
-    ? calculateNewBalance(asset.supplyBalance, amount)
+    ? calculateNewBalance(asset.userSupplyBalanceTokens, amount)
     : undefined;
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
@@ -114,7 +114,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     if (validAmount) {
       const hypotheticalAsset = {
         ...asset,
-        supplyBalance: calculateNewBalance(asset.supplyBalance, amount),
+        supplyBalance: calculateNewBalance(asset.userSupplyBalanceTokens, amount),
       };
       const currentIndex = assets.findIndex(
         a =>
@@ -216,7 +216,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         className="info-row"
       >
         <ValueUpdate
-          original={asset.supplyBalance}
+          original={asset.userSupplyBalanceTokens}
           update={hypotheticalTokenSupplyBalance}
           format={(value: BigNumber | undefined) =>
             formatTokensToReadableValue({

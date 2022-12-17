@@ -23,8 +23,8 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const cells: Cell[] = useMemo(() => {
     const { totalSupplyCents, totalBorrowCents } = pool.assets.reduce(
       (acc, item) => ({
-        totalSupplyCents: item.treasuryTotalSupplyCents.plus(acc.totalSupplyCents).toNumber(),
-        totalBorrowCents: item.treasuryTotalBorrowsCents.plus(acc.totalBorrowCents).toNumber(),
+        totalSupplyCents: acc.totalSupplyCents + item.supplyBalanceCents,
+        totalBorrowCents: acc.totalBorrowCents + item.borrowBalanceCents,
       }),
       {
         totalSupplyCents: 0,

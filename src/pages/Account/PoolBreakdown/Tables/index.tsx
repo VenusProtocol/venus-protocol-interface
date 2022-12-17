@@ -39,9 +39,9 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
       assets,
       marketType: 'supply',
       breakpoint: 'md',
-      columns: ['asset', 'supplyApyLtv', 'supplyBalance', 'collateral'],
+      columns: ['asset', 'supplyApyLtv', 'userSupplyBalance', 'collateral'],
       initialOrder: {
-        orderBy: 'supplyBalance',
+        orderBy: 'userSupplyBalance',
         orderDirection: 'desc',
       },
     },
@@ -49,9 +49,9 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
       assets,
       marketType: 'borrow',
       breakpoint: 'md',
-      columns: ['asset', 'borrowApy', 'borrowBalance', 'percentOfLimit'],
+      columns: ['asset', 'borrowApy', 'userBorrowBalance', 'percentOfLimit'],
       initialOrder: {
-        orderBy: 'borrowBalance',
+        orderBy: 'userBorrowBalance',
         orderDirection: 'desc',
       },
     },

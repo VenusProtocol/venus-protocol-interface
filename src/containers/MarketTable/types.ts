@@ -8,9 +8,9 @@ export type ColumnKey =
   | 'riskLevel'
   | 'collateral'
   | 'walletBalance'
-  | 'supplyBalance'
+  | 'userSupplyBalance'
+  | 'userBorrowBalance'
   | 'borrowBalance'
-  | 'treasuryTotalBorrow'
-  | 'treasuryTotalSupply'
+  | 'supplyBalance'
   | 'liquidity'
   | 'percentOfLimit';

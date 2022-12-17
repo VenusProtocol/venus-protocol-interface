@@ -49,12 +49,8 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
       pools.map(pool => {
         const { poolTotalSupplyCents, poolTotalBorrowCents } = pool.assets.reduce(
           (acc, item) => ({
-            poolTotalSupplyCents: item.treasuryTotalSupplyCents
-              .plus(acc.poolTotalSupplyCents)
-              .toNumber(),
-            poolTotalBorrowCents: item.treasuryTotalBorrowsCents
-              .plus(acc.poolTotalBorrowCents)
-              .toNumber(),
+            poolTotalSupplyCents: acc.poolTotalSupplyCents + item.supplyBalanceCents,
+            poolTotalBorrowCents: acc.poolTotalBorrowCents + item.borrowBalanceCents,
           }),
           {
             poolTotalSupplyCents: 0,

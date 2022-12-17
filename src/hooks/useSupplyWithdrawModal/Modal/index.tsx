@@ -121,7 +121,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
       // If asset isn't used as collateral user can withdraw the entire supply
       // balance without affecting their borrow limit
       if (type === 'withdraw' && !asset.collateral) {
-        maxInputTokens = asset.supplyBalance;
+        maxInputTokens = asset.userSupplyBalanceTokens;
       } else if (type === 'withdraw') {
         // Calculate how much token user can withdraw before they risk getting
         // liquidated (if their borrow balance goes above their borrow limit)
@@ -142,7 +142,10 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
           .dividedBy(collateralAmountPerTokenDollars)
           .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
-        maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
+        maxInputTokens = BigNumber.minimum(
+          maxTokensBeforeLiquidation,
+          asset.userSupplyBalanceTokens,
+        );
       }
 
       return maxInputTokens;
@@ -302,7 +305,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs
     }
 
     const amount = new BigNumber(value);
-    const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
+    const amountEqualsSupplyBalance = amount.eq(asset.userSupplyBalanceTokens);
     let transactionHash;
 
     if (amountEqualsSupplyBalance && vTokenBalanceData?.balanceWei) {
