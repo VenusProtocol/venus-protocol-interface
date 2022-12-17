@@ -21,17 +21,20 @@ export interface Asset {
   exchangeRateVTokens: BigNumber;
   supplierCount: number;
   borrowerCount: number;
-  borrowApy: BigNumber;
+  borrowApyPercentage: BigNumber;
+  supplyApyPercentage: BigNumber;
+
+  // TODO: update next props to follow new Asset type
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
   xvsSupplyApy: BigNumber;
   xvsSupplyApr: BigNumber;
-  supplyApy: BigNumber;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
   xvsPerDay: BigNumber;
+
   // User-specific props
   collateral: boolean;
   walletBalance: BigNumber;

@@ -6,8 +6,8 @@ import { VBEP_TOKENS } from 'constants/tokens';
 export const assetData: Asset[] = [
   {
     vToken: VBEP_TOKENS.sxp,
-    supplyApy: new BigNumber('0.05225450324405023'),
-    borrowApy: new BigNumber('-2.3062487835658776'),
+    supplyApyPercentage: new BigNumber('0.05225450324405023'),
+    borrowApyPercentage: new BigNumber('-2.3062487835658776'),
     xvsSupplyApr: new BigNumber('0.01720675342484096'),
     xvsSupplyApy: new BigNumber('0.11720675342484096'),
     xvsBorrowApr: new BigNumber('4.07469243006608279'),
@@ -34,8 +34,8 @@ export const assetData: Asset[] = [
   },
   {
     vToken: VBEP_TOKENS.usdc,
-    supplyApy: new BigNumber('3.887242555711379188'),
-    borrowApy: new BigNumber('-5.361233028654066'),
+    supplyApyPercentage: new BigNumber('3.887242555711379188'),
+    borrowApyPercentage: new BigNumber('-5.361233028654066'),
     xvsSupplyApr: new BigNumber('1.153105649796123742'),
     xvsSupplyApy: new BigNumber('1.353105649796123742'),
     xvsBorrowApr: new BigNumber('1.370327607690572731'),
@@ -62,8 +62,8 @@ export const assetData: Asset[] = [
   },
   {
     vToken: VBEP_TOKENS.usdt,
-    supplyApy: new BigNumber('3.593608909332766999'),
-    borrowApy: new BigNumber('-4.9748661428011145'),
+    supplyApyPercentage: new BigNumber('3.593608909332766999'),
+    borrowApyPercentage: new BigNumber('-4.9748661428011145'),
     xvsSupplyApr: new BigNumber('0.221719501189155143'),
     xvsSupplyApy: new BigNumber('0.421719501189155143'),
     xvsBorrowApr: new BigNumber('0.322209972682294832'),
@@ -90,8 +90,8 @@ export const assetData: Asset[] = [
   },
   {
     vToken: VBEP_TOKENS.busd,
-    supplyApy: new BigNumber('2.886396363044176106'),
-    borrowApy: new BigNumber('-4.050271277344538'),
+    supplyApyPercentage: new BigNumber('2.886396363044176106'),
+    borrowApyPercentage: new BigNumber('-4.050271277344538'),
     xvsSupplyApr: new BigNumber('0.578420831753642169'),
     xvsSupplyApy: new BigNumber('0.678420831753642169'),
     xvsBorrowApr: new BigNumber('0.552697602175970714'),

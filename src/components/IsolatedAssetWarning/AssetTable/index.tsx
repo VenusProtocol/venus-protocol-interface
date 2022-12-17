@@ -60,7 +60,9 @@ export const AssetTable: React.FC<AssetTableProps> = ({
 
             <div css={styles.cell}>
               <Typography variant="small2">
-                {formatToReadablePercentage(type === 'borrow' ? asset.borrowApy : asset.supplyApy)}
+                {formatToReadablePercentage(
+                  type === 'borrow' ? asset.borrowApyPercentage : asset.supplyApyPercentage,
+                )}
               </Typography>
             </div>
 

@@ -76,7 +76,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
         {
           label: t('supplyWithdraw.supplyApy'),
           iconSrc: asset.vToken.underlyingToken,
-          children: formatToReadablePercentage(asset.supplyApy),
+          children: formatToReadablePercentage(asset.supplyApyPercentage),
         },
         {
           label: t('supplyWithdraw.distributionApy'),

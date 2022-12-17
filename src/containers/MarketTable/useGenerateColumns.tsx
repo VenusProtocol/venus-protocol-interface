@@ -108,16 +108,16 @@ const useGenerateColumns = ({
 
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
             const borrowApy = includeXvs
-              ? asset.xvsBorrowApy.plus(asset.borrowApy)
-              : asset.borrowApy;
+              ? asset.xvsBorrowApy.plus(asset.borrowApyPercentage)
+              : asset.borrowApyPercentage;
 
             return formatToReadablePercentage(borrowApy);
           }
 
           if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
             const supplyApy = includeXvs
-              ? asset.xvsSupplyApy.plus(asset.supplyApy)
-              : asset.supplyApy;
+              ? asset.xvsSupplyApy.plus(asset.supplyApyPercentage)
+              : asset.supplyApyPercentage;
             const ltv = +asset.collateralFactor * 100;
 
             return (
@@ -227,24 +227,24 @@ const useGenerateColumns = ({
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                   const roaABorrowApy = includeXvs
-                    ? rowA.xvsBorrowApy.plus(rowA.borrowApy)
-                    : rowA.borrowApy;
+                    ? rowA.xvsBorrowApy.plus(rowA.borrowApyPercentage)
+                    : rowA.borrowApyPercentage;
 
                   const roaBBorrowApy = includeXvs
-                    ? rowB.xvsBorrowApy.plus(rowB.borrowApy)
-                    : rowB.borrowApy;
+                    ? rowB.xvsBorrowApy.plus(rowB.borrowApyPercentage)
+                    : rowB.borrowApyPercentage;
 
                   return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
                 }
 
                 if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
                   const roaASupplyApy = includeXvs
-                    ? rowA.xvsSupplyApy.plus(rowA.supplyApy)
-                    : rowA.supplyApy;
+                    ? rowA.xvsSupplyApy.plus(rowA.supplyApyPercentage)
+                    : rowA.supplyApyPercentage;
 
                   const roaBSupplyApy = includeXvs
-                    ? rowB.xvsSupplyApy.plus(rowB.supplyApy)
-                    : rowB.supplyApy;
+                    ? rowB.xvsSupplyApy.plus(rowB.supplyApyPercentage)
+                    : rowB.supplyApyPercentage;
 
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
                 }

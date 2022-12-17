@@ -99,12 +99,12 @@ const AccountData: React.FC<AccountDataProps> = ({
       : undefined;
 
   const readableBorrowApy = React.useMemo(
-    () => formatToReadablePercentage(asset.borrowApy.toFixed(2)),
-    [asset.borrowApy.toFixed()],
+    () => formatToReadablePercentage(asset.borrowApyPercentage),
+    [asset.borrowApyPercentage],
   );
   const readableDistributionApy = React.useMemo(
-    () => formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2)),
-    [asset.xvsBorrowApy.toFixed()],
+    () => formatToReadablePercentage(asset.xvsBorrowApy),
+    [asset.xvsBorrowApy],
   );
 
   return (
