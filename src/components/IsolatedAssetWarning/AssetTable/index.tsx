@@ -36,7 +36,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
     t('isolatedAssetWarning.assetTable.liquidityColumnTitle'),
   ];
 
-  const sortedAssets = [...assets].sort((a, b) => a.liquidity.minus(b.liquidity).toNumber());
+  const sortedAssets = [...assets].sort((a, b) => a.liquidityCents - b.liquidityCents);
 
   return (
     <div css={styles.container}>

@@ -37,7 +37,7 @@ const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
   [] as string[],
 );
 
-// TODO: decouple, this hook handles too many things (see https://app.clickup.com/t/2d4rfx6)
+// TODO: refactor to merge with useGetMarkets
 const useGetUserMarketInfo = ({
   accountAddress,
 }: {
@@ -150,7 +150,7 @@ const useGetUserMarketInfo = ({
           collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18).toNumber(),
           reserveFactor: new BigNumber(market?.reserveFactor || 0).div(1e18).toNumber(),
           tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
-          liquidity: new BigNumber(market?.liquidity || 0),
+          liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
           borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
           treasuryTotalBorrowsCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100),
           treasuryTotalSupplyCents: new BigNumber(market?.totalSupplyUsd || 0).times(100),

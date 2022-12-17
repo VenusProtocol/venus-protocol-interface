@@ -39,7 +39,7 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
         const formattedActiveMarket = {
           ...activeMarket,
           id: activeMarket.underlyingSymbol.toLowerCase(),
-          tokenPriceDollars: new BigNumber(activeMarket.tokenPrice),
+          tokenPrice: new BigNumber(activeMarket.tokenPrice),
           liquidity: new BigNumber(activeMarket.liquidity),
           borrowVenusApy: new BigNumber(activeMarket.borrowVenusApy),
           borrowVenusApr: new BigNumber(activeMarket.borrowVenusApr),
