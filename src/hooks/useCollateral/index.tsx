@@ -63,7 +63,7 @@ const useCollateral = () => {
 
     setSelectedAsset(asset);
 
-    if (asset.collateral) {
+    if (asset.isCollateralOfUser) {
       const vTokenContract = getVTokenContract(asset.vToken, web3);
 
       try {

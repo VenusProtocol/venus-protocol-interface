@@ -23,7 +23,7 @@ const useExtractData = ({ assets, includeXvs }: { assets: Asset[]; includeXvs: b
         totalSupplyCents: acc.totalSupplyCents.plus(
           asset.userSupplyBalanceTokens.times(asset.tokenPriceDollars).times(100),
         ),
-        borrowLimitCents: asset.collateral
+        borrowLimitCents: asset.isCollateralOfUser
           ? acc.borrowLimitCents.plus(
               calculateCollateralValue({
                 amountWei: convertTokensToWei({

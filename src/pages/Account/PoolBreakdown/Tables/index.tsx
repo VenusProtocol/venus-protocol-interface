@@ -49,7 +49,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
       assets,
       marketType: 'borrow',
       breakpoint: 'md',
-      columns: ['asset', 'borrowApy', 'userBorrowBalance', 'percentOfLimit'],
+      columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userPercentOfLimit'],
       initialOrder: {
         orderBy: 'userBorrowBalance',
         orderDirection: 'desc',
