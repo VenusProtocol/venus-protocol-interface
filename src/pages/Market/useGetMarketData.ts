@@ -80,7 +80,7 @@ const useGetMarketData = ({ vToken }: { vToken: VToken }) => {
       assetMarket &&
       convertWeiToTokens({
         valueWei: new BigNumber(assetMarket.totalReserves),
-        token: vToken,
+        token: vToken.underlyingToken,
       });
 
     const exchangeRateVTokens =
