@@ -139,6 +139,13 @@ const useGetUserMarketInfo = ({
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
 
+        const reserveTokens = market?.totalReserves
+          ? convertWeiToTokens({
+              valueWei: new BigNumber(market.totalReserves),
+              token: vToken.underlyingToken,
+            })
+          : new BigNumber(0);
+
         const asset = {
           vToken,
           supplyApy: new BigNumber(market?.supplyApy || 0),
@@ -148,6 +155,7 @@ const useGetUserMarketInfo = ({
           xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
           xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
           collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18).toNumber(),
+          reserveTokens,
           reserveFactor: new BigNumber(market?.reserveFactor || 0).div(1e18).toNumber(),
           tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),

@@ -17,6 +17,7 @@ export interface Asset {
   collateralFactor: number;
   borrowCapTokens: BigNumber;
   liquidityCents: number;
+  reserveTokens: BigNumber;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
