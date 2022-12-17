@@ -17,7 +17,7 @@ import {
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -168,7 +168,9 @@ describe('hooks/useSupplyWithdrawModal', () => {
         },
       );
 
-      await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
+      await waitFor(() =>
+        getByText(`10,000,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
+      );
     });
 
     it('displays correct token supply balance', async () => {
@@ -260,7 +262,6 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
         vToken: VBEP_TOKENS.bnb,
-        token: TOKENS.bnb,
         walletBalance: new BigNumber('11'),
       };
 
@@ -328,7 +329,6 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
         vToken: VBEP_TOKENS.busd,
-        token: TOKENS.busd,
         walletBalance: new BigNumber('11'),
       };
 
@@ -376,7 +376,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(customFakeAsset.token.decimals),
+        new BigNumber(10).pow(customFakeAsset.vToken.underlyingToken.decimals),
       );
 
       await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
@@ -385,7 +385,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
           transactionHash: fakeTransactionReceipt.transactionHash,
           amount: {
-            token: customFakeAsset.token,
+            token: customFakeAsset.vToken.underlyingToken,
             valueWei: expectedAmountWei,
           },
           content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
@@ -467,7 +467,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(fakeAsset.token.decimals),
+        new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
       );
 
       await waitFor(() =>

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   compareBigNumbers,
   convertWeiToTokens,
@@ -21,7 +21,7 @@ import { AuthContext } from 'context/AuthContext';
 import { useStyles } from '../styles';
 
 type TableAsset = {
-  token: Asset['token'];
+  token: Token;
   xvsPerDay: Asset['xvsPerDay'] | undefined;
   xvsSupplyApy: Asset['xvsSupplyApy'] | undefined;
   xvsBorrowApy: Asset['xvsBorrowApy'] | undefined;
@@ -125,9 +125,16 @@ const XvsTable: React.FC = () => {
   );
 
   const assetsWithVai = useMemo(() => {
-    const allAssets: TableAsset[] = [...assets];
+    const allAssets: TableAsset[] = assets.map(asset => ({
+      token: asset.vToken.underlyingToken,
+      xvsPerDay: asset.xvsPerDay,
+      xvsSupplyApy: asset.xvsSupplyApy,
+      xvsBorrowApy: asset.xvsBorrowApy,
+    }));
+
     const xvsAsset = assets.find(
-      asset => asset.token.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+      asset =>
+        asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
     );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {

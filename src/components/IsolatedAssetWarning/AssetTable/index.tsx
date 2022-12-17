@@ -52,10 +52,10 @@ export const AssetTable: React.FC<AssetTableProps> = ({
         {sortedAssets.map(asset => (
           <div
             css={[styles.row, styles.dataRow]}
-            key={`isolated-asset-warning-asset-table-data-row-${asset.token.address}`}
+            key={`isolated-asset-warning-asset-table-data-row-${asset.vToken.underlyingToken.address}`}
           >
             <div css={styles.cell}>
-              <TokenIconWithSymbol token={asset.token} variant="small2" />
+              <TokenIconWithSymbol token={asset.vToken.underlyingToken} variant="small2" />
             </div>
 
             <div css={styles.cell}>

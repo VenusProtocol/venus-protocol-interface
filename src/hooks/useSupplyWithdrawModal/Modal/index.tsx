@@ -75,7 +75,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     ? [
         {
           label: t('supplyWithdraw.supplyApy'),
-          iconSrc: asset.token,
+          iconSrc: asset.vToken.underlyingToken,
           children: formatToReadablePercentage(asset.supplyApy),
         },
         {
@@ -140,7 +140,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
         );
         const maxTokensBeforeLiquidation = marginWithBorrowLimitDollars
           .dividedBy(collateralAmountPerTokenDollars)
-          .dp(asset.token.decimals, BigNumber.ROUND_DOWN);
+          .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
         maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
       }
@@ -157,7 +157,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
         <ConnectWallet message={message}>
           {asset ? (
             <EnableToken
-              token={asset.token}
+              token={asset.vToken.underlyingToken}
               spenderAddress={asset.vToken.address}
               title={title}
               tokenInfo={tokenInfo}
@@ -194,7 +194,9 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
       content: renderTabContent({
         type: 'withdraw',
         message: t('supplyWithdraw.connectWalletToWithdraw'),
-        title: t('supplyWithdraw.enableToWithdraw', { symbol: asset?.token.symbol }),
+        title: t('supplyWithdraw.enableToWithdraw', {
+          symbol: asset?.vToken.underlyingToken.symbol,
+        }),
         inputLabel: t('supplyWithdraw.withdrawableAmount'),
         enabledButtonKey: t('supplyWithdraw.withdraw'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
@@ -206,13 +208,13 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (asset && isTokenEnabled(asset.token)) {
+  if (asset && isTokenEnabled(asset.vToken.underlyingToken)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
         type: 'supply',
         message: t('supplyWithdraw.connectWalletToSupply'),
-        title: t('supplyWithdraw.enableToSupply', { symbol: asset?.token.symbol }),
+        title: t('supplyWithdraw.enableToSupply', { symbol: asset?.vToken.underlyingToken.symbol }),
         inputLabel: t('supplyWithdraw.walletBalance'),
         enabledButtonKey: t('supplyWithdraw.supply'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
@@ -227,7 +229,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     <Modal
       isOpen={!!asset}
       handleClose={onClose}
-      title={asset && <TokenIconWithSymbol token={asset.token} variant="h4" />}
+      title={asset && <TokenIconWithSymbol token={asset.vToken.underlyingToken} variant="h4" />}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
@@ -311,7 +313,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs
     } else {
       const withdrawAmountWei = convertTokensToWei({
         value: new BigNumber(value),
-        token: asset.token,
+        token: asset.vToken.underlyingToken,
       });
 
       const res = await redeemUnderlying({

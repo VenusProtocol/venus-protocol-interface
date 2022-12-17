@@ -80,8 +80,8 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
     if (tokenPrice && validAmount) {
       const amountInCents = calculateCollateralValue({
-        amountWei: convertTokensToWei({ value: amount, token: asset.token }),
-        token: asset.token,
+        amountWei: convertTokensToWei({ value: amount, token: asset.vToken.underlyingToken }),
+        token: asset.vToken.underlyingToken,
         tokenPriceTokens: asset.tokenPrice,
         collateralFactor: asset.collateralFactor,
       }).times(100);
@@ -91,7 +91,12 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     }
 
     return updateBorrowLimitCents;
-  }, [amount, asset.token, userTotalBorrowBalanceCents, userTotalBorrowLimitCents]);
+  }, [
+    amount,
+    asset.vToken.underlyingToken,
+    userTotalBorrowBalanceCents,
+    userTotalBorrowLimitCents,
+  ]);
 
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
@@ -112,7 +117,9 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         supplyBalance: calculateNewBalance(asset.supplyBalance, amount),
       };
       const currentIndex = assets.findIndex(
-        a => a.token.address.toLowerCase() === asset.token.address.toLowerCase(),
+        a =>
+          a.vToken.underlyingToken.address.toLowerCase() ===
+          asset.vToken.underlyingToken.address.toLowerCase(),
       );
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
 
@@ -126,7 +133,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
     }
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
-  }, [amount, asset.token.address, includeXvs, JSON.stringify(assets)]);
+  }, [amount, asset.vToken.underlyingToken.address, includeXvs, JSON.stringify(assets)]);
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
@@ -151,7 +158,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
       <FormikTokenTextField
         name="amount"
-        token={asset.token}
+        token={asset.vToken.underlyingToken}
         disabled={isTransactionLoading || isSupplyingLuna}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),
@@ -175,7 +182,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
           values={{
             amount: formatTokensToReadableValue({
               value: maxInput,
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
             }),
           }}
         />
@@ -202,7 +209,9 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
       />
 
       <LabeledInlineContent
-        label={t('supplyWithdraw.supplyBalance', { tokenSymbol: asset.token.symbol })}
+        label={t('supplyWithdraw.supplyBalance', {
+          tokenSymbol: asset.vToken.underlyingToken.symbol,
+        })}
         css={styles.getRow({ isLast: false })}
         className="info-row"
       >
@@ -212,7 +221,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
           format={(value: BigNumber | undefined) =>
             formatTokensToReadableValue({
               value,
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
               minimizeDecimals: true,
               addSymbol: false,
             })

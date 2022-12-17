@@ -5,21 +5,21 @@ import { Asset } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
 import { useGetUserMarketInfo } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 jest.mock('clients/api');
 
 describe('context/DisableLunaUstWarning', () => {
-  it.each([TOKENS.ust, TOKENS.luna])(
+  it.each([VBEP_TOKENS.ust, VBEP_TOKENS.luna])(
     'displays warning modal if %s is enabled as collateral',
-    async token => {
+    async vToken => {
       const customAssets: Asset[] = [
         ...assetData,
         {
           ...assetData[0],
-          token,
+          vToken,
           collateral: true,
         },
       ];

@@ -88,7 +88,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
 
     await waitFor(() =>
-      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.token.symbol}`),
+      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
     );
   });
 
@@ -117,7 +117,9 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     );
 
     await waitFor(() =>
-      getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.token.symbol}`),
+      getByText(
+        `${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`,
+      ),
     );
   });
 
@@ -167,7 +169,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       getByText(
         en.borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning.replace(
           '{{tokenSymbol}}',
-          fakeAsset.token.symbol,
+          fakeAsset.vToken.underlyingToken.symbol,
         ),
       ),
     ).toBeTruthy();
@@ -206,7 +208,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       .dividedBy(customFakeAsset.tokenPrice)
       // Add one token more than the available liquidity
       .plus(1)
-      .dp(customFakeAsset.token.decimals, BigNumber.ROUND_DOWN)
+      .dp(customFakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
       .toFixed();
 
     // Enter amount in input
@@ -246,7 +248,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       .dividedBy(fakeAsset.tokenPrice)
       // Add one token more than the maximum
       .plus(1)
-      .dp(fakeAsset.token.decimals, BigNumber.ROUND_DOWN)
+      .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
       .toFixed();
 
     // Enter amount in input
@@ -288,7 +290,9 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       .minus(fakeUserTotalBorrowBalanceCents)
       .dividedBy(100);
     const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
-    const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.token.decimals).toFixed();
+    const expectedInputValue = safeBorrowDeltaTokens
+      .dp(fakeAsset.vToken.underlyingToken.decimals)
+      .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -329,7 +333,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     fireEvent.click(getByText(en.borrowRepayModal.borrow.submitButton));
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.token.decimals),
+      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
@@ -343,7 +347,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        token: fakeAsset.token,
+        token: fakeAsset.vToken.underlyingToken,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),

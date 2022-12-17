@@ -41,8 +41,8 @@ const useCollateral = () => {
     // to enable/disable a different token
     if (
       hasLunaOrUstCollateralEnabled &&
-      asset.token.address !== TOKENS.ust.address &&
-      asset.token.address !== TOKENS.luna.address
+      asset.vToken.underlyingToken.address !== TOKENS.ust.address &&
+      asset.vToken.underlyingToken.address !== TOKENS.luna.address
     ) {
       return;
     }
@@ -91,7 +91,7 @@ const useCollateral = () => {
           type: 'interaction',
           code: 'collateralDisableError',
           data: {
-            assetName: asset.token.symbol,
+            assetName: asset.vToken.underlyingToken.symbol,
           },
         });
       }
@@ -107,7 +107,7 @@ const useCollateral = () => {
           type: 'interaction',
           code: 'collateralEnableError',
           data: {
-            assetName: asset.token.symbol,
+            assetName: asset.vToken.underlyingToken.symbol,
           },
         });
       }

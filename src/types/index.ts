@@ -11,7 +11,6 @@ export interface User {
 }
 
 export interface Asset {
-  token: Token; // TODO: remove (contained in vToken)
   vToken: VToken;
   tokenPrice: BigNumber;
   borrowBalance: BigNumber;

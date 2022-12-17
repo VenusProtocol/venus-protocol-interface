@@ -18,7 +18,8 @@ const useGetUserAsset = ({ token }: { token: Token }) => {
   const asset = useMemo(
     () =>
       assets.find(
-        marketAsset => marketAsset.token.address.toLowerCase() === token.address.toLowerCase(),
+        marketAsset =>
+          marketAsset.vToken.underlyingToken.address.toLowerCase() === token.address.toLowerCase(),
       ),
     [token, assets],
   );

@@ -63,9 +63,9 @@ export const Supply = Template.bind({});
 Supply.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    token: assetData[0].token,
+    token: assetData[0].vToken.underlyingToken,
     accountAddress: fakeAddress,
-    spenderAddress: assetData[0].token.address,
+    spenderAddress: assetData[0].vToken.underlyingToken.address,
   }),
 ];
 Supply.args = {

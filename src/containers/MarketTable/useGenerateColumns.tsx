@@ -79,8 +79,11 @@ const useGenerateColumns = ({
           // collateral
           return acc.plus(
             calculateCollateralValue({
-              amountWei: convertTokensToWei({ value: asset.supplyBalance, token: asset.token }),
-              token: asset.token,
+              amountWei: convertTokensToWei({
+                value: asset.supplyBalance,
+                token: asset.vToken.underlyingToken,
+              }),
+              token: asset.vToken.underlyingToken,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,
             }).times(100),
@@ -99,7 +102,7 @@ const useGenerateColumns = ({
         align: index === 0 ? 'left' : 'right',
         renderCell: asset => {
           if (column === 'asset') {
-            return <TokenIconWithSymbol token={asset.token} />;
+            return <TokenIconWithSymbol token={asset.vToken.underlyingToken} />;
           }
 
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
@@ -159,14 +162,14 @@ const useGenerateColumns = ({
           if (column === 'walletBalance') {
             return formatTokensToReadableValue({
               value: asset.walletBalance,
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
           }
           if (column === 'supplyBalance') {
             return formatTokensToReadableValue({
               value: asset.supplyBalance,
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
           }
@@ -174,7 +177,7 @@ const useGenerateColumns = ({
           if (column === 'borrowBalance') {
             return formatTokensToReadableValue({
               value: asset.borrowBalance,
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
           }

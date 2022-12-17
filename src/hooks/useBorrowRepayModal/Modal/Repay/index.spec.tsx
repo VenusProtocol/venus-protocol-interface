@@ -66,7 +66,9 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       },
     );
 
-    await waitFor(() => getByText(`1,000 ${fakeAsset.token.symbol.toUpperCase()}`));
+    await waitFor(() =>
+      getByText(`1,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
+    );
   });
 
   it('displays correct token wallet balance', async () => {
@@ -81,7 +83,9 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       },
     );
 
-    await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
+    await waitFor(() =>
+      getByText(`10,000,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
+    );
   });
 
   it('disables submit button if an amount entered in input is higher than token borrow balance', async () => {
@@ -192,7 +196,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
     const expectedInputValue = customFakeAsset.walletBalance
-      .dp(customFakeAsset.token.decimals)
+      .dp(customFakeAsset.vToken.underlyingToken.decimals)
       .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
@@ -235,7 +239,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
     const expectedInputValue = customFakeAsset.borrowBalance
-      .dp(customFakeAsset.token.decimals)
+      .dp(customFakeAsset.vToken.underlyingToken.decimals)
       .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
@@ -282,7 +286,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
       const expectedInputValue = customFakeAsset.borrowBalance
         .multipliedBy(presetPercentage / 100)
-        .dp(customFakeAsset.token.decimals)
+        .dp(customFakeAsset.vToken.underlyingToken.decimals)
         .toFixed();
 
       // eslint-disable-next-line
@@ -329,7 +333,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.token.decimals),
+      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
@@ -344,7 +348,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        token: fakeAsset.token,
+        token: fakeAsset.vToken.underlyingToken,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),

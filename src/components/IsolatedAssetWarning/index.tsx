@@ -30,7 +30,7 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
 
   const translationArgs = {
     poolName: pool.name,
-    tokenSymbol: asset.token.symbol,
+    tokenSymbol: asset.vToken.underlyingToken.symbol,
   };
 
   const handleShowAssets = () => setShowAssets(true);

@@ -61,7 +61,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
     () =>
       formatTokensToReadableValue({
         value: new BigNumber(limitTokens),
-        token: asset.token,
+        token: asset.vToken.underlyingToken,
       }),
     [limitTokens],
   );
@@ -71,7 +71,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
     const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
-      token: asset.token,
+      token: asset.vToken.underlyingToken,
     });
 
     return handleTransactionMutation({
@@ -81,7 +81,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
         content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          token: asset.token,
+          token: asset.vToken.underlyingToken,
         },
         transactionHash: transactionReceipt.transactionHash,
       }),
@@ -108,7 +108,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"
-              token={asset.token}
+              token={asset.vToken.underlyingToken}
               disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
@@ -137,7 +137,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
                   +values.amount > +safeLimitTokens
                     ? t('borrowRepayModal.borrow.highAmountWarning')
                     : t('borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning', {
-                        tokenSymbol: asset.token.symbol,
+                        tokenSymbol: asset.vToken.underlyingToken.symbol,
                       })
                 }
               />

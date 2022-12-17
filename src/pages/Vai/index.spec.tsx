@@ -1,11 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
-import { useGetUserMarketInfo } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -13,20 +9,7 @@ import Vai from '.';
 
 jest.mock('clients/api');
 
-const fakeVai = { ...assetData[0], token: TOKENS.vai };
-
 describe('pages/Dashboard/Vai', () => {
-  beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [...assetData, fakeVai],
-        userTotalBorrowLimitCents: new BigNumber('111'),
-        userTotalBorrowBalanceCents: new BigNumber('91'),
-      },
-      isLoading: false,
-    }));
-  });
-
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(() => <Vai />, {
       authContextValue: {
