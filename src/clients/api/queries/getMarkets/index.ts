@@ -16,6 +16,7 @@ export interface GetMarketsOutput {
   dailyVenusWei: BigNumber | undefined;
 }
 
+// TODO merge with useGetUserMarketInfo
 const getMarkets = async (): Promise<GetMarketsOutput> => {
   const response = await restService<GetMarketsResponse>({
     endpoint: '/governance/venus',

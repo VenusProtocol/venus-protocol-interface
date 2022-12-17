@@ -128,7 +128,7 @@ const useGenerateColumns = ({
           }
 
           if (column === 'collateral') {
-            return asset.collateralFactor.toNumber() || asset.collateral ? (
+            return asset.collateralFactor || asset.collateral ? (
               <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
             ) : (
               PLACEHOLDER_KEY
