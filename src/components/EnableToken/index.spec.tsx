@@ -25,7 +25,11 @@ describe('components/EnableToken', () => {
     const fakeEnableTitle = 'Enable token to proceed';
 
     const { getByText } = renderComponent(
-      <EnableToken token={fakeAsset.token} title={fakeEnableTitle} spenderAddress={fakeAddress}>
+      <EnableToken
+        token={fakeAsset.vToken.underlyingToken}
+        title={fakeEnableTitle}
+        spenderAddress={fakeAddress}
+      >
         {fakeContent}
       </EnableToken>,
     );
@@ -40,7 +44,7 @@ describe('components/EnableToken', () => {
 
     const { getByText } = renderComponent(
       <EnableToken
-        token={fakeAsset.token}
+        token={fakeAsset.vToken.underlyingToken}
         title="Enable token to proceed"
         spenderAddress={fakeAddress}
       >

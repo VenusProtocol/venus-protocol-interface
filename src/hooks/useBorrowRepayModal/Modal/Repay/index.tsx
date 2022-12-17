@@ -60,27 +60,27 @@ export const RepayForm: React.FC<RepayFormProps> = ({
     (percentage: number) =>
       asset.borrowBalance
         .multipliedBy(percentage / 100)
-        .decimalPlaces(asset.token.decimals)
+        .decimalPlaces(asset.vToken.underlyingToken.decimals)
         .toFixed(),
-    [asset.borrowBalance.toFixed(), asset.token.decimals],
+    [asset.borrowBalance.toFixed(), asset.vToken.underlyingToken.decimals],
   );
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
         value: asset.borrowBalance,
-        token: asset.token,
+        token: asset.vToken.underlyingToken,
       }),
-    [asset.borrowBalance.toFixed(), asset.token],
+    [asset.borrowBalance.toFixed(), asset.vToken.underlyingToken],
   );
 
   const readableTokenWalletBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
         value: asset.walletBalance,
-        token: asset.token,
+        token: asset.vToken.underlyingToken,
       }),
-    [asset.walletBalance.toFixed(), asset.token],
+    [asset.walletBalance.toFixed(), asset.vToken.underlyingToken],
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
@@ -88,7 +88,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
     const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
-      token: asset.token,
+      token: asset.vToken.underlyingToken,
     });
 
     try {
@@ -101,7 +101,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
           amount: {
             valueWei: amountWei,
-            token: asset.token,
+            token: asset.vToken.underlyingToken,
           },
           transactionHash,
         });
@@ -120,7 +120,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
   const shouldDisplayFullRepaymentWarning = React.useCallback(
     (repayAmountTokens: string) =>
       repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
-    [asset.token, asset.borrowBalance.toFixed()],
+    [asset.vToken.underlyingToken, asset.borrowBalance.toFixed()],
   );
 
   return (
@@ -137,7 +137,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           <div css={[sharedStyles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
-              token={asset.token}
+              token={asset.vToken.underlyingToken}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}
@@ -235,7 +235,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertTokensToWei({ value: asset!.borrowBalance, token: asset!.token }),
+      convertTokensToWei({ value: asset!.borrowBalance, token: asset!.vToken.underlyingToken }),
     );
 
     const res = await repay({

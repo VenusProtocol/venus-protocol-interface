@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
-    token: TOKENS.sxp,
     vToken: VBEP_TOKENS.sxp,
     supplyApy: new BigNumber('0.05225450324405023'),
     borrowApy: new BigNumber('-2.3062487835658776'),
@@ -29,7 +28,6 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    token: TOKENS.usdc,
     vToken: VBEP_TOKENS.usdc,
     supplyApy: new BigNumber('3.887242555711379188'),
     borrowApy: new BigNumber('-5.361233028654066'),
@@ -53,7 +51,6 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    token: TOKENS.usdt,
     vToken: VBEP_TOKENS.usdt,
     supplyApy: new BigNumber('3.593608909332766999'),
     borrowApy: new BigNumber('-4.9748661428011145'),
@@ -77,7 +74,6 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    token: TOKENS.busd,
     vToken: VBEP_TOKENS.busd,
     supplyApy: new BigNumber('2.886396363044176106'),
     borrowApy: new BigNumber('-4.050271277344538'),

@@ -49,9 +49,9 @@ export const Default = Template.bind({});
 Default.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    token: assetData[0].token,
+    token: assetData[0].vToken.underlyingToken,
     accountAddress: fakeAddress,
-    spenderAddress: assetData[0].token.address,
+    spenderAddress: assetData[0].vToken.underlyingToken.address,
   }),
 ];
 Default.args = {

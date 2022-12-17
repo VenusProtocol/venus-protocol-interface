@@ -73,7 +73,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
         key: 'assets',
         label: t('pools.poolTable.columns.assets'),
         renderCell: ({ pool }) => (
-          <TokenGroup tokens={pool.assets.map(asset => asset.token)} limit={4} />
+          <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} limit={4} />
         ),
       },
       {

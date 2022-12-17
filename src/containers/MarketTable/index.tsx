@@ -85,8 +85,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     // collateral and is attempting to open the supply modal of other assets
     if (
       hasLunaOrUstCollateralEnabled &&
-      row.token.address !== TOKENS.luna.address &&
-      row.token.address !== TOKENS.ust.address
+      row.vToken.underlyingToken.address !== TOKENS.luna.address &&
+      row.vToken.underlyingToken.address !== TOKENS.ust.address
     ) {
       e.preventDefault();
       e.stopPropagation();
@@ -113,7 +113,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         columns={columns}
         data={assets}
         css={styles.cardContentGrid}
-        rowKeyExtractor={row => `market-table-row-${marketType}-${row.token.address}`}
+        rowKeyExtractor={row =>
+          `market-table-row-${marketType}-${row.vToken.underlyingToken.address}`
+        }
         rowOnClick={getRowHref ? undefined : rowOnClick}
         getRowHref={getRowHref}
         initialOrder={formattedInitialOrder}

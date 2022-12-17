@@ -140,7 +140,6 @@ const useGetUserMarketInfo = ({
         }
 
         const asset = {
-          token: vToken.underlyingToken,
           vToken,
           supplyApy: new BigNumber(market?.supplyApy || 0),
           borrowApy: new BigNumber(market?.borrowApy || 0),
@@ -186,7 +185,7 @@ const useGetUserMarketInfo = ({
                 value: asset.supplyBalance,
                 token: vToken.underlyingToken,
               }),
-              token: asset.token,
+              token: asset.vToken.underlyingToken,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,
             }).times(100),

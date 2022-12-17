@@ -76,7 +76,8 @@ const AccountData: React.FC<AccountDataProps> = ({
       const updatedAssets = assets.map(assetData => ({
         ...assetData,
         borrowBalance:
-          assetData.token.address.toLowerCase() === asset.token.address.toLowerCase()
+          assetData.vToken.underlyingToken.address.toLowerCase() ===
+          asset.vToken.underlyingToken.address.toLowerCase()
             ? assetData.borrowBalance.plus(tokenAmount)
             : assetData.borrowBalance,
       }));
@@ -110,7 +111,7 @@ const AccountData: React.FC<AccountDataProps> = ({
     <>
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowAPy')}
-        iconSrc={asset.token}
+        iconSrc={asset.vToken.underlyingToken}
         css={sharedStyles.getRow({ isLast: false })}
       >
         {readableBorrowApy}
