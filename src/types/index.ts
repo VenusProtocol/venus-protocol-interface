@@ -13,25 +13,27 @@ export interface User {
 export interface Asset {
   vToken: VToken;
   tokenPriceDollars: BigNumber;
-  borrowBalance: BigNumber;
-  walletBalance: BigNumber;
+  reserveFactor: number;
+  collateralFactor: number;
+  borrowCapTokens: BigNumber;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
-  borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
   xvsSupplyApr: BigNumber;
   supplyApy: BigNumber;
-  collateralFactor: BigNumber;
-  collateral: boolean;
-  supplyBalance: BigNumber;
-  percentOfLimit: string;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
   xvsPerDay: BigNumber;
+  // User-specific props
+  collateral: boolean;
+  walletBalance: BigNumber;
+  supplyBalance: BigNumber;
+  borrowBalance: BigNumber;
+  percentOfLimit: string;
 }
 
 export interface Token {
