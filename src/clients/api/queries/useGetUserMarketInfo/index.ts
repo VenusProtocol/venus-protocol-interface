@@ -166,6 +166,8 @@ const useGetUserMarketInfo = ({
           reserveTokens,
           reserveFactor: new BigNumber(market?.reserveFactor || 0).div(1e18).toNumber(),
           exchangeRateVTokens,
+          supplierCount: market?.supplierCount || 0,
+          borrowerCount: market?.borrowerCount || 0,
           tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
           borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
