@@ -75,14 +75,14 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     : undefined;
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
-    const tokenPrice = getBigNumber(asset?.tokenPrice);
+    const tokenPriceDollars = getBigNumber(asset?.tokenPriceDollars);
     let updateBorrowLimitCents;
 
-    if (tokenPrice && validAmount) {
+    if (tokenPriceDollars && validAmount) {
       const amountInCents = calculateCollateralValue({
         amountWei: convertTokensToWei({ value: amount, token: asset.vToken.underlyingToken }),
         token: asset.vToken.underlyingToken,
-        tokenPriceTokens: asset.tokenPrice,
+        tokenPriceDollars: asset.tokenPriceDollars,
         collateralFactor: asset.collateralFactor,
       }).times(100);
 

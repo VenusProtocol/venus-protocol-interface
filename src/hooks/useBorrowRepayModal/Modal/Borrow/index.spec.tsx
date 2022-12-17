@@ -19,7 +19,7 @@ import TEST_IDS from './testIds';
 
 const fakeAsset: Asset = {
   ...assetData[0],
-  tokenPrice: new BigNumber(1),
+  tokenPriceDollars: new BigNumber(1),
   walletBalance: new BigNumber(10000000),
   liquidity: new BigNumber(10000),
 };
@@ -85,7 +85,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     const borrowDeltaDollars = fakeUserTotalBorrowLimitCents
       .minus(fakeUserTotalBorrowBalanceCents)
       .dividedBy(100);
-    const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+    const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPriceDollars);
 
     await waitFor(() =>
       getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
@@ -205,7 +205,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     ).toBeDisabled();
 
     const incorrectValueTokens = customFakeAsset.liquidity
-      .dividedBy(customFakeAsset.tokenPrice)
+      .dividedBy(customFakeAsset.tokenPriceDollars)
       // Add one token more than the available liquidity
       .plus(1)
       .dp(customFakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
@@ -245,7 +245,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       .dividedBy(100);
 
     const incorrectValueTokens = fakeBorrowDeltaDollars
-      .dividedBy(fakeAsset.tokenPrice)
+      .dividedBy(fakeAsset.tokenPriceDollars)
       // Add one token more than the maximum
       .plus(1)
       .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
@@ -289,7 +289,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     const safeBorrowDeltaDollars = safeUserBorrowLimitCents
       .minus(fakeUserTotalBorrowBalanceCents)
       .dividedBy(100);
-    const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+    const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPriceDollars);
     const expectedInputValue = safeBorrowDeltaTokens
       .dp(fakeAsset.vToken.underlyingToken.decimals)
       .toFixed();

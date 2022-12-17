@@ -18,7 +18,7 @@ import TEST_IDS from './testIds';
 
 const fakeAsset: Asset = {
   ...assetData[0],
-  tokenPrice: new BigNumber(1),
+  tokenPriceDollars: new BigNumber(1),
   borrowBalance: new BigNumber(1000),
   walletBalance: new BigNumber(10000000),
 };

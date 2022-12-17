@@ -12,7 +12,7 @@ export interface User {
 
 export interface Asset {
   vToken: VToken;
-  tokenPrice: BigNumber;
+  tokenPriceDollars: BigNumber;
   borrowBalance: BigNumber;
   walletBalance: BigNumber;
   borrowApy: BigNumber;

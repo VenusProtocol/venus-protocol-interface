@@ -220,7 +220,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
       .dividedBy(100);
     const maxTokens = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
       // Convert dollars to tokens
-      .dividedBy(asset.tokenPrice);
+      .dividedBy(asset.tokenPriceDollars);
 
     const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
       SAFE_BORROW_LIMIT_PERCENTAGE / 100,
@@ -232,7 +232,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
 
     const safeMaxTokens = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
       ? // Convert dollars to tokens
-        marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
+        marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPriceDollars)
       : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
@@ -240,7 +240,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
-    asset?.tokenPrice,
+    asset?.tokenPriceDollars,
     asset?.liquidity,
     userTotalBorrowLimitCents.toFixed(),
     userTotalBorrowBalanceCents.toFixed(),
