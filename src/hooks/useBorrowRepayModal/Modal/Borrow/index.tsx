@@ -218,7 +218,8 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
       .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const maxTokens = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
+    const liquidityDollars = asset.liquidityCents / 100;
+    const maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
       // Convert dollars to tokens
       .dividedBy(asset.tokenPriceDollars);
 
@@ -241,7 +242,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
     asset?.tokenPriceDollars,
-    asset?.liquidity,
+    asset?.liquidityCents,
     userTotalBorrowLimitCents.toFixed(),
     userTotalBorrowBalanceCents.toFixed(),
   ]);

@@ -21,7 +21,7 @@ const fakeAsset: Asset = {
   ...assetData[0],
   tokenPriceDollars: new BigNumber(1),
   walletBalance: new BigNumber(10000000),
-  liquidity: new BigNumber(10000),
+  liquidityCents: 1000000,
 };
 
 const fakeUserTotalBorrowLimitCents = new BigNumber(100000);
@@ -61,7 +61,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidity: new BigNumber(100000000),
+      liquidityCents: 100000000,
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -95,7 +95,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidity: new BigNumber(200),
+      liquidityCents: 200,
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -118,7 +118,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
     await waitFor(() =>
       getByText(
-        `${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`,
+        `${customFakeAsset.liquidityCents / 100} ${customFakeAsset.vToken.underlyingToken.symbol}`,
       ),
     );
   });
@@ -135,7 +135,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidity: new BigNumber(200),
+      liquidityCents: 200,
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -178,7 +178,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidity: new BigNumber(200),
+      liquidityCents: 200,
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -204,7 +204,9 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
 
-    const incorrectValueTokens = customFakeAsset.liquidity
+    const incorrectValueTokens = new BigNumber(customFakeAsset.liquidityCents)
+      // Convert to dollars
+      .dividedBy(100)
       .dividedBy(customFakeAsset.tokenPriceDollars)
       // Add one token more than the available liquidity
       .plus(1)

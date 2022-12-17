@@ -18,6 +18,7 @@ import {
   calculatePercentage,
   compareBigNumbers,
   compareBooleans,
+  compareNumbers,
   convertTokensToWei,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -137,7 +138,7 @@ const useGenerateColumns = ({
 
           if (column === 'liquidity') {
             return formatCentsToReadableValue({
-              value: asset.liquidity.multipliedBy(100),
+              value: asset.liquidityCents,
               shortenLargeValue: true,
             });
           }
@@ -253,7 +254,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'liquidity') {
-                  return compareBigNumbers(rowA.liquidity, rowB.liquidity, direction);
+                  return compareNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
                 }
 
                 if (column === 'pool') {
