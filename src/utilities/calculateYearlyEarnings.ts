@@ -16,12 +16,12 @@ export const calculateYearlyEarningsForAsset = ({
     .multipliedBy(100);
 
   const supplyYearlyEarningsCents = assetSupplyBalanceCents.multipliedBy(
-    asset.supplyApy.dividedBy(100),
+    asset.supplyApyPercentage.dividedBy(100),
   );
   // Note that borrowYearlyEarningsCents will always be negative (or 0), since
   // the borrow APY is expressed with a negative percentage)
   const borrowYearlyEarningsCents = assetBorrowBalanceCents.multipliedBy(
-    asset.borrowApy.dividedBy(100),
+    asset.borrowApyPercentage.dividedBy(100),
   );
 
   const yearlyEarningsCents = supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents);

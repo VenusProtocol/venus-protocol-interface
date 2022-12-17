@@ -260,7 +260,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
             {
               label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApy),
+              children: formatToReadablePercentage(asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),

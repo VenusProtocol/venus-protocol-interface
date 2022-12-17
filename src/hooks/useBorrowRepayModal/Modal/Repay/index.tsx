@@ -263,7 +263,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApy),
+              children: formatToReadablePercentage(asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.repay.enableToken.distributionInfo'),

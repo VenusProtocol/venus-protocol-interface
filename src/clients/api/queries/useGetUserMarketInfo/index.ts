@@ -156,8 +156,8 @@ const useGetUserMarketInfo = ({
 
         const asset = {
           vToken,
-          supplyApy: new BigNumber(market?.supplyApy || 0),
-          borrowApy: new BigNumber(market?.borrowApy || 0),
+          supplyApyPercentage: new BigNumber(market?.supplyApy || 0),
+          borrowApyPercentage: new BigNumber(market?.borrowApy || 0),
           xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
           xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
           xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
