@@ -124,7 +124,7 @@ const useGetUserMarketInfo = ({
           .map((address: string) => address.toLowerCase())
           .includes(vTokenAddress);
 
-        let walletBalance = new BigNumber(0);
+        let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
         let userBorrowBalanceTokens = new BigNumber(0);
         const percentOfLimit = '0';
@@ -134,7 +134,7 @@ const useGetUserMarketInfo = ({
           const toDecimalAmount = (mantissa: string) =>
             new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
 
-          walletBalance = toDecimalAmount(wallet.tokenBalance);
+          userWalletBalanceTokens = toDecimalAmount(wallet.tokenBalance);
           userSupplyBalanceTokens = toDecimalAmount(wallet.balanceOfUnderlying);
           userBorrowBalanceTokens = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
@@ -173,11 +173,17 @@ const useGetUserMarketInfo = ({
           userSupplyBalanceTokens,
           userBorrowBalanceTokens,
           borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
-          borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100).dp(0).toNumber(),
-          supplyBalanceCents: new BigNumber(market?.totalSupplyUsd || 0).times(100).dp(0).toNumber(),
+          borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0)
+            .times(100)
+            .dp(0)
+            .toNumber(),
+          supplyBalanceCents: new BigNumber(market?.totalSupplyUsd || 0)
+            .times(100)
+            .dp(0)
+            .toNumber(),
           supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0),
           borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
-          walletBalance,
+          userWalletBalanceTokens,
           collateral,
           percentOfLimit,
           xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)

@@ -30,7 +30,7 @@ const fakeAsset: Asset = {
   ...assetData[0],
   tokenPriceDollars: new BigNumber(1),
   userSupplyBalanceTokens: new BigNumber(1000),
-  walletBalance: new BigNumber(10000000),
+  userWalletBalanceTokens: new BigNumber(10000000),
 };
 
 const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
@@ -191,7 +191,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
     it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        walletBalance: new BigNumber(1),
+        userWalletBalanceTokens: new BigNumber(1),
       };
 
       (useGetUserAsset as jest.Mock).mockImplementation(() => ({
@@ -225,7 +225,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       // Check submit button is disabled
       expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
 
-      const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
+      const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
       // Enter amount in input
       const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -262,7 +262,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
         vToken: VBEP_TOKENS.bnb,
-        walletBalance: new BigNumber('11'),
+        userWalletBalanceTokens: new BigNumber('11'),
       };
 
       (useGetUserAsset as jest.Mock).mockImplementation(() => ({
@@ -329,7 +329,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
         vToken: VBEP_TOKENS.busd,
-        walletBalance: new BigNumber('11'),
+        userWalletBalanceTokens: new BigNumber('11'),
       };
 
       (useGetUserAsset as jest.Mock).mockImplementation(() => ({

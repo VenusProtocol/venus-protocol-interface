@@ -30,6 +30,7 @@ export interface Asset {
   // User-specific props
   userSupplyBalanceTokens: BigNumber;
   userBorrowBalanceTokens: BigNumber;
+  userWalletBalanceTokens: BigNumber;
 
   // Props to update
 
@@ -41,7 +42,6 @@ export interface Asset {
 
   // User-specific props
   collateral: boolean;
-  walletBalance: BigNumber;
   percentOfLimit: string;
 
   // TODO: remove

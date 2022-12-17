@@ -7,7 +7,7 @@ export type ColumnKey =
   | 'pool'
   | 'riskLevel'
   | 'collateral'
-  | 'walletBalance'
+  | 'userWalletBalanceTokens'
   | 'userSupplyBalance'
   | 'userBorrowBalance'
   | 'borrowBalance'
