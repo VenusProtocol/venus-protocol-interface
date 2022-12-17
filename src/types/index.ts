@@ -19,6 +19,8 @@ export interface Asset {
   liquidityCents: number;
   reserveTokens: BigNumber;
   exchangeRateVTokens: BigNumber;
+  supplierCount: number;
+  borrowerCount: number;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
