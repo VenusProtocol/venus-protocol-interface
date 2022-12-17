@@ -33,12 +33,11 @@ export interface Asset {
   userWalletBalanceTokens: BigNumber;
   userPercentOfLimit: string;
   isCollateralOfUser: boolean;
-  // TODO: replace with rewards field
+  // TODO: replace next props with rewards field
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
   xvsSupplyApy: BigNumber;
   xvsSupplyApr: BigNumber;
-  // TODO: remove
   xvsPerDay: BigNumber;
 }
 
