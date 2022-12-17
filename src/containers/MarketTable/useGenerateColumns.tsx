@@ -45,7 +45,7 @@ import { ColumnKey } from './types';
 // t('marketTable.columnKeys.userBorrowBalance')
 // t('marketTable.columnKeys.userSupplyBalance')
 // t('marketTable.columnKeys.userWalletBalanceTokens')
-// t('marketTable.columnKeys.percentOfLimit')
+// t('marketTable.columnKeys.userPercentOfLimit')
 // t('marketTable.columnKeys.liquidity')
 
 const useGenerateColumns = ({
@@ -62,17 +62,17 @@ const useGenerateColumns = ({
 
   const { includeXvs } = useContext(IncludeXvsContext);
 
-  // Calculate borrow limit of user if percentOfLimit column needs to be
+  // Calculate borrow limit of user if userPercentOfLimit column needs to be
   // rendered
   const userTotalBorrowLimitCents = useMemo(() => {
-    if (!columnKeys.includes('percentOfLimit')) {
+    if (!columnKeys.includes('userPercentOfLimit')) {
       return 0;
     }
 
     return (
       assets
         .reduce((acc, asset) => {
-          if (!asset.collateral) {
+          if (!asset.isCollateralOfUser) {
             return acc;
           }
 
@@ -93,7 +93,7 @@ const useGenerateColumns = ({
         // Convert BigNumber to number
         .toNumber()
     );
-  }, [assets, columnKeys.includes('percentOfLimit')]);
+  }, [assets, columnKeys.includes('userPercentOfLimit')]);
 
   const columns: TableColumn<Asset>[] = useMemo(
     () =>
@@ -129,8 +129,8 @@ const useGenerateColumns = ({
           }
 
           if (column === 'collateral') {
-            return asset.collateralFactor || asset.collateral ? (
-              <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
+            return asset.collateralFactor || asset.isCollateralOfUser ? (
+              <Toggle onChange={() => collateralOnChange(asset)} value={asset.isCollateralOfUser} />
             ) : (
               PLACEHOLDER_KEY
             );
@@ -198,8 +198,8 @@ const useGenerateColumns = ({
             });
           }
 
-          if (column === 'percentOfLimit') {
-            const percentOfLimit = calculatePercentage({
+          if (column === 'userPercentOfLimit') {
+            const userPercentOfLimit = calculatePercentage({
               numerator: +asset.userBorrowBalanceTokens
                 .multipliedBy(asset.tokenPriceDollars)
                 .times(100),
@@ -207,18 +207,18 @@ const useGenerateColumns = ({
             });
 
             return (
-              <div css={styles.percentOfLimit}>
+              <div css={styles.userPercentOfLimit}>
                 <ProgressBar
                   min={0}
                   max={100}
-                  value={percentOfLimit}
+                  value={userPercentOfLimit}
                   step={1}
-                  ariaLabel={t('marketTable.columnKeys.percentOfLimit')}
+                  ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
                   css={styles.percentOfLimitProgressBar}
                 />
 
                 <Typography variant="small2" css={styles.white}>
-                  {formatToReadablePercentage(percentOfLimit)}
+                  {formatToReadablePercentage(userPercentOfLimit)}
                 </Typography>
               </div>
             );
@@ -253,7 +253,11 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'collateral') {
-                  return compareBooleans(rowA.collateral, rowB.collateral, direction);
+                  return compareBooleans(
+                    rowA.isCollateralOfUser,
+                    rowB.isCollateralOfUser,
+                    direction,
+                  );
                 }
 
                 if (column === 'liquidity') {
@@ -310,7 +314,7 @@ const useGenerateColumns = ({
                   );
                 }
 
-                if (column === 'percentOfLimit') {
+                if (column === 'userPercentOfLimit') {
                   const rowABorrowBalanceDollars = rowA.userBorrowBalanceTokens.multipliedBy(
                     rowA.tokenPriceDollars,
                   );

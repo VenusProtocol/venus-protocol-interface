@@ -403,7 +403,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        collateral: false,
+        isCollateralOfUser: false,
       };
 
       (useGetUserAsset as jest.Mock).mockImplementation(() => ({

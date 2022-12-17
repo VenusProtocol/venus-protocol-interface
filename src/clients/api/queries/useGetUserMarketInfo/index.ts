@@ -120,14 +120,14 @@ const useGetUserMarketInfo = ({
         }
 
         const vTokenAddress = vToken.address.toLowerCase();
-        const collateral = (assetsInAccount.tokenAddresses || [])
+        const isCollateralOfUser = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
           .includes(vTokenAddress);
 
         let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
         let userBorrowBalanceTokens = new BigNumber(0);
-        const percentOfLimit = '0';
+        const userPercentOfLimit = '0';
 
         const wallet = vTokenBalances && vTokenBalances[vTokenAddress];
         if (accountAddress && wallet) {
@@ -184,8 +184,8 @@ const useGetUserMarketInfo = ({
           supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0),
           borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
           userWalletBalanceTokens,
-          collateral,
-          percentOfLimit,
+          isCollateralOfUser,
+          userPercentOfLimit,
           xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
             .plus(new BigNumber(market?.borrowerDailyVenus || 0))
             .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
@@ -207,8 +207,8 @@ const useGetUserMarketInfo = ({
           ),
         );
 
-        // Create borrow limit based on assets supplied as collateral
-        if (asset.collateral) {
+        // Create borrow limit based on assets supplied as isCollateralOfUser
+        if (asset.isCollateralOfUser) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
               amountWei: convertTokensToWei({
@@ -249,7 +249,7 @@ const useGetUserMarketInfo = ({
     // percent of limit
     assetList = assetList.map((item: Asset) => ({
       ...item,
-      percentOfLimit: new BigNumber(userTotalBorrowLimitCents).isZero()
+      userPercentOfLimit: new BigNumber(userTotalBorrowLimitCents).isZero()
         ? '0'
         : item.userBorrowBalanceTokens
             .times(item.tokenPriceDollars)

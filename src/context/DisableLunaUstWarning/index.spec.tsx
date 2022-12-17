@@ -20,7 +20,7 @@ describe('context/DisableLunaUstWarning', () => {
         {
           ...assetData[0],
           vToken,
-          collateral: true,
+          isCollateralOfUser: true,
         },
       ];
 

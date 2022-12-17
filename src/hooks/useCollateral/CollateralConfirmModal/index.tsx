@@ -20,7 +20,7 @@ export const CollateralConfirmModal: React.FC<ConfirmCollateralModalProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const title = asset?.collateral
+  const title = asset?.isCollateralOfUser
     ? t('markets.collateralConfirmModal.disable', { asset: asset?.vToken.underlyingToken.symbol })
     : t('markets.collateralConfirmModal.enable', { asset: asset?.vToken.underlyingToken.symbol });
 

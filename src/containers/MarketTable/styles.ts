@@ -30,7 +30,7 @@ export const useStyles = () => {
         }
       }
     `,
-    percentOfLimit: css`
+    userPercentOfLimit: css`
       display: flex;
       align-items: center;
       justify-content: flex-end;

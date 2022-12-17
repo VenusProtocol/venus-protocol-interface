@@ -369,7 +369,7 @@
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
-      "percentOfLimit": "% of limit",
+      "userPercentOfLimit": "% of limit",
       "pool": "Pool",
       "riskLevel": "Risk level",
       "supplyApyLtv": "APY / LTV",
