@@ -23,24 +23,29 @@ export interface Asset {
   borrowerCount: number;
   borrowApyPercentage: BigNumber;
   supplyApyPercentage: BigNumber;
+  supplyBalanceTokens: BigNumber;
+  supplyBalanceCents: number;
+  borrowBalanceTokens: BigNumber;
+  borrowBalanceCents: number;
+  // User-specific props
+  userSupplyBalanceTokens: BigNumber;
+  userBorrowBalanceTokens: BigNumber;
 
-  // TODO: update next props to follow new Asset type
+  // Props to update
+
+  // TODO: replace with rewards field
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
   xvsSupplyApy: BigNumber;
   xvsSupplyApr: BigNumber;
-  treasuryTotalBorrowsCents: BigNumber;
-  treasuryTotalSupplyCents: BigNumber;
-  treasuryTotalSupply: BigNumber;
-  treasuryTotalBorrows: BigNumber;
-  xvsPerDay: BigNumber;
 
   // User-specific props
   collateral: boolean;
   walletBalance: BigNumber;
-  supplyBalance: BigNumber;
-  borrowBalance: BigNumber;
   percentOfLimit: string;
+
+  // TODO: remove
+  xvsPerDay: BigNumber;
 }
 
 export interface Token {
@@ -203,8 +208,8 @@ export interface Market {
   venusBorrowIndex: string;
   venusSpeeds: string;
   venusSupplyIndex: string;
-  treasuryTotalBorrowsCents: BigNumber;
-  treasuryTotalSupplyCents: BigNumber;
+  borrowBalanceCents: BigNumber;
+  supplyBalanceCents: BigNumber;
 }
 
 export interface MarketSnapshot {

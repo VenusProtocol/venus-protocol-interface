@@ -58,20 +58,20 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
   const getTokenBorrowBalancePercentageTokens = React.useCallback(
     (percentage: number) =>
-      asset.borrowBalance
+      asset.userBorrowBalanceTokens
         .multipliedBy(percentage / 100)
         .decimalPlaces(asset.vToken.underlyingToken.decimals)
         .toFixed(),
-    [asset.borrowBalance.toFixed(), asset.vToken.underlyingToken.decimals],
+    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.decimals],
   );
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
-        value: asset.borrowBalance,
+        value: asset.userBorrowBalanceTokens,
         token: asset.vToken.underlyingToken,
       }),
-    [asset.borrowBalance.toFixed(), asset.vToken.underlyingToken],
+    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken],
   );
 
   const readableTokenWalletBalance = React.useMemo(
@@ -80,7 +80,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
         value: asset.walletBalance,
         token: asset.vToken.underlyingToken,
       }),
-    [asset.walletBalance.toFixed(), asset.vToken.underlyingToken],
+    [asset.walletBalance, asset.vToken.underlyingToken],
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
@@ -119,8 +119,8 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
   const shouldDisplayFullRepaymentWarning = React.useCallback(
     (repayAmountTokens: string) =>
-      repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
-    [asset.vToken.underlyingToken, asset.borrowBalance.toFixed()],
+      repayAmountTokens !== '0' && asset.userBorrowBalanceTokens.eq(repayAmountTokens),
+    [asset.vToken.underlyingToken, asset.userBorrowBalanceTokens],
   );
 
   return (
@@ -221,8 +221,9 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
   } = useGetUserAsset({ token: vToken.underlyingToken });
 
   const limitTokens = React.useMemo(
-    () => (asset ? BigNumber.min(asset.borrowBalance, asset.walletBalance) : new BigNumber(0)),
-    [asset?.borrowBalance, asset?.walletBalance],
+    () =>
+      asset ? BigNumber.min(asset.userBorrowBalanceTokens, asset.walletBalance) : new BigNumber(0),
+    [asset?.userBorrowBalanceTokens, asset?.walletBalance],
   );
 
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepay({
@@ -235,7 +236,10 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertTokensToWei({ value: asset!.borrowBalance, token: asset!.vToken.underlyingToken }),
+      convertTokensToWei({
+        value: asset!.userBorrowBalanceTokens,
+        token: asset!.vToken.underlyingToken,
+      }),
     );
 
     const res = await repay({

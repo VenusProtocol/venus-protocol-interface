@@ -18,16 +18,16 @@ const useExtractData = ({ assets, includeXvs }: { assets: Asset[]; includeXvs: b
     const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
       (acc, asset) => ({
         totalBorrowCents: acc.totalBorrowCents.plus(
-          asset.borrowBalance.times(asset.tokenPriceDollars).times(100),
+          asset.userBorrowBalanceTokens.times(asset.tokenPriceDollars).times(100),
         ),
         totalSupplyCents: acc.totalSupplyCents.plus(
-          asset.supplyBalance.times(asset.tokenPriceDollars).times(100),
+          asset.userSupplyBalanceTokens.times(asset.tokenPriceDollars).times(100),
         ),
         borrowLimitCents: asset.collateral
           ? acc.borrowLimitCents.plus(
               calculateCollateralValue({
                 amountWei: convertTokensToWei({
-                  value: asset.supplyBalance,
+                  value: asset.userSupplyBalanceTokens,
                   token: asset.vToken.underlyingToken,
                 }),
                 token: asset.vToken.underlyingToken,

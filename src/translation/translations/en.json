@@ -364,7 +364,6 @@
     "columnKeys": {
       "asset": "Asset",
       "borrowApy": "APY",
-      "borrowBalance": "Balance",
       "collateral": "Collateral",
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
@@ -373,9 +372,10 @@
       "pool": "Pool",
       "riskLevel": "Risk level",
       "supplyApyLtv": "APY / LTV",
-      "supplyBalance": "Balance",
-      "treasuryTotalBorrow": "Total borrow",
-      "treasuryTotalSupply": "Total supply",
+      "userSupplyBalance": "Balance",
+      "userBorrowBalance": "Balance",
+      "borrowBalance": "Total borrow",
+      "supplyBalance": "Total supply",
       "walletBalance": "Wallet"
     }
   },

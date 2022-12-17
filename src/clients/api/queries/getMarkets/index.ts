@@ -47,8 +47,8 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
           supplyVenusApr: new BigNumber(activeMarket.supplyVenusApr),
           supplyVenusApy: new BigNumber(activeMarket.supplyVenusApy),
           supplyApy: new BigNumber(activeMarket.supplyApy),
-          treasuryTotalBorrowsCents: new BigNumber(activeMarket.totalBorrowsUsd).times(100),
-          treasuryTotalSupplyCents: new BigNumber(activeMarket.totalSupplyUsd).times(100),
+          borrowBalanceCents: new BigNumber(activeMarket.totalBorrowsUsd).times(100),
+          supplyBalanceCents: new BigNumber(activeMarket.totalSupplyUsd).times(100),
         };
         return [...acc, formattedActiveMarket];
       }

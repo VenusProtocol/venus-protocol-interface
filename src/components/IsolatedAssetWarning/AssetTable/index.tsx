@@ -69,7 +69,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
             <div css={styles.cell}>
               <Typography variant="small2">
                 {formatCentsToReadableValue({
-                  value: asset.treasuryTotalBorrowsCents,
+                  value: asset.borrowBalanceCents,
                   shortenLargeValue: true,
                 })}
               </Typography>

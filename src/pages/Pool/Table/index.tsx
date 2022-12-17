@@ -52,9 +52,9 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
         breakpoint="xl"
         columns={[
           'asset',
-          'treasuryTotalSupply',
+          'supplyBalance',
           'labeledSupplyApyLtv',
-          'treasuryTotalBorrow',
+          'borrowBalance',
           'labeledBorrowApy',
           'liquidity',
         ]}

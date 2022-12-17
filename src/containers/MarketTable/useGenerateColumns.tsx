@@ -38,12 +38,12 @@ import { ColumnKey } from './types';
 // t('marketTable.columnKeys.borrowApy')
 // t('marketTable.columnKeys.labeledBorrowApy')yar
 // t('marketTable.columnKeys.pool')
-// t('marketTable.columnKeys.supplyBalance')
-// t('marketTable.columnKeys.borrowBalance')
 // t('marketTable.columnKeys.riskLevel')
 // t('marketTable.columnKeys.collateral')
-// t('marketTable.columnKeys.treasuryTotalBorrow')
-// t('marketTable.columnKeys.treasuryTotalSupply')
+// t('marketTable.columnKeys.supplyBalance')
+// t('marketTable.columnKeys.borrowBalance')
+// t('marketTable.columnKeys.userBorrowBalance')
+// t('marketTable.columnKeys.userSupplyBalance')
 // t('marketTable.columnKeys.walletBalance')
 // t('marketTable.columnKeys.percentOfLimit')
 // t('marketTable.columnKeys.liquidity')
@@ -81,7 +81,7 @@ const useGenerateColumns = ({
           return acc.plus(
             calculateCollateralValue({
               amountWei: convertTokensToWei({
-                value: asset.supplyBalance,
+                value: asset.userSupplyBalanceTokens,
                 token: asset.vToken.underlyingToken,
               }),
               token: asset.vToken.underlyingToken,
@@ -167,39 +167,42 @@ const useGenerateColumns = ({
               shortenLargeValue: true,
             });
           }
-          if (column === 'supplyBalance') {
+
+          if (column === 'userSupplyBalance') {
             return formatTokensToReadableValue({
-              value: asset.supplyBalance,
+              value: asset.userSupplyBalanceTokens,
               token: asset.vToken.underlyingToken,
+              shortenLargeValue: true,
+            });
+          }
+
+          if (column === 'userBorrowBalance') {
+            return formatTokensToReadableValue({
+              value: asset.userBorrowBalanceTokens,
+              token: asset.vToken.underlyingToken,
+              shortenLargeValue: true,
+            });
+          }
+
+          if (column === 'supplyBalance') {
+            return formatCentsToReadableValue({
+              value: asset.supplyBalanceCents,
               shortenLargeValue: true,
             });
           }
 
           if (column === 'borrowBalance') {
-            return formatTokensToReadableValue({
-              value: asset.borrowBalance,
-              token: asset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
-          }
-
-          if (column === 'treasuryTotalBorrow') {
             return formatCentsToReadableValue({
-              value: asset.treasuryTotalBorrowsCents,
-              shortenLargeValue: true,
-            });
-          }
-
-          if (column === 'treasuryTotalSupply') {
-            return formatCentsToReadableValue({
-              value: asset.treasuryTotalSupplyCents,
+              value: asset.borrowBalanceCents,
               shortenLargeValue: true,
             });
           }
 
           if (column === 'percentOfLimit') {
             const percentOfLimit = calculatePercentage({
-              numerator: +asset.borrowBalance.multipliedBy(asset.tokenPriceDollars).times(100),
+              numerator: +asset.userBorrowBalanceTokens
+                .multipliedBy(asset.tokenPriceDollars)
+                .times(100),
               denominator: +userTotalBorrowLimitCents,
             });
 
@@ -271,27 +274,43 @@ const useGenerateColumns = ({
                   return compareBigNumbers(rowA.walletBalance, rowB.walletBalance, direction);
                 }
 
+                if (column === 'userSupplyBalance') {
+                  return compareBigNumbers(
+                    rowA.userSupplyBalanceTokens,
+                    rowB.userSupplyBalanceTokens,
+                    direction,
+                  );
+                }
+
+                if (column === 'userBorrowBalance') {
+                  return compareBigNumbers(
+                    rowA.userBorrowBalanceTokens,
+                    rowB.userBorrowBalanceTokens,
+                    direction,
+                  );
+                }
+
                 if (column === 'supplyBalance') {
-                  return compareBigNumbers(rowA.supplyBalance, rowB.supplyBalance, direction);
+                  return compareBigNumbers(
+                    rowA.supplyBalanceTokens,
+                    rowB.supplyBalanceTokens,
+                    direction,
+                  );
                 }
 
                 if (column === 'borrowBalance') {
-                  return compareBigNumbers(rowA.borrowBalance, rowB.borrowBalance, direction);
-                }
-
-                if (column === 'treasuryTotalSupply') {
                   return compareBigNumbers(
-                    rowA.treasuryTotalSupply,
-                    rowB.treasuryTotalSupply,
+                    rowA.borrowBalanceTokens,
+                    rowB.borrowBalanceTokens,
                     direction,
                   );
                 }
 
                 if (column === 'percentOfLimit') {
-                  const rowABorrowBalanceDollars = rowA.borrowBalance.multipliedBy(
+                  const rowABorrowBalanceDollars = rowA.userBorrowBalanceTokens.multipliedBy(
                     rowA.tokenPriceDollars,
                   );
-                  const rowBBorrowBalanceDollars = rowB.borrowBalance.multipliedBy(
+                  const rowBBorrowBalanceDollars = rowB.userBorrowBalanceTokens.multipliedBy(
                     rowB.tokenPriceDollars,
                   );
 

@@ -78,8 +78,8 @@ const AccountData: React.FC<AccountDataProps> = ({
         borrowBalance:
           assetData.vToken.underlyingToken.address.toLowerCase() ===
           asset.vToken.underlyingToken.address.toLowerCase()
-            ? assetData.borrowBalance.plus(tokenAmount)
-            : assetData.borrowBalance,
+            ? assetData.userBorrowBalanceTokens.plus(tokenAmount)
+            : assetData.userBorrowBalanceTokens,
       }));
 
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({
