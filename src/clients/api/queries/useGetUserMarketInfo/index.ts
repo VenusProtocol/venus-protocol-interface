@@ -119,17 +119,17 @@ const useGetUserMarketInfo = ({
           return acc;
         }
 
-        const vtokenAddress = vToken.address.toLowerCase();
+        const vTokenAddress = vToken.address.toLowerCase();
         const collateral = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
-          .includes(vtokenAddress);
+          .includes(vTokenAddress);
 
         let walletBalance = new BigNumber(0);
         let supplyBalance = new BigNumber(0);
         let borrowBalance = new BigNumber(0);
         const percentOfLimit = '0';
 
-        const wallet = vTokenBalances && vTokenBalances[vtokenAddress];
+        const wallet = vTokenBalances && vTokenBalances[vTokenAddress];
         if (accountAddress && wallet) {
           const toDecimalAmount = (mantissa: string) =>
             new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
@@ -148,7 +148,7 @@ const useGetUserMarketInfo = ({
           xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
           xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
           collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18),
-          tokenPrice: new BigNumber(market?.tokenPrice || 0),
+          tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           liquidity: new BigNumber(market?.liquidity || 0),
           borrowCaps: new BigNumber(market?.borrowCaps || 0),
           treasuryTotalBorrowsCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100),
@@ -166,8 +166,8 @@ const useGetUserMarketInfo = ({
         };
 
         // user totals
-        const borrowBalanceCents = asset.borrowBalance.times(asset.tokenPrice).times(100);
-        const supplyBalanceCents = asset.supplyBalance.times(asset.tokenPrice).times(100);
+        const borrowBalanceCents = asset.borrowBalance.times(asset.tokenPriceDollars).times(100);
+        const supplyBalanceCents = asset.supplyBalance.times(asset.tokenPriceDollars).times(100);
         acc.userTotalBorrowBalanceCents = acc.userTotalBorrowBalanceCents.plus(borrowBalanceCents);
         acc.userTotalSupplyBalanceCents = acc.userTotalSupplyBalanceCents.plus(supplyBalanceCents);
 
@@ -186,7 +186,7 @@ const useGetUserMarketInfo = ({
                 token: vToken.underlyingToken,
               }),
               token: asset.vToken.underlyingToken,
-              tokenPriceTokens: asset.tokenPrice,
+              tokenPriceDollars: asset.tokenPriceDollars,
               collateralFactor: asset.collateralFactor,
             }).times(100),
           );
@@ -222,7 +222,7 @@ const useGetUserMarketInfo = ({
       percentOfLimit: new BigNumber(userTotalBorrowLimitCents).isZero()
         ? '0'
         : item.borrowBalance
-            .times(item.tokenPrice)
+            .times(item.tokenPriceDollars)
             .div(userTotalBorrowLimitCents)
             .times(100)
             .dp(0, 1)

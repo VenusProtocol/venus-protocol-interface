@@ -135,7 +135,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
           .minus(userTotalBorrowBalanceCents)
           .dividedBy(100);
 
-        const collateralAmountPerTokenDollars = asset.tokenPrice.multipliedBy(
+        const collateralAmountPerTokenDollars = asset.tokenPriceDollars.multipliedBy(
           asset.collateralFactor,
         );
         const maxTokensBeforeLiquidation = marginWithBorrowLimitDollars

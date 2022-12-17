@@ -84,7 +84,7 @@ const useGenerateColumns = ({
                 token: asset.vToken.underlyingToken,
               }),
               token: asset.vToken.underlyingToken,
-              tokenPriceTokens: asset.tokenPrice,
+              tokenPriceDollars: asset.tokenPriceDollars,
               collateralFactor: asset.collateralFactor,
             }).times(100),
           );
@@ -198,7 +198,7 @@ const useGenerateColumns = ({
 
           if (column === 'percentOfLimit') {
             const percentOfLimit = calculatePercentage({
-              numerator: +asset.borrowBalance.multipliedBy(asset.tokenPrice).times(100),
+              numerator: +asset.borrowBalance.multipliedBy(asset.tokenPriceDollars).times(100),
               denominator: +userTotalBorrowLimitCents,
             });
 
@@ -287,8 +287,12 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'percentOfLimit') {
-                  const rowABorrowBalanceDollars = rowA.borrowBalance.multipliedBy(rowA.tokenPrice);
-                  const rowBBorrowBalanceDollars = rowB.borrowBalance.multipliedBy(rowB.tokenPrice);
+                  const rowABorrowBalanceDollars = rowA.borrowBalance.multipliedBy(
+                    rowA.tokenPriceDollars,
+                  );
+                  const rowBBorrowBalanceDollars = rowB.borrowBalance.multipliedBy(
+                    rowB.tokenPriceDollars,
+                  );
 
                   return compareBigNumbers(
                     rowABorrowBalanceDollars,

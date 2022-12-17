@@ -48,7 +48,7 @@ const AccountData: React.FC<AccountDataProps> = ({
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
       ? userTotalBorrowBalanceCents.plus(
-          asset.tokenPrice
+          asset.tokenPriceDollars
             .multipliedBy(hypotheticalBorrowAmountTokens)
             // Convert dollars to cents
             .multipliedBy(100),
