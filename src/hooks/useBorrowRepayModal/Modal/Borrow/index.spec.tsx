@@ -20,7 +20,7 @@ import TEST_IDS from './testIds';
 const fakeAsset: Asset = {
   ...assetData[0],
   tokenPriceDollars: new BigNumber(1),
-  walletBalance: new BigNumber(10000000),
+  userWalletBalanceTokens: new BigNumber(10000000),
   liquidityCents: 1000000,
 };
 

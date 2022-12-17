@@ -20,7 +20,7 @@ const fakeAsset: Asset = {
   ...assetData[0],
   tokenPriceDollars: new BigNumber(1),
   userBorrowBalanceTokens: new BigNumber(1000),
-  walletBalance: new BigNumber(10000000),
+  userWalletBalanceTokens: new BigNumber(10000000),
 };
 
 jest.mock('clients/api');
@@ -91,7 +91,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   it('disables submit button if an amount entered in input is higher than token borrow balance', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      walletBalance: new BigNumber(1),
+      userWalletBalanceTokens: new BigNumber(1),
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -117,7 +117,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
 
-    const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
+    const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
     // Enter amount in input
     fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
@@ -166,7 +166,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       userBorrowBalanceTokens: new BigNumber(100),
-      walletBalance: new BigNumber(10),
+      userWalletBalanceTokens: new BigNumber(10),
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -195,7 +195,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
-    const expectedInputValue = customFakeAsset.walletBalance
+    const expectedInputValue = customFakeAsset.userWalletBalanceTokens
       .dp(customFakeAsset.vToken.underlyingToken.decimals)
       .toFixed();
 
@@ -209,7 +209,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       userBorrowBalanceTokens: new BigNumber(10),
-      walletBalance: new BigNumber(100),
+      userWalletBalanceTokens: new BigNumber(100),
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
@@ -252,7 +252,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       userBorrowBalanceTokens: new BigNumber(100),
-      walletBalance: new BigNumber(100),
+      userWalletBalanceTokens: new BigNumber(100),
     };
 
     (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({

@@ -77,10 +77,10 @@ export const RepayForm: React.FC<RepayFormProps> = ({
   const readableTokenWalletBalance = React.useMemo(
     () =>
       formatTokensToReadableValue({
-        value: asset.walletBalance,
+        value: asset.userWalletBalanceTokens,
         token: asset.vToken.underlyingToken,
       }),
-    [asset.walletBalance, asset.vToken.underlyingToken],
+    [asset.userWalletBalanceTokens, asset.vToken.underlyingToken],
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
@@ -222,8 +222,10 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
 
   const limitTokens = React.useMemo(
     () =>
-      asset ? BigNumber.min(asset.userBorrowBalanceTokens, asset.walletBalance) : new BigNumber(0),
-    [asset?.userBorrowBalanceTokens, asset?.walletBalance],
+      asset
+        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens)
+        : new BigNumber(0),
+    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
   );
 
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepay({

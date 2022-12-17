@@ -116,7 +116,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
         return new BigNumber(0);
       }
 
-      let maxInputTokens = asset.walletBalance;
+      let maxInputTokens = asset.userWalletBalanceTokens;
 
       // If asset isn't used as collateral user can withdraw the entire supply
       // balance without affecting their borrow limit

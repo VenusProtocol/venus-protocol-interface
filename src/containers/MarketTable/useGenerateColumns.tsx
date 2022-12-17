@@ -44,7 +44,7 @@ import { ColumnKey } from './types';
 // t('marketTable.columnKeys.borrowBalance')
 // t('marketTable.columnKeys.userBorrowBalance')
 // t('marketTable.columnKeys.userSupplyBalance')
-// t('marketTable.columnKeys.walletBalance')
+// t('marketTable.columnKeys.userWalletBalanceTokens')
 // t('marketTable.columnKeys.percentOfLimit')
 // t('marketTable.columnKeys.liquidity')
 
@@ -160,9 +160,9 @@ const useGenerateColumns = ({
             return <RiskLevel variant="MINIMAL" />;
           }
 
-          if (column === 'walletBalance') {
+          if (column === 'userWalletBalanceTokens') {
             return formatTokensToReadableValue({
-              value: asset.walletBalance,
+              value: asset.userWalletBalanceTokens,
               token: asset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
@@ -270,8 +270,12 @@ const useGenerateColumns = ({
                   // them together (see VEN-546)
                 }
 
-                if (column === 'walletBalance') {
-                  return compareBigNumbers(rowA.walletBalance, rowB.walletBalance, direction);
+                if (column === 'userWalletBalanceTokens') {
+                  return compareBigNumbers(
+                    rowA.userWalletBalanceTokens,
+                    rowB.userWalletBalanceTokens,
+                    direction,
+                  );
                 }
 
                 if (column === 'userSupplyBalance') {
