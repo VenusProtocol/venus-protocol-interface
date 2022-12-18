@@ -7,7 +7,6 @@ import FunctionKey from 'constants/functionKey';
 const useEnterMarkets = (
   options?: MutationObserverOptions<
     EnterMarketsOutput,
-    // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
     Error,
     Omit<EnterMarketsInput, 'comptrollerContract'>
   >,

@@ -5,7 +5,6 @@ import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 const useExitMarket = (
-  // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
   options?: MutationObserverOptions<
     ExitMarketOutput,
     Error,
@@ -14,7 +13,6 @@ const useExitMarket = (
 ) => {
   const comptrollerContract = useComptrollerContract();
 
-  // @TODO: invalidate related queries on success
   return useMutation(
     FunctionKey.EXIT_MARKET,
     (params: Omit<ExitMarketInput, 'comptrollerContract'>) =>

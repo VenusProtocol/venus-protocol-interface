@@ -154,7 +154,7 @@ describe('api/mutation/claimXvsReward', () => {
     expect(response).toBe(fakeTransactionReceipt);
     expect(claimVenusMock).toHaveBeenCalledTimes(1);
 
-    // @TODO [VEN-198] Currently claiming all address until the pendingVenus function is updated with pending rewards
+    // TODO [VEN-198] Currently claiming all address until the pendingVenus function is updated with pending rewards
     const expectedVTokenAddresses = Object.values(VBEP_TOKENS).map(vToken => vToken.address);
     expect(claimVenusMock).toHaveBeenCalledWith(address, expectedVTokenAddresses);
     expect(sendMock).toHaveBeenCalledTimes(1);

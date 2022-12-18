@@ -270,7 +270,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'riskRating') {
-                  // TODO: get pool risk levels from rowA and rowB and compare
+                  // TODO: get pool risk ratings from rowA and rowB and compare
                   // them together (see VEN-546)
                 }
 

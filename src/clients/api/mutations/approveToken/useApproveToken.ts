@@ -9,7 +9,6 @@ import setCachedTokenAllowanceToMax from '../../queries/getAllowance/setCachedTo
 
 const useApproveToken = (
   { token }: { token: Token },
-  // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,
     Error,

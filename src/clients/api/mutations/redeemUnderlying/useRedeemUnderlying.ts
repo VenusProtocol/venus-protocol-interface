@@ -11,7 +11,6 @@ import FunctionKey from 'constants/functionKey';
 
 const useRedeemUnderlying = (
   { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
-  // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemUnderlyingOutput,
     Error,
