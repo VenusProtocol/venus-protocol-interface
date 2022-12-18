@@ -6,10 +6,6 @@ export enum BscChainId {
   'TESTNET' = 97,
 }
 
-export interface User {
-  Token: string;
-}
-
 export interface Asset {
   vToken: VToken;
   tokenPriceDollars: BigNumber;
@@ -57,19 +53,6 @@ export interface VToken extends Omit<Token, 'isNative'> {
 export interface TokenBalance {
   token: Token;
   balanceWei: BigNumber;
-}
-
-export interface Setting {
-  marketType?: string; // 'supply'
-  withXVS?: boolean;
-  pendingInfo: {
-    type: string; // 'Borrow'
-    status: boolean;
-    symbol: string;
-    amount: string | number;
-  };
-  vaultVaiStaked?: BigNumber.Value | null;
-  vaiAPY?: number | string;
 }
 
 export type ProposalState =
@@ -148,15 +131,6 @@ export interface VotersDetails {
     for: BigNumber;
     total: BigNumber;
   };
-}
-
-export interface VoteTransaction {
-  support: boolean;
-  type: 'vote';
-  blockTimestamp: number;
-  amount: string;
-  to: string;
-  votes: string;
 }
 
 export interface Market {
