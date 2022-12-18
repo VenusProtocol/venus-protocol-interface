@@ -149,7 +149,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
       {type === 'supply' && isIsolatedAsset && (
         // TODO: fetch actual values (see VEN-546)
         <IsolatedAssetWarning
-          poolId="FAKE-POOL-ID"
+          poolComptrollerAddress="FAKE-POOL-COMPTROLLER-ADDRESS"
           asset={asset}
           type="supply"
           css={styles.isolatedAssetWarning}

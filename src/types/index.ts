@@ -369,13 +369,13 @@ export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
 export type PSTokenCombination = [PSToken, PSToken];
 
-export type PoolRiskLevel = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+export type PoolRiskRating = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
 
 export interface Pool {
-  id: string;
+  comptrollerAddress: string;
   name: string;
-  riskLevel: PoolRiskLevel;
-  assets: Asset[];
   description: string;
+  riskRating: PoolRiskRating;
   isIsolated: boolean;
+  assets: Asset[];
 }

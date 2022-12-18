@@ -17,7 +17,7 @@ interface PoolRow {
   poolTotalBorrowCents: number;
 }
 
-const riskLevelMap = {
+const riskRatingMap = {
   MINIMAL: 0,
   LOW: 1,
   MEDIUM: 2,
@@ -38,7 +38,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
   // TODO: add all options
   const mobileSelectOptions = [
     {
-      value: 'riskLevel',
+      value: 'riskRating',
       label: 'Risk level',
     },
   ];
@@ -83,14 +83,14 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
             : rowB.pool.name.localeCompare(rowA.pool.name),
       },
       {
-        key: 'riskLevel',
-        label: t('pools.poolTable.columns.riskLevel'),
+        key: 'riskRating',
+        label: t('pools.poolTable.columns.riskRating'),
         align: 'right',
-        renderCell: ({ pool }) => <RiskLevel variant={pool.riskLevel} />,
+        renderCell: ({ pool }) => <RiskLevel variant={pool.riskRating} />,
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
-            ? riskLevelMap[rowA.pool.riskLevel] - riskLevelMap[rowB.pool.riskLevel]
-            : riskLevelMap[rowB.pool.riskLevel] - riskLevelMap[rowA.pool.riskLevel],
+            ? riskRatingMap[rowA.pool.riskRating] - riskRatingMap[rowB.pool.riskRating]
+            : riskRatingMap[rowB.pool.riskRating] - riskRatingMap[rowA.pool.riskRating],
       },
       {
         key: 'totalSupply',
@@ -162,8 +162,10 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
           orderBy: columns[5],
           orderDirection: 'desc',
         }}
-        rowKeyExtractor={row => `pool-table-row-${row.pool.id}`}
-        getRowHref={row => routes.pool.path.replace(':poolId', row.pool.id)}
+        rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
+        getRowHref={row =>
+          routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+        }
         breakpoint="xxl"
         css={styles.cardContentGrid}
       />

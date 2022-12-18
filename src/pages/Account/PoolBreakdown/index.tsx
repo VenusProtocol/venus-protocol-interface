@@ -71,7 +71,7 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, includeXvs, 
           {pool.name}
         </Typography>
 
-        <RiskLevel variant={pool.riskLevel} />
+        <RiskLevel variant={pool.riskRating} />
       </div>
 
       <Paper css={styles.statsContainer} data-testid={TEST_IDS.stats}>

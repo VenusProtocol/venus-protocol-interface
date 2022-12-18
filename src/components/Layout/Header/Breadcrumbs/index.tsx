@@ -59,7 +59,10 @@ const Breadcrumbs: React.FC = () => {
       // Update href
       switch (subdirectory) {
         case Subdirectory.POOL:
-          href += Subdirectory.POOL.replace(':poolId', params.poolId);
+          href += Subdirectory.POOL.replace(
+            ':poolComptrollerAddress',
+            params.poolComptrollerAddress,
+          );
           break;
         case Subdirectory.MARKET:
           href += Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);

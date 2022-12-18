@@ -38,7 +38,7 @@ import { ColumnKey } from './types';
 // t('marketTable.columnKeys.borrowApy')
 // t('marketTable.columnKeys.labeledBorrowApy')yar
 // t('marketTable.columnKeys.pool')
-// t('marketTable.columnKeys.riskLevel')
+// t('marketTable.columnKeys.riskRating')
 // t('marketTable.columnKeys.collateral')
 // t('marketTable.columnKeys.supplyBalance')
 // t('marketTable.columnKeys.borrowBalance')
@@ -155,7 +155,7 @@ const useGenerateColumns = ({
             );
           }
 
-          if (column === 'riskLevel') {
+          if (column === 'riskRating') {
             // TODO: get from asset (see VEN-546)
             return <RiskLevel variant="MINIMAL" />;
           }
@@ -269,7 +269,7 @@ const useGenerateColumns = ({
                   // together (see VEN-546)
                 }
 
-                if (column === 'riskLevel') {
+                if (column === 'riskRating') {
                   // TODO: get pool risk levels from rowA and rowB and compare
                   // them together (see VEN-546)
                 }

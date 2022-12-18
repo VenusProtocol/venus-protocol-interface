@@ -2,14 +2,14 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { PoolRiskLevel } from 'types';
+import { PoolRiskRating } from 'types';
 
 import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 interface RiskLevelProps {
   className?: string;
-  variant: PoolRiskLevel;
+  variant: PoolRiskRating;
 }
 
 export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
@@ -18,26 +18,26 @@ export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
 
   const getText = () => {
     if (variant === 'MINIMAL') {
-      return t('riskLevel.minimal');
+      return t('riskRating.minimal');
     }
 
     if (variant === 'LOW') {
-      return t('riskLevel.low');
+      return t('riskRating.low');
     }
 
     if (variant === 'MEDIUM') {
-      return t('riskLevel.medium');
+      return t('riskRating.medium');
     }
 
     if (variant === 'HIGH') {
-      return t('riskLevel.high');
+      return t('riskRating.high');
     }
 
-    return t('riskLevel.veryHigh');
+    return t('riskRating.veryHigh');
   };
 
   return (
-    <Tooltip title={t('riskLevel.tooltip')} css={styles.container} {...containerProps}>
+    <Tooltip title={t('riskRating.tooltip')} css={styles.container} {...containerProps}>
       <div css={styles.content}>
         <div css={styles.getDot({ variant })} />
 

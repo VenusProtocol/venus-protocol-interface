@@ -18,7 +18,7 @@ describe('pages/Pool', () => {
         location="/"
         match={{
           params: {
-            poolId: fakePoolId,
+            poolComptrollerAddress: fakePoolId,
           },
           isExact: true,
           path: routes.pool.path,

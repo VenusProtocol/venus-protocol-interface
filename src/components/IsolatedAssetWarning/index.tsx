@@ -68,7 +68,7 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
 
 export interface IsolatedAssetWarningProps {
   asset: Asset;
-  poolId: Pool['id'];
+  poolComptrollerAddress: Pool['comptrollerAddress'];
   type: WarningType;
   className?: string;
 }

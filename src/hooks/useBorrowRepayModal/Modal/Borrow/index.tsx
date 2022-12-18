@@ -98,7 +98,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           {isIsolatedAsset && (
             // TODO: fetch actual values (see VEN-546)
             <IsolatedAssetWarning
-              poolId="FAKE-POOL-ID"
+              poolComptrollerAddress="FAKE-POOL-COMPTROLLER-ADDRESS"
               asset={asset}
               type="borrow"
               css={sharedStyles.isolatedAssetWarning}

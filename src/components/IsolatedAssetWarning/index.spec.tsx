@@ -16,13 +16,21 @@ describe('components/IsolatedAssetWarning', () => {
 
   it('renders without crashing', () => {
     renderComponent(
-      <IsolatedAssetWarning asset={fakePool.assets[0]} poolId={fakePool.id} type="supply" />,
+      <IsolatedAssetWarning
+        asset={fakePool.assets[0]}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        type="supply"
+      />,
     );
   });
 
   it('displays list of assets correctly', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <IsolatedAssetWarning asset={fakePool.assets[0]} poolId={fakePool.id} type="borrow" />,
+      <IsolatedAssetWarning
+        asset={fakePool.assets[0]}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        type="borrow"
+      />,
     );
 
     const showAssetsButton = getByText(
