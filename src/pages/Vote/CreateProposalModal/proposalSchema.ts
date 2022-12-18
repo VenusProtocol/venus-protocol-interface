@@ -30,7 +30,7 @@ const proposalSchema = yup.object({
             value => !!value && !!parseFunctionSignature(value),
           )
           .required(),
-        // @TODO add specific validation and errors for specific types
+        // TODO add specific validation and errors for specific types
         callData: yup
           .array()
           .of(
@@ -41,12 +41,12 @@ const proposalSchema = yup.object({
                 let valid = true;
                 try {
                   const dataTypes =
-                    // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                    // @ts-expect-error The yup type doesn't show this value exists but it does TODO extend type
                     parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
                       input => input.type,
                     ) || [];
                   encodeParameters(
-                    // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                    // @ts-expect-error The yup type doesn't show this value exists but it does TODO extend type
                     [dataTypes[this.options.index]],
                     [formatIfArray(value || '')],
                   );

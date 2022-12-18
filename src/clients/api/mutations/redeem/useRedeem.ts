@@ -9,7 +9,6 @@ import { VBep20 } from 'types/contracts';
 
 const useRedeem = (
   { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
-  // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemOutput,
     Error,

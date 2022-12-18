@@ -18,7 +18,7 @@ const claimXvsReward = async ({
   // Fetch list of tokens for which user have a positive balance, since these
   // are the tokens susceptible to have generated XVS rewards
   const vTokenAddresses = Object.values(VBEP_TOKENS).map(vToken => vToken.address);
-  // @TODO [VEN-198] - use venus lens to fetch rewards by addresses once it is upgraded with this functionality
+  // TODO [VEN-198] - use venus lens to fetch rewards by addresses once it is upgraded with this functionality
   // Send query to claim XVS reward
   const resp = await comptrollerContract.methods['claimVenus(address,address[])'](
     fromAccountAddress,

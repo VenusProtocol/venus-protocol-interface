@@ -21,7 +21,6 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
   const showMdDownCss = useShowMdDownCss();
 
   const getRowHref = (row: Asset) =>
-    // TODO: use token address (and pool address?) instead (see VEN-547)
     routes.market.path
       .replace(':poolComptrollerAddress', pool.comptrollerAddress)
       .replace(':vTokenAddress', row.vToken.address);

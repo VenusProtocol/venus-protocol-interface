@@ -281,7 +281,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     return <Spinner />;
   }
 
-  // @TODO: handle fetching errors
+  // TODO: handle fetching errors
 
   const buttonsDom = (
     <>

@@ -112,7 +112,8 @@ const PoolPage: React.FC<PoolPageProps> = ({
     id: poolComptrollerAddress,
   };
 
-  // TODO: redirect to pools page if pool ID is incorrect (see VEN-546)
+  // TODO: redirect to pools page if pool Comptroller address is incorrect (see
+  // VEN-546)
 
   return <PoolUi pool={pool} />;
 };

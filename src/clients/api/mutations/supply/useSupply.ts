@@ -10,7 +10,6 @@ export type SupplyParams = Omit<SupplyInput, 'tokenContract' | 'accountAddress' 
 
 const useSupply = (
   { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
-  // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<SupplyOutput, Error, Omit<SupplyParams, 'vToken'>>,
 ) => {
   const web3 = useWeb3();
