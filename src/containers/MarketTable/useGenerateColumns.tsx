@@ -290,7 +290,7 @@ const useGenerateColumns = ({
                   );
                 }
 
-                if (column === 'userBorrowBalance') {
+                if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
                   return compareBigNumbers(
                     rowA.userBorrowBalanceTokens,
                     rowB.userBorrowBalanceTokens,
@@ -310,21 +310,6 @@ const useGenerateColumns = ({
                   return compareBigNumbers(
                     rowA.borrowBalanceTokens,
                     rowB.borrowBalanceTokens,
-                    direction,
-                  );
-                }
-
-                if (column === 'userPercentOfLimit') {
-                  const rowABorrowBalanceDollars = rowA.userBorrowBalanceTokens.multipliedBy(
-                    rowA.tokenPriceDollars,
-                  );
-                  const rowBBorrowBalanceDollars = rowB.userBorrowBalanceTokens.multipliedBy(
-                    rowB.tokenPriceDollars,
-                  );
-
-                  return compareBigNumbers(
-                    rowABorrowBalanceDollars,
-                    rowBBorrowBalanceDollars,
                     direction,
                   );
                 }
