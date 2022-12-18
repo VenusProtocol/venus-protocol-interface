@@ -371,7 +371,7 @@
       "liquidity": "Liquidity",
       "userPercentOfLimit": "% of limit",
       "pool": "Pool",
-      "riskLevel": "Risk level",
+      "riskRating": "Risk level",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
@@ -402,7 +402,7 @@
         "assets": "Assets",
         "liquidity": "Liquidity",
         "pool": "Pool",
-        "riskLevel": "Risk level",
+        "riskRating": "Risk level",
         "totalBorrow": "Total borrow",
         "totalSupply": "Total supply"
       }
@@ -417,7 +417,7 @@
     "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
   },
-  "riskLevel": {
+  "riskRating": {
     "high": "High risk",
     "low": "Low risk",
     "medium": "Medium risk",

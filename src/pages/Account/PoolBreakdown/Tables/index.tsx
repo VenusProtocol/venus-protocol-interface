@@ -60,7 +60,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   // TODO: add all options
   const mobileSelectOptions = [
     {
-      value: 'riskLevel',
+      value: 'riskRating',
       label: 'Risk level',
     },
   ];

@@ -99,17 +99,17 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   );
 };
 
-export type PoolPageProps = RouteComponentProps<{ poolId: string }>;
+export type PoolPageProps = RouteComponentProps<{ poolComptrollerAddress: string }>;
 
 const PoolPage: React.FC<PoolPageProps> = ({
   match: {
-    params: { poolId },
+    params: { poolComptrollerAddress },
   },
 }) => {
   // TODO: fetch actual value (see VEN-546)
   const pool = {
     ...poolData[0],
-    id: poolId,
+    id: poolComptrollerAddress,
   };
 
   // TODO: redirect to pools page if pool ID is incorrect (see VEN-546)

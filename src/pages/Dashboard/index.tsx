@@ -40,7 +40,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   // TODO: add all options
   const mobileSelectOptions = [
     {
-      value: 'riskLevel',
+      value: 'riskRating',
       label: 'Risk level',
     },
   ];
@@ -119,7 +119,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           marketType="supply"
           breakpoint="lg"
-          columns={['asset', 'supplyApyLtv', 'pool', 'riskLevel', 'collateral']}
+          columns={['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']}
           initialOrder={{
             orderBy: 'supplyApyLtv',
             orderDirection: 'desc',
@@ -132,7 +132,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           marketType="borrow"
           breakpoint="lg"
-          columns={['asset', 'borrowApy', 'pool', 'riskLevel', 'liquidity']}
+          columns={['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']}
           initialOrder={{
             orderBy: 'borrowApy',
             orderDirection: 'desc',

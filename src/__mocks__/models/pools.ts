@@ -4,26 +4,26 @@ import { assetData } from '__mocks__/models/asset';
 
 export const poolData: Pool[] = [
   {
-    id: '1',
+    comptrollerAddress: 'fake-comptroller-address-1',
     assets: assetData,
     name: 'Venus',
-    riskLevel: 'MINIMAL',
+    riskRating: 'MINIMAL',
     description: 'Fake description 1',
     isIsolated: false,
   },
   {
-    id: '2',
+    comptrollerAddress: 'fake-comptroller-address-2',
     assets: assetData,
     name: 'Metaverse',
-    riskLevel: 'VERY_HIGH',
+    riskRating: 'VERY_HIGH',
     description: 'Fake description 2',
     isIsolated: true,
   },
   {
-    id: '3',
+    comptrollerAddress: 'fake-comptroller-address-3',
     assets: assetData,
     name: 'Gaming',
-    riskLevel: 'MEDIUM',
+    riskRating: 'MEDIUM',
     description: 'Fake description 3',
     isIsolated: true,
   },

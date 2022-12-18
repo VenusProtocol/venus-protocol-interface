@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import { Theme, useTheme } from '@mui/material';
-import { PoolRiskLevel } from 'types';
+import { PoolRiskRating } from 'types';
 
-const getColor = ({ variant, theme }: { variant: PoolRiskLevel; theme: Theme }) => {
+const getColor = ({ variant, theme }: { variant: PoolRiskRating; theme: Theme }) => {
   if (variant === 'MINIMAL' || variant === 'LOW') {
     return theme.palette.interactive.success;
   }
@@ -27,7 +27,7 @@ export const useStyles = () => {
       justify-content: center;
       cursor: help;
     `,
-    getDot: ({ variant }: { variant: PoolRiskLevel }) => css`
+    getDot: ({ variant }: { variant: PoolRiskRating }) => css`
       flex-shrink: 0;
       width: ${theme.spacing(1)};
       height: ${theme.spacing(1)};
@@ -35,7 +35,7 @@ export const useStyles = () => {
       background-color: ${getColor({ variant, theme })};
       margin-right: ${theme.spacing(1)};
     `,
-    getText: ({ variant }: { variant: PoolRiskLevel }) => css`
+    getText: ({ variant }: { variant: PoolRiskRating }) => css`
       color: ${getColor({ variant, theme })};
       text-decoration: underline dotted ${getColor({ variant, theme })} 1px;
     `,
