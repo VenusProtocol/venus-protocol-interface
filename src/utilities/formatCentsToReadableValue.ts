@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { shortenTokensWithSuffix } from 'utilities';
+import { shortenValueWithSuffix } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
@@ -14,14 +14,18 @@ const formatCentsToReadableValue = ({
     return PLACEHOLDER_KEY;
   }
 
-  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100).dp(2);
 
   if (!shortenLargeValue) {
-    return `$${wrappedValueDollars.toFormat(2)}`;
+    return `$${wrappedValueDollars.toFormat()}`;
   }
 
   // Shorten value
-  const shortenedValue = shortenTokensWithSuffix(wrappedValueDollars);
+  const shortenedValue = shortenValueWithSuffix({
+    value: wrappedValueDollars,
+    outputsDollars: true,
+  });
+
   return `$${shortenedValue}`;
 };
 

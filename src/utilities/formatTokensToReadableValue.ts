@@ -3,7 +3,7 @@ import { Token } from 'types';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
+import { shortenValueWithSuffix } from './shortenValueWithSuffix';
 
 export const formatTokensToReadableValue = ({
   value,
@@ -35,7 +35,9 @@ export const formatTokensToReadableValue = ({
   }
 
   if (shortenLargeValue) {
-    return `${shortenTokensWithSuffix(value)}${symbolPlacement}`;
+    return `${shortenValueWithSuffix({
+      value,
+    })}${symbolPlacement}`;
   }
 
   return `${value.dp(decimalPlaces).toFormat()}${symbolPlacement}`;
