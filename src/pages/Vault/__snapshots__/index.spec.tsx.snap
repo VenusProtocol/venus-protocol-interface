@@ -12,7 +12,7 @@ exports[`pages/Vault renders vaults correctly 5`] = `"12665.06%"`;
 
 exports[`pages/Vault renders vaults correctly 6`] = `"144"`;
 
-exports[`pages/Vault renders vaults correctly 7`] = `"415.00"`;
+exports[`pages/Vault renders vaults correctly 7`] = `"415"`;
 
 exports[`pages/Vault renders vaults correctly 8`] = `"12.92%"`;
 

@@ -33,6 +33,14 @@ export const menuItems: MenuItem[] = [
     icon: 'vault',
   },
   {
+    href: routes.swap.path,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.swap')
+    i18nKey: 'layout.menuItems.swap',
+    icon: 'convert',
+    isNew: true,
+  },
+  {
     href: routes.history.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
@@ -60,14 +68,6 @@ export const menuItems: MenuItem[] = [
     // t('layout.menuItems.convertVrtTitle')
     i18nKey: 'layout.menuItems.convertVrt',
     icon: 'convert',
-  },
-  {
-    href: routes.swap.path,
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.swap')
-    i18nKey: 'layout.menuItems.swap',
-    icon: 'convert',
-    isNew: true,
   },
   {
     href: routes.vai.path,
