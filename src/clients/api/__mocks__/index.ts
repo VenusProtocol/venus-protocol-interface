@@ -24,11 +24,12 @@ export const useGetAssetsInAccount = () =>
 
 export const getHypotheticalAccountLiquidity = jest.fn();
 
-export const getMarkets = jest.fn();
-export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets);
+export const getMainMarkets = jest.fn();
+export const useGetMainMarkets = () => useQuery(FunctionKey.GET_MAIN_MARKETS, getMainMarkets);
 
-export const getMarketHistory = jest.fn();
-export const useGetMarketHistory = () => useQuery(FunctionKey.GET_MARKET_HISTORY, getMarketHistory);
+export const getMainMarketHistory = jest.fn();
+export const useGetMainMarketHistory = () =>
+  useQuery(FunctionKey.GET_MARKET_HISTORY, getMainMarketHistory);
 
 export const getVTokenBalancesAll = jest.fn();
 export const useGetVTokenBalancesAll = jest.fn(() =>
@@ -47,10 +48,6 @@ export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvs
 export const getVTokenBalanceOf = jest.fn();
 export const useGetVTokenBalanceOf = () =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf);
-
-export const getVTokenBorrowBalance = jest.fn();
-export const useGetVTokenBorrowBalance = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
 
 export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
@@ -83,9 +80,6 @@ export const getXvsWithdrawableAmount = jest.fn();
 export const useGetXvsWithdrawableAmount = () =>
   useQuery(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
 
-export const getVTokenCash = jest.fn();
-export const useGetVTokenCash = () => useQuery(FunctionKey.GET_V_TOKEN_CASH, getVTokenCash);
-
 export const getVTokenInterestRateModel = jest.fn();
 export const useGetVTokenInterestRateModel = () =>
   useQuery(FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, getVTokenInterestRateModel);
@@ -113,14 +107,14 @@ export const useGetXvsVaultPoolCount = () =>
 
 export const useGetTreasuryTotals = jest.fn();
 
-export const useGetUserMarketInfo = jest.fn(() => ({
+export const useGetMainAssets = jest.fn(() => ({
   isLoading: false,
   data: {
     assets: assetData,
   },
 }));
 
-export const useGetUserAsset = jest.fn(() => ({
+export const useGetAsset = jest.fn(() => ({
   isLoading: false,
   data: {
     assets: assetData[0],
@@ -157,9 +151,6 @@ export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProp
 
 export const getProposal = jest.fn(() => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
-
-export const getDailyXvs = jest.fn();
-export const useGetDailyXvs = () => useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS, getDailyXvs);
 
 export const getVoters = jest.fn(() => voters);
 export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));

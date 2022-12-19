@@ -4,14 +4,14 @@ import React from 'react';
 import { VToken } from 'types';
 import { formatPercentage } from 'utilities';
 
-import { useGetMarketHistory } from 'clients/api';
+import { useGetMainMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   const {
     data: marketSnapshotsData = {
       marketSnapshots: [],
     },
-  } = useGetMarketHistory({
+  } = useGetMainMarketHistory({
     vToken,
   });
 

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import Dashboard from '.';
@@ -11,7 +11,7 @@ jest.mock('clients/api');
 
 describe('pages/Dashboard', () => {
   beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

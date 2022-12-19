@@ -20,7 +20,7 @@ import {
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { useBorrow, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
+import { useBorrow, useGetAsset, useGetMainAssets } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -175,11 +175,11 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token: vToken.underlyingToken });
+  } = useGetAsset({ vToken });
 
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
-  } = useGetUserMarketInfo({
+  } = useGetMainAssets({
     accountAddress: account?.address,
   });
 

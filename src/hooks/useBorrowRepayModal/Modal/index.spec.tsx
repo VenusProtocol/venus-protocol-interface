@@ -5,7 +5,7 @@ import { VToken } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -18,7 +18,7 @@ jest.mock('clients/api');
 
 describe('hooks/useBorrowRepayModal', () => {
   beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

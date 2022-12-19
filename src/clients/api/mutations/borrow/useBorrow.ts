@@ -24,21 +24,13 @@ const useBorrow = ({ vToken }: { vToken: VToken }, options?: Options) => {
 
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries([
-          FunctionKey.GET_V_TOKEN_BALANCE,
+          FunctionKey.GET_BALANCE_OF,
           {
             accountAddress: fromAccountAddress,
             vTokenAddress: vToken.address,
           },
         ]);
-        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
-        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
-        queryClient.invalidateQueries([
-          FunctionKey.GET_V_TOKEN_BORROW_BALANCE,
-          {
-            accountAddress: fromAccountAddress,
-            vTokenAddress: vToken.address,
-          },
-        ]);
+        queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

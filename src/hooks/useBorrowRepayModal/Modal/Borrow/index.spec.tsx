@@ -7,7 +7,7 @@ import { Asset } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { borrow, getAllowance, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
+import { borrow, getAllowance, useGetAsset, useGetMainAssets } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -32,7 +32,7 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Borrow', () => {
   beforeEach(() => {
-    (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+    (useGetAsset as jest.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: fakeAsset,
@@ -44,7 +44,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       allowanceWei: MAX_UINT256,
     }));
 
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeAsset],
         userTotalBorrowLimitCents: fakeUserTotalBorrowLimitCents,
@@ -64,7 +64,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidityCents: 100000000,
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -98,7 +98,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidityCents: 200,
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -124,7 +124,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('displays warning message and disables form if user has not supplied and collateralize any tokens yet', async () => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [],
         userTotalBorrowLimitCents: new BigNumber(0),
@@ -138,7 +138,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidityCents: 200,
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -181,7 +181,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       liquidityCents: 200,
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,

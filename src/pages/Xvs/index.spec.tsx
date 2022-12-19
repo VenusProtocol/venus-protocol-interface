@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import Xvs from '.';
@@ -10,7 +10,7 @@ jest.mock('clients/api');
 
 describe('pages/Xvs', () => {
   beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [],
         userTotalBorrowLimitCents: new BigNumber('111'),

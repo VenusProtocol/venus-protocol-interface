@@ -1,12 +1,11 @@
 import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 
+import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
-import { markets } from '__mocks__/models/markets';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { getMarketHistory, getMarkets, getVTokenApySimulations } from 'clients/api';
+import { getMainMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
 import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
@@ -18,13 +17,17 @@ jest.mock('clients/api');
 
 describe('pages/Market', () => {
   beforeEach(() => {
-    (getMarketHistory as jest.Mock).mockImplementation(() => ({
+    (useGetAsset as jest.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        asset: assetData[0],
+      },
+    }));
+
+    (getMainMarketHistory as jest.Mock).mockImplementation(() => ({
       marketSnapshots,
     }));
-    (getMarkets as jest.Mock).mockImplementation(() => ({
-      markets,
-      dailyVenusWei: new BigNumber(0),
-    }));
+
     (getVTokenApySimulations as jest.Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));

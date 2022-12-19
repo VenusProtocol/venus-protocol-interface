@@ -21,17 +21,8 @@ const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        const { accountAddress } = onSuccessParams[1];
-
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
-        queryClient.invalidateQueries([
-          FunctionKey.GET_V_TOKEN_BORROW_BALANCE,
-          {
-            accountAddress,
-            vTokenAddress: vToken.address,
-          },
-        ]);
+        queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

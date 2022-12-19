@@ -1,7 +1,7 @@
 import noop from 'noop-ts';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
@@ -25,7 +25,7 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
   const accountAddress = account?.address || '';
   const {
     data: { assets },
-  } = useGetUserMarketInfo({
+  } = useGetMainAssets({
     accountAddress,
   });
 

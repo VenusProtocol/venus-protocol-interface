@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -17,7 +17,7 @@ jest.mock('clients/api');
 
 describe('pages/ConvertVRT/Withdraw', () => {
   beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimit: new BigNumber('111'),

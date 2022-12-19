@@ -48,7 +48,7 @@ const useSwapTokens = (options?: Options) => {
           },
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
+        queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

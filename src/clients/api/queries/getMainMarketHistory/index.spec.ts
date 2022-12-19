@@ -4,7 +4,7 @@ import { restService } from 'utilities';
 
 import { VBEP_TOKENS } from 'constants/tokens';
 
-import getMarketHistory from '.';
+import getMainMarketHistory from '.';
 
 jest.mock('utilities/restService');
 
@@ -25,7 +25,7 @@ const marketSnapshot: MarketSnapshot = {
   priceUSD: '1.00028324',
 };
 
-describe('api/queries/getMarketHistory', () => {
+describe('api/queries/getMainMarketHistory', () => {
   test('throws an error when request fails', async () => {
     const fakeErrorMessage = 'Fake error message';
 
@@ -36,11 +36,11 @@ describe('api/queries/getMarketHistory', () => {
     }));
 
     try {
-      await getMarketHistory({
+      await getMainMarketHistory({
         vToken: VBEP_TOKENS.aave,
       });
 
-      throw new Error('getMarketHistory should have thrown an error but did not');
+      throw new Error('getMainMarketHistory should have thrown an error but did not');
     } catch (error) {
       expect(error).toBeInstanceOf(VError);
       if (error instanceof VError) {
@@ -56,7 +56,7 @@ describe('api/queries/getMarketHistory', () => {
       data: { data: { result: [marketSnapshot] } },
     }));
 
-    const response = await getMarketHistory({
+    const response = await getMainMarketHistory({
       vToken: VBEP_TOKENS.aave,
     });
 
@@ -71,7 +71,7 @@ describe('api/queries/getMarketHistory', () => {
       data: { data: { result: [marketSnapshot] } },
     }));
 
-    await getMarketHistory({
+    await getMainMarketHistory({
       vToken: VBEP_TOKENS.aave,
       type: 'fake-type',
       limit: 6,
