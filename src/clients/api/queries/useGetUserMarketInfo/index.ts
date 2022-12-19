@@ -190,13 +190,13 @@ const useGetUserMarketInfo = ({
           borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
           supplierCount: market?.supplierCount || 0,
           borrowerCount: market?.borrowerCount || 0,
-          supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0),
+          supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0).div(exchangeRateVTokens),
           borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
-          borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0)
+          supplyBalanceCents: new BigNumber(market?.totalSupplyUsd || 0)
             .times(100)
             .dp(0)
             .toNumber(),
-          supplyBalanceCents: new BigNumber(market?.totalSupplyUsd || 0)
+          borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0)
             .times(100)
             .dp(0)
             .toNumber(),
