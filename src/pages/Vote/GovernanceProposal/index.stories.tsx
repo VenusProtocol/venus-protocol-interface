@@ -7,7 +7,7 @@ import GovernanceProposal from '.';
 
 export default {
   title: 'Components/GovernanceProposal',
-  decorators: [withThemeProvider, withCenterStory({ width: 750 })],
+  decorators: [withThemeProvider, withCenterStory({ width: 750 }), withRouter],
   parameters: {
     backgrounds: {
       default: 'Primary',
