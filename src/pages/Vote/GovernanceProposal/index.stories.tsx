@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';
 
 import GovernanceProposal from '.';
 

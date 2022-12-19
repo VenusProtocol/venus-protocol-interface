@@ -15,6 +15,7 @@ import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
+import { GreenPulse } from 'components/LottieAnimation';
 import Path from 'constants/path';
 import { AuthContext } from 'context/AuthContext';
 
@@ -173,6 +174,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         endDate && proposalState === 'Active' ? (
           <div css={styles.timestamp}>
             <Typography variant="small2">
+              <div css={styles.greenPulseContainer}>
+                <GreenPulse css={styles.greenPulse} />
+              </div>
               <Trans
                 i18nKey="voteProposalUi.activeUntilDate"
                 components={{
