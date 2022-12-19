@@ -23,6 +23,8 @@ export interface Data {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
+  // TODO: remove next props (only relevant to XVS page, so should be calculated
+  // from there only using assets)
   totalXvsDistributedWei: BigNumber;
   dailyVenusWei: BigNumber;
 }
@@ -146,6 +148,13 @@ const useGetUserMarketInfo = ({
             })
           : new BigNumber(0);
 
+        const cashTokens = market?.cash
+          ? convertWeiToTokens({
+              valueWei: new BigNumber(market.cash),
+              token: vToken.underlyingToken,
+            })
+          : new BigNumber(0);
+
         const exchangeRateVTokens = market?.exchangeRate
           ? new BigNumber(1).div(
               new BigNumber(market.exchangeRate).div(
@@ -156,23 +165,20 @@ const useGetUserMarketInfo = ({
 
         const asset = {
           vToken,
+          tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           supplyApyPercentage: new BigNumber(market?.supplyApy || 0),
           borrowApyPercentage: new BigNumber(market?.borrowApy || 0),
-          xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
-          xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
-          xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
-          xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
           collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18).toNumber(),
-          reserveTokens,
           reserveFactor: new BigNumber(market?.reserveFactor || 0).div(1e18).toNumber(),
+          reserveTokens,
+          cashTokens,
           exchangeRateVTokens,
+          liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
+          borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
           supplierCount: market?.supplierCount || 0,
           borrowerCount: market?.borrowerCount || 0,
-          tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
-          liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
-          userSupplyBalanceTokens,
-          userBorrowBalanceTokens,
-          borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
+          supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0),
+          borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
           borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0)
             .times(100)
             .dp(0)
@@ -181,11 +187,15 @@ const useGetUserMarketInfo = ({
             .times(100)
             .dp(0)
             .toNumber(),
-          supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0),
-          borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
-          userWalletBalanceTokens,
           isCollateralOfUser,
+          userWalletBalanceTokens,
           userPercentOfLimit,
+          userSupplyBalanceTokens,
+          userBorrowBalanceTokens,
+          xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
+          xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
+          xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
+          xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
           xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
             .plus(new BigNumber(market?.borrowerDailyVenus || 0))
             .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),

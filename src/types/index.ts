@@ -12,8 +12,10 @@ export interface Asset {
   reserveFactor: number;
   collateralFactor: number;
   borrowCapTokens: BigNumber;
+  // TODO: add supplyCapTokens (see VEN-819)
   liquidityCents: number;
   reserveTokens: BigNumber;
+  cashTokens: BigNumber;
   exchangeRateVTokens: BigNumber;
   supplierCount: number;
   borrowerCount: number;
