@@ -160,14 +160,14 @@ const useGenerateColumns = ({
             return formatTokensToReadableValue({
               value: asset.walletBalance,
               token: asset.token,
-              minimizeDecimals: true,
+              shortenLargeValue: true,
             });
           }
           if (column === 'supplyBalance') {
             return formatTokensToReadableValue({
               value: asset.supplyBalance,
               token: asset.token,
-              minimizeDecimals: true,
+              shortenLargeValue: true,
             });
           }
 
@@ -175,7 +175,7 @@ const useGenerateColumns = ({
             return formatTokensToReadableValue({
               value: asset.borrowBalance,
               token: asset.token,
-              minimizeDecimals: true,
+              shortenLargeValue: true,
             });
           }
 
