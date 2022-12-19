@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/useGetUserMarketInfo calculates totals correctly 1`] = `
+exports[`api/queries/useGetMainAssets calculates totals correctly 1`] = `
 Object {
   "assets": Array [
     Object {

@@ -12,7 +12,7 @@ import {
   getContractAddress,
 } from 'utilities';
 
-import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import { useGetBalanceOf, useGetMainAssets, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
@@ -108,7 +108,7 @@ const XvsTable: React.FC = () => {
   // TODO: handle loading state (see VEN-591)
   const {
     data: { assets },
-  } = useGetUserMarketInfo({
+  } = useGetMainAssets({
     accountAddress: account?.address,
   });
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { Asset } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -24,7 +24,7 @@ describe('context/DisableLunaUstWarning', () => {
         },
       ];
 
-      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      (useGetMainAssets as jest.Mock).mockImplementation(() => ({
         data: {
           assets: customAssets,
           userTotalBorrowLimitCents: new BigNumber('111'),

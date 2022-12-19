@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import { ApyChartProps } from 'components';
 import React from 'react';
 
+import { assetData } from '__mocks__/models/asset';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { VBEP_TOKENS } from 'constants/tokens';
 import { withRouter } from 'stories/decorators';
 
 import { MarketUi } from '.';
@@ -55,27 +55,7 @@ export default {
 
 export const Default = () => (
   <MarketUi
-    vToken={VBEP_TOKENS.bnb}
-    totalBorrowBalanceCents={100000000}
-    borrowApyPercentage={new BigNumber(2.24)}
-    borrowDistributionApyPercentage={1.1}
-    totalSupplyBalanceCents={100000000000}
-    supplyApyPercentage={new BigNumber(4.56)}
-    supplyDistributionApyPercentage={0.45}
-    currentUtilizationRate={46}
-    tokenPriceDollars={new BigNumber('1.14')}
-    liquidityCents={new BigNumber(10000000000)}
-    supplierCount={1234}
-    borrowerCount={76}
-    borrowCapTokens={new BigNumber(812963286)}
-    dailyBorrowingInterestsCents={123212}
-    dailySupplyingInterestsCents={123212}
-    dailyDistributionXvs={new BigNumber(812963286)}
-    reserveTokens={new BigNumber(100000)}
-    reserveFactor={20}
-    collateralFactor={70}
-    mintedTokens={new BigNumber(10000000)}
-    exchangeRateVTokens={new BigNumber(1.345)}
+    asset={assetData[0]}
     supplyChartData={fakeApyChartData}
     borrowChartData={fakeApyChartData}
     interestRateChartData={vTokenApySimulations}

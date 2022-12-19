@@ -7,7 +7,7 @@ import { Asset } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { getAllowance, repay, useGetUserAsset, useGetUserMarketInfo } from 'clients/api';
+import { getAllowance, repay, useGetAsset, useGetMainAssets } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -28,7 +28,7 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Repay', () => {
   beforeEach(() => {
-    (useGetUserAsset as jest.Mock).mockImplementation(() => ({
+    (useGetAsset as jest.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: fakeAsset,
@@ -40,7 +40,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       allowanceWei: MAX_UINT256,
     }));
 
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [],
         userTotalBorrowLimitCents: new BigNumber(100000),
@@ -94,7 +94,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       userWalletBalanceTokens: new BigNumber(1),
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -169,7 +169,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       userWalletBalanceTokens: new BigNumber(10),
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -212,7 +212,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       userWalletBalanceTokens: new BigNumber(100),
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,
@@ -255,7 +255,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       userWalletBalanceTokens: new BigNumber(100),
     };
 
-    (useGetUserAsset as jest.Mock).mockImplementationOnce(() => ({
+    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
       isLoading: false,
       data: {
         asset: customFakeAsset,

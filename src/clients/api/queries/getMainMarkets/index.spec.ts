@@ -1,6 +1,6 @@
 import { restService } from 'utilities';
 
-import getMarkets from '.';
+import getMainMarkets from '.';
 
 jest.mock('utilities/restService');
 
@@ -45,7 +45,7 @@ const supportedMarket = {
   venusSupplyIndex: '18116117080571365091301617497156799904494329',
 };
 
-describe('api/queries/getMarkets', () => {
+describe('api/queries/getMainMarkets', () => {
   test('throws an error when request fails', async () => {
     const fakeErrorMessage = 'Fake error message';
 
@@ -56,9 +56,9 @@ describe('api/queries/getMarkets', () => {
     }));
 
     try {
-      await getMarkets();
+      await getMainMarkets();
 
-      throw new Error('getMarkets should have thrown an error but did not');
+      throw new Error('getMainMarkets should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -70,7 +70,7 @@ describe('api/queries/getMarkets', () => {
       data: { data: { markets: [supportedMarket] } },
     }));
 
-    const { markets } = await getMarkets();
+    const { markets } = await getMainMarkets();
 
     expect(markets).toHaveLength(1);
   });
@@ -82,7 +82,7 @@ describe('api/queries/getMarkets', () => {
       data: { data: { markets: [unsupportedMarket] } },
     }));
 
-    const { markets } = await getMarkets();
+    const { markets } = await getMainMarkets();
 
     expect(markets).toHaveLength(0);
   });

@@ -10,7 +10,7 @@ import fakeAddress from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
 import {
   getBalanceOf,
-  getMarkets,
+  getMainMarkets,
   getVaiVaultPendingXvs,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
@@ -63,7 +63,7 @@ describe('api/queries/useGetVaults', () => {
     (getBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: new BigNumber('4000000000'),
     }));
-    (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
 
     (getVaiVaultUserInfo as jest.Mock).mockImplementation(() =>
       formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),

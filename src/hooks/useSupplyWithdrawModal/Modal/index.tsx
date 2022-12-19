@@ -17,9 +17,8 @@ import { Asset, VToken } from 'types';
 import { convertTokensToWei, formatToReadablePercentage, isTokenEnabled } from 'utilities';
 
 import {
-  useGetUserAsset,
-  useGetUserMarketInfo,
-  useGetVTokenBalanceOf,
+  useGetAsset,
+  useGetMainAssets,
   useRedeem,
   useRedeemUnderlying,
   useSupply,
@@ -244,21 +243,16 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token: vToken.underlyingToken });
+  } = useGetAsset({ vToken });
 
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
-  } = useGetUserMarketInfo({
+  } = useGetMainAssets({
     accountAddress,
   });
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-  const { data: vTokenBalanceData } = useGetVTokenBalanceOf(
-    { accountAddress, vToken },
-    { enabled: !!accountAddress },
-  );
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     vToken,
@@ -308,8 +302,12 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs
     const amountEqualsSupplyBalance = amount.eq(asset.userSupplyBalanceTokens);
     let transactionHash;
 
-    if (amountEqualsSupplyBalance && vTokenBalanceData?.balanceWei) {
-      const res = await redeem({ amountWei: new BigNumber(vTokenBalanceData.balanceWei) });
+    if (amountEqualsSupplyBalance && asset.userSupplyBalanceTokens) {
+      const userSupplyBalanceWei = convertTokensToWei({
+        value: asset.userSupplyBalanceTokens,
+        token: asset.vToken.underlyingToken,
+      });
+      const res = await redeem({ amountWei: userSupplyBalanceWei });
 
       ({ transactionHash } = res);
       // Successful transaction modal will display

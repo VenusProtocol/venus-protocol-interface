@@ -16,7 +16,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities';
 
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetMainAssets } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
@@ -41,7 +41,7 @@ const AccountData: React.FC<AccountDataProps> = ({
   // TODO: handle loading state (see VEN-591)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
-  } = useGetUserMarketInfo({
+  } = useGetMainAssets({
     accountAddress,
   });
 

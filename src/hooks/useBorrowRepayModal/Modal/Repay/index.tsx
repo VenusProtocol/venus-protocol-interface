@@ -21,7 +21,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { useGetUserAsset, useRepay } from 'clients/api';
+import { useGetAsset, useRepay } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -218,7 +218,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
 
   const {
     data: { asset },
-  } = useGetUserAsset({ token: vToken.underlyingToken });
+  } = useGetAsset({ vToken });
 
   const limitTokens = React.useMemo(
     () =>

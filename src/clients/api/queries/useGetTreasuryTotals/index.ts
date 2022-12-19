@@ -1,12 +1,16 @@
 import BigNumber from 'bignumber.js';
 import config from 'config';
-import { useMemo } from 'react';
-import { Market } from 'types';
+import { useContext, useMemo } from 'react';
 import { indexBy } from 'utilities';
 
-import { IGetVTokenBalancesAllOutput, useGetMarkets, useGetVTokenBalancesAll } from 'clients/api';
+import {
+  IGetVTokenBalancesAllOutput,
+  useGetMainAssets,
+  useGetVTokenBalancesAll,
+} from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { VBEP_TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
@@ -37,16 +41,13 @@ const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
 );
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
+  const { account } = useContext(AuthContext);
+
   const {
-    data: getMarketsData = {
-      markets: [] as Market[],
-    },
-    isLoading: isGetMarketsLoading,
-  } = useGetMarkets({
-    placeholderData: {
-      markets: [],
-      dailyVenusWei: new BigNumber(0),
-    },
+    data: { assets = [] },
+    isLoading: isGetMainMarketsLoading,
+  } = useGetMainAssets({
+    accountAddress: account?.address,
   });
 
   const {
@@ -72,35 +73,36 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     [JSON.stringify(vTokenBalancesTreasury)],
   );
 
-  const { markets } = getMarketsData;
   const {
     treasuryTotalSupplyBalanceCents,
     treasuryTotalBorrowBalanceCents,
     treasuryTotalBalanceCents,
     treasuryTotalAvailableLiquidityBalanceCents,
   } = useMemo(() => {
-    const data = markets.reduce(
-      (acc, curr) => {
+    const data = assets.reduce(
+      (acc, asset) => {
         let treasuryBalanceTokens = new BigNumber(0);
-        if (treasuryBalances && treasuryBalances[curr.address]) {
-          const mantissa = treasuryBalances[curr.address].tokenBalance;
-          treasuryBalanceTokens = new BigNumber(mantissa).shiftedBy(-curr.underlyingDecimal);
+        if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
+          const mantissa = treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance;
+          treasuryBalanceTokens = new BigNumber(mantissa).shiftedBy(
+            -asset.vToken.underlyingToken.decimals,
+          );
         }
 
         acc.treasuryTotalBalanceCents = acc.treasuryTotalBalanceCents.plus(
-          treasuryBalanceTokens.multipliedBy(curr.tokenPrice).times(100),
+          treasuryBalanceTokens.multipliedBy(asset.tokenPriceDollars).times(100),
         );
 
         acc.treasuryTotalSupplyBalanceCents = acc.treasuryTotalSupplyBalanceCents.plus(
-          curr.supplyBalanceCents,
+          asset.supplyBalanceCents,
         );
 
         acc.treasuryTotalBorrowBalanceCents = acc.treasuryTotalBorrowBalanceCents.plus(
-          curr.borrowBalanceCents,
+          asset.borrowBalanceCents,
         );
 
         acc.treasuryTotalAvailableLiquidityBalanceCents =
-          acc.treasuryTotalAvailableLiquidityBalanceCents.plus(curr.liquidity.times(100));
+          acc.treasuryTotalAvailableLiquidityBalanceCents.plus(asset.liquidityCents);
 
         return acc;
       },
@@ -111,8 +113,9 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
         treasuryTotalAvailableLiquidityBalanceCents: new BigNumber(0),
       },
     );
+
     return data;
-  }, [treasuryBalances, markets]);
+  }, [treasuryBalances, assets]);
 
   return {
     data: {
@@ -121,7 +124,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
       treasuryTotalBalanceCents,
       treasuryTotalAvailableLiquidityBalanceCents,
     },
-    isLoading: isGetVTokenBalancesTreasuryLoading || isGetMarketsLoading,
+    isLoading: isGetVTokenBalancesTreasuryLoading || isGetMainMarketsLoading,
   };
 };
 

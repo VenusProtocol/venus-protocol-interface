@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { getAllowance, useGetUserMarketInfo } from 'clients/api';
+import { getAllowance, useGetMainAssets } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -26,7 +26,7 @@ describe('pages/ConvertVRT/Convert', () => {
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimit: new BigNumber('111'),

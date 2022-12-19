@@ -5,14 +5,14 @@ import { convertWeiToTokens, getContractAddress } from 'utilities';
 
 import {
   useGetBalanceOf,
-  useGetMarkets,
+  useGetMainAssets,
   useGetVaiVaultPendingXvs,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
@@ -55,13 +55,19 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateWeiLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
+  const {
+    data: { assets },
+    isLoading: isGetMainMarketsLoading,
+  } = useGetMainAssets({
+    accountAddress,
+  });
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (getMarketsData?.markets || []).find(
-        market => market.address.toLowerCase() === VBEP_TOKENS.xvs.address.toLowerCase(),
-      )?.tokenPrice,
-    [JSON.stringify(getMarketsData?.markets)],
+      (assets || []).find(
+        asset =>
+          asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+      )?.tokenPriceDollars,
+    [assets],
   );
 
   const data: Vault | undefined = useMemo(() => {
@@ -104,7 +110,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||
     isGetVaiVaultDailyRateWeiLoading ||
-    isGetMarketsLoading ||
+    isGetMainMarketsLoading ||
     isGetVaiVaultUserInfoLoading ||
     isGetUserPendingVaiRewardWeiLoading;
 

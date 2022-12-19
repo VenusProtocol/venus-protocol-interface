@@ -12,7 +12,7 @@ import {
 import {
   IGetVTokenBalancesAllOutput,
   useGetAssetsInAccount,
-  useGetMarkets,
+  useGetMainMarkets,
   useGetMintedVai,
   useGetVTokenBalancesAll,
 } from 'clients/api';
@@ -25,12 +25,12 @@ export interface Data {
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
   // TODO: remove next props (only relevant to XVS page, so should be calculated
-  // from there only using assets)
+  // from there using assets)
   totalXvsDistributedWei: BigNumber;
   dailyVenusWei: BigNumber;
 }
 
-export interface UseGetUserMarketInfoOutput {
+export interface UseGetMainAssetsOutput {
   isLoading: boolean;
   data: Data;
 }
@@ -40,12 +40,11 @@ const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
   [] as string[],
 );
 
-// TODO: refactor to merge with useGetMarkets
-const useGetUserMarketInfo = ({
+const useGetMainAssets = ({
   accountAddress,
 }: {
   accountAddress?: string;
-}): UseGetUserMarketInfoOutput => {
+}): UseGetMainAssetsOutput => {
   const { data: userMintedVaiData, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: accountAddress || '',
@@ -60,8 +59,8 @@ const useGetUserMarketInfo = ({
       markets: [],
       dailyVenusWei: new BigNumber(0),
     },
-    isLoading: isGetMarketsLoading,
-  } = useGetMarkets({
+    isLoading: isGetMainMarketsLoading,
+  } = useGetMainMarkets({
     placeholderData: {
       markets: [],
       dailyVenusWei: new BigNumber(0),
@@ -101,7 +100,7 @@ const useGetUserMarketInfo = ({
   );
 
   const isLoading =
-    isGetMarketsLoading ||
+    isGetMainMarketsLoading ||
     isGetAssetsInAccountLoading ||
     isGetVTokenBalancesAccountLoading ||
     isGetUserMintedVaiLoading;
@@ -124,7 +123,7 @@ const useGetUserMarketInfo = ({
 
         const vTokenAddress = vToken.address.toLowerCase();
         const isCollateralOfUser = (assetsInAccount.tokenAddresses || [])
-          .map((address: string) => address.toLowerCase())
+          .map(address => address.toLowerCase())
           .includes(vTokenAddress);
 
         let userWalletBalanceTokens = new BigNumber(0);
@@ -307,4 +306,4 @@ const useGetUserMarketInfo = ({
   };
 };
 
-export default useGetUserMarketInfo;
+export default useGetMainAssets;

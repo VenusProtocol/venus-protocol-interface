@@ -138,9 +138,9 @@ export { default as useGetAssetsInAccount } from './queries/getAssetsInAccount/u
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
 
-export { default as getMarkets } from './queries/getMarkets';
-export * from './queries/getMarkets';
-export { default as useGetMarkets } from './queries/getMarkets/useGetMarkets';
+export { default as getMainMarkets } from './queries/getMainMarkets';
+export * from './queries/getMainMarkets';
+export { default as useGetMainMarkets } from './queries/getMainMarkets/useGetMainMarkets';
 
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
@@ -187,19 +187,15 @@ export * from './queries/getXvsWithdrawableAmount';
 
 export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
 
-export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
+export { default as useGetMainAssets } from './queries/useGetMainAssets';
 
-export { default as useGetUserAsset } from './queries/useGetUserAsset';
+export { default as useGetAsset } from './queries/useGetAsset';
 
 export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
 
-export { default as getMarketHistory } from './queries/getMarketHistory';
-export * from './queries/getMarketHistory';
-export { default as useGetMarketHistory } from './queries/getMarketHistory/useGetMarketHistory';
-
-export { default as getVTokenCash } from './queries/getVTokenCash';
-export * from './queries/getVTokenCash';
-export { default as useGetVTokenCash } from './queries/getVTokenCash/useGetVTokenCash';
+export { default as getMainMarketHistory } from './queries/getMainMarketHistory';
+export * from './queries/getMainMarketHistory';
+export { default as useGetMainMarketHistory } from './queries/getMainMarketHistory/useGetMainMarketHistory';
 
 export { default as getVTokenInterestRateModel } from './queries/getVTokenInterestRateModel';
 export * from './queries/getVTokenInterestRateModel';
@@ -243,10 +239,6 @@ export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo
 export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits';
 export * from './queries/getXvsVaultLockedDeposits';
 export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
-
-export { default as getDailyXvs } from './queries/getDailyXvs';
-export * from './queries/getDailyXvs';
-export { default as useGetDailyXvs } from './queries/getDailyXvs/useGetDailyXvs';
 
 export { default as useGetVaults } from './queries/useGetVaults';
 
