@@ -16,6 +16,7 @@ import {
   useGetMintedVai,
   useGetVTokenBalancesAll,
 } from 'clients/api';
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface Data {
@@ -163,13 +164,25 @@ const useGetUserMarketInfo = ({
             )
           : new BigNumber(0);
 
+        const supplyRatePerBlockTokens = market?.supplyRatePerBlock
+          ? new BigNumber(market.supplyRatePerBlock).dividedBy(COMPOUND_MANTISSA)
+          : new BigNumber(0);
+
+        const borrowRatePerBlockTokens = market?.borrowRatePerBlock
+          ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
+          : new BigNumber(0);
+
         const asset = {
           vToken,
           tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           supplyApyPercentage: new BigNumber(market?.supplyApy || 0),
           borrowApyPercentage: new BigNumber(market?.borrowApy || 0),
-          collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18).toNumber(),
-          reserveFactor: new BigNumber(market?.reserveFactor || 0).div(1e18).toNumber(),
+          collateralFactor: new BigNumber(market?.collateralFactor || 0)
+            .div(COMPOUND_MANTISSA)
+            .toNumber(),
+          reserveFactor: new BigNumber(market?.reserveFactor || 0)
+            .div(COMPOUND_MANTISSA)
+            .toNumber(),
           reserveTokens,
           cashTokens,
           exchangeRateVTokens,
@@ -187,6 +200,8 @@ const useGetUserMarketInfo = ({
             .times(100)
             .dp(0)
             .toNumber(),
+          supplyRatePerBlockTokens,
+          borrowRatePerBlockTokens,
           isCollateralOfUser,
           userWalletBalanceTokens,
           userPercentOfLimit,

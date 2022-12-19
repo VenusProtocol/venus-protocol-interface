@@ -25,6 +25,8 @@ export interface Asset {
   supplyBalanceCents: number;
   borrowBalanceTokens: BigNumber;
   borrowBalanceCents: number;
+  supplyRatePerBlockTokens: BigNumber;
+  borrowRatePerBlockTokens: BigNumber;
   // User-specific props
   userSupplyBalanceTokens: BigNumber;
   userBorrowBalanceTokens: BigNumber;
