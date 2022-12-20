@@ -43,6 +43,7 @@ export interface ProposalApiResponse {
   queuedTimestamp: number | null;
   queuedTxHash: string | null;
   startBlock: number;
+  proposalType: 0 | 1 | 2;
   startTimestamp: number;
   startTxHash: string | null;
   state:

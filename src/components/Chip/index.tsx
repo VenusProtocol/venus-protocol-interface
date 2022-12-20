@@ -9,12 +9,14 @@ interface ChipProps {
   text: string;
   backgroundColor?: string;
   textColor?: string;
+  icon?: React.ReactNode;
 }
 
-export const Chip = ({ className, text, backgroundColor, textColor }: ChipProps) => {
+export const Chip = ({ className, text, backgroundColor, textColor, icon }: ChipProps) => {
   const styles = useStyles();
   return (
     <div className={className} css={styles.root({ backgroundColor, textColor })}>
+      {icon}
       <Typography variant="small2" color="textPrimary">
         {text}
       </Typography>

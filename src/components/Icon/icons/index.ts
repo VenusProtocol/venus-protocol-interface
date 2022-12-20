@@ -42,3 +42,5 @@ export { default as bubble } from './bubble';
 export { default as logoMobile } from './logoMobile';
 export { default as person } from './person';
 export { default as magnifier } from './magnifier';
+export { default as fire } from './fire';
+export { default as lightening } from './lightening';

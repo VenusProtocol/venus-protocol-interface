@@ -36,6 +36,7 @@ interface FormatToProposalInput {
     target: string;
     value: string;
   }[];
+  proposalType: 0 | 1 | 2;
 }
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
@@ -65,6 +66,7 @@ const formatToProposal = ({
   queuedTxHash,
   startTxHash,
   actions,
+  proposalType,
 }: FormatToProposalInput): Proposal => {
   const endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
@@ -96,6 +98,11 @@ const formatToProposal = ({
   const againstVotesWei = new BigNumber(againstVotes || 0);
   const forVotesWei = new BigNumber(forVotes || 0);
 
+  const proposalTypeName = ['Normal', 'FastTrack', 'Critical'][proposalType] as
+    | 'Normal'
+    | 'FastTrack'
+    | 'Critical';
+
   const proposal: Proposal = {
     abstainedVotesWei,
     againstVotesWei,
@@ -119,6 +126,7 @@ const formatToProposal = ({
     startTxHash: startTxHash ?? undefined,
     totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
     actions: actions || [],
+    proposalType: proposalTypeName,
   };
 
   return proposal;

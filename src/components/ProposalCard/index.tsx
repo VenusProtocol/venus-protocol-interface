@@ -47,7 +47,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
       <Grid container>
         <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
           <div css={styles.cardHeader}>
-            <div>
+            <div css={styles.rightHeader}>
               <Chip text={`#${proposalNumber}`} />
               {headerLeftItem}
             </div>

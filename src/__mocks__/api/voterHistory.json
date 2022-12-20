@@ -52,7 +52,8 @@
           ],
           "updatedAt": "2022-06-27T13:48:31.000Z",
           "values": ["0", "0"],
-          "voterCount": null
+          "voterCount": null,
+          "proposalType": 0
         },
         "proposalId": 15,
         "reason": null,
@@ -112,7 +113,8 @@
           ],
           "updatedAt": "2022-06-27T13:48:31.000Z",
           "values": ["0", "0"],
-          "voterCount": null
+          "voterCount": null,
+          "proposalType": 0
         },
         "proposalId": 16,
         "reason": null,
@@ -178,7 +180,8 @@
           ],
           "updatedAt": "2022-06-27T13:48:32.000Z",
           "values": ["0", "0", "0", "0"],
-          "voterCount": null
+          "voterCount": null,
+          "proposalType": 0
         },
         "proposalId": 17,
         "reason": null,
@@ -262,7 +265,8 @@
           ],
           "updatedAt": "2022-06-27T13:48:32.000Z",
           "values": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
-          "voterCount": null
+          "voterCount": null,
+          "proposalType": 0
         },
         "proposalId": 18,
         "reason": null,
@@ -319,7 +323,8 @@
           ],
           "updatedAt": "2022-06-27T13:48:33.000Z",
           "values": ["0", "0"],
-          "voterCount": null
+          "voterCount": null,
+          "proposalType": 0
         },
         "proposalId": 19,
         "reason": null,

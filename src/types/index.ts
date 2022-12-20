@@ -100,6 +100,7 @@ export interface Proposal {
   againstVotesWei: BigNumber;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
+  proposalType: 'Normal' | 'FastTrack' | 'Critical';
   endBlock: number;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;

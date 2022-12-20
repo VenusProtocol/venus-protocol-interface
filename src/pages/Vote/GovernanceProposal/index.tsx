@@ -2,14 +2,7 @@
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import {
-  ActiveChip,
-  ActiveVotingProgress,
-  Countdown,
-  Icon,
-  IconName,
-  ProposalCard,
-} from 'components';
+import { ActiveVotingProgress, Chip, Countdown, Icon, IconName, ProposalCard } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
@@ -108,6 +101,7 @@ interface GovernanceProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
+  proposalType: 'Normal' | 'FastTrack' | 'Critical';
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -121,6 +115,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   againstVotesWei,
   abstainedVotesWei,
   isUserConnected,
+  proposalType,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -144,19 +139,36 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
     abstainedVotesWei || 0,
   ]);
 
+  const proposalTypeChip = useMemo(() => {
+    switch (proposalType) {
+      case 'FastTrack':
+        return (
+          <Chip
+            text={t('vote.fastTrack')}
+            icon={<Icon name="lightening" css={styles.proposalTypeIcon} size="14px" />}
+          />
+        );
+      case 'Critical':
+        return (
+          <Chip
+            text={t('vote.critical')}
+            icon={<Icon name="fire" css={styles.proposalTypeIcon} size="14px" />}
+          />
+        );
+      default:
+        return undefined;
+    }
+  }, [proposalType]);
+
   return (
     <ProposalCard
       className={className}
       linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}
       proposalNumber={proposalId}
       headerRightItem={
-        proposalState === 'Active' ? (
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />
-        ) : undefined
-      }
-      headerLeftItem={
         isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
       }
+      headerLeftItem={proposalTypeChip}
       title={proposalTitle}
       contentRightItem={
         proposalState === 'Active' ? (

@@ -24,6 +24,7 @@ export const Active = () => (
     againstVotesWei={new BigNumber('2000000000000000000')}
     abstainedVotesWei={new BigNumber('0')}
     endDate={new Date(Date.now() + 3650000)}
+    proposalType="Normal"
   />
 );
 export const Queued = () => (
@@ -32,6 +33,7 @@ export const Queued = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
     endDate={new Date()}
+    proposalType="FastTrack"
   />
 );
 export const Pending = () => (
@@ -40,6 +42,7 @@ export const Pending = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
     endDate={new Date()}
+    proposalType="Critical"
   />
 );
 export const Executed = () => (
@@ -48,6 +51,7 @@ export const Executed = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
     endDate={new Date()}
+    proposalType="Normal"
   />
 );
 export const Cancelled = () => (
@@ -56,6 +60,7 @@ export const Cancelled = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
     endDate={new Date(Date.now())}
+    proposalType="FastTrack"
   />
 );
 
@@ -65,6 +70,7 @@ export const Defeated = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Defeated"
     endDate={new Date(Date.now())}
+    proposalType="Critical"
   />
 );
 
@@ -74,6 +80,7 @@ export const Succeeded = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Succeeded"
     endDate={new Date(Date.now())}
+    proposalType="Normal"
   />
 );
 
@@ -83,5 +90,6 @@ export const Expired = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Expired"
     endDate={new Date(Date.now())}
+    proposalType="FastTrack"
   />
 );

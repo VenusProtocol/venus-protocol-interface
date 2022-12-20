@@ -80,6 +80,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
             forVotesWei,
             abstainedVotesWei,
             againstVotesWei,
+            proposalType,
           }) => (
             <GovernanceProposal
               key={id}
@@ -91,6 +92,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
               forVotesWei={forVotesWei}
               againstVotesWei={againstVotesWei}
               abstainedVotesWei={abstainedVotesWei}
+              proposalType={proposalType}
             />
           ),
         )}

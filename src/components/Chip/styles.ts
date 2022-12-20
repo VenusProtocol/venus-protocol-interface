@@ -12,7 +12,8 @@ export const useStyles = () => {
       backgroundColor: string | undefined;
       textColor: string | undefined;
     }) => css`
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: ${theme.spacing(1, 3)};
       background-color: ${backgroundColor || theme.palette.secondary.light};
       border-radius: ${theme.shape.borderRadius.small}px;
