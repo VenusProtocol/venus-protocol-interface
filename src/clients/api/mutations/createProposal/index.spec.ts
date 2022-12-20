@@ -23,6 +23,7 @@ describe('api/mutation/createProposal', () => {
         signatures: ['signature()'],
         callDatas: ['callData'],
         description: 'Description',
+        proposalType: 0,
       });
 
       throw new Error('createProposal should have thrown an error but did not');
@@ -37,6 +38,7 @@ describe('api/mutation/createProposal', () => {
     const fakeSignatures = ['signature()'];
     const fakeCallDatas = ['callData'];
     const fakeDescription = 'Description';
+    const proposalType = 0;
     const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const createProposalMock = jest.fn(() => ({
       send: sendMock,
@@ -53,8 +55,9 @@ describe('api/mutation/createProposal', () => {
       accountAddress: fakeAddress,
       targets: fakeTargets,
       signatures: fakeSignatures,
-      callDatas: ['callData'],
+      callDatas: fakeCallDatas,
       description: fakeDescription,
+      proposalType,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
@@ -65,6 +68,7 @@ describe('api/mutation/createProposal', () => {
       fakeSignatures,
       fakeCallDatas,
       fakeDescription,
+      proposalType,
     );
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeAddress });

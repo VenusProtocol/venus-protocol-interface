@@ -641,6 +641,7 @@
       "name": "Name",
       "nextStep": "Next step",
       "proposalName": "Proposal name",
+      "proposalType": "Proposal type",
       "signature": "Signature",
       "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
@@ -667,6 +668,7 @@
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
     "proposalType": {
+      "normal": "Normal",
       "critical": "Critical",
       "fastTrack": "Fast track"
     },

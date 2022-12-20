@@ -98,11 +98,6 @@ const formatToProposal = ({
   const againstVotesWei = new BigNumber(againstVotes || 0);
   const forVotesWei = new BigNumber(forVotes || 0);
 
-  const proposalTypeName = ['Normal', 'FastTrack', 'Critical'][proposalType] as
-    | 'Normal'
-    | 'FastTrack'
-    | 'Critical';
-
   const proposal: Proposal = {
     abstainedVotesWei,
     againstVotesWei,
@@ -126,7 +121,7 @@ const formatToProposal = ({
     startTxHash: startTxHash ?? undefined,
     totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
     actions: actions || [],
-    proposalType: proposalTypeName,
+    proposalType,
   };
 
   return proposal;

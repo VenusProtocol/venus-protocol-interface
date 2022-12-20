@@ -1,5 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
+import { ProposalTypeName } from 'types';
 
 import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';
 
@@ -24,7 +25,7 @@ export const Active = () => (
     againstVotesWei={new BigNumber('2000000000000000000')}
     abstainedVotesWei={new BigNumber('0')}
     endDate={new Date(Date.now() + 3650000)}
-    proposalType="Normal"
+    proposalType={ProposalTypeName.NORMAL}
   />
 );
 export const Queued = () => (
@@ -33,7 +34,7 @@ export const Queued = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
     endDate={new Date()}
-    proposalType="FastTrack"
+    proposalType={ProposalTypeName.FAST_TRACK}
   />
 );
 export const Pending = () => (
@@ -42,7 +43,7 @@ export const Pending = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
     endDate={new Date()}
-    proposalType="Critical"
+    proposalType={ProposalTypeName.CRITICAL}
   />
 );
 export const Executed = () => (
@@ -51,7 +52,7 @@ export const Executed = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
     endDate={new Date()}
-    proposalType="Normal"
+    proposalType={ProposalTypeName.NORMAL}
   />
 );
 export const Cancelled = () => (
@@ -60,7 +61,7 @@ export const Cancelled = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
     endDate={new Date(Date.now())}
-    proposalType="FastTrack"
+    proposalType={ProposalTypeName.FAST_TRACK}
   />
 );
 
@@ -70,7 +71,7 @@ export const Defeated = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Defeated"
     endDate={new Date(Date.now())}
-    proposalType="Critical"
+    proposalType={ProposalTypeName.CRITICAL}
   />
 );
 
@@ -80,7 +81,7 @@ export const Succeeded = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Succeeded"
     endDate={new Date(Date.now())}
-    proposalType="Normal"
+    proposalType={ProposalTypeName.NORMAL}
   />
 );
 
@@ -90,6 +91,6 @@ export const Expired = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Expired"
     endDate={new Date(Date.now())}
-    proposalType="FastTrack"
+    proposalType={ProposalTypeName.FAST_TRACK}
   />
 );

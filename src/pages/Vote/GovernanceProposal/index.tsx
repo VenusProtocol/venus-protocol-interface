@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js';
 import { ActiveVotingProgress, Chip, Countdown, Icon, IconName, ProposalCard } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { ProposalState, ProposalTypeName, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { GreenPulse } from 'components/LottieAnimation';
@@ -101,7 +101,7 @@ interface GovernanceProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
-  proposalType: 'Normal' | 'FastTrack' | 'Critical';
+  proposalType: ProposalTypeName;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -141,14 +141,14 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
 
   const proposalTypeChip = useMemo(() => {
     switch (proposalType) {
-      case 'FastTrack':
+      case ProposalTypeName.FAST_TRACK:
         return (
           <Chip
             text={t('vote.proposalType.fastTrack')}
             icon={<Icon name="lightening" css={styles.proposalTypeIcon} />}
           />
         );
-      case 'Critical':
+      case ProposalTypeName.CRITICAL:
         return (
           <Chip
             text={t('vote.proposalType.critical')}

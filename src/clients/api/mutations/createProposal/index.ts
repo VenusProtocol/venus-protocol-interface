@@ -8,6 +8,7 @@ export interface CreateProposalInput {
   signatures: string[];
   callDatas: (string | number[])[];
   description: string;
+  proposalType: 0 | 1 | 2;
 }
 
 export type CreateProposalOutput = TransactionReceipt;
@@ -19,11 +20,19 @@ const createProposal = async ({
   signatures,
   callDatas,
   description,
+  proposalType,
 }: CreateProposalInput & {
   governorBravoContract: GovernorBravoDelegate;
 }): Promise<CreateProposalOutput> => {
   const resp = await governorBravoContract.methods
-    .propose(targets, Array(signatures.length).fill(0), signatures, callDatas, description)
+    .propose(
+      targets,
+      Array(signatures.length).fill(0),
+      signatures,
+      callDatas,
+      description,
+      proposalType,
+    )
     .send({ from: accountAddress });
   return resp;
 };

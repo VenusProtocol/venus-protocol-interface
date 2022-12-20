@@ -4,6 +4,7 @@ import { MarkdownViewer, ReadableActionSignature } from 'components';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { ProposalTypeName } from 'types';
 
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
@@ -13,11 +14,35 @@ const ProposalPreview: React.FC = () => {
   const { t } = useTranslation();
 
   const {
-    values: { title, description, actions, forDescription, abstainDescription, againstDescription },
+    values: {
+      title,
+      description,
+      actions,
+      forDescription,
+      abstainDescription,
+      againstDescription,
+      proposalType,
+    },
   } = useFormikContext<FormValues>();
 
   return (
     <div css={styles.root}>
+      <div css={styles.section}>
+        <Typography variant="small1" css={styles.header}>
+          {t('vote.createProposalForm.proposalType')}
+        </Typography>
+
+        <Typography variant="body1" color="textPrimary">
+          {
+            {
+              [ProposalTypeName.NORMAL]: t('vote.proposalType.normal'),
+              [ProposalTypeName.FAST_TRACK]: t('vote.proposalType.fastTrack'),
+              [ProposalTypeName.CRITICAL]: t('vote.proposalType.critical'),
+            }[proposalType]
+          }
+        </Typography>
+      </div>
+
       <div css={styles.section}>
         <Typography variant="small1" css={styles.header}>
           {t('vote.createProposalForm.proposalName')}
@@ -70,7 +95,7 @@ const ProposalPreview: React.FC = () => {
         </Typography>
 
         {actions.map(action => (
-          <ReadableActionSignature action={action} />
+          <ReadableActionSignature action={action} key={`${action.signature}-${action.target}`} />
         ))}
       </div>
     </div>

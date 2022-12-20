@@ -13,7 +13,7 @@ import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
 interface Option {
-  value: string;
+  value: string | number;
   label: string;
 }
 
@@ -22,8 +22,10 @@ export interface SelectProps {
   options: Option[];
   value: string | undefined;
   onChange: (e: SelectChangeEvent) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   ariaLabel: string;
   title: string;
+  name?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -31,8 +33,10 @@ export const Select: React.FC<SelectProps> = ({
   options,
   value,
   onChange,
+  onBlur,
   ariaLabel,
   title,
+  name,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
@@ -67,40 +71,49 @@ export const Select: React.FC<SelectProps> = ({
   }, [isSmDown]);
 
   return (
-    <MuiSelect
-      open={isOpen}
-      onClose={handleClose}
-      onOpen={handleOpen}
-      className={className}
-      css={styles.root({ isOpen })}
-      value={value}
-      onChange={onChange}
-      displayEmpty
-      inputProps={{ 'aria-label': ariaLabel }}
-      IconComponent={() => (
-        <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowUp" />
-      )}
-      MenuProps={menuProps}
-      autoWidth={isSmDown}
-    >
-      <div css={styles.mobileHeader}>
-        <Typography variant="h4">{title}</Typography>
-
-        <TextButton css={styles.closeMenuButton} onClick={handleClose}>
-          <Icon name="close" />
-        </TextButton>
+    <>
+      <div css={styles.label}>
+        <Typography variant="small1" component="label" htmlFor="proposalType">
+          {title}
+        </Typography>
       </div>
-      {options.map(({ value: v, label }) => (
-        <MenuItem
-          disableRipple
-          css={styles.menuItem}
-          key={v}
-          classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
-          value={v}
-        >
-          {label}
-        </MenuItem>
-      ))}
-    </MuiSelect>
+      <MuiSelect
+        name={name}
+        open={isOpen}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        className={className}
+        css={styles.root({ isOpen })}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        displayEmpty
+        inputProps={{ 'aria-label': ariaLabel }}
+        IconComponent={() => (
+          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowUp" />
+        )}
+        MenuProps={menuProps}
+        autoWidth={isSmDown}
+      >
+        <div css={styles.mobileHeader}>
+          <Typography variant="h4">{title}</Typography>
+
+          <TextButton css={styles.closeMenuButton} onClick={handleClose}>
+            <Icon name="close" />
+          </TextButton>
+        </div>
+        {options.map(({ value: v, label }) => (
+          <MenuItem
+            disableRipple
+            css={styles.menuItem}
+            key={v}
+            classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
+            value={v}
+          >
+            {label}
+          </MenuItem>
+        ))}
+      </MuiSelect>
+    </>
   );
 };
