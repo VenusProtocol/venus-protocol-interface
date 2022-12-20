@@ -10,7 +10,6 @@ jest.mock('clients/api');
 
 const baseProps: PoolBreakdownProps = {
   pool: poolData[0],
-  includeXvs: true,
 };
 
 describe('pages/Account/PoolBreakdown', () => {
@@ -18,15 +17,10 @@ describe('pages/Account/PoolBreakdown', () => {
     renderComponent(<PoolBreakdown {...baseProps} />);
   });
 
-  it.each([true, false])(
-    'displays stats and tables correctly when includeXvs is %s',
-    includeXvs => {
-      const { getByTestId } = renderComponent(
-        <PoolBreakdown {...baseProps} includeXvs={includeXvs} />,
-      );
+  it('displays stats and tables correctly', () => {
+    const { getByTestId } = renderComponent(<PoolBreakdown {...baseProps} />);
 
-      expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
-      expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
-    },
-  );
+    expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
+  });
 });

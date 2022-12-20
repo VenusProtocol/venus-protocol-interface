@@ -38,7 +38,6 @@ export interface BorrowFormProps {
   safeLimitTokens: string;
   borrow: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   isBorrowLoading: boolean;
-  includeXvs: boolean;
   hasUserCollateralizedSuppliedAssets: boolean;
 }
 
@@ -48,7 +47,6 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   safeBorrowLimitPercentage,
   safeLimitTokens,
   borrow,
-  includeXvs,
   isBorrowLoading,
   hasUserCollateralizedSuppliedAssets,
 }) => {
@@ -144,11 +142,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData
-            hypotheticalBorrowAmountTokens={+values.amount}
-            asset={asset}
-            includeXvs={includeXvs}
-          />
+          <AccountData hypotheticalBorrowAmountTokens={+values.amount} asset={asset} />
 
           <FormikSubmitButton
             loading={isBorrowLoading}
@@ -165,11 +159,10 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
 export interface BorrowProps {
   vToken: VToken;
-  includeXvs: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
+const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -274,7 +267,6 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose, includeXvs }) => {
         >
           <BorrowForm
             asset={asset}
-            includeXvs={includeXvs}
             limitTokens={limitTokens}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}

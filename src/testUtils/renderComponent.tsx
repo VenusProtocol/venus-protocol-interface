@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
-import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -43,20 +42,18 @@ const renderComponent = (
         <MuiThemeProvider>
           <AuthContext.Provider value={defaultAuthContextValues}>
             <SuccessfulTransactionModalProvider>
-              <IncludeXvsProvider>
-                <DisableLunaUstWarningProvider>
-                  <BrowserRouter>
-                    <ToastContainer />
+              <DisableLunaUstWarningProvider>
+                <BrowserRouter>
+                  <ToastContainer />
 
-                    <Switch>
-                      <Route
-                        path="/"
-                        component={typeof children === 'function' ? children : () => children}
-                      />
-                    </Switch>
-                  </BrowserRouter>
-                </DisableLunaUstWarningProvider>
-              </IncludeXvsProvider>
+                  <Switch>
+                    <Route
+                      path="/"
+                      component={typeof children === 'function' ? children : () => children}
+                    />
+                  </Switch>
+                </BrowserRouter>
+              </DisableLunaUstWarningProvider>
             </SuccessfulTransactionModalProvider>
           </AuthContext.Provider>
         </MuiThemeProvider>

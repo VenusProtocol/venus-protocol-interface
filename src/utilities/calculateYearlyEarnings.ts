@@ -1,13 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-export const calculateYearlyEarningsForAsset = ({
-  asset,
-  includeXvs,
-}: {
-  asset: Asset;
-  includeXvs: boolean;
-}) => {
+export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
   const assetBorrowBalanceCents = asset.userBorrowBalanceTokens
     .multipliedBy(asset.tokenPriceDollars)
     .multipliedBy(100);
@@ -26,7 +20,7 @@ export const calculateYearlyEarningsForAsset = ({
 
   const yearlyEarningsCents = supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents);
 
-  if (!includeXvs || !asset.xvsSupplyApr.isFinite() || !asset.xvsBorrowApr.isFinite()) {
+  if (!asset.xvsSupplyApr.isFinite() || !asset.xvsBorrowApr.isFinite()) {
     return yearlyEarningsCents;
   }
 
@@ -44,13 +38,7 @@ export const calculateYearlyEarningsForAsset = ({
     .plus(borrowYearlyXvsDistributionEarningsCents);
 };
 
-export const calculateYearlyEarningsForAssets = ({
-  assets,
-  includeXvs,
-}: {
-  assets: Asset[];
-  includeXvs: boolean;
-}) => {
+export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }) => {
   // We use the yearly earnings to calculate the daily earnings the net APY
   let yearlyEarningsCents: BigNumber | undefined;
 
@@ -61,7 +49,6 @@ export const calculateYearlyEarningsForAssets = ({
 
     const assetYearlyEarningsCents = calculateYearlyEarningsForAsset({
       asset,
-      includeXvs,
     });
 
     yearlyEarningsCents = yearlyEarningsCents.plus(assetYearlyEarningsCents);

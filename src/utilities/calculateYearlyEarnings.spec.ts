@@ -11,16 +11,6 @@ describe('utilities/calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for single asset', () => {
     const earnings = calculateYearlyEarningsForAsset({
       asset: assets[0] as Asset,
-      includeXvs: false,
-    });
-
-    expect(earnings.toFixed()).toMatchInlineSnapshot('"6.01347989955426636283938"');
-  });
-
-  test('calculates yearly Earnings for single asset, including XVS distribution', () => {
-    const earnings = calculateYearlyEarningsForAsset({
-      asset: assets[0] as Asset,
-      includeXvs: true,
     });
 
     expect(earnings.toFixed()).toMatchInlineSnapshot(
@@ -31,15 +21,6 @@ describe('utilities/calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for array of assets', () => {
     const earnings = calculateYearlyEarningsForAssets({
       assets: assets as Asset[],
-      includeXvs: false,
-    });
-    expect(earnings?.toFixed()).toMatchInlineSnapshot('"-6.8460208090305522483859"');
-  });
-
-  test('calculates yearly Earnings for array of assets, including XVS distribution', () => {
-    const earnings = calculateYearlyEarningsForAssets({
-      assets: assets as Asset[],
-      includeXvs: true,
     });
 
     expect(earnings?.toFixed()).toMatchInlineSnapshot(

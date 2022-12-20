@@ -38,7 +38,6 @@ export interface RepayFormProps {
   asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string | undefined>;
   isRepayLoading: boolean;
-  includeXvs: boolean;
   limitTokens: string;
 }
 
@@ -46,7 +45,6 @@ export const RepayForm: React.FC<RepayFormProps> = ({
   asset,
   repay,
   isRepayLoading,
-  includeXvs,
   limitTokens,
 }) => {
   const { t, Trans } = useTranslation();
@@ -184,11 +182,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
             )}
           </div>
 
-          <AccountData
-            hypotheticalBorrowAmountTokens={-values.amount}
-            asset={asset}
-            includeXvs={includeXvs}
-          />
+          <AccountData hypotheticalBorrowAmountTokens={-values.amount} asset={asset} />
 
           <PrimaryButton
             type="submit"
@@ -208,11 +202,10 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
 export interface RepayProps {
   vToken: VToken;
-  includeXvs: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
+const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -281,7 +274,6 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose, includeXvs }) => {
           <RepayForm
             asset={asset}
             repay={handleRepay}
-            includeXvs={includeXvs}
             isRepayLoading={isRepayLoading}
             limitTokens={limitTokens.toFixed()}
           />

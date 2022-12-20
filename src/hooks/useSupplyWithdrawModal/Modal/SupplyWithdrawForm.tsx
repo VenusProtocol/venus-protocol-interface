@@ -44,7 +44,6 @@ interface SupplyWithdrawFormUiProps {
   disabledButtonKey: string;
   calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
-  includeXvs: boolean;
   amountValue: string;
 }
 
@@ -61,7 +60,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   disabledButtonKey,
   calculateNewBalance,
   isTransactionLoading,
-  includeXvs,
   amountValue,
 }) => {
   const styles = useStyles();
@@ -104,7 +102,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
     const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
-      includeXvs,
     });
 
     const dailyEarningsCentsValue =
@@ -125,7 +122,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
       const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: hypotheticalAssets,
-        includeXvs,
       });
 
       hypotheticalDailyEarningCentsValue =
@@ -133,7 +129,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
     }
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
-  }, [amount, asset.vToken.underlyingToken.address, includeXvs, JSON.stringify(assets)]);
+  }, [amount, asset.vToken.underlyingToken.address, JSON.stringify(assets)]);
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
