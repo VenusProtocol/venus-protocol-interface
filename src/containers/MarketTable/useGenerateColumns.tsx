@@ -9,7 +9,7 @@ import {
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -26,7 +26,6 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import { useStyles } from './styles';
 import { ColumnKey } from './types';
@@ -59,8 +58,6 @@ const useGenerateColumns = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
-  const { includeXvs } = useContext(IncludeXvsContext);
 
   // Calculate borrow limit of user if userPercentOfLimit column needs to be
   // rendered
@@ -107,17 +104,13 @@ const useGenerateColumns = ({
           }
 
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-            const borrowApy = includeXvs
-              ? asset.xvsBorrowApy.plus(asset.borrowApyPercentage)
-              : asset.borrowApyPercentage;
+            const borrowApy = asset.xvsBorrowApy.plus(asset.borrowApyPercentage);
 
             return formatToReadablePercentage(borrowApy);
           }
 
           if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-            const supplyApy = includeXvs
-              ? asset.xvsSupplyApy.plus(asset.supplyApyPercentage)
-              : asset.supplyApyPercentage;
+            const supplyApy = asset.xvsSupplyApy.plus(asset.supplyApyPercentage);
             const ltv = +asset.collateralFactor * 100;
 
             return (
@@ -229,25 +222,17 @@ const useGenerateColumns = ({
             ? undefined
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                  const roaABorrowApy = includeXvs
-                    ? rowA.xvsBorrowApy.plus(rowA.borrowApyPercentage)
-                    : rowA.borrowApyPercentage;
+                  const roaABorrowApy = rowA.xvsBorrowApy.plus(rowA.borrowApyPercentage);
 
-                  const roaBBorrowApy = includeXvs
-                    ? rowB.xvsBorrowApy.plus(rowB.borrowApyPercentage)
-                    : rowB.borrowApyPercentage;
+                  const roaBBorrowApy = rowB.xvsBorrowApy.plus(rowB.borrowApyPercentage);
 
                   return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
                 }
 
                 if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-                  const roaASupplyApy = includeXvs
-                    ? rowA.xvsSupplyApy.plus(rowA.supplyApyPercentage)
-                    : rowA.supplyApyPercentage;
+                  const roaASupplyApy = rowA.xvsSupplyApy.plus(rowA.supplyApyPercentage);
 
-                  const roaBSupplyApy = includeXvs
-                    ? rowB.xvsSupplyApy.plus(rowB.supplyApyPercentage)
-                    : rowB.supplyApyPercentage;
+                  const roaBSupplyApy = rowB.xvsSupplyApy.plus(rowB.supplyApyPercentage);
 
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
                 }
@@ -317,7 +302,7 @@ const useGenerateColumns = ({
                 return 0;
               },
       })),
-    [assets, columnKeys, userTotalBorrowLimitCents, includeXvs],
+    [assets, columnKeys, userTotalBorrowLimitCents],
   );
 
   return columns;

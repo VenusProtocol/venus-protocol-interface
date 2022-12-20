@@ -13,7 +13,7 @@ import {
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
-const useExtractData = ({ assets, includeXvs }: { assets: Asset[]; includeXvs: boolean }) =>
+const useExtractData = ({ assets }: { assets: Asset[] }) =>
   useMemo(() => {
     const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
       (acc, asset) => ({
@@ -46,7 +46,6 @@ const useExtractData = ({ assets, includeXvs }: { assets: Asset[]; includeXvs: b
 
     const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
-      includeXvs,
     });
 
     const dailyEarningsCentsTmp =
@@ -80,6 +79,6 @@ const useExtractData = ({ assets, includeXvs }: { assets: Asset[]; includeXvs: b
       totalSupplyCents,
       borrowLimitCents,
     };
-  }, [JSON.stringify(assets), includeXvs]);
+  }, [JSON.stringify(assets)]);
 
 export default useExtractData;

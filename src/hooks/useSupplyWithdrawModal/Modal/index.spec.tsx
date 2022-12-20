@@ -61,14 +61,12 @@ describe('hooks/useSupplyWithdrawModal', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />
-    ));
+    renderComponent(() => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />);
   });
 
   it('asks the user to connect if wallet is not connected', async () => {
     const { getByText } = renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />
+      <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />
     ));
 
     const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
@@ -81,7 +79,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+      () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
       {
         authContextValue: {
           account: {
@@ -140,7 +138,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { queryByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={customFakeAsset.vToken} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={customFakeAsset.vToken} />,
         {
           authContextValue: {
             account: {
@@ -155,7 +153,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
-        <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+        <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
         {
           authContextValue: {
             account: {
@@ -172,7 +170,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token supply balance', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
         {
           authContextValue: {
             account: {
@@ -208,7 +206,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
         {
           authContextValue: {
             account: {
@@ -237,7 +235,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('submit is disabled with no amount', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
         {
           authContextValue: {
             account: {
@@ -284,7 +282,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} vToken={customFakeAsset.vToken} includeXvs />,
+        () => <SupplyWithdraw onClose={onCloseMock} vToken={customFakeAsset.vToken} />,
         {
           authContextValue: {
             account: {
@@ -351,7 +349,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} vToken={customFakeAsset.vToken} includeXvs />,
+        () => <SupplyWithdraw onClose={onCloseMock} vToken={customFakeAsset.vToken} />,
         {
           authContextValue: {
             account: {
@@ -407,7 +405,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={customFakeAsset.vToken} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={customFakeAsset.vToken} />,
         {
           authContextValue: {
             account: {
@@ -439,7 +437,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('redeemUnderlying is called when partial amount is withdrawn', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} includeXvs />,
+        () => <SupplyWithdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
         {
           authContextValue: {
             account: {

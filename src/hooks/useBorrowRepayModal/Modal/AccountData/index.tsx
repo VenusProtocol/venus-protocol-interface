@@ -26,14 +26,9 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface AccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
-  includeXvs: boolean;
 }
 
-const AccountData: React.FC<AccountDataProps> = ({
-  asset,
-  hypotheticalBorrowAmountTokens,
-  includeXvs,
-}) => {
+const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmountTokens }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
@@ -84,7 +79,6 @@ const AccountData: React.FC<AccountDataProps> = ({
 
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: updatedAssets,
-        includeXvs,
       });
 
       return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);

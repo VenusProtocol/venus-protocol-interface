@@ -33,7 +33,6 @@ import { useStyles } from './styles';
 
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];
-  includeXvs: boolean;
   vToken: VToken;
 }
 
@@ -60,7 +59,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   assets,
   userTotalBorrowBalanceCents,
   userTotalBorrowLimitCents,
-  includeXvs,
   onSubmitSupply,
   onSubmitWithdraw,
   isSupplyLoading,
@@ -179,7 +177,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
                 maxInput={maxInput}
                 calculateNewBalance={calculateNewBalance}
                 isTransactionLoading={isTransactionLoading}
-                includeXvs={includeXvs}
               />
             </EnableToken>
           ) : (
@@ -238,7 +235,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   );
 };
 
-const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs, onClose }) => {
+const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   const {
@@ -349,7 +346,6 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, includeXvs
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}
       isWithdrawLoading={isWithdrawLoading}
-      includeXvs={includeXvs}
     />
   );
 };

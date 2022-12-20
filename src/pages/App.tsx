@@ -10,7 +10,6 @@ import { Web3Wrapper } from 'clients/web3';
 import { routes } from 'constants/routing';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
-import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import Account from 'pages/Account';
 import ConvertVrt from 'pages/ConvertVrt';
@@ -35,50 +34,48 @@ const App = () => (
       <MuiThemeProvider>
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
-            <IncludeXvsProvider>
-              <DisableLunaUstWarningProvider>
-                <BrowserRouter>
-                  <ToastContainer />
+            <DisableLunaUstWarningProvider>
+              <BrowserRouter>
+                <ToastContainer />
 
-                  <Layout>
-                    <ResetScrollOnRouteChange />
+                <Layout>
+                  <ResetScrollOnRouteChange />
 
-                    <Switch>
-                      <Route exact path={routes.dashboard.path} component={Dashboard} />
+                  <Switch>
+                    <Route exact path={routes.dashboard.path} component={Dashboard} />
 
-                      <Route exact path={routes.account.path} component={Account} />
+                    <Route exact path={routes.account.path} component={Account} />
 
-                      <Route exact path={routes.pools.path} component={Pools} />
-                      <Route exact path={routes.pool.path} component={Pool} />
-                      <Route exact path={routes.market.path} component={Market} />
+                    <Route exact path={routes.pools.path} component={Pools} />
+                    <Route exact path={routes.pool.path} component={Pool} />
+                    <Route exact path={routes.market.path} component={Market} />
 
-                      <Route exact path={routes.vaults.path} component={Vaults} />
+                    <Route exact path={routes.vaults.path} component={Vaults} />
 
-                      <Route exact path={routes.history.path} component={History} />
+                    <Route exact path={routes.history.path} component={History} />
 
-                      <Route exact path={routes.governance.path} component={Vote} />
-                      <Route
-                        exact
-                        path={routes.governanceLeaderBoard.path}
-                        component={VoterLeaderboard}
-                      />
-                      <Route exact path={routes.governanceVoter.path} component={VoterDetails} />
-                      <Route exact path={routes.governanceProposal.path} component={Proposal} />
+                    <Route exact path={routes.governance.path} component={Vote} />
+                    <Route
+                      exact
+                      path={routes.governanceLeaderBoard.path}
+                      component={VoterLeaderboard}
+                    />
+                    <Route exact path={routes.governanceVoter.path} component={VoterDetails} />
+                    <Route exact path={routes.governanceProposal.path} component={Proposal} />
 
-                      <Route exact path={routes.xvs.path} component={Xvs} />
+                    <Route exact path={routes.xvs.path} component={Xvs} />
 
-                      <Route exact path={routes.convertVrt.path} component={ConvertVrt} />
+                    <Route exact path={routes.convertVrt.path} component={ConvertVrt} />
 
-                      <Route exact path={routes.swap.path} component={Swap} />
+                    <Route exact path={routes.swap.path} component={Swap} />
 
-                      <Route exact path={routes.vai.path} component={Vai} />
+                    <Route exact path={routes.vai.path} component={Vai} />
 
-                      <Redirect to={routes.dashboard.path} />
-                    </Switch>
-                  </Layout>
-                </BrowserRouter>
-              </DisableLunaUstWarningProvider>
-            </IncludeXvsProvider>
+                    <Redirect to={routes.dashboard.path} />
+                  </Switch>
+                </Layout>
+              </BrowserRouter>
+            </DisableLunaUstWarningProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
       </MuiThemeProvider>

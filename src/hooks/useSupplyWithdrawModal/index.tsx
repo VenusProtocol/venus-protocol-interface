@@ -1,12 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { VToken } from 'types';
-
-import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import Modal from './Modal';
 
 const useSupplyWithdrawModal = () => {
-  const { includeXvs } = useContext(IncludeXvsContext);
   const [selectedVToken, setSelectedVToken] = useState<VToken>();
 
   const SupplyWithdrawModal: React.FC = useCallback(() => {
@@ -14,13 +11,7 @@ const useSupplyWithdrawModal = () => {
       return <></>;
     }
 
-    return (
-      <Modal
-        vToken={selectedVToken}
-        onClose={() => setSelectedVToken(undefined)}
-        includeXvs={includeXvs}
-      />
-    );
+    return <Modal vToken={selectedVToken} onClose={() => setSelectedVToken(undefined)} />;
   }, [selectedVToken]);
 
   return {

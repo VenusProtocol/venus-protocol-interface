@@ -22,11 +22,10 @@ import useExtractData from './useExtractData';
 
 export interface PoolBreakdownProps {
   pool: Pool;
-  includeXvs: boolean;
   className?: string;
 }
 
-export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, includeXvs, className }) => {
+export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -40,7 +39,6 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, includeXvs, 
     netApyPercentage,
   } = useExtractData({
     assets: pool.assets,
-    includeXvs,
   });
 
   const cells: Cell[] = [

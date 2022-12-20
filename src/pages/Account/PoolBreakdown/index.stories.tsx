@@ -18,4 +18,4 @@ export default {
   },
 } as ComponentMeta<typeof PoolBreakdown>;
 
-export const Default = () => <PoolBreakdown pool={poolData[0]} includeXvs />;
+export const Default = () => <PoolBreakdown pool={poolData[0]} />;

@@ -30,7 +30,7 @@ describe('hooks/useBorrowRepayModal', () => {
 
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
-      <BorrowRepay onClose={jest.fn()} vToken={asset.vToken} includeXvs />,
+      <BorrowRepay onClose={jest.fn()} vToken={asset.vToken} />,
     );
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
   });
@@ -42,7 +42,7 @@ describe('hooks/useBorrowRepayModal', () => {
     };
 
     const { queryByText } = renderComponent(() => (
-      <BorrowRepay onClose={jest.fn()} vToken={fakeVToken} includeXvs />
+      <BorrowRepay onClose={jest.fn()} vToken={fakeVToken} />
     ));
 
     await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());

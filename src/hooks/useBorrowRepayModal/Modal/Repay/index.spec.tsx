@@ -51,20 +51,17 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />);
+    renderComponent(<Repay vToken={fakeAsset.vToken} onClose={noop} />);
   });
 
   it('displays correct token borrow balance', async () => {
-    const { getByText } = renderComponent(
-      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+    const { getByText } = renderComponent(<Repay vToken={fakeAsset.vToken} onClose={noop} />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
         },
       },
-    );
+    });
 
     await waitFor(() =>
       getByText(`1,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
@@ -72,16 +69,13 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('displays correct token wallet balance', async () => {
-    const { getByText } = renderComponent(
-      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+    const { getByText } = renderComponent(<Repay vToken={fakeAsset.vToken} onClose={noop} />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
         },
       },
-    );
+    });
 
     await waitFor(() =>
       getByText(`10,000,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
@@ -102,7 +96,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} />,
       {
         authContextValue: {
           account: {
@@ -133,7 +127,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={fakeAsset.vToken} onClose={noop} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={noop} />,
       {
         authContextValue: {
           account: {
@@ -177,7 +171,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} />,
       {
         authContextValue: {
           account: {
@@ -220,7 +214,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} />,
       {
         authContextValue: {
           account: {
@@ -263,7 +257,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={customFakeAsset.vToken} onClose={noop} includeXvs />,
+      <Repay vToken={customFakeAsset.vToken} onClose={noop} />,
       {
         authContextValue: {
           account: {
@@ -306,7 +300,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay vToken={fakeAsset.vToken} onClose={onCloseMock} includeXvs />,
+      <Repay vToken={fakeAsset.vToken} onClose={onCloseMock} />,
       {
         authContextValue: {
           account: {
@@ -359,16 +353,13 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   it('lets user repay full loan', async () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    const { getByText } = renderComponent(
-      <Repay vToken={fakeAsset.vToken} onClose={jest.fn()} includeXvs />,
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+    const { getByText } = renderComponent(<Repay vToken={fakeAsset.vToken} onClose={jest.fn()} />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
         },
       },
-    );
+    });
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
     expect(

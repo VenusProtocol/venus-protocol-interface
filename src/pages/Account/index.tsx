@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup, Toggle } from 'components';
-import React, { useContext } from 'react';
+import { Cell, CellGroup } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { poolData } from '__mocks__/models/pools';
-import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import PoolBreakdown from './PoolBreakdown';
 import { useStyles } from './styles';
@@ -19,8 +18,6 @@ export interface AccountUiProps {
   dailyEarningsCents: number;
   totalSupplyCents: number;
   totalBorrowCents: number;
-  includeXvs: boolean;
-  onIncludeXvsToggleChange: (newValue: boolean) => void;
 }
 
 export const AccountUi: React.FC<AccountUiProps> = ({
@@ -28,9 +25,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
   dailyEarningsCents,
   totalSupplyCents,
   totalBorrowCents,
-  includeXvs,
   pools,
-  onIncludeXvsToggleChange,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -63,35 +58,19 @@ export const AccountUi: React.FC<AccountUiProps> = ({
           <Typography variant="h3" css={styles.sectionTitleText}>
             {t('account.accountSummary.title')}
           </Typography>
-
-          <Toggle
-            css={styles.sectionTitleToggle}
-            tooltip={t('account.accountSummary.includeXvsToggleTooltip')}
-            label={t('account.accountSummary.includeXvsToggleLabel')}
-            isLight
-            value={includeXvs}
-            onChange={event => onIncludeXvsToggleChange(event.currentTarget.checked)}
-          />
         </div>
 
         <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
 
       {pools.map(pool => (
-        <PoolBreakdown
-          key={`pool-breakdown-${pool.name}`}
-          css={styles.section}
-          pool={pool}
-          includeXvs={includeXvs}
-        />
+        <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
       ))}
     </>
   );
 };
 
 const Account: React.FC = () => {
-  const { includeXvs, setIncludeXvs } = useContext(IncludeXvsContext);
-
   // TODO: fetch (see VEN-548)
   const netApyPercentage = 13.4;
   const dailyEarningsCents = 100000;
@@ -104,8 +83,6 @@ const Account: React.FC = () => {
       dailyEarningsCents={dailyEarningsCents}
       totalSupplyCents={totalSupplyCents}
       totalBorrowCents={totalBorrowCents}
-      includeXvs={includeXvs}
-      onIncludeXvsToggleChange={setIncludeXvs}
       pools={poolData}
     />
   );
