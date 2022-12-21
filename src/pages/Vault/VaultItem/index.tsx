@@ -119,7 +119,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               valueWei: dailyEmissionWei,
               token: rewardToken,
               returnInReadableFormat: true,
-              minimizeDecimals: true,
+              shortenLargeValue: true,
               addSymbol: false,
             })}
           </>
