@@ -27,6 +27,10 @@ export const shortenValueWithSuffix = ({
     return value.toFixed(2);
   }
 
+  if (value.isEqualTo(0) && !outputsDollars) {
+    return '0';
+  }
+
   return value.toFixed(outputsDollars ? 2 : 8);
 };
 
