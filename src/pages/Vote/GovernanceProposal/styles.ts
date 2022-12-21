@@ -74,7 +74,7 @@ export const useStyles = () => {
       width: ${theme.spacing(2.5)};
     `,
     proposalTypeIcon: css`
-      margin-right: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(1)};
     `,
   };
 };

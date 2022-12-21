@@ -646,7 +646,6 @@
       "votingOptions": "Voting options"
     },
     "createProposalPlus": "+ Create proposal",
-    "critical": "Critical",
     "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
@@ -656,9 +655,7 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
-    "fastTrack": "Fast Track",
     "for": "For",
-    "normal": "Normal",
     "pages": {
       "actions": "3 of 3 Actions",
       "confirmation": "Confirmation",
@@ -669,6 +666,10 @@
     "pleaseAllowTimeForConfirmation": "Please allow a few minutes for your transaction to be confirmed",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track"
+    },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",

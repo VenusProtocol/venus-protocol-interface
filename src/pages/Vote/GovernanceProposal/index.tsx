@@ -144,15 +144,15 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case 'FastTrack':
         return (
           <Chip
-            text={t('vote.fastTrack')}
-            icon={<Icon name="lightening" css={styles.proposalTypeIcon} size="14px" />}
+            text={t('vote.proposalType.fastTrack')}
+            icon={<Icon name="lightening" css={styles.proposalTypeIcon} />}
           />
         );
       case 'Critical':
         return (
           <Chip
-            text={t('vote.critical')}
-            icon={<Icon name="fire" css={styles.proposalTypeIcon} size="14px" />}
+            text={t('vote.proposalType.critical')}
+            icon={<Icon name="fire" css={styles.proposalTypeIcon} />}
           />
         );
       default:

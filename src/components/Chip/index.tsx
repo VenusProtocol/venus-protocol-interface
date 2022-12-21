@@ -3,20 +3,17 @@ import { Typography } from '@mui/material';
 import React from 'react';
 
 import { useStyles } from './styles';
+import { ChipProps } from './types';
 
-interface ChipProps {
-  className?: string;
-  text: string;
-  backgroundColor?: string;
-  textColor?: string;
-  icon?: React.ReactNode;
-}
+export * from './types';
 
-export const Chip = ({ className, text, backgroundColor, textColor, icon }: ChipProps) => {
+export const Chip = ({ className, text, icon, type = 'default' }: ChipProps) => {
   const styles = useStyles();
+
   return (
-    <div className={className} css={styles.root({ backgroundColor, textColor })}>
+    <div className={className} css={styles.root({ chipType: type })}>
       {icon}
+
       <Typography variant="small2" color="textPrimary">
         {text}
       </Typography>
@@ -24,50 +21,18 @@ export const Chip = ({ className, text, backgroundColor, textColor, icon }: Chip
   );
 };
 
-export const ActiveChip: React.FC<ChipProps> = ({ text, ...props }) => {
-  const styles = useStyles();
-  return (
-    <Chip
-      text={text}
-      textColor={styles.active.textColor}
-      backgroundColor={styles.active.backgroundColor}
-      {...props}
-    />
-  );
-};
+export const ActiveChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
+  <Chip type="active" {...props} />
+);
 
-export const InactiveChip: React.FC<ChipProps> = ({ text, ...props }) => {
-  const styles = useStyles();
-  return (
-    <Chip
-      text={text}
-      textColor={styles.inactive.textColor}
-      backgroundColor={styles.inactive.backgroundColor}
-      {...props}
-    />
-  );
-};
+export const InactiveChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
+  <Chip type="inactive" {...props} />
+);
 
-export const BlueChip: React.FC<ChipProps> = ({ text, ...props }) => {
-  const styles = useStyles();
-  return (
-    <Chip
-      text={text}
-      textColor={styles.blue.textColor}
-      backgroundColor={styles.blue.backgroundColor}
-      {...props}
-    />
-  );
-};
+export const BlueChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
+  <Chip type="blue" {...props} />
+);
 
-export const ErrorChip: React.FC<ChipProps> = ({ text, ...props }) => {
-  const styles = useStyles();
-  return (
-    <Chip
-      text={text}
-      textColor={styles.error.textColor}
-      backgroundColor={styles.error.backgroundColor}
-      {...props}
-    />
-  );
-};
+export const ErrorChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
+  <Chip type="error" {...props} />
+);
