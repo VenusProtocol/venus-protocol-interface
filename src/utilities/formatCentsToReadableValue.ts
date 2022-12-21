@@ -14,10 +14,10 @@ const formatCentsToReadableValue = ({
     return PLACEHOLDER_KEY;
   }
 
-  const wrappedValueDollars = new BigNumber(value).dividedBy(100).dp(2);
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
 
   if (!shortenLargeValue) {
-    return `$${wrappedValueDollars.toFormat()}`;
+    return `$${wrappedValueDollars.toFormat(2)}`;
   }
 
   // Shorten value
