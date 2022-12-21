@@ -12,26 +12,26 @@ export const shortenValueWithSuffix = ({
   outputsDollars?: boolean;
 }) => {
   if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
-    return `${value.dividedBy(ONE_BILLION).toFixed(2)}B`;
+    return `${value.dividedBy(ONE_BILLION).toFormat(2)}B`;
   }
 
   if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
-    return `${value.dividedBy(ONE_MILLION).toFixed(2)}M`;
+    return `${value.dividedBy(ONE_MILLION).toFormat(2)}M`;
   }
 
   if (value.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
-    return `${value.dividedBy(ONE_THOUSAND).toFixed(2)}K`;
+    return `${value.dividedBy(ONE_THOUSAND).toFormat(2)}K`;
   }
 
   if (value.isGreaterThanOrEqualTo(1)) {
-    return value.toFixed(2);
+    return value.toFormat(2);
   }
 
   if (value.isEqualTo(0) && !outputsDollars) {
     return '0';
   }
 
-  return value.toFixed(outputsDollars ? 2 : 8);
+  return value.toFormat(outputsDollars ? 2 : 8);
 };
 
 export default shortenValueWithSuffix;
