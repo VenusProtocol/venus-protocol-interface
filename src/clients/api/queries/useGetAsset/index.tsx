@@ -10,7 +10,7 @@ export interface UseGetAssetInput {
 
 export interface UseGetAssetOutput {
   isLoading: boolean;
-  data: {
+  data?: {
     asset?: Asset;
   };
 }
@@ -45,7 +45,7 @@ const useGetAsset = ({ vToken, accountAddress }: UseGetAssetInput): UseGetAssetO
 
   return {
     isLoading,
-    data: {
+    data: getPoolsData?.pools && {
       asset,
     },
   };

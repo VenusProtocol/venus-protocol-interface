@@ -106,9 +106,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
   // TODO: handle loading state (see VEN-591)
-  const {
-    data: { assets },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
@@ -125,14 +123,14 @@ const XvsTable: React.FC = () => {
   );
 
   const assetsWithVai = useMemo(() => {
-    const allAssets: TableAsset[] = assets.map(asset => ({
+    const allAssets: TableAsset[] = (getMainAssetsData?.assets || []).map(asset => ({
       token: asset.vToken.underlyingToken,
       xvsPerDay: asset.xvsPerDay,
       xvsSupplyApy: asset.xvsSupplyApy,
       xvsBorrowApy: asset.xvsBorrowApy,
     }));
 
-    const xvsAsset = assets.find(
+    const xvsAsset = (getMainAssetsData?.assets || []).find(
       asset =>
         asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
     );
@@ -164,9 +162,9 @@ const XvsTable: React.FC = () => {
 
     return allAssets;
   }, [
-    JSON.stringify(assets),
-    venusVaiVaultDailyRateData?.dailyRateWei.toFixed(),
-    vaultVaiStakedData?.balanceWei.toFixed(),
+    getMainAssetsData?.assets,
+    venusVaiVaultDailyRateData?.dailyRateWei,
+    vaultVaiStakedData?.balanceWei,
   ]);
 
   return <XvsTableUi assets={assetsWithVai} />;

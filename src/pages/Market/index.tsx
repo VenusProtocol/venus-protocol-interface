@@ -381,9 +381,7 @@ const Market: React.FC<MarketProps> = ({
     return <Redirect to={routes.pools.path} />;
   }
 
-  const {
-    data: { asset },
-  } = useGetAsset({
+  const { data: getAssetData } = useGetAsset({
     vToken,
     accountAddress: account?.address,
   });
@@ -393,8 +391,10 @@ const Market: React.FC<MarketProps> = ({
   });
 
   const reserveFactorMantissa = useMemo(
-    () => asset && new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
-    [asset?.reserveFactor],
+    () =>
+      getAssetData?.asset &&
+      new BigNumber(getAssetData.asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
+    [getAssetData?.asset?.reserveFactor],
   );
 
   const {
@@ -408,7 +408,7 @@ const Market: React.FC<MarketProps> = ({
 
   return (
     <MarketUi
-      asset={asset}
+      asset={getAssetData?.asset}
       {...chartData}
       interestRateChartData={interestRateChartData.apySimulations}
     />

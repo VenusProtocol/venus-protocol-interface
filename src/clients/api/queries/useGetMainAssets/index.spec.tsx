@@ -56,7 +56,7 @@ describe('api/queries/useGetMainAssets', () => {
       authContextValue: { account: { address: fakeAddress } },
     });
 
-    await waitFor(() => expect(data.assets.length > 0).toBe(true));
+    await waitFor(() => expect(!!data?.assets).toBe(true));
     expect(data).toMatchSnapshot();
   });
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/useGetMainPool returns data in the correct format 1`] = `
+exports[`api/queries/useGetPools returns data in the correct format 1`] = `
 Object {
   "pools": Array [
     Object {
@@ -187,6 +187,9 @@ Object {
       "isIsolated": false,
       "name": "Venus",
       "riskRating": "MINIMAL",
+      "userBorrowBalanceCents": 192673,
+      "userBorrowLimitCents": 12333,
+      "userSupplyBalanceCents": 123879865,
     },
   ],
 }
