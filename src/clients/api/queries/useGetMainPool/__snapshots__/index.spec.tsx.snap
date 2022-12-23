@@ -186,6 +186,9 @@ Object {
     "isIsolated": false,
     "name": "Venus",
     "riskRating": "MINIMAL",
+    "userBorrowBalanceCents": 9001,
+    "userBorrowLimitCents": 5754,
+    "userSupplyBalanceCents": 21507,
   },
 }
 `;
