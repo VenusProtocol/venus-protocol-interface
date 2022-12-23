@@ -43,7 +43,7 @@ const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { account } = useContext(AuthContext);
 
-  const { data: getMainAssetsData, isLoading: isGetMainMarketsLoading } = useGetMainAssets({
+  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
@@ -121,7 +121,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
       treasuryTotalBalanceCents,
       treasuryTotalAvailableLiquidityBalanceCents,
     },
-    isLoading: isGetVTokenBalancesTreasuryLoading || isGetMainMarketsLoading,
+    isLoading: isGetVTokenBalancesTreasuryLoading || isGetMainAssetsLoading,
   };
 };
 
