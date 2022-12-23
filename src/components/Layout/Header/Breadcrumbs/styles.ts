@@ -5,6 +5,14 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
+    container: css`
+      display: flex;
+      align-items: center;
+    `,
+    pathNode: css`
+      display: inline-flex;
+      align-items: center;
+    `,
     tokenSymbol: css`
       display: inline-flex;
       align-items: center;

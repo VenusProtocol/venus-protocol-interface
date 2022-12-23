@@ -1,15 +1,9 @@
 import BigNumber from 'bignumber.js';
 import config from 'config';
 import { useContext, useMemo } from 'react';
-import { indexBy } from 'utilities';
+import { convertWeiToTokens, indexBy } from 'utilities';
 
-import {
-  IGetVTokenBalancesAllOutput,
-  useGetMainAssets,
-  useGetVTokenBalancesAll,
-} from 'clients/api';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { IGetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
@@ -24,10 +18,10 @@ const TREASURY_ADDRESSES = {
 export const treasuryAddress = TREASURY_ADDRESSES[config.chainId];
 
 export interface Data {
-  treasuryTotalSupplyBalanceCents: BigNumber;
-  treasuryTotalBorrowBalanceCents: BigNumber;
-  treasuryTotalBalanceCents: BigNumber;
-  treasuryTotalAvailableLiquidityBalanceCents: BigNumber;
+  treasurySupplyBalanceCents: number;
+  treasuryBorrowBalanceCents: number;
+  treasuryBalanceCents: number;
+  treasuryLiquidityBalanceCents: number;
 }
 
 export interface UseGetTreasuryTotalsOutput {
@@ -35,17 +29,21 @@ export interface UseGetTreasuryTotalsOutput {
   data: Data;
 }
 
-const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
-  (acc, item) => (item.address ? [...acc, item.address] : acc),
-  [] as string[],
-);
-
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { account } = useContext(AuthContext);
 
-  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
+  const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetPools({
     accountAddress: account?.address,
   });
+
+  const vTokenAddresses = useMemo(
+    () =>
+      (getPoolsData?.pools || []).reduce(
+        (acc, pool) => acc.concat(pool.assets.map(asset => asset.vToken.address)),
+        [] as string[],
+      ),
+    [getPoolsData?.pools],
+  );
 
   const {
     data: vTokenBalancesTreasury = { balances: [] },
@@ -57,7 +55,6 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     },
     {
       placeholderData: { balances: [] },
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     },
   );
 
@@ -67,61 +64,63 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
         (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesTreasury.balances,
       ),
-    [JSON.stringify(vTokenBalancesTreasury)],
+    [vTokenBalancesTreasury],
   );
 
   const {
-    treasuryTotalSupplyBalanceCents,
-    treasuryTotalBorrowBalanceCents,
-    treasuryTotalBalanceCents,
-    treasuryTotalAvailableLiquidityBalanceCents,
+    treasurySupplyBalanceCents,
+    treasuryBorrowBalanceCents,
+    treasuryBalanceCents,
+    treasuryLiquidityBalanceCents,
   } = useMemo(() => {
-    const data = (getMainAssetsData?.assets || []).reduce(
-      (acc, asset) => {
-        let treasuryBalanceTokens = new BigNumber(0);
-        if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
-          const mantissa = treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance;
-          treasuryBalanceTokens = new BigNumber(mantissa).shiftedBy(
-            -asset.vToken.underlyingToken.decimals,
-          );
-        }
+    const data = (getPoolsData?.pools || []).reduce(
+      (acc, pool) => {
+        pool.assets.forEach(asset => {
+          if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
+            const assetTreasuryBalanceWei = new BigNumber(
+              treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance,
+            );
+            const assetTreasuryBalanceTokens = convertWeiToTokens({
+              valueWei: assetTreasuryBalanceWei,
+              token: asset.vToken.underlyingToken,
+            });
 
-        acc.treasuryTotalBalanceCents = acc.treasuryTotalBalanceCents.plus(
-          treasuryBalanceTokens.multipliedBy(asset.tokenPriceDollars).times(100),
-        );
+            const assetTreasuryBalanceCents = assetTreasuryBalanceTokens
+              .multipliedBy(asset.tokenPriceDollars)
+              // Convert to cents
+              .times(100)
+              .dp(0)
+              .toNumber();
 
-        acc.treasuryTotalSupplyBalanceCents = acc.treasuryTotalSupplyBalanceCents.plus(
-          asset.supplyBalanceCents,
-        );
+            acc.treasuryBalanceCents += assetTreasuryBalanceCents;
 
-        acc.treasuryTotalBorrowBalanceCents = acc.treasuryTotalBorrowBalanceCents.plus(
-          asset.borrowBalanceCents,
-        );
-
-        acc.treasuryTotalAvailableLiquidityBalanceCents =
-          acc.treasuryTotalAvailableLiquidityBalanceCents.plus(asset.liquidityCents);
+            acc.treasurySupplyBalanceCents += asset.supplyBalanceCents;
+            acc.treasuryBorrowBalanceCents += asset.borrowBalanceCents;
+            acc.treasuryLiquidityBalanceCents += asset.liquidityCents;
+          }
+        });
 
         return acc;
       },
       {
-        treasuryTotalSupplyBalanceCents: new BigNumber(0),
-        treasuryTotalBorrowBalanceCents: new BigNumber(0),
-        treasuryTotalBalanceCents: new BigNumber(0),
-        treasuryTotalAvailableLiquidityBalanceCents: new BigNumber(0),
+        treasurySupplyBalanceCents: 0,
+        treasuryBorrowBalanceCents: 0,
+        treasuryBalanceCents: 0,
+        treasuryLiquidityBalanceCents: 0,
       },
     );
 
     return data;
-  }, [treasuryBalances, getMainAssetsData?.assets]);
+  }, [getPoolsData?.pools, treasuryBalances]);
 
   return {
     data: {
-      treasuryTotalSupplyBalanceCents,
-      treasuryTotalBorrowBalanceCents,
-      treasuryTotalBalanceCents,
-      treasuryTotalAvailableLiquidityBalanceCents,
+      treasurySupplyBalanceCents,
+      treasuryBorrowBalanceCents,
+      treasuryBalanceCents,
+      treasuryLiquidityBalanceCents,
     },
-    isLoading: isGetVTokenBalancesTreasuryLoading || isGetMainAssetsLoading,
+    isLoading: isGetPoolsDataLoading || isGetVTokenBalancesTreasuryLoading,
   };
 };
 

@@ -1,29 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 1`] = `"Dashboard"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: / 1`] = `"Dashboard"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 2`] = `"Account"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /account 1`] = `"Account"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 3`] = `"Governance"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /convert-vrt 1`] = `"Convert VRT"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 4`] = `"Governance/Leaderboard"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /governance 1`] = `"Governance"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 5`] = `"Governance/Proposal #FAKE_PROPOSAL_ID"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /governance/leaderboard 1`] = `"Governance/Leaderboard"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 6`] = `"Governance/Leaderboard/FAKE_VOTER_ADDRESSFAKE...RESS"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /governance/leaderboard/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Governance/Leaderboard/0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x3d...d848"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 7`] = `"History"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /governance/proposal/FAKE-PROPOSAL-ID 1`] = `"Governance/Proposal #FAKE-PROPOSAL-ID"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 8`] = `"Pools"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /history 1`] = `"History"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 9`] = `"Pools/Fake pool name"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools 1`] = `"Pools"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 10`] = `"Pools/Fake pool name/XVS"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Pools/Venus"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 11`] = `"XVS"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x74469281310195A04840Daf6EdF576F559a3dE80 1`] = `"Pools/Venus/SXP"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 12`] = `"VAI"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /swap 1`] = `"Swap"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 13`] = `"Vaults"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /vai 1`] = `"VAI"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 14`] = `"Convert VRT"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /vaults 1`] = `"Vaults"`;
+
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /xvs 1`] = `"XVS"`;
