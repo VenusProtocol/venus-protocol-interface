@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { Cell, CellGroup } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -10,17 +9,17 @@ import { useGetTreasuryTotals } from 'clients/api';
 import { useStyles } from './styles';
 
 interface HeaderProps {
-  totalSupplyCents: BigNumber;
-  totalBorrowCents: BigNumber;
-  availableLiquidityCents: BigNumber;
-  totalTreasuryCents: BigNumber;
+  treasurySupplyBalanceCents: number;
+  treasuryBorrowBalanceCents: number;
+  treasuryLiquidityBalanceCents: number;
+  treasuryBalanceCents: number;
 }
 
 export const HeaderUi: React.FC<HeaderProps> = ({
-  totalSupplyCents,
-  totalBorrowCents,
-  availableLiquidityCents,
-  totalTreasuryCents,
+  treasurySupplyBalanceCents,
+  treasuryBorrowBalanceCents,
+  treasuryLiquidityBalanceCents,
+  treasuryBalanceCents,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -28,19 +27,19 @@ export const HeaderUi: React.FC<HeaderProps> = ({
   const cells: Cell[] = [
     {
       label: t('market.totalSupply'),
-      value: formatCentsToReadableValue({ value: totalSupplyCents }),
+      value: formatCentsToReadableValue({ value: treasurySupplyBalanceCents }),
     },
     {
       label: t('market.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+      value: formatCentsToReadableValue({ value: treasuryBorrowBalanceCents }),
     },
     {
       label: t('market.availableLiquidity'),
-      value: formatCentsToReadableValue({ value: availableLiquidityCents }),
+      value: formatCentsToReadableValue({ value: treasuryLiquidityBalanceCents }),
     },
     {
       label: t('market.totalTreasury'),
-      value: formatCentsToReadableValue({ value: totalTreasuryCents }),
+      value: formatCentsToReadableValue({ value: treasuryBalanceCents }),
     },
   ];
 
@@ -51,19 +50,19 @@ const Header = () => {
   // TODO: handle loading state (see VEN-591)
   const {
     data: {
-      treasuryTotalSupplyBalanceCents,
-      treasuryTotalBorrowBalanceCents,
-      treasuryTotalAvailableLiquidityBalanceCents,
-      treasuryTotalBalanceCents,
+      treasurySupplyBalanceCents,
+      treasuryBorrowBalanceCents,
+      treasuryLiquidityBalanceCents,
+      treasuryBalanceCents,
     },
   } = useGetTreasuryTotals();
 
   return (
     <HeaderUi
-      totalSupplyCents={treasuryTotalSupplyBalanceCents}
-      totalBorrowCents={treasuryTotalBorrowBalanceCents}
-      availableLiquidityCents={treasuryTotalAvailableLiquidityBalanceCents}
-      totalTreasuryCents={treasuryTotalBalanceCents}
+      treasurySupplyBalanceCents={treasurySupplyBalanceCents}
+      treasuryBorrowBalanceCents={treasuryBorrowBalanceCents}
+      treasuryLiquidityBalanceCents={treasuryLiquidityBalanceCents}
+      treasuryBalanceCents={treasuryBalanceCents}
     />
   );
 };

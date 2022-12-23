@@ -12,10 +12,10 @@ describe('pages/Pools', () => {
   beforeEach(() => {
     (useGetTreasuryTotals as jest.Mock).mockImplementation(() => ({
       data: {
-        treasuryTotalSupplyBalanceCents: new BigNumber(0),
-        treasuryTotalBorrowBalanceCents: new BigNumber(0),
-        treasuryTotalBalanceCents: new BigNumber(0),
-        treasuryTotalAvailableLiquidityBalanceCents: new BigNumber(0),
+        treasurySupplyBalanceCents: new BigNumber(0),
+        treasuryBorrowBalanceCents: new BigNumber(0),
+        treasuryBalanceCents: new BigNumber(0),
+        treasuryLiquidityBalanceCents: new BigNumber(0),
       },
       isLoading: false,
     }));
