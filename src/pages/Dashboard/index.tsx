@@ -130,16 +130,14 @@ const Dashboard: React.FC = () => {
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
   // TODO: handle loading state (see VEN-591)
-  const {
-    data: { assets, userTotalBorrowLimitCents },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,
   });
 
   return (
     <DashboardUi
-      assets={assets}
-      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      assets={getMainAssetsData?.assets || []}
+      userTotalBorrowLimitCents={getMainAssetsData?.userTotalBorrowLimitCents || new BigNumber(0)}
       areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
       onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}

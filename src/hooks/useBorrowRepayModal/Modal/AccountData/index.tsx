@@ -6,7 +6,7 @@ import {
   LabeledInlineContent,
   ValueUpdate,
 } from 'components';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
@@ -34,15 +34,13 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   // TODO: handle loading state (see VEN-591)
-  const {
-    data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,
   });
-
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
-      ? userTotalBorrowBalanceCents.plus(
+      ? getMainAssetsData?.userTotalBorrowBalanceCents ||
+        new BigNumber(0).plus(
           asset.tokenPriceDollars
             .multipliedBy(hypotheticalBorrowAmountTokens)
             // Convert dollars to cents
@@ -50,25 +48,31 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
         )
       : undefined;
 
-  const borrowLimitUsedPercentage = React.useMemo(
+  const borrowLimitUsedPercentage = useMemo(
     () =>
-      calculatePercentage({
-        numerator: userTotalBorrowBalanceCents.toNumber(),
-        denominator: userTotalBorrowLimitCents.toNumber(),
-      }),
-    [userTotalBorrowBalanceCents.toNumber(), userTotalBorrowLimitCents.toNumber()],
+      getMainAssetsData
+        ? calculatePercentage({
+            numerator: getMainAssetsData.userTotalBorrowBalanceCents.toNumber(),
+            denominator: getMainAssetsData.userTotalBorrowLimitCents.toNumber(),
+          })
+        : 0,
+    [
+      getMainAssetsData?.userTotalBorrowBalanceCents,
+      getMainAssetsData?.userTotalBorrowBalanceCents,
+    ],
   );
 
   const hypotheticalBorrowLimitUsedPercentage =
     hypotheticalTotalBorrowBalanceCents &&
+    getMainAssetsData?.userTotalBorrowLimitCents &&
     calculatePercentage({
       numerator: hypotheticalTotalBorrowBalanceCents.toNumber(),
-      denominator: userTotalBorrowLimitCents.toNumber(),
+      denominator: getMainAssetsData.userTotalBorrowLimitCents.toNumber(),
     });
 
   const calculateDailyEarningsCents = React.useCallback(
     (tokenAmount: BigNumber) => {
-      const updatedAssets = assets.map(assetData => ({
+      const updatedAssets = (getMainAssetsData?.assets || []).map(assetData => ({
         ...assetData,
         borrowBalance:
           assetData.vToken.underlyingToken.address.toLowerCase() ===
@@ -83,7 +87,7 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
 
       return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);
     },
-    [JSON.stringify(assets)],
+    [getMainAssetsData?.assets],
   );
 
   const dailyEarningsCents = calculateDailyEarningsCents(new BigNumber(0));
@@ -122,8 +126,8 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
       <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <BorrowBalanceAccountHealth
-        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
+        borrowBalanceCents={getMainAssetsData?.userTotalBorrowBalanceCents.toNumber()}
+        borrowLimitCents={getMainAssetsData?.userTotalBorrowLimitCents.toNumber()}
         hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
         css={sharedStyles.getRow({ isLast: true })}
@@ -134,7 +138,7 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
         css={sharedStyles.getRow({ isLast: false })}
       >
         <ValueUpdate
-          original={userTotalBorrowBalanceCents.toNumber()}
+          original={getMainAssetsData?.userTotalBorrowBalanceCents.toNumber()}
           update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
           positiveDirection="desc"
         />
