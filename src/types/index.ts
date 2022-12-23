@@ -68,6 +68,7 @@ export interface Pool {
   riskRating: PoolRiskRating;
   isIsolated: boolean;
   assets: Asset[];
+  // TODO: add user-specific props
 }
 
 export type ProposalState =

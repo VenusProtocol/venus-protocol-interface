@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { getContractAddress } from 'utilities';
@@ -23,14 +24,18 @@ const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPool
   });
   const { t } = useTranslation();
 
-  const pool: Pool | undefined = getMainAssetsData?.assets && {
-    comptrollerAddress: mainPoolComptrollerAddress,
-    name: t('mainPool.name'),
-    description: t('mainPool.description'),
-    riskRating: 'MINIMAL',
-    isIsolated: false,
-    assets: getMainAssetsData.assets,
-  };
+  const pool: Pool | undefined = useMemo(
+    () =>
+      getMainAssetsData?.assets && {
+        comptrollerAddress: mainPoolComptrollerAddress,
+        name: t('mainPool.name'),
+        description: t('mainPool.description'),
+        riskRating: 'MINIMAL',
+        isIsolated: false,
+        assets: getMainAssetsData.assets,
+      },
+    [getMainAssetsData?.assets],
+  );
 
   return { isLoading: isGetMainAssetsDataLoading, data: pool && { pool } };
 };

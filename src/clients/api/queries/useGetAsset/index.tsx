@@ -7,14 +7,13 @@ import { AuthContext } from 'context/AuthContext';
 const useGetAsset = ({ vToken }: { vToken: VToken }) => {
   const { account } = useContext(AuthContext);
 
+  // TODO: use useGetPools hook instead
   const {
     data: { assets },
     isLoading,
   } = useGetMainAssets({
     accountAddress: account?.address,
   });
-
-  // TODO: add support for isolated assets
 
   const asset = useMemo(
     () =>
