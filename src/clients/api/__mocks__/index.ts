@@ -120,6 +120,13 @@ export const useGetMainPool = jest.fn(() => ({
 export const useGetPool = jest.fn(() => ({
   isLoading: false,
   data: {
+    pool: poolData[0],
+  },
+}));
+
+export const useGetPools = jest.fn(() => ({
+  isLoading: false,
+  data: {
     pools: poolData,
   },
 }));

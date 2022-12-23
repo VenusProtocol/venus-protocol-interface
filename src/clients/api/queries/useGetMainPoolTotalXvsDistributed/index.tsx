@@ -13,7 +13,7 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
 }
 
 const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
-  const { data: getMainMarketsData, isLoading: isGetMainMarketsLoading } = useGetMainMarkets();
+  const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 
   const totalXvsDistributedWei = useMemo(() => {
     const totalXvsDistributedTokens =
@@ -33,7 +33,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
   }, [getMainMarketsData?.markets]);
 
   return {
-    isLoading: isGetMainMarketsLoading,
+    isLoading: isGetMainAssetsLoading,
     data: totalXvsDistributedWei && { totalXvsDistributedWei },
   };
 };
