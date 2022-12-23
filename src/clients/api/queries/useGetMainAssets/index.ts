@@ -27,7 +27,6 @@ export interface Data {
   // TODO: remove next props (only relevant to XVS page, so should be calculated
   // from there using assets)
   totalXvsDistributedWei: BigNumber;
-  dailyVenusWei: BigNumber;
 }
 
 export interface UseGetMainAssetsOutput {
@@ -57,13 +56,11 @@ const useGetMainAssets = ({
   const {
     data: getMarketsData = {
       markets: [],
-      dailyVenusWei: new BigNumber(0),
     },
     isLoading: isGetMainMarketsLoading,
   } = useGetMainMarkets({
     placeholderData: {
       markets: [],
-      dailyVenusWei: new BigNumber(0),
     },
   });
 
@@ -288,7 +285,6 @@ const useGetMainAssets = ({
       userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-      dailyVenusWei: getMarketsData.dailyVenusWei || new BigNumber(0),
       totalXvsDistributedWei,
     };
   }, [
