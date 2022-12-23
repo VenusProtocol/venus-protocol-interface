@@ -1,38 +1,49 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
+import fakeAddress from '__mocks__/models/address';
+import { poolData } from '__mocks__/models/pools';
+import { useGetPool } from 'clients/api';
 import { routes } from 'constants/routing';
-import { VBEP_TOKENS } from 'constants/tokens';
-import { MuiThemeProvider } from 'theme/MuiThemeProvider';
+import renderComponent from 'testUtils/renderComponent';
 
 import Breadcrumbs from '.';
 
+jest.mock('clients/api');
+
 describe('component/Layout/Header/Breadcrumbs', () => {
+  beforeEach(() => {
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: poolData[0],
+      },
+      isLoading: false,
+    }));
+  });
+
   it.each([
     routes.dashboard.path,
     routes.account.path,
     routes.governance.path,
     routes.governanceLeaderBoard.path,
-    routes.governanceProposal.path.replace(':proposalId', 'FAKE_PROPOSAL_ID'),
-    routes.governanceVoter.path.replace(':address', 'FAKE_VOTER_ADDRESS'),
+    routes.governanceProposal.path.replace(':proposalId', 'FAKE-PROPOSAL-ID'),
+    routes.governanceVoter.path.replace(':address', fakeAddress),
     routes.history.path,
     routes.pools.path,
-    routes.pool.path.replace(':poolComptrollerAddress', 'FAKE_POOL_COMPTROLLER_ADDRESS'),
+    routes.pool.path.replace(':poolComptrollerAddress', fakeAddress),
     routes.market.path
-      .replace(':poolComptrollerAddress', 'FAKE_POOL_COMPTROLLER_ADDRESS')
-      .replace(':vTokenAddress', VBEP_TOKENS.xvs.address),
+      .replace(':poolComptrollerAddress', fakeAddress)
+      .replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
     routes.xvs.path,
     routes.vai.path,
     routes.vaults.path,
     routes.convertVrt.path,
-  ])('outputs the right DOM based on the current path', async pathname => {
-    const { container } = render(
-      <MuiThemeProvider>
-        <MemoryRouter initialEntries={[pathname]}>
-          <Breadcrumbs />
-        </MemoryRouter>
-      </MuiThemeProvider>,
+    routes.swap.path,
+  ])('outputs the right DOM based on the current path: %s', async pathname => {
+    const { container } = renderComponent(
+      <MemoryRouter initialEntries={[pathname]}>
+        <Breadcrumbs />
+      </MemoryRouter>,
     );
 
     expect(container.textContent).toMatchSnapshot();

@@ -13,6 +13,7 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { TertiaryButton } from '../../../Button';
 import { EllipseAddress } from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
+import PoolName from './PoolName';
 import { useStyles } from './styles';
 
 export interface PathNode {
@@ -49,11 +50,12 @@ const Breadcrumbs: React.FC = () => {
     }
 
     const activeRoute = routes[activeRouteKey as keyof typeof routes];
+    let href = '';
 
     // Generate path nodes
     return activeRoute.subdirectories.reduce<PathNode[]>((acc, subdirectory) => {
-      let href = '';
       let dom: React.ReactNode;
+      let hrefFragment: string = subdirectory;
 
       switch (subdirectory) {
         case Subdirectory.DASHBOARD:
@@ -66,16 +68,15 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.pools');
           break;
         case Subdirectory.POOL:
-          href += Subdirectory.POOL.replace(
+          hrefFragment = Subdirectory.POOL.replace(
             ':poolComptrollerAddress',
             params.poolComptrollerAddress,
           );
 
-          // TODO: fetch actual value (see VEN-546)
-          dom = <>Fake pool name</>;
+          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress} />;
           break;
         case Subdirectory.MARKET: {
-          href += Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
+          hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
 
           const vToken = getVTokenByAddress(params.vTokenAddress);
 
@@ -107,7 +108,7 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.leaderboard');
           break;
         case Subdirectory.VOTER:
-          href += Subdirectory.VOTER.replace(':address', params.address);
+          hrefFragment = Subdirectory.VOTER.replace(':address', params.address);
 
           dom = (
             <div css={styles.address}>
@@ -142,9 +143,10 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.vai');
           break;
         default:
-          href += subdirectory;
           break;
       }
+
+      href += hrefFragment;
 
       return dom
         ? [
@@ -158,10 +160,10 @@ const Breadcrumbs: React.FC = () => {
     }, []);
   }, [pathname, t, !!account]);
 
-  return (
-    <Typography component="h1" variant="h3">
-      {pathNodes.map((pathNode, index) => (
-        <span key={`layout-header-breadcrumb-${pathNode.href}`}>
+  const pathNodeDom = useMemo(
+    () =>
+      pathNodes.map((pathNode, index) => (
+        <span key={`layout-header-breadcrumb-${pathNode.href}`} css={styles.pathNode}>
           {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
             <>
               <Link to={pathNode.href}>{pathNode.dom}</Link>
@@ -171,7 +173,13 @@ const Breadcrumbs: React.FC = () => {
             pathNode.dom
           )}
         </span>
-      ))}
+      )),
+    [pathNodes],
+  );
+
+  return (
+    <Typography component="h1" variant="h3" css={styles.container}>
+      {pathNodeDom}
     </Typography>
   );
 };
