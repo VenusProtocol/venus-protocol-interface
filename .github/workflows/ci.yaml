@@ -102,8 +102,12 @@ jobs:
           --outputFile=./coverage/report.json
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
         with:
           package-manager: yarn
           coverage-file: ./coverage/report.json
           skip-step: all
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: ${{ steps.coverage.outputs.report }}
