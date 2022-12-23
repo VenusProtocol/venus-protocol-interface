@@ -21,18 +21,12 @@ export const Chip = ({ className, text, icon, type = 'default' }: ChipProps) => 
   );
 };
 
-export const ActiveChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
-  <Chip type="active" {...props} />
+export const ActiveChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props} type="active" />;
+
+export const InactiveChip: React.FC<ChipProps> = ({ ...props }) => (
+  <Chip {...props} type="inactive" />
 );
 
-export const InactiveChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
-  <Chip type="inactive" {...props} />
-);
+export const BlueChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props} type="blue" />;
 
-export const BlueChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
-  <Chip type="blue" {...props} />
-);
-
-export const ErrorChip: React.FC<ChipProps> = ({ type: _type, ...props }) => (
-  <Chip type="error" {...props} />
-);
+export const ErrorChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props} type="error" />;
