@@ -46,6 +46,8 @@ export interface Asset {
   supplyRatePerBlockTokens: BigNumber;
   borrowRatePerBlockTokens: BigNumber;
   // User-specific props
+  // TODO: make these optional so they can be set to undefined when no wallet is
+  // connected
   userSupplyBalanceTokens: BigNumber;
   userBorrowBalanceTokens: BigNumber;
   userWalletBalanceTokens: BigNumber;
@@ -68,7 +70,10 @@ export interface Pool {
   riskRating: PoolRiskRating;
   isIsolated: boolean;
   assets: Asset[];
-  // TODO: add user-specific props
+  // User-specific props
+  userSupplyBalanceCents?: number;
+  userBorrowBalanceCents?: number;
+  userBorrowLimitCents?: number;
 }
 
 export type ProposalState =
