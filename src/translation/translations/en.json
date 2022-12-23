@@ -282,6 +282,10 @@
     "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
     "title": "Please disable LUNA and UST as collateral"
   },
+  "mainPool": {
+    "description": "TBD",
+    "name": "Venus"
+  },
   "market": {
     "availableLiquidity": "Available Liquidity",
     "borrowButtonLabel": "Borrow",
