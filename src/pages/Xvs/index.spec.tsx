@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { useGetMainAssets } from 'clients/api';
+import { useGetMainAssets, useGetMainPoolTotalXvsDistributed } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import Xvs from '.';
@@ -16,7 +16,13 @@ describe('pages/Xvs', () => {
         userTotalBorrowLimitCents: new BigNumber('111'),
         userTotalBorrowBalanceCents: new BigNumber('91'),
         userTotalSupplyBalanceCents: new BigNumber('910'),
-        totalXvsDistributedWei: new BigNumber('22222'),
+      },
+      isLoading: false,
+    }));
+
+    (useGetMainPoolTotalXvsDistributed as jest.Mock).mockImplementation(() => ({
+      data: {
+        totalXvsDistributedWei: new BigNumber('91823912i376'),
       },
       isLoading: false,
     }));
