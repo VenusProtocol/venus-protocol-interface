@@ -101,9 +101,19 @@ jobs:
           yarn test --ci --json --coverage --testLocationInResults
           --outputFile=./coverage/report.json
 
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
         with:
           package-manager: yarn
           coverage-file: ./coverage/report.json
           skip-step: all
+          output: report-markdown
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.findPr.outputs.number }}
+          message: ${{ steps.coverage.outputs.report }}
