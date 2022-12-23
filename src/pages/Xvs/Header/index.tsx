@@ -123,15 +123,17 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
-  const {
-    data: { assets },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
   const dailyXvsDistributedTokens = useMemo(
-    () => assets.reduce((acc, asset) => acc.plus(asset.xvsPerDay), new BigNumber(0)),
-    [assets],
+    () =>
+      (getMainAssetsData?.assets || []).reduce(
+        (acc, asset) => acc.plus(asset.xvsPerDay),
+        new BigNumber(0),
+      ),
+    [getMainAssetsData?.assets],
   );
 
   const { data: mainPoolTotalXvsDistributedData } = useGetMainPoolTotalXvsDistributed();

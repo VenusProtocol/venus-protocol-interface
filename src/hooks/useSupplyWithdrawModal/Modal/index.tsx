@@ -238,13 +238,9 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose }) => {
   const { account } = useContext(AuthContext);
 
-  const {
-    data: { asset },
-  } = useGetAsset({ vToken, accountAddress: account?.address });
+  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
 
-  const {
-    data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
@@ -291,18 +287,18 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose })
   };
 
   const onSubmitWithdraw: AmountFormProps['onSubmit'] = async value => {
-    if (!asset) {
+    if (!getAssetData?.asset) {
       return;
     }
 
     const amount = new BigNumber(value);
-    const amountEqualsSupplyBalance = amount.eq(asset.userSupplyBalanceTokens);
+    const amountEqualsSupplyBalance = amount.eq(getAssetData.asset.userSupplyBalanceTokens);
     let transactionHash;
 
-    if (amountEqualsSupplyBalance && asset.userSupplyBalanceTokens) {
+    if (amountEqualsSupplyBalance && getAssetData.asset.userSupplyBalanceTokens) {
       const userSupplyBalanceWei = convertTokensToWei({
-        value: asset.userSupplyBalanceTokens,
-        token: asset.vToken.underlyingToken,
+        value: getAssetData.asset.userSupplyBalanceTokens,
+        token: getAssetData.asset.vToken.underlyingToken,
       });
       const res = await redeem({ amountWei: userSupplyBalanceWei });
 
@@ -311,7 +307,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose })
     } else {
       const withdrawAmountWei = convertTokensToWei({
         value: new BigNumber(value),
-        token: asset.vToken.underlyingToken,
+        token: getAssetData.asset.vToken.underlyingToken,
       });
 
       const res = await redeemUnderlying({
@@ -338,10 +334,12 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose })
   return (
     <SupplyWithdrawUi
       onClose={onClose}
-      asset={asset}
-      assets={assets}
-      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      asset={getAssetData?.asset}
+      assets={getMainAssetsData?.assets || []}
+      userTotalBorrowBalanceCents={
+        getMainAssetsData?.userTotalBorrowBalanceCents || new BigNumber(0)
+      }
+      userTotalBorrowLimitCents={getMainAssetsData?.userTotalBorrowLimitCents || new BigNumber(0)}
       onSubmitSupply={onSubmitSupply}
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}

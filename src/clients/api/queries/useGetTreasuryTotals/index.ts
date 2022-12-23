@@ -43,10 +43,7 @@ const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { account } = useContext(AuthContext);
 
-  const {
-    data: { assets = [] },
-    isLoading: isGetMainMarketsLoading,
-  } = useGetMainAssets({
+  const { data: getMainAssetsData, isLoading: isGetMainMarketsLoading } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
@@ -79,7 +76,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     treasuryTotalBalanceCents,
     treasuryTotalAvailableLiquidityBalanceCents,
   } = useMemo(() => {
-    const data = assets.reduce(
+    const data = (getMainAssetsData?.assets || []).reduce(
       (acc, asset) => {
         let treasuryBalanceTokens = new BigNumber(0);
         if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
@@ -115,7 +112,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     );
 
     return data;
-  }, [treasuryBalances, assets]);
+  }, [treasuryBalances, getMainAssetsData?.assets]);
 
   return {
     data: {

@@ -28,7 +28,7 @@ export interface Data {
 
 export interface UseGetMainAssetsOutput {
   isLoading: boolean;
-  data: Data;
+  data?: Data;
 }
 
 const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
