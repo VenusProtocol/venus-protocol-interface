@@ -24,9 +24,6 @@ export interface Data {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
-  // TODO: remove next props (only relevant to XVS page, so should be calculated
-  // from there using assets)
-  totalXvsDistributedWei: BigNumber;
 }
 
 export interface UseGetMainAssetsOutput {
@@ -108,7 +105,6 @@ const useGetMainAssets = ({
       userTotalBorrowBalanceCents,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-      totalXvsDistributedWei,
     } = (getMarketsData?.markets || []).reduce(
       (acc, market) => {
         const vToken = getVTokenByAddress(market.address);
@@ -168,7 +164,7 @@ const useGetMainAssets = ({
           ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
-        const asset = {
+        const asset: Asset = {
           vToken,
           tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
           supplyApyPercentage: new BigNumber(market?.supplyApy || 0),
@@ -222,12 +218,6 @@ const useGetMainAssets = ({
         acc.userTotalBorrowBalanceCents = acc.userTotalBorrowBalanceCents.plus(borrowBalanceCents);
         acc.userTotalSupplyBalanceCents = acc.userTotalSupplyBalanceCents.plus(supplyBalanceCents);
 
-        acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
-          new BigNumber(market?.totalDistributed || 0).times(
-            new BigNumber(10).pow(TOKENS.xvs.decimals),
-          ),
-        );
-
         // Create borrow limit based on assets supplied as isCollateralOfUser
         if (asset.isCollateralOfUser) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
@@ -250,7 +240,6 @@ const useGetMainAssets = ({
         userTotalBorrowBalanceCents: new BigNumber(0),
         userTotalBorrowLimitCents: new BigNumber(0),
         userTotalSupplyBalanceCents: new BigNumber(0),
-        totalXvsDistributedWei: new BigNumber(0),
       },
     );
 
@@ -285,7 +274,6 @@ const useGetMainAssets = ({
       userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-      totalXvsDistributedWei,
     };
   }, [
     userMintedVaiData?.mintedVaiWei.toFixed(),

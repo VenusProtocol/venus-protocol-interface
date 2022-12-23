@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/useGetMainPoolTotalXvsDistributed calculates totals correctly 1`] = `
+Object {
+  "totalXvsDistributedWei": "3.110919e+24",
+}
+`;
