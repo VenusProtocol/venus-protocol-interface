@@ -2,8 +2,6 @@
   "account": {
     "accountSummary": {
       "dailyEarnings": "Daily Earnings",
-      "includeXvsToggleLabel": "Include XVS distribution APR",
-      "includeXvsToggleTooltip": "Choose whether to include the XVS distribution APR in calculations",
       "netApy": "Net APY",
       "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
       "title": "Account summary",
@@ -284,6 +282,10 @@
     "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
     "title": "Please disable LUNA and UST as collateral"
   },
+  "mainPool": {
+    "description": "TBD",
+    "name": "Venus"
+  },
   "market": {
     "availableLiquidity": "Available Liquidity",
     "borrowButtonLabel": "Borrow",
@@ -369,12 +371,12 @@
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
-      "userPercentOfLimit": "% of limit",
       "pool": "Pool",
       "riskRating": "Risk level",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
+      "userPercentOfLimit": "% of limit",
       "userSupplyBalance": "Balance",
       "userWalletBalanceTokens": "Wallet"
     }

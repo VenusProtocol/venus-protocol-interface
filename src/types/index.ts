@@ -6,6 +6,24 @@ export enum BscChainId {
   'TESTNET' = 97,
 }
 
+export interface Token {
+  symbol: string;
+  decimals: number;
+  asset: string;
+  address: string | '';
+  isNative?: boolean;
+}
+
+export interface VToken extends Omit<Token, 'isNative'> {
+  decimals: 8; // VBep tokens all have 8 decimals
+  underlyingToken: Token;
+}
+
+export interface TokenBalance {
+  token: Token;
+  balanceWei: BigNumber;
+}
+
 export interface Asset {
   vToken: VToken;
   tokenPriceDollars: BigNumber;
@@ -41,22 +59,15 @@ export interface Asset {
   xvsPerDay: BigNumber;
 }
 
-export interface Token {
-  symbol: string;
-  decimals: number;
-  asset: string;
-  address: string | '';
-  isNative?: boolean;
-}
+export type PoolRiskRating = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
 
-export interface VToken extends Omit<Token, 'isNative'> {
-  decimals: 8; // VBep tokens all have 8 decimals
-  underlyingToken: Token;
-}
-
-export interface TokenBalance {
-  token: Token;
-  balanceWei: BigNumber;
+export interface Pool {
+  comptrollerAddress: string;
+  name: string;
+  description: string;
+  riskRating: PoolRiskRating;
+  isIsolated: boolean;
+  assets: Asset[];
 }
 
 export type ProposalState =
@@ -346,14 +357,3 @@ export interface ExactAmountOutSwap extends SwapBase {
 export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
 export type PSTokenCombination = [PSToken, PSToken];
-
-export type PoolRiskRating = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
-
-export interface Pool {
-  comptrollerAddress: string;
-  name: string;
-  description: string;
-  riskRating: PoolRiskRating;
-  isIsolated: boolean;
-  assets: Asset[];
-}
