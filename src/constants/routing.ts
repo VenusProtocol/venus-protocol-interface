@@ -3,7 +3,7 @@ export enum Subdirectory {
   ACCOUNT = '/account',
   XVS = '/xvs',
   POOLS = '/pools',
-  POOL = '/pool/:poolAddress',
+  POOL = '/pool/:poolComptrollerAddress',
   MARKET = '/market/:vTokenAddress',
   HISTORY = '/history',
   VAULTS = '/vaults',

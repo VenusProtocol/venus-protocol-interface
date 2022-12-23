@@ -1,9 +1,7 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { markets } from '__mocks__/models/markets';
-import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
-import { getMainMarkets, useGetTreasuryTotals, useGetVTokenBalancesAll } from 'clients/api';
+import { useGetTreasuryTotals } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import Pools from '.';
@@ -12,10 +10,6 @@ jest.mock('clients/api');
 
 describe('pages/Pools', () => {
   beforeEach(() => {
-    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
-    (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
-      data: { balances: vTokenBalanceTreasury },
-    }));
     (useGetTreasuryTotals as jest.Mock).mockImplementation(() => ({
       data: {
         treasuryTotalSupplyBalanceCents: new BigNumber(0),
