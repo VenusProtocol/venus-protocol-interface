@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/useGetMainPoolTotalXvsDistributed calculates totals correctly 1`] = `
+exports[`api/queries/useGetMainPoolTotalXvsDistributed returns data in the correct format 1`] = `
 Object {
   "totalXvsDistributedWei": "3.110919e+24",
 }
