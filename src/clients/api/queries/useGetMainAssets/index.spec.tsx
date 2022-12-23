@@ -46,7 +46,6 @@ describe('api/queries/useGetMainAssets', () => {
       userTotalBorrowLimitCents: new BigNumber(0),
       userTotalSupplyBalanceCents: new BigNumber(0),
       totalXvsDistributedWei: new BigNumber(0),
-      dailyVenusWei: new BigNumber(0),
     };
 
     const CallMarketContext = () => {

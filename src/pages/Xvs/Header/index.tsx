@@ -25,7 +25,7 @@ interface HeaderProps {
 
 interface HeaderContainerProps {
   remainingDistributionWei: BigNumber;
-  dailyVenusWei: BigNumber;
+  dailyXvsDistributedTokens: BigNumber;
   venusVaiVaultDailyRateWei: BigNumber;
   totalXvsDistributedWei: BigNumber;
 }
@@ -33,7 +33,7 @@ interface HeaderContainerProps {
 export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   className,
   remainingDistributionWei,
-  dailyVenusWei,
+  dailyXvsDistributedTokens,
   venusVaiVaultDailyRateWei,
   totalXvsDistributedWei,
 }) => {
@@ -44,24 +44,19 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const copyAddress = () => copy(TOKENS.xvs.address);
 
   const readableDailyDistribution = useMemo(() => {
-    const dailyVenusTokens = convertWeiToTokens({
-      valueWei: dailyVenusWei,
-      token: TOKENS.xvs,
-    });
-
     const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
       token: TOKENS.xvs,
     });
 
-    const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
+    const dailyDistribution = dailyXvsDistributedTokens.plus(venusVaiVaultDailyRateTokens);
 
     return formatTokensToReadableValue({
       value: dailyDistribution,
       token: TOKENS.xvs,
       minimizeDecimals: true,
     });
-  }, [dailyVenusWei.toFixed(), venusVaiVaultDailyRateWei.toFixed()]);
+  }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei]);
 
   const readableRemainingDistribution = useMemo(
     () =>
@@ -71,12 +66,12 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         returnInReadableFormat: true,
         minimizeDecimals: true,
       }),
-    [remainingDistributionWei.toFixed()],
+    [remainingDistributionWei],
   );
 
   const percentOfXvsDistributed = useMemo(
     () => totalXvsDistributedWei.dividedBy(MINTED_XVS_WEI).multipliedBy(100).toNumber(),
-    [],
+    [totalXvsDistributedWei],
   );
 
   return (
@@ -124,10 +119,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
   const {
-    data: { dailyVenusWei, totalXvsDistributedWei },
+    data: { assets, totalXvsDistributedWei },
   } = useGetMainAssets({
     accountAddress: account?.address,
   });
+
+  const dailyXvsDistributedTokens = useMemo(
+    () => assets.reduce((acc, asset) => acc.plus(asset.xvsPerDay), new BigNumber(0)),
+    [assets],
+  );
+
   const { data: xvsRemainingDistributionData } = useGetBalanceOf({
     token: TOKENS.xvs,
     accountAddress: getContractAddress('comptroller'),
@@ -138,7 +139,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       remainingDistributionWei={xvsRemainingDistributionData?.balanceWei || new BigNumber(0)}
       venusVaiVaultDailyRateWei={venusVaiVaultDailyRateData?.dailyRateWei || new BigNumber(0)}
       className={className}
-      dailyVenusWei={dailyVenusWei}
+      dailyXvsDistributedTokens={dailyXvsDistributedTokens}
       totalXvsDistributedWei={totalXvsDistributedWei}
     />
   );
