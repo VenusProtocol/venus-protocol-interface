@@ -16,7 +16,6 @@ describe('pages/Xvs', () => {
         userTotalBorrowLimitCents: new BigNumber('111'),
         userTotalBorrowBalanceCents: new BigNumber('91'),
         userTotalSupplyBalanceCents: new BigNumber('910'),
-        dailyVenusWei: new BigNumber('22222'),
         totalXvsDistributedWei: new BigNumber('22222'),
       },
       isLoading: false,
