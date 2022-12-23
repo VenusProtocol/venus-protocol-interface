@@ -10,7 +10,7 @@ import {
   SecondaryButton,
   Spinner,
 } from 'components';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -27,6 +27,7 @@ import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
@@ -372,6 +373,7 @@ const Market: React.FC<MarketProps> = ({
     params: { vTokenAddress },
   },
 }) => {
+  const { account } = useContext(AuthContext);
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to markets page if params are invalid
@@ -383,6 +385,7 @@ const Market: React.FC<MarketProps> = ({
     data: { asset },
   } = useGetAsset({
     vToken,
+    accountAddress: account?.address,
   });
 
   const chartData = useGetChartData({

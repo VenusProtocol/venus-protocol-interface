@@ -10,7 +10,7 @@ import useGetPools, { UseGetPoolsOutput } from '.';
 
 jest.mock('clients/api');
 
-describe('api/queries/useGetMainPool', () => {
+describe('api/queries/useGetPools', () => {
   beforeEach(() => {
     (useGetMainPool as jest.Mock).mockImplementation(() => ({
       data: {
