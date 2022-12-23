@@ -107,6 +107,8 @@ export const useGetXvsVaultPoolCount = () =>
 
 export const useGetTreasuryTotals = jest.fn();
 
+export const useGetMainPoolTotalXvsDistributed = jest.fn();
+
 export const useGetMainAssets = jest.fn(() => ({
   isLoading: false,
   data: {
