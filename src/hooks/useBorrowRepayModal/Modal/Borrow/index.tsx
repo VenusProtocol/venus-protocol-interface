@@ -168,7 +168,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
 
   const {
     data: { asset },
-  } = useGetAsset({ vToken });
+  } = useGetAsset({ vToken, accountAddress: account?.address });
 
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },

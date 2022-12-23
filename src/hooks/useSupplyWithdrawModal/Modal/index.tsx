@@ -236,16 +236,16 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 };
 
 const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account } = useContext(AuthContext);
 
   const {
     data: { asset },
-  } = useGetAsset({ vToken });
+  } = useGetAsset({ vToken, accountAddress: account?.address });
 
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetMainAssets({
-    accountAddress,
+    accountAddress: account?.address,
   });
 
   const { t } = useTranslation();
@@ -253,18 +253,18 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose })
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     vToken,
-    accountAddress,
+    accountAddress: account?.address || '',
   });
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     vToken,
-    accountAddress,
+    accountAddress: account?.address || '',
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
       vToken,
-      accountAddress,
+      accountAddress: account?.address || '',
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;

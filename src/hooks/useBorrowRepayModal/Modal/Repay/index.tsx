@@ -211,7 +211,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
 
   const {
     data: { asset },
-  } = useGetAsset({ vToken });
+  } = useGetAsset({ vToken, accountAddress: account?.address });
 
   const limitTokens = React.useMemo(
     () =>
