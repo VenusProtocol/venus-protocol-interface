@@ -18,9 +18,9 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     routes.governanceVoter.path.replace(':address', 'FAKE_VOTER_ADDRESS'),
     routes.history.path,
     routes.pools.path,
-    routes.pool.path.replace(':poolComptrollerAddress', 'FAKE_MARKET_ID'),
+    routes.pool.path.replace(':poolComptrollerAddress', 'FAKE_POOL_COMPTROLLER_ADDRESS'),
     routes.market.path
-      .replace(':poolComptrollerAddress', 'FAKE_MARKET_ID')
+      .replace(':poolComptrollerAddress', 'FAKE_POOL_COMPTROLLER_ADDRESS')
       .replace(':vTokenAddress', VBEP_TOKENS.xvs.address),
     routes.xvs.path,
     routes.vai.path,

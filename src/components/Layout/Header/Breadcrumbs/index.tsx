@@ -50,30 +50,10 @@ const Breadcrumbs: React.FC = () => {
 
     const activeRoute = routes[activeRouteKey as keyof typeof routes];
 
-    let href = '';
-
     // Generate path nodes
     return activeRoute.subdirectories.reduce<PathNode[]>((acc, subdirectory) => {
+      let href = '';
       let dom: React.ReactNode;
-
-      // Update href
-      switch (subdirectory) {
-        case Subdirectory.POOL:
-          href += Subdirectory.POOL.replace(
-            ':poolComptrollerAddress',
-            params.poolComptrollerAddress,
-          );
-          break;
-        case Subdirectory.MARKET:
-          href += Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
-          break;
-        case Subdirectory.VOTER:
-          href += Subdirectory.VOTER.replace(':address', params.address);
-          break;
-        default:
-          href += subdirectory;
-          break;
-      }
 
       switch (subdirectory) {
         case Subdirectory.DASHBOARD:
@@ -86,10 +66,17 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.pools');
           break;
         case Subdirectory.POOL:
+          href += Subdirectory.POOL.replace(
+            ':poolComptrollerAddress',
+            params.poolComptrollerAddress,
+          );
+
           // TODO: fetch actual value (see VEN-546)
           dom = <>Fake pool name</>;
           break;
         case Subdirectory.MARKET: {
+          href += Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
+
           const vToken = getVTokenByAddress(params.vTokenAddress);
 
           if (vToken) {
@@ -120,6 +107,8 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.leaderboard');
           break;
         case Subdirectory.VOTER:
+          href += Subdirectory.VOTER.replace(':address', params.address);
+
           dom = (
             <div css={styles.address}>
               <Typography variant="h3" color="textPrimary">
@@ -153,6 +142,7 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.vai');
           break;
         default:
+          href += subdirectory;
           break;
       }
 

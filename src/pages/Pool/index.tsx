@@ -1,19 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup, Icon } from 'components';
-import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Cell, CellGroup, Icon, Spinner } from 'components';
+import React, { useContext, useMemo } from 'react';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { poolData } from '__mocks__/models/pools';
+import { useGetPool } from 'clients/api';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { routes } from 'constants/routing';
+import { AuthContext } from 'context/AuthContext';
 
 import Table from './Table';
 import { useStyles } from './styles';
 
 export interface PoolUiProps {
-  pool: Pool;
+  pool?: Pool;
 }
 
 export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
@@ -21,7 +24,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const { t, Trans } = useTranslation();
 
   const cells: Cell[] = useMemo(() => {
-    const { totalSupplyCents, totalBorrowCents } = pool.assets.reduce(
+    const { totalSupplyCents, totalBorrowCents } = (pool?.assets || []).reduce(
       (acc, item) => ({
         totalSupplyCents: acc.totalSupplyCents + item.supplyBalanceCents,
         totalBorrowCents: acc.totalBorrowCents + item.borrowBalanceCents,
@@ -53,12 +56,12 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
       },
       {
         label: t('pool.header.assetsLabel'),
-        value: pool.assets.length,
+        value: pool?.assets.length || PLACEHOLDER_KEY,
       },
     ];
   }, [pool]);
 
-  return (
+  return pool ? (
     <>
       <div css={styles.header}>
         <Typography variant="small2" component="div" css={styles.headerDescription}>
@@ -96,6 +99,8 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
 
       <Table pool={pool} />
     </>
+  ) : (
+    <Spinner />
   );
 };
 
@@ -106,16 +111,19 @@ const PoolPage: React.FC<PoolPageProps> = ({
     params: { poolComptrollerAddress },
   },
 }) => {
-  // TODO: fetch actual value (see VEN-546)
-  const pool = {
-    ...poolData[0],
-    id: poolComptrollerAddress,
-  };
+  const { account } = useContext(AuthContext);
 
-  // TODO: redirect to pools page if pool Comptroller address is incorrect (see
-  // VEN-546)
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
+    accountAddress: account?.address,
+    poolComptrollerAddress,
+  });
 
-  return <PoolUi pool={pool} />;
+  // Redirect to Pools page if pool Comptroller address is incorrect
+  if (!isGetPoolLoading && !getPoolData?.pool) {
+    <Redirect to={routes.dashboard.path} />;
+  }
+
+  return <PoolUi pool={getPoolData?.pool} />;
 };
 
 export default PoolPage;
