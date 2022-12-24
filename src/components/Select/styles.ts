@@ -96,11 +96,9 @@ export const useStyles = () => {
     },
     label: css`
       margin-bottom: ${theme.spacing(1)};
+
       label {
         color: ${theme.palette.text.primary};
-      }
-      ${theme.breakpoints.down('sm')} {
-        display: none;
       }
     `,
   };

@@ -53,7 +53,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
           <>
             <FormikSelectField
               name="proposalType"
-              title={t('vote.createProposalForm.proposalType')}
+              label={t('vote.createProposalForm.proposalType')}
               ariaLabel={t('vote.createProposalForm.proposalType')}
               css={styles.formBottomMargin}
               options={[
@@ -62,6 +62,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
                 { value: ProposalTypeName.CRITICAL, label: t('vote.proposalType.critical') },
               ]}
             />
+
             <FormikTextField
               name="title"
               placeholder={t('vote.createProposalForm.name')}

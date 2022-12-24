@@ -174,7 +174,6 @@
     "reservesReduced": "Reserves Reduced",
     "transfer": "Transfer",
     "type": "Type",
-    "typeColon": "Type:",
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },
@@ -344,6 +343,9 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+  },
+  "select": {
+    "defaultLabel": "Select"
   },
   "selectTokenTextField": {
     "searchInput": {

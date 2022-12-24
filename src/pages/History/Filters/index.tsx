@@ -61,19 +61,15 @@ export const Filters: React.FC<FilterProps> = ({
           </>
         )}
       </div>
-      <div>
-        <Typography css={styles.typeSelectLabel} variant="small2">
-          {t('history.typeColon')}
-        </Typography>
-        <Select
-          options={selectOptions}
-          value={eventType}
-          onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
-          ariaLabel={t('history.type')}
-          title={t('history.type')}
-          css={styles.select}
-        />
-      </div>
+
+      <Select
+        options={selectOptions}
+        value={eventType}
+        onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
+        ariaLabel={t('history.type')}
+        label={t('history.type')}
+        css={styles.select}
+      />
     </Paper>
   );
 };

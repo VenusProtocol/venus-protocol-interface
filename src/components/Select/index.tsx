@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'translation';
 
 import { useIsSmDown } from 'hooks/responsive';
 
@@ -24,7 +25,7 @@ export interface SelectProps {
   onChange: (e: SelectChangeEvent) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   ariaLabel: string;
-  title: string;
+  label?: string;
   name?: string;
 }
 
@@ -35,9 +36,11 @@ export const Select: React.FC<SelectProps> = ({
   onChange,
   onBlur,
   ariaLabel,
-  title,
+  label,
   name,
 }) => {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
   const isSmDown = useIsSmDown();
@@ -71,18 +74,18 @@ export const Select: React.FC<SelectProps> = ({
   }, [isSmDown]);
 
   return (
-    <>
+    <div className={className}>
       <div css={styles.label}>
         <Typography variant="small1" component="label" htmlFor="proposalType">
-          {title}
+          {label || t('select.defaultLabel')}
         </Typography>
       </div>
+
       <MuiSelect
         name={name}
         open={isOpen}
         onClose={handleClose}
         onOpen={handleOpen}
-        className={className}
         css={styles.root({ isOpen })}
         value={value}
         onChange={onChange}
@@ -96,24 +99,25 @@ export const Select: React.FC<SelectProps> = ({
         autoWidth={isSmDown}
       >
         <div css={styles.mobileHeader}>
-          <Typography variant="h4">{title}</Typography>
+          {!!label && <Typography variant="h4">{label}</Typography>}
 
           <TextButton css={styles.closeMenuButton} onClick={handleClose}>
             <Icon name="close" />
           </TextButton>
         </div>
-        {options.map(({ value: v, label }) => (
+
+        {options.map(option => (
           <MenuItem
             disableRipple
             css={styles.menuItem}
-            key={v}
+            key={`select-mobile-menu-item-${option.value}`}
             classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
-            value={v}
+            value={option.value}
           >
-            {label}
+            {option.label}
           </MenuItem>
         ))}
       </MuiSelect>
-    </>
+    </div>
   );
 };
