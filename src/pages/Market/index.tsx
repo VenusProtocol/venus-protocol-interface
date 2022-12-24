@@ -364,7 +364,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   );
 };
 
-// TODO: add poolComptrollerAddress
 export type MarketProps = RouteComponentProps<{ vTokenAddress: string }>;
 
 const Market: React.FC<MarketProps> = ({

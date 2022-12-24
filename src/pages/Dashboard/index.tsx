@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { ButtonGroup, Select, TextField, Toggle } from 'components';
+import { ButtonGroup, TextField, Toggle } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -37,14 +37,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
 
-  // TODO: add all options
-  const mobileSelectOptions = [
-    {
-      value: 'riskRating',
-      label: 'Risk level',
-    },
-  ];
-
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
 
@@ -73,17 +65,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          <Select
-            css={[styles.mobileSelect, showXlDownCss]}
-            label={t('dashboard.mobileSelect.label')}
-            title={t('dashboard.mobileSelect.title')}
-            // TODO: wire up
-            value={mobileSelectOptions[0].value}
-            onChange={console.log}
-            options={mobileSelectOptions}
-            ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
-          />
-
           <ButtonGroup
             css={hideXlDownCss}
             buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
@@ -113,7 +94,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       </div>
 
       {activeTabIndex === 0 ? (
-        // TODO: handle sorting on mobile
         <MarketTable
           key="dashboard-supply-market-table"
           assets={assets}
@@ -126,7 +106,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           }}
         />
       ) : (
-        // TODO: handle sorting on mobile
         <MarketTable
           key="dashboard-borrow-market-table"
           assets={assets}

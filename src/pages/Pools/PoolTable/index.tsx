@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { RiskLevel, Select, Table, TableColumn, TokenGroup } from 'components';
+import { RiskLevel, Table, TableColumn, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -7,7 +7,6 @@ import { formatCentsToReadableValue } from 'utilities';
 
 import { poolData } from '__mocks__/models/pools';
 import { routes } from 'constants/routing';
-import { useShowXxlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
 
@@ -32,16 +31,6 @@ export interface PoolTableProps {
 export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
-  const showXxlDownCss = useShowXxlDownCss();
-
-  // TODO: add all options
-  const mobileSelectOptions = [
-    {
-      value: 'riskRating',
-      label: 'Risk level',
-    },
-  ];
 
   // Format pools into rows
   const data: PoolRow[] = useMemo(
@@ -143,33 +132,20 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
   );
 
   return (
-    <>
-      <Select
-        css={[styles.mobileSelect, showXxlDownCss]}
-        label={t('markets.mobileSelect.label')}
-        title={t('markets.mobileSelect.title')}
-        // TODO: wire up
-        value={mobileSelectOptions[0].value}
-        onChange={console.log}
-        options={mobileSelectOptions}
-        ariaLabel={t('markets.mobileSelect.ariaLabelFor')}
-      />
-
-      <Table
-        columns={columns}
-        data={data}
-        initialOrder={{
-          orderBy: columns[5],
-          orderDirection: 'desc',
-        }}
-        rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
-        getRowHref={row =>
-          routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
-        }
-        breakpoint="xxl"
-        css={styles.cardContentGrid}
-      />
-    </>
+    <Table
+      columns={columns}
+      data={data}
+      initialOrder={{
+        orderBy: columns[5],
+        orderDirection: 'desc',
+      }}
+      rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
+      getRowHref={row =>
+        routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+      }
+      breakpoint="xxl"
+      css={styles.cardContentGrid}
+    />
   );
 };
 

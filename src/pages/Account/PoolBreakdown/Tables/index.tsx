@@ -1,18 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { ButtonGroup, Select } from 'components';
+import { ButtonGroup } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
-import {
-  useHideMdDownCss,
-  useHideXlDownCss,
-  useShowMdDownCss,
-  useShowXlDownCss,
-} from 'hooks/responsive';
+import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
@@ -29,7 +24,6 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
   const hideMdDownCss = useHideMdDownCss();
-  const showMdDownCss = useShowMdDownCss();
 
   const marketTableProps: {
     supply: MarketTableProps;
@@ -56,14 +50,6 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
       },
     },
   };
-
-  // TODO: add all options
-  const mobileSelectOptions = [
-    {
-      value: 'riskRating',
-      label: 'Risk level',
-    },
-  ];
 
   return (
     <div data-testid={TEST_IDS.tables}>
@@ -95,17 +81,6 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
             ]}
             activeButtonIndex={activeTabIndex}
             onButtonClick={setActiveTabIndex}
-          />
-
-          <Select
-            css={[styles.mobileSelect, showMdDownCss]}
-            label={t('account.marketBreakdown.tables.mobileSelect.label')}
-            title={t('account.marketBreakdown.tables.mobileSelect.title')}
-            // TODO: wire up
-            value={mobileSelectOptions[0].value}
-            onChange={console.log}
-            options={mobileSelectOptions}
-            ariaLabel={t('account.marketBreakdown.tables.mobileSelect.ariaLabelFor')}
           />
         </div>
 
