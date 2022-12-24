@@ -1,18 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'translation';
+import { ProposalTypeName } from 'types';
 
+import { Icon } from '../Icon';
 import { useStyles } from './styles';
-import { ChipProps } from './types';
+import { ChipProps, ProposalTypeChipProps } from './types';
 
 export * from './types';
 
-export const Chip = ({ className, text, icon, type = 'default' }: ChipProps) => {
+export const Chip = ({ className, text, iconName, type = 'default' }: ChipProps) => {
   const styles = useStyles();
 
   return (
     <div className={className} css={styles.root({ chipType: type })}>
-      {icon}
+      {!!iconName && <Icon name={iconName} css={styles.icon} />}
 
       <Typography variant="small2" color="textPrimary">
         {text}
@@ -30,3 +33,23 @@ export const InactiveChip: React.FC<ChipProps> = ({ ...props }) => (
 export const BlueChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props} type="blue" />;
 
 export const ErrorChip: React.FC<ChipProps> = ({ ...props }) => <Chip {...props} type="error" />;
+
+export const ProposalTypeChip: React.FC<ProposalTypeChipProps> = ({ proposalType, ...props }) => {
+  const { t } = useTranslation();
+
+  const chipProps: Pick<ChipProps, 'text' | 'iconName'> = useMemo(
+    () =>
+      proposalType === ProposalTypeName.FAST_TRACK
+        ? {
+            text: t('chip.proposalType.fastTrack'),
+            iconName: 'lightening',
+          }
+        : {
+            text: t('chip.proposalType.critical'),
+            iconName: 'fire',
+          },
+    [],
+  );
+
+  return <Chip {...chipProps} {...props} />;
+};

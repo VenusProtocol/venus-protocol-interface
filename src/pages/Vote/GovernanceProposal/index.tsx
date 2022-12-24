@@ -2,7 +2,14 @@
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { ActiveVotingProgress, Chip, Countdown, Icon, IconName, ProposalCard } from 'components';
+import {
+  ActiveVotingProgress,
+  Countdown,
+  Icon,
+  IconName,
+  ProposalCard,
+  ProposalTypeChip,
+} from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, ProposalTypeName, VoteSupport } from 'types';
@@ -139,27 +146,6 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
     abstainedVotesWei || 0,
   ]);
 
-  const proposalTypeChip = useMemo(() => {
-    switch (proposalType) {
-      case ProposalTypeName.FAST_TRACK:
-        return (
-          <Chip
-            text={t('vote.proposalType.fastTrack')}
-            icon={<Icon name="lightening" css={styles.proposalTypeIcon} />}
-          />
-        );
-      case ProposalTypeName.CRITICAL:
-        return (
-          <Chip
-            text={t('vote.proposalType.critical')}
-            icon={<Icon name="fire" css={styles.proposalTypeIcon} />}
-          />
-        );
-      default:
-        return undefined;
-    }
-  }, [proposalType]);
-
   return (
     <ProposalCard
       className={className}
@@ -168,7 +154,11 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       headerRightItem={
         isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
       }
-      headerLeftItem={proposalTypeChip}
+      headerLeftItem={
+        proposalType !== ProposalTypeName.NORMAL ? (
+          <ProposalTypeChip proposalType={proposalType} />
+        ) : undefined
+      }
       title={proposalTitle}
       contentRightItem={
         proposalState === 'Active' ? (

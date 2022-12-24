@@ -77,6 +77,12 @@
   "bscLink": {
     "content": "View on bscscan.com"
   },
+  "chip": {
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track"
+    }
+  },
   "claimXvsRewardButton": {
     "successfulTransactionModal": {
       "message": "You successfully claimed",
@@ -668,9 +674,9 @@
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
     "proposalType": {
-      "normal": "Normal",
       "critical": "Critical",
-      "fastTrack": "Fast track"
+      "fastTrack": "Fast track",
+      "normal": "Normal"
     },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",

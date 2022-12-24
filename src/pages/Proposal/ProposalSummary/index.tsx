@@ -1,10 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
+import {
+  ActiveChip,
+  BscLink,
+  Chip,
+  Countdown,
+  PrimaryButton,
+  ProposalTypeChip,
+  SecondaryButton,
+} from 'components';
 import isAfter from 'date-fns/isAfter';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Proposal } from 'types';
+import { Proposal, ProposalTypeName } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import {
@@ -72,6 +80,7 @@ export const ProposalSummaryUi: React.FC<
     executedTxHash,
     endTxHash,
     endDate,
+    proposalType,
   } = proposal;
 
   const handleCancelProposal = async () => {
@@ -191,8 +200,13 @@ export const ProposalSummaryUi: React.FC<
     <Paper css={styles.root} className={className}>
       <div css={styles.leftSection}>
         <div css={styles.topRow}>
-          <div>
+          <div css={styles.topRowLeftColumn}>
             <Chip text={`#${id}`} css={styles.chipSpace} />
+
+            {proposalType !== ProposalTypeName.NORMAL && (
+              <ProposalTypeChip proposalType={proposalType} />
+            )}
+
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
 

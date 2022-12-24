@@ -49,5 +49,8 @@ export const useStyles = () => {
         `}
       `;
     },
+    icon: css`
+      margin-right: ${theme.spacing(1)};
+    `,
   };
 };
