@@ -7,7 +7,6 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     getRoot: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
-      overflow: hidden;
       padding-left: 0;
       padding-right: 0;
 
@@ -39,6 +38,10 @@ export const useStyles = () => {
           display: block;
         }
       `,
+    cardsSelect: css`
+      width: ${theme.spacing(56)};
+      margin-bottom: ${theme.spacing(4)};
+    `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
       &:not(:last-of-type) {
         margin-bottom: ${theme.spacing(6)};

@@ -27,3 +27,8 @@ export interface TableProps<R> {
   getRowHref?: (row: R) => string;
   title?: string;
 }
+
+export interface Order<R> {
+  orderBy: TableColumn<R>;
+  orderDirection: 'asc' | 'desc';
+}

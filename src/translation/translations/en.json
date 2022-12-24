@@ -2,8 +2,6 @@
   "account": {
     "accountSummary": {
       "dailyEarnings": "Daily Earnings",
-      "includeXvsToggleLabel": "Include XVS distribution APR",
-      "includeXvsToggleTooltip": "Choose whether to include the XVS distribution APR in calculations",
       "netApy": "Net APY",
       "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
       "title": "Account summary",
@@ -369,12 +367,12 @@
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
-      "userPercentOfLimit": "% of limit",
       "pool": "Pool",
       "riskRating": "Risk level",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
+      "userPercentOfLimit": "% of limit",
       "userSupplyBalance": "Balance",
       "userWalletBalanceTokens": "Wallet"
     }
@@ -521,6 +519,12 @@
     },
     "toTokenAmountField": {
       "label": "To"
+    }
+  },
+  "table": {
+    "cardsSelect": {
+      "accessibilityLabel": "Choose an option to sort table rows by",
+      "label": "Sort by"
     }
   },
   "transactionErrors": {
