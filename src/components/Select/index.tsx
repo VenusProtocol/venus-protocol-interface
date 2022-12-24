@@ -12,13 +12,13 @@ import { TextButton } from '../Button';
 import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
-interface Option {
+export interface SelectOption {
   value: string;
   label: string;
 }
 
 export interface SelectProps {
-  options: Option[];
+  options: SelectOption[];
   value: string | undefined;
   onChange: (e: SelectChangeEvent) => void;
   ariaLabel: string;

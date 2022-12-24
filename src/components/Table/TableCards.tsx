@@ -1,16 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import React from 'react';
+import { SelectChangeEvent } from '@mui/material/Select';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'translation';
 
 import { Delimiter } from '../Delimiter';
+import { Select, SelectOption } from '../Select';
 import { useStyles } from './styles';
-import { TableProps } from './types';
+import { Order, TableProps } from './types';
 
-type TableCardProps<R> = Pick<
-  TableProps<R>,
-  'data' | 'rowKeyExtractor' | 'rowOnClick' | 'getRowHref' | 'breakpoint' | 'columns'
->;
+interface TableCardProps<R>
+  extends Pick<
+    TableProps<R>,
+    'data' | 'rowKeyExtractor' | 'rowOnClick' | 'getRowHref' | 'breakpoint' | 'columns'
+  > {
+  order: Order<R> | undefined;
+  onOrderChange: (newOrder: Order<R>) => void;
+}
 
 export function TableCards<R>({
   data,
@@ -19,51 +26,105 @@ export function TableCards<R>({
   getRowHref,
   breakpoint,
   columns,
+  order,
+  onOrderChange,
 }: TableCardProps<R>) {
+  const { t } = useTranslation();
   const styles = useStyles();
 
   const [titleColumn, ...otherColumns] = columns;
 
+  const selectOptions = useMemo(
+    () =>
+      columns.reduce((acc, column) => {
+        if (!column.sortRows) {
+          return acc;
+        }
+
+        const option: SelectOption = {
+          value: column.key,
+          label: column.label,
+        };
+
+        return [...acc, option];
+      }, [] as SelectOption[]),
+    [columns],
+  );
+
+  const selectedOption = useMemo(
+    () => order && selectOptions.find(option => option.value === order.orderBy.key),
+    [selectOptions],
+  );
+
+  const handleOrderChange = (selectChangeEvent: SelectChangeEvent) => {
+    const newSelectedOption = selectOptions.find(
+      option => option.value === selectChangeEvent.target.value,
+    );
+    const orderBy =
+      newSelectedOption && columns.find(column => column.key === newSelectedOption.value);
+
+    if (orderBy) {
+      onOrderChange({
+        orderBy,
+        orderDirection: 'desc',
+      });
+    }
+  };
+
   return (
     <div css={styles.getCardsContainer({ breakpoint })}>
-      {data.map((row, rowIndex) => {
-        const rowKey = rowKeyExtractor(row);
+      {selectOptions.length > 0 && (
+        <Select
+          title={t('table.cardsSelect.label')}
+          label={t('table.cardsSelect.label')}
+          ariaLabel={t('table.cardsSelect.accessibilityLabel')}
+          options={selectOptions}
+          value={selectedOption?.value}
+          onChange={handleOrderChange}
+          css={styles.cardsSelect}
+        />
+      )}
 
-        return (
-          <Paper
-            key={rowKey}
-            css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
-            onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
-            component={
-              getRowHref
-                ? ({ children, ...props }) => (
-                    <div {...props}>
-                      <Link to={getRowHref(row)}>{children}</Link>
-                    </div>
-                  )
-                : 'div'
-            }
-          >
-            <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row, rowIndex)}</div>
+      <div>
+        {data.map((row, rowIndex) => {
+          const rowKey = rowKeyExtractor(row);
 
-            <Delimiter css={styles.delimiterMobile} />
+          return (
+            <Paper
+              key={rowKey}
+              css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
+              onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
+              component={
+                getRowHref
+                  ? ({ children, ...props }) => (
+                      <div {...props}>
+                        <Link to={getRowHref(row)}>{children}</Link>
+                      </div>
+                    )
+                  : 'div'
+              }
+            >
+              <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row, rowIndex)}</div>
 
-            <div className="table__table-cards__card-content" css={styles.rowWrapperMobile}>
-              {otherColumns.map(column => (
-                <div key={`${rowKey}-${column.key}`} css={styles.cellMobile}>
-                  <Typography variant="tiny" css={styles.cellTitleMobile}>
-                    {column.label}
-                  </Typography>
+              <Delimiter css={styles.delimiterMobile} />
 
-                  <Typography variant="small2" css={styles.cellValueMobile}>
-                    {column.renderCell(row, rowIndex)}
-                  </Typography>
-                </div>
-              ))}
-            </div>
-          </Paper>
-        );
-      })}
+              <div className="table__table-cards__card-content" css={styles.rowWrapperMobile}>
+                {otherColumns.map(column => (
+                  <div key={`${rowKey}-${column.key}`} css={styles.cellMobile}>
+                    <Typography variant="tiny" css={styles.cellTitleMobile}>
+                      {column.label}
+                    </Typography>
+
+                    <Typography variant="small2" css={styles.cellValueMobile}>
+                      {column.renderCell(row, rowIndex)}
+                    </Typography>
+                  </div>
+                ))}
+              </div>
+            </Paper>
+          );
+        })}
+      </div>
     </div>
   );
 }

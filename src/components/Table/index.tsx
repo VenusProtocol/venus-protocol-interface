@@ -12,7 +12,7 @@ import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';
-import { TableColumn, TableProps } from './types';
+import { Order, TableColumn, TableProps } from './types';
 
 export * from './types';
 
@@ -32,13 +32,7 @@ export function Table<R>({
 }: TableProps<R>) {
   const styles = useStyles();
 
-  const [order, setOrder] = React.useState<
-    | {
-        orderBy: TableColumn<R>;
-        orderDirection: 'asc' | 'desc';
-      }
-    | undefined
-  >(initialOrder);
+  const [order, setOrder] = React.useState<Order<R> | undefined>(initialOrder);
 
   const onRequestOrder = (column: TableColumn<R>) => {
     let newOrderDirection: 'asc' | 'desc' = 'desc';
@@ -123,6 +117,8 @@ export function Table<R>({
         getRowHref={getRowHref}
         columns={cardColumns || columns}
         breakpoint={breakpoint}
+        order={order}
+        onOrderChange={setOrder}
       />
     </Paper>
   );
