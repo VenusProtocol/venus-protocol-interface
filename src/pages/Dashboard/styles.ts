@@ -32,12 +32,5 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
-    mobileSelect: css`
-      width: ${theme.spacing(56)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
-    `,
   };
 };

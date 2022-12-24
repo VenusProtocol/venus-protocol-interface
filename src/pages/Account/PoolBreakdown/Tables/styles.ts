@@ -49,8 +49,5 @@ export const useStyles = () => {
         margin: 0;
       }
     `,
-    mobileSelect: css`
-      width: ${theme.spacing(56)};
-    `,
   };
 };
