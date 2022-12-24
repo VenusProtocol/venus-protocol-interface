@@ -27,7 +27,7 @@ export const Filters: React.FC<FilterProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const selectOptions = [
-    { label: t('history.all'), value: 'All' },
+    { label: t('history.all'), value: ALL_VALUE },
     { label: t('history.mint'), value: 'Mint' },
     { label: t('history.transfer'), value: 'Transfer' },
     { label: t('history.borrow'), value: 'Borrow' },

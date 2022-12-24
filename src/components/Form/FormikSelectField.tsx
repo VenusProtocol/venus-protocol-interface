@@ -24,6 +24,12 @@ export const FormikSelectField = ({ name, onBlur, ...rest }: FormikSelectFieldPr
   };
 
   return (
-    <Select name={name} value={value || ''} onChange={onChange} onBlur={handleBlur} {...rest} />
+    <Select
+      name={name}
+      value={value === undefined ? '' : value}
+      onChange={onChange}
+      onBlur={handleBlur}
+      {...rest}
+    />
   );
 };
