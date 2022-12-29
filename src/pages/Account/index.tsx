@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Cell, CellGroup, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
@@ -32,6 +32,18 @@ export const AccountUi: React.FC<AccountUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  // Filter out pools user has not supplied in or borrowed from
+  const filteredPools = useMemo(
+    () =>
+      pools.filter(
+        pool =>
+          !!pool.assets.find(
+            asset => asset.userSupplyBalanceCents > 0 || asset.userBorrowBalanceCents > 0,
+          ),
+      ),
+    [pools],
+  );
 
   const cells: Cell[] = [
     {
@@ -70,7 +82,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
         <Spinner />
       ) : (
         <>
-          {pools.map(pool => (
+          {filteredPools.map(pool => (
             <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
           ))}
         </>
@@ -91,7 +103,6 @@ const Account: React.FC = () => {
     accountAddress: account?.address,
   });
 
-  // TODO: add loading state
   return (
     <AccountUi
       netApyPercentage={netApyPercentage}
