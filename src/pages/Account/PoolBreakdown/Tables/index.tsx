@@ -85,9 +85,17 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
         </div>
 
         {activeTabIndex === 0 ? (
-          <MarketTable {...marketTableProps.supply} css={styles.tabletMarketTable} />
+          <MarketTable
+            key="supply-market-table"
+            {...marketTableProps.supply}
+            css={styles.tabletMarketTable}
+          />
         ) : (
-          <MarketTable {...marketTableProps.borrow} css={styles.tabletMarketTable} />
+          <MarketTable
+            key="borrow-market-table"
+            {...marketTableProps.borrow}
+            css={styles.tabletMarketTable}
+          />
         )}
       </Paper>
     </div>

@@ -49,9 +49,12 @@ export interface Asset {
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
   userSupplyBalanceTokens: BigNumber;
+  userSupplyBalanceCents: number;
   userBorrowBalanceTokens: BigNumber;
+  userBorrowBalanceCents: number;
   userWalletBalanceTokens: BigNumber;
-  userPercentOfLimit: string;
+  userWalletBalanceCents: number;
+  userPercentOfLimit: number;
   isCollateralOfUser: boolean;
   // TODO: replace next props with rewards field
   xvsBorrowApy: BigNumber;

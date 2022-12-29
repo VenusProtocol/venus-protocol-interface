@@ -22,9 +22,12 @@ Object {
     "supplyBalanceTokens": "19339683254955736",
     "supplyRatePerBlockTokens": "0.000001",
     "tokenPriceDollars": "1.2786734",
+    "userBorrowBalanceCents": 0,
     "userBorrowBalanceTokens": "0",
-    "userPercentOfLimit": "0",
+    "userPercentOfLimit": 0,
+    "userSupplyBalanceCents": 11508,
     "userSupplyBalanceTokens": "90",
+    "userWalletBalanceCents": 12786,
     "userWalletBalanceTokens": "100",
     "vToken": Object {
       "address": "0x74469281310195A04840Daf6EdF576F559a3dE80",

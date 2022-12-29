@@ -35,3 +35,4 @@ export { default as compareBigNumbers } from './compareBigNumbers';
 export { default as compareBooleans } from './compareBooleans';
 export { default as compareNumbers } from './compareNumbers';
 export { default as formatToPool } from './formatToPool';
+export { default as convertDollarsToCents } from './convertDollarsToCents';

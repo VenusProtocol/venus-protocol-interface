@@ -15,7 +15,6 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
   calculateCollateralValue,
-  calculatePercentage,
   compareBigNumbers,
   compareBooleans,
   compareNumbers,
@@ -153,14 +152,6 @@ const useGenerateColumns = ({
             return <RiskLevel variant="MINIMAL" />;
           }
 
-          if (column === 'userWalletBalanceTokens') {
-            return formatTokensToReadableValue({
-              value: asset.userWalletBalanceTokens,
-              token: asset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
-          }
-
           if (column === 'userSupplyBalance') {
             return formatTokensToReadableValue({
               value: asset.userSupplyBalanceTokens,
@@ -192,26 +183,19 @@ const useGenerateColumns = ({
           }
 
           if (column === 'userPercentOfLimit') {
-            const userPercentOfLimit = calculatePercentage({
-              numerator: +asset.userBorrowBalanceTokens
-                .multipliedBy(asset.tokenPriceDollars)
-                .times(100),
-              denominator: +userTotalBorrowLimitCents,
-            });
-
             return (
               <div css={styles.userPercentOfLimit}>
                 <ProgressBar
                   min={0}
                   max={100}
-                  value={userPercentOfLimit}
+                  value={asset.userPercentOfLimit}
                   step={1}
                   ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
                   css={styles.percentOfLimitProgressBar}
                 />
 
                 <Typography variant="small2" css={styles.white}>
-                  {formatToReadablePercentage(userPercentOfLimit)}
+                  {formatToReadablePercentage(asset.userPercentOfLimit)}
                 </Typography>
               </div>
             );
@@ -223,7 +207,6 @@ const useGenerateColumns = ({
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                   const roaABorrowApy = rowA.xvsBorrowApy.plus(rowA.borrowApyPercentage);
-
                   const roaBBorrowApy = rowB.xvsBorrowApy.plus(rowB.borrowApyPercentage);
 
                   return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
@@ -231,7 +214,6 @@ const useGenerateColumns = ({
 
                 if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
                   const roaASupplyApy = rowA.xvsSupplyApy.plus(rowA.supplyApyPercentage);
-
                   const roaBSupplyApy = rowB.xvsSupplyApy.plus(rowB.supplyApyPercentage);
 
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
@@ -259,42 +241,34 @@ const useGenerateColumns = ({
                   // them together (see VEN-546)
                 }
 
-                if (column === 'userWalletBalanceTokens') {
-                  return compareBigNumbers(
-                    rowA.userWalletBalanceTokens,
-                    rowB.userWalletBalanceTokens,
-                    direction,
-                  );
-                }
-
                 if (column === 'userSupplyBalance') {
-                  return compareBigNumbers(
-                    rowA.userSupplyBalanceTokens,
-                    rowB.userSupplyBalanceTokens,
+                  return compareNumbers(
+                    rowA.userSupplyBalanceCents,
+                    rowB.userSupplyBalanceCents,
                     direction,
                   );
                 }
 
                 if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
-                  return compareBigNumbers(
-                    rowA.userBorrowBalanceTokens,
-                    rowB.userBorrowBalanceTokens,
+                  return compareNumbers(
+                    rowA.userBorrowBalanceCents,
+                    rowB.userBorrowBalanceCents,
                     direction,
                   );
                 }
 
                 if (column === 'supplyBalance') {
-                  return compareBigNumbers(
-                    rowA.supplyBalanceTokens,
-                    rowB.supplyBalanceTokens,
+                  return compareNumbers(
+                    rowA.supplyBalanceCents,
+                    rowB.supplyBalanceCents,
                     direction,
                   );
                 }
 
                 if (column === 'borrowBalance') {
-                  return compareBigNumbers(
-                    rowA.borrowBalanceTokens,
-                    rowB.borrowBalanceTokens,
+                  return compareNumbers(
+                    rowA.borrowBalanceCents,
+                    rowB.borrowBalanceCents,
                     direction,
                   );
                 }

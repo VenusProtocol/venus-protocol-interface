@@ -44,6 +44,6 @@ export const useStyles = () => {
       }
     `,
     getNetApyColor: ({ netApyPercentage }: { netApyPercentage: number }) =>
-      netApyPercentage > 0 ? theme.palette.interactive.success : theme.palette.interactive.error,
+      netApyPercentage >= 0 ? theme.palette.interactive.success : theme.palette.interactive.error,
   };
 };

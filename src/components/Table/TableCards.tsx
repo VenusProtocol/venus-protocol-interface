@@ -53,7 +53,7 @@ export function TableCards<R>({
 
   const selectedOption = useMemo(
     () => order && selectOptions.find(option => option.value === order.orderBy.key),
-    [selectOptions],
+    [order, selectOptions],
   );
 
   const handleOrderChange = (selectChangeEvent: SelectChangeEvent) => {
