@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { ButtonGroup } from 'components';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
@@ -28,28 +28,31 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   const marketTableProps: {
     supply: MarketTableProps;
     borrow: MarketTableProps;
-  } = {
-    supply: {
-      assets,
-      marketType: 'supply',
-      breakpoint: 'md',
-      columns: ['asset', 'supplyApyLtv', 'userSupplyBalance', 'collateral'],
-      initialOrder: {
-        orderBy: 'userSupplyBalance',
-        orderDirection: 'desc',
+  } = useMemo(
+    () => ({
+      supply: {
+        assets: assets.filter(asset => asset.userSupplyBalanceTokens.isGreaterThan(0)),
+        marketType: 'supply',
+        breakpoint: 'md',
+        columns: ['asset', 'supplyApyLtv', 'userSupplyBalance', 'collateral'],
+        initialOrder: {
+          orderBy: 'userSupplyBalance',
+          orderDirection: 'desc',
+        },
       },
-    },
-    borrow: {
-      assets,
-      marketType: 'borrow',
-      breakpoint: 'md',
-      columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userPercentOfLimit'],
-      initialOrder: {
-        orderBy: 'userBorrowBalance',
-        orderDirection: 'desc',
+      borrow: {
+        assets: assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
+        marketType: 'borrow',
+        breakpoint: 'md',
+        columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userPercentOfLimit'],
+        initialOrder: {
+          orderBy: 'userBorrowBalance',
+          orderDirection: 'desc',
+        },
       },
-    },
-  };
+    }),
+    [assets],
+  );
 
   return (
     <div data-testid={TEST_IDS.tables}>
