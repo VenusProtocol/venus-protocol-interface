@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup } from 'components';
-import React from 'react';
+import { Cell, CellGroup, Spinner } from 'components';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
-import { poolData } from '__mocks__/models/pools';
+import { useGetPools } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 
 import PoolBreakdown from './PoolBreakdown';
 import { useStyles } from './styles';
@@ -14,10 +15,11 @@ import TEST_IDS from './testIds';
 
 export interface AccountUiProps {
   pools: Pool[];
-  netApyPercentage: number;
-  dailyEarningsCents: number;
-  totalSupplyCents: number;
-  totalBorrowCents: number;
+  isFetchingPools: boolean;
+  netApyPercentage?: number;
+  dailyEarningsCents?: number;
+  totalSupplyCents?: number;
+  totalBorrowCents?: number;
 }
 
 export const AccountUi: React.FC<AccountUiProps> = ({
@@ -25,6 +27,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
   dailyEarningsCents,
   totalSupplyCents,
   totalBorrowCents,
+  isFetchingPools,
   pools,
 }) => {
   const { t } = useTranslation();
@@ -35,7 +38,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
       label: t('account.accountSummary.netApy'),
       value: formatToReadablePercentage(netApyPercentage),
       tooltip: t('account.accountSummary.netApyTooltip'),
-      color: styles.getNetApyColor({ netApyPercentage }),
+      color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
     },
     {
       label: t('account.accountSummary.dailyEarnings'),
@@ -63,9 +66,15 @@ export const AccountUi: React.FC<AccountUiProps> = ({
         <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
 
-      {pools.map(pool => (
-        <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
-      ))}
+      {isFetchingPools ? (
+        <Spinner />
+      ) : (
+        <>
+          {pools.map(pool => (
+            <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
+          ))}
+        </>
+      )}
     </>
   );
 };
@@ -77,13 +86,20 @@ const Account: React.FC = () => {
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
 
+  const { account } = useContext(AuthContext);
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+    accountAddress: account?.address,
+  });
+
+  // TODO: add loading state
   return (
     <AccountUi
       netApyPercentage={netApyPercentage}
       dailyEarningsCents={dailyEarningsCents}
       totalSupplyCents={totalSupplyCents}
       totalBorrowCents={totalBorrowCents}
-      pools={poolData}
+      isFetchingPools={isGetPoolsLoading}
+      pools={getPoolsData?.pools || []}
     />
   );
 };

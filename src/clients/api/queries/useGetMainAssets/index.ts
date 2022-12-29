@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Asset } from 'types';
 import {
   calculateCollateralValue,
+  convertDollarsToCents,
   convertTokensToWei,
   convertWeiToTokens,
   getVTokenByAddress,
@@ -50,16 +51,7 @@ const useGetMainAssets = ({
     },
   );
 
-  const {
-    data: getMarketsData = {
-      markets: [],
-    },
-    isLoading: isGetMainMarketsLoading,
-  } = useGetMainMarkets({
-    placeholderData: {
-      markets: [],
-    },
-  });
+  const { data: getMainMarketsData, isLoading: isGetMainMarketsLoading } = useGetMainMarkets();
 
   const {
     data: assetsInAccount = {
@@ -100,12 +92,16 @@ const useGetMainAssets = ({
     isGetUserMintedVaiLoading;
 
   const data = useMemo(() => {
+    if (!getMainMarketsData?.markets) {
+      return undefined;
+    }
+
     const {
       assets,
       userTotalBorrowBalanceCents,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-    } = (getMarketsData?.markets || []).reduce(
+    } = getMainMarketsData.markets.reduce(
       (acc, market) => {
         const vToken = getVTokenByAddress(market.address);
 
@@ -119,10 +115,14 @@ const useGetMainAssets = ({
           .map(address => address.toLowerCase())
           .includes(vTokenAddress);
 
+        const tokenPriceDollars = new BigNumber(market?.tokenPrice || 0);
+
         let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
+        let userSupplyBalanceCents = 0;
         let userBorrowBalanceTokens = new BigNumber(0);
-        const userPercentOfLimit = '0';
+        let userBorrowBalanceCents = 0;
+        let userWalletBalanceCents = 0;
 
         const wallet = vTokenBalances && vTokenBalances[vTokenAddress];
         if (accountAddress && wallet) {
@@ -130,8 +130,19 @@ const useGetMainAssets = ({
             new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
 
           userWalletBalanceTokens = toDecimalAmount(wallet.tokenBalance);
+          userWalletBalanceCents = convertDollarsToCents(
+            userWalletBalanceTokens.times(tokenPriceDollars),
+          );
+
           userSupplyBalanceTokens = toDecimalAmount(wallet.balanceOfUnderlying);
+          userSupplyBalanceCents = convertDollarsToCents(
+            userSupplyBalanceTokens.times(tokenPriceDollars),
+          );
+
           userBorrowBalanceTokens = toDecimalAmount(wallet.borrowBalanceCurrent);
+          userBorrowBalanceCents = convertDollarsToCents(
+            userBorrowBalanceTokens.times(tokenPriceDollars),
+          );
         }
 
         const reserveTokens = market?.totalReserves
@@ -183,22 +194,23 @@ const useGetMainAssets = ({
           supplierCount: market?.supplierCount || 0,
           borrowerCount: market?.borrowerCount || 0,
           supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0).div(exchangeRateVTokens),
+          supplyBalanceCents: convertDollarsToCents(
+            market?.totalSupplyUsd ? +market?.totalSupplyUsd : 0,
+          ),
           borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
-          supplyBalanceCents: new BigNumber(market?.totalSupplyUsd || 0)
-            .times(100)
-            .dp(0)
-            .toNumber(),
-          borrowBalanceCents: new BigNumber(market?.totalBorrowsUsd || 0)
-            .times(100)
-            .dp(0)
-            .toNumber(),
+          borrowBalanceCents: convertDollarsToCents(
+            market?.totalBorrowsUsd ? +market?.totalBorrowsUsd : 0,
+          ),
           supplyRatePerBlockTokens,
           borrowRatePerBlockTokens,
           isCollateralOfUser,
           userWalletBalanceTokens,
-          userPercentOfLimit,
+          userWalletBalanceCents,
+          userPercentOfLimit: 0,
           userSupplyBalanceTokens,
+          userSupplyBalanceCents,
           userBorrowBalanceTokens,
+          userBorrowBalanceCents,
           xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
           xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
           xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
@@ -208,15 +220,11 @@ const useGetMainAssets = ({
             .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
         };
 
-        // user totals
-        const borrowBalanceCents = asset.userBorrowBalanceTokens
-          .times(asset.tokenPriceDollars)
-          .times(100);
-        const supplyBalanceCents = asset.userSupplyBalanceTokens
-          .times(asset.tokenPriceDollars)
-          .times(100);
-        acc.userTotalBorrowBalanceCents = acc.userTotalBorrowBalanceCents.plus(borrowBalanceCents);
-        acc.userTotalSupplyBalanceCents = acc.userTotalSupplyBalanceCents.plus(supplyBalanceCents);
+        acc.userTotalBorrowBalanceCents =
+          acc.userTotalBorrowBalanceCents.plus(userBorrowBalanceCents);
+
+        acc.userTotalSupplyBalanceCents =
+          acc.userTotalSupplyBalanceCents.plus(userSupplyBalanceCents);
 
         // Create borrow limit based on assets supplied as isCollateralOfUser
         if (asset.isCollateralOfUser) {
@@ -253,20 +261,18 @@ const useGetMainAssets = ({
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
             .times(100)
+            .dp(0)
         : 0,
     );
 
     // percent of limit
     assetList = assetList.map((item: Asset) => ({
       ...item,
-      userPercentOfLimit: new BigNumber(userTotalBorrowLimitCents).isZero()
-        ? '0'
-        : item.userBorrowBalanceTokens
-            .times(item.tokenPriceDollars)
-            .div(userTotalBorrowLimitCents)
-            .times(100)
-            .dp(0, 1)
-            .toFixed(),
+      userPercentOfLimit: new BigNumber(item.userBorrowBalanceCents)
+        .times(100)
+        .div(userTotalBorrowLimitCents)
+        .dp(2)
+        .toNumber(),
     }));
 
     return {
@@ -277,10 +283,10 @@ const useGetMainAssets = ({
     };
   }, [
     userMintedVaiData?.mintedVaiWei.toFixed(),
-    JSON.stringify(getMarketsData?.markets),
+    JSON.stringify(getMainMarketsData?.markets),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
-    JSON.stringify(getMarketsData),
+    JSON.stringify(getMainMarketsData),
   ]);
 
   return {

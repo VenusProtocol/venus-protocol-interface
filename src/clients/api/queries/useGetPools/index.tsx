@@ -19,21 +19,21 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
     accountAddress,
   });
 
-  const pools = useMemo(() => {
-    const allPools: Pool[] = [];
-
-    if (getMainPoolData?.pool) {
-      allPools.push(getMainPoolData.pool);
+  const data = useMemo(() => {
+    if (!getMainPoolData?.pool) {
+      return undefined;
     }
 
     // TODO: add support for isolated pools
 
-    return allPools;
+    return {
+      pools: [getMainPoolData.pool],
+    };
   }, [getMainPoolData?.pool]);
 
   const isLoading = isGetMainPoolDataLoading;
 
-  return { isLoading, data: { pools } };
+  return { isLoading, data };
 };
 
 export default useGetPools;
