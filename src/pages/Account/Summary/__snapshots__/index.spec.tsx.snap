@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Account/Summary displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:156.43%Limit:$57.54.Your safe limit:$46.03"`;
+
+exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY-0.02%Daily Earnings$0.00Total Supply$215.07Total Borrow$90.01"`;

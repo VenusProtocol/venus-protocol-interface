@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`pages/Account displays stats correctly 1`] = `"Net APY13.4%Daily Earnings$1,000.00Total Supply$1,000,000.00Total Borrow$100,000.00"`;
