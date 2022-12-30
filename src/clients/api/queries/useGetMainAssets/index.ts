@@ -82,7 +82,7 @@ const useGetMainAssets = ({
         (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesAccount.balances,
       ),
-    [JSON.stringify(vTokenBalancesAccount)],
+    [vTokenBalancesAccount],
   );
 
   const isLoading =
@@ -254,7 +254,7 @@ const useGetMainAssets = ({
     let assetList = assets;
 
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
-      userMintedVaiData
+      userMintedVaiData?.mintedVaiWei
         ? convertWeiToTokens({
             valueWei: userMintedVaiData.mintedVaiWei,
             token: TOKENS.vai,
@@ -282,11 +282,10 @@ const useGetMainAssets = ({
       userTotalSupplyBalanceCents,
     };
   }, [
-    userMintedVaiData?.mintedVaiWei.toFixed(),
-    JSON.stringify(getMainMarketsData?.markets),
-    JSON.stringify(assetsInAccount),
-    JSON.stringify(vTokenBalances),
-    JSON.stringify(getMainMarketsData),
+    userMintedVaiData?.mintedVaiWei,
+    getMainMarketsData?.markets,
+    assetsInAccount,
+    vTokenBalances,
   ]);
 
   return {
