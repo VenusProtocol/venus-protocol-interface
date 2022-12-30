@@ -77,6 +77,12 @@
   "bscLink": {
     "content": "View on bscscan.com"
   },
+  "chip": {
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track"
+    }
+  },
   "claimXvsRewardButton": {
     "successfulTransactionModal": {
       "message": "You successfully claimed",
@@ -168,7 +174,6 @@
     "reservesReduced": "Reserves Reduced",
     "transfer": "Transfer",
     "type": "Type",
-    "typeColon": "Type:",
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },
@@ -338,6 +343,9 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+  },
+  "select": {
+    "defaultLabel": "Select"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -641,6 +649,7 @@
       "name": "Name",
       "nextStep": "Next step",
       "proposalName": "Proposal name",
+      "proposalType": "Proposal type",
       "signature": "Signature",
       "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
@@ -666,6 +675,11 @@
     "pleaseAllowTimeForConfirmation": "Please allow a few minutes for your transaction to be confirmed",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track",
+      "normal": "Normal"
+    },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",

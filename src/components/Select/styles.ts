@@ -94,5 +94,12 @@ export const useStyles = () => {
         borderRadius: `${theme.shape.borderRadius.large}px`,
       },
     },
+    label: css`
+      margin-bottom: ${theme.spacing(1)};
+
+      label {
+        color: ${theme.palette.text.primary};
+      }
+    `,
   };
 };

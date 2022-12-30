@@ -3,18 +3,19 @@ import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import {
-  ActiveChip,
   ActiveVotingProgress,
   Countdown,
   Icon,
   IconName,
   ProposalCard,
+  ProposalTypeChip,
 } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { ProposalState, ProposalTypeName, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
+import { GreenPulse } from 'components/LottieAnimation';
 import Path from 'constants/path';
 import { AuthContext } from 'context/AuthContext';
 
@@ -107,6 +108,7 @@ interface GovernanceProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
+  proposalType: ProposalTypeName;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -120,6 +122,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   againstVotesWei,
   abstainedVotesWei,
   isUserConnected,
+  proposalType,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -149,12 +152,12 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}
       proposalNumber={proposalId}
       headerRightItem={
-        proposalState === 'Active' ? (
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />
-        ) : undefined
+        isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
       }
       headerLeftItem={
-        isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
+        proposalType !== ProposalTypeName.NORMAL ? (
+          <ProposalTypeChip proposalType={proposalType} />
+        ) : undefined
       }
       title={proposalTitle}
       contentRightItem={
@@ -173,6 +176,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         endDate && proposalState === 'Active' ? (
           <div css={styles.timestamp}>
             <Typography variant="small2">
+              <div css={styles.greenPulseContainer}>
+                <GreenPulse css={styles.greenPulse} />
+              </div>
               <Trans
                 i18nKey="voteProposalUi.activeUntilDate"
                 components={{

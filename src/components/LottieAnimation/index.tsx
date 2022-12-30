@@ -26,4 +26,8 @@ export const Spinner: React.FC<Omit<LottieAnimationProps, 'name'>> = props => (
   <LottieAnimation name="spinner" {...props} />
 );
 
+export const GreenPulse: React.FC<Omit<LottieAnimationProps, 'name'>> = props => (
+  <LottieAnimation name="greenPulse" {...props} />
+);
+
 export default LottieAnimation;

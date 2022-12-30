@@ -27,7 +27,7 @@ export const Filters: React.FC<FilterProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const selectOptions = [
-    { label: t('history.all'), value: 'All' },
+    { label: t('history.all'), value: ALL_VALUE },
     { label: t('history.mint'), value: 'Mint' },
     { label: t('history.transfer'), value: 'Transfer' },
     { label: t('history.borrow'), value: 'Borrow' },
@@ -61,19 +61,15 @@ export const Filters: React.FC<FilterProps> = ({
           </>
         )}
       </div>
-      <div>
-        <Typography css={styles.typeSelectLabel} variant="small2">
-          {t('history.typeColon')}
-        </Typography>
-        <Select
-          options={selectOptions}
-          value={eventType}
-          onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
-          ariaLabel={t('history.type')}
-          title={t('history.type')}
-          css={styles.select}
-        />
-      </div>
+
+      <Select
+        options={selectOptions}
+        value={eventType}
+        onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
+        ariaLabel={t('history.type')}
+        label={t('history.type')}
+        css={styles.select}
+      />
     </Paper>
   );
 };

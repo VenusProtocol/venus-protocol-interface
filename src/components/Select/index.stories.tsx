@@ -29,5 +29,5 @@ Default.args = {
   onChange: console.log,
   value: 'value1',
   ariaLabel: 'select',
-  title: 'Select option',
+  label: 'Select option',
 };
