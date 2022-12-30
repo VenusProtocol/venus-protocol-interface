@@ -1,17 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import { Cell, CellGroup, Spinner } from 'components';
+import { Spinner } from 'components';
 import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'translation';
-import { Pool } from 'types';
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+import { Asset, Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
 import PoolBreakdown from './PoolBreakdown';
+import Summary from './Summary';
 import { useStyles } from './styles';
-import TEST_IDS from './testIds';
 
 export interface AccountUiProps {
   pools: Pool[];
@@ -22,15 +19,7 @@ export interface AccountUiProps {
   totalBorrowCents?: number;
 }
 
-export const AccountUi: React.FC<AccountUiProps> = ({
-  netApyPercentage,
-  dailyEarningsCents,
-  totalSupplyCents,
-  totalBorrowCents,
-  isFetchingPools,
-  pools,
-}) => {
-  const { t } = useTranslation();
+export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) => {
   const styles = useStyles();
 
   // Filter out pools user has not supplied in or borrowed from
@@ -45,74 +34,33 @@ export const AccountUi: React.FC<AccountUiProps> = ({
     [pools],
   );
 
-  const cells: Cell[] = [
-    {
-      label: t('account.accountSummary.netApy'),
-      value: formatToReadablePercentage(netApyPercentage),
-      tooltip: t('account.accountSummary.netApyTooltip'),
-      color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
-    },
-    {
-      label: t('account.accountSummary.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
-    },
-    {
-      label: t('account.accountSummary.totalSupply'),
-      value: formatCentsToReadableValue({ value: totalSupplyCents }),
-    },
-    {
-      label: t('account.accountSummary.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
-    },
-  ];
+  const allAssets = useMemo(
+    () => pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]),
+    [pools],
+  );
+
+  if (isFetchingPools) {
+    return <Spinner />;
+  }
 
   return (
     <>
-      <div css={styles.section}>
-        <div css={styles.sectionTitle}>
-          <Typography variant="h3" css={styles.sectionTitleText}>
-            {t('account.accountSummary.title')}
-          </Typography>
-        </div>
+      <Summary css={styles.section} assets={allAssets} />
 
-        <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
-      </div>
-
-      {isFetchingPools ? (
-        <Spinner />
-      ) : (
-        <>
-          {filteredPools.map(pool => (
-            <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
-          ))}
-        </>
-      )}
+      {filteredPools.map(pool => (
+        <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
+      ))}
     </>
   );
 };
 
 const Account: React.FC = () => {
-  // TODO: fetch (see VEN-548)
-  const netApyPercentage = 13.4;
-  const dailyEarningsCents = 100000;
-  const totalSupplyCents = 100000000;
-  const totalBorrowCents = 10000000;
-
   const { account } = useContext(AuthContext);
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress: account?.address,
   });
 
-  return (
-    <AccountUi
-      netApyPercentage={netApyPercentage}
-      dailyEarningsCents={dailyEarningsCents}
-      totalSupplyCents={totalSupplyCents}
-      totalBorrowCents={totalBorrowCents}
-      isFetchingPools={isGetPoolsLoading}
-      pools={getPoolsData?.pools || []}
-    />
-  );
+  return <AccountUi isFetchingPools={isGetPoolsLoading} pools={getPoolsData?.pools || []} />;
 };
 
 export default Account;

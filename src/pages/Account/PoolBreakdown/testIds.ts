@@ -1,6 +1,6 @@
 const TEST_IDS = {
-  stats: 'account-market-breakdown-stats',
-  tables: 'account-market-breakdown-tables',
+  title: 'account-pool-breakdown-title',
+  tables: 'account-pool-breakdown-tables',
 };
 
 export default TEST_IDS;

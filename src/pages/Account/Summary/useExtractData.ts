@@ -79,6 +79,6 @@ const useExtractData = ({ assets }: { assets: Asset[] }) =>
       totalSupplyCents,
       borrowLimitCents,
     };
-  }, [JSON.stringify(assets)]);
+  }, [assets]);
 
 export default useExtractData;
