@@ -1,4 +1,4 @@
-import { ProposalTypeName } from 'types';
+import { ProposalType } from 'types';
 
 import { IconName } from '../Icon';
 
@@ -12,5 +12,5 @@ export interface ChipProps {
 }
 
 export interface ProposalTypeChipProps extends Omit<ChipProps, 'icon' | 'type' | 'text'> {
-  proposalType: ProposalTypeName.FAST_TRACK | ProposalTypeName.CRITICAL;
+  proposalType: ProposalType.FAST_TRACK | ProposalType.CRITICAL;
 }

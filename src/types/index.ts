@@ -95,7 +95,7 @@ export interface DescriptionV1 {
   abstainDescription?: undefined;
 }
 
-export enum ProposalTypeName {
+export enum ProposalType {
   NORMAL,
   FAST_TRACK,
   CRITICAL,
@@ -106,7 +106,7 @@ export interface Proposal {
   againstVotesWei: BigNumber;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
-  proposalType: ProposalTypeName;
+  proposalType: ProposalType;
   endBlock: number;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;

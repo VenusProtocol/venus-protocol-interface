@@ -12,7 +12,7 @@ import {
 } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, ProposalTypeName, VoteSupport } from 'types';
+import { ProposalState, ProposalType, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { GreenPulse } from 'components/LottieAnimation';
@@ -108,7 +108,7 @@ interface GovernanceProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
-  proposalType: ProposalTypeName;
+  proposalType: ProposalType;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -155,7 +155,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
       }
       headerLeftItem={
-        proposalType !== ProposalTypeName.NORMAL ? (
+        proposalType !== ProposalType.NORMAL ? (
           <ProposalTypeChip proposalType={proposalType} />
         ) : undefined
       }
