@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalTypeName } from 'types';
+import { ProposalType } from 'types';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
@@ -39,7 +39,7 @@ export const ProposalTypeChip: React.FC<ProposalTypeChipProps> = ({ proposalType
 
   const chipProps: Pick<ChipProps, 'text' | 'iconName'> = useMemo(
     () =>
-      proposalType === ProposalTypeName.FAST_TRACK
+      proposalType === ProposalType.FAST_TRACK
         ? {
             text: t('chip.proposalType.fastTrack'),
             iconName: 'lightening',

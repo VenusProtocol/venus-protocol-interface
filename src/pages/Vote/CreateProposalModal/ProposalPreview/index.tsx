@@ -4,7 +4,7 @@ import { MarkdownViewer, ReadableActionSignature } from 'components';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { ProposalTypeName } from 'types';
+import { ProposalType } from 'types';
 
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
@@ -35,9 +35,9 @@ const ProposalPreview: React.FC = () => {
         <Typography variant="body1" color="textPrimary">
           {
             {
-              [ProposalTypeName.NORMAL]: t('vote.proposalType.normal'),
-              [ProposalTypeName.FAST_TRACK]: t('vote.proposalType.fastTrack'),
-              [ProposalTypeName.CRITICAL]: t('vote.proposalType.critical'),
+              [ProposalType.NORMAL]: t('vote.proposalType.normal'),
+              [ProposalType.FAST_TRACK]: t('vote.proposalType.fastTrack'),
+              [ProposalType.CRITICAL]: t('vote.proposalType.critical'),
             }[proposalType]
           }
         </Typography>

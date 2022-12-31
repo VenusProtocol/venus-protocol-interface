@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Proposal } from 'types';
+import { Proposal, ProposalType } from 'types';
 
 interface FormatToProposalInput {
   abstainedVotes: string;
@@ -36,7 +36,7 @@ interface FormatToProposalInput {
     target: string;
     value: string;
   }[];
-  proposalType: 0 | 1 | 2;
+  proposalType?: ProposalType;
 }
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
@@ -121,7 +121,7 @@ const formatToProposal = ({
     startTxHash: startTxHash ?? undefined,
     totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
     actions: actions || [],
-    proposalType,
+    proposalType: proposalType ?? ProposalType.NORMAL,
   };
 
   return proposal;

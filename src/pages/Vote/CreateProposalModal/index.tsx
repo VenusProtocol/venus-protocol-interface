@@ -12,7 +12,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { Form, Formik } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalTypeName } from 'types';
+import { ProposalType } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import { CreateProposalInput } from 'clients/api';
@@ -57,9 +57,9 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
               ariaLabel={t('vote.createProposalForm.proposalType')}
               css={styles.formBottomMargin}
               options={[
-                { value: ProposalTypeName.NORMAL, label: t('vote.proposalType.normal') },
-                { value: ProposalTypeName.FAST_TRACK, label: t('vote.proposalType.fastTrack') },
-                { value: ProposalTypeName.CRITICAL, label: t('vote.proposalType.critical') },
+                { value: ProposalType.NORMAL, label: t('vote.proposalType.normal') },
+                { value: ProposalType.FAST_TRACK, label: t('vote.proposalType.fastTrack') },
+                { value: ProposalType.CRITICAL, label: t('vote.proposalType.critical') },
               ]}
             />
 
@@ -169,7 +169,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
           againstDescription: '',
           abstainDescription: '',
           title: '',
-          proposalType: ProposalTypeName.NORMAL,
+          proposalType: ProposalType.NORMAL,
         }}
         validationSchema={proposalSchema}
         onSubmit={handleCreateProposal}

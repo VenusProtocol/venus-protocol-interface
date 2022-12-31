@@ -12,7 +12,7 @@ import {
 import isAfter from 'date-fns/isAfter';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Proposal, ProposalTypeName } from 'types';
+import { Proposal, ProposalType } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import {
@@ -203,7 +203,7 @@ export const ProposalSummaryUi: React.FC<
           <div css={styles.topRowLeftColumn}>
             <Chip text={`#${id}`} css={styles.chipSpace} />
 
-            {proposalType !== ProposalTypeName.NORMAL && (
+            {proposalType !== ProposalType.NORMAL && (
               <ProposalTypeChip proposalType={proposalType} />
             )}
 
