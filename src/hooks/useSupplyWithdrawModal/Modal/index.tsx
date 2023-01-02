@@ -55,19 +55,22 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({ vToken, onCl
 };
 
 const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account } = useContext(AuthContext);
 
-  const {
-    data: { asset },
-  } = useGetAsset({ vToken });
+  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
 
-  const {
-    data: { assets },
-  } = useGetMainAssets({
-    accountAddress,
+  const { data: getMainAssetsData } = useGetMainAssets({
+    accountAddress: account?.address,
   });
 
-  return <SupplyWithdrawUi onClose={onClose} vToken={vToken} asset={asset} assets={assets} />;
+  return (
+    <SupplyWithdrawUi
+      onClose={onClose}
+      vToken={vToken}
+      asset={getAssetData?.asset}
+      assets={getMainAssetsData?.assets || []}
+    />
+  );
 };
 
 export default SupplyWithdrawModal;

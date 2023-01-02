@@ -23,9 +23,9 @@ export const TokenGroup: React.FC<TokenGroupProps> = ({ className, tokens, limit
         <TokenIcon css={styles.token} token={token} key={`token-group-item-${token.address}`} />
       ))}
 
-      {limit > 0 && filteredTokens.length > limit && (
+      {limit > 0 && tokens.length > limit && (
         <Typography variant="small2" css={styles.leftoverCount}>
-          +{filteredTokens.length - limit}
+          +{tokens.length - limit}
         </Typography>
       )}
     </div>

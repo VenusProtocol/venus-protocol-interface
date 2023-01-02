@@ -23,9 +23,7 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
 export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address || '';
-  const {
-    data: { assets },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,
   });
 
@@ -33,7 +31,8 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
 
   const hasLunaOrUstCollateralEnabled = useMemo(
     () =>
-      assets.some(
+      !!getMainAssetsData &&
+      getMainAssetsData?.assets.some(
         asset =>
           (asset.vToken.underlyingToken.address.toLowerCase() ===
             TOKENS.luna.address.toLowerCase() ||
@@ -41,7 +40,7 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
               TOKENS.ust.address.toLowerCase()) &&
           asset.isCollateralOfUser,
       ),
-    [JSON.stringify(assets)],
+    [getMainAssetsData?.assets],
   );
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import getVTokenBalancesAll, {
   IGetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import { useVenusLensContract } from 'clients/contracts/hooks';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -23,7 +24,10 @@ const useGetVTokenBalancesAll = (
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { account, vTokenAddresses }],
     () => getVTokenBalancesAll({ venusLensContract, account, vTokenAddresses }),
-    options,
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      ...options,
+    },
   );
 };
 

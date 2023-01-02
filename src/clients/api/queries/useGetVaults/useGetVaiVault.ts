@@ -55,19 +55,16 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateWeiLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  const {
-    data: { assets },
-    isLoading: isGetMainMarketsLoading,
-  } = useGetMainAssets({
+  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
     accountAddress,
   });
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (assets || []).find(
+      (getMainAssetsData?.assets || []).find(
         asset =>
           asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
       )?.tokenPriceDollars,
-    [assets],
+    [getMainAssetsData?.assets],
   );
 
   const data: Vault | undefined = useMemo(() => {
@@ -110,7 +107,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||
     isGetVaiVaultDailyRateWeiLoading ||
-    isGetMainMarketsLoading ||
+    isGetMainAssetsLoading ||
     isGetVaiVaultUserInfoLoading ||
     isGetUserPendingVaiRewardWeiLoading;
 

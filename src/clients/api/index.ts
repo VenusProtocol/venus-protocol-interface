@@ -191,6 +191,14 @@ export { default as useGetMainAssets } from './queries/useGetMainAssets';
 
 export { default as useGetAsset } from './queries/useGetAsset';
 
+export { default as useGetMainPoolTotalXvsDistributed } from './queries/useGetMainPoolTotalXvsDistributed';
+
+export { default as useGetMainPool } from './queries/useGetMainPool';
+
+export { default as useGetPools } from './queries/useGetPools';
+
+export { default as useGetPool } from './queries/useGetPool';
+
 export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
 
 export { default as getMainMarketHistory } from './queries/getMainMarketHistory';

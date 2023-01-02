@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { markets } from '__mocks__/models/markets';
+import { poolData } from '__mocks__/models/pools';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
-import { getMainMarkets, useGetVTokenBalancesAll } from 'clients/api';
+import { useGetPools, useGetVTokenBalancesAll } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import useGetTreasuryTotals, { UseGetTreasuryTotalsOutput } from '.';
@@ -11,7 +11,12 @@ jest.mock('clients/api');
 
 describe('api/queries/useGetTreasuryTotals', () => {
   beforeEach(() => {
-    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+    (useGetPools as jest.Mock).mockImplementation(() => ({
+      data: {
+        pools: poolData,
+      },
+      isLoading: false,
+    }));
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
       data: {

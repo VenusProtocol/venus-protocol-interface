@@ -45,8 +45,6 @@ describe('api/queries/useGetMainAssets', () => {
       userTotalBorrowBalanceCents: new BigNumber(0),
       userTotalBorrowLimitCents: new BigNumber(0),
       userTotalSupplyBalanceCents: new BigNumber(0),
-      totalXvsDistributedWei: new BigNumber(0),
-      dailyVenusWei: new BigNumber(0),
     };
 
     const CallMarketContext = () => {
@@ -58,7 +56,7 @@ describe('api/queries/useGetMainAssets', () => {
       authContextValue: { account: { address: fakeAddress } },
     });
 
-    await waitFor(() => expect(data.assets.length > 0).toBe(true));
+    await waitFor(() => expect(!!data?.assets).toBe(true));
     expect(data).toMatchSnapshot();
   });
 });

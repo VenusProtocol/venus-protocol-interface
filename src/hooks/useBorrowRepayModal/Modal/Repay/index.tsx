@@ -209,16 +209,17 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const {
-    data: { asset },
-  } = useGetAsset({ vToken });
+  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
 
   const limitTokens = React.useMemo(
     () =>
-      asset
-        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens)
+      getAssetData?.asset
+        ? BigNumber.min(
+            getAssetData.asset.userBorrowBalanceTokens,
+            getAssetData.asset.userWalletBalanceTokens,
+          )
         : new BigNumber(0),
-    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
+    [getAssetData?.asset?.userBorrowBalanceTokens, getAssetData?.asset?.userWalletBalanceTokens],
   );
 
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepay({
@@ -232,8 +233,8 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
 
     const isRepayingFullLoan = amountWei.eq(
       convertTokensToWei({
-        value: asset!.userBorrowBalanceTokens,
-        token: asset!.vToken.underlyingToken,
+        value: getAssetData!.asset!.userBorrowBalanceTokens,
+        token: getAssetData!.asset!.vToken.underlyingToken,
       }),
     );
 
@@ -251,7 +252,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
 
   return (
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
-      {asset ? (
+      {getAssetData?.asset ? (
         <EnableToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
@@ -262,17 +263,17 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApyPercentage),
+              children: formatToReadablePercentage(getAssetData.asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
               iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
+              children: formatToReadablePercentage(getAssetData.asset.xvsBorrowApy),
             },
           ]}
         >
           <RepayForm
-            asset={asset}
+            asset={getAssetData.asset}
             repay={handleRepay}
             isRepayLoading={isRepayLoading}
             limitTokens={limitTokens.toFixed()}

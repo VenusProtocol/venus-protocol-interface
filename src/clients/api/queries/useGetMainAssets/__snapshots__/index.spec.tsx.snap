@@ -841,8 +841,6 @@ Object {
       "xvsSupplyApy": "18.587706392698558375",
     },
   ],
-  "dailyVenusWei": "0",
-  "totalXvsDistributedWei": "3.110919e+24",
   "userTotalBorrowBalanceCents": "6216414758.467084058156978936843085",
   "userTotalBorrowLimitCents": "13871432693.34798845110528092688405",
   "userTotalSupplyBalanceCents": "18411477984.631676380304982489610572",

@@ -3,6 +3,7 @@ import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import proposals from '__mocks__/models/proposals';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
@@ -106,6 +107,29 @@ export const useGetXvsVaultPoolCount = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolCount);
 
 export const useGetTreasuryTotals = jest.fn();
+
+export const useGetMainPoolTotalXvsDistributed = jest.fn();
+
+export const useGetMainPool = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    pool: poolData[0],
+  },
+}));
+
+export const useGetPool = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    pool: poolData[0],
+  },
+}));
+
+export const useGetPools = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    pools: poolData,
+  },
+}));
 
 export const useGetMainAssets = jest.fn(() => ({
   isLoading: false,

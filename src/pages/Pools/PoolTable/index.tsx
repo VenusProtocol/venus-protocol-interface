@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { RiskLevel, Table, TableColumn, TokenGroup } from 'components';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { poolData } from '__mocks__/models/pools';
+import { useGetPools } from 'clients/api';
 import { routes } from 'constants/routing';
+import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -26,9 +27,10 @@ const riskRatingMap = {
 
 export interface PoolTableProps {
   pools: Pool[];
+  isFetchingPools: boolean;
 }
 
-export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
+export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -145,15 +147,16 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools }) => {
       }
       breakpoint="xxl"
       css={styles.cardContentGrid}
+      isFetching={isFetchingPools}
     />
   );
 };
 
 const PoolTable = () => {
-  // TODO: fetch actual value (see VEN-546)
-  const pools = poolData;
+  const { account } = useContext(AuthContext);
+  const { data: poolData, isLoading } = useGetPools({ accountAddress: account?.address });
 
-  return <PoolTableUi pools={pools} />;
+  return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;
 };
 
 export default PoolTable;

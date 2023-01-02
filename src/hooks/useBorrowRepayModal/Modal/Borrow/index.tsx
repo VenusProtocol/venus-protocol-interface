@@ -166,23 +166,20 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const {
-    data: { asset },
-  } = useGetAsset({ vToken });
+  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
 
-  const {
-    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
-  } = useGetMainAssets({
+  const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
   const hasUserCollateralizedSuppliedAssets = React.useMemo(
     () =>
-      assets.some(
+      !!getMainAssetsData?.assets &&
+      getMainAssetsData.assets.some(
         userAsset =>
           userAsset.isCollateralOfUser && userAsset.userSupplyBalanceTokens.isGreaterThan(0),
       ),
-    [assets],
+    [getMainAssetsData?.assets],
   );
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
@@ -204,32 +201,40 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
-    // Return 0 values while asset is loading or  if borrow limit has been
+    // Return 0 values while asset is loading or if borrow limit has been
     // reached
-    if (!asset || userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
+    if (
+      !getAssetData?.asset ||
+      !getMainAssetsData ||
+      getMainAssetsData.userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(
+        getMainAssetsData.userTotalBorrowLimitCents,
+      )
+    ) {
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitDollars = userTotalBorrowLimitCents
-      .minus(userTotalBorrowBalanceCents)
+    const marginWithBorrowLimitDollars = getMainAssetsData.userTotalBorrowLimitCents
+      .minus(getMainAssetsData.userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const liquidityDollars = asset.liquidityCents / 100;
+    const liquidityDollars = getAssetData.asset.liquidityCents / 100;
     const maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
       // Convert dollars to tokens
-      .dividedBy(asset.tokenPriceDollars);
+      .dividedBy(getAssetData.asset.tokenPriceDollars);
 
-    const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
+    const safeBorrowLimitCents = getMainAssetsData.userTotalBorrowLimitCents.multipliedBy(
       SAFE_BORROW_LIMIT_PERCENTAGE / 100,
     );
     const marginWithSafeBorrowLimitDollars = safeBorrowLimitCents
-      .minus(userTotalBorrowBalanceCents)
+      .minus(getMainAssetsData.userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
 
-    const safeMaxTokens = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+    const safeMaxTokens = getMainAssetsData.userTotalBorrowBalanceCents.isLessThan(
+      safeBorrowLimitCents,
+    )
       ? // Convert dollars to tokens
-        marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPriceDollars)
+        marginWithSafeBorrowLimitDollars.dividedBy(getAssetData.asset.tokenPriceDollars)
       : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
@@ -237,15 +242,15 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
-    asset?.tokenPriceDollars,
-    asset?.liquidityCents,
-    userTotalBorrowLimitCents.toFixed(),
-    userTotalBorrowBalanceCents.toFixed(),
+    getAssetData?.asset?.tokenPriceDollars,
+    getAssetData?.asset?.liquidityCents,
+    getMainAssetsData?.userTotalBorrowLimitCents.toFixed(),
+    getMainAssetsData?.userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
-      {asset ? (
+      {getAssetData?.asset ? (
         <EnableToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
@@ -256,17 +261,17 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
             {
               label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApyPercentage),
+              children: formatToReadablePercentage(getAssetData.asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
               iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
+              children: formatToReadablePercentage(getAssetData.asset.xvsBorrowApy),
             },
           ]}
         >
           <BorrowForm
-            asset={asset}
+            asset={getAssetData.asset}
             limitTokens={limitTokens}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}
