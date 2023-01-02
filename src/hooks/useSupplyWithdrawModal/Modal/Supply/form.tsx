@@ -22,7 +22,6 @@ import {
   calculateYearlyEarningsForAssets,
   convertTokensToWei,
   formatTokensToReadableValue,
-  getBigNumber,
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -72,10 +71,9 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
     : undefined;
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
-    const tokenPriceDollars = getBigNumber(asset?.tokenPriceDollars);
     let updateBorrowLimitCents;
 
-    if (tokenPriceDollars && validAmount) {
+    if (asset?.tokenPriceDollars && validAmount) {
       const amountInCents = calculateCollateralValue({
         amountWei: convertTokensToWei({ value: amount, token: asset.vToken.underlyingToken }),
         token: asset.vToken.underlyingToken,
