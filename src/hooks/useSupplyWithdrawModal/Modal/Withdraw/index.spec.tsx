@@ -49,6 +49,22 @@ describe('Withdraw form', () => {
       isLoading: false,
     }));
   });
+
+  it('displays correct token withdrawable amount', async () => {
+    const { getByText } = renderComponent(
+      () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+
+    await waitFor(() => getByText('19.8 SXP'));
+  });
+
   it('redeem is called when full amount is withdrawn', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
