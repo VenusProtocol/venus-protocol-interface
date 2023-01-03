@@ -144,15 +144,19 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  const {
-    data: { asset },
-  } = useGetAsset({ vToken });
+  const { data: assetData } = useGetAsset({ vToken });
 
-  const {
-    data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
-  } = useGetMainAssets({
+  const { asset } = assetData || { asset: undefined };
+
+  const { data: mainAssetsData } = useGetMainAssets({
     accountAddress,
   });
+
+  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = mainAssetsData || {
+    assets: [],
+    userTotalBorrowBalanceCents: new BigNumber(0),
+    userTotalBorrowLimitCents: new BigNumber(0),
+  };
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
