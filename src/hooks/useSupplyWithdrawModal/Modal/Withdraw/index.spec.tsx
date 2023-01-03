@@ -50,6 +50,26 @@ describe('Withdraw form', () => {
     }));
   });
 
+  it('submit is disabled with no amount', async () => {
+    const { getByText } = renderComponent(
+      () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+
+    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountWithdraw));
+
+    const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountWithdraw);
+    expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountWithdraw);
+    const disabledButton = document.querySelector('button[type="submit"]');
+    expect(disabledButton).toBeDisabled();
+  });
+
   it('displays correct token withdrawable amount', async () => {
     const { getByText } = renderComponent(
       () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
