@@ -39,8 +39,7 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
   });
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
-      ? getMainAssetsData?.userTotalBorrowBalanceCents ||
-        new BigNumber(0).plus(
+      ? (getMainAssetsData?.userTotalBorrowBalanceCents || new BigNumber(0)).plus(
           asset.tokenPriceDollars
             .multipliedBy(hypotheticalBorrowAmountTokens)
             // Convert dollars to cents
