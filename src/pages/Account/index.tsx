@@ -12,11 +12,7 @@ import { useStyles } from './styles';
 
 export interface AccountUiProps {
   pools: Pool[];
-  isFetchingPools: boolean;
-  netApyPercentage?: number;
-  dailyEarningsCents?: number;
-  totalSupplyCents?: number;
-  totalBorrowCents?: number;
+  isFetchingPools?: boolean;
 }
 
 export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) => {
