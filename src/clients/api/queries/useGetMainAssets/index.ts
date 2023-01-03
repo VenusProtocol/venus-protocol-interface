@@ -115,7 +115,7 @@ const useGetMainAssets = ({
           .map(address => address.toLowerCase())
           .includes(vTokenAddress);
 
-        const tokenPriceDollars = new BigNumber(market?.tokenPrice || 0);
+        const tokenPriceDollars = new BigNumber(market.tokenPrice || 0);
 
         let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
@@ -145,21 +145,21 @@ const useGetMainAssets = ({
           );
         }
 
-        const reserveTokens = market?.totalReserves
+        const reserveTokens = market.totalReserves
           ? convertWeiToTokens({
               valueWei: new BigNumber(market.totalReserves),
               token: vToken.underlyingToken,
             })
           : new BigNumber(0);
 
-        const cashTokens = market?.cash
+        const cashTokens = market.cash
           ? convertWeiToTokens({
               valueWei: new BigNumber(market.cash),
               token: vToken.underlyingToken,
             })
           : new BigNumber(0);
 
-        const exchangeRateVTokens = market?.exchangeRate
+        const exchangeRateVTokens = market.exchangeRate
           ? new BigNumber(1).div(
               new BigNumber(market.exchangeRate).div(
                 new BigNumber(10).pow(18 + vToken.underlyingToken.decimals - vToken.decimals),
@@ -167,39 +167,37 @@ const useGetMainAssets = ({
             )
           : new BigNumber(0);
 
-        const supplyRatePerBlockTokens = market?.supplyRatePerBlock
+        const supplyRatePerBlockTokens = market.supplyRatePerBlock
           ? new BigNumber(market.supplyRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
-        const borrowRatePerBlockTokens = market?.borrowRatePerBlock
+        const borrowRatePerBlockTokens = market.borrowRatePerBlock
           ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
         const asset: Asset = {
           vToken,
-          tokenPriceDollars: new BigNumber(market?.tokenPrice || 0),
-          supplyApyPercentage: new BigNumber(market?.supplyApy || 0),
-          borrowApyPercentage: new BigNumber(market?.borrowApy || 0),
-          collateralFactor: new BigNumber(market?.collateralFactor || 0)
+          tokenPriceDollars: new BigNumber(market.tokenPrice || 0),
+          supplyApyPercentage: new BigNumber(market.supplyApy || 0),
+          borrowApyPercentage: new BigNumber(market.borrowApy || 0),
+          collateralFactor: new BigNumber(market.collateralFactor || 0)
             .div(COMPOUND_MANTISSA)
             .toNumber(),
-          reserveFactor: new BigNumber(market?.reserveFactor || 0)
-            .div(COMPOUND_MANTISSA)
-            .toNumber(),
+          reserveFactor: new BigNumber(market.reserveFactor || 0).div(COMPOUND_MANTISSA).toNumber(),
           reserveTokens,
           cashTokens,
           exchangeRateVTokens,
-          liquidityCents: new BigNumber(market?.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
-          borrowCapTokens: new BigNumber(market?.borrowCaps || 0),
-          supplierCount: market?.supplierCount || 0,
-          borrowerCount: market?.borrowerCount || 0,
-          supplyBalanceTokens: new BigNumber(market?.totalSupply2 || 0).div(exchangeRateVTokens),
+          liquidityCents: new BigNumber(market.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
+          borrowCapTokens: new BigNumber(market.borrowCaps || 0),
+          supplierCount: market.supplierCount || 0,
+          borrowerCount: market.borrowerCount || 0,
+          supplyBalanceTokens: new BigNumber(market.totalSupply2 || 0).div(exchangeRateVTokens),
           supplyBalanceCents: convertDollarsToCents(
-            market?.totalSupplyUsd ? +market?.totalSupplyUsd : 0,
+            market.totalSupplyUsd ? +market.totalSupplyUsd : 0,
           ),
-          borrowBalanceTokens: new BigNumber(market?.totalBorrows2 || 0),
+          borrowBalanceTokens: new BigNumber(market.totalBorrows2 || 0),
           borrowBalanceCents: convertDollarsToCents(
-            market?.totalBorrowsUsd ? +market?.totalBorrowsUsd : 0,
+            market.totalBorrowsUsd ? +market.totalBorrowsUsd : 0,
           ),
           supplyRatePerBlockTokens,
           borrowRatePerBlockTokens,
@@ -211,12 +209,12 @@ const useGetMainAssets = ({
           userSupplyBalanceCents,
           userBorrowBalanceTokens,
           userBorrowBalanceCents,
-          xvsSupplyApr: new BigNumber(market?.supplyVenusApr || 0),
-          xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
-          xvsBorrowApr: new BigNumber(market?.borrowVenusApr || 0),
-          xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
-          xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
-            .plus(new BigNumber(market?.borrowerDailyVenus || 0))
+          xvsSupplyApr: new BigNumber(market.supplyVenusApr || 0),
+          xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
+          xvsBorrowApr: new BigNumber(market.borrowVenusApr || 0),
+          xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
+          xvsPerDay: new BigNumber(market.supplierDailyVenus || 0)
+            .plus(new BigNumber(market.borrowerDailyVenus || 0))
             .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
         };
 
