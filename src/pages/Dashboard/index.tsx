@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ButtonGroup, TextField, Toggle } from 'components';
-import React, { InputHTMLAttributes, useContext, useMemo, useState } from 'react';
+import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 
@@ -12,10 +12,11 @@ import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import ConnectWalletBanner from './ConnectWalletBanner';
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
+import useFormatPools from './useFormatPools';
 
 interface DashboardUiProps {
-  areHigherRiskTokensDisplayed: boolean;
-  onHigherRiskTokensToggleChange: (newValue: boolean) => void;
+  areHigherRiskPoolsDisplayed: boolean;
+  onHigherRiskPoolsToggleChange: (newValue: boolean) => void;
   searchValue: string;
   onSearchInputChange: (newValue: string) => void;
   pools: Pool[];
@@ -25,8 +26,8 @@ interface DashboardUiProps {
 const DashboardUi: React.FC<DashboardUiProps> = ({
   pools,
   isFetchingPools,
-  areHigherRiskTokensDisplayed,
-  onHigherRiskTokensToggleChange,
+  areHigherRiskPoolsDisplayed,
+  onHigherRiskPoolsToggleChange,
   searchValue,
   onSearchInputChange,
 }) => {
@@ -40,13 +41,11 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
 
-  const filteredPools = useMemo(
-    () =>
-      // Filter ou pools that don't have a minimal risk rating if switch is
-      // turned off
-      areHigherRiskTokensDisplayed ? pools : pools.filter(pool => pool.riskRating === 'MINIMAL'),
-    [pools],
-  );
+  const formattedPools = useFormatPools({
+    pools,
+    includeHigherRiskPools: areHigherRiskPoolsDisplayed,
+    searchValue,
+  });
 
   return (
     <>
@@ -85,8 +84,8 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
               tooltip={t('dashboard.riskyTokensToggleTooltip')}
               label={t('dashboard.riskyTokensToggleLabel')}
               isLight
-              value={areHigherRiskTokensDisplayed}
-              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+              value={areHigherRiskPoolsDisplayed}
+              onChange={event => onHigherRiskPoolsToggleChange(event.currentTarget.checked)}
             />
 
             <TextField
@@ -104,7 +103,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {activeTabIndex === 0 ? (
         <MarketTable
           key="dashboard-supply-market-table"
-          pools={filteredPools}
+          pools={formattedPools}
           isFetching={isFetchingPools}
           marketType="supply"
           breakpoint="lg"
@@ -117,7 +116,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       ) : (
         <MarketTable
           key="dashboard-borrow-market-table"
-          pools={filteredPools}
+          pools={formattedPools}
           isFetching={isFetchingPools}
           marketType="borrow"
           breakpoint="lg"
@@ -137,7 +136,7 @@ const Dashboard: React.FC = () => {
   const accountAddress = account?.address || '';
 
   const [searchValue, setSearchValue] = useState('');
-  const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);
+  const [areHigherRiskPoolsDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);
 
   const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
@@ -147,8 +146,8 @@ const Dashboard: React.FC = () => {
     <DashboardUi
       pools={getPoolData?.pools || []}
       isFetchingPools={isGetPoolsLoading}
-      areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
-      onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
+      areHigherRiskPoolsDisplayed={areHigherRiskPoolsDisplayed}
+      onHigherRiskPoolsToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}
       onSearchInputChange={setSearchValue}
     />
