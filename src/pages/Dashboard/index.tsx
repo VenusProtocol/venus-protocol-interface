@@ -19,10 +19,12 @@ interface DashboardUiProps {
   searchValue: string;
   onSearchInputChange: (newValue: string) => void;
   pools: Pool[];
+  isFetchingPools?: boolean;
 }
 
 const DashboardUi: React.FC<DashboardUiProps> = ({
   pools,
+  isFetchingPools,
   areHigherRiskTokensDisplayed,
   onHigherRiskTokensToggleChange,
   searchValue,
@@ -95,6 +97,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         <MarketTable
           key="dashboard-supply-market-table"
           pools={pools}
+          isFetching={isFetchingPools}
           marketType="supply"
           breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']}
@@ -107,6 +110,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         <MarketTable
           key="dashboard-borrow-market-table"
           pools={pools}
+          isFetching={isFetchingPools}
           marketType="borrow"
           breakpoint="lg"
           columns={['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']}
@@ -127,14 +131,14 @@ const Dashboard: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
-  // TODO: handle loading state (see VEN-591)
-  const { data: getPoolData } = useGetPools({
+  const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
 
   return (
     <DashboardUi
       pools={getPoolData?.pools || []}
+      isFetchingPools={isGetPoolsLoading}
       areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
       onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}

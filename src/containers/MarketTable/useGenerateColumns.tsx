@@ -17,6 +17,8 @@ import {
   compareBigNumbers,
   compareBooleans,
   compareNumbers,
+  comparePoolRiskRatings,
+  compareStrings,
   convertTokensToWei,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -24,6 +26,7 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { routes } from 'constants/routing';
 
 import { useStyles } from './styles';
 import { ColumnKey, PoolAsset } from './types';
@@ -66,8 +69,8 @@ const useGenerateColumns = ({
 
     return (
       poolAssets
-        .reduce((acc, asset) => {
-          if (!asset.isCollateralOfUser) {
+        .reduce((acc, poolAsset) => {
+          if (!poolAsset.isCollateralOfUser) {
             return acc;
           }
 
@@ -76,12 +79,12 @@ const useGenerateColumns = ({
           return acc.plus(
             calculateCollateralValue({
               amountWei: convertTokensToWei({
-                value: asset.userSupplyBalanceTokens,
-                token: asset.vToken.underlyingToken,
+                value: poolAsset.userSupplyBalanceTokens,
+                token: poolAsset.vToken.underlyingToken,
               }),
-              token: asset.vToken.underlyingToken,
-              tokenPriceDollars: asset.tokenPriceDollars,
-              collateralFactor: asset.collateralFactor,
+              token: poolAsset.vToken.underlyingToken,
+              tokenPriceDollars: poolAsset.tokenPriceDollars,
+              collateralFactor: poolAsset.collateralFactor,
             }).times(100),
           );
         }, new BigNumber(0))
@@ -96,20 +99,20 @@ const useGenerateColumns = ({
         key: column,
         label: t(`marketTable.columnKeys.${column}`),
         align: index === 0 ? 'left' : 'right',
-        renderCell: asset => {
+        renderCell: poolAsset => {
           if (column === 'asset') {
-            return <TokenIconWithSymbol token={asset.vToken.underlyingToken} />;
+            return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
           }
 
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-            const borrowApy = asset.xvsBorrowApy.plus(asset.borrowApyPercentage);
+            const borrowApy = poolAsset.xvsBorrowApy.plus(poolAsset.borrowApyPercentage);
 
             return formatToReadablePercentage(borrowApy);
           }
 
           if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-            const supplyApy = asset.xvsSupplyApy.plus(asset.supplyApyPercentage);
-            const ltv = +asset.collateralFactor * 100;
+            const supplyApy = poolAsset.xvsSupplyApy.plus(poolAsset.supplyApyPercentage);
+            const ltv = +poolAsset.collateralFactor * 100;
 
             return (
               <LayeredValues
@@ -120,8 +123,11 @@ const useGenerateColumns = ({
           }
 
           if (column === 'collateral') {
-            return asset.collateralFactor || asset.isCollateralOfUser ? (
-              <Toggle onChange={() => collateralOnChange(asset)} value={asset.isCollateralOfUser} />
+            return poolAsset.collateralFactor || poolAsset.isCollateralOfUser ? (
+              <Toggle
+                onChange={() => collateralOnChange(poolAsset)}
+                value={poolAsset.isCollateralOfUser}
+              />
             ) : (
               PLACEHOLDER_KEY
             );
@@ -129,7 +135,7 @@ const useGenerateColumns = ({
 
           if (column === 'liquidity') {
             return formatCentsToReadableValue({
-              value: asset.liquidityCents,
+              value: poolAsset.liquidityCents,
               shortenLargeValue: true,
             });
           }
@@ -137,46 +143,49 @@ const useGenerateColumns = ({
           if (column === 'pool') {
             return (
               <div>
-                {/* TODO: get link from asset (see VEN-546) */}
-                <Link to="/market/xvs" css={styles.marketLink}>
-                  {/* TODO: get name from asset (see VEN-546) */}
-                  <Typography variant="small2">Venus</Typography>
+                <Link
+                  to={routes.pool.path.replace(
+                    ':poolComptrollerAddress',
+                    poolAsset.pool.comptrollerAddress,
+                  )}
+                  css={styles.marketLink}
+                >
+                  <Typography variant="small2">{poolAsset.pool.name}</Typography>
                 </Link>
               </div>
             );
           }
 
           if (column === 'riskRating') {
-            // TODO: get from asset (see VEN-546)
-            return <RiskLevel variant="MINIMAL" />;
+            return <RiskLevel variant={poolAsset.pool.riskRating} />;
           }
 
           if (column === 'userSupplyBalance') {
             return formatTokensToReadableValue({
-              value: asset.userSupplyBalanceTokens,
-              token: asset.vToken.underlyingToken,
+              value: poolAsset.userSupplyBalanceTokens,
+              token: poolAsset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
           }
 
           if (column === 'userBorrowBalance') {
             return formatTokensToReadableValue({
-              value: asset.userBorrowBalanceTokens,
-              token: asset.vToken.underlyingToken,
+              value: poolAsset.userBorrowBalanceTokens,
+              token: poolAsset.vToken.underlyingToken,
               shortenLargeValue: true,
             });
           }
 
           if (column === 'supplyBalance') {
             return formatCentsToReadableValue({
-              value: asset.supplyBalanceCents,
+              value: poolAsset.supplyBalanceCents,
               shortenLargeValue: true,
             });
           }
 
           if (column === 'borrowBalance') {
             return formatCentsToReadableValue({
-              value: asset.borrowBalanceCents,
+              value: poolAsset.borrowBalanceCents,
               shortenLargeValue: true,
             });
           }
@@ -187,14 +196,14 @@ const useGenerateColumns = ({
                 <ProgressBar
                   min={0}
                   max={100}
-                  value={asset.userPercentOfLimit}
+                  value={poolAsset.userPercentOfLimit}
                   step={1}
                   ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
                   css={styles.percentOfLimitProgressBar}
                 />
 
                 <Typography variant="small2" css={styles.white}>
-                  {formatToReadablePercentage(asset.userPercentOfLimit)}
+                  {formatToReadablePercentage(poolAsset.userPercentOfLimit)}
                 </Typography>
               </div>
             );
@@ -231,13 +240,15 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'pool') {
-                  // TODO: get pools from rowA and rowB and compare them
-                  // together (see VEN-546)
+                  return compareStrings(rowA.pool.name, rowB.pool.name, direction);
                 }
 
                 if (column === 'riskRating') {
-                  // TODO: get pool risk ratings from rowA and rowB and compare
-                  // them together (see VEN-546)
+                  return comparePoolRiskRatings(
+                    rowA.pool.riskRating,
+                    rowB.pool.riskRating,
+                    direction,
+                  );
                 }
 
                 if (column === 'userSupplyBalance') {

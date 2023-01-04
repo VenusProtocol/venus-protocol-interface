@@ -126,9 +126,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         columns={columns}
         data={poolAssets}
         css={styles.cardContentGrid}
-        rowKeyExtractor={row =>
-          `market-table-row-${marketType}-${row.vToken.underlyingToken.address}`
-        }
+        rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
         rowOnClick={getRowHref ? undefined : rowOnClick}
         getRowHref={getRowHref}
         initialOrder={formattedInitialOrder}

@@ -4,7 +4,7 @@ const compareBigNumbers = (
   valueA: BigNumber | undefined,
   valueB: BigNumber | undefined,
   direction: 'asc' | 'desc',
-): -1 | 0 | 1 => {
+): number => {
   if (!valueA || !valueB) {
     return 0;
   }
