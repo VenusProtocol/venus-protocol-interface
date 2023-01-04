@@ -1,13 +1,5 @@
 {
   "account": {
-    "accountSummary": {
-      "dailyEarnings": "Daily Earnings",
-      "netApy": "Net APY",
-      "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-      "title": "Account summary",
-      "totalBorrow": "Total Borrow",
-      "totalSupply": "Total Supply"
-    },
     "marketBreakdown": {
       "cellGroup": {
         "dailyEarnings": "Daily Earnings",
@@ -18,11 +10,6 @@
       },
       "tables": {
         "borrowTableTitle": "Borrowed assets",
-        "mobileSelect": {
-          "ariaLabelFor": "sort by",
-          "label": "Sort by:",
-          "title": "Sort by"
-        },
         "supplyTableTitle": "Supplied assets",
         "tabletborrowTabTitle": "Borrow",
         "tabletsupplyTabTitle": "Supplied",
@@ -166,16 +153,14 @@
     "connectWalletBanner": {
       "buttonLabel": "Connect wallet",
       "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
+      "illustration": {
+        "alt": "Illustration of a wallet"
+      },
       "title": "Connect your wallet"
     },
     "higherRiskTokensNotice": {
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
       "title": "What are higher risk tokens?"
-    },
-    "mobileSelect": {
-      "ariaLabelFor": "sort by",
-      "label": "Sort by:",
-      "title": "Sort by"
     },
     "riskyTokensToggleLabel": "Display higher risk tokens",
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
@@ -333,13 +318,6 @@
       },
       "title": "Supply info"
     },
-    "tables": {
-      "mobileSelect": {
-        "ariaLabelFor": "sort by",
-        "label": "Sort by:",
-        "title": "Sort by"
-      }
-    },
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
     "totalTreasury": "Total Treasury"
@@ -355,11 +333,6 @@
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
-    },
-    "mobileSelect": {
-      "ariaLabelFor": "sort by",
-      "label": "Sort by:",
-      "title": "Sort by"
     }
   },
   "marketTable": {
