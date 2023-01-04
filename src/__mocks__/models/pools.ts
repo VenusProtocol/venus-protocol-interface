@@ -5,7 +5,7 @@ import { assetData } from '__mocks__/models/asset';
 export const poolData: Pool[] = [
   {
     comptrollerAddress: 'fake-comptroller-address-1',
-    assets: [assetData[0]],
+    assets: assetData,
     name: 'Venus',
     riskRating: 'MINIMAL',
     description: 'Fake description 1',
@@ -16,7 +16,7 @@ export const poolData: Pool[] = [
   },
   {
     comptrollerAddress: 'fake-comptroller-address-2',
-    assets: [assetData[1]],
+    assets: assetData,
     name: 'Metaverse',
     riskRating: 'VERY_HIGH',
     description: 'Fake description 2',
@@ -27,7 +27,7 @@ export const poolData: Pool[] = [
   },
   {
     comptrollerAddress: 'fake-comptroller-address-3',
-    assets: [assetData[2]],
+    assets: assetData,
     name: 'Gaming',
     riskRating: 'MEDIUM',
     description: 'Fake description 3',
