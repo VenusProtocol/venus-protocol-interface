@@ -27,6 +27,7 @@ export interface MarketTableProps
   };
   marketType?: 'supply' | 'borrow';
   className?: string;
+  testId?: string;
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
@@ -35,6 +36,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   columns: columnKeys,
   getRowHref,
   initialOrder,
+  testId,
   ...otherTableProps
 }) => {
   const styles = useStyles();
@@ -121,7 +123,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   };
 
   return (
-    <>
+    <div data-testid={testId}>
       <Table
         columns={columns}
         data={poolAssets}
@@ -136,6 +138,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       <CollateralModal />
       <BorrowRepayModal />
       <SupplyWithdrawModal />
-    </>
+    </div>
   );
 };

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Dashboard displays borrow table when clicking on borrow tab and displays it correctly 1`] = `"AssetAPYsorted descendingPoolRisk levelLiquiditySXP1.87%VenusMinimal risk$80.36MUSDC-3.69%MetaverseVery high risk$17.03MUSDT-4.45%GamingMedium risk$55.34MSort byAPY​SXPAPY1.87%PoolVenusRisk levelMinimal riskLiquidity$80.36MUSDCAPY-3.69%PoolMetaverseRisk levelVery high riskLiquidity$17.03MUSDTAPY-4.45%PoolGamingRisk levelMedium riskLiquidity$55.34M"`;
+
+exports[`pages/Dashboard displays supply table correctly 1`] = `"AssetAPY / LTVsorted descendingPoolRisk levelCollateralUSDC5.24%80%MetaverseVery high riskUSDT4.02%80%GamingMedium riskSXP0.17%50%VenusMinimal riskSort byAPY / LTV​SXPAPY / LTV0.17%50%PoolVenusRisk levelMinimal riskCollateralUSDCAPY / LTV5.24%80%PoolMetaverseRisk levelVery high riskCollateralUSDTAPY / LTV4.02%80%PoolGamingRisk levelMedium riskCollateral"`;
+
+exports[`pages/Dashboard filters out assets when entering value in search input 1`] = `"AssetAPY / LTVsorted descendingPoolRisk levelCollateralUSDT4.02%80%GamingMedium riskSort byAPY / LTV​USDTAPY / LTV4.02%80%PoolGamingRisk levelMedium riskCollateral"`;
+
+exports[`pages/Dashboard hides higher risk tokens when turning switch off 1`] = `"AssetAPY / LTVsorted descendingPoolRisk levelCollateralSXP0.17%50%VenusMinimal riskSort byAPY / LTV​SXPAPY / LTV0.17%50%PoolVenusRisk levelMinimal riskCollateral"`;

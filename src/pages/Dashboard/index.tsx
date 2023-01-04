@@ -12,6 +12,7 @@ import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import ConnectWalletBanner from './ConnectWalletBanner';
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
 
 interface DashboardUiProps {
@@ -102,6 +103,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
       {activeTabIndex === 0 ? (
         <MarketTable
+          testId={TEST_IDS.supplyMarketTable}
           key="dashboard-supply-market-table"
           pools={formattedPools}
           isFetching={isFetchingPools}
@@ -115,6 +117,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
       ) : (
         <MarketTable
+          testId={TEST_IDS.borrowMarketTable}
           key="dashboard-borrow-market-table"
           pools={formattedPools}
           isFetching={isFetchingPools}
