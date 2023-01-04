@@ -12,7 +12,6 @@ import {
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
 import {
   calculateCollateralValue,
   compareBigNumbers,
@@ -27,7 +26,7 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import { useStyles } from './styles';
-import { ColumnKey } from './types';
+import { ColumnKey, PoolAsset } from './types';
 
 // Translation keys: do not remove this comment
 // t('marketTable.columnKeys.asset')
@@ -47,13 +46,13 @@ import { ColumnKey } from './types';
 // t('marketTable.columnKeys.liquidity')
 
 const useGenerateColumns = ({
-  assets,
+  poolAssets,
   columnKeys,
   collateralOnChange,
 }: {
-  assets: Asset[];
+  poolAssets: PoolAsset[];
   columnKeys: ColumnKey[];
-  collateralOnChange: (asset: Asset) => void;
+  collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -66,7 +65,7 @@ const useGenerateColumns = ({
     }
 
     return (
-      assets
+      poolAssets
         .reduce((acc, asset) => {
           if (!asset.isCollateralOfUser) {
             return acc;
@@ -89,9 +88,9 @@ const useGenerateColumns = ({
         // Convert BigNumber to number
         .toNumber()
     );
-  }, [assets, columnKeys.includes('userPercentOfLimit')]);
+  }, [poolAssets, columnKeys.includes('userPercentOfLimit')]);
 
-  const columns: TableColumn<Asset>[] = useMemo(
+  const columns: TableColumn<PoolAsset>[] = useMemo(
     () =>
       columnKeys.map((column, index) => ({
         key: column,
@@ -276,7 +275,7 @@ const useGenerateColumns = ({
                 return 0;
               },
       })),
-    [assets, columnKeys, userTotalBorrowLimitCents],
+    [poolAssets, columnKeys, userTotalBorrowLimitCents],
   );
 
   return columns;

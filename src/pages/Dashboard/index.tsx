@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { ButtonGroup, TextField, Toggle } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Pool } from 'types';
 
-import { useGetMainAssets } from 'clients/api';
+import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
 import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -15,16 +14,15 @@ import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
 
 interface DashboardUiProps {
-  userTotalBorrowLimitCents: BigNumber;
   areHigherRiskTokensDisplayed: boolean;
   onHigherRiskTokensToggleChange: (newValue: boolean) => void;
   searchValue: string;
   onSearchInputChange: (newValue: string) => void;
-  assets: Asset[];
+  pools: Pool[];
 }
 
 const DashboardUi: React.FC<DashboardUiProps> = ({
-  assets,
+  pools,
   areHigherRiskTokensDisplayed,
   onHigherRiskTokensToggleChange,
   searchValue,
@@ -96,7 +94,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {activeTabIndex === 0 ? (
         <MarketTable
           key="dashboard-supply-market-table"
-          assets={assets}
+          pools={pools}
           marketType="supply"
           breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']}
@@ -108,7 +106,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       ) : (
         <MarketTable
           key="dashboard-borrow-market-table"
-          assets={assets}
+          pools={pools}
           marketType="borrow"
           breakpoint="lg"
           columns={['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']}
@@ -130,14 +128,13 @@ const Dashboard: React.FC = () => {
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
   // TODO: handle loading state (see VEN-591)
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getPoolData } = useGetPools({
     accountAddress,
   });
 
   return (
     <DashboardUi
-      assets={getMainAssetsData?.assets || []}
-      userTotalBorrowLimitCents={getMainAssetsData?.userTotalBorrowLimitCents || new BigNumber(0)}
+      pools={getPoolData?.pools || []}
       areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
       onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}

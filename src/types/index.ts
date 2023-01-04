@@ -56,7 +56,7 @@ export interface Asset {
   userWalletBalanceCents: number;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
-  // TODO: replace next props with rewards field
+  // TODO: replace next props with rewards field (see VEN-862)
   xvsBorrowApy: BigNumber;
   xvsBorrowApr: BigNumber;
   xvsSupplyApy: BigNumber;

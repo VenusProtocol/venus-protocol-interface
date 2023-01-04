@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
 
 import Summary from '.';
@@ -10,17 +10,17 @@ jest.mock('clients/api');
 
 describe('pages/Account/Summary', () => {
   it('renders without crashing', () => {
-    renderComponent(<Summary assets={assetData} />);
+    renderComponent(<Summary pools={poolData} />);
   });
 
   it('displays stats correctly', () => {
-    const { getByTestId } = renderComponent(<Summary assets={assetData} />);
+    const { getByTestId } = renderComponent(<Summary pools={poolData} />);
 
     expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
   });
 
   it('displays account health when passing displayAccountHealth prop as true', () => {
-    const { getByTestId } = renderComponent(<Summary assets={assetData} displayAccountHealth />);
+    const { getByTestId } = renderComponent(<Summary pools={poolData} displayAccountHealth />);
 
     expect(getByTestId(TEST_IDS.accountHealth).textContent).toMatchSnapshot();
   });

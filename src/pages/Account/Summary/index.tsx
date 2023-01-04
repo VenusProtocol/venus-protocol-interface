@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -13,14 +13,19 @@ import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
 export interface SummaryProps {
-  assets: Asset[];
+  pools: Pool[];
   displayAccountHealth?: boolean;
   className?: string;
 }
 
-export const Summary: React.FC<SummaryProps> = ({ assets, displayAccountHealth, className }) => {
+export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, className }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const assets = useMemo(
+    () => pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]),
+    [pools],
+  );
 
   const {
     totalSupplyCents,
