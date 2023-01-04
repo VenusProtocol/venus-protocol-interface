@@ -1,16 +1,8 @@
 import { PoolRiskRating } from 'types';
 
-import compareNumbers from './compareNumbers';
+import poolRiskRatingMapping from 'constants/poolRiskRatingMapping';
 
-const poolRiskRatingMapping: {
-  [key in PoolRiskRating]: number;
-} = {
-  MINIMAL: 0,
-  LOW: 1,
-  MEDIUM: 2,
-  HIGH: 3,
-  VERY_HIGH: 4,
-};
+import compareNumbers from './compareNumbers';
 
 const comparePoolRiskRatings = (
   valueA: PoolRiskRating | undefined,

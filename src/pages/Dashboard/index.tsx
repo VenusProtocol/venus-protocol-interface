@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ButtonGroup, TextField, Toggle } from 'components';
-import React, { InputHTMLAttributes, useContext, useState } from 'react';
+import React, { InputHTMLAttributes, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 
@@ -39,6 +39,14 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
+
+  const filteredPools = useMemo(
+    () =>
+      // Filter ou pools that don't have a minimal risk rating if switch is
+      // turned off
+      areHigherRiskTokensDisplayed ? pools : pools.filter(pool => pool.riskRating === 'MINIMAL'),
+    [pools],
+  );
 
   return (
     <>
@@ -96,7 +104,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {activeTabIndex === 0 ? (
         <MarketTable
           key="dashboard-supply-market-table"
-          pools={pools}
+          pools={filteredPools}
           isFetching={isFetchingPools}
           marketType="supply"
           breakpoint="lg"
@@ -109,7 +117,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       ) : (
         <MarketTable
           key="dashboard-borrow-market-table"
-          pools={pools}
+          pools={filteredPools}
           isFetching={isFetchingPools}
           marketType="borrow"
           breakpoint="lg"
@@ -129,7 +137,7 @@ const Dashboard: React.FC = () => {
   const accountAddress = account?.address || '';
 
   const [searchValue, setSearchValue] = useState('');
-  const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
+  const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);
 
   const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
