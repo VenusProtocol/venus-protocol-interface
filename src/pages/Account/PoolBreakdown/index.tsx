@@ -27,9 +27,9 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className })
         <RiskLevel variant={pool.riskRating} />
       </div>
 
-      <Summary assets={pool.assets} displayAccountHealth css={styles.summary} />
+      <Summary pools={[pool]} displayAccountHealth css={styles.summary} />
 
-      <Tables assets={pool.assets} />
+      <Tables pool={pool} />
     </div>
   );
 };

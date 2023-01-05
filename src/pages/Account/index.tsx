@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Spinner } from 'components';
 import React, { useContext, useMemo } from 'react';
-import { Asset, Pool } from 'types';
+import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
@@ -30,18 +30,13 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
     [pools],
   );
 
-  const allAssets = useMemo(
-    () => pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]),
-    [pools],
-  );
-
   if (isFetchingPools) {
     return <Spinner />;
   }
 
   return (
     <>
-      <Summary css={styles.section} assets={allAssets} />
+      <Summary css={styles.section} pools={filteredPools} />
 
       {filteredPools.map(pool => (
         <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />

@@ -2,7 +2,7 @@
 import { Table, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
-import { Asset } from 'types';
+import { Asset, Pool } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -11,15 +11,15 @@ import useCollateral from 'hooks/useCollateral';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
 import { useStyles } from './styles';
-import { ColumnKey } from './types';
+import { ColumnKey, PoolAsset } from './types';
 import useGenerateColumns from './useGenerateColumns';
 
 export interface MarketTableProps
   extends Partial<
-      Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'breakpoint' | 'initialOrder'>
+      Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'breakpoint' | 'initialOrder'>
     >,
-    Pick<TableProps<Asset>, 'breakpoint'> {
-  assets: Asset[];
+    Pick<TableProps<PoolAsset>, 'breakpoint'> {
+  pools: Pool[];
   columns: ColumnKey[];
   initialOrder?: {
     orderBy: ColumnKey;
@@ -27,14 +27,16 @@ export interface MarketTableProps
   };
   marketType?: 'supply' | 'borrow';
   className?: string;
+  testId?: string;
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
-  assets,
+  pools,
   marketType,
   columns: columnKeys,
   getRowHref,
   initialOrder,
+  testId,
   ...otherTableProps
 }) => {
   const styles = useStyles();
@@ -59,8 +61,21 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     }
   };
 
+  const poolAssets = useMemo(
+    () =>
+      pools.reduce((acc, pool) => {
+        const newPoolAssets: PoolAsset[] = pool.assets.map(asset => ({
+          ...asset,
+          pool,
+        }));
+
+        return acc.concat(newPoolAssets);
+      }, [] as PoolAsset[]),
+    [pools],
+  );
+
   const columns = useGenerateColumns({
-    assets,
+    poolAssets,
     columnKeys,
     collateralOnChange: handleCollateralChange,
   });
@@ -108,14 +123,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   };
 
   return (
-    <>
+    <div data-testid={testId}>
       <Table
         columns={columns}
-        data={assets}
+        data={poolAssets}
         css={styles.cardContentGrid}
-        rowKeyExtractor={row =>
-          `market-table-row-${marketType}-${row.vToken.underlyingToken.address}`
-        }
+        rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
         rowOnClick={getRowHref ? undefined : rowOnClick}
         getRowHref={getRowHref}
         initialOrder={formattedInitialOrder}
@@ -125,6 +138,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       <CollateralModal />
       <BorrowRepayModal />
       <SupplyWithdrawModal />
-    </>
+    </div>
   );
 };

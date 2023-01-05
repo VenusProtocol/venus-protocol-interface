@@ -18,7 +18,7 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
   return (
     <MarketTable
       getRowHref={getRowHref}
-      assets={pool.assets}
+      pools={[pool]}
       breakpoint="xl"
       columns={[
         'asset',

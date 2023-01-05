@@ -2,7 +2,7 @@ const compareNumbers = (
   valueA: number | undefined,
   valueB: number | undefined,
   direction: 'asc' | 'desc',
-): -1 | 0 | 1 => {
+): number => {
   if (valueA === undefined || valueB === undefined) {
     return 0;
   }

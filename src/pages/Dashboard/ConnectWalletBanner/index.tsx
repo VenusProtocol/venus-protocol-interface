@@ -44,7 +44,11 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
       </div>
 
       <div css={styles.illustrationContainer}>
-        <img src={illustration} css={styles.illustration} alt="" />
+        <img
+          src={illustration}
+          css={styles.illustration}
+          alt={t('dashboard.connectWalletBanner.illustration.alt')}
+        />
       </div>
     </Paper>
   );

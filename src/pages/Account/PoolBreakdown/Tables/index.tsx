@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import { ButtonGroup } from 'components';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Pool } from 'types';
 
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -13,10 +13,10 @@ import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 export interface TablesProps {
-  assets: Asset[];
+  pool: Pool;
 }
 
-export const Tables: React.FC<TablesProps> = ({ assets }) => {
+export const Tables: React.FC<TablesProps> = ({ pool }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -31,7 +31,12 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   } = useMemo(
     () => ({
       supply: {
-        assets: assets.filter(asset => asset.userSupplyBalanceTokens.isGreaterThan(0)),
+        pools: [
+          {
+            ...pool,
+            assets: pool.assets.filter(asset => asset.userSupplyBalanceTokens.isGreaterThan(0)),
+          },
+        ],
         marketType: 'supply',
         breakpoint: 'md',
         columns: ['asset', 'supplyApyLtv', 'userSupplyBalance', 'collateral'],
@@ -41,7 +46,12 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
         },
       },
       borrow: {
-        assets: assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
+        pools: [
+          {
+            ...pool,
+            assets: pool.assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
+          },
+        ],
         marketType: 'borrow',
         breakpoint: 'md',
         columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userPercentOfLimit'],
@@ -51,7 +61,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
         },
       },
     }),
-    [assets],
+    [pool],
   );
 
   return (

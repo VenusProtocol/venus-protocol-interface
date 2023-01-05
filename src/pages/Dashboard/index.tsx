@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { ButtonGroup, TextField, Toggle } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Pool } from 'types';
 
-import { useGetMainAssets } from 'clients/api';
+import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
 import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -13,20 +12,23 @@ import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import ConnectWalletBanner from './ConnectWalletBanner';
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
+import useFormatPools from './useFormatPools';
 
 interface DashboardUiProps {
-  userTotalBorrowLimitCents: BigNumber;
-  areHigherRiskTokensDisplayed: boolean;
-  onHigherRiskTokensToggleChange: (newValue: boolean) => void;
+  areHigherRiskPoolsDisplayed: boolean;
+  onHigherRiskPoolsToggleChange: (newValue: boolean) => void;
   searchValue: string;
   onSearchInputChange: (newValue: string) => void;
-  assets: Asset[];
+  pools: Pool[];
+  isFetchingPools?: boolean;
 }
 
 const DashboardUi: React.FC<DashboardUiProps> = ({
-  assets,
-  areHigherRiskTokensDisplayed,
-  onHigherRiskTokensToggleChange,
+  pools,
+  isFetchingPools,
+  areHigherRiskPoolsDisplayed,
+  onHigherRiskPoolsToggleChange,
   searchValue,
   onSearchInputChange,
 }) => {
@@ -39,6 +41,12 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
+
+  const formattedPools = useFormatPools({
+    pools,
+    includeHigherRiskPools: areHigherRiskPoolsDisplayed,
+    searchValue,
+  });
 
   return (
     <>
@@ -77,8 +85,8 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
               tooltip={t('dashboard.riskyTokensToggleTooltip')}
               label={t('dashboard.riskyTokensToggleLabel')}
               isLight
-              value={areHigherRiskTokensDisplayed}
-              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+              value={areHigherRiskPoolsDisplayed}
+              onChange={event => onHigherRiskPoolsToggleChange(event.currentTarget.checked)}
             />
 
             <TextField
@@ -95,8 +103,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
       {activeTabIndex === 0 ? (
         <MarketTable
+          testId={TEST_IDS.supplyMarketTable}
           key="dashboard-supply-market-table"
-          assets={assets}
+          pools={formattedPools}
+          isFetching={isFetchingPools}
           marketType="supply"
           breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']}
@@ -107,8 +117,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
       ) : (
         <MarketTable
+          testId={TEST_IDS.borrowMarketTable}
           key="dashboard-borrow-market-table"
-          assets={assets}
+          pools={formattedPools}
+          isFetching={isFetchingPools}
           marketType="borrow"
           breakpoint="lg"
           columns={['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']}
@@ -127,19 +139,18 @@ const Dashboard: React.FC = () => {
   const accountAddress = account?.address || '';
 
   const [searchValue, setSearchValue] = useState('');
-  const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
+  const [areHigherRiskPoolsDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);
 
-  // TODO: handle loading state (see VEN-591)
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
 
   return (
     <DashboardUi
-      assets={getMainAssetsData?.assets || []}
-      userTotalBorrowLimitCents={getMainAssetsData?.userTotalBorrowLimitCents || new BigNumber(0)}
-      areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
-      onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
+      pools={getPoolData?.pools || []}
+      isFetchingPools={isGetPoolsLoading}
+      areHigherRiskPoolsDisplayed={areHigherRiskPoolsDisplayed}
+      onHigherRiskPoolsToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}
       onSearchInputChange={setSearchValue}
     />
