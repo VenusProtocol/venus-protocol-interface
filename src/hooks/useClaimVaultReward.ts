@@ -1,5 +1,6 @@
 import { VError } from 'errors';
 import { Token } from 'types';
+import { areTokensEqual } from 'utilities';
 
 import {
   useClaimVaiVaultReward,
@@ -41,13 +42,13 @@ const useClaimVaultReward = () => {
       });
     }
 
-    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
+    if (areTokensEqual(stakedToken, TOKENS.vai)) {
       return claimVaiVaultReward({
         fromAccountAddress: accountAddress,
       });
     }
 
-    if (stakedToken.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
+    if (areTokensEqual(stakedToken, TOKENS.vrt)) {
       return claimVrtVaultReward({
         fromAccountAddress: accountAddress,
       });

@@ -5,7 +5,7 @@ import { Delimiter, InfoIcon, LinkButton, PrimaryButton, TokenIcon } from 'compo
 import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
   useGetCurrentVotes,
@@ -204,9 +204,7 @@ const VotingWallet: React.FC = () => {
 
   const { data: vaults } = useGetVestingVaults({ accountAddress });
 
-  const [xvsVault] = vaults.filter(
-    v => v.stakedToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
-  );
+  const xvsVault = vaults.find(v => areTokensEqual(v.stakedToken, TOKENS.xvs));
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();

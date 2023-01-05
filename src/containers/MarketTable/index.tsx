@@ -95,7 +95,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     );
   }, [columns, initialOrder]);
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: Asset) => {
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: PoolAsset) => {
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the supply modal of other assets
     if (
@@ -118,7 +118,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     if (marketType === 'borrow') {
       openBorrowRepayModal(row.vToken);
     } else {
-      openSupplyWithdrawModal(row.vToken);
+      openSupplyWithdrawModal({
+        vToken: row.vToken,
+        poolComptrollerAddress: row.pool.comptrollerAddress,
+      });
     }
   };
 

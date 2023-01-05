@@ -1,13 +1,13 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Asset, VToken } from 'types';
+import { Pool, VToken } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { getAllowance, supply, useGetAsset, useGetMainAssets } from 'clients/api';
+import { getAllowance, supply, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -17,38 +17,30 @@ import en from 'translation/translations/en.json';
 import Supply from '.';
 import TEST_IDS from './testIds';
 
-const fakeAsset: Asset = {
-  ...assetData[0],
-  tokenPriceDollars: new BigNumber(1),
-  userSupplyBalanceTokens: new BigNumber(1000),
-  userWalletBalanceTokens: new BigNumber(10000000),
+const fakePool: Pool = {
+  ...poolData[0],
+  userBorrowBalanceCents: 10,
+  userBorrowLimitCents: 1000,
 };
 
-const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
-const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
+const fakeAsset = fakePool.assets[0];
+fakeAsset.userSupplyBalanceTokens = new BigNumber(1000);
+fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
+fakeAsset.tokenPriceDollars = new BigNumber(1);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('Supply form', () => {
   beforeEach(() => {
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: fakeAsset,
-      },
-    }));
-
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
 
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [fakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        pool: fakePool,
       },
       isLoading: false,
     }));
@@ -60,30 +52,14 @@ describe('Supply form', () => {
       underlyingToken: token,
     };
 
-    const customFakeAsset = {
-      ...fakeAsset,
-      vToken: fakeVToken,
-      token,
-    };
-
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: customFakeAsset,
-      },
-    }));
-
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [customFakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
-      },
-      isLoading: false,
-    }));
-
     const { queryByText } = renderComponent(
-      () => <Supply onClose={jest.fn()} vToken={customFakeAsset.vToken} />,
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeVToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -97,13 +73,20 @@ describe('Supply form', () => {
   });
 
   it('displays correct token wallet balance', async () => {
-    const { getByText } = renderComponent(<Supply onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />, {
-      authContextValue: {
-        account: {
-          address: fakeAccountAddress,
+    const { getByText } = renderComponent(
+      <Supply
+        onClose={jest.fn()}
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+      />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
         },
       },
-    });
+    );
 
     await waitFor(() =>
       getByText(`10,000,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
@@ -112,7 +95,13 @@ describe('Supply form', () => {
 
   it('displays correct token supply balance', async () => {
     const { getByText } = renderComponent(
-      () => <Supply onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -126,29 +115,14 @@ describe('Supply form', () => {
   });
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      userWalletBalanceTokens: new BigNumber(1),
-    };
-
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: customFakeAsset,
-      },
-    }));
-
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [customFakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
-      },
-      isLoading: false,
-    }));
-
     const { getByText } = renderComponent(
-      () => <Supply onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -162,7 +136,7 @@ describe('Supply form', () => {
     // Check submit button is disabled
     expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
 
-    const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
+    const incorrectValueTokens = fakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
     // Enter amount in input
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -177,7 +151,13 @@ describe('Supply form', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <Supply onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -196,24 +176,22 @@ describe('Supply form', () => {
   });
 
   it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: VBEP_TOKENS.bnb,
-      userWalletBalanceTokens: new BigNumber('11'),
-    };
-
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: fakePool,
       },
+      isLoading: false,
     }));
 
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    const customFakePool: Pool = {
+      ...fakePool,
+    };
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.vToken = VBEP_TOKENS.bnb;
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [customFakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        pool: customFakePool,
       },
       isLoading: false,
     }));
@@ -223,15 +201,24 @@ describe('Supply form', () => {
 
     (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    renderComponent(() => <Supply onClose={onCloseMock} vToken={customFakeAsset.vToken} />, {
-      authContextValue: {
-        account: {
-          address: fakeAccountAddress,
+    renderComponent(
+      () => (
+        <Supply
+          onClose={onCloseMock}
+          vToken={customFakeAsset.vToken}
+          poolComptrollerAddress={customFakePool.comptrollerAddress}
+        />
+      ),
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
         },
       },
-    });
+    );
 
-    const correctAmountTokens = 1;
+    const correctAmountTokens = customFakeAsset.userWalletBalanceTokens.minus(1);
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
     fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
 
@@ -260,35 +247,19 @@ describe('Supply form', () => {
   });
 
   it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: VBEP_TOKENS.busd,
-      userWalletBalanceTokens: new BigNumber('11'),
-    };
-
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: customFakeAsset,
-      },
-    }));
-
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [customFakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
-      },
-      isLoading: false,
-    }));
-
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByTestId } = renderComponent(
-      () => <Supply onClose={onCloseMock} vToken={customFakeAsset.vToken} />,
+      () => (
+        <Supply
+          onClose={onCloseMock}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -298,7 +269,7 @@ describe('Supply form', () => {
       },
     );
 
-    const correctAmountTokens = 1;
+    const correctAmountTokens = fakeAsset.userWalletBalanceTokens.minus(1);
     const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.valueInput));
     await waitFor(() => {
       fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
@@ -310,7 +281,7 @@ describe('Supply form', () => {
     fireEvent.click(submitButton);
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(customFakeAsset.vToken.underlyingToken.decimals),
+      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
@@ -319,7 +290,7 @@ describe('Supply form', () => {
       expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
         transactionHash: fakeTransactionReceipt.transactionHash,
         amount: {
-          token: customFakeAsset.vToken.underlyingToken,
+          token: fakeAsset.vToken.underlyingToken,
           valueWei: expectedAmountWei,
         },
         content: en.supplyWithdraw.successfulSupplyTransactionModal.message,

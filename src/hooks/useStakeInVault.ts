@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import { Token } from 'types';
+import { areTokensEqual } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -40,14 +41,14 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
       });
     }
 
-    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
+    if (areTokensEqual(stakedToken, TOKENS.vai)) {
       return stakeInVaiVault({
         fromAccountAddress: accountAddress,
         amountWei,
       });
     }
 
-    if (stakedToken.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
+    if (areTokensEqual(stakedToken, TOKENS.vrt)) {
       return stakeInVrtVault({
         fromAccountAddress: accountAddress,
         amountWei,

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Asset, VToken } from 'types';
+import { areTokensEqual } from 'utilities';
 
 import { useGetPools } from 'clients/api';
 
@@ -30,9 +31,7 @@ const useGetAsset = ({ vToken, accountAddress }: UseGetAssetInput): UseGetAssetO
     for (let p = 0; p < getPoolsData.pools.length; p++) {
       const pool = getPoolsData.pools[p];
 
-      matchingAsset = pool.assets.find(
-        poolAsset => poolAsset.vToken.address.toLowerCase() === vToken.address.toLowerCase(),
-      );
+      matchingAsset = pool.assets.find(poolAsset => areTokensEqual(poolAsset.vToken, vToken));
 
       // Break loop if we find a matching asset
       if (matchingAsset) {

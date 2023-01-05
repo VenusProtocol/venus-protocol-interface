@@ -5,6 +5,7 @@ import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
 import {
+  areTokensEqual,
   compareBigNumbers,
   convertWeiToTokens,
   formatToReadablePercentage,
@@ -130,9 +131,8 @@ const XvsTable: React.FC = () => {
       xvsBorrowApy: asset.xvsBorrowApy,
     }));
 
-    const xvsAsset = (getMainAssetsData?.assets || []).find(
-      asset =>
-        asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+    const xvsAsset = (getMainAssetsData?.assets || []).find(asset =>
+      areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs),
     );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {

@@ -8,17 +8,16 @@ import en from 'translation/translations/en.json';
 import IsolatedAssetWarning from '.';
 import TEST_IDS from './AssetTable/testIds';
 
+const fakePool = poolData[0];
+
 jest.mock('clients/api');
 
 describe('components/IsolatedAssetWarning', () => {
-  // TODO: mock relevant requests once wired up (see VEN-546)
-  const fakePool = poolData[0];
-
   it('renders without crashing', () => {
     renderComponent(
       <IsolatedAssetWarning
-        asset={fakePool.assets[0]}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
+        token={fakePool.assets[0].vToken.underlyingToken}
+        pool={fakePool}
         type="supply"
       />,
     );
@@ -27,8 +26,8 @@ describe('components/IsolatedAssetWarning', () => {
   it('displays list of assets correctly', async () => {
     const { getByText, getByTestId } = renderComponent(
       <IsolatedAssetWarning
-        asset={fakePool.assets[0]}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
+        token={fakePool.assets[0].vToken.underlyingToken}
+        pool={fakePool}
         type="borrow"
       />,
     );

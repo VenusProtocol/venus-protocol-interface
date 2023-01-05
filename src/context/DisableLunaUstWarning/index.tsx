@@ -1,5 +1,6 @@
 import noop from 'noop-ts';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { areTokensEqual } from 'utilities';
 
 import { useGetMainAssets } from 'clients/api';
 import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
@@ -34,10 +35,8 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
       !!getMainAssetsData &&
       getMainAssetsData?.assets.some(
         asset =>
-          (asset.vToken.underlyingToken.address.toLowerCase() ===
-            TOKENS.luna.address.toLowerCase() ||
-            asset.vToken.underlyingToken.address.toLowerCase() ===
-              TOKENS.ust.address.toLowerCase()) &&
+          (areTokensEqual(asset.vToken.underlyingToken, TOKENS.luna) ||
+            areTokensEqual(asset.vToken.underlyingToken, TOKENS.ust)) &&
           asset.isCollateralOfUser,
       ),
     [getMainAssetsData?.assets],

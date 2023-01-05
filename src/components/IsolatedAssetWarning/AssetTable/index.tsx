@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+import { compareNumbers, formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { TextButton } from '../../Button';
 import { Icon } from '../../Icon';
@@ -36,7 +36,9 @@ export const AssetTable: React.FC<AssetTableProps> = ({
     t('isolatedAssetWarning.assetTable.liquidityColumnTitle'),
   ];
 
-  const sortedAssets = [...assets].sort((a, b) => a.liquidityCents - b.liquidityCents);
+  const sortedAssets = [...assets].sort((a, b) =>
+    compareNumbers(a.liquidityCents, b.liquidityCents, 'desc'),
+  );
 
   return (
     <div css={styles.container}>
@@ -69,7 +71,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
             <div css={styles.cell}>
               <Typography variant="small2">
                 {formatCentsToReadableValue({
-                  value: asset.borrowBalanceCents,
+                  value: asset.liquidityCents,
                   shortenLargeValue: true,
                 })}
               </Typography>

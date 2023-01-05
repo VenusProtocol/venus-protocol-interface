@@ -10,6 +10,7 @@ import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
+  areTokensEqual,
   calculateDailyEarningsCents as calculateDailyEarningsCentsUtil,
   calculatePercentage,
   calculateYearlyEarningsForAssets,
@@ -73,11 +74,14 @@ const AccountData: React.FC<AccountDataProps> = ({ asset, hypotheticalBorrowAmou
     (tokenAmount: BigNumber) => {
       const updatedAssets = (getMainAssetsData?.assets || []).map(assetData => ({
         ...assetData,
-        borrowBalance:
-          assetData.vToken.underlyingToken.address.toLowerCase() ===
-          asset.vToken.underlyingToken.address.toLowerCase()
-            ? assetData.userBorrowBalanceTokens.plus(tokenAmount)
-            : assetData.userBorrowBalanceTokens,
+        userBorrowBalanceTokens: areTokensEqual(
+          assetData.vToken.underlyingToken,
+          asset.vToken.underlyingToken,
+        )
+          ? // TODO: fix. Currently wrong when repaying a loan (it should subtract
+            // from the balance, not add to it)
+            assetData.userBorrowBalanceTokens.plus(tokenAmount)
+          : assetData.userBorrowBalanceTokens,
       }));
 
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({

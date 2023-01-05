@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Vault } from 'types';
-import { convertWeiToTokens, getContractAddress } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -60,9 +60,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   });
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (getMainAssetsData?.assets || []).find(
-        asset =>
-          asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.xvs.address.toLowerCase(),
+      (getMainAssetsData?.assets || []).find(asset =>
+        areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs),
       )?.tokenPriceDollars,
     [getMainAssetsData?.assets],
   );
