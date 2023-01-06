@@ -161,19 +161,39 @@ const useGenerateColumns = ({
           }
 
           if (column === 'userSupplyBalance') {
-            return formatTokensToReadableValue({
-              value: poolAsset.userSupplyBalanceTokens,
-              token: poolAsset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
+            return poolAsset.userSupplyBalanceTokens.isGreaterThan(0) ? (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.userSupplyBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.userSupplyBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            ) : (
+              PLACEHOLDER_KEY
+            );
           }
 
           if (column === 'userBorrowBalance') {
-            return formatTokensToReadableValue({
-              value: poolAsset.userBorrowBalanceTokens,
-              token: poolAsset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
+            return poolAsset.userBorrowBalanceTokens.isGreaterThan(0) ? (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.userBorrowBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.userBorrowBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            ) : (
+              PLACEHOLDER_KEY
+            );
           }
 
           if (column === 'supplyBalance') {
