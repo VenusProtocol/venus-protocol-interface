@@ -42,11 +42,13 @@ export interface MarketUiProps {
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
+  poolComptrollerAddress: string;
   asset?: Asset;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
   asset,
+  poolComptrollerAddress,
   supplyChartData,
   borrowChartData,
   interestRateChartData,
@@ -292,7 +294,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <Button
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openSupplyWithdrawModal(asset.vToken)}
+        onClick={() =>
+          openSupplyWithdrawModal({
+            vToken: asset.vToken,
+            poolComptrollerAddress,
+          })
+        }
       >
         {t('market.supplyButtonLabel')}
       </Button>
@@ -365,18 +372,21 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   );
 };
 
-export type MarketProps = RouteComponentProps<{ vTokenAddress: string }>;
+export type MarketProps = RouteComponentProps<{
+  vTokenAddress: string;
+  poolComptrollerAddress: string;
+}>;
 
 const Market: React.FC<MarketProps> = ({
   match: {
-    params: { vTokenAddress },
+    params: { vTokenAddress, poolComptrollerAddress },
   },
 }) => {
   const { account } = useContext(AuthContext);
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to markets page if params are invalid
-  if (!vToken) {
+  if (!vToken || !poolComptrollerAddress) {
     return <Redirect to={routes.pools.path} />;
   }
 
@@ -408,6 +418,7 @@ const Market: React.FC<MarketProps> = ({
   return (
     <MarketUi
       asset={getAssetData?.asset}
+      poolComptrollerAddress={poolComptrollerAddress}
       {...chartData}
       interestRateChartData={interestRateChartData.apySimulations}
     />

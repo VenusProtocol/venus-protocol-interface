@@ -9,10 +9,10 @@ import {
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VToken } from 'types';
-import { convertTokensToWei, formatToReadablePercentage } from 'utilities';
+import { Asset, Pool, VToken } from 'types';
+import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
 
-import { useGetAsset, useGetMainAssets, useSupply } from 'clients/api';
+import { useGetPool, useSupply } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -24,24 +24,21 @@ import SupplyForm from './form';
 export interface SupplyProps {
   onClose: ModalProps['handleClose'];
   vToken: VToken;
+  poolComptrollerAddress: string;
 }
 
-export interface SupplyUiProps extends Omit<SupplyProps, 'token' | 'vToken'> {
-  userTotalBorrowBalanceCents: BigNumber;
-  userTotalBorrowLimitCents: BigNumber;
+export interface SupplyUiProps extends Omit<SupplyProps, 'vToken' | 'poolComptrollerAddress'> {
   onSubmit: AmountFormProps['onSubmit'];
   isLoading: boolean;
-  assets: Asset[];
   className?: string;
   asset?: Asset;
+  pool?: Pool;
 }
 
 export const SupplyUi: React.FC<SupplyUiProps> = ({
   className,
   asset,
-  assets,
-  userTotalBorrowBalanceCents,
-  userTotalBorrowLimitCents,
+  pool,
   onSubmit,
   isLoading,
 }) => {
@@ -81,7 +78,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
   return (
     <div className={className} css={styles.container}>
       <ConnectWallet message={t('supplyWithdraw.connectWalletToSupply')}>
-        {asset ? (
+        {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
@@ -93,16 +90,13 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
             <SupplyForm
               key="form-supply"
               asset={asset}
-              assets={assets}
+              pool={pool}
               tokenInfo={tokenInfo}
-              userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-              userTotalBorrowLimitCents={userTotalBorrowLimitCents}
               onSubmit={onSubmit}
               inputLabel={t('supplyWithdraw.walletBalance')}
               enabledButtonKey={t('supplyWithdraw.supply')}
               disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
               maxInput={maxInput}
-              calculateNewBalance={(initial: BigNumber, amount: BigNumber) => initial.plus(amount)}
               isTransactionLoading={isLoading}
             />
           </EnableToken>
@@ -114,22 +108,12 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
   );
 };
 
-const SupplyModal: React.FC<SupplyProps> = ({ vToken, onClose }) => {
+const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  const { data: assetData } = useGetAsset({ vToken });
-
-  const { asset } = assetData || { asset: undefined };
-
-  const { data: mainAssetsData } = useGetMainAssets({
-    accountAddress,
-  });
-
-  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = mainAssetsData || {
-    assets: [],
-    userTotalBorrowBalanceCents: new BigNumber(0),
-    userTotalBorrowLimitCents: new BigNumber(0),
-  };
+  const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
+  const pool = getPoolData?.pool;
+  const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -164,9 +148,7 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, onClose }) => {
     <SupplyUi
       onClose={onClose}
       asset={asset}
-      assets={assets}
-      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      pool={pool}
       isLoading={isSupplyLoading}
       onSubmit={onSubmit}
     />

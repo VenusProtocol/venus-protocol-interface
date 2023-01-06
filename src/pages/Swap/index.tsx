@@ -15,7 +15,7 @@ import { VError } from 'errors';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, TokenBalance } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useSwapTokens } from 'clients/api';
@@ -77,13 +77,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     () =>
       tokenBalances.reduce(
         (acc, tokenBalance) => {
-          if (
-            tokenBalance.token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
-          ) {
+          if (areTokensEqual(tokenBalance.token, formValues.fromToken)) {
             acc.fromTokenUserBalanceWei = tokenBalance.balanceWei;
-          } else if (
-            tokenBalance.token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
-          ) {
+          } else if (areTokensEqual(tokenBalance.token, formValues.toToken)) {
             acc.toTokenUserBalanceWei = tokenBalance.balanceWei;
           }
 
@@ -238,10 +234,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               fromToken: token,
               // Invert toToken and fromToken if selected token is the same as
               // toToken
-              toToken:
-                token.address.toLowerCase() === formValues.toToken.address.toLowerCase()
-                  ? currentFormValues.fromToken
-                  : currentFormValues.toToken,
+              toToken: areTokensEqual(token, formValues.toToken)
+                ? currentFormValues.fromToken
+                : currentFormValues.toToken,
             }))
           }
           rightMaxButton={{
@@ -298,10 +293,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               toToken: token,
               // Invert fromToken and toToken if selected token is the same as
               // fromToken
-              fromToken:
-                token.address.toLowerCase() === formValues.fromToken.address.toLowerCase()
-                  ? currentFormValues.toToken
-                  : currentFormValues.fromToken,
+              fromToken: areTokensEqual(token, formValues.fromToken)
+                ? currentFormValues.toToken
+                : currentFormValues.fromToken,
             }))
           }
           tokenBalances={toTokenBalances}

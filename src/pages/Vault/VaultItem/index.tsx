@@ -9,7 +9,7 @@ import { VError } from 'errors';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useWithdrawFromVrtVault } from 'clients/api';
@@ -252,7 +252,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
       {activeModal === 'withdraw' &&
         poolIndex === undefined &&
-        stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase() && (
+        areTokensEqual(stakedToken, TOKENS.vai) && (
           <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
         )}
 

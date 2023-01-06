@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Swap } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
@@ -54,14 +54,14 @@ const useFormValidation = ({
 
     if (
       formValues.fromToken.isNative &&
-      formValues.toToken.address.toLowerCase() === PANCAKE_SWAP_TOKENS.wbnb.address.toLowerCase()
+      areTokensEqual(formValues.toToken, PANCAKE_SWAP_TOKENS.wbnb)
     ) {
       errorsTmp.push('WRAPPING_UNSUPPORTED');
     }
 
     if (
       formValues.toToken.isNative &&
-      formValues.fromToken.address.toLowerCase() === PANCAKE_SWAP_TOKENS.wbnb.address.toLowerCase()
+      areTokensEqual(formValues.fromToken, PANCAKE_SWAP_TOKENS.wbnb)
     ) {
       errorsTmp.push('UNWRAPPING_UNSUPPORTED');
     }

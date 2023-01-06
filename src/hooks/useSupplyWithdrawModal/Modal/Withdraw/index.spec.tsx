@@ -1,50 +1,42 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Asset } from 'types';
+import { Pool } from 'types';
 import { convertTokensToWei } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
-import { getAllowance, redeem, redeemUnderlying, useGetAsset, useGetMainAssets } from 'clients/api';
+import { poolData } from '__mocks__/models/pools';
+import { getAllowance, redeem, redeemUnderlying, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 import TEST_IDS from './testIds';
 
-const fakeAsset: Asset = {
-  ...assetData[0],
-  tokenPriceDollars: new BigNumber(1),
-  userSupplyBalanceTokens: new BigNumber(1000),
-  userWalletBalanceTokens: new BigNumber(10000000),
+const fakePool: Pool = {
+  ...poolData[0],
+  userBorrowBalanceCents: 10,
+  userBorrowLimitCents: 1000,
 };
 
-const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
-const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
+const fakeAsset = fakePool.assets[0];
+fakeAsset.userSupplyBalanceTokens = new BigNumber(1000);
+fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
+fakeAsset.tokenPriceDollars = new BigNumber(1);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('Withdraw form', () => {
+describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   beforeEach(() => {
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: fakeAsset,
-      },
-    }));
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
 
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [fakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        pool: fakePool,
       },
       isLoading: false,
     }));
@@ -52,7 +44,13 @@ describe('Withdraw form', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Withdraw
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -72,7 +70,13 @@ describe('Withdraw form', () => {
 
   it('displays correct token withdrawable amount', async () => {
     const { getByText } = renderComponent(
-      () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Withdraw
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -86,20 +90,27 @@ describe('Withdraw form', () => {
   });
 
   it('redeem is called when full amount is withdrawn', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      isCollateralOfUser: false,
+    const customFakePool: Pool = {
+      ...fakePool,
     };
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.isCollateralOfUser = false;
 
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: customFakePool,
       },
+      isLoading: false,
     }));
 
     const { getByText } = renderComponent(
-      () => <Withdraw onClose={jest.fn()} vToken={customFakeAsset.vToken} />,
+      () => (
+        <Withdraw
+          onClose={jest.fn()}
+          vToken={customFakeAsset.vToken}
+          poolComptrollerAddress={customFakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -128,18 +139,14 @@ describe('Withdraw form', () => {
   });
 
   it('redeemUnderlying is called when partial amount is withdrawn', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-    };
-
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: customFakeAsset,
-      },
-    }));
     const { getByTestId } = renderComponent(
-      () => <Withdraw onClose={jest.fn()} vToken={VBEP_TOKENS.sxp} />,
+      () => (
+        <Withdraw
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
       {
         authContextValue: {
           account: {

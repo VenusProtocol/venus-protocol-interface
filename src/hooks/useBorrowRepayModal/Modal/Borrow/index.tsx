@@ -20,6 +20,7 @@ import {
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
+import { poolData } from '__mocks__/models/pools';
 import { useBorrow, useGetAsset, useGetMainAssets } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { TOKENS } from 'constants/tokens';
@@ -96,8 +97,8 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           {isIsolatedAsset && (
             // TODO: fetch actual values (see VEN-546)
             <IsolatedAssetWarning
-              poolComptrollerAddress="FAKE-POOL-COMPTROLLER-ADDRESS"
-              asset={asset}
+              pool={poolData[0]}
+              token={asset.vToken.underlyingToken}
               type="borrow"
               css={sharedStyles.isolatedAssetWarning}
             />

@@ -10,7 +10,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Pool } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -21,15 +21,12 @@ import TEST_IDS from './testIds';
 
 interface WithdrawFormUiProps {
   asset: Asset;
-  assets: Asset[];
+  pool: Pool;
   tokenInfo: LabeledInlineContentProps[];
   maxInput: BigNumber;
-  userTotalBorrowBalanceCents: BigNumber;
-  userTotalBorrowLimitCents: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
-  calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
   amountValue: string;
 }
@@ -37,14 +34,11 @@ interface WithdrawFormUiProps {
 export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
   asset,
   tokenInfo,
-  userTotalBorrowBalanceCents,
-  userTotalBorrowLimitCents,
-  assets,
+  pool,
   maxInput,
   inputLabel,
   enabledButtonKey,
   disabledButtonKey,
-  calculateNewBalance,
   isTransactionLoading,
   amountValue,
 }) => {
@@ -52,7 +46,7 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
   const { t, Trans } = useTranslation();
 
   const amount = new BigNumber(amountValue || 0);
-  const validAmount = amount && !amount.isZero() && !amount.isNaN();
+  const isAmountValid = amount && !amount.isZero() && !amount.isNaN();
 
   return (
     <>
@@ -90,21 +84,18 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
       </Typography>
 
       <AccountData
-        amountValue={amountValue}
         amount={amount}
-        validAmount={validAmount}
+        isAmountValid={isAmountValid}
         asset={asset}
-        assets={assets}
-        calculateNewBalance={calculateNewBalance}
+        pool={pool}
+        action="withdraw"
         tokenInfo={tokenInfo}
-        userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-        userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       />
 
       <FormikSubmitButton
         fullWidth
         data-testid={TEST_IDS.submitButton}
-        disabled={!validAmount}
+        disabled={!isAmountValid}
         loading={isTransactionLoading}
         enabledLabel={enabledButtonKey}
         disabledLabel={disabledButtonKey}

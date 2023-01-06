@@ -8,7 +8,7 @@ import {
 import BigNumber from 'bignumber.js';
 import config from 'config';
 import { useMemo } from 'react';
-import { convertTokensToWei } from 'utilities';
+import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
 
@@ -39,7 +39,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     const wrappedToToken = wrapToken(input.toToken);
 
     // Return no trade if user is trying to wrap or unwrap BNB/wBNB
-    if (wrappedFromToken.address.toLowerCase() === wrappedToToken.address.toLowerCase()) {
+    if (areTokensEqual(wrappedFromToken, wrappedToToken)) {
       return {
         swap: undefined,
         error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',

@@ -3,25 +3,23 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import { SupplyWithdrawProps, SupplyWithdrawUi, SupplyWithdrawUiProps } from '.';
+import { SupplyUi, SupplyUiProps } from '.';
 
 export default {
-  title: 'Pages/Dashboard/Modals/SupplyWithdraw',
-  component: SupplyWithdrawUi,
+  title: 'Modals/Supply',
+  component: SupplyUi,
   decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof SupplyWithdrawUi>;
+} as ComponentMeta<typeof SupplyUi>;
 
-const Template: Story<SupplyWithdrawUiProps & SupplyWithdrawProps> = args => (
-  <SupplyWithdrawUi {...args} />
-);
+const Template: Story<SupplyUiProps> = args => <SupplyUi {...args} />;
 
 const context = {
   login: noop,
@@ -35,16 +33,20 @@ const context = {
 
 export const DisconnectedSupply = Template.bind({});
 DisconnectedSupply.args = {
-  asset: assetData[0],
-  assets: assetData,
+  asset: poolData[0].assets[0],
+  pool: poolData[0],
+  onSubmit: noop,
+  isLoading: false,
   onClose: noop,
 };
 
 export const DisabledSupply = Template.bind({});
 DisabledSupply.decorators = [withAuthContext(context)];
 DisabledSupply.args = {
-  asset: assetData[0],
-  assets: assetData,
+  asset: poolData[0].assets[0],
+  pool: poolData[0],
+  onSubmit: noop,
+  isLoading: false,
   onClose: noop,
 };
 
@@ -52,13 +54,16 @@ export const Supply = Template.bind({});
 Supply.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    token: assetData[0].vToken.underlyingToken,
+    token: poolData[0].assets[0].vToken.underlyingToken,
     accountAddress: fakeAddress,
-    spenderAddress: assetData[0].vToken.underlyingToken.address,
+    spenderAddress: poolData[0].assets[0].vToken.address,
   }),
 ];
+
 Supply.args = {
-  asset: assetData[0],
-  assets: assetData,
+  asset: poolData[0].assets[0],
+  pool: poolData[0],
+  onSubmit: noop,
+  isLoading: false,
   onClose: noop,
 };

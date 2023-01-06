@@ -1,5 +1,5 @@
 import { Token, VToken } from 'types';
-import { getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -51,15 +51,15 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
 };
 
 export const getTokenContract = (token: Token, web3: Web3) => {
-  if (token.address.toLowerCase() === TOKENS.xvs.address.toLowerCase()) {
+  if (areTokensEqual(token, TOKENS.xvs)) {
     return getContract<TokenContract<'xvs'>>(xvsTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (token.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
+  if (areTokensEqual(token, TOKENS.vai)) {
     return getContract<TokenContract<'vai'>>(vaiTokenAbi as AbiItem[], token.address, web3);
   }
 
-  if (token.address.toLowerCase() === TOKENS.vrt.address.toLowerCase()) {
+  if (areTokensEqual(token, TOKENS.vrt)) {
     return getContract<TokenContract<'vrt'>>(vrtTokenAbi as AbiItem[], token.address, web3);
   }
 

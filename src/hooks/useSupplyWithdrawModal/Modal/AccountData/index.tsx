@@ -9,8 +9,9 @@ import {
 } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Pool } from 'types';
 import {
+  areTokensEqual,
   calculateCollateralValue,
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,
@@ -24,80 +25,85 @@ import { useStyles } from '../styles';
 
 interface AccountDataProps {
   asset: Asset;
-  assets: Asset[];
+  pool: Pool;
   tokenInfo: LabeledInlineContentProps[];
-  userTotalBorrowBalanceCents: BigNumber;
-  userTotalBorrowLimitCents: BigNumber;
-  calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
-  amountValue: string;
+  action: 'supply' | 'withdraw';
   amount: BigNumber;
-  validAmount: boolean;
+  isAmountValid: boolean;
 }
 
 export const AccountData: React.FC<AccountDataProps> = ({
   asset,
+  pool,
   tokenInfo,
-  userTotalBorrowBalanceCents,
-  userTotalBorrowLimitCents,
-  assets,
-  calculateNewBalance,
+  action,
   amount,
-  amountValue,
-  validAmount,
+  isAmountValid,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const hypotheticalTokenSupplyBalance = amountValue
-    ? calculateNewBalance(asset.userSupplyBalanceTokens, amount)
-    : undefined;
+  const calculateNewBalance = (valueA: BigNumber, valueB: BigNumber) => {
+    if (action === 'supply') {
+      return valueA.plus(valueB);
+    }
+
+    const returnValue = valueA.minus(valueB);
+
+    return returnValue.isLessThanOrEqualTo(0) ? undefined : returnValue;
+  };
+
+  const hypotheticalUserSupplyBalanceTokens =
+    isAmountValid && amount
+      ? calculateNewBalance(asset.userSupplyBalanceTokens, amount)
+      : undefined;
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
-    let updateBorrowLimitCents;
+    let updatedBorrowLimitCents;
 
-    if (asset?.tokenPriceDollars && validAmount) {
-      const amountInCents = calculateCollateralValue({
+    if (asset?.tokenPriceDollars && isAmountValid) {
+      const collateralValueCents = calculateCollateralValue({
         amountWei: convertTokensToWei({ value: amount, token: asset.vToken.underlyingToken }),
         token: asset.vToken.underlyingToken,
         tokenPriceDollars: asset.tokenPriceDollars,
         collateralFactor: asset.collateralFactor,
       }).times(100);
 
-      const temp = calculateNewBalance(userTotalBorrowLimitCents, amountInCents);
-      updateBorrowLimitCents = BigNumber.maximum(temp, 0);
+      const temp = calculateNewBalance(
+        new BigNumber(pool.userBorrowLimitCents || 0),
+        collateralValueCents,
+      );
+      updatedBorrowLimitCents = temp && BigNumber.maximum(temp, 0);
     }
 
-    return updateBorrowLimitCents;
-  }, [
-    amount,
-    asset.vToken.underlyingToken,
-    userTotalBorrowBalanceCents,
-    userTotalBorrowLimitCents,
-  ]);
+    return updatedBorrowLimitCents;
+  }, [amount, asset.vToken.underlyingToken, pool.userBorrowLimitCents]);
 
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
-    const hypotheticalAssets = [...assets];
 
     const yearlyEarningsCents = calculateYearlyEarningsForAssets({
-      assets,
+      assets: pool.assets,
     });
 
     const dailyEarningsCentsValue =
       yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
 
     // Modify asset with hypotheticalBalance
-    if (validAmount) {
-      const hypotheticalAsset = {
-        ...asset,
-        supplyBalance: calculateNewBalance(asset.userSupplyBalanceTokens, amount),
-      };
-      const currentIndex = assets.findIndex(
-        a =>
-          a.vToken.underlyingToken.address.toLowerCase() ===
-          asset.vToken.underlyingToken.address.toLowerCase(),
-      );
-      hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
+    if (isAmountValid) {
+      const hypotheticalAssets = pool.assets.map(a => {
+        if (areTokensEqual(a.vToken, asset.vToken)) {
+          const hypotheticalAssetSupplyBalanceTokens =
+            calculateNewBalance(asset.userSupplyBalanceTokens, amount) || new BigNumber(0);
+
+          return {
+            ...a,
+            userSupplyBalanceTokens: hypotheticalAssetSupplyBalanceTokens,
+          };
+        }
+
+        return a;
+      });
 
       const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: hypotheticalAssets,
@@ -107,8 +113,9 @@ export const AccountData: React.FC<AccountDataProps> = ({
         hypotheticalYearlyEarningsCents &&
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
     }
+
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
-  }, [amount, asset.vToken.underlyingToken.address, JSON.stringify(assets)]);
+  }, [amount, isAmountValid, asset, pool.assets]);
 
   return (
     <>
@@ -125,10 +132,8 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
       <BorrowBalanceAccountHealth
         css={styles.getRow({ isLast: true })}
-        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={
-          hypotheticalBorrowLimitCents?.toNumber() || userTotalBorrowLimitCents.toNumber()
-        }
+        borrowBalanceCents={pool.userBorrowBalanceCents}
+        borrowLimitCents={hypotheticalBorrowLimitCents?.toNumber() || pool.userBorrowLimitCents}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
 
@@ -141,7 +146,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
       >
         <ValueUpdate
           original={asset.userSupplyBalanceTokens}
-          update={hypotheticalTokenSupplyBalance}
+          update={hypotheticalUserSupplyBalanceTokens}
           format={(value: BigNumber | undefined) =>
             formatTokensToReadableValue({
               value,
@@ -158,7 +163,10 @@ export const AccountData: React.FC<AccountDataProps> = ({
         css={styles.getRow({ isLast: false })}
         className="info-row"
       >
-        <ValueUpdate original={userTotalBorrowLimitCents} update={hypotheticalBorrowLimitCents} />
+        <ValueUpdate
+          original={new BigNumber(pool.userBorrowLimitCents || 0)}
+          update={hypotheticalBorrowLimitCents}
+        />
       </LabeledInlineContent>
 
       <LabeledInlineContent

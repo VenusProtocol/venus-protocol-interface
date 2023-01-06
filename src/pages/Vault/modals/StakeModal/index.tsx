@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -32,7 +32,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
       return getContractAddress('xvsVaultProxy');
     }
 
-    if (stakedToken.address.toLowerCase() === TOKENS.vai.address.toLowerCase()) {
+    if (areTokensEqual(stakedToken, TOKENS.vai)) {
       return getContractAddress('vaiVault');
     }
 

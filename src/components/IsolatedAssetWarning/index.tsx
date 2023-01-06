@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool } from 'types';
-
-import { poolData } from '__mocks__/models/pools';
+import { Pool, Token } from 'types';
 
 import { TextButton } from '../Button';
 import { Notice } from '../Notice';
@@ -11,16 +9,16 @@ import AssetTable from './AssetTable';
 import { useStyles } from './styles';
 import { WarningType } from './types';
 
-export interface IsolatedAssetWarningUiProps {
-  asset: Asset;
-  pool: Pool;
+export interface IsolatedAssetWarningProps {
   type: WarningType;
+  token: Token;
+  pool?: Pool;
   className?: string;
 }
 
-export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
+export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
   pool,
-  asset,
+  token,
   type,
   className,
 }) => {
@@ -29,12 +27,16 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
   const { t } = useTranslation();
 
   const translationArgs = {
-    poolName: pool.name,
-    tokenSymbol: asset.vToken.underlyingToken.symbol,
+    poolName: pool?.name,
+    tokenSymbol: token.symbol,
   };
 
   const handleShowAssets = () => setShowAssets(true);
   const handleHideAssets = () => setShowAssets(false);
+
+  if (!pool) {
+    return null;
+  }
 
   return (
     <div css={styles.container} className={className}>
@@ -64,25 +66,6 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
       )}
     </div>
   );
-};
-
-export interface IsolatedAssetWarningProps {
-  asset: Asset;
-  poolComptrollerAddress: Pool['comptrollerAddress'];
-  type: WarningType;
-  className?: string;
-}
-
-export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
-  asset,
-  type,
-  className,
-}) => {
-  // TODO: fetch actual value (see VEN-546)
-
-  const pool = poolData[0];
-
-  return <IsolatedAssetWarningUi asset={asset} pool={pool} type={type} className={className} />;
 };
 
 export default IsolatedAssetWarning;

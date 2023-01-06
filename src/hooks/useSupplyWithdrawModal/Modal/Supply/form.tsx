@@ -11,8 +11,8 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { Asset, Pool } from 'types';
+import { areTokensEqual, formatTokensToReadableValue } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -23,30 +23,24 @@ import TEST_IDS from './testIds';
 
 interface SupplyFormUiProps {
   asset: Asset;
-  assets: Asset[];
+  pool: Pool;
   tokenInfo: LabeledInlineContentProps[];
   maxInput: BigNumber;
-  userTotalBorrowBalanceCents: BigNumber;
-  userTotalBorrowLimitCents: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
-  calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
   amountValue: string;
 }
 
 export const SupplyContent: React.FC<SupplyFormUiProps> = ({
   asset,
+  pool,
   tokenInfo,
-  userTotalBorrowBalanceCents,
-  userTotalBorrowLimitCents,
-  assets,
   maxInput,
   inputLabel,
   enabledButtonKey,
   disabledButtonKey,
-  calculateNewBalance,
   isTransactionLoading,
   amountValue,
 }) => {
@@ -54,23 +48,18 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
   const { t, Trans } = useTranslation();
 
   const amount = new BigNumber(amountValue || 0);
-  const validAmount = amount && !amount.isZero() && !amount.isNaN();
+  const isValidAmount = amount && !amount.isZero() && !amount.isNaN();
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
-  const isSupplyingLuna =
-    asset.vToken.underlyingToken.address.toLowerCase() === TOKENS.luna.address.toLowerCase();
-
-  // TODO: fetch actual value (see VEN-546)
-  const isIsolatedAsset = true;
+  const isSupplyingLuna = areTokensEqual(asset.vToken.underlyingToken, TOKENS.luna);
 
   return (
     <>
-      {isIsolatedAsset && (
-        // TODO: fetch actual values (see VEN-546)
+      {pool.isIsolated && (
         <IsolatedAssetWarning
-          poolComptrollerAddress="FAKE-POOL-COMPTROLLER-ADDRESS"
-          asset={asset}
+          token={asset.vToken.underlyingToken}
+          pool={pool}
           type="supply"
           css={styles.isolatedAssetWarning}
         />
@@ -110,21 +99,18 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
       </Typography>
 
       <AccountData
-        amountValue={amountValue}
         amount={amount}
-        validAmount={validAmount}
+        isAmountValid={isValidAmount}
         asset={asset}
-        assets={assets}
-        calculateNewBalance={calculateNewBalance}
+        pool={pool}
         tokenInfo={tokenInfo}
-        userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-        userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+        action="supply"
       />
 
       <FormikSubmitButton
         fullWidth
         data-testid={TEST_IDS.submitButton}
-        disabled={!validAmount || isSupplyingLuna}
+        disabled={!isValidAmount || isSupplyingLuna}
         loading={isTransactionLoading}
         enabledLabel={enabledButtonKey}
         disabledLabel={disabledButtonKey}

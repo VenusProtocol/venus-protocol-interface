@@ -4,6 +4,7 @@ import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
+import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMainMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
@@ -42,6 +43,7 @@ describe('pages/Market', () => {
         match={{
           params: {
             vTokenAddress: VBEP_TOKENS.aave.address,
+            poolComptrollerAddress: poolData[0].comptrollerAddress,
           },
           isExact: true,
           path: routes.market.path,
@@ -60,6 +62,7 @@ describe('pages/Market', () => {
         match={{
           params: {
             vTokenAddress: VBEP_TOKENS.aave.address,
+            poolComptrollerAddress: poolData[0].comptrollerAddress,
           },
           isExact: true,
           path: routes.market.path,

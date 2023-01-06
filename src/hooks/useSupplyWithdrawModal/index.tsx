@@ -3,20 +3,25 @@ import { VToken } from 'types';
 
 import Modal from './Modal';
 
+interface Params {
+  vToken: VToken;
+  poolComptrollerAddress: string;
+}
+
 const useSupplyWithdrawModal = () => {
-  const [selectedVToken, setSelectedVToken] = useState<VToken>();
+  const [params, setParams] = useState<Params>();
 
   const SupplyWithdrawModal: React.FC = useCallback(() => {
-    if (!selectedVToken) {
+    if (!params) {
       return <></>;
     }
 
-    return <Modal vToken={selectedVToken} onClose={() => setSelectedVToken(undefined)} />;
-  }, [selectedVToken]);
+    return <Modal {...params} onClose={() => setParams(undefined)} />;
+  }, [params]);
 
   return {
-    openSupplyWithdrawModal: (vToken: VToken) => setSelectedVToken(vToken),
-    closeSupplyWithdrawModal: () => setSelectedVToken(undefined),
+    openSupplyWithdrawModal: (newParams: Params) => setParams(newParams),
+    closeSupplyWithdrawModal: () => setParams(undefined),
     SupplyWithdrawModal,
   };
 };

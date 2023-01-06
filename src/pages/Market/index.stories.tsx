@@ -4,6 +4,7 @@ import { ApyChartProps } from 'components';
 import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { withRouter } from 'stories/decorators';
 
@@ -59,5 +60,6 @@ export const Default = () => (
     supplyChartData={fakeApyChartData}
     borrowChartData={fakeApyChartData}
     interestRateChartData={vTokenApySimulations}
+    poolComptrollerAddress={poolData[0].comptrollerAddress}
   />
 );

@@ -1,12 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VToken } from 'types';
+import { VToken } from 'types';
 import { isTokenEnabled } from 'utilities';
-
-import { useGetAsset, useGetMainAssets } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 
 import SupplyModal from './Supply';
 import WithdrawModal from './Withdraw';
@@ -14,62 +11,55 @@ import WithdrawModal from './Withdraw';
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];
   vToken: VToken;
-}
-
-export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'token'> {
-  assets: Asset[];
-  asset?: Asset;
+  poolComptrollerAddress: string;
 }
 
 /**
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({ vToken, onClose, asset }) => {
+export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
+  vToken,
+  onClose,
+  poolComptrollerAddress,
+}) => {
   const { t } = useTranslation();
 
   const tabsContent: TabContent[] = [
     {
       title: t('supplyWithdraw.withdraw'),
-      content: <WithdrawModal onClose={onClose} vToken={vToken} />,
+      content: (
+        <WithdrawModal
+          onClose={onClose}
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+        />
+      ),
     },
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (asset && isTokenEnabled(asset.vToken.underlyingToken)) {
+  if (isTokenEnabled(vToken.underlyingToken)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
-      content: <SupplyModal onClose={onClose} vToken={vToken} />,
+      content: (
+        <SupplyModal
+          onClose={onClose}
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+        />
+      ),
     });
   }
 
   return (
     <Modal
-      isOpen={!!asset}
+      isOpen
       handleClose={onClose}
-      title={asset && <TokenIconWithSymbol token={asset.vToken.underlyingToken} variant="h4" />}
+      title={<TokenIconWithSymbol token={vToken.underlyingToken} variant="h4" />}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
-  );
-};
-
-const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ vToken, onClose }) => {
-  const { account } = useContext(AuthContext);
-
-  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
-
-  const { data: getMainAssetsData } = useGetMainAssets({
-    accountAddress: account?.address,
-  });
-
-  return (
-    <SupplyWithdrawUi
-      onClose={onClose}
-      vToken={vToken}
-      asset={getAssetData?.asset}
-      assets={getMainAssetsData?.assets || []}
-    />
   );
 };
 

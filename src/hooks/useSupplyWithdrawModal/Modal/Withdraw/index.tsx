@@ -9,10 +9,10 @@ import {
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VToken } from 'types';
-import { convertTokensToWei, formatToReadablePercentage } from 'utilities';
+import { Asset, Pool, VToken } from 'types';
+import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
 
-import { useGetAsset, useGetMainAssets, useRedeem, useRedeemUnderlying } from 'clients/api';
+import { useGetPool, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -24,24 +24,21 @@ import WithdrawForm from './form';
 export interface WithdrawProps {
   onClose: ModalProps['handleClose'];
   vToken: VToken;
+  poolComptrollerAddress: string;
 }
 
-export interface WithdrawUiProps extends Omit<WithdrawProps, 'token' | 'vToken'> {
-  userTotalBorrowBalanceCents: BigNumber;
-  userTotalBorrowLimitCents: BigNumber;
+export interface WithdrawUiProps extends Omit<WithdrawProps, 'vToken' | 'poolComptrollerAddress'> {
   onSubmit: AmountFormProps['onSubmit'];
   isLoading: boolean;
-  assets: Asset[];
   className?: string;
   asset?: Asset;
+  pool?: Pool;
 }
 
 export const WithdrawUi: React.FC<WithdrawUiProps> = ({
   className,
   asset,
-  assets,
-  userTotalBorrowBalanceCents,
-  userTotalBorrowLimitCents,
+  pool,
   onSubmit,
   isLoading,
 }) => {
@@ -69,7 +66,11 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
   }
 
   const maxInput = React.useMemo(() => {
-    if (!asset) {
+    if (
+      !asset ||
+      pool?.userBorrowBalanceCents === undefined ||
+      pool?.userBorrowLimitCents === undefined
+    ) {
       return new BigNumber(0);
     }
 
@@ -84,18 +85,17 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
       // liquidated (if their borrow balance goes above their borrow limit)
 
       // Return 0 if borrow limit has already been reached
-      if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
+      if (pool.userBorrowBalanceCents > pool.userBorrowLimitCents) {
         return new BigNumber(0);
       }
 
-      const marginWithBorrowLimitDollars = userTotalBorrowLimitCents
-        .minus(userTotalBorrowBalanceCents)
-        .dividedBy(100);
+      const marginWithBorrowLimitDollars =
+        (pool.userBorrowLimitCents - pool.userBorrowBalanceCents) / 100;
 
       const collateralAmountPerTokenDollars = asset.tokenPriceDollars.multipliedBy(
         asset.collateralFactor,
       );
-      const maxTokensBeforeLiquidation = marginWithBorrowLimitDollars
+      const maxTokensBeforeLiquidation = new BigNumber(marginWithBorrowLimitDollars)
         .dividedBy(collateralAmountPerTokenDollars)
         .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
@@ -103,12 +103,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
     }
 
     return maxInputTokens;
-  }, [asset]);
+  }, [asset, pool]);
 
   return (
     <div className={className} css={styles.container}>
       <ConnectWallet message={t('supplyWithdraw.connectWalletToWithdraw')}>
-        {asset ? (
+        {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
@@ -120,16 +120,13 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
             <WithdrawForm
               key="form-withdraw"
               asset={asset}
-              assets={assets}
+              pool={pool}
               tokenInfo={tokenInfo}
-              userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-              userTotalBorrowLimitCents={userTotalBorrowLimitCents}
               onSubmit={onSubmit}
               inputLabel={t('supplyWithdraw.withdrawableAmount')}
               enabledButtonKey={t('supplyWithdraw.withdraw')}
               disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
               maxInput={maxInput}
-              calculateNewBalance={(initial: BigNumber, amount: BigNumber) => initial.minus(amount)}
               isTransactionLoading={isLoading}
             />
           </EnableToken>
@@ -141,22 +138,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
   );
 };
 
-const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, onClose }) => {
+const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  const { data: assetData } = useGetAsset({ vToken });
-
-  const { asset } = assetData || { asset: undefined };
-
-  const { data: mainAssetsData } = useGetMainAssets({
-    accountAddress,
-  });
-
-  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = mainAssetsData || {
-    assets: [],
-    userTotalBorrowBalanceCents: new BigNumber(0),
-    userTotalBorrowLimitCents: new BigNumber(0),
-  };
+  const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
+  const pool = getPoolData?.pool;
+  const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -223,9 +210,7 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, onClose }) => {
     <WithdrawUi
       onClose={onClose}
       asset={asset}
-      assets={assets}
-      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      pool={pool}
       onSubmit={onSubmit}
       isLoading={isWithdrawLoading}
     />
