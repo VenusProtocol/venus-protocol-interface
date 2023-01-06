@@ -121,7 +121,6 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
               key="form-withdraw"
               asset={asset}
               pool={pool}
-              tokenInfo={tokenInfo}
               onSubmit={onSubmit}
               inputLabel={t('supplyWithdraw.withdrawableAmount')}
               enabledButtonKey={t('supplyWithdraw.withdraw')}

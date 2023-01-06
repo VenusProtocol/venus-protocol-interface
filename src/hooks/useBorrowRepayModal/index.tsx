@@ -3,20 +3,25 @@ import { VToken } from 'types';
 
 import Modal from './Modal';
 
+interface Params {
+  vToken: VToken;
+  poolComptrollerAddress: string;
+}
+
 const useBorrowRepayModal = () => {
-  const [selectedVToken, setSelectedVToken] = useState<VToken>();
+  const [params, setParams] = useState<Params>();
 
   const BorrowRepayModal: React.FC = useCallback(() => {
-    if (!selectedVToken) {
+    if (!params) {
       return <></>;
     }
 
-    return <Modal vToken={selectedVToken} onClose={() => setSelectedVToken(undefined)} />;
-  }, [selectedVToken]);
+    return <Modal {...params} onClose={() => setParams(undefined)} />;
+  }, [params]);
 
   return {
-    openBorrowRepayModal: (vToken: VToken) => setSelectedVToken(vToken),
-    closeBorrowRepayModal: () => setSelectedVToken(undefined),
+    openBorrowRepayModal: (newParams: Params) => setParams(newParams),
+    closeBorrowRepayModal: () => setParams(undefined),
     BorrowRepayModal,
   };
 };

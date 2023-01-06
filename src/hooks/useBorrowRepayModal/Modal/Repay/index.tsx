@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
+  AccountData,
   ConnectWallet,
   EnableToken,
   LabeledInlineContent,
@@ -14,35 +15,40 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VToken } from 'types';
+import { Asset, Pool, VToken } from 'types';
 import {
+  areTokensEqual,
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { useGetAsset, useRepay } from 'clients/api';
+import { useGetPool, useRepay } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import AccountData from '../AccountData';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
+// TODO: add stories
+
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
 export interface RepayFormProps {
-  asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string | undefined>;
   isRepayLoading: boolean;
   limitTokens: string;
+  asset: Asset;
+  pool: Pool;
 }
+
 
 export const RepayForm: React.FC<RepayFormProps> = ({
   asset,
+  pool,
   repay,
   isRepayLoading,
   limitTokens,
@@ -182,7 +188,12 @@ export const RepayForm: React.FC<RepayFormProps> = ({
             )}
           </div>
 
-          <AccountData hypotheticalBorrowAmountTokens={-values.amount} asset={asset} />
+          <AccountData
+            asset={asset}
+            pool={pool}
+            amountTokens={new BigNumber(values.amount || 0)}
+            action="repay"
+          />
 
           <PrimaryButton
             type="submit"
@@ -202,24 +213,27 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
 export interface RepayProps {
   vToken: VToken;
+  poolComptrollerAddress: string;
   onClose: () => void;
 }
 
-const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
+const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
+  const { data: getPoolData } = useGetPool({
+    poolComptrollerAddress,
+    accountAddress: account?.address,
+  });
+  const pool = getPoolData?.pool;
+  const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   const limitTokens = React.useMemo(
     () =>
-      getAssetData?.asset
-        ? BigNumber.min(
-            getAssetData.asset.userBorrowBalanceTokens,
-            getAssetData.asset.userWalletBalanceTokens,
-          )
+      asset
+        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens)
         : new BigNumber(0),
-    [getAssetData?.asset?.userBorrowBalanceTokens, getAssetData?.asset?.userWalletBalanceTokens],
+    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
   );
 
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepay({
@@ -233,8 +247,8 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
 
     const isRepayingFullLoan = amountWei.eq(
       convertTokensToWei({
-        value: getAssetData!.asset!.userBorrowBalanceTokens,
-        token: getAssetData!.asset!.vToken.underlyingToken,
+        value: asset!.userBorrowBalanceTokens,
+        token: asset!.vToken.underlyingToken,
       }),
     );
 
@@ -252,7 +266,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
 
   return (
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
-      {getAssetData?.asset ? (
+      {asset && pool ? (
         <EnableToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
@@ -263,17 +277,18 @@ const Repay: React.FC<RepayProps> = ({ vToken, onClose }) => {
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(getAssetData.asset.borrowApyPercentage),
+              children: formatToReadablePercentage(asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
               iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(getAssetData.asset.xvsBorrowApy),
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
         >
           <RepayForm
-            asset={getAssetData.asset}
+            asset={asset}
+            pool={pool}
             repay={handleRepay}
             isRepayLoading={isRepayLoading}
             limitTokens={limitTokens.toFixed()}

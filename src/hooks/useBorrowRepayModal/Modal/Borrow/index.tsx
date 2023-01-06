@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
+  AccountData,
   ConnectWallet,
   EnableToken,
   FormikSubmitButton,
@@ -12,28 +13,30 @@ import {
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, VToken } from 'types';
+import { Asset, Pool, VToken } from 'types';
 import {
+  areTokensEqual,
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { poolData } from '__mocks__/models/pools';
-import { useBorrow, useGetAsset, useGetMainAssets } from 'clients/api';
+import { useBorrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import AccountData from '../AccountData';
 import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
+// TODO: add stories
+
 export interface BorrowFormProps {
   asset: Asset;
+  pool: Pool;
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
@@ -44,6 +47,7 @@ export interface BorrowFormProps {
 
 export const BorrowForm: React.FC<BorrowFormProps> = ({
   asset,
+  pool,
   limitTokens,
   safeBorrowLimitPercentage,
   safeLimitTokens,
@@ -87,17 +91,13 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
     });
   };
 
-  // TODO: fetch actual value (see VEN-546)
-  const isIsolatedAsset = true;
-
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, dirty, isValid, errors }) => (
         <>
-          {isIsolatedAsset && (
-            // TODO: fetch actual values (see VEN-546)
+          {pool.isIsolated && (
             <IsolatedAssetWarning
-              pool={poolData[0]}
+              pool={pool}
               token={asset.vToken.underlyingToken}
               type="borrow"
               css={sharedStyles.isolatedAssetWarning}
@@ -143,7 +143,12 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData hypotheticalBorrowAmountTokens={+values.amount} asset={asset} />
+          <AccountData
+            asset={asset}
+            pool={pool}
+            amountTokens={new BigNumber(values.amount || 0)}
+            action="borrow"
+          />
 
           <FormikSubmitButton
             loading={isBorrowLoading}
@@ -160,27 +165,29 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
 export interface BorrowProps {
   vToken: VToken;
+  poolComptrollerAddress: string;
   onClose: () => void;
 }
 
-const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
+const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { data: getAssetData } = useGetAsset({ vToken, accountAddress: account?.address });
-
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getPoolData } = useGetPool({
+    poolComptrollerAddress,
     accountAddress: account?.address,
   });
+  const pool = getPoolData?.pool;
+  const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   const hasUserCollateralizedSuppliedAssets = React.useMemo(
     () =>
-      !!getMainAssetsData?.assets &&
-      getMainAssetsData.assets.some(
+      !!pool &&
+      pool.assets.some(
         userAsset =>
           userAsset.isCollateralOfUser && userAsset.userSupplyBalanceTokens.isGreaterThan(0),
       ),
-    [getMainAssetsData?.assets],
+    [pool?.assets],
   );
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
@@ -205,53 +212,52 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
     // Return 0 values while asset is loading or if borrow limit has been
     // reached
     if (
-      !getAssetData?.asset ||
-      !getMainAssetsData ||
-      getMainAssetsData.userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(
-        getMainAssetsData.userTotalBorrowLimitCents,
-      )
+      !asset ||
+      !pool ||
+      !pool.userBorrowBalanceCents ||
+      !pool.userBorrowLimitCents ||
+      pool.userBorrowBalanceCents >= pool.userBorrowLimitCents
     ) {
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitDollars = getMainAssetsData.userTotalBorrowLimitCents
-      .minus(getMainAssetsData.userTotalBorrowBalanceCents)
+    const marginWithBorrowLimitDollars =
+      (pool.userBorrowLimitCents - pool.userBorrowBalanceCents) /
       // Convert cents to dollars
-      .dividedBy(100);
-    const liquidityDollars = getAssetData.asset.liquidityCents / 100;
+      100;
+
+    const liquidityDollars = asset.liquidityCents / 100;
     const maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
       // Convert dollars to tokens
-      .dividedBy(getAssetData.asset.tokenPriceDollars);
+      .dividedBy(asset.tokenPriceDollars);
 
-    const safeBorrowLimitCents = getMainAssetsData.userTotalBorrowLimitCents.multipliedBy(
-      SAFE_BORROW_LIMIT_PERCENTAGE / 100,
-    );
-    const marginWithSafeBorrowLimitDollars = safeBorrowLimitCents
-      .minus(getMainAssetsData.userTotalBorrowBalanceCents)
+    const safeBorrowLimitCents = (pool.userBorrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
+    const marginWithSafeBorrowLimitDollars =
+      (safeBorrowLimitCents - pool.userBorrowBalanceCents) /
       // Convert cents to dollars
-      .dividedBy(100);
+      100;
 
-    const safeMaxTokens = getMainAssetsData.userTotalBorrowBalanceCents.isLessThan(
-      safeBorrowLimitCents,
-    )
-      ? // Convert dollars to tokens
-        marginWithSafeBorrowLimitDollars.dividedBy(getAssetData.asset.tokenPriceDollars)
-      : new BigNumber(0);
+    const safeMaxTokens =
+      pool.userBorrowBalanceCents < safeBorrowLimitCents
+        ? // Convert dollars to tokens
+          new BigNumber(marginWithSafeBorrowLimitDollars).dividedBy(asset.tokenPriceDollars)
+        : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
       value.dp(vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
-    getAssetData?.asset?.tokenPriceDollars,
-    getAssetData?.asset?.liquidityCents,
-    getMainAssetsData?.userTotalBorrowLimitCents.toFixed(),
-    getMainAssetsData?.userTotalBorrowBalanceCents.toFixed(),
+    vToken.underlyingToken.decimals,
+    asset?.tokenPriceDollars,
+    asset?.liquidityCents,
+    pool?.userBorrowLimitCents,
+    pool?.userBorrowBalanceCents,
   ]);
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
-      {getAssetData?.asset ? (
+      {asset && pool ? (
         <EnableToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
@@ -262,17 +268,18 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, onClose }) => {
             {
               label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
               iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(getAssetData.asset.borrowApyPercentage),
+              children: formatToReadablePercentage(asset.borrowApyPercentage),
             },
             {
               label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
               iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(getAssetData.asset.xvsBorrowApy),
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
         >
           <BorrowForm
-            asset={getAssetData.asset}
+            asset={asset}
+            pool={pool}
             limitTokens={limitTokens}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}

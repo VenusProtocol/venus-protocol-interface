@@ -2,10 +2,10 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import {
+  AccountData,
   FormikSubmitButton,
   FormikTokenTextField,
   IsolatedAssetWarning,
-  LabeledInlineContentProps,
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
@@ -17,14 +17,12 @@ import { areTokensEqual, formatTokensToReadableValue } from 'utilities';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 
-import { AccountData } from '../AccountData';
 import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
 interface SupplyFormUiProps {
   asset: Asset;
   pool: Pool;
-  tokenInfo: LabeledInlineContentProps[];
   maxInput: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
@@ -36,7 +34,6 @@ interface SupplyFormUiProps {
 export const SupplyContent: React.FC<SupplyFormUiProps> = ({
   asset,
   pool,
-  tokenInfo,
   maxInput,
   inputLabel,
   enabledButtonKey,
@@ -98,14 +95,7 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
         />
       </Typography>
 
-      <AccountData
-        amount={amount}
-        isAmountValid={isValidAmount}
-        asset={asset}
-        pool={pool}
-        tokenInfo={tokenInfo}
-        action="supply"
-      />
+      <AccountData amountTokens={amount} asset={asset} pool={pool} action="supply" />
 
       <FormikSubmitButton
         fullWidth

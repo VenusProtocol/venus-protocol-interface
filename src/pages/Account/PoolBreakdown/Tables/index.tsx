@@ -89,8 +89,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
           <ButtonGroup
             css={styles.tabletHeaderButtonGroup}
             buttonLabels={[
-              t('account.marketBreakdown.tables.tabletsupplyTabTitle'),
-              t('account.marketBreakdown.tables.tabletborrowTabTitle'),
+              t('account.marketBreakdown.tables.tabletSupplyTabTitle'),
+              t('account.marketBreakdown.tables.tabletBorrowTabTitle'),
             ]}
             activeButtonIndex={activeTabIndex}
             onButtonClick={setActiveTabIndex}

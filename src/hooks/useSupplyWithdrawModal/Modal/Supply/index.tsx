@@ -91,7 +91,6 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
               key="form-supply"
               asset={asset}
               pool={pool}
-              tokenInfo={tokenInfo}
               onSubmit={onSubmit}
               inputLabel={t('supplyWithdraw.walletBalance')}
               enabledButtonKey={t('supplyWithdraw.supply')}

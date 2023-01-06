@@ -1,13 +1,14 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
-import { Asset } from 'types';
+import { Pool } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { borrow, getAllowance, useGetAsset, useGetMainAssets } from 'clients/api';
+import { borrow, getAllowance, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -17,62 +18,63 @@ import en from 'translation/translations/en.json';
 import Borrow from '.';
 import TEST_IDS from './testIds';
 
-const fakeAsset: Asset = {
-  ...assetData[0],
-  tokenPriceDollars: new BigNumber(1),
-  userWalletBalanceTokens: new BigNumber(10000000),
-  liquidityCents: 1000000,
+const fakePool: Pool = {
+  ...poolData[0],
+  userBorrowBalanceCents: 1000,
+  userBorrowLimitCents: 100000,
 };
 
-const fakeUserTotalBorrowLimitCents = new BigNumber(100000);
-const fakeUserTotalBorrowBalanceCents = new BigNumber(1000);
+const fakeAsset = fakePool.assets[0];
+fakeAsset.liquidityCents = 1000000;
+fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
+fakeAsset.tokenPriceDollars = new BigNumber(1);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Borrow', () => {
   beforeEach(() => {
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        asset: fakeAsset,
-      },
-    }));
-
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
 
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [...assetData, fakeAsset],
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitCents,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceCents,
+        pool: fakePool,
       },
       isLoading: false,
     }));
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Borrow vToken={fakeAsset.vToken} onClose={noop} />);
+    renderComponent(
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
+    );
   });
 
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      liquidityCents: 100000000,
-    };
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.liquidityCents = 100000000;
 
-    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: customFakePool,
       },
+      isLoading: false,
     }));
 
     const { getByText } = renderComponent(
-      <Borrow vToken={customFakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={customFakeAsset.vToken}
+        poolComptrollerAddress={customFakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -82,10 +84,11 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       },
     );
 
-    const borrowDeltaDollars = fakeUserTotalBorrowLimitCents
-      .minus(fakeUserTotalBorrowBalanceCents)
-      .dividedBy(100);
-    const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPriceDollars);
+    const borrowDeltaDollars =
+      (fakePool.userBorrowLimitCents! - fakePool.userBorrowBalanceCents!) / 100;
+    const borrowDeltaTokens = new BigNumber(borrowDeltaDollars).dividedBy(
+      fakeAsset.tokenPriceDollars,
+    );
 
     await waitFor(() =>
       getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
@@ -93,20 +96,23 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      liquidityCents: 200,
-    };
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.liquidityCents = 200;
 
-    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: customFakePool,
       },
+      isLoading: false,
     }));
 
     const { getByText } = renderComponent(
-      <Borrow vToken={customFakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={customFakeAsset.vToken}
+        poolComptrollerAddress={customFakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -124,29 +130,29 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('displays warning message and disables form if user has not supplied and collateralize any tokens yet', async () => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [],
-        userTotalBorrowLimitCents: new BigNumber(0),
-        userTotalBorrowBalanceCents: new BigNumber(0),
-      },
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      liquidityCents: 200,
+    const customFakePool: Pool = {
+      ...fakePool,
+      userBorrowLimitCents: 0,
+      userBorrowBalanceCents: 0,
+      assets: fakePool.assets.map(asset => ({
+        ...asset,
+        isCollateralOfUser: false,
+      })),
     };
 
-    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: customFakePool,
       },
+      isLoading: false,
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow vToken={customFakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={customFakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -176,20 +182,23 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      liquidityCents: 200,
-    };
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.liquidityCents = 200;
 
-    (useGetAsset as jest.Mock).mockImplementationOnce(() => ({
-      isLoading: false,
+    (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
-        asset: customFakeAsset,
+        pool: customFakePool,
       },
+      isLoading: false,
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow vToken={customFakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={customFakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -226,7 +235,11 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow vToken={fakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -242,11 +255,10 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
 
-    const fakeBorrowDeltaDollars = fakeUserTotalBorrowLimitCents
-      .minus(fakeUserTotalBorrowBalanceCents)
-      .dividedBy(100);
+    const fakeBorrowDeltaDollars =
+      (fakePool.userBorrowLimitCents! - fakePool.userBorrowBalanceCents!) / 100;
 
-    const incorrectValueTokens = fakeBorrowDeltaDollars
+    const incorrectValueTokens = new BigNumber(fakeBorrowDeltaDollars)
       .dividedBy(fakeAsset.tokenPriceDollars)
       // Add one token more than the maximum
       .plus(1)
@@ -267,7 +279,11 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('updates input value correctly when pressing on max button', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow vToken={fakeAsset.vToken} onClose={noop} />,
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
       {
         authContextValue: {
           account: {
@@ -285,11 +301,11 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     // Press on max button
     fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
 
-    const safeUserBorrowLimitCents = fakeUserTotalBorrowLimitCents
+    const safeUserBorrowLimitCents = new BigNumber(fakePool.userBorrowLimitCents!)
       .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
       .dividedBy(100);
     const safeBorrowDeltaDollars = safeUserBorrowLimitCents
-      .minus(fakeUserTotalBorrowBalanceCents)
+      .minus(fakePool.userBorrowBalanceCents!)
       .dividedBy(100);
     const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPriceDollars);
     const expectedInputValue = safeBorrowDeltaTokens
@@ -309,7 +325,11 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     (borrow as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow vToken={fakeAsset.vToken} onClose={onCloseMock} />,
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={onCloseMock}
+      />,
       {
         authContextValue: {
           account: {

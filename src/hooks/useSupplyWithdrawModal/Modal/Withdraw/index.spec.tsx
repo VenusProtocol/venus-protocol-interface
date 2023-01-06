@@ -1,5 +1,6 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Pool } from 'types';
 import { convertTokensToWei } from 'utilities';
@@ -90,9 +91,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   });
 
   it('redeem is called when full amount is withdrawn', async () => {
-    const customFakePool: Pool = {
-      ...fakePool,
-    };
+    const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
