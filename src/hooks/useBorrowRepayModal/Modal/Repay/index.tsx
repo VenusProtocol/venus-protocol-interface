@@ -24,9 +24,9 @@ import {
 } from 'utilities';
 
 import { useGetPool, useRepay } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import useAssetInfo from 'hooks/useGetTokenInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -44,7 +44,6 @@ export interface RepayFormProps {
   asset: Asset;
   pool: Pool;
 }
-
 
 export const RepayForm: React.FC<RepayFormProps> = ({
   asset,
@@ -240,6 +239,8 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
     vToken,
   });
 
+  const assetInfo = useAssetInfo(asset);
+
   const handleRepay: RepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
@@ -273,18 +274,7 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
           title={t('borrowRepayModal.repay.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          tokenInfo={[
-            {
-              label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
-              iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApyPercentage),
-            },
-            {
-              label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
-              iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
-            },
-          ]}
+          assetInfo={assetInfo}
         >
           <RepayForm
             asset={asset}

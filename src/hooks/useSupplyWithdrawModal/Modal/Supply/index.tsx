@@ -1,21 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  ConnectWallet,
-  EnableToken,
-  LabeledInlineContentProps,
-  ModalProps,
-  Spinner,
-} from 'components';
+import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
-import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useSupply } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import useAssetInfo from 'hooks/useGetTokenInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from '../styles';
@@ -46,24 +40,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 
   const { t } = useTranslation();
 
-  const tokenInfo: LabeledInlineContentProps[] = asset
-    ? [
-        {
-          label: t('supplyWithdraw.supplyApy'),
-          iconSrc: asset.vToken.underlyingToken,
-          children: formatToReadablePercentage(asset.supplyApyPercentage),
-        },
-        {
-          label: t('supplyWithdraw.distributionApy'),
-          iconSrc: TOKENS.xvs,
-          children: formatToReadablePercentage(asset.xvsSupplyApy),
-        },
-      ]
-    : [];
-
-  if (!asset) {
-    return <></>;
-  }
+  const assetInfo = useAssetInfo(asset);
 
   const maxInput = React.useMemo(() => {
     if (!asset) {
@@ -75,6 +52,10 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
     return maxInputTokens;
   }, [asset]);
 
+  if (!asset) {
+    return <></>;
+  }
+
   return (
     <div className={className} css={styles.container}>
       <ConnectWallet message={t('supplyWithdraw.connectWalletToSupply')}>
@@ -85,7 +66,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
             title={t('supplyWithdraw.enableToSupply', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
-            tokenInfo={tokenInfo}
+            assetInfo={assetInfo}
           >
             <SupplyForm
               key="form-supply"

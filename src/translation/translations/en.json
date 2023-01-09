@@ -48,6 +48,10 @@
       "title": "Market info"
     }
   },
+  "assetInfo": {
+    "distributionApy": "Distribution APY",
+    "supplyApy": "Supply APY"
+  },
   "authModal": {
     "accountDetails": {
       "logOutButtonLabel": "Log out"

@@ -6,10 +6,10 @@ import { Asset, Pool } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { TOKENS } from 'constants/tokens';
+import useAssetInfo from 'hooks/useGetTokenInfo';
 
 import { Delimiter } from '../Delimiter';
-import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
+import { LabeledInlineContent } from '../LabeledInlineContent';
 import { BorrowBalanceAccountHealth } from '../ProgressBar/AccountHealth';
 import { ValueUpdate } from '../ValueUpdate';
 import { useStyles } from './styles';
@@ -37,27 +37,13 @@ export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, a
     hypotheticalPoolUserDailyEarningsCents,
   } = useGetValues({ asset, pool, amountTokens, action });
 
-  // TODO: create util to generate token info
-  const tokenInfo: LabeledInlineContentProps[] = asset
-    ? [
-        {
-          label: t('accountData.supplyApy'),
-          iconSrc: asset.vToken.underlyingToken,
-          children: formatToReadablePercentage(asset.supplyApyPercentage),
-        },
-        {
-          label: t('accountData.distributionApy'),
-          iconSrc: TOKENS.xvs,
-          children: formatToReadablePercentage(asset.xvsSupplyApy),
-        },
-      ]
-    : [];
+  const assetInfo = useAssetInfo(asset);
 
   return (
     <>
-      {tokenInfo.map((row, index) => (
+      {assetInfo.map((row, index) => (
         <LabeledInlineContent
-          css={styles.getRow({ isLast: index === tokenInfo.length - 1 })}
+          css={styles.getRow({ isLast: index === assetInfo.length - 1 })}
           className="info-row"
           {...row}
           key={row.label}

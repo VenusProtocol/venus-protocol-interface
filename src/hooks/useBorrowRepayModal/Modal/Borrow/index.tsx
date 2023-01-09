@@ -14,19 +14,14 @@ import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
-import {
-  areTokensEqual,
-  convertTokensToWei,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { areTokensEqual, convertTokensToWei, formatTokensToReadableValue } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import useAssetInfo from 'hooks/useGetTokenInfo';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
@@ -255,6 +250,8 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
     pool?.userBorrowBalanceCents,
   ]);
 
+  const assetInfo = useAssetInfo(asset);
+
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
       {asset && pool ? (
@@ -264,18 +261,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
           title={t('borrowRepayModal.borrow.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          tokenInfo={[
-            {
-              label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
-              iconSrc: vToken.underlyingToken,
-              children: formatToReadablePercentage(asset.borrowApyPercentage),
-            },
-            {
-              label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
-              iconSrc: TOKENS.xvs,
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
-            },
-          ]}
+          assetInfo={assetInfo}
         >
           <BorrowForm
             asset={asset}
