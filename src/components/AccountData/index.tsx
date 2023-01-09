@@ -15,14 +15,12 @@ import { ValueUpdate } from '../ValueUpdate';
 import { useStyles } from './styles';
 import useGetValues from './useGetValues';
 
-interface AccountDataProps {
+export interface AccountDataProps {
   asset: Asset;
   pool: Pool;
   action: 'supply' | 'withdraw' | 'borrow' | 'repay';
   amountTokens: BigNumber;
 }
-
-// TODO: add tests
 
 export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, amountTokens }) => {
   const styles = useStyles();

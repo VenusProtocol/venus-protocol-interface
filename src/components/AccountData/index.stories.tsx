@@ -18,7 +18,7 @@ export const SupplyInfo = () => (
     asset={poolData[0].assets[0]}
     pool={poolData[0]}
     action="supply"
-    amountTokens={new BigNumber(1000000)}
+    amountTokens={new BigNumber(100000)}
   />
 );
 
@@ -27,7 +27,7 @@ export const WithdrawInfo = () => (
     asset={poolData[0].assets[0]}
     pool={poolData[0]}
     action="withdraw"
-    amountTokens={new BigNumber(10000)}
+    amountTokens={new BigNumber(50)}
   />
 );
 
@@ -36,15 +36,15 @@ export const BorrowInfo = () => (
     asset={poolData[0].assets[0]}
     pool={poolData[0]}
     action="borrow"
-    amountTokens={new BigNumber(1000)}
+    amountTokens={new BigNumber(100)}
   />
 );
 
 export const RepayInfo = () => (
   <AccountData
-    asset={poolData[0].assets[0]}
+    asset={poolData[0].assets[3]}
     pool={poolData[0]}
     action="repay"
-    amountTokens={new BigNumber(1000)}
+    amountTokens={new BigNumber(10)}
   />
 );

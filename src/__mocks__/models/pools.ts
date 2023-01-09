@@ -11,8 +11,8 @@ export const poolData: Pool[] = [
     description: 'Fake description 1',
     isIsolated: false,
     userSupplyBalanceCents: 123879865,
-    userBorrowBalanceCents: 192673,
-    userBorrowLimitCents: 12333,
+    userBorrowBalanceCents: 12333,
+    userBorrowLimitCents: 192673,
   },
   {
     comptrollerAddress: 'fake-comptroller-address-2',
@@ -33,7 +33,7 @@ export const poolData: Pool[] = [
     description: 'Fake description 3',
     isIsolated: true,
     userSupplyBalanceCents: 100000,
-    userBorrowBalanceCents: 2000,
-    userBorrowLimitCents: 1000,
+    userBorrowBalanceCents: 1000,
+    userBorrowLimitCents: 2000,
   },
 ];
