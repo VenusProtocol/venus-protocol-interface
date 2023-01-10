@@ -78,8 +78,8 @@ export const menuItems: MenuItem[] = [
   {
     href: 'https://prdt.finance/XVS',
     // Translation key: do not remove this comment
-    // t('layout.menuItems.xvsPrediction')
-    i18nKey: 'layout.menuItems.xvsPrediction',
-    icon: 'xvsPrediction',
+    // t('layout.menuItems.predictions')
+    i18nKey: 'layout.menuItems.predictions',
+    icon: 'predictions',
   },
 ];
