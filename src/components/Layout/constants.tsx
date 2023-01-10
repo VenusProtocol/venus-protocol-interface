@@ -38,7 +38,6 @@ export const menuItems: MenuItem[] = [
     // t('layout.menuItems.swap')
     i18nKey: 'layout.menuItems.swap',
     icon: 'convert',
-    isNew: true,
   },
   {
     href: routes.history.path,
