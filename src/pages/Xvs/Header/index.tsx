@@ -130,7 +130,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const dailyXvsDistributedTokens = useMemo(
     () =>
       (getMainAssetsData?.assets || []).reduce(
-        (acc, asset) => acc.plus(asset.xvsPerDay),
+        (acc, asset) =>
+          acc.plus(
+            // Note: assets from the main pool only yield XVS, hence why we only
+            // take the first distribution token in consideration (which will
+            // always be XVS here)
+            asset.distributions[0].dailyDistributedTokens,
+          ),
         new BigNumber(0),
       ),
     [getMainAssetsData?.assets],

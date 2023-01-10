@@ -23,6 +23,7 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
+  getCombinedDistributionApys,
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -105,13 +106,22 @@ const useGenerateColumns = ({
           }
 
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-            const borrowApy = poolAsset.xvsBorrowApy.plus(poolAsset.borrowApyPercentage);
+            const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
+
+            const borrowApy = poolAsset.borrowApyPercentage.plus(
+              combinedDistributionApys.borrowApyPercentage,
+            );
 
             return formatToReadablePercentage(borrowApy);
           }
 
           if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-            const supplyApy = poolAsset.xvsSupplyApy.plus(poolAsset.supplyApyPercentage);
+            const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
+
+            const supplyApy = poolAsset.supplyApyPercentage.plus(
+              combinedDistributionApys.supplyApyPercentage,
+            );
+
             const ltv = +poolAsset.collateralFactor * 100;
 
             return (
@@ -234,15 +244,23 @@ const useGenerateColumns = ({
             ? undefined
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                  const roaABorrowApy = rowA.xvsBorrowApy.plus(rowA.borrowApyPercentage);
-                  const roaBBorrowApy = rowB.xvsBorrowApy.plus(rowB.borrowApyPercentage);
+                  const roaABorrowApy = rowA.borrowApyPercentage.plus(
+                    getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
+                  );
+                  const roaBBorrowApy = rowB.borrowApyPercentage.plus(
+                    getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
+                  );
 
                   return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
                 }
 
                 if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-                  const roaASupplyApy = rowA.xvsSupplyApy.plus(rowA.supplyApyPercentage);
-                  const roaBSupplyApy = rowB.xvsSupplyApy.plus(rowB.supplyApyPercentage);
+                  const roaASupplyApy = rowA.supplyApyPercentage.plus(
+                    getCombinedDistributionApys({ asset: rowA }).supplyApyPercentage,
+                  );
+                  const roaBSupplyApy = rowB.supplyApyPercentage.plus(
+                    getCombinedDistributionApys({ asset: rowB }).supplyApyPercentage,
+                  );
 
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
                 }

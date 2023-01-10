@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset } from 'types';
+import { Asset, AssetDistribution } from 'types';
 import {
   calculateCollateralValue,
   convertDollarsToCents,
@@ -175,6 +175,17 @@ const useGetMainAssets = ({
           ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
+        const xvsDistribution: AssetDistribution = {
+          token: TOKENS.xvs,
+          dailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0)
+            .plus(new BigNumber(market.borrowerDailyVenus || 0))
+            .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
+          supplyAprPercentage: new BigNumber(market.supplyVenusApr || 0),
+          supplyApyPercentage: new BigNumber(market.supplyVenusApy || 0),
+          borrowAprPercentage: new BigNumber(market.borrowVenusApr || 0),
+          borrowApyPercentage: new BigNumber(market.borrowVenusApy || 0),
+        };
+
         const asset: Asset = {
           vToken,
           tokenPriceDollars: new BigNumber(market.tokenPrice || 0),
@@ -209,13 +220,7 @@ const useGetMainAssets = ({
           userSupplyBalanceCents,
           userBorrowBalanceTokens,
           userBorrowBalanceCents,
-          xvsSupplyApr: new BigNumber(market.supplyVenusApr || 0),
-          xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
-          xvsBorrowApr: new BigNumber(market.borrowVenusApr || 0),
-          xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
-          xvsPerDay: new BigNumber(market.supplierDailyVenus || 0)
-            .plus(new BigNumber(market.borrowerDailyVenus || 0))
-            .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
+          distributions: [xvsDistribution],
         };
 
         acc.userTotalBorrowBalanceCents =

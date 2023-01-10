@@ -21,7 +21,7 @@ import { useBorrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
-import useAssetInfo from 'hooks/useGetTokenInfo';
+import useAssetInfo from 'hooks/useAssetInfo';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
@@ -250,7 +250,10 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
     pool?.userBorrowBalanceCents,
   ]);
 
-  const assetInfo = useAssetInfo(asset);
+  const assetInfo = useAssetInfo({
+    asset,
+    type: 'borrow',
+  });
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>

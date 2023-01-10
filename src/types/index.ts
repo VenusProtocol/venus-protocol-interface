@@ -24,6 +24,15 @@ export interface TokenBalance {
   balanceWei: BigNumber;
 }
 
+export interface AssetDistribution {
+  token: Token;
+  dailyDistributedTokens: BigNumber;
+  borrowAprPercentage: BigNumber;
+  borrowApyPercentage: BigNumber;
+  supplyAprPercentage: BigNumber;
+  supplyApyPercentage: BigNumber;
+}
+
 export interface Asset {
   vToken: VToken;
   tokenPriceDollars: BigNumber;
@@ -45,6 +54,7 @@ export interface Asset {
   borrowBalanceCents: number;
   supplyRatePerBlockTokens: BigNumber;
   borrowRatePerBlockTokens: BigNumber;
+  distributions: AssetDistribution[];
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -56,12 +66,6 @@ export interface Asset {
   userWalletBalanceCents: number;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
-  // TODO: replace next props with rewards field (see VEN-862)
-  xvsBorrowApy: BigNumber;
-  xvsBorrowApr: BigNumber;
-  xvsSupplyApy: BigNumber;
-  xvsSupplyApr: BigNumber;
-  xvsPerDay: BigNumber;
 }
 
 export type PoolRiskRating = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';

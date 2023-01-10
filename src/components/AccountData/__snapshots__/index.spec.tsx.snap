@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY1.87%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 100 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0100Borrow limit used6.4%13.04%Daily earnings$0.00-$0.01"`;
+exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY1.87%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0100Borrow limit used6.4%13.04%Daily earnings$0.01$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY1.87%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 100 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY1.87%Current:$123.33Max:$1,926.73.Borrow balance (SXP)0Borrow limit used6.4%Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Supply balance (SXP)90Borrow limit$1,926.73Daily earnings$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1,926.73.Supply balance (SXP)90Borrow limit$1,926.73Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$65,860.40.Supply balance (SXP)90100,090Borrow limit$1,926.73$65,860.40Daily earnings$0.00$0.18"`;
+exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$65,860.40.Supply balance (SXP)90100,090Borrow limit$1,926.73$65,860.40Daily earnings$0.01$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,926.73.Supply balance (SXP)90Borrow limit$1,926.73Daily earnings$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1,926.73.Supply balance (SXP)90Borrow limit$1,926.73Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 50 } 1`] = `"Supply APY0.05%Distribution APY0.12%Current:$123.33Max:$1,894.76.Supply balance (SXP)9040Borrow limit$1,926.73$1,894.76Daily earnings$0.00$0.00"`;
+exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 50 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1,894.76.Supply balance (SXP)9040Borrow limit$1,926.73$1,894.76Daily earnings$0.01$0.01"`;
