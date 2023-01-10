@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Pool, VToken } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
@@ -183,9 +184,7 @@ describe('Supply form', () => {
       isLoading: false,
     }));
 
-    const customFakePool: Pool = {
-      ...fakePool,
-    };
+    const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.vToken = VBEP_TOKENS.bnb;
 

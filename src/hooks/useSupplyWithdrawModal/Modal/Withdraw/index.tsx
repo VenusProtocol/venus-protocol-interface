@@ -1,21 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  ConnectWallet,
-  EnableToken,
-  LabeledInlineContentProps,
-  ModalProps,
-  Spinner,
-} from 'components';
+import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
-import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useRedeem, useRedeemUnderlying } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import useAssetInfo from 'hooks/useGetTokenInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from '../styles';
@@ -46,24 +40,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   const { t } = useTranslation();
 
-  const tokenInfo: LabeledInlineContentProps[] = asset
-    ? [
-        {
-          label: t('supplyWithdraw.supplyApy'),
-          iconSrc: asset.vToken.underlyingToken,
-          children: formatToReadablePercentage(asset.supplyApyPercentage),
-        },
-        {
-          label: t('supplyWithdraw.distributionApy'),
-          iconSrc: TOKENS.xvs,
-          children: formatToReadablePercentage(asset.xvsSupplyApy),
-        },
-      ]
-    : [];
-
-  if (!asset) {
-    return <></>;
-  }
+  const assetInfo = useAssetInfo(asset);
 
   const maxInput = React.useMemo(() => {
     if (
@@ -105,6 +82,10 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
     return maxInputTokens;
   }, [asset, pool]);
 
+  if (!asset) {
+    return <></>;
+  }
+
   return (
     <div className={className} css={styles.container}>
       <ConnectWallet message={t('supplyWithdraw.connectWalletToWithdraw')}>
@@ -115,13 +96,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
             title={t('supplyWithdraw.enableToWithdraw', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
-            tokenInfo={tokenInfo}
+            assetInfo={assetInfo}
           >
             <WithdrawForm
               key="form-withdraw"
               asset={asset}
               pool={pool}
-              tokenInfo={tokenInfo}
               onSubmit={onSubmit}
               inputLabel={t('supplyWithdraw.withdrawableAmount')}
               enabledButtonKey={t('supplyWithdraw.withdraw')}

@@ -43,6 +43,7 @@ export function ValueUpdate<T>({
         {format(original as never)}
       </Typography>
 
+      {/* TODO: hide if updated value is the same as the original */}
       {update !== undefined && (
         <>
           <Icon name="arrowShaft" css={styles.icon} />

@@ -1,12 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import {
-  FormikSubmitButton,
-  FormikTokenTextField,
-  LabeledInlineContentProps,
-  toast,
-} from 'components';
+import { AccountData, FormikSubmitButton, FormikTokenTextField, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -15,14 +10,12 @@ import { formatTokensToReadableValue } from 'utilities';
 
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 
-import { AccountData } from '../AccountData';
 import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
 interface WithdrawFormUiProps {
   asset: Asset;
   pool: Pool;
-  tokenInfo: LabeledInlineContentProps[];
   maxInput: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
@@ -33,7 +26,6 @@ interface WithdrawFormUiProps {
 
 export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
   asset,
-  tokenInfo,
   pool,
   maxInput,
   inputLabel,
@@ -83,14 +75,7 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
         />
       </Typography>
 
-      <AccountData
-        amount={amount}
-        isAmountValid={isAmountValid}
-        asset={asset}
-        pool={pool}
-        action="withdraw"
-        tokenInfo={tokenInfo}
-      />
+      <AccountData amountTokens={amount} asset={asset} pool={pool} action="withdraw" />
 
       <FormikSubmitButton
         fullWidth

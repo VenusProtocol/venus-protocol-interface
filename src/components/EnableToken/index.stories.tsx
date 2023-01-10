@@ -30,7 +30,7 @@ export const DisabledWithTokenInfo = () => (
     title="To withdraw USDC to the Venus Protocol, you need to enable it first."
     token={TOKENS.usdc}
     isTokenEnabled={false}
-    tokenInfo={[
+    assetInfo={[
       { iconSrc: TOKENS.usdc, label: 'Supply APY', children: '77.36' },
       { iconSrc: TOKENS.usdc, label: 'Distribution APY', children: '0.82' },
     ]}
@@ -45,7 +45,7 @@ export const Enabled = () => (
     title="Enable Token"
     isTokenEnabled
     token={TOKENS.usdc}
-    tokenInfo={[]}
+    assetInfo={[]}
     enableToken={async () => fakeTransactionReceipt}
   >
     <Typography>Visible Content</Typography>

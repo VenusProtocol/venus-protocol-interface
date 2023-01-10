@@ -12,9 +12,10 @@ import { useStyles } from './styles';
 export interface BorrowRepayProps {
   onClose: ModalProps['handleClose'];
   vToken: VToken;
+  poolComptrollerAddress: string;
 }
 
-const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken }) => {
+const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrollerAddress }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -23,7 +24,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken }) => {
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          <Repay vToken={vToken} onClose={onClose} />
+          <Repay
+            vToken={vToken}
+            poolComptrollerAddress={poolComptrollerAddress}
+            onClose={onClose}
+          />
         </div>
       ),
     },
@@ -34,7 +39,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken }) => {
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
         <div css={styles.container}>
-          <Borrow vToken={vToken} onClose={onClose} />
+          <Borrow
+            vToken={vToken}
+            poolComptrollerAddress={poolComptrollerAddress}
+            onClose={onClose}
+          />
         </div>
       ),
     });

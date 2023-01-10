@@ -307,7 +307,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       <SecondaryButton
         fullWidth
         css={styles.statsColumnButton}
-        onClick={() => openBorrowRepayModal(asset.vToken)}
+        onClick={() =>
+          openBorrowRepayModal({
+            vToken: asset.vToken,
+            poolComptrollerAddress,
+          })
+        }
       >
         {t('market.borrowButtonLabel')}
       </SecondaryButton>

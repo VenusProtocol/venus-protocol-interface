@@ -26,7 +26,7 @@ export const styles = () => {
     delimiter: css`
       margin-bottom: ${theme.spacing(8)};
     `,
-    tokenInfoContainer: css`
+    assetInfoContainer: css`
       width: 100%;
       margin-bottom: ${theme.spacing(12)};
     `,

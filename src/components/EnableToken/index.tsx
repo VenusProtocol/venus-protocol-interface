@@ -24,14 +24,14 @@ export interface EnableTokenUiProps {
   enableToken: () => Promise<TransactionReceipt | undefined>;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
-  tokenInfo?: LabeledInlineContentProps[];
+  assetInfo?: LabeledInlineContentProps[];
   disabled?: boolean;
 }
 
 export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
   token,
   title,
-  tokenInfo = [],
+  assetInfo = [],
   children,
   enableToken,
   isTokenEnabled,
@@ -74,11 +74,11 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
             {title}
           </Typography>
 
-          {tokenInfo.length > 0 && (
-            <div css={styles.tokenInfoContainer}>
+          {assetInfo.length > 0 && (
+            <div css={styles.assetInfoContainer}>
               <Delimiter css={styles.delimiter} />
 
-              {tokenInfo.map(info => (
+              {assetInfo.map(info => (
                 <LabeledInlineContent
                   {...info}
                   key={info.label}
@@ -103,7 +103,7 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
 };
 
 export interface EnableTokenProps
-  extends Pick<EnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'token'> {
+  extends Pick<EnableTokenUiProps, 'assetInfo' | 'disabled' | 'title' | 'token'> {
   spenderAddress: string;
 }
 

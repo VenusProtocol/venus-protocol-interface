@@ -11,11 +11,20 @@
       "tables": {
         "borrowTableTitle": "Borrowed assets",
         "supplyTableTitle": "Supplied assets",
-        "tabletborrowTabTitle": "Borrow",
-        "tabletsupplyTabTitle": "Supplied",
+        "tabletBorrowTabTitle": "Borrow",
+        "tabletSupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
       }
     }
+  },
+  "accountData": {
+    "borrowBalance": "Borrow balance ({{tokenSymbol}})",
+    "borrowLimit": "Borrow limit",
+    "borrowLimitUsed": "Borrow limit used",
+    "dailyEarnings": "Daily earnings",
+    "distributionApy": "Distribution APY",
+    "supplyApy": "Supply APY",
+    "supplyBalance": "Supply balance ({{tokenSymbol}})"
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
@@ -39,6 +48,10 @@
       "title": "Market info"
     }
   },
+  "assetInfo": {
+    "distributionApy": "Distribution APY",
+    "supplyApy": "Supply APY"
+  },
   "authModal": {
     "accountDetails": {
       "logOutButtonLabel": "Log out"
@@ -55,12 +68,7 @@
   "borrowRepayModal": {
     "borrow": {
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
-      "borrowAPy": "Borrow APY",
-      "borrowBalance": "Borrow balance",
-      "borrowLimitUsed": "Borrow limit used",
       "connectWalletMessage": "Please connect your wallet to borrow",
-      "dailyEarnings": "Daily earnings",
-      "distributionApy": "Distribution APY",
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
@@ -422,10 +430,8 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "supplyWithdraw": {
-    "borrowLimit": "Borrow limit",
     "connectWalletToSupply": "Please connect your wallet to supply",
     "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "dailyEarnings": "Daily Earnings",
     "distributionApy": "Distribution APY",
     "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
     "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
@@ -442,7 +448,6 @@
     },
     "supply": "Supply",
     "supplyApy": "Supply APY",
-    "supplyBalance": "Supply Balance ({{ tokenSymbol }})",
     "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
