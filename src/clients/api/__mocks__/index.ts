@@ -115,6 +115,13 @@ export const useGetTreasuryTotals = jest.fn();
 
 export const useGetMainPoolTotalXvsDistributed = jest.fn();
 
+export const useGetIsolatedPools = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    pools: [], // TODO: add isolated pools
+  },
+}));
+
 export const useGetMainPool = jest.fn(() => ({
   isLoading: false,
   data: {

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Pool } from 'types';
 
-import { useGetMainPool } from 'clients/api';
+import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
 
 export interface UseGetPoolsInput {
   accountAddress?: string;
@@ -18,6 +18,9 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
   const { data: getMainPoolData, isLoading: isGetMainPoolDataLoading } = useGetMainPool({
     accountAddress,
   });
+
+  // TODO: wire up
+  useGetIsolatedPools();
 
   const data = useMemo(() => {
     if (!getMainPoolData?.pool) {

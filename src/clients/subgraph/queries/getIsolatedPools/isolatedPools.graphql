@@ -1,0 +1,22 @@
+query IsolatedPools {
+  pools {
+    id
+    name
+    description
+    riskRating
+    priceOracle
+    markets {
+      id
+      borrowCapWei
+      supplyCapWei
+      reserves
+      treasuryTotalSupplyWei
+      treasuryTotalBorrowsWei
+      reserveFactor
+      borrowRate
+      supplyRate
+      exchangeRate
+      cash
+    }
+  }
+}
