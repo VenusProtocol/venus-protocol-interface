@@ -2,6 +2,7 @@ import config from 'config';
 import { ethers } from 'ethers';
 
 import contractAddresses from 'constants/contracts/addresses/main.json';
+// TODO: refactor to remove vBepTokens.json and tokens.json files
 import tokenAddresses from 'constants/contracts/addresses/tokens.json';
 import vBepTokensAddresses from 'constants/contracts/addresses/vBepTokens.json';
 

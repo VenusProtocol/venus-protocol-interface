@@ -10,7 +10,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import { getAllowance, supply, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -49,7 +49,7 @@ describe('Supply form', () => {
 
   it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
     const fakeVToken: VToken = {
-      ...VBEP_TOKENS.xvs, // This doesn't matter, only the underlying token is used
+      ...TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'], // This doesn't matter, only the underlying token is used
       underlyingToken: token,
     };
 
@@ -293,7 +293,7 @@ describe('Supply form', () => {
   it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
-    customFakeAsset.vToken = VBEP_TOKENS.bnb;
+    customFakeAsset.vToken = TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'];
 
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {

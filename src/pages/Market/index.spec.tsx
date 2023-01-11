@@ -8,7 +8,7 @@ import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMainMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import Market from '.';
@@ -42,7 +42,8 @@ describe('pages/Market', () => {
         location="/"
         match={{
           params: {
-            vTokenAddress: VBEP_TOKENS.aave.address,
+            vTokenAddress:
+              TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
             poolComptrollerAddress: poolData[0].comptrollerAddress,
           },
           isExact: true,
@@ -61,7 +62,8 @@ describe('pages/Market', () => {
         location="/"
         match={{
           params: {
-            vTokenAddress: VBEP_TOKENS.aave.address,
+            vTokenAddress:
+              TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
             poolComptrollerAddress: poolData[0].comptrollerAddress,
           },
           isExact: true,

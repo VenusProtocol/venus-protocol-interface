@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
 import { getVTokenContract } from 'clients/contracts';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import { VBep20, VBnbToken } from 'types/contracts';
 
 import supply from '.';
@@ -28,7 +28,7 @@ describe('api/mutation/supply', () => {
 
       const response = await supply({
         signer: fakeSigner,
-        vToken: VBEP_TOKENS.bnb,
+        vToken: TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
         amountWei: fakeAmountWei,
       });
 
@@ -58,7 +58,7 @@ describe('api/mutation/supply', () => {
 
       const response = await supply({
         signer: fakeSigner,
-        vToken: VBEP_TOKENS.xvs,
+        vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
         amountWei: fakeAmountWei,
       });
 

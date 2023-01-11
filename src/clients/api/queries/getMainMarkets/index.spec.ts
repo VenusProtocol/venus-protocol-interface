@@ -1,11 +1,16 @@
 import { restService } from 'utilities';
 
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+
 import getMainMarkets from '.';
 
 jest.mock('utilities/restService');
 
+const fakeVToken = TESTNET_VBEP_TOKENS['0x08e0a5575de71037ae36abfafb516595fe68e5e4'];
+
 const supportedMarket = {
-  address: '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+  address: fakeVToken.address,
+  symbol: fakeVToken.symbol,
   borrowApy: -2.0144969858718893,
   borrowCaps: '0',
   borrowRatePerBlock: '1902595671',
@@ -24,7 +29,6 @@ const supportedMarket = {
   supplyApy: '0.000001537885451792',
   supplyRatePerBlock: '1467',
   supplyVenusApy: '0.000000000001825',
-  symbol: 'vUSDC',
   tokenPrice: '0.9999',
   totalBorrows: '8571156333013416587',
   totalBorrows2: '8571156333013.416587',
@@ -58,7 +62,7 @@ describe('api/queries/getMainMarkets', () => {
   });
 
   test('filters unsupported markets', async () => {
-    const unsupportedMarket = { ...supportedMarket, underlyingSymbol: 'NOPE' };
+    const unsupportedMarket = { ...supportedMarket, address: 'invalid-address' };
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { markets: [unsupportedMarket] } },

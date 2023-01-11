@@ -5,7 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeProvider from '__mocks__/models/provider';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import BorrowRepay, { BorrowRepayProps } from '.';
@@ -37,14 +37,14 @@ const context = {
 
 export const Disconnected = Template.bind({});
 Disconnected.args = {
-  vToken: VBEP_TOKENS.xvs,
+  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
   onClose: noop,
 };
 
 export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 Disabled.args = {
-  vToken: VBEP_TOKENS.xvs,
+  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
   onClose: noop,
 };
 
@@ -58,6 +58,6 @@ Default.decorators = [
   }),
 ];
 Default.args = {
-  vToken: VBEP_TOKENS.xvs,
+  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
   onClose: noop,
 };

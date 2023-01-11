@@ -1,4 +1,4 @@
-import { BscChainId, VToken } from 'types';
+import { VToken } from 'types';
 
 import vAave from 'assets/img/tokens/vAave.svg';
 import vAda from 'assets/img/tokens/vAda.svg';
@@ -20,160 +20,142 @@ import vUst from 'assets/img/tokens/vUst.svg';
 import vXrp from 'assets/img/tokens/vXrp.svg';
 import vXvs from 'assets/img/tokens/vXvs.svg';
 
-import VBEP_TOKEN_ADDRESSES from '../../contracts/addresses/vBepTokens.json';
 import { TESTNET_TOKENS } from '../common/testnet';
 
 export const TESTNET_VBEP_TOKENS = {
-  sxp: {
-    id: 'sxp',
-    symbol: 'vSXP',
-    address: VBEP_TOKEN_ADDRESSES.sxp[BscChainId.TESTNET],
+  // Main pool
+  '0x74469281310195a04840daf6edf576f559a3de80': {
+    address: '0x74469281310195A04840Daf6EdF576F559a3dE80',
     decimals: 8,
+    symbol: 'vSXP',
     asset: vSxp,
     underlyingToken: TESTNET_TOKENS.sxp,
   } as VToken,
-  usdc: {
-    id: 'usdc',
-    symbol: 'vUSDC',
-    address: VBEP_TOKEN_ADDRESSES.usdc[BscChainId.TESTNET],
+  '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7': {
+    address: '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
     decimals: 8,
+    symbol: 'vUSDC',
     asset: vUsdc,
     underlyingToken: TESTNET_TOKENS.usdc,
   } as VToken,
-  usdt: {
-    id: 'usdt',
-    symbol: 'vUSDT',
-    address: VBEP_TOKEN_ADDRESSES.usdt[BscChainId.TESTNET],
+  '0xb7526572ffe56ab9d7489838bf2e18e3323b441a': {
+    address: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
     decimals: 8,
+    symbol: 'vUSDT',
     asset: vUsdt,
     underlyingToken: TESTNET_TOKENS.usdt,
   } as VToken,
-  busd: {
-    id: 'busd',
-    symbol: 'vBUSD',
-    address: VBEP_TOKEN_ADDRESSES.busd[BscChainId.TESTNET],
+  '0x08e0a5575de71037ae36abfafb516595fe68e5e4': {
+    address: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
     decimals: 8,
+    symbol: 'vBUSD',
     asset: vBusd,
     underlyingToken: TESTNET_TOKENS.busd,
   } as VToken,
-  bnb: {
-    id: 'bnb',
-    symbol: 'vBNB',
-    address: VBEP_TOKEN_ADDRESSES.bnb[BscChainId.TESTNET],
+  '0x2e7222e51c0f6e98610a1543aa3836e092cde62c': {
+    address: '0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c',
     decimals: 8,
+    symbol: 'vBNB',
     asset: vBnb,
     underlyingToken: TESTNET_TOKENS.bnb,
   } as VToken,
-  xvs: {
-    id: 'xvs',
-    symbol: 'vXVS',
-    address: VBEP_TOKEN_ADDRESSES.xvs[BscChainId.TESTNET],
+  '0x6d6f697e34145bb95c54e77482d97cc261dc237e': {
+    address: '0x6d6F697e34145Bb95c54E77482d97cc261Dc237E',
     decimals: 8,
+    symbol: 'vXVS',
     asset: vXvs,
     underlyingToken: TESTNET_TOKENS.xvs,
   } as VToken,
-  btcb: {
-    id: 'btcb',
-    symbol: 'vBTCB',
-    address: VBEP_TOKEN_ADDRESSES.btcb[BscChainId.TESTNET],
+  '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe': {
+    address: '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
     decimals: 8,
+    symbol: 'vBTCB',
     asset: vBtcb,
     underlyingToken: TESTNET_TOKENS.btcb,
   } as VToken,
-  eth: {
-    id: 'eth',
-    symbol: 'vETH',
-    address: VBEP_TOKEN_ADDRESSES.eth[BscChainId.TESTNET],
+  '0x162d005f0fff510e54958cfc5cf32a3180a84aab': {
+    address: '0x162D005F0Fff510E54958Cfc5CF32A3180A84aab',
     decimals: 8,
+    symbol: 'vETH',
     asset: vEth,
     underlyingToken: TESTNET_TOKENS.eth,
   } as VToken,
-  ltc: {
-    id: 'ltc',
-    symbol: 'vLTC',
-    address: VBEP_TOKEN_ADDRESSES.ltc[BscChainId.TESTNET],
+  '0xafc13bc065abee838540823431055d2ea52eba52': {
+    address: '0xAfc13BC065ABeE838540823431055D2ea52eBA52',
     decimals: 8,
+    symbol: 'vLTC',
     asset: vLtc,
     underlyingToken: TESTNET_TOKENS.ltc,
   } as VToken,
-  xrp: {
-    id: 'xrp',
-    symbol: 'vXRP',
-    address: VBEP_TOKEN_ADDRESSES.xrp[BscChainId.TESTNET],
+  '0x488ab2826a154da01cc4cc16a8c83d4720d3ca2c': {
+    address: '0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C',
     decimals: 8,
+    symbol: 'vXRP',
     asset: vXrp,
     underlyingToken: TESTNET_TOKENS.xrp,
   } as VToken,
-  ada: {
-    id: 'ada',
-    symbol: 'vADA',
-    address: VBEP_TOKEN_ADDRESSES.ada[BscChainId.TESTNET],
+  '0x37c28de42ba3d22217995d146fc684b2326ede64': {
+    address: '0x37C28DE42bA3d22217995D146FC684B2326Ede64',
     decimals: 8,
+    symbol: 'vADA',
     asset: vAda,
     underlyingToken: TESTNET_TOKENS.ada,
   } as VToken,
-  doge: {
-    id: 'doge',
-    symbol: 'vDOGE',
-    address: VBEP_TOKEN_ADDRESSES.doge[BscChainId.TESTNET],
+  '0xf912d3001caf6dc4add366a62cc9115b4303c9a9': {
+    address: '0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9',
     decimals: 8,
+    symbol: 'vDOGE',
     asset: vDoge,
     underlyingToken: TESTNET_TOKENS.doge,
   } as VToken,
-  matic: {
-    id: 'matic',
-    symbol: 'vMATIC',
-    address: VBEP_TOKEN_ADDRESSES.matic[BscChainId.TESTNET],
+  '0x3619bddc61189f33365cc572df3a68fb3b316516': {
+    address: '0x3619bdDc61189F33365CC572DF3a68FB3b316516',
     decimals: 8,
+    symbol: 'vMATIC',
     asset: vMatic,
     underlyingToken: TESTNET_TOKENS.matic,
   } as VToken,
-  cake: {
-    id: 'cake',
-    symbol: 'vCAKE',
-    address: VBEP_TOKEN_ADDRESSES.cake[BscChainId.TESTNET],
+  '0xedac03d29ff74b5fdc0cc936f6288312e1459bc6': {
+    address: '0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6',
     decimals: 8,
+    symbol: 'vCAKE',
     asset: vCake,
     underlyingToken: TESTNET_TOKENS.cake,
   } as VToken,
-  aave: {
-    id: 'aave',
-    symbol: 'vAAVE',
-    address: VBEP_TOKEN_ADDRESSES.aave[BscChainId.TESTNET],
+  '0x714db6c38a17883964b68a07d56ce331501d9eb6': {
+    address: '0x714db6c38A17883964B68a07d56cE331501d9eb6',
     decimals: 8,
+    symbol: 'vAAVE',
     asset: vAave,
     underlyingToken: TESTNET_TOKENS.aave,
   } as VToken,
-  tusd: {
-    id: 'tusd',
-    symbol: 'vTUSD',
-    address: VBEP_TOKEN_ADDRESSES.tusd[BscChainId.TESTNET],
+  '0x3a00d9b02781f47d033bad62edc55fbf8d083fb0': {
+    address: '0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0',
     decimals: 8,
+    symbol: 'vTUSD',
     asset: vTusd,
     underlyingToken: TESTNET_TOKENS.tusd,
   } as VToken,
-  trx: {
-    id: 'trx',
-    symbol: 'vTRX',
-    address: VBEP_TOKEN_ADDRESSES.trx[BscChainId.TESTNET],
+  '0x369fea97f6fb7510755dca389088d9e2e2819278': {
+    address: '0x369Fea97f6fB7510755DCA389088d9E2e2819278',
     decimals: 8,
+    symbol: 'vTRX',
     asset: vTrx,
     underlyingToken: TESTNET_TOKENS.trx,
   } as VToken,
-  ust: {
-    id: 'ust',
-    symbol: 'vUST',
-    address: VBEP_TOKEN_ADDRESSES.ust[BscChainId.TESTNET],
+  '0xf206af85bc2761c4f876d27bd474681cfb335efa': {
+    address: '0xF206af85BC2761c4F876d27Bd474681CfB335EfA',
     decimals: 8,
+    symbol: 'vUST',
     asset: vUst,
     underlyingToken: TESTNET_TOKENS.ust,
   } as VToken,
-  luna: {
-    id: 'luna',
-    symbol: 'vLUNA',
-    address: VBEP_TOKEN_ADDRESSES.luna[BscChainId.TESTNET],
+  '0x9c3015191d39cf1930f92eb7e7bcbd020bca286a': {
+    address: '0x9C3015191d39cF1930F92EB7e7BCbd020bCA286a',
     decimals: 8,
+    symbol: 'vLUNA',
     asset: vLuna,
     underlyingToken: TESTNET_TOKENS.luna,
   } as VToken,
+  // TODO: add tokens from isolated pools
 };
