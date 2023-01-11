@@ -38,3 +38,4 @@ export { default as comparePoolRiskRatings } from './comparePoolRiskRatings';
 export { default as formatToPool } from './formatToPool';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
 export { default as areTokensEqual } from './areTokensEqual';
+export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';

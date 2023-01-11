@@ -1,5 +1,3 @@
-import { Asset } from 'types';
-
 import { assetData as assets } from '__mocks__/models/asset';
 
 import {
@@ -10,21 +8,17 @@ import {
 describe('utilities/calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for single asset', () => {
     const earnings = calculateYearlyEarningsForAsset({
-      asset: assets[0] as Asset,
+      asset: assets[0],
     });
 
-    expect(earnings.toFixed()).toMatchInlineSnapshot(
-      '"6.014514624212835039288069236840175305250048"',
-    );
+    expect(earnings.toFixed()).toMatchInlineSnapshot('"20"');
   });
 
   test('calculates yearly Earnings for array of assets', () => {
     const earnings = calculateYearlyEarningsForAssets({
-      assets: assets as Asset[],
+      assets,
     });
 
-    expect(earnings?.toFixed()).toMatchInlineSnapshot(
-      '"-4.1235060802240148531257692837859376156813296"',
-    );
+    expect(earnings?.toFixed()).toMatchInlineSnapshot('"206"');
   });
 });

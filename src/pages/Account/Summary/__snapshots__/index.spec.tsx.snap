@@ -2,4 +2,4 @@
 
 exports[`pages/Account/Summary displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:156.43%Limit:$172.62.Your safe limit:$138.10"`;
 
-exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY-0.02%Daily Earnings$0.00Total Supply$645.22Total Borrow$270.03"`;
+exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY0.96%Daily Earnings$0.02Total Supply$645.22Total Borrow$270.03"`;

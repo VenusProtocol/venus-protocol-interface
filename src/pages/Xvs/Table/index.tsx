@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { AssetDistribution, Token } from 'types';
 import {
   areTokensEqual,
   compareBigNumbers,
@@ -23,16 +23,17 @@ import { useStyles } from '../styles';
 
 type TableAsset = {
   token: Token;
-  xvsPerDay: Asset['xvsPerDay'] | undefined;
-  xvsSupplyApy: Asset['xvsSupplyApy'] | undefined;
-  xvsBorrowApy: Asset['xvsBorrowApy'] | undefined;
+  xvsPerDay: AssetDistribution['dailyDistributedTokens'] | undefined;
+  xvsSupplyApy: AssetDistribution['supplyApyPercentage'] | undefined;
+  xvsBorrowApy: AssetDistribution['borrowApyPercentage'] | undefined;
 };
 
 interface XvsTableProps {
   assets: TableAsset[];
+  isFetchingAssets: boolean;
 }
 
-const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
+const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -91,6 +92,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
     <Table
       data={assets}
       columns={columns}
+      isFetching={isFetchingAssets}
       initialOrder={{
         orderBy: columns[1],
         orderDirection: 'desc',
@@ -106,8 +108,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  // TODO: handle loading state (see VEN-591)
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
     accountAddress: account?.address,
   });
 
@@ -126,9 +127,12 @@ const XvsTable: React.FC = () => {
   const assetsWithVai = useMemo(() => {
     const allAssets: TableAsset[] = (getMainAssetsData?.assets || []).map(asset => ({
       token: asset.vToken.underlyingToken,
-      xvsPerDay: asset.xvsPerDay,
-      xvsSupplyApy: asset.xvsSupplyApy,
-      xvsBorrowApy: asset.xvsBorrowApy,
+      // Note: assets from the main pool only yield XVS, hence why we only take
+      // the first distribution token in consideration (which will always be XVS
+      // here)
+      xvsPerDay: asset.distributions[0].dailyDistributedTokens,
+      xvsSupplyApy: asset.distributions[0].supplyApyPercentage,
+      xvsBorrowApy: asset.distributions[0].borrowApyPercentage,
     }));
 
     const xvsAsset = (getMainAssetsData?.assets || []).find(asset =>
@@ -167,7 +171,7 @@ const XvsTable: React.FC = () => {
     vaultVaiStakedData?.balanceWei,
   ]);
 
-  return <XvsTableUi assets={assetsWithVai} />;
+  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainAssetsLoading} />;
 };
 
 export default XvsTable;

@@ -22,8 +22,6 @@
     "borrowLimit": "Borrow limit",
     "borrowLimitUsed": "Borrow limit used",
     "dailyEarnings": "Daily earnings",
-    "distributionApy": "Distribution APY",
-    "supplyApy": "Supply APY",
     "supplyBalance": "Supply balance ({{tokenSymbol}})"
   },
   "accountHealth": {
@@ -49,8 +47,10 @@
     }
   },
   "assetInfo": {
-    "distributionApy": "Distribution APY",
-    "supplyApy": "Supply APY"
+    "borrowApy": "Borrow APY",
+    "distributionApy": "Distribution APY ({{tokenSymbol}})",
+    "supplyApy": "Supply APY",
+    "totalApy": "Total APY"
   },
   "authModal": {
     "accountDetails": {
@@ -70,8 +70,6 @@
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
-        "borrowInfo": "Borrow APY",
-        "distributionInfo": "Distribution APY",
         "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
       },
       "highAmountWarning": "You entered a high amount, which puts you at risk of liquidation",
@@ -89,8 +87,6 @@
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "enableToken": {
-        "borrowInfo": "Borrow APY",
-        "distributionInfo": "Distribution APY",
         "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
       },
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
@@ -304,7 +300,7 @@
         "borrowerCountLabel": "# of borrowers",
         "collateralFactorLabel": "Collateral factor",
         "dailyBorrowingInterestsLabel": "Daily borrowing interests",
-        "dailyDistributionXvs": "Daily XVS distributed",
+        "dailyDistribution": "Daily {{tokenSymbol}} distributed",
         "dailySupplyingInterestsLabel": "Daily supplying interests",
         "exchangeRateLabel": "Exchange rate",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
@@ -432,7 +428,6 @@
   "supplyWithdraw": {
     "connectWalletToSupply": "Please connect your wallet to supply",
     "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "distributionApy": "Distribution APY",
     "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
     "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
     "enterValidAmountSupply": "Enter a valid amount to supply",
@@ -447,7 +442,6 @@
       "title": "Your withdrawal was successful"
     },
     "supply": "Supply",
-    "supplyApy": "Supply APY",
     "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"

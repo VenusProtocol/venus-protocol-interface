@@ -6,7 +6,7 @@ import { Asset, Pool } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import useAssetInfo from 'hooks/useGetTokenInfo';
+import useAssetInfo from 'hooks/useAssetInfo';
 
 import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent } from '../LabeledInlineContent';
@@ -37,7 +37,10 @@ export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, a
     hypotheticalPoolUserDailyEarningsCents,
   } = useGetValues({ asset, pool, amountTokens, action });
 
-  const assetInfo = useAssetInfo(asset);
+  const assetInfo = useAssetInfo({
+    asset,
+    type: action === 'borrow' || action === 'repay' ? 'borrow' : 'supply',
+  });
 
   return (
     <>

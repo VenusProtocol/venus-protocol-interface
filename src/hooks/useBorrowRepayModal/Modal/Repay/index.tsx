@@ -26,7 +26,7 @@ import {
 import { useGetPool, useRepay } from 'clients/api';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
-import useAssetInfo from 'hooks/useGetTokenInfo';
+import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -239,7 +239,10 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
     vToken,
   });
 
-  const assetInfo = useAssetInfo(asset);
+  const assetInfo = useAssetInfo({
+    asset,
+    type: 'borrow',
+  });
 
   const handleRepay: RepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {

@@ -9,7 +9,7 @@ import { areTokensEqual, convertTokensToWei } from 'utilities';
 import { useGetPool, useSupply } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
-import useAssetInfo from 'hooks/useGetTokenInfo';
+import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from '../styles';
@@ -40,7 +40,10 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 
   const { t } = useTranslation();
 
-  const assetInfo = useAssetInfo(asset);
+  const assetInfo = useAssetInfo({
+    asset,
+    type: 'supply',
+  });
 
   const maxInput = React.useMemo(() => {
     if (!asset) {

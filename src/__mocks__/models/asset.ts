@@ -1,17 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
     vToken: VBEP_TOKENS.sxp,
     supplyApyPercentage: new BigNumber('0.05225450324405023'),
     borrowApyPercentage: new BigNumber('-2.3062487835658776'),
-    xvsSupplyApr: new BigNumber('0.01720675342484096'),
-    xvsSupplyApy: new BigNumber('0.11720675342484096'),
-    xvsBorrowApr: new BigNumber('4.07469243006608279'),
-    xvsBorrowApy: new BigNumber('4.17469243006608279'),
     collateralFactor: 0.5,
     reserveFactor: 0.25,
     reserveTokens: new BigNumber(1000),
@@ -36,16 +32,21 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('1852935.597521220541385584'),
     supplyRatePerBlockTokens: new BigNumber('0.000001'),
     borrowRatePerBlockTokens: new BigNumber('0.0000001'),
-    xvsPerDay: new BigNumber('19999999'),
+    distributions: [
+      {
+        token: TOKENS.xvs,
+        supplyAprPercentage: new BigNumber('0.01720675342484096'),
+        supplyApyPercentage: new BigNumber('0.11720675342484096'),
+        borrowAprPercentage: new BigNumber('4.07469243006608279'),
+        borrowApyPercentage: new BigNumber('4.17469243006608279'),
+        dailyDistributedTokens: new BigNumber('19999999'),
+      },
+    ],
   },
   {
     vToken: VBEP_TOKENS.usdc,
     supplyApyPercentage: new BigNumber('3.887242555711379188'),
     borrowApyPercentage: new BigNumber('-5.361233028654066'),
-    xvsSupplyApr: new BigNumber('1.153105649796123742'),
-    xvsSupplyApy: new BigNumber('1.353105649796123742'),
-    xvsBorrowApr: new BigNumber('1.370327607690572731'),
-    xvsBorrowApy: new BigNumber('1.670327607690572731'),
     collateralFactor: 0.8,
     reserveFactor: 0.2,
     reserveTokens: new BigNumber(1000),
@@ -70,16 +71,22 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('73128318.509651061457900627'),
     supplyRatePerBlockTokens: new BigNumber('0.000002'),
     borrowRatePerBlockTokens: new BigNumber('0.0000002'),
-    xvsPerDay: new BigNumber('19999999'),
+    distributions: [
+      {
+        token: TOKENS.xvs,
+        supplyAprPercentage: new BigNumber('1.153105649796123742'),
+        supplyApyPercentage: new BigNumber('1.353105649796123742'),
+        borrowAprPercentage: new BigNumber('1.370327607690572731'),
+        borrowApyPercentage: new BigNumber('1.670327607690572731'),
+        dailyDistributedTokens: new BigNumber('19999999'),
+      },
+    ],
   },
   {
     vToken: VBEP_TOKENS.usdt,
     supplyApyPercentage: new BigNumber('3.593608909332766999'),
     borrowApyPercentage: new BigNumber('-4.9748661428011145'),
-    xvsSupplyApr: new BigNumber('0.221719501189155143'),
-    xvsSupplyApy: new BigNumber('0.421719501189155143'),
-    xvsBorrowApr: new BigNumber('0.322209972682294832'),
-    xvsBorrowApy: new BigNumber('0.522209972682294832'),
+
     collateralFactor: 0.8,
     reserveFactor: 0.2,
     reserveTokens: new BigNumber(1000),
@@ -104,16 +111,22 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('232511166.920938849475104194'),
     supplyRatePerBlockTokens: new BigNumber('0.000003'),
     borrowRatePerBlockTokens: new BigNumber('0.0000003'),
-    xvsPerDay: new BigNumber('19999999'),
+    distributions: [
+      {
+        token: TOKENS.xvs,
+        supplyAprPercentage: new BigNumber('0.221719501189155143'),
+        supplyApyPercentage: new BigNumber('0.421719501189155143'),
+        borrowAprPercentage: new BigNumber('0.322209972682294832'),
+        borrowApyPercentage: new BigNumber('0.522209972682294832'),
+        dailyDistributedTokens: new BigNumber('19999999'),
+      },
+    ],
   },
   {
     vToken: VBEP_TOKENS.busd,
     supplyApyPercentage: new BigNumber('2.886396363044176106'),
     borrowApyPercentage: new BigNumber('-4.050271277344538'),
-    xvsSupplyApr: new BigNumber('0.578420831753642169'),
-    xvsSupplyApy: new BigNumber('0.678420831753642169'),
-    xvsBorrowApr: new BigNumber('0.552697602175970714'),
-    xvsBorrowApy: new BigNumber('0.852697602175970714'),
+
     collateralFactor: 0.8,
     reserveFactor: 0.2,
     reserveTokens: new BigNumber(1000),
@@ -138,6 +151,15 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('142662020.229587308931217432'),
     supplyRatePerBlockTokens: new BigNumber('0.000004'),
     borrowRatePerBlockTokens: new BigNumber('0.0000004'),
-    xvsPerDay: new BigNumber('19999999'),
+    distributions: [
+      {
+        token: TOKENS.xvs,
+        supplyAprPercentage: new BigNumber('0.578420831753642169'),
+        supplyApyPercentage: new BigNumber('0.678420831753642169'),
+        borrowAprPercentage: new BigNumber('0.552697602175970714'),
+        borrowApyPercentage: new BigNumber('0.852697602175970714'),
+        dailyDistributedTokens: new BigNumber('19999999'),
+      },
+    ],
   },
 ];

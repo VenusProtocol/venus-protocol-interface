@@ -1,41 +1,32 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
+import getCombinedDistributionApys from './getCombinedDistributionApys';
+
 export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
-  const assetBorrowBalanceCents = asset.userBorrowBalanceTokens
-    .multipliedBy(asset.tokenPriceDollars)
-    .multipliedBy(100);
-  const assetSupplyBalanceCents = asset.userSupplyBalanceTokens
-    .multipliedBy(asset.tokenPriceDollars)
-    .multipliedBy(100);
+  // Combine supply and borrow APYs with distribution APYs
+  const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
-  const supplyYearlyEarningsCents = assetSupplyBalanceCents.multipliedBy(
-    asset.supplyApyPercentage.dividedBy(100),
+  const totalSupplyApyPercentage = asset.supplyApyPercentage.plus(
+    combinedDistributionApys.supplyApyPercentage,
   );
-  // Note that borrowYearlyEarningsCents will always be negative (or 0), since
-  // the borrow APY is expressed with a negative percentage)
-  const borrowYearlyEarningsCents = assetBorrowBalanceCents.multipliedBy(
-    asset.borrowApyPercentage.dividedBy(100),
+  const totalBorrowApyPercentage = asset.borrowApyPercentage.plus(
+    combinedDistributionApys.borrowApyPercentage,
   );
 
-  const yearlyEarningsCents = supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents);
-
-  if (!asset.xvsSupplyApr.isFinite() || !asset.xvsBorrowApr.isFinite()) {
-    return yearlyEarningsCents;
+  if (!totalSupplyApyPercentage.isFinite() || !totalBorrowApyPercentage.isFinite()) {
+    return new BigNumber(0);
   }
 
-  // Add earnings from XVS distribution
-  const supplyYearlyXvsDistributionEarningsCents = supplyYearlyEarningsCents.multipliedBy(
-    asset.xvsSupplyApr.dividedBy(100),
-  );
+  // Calculate yearly earnings
+  const supplyYearlyEarningsCents = new BigNumber(asset.userSupplyBalanceCents)
+    .multipliedBy(totalSupplyApyPercentage)
+    .dividedBy(100);
+  const borrowYearlyEarningsCents = new BigNumber(asset.userBorrowBalanceCents)
+    .multipliedBy(totalBorrowApyPercentage)
+    .dividedBy(100);
 
-  const borrowYearlyXvsDistributionEarningsCents = borrowYearlyEarningsCents.multipliedBy(
-    asset.xvsBorrowApr.dividedBy(100),
-  );
-
-  return yearlyEarningsCents
-    .plus(supplyYearlyXvsDistributionEarningsCents)
-    .plus(borrowYearlyXvsDistributionEarningsCents);
+  return supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents).dp(0);
 };
 
 export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }) => {
