@@ -150,4 +150,10 @@ export const TESTNET_TOKENS = {
     symbol: 'VRT',
     asset: vrt,
   } as Token,
+  bnx: {
+    address: '0x8C851d1a123Ff703BD1f9dabe631b69902Df5f97',
+    decimals: 18,
+    symbol: 'BNX',
+    asset: xvs, // TODO: add correct asset
+  } as Token,
 };

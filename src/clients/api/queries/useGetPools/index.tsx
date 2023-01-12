@@ -19,22 +19,28 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
     accountAddress,
   });
 
-  // TODO: wire up
-  useGetIsolatedPools();
+  const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
+    useGetIsolatedPools({
+      accountAddress,
+    });
+
+  console.log(getIsolatedPoolsData);
 
   const data = useMemo(() => {
-    if (!getMainPoolData?.pool) {
+    if (!getMainPoolData?.pool && !getIsolatedPoolsData?.pools) {
       return undefined;
     }
 
-    // TODO: add support for isolated pools
+    const pools = (getMainPoolData?.pool ? [getMainPoolData?.pool] : []).concat(
+      getIsolatedPoolsData?.pools || [],
+    );
 
     return {
-      pools: [getMainPoolData.pool],
+      pools,
     };
   }, [getMainPoolData?.pool]);
 
-  const isLoading = isGetMainPoolDataLoading;
+  const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
 
   return { isLoading, data };
 };

@@ -31,7 +31,7 @@ const useFormatPools = ({
     () =>
       // Filter ou pools that don't have a minimal risk rating if switch is
       // turned off
-      includeHigherRiskPools ? pools : pools.filter(pool => pool.riskRating === 'MINIMAL'),
+      includeHigherRiskPools ? pools : pools.filter(pool => pool.riskRating === 'MINIMAL_RISK'),
     [pools, includeHigherRiskPools],
   );
 

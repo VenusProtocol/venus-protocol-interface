@@ -157,5 +157,12 @@ export const TESTNET_VBEP_TOKENS = {
     asset: vLuna,
     underlyingToken: TESTNET_TOKENS.luna,
   } as VToken,
-  // TODO: add tokens from isolated pools
+  // Isolated pools
+  '0xf5d92e7f5f72781e1bff79f607498cac0b2e612a': {
+    address: '0xf5d92e7f5f72781e1bff79f607498cac0b2e612a',
+    decimals: 8,
+    symbol: 'vBNX',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.bnx,
+  } as VToken,
 };

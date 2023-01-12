@@ -3,11 +3,11 @@ import { Theme, useTheme } from '@mui/material';
 import { PoolRiskRating } from 'types';
 
 const getColor = ({ variant, theme }: { variant: PoolRiskRating; theme: Theme }) => {
-  if (variant === 'MINIMAL' || variant === 'LOW') {
+  if (variant === 'MINIMAL_RISK' || variant === 'LOW_RISK') {
     return theme.palette.interactive.success;
   }
 
-  if (variant === 'MEDIUM') {
+  if (variant === 'MEDIUM_RISK') {
     return theme.palette.interactive.warning;
   }
 

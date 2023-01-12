@@ -4,7 +4,6 @@ import { Asset } from 'types';
 import {
   calculateCollateralValue,
   calculateDailyEarningsCents,
-  calculateNetApy,
   calculateYearlyEarningsForAssets,
   convertTokensToWei,
   formatCentsToReadableValue,
@@ -12,6 +11,8 @@ import {
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+
+import calculateNetApy from './calculateNetApy';
 
 const useExtractData = ({ assets }: { assets: Asset[] }) =>
   useMemo(() => {

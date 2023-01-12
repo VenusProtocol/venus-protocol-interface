@@ -1,22 +1,45 @@
-query IsolatedPools {
+query IsolatedPools($accountAddress: ID) {
   pools {
     id
     name
     description
     riskRating
     priceOracle
+
     markets {
       id
       borrowCapWei
       supplyCapWei
-      reserves
+      reservesWei
       treasuryTotalSupplyWei
       treasuryTotalBorrowsWei
       reserveFactor
+      collateralFactor
       borrowRate
       supplyRate
       exchangeRate
       cash
+      supplierCount
+      borrowerCount
+
+      accounts(where: { id: $accountAddress }) {
+        isCollateralOfUser
+        userSupplyBalanceWei
+        userBorrowBalanceWei
+      }
+    }
+
+    rewardsDistributors {
+      reward
+
+      rewardSpeeds {
+        market {
+          id
+        }
+
+        borrowSpeedPerBlockWei
+        supplySpeedPerBlockWei
+      }
     }
   }
 }
