@@ -13,6 +13,7 @@ import oracleAbi from 'constants/contracts/abis/oracle.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
+import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
 import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
@@ -33,6 +34,7 @@ import {
   Maximillion,
   Oracle,
   PancakeRouter,
+  VaiController,
   VaiUnitroller,
   VaiVault,
   VenusLens,
@@ -80,6 +82,13 @@ export const getVTokenContract = (vToken: VToken, web3: Web3) => {
 
   return getContract(vBep20Abi as AbiItem[], vToken.address, web3) as unknown as VTokenContract;
 };
+
+export const getVaiControllerContract = (web3: Web3) =>
+  getContract(
+    vaiControllerAbi as AbiItem[],
+    getContractAddress('vaiController'),
+    web3,
+  ) as unknown as VaiController;
 
 export const getVaiUnitrollerContract = (web3: Web3) =>
   getContract(

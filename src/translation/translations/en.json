@@ -678,6 +678,7 @@
       "connectWallet": "Please connect your wallet to repay VAI",
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
       "repayVaiBalance": "Repay VAI balance",
+      "repayFeeLabel": "Repay fee",
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",
