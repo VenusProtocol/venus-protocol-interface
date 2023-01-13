@@ -22,11 +22,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   const styles = useStyles();
 
   return (
-    <Typography
-      css={styles.signature}
-      className={className}
-      key={`${action.signature}-${action.target}`}
-    >
+    <Typography css={styles.signature} className={className}>
       <Typography
         component="a"
         href={generateBscScanUrl(action.target, 'address')}

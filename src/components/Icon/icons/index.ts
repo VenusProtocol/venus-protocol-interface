@@ -44,3 +44,5 @@ export { default as person } from './person';
 export { default as gauge } from './gauge';
 export { default as magnifier } from './magnifier';
 export { default as vaiOutline } from './vaiOutline';
+export { default as fire } from './fire';
+export { default as lightening } from './lightening';

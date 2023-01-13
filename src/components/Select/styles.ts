@@ -8,13 +8,26 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
-      display: inline-flex;
-      align-items: center;
+    getContainer: ({ placeLabelToLeft }: { placeLabelToLeft: boolean }) => css`
+      ${placeLabelToLeft &&
+      css`
+        display: inline-flex;
+        align-items: center;
+      `}
     `,
-    label: css`
-      flex-shrink: 0;
-      margin-right: ${theme.spacing(3)};
+    getLabel: ({ placeLabelToLeft }: { placeLabelToLeft: boolean }) => css`
+      ${placeLabelToLeft
+        ? css`
+            flex-shrink: 0;
+            margin-right: ${theme.spacing(3)};
+          `
+        : css`
+            margin-bottom: ${theme.spacing(1)};
+
+            label {
+              color: ${theme.palette.text.primary};
+            }
+          `}
     `,
     select: ({ isOpen }: { isOpen: boolean }) => css`
       flex: 1;
@@ -108,5 +121,12 @@ export const useStyles = () => {
         borderRadius: `${theme.shape.borderRadius.large}px`,
       },
     },
+    label: css`
+      margin-bottom: ${theme.spacing(1)};
+
+      label {
+        color: ${theme.palette.text.primary};
+      }
+    `,
   };
 };

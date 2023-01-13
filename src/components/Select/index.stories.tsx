@@ -29,15 +29,24 @@ Default.args = {
   onChange: console.log,
   value: 'value1',
   ariaLabel: 'select',
-  title: 'Select option',
+  label: 'Select option',
 };
 
-export const WithLabel = Template.bind({});
-WithLabel.args = {
+export const Label = Template.bind({});
+Label.args = {
   options,
   onChange: console.log,
   value: 'value1',
   ariaLabel: 'select',
-  title: 'Select option',
+  label: 'Filter by:',
+};
+
+export const LeftLabel = Template.bind({});
+LeftLabel.args = {
+  options,
+  onChange: console.log,
+  placeLabelToLeft: true,
+  value: 'value1',
+  ariaLabel: 'select',
   label: 'Filter by:',
 };

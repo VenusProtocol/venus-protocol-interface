@@ -6,6 +6,7 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
+      align-items: flex-end;
       flex-direction: row;
       justify-content: space-between;
       border-bottom-right-radius: 0;
@@ -27,9 +28,6 @@ export const useStyles = () => {
     `,
     select: css`
       width: ${theme.spacing(41)};
-    `,
-    typeSelectLabel: css`
-      margin-right: ${theme.spacing(3)};
     `,
   };
 };

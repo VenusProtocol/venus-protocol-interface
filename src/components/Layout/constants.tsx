@@ -76,7 +76,7 @@ export const menuItems: MenuItem[] = [
     icon: 'vaiOutline',
   },
   {
-    href: 'https://prdt.finance/XVS',
+    href: 'https://prdt.finance/Application/Pro/BSC?partnerCode=Venus',
     // Translation key: do not remove this comment
     // t('layout.menuItems.predictions')
     i18nKey: 'layout.menuItems.predictions',

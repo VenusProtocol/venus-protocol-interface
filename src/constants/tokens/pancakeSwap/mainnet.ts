@@ -5,7 +5,6 @@ import { MAINNET_TOKENS } from '../common/mainnet';
 // List adapted from PancakeSwap's repository:
 // https://github.com/pancakeswap/token-list/blob/main/src/tokens/pancakeswap-extended.json
 export const MAINNET_PANCAKE_SWAP_TOKENS = {
-  ...MAINNET_TOKENS,
   wbnb: {
     id: 'wbnb',
     symbol: 'WBNB',
@@ -197,14 +196,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     address: '0xa2B726B1145A4773F68593CF171187d8EBe4d495',
     asset:
       'https://tokens.pancakeswap.finance/images/0xa2B726B1145A4773F68593CF171187d8EBe4d495.png',
-  } as Token,
-  sxp: {
-    id: 'sxp',
-    symbol: 'SXP',
-    decimals: 18,
-    address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
-    asset:
-      'https://tokens.pancakeswap.finance/images/0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A.png',
   } as Token,
   ctk: {
     id: 'ctk',
@@ -1142,7 +1133,6 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xaBaE871B7E3b67aEeC6B46AE9FE1A91660AadAC5.png',
   } as Token,
-
   xcad: {
     id: 'xcad',
     symbol: 'XCAD',
@@ -2055,13 +2045,13 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xFa40d8FC324bcdD6Bbae0e086De886c571C225d4.png',
   } as Token,
-  abnbc: {
-    id: 'abnbc',
-    symbol: 'aBNBc',
+  ankrbnb: {
+    id: 'ankrbnb',
+    symbol: 'ankrBNB',
     decimals: 18,
-    address: '0xE85aFCcDaFBE7F2B096f268e31ccE3da8dA2990A',
+    address: '0x52F24a5e03aee338Da5fd9Df68D2b6FAe1178827',
     asset:
-      'https://tokens.pancakeswap.finance/images/0xE85aFCcDaFBE7F2B096f268e31ccE3da8dA2990A.png',
+      'https://tokens.pancakeswap.finance/images/0x52F24a5e03aee338Da5fd9Df68D2b6FAe1178827.png',
   } as Token,
   sand: {
     id: 'sand',
@@ -2303,4 +2293,45 @@ export const MAINNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://tokens.pancakeswap.finance/images/0xD06716E1Ff2E492Cc5034c2E81805562dd3b45fa.png',
   } as Token,
+  hook: {
+    id: 'hook',
+    symbol: 'HOOK',
+    decimals: 18,
+    address: '0xa260E12d2B924cb899AE80BB58123ac3fEE1E2F0',
+    asset:
+      'https://tokens.pancakeswap.finance/images/0xa260E12d2B924cb899AE80BB58123ac3fEE1E2F0.png',
+  } as Token,
+  hft: {
+    id: 'hft',
+    symbol: 'HFT',
+    decimals: 18,
+    address: '0x44Ec807ce2F4a6F2737A92e985f318d035883e47',
+    asset:
+      'https://tokens.pancakeswap.finance/images/0x44Ec807ce2F4a6F2737A92e985f318d035883e47.png',
+  } as Token,
+  squad: {
+    id: 'squad',
+    symbol: 'SQUAD',
+    decimals: 18,
+    address: '0x724A32dFFF9769A0a0e1F0515c0012d1fB14c3bd',
+    asset:
+      'https://tokens.pancakeswap.finance/images/0x724A32dFFF9769A0a0e1F0515c0012d1fB14c3bd.png',
+  } as Token,
+  zbc: {
+    id: 'zbc',
+    symbol: 'ZBC',
+    decimals: 9,
+    address: '0x37a56cdcD83Dce2868f721De58cB3830C44C6303',
+    asset:
+      'https://tokens.pancakeswap.finance/images/0x37a56cdcD83Dce2868f721De58cB3830C44C6303.png',
+  } as Token,
+  primal: {
+    id: 'primal',
+    symbol: 'PRIMAL',
+    decimals: 18,
+    address: '0xCb5327Ed4649548e0d73E70b633cdfd99aF6Da87',
+    asset:
+      'https://tokens.pancakeswap.finance/images/0xCb5327Ed4649548e0d73E70b633cdfd99aF6Da87.png',
+  },
+  ...MAINNET_TOKENS,
 };

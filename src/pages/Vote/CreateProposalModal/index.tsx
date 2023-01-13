@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {
   FormikMarkdownEditor,
+  FormikSelectField,
   FormikSubmitButton,
   FormikTextField,
   Modal,
@@ -11,6 +12,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { Form, Formik } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
+import { ProposalType } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import { CreateProposalInput } from 'clients/api';
@@ -49,6 +51,18 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         title: t('vote.pages.proposalInformation'),
         Component: () => (
           <>
+            <FormikSelectField
+              name="proposalType"
+              label={t('vote.createProposalForm.proposalType')}
+              ariaLabel={t('vote.createProposalForm.proposalType')}
+              css={styles.formBottomMargin}
+              options={[
+                { value: `${ProposalType.NORMAL}`, label: t('vote.proposalType.normal') },
+                { value: `${ProposalType.FAST_TRACK}`, label: t('vote.proposalType.fastTrack') },
+                { value: `${ProposalType.CRITICAL}`, label: t('vote.proposalType.critical') },
+              ]}
+            />
+
             <FormikTextField
               name="title"
               placeholder={t('vote.createProposalForm.name')}
@@ -155,6 +169,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
           againstDescription: '',
           abstainDescription: '',
           title: '',
+          proposalType: `${ProposalType.NORMAL}`,
         }}
         validationSchema={proposalSchema}
         onSubmit={handleCreateProposal}

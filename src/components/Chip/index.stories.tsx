@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { ActiveChip, BlueChip, Chip, ErrorChip, InactiveChip } from '.';
+import { ActiveChip, BlueChip, Chip, ErrorChip, InactiveChip, ProposalTypeChip } from '.';
 
 export default {
   title: 'Components/Chip',
@@ -20,3 +20,5 @@ export const Inactive = () => <InactiveChip text="Some text" />;
 export const Blue = () => <BlueChip text="Some text" />;
 
 export const Error = () => <ErrorChip text="Some text" />;
+
+export const ProposalType = () => <ProposalTypeChip proposalType={1} />;

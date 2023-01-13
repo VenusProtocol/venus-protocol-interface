@@ -14,6 +14,7 @@ const governorBravoDelegateResponses: {
     7: '100000000000000000000000',
     8: false,
     9: false,
+    10: '0',
     abstainVotes: '100000000000000000000000',
     againstVotes: '300000000000000000000000',
     canceled: false,
@@ -24,6 +25,7 @@ const governorBravoDelegateResponses: {
     id: '139',
     proposer: '0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D',
     startBlock: '20881594',
+    proposalType: '0',
   },
 };
 

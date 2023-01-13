@@ -31,6 +31,10 @@ export const useStyles = () => {
       justify-content: space-between;
       align-items: center;
     `,
+    cardHeaderLeft: css`
+      display: flex;
+      align-items: center;
+    `,
     cardTitle: css`
       margin-top: ${theme.spacing(5)};
       margin-bottom: ${theme.spacing(6)};
@@ -55,10 +59,6 @@ export const useStyles = () => {
         padding-top: ${theme.spacing(10)};
         padding-bottom: ${theme.spacing(10)};
       }
-    `,
-    timestamp: css`
-      display: flex;
-      justify-content: space-between;
     `,
   };
 };

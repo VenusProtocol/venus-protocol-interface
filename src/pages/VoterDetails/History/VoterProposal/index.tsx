@@ -13,7 +13,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
 
-import { routes } from 'constants/routing';
+import Path from 'constants/path';
 
 import { useStyles } from './styles';
 
@@ -27,6 +27,7 @@ interface VoterProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   endDate: Date | undefined;
+  createdDate: Date | undefined;
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
@@ -41,14 +42,14 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   forVotesWei,
   againstVotesWei,
   abstainedVotesWei,
+  createdDate,
   cancelDate,
   queuedDate,
   endDate,
   executedDate,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
-
+  const { t, Trans } = useTranslation();
   const voteChipText = useMemo(() => {
     switch (userVoteStatus) {
       case 'FOR':
@@ -68,22 +69,115 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     abstainedVotesWei || 0,
   ]);
 
-  const stateChip = useMemo(() => {
+  const [stateChip, stateTimestamp] = useMemo(() => {
     switch (proposalState) {
       case 'Active':
-        return <ActiveChip text={t('voteProposalUi.proposalState.active')} />;
+        return [
+          <ActiveChip text={t('voteProposalUi.proposalState.active')} />,
+          createdDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.activeTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: createdDate,
+              }}
+            />
+          ),
+        ];
       case 'Canceled':
-        return <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />;
+        return [
+          <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />,
+          cancelDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.canceledTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: cancelDate,
+              }}
+            />
+          ),
+        ];
       case 'Succeeded':
-        return <ActiveChip text={t('voteProposalUi.proposalState.passed')} />;
+        return [
+          <ActiveChip text={t('voteProposalUi.proposalState.passed')} />,
+          endDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.succeededTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: endDate,
+              }}
+            />
+          ),
+        ];
       case 'Queued':
-        return <InactiveChip text={t('voteProposalUi.proposalState.queued')} />;
+        return [
+          <InactiveChip text={t('voteProposalUi.proposalState.queued')} />,
+          queuedDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.queuedTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: queuedDate,
+              }}
+            />
+          ),
+        ];
       case 'Defeated':
-        return <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />;
+        return [
+          <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />,
+          endDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.defeatedTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: endDate,
+              }}
+            />
+          ),
+        ];
+      case 'Expired':
+        return [
+          <ErrorChip text={t('voteProposalUi.proposalState.expired')} />,
+          endDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.expiredTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: endDate,
+              }}
+            />
+          ),
+        ];
       case 'Executed':
-        return <BlueChip text={t('voteProposalUi.proposalState.executed')} />;
+        return [
+          <BlueChip text={t('voteProposalUi.proposalState.executed')} />,
+          executedDate && (
+            <Trans
+              i18nKey="voteProposalUi.proposalState.executedTimestamp"
+              components={{
+                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+              }}
+              values={{
+                date: executedDate,
+              }}
+            />
+          ),
+        ];
       default:
-        return undefined;
+        return [];
     }
   }, [proposalState]);
 
@@ -91,11 +185,16 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     <ProposalCard
       css={styles.root}
       className={className}
-      linkTo={routes.governanceProposal.path.replace(':proposalId', proposalNumber.toString())}
+      linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
       proposalNumber={proposalNumber}
       headerLeftItem={stateChip}
       headerRightItem={voteChipText}
       title={proposalTitle}
+      footer={
+        <Typography variant="small2" component="span">
+          {stateTimestamp}
+        </Typography>
+      }
       contentRightItem={
         <ActiveVotingProgress
           votedForWei={forVotesWei}
@@ -104,11 +203,6 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
           votedTotalWei={votedTotalWei}
         />
       }
-      proposalState={proposalState}
-      endDate={endDate}
-      cancelDate={cancelDate}
-      queuedDate={queuedDate}
-      executedDate={executedDate}
     />
   );
 };

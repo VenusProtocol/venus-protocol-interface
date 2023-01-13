@@ -34,12 +34,12 @@ export const Transactions: React.FC<TransactionsProps> = ({
         renderCell: transaction => {
           if (transaction.type === 'transfer') {
             return transaction.to.toLowerCase() === address.toLowerCase() ? (
-              <Typography css={styles.action} variant="small2" color="textPrimary">
+              <Typography css={styles.row} variant="small2" color="textPrimary">
                 <Icon name="arrowShaft" css={styles.received} />
                 {t('voterDetail.receivedXvs')}
               </Typography>
             ) : (
-              <Typography css={styles.action} variant="small2" color="textPrimary">
+              <Typography css={styles.row} variant="small2" color="textPrimary">
                 <Icon name="arrowShaft" css={styles.sent} />
                 {t('voterDetail.sentXvs')}
               </Typography>
@@ -50,30 +50,30 @@ export const Transactions: React.FC<TransactionsProps> = ({
             switch (transaction.support) {
               case 'AGAINST':
                 return (
-                  <>
+                  <div css={styles.row}>
                     <div css={[styles.icon, styles.against]}>
                       <Icon name="close" />
                     </div>
                     {t('voterDetail.votedAgainst')}
-                  </>
+                  </div>
                 );
               case 'FOR':
                 return (
-                  <>
+                  <div css={styles.row}>
                     <div css={[styles.icon, styles.for]}>
                       <Icon name="mark" />
                     </div>
                     {t('voterDetail.votedFor')}
-                  </>
+                  </div>
                 );
               case 'ABSTAIN':
                 return (
-                  <>
+                  <div css={styles.row}>
                     <div css={[styles.icon, styles.abstain]}>
                       <Icon name="dots" />
                     </div>
                     {t('voterDetail.votedAbstain')}
-                  </>
+                  </div>
                 );
               default:
                 return <></>;
