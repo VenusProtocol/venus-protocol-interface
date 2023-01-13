@@ -6,13 +6,13 @@ import { claimVaiVaultReward, claimVrtVaultReward, claimXvsVaultReward } from 'c
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
-import useClaimVaultReward from './useClaimVaultReward';
+import useClaimVaultReward from '.';
 
 jest.mock('clients/api');
 
 const fakeClaimRewardButtonLabel = 'Claim reward';
 
-describe('hooks/useClaimVaultReward', () => {
+describe('api/mutation/useClaimVaultReward', () => {
   it('calls claimXvsVaultReward with correct parameters when calling stake a poolIndex', async () => {
     const fakePoolIndex = 6;
 

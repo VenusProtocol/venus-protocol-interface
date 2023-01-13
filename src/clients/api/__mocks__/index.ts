@@ -372,3 +372,15 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
 export const swapTokens = jest.fn();
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
+
+const claimReward = jest.fn();
+export const useClaimVaultReward = () => ({
+  claimReward,
+  isLoading: false,
+});
+
+const stake = jest.fn();
+export const useStakeInVault = () => ({
+  stake,
+  isLoading: false,
+});
