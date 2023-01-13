@@ -71,11 +71,11 @@ export const menuItems: MenuItem[] = [
   },
 
   {
-    href: 'https://prdt.finance/XVS',
+    href: 'https://prdt.finance/Application/Pro/BSC?partnerCode=Venus',
     // Translation key: do not remove this comment
-    // t('layout.menuItems.xvsPrediction')
-    i18nKey: 'layout.menuItems.xvsPrediction',
-    i18nTitleKey: 'layout.menuItems.xvsPrediction',
-    icon: 'xvsPrediction',
+    // t('layout.menuItems.predictions')
+    i18nKey: 'layout.menuItems.predictions',
+    i18nTitleKey: 'layout.menuItems.predictions',
+    icon: 'predictions',
   },
 ];
