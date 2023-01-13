@@ -5,9 +5,8 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
-import { withdrawFromVrtVault } from 'clients/api';
+import { useClaimVaultReward, withdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -16,7 +15,6 @@ import VaultItem, { VaultItemProps } from '.';
 import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
-jest.mock('hooks/useClaimVaultReward');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeVault = fakeVaults[0];

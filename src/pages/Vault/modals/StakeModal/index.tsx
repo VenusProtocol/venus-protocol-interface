@@ -5,10 +5,9 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, getContractAddress } from 'utilities';
 
-import { useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
-import useStakeInVault from 'hooks/useStakeInVault';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 

@@ -7,14 +7,14 @@ import { stakeInVaiVault, stakeInVrtVault, stakeInXvsVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
-import useStakeInVault from './useStakeInVault';
+import useStakeInVault from '.';
 
 jest.mock('clients/api');
 
 const fakeAmountWei = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
 
-describe('hooks/useStakeInVault', () => {
+describe('api/mutation/useStakeInVault', () => {
   it('calls stakeInXvsVault with correct parameters when calling stake a poolIndex', async () => {
     const fakePoolIndex = 6;
 

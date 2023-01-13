@@ -4,10 +4,9 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { getAllowance, getBalanceOf } from 'clients/api';
+import { getAllowance, getBalanceOf, useStakeInVault } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
-import useStakeInVault from 'hooks/useStakeInVault';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -15,7 +14,6 @@ import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
 jest.mock('clients/api');
-jest.mock('hooks/useStakeInVault');
 
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
