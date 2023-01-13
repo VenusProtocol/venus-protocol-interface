@@ -29,7 +29,7 @@ export { default as attention } from './attention';
 export { default as burger } from './burger';
 export { default as arrowRight } from './arrowRight';
 export { default as xvsOutlined } from './xvsOutlined';
-export { default as xvsPrediction } from './xvsPrediction';
+export { default as predictions } from './predictions';
 export { default as wallet } from './wallet';
 export { default as check } from './check';
 export { default as checkInline } from './checkInline';
