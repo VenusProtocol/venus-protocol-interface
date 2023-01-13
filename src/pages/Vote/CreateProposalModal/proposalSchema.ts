@@ -77,6 +77,7 @@ const proposalSchema = yup.object({
   forDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
   againstDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
   abstainDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
+  proposalType: yup.string().oneOf(['0', '1', '2']).required(ErrorCode.VALUE_REQUIRED),
 });
 
 export type FormValues = yup.InferType<typeof proposalSchema>;

@@ -57,6 +57,7 @@ export interface ProposalApiResponse {
   // JSON
   updatedAt: string;
   voterCount: number | null;
+  proposalType: 0 | 1 | 2;
 }
 
 export interface ProposalsApiResponse {

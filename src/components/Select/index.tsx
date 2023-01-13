@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'translation';
 
 import { useIsSmDown } from 'hooks/responsive';
 
@@ -21,10 +22,12 @@ export interface SelectProps {
   options: SelectOption[];
   value: string | undefined;
   onChange: (e: SelectChangeEvent) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   ariaLabel: string;
-  title: string;
   className?: string;
   label?: string;
+  placeLabelToLeft?: boolean;
+  name?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -32,10 +35,13 @@ export const Select: React.FC<SelectProps> = ({
   options,
   value,
   onChange,
+  onBlur,
   ariaLabel,
-  title,
   label,
+  placeLabelToLeft = false,
+  name,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
   const isSmDown = useIsSmDown();
@@ -69,20 +75,24 @@ export const Select: React.FC<SelectProps> = ({
   }, [isSmDown]);
 
   return (
-    <div className={className} css={styles.container}>
+    <div className={className} css={styles.getContainer({ placeLabelToLeft })}>
       {!!label && (
-        <Typography css={styles.label} variant="small2">
-          {label}
-        </Typography>
+        <div css={styles.getLabel({ placeLabelToLeft })}>
+          <Typography variant="small1" component="label" htmlFor="proposalType">
+            {label || t('select.defaultLabel')}
+          </Typography>
+        </div>
       )}
 
       <MuiSelect
+        name={name}
         open={isOpen}
         onClose={handleClose}
         onOpen={handleOpen}
         css={styles.select({ isOpen })}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         displayEmpty
         inputProps={{ 'aria-label': ariaLabel }}
         IconComponent={() => (
@@ -92,7 +102,7 @@ export const Select: React.FC<SelectProps> = ({
         autoWidth={isSmDown}
       >
         <div css={styles.mobileHeader}>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h4">{label || t('select.defaultLabel')}</Typography>
 
           <TextButton css={styles.closeMenuButton} onClick={handleClose}>
             <Icon name="close" />

@@ -144,6 +144,12 @@
         "internalType": "string",
         "name": "description",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "proposalType",
+        "type": "uint8"
       }
     ],
     "name": "ProposalCreated",
@@ -160,6 +166,25 @@
       }
     ],
     "name": "ProposalExecuted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldMaxOperations",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newMaxOperations",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProposalMaxOperationsUpdated",
     "type": "event"
   },
   {
@@ -465,51 +490,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "newProposalThreshold",
-        "type": "uint256"
-      }
-    ],
-    "name": "_setProposalThreshold",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "newVotingDelay",
-        "type": "uint256"
-      }
-    ],
-    "name": "_setVotingDelay",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "newVotingPeriod",
-        "type": "uint256"
-      }
-    ],
-    "name": "_setVotingPeriod",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "admin",
@@ -630,8 +610,8 @@
     ],
     "name": "execute",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -763,28 +743,35 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "timelock_",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "xvsVault_",
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "votingPeriod_",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "votingDelay",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votingPeriod",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "proposalThreshold",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct GovernorBravoDelegateStorageV2.ProposalConfig[]",
+        "name": "proposalConfigs_",
+        "type": "tuple[]"
       },
       {
-        "internalType": "uint256",
-        "name": "votingDelay_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "proposalThreshold_",
-        "type": "uint256"
+        "internalType": "contract TimelockInterface[]",
+        "name": "timelocks",
+        "type": "address[]"
       },
       {
         "internalType": "address",
@@ -851,6 +838,37 @@
   },
   {
     "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalConfigs",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "votingDelay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "votingPeriod",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposalThreshold",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "proposalCount",
     "outputs": [
@@ -888,6 +906,27 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "proposalTimelocks",
+    "outputs": [
+      {
+        "internalType": "contract TimelockInterface",
+        "name": "",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -954,6 +993,11 @@
         "internalType": "bool",
         "name": "executed",
         "type": "bool"
+      },
+      {
+        "internalType": "uint8",
+        "name": "proposalType",
+        "type": "uint8"
       }
     ],
     "payable": false,
@@ -987,6 +1031,11 @@
         "internalType": "string",
         "name": "description",
         "type": "string"
+      },
+      {
+        "internalType": "enum GovernorBravoDelegateStorageV2.ProposalType",
+        "name": "proposalType",
+        "type": "uint8"
       }
     ],
     "name": "propose",

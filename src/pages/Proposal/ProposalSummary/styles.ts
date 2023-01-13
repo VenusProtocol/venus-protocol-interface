@@ -6,7 +6,6 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
-      flex-direction: row;
       padding: 0;
       ${theme.breakpoints.down('lg')} {
         flex-direction: column;
@@ -25,9 +24,12 @@ export const useStyles = () => {
     `,
     topRow: css`
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       margin-bottom: ${theme.spacing(6)};
+      align-items: center;
+    `,
+    topRowLeftColumn: css`
+      display: flex;
       align-items: center;
     `,
     rightSection: css`

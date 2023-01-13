@@ -2,12 +2,20 @@
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { ActiveChip, ActiveVotingProgress, Icon, IconName, ProposalCard } from 'components';
+import {
+  ActiveVotingProgress,
+  Countdown,
+  Icon,
+  IconName,
+  ProposalCard,
+  ProposalTypeChip,
+} from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { ProposalState, ProposalType, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
+import { GreenPulse } from 'components/LottieAnimation';
 import { routes } from 'constants/routing';
 import { AuthContext } from 'context/AuthContext';
 
@@ -103,6 +111,7 @@ interface GovernanceProposalProps {
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
+  proposalType: ProposalType;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -111,16 +120,15 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   proposalTitle,
   proposalState,
   endDate,
-  cancelDate,
-  queuedDate,
-  executedDate,
   userVoteStatus,
   forVotesWei,
   againstVotesWei,
   abstainedVotesWei,
   isUserConnected,
+  proposalType,
 }) => {
-  const { t } = useTranslation();
+  const styles = useStyles();
+  const { t, Trans } = useTranslation();
 
   const voteStatusText = useMemo(() => {
     switch (userVoteStatus) {
@@ -147,12 +155,12 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       linkTo={routes.governanceProposal.path.replace(':proposalId', proposalId.toString())}
       proposalNumber={proposalId}
       headerRightItem={
-        proposalState === 'Active' ? (
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />
-        ) : undefined
+        isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
       }
       headerLeftItem={
-        isUserConnected ? <Typography variant="small2">{voteStatusText}</Typography> : undefined
+        proposalType !== ProposalType.NORMAL ? (
+          <ProposalTypeChip proposalType={proposalType} />
+        ) : undefined
       }
       title={proposalTitle}
       contentRightItem={
@@ -167,12 +175,29 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
           <StatusCard state={proposalState} />
         )
       }
+      footer={
+        endDate && proposalState === 'Active' ? (
+          <div css={styles.timestamp}>
+            <Typography variant="small2">
+              <div css={styles.greenPulseContainer}>
+                <GreenPulse css={styles.greenPulse} />
+              </div>
+              <Trans
+                i18nKey="voteProposalUi.activeUntilDate"
+                components={{
+                  Date: <Typography variant="small2" color="textPrimary" />,
+                }}
+                values={{
+                  date: endDate,
+                }}
+              />
+            </Typography>
+
+            <Countdown date={endDate} />
+          </div>
+        ) : undefined
+      }
       data-testid={TEST_IDS.governanceProposal(proposalId.toString())}
-      proposalState={proposalState}
-      endDate={endDate}
-      cancelDate={cancelDate}
-      queuedDate={queuedDate}
-      executedDate={executedDate}
     />
   );
 };

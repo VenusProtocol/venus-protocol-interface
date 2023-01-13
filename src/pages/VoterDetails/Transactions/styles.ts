@@ -44,7 +44,7 @@ export const useStyles = () => {
       transform: rotate(90deg);
       margin-right: ${theme.spacing(2.5)};
     `,
-    action: css`
+    row: css`
       display: inline-flex;
       align-items: center;
     `,

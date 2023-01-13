@@ -1,13 +1,13 @@
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';
 
 import VoteProposal from '.';
 
 export default {
   title: 'Components/VoteProposal',
-  decorators: [withThemeProvider, withCenterStory({ width: 750 })],
+  decorators: [withThemeProvider, withRouter, withCenterStory({ width: 750 })],
   parameters: {
     backgrounds: {
       default: 'Primary',
@@ -25,6 +25,7 @@ export const Active = () => (
     abstainedVotesWei={new BigNumber('0')}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -36,6 +37,7 @@ export const Queued = () => (
     proposalState="Queued"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -47,6 +49,7 @@ export const Pending = () => (
     proposalState="Pending"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -58,6 +61,7 @@ export const Executed = () => (
     proposalState="Executed"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -69,6 +73,7 @@ export const Cancelled = () => (
     proposalState="Canceled"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -81,6 +86,7 @@ export const Defeated = () => (
     proposalState="Defeated"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -93,6 +99,7 @@ export const Succeeded = () => (
     proposalState="Succeeded"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />
@@ -105,6 +112,7 @@ export const Expired = () => (
     proposalState="Expired"
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
+    createdDate={new Date(1658899525000)}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
   />

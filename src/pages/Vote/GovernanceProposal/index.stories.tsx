@@ -1,13 +1,14 @@
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
+import { ProposalType } from 'types';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';
 
 import GovernanceProposal from '.';
 
 export default {
   title: 'Components/GovernanceProposal',
-  decorators: [withThemeProvider, withCenterStory({ width: 750 })],
+  decorators: [withThemeProvider, withCenterStory({ width: 750 }), withRouter],
   parameters: {
     backgrounds: {
       default: 'Primary',
@@ -25,6 +26,7 @@ export const Active = () => (
     abstainedVotesWei={new BigNumber('0')}
     cancelDate={undefined}
     endDate={new Date(Date.now() + 3650000)}
+    proposalType={ProposalType.NORMAL}
   />
 );
 export const Queued = () => (
@@ -34,6 +36,7 @@ export const Queued = () => (
     proposalState="Queued"
     cancelDate={undefined}
     endDate={new Date()}
+    proposalType={ProposalType.FAST_TRACK}
   />
 );
 export const Pending = () => (
@@ -43,6 +46,7 @@ export const Pending = () => (
     proposalState="Pending"
     cancelDate={undefined}
     endDate={new Date()}
+    proposalType={ProposalType.CRITICAL}
   />
 );
 export const Executed = () => (
@@ -52,6 +56,7 @@ export const Executed = () => (
     proposalState="Executed"
     cancelDate={undefined}
     endDate={new Date()}
+    proposalType={ProposalType.NORMAL}
   />
 );
 export const Cancelled = () => (
@@ -60,7 +65,8 @@ export const Cancelled = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
     cancelDate={new Date(Date.now())}
-    endDate={undefined}
+    endDate={new Date(Date.now())}
+    proposalType={ProposalType.FAST_TRACK}
   />
 );
 
@@ -71,6 +77,7 @@ export const Defeated = () => (
     proposalState="Defeated"
     cancelDate={undefined}
     endDate={new Date(Date.now())}
+    proposalType={ProposalType.CRITICAL}
   />
 );
 
@@ -81,6 +88,7 @@ export const Succeeded = () => (
     proposalState="Succeeded"
     cancelDate={undefined}
     endDate={new Date(Date.now())}
+    proposalType={ProposalType.NORMAL}
   />
 );
 
@@ -91,5 +99,6 @@ export const Expired = () => (
     proposalState="Expired"
     cancelDate={undefined}
     endDate={new Date(Date.now())}
+    proposalType={ProposalType.FAST_TRACK}
   />
 );

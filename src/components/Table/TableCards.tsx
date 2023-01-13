@@ -75,8 +75,8 @@ export function TableCards<R>({
     <div css={styles.getCardsContainer({ breakpoint })}>
       {selectOptions.length > 0 && (
         <Select
-          title={t('table.cardsSelect.label')}
           label={t('table.cardsSelect.label')}
+          placeLabelToLeft
           ariaLabel={t('table.cardsSelect.accessibilityLabel')}
           options={selectOptions}
           value={selectedOption?.value}

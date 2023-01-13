@@ -118,6 +118,12 @@
   "bscLink": {
     "content": "View on bscscan.com"
   },
+  "chip": {
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track"
+    }
+  },
   "claimXvsRewardButton": {
     "successfulTransactionModal": {
       "message": "You successfully claimed",
@@ -217,9 +223,8 @@
     "repayVAI": "Repay VAI",
     "reservesAdded": "Reserves Added",
     "reservesReduced": "Reserves Reduced",
+    "selectLabel": "Type",
     "transfer": "Transfer",
-    "type": "Type",
-    "typeColon": "Type:",
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },
@@ -259,11 +264,11 @@
       "governance": "Governance",
       "history": "History",
       "pools": "Pools",
+      "predictions": "Predictions",
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
-      "xvs": "XVS",
-      "predictions": "Predictions"
+      "xvs": "XVS"
     }
   },
   "lunaUstWarningModal": {
@@ -387,15 +392,6 @@
       }
     }
   },
-  "proposalCard": {
-    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "canceled": "Canceled: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "defeated": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "executed": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "expired": "Expired: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
-  },
   "riskRating": {
     "high": "High risk",
     "low": "Low risk",
@@ -403,6 +399,9 @@
     "minimal": "Minimal risk",
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
+  },
+  "select": {
+    "defaultLabel": "Select"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -736,6 +735,7 @@
       "name": "Name",
       "nextStep": "Next step",
       "proposalName": "Proposal name",
+      "proposalType": "Proposal type",
       "signature": "Signature",
       "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
@@ -761,6 +761,11 @@
     "pleaseAllowTimeForConfirmation": "Please allow a few minutes for your transaction to be confirmed",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track",
+      "normal": "Normal"
+    },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",
@@ -802,11 +807,19 @@
     "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active",
+      "activeTimestamp": "Active since: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceled": "Canceled",
+      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "defeated": "Defeated",
+      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "executed": "Executed",
+      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expired": "Expired",
+      "expiredTimestamp": "Expired: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "passed": "Passed",
-      "queued": "Queued"
+      "queued": "Queued",
+      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
     "statusCard": {
