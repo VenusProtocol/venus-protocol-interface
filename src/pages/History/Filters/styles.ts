@@ -16,6 +16,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xl')} {
         background-color: transparent;
         padding: 0;
+        margin-bottom: ${theme.spacing(3)};
       }
     `,
     checkbox: css`
