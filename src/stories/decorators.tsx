@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { Story as StoryType, addDecorator } from '@storybook/react';
 import React, { useState } from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Token } from 'types';
 
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
@@ -13,9 +13,9 @@ import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 export type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
 export const withRouter: DecoratorFunction = Story => (
-  <BrowserRouter>
+  <HashRouter>
     <Story />
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export const withWeb3Provider: DecoratorFunction = Story => (

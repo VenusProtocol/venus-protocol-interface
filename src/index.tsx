@@ -14,4 +14,13 @@ BigNumber.config({
   },
 });
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Add hash to URL on the fly if it doesn't contain any (e.g.:
+// /governance?page=1 => /#/governance?page=1). This is done to redirect users
+// to the correct route if they followed an old link from before we switched to
+// hash routing
+if (window.location.pathname !== '/') {
+  const url = `${window.location.origin}#${window.location.pathname}${window.location.search}`;
+  window.location.replace(url);
+} else {
+  ReactDOM.render(<App />, document.getElementById('root'));
+}
