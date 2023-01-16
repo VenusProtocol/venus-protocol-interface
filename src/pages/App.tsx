@@ -14,6 +14,7 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import Account from 'pages/Account';
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
+import Vote from 'pages/Governance';
 import History from 'pages/History';
 import Market from 'pages/Market';
 import Pool from 'pages/Pool';
@@ -22,7 +23,6 @@ import Proposal from 'pages/Proposal';
 import Swap from 'pages/Swap';
 import Vai from 'pages/Vai';
 import Vaults from 'pages/Vault';
-import Vote from 'pages/Vote';
 import VoterDetails from 'pages/VoterDetails';
 import VoterLeaderboard from 'pages/VoterLeaderboard';
 import Xvs from 'pages/Xvs';

@@ -18,7 +18,7 @@ import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import DelegateModal from '../DelegateModal';
+import DelegateModal from './DelegateModal';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 

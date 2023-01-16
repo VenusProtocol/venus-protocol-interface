@@ -4,7 +4,7 @@ import React from 'react';
 import { ProposalAction } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
-import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
+import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';
