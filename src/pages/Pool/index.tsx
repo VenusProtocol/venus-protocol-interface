@@ -21,7 +21,7 @@ export interface PoolUiProps {
 
 export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const cells: Cell[] = useMemo(() => {
     const { totalSupplyCents, totalBorrowCents } = (pool?.assets || []).reduce(
@@ -77,21 +77,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
             <Icon name="attention" css={styles.bannerIcon} />
 
             <Typography variant="small2" css={styles.bannerText}>
-              <Trans
-                i18nKey="pool.bannerText"
-                components={{
-                  Link: (
-                    <Typography
-                      variant="small2"
-                      component="a"
-                      // TODO: add href
-                      href="TBD"
-                      target="_blank"
-                      rel="noreferrer"
-                    />
-                  ),
-                }}
-              />
+              {t('pool.bannerText')}
             </Typography>
           </div>
         </div>

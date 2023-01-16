@@ -238,7 +238,7 @@ Object {
       },
     ],
     "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-    "description": "TBD",
+    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
     "isIsolated": false,
     "name": "Venus",
     "riskRating": "MINIMAL",
