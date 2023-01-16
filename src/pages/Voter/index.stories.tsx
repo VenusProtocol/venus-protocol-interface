@@ -8,16 +8,16 @@ import voterHistory from '__mocks__/models/voterHistory';
 import { NULL_ADDRESS } from 'constants/address';
 import { withRouter } from 'stories/decorators';
 
-import { VoterDetailsUi } from '.';
+import { VoterUi } from '.';
 
 export default {
-  title: 'Pages/VoterDetails',
-  component: VoterDetailsUi,
+  title: 'Pages/Voter',
+  component: VoterUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof VoterDetailsUi>;
+} as ComponentMeta<typeof VoterUi>;
 
 export const Default = () => (
-  <VoterDetailsUi
+  <VoterUi
     balanceWei={new BigNumber(912512333)}
     delegateCount={12}
     votesWei={new BigNumber(912512333)}

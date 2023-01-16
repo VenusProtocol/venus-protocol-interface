@@ -1,13 +1,13 @@
 import renderComponent from 'testUtils/renderComponent';
 
-import VoterDetails from '.';
+import Voter from '.';
 
-describe('pages/VoterDetail', () => {
+describe('pages/Voter', () => {
   beforeAll(() => {
     jest.mock('clients/api');
   });
 
   it('renders without crashing', async () => {
-    renderComponent(VoterDetails);
+    renderComponent(Voter);
   });
 });

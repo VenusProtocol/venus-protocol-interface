@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VoteDetailTransactionTransfer, VoteDetailTransactionVote, VoterDetails } from 'types';
+import { VoteDetailTransactionTransfer, VoteDetailTransactionVote, Voter } from 'types';
 
 import { NULL_ADDRESS } from 'constants/address';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
@@ -9,7 +9,7 @@ import { GetVoterDetailsResponse } from './types';
 const formatVoterResponse = (
   { balance, delegateCount, delegates, txs, votes }: GetVoterDetailsResponse,
   address: string,
-): VoterDetails => ({
+): Voter => ({
   balanceWei: new BigNumber(balance),
   delegateCount,
   delegateAddress: delegates,

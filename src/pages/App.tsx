@@ -23,7 +23,7 @@ import Proposal from 'pages/Proposal';
 import Swap from 'pages/Swap';
 import Vai from 'pages/Vai';
 import Vaults from 'pages/Vault';
-import VoterDetails from 'pages/VoterDetails';
+import Voter from 'pages/Voter';
 import VoterLeaderboard from 'pages/VoterLeaderboard';
 import Xvs from 'pages/Xvs';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
@@ -60,7 +60,7 @@ const App = () => (
                       path={routes.governanceLeaderBoard.path}
                       component={VoterLeaderboard}
                     />
-                    <Route exact path={routes.governanceVoter.path} component={VoterDetails} />
+                    <Route exact path={routes.governanceVoter.path} component={Voter} />
                     <Route exact path={routes.governanceProposal.path} component={Proposal} />
 
                     <Route exact path={routes.xvs.path} component={Xvs} />

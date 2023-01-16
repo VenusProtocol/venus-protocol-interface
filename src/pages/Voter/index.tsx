@@ -12,7 +12,7 @@ import Holding from './Holding';
 import Transactions from './Transactions';
 import { useStyles } from './styles';
 
-interface VoterDetailsUiProps {
+interface VoterUiProps {
   balanceWei: BigNumber | undefined;
   delegateCount: number | undefined;
   votesWei: BigNumber | undefined;
@@ -26,7 +26,7 @@ interface VoterDetailsUiProps {
   isHistoryFetching: boolean;
 }
 
-export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
+export const VoterUi: React.FC<VoterUiProps> = ({
   balanceWei,
   delegateCount,
   votesWei,
@@ -72,7 +72,7 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
 
 export type VoterDetailsPageProps = RouteComponentProps;
 
-const VoterDetails: React.FC<VoterDetailsPageProps> = ({ history, location }) => {
+const Voter: React.FC<VoterDetailsPageProps> = ({ history, location }) => {
   const { currentPage, setCurrentPage } = useUrlPagination({ history, location });
 
   const { address } = useParams<{ address: string }>();
@@ -83,7 +83,7 @@ const VoterDetails: React.FC<VoterDetailsPageProps> = ({ history, location }) =>
   } = useGetVoterHistory({ address, page: currentPage });
 
   return (
-    <VoterDetailsUi
+    <VoterUi
       balanceWei={voterDetails?.balanceWei}
       delegateCount={voterDetails?.delegateCount}
       voterHistory={voterHistory}
@@ -99,4 +99,4 @@ const VoterDetails: React.FC<VoterDetailsPageProps> = ({ history, location }) =>
   );
 };
 
-export default VoterDetails;
+export default Voter;

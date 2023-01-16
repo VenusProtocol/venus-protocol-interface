@@ -328,7 +328,7 @@ export type VoteDetailTransactionVote = {
 
 export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
 
-export interface VoterDetails {
+export interface Voter {
   balanceWei: BigNumber;
   delegateCount: number;
   delegateAddress: string;
