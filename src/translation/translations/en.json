@@ -169,7 +169,7 @@
       "title": "Connect your wallet"
     },
     "higherRiskTokensNotice": {
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
+      "description": "Long-tail assets, tokens with lower liquidity and volume, may be volatile and carry greater risk relative to the market in general.",
       "title": "What are higher risk tokens?"
     },
     "riskyTokensToggleLabel": "Display higher risk tokens",
@@ -250,10 +250,10 @@
       "liquidityColumnTitle": "Liquidity",
       "supplyApyColumnTitle": "Supply APY"
     },
-    "borrowDescription": "TBD",
+    "borrowDescription": "This is an isolated token. You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
     "hideAssetsButtonLabel": "Hide assets",
     "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
-    "supplyDescription": "You are looking at an isolated token. By supplying {{tokenSymbol}} to the {{poolName}} pool, you will be able to borrow tokens from this pool only."
+    "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
     "menuItems": {
@@ -277,7 +277,7 @@
     "title": "Please disable LUNA and UST as collateral"
   },
   "mainPool": {
-    "description": "TBD",
+    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
     "name": "Venus"
   },
   "market": {
@@ -372,7 +372,7 @@
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "pool": {
-    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
+    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only.",
     "header": {
       "assetsLabel": "Assets",
       "availableLiquidityLabel": "Available Liquidity",
