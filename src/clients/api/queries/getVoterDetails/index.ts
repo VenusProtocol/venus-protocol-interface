@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { VoterDetails } from 'types';
+import { Voter } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
@@ -9,7 +9,7 @@ export interface GetVoterDetailsInput {
   address: string;
 }
 
-export type GetVoterDetailsOutput = VoterDetails;
+export type GetVoterDetailsOutput = Voter;
 
 const getVoterDetails = async ({
   address,

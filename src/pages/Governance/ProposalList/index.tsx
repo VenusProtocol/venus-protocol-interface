@@ -18,11 +18,11 @@ import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei'
 import { AuthContext } from 'context/AuthContext';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
-import CreateProposalModal from '../CreateProposalModal';
-import GovernanceProposal from '../GovernanceProposal';
+import CreateProposalModal from './CreateProposalModal';
+import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';
 
-interface GovernanceUiProps {
+interface ProposalListUiProps {
   proposals: Proposal[];
   isLoading: boolean;
   total: number | undefined;
@@ -35,7 +35,7 @@ interface GovernanceUiProps {
   canCreateProposal: boolean;
 }
 
-export const GovernanceUi: React.FC<GovernanceUiProps> = ({
+export const ProposalListUi: React.FC<ProposalListUiProps> = ({
   proposals,
   isLoading,
   total,
@@ -125,9 +125,9 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
   );
 };
 
-export type GovernancePageProps = UseUrlPaginationOutput;
+export type ProposalListPageProps = UseUrlPaginationOutput;
 
-const Governance: React.FC<GovernancePageProps> = ({ currentPage, setCurrentPage }) => {
+const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrentPage }) => {
   const { account } = React.useContext(AuthContext);
   const accountAddress = account?.address || '';
 
@@ -162,7 +162,7 @@ const Governance: React.FC<GovernancePageProps> = ({ currentPage, setCurrentPage
     latestProposalStateData?.state !== '1';
 
   return (
-    <GovernanceUi
+    <ProposalListUi
       proposals={proposals}
       isLoading={isGetProposalsFetching}
       total={total}
@@ -175,4 +175,4 @@ const Governance: React.FC<GovernancePageProps> = ({ currentPage, setCurrentPage
   );
 };
 
-export default Governance;
+export default ProposalList;

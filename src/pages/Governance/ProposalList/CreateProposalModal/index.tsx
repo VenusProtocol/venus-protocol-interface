@@ -17,7 +17,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { CreateProposalInput } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
+import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
 
 import ActionAccordion from './ActionAccordion';
 import ProposalPreview from './ProposalPreview';
