@@ -48,6 +48,7 @@ describe('api/queries/getVoterHistory', () => {
       params: {
         limit: 6,
         offset: 12,
+        version: 'v2',
       },
     });
 
@@ -70,6 +71,7 @@ describe('api/queries/getVoterHistory', () => {
       params: {
         limit: 6,
         offset: 0,
+        version: 'v2',
       },
     });
 
