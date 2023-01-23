@@ -200,10 +200,10 @@
       "governance": "Governance",
       "history": "History",
       "markets": "Markets",
+      "predictions": "Predictions",
       "swap": "Swap",
       "vaults": "Vaults",
-      "xvs": "XVS",
-      "predictions": "Predictions"
+      "xvs": "XVS"
     }
   },
   "lunaUstWarningModal": {
@@ -812,6 +812,7 @@
     "ledger": "Ledger",
     "metamask": "MetaMask",
     "opera": "Opera Wallet",
+    "safePal": "SafePal",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },

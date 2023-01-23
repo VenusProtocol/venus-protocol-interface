@@ -38,4 +38,5 @@ export const connectorsByName = {
   [Connector.InfinityWallet]: infinityWalletConnector,
   [Connector.OperaWallet]: injectedConnector,
   [Connector.BitKeep]: injectedConnector,
+  [Connector.SafePal]: injectedConnector,
 };
