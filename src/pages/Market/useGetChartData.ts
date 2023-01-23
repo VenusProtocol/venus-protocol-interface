@@ -24,7 +24,7 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
       // pass them to the charts in the right order
       .reverse()
       .forEach(marketSnapshot => {
-        const timestampMs = new Date(marketSnapshot.createdAt).getTime();
+        const timestampMs = marketSnapshot.blockTimestamp * 1000;
 
         supplyChartData.push({
           apyPercentage: formatPercentage(marketSnapshot.supplyApy),
