@@ -10,7 +10,7 @@ import {
   useExitMarket,
 } from 'clients/api';
 import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
-import { useWeb3 } from 'clients/web3';
+import { useAuth } from 'clients/web3';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -21,7 +21,7 @@ const useCollateral = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
 
-  const web3 = useWeb3();
+  const { signer } = useAuth();
   const comptrollerContract = useComptrollerContract();
 
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
@@ -64,7 +64,7 @@ const useCollateral = () => {
     setSelectedAsset(asset);
 
     if (asset.isCollateralOfUser) {
-      const vTokenContract = getVTokenContract(asset.vToken, web3);
+      const vTokenContract = getVTokenContract(asset.vToken, signer);
 
       try {
         const vTokenBalanceOf = await getVTokenBalanceOf({
@@ -80,7 +80,7 @@ const useCollateral = () => {
         });
 
         if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
-          await exitMarket({ vtokenAddress: asset.vToken.address, accountAddress });
+          await exitMarket({ vTokenAddress: asset.vToken.address });
         }
       } catch (error) {
         if (error instanceof VError) {
@@ -97,7 +97,7 @@ const useCollateral = () => {
       }
     } else {
       try {
-        await enterMarkets({ vTokenAddresses: [asset.vToken.address], accountAddress });
+        await enterMarkets({ vTokenAddresses: [asset.vToken.address] });
       } catch (error) {
         if (error instanceof VError) {
           throw error;

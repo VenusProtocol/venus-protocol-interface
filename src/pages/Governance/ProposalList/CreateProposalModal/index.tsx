@@ -9,11 +9,11 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
-import type { TransactionReceipt } from 'web3-core';
 
 import { CreateProposalInput } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -27,9 +27,7 @@ import { useStyles } from './styles';
 interface CreateProposalProps {
   isOpen: boolean;
   handleClose: () => void;
-  createProposal: (
-    data: Omit<CreateProposalInput, 'accountAddress'>,
-  ) => Promise<TransactionReceipt>;
+  createProposal: (data: Omit<CreateProposalInput, 'accountAddress'>) => Promise<ContractReceipt>;
   isCreateProposalLoading: boolean;
 }
 
@@ -133,14 +131,14 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
   const handleCreateProposal = async (formValues: FormValues) => {
     try {
       const payload = formatProposalPayload(formValues);
-      const transactionReceipt = await createProposal(payload);
+      const contractReceipt = await createProposal(payload);
 
       handleClose();
 
       openSuccessfulTransactionModal({
         title: t('vote.yourProposalwasCreatedSuccessfully'),
         content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       });
     } catch (error) {
       let { message } = error as Error;

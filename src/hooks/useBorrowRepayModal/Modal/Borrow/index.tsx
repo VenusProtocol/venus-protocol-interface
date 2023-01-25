@@ -10,12 +10,11 @@ import {
   NoticeWarning,
   Spinner,
 } from 'components';
-import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei, formatTokensToReadableValue } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -35,7 +34,7 @@ export interface BorrowFormProps {
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
-  borrow: (amountWei: BigNumber) => Promise<TransactionReceipt>;
+  borrow: (amountWei: BigNumber) => Promise<ContractReceipt>;
   isBorrowLoading: boolean;
   hasUserCollateralizedSuppliedAssets: boolean;
 }
@@ -74,14 +73,14 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
     return handleTransactionMutation({
       mutate: () => borrow(amountWei),
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
         content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           token: asset.vToken.underlyingToken,
         },
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -190,15 +189,13 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
   });
 
   const handleBorrow: BorrowFormProps['borrow'] = async amountWei => {
-    if (!account?.address) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
     const res = await borrow({
       amountWei,
-      fromAccountAddress: account.address,
     });
+
     // Close modal on success
     onClose();
+
     return res;
   };
 

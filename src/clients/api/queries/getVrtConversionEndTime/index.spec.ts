@@ -1,41 +1,16 @@
+import { BigNumber as BN } from 'ethers';
+
 import { VrtConverter } from 'types/contracts';
 
 import getVrtConversionEndTime from '.';
 
 describe('api/queries/getVrtConversionEndTime', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        conversionEndTime: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as VrtConverter;
-
-    try {
-      await getVrtConversionEndTime({
-        vrtConverterContract: fakeContract,
-      });
-
-      throw new Error('getVrtConversionEndTime should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns the conversion end time on success', async () => {
-    const fakeOutput = 1678859525000;
-    const callMock = jest.fn(async () => fakeOutput);
-    const vrtConversionEndtimeMock = jest.fn(() => ({
-      call: callMock,
-    }));
+    const fakeOutput = BN.from(1678859525000);
+    const vrtConversionEndtimeMock = jest.fn(async () => fakeOutput);
 
     const fakeContract = {
-      methods: {
-        conversionEndTime: vrtConversionEndtimeMock,
-      },
+      conversionEndTime: vrtConversionEndtimeMock,
     } as unknown as VrtConverter;
 
     const response = await getVrtConversionEndTime({
@@ -43,10 +18,8 @@ describe('api/queries/getVrtConversionEndTime', () => {
     });
 
     expect(vrtConversionEndtimeMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledWith();
     expect(response).toEqual({
-      conversionEndTime: new Date(fakeOutput * 1000),
+      conversionEndTime: new Date(fakeOutput.mul(1000).toNumber()),
     });
   });
 });

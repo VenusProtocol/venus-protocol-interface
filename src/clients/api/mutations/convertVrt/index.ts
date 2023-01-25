@@ -1,22 +1,21 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import BigNumber from 'bignumber.js';
+import { ContractReceipt } from 'ethers';
 
 import { VrtConverter } from 'types/contracts';
 
 export interface ConvertVrtInput {
   vrtConverterContract: VrtConverter;
-  amountWei: string;
-  accountAddress: string;
+  amountWei: BigNumber;
 }
 
-export type ConvertVrtOutput = TransactionReceipt;
+export type ConvertVrtOutput = ContractReceipt;
 
 const convertVrt = async ({
   vrtConverterContract,
   amountWei,
-  accountAddress,
-}: ConvertVrtInput): Promise<ConvertVrtOutput> =>
-  vrtConverterContract.methods.convert(amountWei).send({
-    from: accountAddress,
-  });
+}: ConvertVrtInput): Promise<ConvertVrtOutput> => {
+  const transaction = await vrtConverterContract.convert(amountWei.toFixed());
+  return transaction.wait(1);
+};
 
 export default convertVrt;

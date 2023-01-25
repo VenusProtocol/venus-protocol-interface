@@ -1,31 +1,32 @@
 import BigNumber from 'bignumber.js';
 import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
 
 export interface StakeInXvsVaultInput {
   xvsVaultContract: XvsVault;
-  fromAccountAddress: string;
   rewardToken: Token;
   amountWei: BigNumber;
   poolIndex: number;
 }
 
-export type StakeInXvsVaultOutput = TransactionReceipt;
+export type StakeInXvsVaultOutput = ContractReceipt;
 
 const stakeInXvsVault = async ({
   xvsVaultContract,
-  fromAccountAddress,
   rewardToken,
   amountWei,
   poolIndex,
 }: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> => {
-  const resp = await xvsVaultContract.methods
-    .deposit(rewardToken.address, poolIndex, amountWei.toFixed())
-    .send({ from: fromAccountAddress });
-  return checkForXvsVaultProxyTransactionError(resp);
+  const transaction = await xvsVaultContract.deposit(
+    rewardToken.address,
+    poolIndex,
+    amountWei.toFixed(),
+  );
+  const receipt = await transaction.wait(1);
+  return checkForXvsVaultProxyTransactionError(receipt);
 };
 
 export default stakeInXvsVault;

@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Icon, PrimaryButton, Tooltip, toast } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { Icon, PrimaryButton, Tooltip } from 'components';
+import { ContractReceipt } from 'ethers';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { AuthContext } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -22,7 +21,7 @@ export interface SubmitSectionUiProps extends Omit<SubmitSectionProps, 'fromToke
   isSubmitting: boolean;
   isFromTokenEnabled: boolean | undefined;
   isFromTokenApprovalStatusLoading: boolean;
-  enableFromToken: () => Promise<TransactionReceipt | undefined>;
+  enableFromToken: () => Promise<ContractReceipt | undefined>;
   isEnableFromTokenLoading: boolean;
 }
 
@@ -93,15 +92,7 @@ const SubmitSectionUi: React.FC<SubmitSectionUiProps> = ({
     try {
       await enableFromToken();
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({
-        message,
-      });
+      // Do nothing (errors will be automatically displayed in a toast already)
     }
   };
 

@@ -8,11 +8,10 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
-import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
-import type { TransactionReceipt } from 'web3-core';
 
 import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -30,7 +29,7 @@ export interface IRepayVaiUiProps {
   disabled: boolean;
   isInitialLoading: boolean;
   isSubmitting: boolean;
-  repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
+  repayVai: (amountWei: BigNumber) => Promise<ContractReceipt | undefined>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
@@ -73,14 +72,14 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
     return handleTransactionMutation({
       mutate: () => repayVai(amountWei),
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vai.repayVai.successfulTransactionModal.title'),
         content: t('vai.repayVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           token: TOKENS.vai,
         },
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -160,17 +159,10 @@ const RepayVai: React.FC = () => {
 
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
-    if (!account) {
-      // This error should never happen, since the form inside the UI component
-      // is disabled if there's no logged in account
-      throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
-    }
-    return contractRepayVai({
-      fromAccountAddress: account.address,
-      amountWei: amountWei.toFixed(),
+  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei =>
+    contractRepayVai({
+      amountWei,
     });
-  };
 
   return (
     <RepayVaiUi

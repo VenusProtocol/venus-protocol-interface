@@ -3,13 +3,11 @@ import { CastVoteWithReasonInput, useCastVote, useCastVoteWithReason } from 'cli
 export type UseVoteParams = Partial<CastVoteWithReasonInput> &
   Omit<CastVoteWithReasonInput, 'voteReason'>;
 
-const useVote = ({ accountAddress }: { accountAddress: string }) => {
-  const { mutateAsync: castVote, isLoading: isCastVoteLoading } = useCastVote({
-    fromAccountAddress: accountAddress,
-  });
+const useVote = () => {
+  const { mutateAsync: castVote, isLoading: isCastVoteLoading } = useCastVote();
 
   const { mutateAsync: castVoteWithReason, isLoading: isCastVoteWithReasonLoading } =
-    useCastVoteWithReason({ fromAccountAddress: accountAddress });
+    useCastVoteWithReason();
 
   const isLoading = isCastVoteLoading || isCastVoteWithReasonLoading;
 

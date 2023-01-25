@@ -245,10 +245,6 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
   });
 
   const handleRepay: RepayFormProps['repay'] = async amountWei => {
-    if (!account?.address) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
     const isRepayingFullLoan = amountWei.eq(
       convertTokensToWei({
         value: asset!.userBorrowBalanceTokens,
@@ -258,7 +254,6 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
 
     const res = await repay({
       amountWei,
-      accountAddress: account.address,
       isRepayingFullLoan,
     });
 

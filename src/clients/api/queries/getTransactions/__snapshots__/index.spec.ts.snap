@@ -129,7 +129,7 @@ Array [
     "vTokenAddress": "0x2e7222e51c0f6e98610a1543aa3836e092cde62c",
   },
   Object {
-    "amountWei": "0.0000424332",
+    "amountWei": "0",
     "blockNumber": 19606971,
     "category": "vtoken",
     "createdAt": 2022-05-25T06:38:32.000Z,
@@ -414,7 +414,7 @@ Array [
     "vTokenAddress": "0x2e7222e51c0f6e98610a1543aa3836e092cde62c",
   },
   Object {
-    "amountWei": "0.0000424332",
+    "amountWei": "0",
     "blockNumber": 19606971,
     "category": "vtoken",
     "createdAt": 2022-05-25T06:38:32.000Z,

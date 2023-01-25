@@ -15,10 +15,10 @@ const getVTokenBalanceOf = async ({
   vTokenContract,
   accountAddress,
 }: GetVTokenBalanceOfInput): Promise<GetVTokenBalanceOfOutput> => {
-  const res = await vTokenContract.methods.balanceOf(accountAddress).call();
+  const res = await vTokenContract.balanceOf(accountAddress);
 
   return {
-    balanceWei: new BigNumber(res),
+    balanceWei: new BigNumber(res.toString()),
   };
 };
 

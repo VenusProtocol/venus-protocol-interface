@@ -1,18 +1,18 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { VrtVault } from 'types/contracts';
 
 export interface WithdrawFromVrtVaultInput {
   vrtVaultContract: VrtVault;
-  fromAccountAddress: string;
 }
 
-export type WithdrawFromVrtVaultOutput = TransactionReceipt;
+export type WithdrawFromVrtVaultOutput = ContractReceipt;
 
 const withdrawFromVrtVault = async ({
   vrtVaultContract,
-  fromAccountAddress,
-}: WithdrawFromVrtVaultInput): Promise<WithdrawFromVrtVaultOutput> =>
-  vrtVaultContract.methods.withdraw().send({ from: fromAccountAddress });
+}: WithdrawFromVrtVaultInput): Promise<WithdrawFromVrtVaultOutput> => {
+  const transaction = await vrtVaultContract.withdraw();
+  return transaction.wait(1);
+};
 
 export default withdrawFromVrtVault;

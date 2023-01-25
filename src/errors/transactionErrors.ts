@@ -1,4 +1,5 @@
-import type { TransactionReceipt } from 'web3-core';
+import BigNumber from 'bignumber.js';
+import { ContractReceipt } from 'ethers';
 
 import {
   ComptrollerErrorReporterError,
@@ -15,8 +16,12 @@ import {
 
 import { VError, VErrorPhraseMap } from './VError';
 
+// Some contracts don't revert when failing but instead return a Failure event.
+// These functions are used to detect such cases and throw an error when a
+// Failure event is detected
+
 const checkForTransactionError = (
-  receipt: TransactionReceipt,
+  receipt: ContractReceipt,
   errorEnum:
     | typeof ComptrollerErrorReporterError
     | typeof TokenErrorReporterError
@@ -30,41 +35,47 @@ const checkForTransactionError = (
     | typeof VaiVaultErrorReporterInfo
     | typeof XvsVaultProxyErrorReporterInfo,
 ) => {
-  if (receipt.events?.Failure) {
-    const { error, info } = receipt.events?.Failure.returnValues;
+  const failureEvent = receipt.events?.find(event => event.event === 'Failure');
+
+  if (failureEvent) {
+    const errorIndex = failureEvent.args?.error
+      ? // eslint-disable-next-line no-underscore-dangle
+        new BigNumber(failureEvent.args.error._hex).toNumber()
+      : 0;
+
     throw new VError({
       type: 'transaction',
-      code: errorEnum[error] as VErrorPhraseMap['transaction'],
+      code: errorEnum[errorIndex] as VErrorPhraseMap['transaction'],
       data: {
-        error: errorEnum[error] as VErrorPhraseMap['transaction'],
-        info: infoEnum[info] as VErrorPhraseMap['transaction'],
+        error: errorEnum[errorIndex] as VErrorPhraseMap['transaction'],
+        info: infoEnum[errorIndex] as VErrorPhraseMap['transaction'],
       },
     });
   }
   return receipt;
 };
 
-export const checkForComptrollerTransactionError = (receipt: TransactionReceipt) =>
+export const checkForComptrollerTransactionError = (receipt: ContractReceipt) =>
   checkForTransactionError(
     receipt,
     ComptrollerErrorReporterError,
     ComptrollerErrorReporterFailureInfo,
   );
 
-export const checkForTokenTransactionError = (receipt: TransactionReceipt) =>
+export const checkForTokenTransactionError = (receipt: ContractReceipt) =>
   checkForTransactionError(receipt, TokenErrorReporterError, TokenErrorReporterFailureInfo);
 
-export const checkForVaiControllerTransactionError = (receipt: TransactionReceipt) =>
+export const checkForVaiControllerTransactionError = (receipt: ContractReceipt) =>
   checkForTransactionError(
     receipt,
     VaiControllerErrorReporterError,
     VaiControllerErrorReporterFailureInfo,
   );
 
-export const checkForVaiVaultTransactionError = (receipt: TransactionReceipt) =>
+export const checkForVaiVaultTransactionError = (receipt: ContractReceipt) =>
   checkForTransactionError(receipt, VaiVaultErrorReporterError, VaiVaultErrorReporterInfo);
 
-export const checkForXvsVaultProxyTransactionError = (receipt: TransactionReceipt) =>
+export const checkForXvsVaultProxyTransactionError = (receipt: ContractReceipt) =>
   checkForTransactionError(
     receipt,
     XvsVaultProxyErrorReporterError,

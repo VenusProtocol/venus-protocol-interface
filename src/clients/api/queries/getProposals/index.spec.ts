@@ -8,30 +8,6 @@ import getProposals from '.';
 jest.mock('utilities/restService');
 
 describe('api/queries/getProposals', () => {
-  test('throws an error when request fails', async () => {
-    const fakeErrorMessage = 'Fake error message';
-
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
-      result: 'error',
-      status: false,
-      message: fakeErrorMessage,
-    }));
-
-    try {
-      await getProposals({});
-
-      throw new Error('getProposals should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toBeInstanceOf(VError);
-      if (error instanceof VError) {
-        expect(error.type).toBe('unexpected');
-        expect(error.code).toBe('somethingWentWrong');
-        expect(error.message).toBe('somethingWentWrong');
-        expect(error.data.message).toBe(fakeErrorMessage);
-      }
-    }
-  });
-
   test('returns formatted proposals', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,

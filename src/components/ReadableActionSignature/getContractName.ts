@@ -1,5 +1,5 @@
 import config from 'config';
-import web3 from 'web3';
+import { ethers } from 'ethers';
 
 import contractAddresses from 'constants/contracts/addresses/main.json';
 import tokenAddresses from 'constants/contracts/addresses/tokens.json';
@@ -22,7 +22,7 @@ const checkAndFormatContractName = (
 const getContractName = (target: string) => {
   let contractName;
 
-  if (web3.utils.isAddress(target)) {
+  if (ethers.utils.isAddress(target)) {
     // Check main contracts
     contractName = checkAndFormatContractName(target, contractAddresses);
     // check token contracts

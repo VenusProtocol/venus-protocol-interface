@@ -13,7 +13,7 @@ const getAssetsInAccount = async ({
   comptrollerContract,
   accountAddress,
 }: GetAssetsInAccountInput): Promise<GetAssetsInAccountOutput> => {
-  const tokenAddresses = await comptrollerContract.methods.getAssetsIn(accountAddress).call();
+  const tokenAddresses = await comptrollerContract.getAssetsIn(accountAddress);
 
   return {
     tokenAddresses,

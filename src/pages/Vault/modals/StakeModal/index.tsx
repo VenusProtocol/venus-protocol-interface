@@ -58,9 +58,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     // Send request to stake
     const res = await stake({
       amountWei,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to stake
-      accountAddress: account?.address || '',
     });
 
     // Close modal

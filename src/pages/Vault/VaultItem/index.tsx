@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useClaimVaultReward, useWithdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -31,9 +31,9 @@ export interface VaultItemUiProps {
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
-  onClaimReward: () => Promise<TransactionReceipt | void>;
+  onClaimReward: () => Promise<ContractReceipt | void>;
   onStake: () => void;
-  onWithdraw: () => Promise<TransactionReceipt | void>;
+  onWithdraw: () => Promise<ContractReceipt | void>;
   closeActiveModal: () => void;
   isClaimRewardLoading: boolean;
   canWithdraw?: boolean;
@@ -72,20 +72,20 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   const handleClaimReward = () =>
     handleTransactionMutation({
       mutate: onClaimReward,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vaultItem.successfulClaimRewardTransactionModal.title'),
         content: t('vaultItem.successfulClaimRewardTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
 
   const handleWithdraw = () =>
     handleTransactionMutation({
       mutate: onWithdraw,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vaultItem.successfulWithdrawVrtTransactionModal.title'),
         content: t('vaultItem.successfulWithdrawVrtTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
 
@@ -323,9 +323,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
 
     // Users can only withdraw the totality of their staked tokens when
     // withdrawing from the VRT non-vesting vault
-    return withdrawFromVrtVault({
-      fromAccountAddress: account.address,
-    });
+    return withdrawFromVrtVault();
   };
 
   const closeActiveModal = () => setActiveModal(undefined);
@@ -342,9 +340,6 @@ const VaultItem: React.FC<VaultItemProps> = ({
       stakedToken,
       rewardToken,
       poolIndex,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to stake
-      accountAddress: account?.address || '',
     });
   };
 

@@ -32,16 +32,16 @@ const useStakeInVaiVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { fromAccountAddress } = onSuccessParams[1];
+        const accountAddress = await vaiVaultContract.signer.getAddress();
 
         // Invalidate cached user info, including pending reward
-        queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, fromAccountAddress]);
+        queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
 
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             tokenAddress: TOKENS.vai.address,
           },
         ]);
@@ -49,7 +49,7 @@ const useStakeInVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
           },
         ]);
 

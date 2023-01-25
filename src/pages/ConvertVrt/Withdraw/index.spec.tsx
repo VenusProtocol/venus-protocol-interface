@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { useGetMainAssets } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -29,7 +29,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
   });
 
   it('submit button is enabled with input, good vesting period and not loading', async () => {
-    const withdrawXvs = jest.fn().mockReturnValue(transactionReceipt.transactionHash);
+    const withdrawXvs = jest.fn().mockReturnValue(fakeContractReceipt.transactionHash);
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{

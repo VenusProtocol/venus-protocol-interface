@@ -1,10 +1,9 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface HookParams {
   governorBravoContract: GovernorBravoDelegate;
-  fromAccountAddress: string;
 }
 
 export interface CastVoteWithReasonInput {
@@ -13,17 +12,20 @@ export interface CastVoteWithReasonInput {
   voteReason: string;
 }
 
-export type CastVoteWithReasonOutput = TransactionReceipt;
+export type CastVoteWithReasonOutput = ContractReceipt;
 
 const castVoteWithReason = async ({
   governorBravoContract,
-  fromAccountAddress,
   proposalId,
   voteType,
   voteReason,
-}: CastVoteWithReasonInput & HookParams): Promise<CastVoteWithReasonOutput> =>
-  governorBravoContract.methods
-    .castVoteWithReason(proposalId, voteType, voteReason)
-    .send({ from: fromAccountAddress });
+}: CastVoteWithReasonInput & HookParams): Promise<CastVoteWithReasonOutput> => {
+  const transaction = await governorBravoContract.castVoteWithReason(
+    proposalId,
+    voteType,
+    voteReason,
+  );
+  return transaction.wait(1);
+};
 
 export default castVoteWithReason;

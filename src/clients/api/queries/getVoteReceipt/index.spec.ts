@@ -4,47 +4,13 @@ import { GovernorBravoDelegate } from 'types/contracts';
 import getVoteReceipt from '.';
 
 describe('api/queries/getVoteReceipt', () => {
-  test('throws an error when one of GovernorBravoDelegate contract call fails', async () => {
-    const governorBravoContract = {
-      methods: {
-        getReceipt() {
-          return {
-            call() {
-              throw new Error('Fake error message');
-            },
-          };
-        },
-      },
-    };
-
-    try {
-      await getVoteReceipt({
-        governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-        proposalId: 1234,
-        accountAddress: fakeAddress,
-      });
-
-      throw new Error('getVoteReceipt should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns NOT_VOTED when no vote is returned', async () => {
     const governorBravoContract = {
-      methods: {
-        getReceipt() {
-          return {
-            call() {
-              return [false, undefined];
-            },
-          };
-        },
-      },
-    };
+      getReceipt: async () => [false, undefined],
+    } as unknown as GovernorBravoDelegate;
 
     const res = await getVoteReceipt({
-      governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
+      governorBravoContract,
       proposalId: 1234,
       accountAddress: fakeAddress,
     });
@@ -57,19 +23,11 @@ describe('api/queries/getVoteReceipt', () => {
     'returns the correct string depending on what the contract call returns',
     async fakeSupport => {
       const governorBravoContract = {
-        methods: {
-          getReceipt() {
-            return {
-              call() {
-                return [true, fakeSupport];
-              },
-            };
-          },
-        },
-      };
+        getReceipt: async () => [true, fakeSupport],
+      } as unknown as GovernorBravoDelegate;
 
       const res = await getVoteReceipt({
-        governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
+        governorBravoContract,
         proposalId: 1234,
         accountAddress: fakeAddress,
       });

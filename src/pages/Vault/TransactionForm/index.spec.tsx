@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -48,7 +48,7 @@ describe('pages/Vault/TransactionForm', () => {
 
   it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const onSubmitMock = jest.fn(async () => fakeTransactionReceipt);
+    const onSubmitMock = jest.fn(async () => fakeContractReceipt);
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />);
@@ -76,7 +76,7 @@ describe('pages/Vault/TransactionForm', () => {
     // Check successful transaction modal is displayed
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: baseProps.token,
         valueWei: fakeWeiSubmitted,

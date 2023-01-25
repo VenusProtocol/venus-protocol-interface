@@ -4,7 +4,7 @@ import React from 'react';
 import { convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { getAllowance, getBalanceOf, getMintedVai, repayVai } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
@@ -64,7 +64,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repayVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (repayVai as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     (getBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: fakeUserVaiMintedWei,
@@ -102,14 +102,13 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
-      fromAccountAddress: fakeAccountAddress,
-      amountWei: fakeUserVaiMintedWei.toFixed(),
+      amountWei: fakeUserVaiMintedWei,
     });
 
     // Check successful transaction modal is displayed
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: TOKENS.vai,
         valueWei: fakeUserVaiMintedWei,

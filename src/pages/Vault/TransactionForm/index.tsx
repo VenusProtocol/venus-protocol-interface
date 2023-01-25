@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
+import { ContractReceipt } from 'ethers';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { AmountForm } from 'containers/AmountForm';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
@@ -20,7 +20,7 @@ export interface TransactionFormProps {
   submitButtonDisabledLabel: string;
   successfulTransactionTitle: string;
   successfulTransactionDescription: string;
-  onSubmit: (amountWei: BigNumber) => Promise<TransactionReceipt>;
+  onSubmit: (amountWei: BigNumber) => Promise<ContractReceipt>;
   isSubmitting: boolean;
   availableTokensWei: BigNumber;
   availableTokensLabel: string;
@@ -78,14 +78,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
     return handleTransactionMutation({
       mutate: () => onSubmit(amountWei),
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: successfulTransactionTitle,
         content: successfulTransactionDescription,
         amount: {
           valueWei: amountWei,
           token,
         },
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };

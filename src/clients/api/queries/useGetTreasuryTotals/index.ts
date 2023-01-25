@@ -3,7 +3,7 @@ import config from 'config';
 import { useContext, useMemo } from 'react';
 import { convertWeiToTokens, indexBy } from 'utilities';
 
-import { IGetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
+import { GetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
@@ -61,7 +61,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const treasuryBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        (item: GetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesTreasury.balances,
       ),
     [vTokenBalancesTreasury],

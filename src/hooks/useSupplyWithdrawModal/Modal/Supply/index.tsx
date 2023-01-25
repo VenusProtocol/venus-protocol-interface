@@ -103,7 +103,6 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, on
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     vToken,
-    accountAddress,
   });
 
   const onSubmit: AmountFormProps['onSubmit'] = async value => {

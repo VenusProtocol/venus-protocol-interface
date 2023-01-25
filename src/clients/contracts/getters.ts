@@ -1,15 +1,12 @@
+import { Contract, ContractInterface, Signer } from 'ethers';
 import { Token, VToken } from 'types';
 import { areTokensEqual, getContractAddress } from 'utilities';
-import Web3 from 'web3';
-import { AbiItem } from 'web3-utils';
 
-import { getWeb3NoAccount } from 'clients/web3';
+import { chain, provider } from 'clients/web3';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDelegate.json';
-import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
-import oracleAbi from 'constants/contracts/abis/oracle.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
@@ -26,12 +23,9 @@ import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import xvsVestingAbi from 'constants/contracts/abis/xvsVesting.json';
 import { TOKENS } from 'constants/tokens';
 import {
-  Bep20,
   Comptroller,
   GovernorBravoDelegate,
-  InterestModel,
   Maximillion,
-  Oracle,
   PancakeRouter,
   VaiUnitroller,
   VaiVault,
@@ -45,138 +39,157 @@ import {
 
 import { TokenContract, VTokenContract } from './types';
 
-const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance: Web3) => {
-  const web3 = web3Instance ?? getWeb3NoAccount();
-  return new web3.eth.Contract(abi, address) as unknown as T;
+export const getContract = ({
+  abi,
+  address,
+  signer,
+}: {
+  abi: ContractInterface;
+  address: string;
+  signer?: Signer;
+}) => {
+  const signerOrProvider = signer ?? provider({ chainId: chain.id });
+  return new Contract(address, abi, signerOrProvider);
 };
 
-export const getTokenContract = (token: Token, web3: Web3) => {
+export const getTokenContract = (token: Token, signer?: Signer) => {
   if (areTokensEqual(token, TOKENS.xvs)) {
-    return getContract<TokenContract<'xvs'>>(xvsTokenAbi as AbiItem[], token.address, web3);
+    return getContract({
+      abi: xvsTokenAbi,
+      address: token.address,
+      signer,
+    }) as TokenContract<'xvs'>;
   }
 
   if (areTokensEqual(token, TOKENS.vai)) {
-    return getContract<TokenContract<'vai'>>(vaiTokenAbi as AbiItem[], token.address, web3);
+    return getContract({
+      abi: vaiTokenAbi,
+      address: token.address,
+      signer,
+    }) as TokenContract<'vai'>;
   }
 
   if (areTokensEqual(token, TOKENS.vrt)) {
-    return getContract<TokenContract<'vrt'>>(vrtTokenAbi as AbiItem[], token.address, web3);
+    return getContract({
+      abi: vrtTokenAbi,
+      address: token.address,
+      signer,
+    }) as TokenContract<'vrt'>;
   }
 
-  return getContract<TokenContract>(bep20Abi as AbiItem[], token.address, web3);
+  return getContract({
+    abi: bep20Abi,
+    address: token.address,
+    signer,
+  }) as TokenContract;
 };
 
-export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
-  getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
-
-export const getVTokenContract = (vToken: VToken, web3: Web3) => {
+export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   if (vToken.symbol === 'vBNB') {
-    return getContract(
-      vBnbTokenAbi as AbiItem[],
-      vToken.address,
-      web3,
-    ) as unknown as VTokenContract<'bnb'>;
+    return getContract({
+      abi: vBnbTokenAbi,
+      address: vToken.address,
+      signer,
+    }) as VTokenContract<'bnb'>;
   }
 
-  return getContract(vBep20Abi as AbiItem[], vToken.address, web3) as unknown as VTokenContract;
+  return getContract({
+    abi: vBep20Abi,
+    address: vToken.address,
+    signer,
+  }) as VTokenContract;
 };
 
-export const getVaiUnitrollerContract = (web3: Web3) =>
-  getContract(
-    vaiUnitrollerAbi as AbiItem[],
-    getContractAddress('vaiUnitroller'),
-    web3,
-  ) as unknown as VaiUnitroller;
+export const getVaiUnitrollerContract = (signer?: Signer) =>
+  getContract({
+    abi: vaiUnitrollerAbi,
+    address: getContractAddress('vaiUnitroller'),
+    signer,
+  }) as VaiUnitroller;
 
-export const getVaiVaultContract = (web3: Web3) =>
-  getContract(
-    vaiVaultAbi as AbiItem[],
-    getContractAddress('vaiVault'),
-    web3,
-  ) as unknown as VaiVault;
+export const getVaiVaultContract = (signer?: Signer) =>
+  getContract({
+    abi: vaiVaultAbi,
+    address: getContractAddress('vaiVault'),
+    signer,
+  }) as VaiVault;
 
-export const getXvsVaultContract = (web3: Web3) =>
-  getContract(
-    xvsVaultAbi as AbiItem[],
-    getContractAddress('xvsVault'),
-    web3,
-  ) as unknown as XvsVault;
+export const getXvsVaultContract = (signer?: Signer) =>
+  getContract({
+    abi: xvsVaultAbi,
+    address: getContractAddress('xvsVault'),
+    signer,
+  }) as XvsVault;
 
-export const getXvsVaultProxyContract = (web3: Web3) =>
-  getContract(
-    xvsVaultAbi as AbiItem[],
-    getContractAddress('xvsVaultProxy'),
-    web3,
-  ) as unknown as XvsVault;
+export const getXvsVaultProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: xvsVaultAbi,
+    address: getContractAddress('xvsVaultProxy'),
+    signer,
+  }) as XvsVault;
 
-export const getXvsVaultStoreContract = (web3: Web3) =>
-  getContract(
-    xvsVaultStoreAbi as AbiItem[],
-    getContractAddress('xvsVaultStore'),
-    web3,
-  ) as unknown as XvsVaultStore;
+export const getXvsVaultStoreContract = (signer?: Signer) =>
+  getContract({
+    abi: xvsVaultStoreAbi,
+    address: getContractAddress('xvsVaultStore'),
+    signer,
+  }) as XvsVaultStore;
 
-export const getComptrollerContract = (web3: Web3) =>
-  getContract(
-    comptrollerAbi as AbiItem[],
-    getContractAddress('comptroller'),
-    web3,
-  ) as unknown as Comptroller;
+export const getComptrollerContract = (signer?: Signer) =>
+  getContract({
+    abi: comptrollerAbi,
+    address: getContractAddress('comptroller'),
+    signer,
+  }) as Comptroller;
 
-export const getPriceOracleContract = (web3: Web3) =>
-  getContract(oracleAbi as AbiItem[], getContractAddress('oracle'), web3) as unknown as Oracle;
+export const getVenusLensContract = (signer?: Signer) =>
+  getContract({
+    abi: venusLensAbi,
+    address: getContractAddress('venusLens'),
+    signer,
+  }) as VenusLens;
 
-export const getInterestModelContract = (address: string, web3: Web3) =>
-  getContract(interestModelAbi as AbiItem[], address, web3) as unknown as InterestModel;
+export const getGovernorBravoDelegateContract = (signer?: Signer) =>
+  getContract({
+    abi: governorBravoDelegateAbi,
+    address: getContractAddress('governorBravoDelegator'),
+    signer,
+  }) as GovernorBravoDelegate;
 
-export const getVenusLensContract = (web3: Web3) =>
-  getContract(
-    venusLensAbi as AbiItem[],
-    getContractAddress('venusLens'),
-    web3,
-  ) as unknown as VenusLens;
-
-export const getGovernorBravoDelegateContract = (web3: Web3) =>
-  getContract(
-    governorBravoDelegateAbi as AbiItem[],
-    getContractAddress('governorBravoDelegator'),
-    web3,
-  ) as unknown as GovernorBravoDelegate;
-
-export const getMaximillionContract = (web3: Web3) =>
-  getContract(
-    maximillionAbi as AbiItem[],
-    getContractAddress('maximillion'),
-    web3,
-  ) as unknown as Maximillion;
+export const getMaximillionContract = (signer?: Signer) =>
+  getContract({
+    abi: maximillionAbi,
+    address: getContractAddress('maximillion'),
+    signer,
+  }) as Maximillion;
 
 // VRT conversion
-export const getXvsVestingProxyContract = (web3: Web3) =>
-  getContract(
-    xvsVestingAbi as AbiItem[],
-    getContractAddress('xvsVestingProxy'),
-    web3,
-  ) as unknown as XvsVesting;
+export const getXvsVestingProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: xvsVestingAbi,
+    address: getContractAddress('xvsVestingProxy'),
+    signer,
+  }) as XvsVesting;
 
-export const getVrtConverterProxyContract = (web3: Web3) =>
-  getContract(
-    vrtConverterAbi as AbiItem[],
-    getContractAddress('vrtConverterProxy'),
-    web3,
-  ) as unknown as VrtConverter;
+export const getVrtConverterProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: vrtConverterAbi,
+    address: getContractAddress('vrtConverterProxy'),
+    signer,
+  }) as VrtConverter;
 
 // VRT vault
-export const getVrtVaultProxyContract = (web3: Web3) =>
-  getContract(
-    vrtVaultAbi as AbiItem[],
-    getContractAddress('vrtVaultProxy'),
-    web3,
-  ) as unknown as VrtVault;
+export const getVrtVaultProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: vrtVaultAbi,
+    address: getContractAddress('vrtVaultProxy'),
+    signer,
+  }) as VrtVault;
 
 // PancakeSwap router
-export const getPancakeRouterContract = (web3: Web3) =>
-  getContract(
-    pancakeRouterAbi as AbiItem[],
-    getContractAddress('pancakeRouter'),
-    web3,
-  ) as unknown as PancakeRouter;
+export const getPancakeRouterContract = (signer?: Signer) =>
+  getContract({
+    abi: pancakeRouterAbi,
+    address: getContractAddress('pancakeRouter'),
+    signer,
+  }) as PancakeRouter;

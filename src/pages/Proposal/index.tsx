@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import { Spinner } from 'components';
+import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Proposal as ProposalType, VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
-import type { TransactionReceipt } from 'web3-core';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -25,7 +25,7 @@ interface ProposalUiProps {
   forVoters: VotersDetails;
   againstVoters: VotersDetails;
   abstainVoters: VotersDetails;
-  vote: (params: UseVoteParams) => Promise<TransactionReceipt>;
+  vote: (params: UseVoteParams) => Promise<ContractReceipt>;
   votingEnabled: boolean;
   readableVoteWeight: string;
   isVoteLoading: boolean;
@@ -171,7 +171,7 @@ const Proposal = () => {
     { enabled: !!proposalId },
   );
 
-  const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
+  const { vote, isLoading } = useVote();
   const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId: parseInt(proposalId, 10), accountAddress },
     { enabled: !!accountAddress },

@@ -1,5 +1,5 @@
+import { utils as etherUtils } from 'ethers';
 import { encodeParameters, parseFunctionSignature } from 'utilities';
-import web3 from 'web3';
 import * as yup from 'yup';
 
 import formatIfArray from './formatIfArray';
@@ -20,7 +20,7 @@ const proposalSchema = yup.object({
           .string()
           .required()
           .test('isAddress', ErrorCode.ACTION_ADDRESS_NOT_VALID, value =>
-            web3.utils.isAddress(value as string),
+            etherUtils.isAddress(value as string),
           ),
         signature: yup
           .string()

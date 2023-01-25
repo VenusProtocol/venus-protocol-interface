@@ -1,27 +1,23 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { VBep20, VBnbToken } from 'types/contracts';
 
 export interface RedeemUnderlyingInput {
   vTokenContract: VBep20 | VBnbToken;
-  accountAddress: string;
   amountWei: BigNumber;
 }
 
-export type RedeemUnderlyingOutput = TransactionReceipt;
+export type RedeemUnderlyingOutput = ContractReceipt;
 
 const redeemUnderlying = async ({
   vTokenContract,
-  accountAddress,
   amountWei,
 }: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> => {
-  const resp = await vTokenContract.methods
-    .redeemUnderlying(amountWei.toFixed())
-    .send({ from: accountAddress });
-
-  return checkForTokenTransactionError(resp);
+  const transaction = await vTokenContract.redeemUnderlying(amountWei.toFixed());
+  const receipt = await transaction.wait(1);
+  return checkForTokenTransactionError(receipt);
 };
 
 export default redeemUnderlying;

@@ -9,10 +9,11 @@ const getXvsVaultLockedDeposits = async ({
   poolIndex,
   accountAddress,
 }: GetXvsVaultLockedDepositsInput): Promise<GetXvsVaultLockedDepositsOutput> => {
-  const res = await xvsVaultContract.methods
-    .getWithdrawalRequests(rewardTokenAddress, poolIndex, accountAddress)
-    .call();
-
+  const res = await xvsVaultContract.getWithdrawalRequests(
+    rewardTokenAddress,
+    poolIndex,
+    accountAddress,
+  );
   return {
     lockedDeposits: res.map(formatToLockedDeposit),
   };

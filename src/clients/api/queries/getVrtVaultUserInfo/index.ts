@@ -7,7 +7,7 @@ const getVrtVaultUserInfo = async ({
   vrtVaultContract,
   accountAddress,
 }: GetVrtVaultUserInfoInput): Promise<GetVrtVaultUserInfoOutput> => {
-  const res = await vrtVaultContract.methods.userInfo(accountAddress).call();
+  const res = await vrtVaultContract.userInfo(accountAddress);
   return formatToUserInfo(res);
 };
 

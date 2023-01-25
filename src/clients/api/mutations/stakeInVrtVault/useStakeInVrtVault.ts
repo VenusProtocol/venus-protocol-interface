@@ -32,22 +32,19 @@ const useStakeInXvsVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { fromAccountAddress } = onSuccessParams[1];
+        const accountAddress = await vrtVaultContract.signer.getAddress();
 
         // Invalidate cached user info
-        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_USER_INFO, fromAccountAddress]);
+        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_USER_INFO, accountAddress]);
 
         // Invalidate cached user pending reward
-        queryClient.invalidateQueries([
-          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST,
-          fromAccountAddress,
-        ]);
+        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, accountAddress]);
 
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             tokenAddress: TOKENS.vrt.address,
           },
         ]);
@@ -55,7 +52,7 @@ const useStakeInXvsVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
           },
         ]);
 

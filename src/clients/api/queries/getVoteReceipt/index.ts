@@ -18,11 +18,8 @@ const getVoteReceipt = async ({
   governorBravoContract,
   accountAddress,
 }: GetVoteReceiptInput): Promise<GetVoteReceiptOutput> => {
-  const [hasVotes, support] = await governorBravoContract.methods
-    .getReceipt(proposalId, accountAddress)
-    .call();
-
-  const voteSupport = hasVotes ? indexedVotingSupportNames[parseInt(support, 10)] : 'NOT_VOTED';
+  const [hasVotes, support] = await governorBravoContract.getReceipt(proposalId, accountAddress);
+  const voteSupport = hasVotes ? indexedVotingSupportNames[support] : 'NOT_VOTED';
 
   return {
     voteSupport,

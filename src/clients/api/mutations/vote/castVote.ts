@@ -1,22 +1,22 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface CastVoteInput {
   governorBravoContract: GovernorBravoDelegate;
-  fromAccountAddress: string;
   proposalId: number;
   voteType: 0 | 1 | 2;
 }
 
-export type CastVoteOutput = TransactionReceipt;
+export type CastVoteOutput = ContractReceipt;
 
 const castVote = async ({
   governorBravoContract,
-  fromAccountAddress,
   proposalId,
   voteType,
-}: CastVoteInput): Promise<CastVoteOutput> =>
-  governorBravoContract.methods.castVote(proposalId, voteType).send({ from: fromAccountAddress });
+}: CastVoteInput): Promise<CastVoteOutput> => {
+  const transaction = await governorBravoContract.castVote(proposalId, voteType);
+  return transaction.wait(1);
+};
 
 export default castVote;

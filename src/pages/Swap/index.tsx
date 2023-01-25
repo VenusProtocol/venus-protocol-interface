@@ -12,11 +12,11 @@ import {
 } from 'components';
 import config from 'config';
 import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
@@ -52,7 +52,7 @@ const initialFormValues: FormValues = {
 export interface SwapPageUiProps {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  onSubmit: (swap: Swap) => Promise<TransactionReceipt>;
+  onSubmit: (swap: Swap) => Promise<ContractReceipt>;
   isSubmitting: boolean;
   tokenBalances: TokenBalance[];
   swap?: Swap;
@@ -151,12 +151,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const handleSubmit = async () => {
     if (swap) {
       try {
-        const transactionReceipt = await onSubmit(swap);
+        const contractReceipt = await onSubmit(swap);
 
         openSuccessfulTransactionModal({
           title: t('swapPage.successfulConvertTransactionModal.title'),
           content: t('swapPage.successfulConvertTransactionModal.message'),
-          transactionHash: transactionReceipt.transactionHash,
+          transactionHash: contractReceipt.transactionHash,
         });
 
         // Reset form on success
@@ -384,16 +384,10 @@ const SwapPage: React.FC = () => {
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens();
 
-  const onSwap = async (swap: Swap) => {
-    if (!account?.address) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
-    return swapTokens({
+  const onSwap = async (swap: Swap) =>
+    swapTokens({
       swap,
-      fromAccountAddress: account?.address,
     });
-  };
 
   return (
     <SwapPageUi

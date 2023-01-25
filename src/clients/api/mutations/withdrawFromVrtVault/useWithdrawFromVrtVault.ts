@@ -1,53 +1,40 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { getContractAddress } from 'utilities';
 
-import {
-  WithdrawFromVrtVaultInput,
-  WithdrawFromVrtVaultOutput,
-  queryClient,
-  withdrawFromVrtVault,
-} from 'clients/api';
+import { WithdrawFromVrtVaultOutput, queryClient, withdrawFromVrtVault } from 'clients/api';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
 const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 
-type Options = MutationObserverOptions<
-  WithdrawFromVrtVaultOutput,
-  Error,
-  Omit<WithdrawFromVrtVaultInput, 'vrtVaultContract'>
->;
+type Options = MutationObserverOptions<WithdrawFromVrtVaultOutput, Error>;
 
 const useWithdrawFromVrtVault = (options?: Options) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useMutation(
     FunctionKey.WITHDRAW_FROM_VAI_VAULT,
-    (params: Omit<WithdrawFromVrtVaultInput, 'vrtVaultContract'>) =>
+    () =>
       withdrawFromVrtVault({
         vrtVaultContract,
-        ...params,
       }),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { fromAccountAddress } = onSuccessParams[1];
+        const accountAddress = await vrtVaultContract.signer.getAddress();
 
         // Invalidate cached user info, including staked amount
-        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_USER_INFO, fromAccountAddress]);
+        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_USER_INFO, accountAddress]);
 
         // Invalidate cached user pending reward
-        queryClient.invalidateQueries([
-          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST,
-          fromAccountAddress,
-        ]);
+        queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, accountAddress]);
 
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             tokenAddress: TOKENS.vrt.address,
           },
         ]);
@@ -55,7 +42,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
           },
         ]);
 

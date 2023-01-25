@@ -2,7 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import fakeAccountAddress from '__mocks__/models/address';
 import { stakeInVaiVault, stakeInVrtVault, stakeInXvsVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
@@ -31,7 +30,6 @@ describe('api/mutation/useStakeInVault', () => {
             onClick={() =>
               stake({
                 amountWei: fakeAmountWei,
-                accountAddress: fakeAccountAddress,
               })
             }
             type="button"
@@ -50,7 +48,6 @@ describe('api/mutation/useStakeInVault', () => {
     await waitFor(() => expect(stakeInXvsVault).toHaveBeenCalledTimes(1));
     expect(stakeInXvsVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
-      fromAccountAddress: fakeAccountAddress,
       poolIndex: fakePoolIndex,
       rewardToken: TOKENS.xvs,
     });
@@ -69,7 +66,6 @@ describe('api/mutation/useStakeInVault', () => {
             onClick={() =>
               stake({
                 amountWei: fakeAmountWei,
-                accountAddress: fakeAccountAddress,
               })
             }
             type="button"
@@ -88,7 +84,6 @@ describe('api/mutation/useStakeInVault', () => {
     await waitFor(() => expect(stakeInVaiVault).toHaveBeenCalledTimes(1));
     expect(stakeInVaiVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
-      fromAccountAddress: fakeAccountAddress,
     });
   });
 
@@ -105,7 +100,6 @@ describe('api/mutation/useStakeInVault', () => {
             onClick={() =>
               stake({
                 amountWei: fakeAmountWei,
-                accountAddress: fakeAccountAddress,
               })
             }
             type="button"
@@ -124,7 +118,6 @@ describe('api/mutation/useStakeInVault', () => {
     await waitFor(() => expect(stakeInVrtVault).toHaveBeenCalledTimes(1));
     expect(stakeInVrtVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
-      fromAccountAddress: fakeAccountAddress,
     });
   });
 });

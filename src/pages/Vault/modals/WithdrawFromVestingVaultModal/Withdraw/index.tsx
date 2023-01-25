@@ -129,9 +129,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   const handleSubmit = () =>
     executeWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
-      // if no account is connected
-      fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
     });
 

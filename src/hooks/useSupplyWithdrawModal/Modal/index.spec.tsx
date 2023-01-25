@@ -14,7 +14,6 @@ const fakePool: Pool = poolData[0];
 const fakeAsset = fakePool.assets[0];
 
 jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal', () => {
   beforeEach(() => {

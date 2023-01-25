@@ -233,9 +233,7 @@ const VotingWallet: React.FC = () => {
       votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
       userStakedWei={userStakedWei}
       delegate={delegateData?.delegateAddress}
-      setVoteDelegation={(delegateAddress: string) =>
-        setVoteDelegation({ delegateAddress, accountAddress: accountAddress || '' })
-      }
+      setVoteDelegation={(delegateAddress: string) => setVoteDelegation({ delegateAddress })}
       isVoteDelegationLoading={isVoteDelegationLoading}
       delegateModelIsOpen={delegateModelIsOpen}
       setDelegateModelIsOpen={setDelegateModelIsOpen}

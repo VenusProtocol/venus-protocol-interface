@@ -13,10 +13,10 @@ export type GetProposalThresholdOutput = {
 const getProposalThreshold = async ({
   governorBravoContract,
 }: GetProposalThresholdInput): Promise<GetProposalThresholdOutput> => {
-  const resp = await governorBravoContract.methods.proposalThreshold().call();
+  const resp = await governorBravoContract.proposalThreshold();
 
   return {
-    thresholdWei: new BigNumber(resp),
+    thresholdWei: new BigNumber(resp.toString()),
   };
 };
 

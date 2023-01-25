@@ -1,6 +1,11 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { CancelProposalInput, CancelProposalOutput, cancelProposal } from 'clients/api';
+import {
+  CancelProposalInput,
+  CancelProposalOutput,
+  cancelProposal,
+  queryClient,
+} from 'clients/api';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
@@ -12,6 +17,7 @@ const useCancelProposal = (
   >,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
+
   return useMutation(
     FunctionKey.CANCEL_PROPOSAL,
     params =>
@@ -19,7 +25,19 @@ const useCancelProposal = (
         governorBravoContract,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        const { proposalId } = onSuccessParams[1];
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_PROPOSAL,
+          {
+            id: proposalId,
+          },
+        ]);
+      },
+    },
   );
 };
 

@@ -12,7 +12,6 @@ import { TOKENS } from 'constants/tokens';
 interface StakeInput {
   rewardToken: Token;
   stakedToken: Token;
-  accountAddress: string;
   poolIndex?: number;
 }
 
@@ -28,30 +27,20 @@ const useClaimVaultReward = () => {
 
   const isLoading = isClaimXvsVaultRewardLoading || isClaimVaiVaultReward || isClaimVrtVaultReward;
 
-  const claimReward = async ({
-    rewardToken,
-    stakedToken,
-    accountAddress,
-    poolIndex,
-  }: StakeInput) => {
+  const claimReward = async ({ rewardToken, stakedToken, poolIndex }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       return claimXvsVaultRewardLoading({
         poolIndex,
-        fromAccountAddress: accountAddress,
         rewardToken,
       });
     }
 
     if (areTokensEqual(stakedToken, TOKENS.vai)) {
-      return claimVaiVaultReward({
-        fromAccountAddress: accountAddress,
-      });
+      return claimVaiVaultReward();
     }
 
     if (areTokensEqual(stakedToken, TOKENS.vrt)) {
-      return claimVrtVaultReward({
-        fromAccountAddress: accountAddress,
-      });
+      return claimVrtVaultReward();
     }
 
     // This cose should never be reached, but just in case we throw a generic

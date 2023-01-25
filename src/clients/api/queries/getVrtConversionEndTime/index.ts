@@ -11,11 +11,11 @@ export type GetVrtConversionEndTimeOutput = {
 const getVrtConverstionEndTime = async ({
   vrtConverterContract,
 }: GetVrtConversionEndTimeInput): Promise<GetVrtConversionEndTimeOutput> => {
-  const resp = await vrtConverterContract.methods.conversionEndTime().call();
+  const resp = await vrtConverterContract.conversionEndTime();
 
   // End Date is returned as unix timestamp;
   return {
-    conversionEndTime: new Date(+resp * 1000),
+    conversionEndTime: new Date(resp.mul(1000).toNumber()),
   };
 };
 

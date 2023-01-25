@@ -26,8 +26,10 @@ const useApproveToken = (
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { spenderAddress, accountAddress } = onSuccessParams[1];
+      onSuccess: async (...onSuccessParams) => {
+        const { spenderAddress } = onSuccessParams[1];
+        const accountAddress = await tokenContract.signer.getAddress();
+
         setCachedTokenAllowanceToMax({ queryClient, token, spenderAddress, accountAddress });
 
         if (options?.onSuccess) {

@@ -179,9 +179,6 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
     requestWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
-      // if no account is connected
-      fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
       amountWei,
     });

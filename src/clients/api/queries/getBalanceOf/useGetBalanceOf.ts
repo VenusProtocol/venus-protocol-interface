@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api';
-import { useWeb3 } from 'clients/web3';
+import { useAuth } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,10 +19,10 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, token }: Omit<GetBalanceOfInput, 'web3'>,
+  { accountAddress, token }: Omit<GetBalanceOfInput, 'signer' | 'provider'>,
   options?: Options,
 ) => {
-  const web3 = useWeb3();
+  const { provider } = useAuth();
 
   return useQuery(
     [
@@ -32,7 +32,7 @@ const useGetBalanceOf = (
         tokenAddress: token.address,
       },
     ],
-    () => getBalanceOf({ web3, accountAddress, token }),
+    () => getBalanceOf({ provider, accountAddress, token }),
     options,
   );
 };

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { AuthContext } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -21,7 +21,7 @@ export interface EnableTokenUiProps {
   token: Token;
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
-  enableToken: () => Promise<TransactionReceipt | undefined>;
+  enableToken: () => Promise<ContractReceipt | undefined>;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
   assetInfo?: LabeledInlineContentProps[];

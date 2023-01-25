@@ -2,7 +2,7 @@ import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 import { getContractAddress, getTokenByAddress } from 'utilities';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
-import { useWeb3 } from 'clients/web3';
+import { useAuth } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
@@ -17,7 +17,7 @@ export type UseGetXvsVaultPoolBalancesOutput = UseQueryResult<GetBalanceOfOutput
 const useGetXvsVaultPoolBalances = ({
   stakedTokenAddresses,
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
-  const web3 = useWeb3();
+  const { provider } = useAuth();
 
   // Fetch total amount of tokens staked in each pool
   const queries: UseQueryOptions<GetBalanceOfOutput>[] = stakedTokenAddresses.map(
@@ -27,7 +27,7 @@ const useGetXvsVaultPoolBalances = ({
       return {
         queryFn: () =>
           getBalanceOf({
-            web3,
+            provider,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             token: stakedToken!,
             accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,

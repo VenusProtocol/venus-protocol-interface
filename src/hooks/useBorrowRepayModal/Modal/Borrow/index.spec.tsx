@@ -6,8 +6,8 @@ import React from 'react';
 import { Pool } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { borrow, getAllowance, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -322,7 +322,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (borrow as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (borrow as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <Borrow
@@ -361,13 +361,12 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
     expect(borrow).toHaveBeenCalledWith({
       amountWei: expectedAmountWei,
-      fromAccountAddress: fakeAccountAddress,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
 
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: fakeAsset.vToken.underlyingToken,
         valueWei: expectedAmountWei,

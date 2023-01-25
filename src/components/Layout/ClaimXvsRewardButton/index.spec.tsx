@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { claimXvsReward, getXvsReward } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -60,7 +60,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
     (getXvsReward as jest.Mock).mockImplementationOnce(async () => ({
       xvsRewardWei: fakeXvsReward,
     }));
-    (claimXvsReward as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (claimXvsReward as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
       authContextValue: {
@@ -79,7 +79,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
     await waitFor(() => expect(claimXvsReward).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: TOKENS.xvs,
         valueWei: fakeXvsReward,

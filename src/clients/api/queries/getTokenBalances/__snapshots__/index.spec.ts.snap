@@ -1953,7 +1953,7 @@ Object {
       },
     },
     Object {
-      "balanceWei": "123456789",
+      "balanceWei": "1000000000000000000",
       "token": Object {
         "address": "",
         "asset": "bnb.svg",

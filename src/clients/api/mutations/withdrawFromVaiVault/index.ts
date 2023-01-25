@@ -1,27 +1,23 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { VaiVault } from 'types/contracts';
 
 export interface WithdrawFromVaiVaultInput {
   vaiVaultContract: VaiVault;
-  fromAccountAddress: string;
   amountWei: BigNumber;
 }
 
-export type WithdrawFromVaiVaultOutput = TransactionReceipt;
+export type WithdrawFromVaiVaultOutput = ContractReceipt;
 
 const withdrawFromVaiVault = async ({
   vaiVaultContract,
-  fromAccountAddress,
   amountWei,
 }: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => {
-  const res = await vaiVaultContract.methods
-    .withdraw(amountWei.toFixed())
-    .send({ from: fromAccountAddress });
-
-  return checkForVaiVaultTransactionError(res);
+  const transaction = await vaiVaultContract.withdraw(amountWei.toFixed());
+  const receipt = await transaction.wait(1);
+  return checkForVaiVaultTransactionError(receipt);
 };
 
 export default withdrawFromVaiVault;

@@ -1,18 +1,16 @@
-import Web3 from 'web3';
+import type { Provider } from '@wagmi/core';
 
 import getBlockNumber from '.';
 
 describe('api/queries/getBlockNumber', () => {
-  test('calls passed web3 object correctly and returns the latest block number on success', async () => {
+  test('returns the latest block number on success', async () => {
     const fakeBlockNumber = 123456789;
 
-    const fakeWeb3 = {
-      eth: {
-        getBlockNumber: async () => fakeBlockNumber,
-      },
-    } as unknown as Web3;
+    const fakeProvider = {
+      getBlockNumber: async () => fakeBlockNumber,
+    } as unknown as Provider;
 
-    const res = await getBlockNumber({ web3: fakeWeb3 });
+    const res = await getBlockNumber({ provider: fakeProvider });
 
     expect(res).toStrictEqual({
       blockNumber: fakeBlockNumber,

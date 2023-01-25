@@ -6,8 +6,8 @@ import React from 'react';
 import { Pool } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repay, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -329,7 +329,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay
@@ -369,14 +369,13 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
       amountWei: expectedAmountWei,
-      accountAddress: fakeAccountAddress,
       isRepayingFullLoan: false,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
 
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: fakeAsset.vToken.underlyingToken,
         valueWei: expectedAmountWei,
@@ -387,7 +386,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('lets user repay full loan', async () => {
-    (repay as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText } = renderComponent(
       <Repay
@@ -424,7 +423,6 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
       amountWei: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to wei
-      accountAddress: fakeAccountAddress,
       isRepayingFullLoan: true,
     });
   });

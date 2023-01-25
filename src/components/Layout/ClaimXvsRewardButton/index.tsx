@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -18,7 +18,7 @@ import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 export interface ClaimXvsRewardButtonProps extends Omit<ButtonProps, 'onClick'> {
-  onClaimReward: () => Promise<TransactionReceipt | void>;
+  onClaimReward: () => Promise<ContractReceipt | void>;
   amountWei?: BigNumber;
 }
 
@@ -46,14 +46,14 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
   const handleClick = () =>
     handleTransactionMutation({
       mutate: onClaimReward,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('claimXvsRewardButton.successfulTransactionModal.title'),
         content: t('claimXvsRewardButton.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           token: TOKENS.xvs,
         },
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
 
@@ -96,19 +96,13 @@ export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
   const { mutateAsync: claimXvsReward, isLoading: isClaimXvsRewardLoading } = useClaimXvsReward();
 
   const handleClaim = async () => {
-    if (!account?.address) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
     // Block action is user has LUNA or UST enabled as collateral
     if (hasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
     }
 
-    return claimXvsReward({
-      fromAccountAddress: account.address,
-    });
+    return claimXvsReward();
   };
 
   return (

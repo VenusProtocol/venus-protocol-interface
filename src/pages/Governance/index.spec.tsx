@@ -4,8 +4,8 @@ import { cloneDeep } from 'lodash';
 import { act } from 'react-dom/test-utils';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import proposals from '__mocks__/models/proposals';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { vaults } from '__mocks__/models/vaults';
 import {
   getCurrentVotes,
@@ -39,7 +39,7 @@ describe('pages/Governance', () => {
       total: 100,
       offset: 10,
     }));
-    (setVoteDelegate as jest.Mock).mockImplementation(() => transactionReceipt);
+    (setVoteDelegate as jest.Mock).mockImplementation(() => fakeContractReceipt);
     (getLatestProposalIdByProposer as jest.Mock).mockImplementation(() => '1');
 
     (getCurrentVotes as jest.Mock).mockImplementation(() => ({
@@ -205,7 +205,7 @@ describe('pages/Governance', () => {
     waitFor(() => expect(setVoteDelegate).toBeCalledWith(altAddress));
     waitFor(() =>
       expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: fakeContractReceipt.transactionHash,
       }),
     );
   });
@@ -240,7 +240,7 @@ describe('pages/Governance', () => {
 
     waitFor(() =>
       expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: fakeContractReceipt.transactionHash,
       }),
     );
   });

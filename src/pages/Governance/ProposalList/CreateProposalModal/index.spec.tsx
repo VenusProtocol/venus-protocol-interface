@@ -350,7 +350,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
     let signatureInputs = await waitFor(() =>
       getAllByPlaceholderText(en.vote.createProposalForm.signature),
     );
-    Array(10).forEach(async (value, idx) => {
+    Array(10).forEach(async (_value, idx) => {
       fireEvent.change(addressInputs[0], { target: { value: fakeAddress } });
       fireEvent.change(signatureInputs[0], { target: { value: fakeSignature } });
 

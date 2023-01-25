@@ -31,9 +31,6 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
     // Send request to withdraw
     const res = await withdraw({
       amountWei,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to withdraw
-      fromAccountAddress: account?.address || '',
     });
 
     // Close modal

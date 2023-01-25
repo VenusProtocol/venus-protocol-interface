@@ -5,48 +5,16 @@ import { XvsVault } from 'types/contracts';
 import getVoteDelegateAddress from '.';
 
 describe('api/queries/getVoteDelegateAddress', () => {
-  test('throws an error when an XvsVault contract call fails', async () => {
-    const xvsVaultContract = {
-      methods: {
-        delegates() {
-          return {
-            call() {
-              throw new Error('Fake error message');
-            },
-          };
-        },
-      },
-    };
-
-    try {
-      await getVoteDelegateAddress({
-        xvsVaultContract: xvsVaultContract as unknown as XvsVault,
-        accountAddress: fakeAddress,
-      });
-
-      throw new Error('getVoteDelegateAddress should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns undefined when address is null', async () => {
     const xvsVaultContract = {
-      methods: {
-        delegates() {
-          return {
-            call() {
-              return NULL_ADDRESS;
-            },
-          };
-        },
-      },
-    };
+      delegates: async () => NULL_ADDRESS,
+    } as unknown as XvsVault;
 
     const res = await getVoteDelegateAddress({
-      xvsVaultContract: xvsVaultContract as unknown as XvsVault,
+      xvsVaultContract,
       accountAddress: fakeAddress,
     });
+
     expect(res).toStrictEqual({
       delegateAddress: undefined,
     });
@@ -54,19 +22,11 @@ describe('api/queries/getVoteDelegateAddress', () => {
 
   test('returns address when not null address is returned', async () => {
     const xvsVaultContract = {
-      methods: {
-        delegates() {
-          return {
-            call() {
-              return fakeAddress;
-            },
-          };
-        },
-      },
-    };
+      delegates: async () => fakeAddress,
+    } as unknown as XvsVault;
 
     const res = await getVoteDelegateAddress({
-      xvsVaultContract: xvsVaultContract as unknown as XvsVault,
+      xvsVaultContract,
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual({

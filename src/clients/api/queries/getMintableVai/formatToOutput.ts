@@ -5,9 +5,9 @@ import { VaiUnitroller } from 'types/contracts';
 import { GetMintableVaiOutput } from './types';
 
 const formatToProposal = (
-  response: Awaited<ReturnType<ReturnType<VaiUnitroller['methods']['getMintableVAI']>['call']>>,
+  response: Awaited<ReturnType<VaiUnitroller['getMintableVAI']>>,
 ): GetMintableVaiOutput => ({
-  mintableVaiWei: new BigNumber(response[1]),
+  mintableVaiWei: new BigNumber(response[1].toString()),
 });
 
 export default formatToProposal;

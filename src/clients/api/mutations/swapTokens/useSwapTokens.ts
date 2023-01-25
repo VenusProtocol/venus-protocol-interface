@@ -22,13 +22,14 @@ const useSwapTokens = (options?: Options) => {
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { fromAccountAddress, swap } = onSuccessParams[1];
+      onSuccess: async (...onSuccessParams) => {
+        const { swap } = onSuccessParams[1];
+        const accountAddress = await pancakeRouterContract.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             tokenAddress: swap.fromToken.address,
           },
         ]);
@@ -36,7 +37,7 @@ const useSwapTokens = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             tokenAddress: swap.toToken.address,
           },
         ]);
@@ -44,7 +45,7 @@ const useSwapTokens = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
           },
         ]);
 

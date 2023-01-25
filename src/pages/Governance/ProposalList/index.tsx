@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
+import { ContractReceipt } from 'ethers';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
-import type { TransactionReceipt } from 'web3-core';
 
 import {
   CreateProposalInput,
@@ -30,7 +30,7 @@ interface ProposalListUiProps {
   setCurrentPage: (page: number) => void;
   createProposal: (
     payload: Omit<CreateProposalInput, 'accountAddress'>,
-  ) => Promise<TransactionReceipt>;
+  ) => Promise<ContractReceipt>;
   isCreateProposalLoading: boolean;
   canCreateProposal: boolean;
 }
@@ -158,8 +158,8 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
   // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
   const canCreateProposal =
     currentVotesData?.votesWei.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
-    latestProposalStateData?.state !== '0' &&
-    latestProposalStateData?.state !== '1';
+    latestProposalStateData?.state !== 0 &&
+    latestProposalStateData?.state !== 1;
 
   return (
     <ProposalListUi
@@ -169,7 +169,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
       limit={limit}
       setCurrentPage={setCurrentPage}
       canCreateProposal={!!canCreateProposal}
-      createProposal={payload => createProposal({ ...payload, accountAddress })}
+      createProposal={createProposal}
       isCreateProposalLoading={isCreateProposalLoading}
     />
   );

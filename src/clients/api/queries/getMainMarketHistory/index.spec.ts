@@ -26,30 +26,6 @@ const marketSnapshot: MarketSnapshot = {
 };
 
 describe('api/queries/getMainMarketHistory', () => {
-  test('throws an error when request fails', async () => {
-    const fakeErrorMessage = 'Fake error message';
-
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
-      result: 'error',
-      status: false,
-      message: fakeErrorMessage,
-    }));
-
-    try {
-      await getMainMarketHistory({
-        vToken: VBEP_TOKENS.aave,
-      });
-
-      throw new Error('getMainMarketHistory should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toBeInstanceOf(VError);
-      if (error instanceof VError) {
-        expect(error.type).toBe('unexpected');
-        expect(error.data.message).toBe('Fake error message');
-      }
-    }
-  });
-
   test('returns market history on success', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,

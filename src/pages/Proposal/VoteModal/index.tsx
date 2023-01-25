@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
+import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
-import type { TransactionReceipt } from 'web3-core';
 
 import { TOKENS } from 'constants/tokens';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -14,7 +14,7 @@ import TEST_IDS from './testIds';
 interface VoteModalProps {
   voteModalType: 0 | 1 | 2;
   handleClose: () => void;
-  vote: (voteReason: string) => Promise<TransactionReceipt>;
+  vote: (voteReason: string) => Promise<ContractReceipt>;
   readableVoteWeight: string;
   isVoteLoading: boolean;
 }
@@ -57,10 +57,10 @@ const VoteModal: React.FC<VoteModalProps> = ({
         handleClose();
         return result;
       },
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: successModalTitle,
         content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };

@@ -133,13 +133,11 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     vToken,
-    accountAddress,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
       vToken,
-      accountAddress,
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;

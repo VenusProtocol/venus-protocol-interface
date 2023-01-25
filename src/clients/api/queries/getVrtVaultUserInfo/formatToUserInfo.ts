@@ -6,10 +6,8 @@ import { GetVrtVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({
   totalPrincipalAmount,
-}: Awaited<
-  ReturnType<ReturnType<VrtVault['methods']['userInfo']>['call']>
->): GetVrtVaultUserInfoOutput => ({
-  stakedVrtWei: new BigNumber(totalPrincipalAmount),
+}: Awaited<ReturnType<VrtVault['userInfo']>>): GetVrtVaultUserInfoOutput => ({
+  stakedVrtWei: new BigNumber(totalPrincipalAmount.toString()),
 });
 
 export default formatToUserInfo;
