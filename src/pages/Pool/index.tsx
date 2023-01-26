@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup, Icon, Spinner } from 'components';
+import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -72,15 +72,11 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
       </div>
 
       {pool.isIsolated && (
-        <div css={styles.banner}>
-          <div css={styles.bannerContent}>
-            <Icon name="attention" css={styles.bannerIcon} />
-
-            <Typography variant="small2" css={styles.bannerText}>
-              {t('pool.bannerText')}
-            </Typography>
-          </div>
-        </div>
+        <Notice
+          css={styles.isolatedPoolWarning}
+          variant="warning"
+          description={t('pool.isolatedPoolWarning')}
+        />
       )}
 
       <Table pool={pool} />
