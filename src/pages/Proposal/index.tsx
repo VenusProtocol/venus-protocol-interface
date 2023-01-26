@@ -10,7 +10,7 @@ import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -127,7 +127,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 };
 
 const Proposal = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { proposalId } = useParams<{ proposalId: string }>();
   const accountAddress = account?.address;
   const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });

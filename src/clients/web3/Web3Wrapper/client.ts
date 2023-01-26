@@ -47,7 +47,6 @@ const client = createClient({
     new CoinbaseWalletConnector({
       options: {
         appName: 'Venus',
-        // TODO: add appLogoUrl prop?
       },
     }),
     new BinanceWalletConnector({

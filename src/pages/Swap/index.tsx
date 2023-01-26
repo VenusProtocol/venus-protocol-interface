@@ -25,7 +25,7 @@ import {
   PANCAKE_SWAP_TOKENS,
   TESTNET_PANCAKE_SWAP_TOKENS,
 } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -366,7 +366,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 };
 
 const SwapPage: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useAuth();
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 

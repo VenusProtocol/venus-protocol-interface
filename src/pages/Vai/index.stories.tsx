@@ -4,6 +4,7 @@ import React from 'react';
 import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
+import fakeProvider from '__mocks__/models/provider';
 import { TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
@@ -27,6 +28,7 @@ const context = {
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  provider: fakeProvider,
   account: {
     address: fakeAddress,
   },

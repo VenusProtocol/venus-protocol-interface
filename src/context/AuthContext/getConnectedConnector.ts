@@ -1,6 +1,5 @@
+import { Connector } from 'clients/web3';
 import { LS_KEY_CONNECTED_CONNECTOR } from 'constants/localStorageKeys';
-
-import { Connector } from '../types';
 
 const getConnectedConnector = (): Connector | undefined => {
   const lsConnectedConnector = window.localStorage.getItem(LS_KEY_CONNECTED_CONNECTOR);

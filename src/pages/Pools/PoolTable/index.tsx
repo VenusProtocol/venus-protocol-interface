@@ -7,7 +7,7 @@ import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPools } from 'clients/api';
 import { routes } from 'constants/routing';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -153,7 +153,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 };
 
 const PoolTable = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: poolData, isLoading } = useGetPools({ accountAddress: account?.address });
 
   return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;

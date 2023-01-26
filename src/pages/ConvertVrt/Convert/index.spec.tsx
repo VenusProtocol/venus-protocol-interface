@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import fakeProvider from '__mocks__/models/provider';
 import { getAllowance, useGetMainAssets } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
@@ -51,6 +52,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -82,6 +84,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -115,6 +118,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -144,6 +148,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -175,6 +180,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -211,6 +217,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -253,6 +260,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -292,6 +300,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -332,6 +341,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -372,6 +382,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },

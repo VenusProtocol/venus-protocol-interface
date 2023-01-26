@@ -6,7 +6,7 @@ import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import ConnectWalletBanner from './ConnectWalletBanner';
@@ -135,7 +135,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 };
 
 const Dashboard: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address || '';
 
   const [searchValue, setSearchValue] = useState('');

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Token, VToken } from 'types';
 
-import { useAuth } from 'clients/web3';
+import { useAuth } from 'context/AuthContext';
 
 import {
   getComptrollerContract,

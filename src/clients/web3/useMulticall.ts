@@ -1,7 +1,7 @@
 import { Multicall } from 'ethereum-multicall';
 import { useMemo } from 'react';
 
-import { useAuth } from 'clients/web3';
+import { useAuth } from 'context/AuthContext';
 
 const useMulticall = () => {
   const { provider } = useAuth();

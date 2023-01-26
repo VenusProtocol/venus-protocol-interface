@@ -7,7 +7,7 @@ import { useTranslation } from 'translation';
 
 import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -78,7 +78,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
 };
 
 export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,

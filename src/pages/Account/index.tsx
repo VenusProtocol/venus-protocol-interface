@@ -4,7 +4,7 @@ import React, { useContext, useMemo } from 'react';
 import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import PoolBreakdown from './PoolBreakdown';
 import Summary from './Summary';
@@ -46,7 +46,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
 };
 
 const Account: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress: account?.address,
   });

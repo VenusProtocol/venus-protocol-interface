@@ -2,7 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { SecondaryButton } from '../Button';
 import { NoticeInfo } from '../Notice';
@@ -41,6 +41,6 @@ export const Prompt: React.FC<PromptProps> = ({
 };
 
 export const ConnectWallet: React.FC<Omit<PromptProps, 'connected' | 'openAuthModal'>> = props => {
-  const { account, openAuthModal } = React.useContext(AuthContext);
+  const { account, openAuthModal } = useAuth();
   return <Prompt {...props} openAuthModal={openAuthModal} connected={!!account} />;
 };

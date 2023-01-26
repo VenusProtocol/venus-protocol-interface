@@ -7,7 +7,7 @@ import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { FormError, FormValues } from '../types';
@@ -166,7 +166,7 @@ export interface SubmitSectionProps {
 }
 
 const SubmitSection: React.FC<SubmitSectionProps> = ({ fromToken, formErrors, ...otherProps }) => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useAuth();
 
   const {
     isTokenApproved: isFromTokenEnabled,

@@ -5,7 +5,7 @@ import { PrimaryButton } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import illustration from './illustration.png';
 import { useStyles } from './styles';
@@ -55,7 +55,7 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
 };
 
 const ConnectWalletBanner: React.FC = () => {
-  const { account, openAuthModal } = useContext(AuthContext);
+  const { account, openAuthModal } = useAuth();
 
   return <ConnectWalletBannerUi isWalletConnected={!!account} openAuthModal={openAuthModal} />;
 };

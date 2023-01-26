@@ -15,7 +15,7 @@ import {
   useGetProposals,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
 import CreateProposalModal from './CreateProposalModal';
@@ -128,7 +128,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
 export type ProposalListPageProps = UseUrlPaginationOutput;
 
 const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrentPage }) => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address || '';
 
   const {

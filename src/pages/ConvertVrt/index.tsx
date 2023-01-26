@@ -15,7 +15,7 @@ import {
   useWithdrawXvs,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import Convert, { ConvertProps } from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
@@ -71,7 +71,7 @@ export const ConvertVrtUi = ({
 };
 
 const ConvertVrt = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address;
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();

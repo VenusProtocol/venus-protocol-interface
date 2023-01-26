@@ -1,9 +1,9 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { getBlockNumber } from 'clients/api/';
-import { useAuth } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 interface GetBlockNumberOutput {
   blockNumber: number;

@@ -12,7 +12,7 @@ import {
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles } from './styles';
@@ -104,7 +104,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   handleDisplayWithdrawalRequestList,
   handleClose,
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { t } = useTranslation();
 
   const {

@@ -10,15 +10,14 @@ import {
   useExitMarket,
 } from 'clients/api';
 import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
-import { useAuth } from 'clients/web3';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
 const useCollateral = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address;
 
   const { signer } = useAuth();

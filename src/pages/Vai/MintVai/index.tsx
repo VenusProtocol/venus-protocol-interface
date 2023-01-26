@@ -17,7 +17,7 @@ import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clie
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -157,7 +157,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {

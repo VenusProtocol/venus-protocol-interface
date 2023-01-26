@@ -5,7 +5,7 @@ import { areTokensEqual } from 'utilities';
 import { useGetMainAssets } from 'clients/api';
 import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 export interface DisableLunaUstWarningContextValue {
   hasLunaOrUstCollateralEnabled: boolean;
@@ -22,7 +22,7 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
 });
 
 export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address || '';
   const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,

@@ -22,7 +22,7 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import Stepper from './Stepper';
@@ -265,7 +265,7 @@ export const ProposalSummaryUi: React.FC<
 };
 
 const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address || '';
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();

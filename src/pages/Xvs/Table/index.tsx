@@ -17,7 +17,7 @@ import { useGetBalanceOf, useGetMainAssets, useGetVenusVaiVaultDailyRate } from 
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
 
@@ -107,7 +107,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
 };
 
 const XvsTable: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
     accountAddress: account?.address,
   });

@@ -6,6 +6,7 @@ import { act } from 'react-dom/test-utils';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeProvider from '__mocks__/models/provider';
 import { useGetMainAssets } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -37,6 +38,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },

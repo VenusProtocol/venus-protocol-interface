@@ -7,7 +7,7 @@ import { areTokensEqual, getContractAddress } from 'utilities';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -24,7 +24,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {

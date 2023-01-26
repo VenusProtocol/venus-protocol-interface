@@ -4,6 +4,7 @@ import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import fakeProvider from '__mocks__/models/provider';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
@@ -27,6 +28,7 @@ const context = {
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  provider: fakeProvider,
   account: {
     address: fakeAddress,
   },

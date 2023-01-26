@@ -8,7 +8,7 @@ import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -122,7 +122,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;

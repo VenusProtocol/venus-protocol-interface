@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { SecondaryButton } from '../Button';
@@ -108,7 +108,7 @@ export interface EnableTokenProps
 }
 
 export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { isTokenApprovalStatusLoading, isTokenApproved, approveToken, isApproveTokenLoading } =
     useTokenApproval({

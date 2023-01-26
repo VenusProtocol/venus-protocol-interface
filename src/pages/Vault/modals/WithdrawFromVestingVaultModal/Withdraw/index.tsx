@@ -8,7 +8,7 @@ import { Token } from 'types';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
 import { useStyles } from './styles';
@@ -86,7 +86,7 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose }) => {
   const { t } = useTranslation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const {
     data: xvsVaultUserLockedDepositsData = {

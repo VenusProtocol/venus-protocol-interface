@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { getDefaultProvider } from 'ethers';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -33,6 +34,7 @@ const renderComponent = (
     openAuthModal: jest.fn(),
     closeAuthModal: jest.fn(),
     account: undefined,
+    provider: getDefaultProvider(),
     ...authContextValue,
   };
 

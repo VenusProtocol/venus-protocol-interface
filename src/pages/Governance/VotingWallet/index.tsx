@@ -15,7 +15,7 @@ import {
 } from 'clients/api';
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from './DelegateModal';
@@ -191,7 +191,7 @@ const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
   const { t } = useTranslation();
   const { account: { address: accountAddress } = { address: undefined }, openAuthModal } =
-    useContext(AuthContext);
+    useAuth();
 
   const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },

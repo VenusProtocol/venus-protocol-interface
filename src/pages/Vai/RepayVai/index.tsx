@@ -17,7 +17,7 @@ import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -136,7 +136,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 };
 
 const RepayVai: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: mintedVaiData, isLoading: isGetMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: account?.address || '',

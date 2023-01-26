@@ -3,14 +3,14 @@ import React, { useContext } from 'react';
 
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 export interface PoolNameProps {
   poolComptrollerAddress: string;
 }
 
 const PoolName: React.FC<PoolNameProps> = ({ poolComptrollerAddress }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: getPoolData } = useGetPool({
     accountAddress: account?.address,
     poolComptrollerAddress,

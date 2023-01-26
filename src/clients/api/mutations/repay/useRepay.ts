@@ -2,8 +2,8 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 
 import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
-import { useAuth } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'signer' | 'vToken'>>;
 

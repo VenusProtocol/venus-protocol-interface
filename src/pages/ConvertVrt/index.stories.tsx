@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
+import fakeProvider from '__mocks__/models/provider';
 import { withAuthContext, withCenterStory, withRouter } from 'stories/decorators';
 
 import ConvertVRT, { ConvertVrtUi, ConvertVrtUiProps } from '.';
@@ -27,6 +28,7 @@ const context = {
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  provider: fakeProvider,
   account: {
     address: '0x0000000000000000000000000000000000000000',
   },

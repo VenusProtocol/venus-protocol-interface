@@ -1,8 +1,9 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetTokenBalancesInput, GetTokenBalancesOutput, getTokenBalances } from 'clients/api';
-import { useAuth, useMulticall } from 'clients/web3';
+import { useMulticall } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 type Options = QueryObserverOptions<
   GetTokenBalancesOutput,

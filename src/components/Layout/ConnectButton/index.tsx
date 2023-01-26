@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { truncateAddress } from 'utilities';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { ButtonProps, SecondaryButton } from '../../Button';
 
@@ -25,7 +25,7 @@ export const ConnectButtonUi: React.FC<ConnectButtonProps> = ({
 };
 
 export const ConnectButton: React.FC<ButtonProps> = props => {
-  const { account, openAuthModal } = React.useContext(AuthContext);
+  const { account, openAuthModal } = useAuth();
   return (
     <ConnectButtonUi
       accountAddress={account?.address}

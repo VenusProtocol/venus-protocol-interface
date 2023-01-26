@@ -25,7 +25,7 @@ import {
 
 import { useGetPool, useRepay } from 'clients/api';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -218,7 +218,7 @@ export interface RepayProps {
 
 const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { t } = useTranslation();
-  const { account } = React.useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,

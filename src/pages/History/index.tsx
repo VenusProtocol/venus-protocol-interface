@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useUrlPagination from 'hooks/useUrlPagination';
 
 import Filters, { ALL_VALUE, FilterProps } from './Filters';
@@ -56,7 +56,7 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
     location,
   });
 
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address;
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
