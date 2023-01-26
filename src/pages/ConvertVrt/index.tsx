@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import { Spinner, Tabs } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 

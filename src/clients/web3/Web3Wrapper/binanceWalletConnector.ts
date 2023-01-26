@@ -1,22 +1,23 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable consistent-return */
-/* eslint-disable class-methods-use-this */
+// Copied from https://github.com/pancakeswap/pancake-frontend
+import { hexValue } from '@ethersproject/bytes';
+import type { Ethereum } from '@wagmi/core';
 import {
   Chain,
   ConnectorNotFoundError,
   ResourceUnavailableError,
   RpcError,
-  UserRejectedRequestError,
   SwitchChainNotSupportedError,
+  UserRejectedRequestError,
 } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { hexValue } from '@ethersproject/bytes';
-import type { Ethereum } from '@wagmi/core';
 
 declare global {
   interface Window {
     BinanceChain?: {
-      bnbSign?: (address: string, message: string) => Promise<{ publicKey: string; signature: string }>;
+      bnbSign?: (
+        address: string,
+        message: string,
+      ) => Promise<{ publicKey: string; signature: string }>;
       switchNetwork?: (networkId: string) => Promise<string>;
     } & Ethereum;
   }
@@ -28,7 +29,7 @@ const mappingNetwork: Record<number, string> = {
 };
 
 const binanceChainListener = async () =>
-  new Promise<void>((resolve) =>
+  new Promise<void>(resolve =>
     Object.defineProperty(window, 'BinanceChain', {
       get() {
         return this.bsc;
@@ -58,7 +59,7 @@ export class BinanceWalletConnector extends InjectedConnector {
       shimDisconnect: false,
       shimChainChangedDisconnect: true,
     };
-    const chains = _chains?.filter((c) => !!mappingNetwork[c.id]);
+    const chains = _chains?.filter(c => !!mappingNetwork[c.id]);
     super({
       chains,
       options,
@@ -68,7 +69,9 @@ export class BinanceWalletConnector extends InjectedConnector {
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
       const provider = await this.getProvider();
-      if (!provider) throw new ConnectorNotFoundError();
+      if (!provider) {
+        throw new ConnectorNotFoundError();
+      }
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged);
@@ -84,14 +87,20 @@ export class BinanceWalletConnector extends InjectedConnector {
       let unsupported = this.isChainUnsupported(id);
       if (chainId && id !== chainId) {
         const chain = await this.switchChain(chainId);
-        id = chain.id;
+        ({ id } = chain);
         unsupported = this.isChainUnsupported(id);
       }
 
       return { account, chain: { id, unsupported }, provider };
     } catch (error) {
-      if (this.isUserRejectedRequestError(error)) throw new UserRejectedRequestError(error);
-      if ((<RpcError>error).code === -32002) throw new ResourceUnavailableError(error);
+      if (this.isUserRejectedRequestError(error)) {
+        throw new UserRejectedRequestError(error);
+      }
+
+      if ((error as RpcError).code === -32002) {
+        throw new ResourceUnavailableError(error);
+      }
+
       throw error;
     }
   }
@@ -121,7 +130,7 @@ export class BinanceWalletConnector extends InjectedConnector {
         await provider.switchNetwork?.(mappingNetwork[chainId]);
 
         return (
-          this.chains.find((x) => x.id === chainId) || {
+          this.chains.find(x => x.id === chainId) || {
             id: chainId,
             name: `Chain ${id}`,
             network: `${id}`,

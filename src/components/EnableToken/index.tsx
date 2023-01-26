@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 

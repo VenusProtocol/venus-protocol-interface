@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { RiskLevel, Table, TableColumn, TokenGroup } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';

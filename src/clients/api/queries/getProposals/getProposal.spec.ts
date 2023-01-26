@@ -1,4 +1,3 @@
-import { VError } from 'errors';
 import { restService } from 'utilities';
 
 import proposalResponse from '__mocks__/api/proposals.json';

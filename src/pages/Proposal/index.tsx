@@ -2,7 +2,7 @@
 import { BigNumber } from 'bignumber.js';
 import { Spinner } from 'components';
 import { ContractReceipt } from 'ethers';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Proposal as ProposalType, VotersDetails } from 'types';

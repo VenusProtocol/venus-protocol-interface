@@ -10,7 +10,7 @@ import {
 } from 'components';
 import isAfter from 'date-fns/isAfter';
 import { ContractReceipt } from 'ethers';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal, ProposalType } from 'types';
 

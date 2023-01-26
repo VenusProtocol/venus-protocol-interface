@@ -11,7 +11,6 @@ import {
   toast,
 } from 'components';
 import config from 'config';
-import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';

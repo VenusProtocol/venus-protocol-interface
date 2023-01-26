@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ButtonGroup, TextField, Toggle } from 'components';
-import React, { InputHTMLAttributes, useContext, useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 

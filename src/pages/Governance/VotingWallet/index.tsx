@@ -2,7 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter, InfoIcon, LinkButton, PrimaryButton, TokenIcon } from 'components';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';

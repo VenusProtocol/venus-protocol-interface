@@ -1,4 +1,3 @@
-import { VError } from 'errors';
 import { restService } from 'utilities';
 
 import voterDetailsResponse from '__mocks__/api/voterDetails.json';

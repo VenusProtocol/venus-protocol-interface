@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { ConnectWallet, LabeledInlineContent, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { LockedDeposit } from 'types';
 import { convertWeiToTokens } from 'utilities';

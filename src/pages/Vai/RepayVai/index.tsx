@@ -9,7 +9,7 @@ import {
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 

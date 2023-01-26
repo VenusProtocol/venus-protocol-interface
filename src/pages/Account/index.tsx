@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Spinner } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';

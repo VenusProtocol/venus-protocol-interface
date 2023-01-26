@@ -1,5 +1,5 @@
 import noop from 'noop-ts';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { areTokensEqual } from 'utilities';
 
 import { useGetMainAssets } from 'clients/api';

@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 

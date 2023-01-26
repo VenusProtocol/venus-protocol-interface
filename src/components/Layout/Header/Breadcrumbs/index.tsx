@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { getVTokenByAddress } from 'utilities';

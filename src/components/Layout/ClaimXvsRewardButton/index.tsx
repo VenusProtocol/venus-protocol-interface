@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';

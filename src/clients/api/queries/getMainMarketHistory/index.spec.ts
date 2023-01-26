@@ -1,4 +1,3 @@
-import { VError } from 'errors';
 import { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 

@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { PrimaryButton } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 
 import { useAuth } from 'context/AuthContext';
