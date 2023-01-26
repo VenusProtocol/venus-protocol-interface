@@ -55,7 +55,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       return;
     }
 
-    // TODO: determine based on connector ID passed
     const connector =
       connectors.find(item => item.id === connectorIdByName[connectorId]) || connectors[0];
 
