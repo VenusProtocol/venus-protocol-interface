@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup, Icon, Spinner } from 'components';
+import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
