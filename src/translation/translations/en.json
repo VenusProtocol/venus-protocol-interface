@@ -372,13 +372,13 @@
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "pool": {
-    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only.",
     "header": {
       "assetsLabel": "Assets",
       "availableLiquidityLabel": "Available Liquidity",
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
-    }
+    },
+    "isolatedPoolWarning": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only."
   },
   "pools": {
     "poolTable": {
@@ -955,5 +955,8 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "xvsPage": {
+    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }

@@ -4,6 +4,9 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
+    isolatedAssetsWarningNotice: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
     header: css`
       margin-bottom: ${theme.spacing(6)};
       padding: ${theme.spacing(8)};
