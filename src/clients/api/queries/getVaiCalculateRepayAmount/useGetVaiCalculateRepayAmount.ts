@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { getVaiCalculateRepayAmount } from 'clients/api';
-import { useVaiControllerContract } from 'clients/contracts/hooks';
+import { useMulticall } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
@@ -11,21 +11,30 @@ type Options = QueryObserverOptions<
   Error,
   GetVaiCalculateRepayAmountOutput,
   GetVaiCalculateRepayAmountOutput,
-  FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT
+  [
+    FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT,
+    {
+      accountAddress: string;
+      repayAmountWei: string;
+    },
+  ]
 >;
 
 const useGetVaiCalculateRepayAmount = (
-  {
-    accountAddress,
-    repayAmountWei,
-  }: Omit<GetVaiCalculateRepayAmountInput, 'vaiControllerContract'>,
+  { accountAddress, repayAmountWei }: Omit<GetVaiCalculateRepayAmountInput, 'multicall'>,
   options?: Options,
 ) => {
-  const vaiControllerContract = useVaiControllerContract();
+  const multicall = useMulticall();
 
   return useQuery(
-    FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT,
-    () => getVaiCalculateRepayAmount({ vaiControllerContract, accountAddress, repayAmountWei }),
+    [
+      FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT,
+      {
+        accountAddress,
+        repayAmountWei: repayAmountWei.toFixed(),
+      },
+    ],
+    () => getVaiCalculateRepayAmount({ multicall, accountAddress, repayAmountWei }),
     options,
   );
 };

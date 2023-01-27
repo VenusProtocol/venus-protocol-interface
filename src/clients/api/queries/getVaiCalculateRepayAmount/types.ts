@@ -1,16 +1,16 @@
 import BigNumber from 'bignumber.js';
-
-import { VaiController } from 'types/contracts';
+import { Multicall } from 'ethereum-multicall';
 
 export interface GetVaiCalculateRepayAmountInput {
-  vaiControllerContract: VaiController;
+  multicall: Multicall;
   accountAddress: string;
   repayAmountWei: BigNumber;
 }
 
 export type GetVaiCalculateRepayAmountOutput = {
-  vaiToBeBurned: BigNumber;
-  vaiCurrentInterest: BigNumber;
-  vaiPastInterest: BigNumber;
+  vaiRepayAmountAfterFeeWei: BigNumber;
+  vaiCurrentInterestWei: BigNumber;
+  vaiPastInterestWei: BigNumber;
+  vaiTotalInterestWei: BigNumber;
   feePercentage: number;
 };

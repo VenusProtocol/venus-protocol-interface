@@ -9,17 +9,12 @@ import {
   Spinner,
 } from 'components';
 import { VError } from 'errors';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
-import {
-  useGetBalanceOf,
-  useGetMintedVai,
-  useGetVaiCalculateRepayAmount,
-  useRepayVai,
-} from 'clients/api';
+import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
@@ -28,9 +23,10 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
+import RepayFee from './RepayFee';
 import TEST_IDS from './testIds';
 
-const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
+const vaiControllerContractAddress = getContractAddress('vaiController');
 
 export interface IRepayVaiUiProps {
   disabled: boolean;
@@ -39,9 +35,6 @@ export interface IRepayVaiUiProps {
   repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
-  repayFeeWei: BigNumber;
-  feePercentage: number;
-  setRepayAmount: (amount: string) => void;
 }
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
@@ -51,9 +44,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   isInitialLoading,
   isSubmitting,
   repayVai,
-  repayFeeWei,
-  feePercentage,
-  setRepayAmount,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -76,15 +66,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   });
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
-
-  const getReadableRepayFee = useCallback(() => {
-    const fee = convertWeiToTokens({
-      valueWei: repayFeeWei,
-      token: TOKENS.vai,
-      returnInReadableFormat: true,
-    });
-    return `${fee} (${feePercentage}%)`;
-  }, [repayFeeWei, feePercentage]);
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
@@ -111,61 +92,48 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       <EnableToken
         title={t('vai.repayVai.enableToken')}
         token={TOKENS.vai}
-        spenderAddress={vaiUnitrollerContractAddress}
+        spenderAddress={vaiControllerContractAddress}
       >
         {isInitialLoading ? (
           <Spinner />
         ) : (
           <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-            {({ values }) => {
-              useEffect(() => {
-                // fix: debounce
-                setRepayAmount(values.amount);
-              }, [values.amount]);
-
-              return (
-                <>
-                  <div css={styles.ctaContainer}>
-                    <FormikTokenTextField
-                      name="amount"
-                      css={styles.textField}
-                      token={TOKENS.vai}
-                      max={limitTokens}
-                      disabled={disabled || isSubmitting || !hasRepayableVai}
-                      rightMaxButton={{
-                        label: t('vai.repayVai.rightMaxButtonLabel'),
-                        valueOnClick: limitTokens,
-                      }}
-                      data-testid={TEST_IDS.repayTextField}
-                    />
-
-                    <LabeledInlineContent
-                      css={styles.getRow({ isLast: true })}
-                      iconSrc={TOKENS.vai}
-                      label={t('vai.repayVai.repayVaiBalance')}
-                    >
-                      {readableRepayableVai}
-                    </LabeledInlineContent>
-                    {/* fix: add info tooltip */}
-                    <LabeledInlineContent
-                      css={styles.getRow({ isLast: true })}
-                      iconSrc="fee"
-                      label={t('vai.repayVai.repayFeeLabel')}
-                    >
-                      {getReadableRepayFee()}
-                    </LabeledInlineContent>
-                  </div>
-
-                  <FormikSubmitButton
-                    loading={isSubmitting}
-                    disabled={disabled}
-                    enabledLabel={t('vai.repayVai.submitButtonLabel')}
-                    disabledLabel={t('vai.repayVai.submitButtonDisabledLabel')}
-                    fullWidth
+            {({ values }) => (
+              <>
+                <div css={styles.ctaContainer}>
+                  <FormikTokenTextField
+                    name="amount"
+                    css={styles.textField}
+                    token={TOKENS.vai}
+                    max={limitTokens}
+                    disabled={disabled || isSubmitting || !hasRepayableVai}
+                    rightMaxButton={{
+                      label: t('vai.repayVai.rightMaxButtonLabel'),
+                      valueOnClick: limitTokens,
+                    }}
+                    data-testid={TEST_IDS.repayTextField}
                   />
-                </>
-              );
-            }}
+
+                  <LabeledInlineContent
+                    css={styles.getRow({ isLast: true })}
+                    iconSrc={TOKENS.vai}
+                    label={t('vai.repayVai.repayVaiBalance')}
+                  >
+                    {readableRepayableVai}
+                  </LabeledInlineContent>
+
+                  <RepayFee repayAmountTokens={values.amount} />
+                </div>
+
+                <FormikSubmitButton
+                  loading={isSubmitting}
+                  disabled={disabled}
+                  enabledLabel={t('vai.repayVai.submitButtonLabel')}
+                  disabledLabel={t('vai.repayVai.submitButtonDisabledLabel')}
+                  fullWidth
+                />
+              </>
+            )}
           </AmountForm>
         )}
       </EnableToken>
@@ -175,7 +143,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const [repayAmountWei, setRepayAmountWei] = useState<string>('');
+
   const { data: mintedVaiData, isLoading: isGetMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: account?.address || '',
@@ -196,24 +164,6 @@ const RepayVai: React.FC = () => {
     },
   );
 
-  const {
-    data: vaiRepayAmountData,
-    isLoading: isGetVaiCalculateRepayAmountLoading,
-    refetch,
-  } = useGetVaiCalculateRepayAmount(
-    {
-      accountAddress: account?.address || '',
-      repayAmountWei: new BigNumber(repayAmountWei || 0),
-    },
-    {
-      enabled: !!account?.address || !!repayAmountWei,
-    },
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [repayAmountWei]);
-
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
   const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
@@ -233,14 +183,9 @@ const RepayVai: React.FC = () => {
       disabled={!account}
       userBalanceWei={userVaiBalanceData?.balanceWei}
       userMintedWei={mintedVaiData?.mintedVaiWei}
-      isInitialLoading={
-        isGetMintedVaiLoading || isGetUserVaiBalance || isGetVaiCalculateRepayAmountLoading
-      }
+      isInitialLoading={isGetMintedVaiLoading || isGetUserVaiBalance}
       isSubmitting={isSubmitting}
       repayVai={repayVai}
-      repayFeeWei={vaiRepayAmountData?.vaiToBeBurned || new BigNumber(0)}
-      feePercentage={vaiRepayAmountData?.feePercentage || 0}
-      setRepayAmount={setRepayAmountWei}
     />
   );
 };

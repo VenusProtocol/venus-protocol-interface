@@ -1,9 +1,9 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
 
-import vaiControllerResponses from '__mocks__/contracts/vaiController';
+import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
@@ -31,7 +31,7 @@ jest.useFakeTimers();
 
 const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
-const repayInputAmount = '100';
+const repayInputAmountTokens = '100';
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeUserVaiMintedTokens,
   token: TOKENS.vai,
@@ -49,10 +49,13 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     }));
 
     (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
-      formatToOutput(
-        new BigNumber(repayInputAmount),
-        vaiControllerResponses.getVAICalculateRepayAmount,
-      ),
+      formatToOutput({
+        repayAmountWei: convertTokensToWei({
+          value: new BigNumber(repayInputAmountTokens),
+          token: TOKENS.vai,
+        }),
+        contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayInterests,
+      }),
     );
   });
 
@@ -150,12 +153,12 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => getByText(en.vai.repayVai.repayFeeLabel));
 
     const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmount } });
+    fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
 
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmount));
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmountTokens));
 
     // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText('5 VAI (5%)'));
+    await waitFor(() => getByText('0.00031735 VAI (0.000317%)'));
   });
 
   // TODO: add tests to cover failing scenarios (see VEN-631)

@@ -1,25 +1,22 @@
 import BigNumber from 'bignumber.js';
+import { Multicall } from 'ethereum-multicall';
 
+import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
-import { VaiController } from 'types/contracts';
 
 import getVaiCalculateRepayAmount from '.';
 
-describe('api/queries/getVaiTreasuryPercentage', () => {
+describe('api/queries/getVaiCalculateRepayAmount', () => {
   test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        getVAICalculateRepayAmount: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
+    const fakeMulticall = {
+      call: async () => {
+        throw new Error('Fake error message');
       },
-    } as unknown as VaiController;
+    } as unknown as Multicall;
 
     try {
       await getVaiCalculateRepayAmount({
-        vaiControllerContract: fakeContract,
+        multicall: fakeMulticall,
         accountAddress: fakeAddress,
         repayAmountWei: new BigNumber('0'),
       });
@@ -31,35 +28,19 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
   });
 
   test('returns the VAI fee', async () => {
-    const fakeOutput = {
-      0: '5',
-      1: '1',
-      2: '4',
-    };
-    const callMock = jest.fn(async () => fakeOutput);
-    const vaiRepayAmountMock = jest.fn(() => ({
-      call: callMock,
-    }));
-
-    const fakeContract = {
-      methods: {
-        getVAICalculateRepayAmount: vaiRepayAmountMock,
-      },
-    } as unknown as VaiController;
+    const fakeMulticall = {
+      call: jest.fn(async () => fakeMulticallResponses.vaiController.getVaiRepayInterests),
+    } as unknown as Multicall;
 
     const response = await getVaiCalculateRepayAmount({
-      vaiControllerContract: fakeContract,
+      multicall: fakeMulticall,
       accountAddress: fakeAddress,
       repayAmountWei: new BigNumber('100'),
     });
 
-    expect(vaiRepayAmountMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledTimes(1);
-    expect(response).toEqual({
-      vaiToBeBurned: new BigNumber(fakeOutput[0]),
-      vaiCurrentInterest: new BigNumber(fakeOutput[1]),
-      vaiPastInterest: new BigNumber(fakeOutput[2]),
-      feePercentage: 5,
-    });
+    expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
+    expect((fakeMulticall.call as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
+
+    expect(response).toMatchSnapshot();
   });
 });

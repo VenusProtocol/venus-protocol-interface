@@ -15,7 +15,6 @@ import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
-import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
@@ -35,7 +34,6 @@ import {
   Oracle,
   PancakeRouter,
   VaiController,
-  VaiUnitroller,
   VaiVault,
   VenusLens,
   VrtConverter,
@@ -89,13 +87,6 @@ export const getVaiControllerContract = (web3: Web3) =>
     getContractAddress('vaiController'),
     web3,
   ) as unknown as VaiController;
-
-export const getVaiUnitrollerContract = (web3: Web3) =>
-  getContract(
-    vaiUnitrollerAbi as AbiItem[],
-    getContractAddress('vaiUnitroller'),
-    web3,
-  ) as unknown as VaiUnitroller;
 
 export const getVaiVaultContract = (web3: Web3) =>
   getContract(

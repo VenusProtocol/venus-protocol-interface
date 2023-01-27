@@ -13,7 +13,6 @@ import {
   getTokenContractByAddress,
   getVTokenContract,
   getVaiControllerContract,
-  getVaiUnitrollerContract,
   getVaiVaultContract,
   getVenusLensContract,
   getVrtConverterProxyContract,
@@ -41,11 +40,6 @@ export const useVTokenContract = (vToken: VToken) => {
 export const useVaiControllerContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiControllerContract(web3), [web3]);
-};
-
-export const useVaiUnitrollerContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVaiUnitrollerContract(web3), [web3]);
 };
 
 export const useVaiVaultContract = () => {

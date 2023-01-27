@@ -25,7 +25,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
-const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
+const vaiControllerContractAddress = getContractAddress('vaiController');
 
 export interface MintVaiUiProps {
   disabled: boolean;
@@ -103,7 +103,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       <EnableToken
         title={t('vai.mintVai.enableToken')}
         token={TOKENS.vai}
-        spenderAddress={vaiUnitrollerContractAddress}
+        spenderAddress={vaiControllerContractAddress}
       >
         {isInitialLoading ? (
           <Spinner />

@@ -679,6 +679,7 @@
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
       "repayVaiBalance": "Repay VAI balance",
       "repayFeeLabel": "Repay fee",
+      "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",

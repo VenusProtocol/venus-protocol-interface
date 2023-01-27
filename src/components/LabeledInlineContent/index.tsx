@@ -5,10 +5,12 @@ import { Token } from 'types';
 
 import { Icon, IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
+import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
+  tooltip?: string;
   children: React.ReactNode;
   invertTextColors?: boolean;
   iconSrc?: IconName | Token;
@@ -16,6 +18,7 @@ export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivE
 
 export const LabeledInlineContent = ({
   label,
+  tooltip,
   iconSrc,
   invertTextColors = false,
   children,
@@ -35,6 +38,11 @@ export const LabeledInlineContent = ({
         <Typography component="span" css={styles.getLabel({ invertTextColors })} variant="body1">
           {label}
         </Typography>
+        {!!tooltip && (
+          <Tooltip css={styles.tooltip} title={tooltip}>
+            <Icon css={styles.infoIcon} name="info" />
+          </Tooltip>
+        )}
       </div>
 
       <Typography
