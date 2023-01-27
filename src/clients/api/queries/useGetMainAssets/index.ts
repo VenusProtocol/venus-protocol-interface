@@ -11,7 +11,7 @@ import {
 } from 'utilities';
 
 import {
-  IGetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
   useGetAssetsInAccount,
   useGetMainMarkets,
   useGetMintedVai,
@@ -79,7 +79,7 @@ const useGetMainAssets = ({
   const vTokenBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        (item: GetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesAccount.balances,
       ),
     [vTokenBalancesAccount],

@@ -19,14 +19,14 @@ const useBorrow = ({ vToken }: { vToken: VToken }, options?: Options) => {
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { fromAccountAddress } = onSuccessParams[1];
+      onSuccess: async (...onSuccessParams) => {
+        const accountAddress = await vTokenContract.signer.getAddress();
 
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: fromAccountAddress,
+            accountAddress,
             vTokenAddress: vToken.address,
           },
         ]);

@@ -2,31 +2,27 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 
 import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
-import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
-type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'web3' | 'vToken'>>;
+type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'signer' | 'vToken'>>;
 
 const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
-  const web3 = useWeb3();
+  const { signer } = useAuth();
 
   return useMutation(
     FunctionKey.REPAY,
     params =>
       repay({
-        web3,
+        signer,
         vToken,
         ...params,
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
       },
     },
   );

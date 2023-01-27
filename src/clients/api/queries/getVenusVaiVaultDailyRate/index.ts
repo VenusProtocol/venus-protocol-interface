@@ -14,10 +14,10 @@ export type GetVenusVaiVaultDailyRateOutput = {
 const getVenusVaiVaultDailyRate = async ({
   comptrollerContract,
 }: GetVenusVaiVaultDailyRateInput): Promise<GetVenusVaiVaultDailyRateOutput> => {
-  const resp = await comptrollerContract.methods.venusVAIVaultRate().call();
+  const resp = await comptrollerContract.venusVAIVaultRate();
 
   return {
-    dailyRateWei: new BigNumber(resp).times(BLOCKS_PER_DAY),
+    dailyRateWei: new BigNumber(resp.toString()).times(BLOCKS_PER_DAY),
   };
 };
 

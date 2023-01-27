@@ -1,20 +1,20 @@
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface CancelProposalInput {
   governorBravoContract: GovernorBravoDelegate;
-  accountAddress: string;
   proposalId: number;
 }
 
-export type CancelProposalOutput = TransactionReceipt;
+export type CancelProposalOutput = ContractReceipt;
 
 const cancelProposal = async ({
   governorBravoContract,
-  accountAddress,
   proposalId,
-}: CancelProposalInput): Promise<CancelProposalOutput> =>
-  governorBravoContract.methods.cancel(proposalId).send({ from: accountAddress });
+}: CancelProposalInput): Promise<CancelProposalOutput> => {
+  const transaction = await governorBravoContract.cancel(proposalId);
+  return transaction.wait(1);
+};
 
 export default cancelProposal;

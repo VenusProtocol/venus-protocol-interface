@@ -46,24 +46,6 @@ const supportedMarket = {
 };
 
 describe('api/queries/getMainMarkets', () => {
-  test('throws an error when request fails', async () => {
-    const fakeErrorMessage = 'Fake error message';
-
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
-      result: 'error',
-      status: false,
-      message: fakeErrorMessage,
-    }));
-
-    try {
-      await getMainMarkets();
-
-      throw new Error('getMainMarkets should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns supported markets', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,

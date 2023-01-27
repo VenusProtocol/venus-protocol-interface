@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -10,7 +10,7 @@ import { formatCentsToReadableValue } from 'utilities';
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import Table from './Table';
 import { useStyles } from './styles';
@@ -93,7 +93,7 @@ const PoolPage: React.FC<PoolPageProps> = ({
     params: { poolComptrollerAddress },
   },
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     accountAddress: account?.address,

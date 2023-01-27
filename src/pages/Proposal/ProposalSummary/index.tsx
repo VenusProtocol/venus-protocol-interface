@@ -9,10 +9,10 @@ import {
   SecondaryButton,
 } from 'components';
 import isAfter from 'date-fns/isAfter';
-import React, { useContext, useMemo } from 'react';
+import { ContractReceipt } from 'ethers';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal, ProposalType } from 'types';
-import type { TransactionReceipt } from 'web3-core';
 
 import {
   useCancelProposal,
@@ -22,7 +22,7 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import Stepper from './Stepper';
@@ -35,9 +35,9 @@ interface ProposalSummaryUiProps {
 }
 
 interface ProposalSummaryContainerProps {
-  cancelProposal: () => Promise<TransactionReceipt>;
-  executeProposal: () => Promise<TransactionReceipt>;
-  queueProposal: () => Promise<TransactionReceipt>;
+  cancelProposal: () => Promise<ContractReceipt>;
+  executeProposal: () => Promise<ContractReceipt>;
+  queueProposal: () => Promise<ContractReceipt>;
   isCancelProposalLoading: boolean;
   isExecuteProposalLoading: boolean;
   isQueueProposalLoading: boolean;
@@ -85,10 +85,10 @@ export const ProposalSummaryUi: React.FC<
   const handleCancelProposal = async () => {
     await handleTransactionMutation({
       mutate: cancelProposal,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vote.theProposalWasCancelled'),
         content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -96,10 +96,10 @@ export const ProposalSummaryUi: React.FC<
   const handleQueueProposal = async () => {
     await handleTransactionMutation({
       mutate: queueProposal,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vote.theProposalWasQueued'),
         content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -107,10 +107,10 @@ export const ProposalSummaryUi: React.FC<
   const handleExecuteProposal = async () => {
     await handleTransactionMutation({
       mutate: executeProposal,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vote.theProposalWasExecuted'),
         content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -265,7 +265,7 @@ export const ProposalSummaryUi: React.FC<
 };
 
 const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address || '';
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
@@ -273,9 +273,9 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
     useExecuteProposal();
   const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
 
-  const handleCancelProposal = () => cancelProposal({ proposalId: proposal.id, accountAddress });
-  const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id, accountAddress });
-  const handleQueueProposal = () => queueProposal({ proposalId: proposal.id, accountAddress });
+  const handleCancelProposal = () => cancelProposal({ proposalId: proposal.id });
+  const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id });
+  const handleQueueProposal = () => queueProposal({ proposalId: proposal.id });
 
   const { data: proposalThresholdData } = useGetProposalThreshold();
 

@@ -1,25 +1,23 @@
+import BigNumber from 'bignumber.js';
 import { checkForVaiControllerTransactionError } from 'errors';
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { VaiUnitroller } from 'types/contracts';
 
 export interface RepayVaiInput {
   vaiControllerContract: VaiUnitroller;
-  fromAccountAddress: string;
-  amountWei: string;
+  amountWei: BigNumber;
 }
 
-export type IRepayVaiOutput = TransactionReceipt;
+export type IRepayVaiOutput = ContractReceipt;
 
 const repayVai = async ({
   vaiControllerContract,
-  fromAccountAddress,
   amountWei,
 }: RepayVaiInput): Promise<IRepayVaiOutput> => {
-  const resp = await vaiControllerContract.methods
-    .repayVAI(amountWei)
-    .send({ from: fromAccountAddress });
-  return checkForVaiControllerTransactionError(resp);
+  const transaction = await vaiControllerContract.repayVAI(amountWei.toFixed());
+  const receipt = await transaction.wait(1);
+  return checkForVaiControllerTransactionError(receipt);
 };
 
 export default repayVai;

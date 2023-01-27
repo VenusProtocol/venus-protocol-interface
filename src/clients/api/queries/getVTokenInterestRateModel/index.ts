@@ -11,7 +11,7 @@ export type GetVTokenInterestRateModelOutput = {
 const getVTokenInterestRateModel = async ({
   vTokenContract,
 }: GetVTokenInterestRateModelInput): Promise<GetVTokenInterestRateModelOutput> => {
-  const contractAddress = await vTokenContract.methods.interestRateModel().call();
+  const contractAddress = await vTokenContract.interestRateModel();
 
   return {
     contractAddress,

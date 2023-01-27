@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import { Spinner, Tabs } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 
@@ -15,8 +15,7 @@ import {
   useWithdrawXvs,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
-import { VError } from 'errors/VError';
+import { useAuth } from 'context/AuthContext';
 
 import Convert, { ConvertProps } from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
@@ -72,7 +71,7 @@ export const ConvertVrtUi = ({
 };
 
 const ConvertVrt = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address;
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
@@ -90,31 +89,15 @@ const ConvertVrt = () => {
   const { mutateAsync: convertVrt, isLoading: convertVrtLoading } = useConvertVrt();
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
 
-  const handleConvertVrt = async (amount: string) => {
-    if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
-    return convertVrt({
-      amountWei: amount,
-      accountAddress,
+  const handleConvertVrt = async (amountWei: string) =>
+    convertVrt({
+      amountWei: new BigNumber(amountWei),
     });
-  };
-
-  const handleWithdrawXvs = async () => {
-    if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
-    return withdrawXvs({
-      accountAddress,
-    });
-  };
 
   const conversionRatio = useMemo(() => {
     if (vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
-        valueWei: new BigNumber(vrtConversionRatioData.conversionRatio),
+        valueWei: vrtConversionRatioData.conversionRatio,
         token: TOKENS.xvs,
       });
     }
@@ -130,7 +113,7 @@ const ConvertVrt = () => {
         vrtConversionEndTime={vrtConversionEndTimeData.conversionEndTime}
         convertVrtLoading={convertVrtLoading}
         convertVrt={handleConvertVrt}
-        withdrawXvs={handleWithdrawXvs}
+        withdrawXvs={withdrawXvs}
         withdrawXvsLoading={withdrawXvsLoading}
         xvsWithdrawableAmount={xvsWithdrawableAmount}
       />

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/getXvsWithdrawableAmount returns the withdrawable amount on success 1`] = `
+Object {
+  "totalVestedAmount": "1000",
+  "totalWithdrawableAmount": "500000",
+  "totalWithdrawnAmount": "0",
+}
+`;

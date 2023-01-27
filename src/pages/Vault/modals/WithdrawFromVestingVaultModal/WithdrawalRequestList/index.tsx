@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { ConnectWallet, LabeledInlineContent, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { LockedDeposit } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -70,7 +70,7 @@ export interface WithdrawalRequestListProps {
 }
 
 const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { t } = useTranslation();
 
   const {

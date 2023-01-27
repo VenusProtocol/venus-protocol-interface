@@ -15,10 +15,10 @@ const getVaiVaultPendingXvs = async ({
   vaiVaultContract,
   accountAddress,
 }: GetVaiVaultPendingXvsInput): Promise<GetVaiVaultPendingXvsOutput> => {
-  const res = await vaiVaultContract.methods.pendingXVS(accountAddress).call();
+  const res = await vaiVaultContract.pendingXVS(accountAddress);
 
   return {
-    pendingXvsWei: new BigNumber(res),
+    pendingXvsWei: new BigNumber(res.toString()),
   };
 };
 

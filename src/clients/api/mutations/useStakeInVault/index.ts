@@ -14,7 +14,6 @@ export interface UseStakeInVaultInput {
 
 interface StakeInput {
   amountWei: BigNumber;
-  accountAddress: string;
 }
 
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
@@ -31,11 +30,10 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
   const isLoading =
     isStakeInXvsVaultLoading || isStakeInVaiVaultLoading || isStakeInVrtVaultLoading;
 
-  const stake = async ({ amountWei, accountAddress }: StakeInput) => {
+  const stake = async ({ amountWei }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       return stakeInXvsVault({
         poolIndex,
-        fromAccountAddress: accountAddress,
         rewardToken,
         amountWei,
       });
@@ -43,14 +41,12 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
 
     if (areTokensEqual(stakedToken, TOKENS.vai)) {
       return stakeInVaiVault({
-        fromAccountAddress: accountAddress,
         amountWei,
       });
     }
 
     if (areTokensEqual(stakedToken, TOKENS.vrt)) {
       return stakeInVrtVault({
-        fromAccountAddress: accountAddress,
         amountWei,
       });
     }

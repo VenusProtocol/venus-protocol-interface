@@ -1,9 +1,9 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { getBlockNumber } from 'clients/api/';
-import { useWeb3 } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 interface GetBlockNumberOutput {
   blockNumber: number;
@@ -18,8 +18,9 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBlockNumber = (options?: Options) => {
-  const web3 = useWeb3();
-  return useQuery(FunctionKey.GET_BLOCK_NUMBER, () => getBlockNumber({ web3 }), {
+  const { provider } = useAuth();
+
+  return useQuery(FunctionKey.GET_BLOCK_NUMBER, () => getBlockNumber({ provider }), {
     refetchInterval: BLOCK_TIME_MS,
     ...options,
   });

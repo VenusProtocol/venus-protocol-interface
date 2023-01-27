@@ -33,6 +33,7 @@ const useGetXvsVaultPools = ({
   >[] = [];
 
   // Fetch pool infos
+  // TODO: use multicall
   for (let poolIndex = 0; poolIndex < poolsCount; poolIndex++) {
     poolQueries.push({
       queryFn: () =>

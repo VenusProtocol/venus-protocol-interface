@@ -8,7 +8,7 @@ const getXvsVaultPoolInfo = async ({
   rewardTokenAddress,
   poolIndex,
 }: GetXvsVaultPoolInfoInput): Promise<GetXvsVaultPoolInfoOutput> => {
-  const res = await xvsVaultContract.methods.poolInfos(rewardTokenAddress, poolIndex).call();
+  const res = await xvsVaultContract.poolInfos(rewardTokenAddress, poolIndex);
   return formatToPoolInfo(res);
 };
 

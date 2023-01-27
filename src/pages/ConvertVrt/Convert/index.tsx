@@ -11,6 +11,7 @@ import {
   TokenTextField,
   toast,
 } from 'components';
+import { ContractReceipt } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -20,7 +21,6 @@ import {
   formatTokensToReadableValue,
   getContractAddress,
 } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
@@ -37,7 +37,7 @@ export interface ConvertProps {
   vrtConversionEndTime: Date | undefined;
   userVrtBalanceWei: BigNumber | undefined;
   convertVrtLoading: boolean;
-  convertVrt: (amount: string) => Promise<TransactionReceipt>;
+  convertVrt: (amount: string) => Promise<ContractReceipt>;
 }
 
 const vrtConverterProxyContractAddress = getContractAddress('vrtConverterProxy');
@@ -101,7 +101,7 @@ const Convert: React.FC<ConvertProps> = ({
         value: new BigNumber(vrtAmount),
         token: TOKENS.vrt,
       });
-      const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
+      const contractReceipt = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
         // This should never happen because the form is not rendered without successfully fetching this
@@ -115,7 +115,7 @@ const Convert: React.FC<ConvertProps> = ({
 
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
             <TokenIcon token={TOKENS.vrt} css={styles.successModalToken} />

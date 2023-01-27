@@ -300,7 +300,7 @@ describe('pages/Proposal', () => {
       fireEvent.click(cancelButton);
     });
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ accountAddress: proposerAddress, proposalId: 97 });
+    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
   });
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
@@ -340,7 +340,7 @@ describe('pages/Proposal', () => {
     });
 
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 97 });
+    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
   });
 
   it('user can queue succeeded proposal', async () => {
@@ -358,9 +358,7 @@ describe('pages/Proposal', () => {
     act(() => {
       fireEvent.click(queueButton);
     });
-    await waitFor(() =>
-      expect(queueProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 95 }),
-    );
+    await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 95 }));
   });
 
   it('user can execute queued proposal', async () => {
@@ -378,8 +376,6 @@ describe('pages/Proposal', () => {
     act(() => {
       fireEvent.click(executeButton);
     });
-    await waitFor(() =>
-      expect(executeProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 98 }),
-    );
+    await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 98 }));
   });
 });

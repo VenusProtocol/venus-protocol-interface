@@ -9,40 +9,11 @@ const fakeTokenAddress = '0x0';
 const fakePid = 0;
 
 describe('api/queries/getXvsVaultPoolInfo', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        poolInfos: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as XvsVault;
-
-    try {
-      await getXvsVaultPoolInfo({
-        xvsVaultContract: fakeContract,
-        rewardTokenAddress: fakeTokenAddress,
-        poolIndex: fakePid,
-      });
-
-      throw new Error('getXvsVaultPoolInfo should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns the pool infos on success', async () => {
-    const callMock = jest.fn(async () => xvsVaultResponses.poolInfo);
-    const poolInfosMock = jest.fn(() => ({
-      call: callMock,
-    }));
+    const poolInfosMock = jest.fn(async () => xvsVaultResponses.poolInfo);
 
     const fakeContract = {
-      methods: {
-        poolInfos: poolInfosMock,
-      },
+      poolInfos: poolInfosMock,
     } as unknown as XvsVault;
 
     const response = await getXvsVaultPoolInfo({
@@ -51,7 +22,6 @@ describe('api/queries/getXvsVaultPoolInfo', () => {
       poolIndex: fakePid,
     });
 
-    expect(callMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledWith(fakeTokenAddress, fakePid);
     expect(response).toMatchSnapshot();

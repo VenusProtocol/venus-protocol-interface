@@ -2,7 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter, InfoIcon, LinkButton, PrimaryButton, TokenIcon } from 'components';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
@@ -15,7 +15,7 @@ import {
 } from 'clients/api';
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from './DelegateModal';
@@ -191,7 +191,7 @@ const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
   const { t } = useTranslation();
   const { account: { address: accountAddress } = { address: undefined }, openAuthModal } =
-    useContext(AuthContext);
+    useAuth();
 
   const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },
@@ -233,9 +233,7 @@ const VotingWallet: React.FC = () => {
       votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
       userStakedWei={userStakedWei}
       delegate={delegateData?.delegateAddress}
-      setVoteDelegation={(delegateAddress: string) =>
-        setVoteDelegation({ delegateAddress, accountAddress: accountAddress || '' })
-      }
+      setVoteDelegation={(delegateAddress: string) => setVoteDelegation({ delegateAddress })}
       isVoteDelegationLoading={isVoteDelegationLoading}
       delegateModelIsOpen={delegateModelIsOpen}
       setDelegateModelIsOpen={setDelegateModelIsOpen}

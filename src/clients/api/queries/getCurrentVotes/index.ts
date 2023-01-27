@@ -15,10 +15,10 @@ const getCurrentVotes = async ({
   xvsVaultContract,
   accountAddress,
 }: GetCurrentVotesInput): Promise<GetCurrentVotesOutput> => {
-  const resp = await xvsVaultContract.methods.getCurrentVotes(accountAddress).call();
+  const resp = await xvsVaultContract.getCurrentVotes(accountAddress);
 
   return {
-    votesWei: new BigNumber(resp),
+    votesWei: new BigNumber(resp.toString()),
   };
 };
 

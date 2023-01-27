@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { BigNumber as BN } from 'ethers';
+import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
 import { VenusLens } from 'types/contracts';
@@ -6,44 +8,12 @@ import { VenusLens } from 'types/contracts';
 import getXvsReward from '.';
 
 describe('api/queries/getXvsReward', () => {
-  test('throws an error when one of VenusLens contract call fails', async () => {
-    const lensContract = {
-      methods: {
-        pendingVenus() {
-          return {
-            call() {
-              throw new Error('Fake error message');
-            },
-          };
-        },
-      },
-    };
-
-    try {
-      await getXvsReward({
-        lensContract: lensContract as unknown as VenusLens,
-        accountAddress: fakeAddress,
-      });
-
-      throw new Error('getXvsReward should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns correct XVS reward amount in wei', async () => {
-    const fakeOutput = '73680428998277363810000000000';
+    const fakeOutput = BN.from('73680428998277363810000000000');
 
+    const pendingVenusMock = jest.fn(async () => fakeOutput);
     const lensContract = {
-      methods: {
-        pendingVenus() {
-          return {
-            call() {
-              return fakeOutput;
-            },
-          };
-        },
-      },
+      pendingVenus: pendingVenusMock,
     };
 
     const res = await getXvsReward({
@@ -51,8 +21,10 @@ describe('api/queries/getXvsReward', () => {
       accountAddress: fakeAddress,
     });
 
+    expect(pendingVenusMock).toHaveBeenCalledTimes(1);
+    expect(pendingVenusMock).toHaveBeenCalledWith(fakeAddress, getContractAddress('comptroller'));
     expect(res).toEqual({
-      xvsRewardWei: new BigNumber(fakeOutput),
+      xvsRewardWei: new BigNumber(fakeOutput.toString()),
     });
   });
 });

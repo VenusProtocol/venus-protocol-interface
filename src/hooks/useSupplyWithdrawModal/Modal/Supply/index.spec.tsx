@@ -6,8 +6,8 @@ import { Pool, VToken } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, supply, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { VBEP_TOKENS } from 'constants/tokens';
@@ -198,7 +198,7 @@ describe('Supply form', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     renderComponent(
       () => (
@@ -234,7 +234,7 @@ describe('Supply form', () => {
     expect(onCloseMock).toHaveBeenCalledTimes(1);
     await waitFor(() =>
       expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: fakeTransactionReceipt.transactionHash,
+        transactionHash: fakeContractReceipt.transactionHash,
         amount: {
           token: customFakeAsset.vToken.underlyingToken,
           valueWei: expectedAmountWei,
@@ -249,7 +249,7 @@ describe('Supply form', () => {
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => (
@@ -287,7 +287,7 @@ describe('Supply form', () => {
     expect(onCloseMock).toHaveBeenCalledTimes(1);
     await waitFor(() =>
       expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: fakeTransactionReceipt.transactionHash,
+        transactionHash: fakeContractReceipt.transactionHash,
         amount: {
           token: fakeAsset.vToken.underlyingToken,
           valueWei: expectedAmountWei,

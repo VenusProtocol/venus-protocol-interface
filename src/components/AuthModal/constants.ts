@@ -10,8 +10,8 @@ import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.
 import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
-import { Connector } from 'clients/web3';
-import { isRunningInOperaBrowser } from 'clients/web3/walletDetectionUtils';
+import { Connector } from 'clients/web3/types';
+import { isRunningInOperaBrowser } from 'utilities/walletDetection';
 
 import { BaseWallet, IntegratedWallet, Wallet } from './types';
 

@@ -19,7 +19,7 @@ const getVoteDelegateAddress = async ({
   xvsVaultContract,
   accountAddress,
 }: GetVoteDelegateAddressInput): Promise<GetVoteDelegateAddressOutput> => {
-  const resp = await xvsVaultContract.methods.delegates(accountAddress).call();
+  const resp = await xvsVaultContract.delegates(accountAddress);
 
   return {
     delegateAddress: resp !== NULL_ADDRESS ? resp : undefined,

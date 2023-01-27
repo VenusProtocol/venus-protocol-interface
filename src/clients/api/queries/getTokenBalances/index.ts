@@ -1,13 +1,16 @@
+import type { Provider } from '@wagmi/core';
 import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallReturnContext, Multicall } from 'ethereum-multicall';
 import { Token, TokenBalance } from 'types';
-import Web3 from 'web3';
 
 import bep20Abi from 'constants/contracts/abis/bep20.json';
+import { TOKENS } from 'constants/tokens';
+
+import getBalanceOf from '../getBalanceOf';
 
 export interface GetTokenBalancesInput {
   multicall: Multicall;
-  web3: Web3;
+  provider: Provider;
   accountAddress: string;
   tokens: Token[];
 }
@@ -20,7 +23,7 @@ export type GetTokenBalancesOutput = {
 
 const getTokenBalances = async ({
   multicall,
-  web3,
+  provider,
   accountAddress,
   tokens,
 }: GetTokenBalancesInput): Promise<GetTokenBalancesOutput> => {
@@ -81,13 +84,13 @@ const getTokenBalances = async ({
   // Handle fetching BNB balance if it was requested
   if (nativeTokenToRequest) {
     const getNativeBalance: GetTokenBalancesPromise = async () => {
-      const balanceWei = await web3.eth.getBalance(accountAddress);
+      const { balanceWei } = await getBalanceOf({ provider, accountAddress, token: TOKENS.bnb });
 
       return [
         {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           token: nativeTokenToRequest!,
-          balanceWei: new BigNumber(balanceWei),
+          balanceWei,
         },
       ];
     };

@@ -2,9 +2,9 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, PrimaryButton, TokenIcon } from 'components';
+import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -15,7 +15,7 @@ import { useStyles } from '../styles';
 
 export interface WithdrawProps {
   xvsWithdrawableAmount: BigNumber | undefined;
-  withdrawXvs: () => Promise<TransactionReceipt>;
+  withdrawXvs: () => Promise<ContractReceipt>;
   withdrawXvsLoading: boolean;
 }
 
@@ -47,9 +47,9 @@ const Withdraw: React.FC<WithdrawProps> = ({
 
     return handleTransactionMutation({
       mutate: withdrawXvs,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
             <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />

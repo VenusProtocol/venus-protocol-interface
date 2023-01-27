@@ -10,14 +10,14 @@ import {
   ProposalCard,
   ProposalTypeChip,
 } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, ProposalType, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { GreenPulse } from 'components/LottieAnimation';
 import { routes } from 'constants/routing';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -205,7 +205,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
 const GovernanceProposal: React.FC<
   Omit<GovernanceProposalProps, 'userVoteStatus' | 'isUserConnected'>
 > = ({ proposalId, ...props }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const accountAddress = account?.address;
 
   const { data: userVoteReceipt } = useGetVoteReceipt(

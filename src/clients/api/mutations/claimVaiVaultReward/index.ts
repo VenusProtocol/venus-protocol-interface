@@ -1,20 +1,20 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import { checkForVaiVaultTransactionError } from 'errors';
+import { ContractReceipt } from 'ethers';
 
 import { VaiVault } from 'types/contracts';
 
 export interface ClaimVaiVaultRewardInput {
   vaiVaultContract: VaiVault;
-  fromAccountAddress: string;
 }
 
-export type ClaimVaiVaultRewardOutput = TransactionReceipt;
+export type ClaimVaiVaultRewardOutput = ContractReceipt;
 
 const claimVaiVaultReward = async ({
   vaiVaultContract,
-  fromAccountAddress,
 }: ClaimVaiVaultRewardInput): Promise<ClaimVaiVaultRewardOutput> => {
-  const resp = await vaiVaultContract.methods.claim().send({ from: fromAccountAddress });
-  return resp;
+  const transaction = await vaiVaultContract.claim();
+  const receipt = await transaction.wait(1);
+  return checkForVaiVaultTransactionError(receipt);
 };
 
 export default claimVaiVaultReward;

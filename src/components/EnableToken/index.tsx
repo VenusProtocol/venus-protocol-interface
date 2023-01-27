@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React, { useContext } from 'react';
+import { ContractReceipt } from 'ethers';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { SecondaryButton } from '../Button';
@@ -21,7 +21,7 @@ export interface EnableTokenUiProps {
   token: Token;
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
-  enableToken: () => Promise<TransactionReceipt | undefined>;
+  enableToken: () => Promise<ContractReceipt | undefined>;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
   assetInfo?: LabeledInlineContentProps[];
@@ -108,7 +108,7 @@ export interface EnableTokenProps
 }
 
 export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { isTokenApprovalStatusLoading, isTokenApproved, approveToken, isApproveTokenLoading } =
     useTokenApproval({

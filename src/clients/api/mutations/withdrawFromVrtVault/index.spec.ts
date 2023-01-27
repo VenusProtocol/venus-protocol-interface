@@ -1,54 +1,26 @@
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { VrtVault } from 'types/contracts';
 
 import withdrawFromVrtVault from '.';
 
-const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-
 describe('api/mutation/withdrawFromVrtVault', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        withdraw: () => ({
-          send: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as VrtVault;
-
-    try {
-      await withdrawFromVrtVault({
-        vrtVaultContract: fakeContract,
-        fromAccountAddress: fakeFromAccountsAddress,
-      });
-
-      throw new Error('withdrawFromVrtVault should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
-  test('returns receipt when request succeeds', async () => {
-    const sendMock = jest.fn(async () => fakeTransactionReceipt);
+  test('returns contract receipt when request succeeds', async () => {
+    const waitMock = jest.fn(async () => fakeContractReceipt);
     const withdrawMock = jest.fn(() => ({
-      send: sendMock,
+      wait: waitMock,
     }));
 
     const fakeContract = {
-      methods: {
-        withdraw: withdrawMock,
-      },
+      withdraw: withdrawMock,
     } as unknown as VrtVault;
 
     const response = await withdrawFromVrtVault({
       vrtVaultContract: fakeContract,
-      fromAccountAddress: fakeFromAccountsAddress,
     });
 
-    expect(response).toBe(fakeTransactionReceipt);
+    expect(response).toBe(fakeContractReceipt);
     expect(withdrawMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
+    expect(waitMock).toBeCalledTimes(1);
+    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

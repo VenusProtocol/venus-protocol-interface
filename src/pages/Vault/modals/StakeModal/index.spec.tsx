@@ -92,7 +92,6 @@ describe('pages/Vault/modals/StakeModal', () => {
 
     await waitFor(() => expect(stake).toHaveBeenCalledTimes(1));
     expect(stake).toHaveBeenCalledWith({
-      accountAddress: fakeAccountAddress,
       amountWei: fakeStakedWei,
     });
 

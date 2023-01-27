@@ -1,9 +1,8 @@
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface CreateProposalInput {
-  accountAddress: string;
   targets: string[];
   signatures: string[];
   callDatas: (string | number[])[];
@@ -11,11 +10,10 @@ export interface CreateProposalInput {
   proposalType: 0 | 1 | 2;
 }
 
-export type CreateProposalOutput = TransactionReceipt;
+export type CreateProposalOutput = ContractReceipt;
 
 const createProposal = async ({
   governorBravoContract,
-  accountAddress,
   targets,
   signatures,
   callDatas,
@@ -24,17 +22,15 @@ const createProposal = async ({
 }: CreateProposalInput & {
   governorBravoContract: GovernorBravoDelegate;
 }): Promise<CreateProposalOutput> => {
-  const resp = await governorBravoContract.methods
-    .propose(
-      targets,
-      Array(signatures.length).fill(0),
-      signatures,
-      callDatas,
-      description,
-      proposalType,
-    )
-    .send({ from: accountAddress });
-  return resp;
+  const transaction = await governorBravoContract.propose(
+    targets,
+    Array(signatures.length).fill(0),
+    signatures,
+    callDatas,
+    description,
+    proposalType,
+  );
+  return transaction.wait(1);
 };
 
 export default createProposal;

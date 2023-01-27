@@ -1,12 +1,12 @@
-import { Web3ReactProvider } from '@web3-react/core';
 import React from 'react';
+import { WagmiConfig } from 'wagmi';
 
-import Web3ReactManager from './Web3ReactManager';
+import client from './client';
+
+export * from './client';
 
 const Web3Wrapper: React.FC = ({ children }) => (
-  <Web3ReactProvider getLibrary={provider => provider}>
-    <Web3ReactManager>{children}</Web3ReactManager>
-  </Web3ReactProvider>
+  <WagmiConfig client={client}>{children}</WagmiConfig>
 );
 
 export default Web3Wrapper;

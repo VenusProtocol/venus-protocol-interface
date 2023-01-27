@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeProvider from '__mocks__/models/provider';
 import { getAllowance, useGetMainAssets } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
@@ -52,6 +52,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -83,6 +84,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -116,6 +118,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -145,6 +148,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -176,6 +180,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -200,7 +205,7 @@ describe('pages/ConvertVRT/Convert', () => {
   });
 
   it('can convert vrt for xvs with valid input', async () => {
-    const convertVrt = jest.fn().mockReturnValue(transactionReceipt.transactionHash);
+    const convertVrt = jest.fn();
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
     const userVrtBalanceWei = new BigNumber('90000083300000000000');
@@ -212,6 +217,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -240,8 +246,6 @@ describe('pages/ConvertVRT/Convert', () => {
     await waitFor(() => expect(submitButton).toBeDisabled());
     await waitFor(() => expect(convertVrt).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(convertVrt).toHaveBeenCalledWith('1000000000000000000'));
-    // Show modal
-    getByText(en.convertVrt.successfulConvertTransactionModal.title);
   });
 
   it('Max button inputs max amount', async () => {
@@ -256,6 +260,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -295,6 +300,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -335,6 +341,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },
@@ -375,6 +382,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
           },

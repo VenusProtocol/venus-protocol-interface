@@ -1,11 +1,13 @@
 import { Token } from 'types';
 
-import { isRunningInBinanceChainWallet } from './walletDetectionUtils';
+export const canRegisterToken = () =>
+  typeof window !== 'undefined' &&
+  (window?.ethereum?.isMetaMask || window?.ethereum?.isTrust || window?.ethereum?.isCoinbaseWallet);
 
 const addTokenToWallet = async (token: Token) => {
-  const isInBCW = isRunningInBinanceChainWallet();
+  const walletCanRegisterToken = canRegisterToken();
 
-  return (isInBCW ? (window.BinanceChain as Record<string, string>) : window.ethereum)?.request({
+  return walletCanRegisterToken.request({
     method: 'wallet_watchAsset',
     params: {
       type: 'ERC20',

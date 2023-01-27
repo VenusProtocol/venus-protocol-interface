@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { Connector } from 'clients/web3';
+import { Connector } from 'clients/web3/types';
 
 import { BscLink } from '../../BscLink';
 import { SecondaryButton } from '../../Button';

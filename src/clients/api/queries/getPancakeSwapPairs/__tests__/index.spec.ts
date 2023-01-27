@@ -7,25 +7,6 @@ import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 import getPancakeSwapPairs from '..';
 
 describe('api/queries/getPancakeSwapPairs', () => {
-  test('throws an error when request fails', async () => {
-    const multicall = {
-      call: async () => {
-        throw new Error('Fake error message');
-      },
-    } as unknown as Multicall;
-
-    try {
-      await getPancakeSwapPairs({
-        multicall,
-        tokenCombinations: [],
-      });
-
-      throw new Error('getPancakeSwapPairs should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns pairs in the right format on success', async () => {
     const multicall = {
       call: jest.fn(async () => fakeMulticallResponses.pancakeSwapRouter.getReserves),

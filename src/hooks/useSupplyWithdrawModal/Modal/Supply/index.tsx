@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useSupply } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -92,7 +92,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 };
 
 const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;
@@ -103,7 +103,6 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, on
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     vToken,
-    accountAddress,
   });
 
   const onSubmit: AmountFormProps['onSubmit'] = async value => {

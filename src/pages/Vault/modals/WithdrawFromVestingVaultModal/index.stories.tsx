@@ -3,6 +3,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
+import fakeProvider from '__mocks__/models/provider';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
@@ -23,6 +24,7 @@ const authContext = {
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  provider: fakeProvider,
   account: {
     address: fakeAddress,
   },

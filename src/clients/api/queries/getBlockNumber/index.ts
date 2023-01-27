@@ -1,15 +1,15 @@
-import Web3 from 'web3';
+import type { Provider } from '@wagmi/core';
 
 export interface GetBlockNumberInput {
-  web3: Web3;
+  provider: Provider;
 }
 
 export interface GetBlockNumberOutput {
   blockNumber: number;
 }
 
-const getBlockNumber = async ({ web3 }: GetBlockNumberInput): Promise<GetBlockNumberOutput> => {
-  const blockNumber = await web3.eth.getBlockNumber();
+const getBlockNumber = async ({ provider }: GetBlockNumberInput): Promise<GetBlockNumberOutput> => {
+  const blockNumber = await provider.getBlockNumber();
 
   return {
     blockNumber,

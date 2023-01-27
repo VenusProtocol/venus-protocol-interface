@@ -15,10 +15,10 @@ const getVrtVaultAccruedInterest = async ({
   vrtVaultContract,
   accountAddress,
 }: GetVrtVaultAccruedInterestInput): Promise<GetVrtVaultAccruedInterestOutput> => {
-  const response = await vrtVaultContract.methods.getAccruedInterest(accountAddress).call();
+  const response = await vrtVaultContract.getAccruedInterest(accountAddress);
 
   return {
-    accruedInterestWei: new BigNumber(response),
+    accruedInterestWei: new BigNumber(response.toString()),
   };
 };
 

@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { getVTokenByAddress } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import { Subdirectory, routes } from 'constants/routing';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import { TertiaryButton } from '../../../Button';
@@ -24,7 +24,7 @@ export interface PathNode {
 const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const styles = useStyles();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 

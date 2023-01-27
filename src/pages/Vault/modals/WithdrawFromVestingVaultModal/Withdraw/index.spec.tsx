@@ -96,7 +96,6 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     await waitFor(() => expect(executeWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
     expect(executeWithdrawalFromXvsVault).toHaveBeenCalledWith({
       poolIndex: fakePoolIndex,
-      fromAccountAddress: fakeAddress,
       rewardTokenAddress: TOKENS.xvs.address,
     });
 

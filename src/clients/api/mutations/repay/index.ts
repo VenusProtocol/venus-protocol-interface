@@ -1,67 +1,66 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
+import { VError, checkForTokenTransactionError } from 'errors';
+import { ContractReceipt, Signer } from 'ethers';
 import { VToken } from 'types';
-import Web3 from 'web3';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import MAX_UINT256 from 'constants/maxUint256';
 import { VBep20, VBnbToken } from 'types/contracts';
 
 export interface RepayInput {
-  web3: Web3;
-  accountAddress: string;
+  signer?: Signer;
   vToken: VToken;
   amountWei: BigNumber;
   isRepayingFullLoan?: boolean;
 }
 
-export type RepayOutput = TransactionReceipt;
+export type RepayOutput = ContractReceipt;
 
 export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
 
 const repay = async ({
-  web3,
-  accountAddress,
+  signer,
   vToken,
   amountWei,
   isRepayingFullLoan = false,
 }: RepayInput): Promise<RepayOutput> => {
   // Handle repaying tokens other than BNB
   if (!vToken.underlyingToken.isNative) {
-    const vTokenContract = getVTokenContract(vToken, web3) as VBep20;
+    const vTokenContract = getVTokenContract(vToken, signer) as VBep20;
 
-    const resp = await vTokenContract.methods
-      .repayBorrow(isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed())
-      .send({ from: accountAddress });
-    return checkForTokenTransactionError(resp);
+    const transaction = await vTokenContract.repayBorrow(
+      isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed(),
+    );
+    const receipt = await transaction.wait(1);
+    return checkForTokenTransactionError(receipt);
+  }
+
+  if (isRepayingFullLoan && !signer) {
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
   // Handle repaying full BNB loan
   if (isRepayingFullLoan) {
-    const maximillionContract = getMaximillionContract(web3);
-    const amountWithBuffer = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
+    const maximillionContract = getMaximillionContract(signer);
+    const amountWithBufferWei = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
+    const accountAddress = await signer!.getAddress();
 
-    const resp = await maximillionContract.methods
-      .repayBehalfExplicit(accountAddress, vToken.address)
-      .send({
-        from: accountAddress,
-        value: amountWithBuffer.toFixed(0),
-      });
-    return checkForTokenTransactionError(resp);
+    const transaction = await maximillionContract.repayBehalfExplicit(
+      accountAddress,
+      vToken.address,
+      {
+        value: amountWithBufferWei.toFixed(0),
+      },
+    );
+    return transaction.wait(1);
   }
 
   // Handle repaying partial BNB loan
-  const vBnbContract = getVTokenContract(vToken, web3) as VBnbToken;
-  const contractData = vBnbContract.methods.repayBorrow().encodeABI();
-
-  const resp = await web3.eth.sendTransaction({
-    from: accountAddress,
-    to: vToken.address,
+  const vBnbContract = getVTokenContract(vToken, signer) as VBnbToken;
+  const transaction = await vBnbContract.repayBorrow({
     value: amountWei.toFixed(),
-    data: contractData,
   });
-  return checkForTokenTransactionError(resp);
+  return transaction.wait(1);
 };
 
 export default repay;

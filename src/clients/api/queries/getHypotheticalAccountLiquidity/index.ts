@@ -10,22 +10,26 @@ export interface GetHypotheticalAccountLiquidityInput {
   vTokenBorrowAmountWei?: BigNumber;
 }
 
-export type GetHypotheticalAccountLiquidityOutput = { 0: string; 1: string; 2: string };
+export type GetHypotheticalAccountLiquidityOutput = [BigNumber, BigNumber, BigNumber];
 
-const getHypotheticalAccountLiquidity = ({
+const getHypotheticalAccountLiquidity = async ({
   comptrollerContract,
   accountAddress,
   vTokenAddress,
   vTokenBalanceOfWei,
   vTokenBorrowAmountWei = new BigNumber(0),
-}: GetHypotheticalAccountLiquidityInput): Promise<GetHypotheticalAccountLiquidityOutput> =>
-  comptrollerContract.methods
-    .getHypotheticalAccountLiquidity(
-      accountAddress.toLowerCase(),
-      vTokenAddress,
-      vTokenBalanceOfWei.toFixed(),
-      vTokenBorrowAmountWei.toFixed(),
-    )
-    .call();
+}: GetHypotheticalAccountLiquidityInput): Promise<GetHypotheticalAccountLiquidityOutput> => {
+  const res = await comptrollerContract.getHypotheticalAccountLiquidity(
+    accountAddress.toLowerCase(),
+    vTokenAddress,
+    vTokenBalanceOfWei.toFixed(),
+    vTokenBorrowAmountWei.toFixed(),
+  );
 
+  return [
+    new BigNumber(res[0].toString()),
+    new BigNumber(res[1].toString()),
+    new BigNumber(res[2].toString()),
+  ];
+};
 export default getHypotheticalAccountLiquidity;

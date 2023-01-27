@@ -8,17 +8,16 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
-import { VError } from 'errors';
-import React, { useCallback, useContext, useMemo } from 'react';
+import { ContractReceipt } from 'ethers';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
-import type { TransactionReceipt } from 'web3-core';
 
 import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -31,7 +30,7 @@ export interface MintVaiUiProps {
   disabled: boolean;
   isInitialLoading: boolean;
   isSubmitting: boolean;
-  mintVai: (value: BigNumber) => Promise<TransactionReceipt | undefined>;
+  mintVai: (value: BigNumber) => Promise<ContractReceipt | undefined>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
@@ -86,14 +85,14 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
     return handleTransactionMutation({
       mutate: () => mintVai(amountWei),
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vai.mintVai.successfulTransactionModal.title'),
         content: t('vai.mintVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           token: TOKENS.vai,
         },
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
   };
@@ -158,7 +157,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
@@ -174,17 +173,10 @@ const MintVai: React.FC = () => {
 
   const { mutateAsync: contractMintVai, isLoading: isSubmitting } = useMintVai({});
 
-  const mintVai: MintVaiUiProps['mintVai'] = async amountWei => {
-    if (!account) {
-      // This error should never happen, since the form inside the UI component
-      // is disabled if there's no logged in account
-      throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
-    }
-    return contractMintVai({
-      fromAccountAddress: account.address,
+  const mintVai: MintVaiUiProps['mintVai'] = async amountWei =>
+    contractMintVai({
       amountWei,
     });
-  };
 
   return (
     <MintVaiUi

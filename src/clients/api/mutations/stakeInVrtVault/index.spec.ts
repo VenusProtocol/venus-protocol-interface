@@ -1,60 +1,32 @@
 import BigNumber from 'bignumber.js';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { VrtVault } from 'types/contracts';
 
 import stakeInVrtVault from '.';
 
 const fakeAmountWei = new BigNumber('1000000000000');
-const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
 describe('api/mutation/stakeInVrtVault', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        deposit: () => ({
-          send: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as VrtVault;
-
-    try {
-      await stakeInVrtVault({
-        vrtVaultContract: fakeContract,
-        fromAccountAddress: fakeFromAccountsAddress,
-        amountWei: fakeAmountWei,
-      });
-
-      throw new Error('stakeInVrtVault should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
-  test('returns receipt when request succeeds', async () => {
-    const sendMock = jest.fn(async () => fakeTransactionReceipt);
+  test('returns contract receipt when request succeeds', async () => {
+    const waitMock = jest.fn(async () => fakeContractReceipt);
     const depositMock = jest.fn(() => ({
-      send: sendMock,
+      wait: waitMock,
     }));
 
     const fakeContract = {
-      methods: {
-        deposit: depositMock,
-      },
+      deposit: depositMock,
     } as unknown as VrtVault;
 
     const response = await stakeInVrtVault({
       vrtVaultContract: fakeContract,
-      fromAccountAddress: fakeFromAccountsAddress,
       amountWei: fakeAmountWei,
     });
 
-    expect(response).toBe(fakeTransactionReceipt);
+    expect(response).toBe(fakeContractReceipt);
     expect(depositMock).toHaveBeenCalledTimes(1);
     expect(depositMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
-    expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
+    expect(waitMock).toBeCalledTimes(1);
+    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

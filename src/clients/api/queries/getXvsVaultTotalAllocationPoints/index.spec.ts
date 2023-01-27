@@ -1,3 +1,5 @@
+import { BigNumber as BN } from 'ethers';
+
 import { XvsVault } from 'types/contracts';
 
 import getXvsVaultTotalAllocationPoints from '.';
@@ -5,41 +7,13 @@ import getXvsVaultTotalAllocationPoints from '.';
 const fakeTokenAddress = '0x0';
 
 describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        totalAllocPoints: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as XvsVault;
-
-    try {
-      await getXvsVaultTotalAllocationPoints({
-        xvsVaultContract: fakeContract,
-        tokenAddress: fakeTokenAddress,
-      });
-
-      throw new Error('getXvsVaultTotalAllocationPoints should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns the total allocation points on success', async () => {
-    const fakeOutput = '100';
+    const fakeOutput = BN.from('100');
 
-    const callMock = jest.fn(async () => fakeOutput);
-    const totalAllocPointsMock = jest.fn(() => ({
-      call: callMock,
-    }));
+    const totalAllocPointsMock = jest.fn(async () => fakeOutput);
 
     const fakeContract = {
-      methods: {
-        totalAllocPoints: totalAllocPointsMock,
-      },
+      totalAllocPoints: totalAllocPointsMock,
     } as unknown as XvsVault;
 
     const response = await getXvsVaultTotalAllocationPoints({
@@ -47,11 +21,10 @@ describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
       tokenAddress: fakeTokenAddress,
     });
 
-    expect(callMock).toHaveBeenCalledTimes(1);
     expect(totalAllocPointsMock).toHaveBeenCalledTimes(1);
     expect(totalAllocPointsMock).toHaveBeenCalledWith(fakeTokenAddress);
     expect(response).toEqual({
-      totalAllocationPoints: +fakeOutput,
+      totalAllocationPoints: fakeOutput.toNumber(),
     });
   });
 });

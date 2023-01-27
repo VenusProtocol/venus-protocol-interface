@@ -1,6 +1,6 @@
+import { ContractReceipt } from 'ethers';
 import { useMemo } from 'react';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useApproveToken, useGetAllowance } from 'clients/api';
 
@@ -13,7 +13,7 @@ interface UseTokenApprovalInput {
 interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined;
   isTokenApprovalStatusLoading: boolean;
-  approveToken: () => Promise<TransactionReceipt | undefined>;
+  approveToken: () => Promise<ContractReceipt | undefined>;
   isApproveTokenLoading: boolean;
 }
 
@@ -51,14 +51,10 @@ const useTokenApproval = ({
     token,
   });
 
-  const approveToken = async () => {
-    if (accountAddress) {
-      return approveTokenMutation({
-        accountAddress,
-        spenderAddress,
-      });
-    }
-  };
+  const approveToken = async () =>
+    approveTokenMutation({
+      spenderAddress,
+    });
 
   return {
     isTokenApproved,

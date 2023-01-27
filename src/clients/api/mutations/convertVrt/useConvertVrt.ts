@@ -13,6 +13,7 @@ const useConvertVrt = (
   >,
 ) => {
   const vrtConverterContract = useVrtConverterProxyContract();
+
   return useMutation(
     FunctionKey.CONVERT_VRT,
     params =>
@@ -23,7 +24,7 @@ const useConvertVrt = (
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { accountAddress } = onSuccessParams[1];
+        const accountAddress = await vrtConverterContract.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,

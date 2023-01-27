@@ -3,24 +3,20 @@ import { VToken } from 'types';
 
 import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
-import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
-export type SupplyParams = Omit<SupplyInput, 'tokenContract' | 'accountAddress' | 'web3'>;
+type Options = MutationObserverOptions<SupplyOutput, Error, Omit<SupplyInput, 'vToken' | 'signer'>>;
 
-const useSupply = (
-  { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
-  options?: MutationObserverOptions<SupplyOutput, Error, Omit<SupplyParams, 'vToken'>>,
-) => {
-  const web3 = useWeb3();
+const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
+  const { signer, account } = useAuth();
 
   return useMutation(
     FunctionKey.SUPPLY,
     params =>
       supply({
         vToken,
-        web3,
-        accountAddress,
+        signer,
         ...params,
       }),
     {
@@ -30,7 +26,7 @@ const useSupply = (
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
-            accountAddress,
+            accountAddress: account?.address,
             vTokenAddress: vToken.address,
           },
         ]);

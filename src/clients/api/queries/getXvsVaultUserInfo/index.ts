@@ -9,10 +9,7 @@ const getXvsVaultUserInfo = async ({
   poolIndex,
   accountAddress,
 }: GetXvsVaultUserInfoInput): Promise<GetXvsVaultUserInfoOutput> => {
-  const res = await xvsVaultContract.methods
-    .getUserInfo(rewardTokenAddress, poolIndex, accountAddress)
-    .call();
-
+  const res = await xvsVaultContract.getUserInfo(rewardTokenAddress, poolIndex, accountAddress);
   return formatToUserInfo(res);
 };
 
