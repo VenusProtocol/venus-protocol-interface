@@ -26,6 +26,7 @@ const authContext = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
+  isReconnecting: false,
   account: {
     address: '0x0000000000000000000000000000000000000000',
   },

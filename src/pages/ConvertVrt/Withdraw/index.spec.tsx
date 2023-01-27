@@ -38,6 +38,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,

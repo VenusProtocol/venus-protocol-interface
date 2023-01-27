@@ -34,6 +34,7 @@ const renderComponent = (
     openAuthModal: jest.fn(),
     closeAuthModal: jest.fn(),
     account: undefined,
+    isReconnecting: false,
     provider: getDefaultProvider(),
     ...authContextValue,
   };

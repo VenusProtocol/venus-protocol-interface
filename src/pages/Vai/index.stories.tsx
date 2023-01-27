@@ -29,6 +29,7 @@ const context = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
+  isReconnecting: false,
   account: {
     address: fakeAddress,
   },
