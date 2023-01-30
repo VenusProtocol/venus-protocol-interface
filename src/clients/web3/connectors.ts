@@ -7,6 +7,7 @@ export const connectorIdByName = {
   [Connector.OperaWallet]: 'injected',
   [Connector.BitKeep]: 'injected',
   [Connector.InfinityWallet]: 'injected',
+  [Connector.SafePal]: 'injected',
   [Connector.CoinbaseWallet]: 'coinbaseWallet',
   [Connector.BinanceChainWallet]: 'bsc',
   [Connector.WalletConnect]: 'walletConnect',

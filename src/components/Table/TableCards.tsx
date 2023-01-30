@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
 import { Delimiter } from '../Delimiter';
-import { Select, SelectOption } from '../Select';
+import { Select, SelectOption, SelectProps } from '../Select';
 import { useStyles } from './styles';
 import { Order, TableProps } from './types';
 
@@ -56,7 +55,7 @@ export function TableCards<R>({
     [order, selectOptions],
   );
 
-  const handleOrderChange = (selectChangeEvent: SelectChangeEvent) => {
+  const handleOrderChange: SelectProps['onChange'] = selectChangeEvent => {
     const newSelectedOption = selectOptions.find(
       option => option.value === selectChangeEvent.target.value,
     );

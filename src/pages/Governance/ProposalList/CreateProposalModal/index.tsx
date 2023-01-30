@@ -55,9 +55,9 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
               ariaLabel={t('vote.createProposalForm.proposalType')}
               css={styles.formBottomMargin}
               options={[
-                { value: `${ProposalType.NORMAL}`, label: t('vote.proposalType.normal') },
-                { value: `${ProposalType.FAST_TRACK}`, label: t('vote.proposalType.fastTrack') },
-                { value: `${ProposalType.CRITICAL}`, label: t('vote.proposalType.critical') },
+                { value: ProposalType.NORMAL, label: t('vote.proposalType.normal') },
+                { value: ProposalType.FAST_TRACK, label: t('vote.proposalType.fastTrack') },
+                { value: ProposalType.CRITICAL, label: t('vote.proposalType.critical') },
               ]}
             />
 
@@ -167,7 +167,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
           againstDescription: '',
           abstainDescription: '',
           title: '',
-          proposalType: `${ProposalType.NORMAL}`,
+          proposalType: ProposalType.NORMAL,
         }}
         validationSchema={proposalSchema}
         onSubmit={handleCreateProposal}

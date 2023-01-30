@@ -31,7 +31,7 @@ const formatProposalPayload = (data: FormValues) => {
       againstDescription: data.againstDescription,
       abstainDescription: data.abstainDescription,
     }),
-    proposalType: +data.proposalType as 0 | 1 | 2,
+    proposalType: data.proposalType as 0 | 1 | 2,
   };
 
   data.actions.forEach(action => {
