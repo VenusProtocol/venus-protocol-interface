@@ -124,10 +124,20 @@
       "fastTrack": "Fast track"
     }
   },
-  "claimRewardButton": {
-    "button": {
-      "title": "Claim {{amount}}"
+  "claimReward": {
+    "claimButton": {
+      "disabledLabel": "Select assets to collect reward from",
+      "enabledLabel": "Claim {{amount}}"
     },
+    "openModalButton": {
+      "label": "Claim {{amount}}"
+    },
+    "successfulTransactionModal": {
+      "message": "You successfully claimed your reward",
+      "title": "Your claim was successful"
+    }
+  },
+  "claimRewardButton": {
     "modal": {
       "title": "Claim reward"
     }
