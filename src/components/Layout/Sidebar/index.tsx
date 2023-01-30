@@ -12,7 +12,7 @@ import { ReactComponent as LogoNoText } from 'assets/img/venusLogoPure.svg';
 import { ReactComponent as LogoDesktop } from 'assets/img/venusLogoWithText.svg';
 
 import { Icon } from '../../Icon';
-import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
+import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';
 import { menuItems } from '../constants';
@@ -148,7 +148,7 @@ export const SidebarUi: React.FC = () => {
             ))}
           </List>
 
-          <ClaimXvsRewardButton css={styles.claimXvsRewardButton} />
+          <ClaimRewardButton css={styles.claimRewardButton} />
         </Menu>
       </div>
     </>

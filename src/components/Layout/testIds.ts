@@ -1,3 +1,3 @@
 export default {
-  claimXvsRewardButton: 'layout-claim-xvs-reward-button',
+  claimRewardButton: 'layout-claim-xvs-reward-button',
 };

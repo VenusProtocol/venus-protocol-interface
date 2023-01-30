@@ -124,12 +124,13 @@
       "fastTrack": "Fast track"
     }
   },
-  "claimXvsRewardButton": {
-    "successfulTransactionModal": {
-      "message": "You successfully claimed",
-      "title": "Your claim was successful"
+  "claimRewardButton": {
+    "button": {
+      "title": "Claim {{amount}}"
     },
-    "title": "Claim <Icon/> {{amount}}"
+    "modal": {
+      "title": "Claim reward"
+    }
   },
   "connectButton": {
     "title": "Connect wallet"

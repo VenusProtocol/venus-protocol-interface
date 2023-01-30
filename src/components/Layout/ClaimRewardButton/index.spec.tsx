@@ -9,31 +9,31 @@ import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
-import ClaimXvsRewardButton from '.';
+import ClaimRewardButton from '.';
 import TEST_IDS from '../testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('pages/Dashboard/ClaimXvsRewardButton', () => {
+describe('pages/Dashboard/ClaimRewardButton', () => {
   it('renders without crashing', () => {
-    renderComponent(<ClaimXvsRewardButton />);
+    renderComponent(<ClaimRewardButton />);
   });
 
   it('renders nothing if user have not connected any wallet', () => {
-    const { queryAllByTestId } = renderComponent(<ClaimXvsRewardButton />);
-    expect(queryAllByTestId(TEST_IDS.claimXvsRewardButton)).toHaveLength(0);
+    const { queryAllByTestId } = renderComponent(<ClaimRewardButton />);
+    expect(queryAllByTestId(TEST_IDS.claimRewardButton)).toHaveLength(0);
   });
 
   it('renders nothing if user have no claimable XVS reward', () => {
-    const { queryAllByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+    const { queryAllByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
         account: {
           address: fakeAddress,
         },
       },
     });
-    expect(queryAllByTestId(TEST_IDS.claimXvsRewardButton)).toHaveLength(0);
+    expect(queryAllByTestId(TEST_IDS.claimRewardButton)).toHaveLength(0);
   });
 
   it('renders correct XVS reward when user are connected and have claimable XVS reward', async () => {
@@ -41,7 +41,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
       xvsRewardWei: new BigNumber('10000000000000000'),
     }));
 
-    const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+    const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
         account: {
           address: fakeAddress,
@@ -49,8 +49,8 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
       },
     });
 
-    await waitFor(() => expect(getByTestId(TEST_IDS.claimXvsRewardButton)));
-    expect(getByTestId(TEST_IDS.claimXvsRewardButton).textContent).toContain('0.01 XVS');
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardButton)));
+    expect(getByTestId(TEST_IDS.claimRewardButton).textContent).toContain('0.01 XVS');
   });
 
   it('it claims XVS reward on click and displays successful transaction modal on success', async () => {
@@ -62,7 +62,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
     }));
     (claimXvsReward as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+    const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
         account: {
           address: fakeAddress,
@@ -70,10 +70,10 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
       },
     });
 
-    await waitFor(() => expect(getByTestId(TEST_IDS.claimXvsRewardButton)));
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardButton)));
 
     // Trigger claim
-    fireEvent.click(getByTestId(TEST_IDS.claimXvsRewardButton));
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardButton));
 
     // Check claimXvsReward was called and success toast was displayed
     await waitFor(() => expect(claimXvsReward).toHaveBeenCalledTimes(1));
