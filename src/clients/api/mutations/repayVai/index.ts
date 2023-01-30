@@ -1,10 +1,10 @@
 import { checkForVaiControllerTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core';
 
-import { VaiUnitroller } from 'types/contracts';
+import { VaiController } from 'types/contracts';
 
 export interface RepayVaiInput {
-  vaiControllerContract: VaiUnitroller;
+  vaiControllerContract: VaiController;
   fromAccountAddress: string;
   amountWei: string;
 }

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import { formatTokensToReadableValue } from 'utilities';
 
-import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
+import vaiUnitrollerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';

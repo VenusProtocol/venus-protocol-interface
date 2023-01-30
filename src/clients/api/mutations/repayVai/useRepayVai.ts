@@ -1,7 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
-import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import { useVaiControllerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
@@ -11,7 +11,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useRepayVai = (options?: Options) => {
-  const vaiControllerContract = useVaiUnitrollerContract();
+  const vaiControllerContract = useVaiControllerContract();
 
   return useMutation(
     FunctionKey.REPAY_VAI,

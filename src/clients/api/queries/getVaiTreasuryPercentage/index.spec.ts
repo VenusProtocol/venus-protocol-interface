@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VaiUnitroller } from 'types/contracts';
+import { VaiController } from 'types/contracts';
 
 import getVaiTreasuryPercentage from '.';
 
@@ -14,7 +14,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
           },
         }),
       },
-    } as unknown as VaiUnitroller;
+    } as unknown as VaiController;
 
     try {
       await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
@@ -35,7 +35,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
       methods: {
         treasuryPercent: treasuryPercentMock,
       },
-    } as unknown as VaiUnitroller;
+    } as unknown as VaiController;
 
     const response = await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
 
