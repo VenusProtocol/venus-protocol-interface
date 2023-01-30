@@ -14,6 +14,10 @@ import { GetBalanceOfInput } from '../queries/getBalanceOf';
 export const getBlockNumber = jest.fn();
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
 
+export const getVaiCalculateRepayAmount = jest.fn();
+export const useGetVaiCalculateRepayAmount = () =>
+  useQuery(FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT, getVaiCalculateRepayAmount);
+
 export const getVaiTreasuryPercentage = jest.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);

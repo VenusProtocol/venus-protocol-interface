@@ -2,8 +2,9 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { Asset } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
+import { convertTokensToWei, formatTokensToReadableValue } from 'utilities';
 
+import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
@@ -11,9 +12,11 @@ import {
   getAllowance,
   getBalanceOf,
   getMintedVai,
+  getVaiCalculateRepayAmount,
   repayVai,
   useGetUserMarketInfo,
 } from 'clients/api';
+import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -21,15 +24,19 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
+jest.useFakeTimers();
+
 const fakeUserVaiBalanceWei = new BigNumber(0);
 
 const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
+const repayInputAmountTokens = '100';
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeUserVaiMintedTokens,
   token: TOKENS.vai,
@@ -55,6 +62,16 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       },
       isLoading: false,
     }));
+
+    (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
+      formatToOutput({
+        repayAmountWei: convertTokensToWei({
+          value: new BigNumber(repayInputAmountTokens),
+          token: TOKENS.vai,
+        }),
+        contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayInterests,
+      }),
+    );
   });
 
   it('renders without crashing', () => {
@@ -133,5 +150,36 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       title: expect.any(String),
     });
   });
+
+  it('displays the VAI repay fee', async () => {
+    (repayVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (getBalanceOf as jest.Mock).mockImplementation(async () => ({
+      balanceWei: fakeUserVaiMintedWei,
+    }));
+
+    const fakeInput = fakeUserVaiMintedWei.dividedBy(1e18);
+
+    const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
+    await waitFor(() => getByText(en.mintRepayVai.repayVai.btnRepayVai));
+
+    // Input amount
+    const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeInput.toFixed() } });
+
+    // Check input value updated correctly
+    expect(tokenTextFieldInput.value).toBe(fakeInput.toFixed());
+
+    await waitFor(() => expect(getVaiCalculateRepayAmount).toBeCalledTimes(1));
+
+    // Check user repay VAI balance displays correctly
+    await waitFor(() => getByText('0.00031735 VAI (0.000317%)'));
+  });
+
   // @TODO: add tests to cover failing scenarios
 });

@@ -31,6 +31,14 @@ export const useStyles = () => {
       margin-top: -2px;
       margin-right: ${theme.spacing(2)};
     `,
+    tooltip: css`
+      align-items: center;
+      display: inline-flex;
+      margin-left: ${theme.spacing(2)};
+    `,
+    infoIcon: css`
+      cursor: help;
+    `,
     getLabel: ({ invertTextColors }: { invertTextColors: boolean }) => css`
       color: ${invertTextColors ? theme.palette.text.primary : theme.palette.text.secondary};
     `,

@@ -1,4 +1,8 @@
-const pancakeSwapRouter = {
+import { ContractCallResults } from 'ethereum-multicall';
+
+const pancakeSwapRouter: {
+  [key: string]: ContractCallResults;
+} = {
   getReserves: {
     results: {
       '0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6': {
@@ -2064,7 +2068,9 @@ const pancakeSwapRouter = {
   },
 };
 
-const interestRateModel = {
+const interestRateModel: {
+  [key: string]: ContractCallResults;
+} = {
   getVTokenBalances: {
     results: {
       getVTokenRates: {
@@ -5878,7 +5884,9 @@ const interestRateModel = {
   },
 };
 
-const bep20 = {
+const bep20: {
+  [key: string]: ContractCallResults;
+} = {
   balanceOfTokens: {
     results: {
       '0xFa60D973F7642B748046464e165A65B7323b0DEE': {
@@ -7418,5 +7426,1146 @@ const bep20 = {
     blockNumber: 25252574,
   },
 };
+const vaiController: {
+  [key: string]: ContractCallResults;
+} = {
+  getVaiRepayInterests: {
+    results: {
+      getVaiRepayInterests: {
+        originalContractCallContext: {
+          reference: 'getVaiInterests',
+          contractAddress: '0xf70C3C6b749BbAb89C081737334E74C9aFD4BE16',
+          abi: [
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'error',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'info',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'detail',
+                  type: 'uint256',
+                },
+              ],
+              name: 'Failure',
+              type: 'event',
+              signature: '0x45b96fe442630264581b197e84bbada861235052c5a1aadfff9ea4e40a969aa0',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'liquidator',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'borrower',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'repayAmount',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'vTokenCollateral',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'seizeTokens',
+                  type: 'uint256',
+                },
+              ],
+              name: 'LiquidateVAI',
+              type: 'event',
+              signature: '0x42d401f96718a0c42e5cea8108973f0022677b7e2e5f4ee19851b2de7a0394e7',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'minter',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'feeAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'MintFee',
+              type: 'event',
+              signature: '0xb0715a6d41a37c1b0672c22c09a31a0642c1fb3f9efa2d5fd5c6d2d891ee78c6',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'minter',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'mintVAIAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'MintVAI',
+              type: 'event',
+              signature: '0x002e68ab1600fc5e7290e2ceaa79e2f86b4dbaca84a48421e167e0b40409218a',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'oldAccessControlAddress',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'newAccessControlAddress',
+                  type: 'address',
+                },
+              ],
+              name: 'NewAccessControl',
+              type: 'event',
+              signature: '0x0f1eca7612e020f6e4582bcead0573eba4b5f7b56668754c6aed82ef12057dd4',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'contract ComptrollerInterface',
+                  name: 'oldComptroller',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'contract ComptrollerInterface',
+                  name: 'newComptroller',
+                  type: 'address',
+                },
+              ],
+              name: 'NewComptroller',
+              type: 'event',
+              signature: '0x7ac369dbd14fa5ea3f473ed67cc9d598964a77501540ba6751eb0b3decf5870d',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'oldTreasuryAddress',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'newTreasuryAddress',
+                  type: 'address',
+                },
+              ],
+              name: 'NewTreasuryAddress',
+              type: 'event',
+              signature: '0x8de763046d7b8f08b6c3d03543de1d615309417842bb5d2d62f110f65809ddac',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'oldTreasuryGuardian',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'newTreasuryGuardian',
+                  type: 'address',
+                },
+              ],
+              name: 'NewTreasuryGuardian',
+              type: 'event',
+              signature: '0x29f06ea15931797ebaed313d81d100963dc22cb213cb4ce2737b5a62b1a8b1e8',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'oldTreasuryPercent',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'newTreasuryPercent',
+                  type: 'uint256',
+                },
+              ],
+              name: 'NewTreasuryPercent',
+              type: 'event',
+              signature: '0x0893f8f4101baaabbeb513f96761e7a36eb837403c82cc651c292a4abdc94ed7',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'oldBaseRateMantissa',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'newBaseRateMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'NewVAIBaseRate',
+              type: 'event',
+              signature: '0xc84c32795e68685ec107b0e94ae126ef464095f342c7e2e0fec06a23d2e8677e',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'oldFloatRateMantissa',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'newFlatRateMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'NewVAIFloatRate',
+              type: 'event',
+              signature: '0x546fb35dbbd92233aecc22b5a11a6791e5db7ec14f62e49cbac2a10c0437f561',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'oldMintCap',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'newMintCap',
+                  type: 'uint256',
+                },
+              ],
+              name: 'NewVAIMintCap',
+              type: 'event',
+              signature: '0x43862b3eea2df8fce70329f3f84cbcad220f47a73be46c5e00df25165a6e1695',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'oldReceiver',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'newReceiver',
+                  type: 'address',
+                },
+              ],
+              name: 'NewVAIReceiver',
+              type: 'event',
+              signature: '0x4df62dd7d9cc4f480a167c19c616ae5d5bb40db6d0c2bc66dba57068225f00d8',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'payer',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'borrower',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'repayVAIAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'RepayVAI',
+              type: 'event',
+              signature: '0x1db858e6f7e1a0d5e92c10c6507d42b3dabfe0a4867fe90c5a14d9963662ef7e',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'INITIAL_VAI_MINT_INDEX',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x65097954',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'contract VAIUnitroller',
+                  name: 'unitroller',
+                  type: 'address',
+                },
+              ],
+              name: '_become',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x1d504dc6',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'contract ComptrollerInterface',
+                  name: 'comptroller_',
+                  type: 'address',
+                },
+              ],
+              name: '_setComptroller',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x4576b5db',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'newTreasuryGuardian',
+                  type: 'address',
+                },
+                {
+                  internalType: 'address',
+                  name: 'newTreasuryAddress',
+                  type: 'address',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'newTreasuryPercent',
+                  type: 'uint256',
+                },
+              ],
+              name: '_setTreasuryData',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0xd24febad',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'accessControl',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x13007d55',
+            },
+            {
+              constant: false,
+              inputs: [],
+              name: 'accrueVAIInterest',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0xb49b1005',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'admin',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xf851a440',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'baseRateMantissa',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x3b72fbef',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'comptroller',
+              outputs: [
+                {
+                  internalType: 'contract ComptrollerInterface',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x5fe3b567',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'floatRateMantissa',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x5ce73240',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'getBlockNumber',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x42cbb15c',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'getBlocksPerYear',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x741de148',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'minter',
+                  type: 'address',
+                },
+              ],
+              name: 'getMintableVAI',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x3785d1d6',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'getVAIAddress',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xcbeb2b28',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'borrower',
+                  type: 'address',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'repayAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'getVAICalculateRepayAmount',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x691e45ac',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'minter',
+                  type: 'address',
+                },
+              ],
+              name: 'getVAIMinterInterestIndex',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x234f8977',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'account',
+                  type: 'address',
+                },
+              ],
+              name: 'getVAIRepayAmount',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x78c2f922',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'getVAIRepayRate',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xb9ee8726',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'getVAIRepayRatePerBlock',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x75c3de43',
+            },
+            {
+              constant: false,
+              inputs: [],
+              name: 'initialize',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x8129fc1c',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'isVenusVAIInitialized',
+              outputs: [
+                {
+                  internalType: 'bool',
+                  name: '',
+                  type: 'bool',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x60c954ef',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'borrower',
+                  type: 'address',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'repayAmount',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'contract VTokenInterface',
+                  name: 'vTokenCollateral',
+                  type: 'address',
+                },
+              ],
+              name: 'liquidateVAI',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x11b3d5e7',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'mintCap',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x76c71ca1',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'mintVAIAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'mintVAI',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x4712ee7d',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              name: 'pastVAIInterest',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xf20fd8f4',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'pendingAdmin',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x26782247',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'pendingVAIControllerImplementation',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xb06bb426',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'receiver',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xf7260d3e',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'repayVAIAmount',
+                  type: 'uint256',
+                },
+              ],
+              name: 'repayVAI',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x6fe74a21',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'newAccessControlAddress',
+                  type: 'address',
+                },
+              ],
+              name: 'setAccessControl',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x19129e5a',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'newBaseRateMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'setBaseRate',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x1d08837b',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'newFloatRateMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'setFloatRate',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x3b5a0a64',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'uint256',
+                  name: '_mintCap',
+                  type: 'uint256',
+                },
+              ],
+              name: 'setMintCap',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x4070a0c9',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'newReceiver',
+                  type: 'address',
+                },
+              ],
+              name: 'setReceiver',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+              signature: '0x718da7ee',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'treasuryAddress',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xc5f956af',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'treasuryGuardian',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xb2eafc39',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'treasuryPercent',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x04ef9d58',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'vaiControllerImplementation',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x003b5884',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'vaiMintIndex',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xb2b481bc',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              name: 'venusVAIMinterIndex',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0x24650602',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'venusVAIState',
+              outputs: [
+                {
+                  internalType: 'uint224',
+                  name: 'index',
+                  type: 'uint224',
+                },
+                {
+                  internalType: 'uint32',
+                  name: 'block',
+                  type: 'uint32',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+              signature: '0xe44e6168',
+            },
+          ],
+          calls: [
+            {
+              reference: 'accrueVAIInterest',
+              methodName: 'accrueVAIInterest',
+              methodParameters: [],
+            },
+            {
+              reference: 'getVAICalculateRepayAmount',
+              methodName: 'getVAICalculateRepayAmount',
+              methodParameters: [
+                '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+                '100000000000000000000',
+              ],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: '0x',
+            decoded: false,
+            reference: 'accrueVAIInterest',
+            methodName: 'accrueVAIInterest',
+            methodParameters: [],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x056bc63d8c71be92ab',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x0120a0f13d2d68',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            decoded: true,
+            reference: 'getVAICalculateRepayAmount',
+            methodName: 'getVAICalculateRepayAmount',
+            methodParameters: [
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+              '100000000000000000000',
+            ],
+            success: true,
+          },
+        ],
+      },
+    },
+    blockNumber: 26714340,
+  } as ContractCallResults,
+};
 
-export default { pancakeSwapRouter, interestRateModel, bep20 };
+export default { pancakeSwapRouter, interestRateModel, bep20, vaiController };

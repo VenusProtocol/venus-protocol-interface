@@ -12,7 +12,7 @@ import {
   getTokenContract,
   getTokenContractByAddress,
   getVTokenContract,
-  getVaiUnitrollerContract,
+  getVaiControllerContract,
   getVaiVaultContract,
   getVenusLensContract,
   getVrtConverterProxyContract,
@@ -37,9 +37,9 @@ export const useVTokenContract = <T extends string>(name: T) => {
   return useMemo(() => getVTokenContract<T>(name, web3), [web3, name]);
 };
 
-export const useVaiUnitrollerContract = () => {
+export const useVaiControllerContract = () => {
   const web3 = useWeb3();
-  return useMemo(() => getVaiUnitrollerContract(web3), [web3]);
+  return useMemo(() => getVaiControllerContract(web3), [web3]);
 };
 
 export const useVaiVaultContract = () => {

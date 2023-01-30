@@ -25,7 +25,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
-const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
+const vaiUnitrollerContractAddress = getContractAddress('vaiController');
 
 export interface MintVaiUiProps {
   disabled: boolean;
