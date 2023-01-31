@@ -709,15 +709,9 @@
     }
   },
   "vaultItem": {
-    "claimButton": "Claim",
     "dailyEmission": "Daily Emission",
-    "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulClaimRewardTransactionModal": {
-      "description": "You successfully claimed your reward",
-      "title": "Your claim was successful"
-    },
     "successfulWithdrawVrtTransactionModal": {
       "description": "You successfully withdrew your VRT tokens",
       "title": "Your withdrawal was successful"

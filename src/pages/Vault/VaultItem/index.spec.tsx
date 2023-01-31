@@ -5,7 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
-import { useClaimVaultReward, withdrawFromVrtVault } from 'clients/api';
+import { withdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -21,7 +21,6 @@ const fakeVault = fakeVaults[0];
 
 const baseProps: VaultItemProps = {
   ...fakeVault,
-  userPendingRewardWei: new BigNumber('100000000000000000000'),
   userStakedWei: new BigNumber('200000000000000000000'),
 };
 
@@ -34,12 +33,10 @@ describe('pages/Vault/VaultItem', () => {
     const { getByTestId, getAllByTestId } = renderComponent(<VaultItem {...baseProps} />);
 
     const symbolElement = getByTestId(TEST_IDS.symbol);
-    const userPendingRewardTokensElement = getByTestId(TEST_IDS.userPendingRewardTokens);
     const userStakedTokensElement = getByTestId(TEST_IDS.userStakedTokens);
     const dataListItemElements = getAllByTestId(TEST_IDS.dataListItem);
 
     expect(symbolElement.textContent).toMatchSnapshot();
-    expect(userPendingRewardTokensElement.textContent).toMatchSnapshot();
     expect(userStakedTokensElement.textContent).toMatchSnapshot();
 
     dataListItemElements.map(dataListItemElement =>
@@ -60,35 +57,6 @@ describe('pages/Vault/VaultItem', () => {
 
     // Click on withdraw button
     expect(queryByText(en.vaultItem.withdrawButton)).toBeNull();
-  });
-
-  it('sends the correct request then displays a successful transaction modal on success when clicking on the claim reward button', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const { claimReward } = useClaimVaultReward();
-
-    (claimReward as jest.Mock).mockImplementationOnce(() => fakeContractReceipt);
-
-    const { getByText } = renderComponent(<VaultItem {...baseProps} />, {
-      authContextValue: { account: { address: fakeAddress } },
-    });
-
-    // Click on claim reward button
-    const claimRewardButton = getByText(en.vaultItem.claimButton);
-    fireEvent.click(claimRewardButton);
-
-    await waitFor(() => expect(claimReward).toHaveBeenCalledTimes(1));
-    expect(claimReward).toHaveBeenCalledWith({
-      poolIndex: baseProps.poolIndex,
-      rewardToken: baseProps.rewardToken,
-      stakedToken: baseProps.stakedToken,
-    });
-
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      content: en.vaultItem.successfulClaimRewardTransactionModal.description,
-      title: en.vaultItem.successfulClaimRewardTransactionModal.title,
-    });
   });
 
   it('sends the correct request then displays a successful transaction modal on success when clicking on the withdraw button of the VRT non-vesting vault', async () => {
