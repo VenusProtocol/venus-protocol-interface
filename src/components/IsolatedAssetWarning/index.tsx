@@ -9,7 +9,7 @@ import AssetTable from './AssetTable';
 import { useStyles } from './styles';
 import { WarningType } from './types';
 
-export interface IsolatedAssetWarningProps {
+export interface IsolatedAssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
   type: WarningType;
   token: Token;
   pool?: Pool;
@@ -21,6 +21,7 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
   token,
   type,
   className,
+  ...otherProps
 }) => {
   const [showAssets, setShowAssets] = useState(false);
   const styles = useStyles();
@@ -39,7 +40,7 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
   }
 
   return (
-    <div css={styles.container} className={className}>
+    <div css={styles.container} className={className} {...otherProps}>
       <Notice
         css={styles.notice}
         variant="warning"
@@ -47,8 +48,7 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
           <>
             <div css={styles.description}>
               {type === 'borrow'
-                ? // TODO: add text for borrow description
-                  t('isolatedAssetWarning.borrowDescription', translationArgs)
+                ? t('isolatedAssetWarning.borrowDescription', translationArgs)
                 : t('isolatedAssetWarning.supplyDescription', translationArgs)}
             </div>
 

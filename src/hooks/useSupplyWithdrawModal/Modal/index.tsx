@@ -27,7 +27,7 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
 
   const tabsContent: TabContent[] = [
     {
-      title: t('supplyWithdraw.withdraw'),
+      title: t('supplyWithdraw.withdrawTabTitle'),
       content: (
         <WithdrawModal
           onClose={onClose}
@@ -41,7 +41,7 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
   // Prevent user from being able to supply UST or LUNA
   if (isTokenEnabled(vToken.underlyingToken)) {
     tabsContent.unshift({
-      title: t('supplyWithdraw.supply'),
+      title: t('supplyWithdraw.supplyTabTitle'),
       content: (
         <SupplyModal
           onClose={onClose}

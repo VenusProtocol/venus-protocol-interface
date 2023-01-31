@@ -91,12 +91,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdraw.connectWalletToWithdraw')}>
+      <ConnectWallet message={t('supplyWithdraw.withdraw.connectWalletToWithdraw')}>
         {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
-            title={t('supplyWithdraw.enableToWithdraw', {
+            title={t('supplyWithdraw.withdraw.enableToWithdraw', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
             assetInfo={assetInfo}
@@ -106,9 +106,11 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
               asset={asset}
               pool={pool}
               onSubmit={onSubmit}
-              inputLabel={t('supplyWithdraw.withdrawableAmount')}
-              enabledButtonKey={t('supplyWithdraw.withdraw')}
-              disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
+              inputLabel={t('supplyWithdraw.withdraw.withdrawableAmount')}
+              enabledButtonKey={t('supplyWithdraw.withdraw.submitButton.enabledLabel')}
+              disabledButtonKey={t(
+                'supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel',
+              )}
               maxInput={maxInput}
               isTransactionLoading={isLoading}
             />
@@ -177,8 +179,8 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
     if (transactionHash) {
       openSuccessfulTransactionModal({
-        title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
-        content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
+        title: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.title'),
+        content: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.message'),
         amount: {
           valueWei: convertTokensToWei({ value: amount, token: vToken.underlyingToken }),
           token: vToken.underlyingToken,

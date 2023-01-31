@@ -215,13 +215,23 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         value: asset.borrowerCount ?? '-',
       },
       {
+        label: t('market.marketInfo.stats.supplyCapLabel'),
+        value: !asset.supplyCapTokens
+          ? t('market.marketInfo.stats.unlimitedSupplyCap')
+          : formatTokensToReadableValue({
+              value: asset.supplyCapTokens,
+              minimizeDecimals: true,
+              token: asset.vToken.underlyingToken,
+            }),
+      },
+      {
         label: t('market.marketInfo.stats.borrowCapLabel'),
-        value: asset.borrowCapTokens.isEqualTo(0)
+        value: !asset.borrowCapTokens
           ? t('market.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: asset.borrowCapTokens,
               minimizeDecimals: true,
-              token: asset.vToken,
+              token: asset.vToken.underlyingToken,
             }),
       },
       {

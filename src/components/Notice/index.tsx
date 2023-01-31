@@ -7,7 +7,7 @@ import { Icon } from '../Icon';
 import { useStyles } from './styles';
 import { NoticeVariant } from './types';
 
-interface NoticeProps {
+interface NoticeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   className?: string;
   title?: string | ReactElement;
   description: string | ReactElement;
@@ -30,11 +30,17 @@ const getNoticeIconName = (
   }
 };
 
-export const Notice = ({ className, title, description, variant = 'info' }: NoticeProps) => {
+export const Notice = ({
+  className,
+  title,
+  description,
+  variant = 'info',
+  ...otherProps
+}: NoticeProps) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.root}>
+    <div css={styles.root} {...otherProps}>
       <Paper css={[styles.inner, styles.getInnerStyles({ variant })]} className={className}>
         <Icon
           css={[styles.icon, styles.getIconStyles({ variant })]}
