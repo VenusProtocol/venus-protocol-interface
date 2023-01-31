@@ -4,10 +4,8 @@ export const canRegisterToken = () =>
   typeof window !== 'undefined' &&
   (window?.ethereum?.isMetaMask || window?.ethereum?.isTrust || window?.ethereum?.isCoinbaseWallet);
 
-const addTokenToWallet = async (token: Token) => {
-  const walletCanRegisterToken = canRegisterToken();
-
-  return walletCanRegisterToken.request({
+const addTokenToWallet = async (token: Token) =>
+  window.ethereum?.request({
     method: 'wallet_watchAsset',
     params: {
       type: 'ERC20',
@@ -19,6 +17,5 @@ const addTokenToWallet = async (token: Token) => {
       },
     },
   });
-};
 
 export default addTokenToWallet;

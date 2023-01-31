@@ -5,7 +5,7 @@ import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { getVTokenByAddress } from 'utilities';
 
-import addTokenToWallet from 'clients/web3/addTokenToWallet';
+import addTokenToWallet, { canRegisterToken } from 'clients/web3/addTokenToWallet';
 import { Subdirectory, routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
@@ -85,7 +85,7 @@ const Breadcrumbs: React.FC = () => {
               <div css={styles.tokenSymbol}>
                 <span>{vToken.underlyingToken.symbol}</span>
 
-                {!!account && (
+                {!!account && canRegisterToken() && (
                   <TertiaryButton
                     css={styles.addTokenButton}
                     onClick={() => addTokenToWallet(vToken.underlyingToken)}
