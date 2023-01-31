@@ -70,7 +70,7 @@ describe('Supply form', () => {
       },
     );
 
-    await waitFor(() => expect(queryByText(en.supplyWithdraw.supply)).toBeNull());
+    await waitFor(() => expect(queryByText(en.supplyWithdraw.supplyTabTitle)).toBeNull());
   });
 
   it('displays correct token wallet balance', async () => {
@@ -115,6 +115,38 @@ describe('Supply form', () => {
     await waitFor(() => getByText('1,000'));
   });
 
+  it('displays warning notice if asset is from an isolated pool', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    customFakePool.isIsolated = true;
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: customFakePool,
+      },
+      isLoading: false,
+    }));
+
+    const { getByTestId } = renderComponent(
+      <Supply
+        onClose={jest.fn()}
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+      />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+
+    await waitFor(() => getByTestId(TEST_IDS.noticeIsolatedAsset));
+    expect(getByTestId(TEST_IDS.noticeIsolatedAsset).textContent).toMatchInlineSnapshot(
+      '"This is an isolated token. Supplying SXP to the Venus pool will enable you to borrow tokens from this pool exclusively.Show tokens from the Venus pool"',
+    );
+  });
+
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText } = renderComponent(
       () => (
@@ -132,10 +164,16 @@ describe('Supply form', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel),
+    );
 
     // Check submit button is disabled
-    expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
+    expect(
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel).closest(
+        'button',
+      ),
+    ).toBeDisabled();
 
     const incorrectValueTokens = fakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
@@ -146,8 +184,78 @@ describe('Supply form', () => {
     });
 
     // Check submit button is still disabled
-    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
-    expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel),
+    );
+    expect(
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel).closest(
+        'button',
+      ),
+    ).toBeDisabled();
+  });
+
+  it('disables submit button and displays error notice if an amount entered in input is higher than supply cap of token wallet balance', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.supplyCapTokens = new BigNumber(1);
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: customFakePool,
+      },
+      isLoading: false,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel),
+    );
+
+    // Check submit button is disabled
+    expect(
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel).closest(
+        'button',
+      ),
+    ).toBeDisabled();
+
+    const incorrectValueTokens = customFakeAsset.supplyCapTokens.plus(1).toFixed();
+
+    // Enter amount in input
+    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+    fireEvent.change(tokenTextInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check error notice is displayed
+    await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
+    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
+      '"You can not supply more than 1 SXP to this pool"',
+    );
+
+    // Check submit button is still disabled
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel),
+    );
+    expect(
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel).closest(
+        'button',
+      ),
+    ).toBeDisabled();
   });
 
   it('submit is disabled with no amount', async () => {
@@ -168,22 +276,21 @@ describe('Supply form', () => {
       },
     );
 
-    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel),
+    );
 
-    const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
-    expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
+    const disabledButtonText = getByText(
+      en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel,
+    );
+    expect(disabledButtonText).toHaveTextContent(
+      en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel,
+    );
     const disabledButton = document.querySelector('button[type="submit"]');
     expect(disabledButton).toBeDisabled();
   });
 
   it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: fakePool,
-      },
-      isLoading: false,
-    }));
-
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.vToken = VBEP_TOKENS.bnb;
@@ -223,7 +330,9 @@ describe('Supply form', () => {
 
     // Click on submit button
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply));
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply.submitButton.enabledLabel),
+    );
     fireEvent.click(submitButton);
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
@@ -239,8 +348,8 @@ describe('Supply form', () => {
           token: customFakeAsset.vToken.underlyingToken,
           valueWei: expectedAmountWei,
         },
-        content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
-        title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
+        content: en.supplyWithdraw.supply.successfulSupplyTransactionModal.message,
+        title: en.supplyWithdraw.supply.successfulSupplyTransactionModal.title,
       }),
     );
   });
@@ -276,7 +385,9 @@ describe('Supply form', () => {
 
     // Click on submit button
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply));
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply.submitButton.enabledLabel),
+    );
     fireEvent.click(submitButton);
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
@@ -292,8 +403,8 @@ describe('Supply form', () => {
           token: fakeAsset.vToken.underlyingToken,
           valueWei: expectedAmountWei,
         },
-        content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
-        title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
+        content: en.supplyWithdraw.supply.successfulSupplyTransactionModal.message,
+        title: en.supplyWithdraw.supply.successfulSupplyTransactionModal.title,
       }),
     );
   });

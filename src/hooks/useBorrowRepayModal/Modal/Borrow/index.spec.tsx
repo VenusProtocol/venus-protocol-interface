@@ -129,7 +129,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     );
   });
 
-  it('displays warning message and disables form if user has not supplied and collateralize any tokens yet', async () => {
+  it('disables submit button and displays a warning notice if user has not supplied and collateralize any tokens yet', async () => {
     const customFakePool: Pool = {
       ...fakePool,
       userBorrowLimitCents: 0,
@@ -163,25 +163,21 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
+    // Check warning is displayed
+    await waitFor(() => getByTestId(TEST_IDS.notice));
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"You need to supply tokens and enable them as collateral before you can borrow SXP from this pool"',
+    );
+
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
 
     // Check input is disabled
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
-
-    // Check warning is displayed
-    expect(
-      getByText(
-        en.borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning.replace(
-          '{{tokenSymbol}}',
-          fakeAsset.vToken.underlyingToken.symbol,
-        ),
-      ),
-    ).toBeTruthy();
   });
 
-  it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
+  it('disables submit button and displays a warning notice if an amount entered is higher than asset liquidity', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.liquidityCents = 200;
@@ -226,6 +222,64 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: incorrectValueTokens },
     });
+
+    await waitFor(() => getByTestId(TEST_IDS.notice));
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"Insufficient asset liquidity"',
+    );
+
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+  });
+
+  it('disables submit button and displays a warning notice if an amount entered is higher than asset borrow cap', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.borrowCapTokens = new BigNumber(1);
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: customFakePool,
+      },
+      isLoading: false,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      <Borrow
+        vToken={customFakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    const incorrectValueTokens = new BigNumber(customFakeAsset.borrowCapTokens)
+      // Add one token more than the borrow cap
+      .plus(1)
+      .toFixed();
+
+    // Enter amount in input
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: incorrectValueTokens },
+    });
+
+    await waitFor(() => getByTestId(TEST_IDS.notice));
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"You can not borrow more than 1 SXP from this pool"',
+    );
 
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
@@ -275,6 +329,57 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
+  });
+
+  it('displays warning notice if amount to borrow requested would bring user borrow balance at safe borrow limit', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={fakePool.comptrollerAddress}
+        onClose={noop}
+      />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    const safeBorrowLimitCents =
+      (fakePool.userBorrowLimitCents! * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
+    const marginWithSafeBorrowLimitDollars =
+      (safeBorrowLimitCents - fakePool.userBorrowBalanceCents!) /
+      // Convert cents to dollars
+      100;
+    const safeMaxTokens = new BigNumber(marginWithSafeBorrowLimitDollars).dividedBy(
+      fakeAsset.tokenPriceDollars,
+    );
+
+    const riskyValueTokens = safeMaxTokens
+      // Add one token to safe borrow limit
+      .plus(1)
+      .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
+      .toFixed();
+
+    // Enter amount in input
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: riskyValueTokens },
+    });
+
+    await waitFor(() => getByTestId(TEST_IDS.notice));
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"You entered a high amount, which puts you at risk of liquidation"',
+    );
+
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));
+    expect(getByText(en.borrowRepayModal.borrow.submitButton).closest('button')).toBeEnabled();
   });
 
   it('updates input value correctly when pressing on max button', async () => {

@@ -18,6 +18,7 @@ import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 
 import { useStyles } from '../styles';
+import Notice from './Notice';
 import TEST_IDS from './testIds';
 
 interface SupplyFormUiProps {
@@ -59,41 +60,42 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
           pool={pool}
           type="supply"
           css={styles.isolatedAssetWarning}
+          data-testid={TEST_IDS.noticeIsolatedAsset}
         />
       )}
 
-      <FormikTokenTextField
-        data-testid={TEST_IDS.valueInput}
-        name="amount"
-        token={asset.vToken.underlyingToken}
-        disabled={isTransactionLoading || isSupplyingLuna}
-        rightMaxButton={{
-          label: t('supplyWithdraw.max').toUpperCase(),
-          valueOnClick: maxInput.toFixed(),
-        }}
-        css={styles.input}
-        // Only display error state if amount is higher than borrow limit
-        displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
-      />
-
-      <Typography
-        component="div"
-        variant="small2"
-        css={[styles.greyLabel, styles.getRow({ isLast: true })]}
-      >
-        <Trans
-          i18nKey={inputLabel}
-          components={{
-            White: <span css={styles.whiteLabel} />,
+      <div css={[styles.getRow({ isLast: true })]}>
+        <FormikTokenTextField
+          data-testid={TEST_IDS.valueInput}
+          name="amount"
+          token={asset.vToken.underlyingToken}
+          disabled={isTransactionLoading || isSupplyingLuna}
+          rightMaxButton={{
+            label: t('supplyWithdraw.supply.max').toUpperCase(),
+            valueOnClick: maxInput.toFixed(),
           }}
-          values={{
-            amount: formatTokensToReadableValue({
-              value: maxInput,
-              token: asset.vToken.underlyingToken,
-            }),
-          }}
+          css={styles.input}
+          // Only display error state if amount is higher than borrow limit
+          displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
         />
-      </Typography>
+
+        <Typography component="div" variant="small2" css={[styles.greyLabel]}>
+          <Trans
+            i18nKey={inputLabel}
+            components={{
+              White: <span css={styles.whiteLabel} />,
+            }}
+            values={{
+              amount: formatTokensToReadableValue({
+                value: maxInput,
+                token: asset.vToken.underlyingToken,
+              }),
+            }}
+          />
+        </Typography>
+
+        <Notice asset={asset} amount={amount} />
+      </div>
 
       <AccountData amountTokens={amount} asset={asset} pool={pool} action="supply" />
 

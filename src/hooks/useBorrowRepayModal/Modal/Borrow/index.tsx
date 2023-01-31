@@ -7,7 +7,6 @@ import {
   FormikSubmitButton,
   FormikTokenTextField,
   IsolatedAssetWarning,
-  NoticeWarning,
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
@@ -24,6 +23,7 @@ import useAssetInfo from 'hooks/useAssetInfo';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
+import Notice from './Notice';
 import TEST_IDS from './testIds';
 
 // TODO: add stories
@@ -36,7 +36,6 @@ export interface BorrowFormProps {
   safeLimitTokens: string;
   borrow: (amountWei: BigNumber) => Promise<ContractReceipt>;
   isBorrowLoading: boolean;
-  hasUserCollateralizedSuppliedAssets: boolean;
 }
 
 export const BorrowForm: React.FC<BorrowFormProps> = ({
@@ -47,10 +46,11 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   safeLimitTokens,
   borrow,
   isBorrowLoading,
-  hasUserCollateralizedSuppliedAssets,
 }) => {
   const { t, Trans } = useTranslation();
   const sharedStyles = useStyles();
+
+  const hasUserCollateralizedSuppliedAssets = (pool?.userBorrowLimitCents || 0) > 0;
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -123,18 +123,13 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
               }
             />
 
-            {(!hasUserCollateralizedSuppliedAssets || +values.amount > +safeLimitTokens) && (
-              <NoticeWarning
-                css={sharedStyles.notice}
-                description={
-                  +values.amount > +safeLimitTokens
-                    ? t('borrowRepayModal.borrow.highAmountWarning')
-                    : t('borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning', {
-                        tokenSymbol: asset.vToken.underlyingToken.symbol,
-                      })
-                }
-              />
-            )}
+            <Notice
+              hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
+              amount={values.amount}
+              safeLimitTokens={safeLimitTokens}
+              limitTokens={limitTokens}
+              asset={asset}
+            />
           </div>
 
           <AccountData
@@ -174,16 +169,6 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
   const pool = getPoolData?.pool;
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
-  const hasUserCollateralizedSuppliedAssets = React.useMemo(
-    () =>
-      !!pool &&
-      pool.assets.some(
-        userAsset =>
-          userAsset.isCollateralOfUser && userAsset.userSupplyBalanceTokens.isGreaterThan(0),
-      ),
-    [pool?.assets],
-  );
-
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
     vToken,
   });
@@ -217,11 +202,17 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
       (pool.userBorrowLimitCents - pool.userBorrowBalanceCents) /
       // Convert cents to dollars
       100;
-
     const liquidityDollars = asset.liquidityCents / 100;
-    const maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
+
+    let maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
       // Convert dollars to tokens
       .dividedBy(asset.tokenPriceDollars);
+
+    // Take borrow cap in consideration if asset has one
+    if (asset.borrowCapTokens) {
+      const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.userBorrowBalanceTokens);
+      maxTokens = BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
+    }
 
     const safeBorrowLimitCents = (pool.userBorrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
     const marginWithSafeBorrowLimitDollars =
@@ -239,13 +230,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
       value.dp(vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
-  }, [
-    vToken.underlyingToken.decimals,
-    asset?.tokenPriceDollars,
-    asset?.liquidityCents,
-    pool?.userBorrowLimitCents,
-    pool?.userBorrowBalanceCents,
-  ]);
+  }, [vToken.underlyingToken.decimals, asset, pool]);
 
   const assetInfo = useAssetInfo({
     asset,
@@ -271,7 +256,6 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
             isBorrowLoading={isBorrowLoading}
-            hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
           />
         </EnableToken>
       ) : (

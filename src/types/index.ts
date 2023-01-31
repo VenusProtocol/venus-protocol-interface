@@ -38,8 +38,6 @@ export interface Asset {
   tokenPriceDollars: BigNumber;
   reserveFactor: number;
   collateralFactor: number;
-  borrowCapTokens: BigNumber;
-  // TODO: add supplyCapTokens (see VEN-819)
   liquidityCents: number;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
@@ -55,6 +53,8 @@ export interface Asset {
   supplyRatePerBlockTokens: BigNumber;
   borrowRatePerBlockTokens: BigNumber;
   distributions: AssetDistribution[];
+  borrowCapTokens?: BigNumber;
+  supplyCapTokens?: BigNumber;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -187,6 +187,7 @@ export interface Market {
   reserveFactor: string;
   supplierCount: number;
   supplierDailyVenus: string;
+  supplyCaps: string;
   supplyApy: BigNumber;
   supplyRatePerBlock: string;
   supplyVenusApy: BigNumber;

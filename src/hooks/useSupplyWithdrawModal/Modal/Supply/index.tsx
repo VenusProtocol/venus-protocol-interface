@@ -37,7 +37,6 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
   isLoading,
 }) => {
   const styles = useStyles();
-
   const { t } = useTranslation();
 
   const assetInfo = useAssetInfo({
@@ -50,7 +49,13 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
       return new BigNumber(0);
     }
 
-    const maxInputTokens = asset.userWalletBalanceTokens;
+    let maxInputTokens = asset.userWalletBalanceTokens;
+
+    // Handle supply cap if asset has one
+    if (asset.supplyCapTokens) {
+      const marginWithSupplyCapTokens = asset.supplyCapTokens.minus(asset.userSupplyBalanceTokens);
+      maxInputTokens = BigNumber.minimum(maxInputTokens, marginWithSupplyCapTokens);
+    }
 
     return maxInputTokens;
   }, [asset]);
@@ -61,12 +66,12 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdraw.connectWalletToSupply')}>
+      <ConnectWallet message={t('supplyWithdraw.supply.connectWalletToSupply')}>
         {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
-            title={t('supplyWithdraw.enableToSupply', {
+            title={t('supplyWithdraw.supply.enableToSupply', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
             assetInfo={assetInfo}
@@ -76,9 +81,11 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
               asset={asset}
               pool={pool}
               onSubmit={onSubmit}
-              inputLabel={t('supplyWithdraw.walletBalance')}
-              enabledButtonKey={t('supplyWithdraw.supply')}
-              disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
+              inputLabel={t('supplyWithdraw.supply.walletBalance')}
+              enabledButtonKey={t('supplyWithdraw.supply.submitButton.enabledLabel')}
+              disabledButtonKey={t(
+                'supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel',
+              )}
               maxInput={maxInput}
               isTransactionLoading={isLoading}
             />
@@ -116,8 +123,8 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, on
     onClose();
 
     openSuccessfulTransactionModal({
-      title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
-      content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
+      title: t('supplyWithdraw.supply.successfulSupplyTransactionModal.title'),
+      content: t('supplyWithdraw.supply.successfulSupplyTransactionModal.message'),
       amount: {
         valueWei: supplyAmountWei,
         token: vToken.underlyingToken,

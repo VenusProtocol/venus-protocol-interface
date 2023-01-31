@@ -67,13 +67,15 @@
   },
   "borrowRepayModal": {
     "borrow": {
+      "aboveBorrowCapWarning": "You can not borrow more than {{borrowCap}} from this pool",
+      "aboveLiquidityWarning": "Insufficient asset liquidity",
+      "aboveSafeLimitWarning": "You entered a high amount, which puts you at risk of liquidation",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
         "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
       },
-      "highAmountWarning": "You entered a high amount, which puts you at risk of liquidation",
-      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from the Venus protocol",
+      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow",
@@ -326,7 +328,9 @@
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Uncapped"
+        "supplyCapLabel": "Supply cap",
+        "unlimitedBorrowCap": "Uncapped",
+        "unlimitedSupplyCap": "Uncapped"
       }
     },
     "supplyButtonLabel": "Supply",
@@ -436,25 +440,37 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "supplyWithdraw": {
-    "connectWalletToSupply": "Please connect your wallet to supply",
-    "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
-    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
-    "enterValidAmountSupply": "Enter a valid amount to supply",
-    "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
-    "max": "Max",
-    "successfulSupplyTransactionModal": {
-      "message": "You successfully supplied",
-      "title": "Your supply was successful"
+    "supply": {
+      "amountAboveSupplyCapWarning": "You can not supply more than {{supplyCap}} to this pool",
+      "connectWalletToSupply": "Please connect your wallet to supply",
+      "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
+      "max": "MAX",
+      "submitButton": {
+        "enabledLabel": "Supply",
+        "enterValidAmountSupplyLabel": "Enter a valid amount to supply"
+      },
+      "successfulSupplyTransactionModal": {
+        "message": "You successfully supplied",
+        "title": "Your supply was successful"
+      },
+      "walletBalance": "Wallet balance: <White>{{amount}}</White>"
     },
-    "successfulWithdrawTransactionModal": {
-      "message": "You successfully withdrew",
-      "title": "Your withdrawal was successful"
+    "supplyTabTitle": "Supply",
+    "withdraw": {
+      "connectWalletToWithdraw": "Please connect your wallet to withdraw",
+      "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
+      "max": "MAX",
+      "submitButton": {
+        "enabledLabel": "Withdraw",
+        "enterValidAmountWithdrawLabel": "Enter a valid amount to withdraw"
+      },
+      "successfulWithdrawTransactionModal": {
+        "message": "You successfully withdrew",
+        "title": "Your withdrawal was successful"
+      },
+      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
     },
-    "supply": "Supply",
-    "walletBalance": "Wallet balance: <White>{{amount}}</White>",
-    "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+    "withdrawTabTitle": "Withdraw"
   },
   "swap": {
     "errors": {
