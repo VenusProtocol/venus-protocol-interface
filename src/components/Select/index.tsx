@@ -14,14 +14,14 @@ import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
 export interface SelectOption {
-  value: string;
+  value: string | number;
   label: string;
 }
 
 export interface SelectProps {
   options: SelectOption[];
-  value: string | undefined;
-  onChange: (e: SelectChangeEvent) => void;
+  value: string | number | undefined;
+  onChange: (e: SelectChangeEvent<string | number | undefined>) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   ariaLabel: string;
   className?: string;
@@ -84,7 +84,7 @@ export const Select: React.FC<SelectProps> = ({
         </div>
       )}
 
-      <MuiSelect
+      <MuiSelect<string | number | undefined>
         name={name}
         open={isOpen}
         onClose={handleClose}

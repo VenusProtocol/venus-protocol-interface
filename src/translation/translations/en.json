@@ -911,6 +911,7 @@
     "ledger": "Ledger",
     "metamask": "MetaMask",
     "opera": "Opera Wallet",
+    "safePal": "SafePal",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },

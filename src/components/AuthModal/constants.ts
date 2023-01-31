@@ -8,6 +8,7 @@ import { ReactComponent as InfinityWalletLogo } from 'assets/img/wallets/infinit
 import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg';
 import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
 import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
+import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalWalletLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
 import { Connector } from 'clients/web3/types';
@@ -39,6 +40,11 @@ export const WALLETS: Wallet[] = [
     Logo: WalletConnectLogo,
     connector: Connector.WalletConnect,
     mainnetOnly: true,
+  },
+  {
+    name: t('wallets.safePal'),
+    Logo: SafePalLogo,
+    connector: Connector.SafePal,
   },
   {
     name: t('wallets.binanceChainWallet'),
