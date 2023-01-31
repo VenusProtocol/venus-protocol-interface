@@ -124,12 +124,23 @@
       "fastTrack": "Fast track"
     }
   },
-  "claimXvsRewardButton": {
-    "successfulTransactionModal": {
-      "message": "You successfully claimed",
-      "title": "Your claim was successful"
+  "claimReward": {
+    "claimButton": {
+      "disabledLabel": "Select assets to collect reward from",
+      "enabledLabel": "Claim {{amount}}"
     },
-    "title": "Claim <Icon/> {{amount}}"
+    "openModalButton": {
+      "label": "Claim {{amount}}"
+    },
+    "successfulTransactionModal": {
+      "message": "You successfully claimed your reward",
+      "title": "Your claim was successful"
+    }
+  },
+  "claimRewardButton": {
+    "modal": {
+      "title": "Claim reward"
+    }
   },
   "connectButton": {
     "title": "Connect wallet"
