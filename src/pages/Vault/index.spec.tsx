@@ -25,14 +25,10 @@ describe('pages/Vault', () => {
     const { queryAllByTestId } = renderComponent(<Vault />);
 
     const symbolsElements = queryAllByTestId(TEST_IDS.symbol);
-    const userPendingRewardTokensElements = queryAllByTestId(TEST_IDS.userPendingRewardTokens);
     const userStakedTokensElements = queryAllByTestId(TEST_IDS.userStakedTokens);
     const dataListItemElements = queryAllByTestId(TEST_IDS.dataListItem);
 
     symbolsElements.map(symbolsElement => expect(symbolsElement.textContent).toMatchSnapshot());
-    userPendingRewardTokensElements.map(userPendingRewardTokensElement =>
-      expect(userPendingRewardTokensElement.textContent).toMatchSnapshot(),
-    );
     userStakedTokensElements.map(userStakedTokensElement =>
       expect(userStakedTokensElement.textContent).toMatchSnapshot(),
     );
