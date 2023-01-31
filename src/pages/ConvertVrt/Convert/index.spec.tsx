@@ -52,6 +52,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -84,6 +85,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -118,6 +120,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -148,6 +151,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -180,6 +184,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -217,6 +222,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -260,6 +266,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -300,6 +307,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -341,6 +349,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,
@@ -382,6 +391,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
+          isReconnecting: false,
           provider: fakeProvider,
           account: {
             address: fakeAccountAddress,

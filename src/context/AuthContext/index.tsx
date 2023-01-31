@@ -25,6 +25,7 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   provider: Provider;
+  isReconnecting: boolean;
   account?: Account;
   signer?: Signer;
 }
@@ -34,6 +35,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  isReconnecting: false,
   provider: getDefaultProvider(),
 });
 
@@ -106,6 +108,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         logOut,
         openAuthModal,
         closeAuthModal,
+        isReconnecting: status === 'reconnecting',
         provider,
         signer: signer || undefined,
       }}

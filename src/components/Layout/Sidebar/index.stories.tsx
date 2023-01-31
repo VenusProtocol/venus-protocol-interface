@@ -1,15 +1,30 @@
 import { ComponentMeta } from '@storybook/react';
+import noop from 'noop-ts';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
-import { withRouter, withThemeProvider } from 'stories/decorators';
+import fakeAddress from '__mocks__/models/address';
+import fakeProvider from '__mocks__/models/provider';
+import { withAuthContext, withRouter, withThemeProvider } from 'stories/decorators';
 
 import { SidebarUi } from '.';
+
+const context = {
+  login: noop,
+  logOut: noop,
+  openAuthModal: noop,
+  closeAuthModal: noop,
+  provider: fakeProvider,
+  isReconnecting: false,
+  account: {
+    address: fakeAddress,
+  },
+};
 
 export default {
   title: 'Components/Layout/Sidebar',
   component: SidebarUi,
-  decorators: [withThemeProvider, withRouter],
+  decorators: [withThemeProvider, withRouter, withAuthContext(context)],
   parameters: {
     backgrounds: {
       default: 'Primary',
