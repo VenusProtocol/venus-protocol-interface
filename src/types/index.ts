@@ -77,6 +77,7 @@ export interface Pool {
   riskRating: PoolRiskRating;
   isIsolated: boolean;
   assets: Asset[];
+  safeBorrowLimitPercentage: number;
   // User-specific props
   userSupplyBalanceCents?: number;
   userBorrowBalanceCents?: number;
