@@ -6,7 +6,6 @@ import { VaiController } from 'types/contracts';
 
 export interface MintVaiInput {
   vaiControllerContract: VaiController;
-  fromAccountAddress: string;
   amountWei: BigNumber;
 }
 

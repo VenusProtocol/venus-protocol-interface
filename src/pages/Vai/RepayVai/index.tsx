@@ -114,7 +114,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                   />
 
                   <LabeledInlineContent
-                    css={styles.getRow({ isLast: true })}
+                    css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}
                     label={t('vai.repayVai.repayVaiBalance')}
                   >
