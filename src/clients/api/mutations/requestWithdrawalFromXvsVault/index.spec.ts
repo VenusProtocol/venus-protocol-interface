@@ -20,6 +20,7 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
     const fakeContract = {
       methods: {
         requestWithdrawal: () => ({
+          call: async () => {},
           send: async () => {
             throw new Error('Fake error message');
           },
@@ -46,6 +47,7 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
     const fakeContract = {
       methods: {
         requestWithdrawal: () => ({
+          call: async () => {},
           send: async () => ({
             events: {
               Failure: {
@@ -71,7 +73,7 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
 
       throw new Error('requestWithdrawalFromXvsVault should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot(`[Error: ${VaiVaultErrorReporterError[1]}]`);
+      expect(error).toMatchInlineSnapshot('[Error: UNAUTHORIZED]');
       expect(error).toBeInstanceOf(VError);
       if (error instanceof VError) {
         expect(error.type).toBe('transaction');
@@ -81,9 +83,41 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
     }
   });
 
+  test('throws a specific error when static call fails due to user needing to complete withdrawal requests made before the XVSVault contract upgrade', async () => {
+    const fakeContract = {
+      methods: {
+        requestWithdrawal: () => ({
+          call: async () => {
+            throw new Error(`Internal JSON-RPC error.
+            {
+              "code": 3,
+              "message": "execution reverted: execute existing withdrawal before requesting new withdrawal",
+            }`);
+          },
+        }),
+      },
+    } as unknown as XvsVault;
+
+    try {
+      await requestWithdrawalFromXvsVault({
+        xvsVaultContract: fakeContract,
+        fromAccountAddress: fakeFromAccountsAddress,
+        rewardTokenAddress: fakeRewardTokenAddress,
+        amountWei: fakeAmountWei,
+        poolIndex: fakePoolIndex,
+      });
+
+      throw new Error('requestWithdrawalFromXvsVault should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot('[Error: UNAUTHORIZED]');
+    }
+  });
+
   test('returns receipt when request succeeds', async () => {
+    const callMock = jest.fn(async () => fakeTransactionReceipt);
     const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const requestWithdrawalMock = jest.fn(() => ({
+      call: callMock,
       send: sendMock,
     }));
 
@@ -102,12 +136,13 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
     });
 
     expect(response).toBe(fakeTransactionReceipt);
-    expect(requestWithdrawalMock).toHaveBeenCalledTimes(1);
+    expect(requestWithdrawalMock).toHaveBeenCalledTimes(2);
     expect(requestWithdrawalMock).toHaveBeenCalledWith(
       fakeRewardTokenAddress,
       fakePoolIndex,
       fakeAmountWei.toFixed(),
     );
+    expect(callMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });
