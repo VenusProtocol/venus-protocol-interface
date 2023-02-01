@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { SetVoteDelegateInput, SetVoteDelegateOutput, setVoteDelegate } from 'clients/api';
 import queryClient from 'clients/api/queryClient';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 const useSetVoteDelegate = (
@@ -12,7 +12,7 @@ const useSetVoteDelegate = (
     Omit<SetVoteDelegateInput, 'xvsVaultContract'>
   >,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
   return useMutation(
     FunctionKey.SET_VOTE_DELEGATE,
     params =>

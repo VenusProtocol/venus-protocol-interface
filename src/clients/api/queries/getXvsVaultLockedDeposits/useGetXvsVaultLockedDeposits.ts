@@ -4,7 +4,7 @@ import getXvsVaultLockedDeposits, {
   GetXvsVaultLockedDepositsInput,
   GetXvsVaultLockedDepositsOutput,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -22,7 +22,7 @@ const useGetXvsVaultLockedDeposits = (
   params: Omit<GetXvsVaultLockedDepositsInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, params],

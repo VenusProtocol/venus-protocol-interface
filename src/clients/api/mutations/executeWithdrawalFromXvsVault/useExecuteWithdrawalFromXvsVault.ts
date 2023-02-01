@@ -7,11 +7,11 @@ import {
   executeWithdrawalFromXvsVault,
   queryClient,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
-const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
+const XVS_VAULT_CONTRACT_ADDRESS = getContractAddress('xvsVault');
 
 type Options = MutationObserverOptions<
   ExecuteWithdrawalFromXvsVaultOutput,
@@ -23,7 +23,7 @@ const useExecuteWithdrawalFromXvsVault = (
   { stakedTokenId }: { stakedTokenId: string },
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
@@ -81,7 +81,7 @@ const useExecuteWithdrawalFromXvsVault = (
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            accountAddress: XVS_VAULT_CONTRACT_ADDRESS,
             tokenAddress: stakedToken.address,
           },
         ]);
