@@ -115,12 +115,13 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
                   />
 
                   <LabeledInlineContent
-                    css={styles.getRow({ isLast: true })}
+                    css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}
                     label={t('mintRepayVai.repayVai.repayVaiBalance')}
                   >
                     {readableRepayableVai}
                   </LabeledInlineContent>
+
                   <RepayFee repayAmountTokens={values.amount} />
                 </div>
 
