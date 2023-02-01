@@ -22,8 +22,10 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
+import RepayFee from './RepayFee';
+import TEST_IDS from './testIds';
 
-const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
+const vaiControllerContractAddress = getContractAddress('vaiController');
 
 export interface IRepayVaiUiProps {
   disabled: boolean;
@@ -89,13 +91,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       <EnableToken
         title={t('vai.repayVai.enableToken')}
         token={TOKENS.vai}
-        spenderAddress={vaiUnitrollerContractAddress}
+        spenderAddress={vaiControllerContractAddress}
       >
         {isInitialLoading ? (
           <Spinner />
         ) : (
           <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-            {() => (
+            {({ values }) => (
               <>
                 <div css={styles.ctaContainer}>
                   <FormikTokenTextField
@@ -108,15 +110,18 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                       label: t('vai.repayVai.rightMaxButtonLabel'),
                       valueOnClick: limitTokens,
                     }}
+                    data-testid={TEST_IDS.repayTextField}
                   />
 
                   <LabeledInlineContent
-                    css={styles.getRow({ isLast: true })}
+                    css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}
                     label={t('vai.repayVai.repayVaiBalance')}
                   >
                     {readableRepayableVai}
                   </LabeledInlineContent>
+
+                  <RepayFee repayAmountTokens={values.amount} />
                 </div>
 
                 <FormikSubmitButton

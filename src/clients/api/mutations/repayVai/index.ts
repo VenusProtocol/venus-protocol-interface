@@ -2,10 +2,10 @@ import BigNumber from 'bignumber.js';
 import { checkForVaiControllerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
 
-import { VaiUnitroller } from 'types/contracts';
+import { VaiController } from 'types/contracts';
 
 export interface RepayVaiInput {
-  vaiControllerContract: VaiUnitroller;
+  vaiControllerContract: VaiController;
   amountWei: BigNumber;
 }
 

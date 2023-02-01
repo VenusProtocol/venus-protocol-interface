@@ -10,8 +10,8 @@ import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
+import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
-import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
@@ -27,7 +27,7 @@ import {
   GovernorBravoDelegate,
   Maximillion,
   PancakeRouter,
-  VaiUnitroller,
+  VaiController,
   VaiVault,
   VenusLens,
   VrtConverter,
@@ -100,12 +100,12 @@ export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   }) as VTokenContract;
 };
 
-export const getVaiUnitrollerContract = (signer?: Signer) =>
+export const getVaiControllerContract = (signer?: Signer) =>
   getContract({
-    abi: vaiUnitrollerAbi,
-    address: getContractAddress('vaiUnitroller'),
+    abi: vaiControllerAbi,
+    address: getContractAddress('vaiController'),
     signer,
-  }) as VaiUnitroller;
+  }) as VaiController;
 
 export const getVaiVaultContract = (signer?: Signer) =>
   getContract({

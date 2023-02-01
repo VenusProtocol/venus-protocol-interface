@@ -131,6 +131,10 @@ export { default as useClaimVaultReward } from './mutations/useClaimVaultReward'
 export { default as useStakeInVault } from './mutations/useStakeInVault';
 
 // Queries
+export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
+export * from './queries/getVaiCalculateRepayAmount';
+export { default as useGetVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount/useGetVaiCalculateRepayAmount';
+
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
 export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';

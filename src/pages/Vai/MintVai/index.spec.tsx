@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
 
-import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
+import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { getAllowance, getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
@@ -19,7 +19,7 @@ jest.mock('clients/api');
 jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiUnitrollerResponses.getMintableVAI);
+const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiControllerResponses.getMintableVAI);
 
 const fakeVaiTreasuryPercentage = 7.19;
 

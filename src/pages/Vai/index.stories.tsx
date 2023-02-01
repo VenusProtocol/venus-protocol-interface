@@ -46,6 +46,6 @@ Default.decorators = [
   withEnabledToken({
     token: TOKENS.vai,
     accountAddress: fakeAddress,
-    spenderAddress: getContractAddress('vaiUnitroller'),
+    spenderAddress: getContractAddress('vaiController'),
   }),
 ];

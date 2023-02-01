@@ -7,8 +7,8 @@ export const useTokenContractByAddress = () => getTokenContractByAddress;
 export const getVTokenContract = jest.fn();
 export const useVTokenContract = () => getVTokenContract;
 
-export const getVaiUnitrollerContract = jest.fn();
-export const useVaiUnitrollerContract = () => getVaiUnitrollerContract;
+export const getVaiControllerContract = jest.fn();
+export const useVaiControllerContract = () => getVaiControllerContract;
 
 export const getVaiVaultContract = jest.fn();
 export const useVaiVaultContract = () => getVaiVaultContract;

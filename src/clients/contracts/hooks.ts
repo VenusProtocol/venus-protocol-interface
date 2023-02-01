@@ -9,7 +9,7 @@ import {
   getPancakeRouterContract,
   getTokenContract,
   getVTokenContract,
-  getVaiUnitrollerContract,
+  getVaiControllerContract,
   getVaiVaultContract,
   getVenusLensContract,
   getVrtConverterProxyContract,
@@ -29,9 +29,9 @@ export const useVTokenContract = (vToken: VToken) => {
   return useMemo(() => getVTokenContract(vToken, signer || undefined), [signer, vToken]);
 };
 
-export const useVaiUnitrollerContract = () => {
+export const useVaiControllerContract = () => {
   const { signer } = useAuth();
-  return useMemo(() => getVaiUnitrollerContract(signer || undefined), [signer]);
+  return useMemo(() => getVaiControllerContract(signer || undefined), [signer]);
 };
 
 export const useVaiVaultContract = () => {
