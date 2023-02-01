@@ -6,7 +6,7 @@ import {
   claimXvsVaultReward,
   queryClient,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
@@ -17,7 +17,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useClaimXvsVaultReward = (options?: Options) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   return useMutation(
     FunctionKey.CLAIM_XVS_VAULT_REWARD,

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { checkForXvsVaultTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
@@ -24,7 +24,7 @@ const stakeInXvsVault = async ({
   const resp = await xvsVaultContract.methods
     .deposit(rewardTokenAddress, poolIndex, amountWei.toFixed())
     .send({ from: fromAccountAddress });
-  return checkForXvsVaultProxyTransactionError(resp);
+  return checkForXvsVaultTransactionError(resp);
 };
 
 export default stakeInXvsVault;

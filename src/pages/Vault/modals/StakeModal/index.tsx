@@ -28,7 +28,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
-      return getContractAddress('xvsVaultProxy');
+      return getContractAddress('xvsVault');
     }
 
     if (stakedTokenId === 'vai') {

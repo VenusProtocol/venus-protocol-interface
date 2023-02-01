@@ -5,7 +5,7 @@ import {
   GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -20,7 +20,7 @@ const useGetVoteDelegateAddress = (
   { accountAddress }: Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, { accountAddress }],

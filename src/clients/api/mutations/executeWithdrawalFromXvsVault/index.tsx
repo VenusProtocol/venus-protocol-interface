@@ -1,4 +1,4 @@
-import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { checkForXvsVaultTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
@@ -22,7 +22,7 @@ const executeWithdrawalFromXvsVault = async ({
     .executeWithdrawal(rewardTokenAddress, poolIndex)
     .send({ from: fromAccountAddress });
 
-  return checkForXvsVaultProxyTransactionError(res);
+  return checkForXvsVaultTransactionError(res);
 };
 
 export default executeWithdrawalFromXvsVault;

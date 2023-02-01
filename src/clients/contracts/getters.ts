@@ -108,13 +108,6 @@ export const getXvsVaultContract = (web3: Web3) =>
     web3,
   ) as unknown as XvsVault;
 
-export const getXvsVaultProxyContract = (web3: Web3) =>
-  getContract(
-    xvsVaultAbi as AbiItem[],
-    getContractAddress('xvsVaultProxy'),
-    web3,
-  ) as unknown as XvsVault;
-
 export const getXvsVaultStoreContract = (web3: Web3) =>
   getContract(
     xvsVaultStoreAbi as AbiItem[],

@@ -16,9 +16,6 @@ export const useVaiVaultContract = () => getVaiVaultContract;
 export const getXvsVaultContract = jest.fn();
 export const useXvsVaultContract = () => getXvsVaultContract;
 
-export const getXvsVaultProxyContract = jest.fn();
-export const useXvsVaultProxyContract = () => getXvsVaultProxyContract;
-
 export const getXvsVaultStoreContract = jest.fn();
 
 export const getComptrollerContract = jest.fn();

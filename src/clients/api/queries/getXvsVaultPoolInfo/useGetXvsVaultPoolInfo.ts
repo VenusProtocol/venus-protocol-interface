@@ -4,7 +4,7 @@ import getXvsVaultPoolInfo, {
   GetXvsVaultPoolInfoInput,
   GetXvsVaultPoolInfoOutput,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useXvsVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,7 +19,7 @@ const useGetXvsVaultPoolInfo = (
   params: Omit<GetXvsVaultPoolInfoInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_POOL_INFOS, params],
