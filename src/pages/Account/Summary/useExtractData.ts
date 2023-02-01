@@ -8,12 +8,15 @@ import {
   calculateYearlyEarningsForAssets,
   convertTokensToWei,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
 } from 'utilities';
 
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-
-const useExtractData = ({ assets }: { assets: Asset[] }) =>
+const useExtractData = ({
+  assets,
+  safeBorrowLimitPercentage,
+}: {
+  assets: Asset[];
+  safeBorrowLimitPercentage?: number;
+}) =>
   useMemo(() => {
     const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
       (acc, asset) => ({
@@ -58,23 +61,17 @@ const useExtractData = ({ assets }: { assets: Asset[] }) =>
         yearlyEarningsCents,
       });
 
-    const safeBorrowLimitCentsTmp = borrowLimitCents.multipliedBy(
-      SAFE_BORROW_LIMIT_PERCENTAGE / 100,
-    );
+    const safeBorrowLimitCentsTmp =
+      safeBorrowLimitPercentage && borrowLimitCents.multipliedBy(safeBorrowLimitPercentage / 100);
 
     const readableSafeBorrowLimitTmp = formatCentsToReadableValue({
       value: safeBorrowLimitCentsTmp,
     });
 
-    const safeBorrowLimitPercentageTmp = formatToReadablePercentage(
-      safeBorrowLimitCentsTmp.multipliedBy(100).dividedBy(borrowLimitCents),
-    );
-
     return {
       dailyEarningsCents: dailyEarningsCentsTmp,
       netApyPercentage: netApyPercentageTmp,
       readableSafeBorrowLimit: readableSafeBorrowLimitTmp,
-      safeBorrowLimitPercentage: safeBorrowLimitPercentageTmp,
       totalBorrowCents,
       totalSupplyCents,
       borrowLimitCents,
