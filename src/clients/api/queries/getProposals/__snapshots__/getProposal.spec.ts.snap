@@ -28,6 +28,7 @@ Object {
   "executedTxHash": undefined,
   "forVotesWei": "0",
   "id": 98,
+  "proposalType": 0,
   "proposer": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
   "queuedDate": undefined,
   "queuedTxHash": undefined,

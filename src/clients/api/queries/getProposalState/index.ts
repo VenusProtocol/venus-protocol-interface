@@ -6,14 +6,14 @@ export interface GetProposalStateInput {
 }
 
 export type GetProposalStateOutput = {
-  state: string;
+  state: number;
 };
 
 const getProposalState = async ({
   governorBravoContract,
   proposalId,
 }: GetProposalStateInput): Promise<GetProposalStateOutput> => {
-  const state = await governorBravoContract.methods.state(proposalId).call();
+  const state = await governorBravoContract.state(proposalId);
 
   return { state };
 };

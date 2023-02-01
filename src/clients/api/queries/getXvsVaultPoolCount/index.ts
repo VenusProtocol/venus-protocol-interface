@@ -13,10 +13,10 @@ const getXvsVaultPoolCount = async ({
   xvsVaultContract,
 }: GetXvsVaultPoolCountInput): Promise<GetXvsVaultPoolCountOutput> => {
   const xvsTokenAddress = TOKENS.xvs.address;
-  const xvsVaultPoolLength = await xvsVaultContract.methods.poolLength(xvsTokenAddress).call();
+  const xvsVaultPoolLength = await xvsVaultContract.poolLength(xvsTokenAddress);
 
   return {
-    poolCount: +xvsVaultPoolLength,
+    poolCount: xvsVaultPoolLength.toNumber(),
   };
 };
 

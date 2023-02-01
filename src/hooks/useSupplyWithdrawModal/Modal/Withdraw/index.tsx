@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -91,12 +91,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdraw.connectWalletToWithdraw')}>
+      <ConnectWallet message={t('supplyWithdraw.withdraw.connectWalletToWithdraw')}>
         {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
-            title={t('supplyWithdraw.enableToWithdraw', {
+            title={t('supplyWithdraw.withdraw.enableToWithdraw', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
             assetInfo={assetInfo}
@@ -106,9 +106,11 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
               asset={asset}
               pool={pool}
               onSubmit={onSubmit}
-              inputLabel={t('supplyWithdraw.withdrawableAmount')}
-              enabledButtonKey={t('supplyWithdraw.withdraw')}
-              disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
+              inputLabel={t('supplyWithdraw.withdraw.withdrawableAmount')}
+              enabledButtonKey={t('supplyWithdraw.withdraw.submitButton.enabledLabel')}
+              disabledButtonKey={t(
+                'supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel',
+              )}
               maxInput={maxInput}
               isTransactionLoading={isLoading}
             />
@@ -122,7 +124,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;
@@ -133,13 +135,11 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     vToken,
-    accountAddress,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
       vToken,
-      accountAddress,
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
@@ -179,8 +179,8 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
     if (transactionHash) {
       openSuccessfulTransactionModal({
-        title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
-        content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
+        title: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.title'),
+        content: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.message'),
         amount: {
           valueWei: convertTokensToWei({ value: amount, token: vToken.underlyingToken }),
           token: vToken.underlyingToken,

@@ -2,13 +2,13 @@
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
 import { useStyles } from './styles';
@@ -86,7 +86,7 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose }) => {
   const { t } = useTranslation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const {
     data: xvsVaultUserLockedDepositsData = {
@@ -129,9 +129,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   const handleSubmit = () =>
     executeWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
-      // if no account is connected
-      fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
     });
 

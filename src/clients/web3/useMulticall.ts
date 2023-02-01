@@ -1,11 +1,18 @@
 import { Multicall } from 'ethereum-multicall';
 import { useMemo } from 'react';
 
-import { useWeb3 } from 'clients/web3';
+import { useAuth } from 'context/AuthContext';
 
 const useMulticall = () => {
-  const web3 = useWeb3();
-  return useMemo(() => new Multicall({ web3Instance: web3, tryAggregate: true }), [web3]);
+  const { provider } = useAuth();
+  return useMemo(
+    () =>
+      new Multicall({
+        ethersProvider: provider,
+        tryAggregate: true,
+      }),
+    [provider],
+  );
 };
 
 export default useMulticall;

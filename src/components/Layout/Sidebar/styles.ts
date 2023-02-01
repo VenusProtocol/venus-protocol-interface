@@ -270,7 +270,7 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(8)};
       margin-right: ${theme.spacing(8)};
     `,
-    claimXvsRewardButton: css`
+    claimRewardButton: css`
       margin: ${theme.spacing(4, 4, 0, 4)};
     `,
   };

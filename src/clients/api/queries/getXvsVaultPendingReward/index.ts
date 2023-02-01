@@ -19,12 +19,9 @@ const getXvsVaultPendingReward = async ({
   poolIndex,
   accountAddress,
 }: GetXvsVaultPendingRewardInput): Promise<GetXvsVaultPendingRewardOutput> => {
-  const res = await xvsVaultContract.methods
-    .pendingReward(rewardTokenAddress, poolIndex, accountAddress)
-    .call();
-
+  const res = await xvsVaultContract.pendingReward(rewardTokenAddress, poolIndex, accountAddress);
   return {
-    pendingXvsReward: new BigNumber(res),
+    pendingXvsReward: new BigNumber(res.toString()),
   };
 };
 

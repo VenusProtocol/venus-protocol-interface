@@ -1,14 +1,14 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 
+import { queryClient } from 'clients/api';
 import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
-import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { VBep20 } from 'types/contracts';
 
 const useRedeem = (
-  { vToken, accountAddress }: { vToken: VToken; accountAddress: string },
+  { vToken }: { vToken: VToken },
   options?: MutationObserverOptions<
     RedeemOutput,
     Error,
@@ -22,12 +22,13 @@ const useRedeem = (
     params =>
       redeem({
         tokenContract: tokenContract as VBep20,
-        accountAddress,
         ...params,
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
+      onSuccess: async (...onSuccessParams) => {
+        const accountAddress = await tokenContract.signer.getAddress();
+
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,

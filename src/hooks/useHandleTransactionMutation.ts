@@ -1,5 +1,5 @@
 import { VError, formatVErrorToReadableString } from 'errors';
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { toast } from 'components/Toast';
 import useSuccessfulTransactionModal, {
@@ -7,9 +7,9 @@ import useSuccessfulTransactionModal, {
 } from 'hooks/useSuccessfulTransactionModal';
 
 export interface HandleMutationInput {
-  mutate: () => Promise<TransactionReceipt | void>;
+  mutate: () => Promise<ContractReceipt | void>;
   successTransactionModalProps: (
-    transactionReceipt: TransactionReceipt,
+    contractReceipt: ContractReceipt,
   ) => OpenSuccessfulTransactionModalInput;
 }
 
@@ -19,11 +19,11 @@ const useHandleTransactionMutation = () => {
   const handleMutation = async ({ mutate, successTransactionModalProps }: HandleMutationInput) => {
     try {
       // Send request
-      const transactionReceipt = await mutate();
+      const contractReceipt = await mutate();
 
       // Display successful transaction modal
-      if (transactionReceipt) {
-        const successfulTransactionModalProps = successTransactionModalProps(transactionReceipt);
+      if (contractReceipt) {
+        const successfulTransactionModalProps = successTransactionModalProps(contractReceipt);
         openSuccessfulTransactionModal(successfulTransactionModalProps);
       }
     } catch (error) {

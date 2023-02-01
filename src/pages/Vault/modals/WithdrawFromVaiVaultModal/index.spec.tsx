@@ -5,7 +5,7 @@ import React from 'react';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { getAllowance, getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -51,7 +51,7 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    (withdrawFromVaiVault as jest.Mock).mockImplementation(() => fakeTransactionReceipt);
+    (withdrawFromVaiVault as jest.Mock).mockImplementation(() => fakeContractReceipt);
 
     const customProps: WithdrawFromVaiVaultModalProps = {
       ...baseProps,
@@ -90,7 +90,6 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
 
     await waitFor(() => expect(withdrawFromVaiVault).toHaveBeenCalledTimes(1));
     expect(withdrawFromVaiVault).toHaveBeenCalledWith({
-      fromAccountAddress: fakeAccountAddress,
       amountWei: fakeStakedWei,
     });
 

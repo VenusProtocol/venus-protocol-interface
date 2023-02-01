@@ -14,7 +14,6 @@ const fakePool: Pool = poolData[0];
 const fakeAsset = fakePool.assets[0];
 
 jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal', () => {
   beforeEach(() => {
@@ -53,11 +52,13 @@ describe('hooks/useSupplyWithdrawModal', () => {
       />
     ));
 
-    const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
-    expect(connectTextSupply).toHaveTextContent(en.supplyWithdraw.connectWalletToSupply);
-    const withdrawButton = getByText(en.supplyWithdraw.withdraw);
+    const connectTextSupply = getByText(en.supplyWithdraw.supply.connectWalletToSupply);
+    expect(connectTextSupply).toHaveTextContent(en.supplyWithdraw.supply.connectWalletToSupply);
+    const withdrawButton = getByText(en.supplyWithdraw.withdrawTabTitle);
     fireEvent.click(withdrawButton);
-    const connectTextWithdraw = getByText(en.supplyWithdraw.connectWalletToWithdraw);
-    expect(connectTextWithdraw).toHaveTextContent(en.supplyWithdraw.connectWalletToWithdraw);
+    const connectTextWithdraw = getByText(en.supplyWithdraw.withdraw.connectWalletToWithdraw);
+    expect(connectTextWithdraw).toHaveTextContent(
+      en.supplyWithdraw.withdraw.connectWalletToWithdraw,
+    );
   });
 });

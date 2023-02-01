@@ -6,19 +6,16 @@ import FunctionKey from 'constants/functionKey';
 
 import castVote, { CastVoteInput, CastVoteOutput } from './castVote';
 
-export type CastVoteParams = Omit<CastVoteInput, 'governorBravoContract' | 'fromAccountAddress'>;
+export type CastVoteParams = Omit<CastVoteInput, 'governorBravoContract'>;
 
-const useCastVote = (
-  { fromAccountAddress }: { fromAccountAddress: string },
-  options?: MutationObserverOptions<CastVoteOutput, Error, CastVoteParams>,
-) => {
+const useCastVote = (options?: MutationObserverOptions<CastVoteOutput, Error, CastVoteParams>) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
+
   return useMutation(
     FunctionKey.CAST_VOTE,
     params =>
       castVote({
         governorBravoContract,
-        fromAccountAddress,
         ...params,
       }),
     {
@@ -36,7 +33,7 @@ const useCastVote = (
         ]);
 
         // Invalidate query to fetch proposal list
-        queryClient.invalidateQueries([FunctionKey.GET_PROPOSALS]);
+        queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

@@ -7,7 +7,7 @@ const getMintableVai = async ({
   vaiControllerContract,
   accountAddress,
 }: GetMintableVaiInput): Promise<GetMintableVaiOutput> => {
-  const res = await vaiControllerContract.methods.getMintableVAI(accountAddress).call();
+  const res = await vaiControllerContract.getMintableVAI(accountAddress);
 
   return formatToOutput(res);
 };

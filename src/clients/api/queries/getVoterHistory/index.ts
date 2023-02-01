@@ -27,6 +27,7 @@ const getVoterHistory = async ({
     params: {
       limit: 6,
       offset: page * 6,
+      version: 'v2',
     },
   });
 

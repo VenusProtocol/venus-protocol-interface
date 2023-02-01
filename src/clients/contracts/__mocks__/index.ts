@@ -24,12 +24,6 @@ export const getXvsVaultStoreContract = jest.fn();
 export const getComptrollerContract = jest.fn();
 export const useComptrollerContract = () => getComptrollerContract;
 
-export const getPriceOracleContract = jest.fn();
-export const usePriceOracleContract = () => getPriceOracleContract;
-
-export const getInterestModelContract = jest.fn();
-export const useInterestModelContract = () => getInterestModelContract;
-
 export const getVenusLensContract = jest.fn();
 export const useVenusLensContract = () => getVenusLensContract;
 

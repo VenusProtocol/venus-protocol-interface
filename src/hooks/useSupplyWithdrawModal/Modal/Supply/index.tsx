@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useSupply } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -37,7 +37,6 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
   isLoading,
 }) => {
   const styles = useStyles();
-
   const { t } = useTranslation();
 
   const assetInfo = useAssetInfo({
@@ -50,7 +49,13 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
       return new BigNumber(0);
     }
 
-    const maxInputTokens = asset.userWalletBalanceTokens;
+    let maxInputTokens = asset.userWalletBalanceTokens;
+
+    // Handle supply cap if asset has one
+    if (asset.supplyCapTokens) {
+      const marginWithSupplyCapTokens = asset.supplyCapTokens.minus(asset.userSupplyBalanceTokens);
+      maxInputTokens = BigNumber.minimum(maxInputTokens, marginWithSupplyCapTokens);
+    }
 
     return maxInputTokens;
   }, [asset]);
@@ -61,12 +66,12 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdraw.connectWalletToSupply')}>
+      <ConnectWallet message={t('supplyWithdraw.supply.connectWalletToSupply')}>
         {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
-            title={t('supplyWithdraw.enableToSupply', {
+            title={t('supplyWithdraw.supply.enableToSupply', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
             assetInfo={assetInfo}
@@ -76,9 +81,11 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
               asset={asset}
               pool={pool}
               onSubmit={onSubmit}
-              inputLabel={t('supplyWithdraw.walletBalance')}
-              enabledButtonKey={t('supplyWithdraw.supply')}
-              disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
+              inputLabel={t('supplyWithdraw.supply.walletBalance')}
+              enabledButtonKey={t('supplyWithdraw.supply.submitButton.enabledLabel')}
+              disabledButtonKey={t(
+                'supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel',
+              )}
               maxInput={maxInput}
               isTransactionLoading={isLoading}
             />
@@ -92,7 +99,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 };
 
 const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;
@@ -103,7 +110,6 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, on
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     vToken,
-    accountAddress,
   });
 
   const onSubmit: AmountFormProps['onSubmit'] = async value => {
@@ -117,8 +123,8 @@ const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, on
     onClose();
 
     openSuccessfulTransactionModal({
-      title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
-      content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
+      title: t('supplyWithdraw.supply.successfulSupplyTransactionModal.title'),
+      content: t('supplyWithdraw.supply.successfulSupplyTransactionModal.message'),
       amount: {
         valueWei: supplyAmountWei,
         token: vToken.underlyingToken,

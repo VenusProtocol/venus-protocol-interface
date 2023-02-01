@@ -67,13 +67,15 @@
   },
   "borrowRepayModal": {
     "borrow": {
+      "aboveBorrowCapWarning": "You can not borrow more than {{borrowCap}} from this pool",
+      "aboveLiquidityWarning": "Insufficient asset liquidity",
+      "aboveSafeLimitWarning": "You entered a high amount, which puts you at risk of liquidation",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
         "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
       },
-      "highAmountWarning": "You entered a high amount, which puts you at risk of liquidation",
-      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from the Venus protocol",
+      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow",
@@ -118,12 +120,29 @@
   "bscLink": {
     "content": "View on bscscan.com"
   },
-  "claimXvsRewardButton": {
-    "successfulTransactionModal": {
-      "message": "You successfully claimed",
-      "title": "Your claim was successful"
+  "chip": {
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track"
+    }
+  },
+  "claimReward": {
+    "claimButton": {
+      "disabledLabel": "Select assets to collect reward from",
+      "enabledLabel": "Claim {{amount}}"
     },
-    "title": "Claim <Icon/> {{amount}}"
+    "openModalButton": {
+      "label": "Claim {{amount}}"
+    },
+    "successfulTransactionModal": {
+      "message": "You successfully claimed your reward",
+      "title": "Your claim was successful"
+    }
+  },
+  "claimRewardButton": {
+    "modal": {
+      "title": "Claim reward"
+    }
   },
   "connectButton": {
     "title": "Connect wallet"
@@ -163,7 +182,7 @@
       "title": "Connect your wallet"
     },
     "higherRiskTokensNotice": {
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
+      "description": "Long-tail assets, tokens with lower liquidity and volume, may be volatile and carry greater risk relative to the market in general.",
       "title": "What are higher risk tokens?"
     },
     "riskyTokensToggleLabel": "Display higher risk tokens",
@@ -217,9 +236,8 @@
     "repayVAI": "Repay VAI",
     "reservesAdded": "Reserves Added",
     "reservesReduced": "Reserves Reduced",
+    "selectLabel": "Type",
     "transfer": "Transfer",
-    "type": "Type",
-    "typeColon": "Type:",
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },
@@ -245,10 +263,10 @@
       "liquidityColumnTitle": "Liquidity",
       "supplyApyColumnTitle": "Supply APY"
     },
-    "borrowDescription": "TBD",
+    "borrowDescription": "This is an isolated token. You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
     "hideAssetsButtonLabel": "Hide assets",
     "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
-    "supplyDescription": "You are looking at an isolated token. By supplying {{tokenSymbol}} to the {{poolName}} pool, you will be able to borrow tokens from this pool only."
+    "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
     "menuItems": {
@@ -259,11 +277,11 @@
       "governance": "Governance",
       "history": "History",
       "pools": "Pools",
+      "predictions": "Predictions",
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
-      "xvs": "XVS",
-      "predictions": "Predictions"
+      "xvs": "XVS"
     }
   },
   "lunaUstWarningModal": {
@@ -272,7 +290,7 @@
     "title": "Please disable LUNA and UST as collateral"
   },
   "mainPool": {
-    "description": "TBD",
+    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
     "name": "Venus"
   },
   "market": {
@@ -310,7 +328,9 @@
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Uncapped"
+        "supplyCapLabel": "Supply cap",
+        "unlimitedBorrowCap": "Uncapped",
+        "unlimitedSupplyCap": "Uncapped"
       }
     },
     "supplyButtonLabel": "Supply",
@@ -367,13 +387,13 @@
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "pool": {
-    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
     "header": {
       "assetsLabel": "Assets",
       "availableLiquidityLabel": "Available Liquidity",
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
-    }
+    },
+    "isolatedPoolWarning": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only."
   },
   "pools": {
     "poolTable": {
@@ -387,15 +407,6 @@
       }
     }
   },
-  "proposalCard": {
-    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "canceled": "Canceled: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "defeated": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "executed": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "expired": "Expired: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
-  },
   "riskRating": {
     "high": "High risk",
     "low": "Low risk",
@@ -403,6 +414,9 @@
     "minimal": "Minimal risk",
     "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "veryHigh": "Very high risk"
+  },
+  "select": {
+    "defaultLabel": "Select"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -426,25 +440,37 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "supplyWithdraw": {
-    "connectWalletToSupply": "Please connect your wallet to supply",
-    "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
-    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
-    "enterValidAmountSupply": "Enter a valid amount to supply",
-    "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
-    "max": "Max",
-    "successfulSupplyTransactionModal": {
-      "message": "You successfully supplied",
-      "title": "Your supply was successful"
+    "supply": {
+      "amountAboveSupplyCapWarning": "You can not supply more than {{supplyCap}} to this pool",
+      "connectWalletToSupply": "Please connect your wallet to supply",
+      "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
+      "max": "MAX",
+      "submitButton": {
+        "enabledLabel": "Supply",
+        "enterValidAmountSupplyLabel": "Enter a valid amount to supply"
+      },
+      "successfulSupplyTransactionModal": {
+        "message": "You successfully supplied",
+        "title": "Your supply was successful"
+      },
+      "walletBalance": "Wallet balance: <White>{{amount}}</White>"
     },
-    "successfulWithdrawTransactionModal": {
-      "message": "You successfully withdrew",
-      "title": "Your withdrawal was successful"
+    "supplyTabTitle": "Supply",
+    "withdraw": {
+      "connectWalletToWithdraw": "Please connect your wallet to withdraw",
+      "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
+      "max": "MAX",
+      "submitButton": {
+        "enabledLabel": "Withdraw",
+        "enterValidAmountWithdrawLabel": "Enter a valid amount to withdraw"
+      },
+      "successfulWithdrawTransactionModal": {
+        "message": "You successfully withdrew",
+        "title": "Your withdrawal was successful"
+      },
+      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
     },
-    "supply": "Supply",
-    "walletBalance": "Wallet balance: <White>{{amount}}</White>",
-    "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+    "withdrawTabTitle": "Withdraw"
   },
   "swap": {
     "errors": {
@@ -701,15 +727,9 @@
     }
   },
   "vaultItem": {
-    "claimButton": "Claim",
     "dailyEmission": "Daily Emission",
-    "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulClaimRewardTransactionModal": {
-      "description": "You successfully claimed your reward",
-      "title": "Your claim was successful"
-    },
     "successfulWithdrawVrtTransactionModal": {
       "description": "You successfully withdrew your VRT tokens",
       "title": "Your withdrawal was successful"
@@ -738,6 +758,7 @@
       "name": "Name",
       "nextStep": "Next step",
       "proposalName": "Proposal name",
+      "proposalType": "Proposal type",
       "signature": "Signature",
       "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
@@ -763,6 +784,11 @@
     "pleaseAllowTimeForConfirmation": "Please allow a few minutes for your transaction to be confirmed",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
+    "proposalType": {
+      "critical": "Critical",
+      "fastTrack": "Fast track",
+      "normal": "Normal"
+    },
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",
@@ -804,11 +830,19 @@
     "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active",
+      "activeTimestamp": "Active since: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceled": "Canceled",
+      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "defeated": "Defeated",
+      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "executed": "Executed",
+      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expired": "Expired",
+      "expiredTimestamp": "Expired: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "passed": "Passed",
-      "queued": "Queued"
+      "queued": "Queued",
+      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
     "statusCard": {
@@ -889,6 +923,7 @@
     "ledger": "Ledger",
     "metamask": "MetaMask",
     "opera": "Opera Wallet",
+    "safePal": "SafePal",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },
@@ -944,5 +979,8 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "xvsPage": {
+    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }

@@ -29,24 +29,25 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { fromAccountAddress, poolIndex } = onSuccessParams[1];
+        const { poolIndex } = onSuccessParams[1];
+        const accountAddress = await xvsVaultContract.signer.getAddress();
 
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
         // Invalidate cached user withdrawal requests
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
         if (options?.onSuccess) {

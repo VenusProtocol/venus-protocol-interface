@@ -13,10 +13,10 @@ const getXvsVaultTotalAllocationPoints = async ({
   xvsVaultContract,
   tokenAddress,
 }: GetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
-  const res = await xvsVaultContract.methods.totalAllocPoints(tokenAddress).call();
+  const res = await xvsVaultContract.totalAllocPoints(tokenAddress);
 
   return {
-    totalAllocationPoints: +res,
+    totalAllocationPoints: res.toNumber(),
   };
 };
 

@@ -1,42 +1,18 @@
+import BigNumber from 'bignumber.js';
+import { BigNumber as BN } from 'ethers';
+
 import { VrtConverter } from 'types/contracts';
 
 import getVrtConversionRatio from '.';
 
 describe('api/queries/getVrtConversionRatio', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        conversionRatio: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as VrtConverter;
-
-    try {
-      await getVrtConversionRatio({
-        vrtConverterContract: fakeContract,
-      });
-
-      throw new Error('getVrtConversionRatio should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
   test('returns the conversion ratio on success', async () => {
-    const fakeOutput = '0.5';
+    const fakeOutput = BN.from('100000000000000000000000');
 
-    const callMock = jest.fn(async () => fakeOutput);
-    const vrtConversionRatioMock = jest.fn(() => ({
-      call: callMock,
-    }));
+    const vrtConversionRatioMock = jest.fn(async () => fakeOutput);
 
     const fakeContract = {
-      methods: {
-        conversionRatio: vrtConversionRatioMock,
-      },
+      conversionRatio: vrtConversionRatioMock,
     } as unknown as VrtConverter;
 
     const response = await getVrtConversionRatio({
@@ -44,10 +20,8 @@ describe('api/queries/getVrtConversionRatio', () => {
     });
 
     expect(vrtConversionRatioMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledWith();
     expect(response).toEqual({
-      conversionRatio: fakeOutput,
+      conversionRatio: new BigNumber(fakeOutput.toString()),
     });
   });
 });

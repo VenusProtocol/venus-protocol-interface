@@ -1,49 +1,37 @@
+import { BigNumber as BN } from 'ethers';
+
 import { XvsVault } from 'types/contracts';
 
 const xvsVaultResponses: {
-  userInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['getUserInfo']>['call']>>;
-  poolInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['poolInfos']>['call']>>;
-  poolLength: Awaited<ReturnType<ReturnType<XvsVault['methods']['poolLength']>['call']>>;
-  totalAllocPoints: Awaited<
-    ReturnType<ReturnType<XvsVault['methods']['totalAllocPoints']>['call']>
-  >;
-  rewardTokenAmountsPerBlock: Awaited<
-    ReturnType<ReturnType<XvsVault['methods']['rewardTokenAmountsPerBlock']>['call']>
-  >;
-  pendingReward: Awaited<ReturnType<ReturnType<XvsVault['methods']['pendingReward']>['call']>>;
-  getWithdrawalRequests: Awaited<
-    ReturnType<ReturnType<XvsVault['methods']['getWithdrawalRequests']>['call']>
-  >;
+  userInfo: Awaited<ReturnType<XvsVault['getUserInfo']>>;
+  poolInfo: Awaited<ReturnType<XvsVault['poolInfos']>>;
+  poolLength: Awaited<ReturnType<XvsVault['poolLength']>>;
+  totalAllocPoints: Awaited<ReturnType<XvsVault['totalAllocPoints']>>;
+  rewardTokenAmountsPerBlock: Awaited<ReturnType<XvsVault['rewardTokenAmountsPerBlock']>>;
+  pendingReward: Awaited<ReturnType<XvsVault['pendingReward']>>;
+  getWithdrawalRequests: Awaited<ReturnType<XvsVault['getWithdrawalRequests']>>;
 } = {
   userInfo: {
-    pendingWithdrawals: '1000000000000000000',
-    rewardDebt: '2000000000000000000',
-    amount: '30000000000000000000',
-    0: '1000000000000000000',
-    1: '2000000000000000000',
-    2: '30000000000000000000',
-  },
+    pendingWithdrawals: BN.from('1000000000000000000'),
+    rewardDebt: BN.from('2000000000000000000'),
+    amount: BN.from('30000000000000000000'),
+  } as Awaited<ReturnType<XvsVault['getUserInfo']>>,
   poolInfo: {
     token: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
-    allocPoint: '10',
-    lastRewardBlock: '100000',
-    accRewardPerShare: '123871680',
-    lockPeriod: '200',
-    0: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
-    1: '10',
-    2: '100000',
-    3: '123871680',
-    4: '200',
-  },
-  poolLength: '5',
-  totalAllocPoints: '100',
-  rewardTokenAmountsPerBlock: '10000000',
-  pendingReward: '200000000',
+    allocPoint: BN.from('10'),
+    lastRewardBlock: BN.from('100000'),
+    accRewardPerShare: BN.from('123871680'),
+    lockPeriod: BN.from('200'),
+  } as Awaited<ReturnType<XvsVault['poolInfos']>>,
+  poolLength: BN.from('5'),
+  totalAllocPoints: BN.from('100'),
+  rewardTokenAmountsPerBlock: BN.from('10000000'),
+  pendingReward: BN.from('200000000'),
   getWithdrawalRequests: [
-    ['1000000000000000000', '1656499404'],
-    ['2000000000000000000', '1656599404'],
-    ['3000000000000000000', '1656699404'],
-  ],
+    [BN.from('1000000000000000000'), BN.from('1656499404')],
+    [BN.from('2000000000000000000'), BN.from('1656599404')],
+    [BN.from('3000000000000000000'), BN.from('1656699404')],
+  ] as Awaited<ReturnType<XvsVault['getWithdrawalRequests']>>,
 };
 
 export default xvsVaultResponses;

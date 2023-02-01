@@ -7,22 +7,20 @@ import FunctionKey from 'constants/functionKey';
 import castVoteWithReason, {
   CastVoteWithReasonInput,
   CastVoteWithReasonOutput,
-  HookParams,
 } from './castVoteWithReason';
 
 export type CastVoteWithReasonParams = CastVoteWithReasonInput;
 
 const useCastVoteWithReason = (
-  { fromAccountAddress }: Pick<HookParams, 'fromAccountAddress'>,
   options?: MutationObserverOptions<CastVoteWithReasonOutput, Error, CastVoteWithReasonParams>,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
+
   return useMutation(
     FunctionKey.CAST_VOTE,
     params =>
       castVoteWithReason({
         governorBravoContract,
-        fromAccountAddress,
         ...params,
       }),
     {
@@ -40,7 +38,7 @@ const useCastVoteWithReason = (
         ]);
 
         // Invalidate query to fetch proposal list
-        queryClient.invalidateQueries([FunctionKey.GET_PROPOSALS]);
+        queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

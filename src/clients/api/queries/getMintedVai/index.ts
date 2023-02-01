@@ -15,10 +15,10 @@ const getMintedVai = async ({
   comptrollerContract,
   accountAddress,
 }: GetMintedVaiInput): Promise<GetMintedVaiOutput> => {
-  const res = await comptrollerContract.methods.mintedVAIs(accountAddress).call();
+  const res = await comptrollerContract.mintedVAIs(accountAddress);
 
   return {
-    mintedVaiWei: new BigNumber(res),
+    mintedVaiWei: new BigNumber(res.toString()),
   };
 };
 

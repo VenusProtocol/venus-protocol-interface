@@ -10,15 +10,13 @@ const formatToUserInfo = ({
   lastRewardBlock,
   accRewardPerShare,
   lockPeriod,
-}: Awaited<
-  ReturnType<ReturnType<XvsVault['methods']['poolInfos']>['call']>
->): GetXvsVaultPoolInfoOutput => ({
+}: Awaited<ReturnType<XvsVault['poolInfos']>>): GetXvsVaultPoolInfoOutput => ({
   stakedTokenAddress: token,
-  allocationPoint: +allocPoint,
-  lastRewardBlock: +lastRewardBlock,
-  accRewardPerShare: new BigNumber(accRewardPerShare),
+  allocationPoint: allocPoint.toNumber(),
+  lastRewardBlock: lastRewardBlock.toNumber(),
+  accRewardPerShare: new BigNumber(accRewardPerShare.toString()),
   // Convert lockPeriod from seconds to milliseconds
-  lockingPeriodMs: +lockPeriod * 1000,
+  lockingPeriodMs: lockPeriod.toNumber() * 1000,
 });
 
 export default formatToUserInfo;

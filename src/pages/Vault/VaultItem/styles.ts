@@ -62,14 +62,6 @@ export const useStyles = () => {
         font-size: ${theme.typography.small2.lineHeight};
       }
     `,
-    rewardWrapper: css`
-      display: flex;
-      align-items: center;
-    `,
-    buttonClaim: css`
-      padding: 0;
-      margin-left: ${theme.spacing(3)};
-    `,
     dataRow: css`
       display: flex;
       padding-left: 0;

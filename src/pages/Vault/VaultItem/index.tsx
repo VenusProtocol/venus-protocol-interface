@@ -6,17 +6,16 @@ import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { useWithdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -32,16 +31,13 @@ export interface VaultItemUiProps {
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
-  onClaimReward: () => Promise<TransactionReceipt | void>;
   onStake: () => void;
-  onWithdraw: () => Promise<TransactionReceipt | void>;
+  onWithdraw: () => Promise<ContractReceipt | void>;
   closeActiveModal: () => void;
-  isClaimRewardLoading: boolean;
   canWithdraw?: boolean;
   isWithdrawLoading?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
-  userPendingRewardWei?: BigNumber;
   userStakedWei?: BigNumber;
   className?: string;
 }
@@ -49,18 +45,15 @@ export interface VaultItemUiProps {
 export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   stakedToken,
   rewardToken,
-  userPendingRewardWei,
   userStakedWei,
   stakingAprPercentage,
   dailyEmissionWei,
   totalStakedWei,
-  onClaimReward,
   onStake,
   onWithdraw,
   canWithdraw = true,
   activeModal,
   poolIndex,
-  isClaimRewardLoading,
   isWithdrawLoading,
   closeActiveModal,
   className,
@@ -70,32 +63,15 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
-  const handleClaimReward = () =>
-    handleTransactionMutation({
-      mutate: onClaimReward,
-      successTransactionModalProps: transactionReceipt => ({
-        title: t('vaultItem.successfulClaimRewardTransactionModal.title'),
-        content: t('vaultItem.successfulClaimRewardTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
-      }),
-    });
-
   const handleWithdraw = () =>
     handleTransactionMutation({
       mutate: onWithdraw,
-      successTransactionModalProps: transactionReceipt => ({
+      successTransactionModalProps: contractReceipt => ({
         title: t('vaultItem.successfulWithdrawVrtTransactionModal.title'),
         content: t('vaultItem.successfulWithdrawVrtTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
+        transactionHash: contractReceipt.transactionHash,
       }),
     });
-
-  const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
-    valueWei: userPendingRewardWei,
-    token: rewardToken,
-    minimizeDecimals: true,
-    addSymbol: false,
-  });
 
   const readableUserStakedTokens = useConvertWeiToReadableTokenString({
     token: stakedToken,
@@ -161,34 +137,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               {stakedToken.symbol}
             </Typography>
           </div>
-
-          {userPendingRewardWei?.isGreaterThan(0) && (
-            <div css={styles.rewardWrapper}>
-              <Typography css={[styles.text, styles.textSmallMobile]}>
-                {t('vaultItem.reward')}
-              </Typography>
-
-              <TokenIcon css={[styles.tokenIcon, styles.tokenIconWithdraw]} token={rewardToken} />
-
-              <Typography
-                css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
-                variant="body1"
-                color="textPrimary"
-                data-testid={TEST_IDS.userPendingRewardTokens}
-              >
-                {readableUserPendingRewardTokens}
-              </Typography>
-
-              <Button
-                onClick={handleClaimReward}
-                variant="text"
-                css={styles.buttonClaim}
-                loading={isClaimRewardLoading}
-              >
-                {t('vaultItem.claimButton')}
-              </Button>
-            </div>
-          )}
         </div>
 
         <Typography variant="small2" css={[styles.label, styles.stakingLabel]}>
@@ -269,13 +217,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
 export type VaultItemProps = Omit<
   VaultItemUiProps,
-  | 'onClaimReward'
-  | 'onStake'
-  | 'onWithdraw'
-  | 'closeActiveModal'
-  | 'activeModal'
-  | 'isClaimRewardLoading'
-  | 'isWithdrawLoading'
+  'onStake' | 'onWithdraw' | 'closeActiveModal' | 'activeModal' | 'isWithdrawLoading'
 >;
 
 const VaultItem: React.FC<VaultItemProps> = ({
@@ -284,7 +226,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
@@ -324,35 +266,13 @@ const VaultItem: React.FC<VaultItemProps> = ({
 
     // Users can only withdraw the totality of their staked tokens when
     // withdrawing from the VRT non-vesting vault
-    return withdrawFromVrtVault({
-      fromAccountAddress: account.address,
-    });
+    return withdrawFromVrtVault();
   };
 
   const closeActiveModal = () => setActiveModal(undefined);
 
-  const { claimReward, isLoading: isClaimRewardLoading } = useClaimVaultReward();
-  const onClaimReward = async () => {
-    // Block action is user has LUNA or UST enabled as collateral
-    if (hasLunaOrUstCollateralEnabled) {
-      openLunaUstWarningModal();
-      return;
-    }
-
-    return claimReward({
-      stakedToken,
-      rewardToken,
-      poolIndex,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to stake
-      accountAddress: account?.address || '',
-    });
-  };
-
   return (
     <VaultItemUi
-      onClaimReward={onClaimReward}
-      isClaimRewardLoading={isClaimRewardLoading}
       onStake={onStake}
       onWithdraw={onWithdraw}
       activeModal={activeModal}

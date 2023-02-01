@@ -1,14 +1,11 @@
+import { BigNumber as BN } from 'ethers';
+
 import { VaiController } from 'types/contracts';
 
 const vaiControllerResponses: {
-  getMintableVAI: Awaited<
-    ReturnType<ReturnType<VaiController['methods']['getMintableVAI']>['call']>
-  >;
+  getMintableVAI: Awaited<ReturnType<VaiController['getMintableVAI']>>;
 } = {
-  getMintableVAI: {
-    0: '20000000000000000000',
-    1: '40000000000000000000',
-  },
+  getMintableVAI: [BN.from('20000000000000000000'), BN.from('40000000000000000000')],
 };
 
 export default vaiControllerResponses;

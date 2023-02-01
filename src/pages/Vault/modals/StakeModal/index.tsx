@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, getContractAddress } from 'utilities';
 
-import { useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
-import useStakeInVault from 'hooks/useStakeInVault';
+import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -25,7 +24,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
@@ -59,9 +58,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     // Send request to stake
     const res = await stake({
       amountWei,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to stake
-      accountAddress: account?.address || '',
     });
 
     // Close modal

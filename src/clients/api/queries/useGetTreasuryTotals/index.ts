@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import config from 'config';
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { convertWeiToTokens, indexBy } from 'utilities';
 
-import { IGetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { GetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
+import { useAuth } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
@@ -30,7 +30,7 @@ export interface UseGetTreasuryTotalsOutput {
 }
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetPools({
     accountAddress: account?.address,
@@ -61,7 +61,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const treasuryBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        (item: GetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesTreasury.balances,
       ),
     [vTokenBalancesTreasury],

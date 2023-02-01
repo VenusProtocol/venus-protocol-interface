@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiControllerTransactionError } from 'errors';
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { VaiController } from 'types/contracts';
 
@@ -10,17 +10,15 @@ export interface MintVaiInput {
   amountWei: BigNumber;
 }
 
-export type MintVaiOutput = TransactionReceipt;
+export type MintVaiOutput = ContractReceipt;
 
 const mintVai = async ({
   vaiControllerContract,
-  fromAccountAddress,
   amountWei,
 }: MintVaiInput): Promise<MintVaiOutput> => {
-  const resp = await vaiControllerContract.methods
-    .mintVAI(amountWei.toFixed())
-    .send({ from: fromAccountAddress });
-  return checkForVaiControllerTransactionError(resp);
+  const transaction = await vaiControllerContract.mintVAI(amountWei.toFixed());
+  const receipt = await transaction.wait(1);
+  return checkForVaiControllerTransactionError(receipt);
 };
 
 export default mintVai;

@@ -17,10 +17,10 @@ const getAllowance = async ({
   accountAddress,
   spenderAddress,
 }: GetAllowanceInput): Promise<GetAllowanceOutput> => {
-  const res = await tokenContract.methods.allowance(accountAddress, spenderAddress).call();
+  const res = await tokenContract.allowance(accountAddress, spenderAddress);
 
   return {
-    allowanceWei: new BigNumber(res),
+    allowanceWei: new BigNumber(res.toString()),
   };
 };
 

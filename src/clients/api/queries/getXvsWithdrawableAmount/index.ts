@@ -17,11 +17,11 @@ const getXvsWithdrawableAmount = async ({
   xvsVestingContract,
   accountAddress,
 }: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput> => {
-  const resp = await xvsVestingContract.methods.getWithdrawableAmount(accountAddress).call();
+  const resp = await xvsVestingContract.getWithdrawableAmount(accountAddress);
   return {
-    totalWithdrawableAmount: new BigNumber(resp.totalWithdrawableAmount),
-    totalVestedAmount: new BigNumber(resp.totalVestedAmount),
-    totalWithdrawnAmount: new BigNumber(resp.totalWithdrawnAmount),
+    totalWithdrawableAmount: new BigNumber(resp.totalWithdrawableAmount.toString()),
+    totalVestedAmount: new BigNumber(resp.totalVestedAmount.toString()),
+    totalWithdrawnAmount: new BigNumber(resp.totalWithdrawnAmount.toString()),
   };
 };
 

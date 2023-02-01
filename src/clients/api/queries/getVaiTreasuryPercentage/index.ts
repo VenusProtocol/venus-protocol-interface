@@ -13,8 +13,8 @@ export type GetVaiTreasuryPercentageOutput = {
 const getVaiTreasuryPercentage = async ({
   vaiControllerContract,
 }: GetVaiTreasuryPercentageInput): Promise<GetVaiTreasuryPercentageOutput> => {
-  const treasuryPercentage = await vaiControllerContract.methods.treasuryPercent().call();
-  const formattedTreasuryPercentage = new BigNumber(treasuryPercentage)
+  const treasuryPercentage = await vaiControllerContract.treasuryPercent();
+  const formattedTreasuryPercentage = new BigNumber(treasuryPercentage.toString())
     .times(100)
     .div(1e18)
     .toNumber();

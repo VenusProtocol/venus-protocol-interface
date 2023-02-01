@@ -15,10 +15,10 @@ const getXvsVaultRewardPerBlock = async ({
   xvsVaultContract,
   tokenAddress,
 }: GetXvsVaultRewardPerBlockInput): Promise<GetXvsVaultRewardPerBlockOutput> => {
-  const res = await xvsVaultContract.methods.rewardTokenAmountsPerBlock(tokenAddress).call();
+  const res = await xvsVaultContract.rewardTokenAmountsPerBlock(tokenAddress);
 
   return {
-    rewardPerBlockWei: new BigNumber(res),
+    rewardPerBlockWei: new BigNumber(res.toString()),
   };
 };
 

@@ -10,7 +10,7 @@ import {
   SecondaryButton,
   Spinner,
 } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -27,7 +27,7 @@ import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
@@ -215,13 +215,23 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         value: asset.borrowerCount ?? '-',
       },
       {
+        label: t('market.marketInfo.stats.supplyCapLabel'),
+        value: !asset.supplyCapTokens
+          ? t('market.marketInfo.stats.unlimitedSupplyCap')
+          : formatTokensToReadableValue({
+              value: asset.supplyCapTokens,
+              minimizeDecimals: true,
+              token: asset.vToken.underlyingToken,
+            }),
+      },
+      {
         label: t('market.marketInfo.stats.borrowCapLabel'),
-        value: asset.borrowCapTokens.isEqualTo(0)
+        value: !asset.borrowCapTokens
           ? t('market.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: asset.borrowCapTokens,
               minimizeDecimals: true,
-              token: asset.vToken,
+              token: asset.vToken.underlyingToken,
             }),
       },
       {
@@ -399,7 +409,7 @@ const Market: React.FC<MarketProps> = ({
     params: { vTokenAddress, poolComptrollerAddress },
   },
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to markets page if params are invalid

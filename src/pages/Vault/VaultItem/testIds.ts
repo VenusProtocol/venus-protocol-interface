@@ -1,6 +1,5 @@
 const TEST_IDS = {
   symbol: 'vault-vault-item-symbol',
-  userPendingRewardTokens: 'vault-vault-item-user-pending-reward-tokens',
   userStakedTokens: 'vault-vault-item-user-staked-tokens',
   dataListItem: 'vault-vault-item-data-list-item',
   withdrawFromVestingVaultModal: {

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, Spinner, TextButton } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
@@ -12,7 +12,7 @@ import {
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles } from './styles';
@@ -104,7 +104,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   handleDisplayWithdrawalRequestList,
   handleClose,
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { t } = useTranslation();
 
   const {
@@ -179,9 +179,6 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
     requestWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
-      // if no account is connected
-      fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
       amountWei,
     });

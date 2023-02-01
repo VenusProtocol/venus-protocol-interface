@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -13,7 +13,7 @@ export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose
 
 const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ handleClose }) => {
   const { t } = useTranslation();
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
@@ -31,9 +31,6 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
     // Send request to withdraw
     const res = await withdraw({
       amountWei,
-      // account.address has to exist at this point since users are prompted to
-      // connect their wallet before they're able to withdraw
-      fromAccountAddress: account?.address || '',
     });
 
     // Close modal

@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
@@ -19,7 +19,7 @@ export const Disabled = () => (
     title="To withdraw XVS to the Venus Protocol, you need to enable it first."
     token={TOKENS.xvs}
     isTokenEnabled={false}
-    enableToken={async () => fakeTransactionReceipt}
+    enableToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -34,7 +34,7 @@ export const DisabledWithTokenInfo = () => (
       { iconSrc: TOKENS.usdc, label: 'Supply APY', children: '77.36' },
       { iconSrc: TOKENS.usdc, label: 'Distribution APY', children: '0.82' },
     ]}
-    enableToken={async () => fakeTransactionReceipt}
+    enableToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -46,7 +46,7 @@ export const Enabled = () => (
     isTokenEnabled
     token={TOKENS.usdc}
     assetInfo={[]}
-    enableToken={async () => fakeTransactionReceipt}
+    enableToken={async () => fakeContractReceipt}
   >
     <Typography>Visible Content</Typography>
   </EnableTokenUi>

@@ -6,6 +6,7 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
+      align-items: flex-end;
       flex-direction: row;
       justify-content: space-between;
       border-bottom-right-radius: 0;
@@ -15,6 +16,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xl')} {
         background-color: transparent;
         padding: 0;
+        margin-bottom: ${theme.spacing(3)};
       }
     `,
     checkbox: css`
@@ -27,9 +29,6 @@ export const useStyles = () => {
     `,
     select: css`
       width: ${theme.spacing(41)};
-    `,
-    typeSelectLabel: css`
-      margin-right: ${theme.spacing(3)};
     `,
   };
 };

@@ -1,63 +1,35 @@
-import fakeAddress from '__mocks__/models/address';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { GovernorBravoDelegate } from 'types/contracts';
 
 import createProposal from '.';
 
 describe('api/mutation/createProposal', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        propose: () => ({
-          send: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as GovernorBravoDelegate;
-
-    try {
-      await createProposal({
-        governorBravoContract: fakeContract,
-        accountAddress: '0x32asdf',
-        targets: ['0x32asdf'],
-        signatures: ['signature()'],
-        callDatas: ['callData'],
-        description: 'Description',
-      });
-
-      throw new Error('createProposal should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
-  test('returns Receipt when request succeeds', async () => {
-    const fakeTransactionReceipt = { events: {} };
+  test('returns contract receipt when request succeeds', async () => {
     const fakeTargets = ['0x32asdf'];
     const fakeSignatures = ['signature()'];
     const fakeCallDatas = ['callData'];
     const fakeDescription = 'Description';
-    const sendMock = jest.fn(async () => fakeTransactionReceipt);
+    const proposalType = 0;
+
+    const waitMock = jest.fn(async () => fakeContractReceipt);
     const createProposalMock = jest.fn(() => ({
-      send: sendMock,
+      wait: waitMock,
     }));
 
     const fakeContract = {
-      methods: {
-        propose: createProposalMock,
-      },
+      propose: createProposalMock,
     } as unknown as GovernorBravoDelegate;
 
     const response = await createProposal({
       governorBravoContract: fakeContract,
-      accountAddress: fakeAddress,
       targets: fakeTargets,
       signatures: fakeSignatures,
-      callDatas: ['callData'],
+      callDatas: fakeCallDatas,
       description: fakeDescription,
+      proposalType,
     });
 
-    expect(response).toBe(fakeTransactionReceipt);
+    expect(response).toBe(fakeContractReceipt);
     expect(createProposalMock).toHaveBeenCalledTimes(1);
     expect(createProposalMock).toHaveBeenCalledWith(
       fakeTargets,
@@ -65,8 +37,9 @@ describe('api/mutation/createProposal', () => {
       fakeSignatures,
       fakeCallDatas,
       fakeDescription,
+      proposalType,
     );
-    expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeAddress });
+    expect(waitMock).toBeCalledTimes(1);
+    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

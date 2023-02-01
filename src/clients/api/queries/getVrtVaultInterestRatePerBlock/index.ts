@@ -13,10 +13,10 @@ export type GetVrtVaultInterestRatePerBlockOutput = {
 const getVrtVaultInterestRatePerBlock = async ({
   vrtVaultContract,
 }: GetVrtVaultInterestRatePerBlockInput): Promise<GetVrtVaultInterestRatePerBlockOutput> => {
-  const res = await vrtVaultContract.methods.interestRatePerBlock().call();
+  const res = await vrtVaultContract.interestRatePerBlock();
 
   return {
-    interestRatePerBlockWei: new BigNumber(res),
+    interestRatePerBlockWei: new BigNumber(res.toString()),
   };
 };
 

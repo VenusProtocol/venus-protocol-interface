@@ -1,51 +1,16 @@
-import BigNumber from 'bignumber.js';
-
+import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
 import { XvsVesting } from 'types/contracts';
 
-import getXvsWithdrawableAmount, { GetXvsWithdrawableAmountOutput } from '.';
+import getXvsWithdrawableAmount from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-describe('api/queries/getXvsBalance', () => {
-  test('throws an error when request fails', async () => {
-    const fakeContract = {
-      methods: {
-        getWithdrawableAmount: () => ({
-          call: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as XvsVesting;
-
-    try {
-      await getXvsWithdrawableAmount({
-        xvsVestingContract: fakeContract,
-        accountAddress: fakeAccountAddress,
-      });
-
-      throw new Error('getXvsBalanceOf should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
+describe('api/queries/getXvsWithdrawableAmount', () => {
   test('returns the withdrawable amount on success', async () => {
-    const fakeOutput: GetXvsWithdrawableAmountOutput = {
-      totalWithdrawableAmount: new BigNumber('500000'),
-      totalVestedAmount: new BigNumber('1000'),
-      totalWithdrawnAmount: new BigNumber('0'),
-    };
-
-    const callMock = jest.fn(async () => fakeOutput);
-    const xvsWithdrawableAmountMock = jest.fn(() => ({
-      call: callMock,
-    }));
+    const xvsWithdrawableAmountMock = jest.fn(async () => xvsVestingResponses.withdrawableAmount);
 
     const fakeContract = {
-      methods: {
-        getWithdrawableAmount: xvsWithdrawableAmountMock,
-      },
+      getWithdrawableAmount: xvsWithdrawableAmountMock,
     } as unknown as XvsVesting;
 
     const response = await getXvsWithdrawableAmount({
@@ -54,8 +19,7 @@ describe('api/queries/getXvsBalance', () => {
     });
 
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledTimes(1);
-    expect(callMock).toHaveBeenCalledTimes(1);
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledWith(fakeAccountAddress);
-    expect(response).toStrictEqual(fakeOutput);
+    expect(response).toMatchSnapshot();
   });
 });

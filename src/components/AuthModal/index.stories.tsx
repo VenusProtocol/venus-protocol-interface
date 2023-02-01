@@ -2,7 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
-import { Connector } from 'clients/web3';
+import { Connector } from 'clients/web3/types';
 import { withCenterStory } from 'stories/decorators';
 
 import { AuthModal } from '.';

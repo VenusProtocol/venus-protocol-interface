@@ -61,10 +61,16 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       },
     );
 
-    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountWithdraw));
+    await waitFor(() =>
+      getByText(en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel),
+    );
 
-    const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountWithdraw);
-    expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountWithdraw);
+    const disabledButtonText = getByText(
+      en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel,
+    );
+    expect(disabledButtonText).toHaveTextContent(
+      en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel,
+    );
     const disabledButton = document.querySelector('button[type="submit"]');
     expect(disabledButton).toBeDisabled();
   });
@@ -119,7 +125,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       },
     );
 
-    const maxButton = await waitFor(() => getByText(en.supplyWithdraw.max.toUpperCase()));
+    const maxButton = await waitFor(() => getByText(en.supplyWithdraw.withdraw.max.toUpperCase()));
     act(() => {
       fireEvent.click(maxButton);
     });
@@ -127,7 +133,9 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
     );
 
-    await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw.submitButton.enabledLabel),
+    );
     fireEvent.click(submitButton);
 
     const expectedAmountWei = convertTokensToWei({
@@ -162,7 +170,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
     });
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
+    expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw.submitButton.enabledLabel);
     fireEvent.click(submitButton);
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(

@@ -38,8 +38,6 @@ export interface Asset {
   tokenPriceDollars: BigNumber;
   reserveFactor: number;
   collateralFactor: number;
-  borrowCapTokens: BigNumber;
-  // TODO: add supplyCapTokens (see VEN-819)
   liquidityCents: number;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
@@ -55,6 +53,8 @@ export interface Asset {
   supplyRatePerBlockTokens: BigNumber;
   borrowRatePerBlockTokens: BigNumber;
   distributions: AssetDistribution[];
+  borrowCapTokens?: BigNumber;
+  supplyCapTokens?: BigNumber;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
@@ -118,11 +118,18 @@ export interface DescriptionV1 {
   abstainDescription?: undefined;
 }
 
+export enum ProposalType {
+  NORMAL,
+  FAST_TRACK,
+  CRITICAL,
+}
+
 export interface Proposal {
   abstainedVotesWei: BigNumber;
   againstVotesWei: BigNumber;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
+  proposalType: ProposalType;
   endBlock: number;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;
@@ -180,6 +187,7 @@ export interface Market {
   reserveFactor: string;
   supplierCount: number;
   supplierDailyVenus: string;
+  supplyCaps: string;
   supplyApy: BigNumber;
   supplyRatePerBlock: string;
   supplyVenusApy: BigNumber;
@@ -321,7 +329,7 @@ export type VoteDetailTransactionVote = {
 
 export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
 
-export interface VoterDetails {
+export interface Voter {
   balanceWei: BigNumber;
   delegateCount: number;
   delegateAddress: string;

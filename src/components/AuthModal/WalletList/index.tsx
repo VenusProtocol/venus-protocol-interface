@@ -4,7 +4,7 @@ import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { Connector } from 'clients/web3';
+import { Connector } from 'clients/web3/types';
 
 import {
   INTEGRATED_WALLETS,

@@ -22,6 +22,7 @@ const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPool
   const { data: getMainAssetsData, isLoading: isGetMainAssetsDataLoading } = useGetMainAssets({
     accountAddress,
   });
+
   const { t } = useTranslation();
 
   const pool: Pool | undefined = useMemo(

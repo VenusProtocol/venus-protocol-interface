@@ -1,26 +1,23 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { VaiVault } from 'types/contracts';
 
 export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;
-  fromAccountAddress: string;
   amountWei: BigNumber;
 }
 
-export type StakeInVaiVaultOutput = TransactionReceipt;
+export type StakeInVaiVaultOutput = ContractReceipt;
 
 const stakeInVaiVault = async ({
   vaiVaultContract,
-  fromAccountAddress,
   amountWei,
 }: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => {
-  const resp = await vaiVaultContract.methods
-    .deposit(amountWei.toFixed())
-    .send({ from: fromAccountAddress });
-  return checkForVaiVaultTransactionError(resp);
+  const transaction = await vaiVaultContract.deposit(amountWei.toFixed());
+  const receipt = await transaction.wait(1);
+  return checkForVaiVaultTransactionError(receipt);
 };
 
 export default stakeInVaiVault;

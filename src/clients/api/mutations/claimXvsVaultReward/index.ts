@@ -1,28 +1,25 @@
 import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { ContractReceipt } from 'ethers';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
 
 export interface ClaimXvsVaultRewardInput {
   xvsVaultContract: XvsVault;
-  fromAccountAddress: string;
   rewardToken: Token;
   poolIndex: number;
 }
 
-export type ClaimXvsVaultRewardOutput = TransactionReceipt;
+export type ClaimXvsVaultRewardOutput = ContractReceipt;
 
 const claimXvsVaultReward = async ({
   xvsVaultContract,
-  fromAccountAddress,
   rewardToken,
   poolIndex,
 }: ClaimXvsVaultRewardInput): Promise<ClaimXvsVaultRewardOutput> => {
-  const resp = await xvsVaultContract.methods
-    .deposit(rewardToken.address, poolIndex, 0)
-    .send({ from: fromAccountAddress });
-  return checkForXvsVaultProxyTransactionError(resp);
+  const transaction = await xvsVaultContract.deposit(rewardToken.address, poolIndex, 0);
+  const receipt = await transaction.wait(1);
+  return checkForXvsVaultProxyTransactionError(receipt);
 };
 
 export default claimXvsVaultReward;

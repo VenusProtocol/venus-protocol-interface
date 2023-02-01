@@ -1,59 +1,27 @@
-import address from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { XvsVesting } from 'types/contracts';
 
 import withdrawXvs from '.';
-import getVTokenBalancesAll from '../../queries/getVTokenBalancesAll';
-
-jest.mock('../../queries/getVTokenBalancesAll');
 
 describe('api/mutation/withdrawXvs', () => {
-  test('throws an error when request fails', async () => {
-    (getVTokenBalancesAll as jest.Mock).mockImplementationOnce(async () => ({ balances: [] }));
-
-    const fakeContract = {
-      methods: {
-        withdraw: () => ({
-          send: async () => {
-            throw new Error('Fake error message');
-          },
-        }),
-      },
-    } as unknown as XvsVesting;
-
-    try {
-      await withdrawXvs({
-        xvsVestingContract: fakeContract,
-        accountAddress: address,
-      });
-
-      throw new Error('withdrawXvs should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
-    }
-  });
-
-  test('send vrt conversion with correct arguments and returns transaction receipt when request succeeds', async () => {
-    const sendMock = jest.fn(async () => fakeTransactionReceipt);
+  test('send vrt conversion with correct arguments and returns contract receipt when request succeeds', async () => {
+    const waitMock = jest.fn(async () => fakeContractReceipt);
     const withdrawVrtMock = jest.fn(() => ({
-      send: sendMock,
+      wait: waitMock,
     }));
 
     const fakeContract = {
-      methods: {
-        withdraw: withdrawVrtMock,
-      },
+      withdraw: withdrawVrtMock,
     } as unknown as XvsVesting;
 
     const response = await withdrawXvs({
       xvsVestingContract: fakeContract,
-      accountAddress: address,
     });
 
-    expect(response).toBe(fakeTransactionReceipt);
+    expect(response).toBe(fakeContractReceipt);
     expect(withdrawVrtMock).toHaveBeenCalledTimes(1);
     expect(withdrawVrtMock).toHaveBeenCalledWith();
-    expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: address });
+    expect(waitMock).toBeCalledTimes(1);
+    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

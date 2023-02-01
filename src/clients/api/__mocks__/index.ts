@@ -3,9 +3,9 @@ import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import proposals from '__mocks__/models/proposals';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
@@ -58,7 +58,7 @@ export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
-export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'web3'>) =>
+export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'signer'>) =>
   useQuery(
     [
       FunctionKey.GET_BALANCE_OF,
@@ -247,16 +247,12 @@ export const useGetPancakeSwapPairs = () =>
 
 // Mutations
 export const approveToken = jest.fn();
-export const useApproveToken = (options?: MutationObserverOptions) =>
+export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.APPROVE_TOKEN, approveToken, options);
-
-export const approveVrt = jest.fn();
-export const useApproveVrt = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.APPROVE_VRT, approveVrt, options);
 
 export const convertVrt = jest.fn();
 export const useConvertVrt = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CONVERT_VRT, approveVrt, options);
+  useMutation(FunctionKey.CONVERT_VRT, convertVrt, options);
 
 export const mintVai = jest.fn();
 export const useMintVai = (options?: MutationObserverOptions) =>
@@ -291,23 +287,28 @@ export const useClaimVrtVaultReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_VRT_VAULT_REWARD, claimVrtVaultReward, options);
 
 export const repay = jest.fn();
-export const useRepay = () => useMutation(FunctionKey.REPAY, repay);
+export const useRepay = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REPAY, repay, options);
 
 export const supply = jest.fn();
-export const useSupply = () => useMutation(FunctionKey.SUPPLY, supply);
+export const useSupply = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SUPPLY, supply, options);
 
 export const redeem = jest.fn();
-export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
+export const useRedeem = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REDEEM, redeem, options);
 
 export const redeemUnderlying = jest.fn();
-export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
+export const useRedeemUnderlying = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REDEEM, redeemUnderlying, options);
 
 export const borrow = jest.fn();
-export const useBorrow = () => useMutation(FunctionKey.BORROW, borrow);
+export const useBorrow = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.BORROW, borrow, options);
 
 export const withdrawXvs = jest.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_XVS, approveVrt, options);
+  useMutation(FunctionKey.WITHDRAW_XVS, withdrawXvs, options);
 
 export const setVoteDelegate = jest.fn();
 export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
@@ -317,20 +318,20 @@ export const createProposal = jest.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
 
-export const cancelProposal = jest.fn(async () => transactionReceipt);
+export const cancelProposal = jest.fn(async () => fakeContractReceipt);
 export const useCancelProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
 
-export const executeProposal = jest.fn(async () => transactionReceipt);
+export const executeProposal = jest.fn(async () => fakeContractReceipt);
 export const useExecuteProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
 
-export const queueProposal = jest.fn(async () => transactionReceipt);
+export const queueProposal = jest.fn(async () => fakeContractReceipt);
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
 
 export const stakeInXvsVault = jest.fn();
-export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
+export const useStakeInXvsVault = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_XVS_VAULT, stakeInXvsVault, options);
 
 export const stakeInVaiVault = jest.fn();
@@ -366,7 +367,10 @@ export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptio
   );
 
 export const executeWithdrawalFromXvsVault = jest.fn();
-export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+export const useExecuteWithdrawalFromXvsVault = (
+  _variables: never,
+  options?: MutationObserverOptions,
+) =>
   useMutation(
     FunctionKey.EXECUTE_WITHDRAWAL_FROM_XVS_VAULT,
     executeWithdrawalFromXvsVault,
@@ -376,3 +380,15 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
 export const swapTokens = jest.fn();
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
+
+const claimReward = jest.fn();
+export const useClaimVaultReward = () => ({
+  claimReward,
+  isLoading: false,
+});
+
+const stake = jest.fn();
+export const useStakeInVault = () => ({
+  stake,
+  isLoading: false,
+});

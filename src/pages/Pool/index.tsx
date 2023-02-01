@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup, Icon, Spinner } from 'components';
-import React, { useContext, useMemo } from 'react';
+import { Cell, CellGroup, Notice, Spinner } from 'components';
+import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -10,7 +10,7 @@ import { formatCentsToReadableValue } from 'utilities';
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 import Table from './Table';
 import { useStyles } from './styles';
@@ -21,7 +21,7 @@ export interface PoolUiProps {
 
 export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const cells: Cell[] = useMemo(() => {
     const { totalSupplyCents, totalBorrowCents } = (pool?.assets || []).reduce(
@@ -72,29 +72,11 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
       </div>
 
       {pool.isIsolated && (
-        <div css={styles.banner}>
-          <div css={styles.bannerContent}>
-            <Icon name="attention" css={styles.bannerIcon} />
-
-            <Typography variant="small2" css={styles.bannerText}>
-              <Trans
-                i18nKey="pool.bannerText"
-                components={{
-                  Link: (
-                    <Typography
-                      variant="small2"
-                      component="a"
-                      // TODO: add href
-                      href="TBD"
-                      target="_blank"
-                      rel="noreferrer"
-                    />
-                  ),
-                }}
-              />
-            </Typography>
-          </div>
-        </div>
+        <Notice
+          css={styles.isolatedPoolWarning}
+          variant="warning"
+          description={t('pool.isolatedPoolWarning')}
+        />
       )}
 
       <Table pool={pool} />
@@ -111,7 +93,7 @@ const PoolPage: React.FC<PoolPageProps> = ({
     params: { poolComptrollerAddress },
   },
 }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     accountAddress: account?.address,

@@ -5,7 +5,7 @@ import { TokenBalance } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
@@ -618,7 +618,7 @@ describe('pages/Swap', () => {
       error: undefined,
     }));
 
-    (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { container, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
@@ -651,7 +651,6 @@ describe('pages/Swap', () => {
     // Check swap was executed
     await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
     expect(swapTokens).toHaveBeenCalledWith({
-      fromAccountAddress: fakeAccountAddress,
       swap: fakeExactAmountInSwap,
     });
 
@@ -660,7 +659,7 @@ describe('pages/Swap', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       title: en.swapPage.successfulConvertTransactionModal.title,
       content: en.swapPage.successfulConvertTransactionModal.message,
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
     });
 
     // Check form was reset
@@ -737,7 +736,6 @@ describe('pages/Swap', () => {
     // Check swap was executed
     await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
     expect(swapTokens).toHaveBeenCalledWith({
-      fromAccountAddress: fakeAccountAddress,
       swap: fakeExactAmountInSwap,
     });
   });

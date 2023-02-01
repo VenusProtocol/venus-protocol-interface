@@ -1,16 +1,13 @@
 import { useMemo } from 'react';
 import { Token, VToken } from 'types';
 
-import { useWeb3 } from 'clients/web3';
+import { useAuth } from 'context/AuthContext';
 
 import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
-  getInterestModelContract,
   getPancakeRouterContract,
-  getPriceOracleContract,
   getTokenContract,
-  getTokenContractByAddress,
   getVTokenContract,
   getVaiControllerContract,
   getVaiVaultContract,
@@ -23,82 +20,67 @@ import {
 } from './getters';
 
 export const useTokenContract = (token: Token) => {
-  const web3 = useWeb3();
-  return useMemo(() => getTokenContract(token, web3), [web3, token]);
-};
-
-export const useTokenContractByAddress = (address: string) => {
-  const web3 = useWeb3();
-  return useMemo(() => getTokenContractByAddress(address, web3), [web3, address]);
+  const { signer } = useAuth();
+  return useMemo(() => getTokenContract(token, signer || undefined), [signer, token]);
 };
 
 export const useVTokenContract = (vToken: VToken) => {
-  const web3 = useWeb3();
-  return useMemo(() => getVTokenContract(vToken, web3), [web3, vToken]);
+  const { signer } = useAuth();
+  return useMemo(() => getVTokenContract(vToken, signer || undefined), [signer, vToken]);
 };
 
 export const useVaiControllerContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVaiControllerContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getVaiControllerContract(signer || undefined), [signer]);
 };
 
 export const useVaiVaultContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVaiVaultContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getVaiVaultContract(signer || undefined), [signer]);
 };
 
 export const useComptrollerContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getComptrollerContract(web3), [web3]);
-};
-
-export const usePriceOracleContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getPriceOracleContract(web3), [web3]);
-};
-
-export const useInterestModelContract = (address: string) => {
-  const web3 = useWeb3();
-  return useMemo(() => getInterestModelContract(address, web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getComptrollerContract(signer || undefined), [signer]);
 };
 
 export const useVenusLensContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVenusLensContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getVenusLensContract(signer || undefined), [signer]);
 };
 
 export const useXvsVaultContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getXvsVaultContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getXvsVaultContract(signer || undefined), [signer]);
 };
 
 export const useXvsVaultProxyContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getXvsVaultProxyContract(signer || undefined), [signer]);
 };
 
 export const useGovernorBravoDelegateContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getGovernorBravoDelegateContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getGovernorBravoDelegateContract(signer || undefined), [signer]);
 };
 
 // VRT conversion
 export const useVrtConverterProxyContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVrtConverterProxyContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getVrtConverterProxyContract(signer || undefined), [signer]);
 };
 
 export const useXvsVestingProxyContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getXvsVestingProxyContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getXvsVestingProxyContract(signer || undefined), [signer]);
 };
 
 export const useVrtVaultProxyContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVrtVaultProxyContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getVrtVaultProxyContract(signer || undefined), [signer]);
 };
 
 export const usePancakeRouterContract = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getPancakeRouterContract(web3), [web3]);
+  const { signer } = useAuth();
+  return useMemo(() => getPancakeRouterContract(signer || undefined), [signer]);
 };

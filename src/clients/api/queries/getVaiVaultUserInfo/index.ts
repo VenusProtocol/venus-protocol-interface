@@ -7,7 +7,7 @@ const getVaiVaultUserInfo = async ({
   vaiVaultContract,
   accountAddress,
 }: GetVaiVaultUserInfoInput): Promise<GetVaiVaultUserInfoOutput> => {
-  const res = await vaiVaultContract.methods.userInfo(accountAddress).call();
+  const res = await vaiVaultContract.userInfo(accountAddress);
   return formatToUserInfo(res);
 };
 

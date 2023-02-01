@@ -1,30 +1,23 @@
+import { BigNumber as BN } from 'ethers';
+
 import { GovernorBravoDelegate } from 'types/contracts';
 
 const governorBravoDelegateResponses: {
-  proposals: Awaited<ReturnType<ReturnType<GovernorBravoDelegate['methods']['proposals']>['call']>>;
+  proposals: Awaited<ReturnType<GovernorBravoDelegate['proposals']>>;
 } = {
   proposals: {
-    0: '139',
-    1: '0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D',
-    2: '1657705706',
-    3: '20881594',
-    4: '20881794',
-    5: '301580371600000000000000',
-    6: '300000000000000000000000',
-    7: '100000000000000000000000',
-    8: false,
-    9: false,
-    abstainVotes: '100000000000000000000000',
-    againstVotes: '300000000000000000000000',
+    abstainVotes: BN.from('100000000000000000000000'),
+    againstVotes: BN.from('300000000000000000000000'),
     canceled: false,
-    endBlock: '20881794',
-    eta: '1657705706',
+    endBlock: BN.from('20881794'),
+    eta: BN.from('1657705706'),
     executed: false,
-    forVotes: '301580371600000000000000',
-    id: '139',
+    forVotes: BN.from('301580371600000000000000'),
+    id: BN.from('139'),
     proposer: '0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D',
-    startBlock: '20881594',
-  },
+    startBlock: BN.from('20881594'),
+    proposalType: 0,
+  } as Awaited<ReturnType<GovernorBravoDelegate['proposals']>>,
 };
 
 export default governorBravoDelegateResponses;

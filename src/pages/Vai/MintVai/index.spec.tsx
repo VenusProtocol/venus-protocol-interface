@@ -4,7 +4,7 @@ import { convertWeiToTokens } from 'utilities';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { getAllowance, getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -70,7 +70,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
 
   it('lets user mint VAI', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    (mintVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (mintVai as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
@@ -107,14 +107,13 @@ describe('pages/Dashboard/vai/MintVai', () => {
     // Check mintVai was called correctly
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
     expect(mintVai).toHaveBeenCalledWith({
-      fromAccountAddress: fakeAccountAddress,
       amountWei: fakeGetMintableVaiOutput.mintableVaiWei,
     });
 
     // Check successful transaction modal is displayed
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeTransactionReceipt.transactionHash,
+      transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: TOKENS.vai,
         valueWei: fakeGetMintableVaiOutput.mintableVaiWei,

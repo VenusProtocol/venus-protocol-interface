@@ -1,22 +1,18 @@
-import type { TransactionReceipt } from 'web3-core/types';
+import { ContractReceipt } from 'ethers';
 
 import { VrtVault } from 'types/contracts';
 
 export interface ClaimVrtVaultRewardInput {
   vrtVaultContract: VrtVault;
-  fromAccountAddress: string;
 }
 
-export type ClaimVrtVaultRewardOutput = TransactionReceipt;
+export type ClaimVrtVaultRewardOutput = ContractReceipt;
 
 const claimVrtVaultReward = async ({
   vrtVaultContract,
-  fromAccountAddress,
 }: ClaimVrtVaultRewardInput): Promise<ClaimVrtVaultRewardOutput> => {
-  const resp = await vrtVaultContract.methods.claim().send({ from: fromAccountAddress });
-  // VRT vault proxy contract always throws in case of an error so there's no
-  // need to check for errors in transaction receipt
-  return resp;
+  const transaction = await vrtVaultContract.claim();
+  return transaction.wait(1);
 };
 
 export default claimVrtVaultReward;

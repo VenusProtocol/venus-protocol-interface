@@ -13,10 +13,10 @@ const getLatestProposalIdByProposer = async ({
   governorBravoContract,
   accountAddress,
 }: GetLatestProposalIdByProposerInput): Promise<GetLatestProposalIdByProposerOutput> => {
-  const res = await governorBravoContract.methods.latestProposalIds(accountAddress).call();
+  const res = await governorBravoContract.latestProposalIds(accountAddress);
 
   return {
-    proposalId: res,
+    proposalId: res.toString(),
   };
 };
 

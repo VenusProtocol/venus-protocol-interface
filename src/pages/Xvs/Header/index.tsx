@@ -2,7 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import {
   convertWeiToTokens,
@@ -18,7 +18,7 @@ import {
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import { MINTED_XVS_WEI } from '../constants';
@@ -121,7 +121,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 };
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
-  const { account } = useContext(AuthContext);
+  const { account } = useAuth();
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
   const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress: account?.address,

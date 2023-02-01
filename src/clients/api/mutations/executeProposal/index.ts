@@ -1,20 +1,20 @@
-import type { TransactionReceipt } from 'web3-core';
+import { ContractReceipt } from 'ethers';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface ExecuteProposalInput {
   governorBravoContract: GovernorBravoDelegate;
-  accountAddress: string;
   proposalId: number;
 }
 
-export type ExecuteProposalOutput = TransactionReceipt;
+export type ExecuteProposalOutput = ContractReceipt;
 
 const executeProposal = async ({
   governorBravoContract,
-  accountAddress,
   proposalId,
-}: ExecuteProposalInput): Promise<ExecuteProposalOutput> =>
-  governorBravoContract.methods.execute(proposalId).send({ from: accountAddress });
+}: ExecuteProposalInput): Promise<ExecuteProposalOutput> => {
+  const transaction = await governorBravoContract.execute(proposalId);
+  return transaction.wait(1);
+};
 
 export default executeProposal;

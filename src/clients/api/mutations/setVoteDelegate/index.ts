@@ -1,20 +1,19 @@
-import type { TransactionReceipt } from 'web3-core';
+import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { ContractReceipt } from 'ethers';
 
 import { XvsVault } from 'types/contracts';
 
 export interface SetVoteDelegateInput {
   xvsVaultContract: XvsVault;
-  accountAddress: string;
   delegateAddress: string;
 }
 
-export type SetVoteDelegateOutput = TransactionReceipt;
+export type SetVoteDelegateOutput = ContractReceipt;
 
-const setVoteDelegate = async ({
-  xvsVaultContract,
-  accountAddress,
-  delegateAddress,
-}: SetVoteDelegateInput) =>
-  xvsVaultContract.methods.delegate(delegateAddress).send({ from: accountAddress });
+const setVoteDelegate = async ({ xvsVaultContract, delegateAddress }: SetVoteDelegateInput) => {
+  const transaction = await xvsVaultContract.delegate(delegateAddress);
+  const receipt = await transaction.wait(1);
+  return checkForXvsVaultProxyTransactionError(receipt);
+};
 
 export default setVoteDelegate;

@@ -11,13 +11,14 @@ import {
 } from 'utilities';
 
 import {
-  IGetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
   useGetAssetsInAccount,
   useGetMainMarkets,
   useGetMintedVai,
   useGetVTokenBalancesAll,
 } from 'clients/api';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface Data {
@@ -79,7 +80,7 @@ const useGetMainAssets = ({
   const vTokenBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        (item: GetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesAccount.balances,
       ),
     [vTokenBalancesAccount],
@@ -199,7 +200,12 @@ const useGetMainAssets = ({
           cashTokens,
           exchangeRateVTokens,
           liquidityCents: new BigNumber(market.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
-          borrowCapTokens: new BigNumber(market.borrowCaps || 0),
+          borrowCapTokens: +market.borrowCaps === 0 ? undefined : new BigNumber(market.borrowCaps),
+          supplyCapTokens: new BigNumber(market.supplyCaps)
+            .multipliedBy(COMPOUND_MANTISSA)
+            .isEqualTo(MAX_UINT256)
+            ? undefined
+            : new BigNumber(market.supplyCaps),
           supplierCount: market.supplierCount || 0,
           borrowerCount: market.borrowerCount || 0,
           supplyBalanceTokens: new BigNumber(market.totalSupply2 || 0).div(exchangeRateVTokens),

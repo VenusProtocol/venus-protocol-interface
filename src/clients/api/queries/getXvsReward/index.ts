@@ -16,12 +16,9 @@ const getXvsReward = async ({
   lensContract,
   accountAddress,
 }: GetXvsRewardInput): Promise<GetXvsRewardOutput> => {
-  const res = await lensContract.methods
-    .pendingVenus(accountAddress, getContractAddress('comptroller'))
-    .call();
-
+  const res = await lensContract.pendingVenus(accountAddress, getContractAddress('comptroller'));
   return {
-    xvsRewardWei: new BigNumber(res),
+    xvsRewardWei: new BigNumber(res.toString()),
   };
 };
 

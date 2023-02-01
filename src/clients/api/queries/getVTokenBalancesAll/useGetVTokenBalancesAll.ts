@@ -2,17 +2,17 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenBalancesAll, {
   GetVTokenBalancesAllInput,
-  IGetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import { useVenusLensContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
   Error,
-  IGetVTokenBalancesAllOutput,
-  IGetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
+  GetVTokenBalancesAllOutput,
   [FunctionKey.GET_V_TOKEN_BALANCES_ALL, Omit<GetVTokenBalancesAllInput, 'venusLensContract'>]
 >;
 
