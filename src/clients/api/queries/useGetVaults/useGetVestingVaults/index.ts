@@ -131,7 +131,15 @@ const useGetVestingVaults = ({
         (acc, _item, poolIndex) => {
           const totalStakedWeiData = poolBalances[poolIndex];
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
-          const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
+
+          let userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
+          const userPendingWithdrawalsTotalAmountWei =
+            poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountWei;
+          // Subtract pending withdrawals from total staked by user
+          if (userStakedWei && userPendingWithdrawalsTotalAmountWei) {
+            userStakedWei = userStakedWei.minus(userPendingWithdrawalsTotalAmountWei);
+          }
+
           const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
 
           const stakedTokenId =
