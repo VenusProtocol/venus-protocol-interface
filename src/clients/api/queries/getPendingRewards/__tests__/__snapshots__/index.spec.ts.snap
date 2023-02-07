@@ -3811,7 +3811,7 @@ Object {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
       "pendingRewards": Array [
         Object {
-          "rewardAmountWei": "2.08975358214996139964538e+23",
+          "amountWei": "2.08975358214996139964538e+23",
           "rewardToken": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "xvs.svg",
@@ -3839,15 +3839,8 @@ Object {
       "type": "pool",
     },
     Object {
-      "rewardAmountWei": "1.5892726759372e+22",
+      "amountWei": "1.5892726759372e+22",
       "rewardToken": Object {
-        "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
-        "asset": "vrt.svg",
-        "decimals": 18,
-        "id": "vrt",
-        "symbol": "VRT",
-      },
-      "stakedToken": Object {
         "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
         "asset": "vrt.svg",
         "decimals": 18,
@@ -3857,25 +3850,18 @@ Object {
       "type": "vault",
     },
     Object {
-      "rewardAmountWei": "2.169359651472412863861e+22",
+      "amountWei": "2.169359651472412863861e+22",
       "rewardToken": Object {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
+        "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
+        "asset": "vrt.svg",
         "decimals": 18,
-        "id": "xvs",
-        "symbol": "XVS",
-      },
-      "stakedToken": Object {
-        "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "vai.svg",
-        "decimals": 18,
-        "id": "vai",
-        "symbol": "VAI",
+        "id": "vrt",
+        "symbol": "VRT",
       },
       "type": "vault",
     },
     Object {
-      "rewardAmountWei": "1.14191542975187e+22",
+      "amountWei": "1.14191542975187e+22",
       "rewardToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "xvs.svg",
@@ -3893,7 +3879,7 @@ Object {
       "type": "vestingVault",
     },
     Object {
-      "rewardAmountWei": "2.688138122377954e+21",
+      "amountWei": "2.688138122377954e+21",
       "rewardToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "xvs.svg",
