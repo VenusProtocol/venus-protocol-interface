@@ -68,16 +68,25 @@ const formatOutput = ({
   if (vaiVaultPendingRewardWei.isGreaterThan(0)) {
     const vaiVaultRewardGroup: VaultPendingRewardGroup = {
       type: 'vault',
+<<<<<<< HEAD
       stakedToken: TOKENS.vai,
       rewardToken: TOKENS.xvs,
       rewardAmountWei: vaiVaultPendingRewardWei,
+=======
+      rewardToken: TOKENS.vrt,
+      amountWei: vaiVaultPendingRewardWei,
+>>>>>>> ecd594ea (add useGetPendingRewards hook)
     };
 
     pendingRewardGroups.push(vaiVaultRewardGroup);
   }
 
   // Extract pending rewards from vesting vaults
+<<<<<<< HEAD
   const vestingVaultPendingRewardGroups: VaultPendingRewardGroup[] = [];
+=======
+  const vestingVaultPendingRewardGroups: VestingVaultPendingRewardGroup[] = [];
+>>>>>>> ecd594ea (add useGetPendingRewards hook)
   const vestingVaultResults = contractCallResults.results.vestingVaults.callsReturnContext;
 
   for (let v = 0; v < vestingVaultResults.length - 1; v += 2) {
@@ -91,7 +100,11 @@ const formatOutput = ({
         type: 'vestingVault',
         stakedToken,
         rewardToken: TOKENS.xvs,
+<<<<<<< HEAD
         rewardAmountWei: pendingRewardWei,
+=======
+        amountWei: pendingRewardWei,
+>>>>>>> ecd594ea (add useGetPendingRewards hook)
       });
     }
   }
