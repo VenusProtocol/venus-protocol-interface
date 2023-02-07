@@ -25,7 +25,11 @@
   },
   "venusLens": {
     "56": "0x2a914D534715F1A84205fb05d1dc8281F8da6540",
-    "97": "0x1DA02Aa8a8fD5DBBf9399CB90f71A3ed4019fC9a"
+    "97": "0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3"
+  },
+  "poolLens": {
+    "56": "",
+    "97": "0x90fAa4B139bb5Cba016d9d1D343981541A0C5251"
   },
   "xvsVault": {
     "56": "0x6eF49b4e0772Fe78128F981d42D54172b55eCF9F",

@@ -18,7 +18,7 @@ const useClaimXvsReward = (options?: Options) => {
     {
       ...options,
       onSuccess: () => {
-        queryClient.resetQueries(FunctionKey.GET_XVS_REWARD);
+        queryClient.resetQueries(FunctionKey.GET_PENDING_REWARDS);
       },
     },
   );

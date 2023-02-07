@@ -382,12 +382,46 @@
         "type": "address"
       }
     ],
-    "name": "pendingVenus",
+    "name": "pendingRewards",
     "outputs": [
       {
-        "internalType": "uint256",
+        "components": [
+          {
+            "internalType": "address",
+            "name": "distributorAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "rewardTokenAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalRewards",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vTokenAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct VenusLens.PendingReward[]",
+            "name": "pendingRewards",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct VenusLens.RewardSummary",
         "name": "",
-        "type": "uint256"
+        "type": "tuple"
       }
     ],
     "payable": false,

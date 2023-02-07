@@ -24,7 +24,7 @@ const useGetPancakeSwapPairs = (
 ) => {
   const multicall = useMulticall();
 
-  // Generate function key based on token combinations
+  // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
 
   return useQuery(
