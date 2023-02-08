@@ -215,15 +215,14 @@ export enum VaiVaultErrorReporterInfo {
   SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
 }
 
-export enum XvsVaultErrorReporterError {
+export enum XvsVaultProxyErrorReporterError {
   NO_ERROR,
   UNAUTHORIZED,
 }
 
-export enum XvsVaultErrorReporterInfo {
+export enum XvsVaultProxyErrorReporterInfo {
   ACCEPT_ADMIN_PENDING_ADMIN_CHECK,
   ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK,
   SET_PENDING_ADMIN_OWNER_CHECK,
   SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
-  COMPLETE_CURRENT_WITHDRAWAL_REQUESTS,
 }
