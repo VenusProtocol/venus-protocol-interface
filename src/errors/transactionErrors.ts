@@ -9,8 +9,8 @@ import {
   VaiControllerErrorReporterFailureInfo,
   VaiVaultErrorReporterError,
   VaiVaultErrorReporterInfo,
-  XvsVaultErrorReporterError,
-  XvsVaultErrorReporterInfo,
+  XvsVaultProxyErrorReporterError,
+  XvsVaultProxyErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
 
 import { VError, VErrorPhraseMap } from './VError';
@@ -22,13 +22,13 @@ const checkForTransactionError = (
     | typeof TokenErrorReporterError
     | typeof VaiControllerErrorReporterError
     | typeof VaiVaultErrorReporterError
-    | typeof XvsVaultErrorReporterError,
+    | typeof XvsVaultProxyErrorReporterError,
   infoEnum:
     | typeof ComptrollerErrorReporterFailureInfo
     | typeof TokenErrorReporterFailureInfo
     | typeof VaiControllerErrorReporterFailureInfo
     | typeof VaiVaultErrorReporterInfo
-    | typeof XvsVaultErrorReporterInfo,
+    | typeof XvsVaultProxyErrorReporterInfo,
 ) => {
   if (receipt.events?.Failure) {
     const { error, info } = receipt.events?.Failure.returnValues;
@@ -65,4 +65,8 @@ export const checkForVaiVaultTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(receipt, VaiVaultErrorReporterError, VaiVaultErrorReporterInfo);
 
 export const checkForXvsVaultTransactionError = (receipt: TransactionReceipt) =>
-  checkForTransactionError(receipt, XvsVaultErrorReporterError, XvsVaultErrorReporterInfo);
+  checkForTransactionError(
+    receipt,
+    XvsVaultProxyErrorReporterError,
+    XvsVaultProxyErrorReporterInfo,
+  );

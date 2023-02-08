@@ -316,9 +316,9 @@
       "btnRepayVai": "Repay VAI",
       "connectWallet": "Please connect your wallet to repay VAI",
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "repayVaiBalance": "Repay VAI balance",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
-      "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
       "successfulTransactionModal": {
         "message": "You successfully repaid",
@@ -468,7 +468,6 @@
     "borrowMarketNotListed": "Borrow Market Not Listed",
     "borrowNewAccountBorrowBalanceCalculationFailed": "Borrow New Account Borrow Balance Calculation Failed",
     "borrowNewTotalBalanceCalculationFailed": "Borrow New Total Balance Calculation Failed",
-    "completeCurrentWithdrawalRequests": "You must complete your current withdrawal requests before you can make a new one",
     "comptrollerCalculationError": "Comptroller Calculation Error",
     "comptrollerMismatch": "Comptroller Mismatch",
     "comptrollerRejection": "Comptroller Rejection",
