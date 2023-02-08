@@ -64,7 +64,7 @@ export const checkForVaiControllerTransactionError = (receipt: TransactionReceip
 export const checkForVaiVaultTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(receipt, VaiVaultErrorReporterError, VaiVaultErrorReporterInfo);
 
-export const checkForXvsVaultTransactionError = (receipt: TransactionReceipt) =>
+export const checkForXvsVaultProxyTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(
     receipt,
     XvsVaultProxyErrorReporterError,

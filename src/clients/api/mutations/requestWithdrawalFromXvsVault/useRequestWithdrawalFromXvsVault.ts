@@ -6,7 +6,7 @@ import {
   queryClient,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
@@ -17,7 +17,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
