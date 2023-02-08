@@ -8,7 +8,7 @@ import {
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
 } from 'clients/api';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
@@ -26,7 +26,7 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   const poolQueries: UseQueryOptions<
     GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardOutput | GetXvsVaultUserInfoOutput

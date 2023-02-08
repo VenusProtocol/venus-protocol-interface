@@ -30,7 +30,7 @@ const baseProps: ActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeEnabled: true,
   enableTokenMessage: 'Fake enable token message',
-  spenderAddress: mainContractAddresses.xvsVault[BscChainId.TESTNET],
+  spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

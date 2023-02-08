@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForXvsVaultTransactionError } from 'errors';
+import { checkForXvsVaultProxyTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
@@ -25,7 +25,7 @@ const requestWithdrawalFromXvsVault = async ({
     .requestWithdrawal(rewardTokenAddress, poolIndex, amountWei.toFixed())
     .send({ from: fromAccountAddress });
 
-  return checkForXvsVaultTransactionError(res);
+  return checkForXvsVaultProxyTransactionError(res);
 };
 
 export default requestWithdrawalFromXvsVault;

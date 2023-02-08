@@ -18,6 +18,7 @@ import {
   getVrtConverterProxyContract,
   getVrtVaultProxyContract,
   getXvsVaultContract,
+  getXvsVaultProxyContract,
   getXvsVestingProxyContract,
 } from './getters';
 
@@ -69,6 +70,11 @@ export const useVenusLensContract = () => {
 export const useXvsVaultContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVaultContract(web3), [web3]);
+};
+
+export const useXvsVaultProxyContract = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
 };
 
 export const useGovernorBravoDelegateContract = () => {
