@@ -7,8 +7,6 @@ import {
   TokenErrorReporterFailureInfo,
   VaiControllerErrorReporterError,
   VaiControllerErrorReporterFailureInfo,
-  XvsVaultErrorReporterError,
-  XvsVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
 
 export const transactionErrorPhrases: Record<
@@ -17,9 +15,7 @@ export const transactionErrorPhrases: Record<
   | keyof typeof TokenErrorReporterError
   | keyof typeof TokenErrorReporterFailureInfo
   | keyof typeof VaiControllerErrorReporterError
-  | keyof typeof VaiControllerErrorReporterFailureInfo
-  | keyof typeof XvsVaultErrorReporterError
-  | keyof typeof XvsVaultErrorReporterInfo,
+  | keyof typeof VaiControllerErrorReporterFailureInfo,
   string
 > = {
   NO_ERROR: t('transactionErrors.noError'),
@@ -250,5 +246,4 @@ export const transactionErrorPhrases: Record<
   ),
   VAI_LIQUIDATE_SEIZE_TOO_MUCH: t('transactionErrors.vaiLiquidateSeizeTooMuch'),
   MINT_FEE_CALCULATION_FAILED: t('transactionErrors.mintFeeCalculationFailed'),
-  COMPLETE_CURRENT_WITHDRAWAL_REQUESTS: t('transactionErrors.completeCurrentWithdrawalRequests'),
 };
