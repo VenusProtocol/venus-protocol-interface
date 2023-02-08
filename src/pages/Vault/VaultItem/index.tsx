@@ -152,8 +152,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
     ],
   );
 
-  const isVestingVault = typeof poolIndex === 'number';
-
   return (
     <>
       <Paper css={styles.container} className={className}>
@@ -227,25 +225,22 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           ))}
         </ul>
 
-        {/* Hide stake and withdraw buttons on vesting vaults. This is a temporary hotfix following a failed upgrade of the XVS Vault contract */}
-        {!isVestingVault && (
-          <div css={styles.buttonsWrapper}>
-            <Button onClick={onStake} css={styles.button} variant="primary">
-              {t('vaultItem.stakeButton')}
-            </Button>
+        <div css={styles.buttonsWrapper}>
+          <Button onClick={onStake} css={styles.button} variant="primary">
+            {t('vaultItem.stakeButton')}
+          </Button>
 
-            {canWithdraw && (
-              <Button
-                onClick={handleWithdraw}
-                css={styles.button}
-                variant="secondary"
-                loading={isWithdrawLoading}
-              >
-                {t('vaultItem.withdrawButton')}
-              </Button>
-            )}
-          </div>
-        )}
+          {canWithdraw && (
+            <Button
+              onClick={handleWithdraw}
+              css={styles.button}
+              variant="secondary"
+              loading={isWithdrawLoading}
+            >
+              {t('vaultItem.withdrawButton')}
+            </Button>
+          )}
+        </div>
       </Paper>
 
       {activeModal === 'stake' && (
