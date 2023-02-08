@@ -47,8 +47,9 @@ export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMin
 export const getMintableVai = jest.fn();
 export const useGetMintableVai = () => useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai);
 
-export const getXvsReward = jest.fn();
-export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
+export const getPendingRewards = jest.fn();
+export const useGetPendingRewards = () =>
+  useQuery(FunctionKey.GET_PENDING_REWARDS, getPendingRewards);
 
 export const getVTokenBalanceOf = jest.fn();
 export const useGetVTokenBalanceOf = () =>
