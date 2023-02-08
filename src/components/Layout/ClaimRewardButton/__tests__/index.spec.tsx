@@ -3,26 +3,52 @@ import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { getPendingRewards } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import ClaimRewardButton from '..';
 import TEST_IDS from '../../testIds';
+import { fakePendingRewardGroups } from './fakeData';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('components/Layout/ClaimRewardButton', () => {
+  beforeEach(() => {
+    (getPendingRewards as jest.Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups,
+    }));
+  });
+
   it('renders without crashing', () => {
     renderComponent(<ClaimRewardButton />);
   });
 
-  it.todo(
-    'renders nothing if user has not connected any wallet or does not have any pending reward to claim',
-  );
+  it('renders nothing if user has not connected any wallet', () => {
+    const { queryByText } = renderComponent(<ClaimRewardButton />);
 
-  it('renders correct reward amount in claim button', async () => {
+    expect(queryByText(en.claimReward.openModalButton.label)).toBeNull();
+  });
+
+  it('renders nothing if user has no pending rewards to claim', () => {
+    (getPendingRewards as jest.Mock).mockImplementation(() => ({
+      pendingRewardGroups: [],
+    }));
+
+    const { queryByText } = renderComponent(<ClaimRewardButton />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
+
+    expect(queryByText(en.claimReward.openModalButton.label)).toBeNull();
+  });
+
+  it('renders claim button if user has pending rewards to claim', async () => {
     const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
         account: {
@@ -32,9 +58,6 @@ describe('components/Layout/ClaimRewardButton', () => {
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
-    expect(getByTestId(TEST_IDS.claimRewardOpenModalButton).textContent).toMatchInlineSnapshot(
-      '"Claim $274.68"',
-    );
   });
 
   it('renders correct reward breakdown in modal', async () => {

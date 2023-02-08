@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ContractReceipt } from 'ethers';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'translation';
-import { formatCentsToReadableValue } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -12,20 +11,16 @@ import { ButtonProps, PrimaryButton } from '../../Button';
 import { Modal } from '../../Modal';
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
-import { fakePendingRewardGroups } from './__tests__/fakeData';
-import { PendingRewardGroup } from './types';
-
-const isGroupChecked = (checkedGroups: PendingRewardGroup[], group: PendingRewardGroup) =>
-  checkedGroups.some(checkedGroup => checkedGroup.groupName === group.groupName);
+import { Group } from './types';
+import useGetGroups from './useGetGroups';
 
 export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   isModalOpen: boolean;
   onOpenModal: () => void;
   onCloseModal: () => void;
   onClaimReward: () => Promise<ContractReceipt>;
-  onToggleGroup: (toggledGroup: PendingRewardGroup) => void;
-  checkedGroups: PendingRewardGroup[];
-  groups: PendingRewardGroup[];
+  onToggleGroup: (toggledGroup: Group) => void;
+  groups: Group[];
 }
 
 export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
@@ -34,42 +29,11 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   onCloseModal,
   onClaimReward,
   onToggleGroup,
-  checkedGroups,
   groups,
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
-
-  const { totalRewardAmountCents, readableTotalRewardAmount, readableCheckedRewardAmount } =
-    useMemo(() => {
-      let rewardAmountCents = 0;
-      let checkedRewardAmountCents = 0;
-
-      groups.forEach(pendingRewardGroup => {
-        const groupRewardAmountCents = pendingRewardGroup.pendingRewardTokens.reduce(
-          (groupReward, pendingRewardToken) => groupReward + pendingRewardToken.amountCents,
-          0,
-        );
-        rewardAmountCents += groupRewardAmountCents;
-
-        if (isGroupChecked(checkedGroups, pendingRewardGroup)) {
-          checkedRewardAmountCents += groupRewardAmountCents;
-        }
-      });
-
-      return {
-        totalRewardAmountCents: rewardAmountCents,
-        readableTotalRewardAmount: formatCentsToReadableValue({
-          value: rewardAmountCents,
-          shortenLargeValue: true,
-        }),
-        readableCheckedRewardAmount: formatCentsToReadableValue({
-          value: checkedRewardAmountCents,
-          shortenLargeValue: true,
-        }),
-      };
-    }, [groups, checkedGroups]);
 
   const handleClaimReward = () =>
     handleTransactionMutation({
@@ -85,31 +49,34 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
       }),
     });
 
-  const isSubmitDisabled = checkedGroups.length === 0;
+  const isSubmitDisabled = !groups.some(group => group.isChecked);
 
-  return totalRewardAmountCents ? (
+  if (!groups.length) {
+    return null;
+  }
+
+  return (
     <>
       <PrimaryButton
         data-testid={TEST_IDS.claimRewardOpenModalButton}
         onClick={onOpenModal}
         {...otherButtonProps}
       >
-        {t('claimReward.openModalButton.label', { amount: readableTotalRewardAmount })}
+        {t('claimReward.openModalButton.label')}
       </PrimaryButton>
 
       <Modal
         isOpen={isModalOpen}
         handleClose={onCloseModal}
-        title={<h4>{t('claimRewardButton.modal.title')}</h4>}
+        title={<h4>{t('claimReward.modal.title')}</h4>}
       >
         <>
           <div data-testid={TEST_IDS.claimRewardBreakdown}>
             {groups.map(group => (
               <RewardGroup
-                pendingRewardGroup={group}
-                isChecked={isGroupChecked(checkedGroups, group)}
+                group={group}
                 onCheckChange={() => onToggleGroup(group)}
-                key={`claim-reward-modal-reward-group-${group.groupName}`}
+                key={`claim-reward-modal-reward-group-${group.name}`}
               />
             ))}
           </div>
@@ -122,12 +89,12 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
           >
             {isSubmitDisabled
               ? t('claimReward.claimButton.disabledLabel')
-              : t('claimReward.claimButton.enabledLabel', { amount: readableCheckedRewardAmount })}
+              : t('claimReward.claimButton.enabledLabel')}
           </PrimaryButton>
         </>
       </Modal>
     </>
-  ) : null;
+  );
 };
 
 export type ClaimRewardButtonProps = Omit<ButtonProps, 'onClick'>;
@@ -139,11 +106,10 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     DisableLunaUstWarningContext,
   );
 
-  // TODO: fetch pending rewards (see VEN-932)
-  const isGetRewardAmountLoading = false;
-  const pendingRewardGroups = fakePendingRewardGroups;
-
-  const [checkedGroups, setCheckedGroups] = useState<PendingRewardGroup[]>(pendingRewardGroups);
+  const [uncheckedGroupNames, setUncheckedGroupNames] = useState<string[]>([]);
+  const groups = useGetGroups({
+    uncheckedGroupNames,
+  });
 
   const handleOpenModal = () => {
     // Block action if user has LUNA or UST enabled as collateral
@@ -157,13 +123,13 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleToggleGroup = (toggledGroup: PendingRewardGroup) =>
-    setCheckedGroups(currentCheckedGroups =>
-      isGroupChecked(currentCheckedGroups, toggledGroup)
-        ? currentCheckedGroups.filter(
-            checkedGroup => checkedGroup.groupName !== toggledGroup.groupName,
-          )
-        : [...currentCheckedGroups, toggledGroup],
+  const handleToggleGroup = (toggledGroup: Group) =>
+    setUncheckedGroupNames(currentUncheckedGroupNames =>
+      toggledGroup.isChecked
+        ? [...currentUncheckedGroupNames, toggledGroup.name]
+        : currentUncheckedGroupNames.filter(
+            currentCheckedGroupName => currentCheckedGroupName !== toggledGroup.name,
+          ),
     );
 
   // TODO: wire up (see VEN-932)
@@ -171,13 +137,11 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   return (
     <ClaimRewardButtonUi
-      groups={pendingRewardGroups}
-      loading={isGetRewardAmountLoading}
+      groups={groups}
       isModalOpen={isModalOpen}
       onOpenModal={handleOpenModal}
       onCloseModal={handleCloseModal}
       onClaimReward={handleClaimReward}
-      checkedGroups={checkedGroups}
       onToggleGroup={handleToggleGroup}
       {...props}
     />

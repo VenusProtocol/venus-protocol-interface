@@ -21,15 +21,16 @@ export const useStyles = () => {
     `,
     groupItem: css`
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      text-align: right;
+      align-items: center;
 
       :not(:last-child) {
         margin-bottom: ${theme.spacing(4)};
       }
     `,
-    rewardAmountDollars: css`
+    rewardTokenIcon: css`
+      margin-right: ${theme.spacing(2)};
+    `,
+    rewardAmount: css`
       color: ${theme.palette.text.primary};
     `,
   };

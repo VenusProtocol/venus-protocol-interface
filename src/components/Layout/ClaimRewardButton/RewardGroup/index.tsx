@@ -1,24 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React from 'react';
-import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 
 import { Checkbox, CheckboxProps } from '../../../Checkbox';
-import { TokenIconWithSymbol } from '../../../TokenIconWithSymbol';
-import { PendingRewardGroup } from '../types';
+import { TokenIcon } from '../../../TokenIcon';
+import { Group } from '../types';
 import { useStyles } from './styles';
 
 export interface RewardGroupProps {
-  pendingRewardGroup: PendingRewardGroup;
-  isChecked: boolean;
+  group: Group;
   onCheckChange: (newIsChecked: boolean) => void;
 }
 
-export const RewardGroup: React.FC<RewardGroupProps> = ({
-  pendingRewardGroup,
-  isChecked,
-  onCheckChange,
-}) => {
+export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
   const styles = useStyles();
 
   const handleOnCheckChange: CheckboxProps['onChange'] = event =>
@@ -28,40 +23,26 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({
     <div css={styles.container}>
       <div css={styles.header}>
         <Typography component="h4" variant="h4">
-          {pendingRewardGroup.groupName}
+          {group.name}
         </Typography>
 
-        <Checkbox onChange={handleOnCheckChange} value={isChecked} />
+        <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />
       </div>
 
-      {pendingRewardGroup.pendingRewardTokens.map(pendingRewardToken => (
+      {group.pendingRewards.map(pendingReward => (
         <div
           css={styles.groupItem}
-          key={`reward-group-${pendingRewardGroup.groupName}-${pendingRewardToken.token.address}`}
+          key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
         >
-          <TokenIconWithSymbol token={pendingRewardToken.token} />
+          <TokenIcon token={pendingReward.rewardToken} css={styles.rewardTokenIcon} />
 
-          <div>
-            <Typography css={styles.rewardAmountDollars}>
-              {formatCentsToReadableValue({
-                value: pendingRewardToken.amountCents,
-              })}
-            </Typography>
-
-            {pendingRewardToken.pendingRewards.map(pendingReward => (
-              <Typography
-                variant="small2"
-                component="p"
-                key={`reward-group-item-${pendingRewardGroup.groupName}-${pendingRewardToken.token.address}-${pendingReward.rewardToken.address}`}
-              >
-                {convertWeiToTokens({
-                  valueWei: pendingReward.amountWei,
-                  token: pendingReward.rewardToken,
-                  returnInReadableFormat: true,
-                })}
-              </Typography>
-            ))}
-          </div>
+          <Typography css={styles.rewardAmount}>
+            {convertWeiToTokens({
+              valueWei: pendingReward.rewardAmountWei,
+              token: pendingReward.rewardToken,
+              returnInReadableFormat: true,
+            })}
+          </Typography>
         </div>
       ))}
     </div>

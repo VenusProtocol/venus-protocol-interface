@@ -3,16 +3,11 @@ import { Token } from 'types';
 
 export interface PendingReward {
   rewardToken: Token;
-  amountWei: BigNumber;
+  rewardAmountWei: BigNumber;
 }
 
-export interface PendingRewardToken {
-  token: Token;
-  amountCents: number;
+export interface Group {
+  name: string;
   pendingRewards: PendingReward[];
-}
-
-export interface PendingRewardGroup {
-  groupName: string;
-  pendingRewardTokens: PendingRewardToken[];
+  isChecked: boolean;
 }
