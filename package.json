@@ -1,6 +1,6 @@
 {
   "name": "venus",
-  "version": "1.4.1",
+  "version": "1.4.0",
   "private": true,
   "engines": {
     "node": ">=16.x.x"

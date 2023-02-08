@@ -1,4 +1,4 @@
-import { checkForXvsVaultTransactionError } from 'errors';
+import { checkForXvsVaultProxyTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
@@ -21,7 +21,7 @@ const claimXvsVaultReward = async ({
   const resp = await xvsVaultContract.methods
     .deposit(rewardTokenAddress, poolIndex, 0)
     .send({ from: fromAccountAddress });
-  return checkForXvsVaultTransactionError(resp);
+  return checkForXvsVaultProxyTransactionError(resp);
 };
 
 export default claimXvsVaultReward;

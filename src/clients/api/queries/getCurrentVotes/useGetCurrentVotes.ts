@@ -4,7 +4,7 @@ import getCurrentVotes, {
   GetCurrentVotesInput,
   GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,7 +19,7 @@ const useGetCurrentVotes = (
   { accountAddress }: Omit<GetCurrentVotesInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
   return useQuery(
     [FunctionKey.GET_CURRENT_VOTES, accountAddress],
     () => getCurrentVotes({ xvsVaultContract, accountAddress }),

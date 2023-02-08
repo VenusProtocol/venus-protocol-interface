@@ -7,11 +7,11 @@ import {
   queryClient,
   stakeInXvsVault,
 } from 'clients/api';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
-const XVS_VAULT_CONTRACT_ADDRESS = getContractAddress('xvsVault');
+const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
 type Options = MutationObserverOptions<
   StakeInXvsVaultOutput,
@@ -20,7 +20,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, options?: Options) => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
     FunctionKey.STAKE_IN_XVS_VAULT,
@@ -68,7 +68,7 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, option
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: XVS_VAULT_CONTRACT_ADDRESS,
+            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
             tokenAddress: stakedToken.address,
           },
         ]);
