@@ -31,7 +31,8 @@ const formatToPool = ({
   const assets = subgraphPool.markets.reduce((accAssets, subgraphMarket) => {
     const vTokenAddress = subgraphMarket.id.toLowerCase();
     const vToken = getVTokenByAddress(vTokenAddress);
-    const additionalInfo = additionalTokenInfo[vTokenAddress];
+    const additionalInfo =
+      vToken && additionalTokenInfo[vToken.underlyingToken.address.toLowerCase()];
 
     // Filter out assets for which we don't have a local reference of their
     // corresponding vToken

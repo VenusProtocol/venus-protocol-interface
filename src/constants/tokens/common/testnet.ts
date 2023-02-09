@@ -151,7 +151,7 @@ export const TESTNET_TOKENS = {
     asset: vrt,
   } as Token,
   bnx: {
-    address: '0x8C851d1a123Ff703BD1f9dabe631b69902Df5f97',
+    address: '0xa14C236372228B6e8182748F3eBbFb4BFEEA3574',
     decimals: 18,
     symbol: 'BNX',
     asset: xvs, // TODO: add correct asset

@@ -4,17 +4,34 @@ import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
+import { useMulticall } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
+
+type TrimmedInput = Omit<GetIsolatedPoolsInput, 'multicall' | 'provider'>;
 
 type Options = QueryObserverOptions<
   GetIsolatedPoolsOutput,
   Error,
   GetIsolatedPoolsOutput,
   GetIsolatedPoolsOutput,
-  [FunctionKey.GET_ISOLATED_POOLS, GetIsolatedPoolsInput]
+  [FunctionKey.GET_ISOLATED_POOLS, TrimmedInput]
 >;
 
-const useGetIsolatedPools = (input: GetIsolatedPoolsInput, options?: Options) =>
-  useQuery([FunctionKey.GET_ISOLATED_POOLS, input], () => getIsolatedPools(input), options);
+const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
+  const multicall = useMulticall();
+  const { provider } = useAuth();
+
+  return useQuery(
+    [FunctionKey.GET_ISOLATED_POOLS, input],
+    () =>
+      getIsolatedPools({
+        ...input,
+        multicall,
+        provider,
+      }),
+    options,
+  );
+};
 
 export default useGetIsolatedPools;
