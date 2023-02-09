@@ -1,10 +1,13 @@
 import BigNumber from 'bignumber.js';
+import config from 'config';
 import { TransactionCategory, TransactionEvent } from 'types';
 import { convertTokensToWei, getVTokenByAddress } from 'utilities';
 
-import { VBEP_TOKENS } from 'constants/tokens';
+import { xvs } from 'constants/contracts/addresses/vBepTokens.json';
 
 import { TransactionResponse } from './types';
+
+const MAIN_POOL_VXVS_ADDRESS = xvs[config.chainId];
 
 const formatTransaction = ({
   amount,
@@ -15,7 +18,7 @@ const formatTransaction = ({
   vTokenAddress,
   ...rest
 }: TransactionResponse) => {
-  const vToken = vTokenAddress ? getVTokenByAddress(vTokenAddress) : VBEP_TOKENS.xvs;
+  const vToken = getVTokenByAddress(vTokenAddress || MAIN_POOL_VXVS_ADDRESS);
 
   if (!vToken) {
     return undefined;

@@ -3,12 +3,19 @@ import BigNumber from 'bignumber.js';
 import { Multicall } from 'ethereum-multicall';
 import { Pool } from 'types';
 
-export interface AdditionalTokenInfo {
-  [tokenAddress: string]: {
-    priceDollars: BigNumber;
-    userWalletBalanceWei: BigNumber;
+import { IsolatedPoolsQuery } from 'clients/subgraph';
+
+export interface FormatToPoolInput {
+  subgraphPool: IsolatedPoolsQuery['pools'][number];
+  tokenPricesDollars: {
+    [tokenAddress: string]: BigNumber;
+  };
+  userWalletBalances?: {
+    [tokenAddress: string]: BigNumber;
   };
 }
+
+export type FormatToPoolOutput = Pool;
 
 export interface GetIsolatedPoolsInput {
   accountAddress?: string;

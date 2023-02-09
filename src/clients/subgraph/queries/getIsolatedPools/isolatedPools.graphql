@@ -1,6 +1,7 @@
 query IsolatedPools($accountAddress: ID) {
   pools {
     id
+    priceOracle
     name
     description
     riskRating
@@ -14,13 +15,14 @@ query IsolatedPools($accountAddress: ID) {
       treasuryTotalSupplyWei
       treasuryTotalBorrowsWei
       reserveFactor
-      collateralFactor
+      collateralFactorMantissa
       borrowRate
       supplyRate
       exchangeRate
       cash
       supplierCount
       borrowerCount
+      liquidationThreshold
 
       accounts(where: { id: $accountAddress }) {
         isCollateralOfUser

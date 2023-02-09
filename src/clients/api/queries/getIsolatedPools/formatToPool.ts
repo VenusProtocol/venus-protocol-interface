@@ -9,44 +9,37 @@ import {
   getVTokenByAddress,
 } from 'utilities';
 
-import { IsolatedPoolsQuery } from 'clients/subgraph';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
+import calculateApy from 'utilities/calculateApy';
 
-import calculateApy from './calculateApy';
-import convertPercentageFromSmartContract from './convertPercentageFromSmartContract';
-import { AdditionalTokenInfo } from './types';
-
-export interface FormatToPoolInput {
-  subgraphPool: IsolatedPoolsQuery['pools'][number];
-  additionalTokenInfo: AdditionalTokenInfo;
-}
-
-export type FormatToPoolOutput = Pool;
+import convertFactorFromSmartContract from './convertFactorFromSmartContract';
+import { FormatToPoolInput, FormatToPoolOutput } from './types';
 
 const formatToPool = ({
   subgraphPool,
-  additionalTokenInfo,
+  tokenPricesDollars,
+  userWalletBalances,
 }: FormatToPoolInput): FormatToPoolOutput => {
   const assets = subgraphPool.markets.reduce((accAssets, subgraphMarket) => {
     const vTokenAddress = subgraphMarket.id.toLowerCase();
     const vToken = getVTokenByAddress(vTokenAddress);
-    const additionalInfo =
-      vToken && additionalTokenInfo[vToken.underlyingToken.address.toLowerCase()];
+    const tokenPriceDollars =
+      vToken && tokenPricesDollars[vToken.underlyingToken.address.toLowerCase()];
 
     // Filter out assets for which we don't have a local reference of their
     // corresponding vToken
-    if (!vToken || !additionalInfo) {
+    if (!vToken || !tokenPriceDollars) {
       return accAssets;
     }
-
-    const tokenPriceDollars = additionalInfo.priceDollars;
 
     const { apyPercentage: borrowApyPercentage } = calculateApy(subgraphMarket.borrowRate);
     const { apyPercentage: supplyApyPercentage } = calculateApy(subgraphMarket.supplyRate);
 
     const userWalletBalanceTokens = convertWeiToTokens({
-      valueWei: additionalInfo.userWalletBalanceWei,
+      valueWei:
+        (userWalletBalances && userWalletBalances[vToken.underlyingToken.address.toLowerCase()]) ||
+        new BigNumber(0),
       token: vToken.underlyingToken,
     });
     const userWalletBalanceCents = convertDollarsToCents(
@@ -165,11 +158,11 @@ const formatToPool = ({
     const asset: Asset = {
       vToken,
       tokenPriceDollars,
-      reserveFactor: convertPercentageFromSmartContract({
-        percentageFromSmartContract: subgraphMarket.reserveFactor,
+      reserveFactor: convertFactorFromSmartContract({
+        factor: subgraphMarket.reserveFactor,
       }),
-      collateralFactor: convertPercentageFromSmartContract({
-        percentageFromSmartContract: subgraphMarket.collateralFactor,
+      collateralFactor: convertFactorFromSmartContract({
+        factor: subgraphMarket.collateralFactorMantissa,
       }),
       borrowCapTokens,
       supplyCapTokens,
@@ -241,9 +234,6 @@ const formatToPool = ({
       .toNumber(),
   }));
 
-  // TODO: fetch from subgraph
-  const safeBorrowLimitPercentage = 80;
-
   const pool: Pool = {
     comptrollerAddress: subgraphPool.id,
     name: subgraphPool.name,
@@ -254,7 +244,6 @@ const formatToPool = ({
     userSupplyBalanceCents,
     userBorrowBalanceCents,
     userBorrowLimitCents,
-    safeBorrowLimitPercentage,
   };
 
   return pool;
