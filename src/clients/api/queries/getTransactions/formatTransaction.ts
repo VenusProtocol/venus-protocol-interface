@@ -15,7 +15,7 @@ const formatTransaction = ({
   vTokenAddress,
   ...rest
 }: TransactionResponse) => {
-  const vToken = getVTokenByAddress(vTokenAddress);
+  const vToken = vTokenAddress && getVTokenByAddress(vTokenAddress);
   const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
   return {
