@@ -24,10 +24,10 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
       accountAddress,
     });
 
-  console.log(getIsolatedPoolsData);
+  const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
 
   const data = useMemo(() => {
-    if (!getMainPoolData?.pool && !getIsolatedPoolsData?.pools) {
+    if (isLoading) {
       return undefined;
     }
 
@@ -38,9 +38,7 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
     return {
       pools,
     };
-  }, [getMainPoolData?.pool]);
-
-  const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
+  }, [getMainPoolData?.pool, getIsolatedPoolsData?.pools]);
 
   return { isLoading, data };
 };
