@@ -154,8 +154,6 @@ const formatToPool = ({
           ),
           borrowApyPercentage: distributionBorrowApyPercentage,
           supplyApyPercentage: distributionSupplyApyPercentage,
-          borrowAprPercentage: new BigNumber(0), // TODO: remove
-          supplyAprPercentage: new BigNumber(0), // TODO: remove
         };
 
         return [...accDistributions, distribution];

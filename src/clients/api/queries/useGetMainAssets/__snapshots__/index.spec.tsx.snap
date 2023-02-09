@@ -14,10 +14,8 @@ Object {
       "collateralFactor": 0.5,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "1.051224864211795426",
           "borrowApyPercentage": "1.351224864211795426",
           "dailyDistributedTokens": "49.999999999999968",
-          "supplyAprPercentage": "0.14260730848036692",
           "supplyApyPercentage": "0.34260730848036692",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -70,10 +68,8 @@ Object {
       "collateralFactor": 0.81,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.000001125348834693",
           "borrowApyPercentage": "0.000002125348834693",
           "dailyDistributedTokens": "999.9999936",
-          "supplyAprPercentage": "8.24635e-13",
           "supplyApyPercentage": "1.824635e-12",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -126,10 +122,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.200882672824011072",
           "borrowApyPercentage": "0.600882672824011072",
           "dailyDistributedTokens": "999.9999936",
-          "supplyAprPercentage": "0",
           "supplyApyPercentage": "0",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -182,10 +176,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.001753286763848276",
           "borrowApyPercentage": "0.021753286763848276",
           "dailyDistributedTokens": "999.9999936",
-          "supplyAprPercentage": "0.000730355354365121",
           "supplyApyPercentage": "0.001730355354365121",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -238,10 +230,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "1.041107132664179593",
           "borrowApyPercentage": "1.141107132664179593",
           "dailyDistributedTokens": "2999.9999808",
-          "supplyAprPercentage": "1.085821799653397884",
           "supplyApyPercentage": "1.185821799653397884",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -295,10 +285,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0",
           "borrowApyPercentage": "0",
           "dailyDistributedTokens": "0",
-          "supplyAprPercentage": "0",
           "supplyApyPercentage": "0",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -351,10 +339,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "3.543731091576054636",
           "borrowApyPercentage": "4.543731091576054636",
           "dailyDistributedTokens": "2999.9999808",
-          "supplyAprPercentage": "1.306740170918635611",
           "supplyApyPercentage": "1.606740170918635611",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -407,10 +393,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.194444965549789125",
           "borrowApyPercentage": "0.594444965549789125",
           "dailyDistributedTokens": "500.0000256",
-          "supplyAprPercentage": "0.163034531797658077",
           "supplyApyPercentage": "0.363034531797658077",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -463,10 +447,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "6.470759902626424876",
           "borrowApyPercentage": "7.470759902626424876",
           "dailyDistributedTokens": "500.0000256",
-          "supplyAprPercentage": "0.511613513165150039",
           "supplyApyPercentage": "0.811613513165150039",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -519,10 +501,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "3.103840954113091774",
           "borrowApyPercentage": "3.503840954113091774",
           "dailyDistributedTokens": "500.0000256",
-          "supplyAprPercentage": "0.547264218064808693",
           "supplyApyPercentage": "0.947264218064808693",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -575,10 +555,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.354335409204269745",
           "borrowApyPercentage": "0.754335409204269745",
           "dailyDistributedTokens": "174.999999999999744",
-          "supplyAprPercentage": "0.105120518892226646",
           "supplyApyPercentage": "0.305120518892226646",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -631,10 +609,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "1.120862854912494938",
           "borrowApyPercentage": "1.720862854912494938",
           "dailyDistributedTokens": "91.610000000000064",
-          "supplyAprPercentage": "1.122555082433944633",
           "supplyApyPercentage": "1.522555082433944633",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -687,10 +663,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0",
           "borrowApyPercentage": "0",
           "dailyDistributedTokens": "0",
-          "supplyAprPercentage": "0",
           "supplyApyPercentage": "0",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -743,10 +717,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "0.06982533135294494",
           "borrowApyPercentage": "0.26982533135294494",
           "dailyDistributedTokens": "174.999999999999744",
-          "supplyAprPercentage": "0.034967169585684514",
           "supplyApyPercentage": "0.134967169585684514",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -799,10 +771,8 @@ Object {
       "collateralFactor": 0.55,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "11.754861490074778241",
           "borrowApyPercentage": "14.754861490074778241",
           "dailyDistributedTokens": "25.0000000000000128",
-          "supplyAprPercentage": "0.00787839946684478",
           "supplyApyPercentage": "0.10787839946684478",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -855,10 +825,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "100.564801757396621173",
           "borrowApyPercentage": "200.564801757396621173",
           "dailyDistributedTokens": "50.0000000000000256",
-          "supplyAprPercentage": "0.001007365834885316",
           "supplyApyPercentage": "0.009007365834885316",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -911,10 +879,8 @@ Object {
       "collateralFactor": 0.6,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "6102.522495213142034502",
           "borrowApyPercentage": "8102.522495213142034502",
           "dailyDistributedTokens": "50.0000000000000256",
-          "supplyAprPercentage": "0.134415260865180737",
           "supplyApyPercentage": "0.334415260865180737",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -967,10 +933,8 @@ Object {
       "collateralFactor": 0.8,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "1.342286892512915770892913642930703690751510720619883895e+37",
           "borrowApyPercentage": "2.342286892512915770892913642930703690751510720619883895e+37",
           "dailyDistributedTokens": "50.0000000000000256",
-          "supplyAprPercentage": "53.636157517717037851",
           "supplyApyPercentage": "83.636157517717037851",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1023,10 +987,8 @@ Object {
       "collateralFactor": 0.55,
       "distributions": Array [
         Object {
-          "borrowAprPercentage": "1.187706392698558375",
           "borrowApyPercentage": "1.587706392698558375",
           "dailyDistributedTokens": "75.0000000000000384",
-          "supplyAprPercentage": "16.587706392698558375",
           "supplyApyPercentage": "18.587706392698558375",
           "token": Object {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

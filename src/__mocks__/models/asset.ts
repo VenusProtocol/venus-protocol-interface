@@ -34,9 +34,7 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.01720675342484096'),
         supplyApyPercentage: new BigNumber('0.11720675342484096'),
-        borrowAprPercentage: new BigNumber('4.07469243006608279'),
         borrowApyPercentage: new BigNumber('4.17469243006608279'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
@@ -72,9 +70,7 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('1.153105649796123742'),
         supplyApyPercentage: new BigNumber('1.353105649796123742'),
-        borrowAprPercentage: new BigNumber('1.370327607690572731'),
         borrowApyPercentage: new BigNumber('1.670327607690572731'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
@@ -110,9 +106,7 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.221719501189155143'),
         supplyApyPercentage: new BigNumber('0.421719501189155143'),
-        borrowAprPercentage: new BigNumber('0.322209972682294832'),
         borrowApyPercentage: new BigNumber('0.522209972682294832'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
@@ -148,9 +142,7 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.578420831753642169'),
         supplyApyPercentage: new BigNumber('0.678420831753642169'),
-        borrowAprPercentage: new BigNumber('0.552697602175970714'),
         borrowApyPercentage: new BigNumber('0.852697602175970714'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },

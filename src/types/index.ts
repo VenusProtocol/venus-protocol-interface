@@ -29,8 +29,6 @@ export interface TokenBalance {
 export interface AssetDistribution {
   token: Token;
   dailyDistributedTokens: BigNumber;
-  borrowAprPercentage: BigNumber; // TODO: remove (unused)
-  supplyAprPercentage: BigNumber; // TODO: remove (unused)
   borrowApyPercentage: BigNumber;
   supplyApyPercentage: BigNumber;
 }
