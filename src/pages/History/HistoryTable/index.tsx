@@ -76,7 +76,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const rows: TableProps['data'] = useMemo(
     () =>
       transactions.map(txn => {
-        const vToken = getVTokenByAddress(txn.vTokenAddress);
+        const vToken = txn.vTokenAddress && getVTokenByAddress(txn.vTokenAddress);
         const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
         return [

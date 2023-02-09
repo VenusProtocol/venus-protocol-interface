@@ -68,10 +68,7 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result
-    // HOTFIX: filter out transactions without a vTokenAddress field
-    .filter(data => !!data.vTokenAddress)
-    .map(data => formatTransaction(data));
+  const transactions = payload.result.map(data => formatTransaction(data));
   return { limit, page: payloadPage, total, transactions };
 };
 
