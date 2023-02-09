@@ -3,11 +3,16 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Pool } from 'types';
-import { convertTokensToWei } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { getAllowance, redeem, redeemUnderlying, useGetPool } from 'clients/api';
+import {
+  getAllowance,
+  getVTokenBalanceOf,
+  redeem,
+  redeemUnderlying,
+  useGetPool,
+} from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -26,11 +31,17 @@ fakeAsset.userSupplyBalanceTokens = new BigNumber(1000);
 fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
 fakeAsset.tokenPriceDollars = new BigNumber(1);
 
+const fakeVTokenBalanceWei = new BigNumber(10000000);
+
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   beforeEach(() => {
+    (getVTokenBalanceOf as jest.Mock).mockImplementation(() => ({
+      balanceWei: fakeVTokenBalanceWei,
+    }));
+
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
@@ -138,11 +149,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     );
     fireEvent.click(submitButton);
 
-    const expectedAmountWei = convertTokensToWei({
-      value: customFakeAsset.userSupplyBalanceTokens,
-      token: customFakeAsset.vToken.underlyingToken,
-    });
-    await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
+    await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: fakeVTokenBalanceWei }));
   });
 
   it('redeemUnderlying is called when partial amount is withdrawn', async () => {

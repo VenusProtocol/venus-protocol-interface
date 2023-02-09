@@ -7,7 +7,6 @@ import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPool, useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
 import { AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
@@ -167,11 +166,7 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
     // Withdraw entire supply
     if (amountEqualsSupplyBalance && vTokenBalanceWei) {
-      const userSupplyBalanceWei = convertTokensToWei({
-        value: vTokenBalanceWei,
-        token: asset.vToken,
-      });
-      const res = await redeem({ amountWei: userSupplyBalanceWei });
+      const res = await redeem({ amountWei: vTokenBalanceWei });
 
       ({ transactionHash } = res);
       // Successful transaction modal will display
