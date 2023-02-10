@@ -344,3 +344,7 @@ export { default as useGetProposalEta } from './queries/getProposalEta/useGetPro
 export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
 export * from './queries/getPancakeSwapPairs';
 export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
+
+export { default as getVaiRepayApy } from './queries/getVaiRepayApy';
+export * from './queries/getVaiRepayApy';
+export { default as useGetVaiRepayApy } from './queries/getVaiRepayApy/useGetVaiRepayApy';
