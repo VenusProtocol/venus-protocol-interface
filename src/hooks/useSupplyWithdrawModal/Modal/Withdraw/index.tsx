@@ -6,7 +6,7 @@ import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
-import { useGetPool, useRedeem, useRedeemUnderlying } from 'clients/api';
+import { useGetPool, useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
@@ -133,6 +133,17 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
+  const { data: getVTokenBalanceData } = useGetVTokenBalanceOf(
+    {
+      accountAddress,
+      vToken,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+  const vTokenBalanceWei = getVTokenBalanceData?.balanceWei;
+
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     vToken,
   });
@@ -153,16 +164,16 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
     const amountEqualsSupplyBalance = amount.eq(asset.userSupplyBalanceTokens);
     let transactionHash;
 
-    if (amountEqualsSupplyBalance && asset.userSupplyBalanceTokens) {
-      const userSupplyBalanceWei = convertTokensToWei({
-        value: asset.userSupplyBalanceTokens,
-        token: asset.vToken.underlyingToken,
-      });
-      const res = await redeem({ amountWei: userSupplyBalanceWei });
+    // Withdraw entire supply
+    if (amountEqualsSupplyBalance && vTokenBalanceWei) {
+      const res = await redeem({ amountWei: vTokenBalanceWei });
 
       ({ transactionHash } = res);
       // Successful transaction modal will display
-    } else {
+    }
+
+    // Withdraw partial supply
+    if (!amountEqualsSupplyBalance) {
       const withdrawAmountWei = convertTokensToWei({
         value: new BigNumber(value),
         token: asset.vToken.underlyingToken,
