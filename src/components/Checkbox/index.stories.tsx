@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { noop } from 'lodash';
+import noop from 'noop-ts';
 import React from 'react';
 
 import { withCenterStory, withOnChange } from 'stories/decorators';

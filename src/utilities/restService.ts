@@ -1,5 +1,6 @@
 import config from 'config';
-import { isEmpty, set } from 'lodash';
+import _isEmpty from 'lodash/isEmpty';
+import _set from 'lodash/set';
 
 interface RestServiceInput {
   endpoint: string;
@@ -38,11 +39,11 @@ export async function restService<D>({
   const headers = {};
   let path = `${config.apiUrl}${endpoint}`;
 
-  set(headers, 'Accept', 'application/json');
-  set(headers, 'Content-Type', 'application/json');
+  _set(headers, 'Accept', 'application/json');
+  _set(headers, 'Content-Type', 'application/json');
 
   if (token) {
-    set(headers, 'Authorization', `Bearer ${token}`);
+    _set(headers, 'Authorization', `Bearer ${token}`);
   }
 
   const reqBody = {
@@ -51,9 +52,9 @@ export async function restService<D>({
     body: {},
   };
 
-  if (params && !isEmpty(params) && method === 'POST') {
+  if (params && !_isEmpty(params) && method === 'POST') {
     reqBody.body = JSON.stringify(params);
-  } else if (params && !isEmpty(params) && method === 'GET') {
+  } else if (params && !_isEmpty(params) && method === 'GET') {
     const queryParams = createQueryParams(params);
     path = `${path}?${queryParams}`;
   }

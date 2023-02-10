@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import noop from 'lodash';
+import noop from 'noop-ts';
 import React from 'react';
 
 import Filters, { ALL_VALUE } from '.';

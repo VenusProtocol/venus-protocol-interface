@@ -17,8 +17,12 @@ export const chain: Chain = {
   name: config.isOnTestnet ? 'BNB Smart Chain Testnet' : 'BNB Smart Chain',
   network: config.isOnTestnet ? 'bsc-testnet' : 'bsc',
   rpcUrls: {
-    public: config.rpcUrl,
-    default: config.rpcUrl,
+    public: {
+      http: [config.rpcUrl],
+    },
+    default: {
+      http: [config.rpcUrl],
+    },
   },
   blockExplorers: {
     default: bscExplorer,
@@ -41,7 +45,8 @@ const client = createClient({
     new WalletConnectConnector({
       chains: [chain],
       options: {
-        qrcode: true,
+        projectId: config.walletConnectProjectId,
+        version: '2',
       },
     }),
     new CoinbaseWalletConnector({

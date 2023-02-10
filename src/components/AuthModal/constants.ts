@@ -39,7 +39,6 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.walletConnect'),
     Logo: WalletConnectLogo,
     connector: Connector.WalletConnect,
-    mainnetOnly: true,
   },
   {
     name: t('wallets.safePal'),

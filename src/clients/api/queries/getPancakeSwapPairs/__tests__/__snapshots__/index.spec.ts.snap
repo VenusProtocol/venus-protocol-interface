@@ -3993,7 +3993,7 @@ exports[`api/queries/getPancakeSwapPairs returns pairs in the right format on su
 Object {
   "pairs": Array [
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
         "chainId": 97,
         "decimals": 18,
@@ -4004,7 +4004,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
             "chainId": 97,
@@ -4027,7 +4027,7 @@ Object {
             412151096,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
             "chainId": 97,
@@ -4055,7 +4055,7 @@ Object {
       ],
     },
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
         "chainId": 97,
         "decimals": 18,
@@ -4066,7 +4066,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
             "chainId": 97,
@@ -4089,7 +4089,7 @@ Object {
             780406,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
             "chainId": 97,
@@ -4115,7 +4115,7 @@ Object {
       ],
     },
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
         "chainId": 97,
         "decimals": 18,
@@ -4126,7 +4126,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
             "chainId": 97,
@@ -4150,7 +4150,7 @@ Object {
             89,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
             "chainId": 97,
@@ -4185,7 +4185,7 @@ exports[`api/queries/getPancakeSwapPairs skips token combinations for which a pa
 Object {
   "pairs": Array [
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
         "chainId": 97,
         "decimals": 18,
@@ -4196,7 +4196,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
             "chainId": 97,
@@ -4219,7 +4219,7 @@ Object {
             780406,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
             "chainId": 97,
@@ -4245,7 +4245,7 @@ Object {
       ],
     },
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
         "chainId": 97,
         "decimals": 18,
@@ -4256,7 +4256,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
             "chainId": 97,
@@ -4280,7 +4280,7 @@ Object {
             89,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
             "chainId": 97,
@@ -4308,7 +4308,7 @@ Object {
       ],
     },
     Pair {
-      "liquidityToken": Token {
+      "liquidityToken": ERC20Token {
         "address": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
         "chainId": 97,
         "decimals": 18,
@@ -4319,7 +4319,7 @@ Object {
         "symbol": "Cake-LP",
       },
       "tokenAmounts": Array [
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
             "chainId": 97,
@@ -4342,7 +4342,7 @@ Object {
             412151096,
           ],
         },
-        CurrencyAmount2 {
+        CurrencyAmount {
           "currency": Token {
             "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
             "chainId": 97,

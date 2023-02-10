@@ -3,6 +3,7 @@ import { BscChainId } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
+import { PROJECT_ID } from 'constants/walletConnect';
 
 export interface Config {
   chainId: BscChainId;
@@ -10,6 +11,7 @@ export interface Config {
   rpcUrl: string;
   apiUrl: string;
   bscScanUrl: string;
+  walletConnectProjectId: string;
 }
 
 const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
@@ -27,6 +29,7 @@ const config: Config = {
   rpcUrl,
   apiUrl,
   bscScanUrl,
+  walletConnectProjectId: PROJECT_ID,
 };
 
 export default config;
