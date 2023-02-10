@@ -11,10 +11,16 @@ import {
 import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatPercentage,
+  getContractAddress,
+} from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
 import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -33,6 +39,7 @@ export interface RepayVaiUiProps {
   isRepayVaiLoading: boolean;
   repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
   isInitialLoading: boolean;
+  apyPercentage?: BigNumber;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
@@ -41,6 +48,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
   userMintedWei,
+  apyPercentage,
   isRepayVaiLoading,
   isInitialLoading,
   repayVai,
@@ -122,6 +130,14 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
                     {readableRepayableVai}
                   </LabeledInlineContent>
 
+                  <LabeledInlineContent
+                    css={styles.getRow({ isLast: false })}
+                    iconSrc="fee"
+                    label={t('mintRepayVai.repayVai.apy')}
+                  >
+                    {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
+                  </LabeledInlineContent>
+
                   <RepayFee repayAmountTokens={values.amount} />
                 </div>
 
@@ -190,6 +206,9 @@ const RepayVai: React.FC = () => {
     });
   };
 
+  // TODO: fetch
+  const fakeApyPercentage = new BigNumber(4);
+
   return (
     <RepayVaiUi
       disabled={!account}
@@ -197,6 +216,7 @@ const RepayVai: React.FC = () => {
       userBalanceWei={userVaiBalanceData?.balanceWei}
       userMintedWei={userMintedVaiData?.mintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
+      apyPercentage={fakeApyPercentage}
       repayVai={repayVai}
     />
   );
