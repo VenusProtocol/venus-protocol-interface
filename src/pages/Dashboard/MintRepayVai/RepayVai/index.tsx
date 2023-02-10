@@ -19,7 +19,7 @@ import {
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
-import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
+import { useGetBalanceOf, useGetMintedVai, useGetVaiRepayApy, useRepayVai } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
@@ -183,6 +183,8 @@ const RepayVai: React.FC = () => {
     },
   );
 
+  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+
   const isInitialLoading = isGetUserMintedVaiLoading || isGetUserVaiBalanceWeiLoading;
 
   const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
@@ -206,9 +208,6 @@ const RepayVai: React.FC = () => {
     });
   };
 
-  // TODO: fetch
-  const fakeApyPercentage = new BigNumber(4);
-
   return (
     <RepayVaiUi
       disabled={!account}
@@ -216,7 +215,7 @@ const RepayVai: React.FC = () => {
       userBalanceWei={userVaiBalanceData?.balanceWei}
       userMintedWei={userMintedVaiData?.mintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
-      apyPercentage={fakeApyPercentage}
+      apyPercentage={getVaiRepayApyData?.repayApyPercentage}
       repayVai={repayVai}
     />
   );

@@ -6,7 +6,7 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { formatPercentage } from 'utilities';
 
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo, useGetVaiRepayApy } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
@@ -116,8 +116,7 @@ const Dashboard: React.FC = () => {
     accountAddress,
   });
 
-  // TODO: fetch
-  const fakeVaiApyPercentage = new BigNumber(4);
+  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
 
   return (
     <DashboardUi
@@ -126,7 +125,7 @@ const Dashboard: React.FC = () => {
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
       userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
-      vaiApyPercentage={fakeVaiApyPercentage}
+      vaiApyPercentage={getVaiRepayApyData?.repayApyPercentage}
     />
   );
 };

@@ -124,7 +124,7 @@
       "title": "Markets"
     },
     "vaiStabilityFeeBanner": {
-      "description": "VAI Stability Fee has been launched and is currently active. The current VAI APY is set at {{feePercentage}}%."
+      "description": "VAI Stability Fee has been launched and is currently active. The current VAI APY is set to {{feePercentage}}%."
     }
   },
   "enableToken": {

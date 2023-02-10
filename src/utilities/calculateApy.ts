@@ -14,7 +14,9 @@ const calculateApy = (ratePerBlockMantissa: BigNumber | string | number) => {
     .plus(1)
     .pow(DAYS_PER_YEAR - 1)
     .minus(1)
-    .dp(COMPOUND_DECIMALS);
+    .dp(COMPOUND_DECIMALS)
+    // Convert to percentage
+    .multipliedBy(100);
 
   return {
     dailyDistributedTokens,
