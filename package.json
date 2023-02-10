@@ -28,6 +28,7 @@
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.0.0",
     "@ethersproject/abstract-signer": "^5.7.0",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/contracts": "^5.7.0",
@@ -74,6 +75,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@emotion/eslint-plugin": "^11.10.0",
     "@graphql-codegen/add": "^3.2.3",
     "@graphql-codegen/client-preset": "^1.2.3",
     "@graphql-codegen/typed-document-node": "2.3.10",
@@ -91,7 +93,7 @@
     "@typechain/ethers-v5": "^10.2.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
-    "@types/react": "^17.0.01",
+    "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.23",
@@ -99,7 +101,7 @@
     "@types/styled-components": "^5.1.22",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
-    "eslint": "^7.11.0",
+    "eslint": "^8.33.0",
     "eslint-config-airbnb": "17.1.1",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^6.0.0",

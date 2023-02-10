@@ -57,7 +57,7 @@ export const data = [
   { token: TOKENS.xvs, apy: 0.15, wallet: 160, collateral: true },
 ];
 
-type Row = typeof data[number];
+type Row = (typeof data)[number];
 
 export const columns: TableColumn<Row>[] = [
   {

@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier', '@emotion'],
   extends: ['airbnb', 'airbnb-typescript', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     project: './tsconfig.eslint.json',
@@ -57,7 +57,9 @@ module.exports = {
     // Custom
     'import/no-named-as-default': 0,
     'import/export': 0,
-    '@typescript-eslint/no-unused-vars': ["error", { "varsIgnorePattern": "^_.+" }],
+    'import/no-cycle': 1,
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_.+' }],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {

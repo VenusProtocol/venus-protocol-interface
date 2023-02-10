@@ -6,7 +6,7 @@ import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    getRoot: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
+    getRoot: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) => css`
       padding-left: 0;
       padding-right: 0;
 
@@ -16,7 +16,7 @@ export const useStyles = () => {
         padding-bottom: 0;
       }
     `,
-    getTitle: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
+    getTitle: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) => css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
 
@@ -24,13 +24,13 @@ export const useStyles = () => {
         padding: 0;
       }
     `,
-    getTableContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+    getTableContainer: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) =>
       css`
         ${theme.breakpoints.down(breakpoint)} {
           display: none;
         }
       `,
-    getCardsContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+    getCardsContainer: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) =>
       css`
         display: none;
 
