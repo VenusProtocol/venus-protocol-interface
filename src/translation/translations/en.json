@@ -128,20 +128,18 @@
   },
   "claimReward": {
     "claimButton": {
-      "disabledLabel": "Select assets to collect reward from",
-      "enabledLabel": "Claim {{amount}}"
+      "disabledLabel": "Select groups to collect reward from",
+      "enabledLabel": "Claim"
+    },
+    "modal": {
+      "title": "Claim reward"
     },
     "openModalButton": {
-      "label": "Claim {{amount}}"
+      "label": "Claim rewards"
     },
     "successfulTransactionModal": {
       "message": "You successfully claimed your reward",
       "title": "Your claim was successful"
-    }
-  },
-  "claimRewardButton": {
-    "modal": {
-      "title": "Claim reward"
     }
   },
   "connectButton": {
@@ -269,6 +267,11 @@
     "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
+    "claimRewardModal": {
+      "poolGroup": "{{poolName}} pool",
+      "vaultGroup": "{{stakedTokenSymbol}} vault",
+      "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
+    },
     "menuItems": {
       "account": "Account",
       "convertVrt": "Convert VRT",
@@ -703,9 +706,9 @@
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
-      "repayVaiBalance": "Repay VAI balance",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
+      "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",

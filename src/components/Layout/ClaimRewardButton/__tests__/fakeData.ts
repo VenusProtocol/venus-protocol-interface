@@ -1,87 +1,40 @@
 import { BigNumber } from 'bignumber.js';
 
-import { TESTNET_TOKENS } from 'constants/tokens';
-
-import { PendingRewardGroup } from '../types';
+import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
+import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
-    groupName: 'Venus pool',
-    pendingRewardTokens: [
+    type: 'pool',
+    comptrollerAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
+    pendingRewards: [
       {
-        token: TESTNET_TOKENS.xvs,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.xvs,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-        ],
-      },
-      {
-        token: TESTNET_TOKENS.sxp,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.xvs,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
+        rewardToken: TESTNET_TOKENS.xvs,
+        rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+        vTokenAddressesWithPendingReward: [
+          TESTNET_VBEP_TOKENS.usdc.address,
+          TESTNET_VBEP_TOKENS.usdt.address,
+          TESTNET_VBEP_TOKENS.busd.address,
         ],
       },
     ],
   },
   {
-    groupName: 'Premium partner pool',
-    pendingRewardTokens: [
-      {
-        token: TESTNET_TOKENS.usdt,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.xvs,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-          {
-            rewardToken: TESTNET_TOKENS.bnb,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-        ],
-      },
-    ],
+    type: 'vault',
+    stakedToken: TESTNET_TOKENS.vrt,
+    rewardToken: TESTNET_TOKENS.vrt,
+    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
   },
   {
-    groupName: 'Vaults',
-    pendingRewardTokens: [
-      {
-        token: TESTNET_TOKENS.vai,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.vai,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-        ],
-      },
-      {
-        token: TESTNET_TOKENS.xvs,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.xvs,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-        ],
-      },
-      {
-        token: TESTNET_TOKENS.vrt,
-        amountCents: 4578,
-        pendingRewards: [
-          {
-            rewardToken: TESTNET_TOKENS.xvs,
-            amountWei: new BigNumber('10000001234210000000'),
-          },
-        ],
-      },
-    ],
+    type: 'vault',
+    stakedToken: TESTNET_TOKENS.vai,
+    rewardToken: TESTNET_TOKENS.xvs,
+    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+  },
+  {
+    type: 'vestingVault',
+    stakedToken: TESTNET_TOKENS.xvs,
+    rewardToken: TESTNET_TOKENS.xvs,
+    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
   },
 ];
