@@ -122,6 +122,9 @@
       "tabBorrow": "Borrow",
       "tabSupply": "Supply",
       "title": "Markets"
+    },
+    "vaiStabilityFeeBanner": {
+      "description": "VAI Stability Fee has been launched and is currently active. The current VAI APY is set at {{feePercentage}}%."
     }
   },
   "enableToken": {
