@@ -16,6 +16,7 @@ import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei, formatTokensToReadableValue } from 'utilities';
 
 import { useBorrow, useGetPool } from 'clients/api';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
@@ -31,6 +32,7 @@ export interface BorrowFormProps {
   asset: Asset;
   pool: Pool;
   limitTokens: string;
+  safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
   borrow: (amountWei: BigNumber) => Promise<ContractReceipt>;
   isBorrowLoading: boolean;
@@ -40,6 +42,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   asset,
   pool,
   limitTokens,
+  safeBorrowLimitPercentage,
   safeLimitTokens,
   borrow,
   isBorrowLoading,
@@ -102,7 +105,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
               disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
-                  limitPercentage: pool.safeBorrowLimitPercentage,
+                  limitPercentage: safeBorrowLimitPercentage,
                 }),
                 valueOnClick: safeLimitTokens,
               }}
@@ -211,7 +214,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
       maxTokens = BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
     }
 
-    const safeBorrowLimitCents = (pool.userBorrowLimitCents * pool.safeBorrowLimitPercentage) / 100;
+    const safeBorrowLimitCents = (pool.userBorrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
     const marginWithSafeBorrowLimitDollars =
       (safeBorrowLimitCents - pool.userBorrowBalanceCents) /
       // Convert cents to dollars
@@ -249,6 +252,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
             asset={asset}
             pool={pool}
             limitTokens={limitTokens}
+            safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
             isBorrowLoading={isBorrowLoading}

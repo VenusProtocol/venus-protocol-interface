@@ -17,7 +17,6 @@ export interface UseGetMainPoolOutput {
 }
 
 const mainPoolComptrollerAddress = getContractAddress('comptroller');
-const SAFE_BORROW_LIMIT_PERCENTAGE = 80;
 
 const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPoolOutput => {
   const { data: getMainAssetsData, isLoading: isGetMainAssetsDataLoading } = useGetMainAssets({
@@ -35,7 +34,6 @@ const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPool
         description: t('mainPool.description'),
         riskRating: 'MINIMAL',
         isIsolated: false,
-        safeBorrowLimitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
         assets: getMainAssetsData.assets,
       }),
     [getMainAssetsData?.assets],

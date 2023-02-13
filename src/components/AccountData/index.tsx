@@ -5,6 +5,7 @@ import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useAssetInfo from 'hooks/useAssetInfo';
 
 import { Delimiter } from '../Delimiter';
@@ -63,7 +64,7 @@ export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, a
             ? hypotheticalPoolUserBorrowBalanceCents
             : undefined
         }
-        safeBorrowLimitPercentage={pool.safeBorrowLimitPercentage}
+        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
 
       {action === 'supply' || action === 'withdraw' ? (

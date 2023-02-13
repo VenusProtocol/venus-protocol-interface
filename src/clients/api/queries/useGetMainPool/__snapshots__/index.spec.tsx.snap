@@ -238,7 +238,6 @@ Object {
     "isIsolated": false,
     "name": "Venus",
     "riskRating": "MINIMAL",
-    "safeBorrowLimitPercentage": 80,
     "userBorrowBalanceCents": 9001,
     "userBorrowLimitCents": 5754,
     "userSupplyBalanceCents": 21507,
