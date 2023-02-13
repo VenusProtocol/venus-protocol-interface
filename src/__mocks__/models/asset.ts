@@ -5,7 +5,7 @@ import { TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
-    token: TOKENS.sxp,
+    token: TOKENS.xvs,
     supplyApy: new BigNumber('0.05225450324405023'),
     borrowApy: new BigNumber('-2.3062487835658776'),
     xvsSupplyApy: new BigNumber('0.11720675342484096'),

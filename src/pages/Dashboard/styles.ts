@@ -25,5 +25,9 @@ export const useStyles = () => {
         margin-bottom: ${gap};
       }
     `,
+    banner: css`
+      width: 100%;
+      margin-bottom: ${gap};
+    `,
   };
 };

@@ -49,7 +49,6 @@ interface SupplyWithdrawFormUiProps {
 
 export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   asset,
-  type,
   tokenInfo,
   userTotalBorrowBalanceCents,
   userTotalBorrowLimitCents,
@@ -130,16 +129,12 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
   }, [amount, asset.token.address, isXvsEnabled, JSON.stringify(assets)]);
 
-  // Prevent users from supplying LUNA tokens. This is a temporary hotfix
-  // following the crash of the LUNA token
-  const isSupplyingLuna = type === 'supply' && asset.token.id === 'luna';
-
   return (
     <>
       <FormikTokenTextField
         name="amount"
         token={asset.token}
-        disabled={isTransactionLoading || isSupplyingLuna}
+        disabled={isTransactionLoading}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),
           valueOnClick: maxInput.toFixed(),
@@ -222,7 +217,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
       </LabeledInlineContent>
       <FormikSubmitButton
         fullWidth
-        disabled={!validAmount || isSupplyingLuna}
+        disabled={!validAmount}
         loading={isTransactionLoading}
         enabledLabel={enabledButtonKey}
         disabledLabel={disabledButtonKey}
