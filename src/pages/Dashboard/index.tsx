@@ -33,7 +33,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   vaiApyPercentage,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { Trans } = useTranslation();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
@@ -68,9 +68,16 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {vaiApyPercentage && (
         <NoticeInfo
           css={styles.row}
-          description={t('dashboard.vaiStabilityFeeBanner.description', {
-            feePercentage: formatPercentage(vaiApyPercentage),
-          })}
+          description={
+            <Trans
+              i18nKey="dashboard.vaiStabilityFeeBanner.description"
+              components={{
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                Link: <a href="https://app.venus.io/governance/proposal/92" rel="noreferrer" />,
+              }}
+              values={{ feePercentage: formatPercentage(vaiApyPercentage) }}
+            />
+          }
         />
       )}
 
