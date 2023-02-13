@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { NoticeInfo } from 'components';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'translation';
 import { Asset } from 'types';
+import { formatPercentage } from 'utilities';
 
-import { useGetUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo, useGetVaiRepayApy } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
@@ -18,6 +21,7 @@ interface DashboardUiProps {
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
   assets: Asset[];
+  vaiApyPercentage?: BigNumber;
 }
 
 const DashboardUi: React.FC<DashboardUiProps> = ({
@@ -26,8 +30,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   userTotalBorrowLimitCents,
   userTotalBorrowBalanceCents,
   userTotalSupplyBalanceCents,
+  vaiApyPercentage,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
@@ -59,6 +65,15 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
+      {vaiApyPercentage && (
+        <NoticeInfo
+          css={styles.row}
+          description={t('dashboard.vaiStabilityFeeBanner.description', {
+            feePercentage: formatPercentage(vaiApyPercentage),
+          })}
+        />
+      )}
+
       <div css={styles.row}>
         <MyAccount
           assets={assets}
@@ -101,6 +116,8 @@ const Dashboard: React.FC = () => {
     accountAddress,
   });
 
+  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+
   return (
     <DashboardUi
       accountAddress={accountAddress}
@@ -108,6 +125,7 @@ const Dashboard: React.FC = () => {
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
       userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
+      vaiApyPercentage={getVaiRepayApyData?.repayApyPercentage}
     />
   );
 };
