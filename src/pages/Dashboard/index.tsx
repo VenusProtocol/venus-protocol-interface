@@ -65,11 +65,14 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
-      <NoticeWarning css={styles.row} description={t('dashboard.sxpDisabledBanner.description')} />
+      <NoticeWarning
+        css={styles.banner}
+        description={t('dashboard.sxpDisabledBanner.description')}
+      />
 
       {vaiApyPercentage && (
         <NoticeInfo
-          css={styles.row}
+          css={styles.banner}
           description={
             <Trans
               i18nKey="dashboard.vaiStabilityFeeBanner.description"
