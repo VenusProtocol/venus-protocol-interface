@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { NoticeInfo } from 'components';
+import { NoticeInfo, NoticeWarning } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -33,7 +33,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   vaiApyPercentage,
 }) => {
   const styles = useStyles();
-  const { Trans } = useTranslation();
+  const { t, Trans } = useTranslation();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
@@ -65,6 +65,8 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
+      <NoticeWarning css={styles.row} description={t('dashboard.sxpDisabledBanner.description')} />
+
       {vaiApyPercentage && (
         <NoticeInfo
           css={styles.row}

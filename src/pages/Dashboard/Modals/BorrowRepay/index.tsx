@@ -30,6 +30,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
     },
   ];
 
+  // Prevent user from being able to borrow a disabled token
   if (isAssetEnabled(asset.token.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
