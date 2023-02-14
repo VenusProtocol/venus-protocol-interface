@@ -166,7 +166,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You need to supply tokens and enable them as collateral before you can borrow SXP from this pool"',
+      '"You need to supply tokens and enable them as collateral before you can borrow XVS from this pool"',
     );
 
     expect(
@@ -278,7 +278,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You can not borrow more than 1 SXP from this pool"',
+      '"You can not borrow more than 1 XVS from this pool"',
     );
 
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));

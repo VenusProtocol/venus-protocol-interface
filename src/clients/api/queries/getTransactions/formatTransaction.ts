@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js';
 import { TransactionCategory, TransactionEvent } from 'types';
 import { convertTokensToWei, getVTokenByAddress } from 'utilities';
 
+import { VBEP_TOKENS } from 'constants/tokens';
+
 import { TransactionResponse } from './types';
 
 const formatTransaction = ({
@@ -13,7 +15,7 @@ const formatTransaction = ({
   vTokenAddress,
   ...rest
 }: TransactionResponse) => {
-  const vToken = getVTokenByAddress(vTokenAddress);
+  const vToken = vTokenAddress ? getVTokenByAddress(vTokenAddress) : VBEP_TOKENS.xvs;
 
   if (!vToken) {
     return undefined;

@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -30,12 +30,7 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 jest.useFakeTimers();
 
 const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
-const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
 const repayInputAmountTokens = '100';
-const formattedFakeUserVaiMinted = formatTokensToReadableValue({
-  value: fakeUserVaiMintedTokens,
-  token: TOKENS.vai,
-});
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
@@ -69,8 +64,8 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     });
   });
 
-  it('displays the correct repay VAI balance', async () => {
-    const { getByText } = renderComponent(() => <RepayVai />, {
+  it('displays the correct repay VAI balance and APY', async () => {
+    const { getByText, container } = renderComponent(() => <RepayVai />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -79,8 +74,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
-    // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText(formattedFakeUserVaiMinted));
+    expect(container.textContent).toMatchSnapshot();
   });
 
   it('lets user repay their VAI balance', async () => {

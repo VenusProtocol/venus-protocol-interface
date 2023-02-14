@@ -14,11 +14,11 @@ import { useStyles } from '../styles';
 
 const DEBOUNCE_DELAY = 300;
 
-export interface RepayFeeProps {
+export interface IRepayFeeProps {
   repayAmountTokens: string;
 }
 
-const RepayFee = ({ repayAmountTokens }: RepayFeeProps) => {
+const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { account } = useContext(AuthContext);

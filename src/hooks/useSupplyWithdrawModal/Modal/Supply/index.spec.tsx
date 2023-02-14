@@ -143,7 +143,7 @@ describe('Supply form', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.noticeIsolatedAsset));
     expect(getByTestId(TEST_IDS.noticeIsolatedAsset).textContent).toMatchInlineSnapshot(
-      '"This is an isolated token. Supplying SXP to the Venus pool will enable you to borrow tokens from this pool exclusively.Show tokens from the Venus pool"',
+      '"This is an isolated token. Supplying XVS to the Venus pool will enable you to borrow tokens from this pool exclusively.Show tokens from the Venus pool"',
     );
   });
 
@@ -244,7 +244,7 @@ describe('Supply form', () => {
     // Check error notice is displayed
     await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You can not supply more than 1 SXP to this pool"',
+      '"You can not supply more than 1 XVS to this pool"',
     );
 
     // Check submit button is still disabled

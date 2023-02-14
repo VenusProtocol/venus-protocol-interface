@@ -39,3 +39,4 @@ export { default as formatToPool } from './formatToPool';
 export { default as convertDollarsToCents } from './convertDollarsToCents';
 export { default as areTokensEqual } from './areTokensEqual';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
+export { default as calculateApy } from './calculateApy';

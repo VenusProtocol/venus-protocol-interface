@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Dashboard/MintRepayVai/RepayVai displays the correct repay VAI balance and APY 1`] = `"MAXRepay VAI balance100 VAIRepay fee0.00031735 VAI (0.000317%)Enter a valid amount to repay"`;
