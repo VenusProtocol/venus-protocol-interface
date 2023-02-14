@@ -5,7 +5,7 @@ import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
-    vToken: VBEP_TOKENS.sxp,
+    vToken: VBEP_TOKENS.xvs,
     supplyApyPercentage: new BigNumber('0.05225450324405023'),
     borrowApyPercentage: new BigNumber('-2.3062487835658776'),
     collateralFactor: 0.5,

@@ -118,6 +118,27 @@ Array [
     "userStakedWei": "30000000000000000000",
   },
   Object {
+    "dailyEmissionWei": "5000000000",
+    "rewardToken": Object {
+      "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "asset": "xvs.svg",
+      "decimals": 18,
+      "id": "xvs",
+      "symbol": "XVS",
+    },
+    "stakedToken": Object {
+      "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+      "asset": "vai.svg",
+      "decimals": 18,
+      "id": "vai",
+      "symbol": "VAI",
+    },
+    "stakingAprPercentage": 58339.473875,
+    "totalStakedWei": "4000000000",
+    "userPendingRewardWei": "600000000",
+    "userStakedWei": "1e+23",
+  },
+  Object {
     "dailyEmissionWei": "1036800000",
     "rewardToken": Object {
       "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",

@@ -2,7 +2,7 @@
 
 exports[`api/queries/useGetTreasuryTotals calculates totals correctly 1`] = `
 Object {
-  "treasuryBalanceCents": 3836020195950,
+  "treasuryBalanceCents": 93,
   "treasuryBorrowBalanceCents": 2576426391691125,
   "treasuryLiquidityBalanceCents": 56784040965,
   "treasurySupplyBalanceCents": 6297840237169404,
