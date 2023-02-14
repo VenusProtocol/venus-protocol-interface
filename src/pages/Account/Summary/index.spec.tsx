@@ -10,19 +10,17 @@ jest.mock('clients/api');
 
 describe('pages/Account/Summary', () => {
   it('renders without crashing', () => {
-    renderComponent(<Summary assets={poolData[0].assets} />);
+    renderComponent(<Summary pools={poolData} />);
   });
 
   it('displays stats correctly', () => {
-    const { getByTestId } = renderComponent(<Summary assets={poolData[0].assets} />);
+    const { getByTestId } = renderComponent(<Summary pools={poolData} />);
 
     expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
   });
 
-  it('displays account health when passing displayAccountHealth and safeBorrowLimitPercentage props', () => {
-    const { getByTestId } = renderComponent(
-      <Summary assets={poolData[0].assets} displayAccountHealth safeBorrowLimitPercentage={80} />,
-    );
+  it('displays account health when passing displayAccountHealth prop as true', () => {
+    const { getByTestId } = renderComponent(<Summary pools={poolData} displayAccountHealth />);
 
     expect(getByTestId(TEST_IDS.accountHealth).textContent).toMatchSnapshot();
   });

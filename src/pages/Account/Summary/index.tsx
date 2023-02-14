@@ -1,41 +1,42 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
 export interface SummaryProps {
-  assets: Asset[];
-  safeBorrowLimitPercentage?: number;
+  pools: Pool[];
   displayAccountHealth?: boolean;
   className?: string;
 }
 
-export const Summary: React.FC<SummaryProps> = ({
-  assets,
-  displayAccountHealth,
-  safeBorrowLimitPercentage,
-  className,
-}) => {
+export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, className }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const assets = useMemo(
+    () => pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]),
+    [pools],
+  );
 
   const {
     totalSupplyCents,
     totalBorrowCents,
     borrowLimitCents,
     readableSafeBorrowLimit,
+    safeBorrowLimitPercentage,
     dailyEarningsCents,
     netApyPercentage,
   } = useExtractData({
     assets,
-    safeBorrowLimitPercentage,
   });
 
   const cells: Cell[] = [
@@ -68,13 +69,13 @@ export const Summary: React.FC<SummaryProps> = ({
         data-testid={TEST_IDS.stats}
       />
 
-      {displayAccountHealth && safeBorrowLimitPercentage && (
+      {displayAccountHealth && (
         <div css={styles.accountHealth} data-testid={TEST_IDS.accountHealth}>
           <BorrowLimitUsedAccountHealth
             variant="borrowLimitUsed"
             borrowBalanceCents={totalBorrowCents.toNumber()}
             borrowLimitCents={borrowLimitCents.toNumber()}
-            safeBorrowLimitPercentage={safeBorrowLimitPercentage}
+            safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             css={styles.accountHealthProgressBar}
           />
 

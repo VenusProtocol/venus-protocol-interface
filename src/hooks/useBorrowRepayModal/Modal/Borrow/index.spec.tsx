@@ -10,6 +10,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import { borrow, getAllowance, useGetPool } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -352,7 +353,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     ).toBeDisabled();
 
     const safeBorrowLimitCents =
-      (fakePool.userBorrowLimitCents! * fakePool.safeBorrowLimitPercentage) / 100;
+      (fakePool.userBorrowLimitCents! * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
     const marginWithSafeBorrowLimitDollars =
       (safeBorrowLimitCents - fakePool.userBorrowBalanceCents!) /
       // Convert cents to dollars
@@ -403,10 +404,10 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     expect(input.value).toBe('');
 
     // Press on max button
-    fireEvent.click(getByText(`${fakePool.safeBorrowLimitPercentage}% LIMIT`));
+    fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
 
     const safeUserBorrowLimitCents = new BigNumber(fakePool.userBorrowLimitCents!)
-      .multipliedBy(fakePool.safeBorrowLimitPercentage)
+      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
       .dividedBy(100);
     const safeBorrowDeltaDollars = safeUserBorrowLimitCents
       .minus(fakePool.userBorrowBalanceCents!)
