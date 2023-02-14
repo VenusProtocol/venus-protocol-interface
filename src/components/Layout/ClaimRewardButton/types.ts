@@ -10,4 +10,5 @@ export interface Group {
   name: string;
   pendingRewards: PendingReward[];
   isChecked: boolean;
+  // Add claimParameters prop
 }

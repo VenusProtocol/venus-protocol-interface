@@ -44,6 +44,8 @@ const useTokenApproval = ({
       return undefined;
     }
 
+    console.log(token.symbol, getTokenAllowanceData.allowanceWei.toFixed());
+
     return getTokenAllowanceData.allowanceWei.isGreaterThan(0);
   }, [token.isNative, getTokenAllowanceData]);
 
