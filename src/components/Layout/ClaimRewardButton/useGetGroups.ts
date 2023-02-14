@@ -3,6 +3,7 @@ import { useTranslation } from 'translation';
 import { getContractAddress } from 'utilities';
 
 import { useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 import { Group } from './types';
@@ -49,14 +50,17 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
       (getPendingRewardsData?.pendingRewardGroups || []).reduce<Group[]>(
         (acc, pendingRewardGroup) => {
           // Vaults
-          if (pendingRewardGroup.type === 'vault' || pendingRewardGroup.type === 'vestingVault') {
+          if (
+            pendingRewardGroup.type === 'vault' ||
+            pendingRewardGroup.type === 'xvsVestingVault'
+          ) {
             const name =
               pendingRewardGroup.type === 'vault'
                 ? t('layout.claimRewardModal.vaultGroup', {
                     stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   })
                 : t('layout.claimRewardModal.vestingVaultGroup', {
-                    stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
+                    stakedTokenSymbol: TOKENS.xvs.symbol,
                   });
 
             const group: Group = {
