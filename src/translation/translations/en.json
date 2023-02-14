@@ -73,7 +73,7 @@
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
-        "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
+        "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
       },
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
@@ -461,7 +461,7 @@
     "supplyTabTitle": "Supply",
     "withdraw": {
       "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-      "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
+      "enableToWithdraw": "To withdraw {{symbol}} from the Venus Protocol, you need to enable it first",
       "max": "MAX",
       "submitButton": {
         "enabledLabel": "Withdraw",
