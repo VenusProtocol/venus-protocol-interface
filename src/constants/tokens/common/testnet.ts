@@ -145,6 +145,13 @@ export const TESTNET_TOKENS = {
     address: TOKEN_ADDRESSES.trx[BscChainId.TESTNET],
     asset: trx,
   } as Token,
+  '[deprecated] trx': {
+    id: '[deprecated] trx',
+    symbol: '[DEPRECATED] TRX',
+    decimals: 18,
+    address: TOKEN_ADDRESSES['[deprecated] trx'][BscChainId.TESTNET],
+    asset: trx,
+  } as Token,
   ust: {
     id: 'ust',
     symbol: 'UST',

@@ -193,6 +193,13 @@ export const MAINNET_TOKENS = {
     address: TOKEN_ADDRESSES.trx[BscChainId.MAINNET],
     asset: trx,
   } as Token,
+  '[deprecated] trx': {
+    id: '[deprecated] trx',
+    symbol: '[DEPRECATED] TRX',
+    decimals: 18,
+    address: TOKEN_ADDRESSES['[deprecated] trx'][BscChainId.MAINNET],
+    asset: trx,
+  } as Token,
   vai: {
     id: 'vai',
     symbol: 'VAI',

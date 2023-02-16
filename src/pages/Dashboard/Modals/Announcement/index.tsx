@@ -27,7 +27,7 @@ const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
   }
 
   // TRX migration
-  if (token.address.toLowerCase() === TOKENS.xrp.address.toLowerCase()) {
+  if (token.address.toLowerCase() === TOKENS.trx.address.toLowerCase()) {
     return (
       <NoticeWarning
         css={styles.banner}

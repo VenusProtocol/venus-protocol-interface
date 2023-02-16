@@ -190,6 +190,13 @@ export const MAINNET_VBEP_TOKENS = {
     decimals: 8,
     asset: vTrx,
   } as Token,
+  '[deprecated] trx': {
+    id: '[deprecated] trx',
+    symbol: '[DEPRECATED] vTRX',
+    address: VBEP_TOKEN_ADDRESSES['[deprecated] trx'][BscChainId.MAINNET],
+    decimals: 8,
+    asset: vTrx,
+  } as Token,
   ust: {
     id: 'ust',
     symbol: 'vUST',
