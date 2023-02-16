@@ -15,15 +15,16 @@ import { Icon } from '../../Icon';
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';
-import { menuItems } from '../constants';
 import Link from './Link';
 import { useStyles } from './styles';
+import useGetMenuItems from './useGetMenuItems';
 
 export const SidebarUi: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
   const styles = useStyles();
+  const menuItems = useGetMenuItems();
 
   const openMenu = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
