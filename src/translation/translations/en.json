@@ -123,8 +123,15 @@
       "tabSupply": "Supply",
       "title": "Markets"
     },
-    "sxpDisabledBanner": {
-      "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+    "modals": {
+      "announcement": {
+        "sxpDisablingBanner": {
+          "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+        }
+      }
+    },
+    "trxMigrationBanner": {
+      "description": "TODO: add text with <Link>link</Link>"
     },
     "vaiStabilityFeeBanner": {
       "description": "VAI stability fee is active. It is currently {{feePercentage}}% APY. For more information see <Link>VIP-92 Update VAI Floating Rate</Link>."

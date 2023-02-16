@@ -5,6 +5,7 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { isAssetEnabled } from 'utilities';
 
+import Announcement from '../Announcement';
 import { useStyles } from '../styles';
 import Borrow from './Borrow';
 import Repay from './Repay';
@@ -48,7 +49,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
       title={<TokenIconWithSymbol token={asset.token} variant="h4" />}
       handleClose={onClose}
     >
-      <Tabs tabsContent={tabsContent} />
+      <>
+        <Announcement token={asset.token} />
+
+        <Tabs tabsContent={tabsContent} />
+      </>
     </Modal>
   );
 };
