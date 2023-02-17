@@ -74,7 +74,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 <a
-                  href="https://trondao.medium.com/a-step-by-step-guide-to-migrating-binance-peg-trx-to-bttc-bridged-version-trx-1cae214b7c1d"
+                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
                   rel="noreferrer"
                   target="_blank"
                 />

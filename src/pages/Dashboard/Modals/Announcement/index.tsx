@@ -27,7 +27,7 @@ const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
   }
 
   // TRX migration
-  if (token.address.toLowerCase() === TOKENS.trx.address.toLowerCase()) {
+  if (token.address.toLowerCase() === TOKENS.trxold.address.toLowerCase()) {
     return (
       <NoticeWarning
         css={styles.banner}
@@ -38,7 +38,7 @@ const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 <a
-                  href="https://trondao.medium.com/a-step-by-step-guide-to-migrating-binance-peg-trx-to-bttc-bridged-version-trx-1cae214b7c1d"
+                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
                   rel="noreferrer"
                 />
               ),

@@ -131,7 +131,7 @@
       }
     },
     "trxMigrationBanner": {
-      "description": "TODO: add text with <Link>link</Link>"
+      "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
     },
     "vaiStabilityFeeBanner": {
       "description": "VAI stability fee is active. It is currently {{feePercentage}}% APY. For more information see <Link>VIP-92 Update VAI Floating Rate</Link>."
