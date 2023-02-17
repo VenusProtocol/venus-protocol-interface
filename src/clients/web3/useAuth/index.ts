@@ -5,14 +5,14 @@ import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
-import {
-  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
-  WalletConnectConnector,
-} from '@web3-react/walletconnect-connector';
 import config from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { useCallback, useState } from 'react';
 
+import {
+  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
+  WalletConnectConnector,
+} from 'clients/web3/walletConnectV2Connector';
 import { toast } from 'components/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR } from 'constants/localStorageKeys';
 

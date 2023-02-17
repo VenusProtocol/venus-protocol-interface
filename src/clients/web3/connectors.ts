@@ -1,19 +1,18 @@
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { InfinityWalletConnector } from '@infinitywallet/infinity-connector';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import config from 'config';
 import { BscChainId } from 'types';
 
 import { Connector } from './types';
+import { WalletConnectConnector } from './walletConnectV2Connector';
 
 export const injectedConnector = new InjectedConnector({ supportedChainIds: [config.chainId] });
 
 const walletConnectConnector = new WalletConnectConnector({
-  rpc: { [BscChainId.MAINNET]: config.rpcUrl },
-  chainId: BscChainId.MAINNET,
-  bridge: 'https://bridge.walletconnect.org',
+  rpc: { [config.chainId]: config.rpcUrl },
+  chainId: config.chainId,
   qrcode: true,
 });
 
