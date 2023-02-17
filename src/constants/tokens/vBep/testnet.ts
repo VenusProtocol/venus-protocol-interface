@@ -142,6 +142,13 @@ export const TESTNET_VBEP_TOKENS = {
     decimals: 8,
     asset: vTrx,
   } as Token,
+  trxold: {
+    id: 'trxold',
+    symbol: 'vTRXOLD',
+    address: VBEP_TOKEN_ADDRESSES.trxold[BscChainId.TESTNET],
+    decimals: 8,
+    asset: vTrx,
+  } as Token,
   ust: {
     id: 'ust',
     symbol: 'vUST',

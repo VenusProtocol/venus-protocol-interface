@@ -449,7 +449,7 @@ Object {
       "token": Object {
         "address": "0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F",
         "asset": "trx.svg",
-        "decimals": 18,
+        "decimals": 6,
         "id": "trx",
         "symbol": "TRX",
       },
