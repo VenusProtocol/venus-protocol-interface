@@ -447,7 +447,7 @@ Object {
       "supplyApy": "0.001208241156882074",
       "supplyBalance": "0",
       "token": Object {
-        "address": "0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F",
+        "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
         "asset": "trx.svg",
         "decimals": 6,
         "id": "trx",
@@ -458,7 +458,7 @@ Object {
       "treasuryTotalBorrowsCents": "205808.2101085432106229",
       "treasuryTotalSupply": "4555302772101467",
       "treasuryTotalSupplyCents": "273319087.8001371190191733",
-      "walletBalance": "3.000003203144915042",
+      "walletBalance": "0",
       "xvsBorrowApy": "8102.522495213142034502",
       "xvsPerDay": "50.0000000000000256",
       "xvsSupplyApy": "0.334415260865180737",
