@@ -39,7 +39,7 @@ const getIsolatedPools = async ({
       return accTokensByPool;
     }
 
-    const priceOracleAddress = pool.priceOracle.toLowerCase();
+    const priceOracleAddress = pool.priceOracleAddress.toLowerCase();
     const existingTokens = accTokensByPool[priceOracleAddress] || [];
 
     return {

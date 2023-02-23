@@ -33,8 +33,8 @@ const formatToPool = ({
       return accAssets;
     }
 
-    const { apyPercentage: borrowApyPercentage } = calculateApy(subgraphMarket.borrowRate);
-    const { apyPercentage: supplyApyPercentage } = calculateApy(subgraphMarket.supplyRate);
+    const { apyPercentage: borrowApyPercentage } = calculateApy(subgraphMarket.borrowRateMantissa);
+    const { apyPercentage: supplyApyPercentage } = calculateApy(subgraphMarket.supplyRateMantissa);
 
     const userWalletBalanceTokens = convertWeiToTokens({
       valueWei:
@@ -47,14 +47,14 @@ const formatToPool = ({
     );
 
     const userSupplyBalanceTokens = new BigNumber(
-      subgraphMarket.accounts[0]?.userSupplyBalanceWei || 0,
+      subgraphMarket.accounts[0]?.accountSupplyBalanceMantissa || 0,
     );
     const userSupplyBalanceCents = convertDollarsToCents(
       userSupplyBalanceTokens.multipliedBy(tokenPriceDollars),
     );
 
     const userBorrowBalanceTokens = new BigNumber(
-      subgraphMarket.accounts[0]?.userBorrowBalanceWei || 0,
+      subgraphMarket.accounts[0]?.accountBorrowBalanceMantissa || 0,
     );
     const userBorrowBalanceCents = convertDollarsToCents(
       userBorrowBalanceTokens.multipliedBy(tokenPriceDollars),
@@ -66,27 +66,27 @@ const formatToPool = ({
     });
 
     const reserveTokens = convertWeiToTokens({
-      valueWei: new BigNumber(subgraphMarket.reservesWei),
+      valueWei: new BigNumber(subgraphMarket.reservesMantissa),
       token: vToken.underlyingToken,
     });
 
     const exchangeRateVTokens = new BigNumber(1).div(
-      new BigNumber(subgraphMarket.exchangeRate).div(
+      new BigNumber(subgraphMarket.exchangeRateMantissa).div(
         new BigNumber(10).pow(
           COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals,
         ),
       ),
     );
 
-    const supplyRatePerBlockTokens = new BigNumber(subgraphMarket.supplyRate).dividedBy(
+    const supplyRatePerBlockTokens = new BigNumber(subgraphMarket.supplyRateMantissa).dividedBy(
       COMPOUND_MANTISSA,
     );
 
-    const borrowRatePerBlockTokens = new BigNumber(subgraphMarket.borrowRate).dividedBy(
+    const borrowRatePerBlockTokens = new BigNumber(subgraphMarket.borrowRateMantissa).dividedBy(
       COMPOUND_MANTISSA,
     );
 
-    const supplyBalanceVWei = new BigNumber(subgraphMarket.treasuryTotalSupplyWei);
+    const supplyBalanceVWei = new BigNumber(subgraphMarket.treasuryTotalSupplyMantissa);
     const supplyBalanceVTokens = convertWeiToTokens({
       valueWei: supplyBalanceVWei,
       token: vToken,
@@ -96,7 +96,7 @@ const formatToPool = ({
       supplyBalanceTokens.multipliedBy(tokenPriceDollars),
     );
 
-    const borrowBalanceWei = new BigNumber(subgraphMarket.treasuryTotalBorrowsWei);
+    const borrowBalanceWei = new BigNumber(subgraphMarket.treasuryTotalBorrowsMantissa);
     const borrowBalanceTokens = convertWeiToTokens({
       valueWei: borrowBalanceWei,
       token: vToken.underlyingToken,
@@ -105,12 +105,12 @@ const formatToPool = ({
       borrowBalanceTokens.multipliedBy(tokenPriceDollars),
     );
 
-    let borrowCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.borrowCapWei);
+    let borrowCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.borrowCapMantissa);
     if (borrowCapTokens.isEqualTo(0)) {
       borrowCapTokens = undefined;
     }
 
-    let supplyCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.supplyCapWei);
+    let supplyCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.supplyCapMantissa);
     if (supplyCapTokens.isEqualTo(MAX_UINT256)) {
       supplyCapTokens = undefined;
     }
@@ -135,11 +135,11 @@ const formatToPool = ({
         const {
           dailyDistributedTokens: distributionSupplyDailyRateTokens,
           apyPercentage: distributionSupplyApyPercentage,
-        } = calculateApy(rewardSpeeds.supplySpeedPerBlockWei);
+        } = calculateApy(rewardSpeeds.supplySpeedPerBlockMantissa);
         const {
           dailyDistributedTokens: distributionBorrowRateTokensPerDay,
           apyPercentage: distributionBorrowApyPercentage,
-        } = calculateApy(rewardSpeeds.borrowSpeedPerBlockWei);
+        } = calculateApy(rewardSpeeds.borrowSpeedPerBlockMantissa);
 
         const distribution: AssetDistribution = {
           token: rewardToken,
@@ -159,7 +159,7 @@ const formatToPool = ({
       vToken,
       tokenPriceDollars,
       reserveFactor: convertFactorFromSmartContract({
-        factor: subgraphMarket.reserveFactor,
+        factor: subgraphMarket.reserveFactorMantissa,
       }),
       collateralFactor: convertFactorFromSmartContract({
         factor: subgraphMarket.collateralFactorMantissa,
@@ -188,7 +188,7 @@ const formatToPool = ({
       userWalletBalanceTokens,
       userWalletBalanceCents,
       userPercentOfLimit: 0,
-      isCollateralOfUser: subgraphMarket.accounts[0]?.isCollateralOfUser || false,
+      isCollateralOfUser: subgraphMarket.accounts[0]?.enteredMarket || false,
     };
 
     return [...accAssets, asset];

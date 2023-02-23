@@ -1,33 +1,32 @@
 query IsolatedPools($accountAddress: ID) {
   pools {
     id
-    priceOracle
+    priceOracleAddress
     name
     description
     riskRating
-    priceOracle
 
     markets {
       id
-      borrowCapWei
-      supplyCapWei
-      reservesWei
-      treasuryTotalSupplyWei
-      treasuryTotalBorrowsWei
-      reserveFactor
+      borrowCapMantissa
+      supplyCapMantissa
+      reservesMantissa
+      treasuryTotalSupplyMantissa
+      treasuryTotalBorrowsMantissa
+      reserveFactorMantissa
       collateralFactorMantissa
-      borrowRate
-      supplyRate
-      exchangeRate
+      borrowRateMantissa
+      supplyRateMantissa
+      exchangeRateMantissa
       cash
       supplierCount
       borrowerCount
-      liquidationThreshold
+      liquidationThresholdMantissa
 
       accounts(where: { id: $accountAddress }) {
-        isCollateralOfUser
-        userSupplyBalanceWei
-        userBorrowBalanceWei
+        enteredMarket
+        accountSupplyBalanceMantissa
+        accountBorrowBalanceMantissa
       }
     }
 
@@ -39,8 +38,8 @@ query IsolatedPools($accountAddress: ID) {
           id
         }
 
-        borrowSpeedPerBlockWei
-        supplySpeedPerBlockWei
+        borrowSpeedPerBlockMantissa
+        supplySpeedPerBlockMantissa
       }
     }
   }
