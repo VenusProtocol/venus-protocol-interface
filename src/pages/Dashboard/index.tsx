@@ -33,7 +33,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   vaiApyPercentage,
 }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { Trans } = useTranslation();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
@@ -67,7 +67,21 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
     <>
       <NoticeWarning
         css={styles.banner}
-        description={t('dashboard.sxpDisabledBanner.description')}
+        description={
+          <Trans
+            i18nKey="dashboard.trxMigrationBanner.description"
+            components={{
+              Link: (
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                <a
+                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
+                  rel="noreferrer"
+                  target="_blank"
+                />
+              ),
+            }}
+          />
+        }
       />
 
       {vaiApyPercentage && (

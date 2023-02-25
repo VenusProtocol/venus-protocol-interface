@@ -141,8 +141,15 @@ export const TESTNET_TOKENS = {
   trx: {
     id: 'trx',
     symbol: 'TRX',
-    decimals: 18,
+    decimals: 6,
     address: TOKEN_ADDRESSES.trx[BscChainId.TESTNET],
+    asset: trx,
+  } as Token,
+  trxold: {
+    id: 'trxold',
+    symbol: 'TRXOLD',
+    decimals: 18,
+    address: TOKEN_ADDRESSES.trxold[BscChainId.TESTNET],
     asset: trx,
   } as Token,
   ust: {

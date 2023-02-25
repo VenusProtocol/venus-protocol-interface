@@ -32,6 +32,7 @@ import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
+import Announcement from '../Announcement';
 import { useStyles } from '../styles';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 
@@ -220,7 +221,11 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
       handleClose={onClose}
       title={assetId ? <TokenIconWithSymbol token={asset.token} variant="h4" /> : undefined}
     >
-      <Tabs tabsContent={tabsContent} />
+      <>
+        <Announcement token={asset.token} />
+
+        <Tabs tabsContent={tabsContent} />
+      </>
     </Modal>
   );
 };
@@ -315,6 +320,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       });
     }
   };
+
   return (
     <SupplyWithdrawUi
       {...rest}
