@@ -35,8 +35,6 @@ const getIsolatedPools = async ({
       return vToken ? [...accPoolTokens, vToken] : accPoolTokens;
     }, []);
 
-    console.log(poolTokens);
-
     if (poolTokens.length === 0) {
       return accTokensByPool;
     }
@@ -91,7 +89,7 @@ const getIsolatedPools = async ({
         return accTokenPricesDollars;
       }
 
-      const vTokenAddress = callReturnContext.methodParameters[0].toLowercase();
+      const vTokenAddress = callReturnContext.methodParameters[0].toLowerCase();
       const vToken = getVTokenByAddress(vTokenAddress);
 
       if (!vToken) {
