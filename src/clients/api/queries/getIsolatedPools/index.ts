@@ -33,6 +33,8 @@ const getIsolatedPools = async ({
       return vToken ? [...accPoolTokens, vToken] : accPoolTokens;
     }, []);
 
+    console.log(poolTokens);
+
     if (poolTokens.length === 0) {
       return accTokensByPool;
     }
