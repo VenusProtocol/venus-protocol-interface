@@ -5345,4 +5345,356 @@ const vaiController: {
   } as ContractCallResults,
 };
 
-export default { pancakeSwapRouter, interestRateModel, bep20, lenses, vaiController };
+const priceOracle: {
+  [key: string]: ContractCallResults;
+} = {
+  isolatedAssets: {
+    results: {
+      '0x4736cd7783736425b3855581c3d40fb153daf322': {
+        originalContractCallContext: {
+          reference: '0x4736cd7783736425b3855581c3d40fb153daf322',
+          contractAddress: '0x4736cd7783736425b3855581c3d40fb153daf322',
+          abi: [
+            {
+              inputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'constructor',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'feed',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'string',
+                  name: 'symbol',
+                  type: 'string',
+                },
+              ],
+              name: 'FeedSet',
+              type: 'event',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'oldAdmin',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'newAdmin',
+                  type: 'address',
+                },
+              ],
+              name: 'NewAdmin',
+              type: 'event',
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: 'address',
+                  name: 'asset',
+                  type: 'address',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'previousPriceMantissa',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'requestedPriceMantissa',
+                  type: 'uint256',
+                },
+                {
+                  indexed: false,
+                  internalType: 'uint256',
+                  name: 'newPriceMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'PricePosted',
+              type: 'event',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'VAI_VALUE',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'admin',
+              outputs: [
+                {
+                  internalType: 'address',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'asset',
+                  type: 'address',
+                },
+              ],
+              name: 'assetPrices',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'string',
+                  name: 'symbol',
+                  type: 'string',
+                },
+              ],
+              name: 'getFeed',
+              outputs: [
+                {
+                  internalType: 'contract AggregatorV2V3Interface',
+                  name: '',
+                  type: 'address',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: true,
+              inputs: [
+                {
+                  internalType: 'contract VToken',
+                  name: 'vToken',
+                  type: 'address',
+                },
+              ],
+              name: 'getUnderlyingPrice',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: '',
+                  type: 'uint256',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: 'isPriceOracle',
+              outputs: [
+                {
+                  internalType: 'bool',
+                  name: '',
+                  type: 'bool',
+                },
+              ],
+              payable: false,
+              stateMutability: 'view',
+              type: 'function',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'newAdmin',
+                  type: 'address',
+                },
+              ],
+              name: 'setAdmin',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'asset',
+                  type: 'address',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'price',
+                  type: 'uint256',
+                },
+              ],
+              name: 'setDirectPrice',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'string',
+                  name: 'symbol',
+                  type: 'string',
+                },
+                {
+                  internalType: 'address',
+                  name: 'feed',
+                  type: 'address',
+                },
+              ],
+              name: 'setFeed',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+            },
+            {
+              constant: false,
+              inputs: [
+                {
+                  internalType: 'contract VToken',
+                  name: 'vToken',
+                  type: 'address',
+                },
+                {
+                  internalType: 'uint256',
+                  name: 'underlyingPriceMantissa',
+                  type: 'uint256',
+                },
+              ],
+              name: 'setUnderlyingPrice',
+              outputs: [],
+              payable: false,
+              stateMutability: 'nonpayable',
+              type: 'function',
+            },
+          ],
+          calls: [
+            {
+              reference: '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
+              methodName: 'getUnderlyingPrice',
+              methodParameters: ['0x37a0ac901578a7f05379fc43330b3d1e39d0c40c'],
+            },
+            {
+              reference: '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
+              methodName: 'getUnderlyingPrice',
+              methodParameters: ['0x75a10f0c415dccca275e8cdd8447d291a6b86f06'],
+            },
+            {
+              reference: '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
+              methodName: 'getUnderlyingPrice',
+              methodParameters: ['0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61'],
+            },
+            {
+              reference: '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
+              methodName: 'getUnderlyingPrice',
+              methodParameters: ['0xcfc8a73f9c888eea9af9ccca24646e84a915510b'],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x0506f19e29cf3cd73400',
+              },
+            ],
+            decoded: true,
+            reference: '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
+            methodName: 'getUnderlyingPrice',
+            methodParameters: ['0x37a0ac901578a7f05379fc43330b3d1e39d0c40c'],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x380814dbc0a3c000',
+              },
+            ],
+            decoded: true,
+            reference: '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
+            methodName: 'getUnderlyingPrice',
+            methodParameters: ['0x75a10f0c415dccca275e8cdd8447d291a6b86f06'],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x10a60a0325bae1c000',
+              },
+            ],
+            decoded: true,
+            reference: '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
+            methodName: 'getUnderlyingPrice',
+            methodParameters: ['0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61'],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x106e639d76d98000',
+              },
+            ],
+            decoded: true,
+            reference: '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
+            methodName: 'getUnderlyingPrice',
+            methodParameters: ['0xcfc8a73f9c888eea9af9ccca24646e84a915510b'],
+            success: true,
+          },
+        ],
+      },
+    },
+    blockNumber: 27608260,
+  },
+};
+
+export default { pancakeSwapRouter, interestRateModel, bep20, lenses, vaiController, priceOracle };
