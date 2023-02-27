@@ -157,9 +157,30 @@ export const TESTNET_VBEP_TOKENS = {
     asset: vLuna,
     underlyingToken: TESTNET_TOKENS.luna,
   } as VToken,
-  // Isolated pools
-  '0xf5d92e7f5f72781e1bff79f607498cac0b2e612a': {
-    address: '0xf5d92e7f5f72781e1bff79f607498cac0b2e612a',
+  // Isolated assets
+  '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c': {
+    address: '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
+    decimals: 8,
+    symbol: 'vWBTC',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.wbtc,
+  } as VToken,
+  '0x75a10f0c415dccca275e8cdd8447d291a6b86f06': {
+    address: '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
+    decimals: 8,
+    symbol: 'vVenusCAKE',
+    asset: vCake,
+    underlyingToken: TESTNET_TOKENS.venusCake,
+  } as VToken,
+  '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61': {
+    address: '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
+    decimals: 8,
+    symbol: 'vWBNB',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.wbnb,
+  } as VToken,
+  '0xcfc8a73f9c888eea9af9ccca24646e84a915510b': {
+    address: '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
     decimals: 8,
     symbol: 'vBNX',
     asset: vXvs, // TODO: add correct asset

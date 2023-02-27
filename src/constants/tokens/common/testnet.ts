@@ -150,8 +150,27 @@ export const TESTNET_TOKENS = {
     symbol: 'VRT',
     asset: vrt,
   } as Token,
+  // Isolated assets
+  wbtc: {
+    address: '0xcC74951B6306cD9779fFf5aa78605bf6d450b7fd',
+    decimals: 18,
+    symbol: 'WBTC',
+    asset: xvs, // TODO: add correct asset
+  } as Token,
+  venusCake: {
+    address: '0xca83b44f7eea4ca927b6ce41a48f119458acde4c',
+    decimals: 18,
+    symbol: 'Venus CAKE',
+    asset: cake,
+  } as Token,
+  wbnb: {
+    address: '0xd25f4af4b718bab3794902bcd3a40e497b0af7c7',
+    decimals: 18,
+    symbol: 'WBNB',
+    asset: xvs, // TODO: add correct asset
+  } as Token,
   bnx: {
-    address: '0xa14C236372228B6e8182748F3eBbFb4BFEEA3574',
+    address: '0xa14c236372228b6e8182748f3ebbfb4bfeea3574',
     decimals: 18,
     symbol: 'BNX',
     asset: xvs, // TODO: add correct asset
