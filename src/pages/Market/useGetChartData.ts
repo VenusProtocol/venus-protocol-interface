@@ -29,16 +29,15 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
         supplyChartData.push({
           apyPercentage: formatPercentage(marketSnapshot.supplyApy),
           timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(100),
+          balanceCents: new BigNumber(marketSnapshot.totalSupplyCents),
         });
 
         borrowChartData.push({
           apyPercentage: formatPercentage(marketSnapshot.borrowApy),
           timestampMs,
-          balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(100),
+          balanceCents: new BigNumber(marketSnapshot.totalBorrowCents),
         });
       });
-
     return {
       supplyChartData,
       borrowChartData,

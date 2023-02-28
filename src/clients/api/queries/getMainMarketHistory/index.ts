@@ -2,10 +2,10 @@ import { VError } from 'errors';
 import { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
 
-export interface GetMainMarketHistoryResponse {
-  limit: number;
-  total: number;
-  result: MarketSnapshot[];
+export interface GetMarketHistoryResponse {
+  asset: string;
+  data: MarketSnapshot[];
+  updatedAt: string;
 }
 
 export interface GetMainMarketHistoryInput {
@@ -23,12 +23,13 @@ const getMainMarketHistory = async ({
   limit = 30,
   type = '1day',
 }: GetMainMarketHistoryInput): Promise<GetMainMarketHistoryOutput> => {
-  let endpoint = `/market_history/graph?asset=${vToken.address}&type=${type}`;
+  let endpoint = `/market_history/graph?asset=${vToken.address}&type=${type}&version=v2`;
+
   if (limit) {
     endpoint += `&limit=${limit}`;
   }
 
-  const response = await restService<GetMainMarketHistoryResponse>({
+  const response = await restService<GetMarketHistoryResponse>({
     endpoint,
     method: 'GET',
   });
@@ -43,7 +44,7 @@ const getMainMarketHistory = async ({
   }
 
   return {
-    marketSnapshots: response.data?.data.result || [],
+    marketSnapshots: response.data?.data.data || [],
   };
 };
 
