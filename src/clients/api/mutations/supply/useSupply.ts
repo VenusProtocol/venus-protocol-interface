@@ -9,7 +9,7 @@ import { useAuth } from 'context/AuthContext';
 type Options = MutationObserverOptions<SupplyOutput, Error, Omit<SupplyInput, 'vToken' | 'signer'>>;
 
 const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
-  const { signer, account } = useAuth();
+  const { signer, accountAddress } = useAuth();
 
   return useMutation(
     FunctionKey.SUPPLY,
@@ -26,7 +26,7 @@ const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
-            accountAddress: account?.address,
+            accountAddress,
             vTokenAddress: vToken.address,
           },
         ]);

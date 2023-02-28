@@ -141,23 +141,23 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 };
 
 const RepayVai: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: mintedVaiData, isLoading: isGetMintedVaiLoading } = useGetMintedVai(
     {
-      accountAddress: account?.address || '',
+      accountAddress,
     },
     {
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
-      accountAddress: account?.address || '',
+      accountAddress: accountAddress || '',
       token: TOKENS.vai,
     },
     {
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     },
   );
@@ -171,7 +171,7 @@ const RepayVai: React.FC = () => {
 
   return (
     <RepayVaiUi
-      disabled={!account}
+      disabled={!accountAddress}
       userBalanceWei={userVaiBalanceData?.balanceWei}
       userMintedWei={mintedVaiData?.mintedVaiWei}
       isInitialLoading={isGetMintedVaiLoading || isGetUserVaiBalance}

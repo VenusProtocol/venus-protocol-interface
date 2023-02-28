@@ -54,7 +54,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -70,7 +70,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -91,7 +91,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
         handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestListMock}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -123,7 +123,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 

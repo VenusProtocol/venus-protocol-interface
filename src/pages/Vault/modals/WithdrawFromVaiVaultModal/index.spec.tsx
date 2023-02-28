@@ -39,9 +39,7 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   it('fetches and displays the user balance correctly', async () => {
     const { getByTestId } = renderComponent(<WithdrawFromVaiVaultModal {...baseProps} />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -62,9 +60,7 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
       <WithdrawFromVaiVaultModal {...customProps} />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );

@@ -365,7 +365,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 };
 
 const SwapPage: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -378,7 +378,7 @@ const SwapPage: React.FC = () => {
   });
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens();

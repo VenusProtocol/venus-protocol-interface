@@ -56,8 +56,7 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
     location,
   });
 
-  const { account } = useAuth();
-  const accountAddress = account?.address;
+  const { accountAddress } = useAuth();
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);

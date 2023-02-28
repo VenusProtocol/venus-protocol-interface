@@ -128,8 +128,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
 export type ProposalListPageProps = UseUrlPaginationOutput;
 
 const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrentPage }) => {
-  const { account } = useAuth();
-  const accountAddress = account?.address || '';
+  const { accountAddress } = useAuth();
 
   const {
     data: { proposals, total, limit = 5 } = { proposals: [] },

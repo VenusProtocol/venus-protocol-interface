@@ -107,9 +107,9 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
 };
 
 const XvsTable: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();

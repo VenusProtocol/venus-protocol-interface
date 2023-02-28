@@ -10,9 +10,9 @@ export interface PoolNameProps {
 }
 
 const PoolName: React.FC<PoolNameProps> = ({ poolComptrollerAddress }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: getPoolData } = useGetPool({
-    accountAddress: account?.address,
+    accountAddress,
     poolComptrollerAddress,
   });
 

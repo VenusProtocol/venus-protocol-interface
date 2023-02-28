@@ -70,7 +70,7 @@ export interface WithdrawalRequestListProps {
 }
 
 const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { t } = useTranslation();
 
   const {
@@ -83,13 +83,13 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
-      accountAddress: account?.address || '',
+      accountAddress: accountAddress || '',
     },
     {
       placeholderData: {
         lockedDeposits: [],
       },
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 

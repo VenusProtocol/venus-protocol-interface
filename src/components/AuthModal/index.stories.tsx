@@ -2,7 +2,6 @@ import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
-import { Connector } from 'clients/web3/types';
 import { withCenterStory } from 'stories/decorators';
 
 import { AuthModal } from '.';
@@ -24,9 +23,6 @@ export const WithAccount = () => (
     onLogOut={noop}
     onLogin={noop}
     onCopyAccountAddress={noop}
-    account={{
-      address: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-      connector: Connector.MetaMask,
-    }}
+    accountAddress="0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706"
   />
 );

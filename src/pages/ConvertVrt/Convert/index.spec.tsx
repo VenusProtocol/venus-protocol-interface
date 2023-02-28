@@ -54,9 +54,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -87,9 +85,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -122,9 +118,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -153,9 +147,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -186,9 +178,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -224,9 +214,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -268,9 +256,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -309,9 +295,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -351,9 +335,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert
@@ -393,9 +375,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: jest.fn(),
           isReconnecting: false,
           provider: fakeProvider,
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         }}
       >
         <Convert

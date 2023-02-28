@@ -124,7 +124,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;

@@ -55,9 +55,11 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
 };
 
 const ConnectWalletBanner: React.FC = () => {
-  const { account, openAuthModal } = useAuth();
+  const { accountAddress, openAuthModal } = useAuth();
 
-  return <ConnectWalletBannerUi isWalletConnected={!!account} openAuthModal={openAuthModal} />;
+  return (
+    <ConnectWalletBannerUi isWalletConnected={!!accountAddress} openAuthModal={openAuthModal} />
+  );
 };
 
 export default ConnectWalletBanner;

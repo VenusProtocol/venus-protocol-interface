@@ -36,9 +36,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
   it('renders without crashing', () => {
     renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
   });
@@ -50,9 +48,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
 
     const { getByText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -74,9 +70,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     await waitFor(() => getByText(en.vai.mintVai.submitButtonDisabledLabel));

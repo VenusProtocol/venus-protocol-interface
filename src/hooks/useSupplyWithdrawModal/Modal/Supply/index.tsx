@@ -99,7 +99,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 };
 
 const SupplyModal: React.FC<SupplyProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { account: { address: accountAddress = '' } = {} } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: getPoolData } = useGetPool({ poolComptrollerAddress, accountAddress });
   const pool = getPoolData?.pool;

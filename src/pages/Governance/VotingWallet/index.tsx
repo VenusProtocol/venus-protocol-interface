@@ -190,8 +190,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
   const { t } = useTranslation();
-  const { account: { address: accountAddress } = { address: undefined }, openAuthModal } =
-    useAuth();
+  const { accountAddress, openAuthModal } = useAuth();
 
   const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },

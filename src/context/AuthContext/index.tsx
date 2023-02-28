@@ -3,21 +3,14 @@ import type { Provider } from '@wagmi/core';
 import config from 'config';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'translation';
 import { useAccount, useConnect, useDisconnect, useProvider, useSigner } from 'wagmi';
 
 import { Connector, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
-import { LS_KEY_CONNECTED_CONNECTOR } from 'constants/localStorageKeys';
-import getConnectedConnector from 'context/AuthContext/getConnectedConnector';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
-
-export interface Account {
-  address: string;
-  connector?: Connector;
-}
 
 export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;
@@ -26,7 +19,7 @@ export interface AuthContextValue {
   closeAuthModal: () => void;
   provider: Provider;
   isReconnecting: boolean;
-  account?: Account;
+  accountAddress: string;
   signer?: Signer;
 }
 
@@ -37,6 +30,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   closeAuthModal: noop,
   isReconnecting: false,
   provider: getDefaultProvider(),
+  accountAddress: '',
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -46,8 +40,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   const { data: signer } = useSigner();
   const provider = useProvider();
   const { address, status } = useAccount();
-
-  const [connectedConnector, setConnectedConnector] = useState(getConnectedConnector());
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -63,10 +55,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       // Log user in
       await connectAsync({ connector, chainId: config.chainId });
-
-      // Mark user as logged in
-      window.localStorage.setItem(LS_KEY_CONNECTED_CONNECTOR, connectorId);
-      setConnectedConnector(connectorId);
     } catch (error) {
       // Do nothing, failing scenarios are handled by wagmi
     }
@@ -74,10 +62,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const logOut = useCallback(async () => {
     await disconnectAsync();
-
-    // Remove flag indicating user is logged in
-    window.localStorage.removeItem(LS_KEY_CONNECTED_CONNECTOR);
-    setConnectedConnector(undefined);
   }, []);
 
   const { t } = useTranslation();
@@ -92,18 +76,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const accountAddress = address && status === 'connected' ? address : undefined;
-  const account = accountAddress
-    ? {
-        address: accountAddress,
-        connector: connectedConnector,
-      }
-    : undefined;
+  const accountAddress = address && status === 'connected' ? address : '';
 
   return (
     <AuthContext.Provider
       value={{
-        account,
+        accountAddress,
         login,
         logOut,
         openAuthModal,
@@ -116,7 +94,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={closeAuthModal}
-        account={account}
+        accountAddress={accountAddress}
         onLogOut={logOut}
         onLogin={handleLogin}
         onCopyAccountAddress={copyWalletAddress}

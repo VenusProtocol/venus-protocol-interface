@@ -21,7 +21,7 @@ import VoterLeaderboard from 'pages/VoterLeaderboard';
 import Xvs from 'pages/Xvs';
 
 const Switch = () => {
-  const { account, isReconnecting } = useAuth();
+  const { accountAddress, isReconnecting } = useAuth();
   const location = useLocation();
   const history = useHistory();
 
@@ -38,7 +38,7 @@ const Switch = () => {
     <RRSwitch>
       <Route exact path={routes.dashboard.path} component={Dashboard} />
 
-      {(account || isReconnecting) && (
+      {(accountAddress || isReconnecting) && (
         <Route exact path={routes.account.path} component={Account} />
       )}
 

@@ -108,13 +108,13 @@ export interface EnableTokenProps
 }
 
 export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { isTokenApprovalStatusLoading, isTokenApproved, approveToken, isApproveTokenLoading } =
     useTokenApproval({
       token,
       spenderAddress,
-      accountAddress: account?.address,
+      accountAddress,
     });
 
   return (
@@ -125,7 +125,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
       isTokenEnabled={isTokenApproved ?? false}
       isEnableTokenLoading={isApproveTokenLoading}
       isInitialLoading={isTokenApprovalStatusLoading}
-      disabled={!account}
+      disabled={!accountAddress}
     />
   );
 };

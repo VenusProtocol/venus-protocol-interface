@@ -127,9 +127,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 };
 
 const Proposal = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { proposalId } = useParams<{ proposalId: string }>();
-  const accountAddress = account?.address;
   const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });
 
   const {

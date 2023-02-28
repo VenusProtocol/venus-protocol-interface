@@ -24,7 +24,7 @@ export interface PathNode {
 const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const styles = useStyles();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
@@ -85,7 +85,7 @@ const Breadcrumbs: React.FC = () => {
               <div css={styles.tokenSymbol}>
                 <span>{vToken.underlyingToken.symbol}</span>
 
-                {!!account && canRegisterToken() && (
+                {!!accountAddress && canRegisterToken() && (
                   <TertiaryButton
                     css={styles.addTokenButton}
                     onClick={() => addTokenToWallet(vToken.underlyingToken)}
@@ -158,7 +158,7 @@ const Breadcrumbs: React.FC = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t, !!account]);
+  }, [pathname, t, !!accountAddress]);
 
   const pathNodeDom = useMemo(
     () =>

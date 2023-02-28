@@ -17,8 +17,7 @@ import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
 const useCollateral = () => {
-  const { account } = useAuth();
-  const accountAddress = account?.address;
+  const { accountAddress } = useAuth();
 
   const { signer } = useAuth();
   const comptrollerContract = useComptrollerContract();

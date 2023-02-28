@@ -65,9 +65,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -97,9 +95,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -129,9 +125,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -163,9 +157,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );

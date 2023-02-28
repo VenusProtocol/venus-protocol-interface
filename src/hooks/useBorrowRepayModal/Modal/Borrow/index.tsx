@@ -160,11 +160,11 @@ export interface BorrowProps {
 
 const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
   const { t } = useTranslation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,
-    accountAddress: account?.address,
+    accountAddress,
   });
   const pool = getPoolData?.pool;
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));

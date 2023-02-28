@@ -16,7 +16,7 @@ describe('pages/Dashboard/ConnectWalletBanner', () => {
 
   it('renders nothing when a wallet is connected', () => {
     const { queryByText } = renderComponent(<ConnectWalletBanner />, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
 
     expect(queryByText(en.dashboard.connectWalletBanner.title)).toBeNull();

@@ -22,8 +22,7 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
 });
 
 export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
-  const { account } = useAuth();
-  const accountAddress = account?.address || '';
+  const { accountAddress } = useAuth();
   const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,
   });

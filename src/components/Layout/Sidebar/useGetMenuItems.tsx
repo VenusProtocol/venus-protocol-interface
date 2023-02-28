@@ -6,7 +6,7 @@ import { useAuth } from 'context/AuthContext';
 import { MenuItem } from '../types';
 
 const useGetMenuItems = () => {
-  const { account, isReconnecting } = useAuth();
+  const { accountAddress, isReconnecting } = useAuth();
 
   return useMemo(() => {
     let menuItems: MenuItem[] = [
@@ -83,7 +83,7 @@ const useGetMenuItems = () => {
       },
     ];
 
-    if (account || isReconnecting) {
+    if (accountAddress || isReconnecting) {
       menuItems = [
         ...menuItems.slice(0, 1),
         {
@@ -98,7 +98,7 @@ const useGetMenuItems = () => {
     }
 
     return menuItems;
-  }, [account]);
+  }, [accountAddress]);
 };
 
 export default useGetMenuItems;

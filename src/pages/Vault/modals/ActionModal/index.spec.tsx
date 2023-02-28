@@ -64,9 +64,7 @@ describe('pages/Vault/modals/ActionModal', () => {
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -81,9 +79,7 @@ describe('pages/Vault/modals/ActionModal', () => {
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 

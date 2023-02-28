@@ -36,6 +36,7 @@ const renderComponent = (
     account: undefined,
     isReconnecting: false,
     provider: getDefaultProvider(),
+    accountAddress: '',
     ...authContextValue,
   };
 

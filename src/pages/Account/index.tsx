@@ -46,9 +46,9 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
 };
 
 const Account: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   return <AccountUi isFetchingPools={isGetPoolsLoading} pools={getPoolsData?.pools || []} />;

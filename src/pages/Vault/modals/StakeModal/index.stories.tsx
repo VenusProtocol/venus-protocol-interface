@@ -25,9 +25,7 @@ const authContext = {
   closeAuthModal: noop,
   provider: fakeProvider,
   isReconnecting: false,
-  account: {
-    address: fakeAddress,
-  },
+  accountAddress: fakeAddress,
 };
 
 export const Default = Template.bind({});

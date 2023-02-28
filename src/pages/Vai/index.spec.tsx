@@ -31,9 +31,7 @@ describe('pages/Dashboard/Vai', () => {
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(() => <Vai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -43,9 +41,7 @@ describe('pages/Dashboard/Vai', () => {
   it('renders mint tab by default and lets user switch to repay tab', async () => {
     const { getByText } = renderComponent(() => <Vai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 

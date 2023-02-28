@@ -13,15 +13,15 @@ export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose
 
 const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ handleClose }) => {
   const { t } = useTranslation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
       {
-        accountAddress: account?.address || '',
+        accountAddress,
       },
       {
-        enabled: !!account?.address,
+        enabled: !!accountAddress,
       },
     );
 

@@ -92,7 +92,7 @@ describe('api/queries/useGetVaults', () => {
     };
 
     renderComponent(<GetVaultsWrapper />, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
 
     await waitFor(() => expect(!isLoading && data && data.length > 0).toBe(true));

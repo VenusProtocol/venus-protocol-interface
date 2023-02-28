@@ -157,14 +157,14 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
-      accountAddress: account?.address || '',
+      accountAddress,
     },
     {
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 
@@ -180,7 +180,7 @@ const MintVai: React.FC = () => {
 
   return (
     <MintVaiUi
-      disabled={!account || isGetVaiTreasuryPercentageLoading}
+      disabled={!accountAddress || isGetVaiTreasuryPercentageLoading}
       limitWei={mintableVaiData?.mintableVaiWei}
       mintFeePercentage={vaiTreasuryData?.percentage}
       isInitialLoading={isGetMintableVaiLoading}

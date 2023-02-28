@@ -71,8 +71,7 @@ export const ConvertVrtUi = ({
 };
 
 const ConvertVrt = () => {
-  const { account } = useAuth();
-  const accountAddress = account?.address;
+  const { accountAddress } = useAuth();
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(

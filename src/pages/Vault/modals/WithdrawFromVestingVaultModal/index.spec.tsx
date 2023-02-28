@@ -23,7 +23,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal', () => {
         handleClose={noop}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 

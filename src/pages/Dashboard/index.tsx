@@ -135,8 +135,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 };
 
 const Dashboard: React.FC = () => {
-  const { account } = useAuth();
-  const accountAddress = account?.address || '';
+  const { accountAddress } = useAuth();
 
   const [searchValue, setSearchValue] = useState('');
   const [areHigherRiskPoolsDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);

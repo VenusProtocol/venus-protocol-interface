@@ -24,7 +24,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
@@ -40,11 +40,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
-      accountAddress: account?.address || '',
+      accountAddress: accountAddress || '',
       token: stakedToken,
     },
     {
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 

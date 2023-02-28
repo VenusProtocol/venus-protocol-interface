@@ -89,9 +89,7 @@ describe('pages/Swap', () => {
   it('displays user fromToken and toToken balances correctly', async () => {
     const { getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -102,9 +100,7 @@ describe('pages/Swap', () => {
   it('updates toToken when changing fromToken for toToken', () => {
     const { container, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -160,9 +156,7 @@ describe('pages/Swap', () => {
   it('switches form values when pressing on switch tokens button', () => {
     const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -247,9 +241,7 @@ describe('pages/Swap', () => {
   it('disables submit button on mount', () => {
     const { getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -269,9 +261,7 @@ describe('pages/Swap', () => {
 
     const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -315,9 +305,7 @@ describe('pages/Swap', () => {
 
     const { getByTestId, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -340,9 +328,7 @@ describe('pages/Swap', () => {
   it('disables submit button when swap is a wrap', async () => {
     const { container, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -361,9 +347,7 @@ describe('pages/Swap', () => {
   it('disables submit button when swap is an unwrap', async () => {
     const { container, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -396,9 +380,7 @@ describe('pages/Swap', () => {
 
     const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -441,9 +423,7 @@ describe('pages/Swap', () => {
 
     const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -486,9 +466,7 @@ describe('pages/Swap', () => {
 
     const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -524,9 +502,7 @@ describe('pages/Swap', () => {
   ])('displays %s swap details correctly ', async (_swapDirection, swap) => {
     const { queryByTestId, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -564,9 +540,7 @@ describe('pages/Swap', () => {
 
     const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -622,9 +596,7 @@ describe('pages/Swap', () => {
 
     const { container, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -682,9 +654,7 @@ describe('pages/Swap', () => {
 
     const { container, getByTestId, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 

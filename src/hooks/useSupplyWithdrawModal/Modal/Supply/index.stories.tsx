@@ -29,9 +29,7 @@ const context = {
   closeAuthModal: noop,
   provider: fakeProvider,
   isReconnecting: false,
-  account: {
-    address: fakeAddress,
-  },
+  accountAddress: fakeAddress,
 };
 
 export const DisconnectedSupply = Template.bind({});

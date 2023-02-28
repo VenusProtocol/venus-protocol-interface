@@ -52,7 +52,7 @@ describe('pages/Vault/VaultItem', () => {
     };
 
     const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
 
     // Click on withdraw button
@@ -70,7 +70,7 @@ describe('pages/Vault/VaultItem', () => {
     };
 
     const { getByText } = renderComponent(<VaultItem {...customBaseProps} />, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
 
     // Click on withdraw button

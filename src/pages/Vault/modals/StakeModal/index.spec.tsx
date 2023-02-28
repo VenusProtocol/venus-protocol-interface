@@ -40,9 +40,7 @@ describe('pages/Vault/modals/StakeModal', () => {
   it('fetches and displays the user balance correctly', async () => {
     const { getByTestId } = renderComponent(<StakeModal {...baseProps} />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -65,9 +63,7 @@ describe('pages/Vault/modals/StakeModal', () => {
 
     const { getByTestId, getByText } = renderComponent(<StakeModal {...customProps} />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 

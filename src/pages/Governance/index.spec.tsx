@@ -99,9 +99,7 @@ describe('pages/Governance', () => {
   it('opens delegate modal when clicking text with delegate button when authenticated', async () => {
     const { getByText, getByTestId } = renderComponent(Governance, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
@@ -139,9 +137,7 @@ describe('pages/Governance', () => {
 
     const { getByText, getByTestId } = renderComponent(Governance, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     const depositXvsButton = getByText(en.vote.depositXvs);
@@ -167,9 +163,7 @@ describe('pages/Governance', () => {
 
     const { getByText, getByPlaceholderText, getByTestId } = renderComponent(Governance, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
@@ -214,9 +208,7 @@ describe('pages/Governance', () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const { getByText, getByTestId } = renderComponent(Governance, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);

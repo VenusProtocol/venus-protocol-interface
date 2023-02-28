@@ -57,9 +57,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('renders without crashing', () => {
     renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
   });
@@ -67,9 +65,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('displays the correct repay VAI balance and APY', async () => {
     const { getByText, container } = renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
@@ -88,9 +84,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
@@ -137,9 +131,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('displays the VAI repay fee', async () => {
     const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
       authContextValue: {
-        account: {
-          address: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     });
 
