@@ -6,6 +6,7 @@ import { Pool } from 'types';
 import { useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 
+import AccountPlaceholder from './AccountPlaceholder';
 import PoolBreakdown from './PoolBreakdown';
 import Summary from './Summary';
 import { useStyles } from './styles';
@@ -32,6 +33,12 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
 
   if (isFetchingPools) {
     return <Spinner />;
+  }
+
+  const hasSuppliedOrBorrowed = filteredPools.length > 0;
+
+  if (!hasSuppliedOrBorrowed) {
+    return <AccountPlaceholder />;
   }
 
   return (
