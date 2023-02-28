@@ -24,7 +24,7 @@ interface DashboardUiProps {
   isFetchingPools?: boolean;
 }
 
-const DashboardUi: React.FC<DashboardUiProps> = ({
+export const DashboardUi: React.FC<DashboardUiProps> = ({
   pools,
   isFetchingPools,
   areHigherRiskPoolsDisplayed,
