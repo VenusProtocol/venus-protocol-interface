@@ -8,8 +8,6 @@ import { TransactionResponse } from './types';
 
 const formatTransaction = ({
   amount,
-  createdAt,
-  updatedAt,
   category,
   event,
   vTokenAddress,
@@ -24,11 +22,9 @@ const formatTransaction = ({
   return {
     ...rest,
     amountWei: convertTokensToWei({ value: new BigNumber(amount), token: vToken?.underlyingToken }),
-    createdAt: new Date(createdAt),
-    updatedAt: new Date(updatedAt),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
-    vTokenAddress,
+    vTokenAddress: vToken.address,
   };
 };
 export default formatTransaction;
