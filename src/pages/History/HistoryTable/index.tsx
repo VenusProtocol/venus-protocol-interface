@@ -27,7 +27,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
 
   const columns = useMemo(
     () => [
-      { key: 'id', label: t('history.columns.id'), orderable: true, align: 'left' },
       { key: 'type', label: t('history.columns.type'), orderable: true, align: 'left' },
       { key: 'txnHash', label: t('history.columns.txnHash'), orderable: true, align: 'left' },
       { key: 'block', label: t('history.columns.block'), orderable: true, align: 'left' },
@@ -42,8 +41,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const cardColumns = useMemo(() => {
     // Copy columns to order them for mobile
     const newColumns = [...columns];
-    // Remove id column, mobile title is handled by type component
-    newColumns.shift();
     // Place account as the third position on the top row
     const [amountCol] = newColumns.splice(5, 1);
     newColumns.splice(3, 0, amountCol);
@@ -81,12 +78,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
 
         return [
           {
-            key: 'id',
-            render: () => <Typography variant="small2">{txn.id}</Typography>,
-            value: txn.id,
-            align: 'left',
-          },
-          {
             key: 'type',
             render: () => (
               <>
@@ -103,7 +94,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                       {txn.event}
                     </Typography>
                   </div>
-                  <Typography variant="small2">{txn.id}</Typography>
                 </div>
               </>
             ),
@@ -194,10 +184,10 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
             key: 'created',
             render: () => (
               <Typography variant="small2" css={styles.whiteText}>
-                {t('history.createdAt', { date: txn.createdAt })}
+                {t('history.createdAt', { date: new Date(txn.timestamp) })}
               </Typography>
             ),
-            value: txn.createdAt.getTime(),
+            value: txn.timestamp,
             align: 'right',
           },
         ];
