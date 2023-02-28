@@ -39,9 +39,7 @@ describe('components/Layout/ClaimRewardButton', () => {
 
     const { queryByText } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -51,9 +49,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   it('renders claim button if user has pending rewards to claim', async () => {
     const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -63,9 +59,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   it('renders correct reward breakdown in modal', async () => {
     const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -81,9 +75,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   it('it disables submit button if user unchecks all groups', async () => {
     const { getByTestId, queryAllByRole } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -108,9 +100,7 @@ describe('components/Layout/ClaimRewardButton', () => {
 
     const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 

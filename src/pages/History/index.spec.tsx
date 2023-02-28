@@ -51,7 +51,7 @@ describe('pages/History', () => {
 
   it('rerequests when toggling addressFilter', async () => {
     const { getByRole } = renderComponent(History, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);

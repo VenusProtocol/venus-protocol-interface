@@ -166,7 +166,7 @@ export interface SubmitSectionProps {
 }
 
 const SubmitSection: React.FC<SubmitSectionProps> = ({ fromToken, formErrors, ...otherProps }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const {
     isTokenApproved: isFromTokenEnabled,
@@ -176,7 +176,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({ fromToken, formErrors, ..
   } = useTokenApproval({
     token: fromToken,
     spenderAddress: pancakeRouterContractAddress,
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   return (

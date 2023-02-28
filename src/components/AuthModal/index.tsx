@@ -11,7 +11,7 @@ export interface AuthModalProps {
   onLogin: WalletListProps['onLogin'];
   onLogOut: AccountDetailsProps['onLogOut'];
   onCopyAccountAddress: AccountDetailsProps['onCopyAccountAddress'];
-  account?: AccountDetailsProps['account'];
+  accountAddress?: string;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
@@ -20,7 +20,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onLogin,
   onLogOut,
   onCopyAccountAddress,
-  account,
+  accountAddress,
 }) => {
   const { t } = useTranslation();
 
@@ -29,16 +29,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       className="venus-modal"
       isOpen={isOpen}
       handleClose={onClose}
-      noHorizontalPadding={!account}
+      noHorizontalPadding={!accountAddress}
       title={
-        <h4>{!account ? t('authModal.title.connectWallet') : t('authModal.title.yourWallet')}</h4>
+        <h4>
+          {!accountAddress ? t('authModal.title.connectWallet') : t('authModal.title.yourAccount')}
+        </h4>
       }
     >
-      {!account ? (
+      {!accountAddress ? (
         <WalletList onLogin={onLogin} />
       ) : (
         <AccountDetails
-          account={account}
+          accountAddress={accountAddress}
           onCopyAccountAddress={onCopyAccountAddress}
           onLogOut={onLogOut}
         />

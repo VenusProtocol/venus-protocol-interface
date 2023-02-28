@@ -265,8 +265,7 @@ export const ProposalSummaryUi: React.FC<
 };
 
 const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
-  const { account } = useAuth();
-  const accountAddress = account?.address || '';
+  const { accountAddress } = useAuth();
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
@@ -289,7 +288,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   );
 
   const canCancelProposal =
-    proposal.proposer === account?.address ||
+    proposal.proposer === accountAddress ||
     (proposalThresholdData?.thresholdWei &&
       proposerVotesData?.votesWei.isLessThan(proposalThresholdData.thresholdWei));
 

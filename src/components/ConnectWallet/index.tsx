@@ -41,6 +41,6 @@ export const Prompt: React.FC<PromptProps> = ({
 };
 
 export const ConnectWallet: React.FC<Omit<PromptProps, 'connected' | 'openAuthModal'>> = props => {
-  const { account, openAuthModal } = useAuth();
-  return <Prompt {...props} openAuthModal={openAuthModal} connected={!!account} />;
+  const { accountAddress, openAuthModal } = useAuth();
+  return <Prompt {...props} openAuthModal={openAuthModal} connected={!!accountAddress} />;
 };

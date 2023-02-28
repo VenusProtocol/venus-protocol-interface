@@ -409,7 +409,7 @@ const Market: React.FC<MarketProps> = ({
     params: { vTokenAddress, poolComptrollerAddress },
   },
 }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to markets page if params are invalid
@@ -419,7 +419,7 @@ const Market: React.FC<MarketProps> = ({
 
   const { data: getAssetData } = useGetAsset({
     vToken,
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const chartData = useGetChartData({

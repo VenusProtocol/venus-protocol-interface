@@ -121,10 +121,10 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 };
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
   const { data: getMainAssetsData } = useGetMainAssets({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const dailyXvsDistributedTokens = useMemo(

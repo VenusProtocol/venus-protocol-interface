@@ -63,9 +63,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -82,9 +80,7 @@ describe('Supply form', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -105,9 +101,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -134,9 +128,7 @@ describe('Supply form', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -158,9 +150,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -216,9 +206,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -269,9 +257,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -317,9 +303,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -370,9 +354,7 @@ describe('Supply form', () => {
       ),
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );

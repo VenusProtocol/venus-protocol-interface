@@ -30,10 +30,10 @@ export interface UseGetTreasuryTotalsOutput {
 }
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetPools({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const vTokenAddresses = useMemo(

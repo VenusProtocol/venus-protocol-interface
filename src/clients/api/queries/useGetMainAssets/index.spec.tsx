@@ -53,7 +53,7 @@ describe('api/queries/useGetMainAssets', () => {
     };
 
     renderComponent(<CallMarketContext />, {
-      authContextValue: { account: { address: fakeAddress } },
+      authContextValue: { accountAddress: fakeAddress },
     });
 
     await waitFor(() => expect(!!data?.assets).toBe(true));

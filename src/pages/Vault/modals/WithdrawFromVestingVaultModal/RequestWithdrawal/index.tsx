@@ -104,7 +104,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   handleDisplayWithdrawalRequestList,
   handleClose,
 }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { t } = useTranslation();
 
   const {
@@ -121,13 +121,13 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
-      accountAddress: account?.address || '',
+      accountAddress,
     },
     {
       placeholderData: {
         lockedDeposits: [],
       },
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 
@@ -136,10 +136,10 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       {
         poolIndex,
         rewardTokenAddress: TOKENS.xvs.address,
-        accountAddress: account?.address || '',
+        accountAddress,
       },
       {
-        enabled: !!account?.address,
+        enabled: !!accountAddress,
       },
     );
 
@@ -167,7 +167,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         rewardTokenAddress: TOKENS.xvs.address,
       },
       {
-        enabled: !!account?.address,
+        enabled: !!accountAddress,
       },
     );
 

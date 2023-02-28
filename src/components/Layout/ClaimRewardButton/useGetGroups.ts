@@ -11,7 +11,7 @@ const mainPoolComptrollerAddress = getContractAddress('comptroller');
 
 const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }) => {
   const { t } = useTranslation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
@@ -19,7 +19,7 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
 
   // Get Comptroller addresses of isolated pools
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   const isolatedPoolComptrollerAddresses = useMemo(
@@ -33,13 +33,13 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
 
   const { data: getPendingRewardsData } = useGetPendingRewards(
     {
-      accountAddress: account?.address || '',
+      accountAddress: accountAddress || '',
       mainPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses,
       xvsVestingVaultPoolCount: getXvsVaultPoolCountData?.poolCount || 0,
     },
     {
-      enabled: !!account?.address && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
+      enabled: !!accountAddress && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
     },
   );
 

@@ -93,10 +93,10 @@ const PoolPage: React.FC<PoolPageProps> = ({
     params: { poolComptrollerAddress },
   },
 }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
-    accountAddress: account?.address,
+    accountAddress,
     poolComptrollerAddress,
   });
 

@@ -153,8 +153,8 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 };
 
 const PoolTable = () => {
-  const { account } = useAuth();
-  const { data: poolData, isLoading } = useGetPools({ accountAddress: account?.address });
+  const { accountAddress } = useAuth();
+  const { data: poolData, isLoading } = useGetPools({ accountAddress });
 
   return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;
 };

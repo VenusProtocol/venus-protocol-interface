@@ -205,8 +205,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
 const GovernanceProposal: React.FC<
   Omit<GovernanceProposalProps, 'userVoteStatus' | 'isUserConnected'>
 > = ({ proposalId, ...props }) => {
-  const { account } = useAuth();
-  const accountAddress = account?.address;
+  const { accountAddress } = useAuth();
 
   const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId, accountAddress },
@@ -217,7 +216,7 @@ const GovernanceProposal: React.FC<
     <GovernanceProposalUi
       userVoteStatus={userVoteReceipt?.voteSupport}
       proposalId={proposalId}
-      isUserConnected={!!account}
+      isUserConnected={!!accountAddress}
       {...props}
     />
   );

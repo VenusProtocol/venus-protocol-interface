@@ -21,20 +21,20 @@ export interface IRepayFeeProps {
 const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { account } = useContext(AuthContext);
+  const { accountAddress } = useContext(AuthContext);
 
   const debouncedAmountTokens = useDebounceValue(repayAmountTokens, DEBOUNCE_DELAY);
 
   const { data: vaiRepayAmountData } = useGetVaiCalculateRepayAmount(
     {
-      accountAddress: account?.address || '',
+      accountAddress: accountAddress || '',
       repayAmountWei: convertTokensToWei({
         value: new BigNumber(debouncedAmountTokens || 0),
         token: TOKENS.vai,
       }),
     },
     {
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
       keepPreviousData: true,
     },
   );

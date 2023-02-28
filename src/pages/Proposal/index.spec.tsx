@@ -98,9 +98,7 @@ describe('pages/Proposal', () => {
     (getProposal as jest.Mock).mockImplementationOnce(() => cancelledProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
@@ -113,9 +111,7 @@ describe('pages/Proposal', () => {
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -127,9 +123,7 @@ describe('pages/Proposal', () => {
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -139,9 +133,7 @@ describe('pages/Proposal', () => {
   it('vote buttons are enabled when requirements are met', async () => {
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -156,9 +148,7 @@ describe('pages/Proposal', () => {
     }));
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -190,9 +180,7 @@ describe('pages/Proposal', () => {
     const comment = 'Not a good idea';
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -229,9 +217,7 @@ describe('pages/Proposal', () => {
 
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -263,9 +249,7 @@ describe('pages/Proposal', () => {
     });
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
     const againstVoteSummary = await waitFor(async () =>
@@ -287,9 +271,7 @@ describe('pages/Proposal', () => {
     const proposerAddress = activeProposal.proposer;
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: proposerAddress,
-        },
+        accountAddress: proposerAddress,
       },
     });
     const cancelButton = await waitFor(async () =>
@@ -309,9 +291,7 @@ describe('pages/Proposal', () => {
     }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
 
@@ -326,9 +306,7 @@ describe('pages/Proposal', () => {
     (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
     const cancelButton = await waitFor(async () =>
@@ -347,9 +325,7 @@ describe('pages/Proposal', () => {
     (getProposal as jest.Mock).mockImplementationOnce(() => succeededProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
     const queueButton = await waitFor(async () =>
@@ -365,9 +341,7 @@ describe('pages/Proposal', () => {
     (getProposal as jest.Mock).mockImplementationOnce(() => queuedProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
-        account: {
-          address: fakeAddress,
-        },
+        accountAddress: fakeAddress,
       },
     });
     const executeButton = await waitFor(async () =>

@@ -30,7 +30,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     const { getByText } = renderComponent(
       <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -41,7 +41,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     const { getByTestId } = renderComponent(
       <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -58,7 +58,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     const { getByTestId, getByText } = renderComponent(
       <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 
@@ -80,7 +80,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
         handleClose={handleCloseMock}
       />,
       {
-        authContextValue: { account: { address: fakeAddress } },
+        authContextValue: { accountAddress: fakeAddress },
       },
     );
 

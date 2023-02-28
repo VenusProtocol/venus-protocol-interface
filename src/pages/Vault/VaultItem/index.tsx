@@ -226,7 +226,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
@@ -260,7 +260,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
     }
 
     // Handle withdrawing from VRT non-vesting vault
-    if (!account?.address) {
+    if (!accountAddress) {
       throw new VError({ type: 'interaction', code: 'accountError' });
     }
 

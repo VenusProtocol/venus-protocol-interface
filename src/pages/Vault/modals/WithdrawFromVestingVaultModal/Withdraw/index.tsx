@@ -86,7 +86,7 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose }) => {
   const { t } = useTranslation();
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
 
   const {
     data: xvsVaultUserLockedDepositsData = {
@@ -97,13 +97,13 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
-      accountAddress: account?.address || '',
+      accountAddress,
     },
     {
       placeholderData: {
         lockedDeposits: [],
       },
-      enabled: !!account?.address,
+      enabled: !!accountAddress,
     },
   );
 

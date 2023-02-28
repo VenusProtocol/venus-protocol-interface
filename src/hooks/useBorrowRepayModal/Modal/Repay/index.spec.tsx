@@ -65,9 +65,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -86,9 +84,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -118,9 +114,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -153,9 +147,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -200,9 +192,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -246,9 +236,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -292,9 +280,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -339,9 +325,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );
@@ -396,9 +380,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       />,
       {
         authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+          accountAddress: fakeAccountAddress,
         },
       },
     );

@@ -34,9 +34,9 @@ export const VaultUi: React.FC<VaultUiProps> = ({ vaults, isInitialLoading }) =>
 };
 
 const VaultPage: React.FC = () => {
-  const { account } = useAuth();
+  const { accountAddress } = useAuth();
   const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
-    accountAddress: account?.address,
+    accountAddress,
   });
 
   return <VaultUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />;
