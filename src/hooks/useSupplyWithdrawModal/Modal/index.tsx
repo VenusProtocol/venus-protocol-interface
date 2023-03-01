@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
+import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
@@ -58,7 +58,11 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
       handleClose={onClose}
       title={<TokenIconWithSymbol token={vToken.underlyingToken} variant="h4" />}
     >
-      <Tabs tabsContent={tabsContent} />
+      <>
+        <Announcement token={vToken.underlyingToken} />
+
+        <Tabs tabsContent={tabsContent} />
+      </>
     </Modal>
   );
 };

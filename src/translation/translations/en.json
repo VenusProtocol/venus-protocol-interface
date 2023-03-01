@@ -37,6 +37,11 @@
     "assetsWillAppearHere": "Supplied and borrowed assets will appear here",
     "letsGetStarted": "Let’s get started"
   },
+  "announcements": {
+    "trxMigrationBanner": {
+      "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
+    }
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",

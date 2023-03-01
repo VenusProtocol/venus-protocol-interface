@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
+import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
@@ -55,7 +55,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
       title={<TokenIconWithSymbol token={vToken.underlyingToken} variant="h4" />}
       handleClose={onClose}
     >
-      <Tabs tabsContent={tabsContent} />
+      <>
+        <Announcement token={vToken.underlyingToken} />
+
+        <Tabs tabsContent={tabsContent} />
+      </>
     </Modal>
   );
 };
