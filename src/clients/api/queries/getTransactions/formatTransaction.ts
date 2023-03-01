@@ -11,11 +11,10 @@ const MAIN_POOL_VXVS_ADDRESS = xvs[config.chainId];
 
 const formatTransaction = ({
   amount,
-  createdAt,
-  updatedAt,
   category,
   event,
   vTokenAddress,
+  timestamp,
   ...rest
 }: TransactionResponse) => {
   const vToken = getVTokenByAddress(vTokenAddress || MAIN_POOL_VXVS_ADDRESS);
@@ -27,11 +26,10 @@ const formatTransaction = ({
   return {
     ...rest,
     amountWei: convertTokensToWei({ value: new BigNumber(amount), token: vToken?.underlyingToken }),
-    createdAt: new Date(createdAt),
-    updatedAt: new Date(updatedAt),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
-    vTokenAddress,
+    vTokenAddress: vToken.address,
+    timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
   };
 };
 export default formatTransaction;

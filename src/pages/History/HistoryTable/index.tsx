@@ -48,11 +48,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const columns: TableColumn<Transaction>[] = useMemo(
     () => [
       {
-        key: 'id',
-        label: t('history.columns.id'),
-        renderCell: transaction => <Typography variant="small2">{transaction.id}</Typography>,
-      },
-      {
         key: 'type',
         label: t('history.columns.type'),
         renderCell: transaction => {
@@ -77,8 +72,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                       {transaction.event}
                     </Typography>
                   </div>
-
-                  <Typography variant="small2">{transaction.id}</Typography>
                 </div>
               </>
             )
@@ -171,7 +164,9 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         label: t('history.columns.created'),
         renderCell: transaction => (
           <Typography variant="small2" css={styles.whiteText}>
-            {t('history.createdAt', { date: transaction.createdAt })}
+            {t('history.createdAt', {
+              date: transaction.timestamp,
+            })}
           </Typography>
         ),
       },
@@ -182,8 +177,6 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const cardColumns = useMemo(() => {
     // Copy columns to order them for mobile
     const newColumns = [...columns];
-    // Remove id column, mobile title is handled by type component
-    newColumns.shift();
     // Place account as the third position on the top row
     const [amountCol] = newColumns.splice(5, 1);
     newColumns.splice(3, 0, amountCol);
@@ -196,10 +189,10 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       cardColumns={cardColumns}
       data={transactions}
       initialOrder={{
-        orderBy: columns[7],
+        orderBy: columns[1],
         orderDirection: 'desc',
       }}
-      rowKeyExtractor={row => `history-table-row-${row.id}`}
+      rowKeyExtractor={row => `history-table-row-${row.transactionHash}`}
       breakpoint="xl"
       css={styles.cardContentGrid}
       isFetching={isFetching}
