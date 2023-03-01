@@ -11,6 +11,7 @@ const formatTransaction = ({
   category,
   event,
   vTokenAddress,
+  timestamp,
   ...rest
 }: TransactionResponse) => {
   const vToken = vTokenAddress ? getVTokenByAddress(vTokenAddress) : VBEP_TOKENS.xvs;
@@ -25,6 +26,7 @@ const formatTransaction = ({
     category: category as TransactionCategory,
     event: event as TransactionEvent,
     vTokenAddress: vToken.address,
+    timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
   };
 };
 export default formatTransaction;

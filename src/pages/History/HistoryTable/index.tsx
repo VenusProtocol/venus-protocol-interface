@@ -165,7 +165,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         renderCell: transaction => (
           <Typography variant="small2" css={styles.whiteText}>
             {t('history.createdAt', {
-              date: new Date(transaction.timestamp),
+              date: transaction.timestamp,
             })}
           </Typography>
         ),
