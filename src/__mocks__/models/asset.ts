@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS, TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
-    vToken: VBEP_TOKENS.xvs,
+    vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
     supplyApyPercentage: new BigNumber('0.05225450324405023'),
     borrowApyPercentage: new BigNumber('-2.3062487835658776'),
     collateralFactor: 0.5,
@@ -34,16 +34,14 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.01720675342484096'),
         supplyApyPercentage: new BigNumber('0.11720675342484096'),
-        borrowAprPercentage: new BigNumber('4.07469243006608279'),
         borrowApyPercentage: new BigNumber('4.17469243006608279'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
     ],
   },
   {
-    vToken: VBEP_TOKENS.usdc,
+    vToken: TESTNET_VBEP_TOKENS['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
     supplyApyPercentage: new BigNumber('3.887242555711379188'),
     borrowApyPercentage: new BigNumber('-5.361233028654066'),
     collateralFactor: 0.8,
@@ -72,16 +70,14 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('1.153105649796123742'),
         supplyApyPercentage: new BigNumber('1.353105649796123742'),
-        borrowAprPercentage: new BigNumber('1.370327607690572731'),
         borrowApyPercentage: new BigNumber('1.670327607690572731'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
     ],
   },
   {
-    vToken: VBEP_TOKENS.usdt,
+    vToken: TESTNET_VBEP_TOKENS['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
     supplyApyPercentage: new BigNumber('3.593608909332766999'),
     borrowApyPercentage: new BigNumber('-4.9748661428011145'),
     collateralFactor: 0.8,
@@ -110,16 +106,14 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.221719501189155143'),
         supplyApyPercentage: new BigNumber('0.421719501189155143'),
-        borrowAprPercentage: new BigNumber('0.322209972682294832'),
         borrowApyPercentage: new BigNumber('0.522209972682294832'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },
     ],
   },
   {
-    vToken: VBEP_TOKENS.busd,
+    vToken: TESTNET_VBEP_TOKENS['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
     supplyApyPercentage: new BigNumber('2.886396363044176106'),
     borrowApyPercentage: new BigNumber('-4.050271277344538'),
     collateralFactor: 0.8,
@@ -148,9 +142,7 @@ export const assetData: Asset[] = [
     distributions: [
       {
         token: TOKENS.xvs,
-        supplyAprPercentage: new BigNumber('0.578420831753642169'),
         supplyApyPercentage: new BigNumber('0.678420831753642169'),
-        borrowAprPercentage: new BigNumber('0.552697602175970714'),
         borrowApyPercentage: new BigNumber('0.852697602175970714'),
         dailyDistributedTokens: new BigNumber('19999999'),
       },

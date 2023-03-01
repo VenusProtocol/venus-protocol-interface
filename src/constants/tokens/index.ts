@@ -12,7 +12,7 @@ export * from './common/testnet';
 export * from './pancakeSwap/mainnet';
 export * from './pancakeSwap/testnet';
 export * from './vBep/testnet';
-export * from './vBep/testnet';
+export * from './vBep/mainnet';
 
 export const TOKENS = config.isOnTestnet ? TESTNET_TOKENS : MAINNET_TOKENS;
 

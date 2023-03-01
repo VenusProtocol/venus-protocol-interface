@@ -1,6 +1,8 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
+import { RiskRating } from 'clients/subgraph/gql/queries';
+
 export enum BscChainId {
   'MAINNET' = 56,
   'TESTNET' = 97,
@@ -27,9 +29,7 @@ export interface TokenBalance {
 export interface AssetDistribution {
   token: Token;
   dailyDistributedTokens: BigNumber;
-  borrowAprPercentage: BigNumber;
   borrowApyPercentage: BigNumber;
-  supplyAprPercentage: BigNumber;
   supplyApyPercentage: BigNumber;
 }
 
@@ -68,7 +68,7 @@ export interface Asset {
   isCollateralOfUser: boolean;
 }
 
-export type PoolRiskRating = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+export type PoolRiskRating = `${RiskRating}`;
 
 export interface Pool {
   comptrollerAddress: string;

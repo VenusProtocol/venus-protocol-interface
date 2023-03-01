@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import calculateNetApy from './calculateNetApy';
+import calculateNetApy from '.';
 
 describe('utilities/calculateNetApy', () => {
   test('calculates apy from balance and yearly earnings', () => {

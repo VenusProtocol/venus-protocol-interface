@@ -4,12 +4,14 @@ import { checkForTokenTransactionError } from 'errors';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import { VBep20, VBnbToken } from 'types/contracts';
 
 import repay, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
 
 const fakeAmountWei = new BigNumber(10000000000000000);
+
+const vBnb = TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'];
 
 jest.mock('clients/contracts');
 jest.mock('errors/transactionErrors');
@@ -30,7 +32,7 @@ describe('api/mutation/repay', () => {
 
       const response = await repay({
         signer: fakeSigner,
-        vToken: VBEP_TOKENS.xvs,
+        vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
         amountWei: fakeAmountWei,
       });
 
@@ -60,7 +62,7 @@ describe('api/mutation/repay', () => {
 
       const response = await repay({
         signer: fakeSigner,
-        vToken: VBEP_TOKENS.bnb,
+        vToken: vBnb,
         amountWei: fakeAmountWei,
         isRepayingFullLoan: true,
       });
@@ -69,13 +71,9 @@ describe('api/mutation/repay', () => {
 
       const amountWithBufferWei = fakeAmountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
 
-      expect(repayBehalfExplicitMock).toHaveBeenCalledWith(
-        fakeSignerAddress,
-        VBEP_TOKENS.bnb.address,
-        {
-          value: amountWithBufferWei.toFixed(),
-        },
-      );
+      expect(repayBehalfExplicitMock).toHaveBeenCalledWith(fakeSignerAddress, vBnb.address, {
+        value: amountWithBufferWei.toFixed(),
+      });
       expect(waitMock).toBeCalledTimes(1);
       expect(waitMock).toHaveBeenCalledWith(1);
     });
@@ -94,7 +92,7 @@ describe('api/mutation/repay', () => {
 
       const response = await repay({
         signer: fakeSigner,
-        vToken: VBEP_TOKENS.bnb,
+        vToken: vBnb,
         amountWei: fakeAmountWei,
       });
 

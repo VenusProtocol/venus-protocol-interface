@@ -12,16 +12,13 @@ Object {
     "collateralFactor": 0.5,
     "distributions": Array [
       Object {
-        "borrowAprPercentage": "4.07469243006608279",
         "borrowApyPercentage": "4.17469243006608279",
         "dailyDistributedTokens": "19999999",
-        "supplyAprPercentage": "0.01720675342484096",
         "supplyApyPercentage": "0.11720675342484096",
         "token": Object {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           "asset": "xvs.svg",
           "decimals": 18,
-          "id": "xvs",
           "symbol": "XVS",
         },
       },
@@ -48,13 +45,11 @@ Object {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
       "asset": "vXvs.svg",
       "decimals": 8,
-      "id": "xvs",
       "symbol": "vXVS",
       "underlyingToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "xvs.svg",
         "decimals": 18,
-        "id": "xvs",
         "symbol": "XVS",
       },
     },

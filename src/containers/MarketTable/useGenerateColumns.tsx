@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
 import {
   LayeredValues,
   ProgressBar,
@@ -13,13 +12,11 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import {
-  calculateCollateralValue,
   compareBigNumbers,
   compareBooleans,
   compareNumbers,
   comparePoolRiskRatings,
   compareStrings,
-  convertTokensToWei,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
@@ -60,39 +57,6 @@ const useGenerateColumns = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
-  // Calculate borrow limit of user if userPercentOfLimit column needs to be
-  // rendered
-  const userTotalBorrowLimitCents = useMemo(() => {
-    if (!columnKeys.includes('userPercentOfLimit')) {
-      return 0;
-    }
-
-    return (
-      poolAssets
-        .reduce((acc, poolAsset) => {
-          if (!poolAsset.isCollateralOfUser) {
-            return acc;
-          }
-
-          // Add collateral value of supplied asset if it's been set as
-          // collateral
-          return acc.plus(
-            calculateCollateralValue({
-              amountWei: convertTokensToWei({
-                value: poolAsset.userSupplyBalanceTokens,
-                token: poolAsset.vToken.underlyingToken,
-              }),
-              token: poolAsset.vToken.underlyingToken,
-              tokenPriceDollars: poolAsset.tokenPriceDollars,
-              collateralFactor: poolAsset.collateralFactor,
-            }).times(100),
-          );
-        }, new BigNumber(0))
-        // Convert BigNumber to number
-        .toNumber()
-    );
-  }, [poolAssets, columnKeys.includes('userPercentOfLimit')]);
 
   const columns: TableColumn<PoolAsset>[] = useMemo(
     () =>
@@ -324,7 +288,7 @@ const useGenerateColumns = ({
                 return 0;
               },
       })),
-    [poolAssets, columnKeys, userTotalBorrowLimitCents],
+    [poolAssets, columnKeys],
   );
 
   return columns;

@@ -1,9 +1,0 @@
-query AssetsInAccountQuery($accountAddress: ID!) {
-  account(id: $accountAddress) {
-    tokens {
-      market {
-          id
-      }
-    }
-  }
-}

@@ -1,0 +1,46 @@
+query IsolatedPools($accountAddress: ID) {
+  pools {
+    id
+    priceOracleAddress
+    name
+    description
+    riskRating
+
+    markets {
+      id
+      borrowCapMantissa
+      supplyCapMantissa
+      reservesMantissa
+      treasuryTotalSupplyMantissa
+      treasuryTotalBorrowsMantissa
+      reserveFactorMantissa
+      collateralFactorMantissa
+      borrowRateMantissa
+      supplyRateMantissa
+      exchangeRateMantissa
+      cash
+      supplierCount
+      borrowerCount
+      liquidationThresholdMantissa
+
+      accounts(where: { id: $accountAddress }) {
+        enteredMarket
+        accountSupplyBalanceMantissa
+        accountBorrowBalanceMantissa
+      }
+    }
+
+    rewardsDistributors {
+      reward
+
+      rewardSpeeds {
+        market {
+          id
+        }
+
+        borrowSpeedPerBlockMantissa
+        supplySpeedPerBlockMantissa
+      }
+    }
+  }
+}

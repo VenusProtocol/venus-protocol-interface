@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
 import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
-import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_TOKENS } from 'constants/tokens';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
@@ -12,9 +12,9 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
         rewardToken: TESTNET_TOKENS.xvs,
         rewardAmountWei: new BigNumber('1000000000000000000000000000'),
         vTokenAddressesWithPendingReward: [
-          TESTNET_VBEP_TOKENS.usdc.address,
-          TESTNET_VBEP_TOKENS.usdt.address,
-          TESTNET_VBEP_TOKENS.busd.address,
+          '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+          '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
+          '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
         ],
       },
     ],

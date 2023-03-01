@@ -207,6 +207,10 @@ export { default as useGetPool } from './queries/useGetPool';
 
 export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
 
+export { default as getIsolatedPools } from './queries/getIsolatedPools';
+export * from './queries/getIsolatedPools';
+export { default as useGetIsolatedPools } from './queries/getIsolatedPools/useGetIsolatedPools';
+
 export { default as getMainMarketHistory } from './queries/getMainMarketHistory';
 export * from './queries/getMainMarketHistory';
 export { default as useGetMainMarketHistory } from './queries/getMainMarketHistory/useGetMainMarketHistory';

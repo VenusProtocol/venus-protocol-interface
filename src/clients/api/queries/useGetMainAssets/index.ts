@@ -181,9 +181,7 @@ const useGetMainAssets = ({
           dailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0)
             .plus(new BigNumber(market.borrowerDailyVenus || 0))
             .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
-          supplyAprPercentage: new BigNumber(market.supplyVenusApr || 0),
           supplyApyPercentage: new BigNumber(market.supplyVenusApy || 0),
-          borrowAprPercentage: new BigNumber(market.borrowVenusApr || 0),
           borrowApyPercentage: new BigNumber(market.borrowVenusApy || 0),
         };
 

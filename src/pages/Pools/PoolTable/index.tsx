@@ -6,6 +6,7 @@ import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPools } from 'clients/api';
+import poolRiskRatingMapping from 'constants/poolRiskRatingMapping';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
@@ -16,14 +17,6 @@ interface PoolRow {
   poolTotalSupplyCents: number;
   poolTotalBorrowCents: number;
 }
-
-const riskRatingMap = {
-  MINIMAL: 0,
-  LOW: 1,
-  MEDIUM: 2,
-  HIGH: 3,
-  VERY_HIGH: 4,
-};
 
 export interface PoolTableProps {
   pools: Pool[];
@@ -80,8 +73,10 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         renderCell: ({ pool }) => <RiskLevel variant={pool.riskRating} />,
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
-            ? riskRatingMap[rowA.pool.riskRating] - riskRatingMap[rowB.pool.riskRating]
-            : riskRatingMap[rowB.pool.riskRating] - riskRatingMap[rowA.pool.riskRating],
+            ? poolRiskRatingMapping[rowA.pool.riskRating] -
+              poolRiskRatingMapping[rowB.pool.riskRating]
+            : poolRiskRatingMapping[rowB.pool.riskRating] -
+              poolRiskRatingMapping[rowA.pool.riskRating],
       },
       {
         key: 'totalSupply',

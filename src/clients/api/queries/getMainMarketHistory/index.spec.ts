@@ -1,7 +1,7 @@
 import { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 
-import { VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 import getMainMarketHistory from '.';
 
@@ -32,7 +32,7 @@ describe('api/queries/getMainMarketHistory', () => {
     }));
 
     const response = await getMainMarketHistory({
-      vToken: VBEP_TOKENS.aave,
+      vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
     });
 
     expect(response).toEqual({
@@ -47,14 +47,14 @@ describe('api/queries/getMainMarketHistory', () => {
     }));
 
     await getMainMarketHistory({
-      vToken: VBEP_TOKENS.aave,
+      vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
       type: 'fake-type',
       limit: 6,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/market_history/graph?asset=${VBEP_TOKENS.aave.address}&type=fake-type&limit=6`,
+      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&type=fake-type&limit=6`,
       method: 'GET',
     });
   });

@@ -15,8 +15,7 @@ export type SupplyOutput = ContractReceipt;
 
 const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<SupplyOutput> => {
   // Handle supplying BNB
-  // TODO: check isNative prop of underlying token instead (?)
-  if (vToken.symbol === 'vBNB') {
+  if (vToken.underlyingToken.isNative) {
     const tokenContract = getVTokenContract(vToken, signer) as VBnbToken;
 
     const transaction = await tokenContract.mint({

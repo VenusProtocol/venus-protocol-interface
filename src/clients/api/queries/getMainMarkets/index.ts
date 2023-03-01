@@ -27,9 +27,9 @@ const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
   let markets: Market[] = [];
 
   if (response && response.data && response.data.data) {
-    markets = Object.keys(VBEP_TOKENS).reduce<Market[]>((acc: Market[], curr: string) => {
+    markets = Object.keys(VBEP_TOKENS).reduce<Market[]>((acc: Market[], marketAddress: string) => {
       const activeMarket = response.data?.data.markets.find(
-        (market: Market) => market.underlyingSymbol.toLowerCase() === curr.toLowerCase(),
+        (market: Market) => market.address.toLowerCase() === marketAddress.toLowerCase(),
       );
       if (activeMarket) {
         const formattedActiveMarket = {

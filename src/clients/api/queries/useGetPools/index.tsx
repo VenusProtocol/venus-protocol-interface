@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Pool } from 'types';
 
-import { useGetMainPool } from 'clients/api';
+import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
 
 export interface UseGetPoolsInput {
   accountAddress?: string;
@@ -19,19 +19,26 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
     accountAddress,
   });
 
+  const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
+    useGetIsolatedPools({
+      accountAddress,
+    });
+
+  const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
+
   const data = useMemo(() => {
-    if (!getMainPoolData?.pool) {
+    if (isLoading) {
       return undefined;
     }
 
-    // TODO: add support for isolated pools
+    const pools = (getMainPoolData?.pool ? [getMainPoolData?.pool] : []).concat(
+      getIsolatedPoolsData?.pools || [],
+    );
 
     return {
-      pools: [getMainPoolData.pool],
+      pools,
     };
-  }, [getMainPoolData?.pool]);
-
-  const isLoading = isGetMainPoolDataLoading;
+  }, [getMainPoolData?.pool, getIsolatedPoolsData?.pools]);
 
   return { isLoading, data };
 };

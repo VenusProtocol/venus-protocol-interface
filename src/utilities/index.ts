@@ -3,7 +3,6 @@ export { restService } from './restService';
 export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as getContractAddress } from './getContractAddress';
-export { default as calculateNetApy } from './calculateNetApy';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,
@@ -24,7 +23,6 @@ export { default as formatToReadablePercentage } from './formatToReadablePercent
 export { default as formatPercentage } from './formatPercentage';
 export { default as convertTokensToWei } from './convertTokensToWei';
 export { default as indexBy } from './indexBy';
-export { default as notNull } from './notNull';
 export { default as notUndefined } from './notUndefined';
 export { default as calculatePercentage } from './calculatePercentage';
 export { truncateAddress } from './truncateAddress';
