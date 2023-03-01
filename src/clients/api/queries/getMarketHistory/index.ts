@@ -8,21 +8,21 @@ export interface GetMarketHistoryResponse {
   updatedAt: string;
 }
 
-export interface GetMainMarketHistoryInput {
+export interface GetMarketHistoryInput {
   vToken: VToken;
   limit?: number;
   type?: string;
 }
 
-export type GetMainMarketHistoryOutput = {
+export type GetMarketHistoryOutput = {
   marketSnapshots: MarketSnapshot[];
 };
 
-const getMainMarketHistory = async ({
+const getMarketHistory = async ({
   vToken,
   limit = 30,
   type = '1day',
-}: GetMainMarketHistoryInput): Promise<GetMainMarketHistoryOutput> => {
+}: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
   let endpoint = `/market_history/graph?asset=${vToken.address}&type=${type}&version=v2`;
 
   if (limit) {
@@ -48,4 +48,4 @@ const getMainMarketHistory = async ({
   };
 };
 
-export default getMainMarketHistory;
+export default getMarketHistory;

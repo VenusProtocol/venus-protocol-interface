@@ -6,7 +6,7 @@ import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { getMainMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
+import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
@@ -25,7 +25,7 @@ describe('pages/Market', () => {
       },
     }));
 
-    (getMainMarketHistory as jest.Mock).mockImplementation(() => ({
+    (getMarketHistory as jest.Mock).mockImplementation(() => ({
       marketSnapshots,
     }));
 
