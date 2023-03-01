@@ -20,9 +20,7 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
     const borrowChartData: ApyChartProps['data'] = [];
 
     [...marketSnapshotsData.marketSnapshots]
-      // Snapshots are returned from earliest to oldest, so we reverse them to
-      // pass them to the charts in the right order
-      .reverse()
+      // Snapshots are already reversed, due to the negative slice
       .forEach(marketSnapshot => {
         const timestampMs = marketSnapshot.blockTimestamp * 1000;
 

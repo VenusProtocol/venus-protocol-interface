@@ -32,9 +32,8 @@ export const getHypotheticalAccountLiquidity = jest.fn();
 export const getMainMarkets = jest.fn();
 export const useGetMainMarkets = () => useQuery(FunctionKey.GET_MAIN_MARKETS, getMainMarkets);
 
-export const getMainMarketHistory = jest.fn();
-export const useGetMainMarketHistory = () =>
-  useQuery(FunctionKey.GET_MARKET_HISTORY, getMainMarketHistory);
+export const getMarketHistory = jest.fn();
+export const useGetMarketHistory = () => useQuery(FunctionKey.GET_MARKET_HISTORY, getMarketHistory);
 
 export const getVTokenBalancesAll = jest.fn();
 export const useGetVTokenBalancesAll = jest.fn(() =>

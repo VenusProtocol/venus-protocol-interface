@@ -216,13 +216,13 @@ export interface Market {
 }
 
 export interface MarketSnapshot {
-    blockNumber: number;
-    blockTimestamp: number;
-    borrowApy: string;
-    supplyApy: string;
-    totalBorrowCents: string;
-    totalSupplyCents: string;
-  }
+  blockNumber: number;
+  blockTimestamp: number;
+  borrowApy: string;
+  supplyApy: string;
+  totalBorrowCents: string;
+  totalSupplyCents: string;
+}
 
 export type TransactionEvent =
   | 'Mint'
