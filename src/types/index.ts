@@ -260,7 +260,7 @@ export interface Transaction {
   event: TransactionEvent;
   from: string;
   to: string;
-  timestamp: number;
+  timestamp: Date;
   transactionHash: string;
   vTokenAddress: string;
 }

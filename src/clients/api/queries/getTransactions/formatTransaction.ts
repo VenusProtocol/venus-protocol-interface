@@ -11,6 +11,7 @@ const formatTransaction = ({
   category,
   event,
   vTokenAddress,
+  timestamp,
   ...rest
 }: TransactionResponse) => {
   const vToken = vTokenAddress && getVTokenByAddress(vTokenAddress);
@@ -21,6 +22,7 @@ const formatTransaction = ({
     amountWei: convertTokensToWei({ value: new BigNumber(amount), token }),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
+    timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
     vTokenAddress,
   };
 };
