@@ -33,6 +33,10 @@
     "max": "Max:",
     "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
+  "accountPlaceholder": {
+    "assetsWillAppearHere": "Supplied and borrowed assets will appear here",
+    "letsGetStarted": "Let’s get started"
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
