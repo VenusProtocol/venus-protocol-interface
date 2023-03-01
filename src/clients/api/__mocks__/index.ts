@@ -118,7 +118,7 @@ export const useGetMainPoolTotalXvsDistributed = jest.fn();
 export const useGetIsolatedPools = jest.fn(() => ({
   isLoading: false,
   data: {
-    pools: [], // TODO: add isolated pools
+    pools: poolData.slice(1),
   },
 }));
 

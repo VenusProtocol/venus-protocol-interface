@@ -13,8 +13,6 @@ import { FormatToPoolInput, GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
-// TODO: add tests
-
 const getIsolatedPools = async ({
   accountAddress,
   multicall,
