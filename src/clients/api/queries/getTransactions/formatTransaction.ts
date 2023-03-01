@@ -8,11 +8,10 @@ import { TransactionResponse } from './types';
 
 const formatTransaction = ({
   amount,
-  createdAt,
-  updatedAt,
   category,
   event,
   vTokenAddress,
+  timestamp,
   ...rest
 }: TransactionResponse) => {
   const vToken = vTokenAddress && getVTokenByAddress(vTokenAddress);
@@ -21,10 +20,9 @@ const formatTransaction = ({
   return {
     ...rest,
     amountWei: convertTokensToWei({ value: new BigNumber(amount), token }),
-    createdAt: new Date(createdAt),
-    updatedAt: new Date(updatedAt),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
+    timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
     vTokenAddress,
   };
 };

@@ -254,17 +254,14 @@ export enum TransactionCategory {
 }
 
 export interface Transaction {
-  id: number;
   amountWei: BigNumber;
   blockNumber: number;
   category: TransactionCategory;
-  createdAt: Date;
   event: TransactionEvent;
   from: string;
   to: string;
-  timestamp: string | null;
+  timestamp: Date;
   transactionHash: string;
-  updatedAt: Date;
   vTokenAddress: string;
 }
 
