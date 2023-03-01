@@ -204,7 +204,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         orderBy: 'created',
         orderDirection: 'desc',
       }}
-      rowKeyIndex={0}
+      rowKeyIndex={1}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}
