@@ -216,20 +216,12 @@ export interface Market {
 }
 
 export interface MarketSnapshot {
-  asset: string;
   blockNumber: number;
   blockTimestamp: number;
   borrowApy: string;
-  borrowVenusApy: string;
-  createdAt: string;
-  exchangeRate: string;
-  id: string;
-  priceUSD: string;
   supplyApy: string;
-  supplyVenusApy: string;
-  totalBorrow: string;
-  totalSupply: string;
-  updatedAt: string;
+  totalBorrowCents: string;
+  totalSupplyCents: string;
 }
 
 export type TransactionEvent =

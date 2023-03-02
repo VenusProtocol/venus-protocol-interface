@@ -3,35 +3,27 @@ import { restService } from 'utilities';
 
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
-import getMainMarketHistory from '.';
+import getMarketHistory from '.';
 
 jest.mock('utilities/restService');
 
 const marketSnapshot: MarketSnapshot = {
-  id: '18d50fb4-ebe8-4dd6-b0d6-0e052b968ec6',
-  asset: '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
   blockNumber: 1,
   blockTimestamp: 1652593258,
   borrowApy: '2.0144969858718893',
-  borrowVenusApy: '0.000002129447247135',
-  exchangeRate: '212011549336411',
   supplyApy: '0.000001537885451792',
-  supplyVenusApy: '0.000000000001825',
-  totalBorrow: '71999131879185046048588013',
-  totalSupply: '47171999131879185046048588013',
-  createdAt: '2022-05-15T06:00:00.000Z',
-  updatedAt: '2022-05-15T06:00:00.000Z',
-  priceUSD: '1.00028324',
+  totalBorrowCents: '1000000000',
+  totalSupplyCents: '1234567890',
 };
 
-describe('api/queries/getMainMarketHistory', () => {
+describe('api/queries/getMarketHistory', () => {
   test('returns market history on success', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: { result: [marketSnapshot] } },
+      data: { data: { data: [marketSnapshot] } },
     }));
 
-    const response = await getMainMarketHistory({
+    const response = await getMarketHistory({
       vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
     });
 
@@ -43,18 +35,17 @@ describe('api/queries/getMainMarketHistory', () => {
   test('calls correct endpoint when passing limit and type params', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: { result: [marketSnapshot] } },
+      data: { data: { data: [marketSnapshot] } },
     }));
 
-    await getMainMarketHistory({
+    await getMarketHistory({
       vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
-      type: 'fake-type',
       limit: 6,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&type=fake-type&limit=6`,
+      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2&limit=6`,
       method: 'GET',
     });
   });

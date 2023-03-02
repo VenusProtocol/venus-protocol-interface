@@ -65,8 +65,12 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
             tickFormatter={formatToReadableDate}
             stroke={sharedStyles.accessoryColor}
             tickMargin={sharedStyles.tickMargin}
-            tickCount={30}
-            interval={3}
+            // these numbers have a relationship with the amount of samples
+            // the backend returns for a period of time
+            // there is an entry being generated every 30 min, 48 in a day in total
+            tickCount={480}
+            // leaves a gap of three days per label in the X axis
+            interval={48 * 4}
             style={sharedStyles.axis}
           />
           <YAxis
