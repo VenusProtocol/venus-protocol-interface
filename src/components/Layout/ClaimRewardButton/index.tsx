@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useClaimRewards } from 'clients/api';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
