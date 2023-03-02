@@ -23,18 +23,18 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     type: 'vault',
     stakedToken: TESTNET_TOKENS.vrt,
     rewardToken: TESTNET_TOKENS.vrt,
-    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+    rewardAmountWei: new BigNumber('2000000000000000000000000000'),
   },
   {
     type: 'vault',
     stakedToken: TESTNET_TOKENS.vai,
     rewardToken: TESTNET_TOKENS.xvs,
-    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+    rewardAmountWei: new BigNumber('3000000000000000000000000000'),
   },
   {
-    type: 'vestingVault',
-    stakedToken: TESTNET_TOKENS.xvs,
+    type: 'xvsVestingVault',
     rewardToken: TESTNET_TOKENS.xvs,
-    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+    rewardAmountWei: new BigNumber('4000000000000000000000000000'),
+    poolIndex: 0,
   },
 ];

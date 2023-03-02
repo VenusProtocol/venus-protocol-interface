@@ -12,7 +12,7 @@ export type ClaimVaiVaultRewardOutput = ContractReceipt;
 const claimVaiVaultReward = async ({
   vaiVaultContract,
 }: ClaimVaiVaultRewardInput): Promise<ClaimVaiVaultRewardOutput> => {
-  const transaction = await vaiVaultContract.claim();
+  const transaction = await vaiVaultContract['claim()']();
   const receipt = await transaction.wait(1);
   return checkForVaiVaultTransactionError(receipt);
 };

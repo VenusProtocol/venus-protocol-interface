@@ -30,6 +30,37 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "rewardToken",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Claim",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "delegator",
         "type": "address"
       },
@@ -46,7 +77,7 @@
         "type": "address"
       }
     ],
-    "name": "DelegateChanged",
+    "name": "DelegateChangedV2",
     "type": "event"
   },
   {
@@ -71,7 +102,7 @@
         "type": "uint256"
       }
     ],
-    "name": "DelegateVotesChanged",
+    "name": "DelegateVotesChangedV2",
     "type": "event"
   },
   {
@@ -468,6 +499,31 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_rewardToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "delegatee",
         "type": "address"
       }
@@ -778,14 +834,34 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint128",
             "name": "lockedUntil",
-            "type": "uint256"
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "afterUpgrade",
+            "type": "uint128"
           }
         ],
-        "internalType": "struct XVSVaultStorage.WithdrawalRequest[]",
+        "internalType": "struct XVSVaultStorageV1.WithdrawalRequest[]",
         "name": "",
         "type": "tuple[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "implementation",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -1053,21 +1129,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "newAdmin",
-        "type": "address"
-      }
-    ],
-    "name": "setNewAdmin",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "_rewardToken",
         "type": "address"
       },
@@ -1188,21 +1249,6 @@
     "constant": true,
     "inputs": [],
     "name": "xvsStore",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "xvsVaultImplementation",
     "outputs": [
       {
         "internalType": "address",

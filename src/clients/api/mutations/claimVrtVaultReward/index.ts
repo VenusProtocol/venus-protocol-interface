@@ -11,7 +11,7 @@ export type ClaimVrtVaultRewardOutput = ContractReceipt;
 const claimVrtVaultReward = async ({
   vrtVaultContract,
 }: ClaimVrtVaultRewardInput): Promise<ClaimVrtVaultRewardOutput> => {
-  const transaction = await vrtVaultContract.claim();
+  const transaction = await vrtVaultContract['claim()']();
   return transaction.wait(1);
 };
 

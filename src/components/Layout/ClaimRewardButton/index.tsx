@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useClaimRewards } from 'clients/api';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -112,11 +111,8 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     uncheckedGroupNames,
   });
 
-  const { mutateAsync: claimRewards } = useClaimRewards();
-
-  const handleClaimReward = async () => {
-    // Format groups into claims
-  };
+  // Format groups into claims
+  const handleClaimReward = async () => fakeContractReceipt;
 
   const handleOpenModal = () => {
     // Block action if user has LUNA or UST enabled as collateral

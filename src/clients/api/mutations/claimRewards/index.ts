@@ -6,6 +6,7 @@ import { getContractAddress } from 'utilities';
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
+import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import { Multicall3 } from 'types/contracts/Multicall';
 
 import { ClaimRewardsInput, ClaimRewardsOutput } from './types';
@@ -16,6 +17,7 @@ export * from './types';
 const comptrollerAddress = getContractAddress('comptroller');
 const vaiVaultAddress = getContractAddress('vaiVault');
 const vrtVaultAddress = getContractAddress('vrtVaultProxy');
+const xvsVaultAddress = getContractAddress('xvsVault');
 
 // TODO: add tests
 
@@ -42,10 +44,7 @@ const claimRewards = async ({
     if (claim.contract === 'vaiVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vaiVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData(
-        'claim',
-        // TODO: add account address once function has been updated on contract
-      );
+      const callData = executingInterface.encodeFunctionData('claim', [accountAddress]);
 
       return {
         target: vaiVaultAddress,
@@ -56,10 +55,7 @@ const claimRewards = async ({
     if (claim.contract === 'vrtVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vrtVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData(
-        'claim',
-        // TODO: add account address once function has been updated on contract
-      );
+      const callData = executingInterface.encodeFunctionData('claim', [accountAddress]);
 
       return {
         target: vrtVaultAddress,
@@ -68,17 +64,16 @@ const claimRewards = async ({
     }
 
     if (claim.contract === 'xvsVestingVault') {
-      const executingInterface = new ethers.utils.Interface(JSON.stringify(rewardsDistributorAbi));
+      const executingInterface = new ethers.utils.Interface(JSON.stringify(xvsVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData('deposit', [
+      const callData = executingInterface.encodeFunctionData('claim', [
+        accountAddress,
         claim.rewardTokenAddress,
         claim.poolIndex,
-        0,
-        // TODO: add account address once function has been updated on contract
       ]);
 
       return {
-        target: vrtVaultAddress,
+        target: xvsVaultAddress,
         callData,
       };
     }

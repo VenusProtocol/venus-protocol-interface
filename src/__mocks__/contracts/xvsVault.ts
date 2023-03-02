@@ -28,9 +28,9 @@ const xvsVaultResponses: {
   rewardTokenAmountsPerBlock: BN.from('10000000'),
   pendingReward: BN.from('200000000'),
   getWithdrawalRequests: [
-    [BN.from('1000000000000000000'), BN.from('1656499404')],
-    [BN.from('2000000000000000000'), BN.from('1656599404')],
-    [BN.from('3000000000000000000'), BN.from('1656699404')],
+    [BN.from('1000000000000000000'), BN.from('1656499404'), BN.from('1000000000000000000')],
+    [BN.from('2000000000000000000'), BN.from('1656599404'), BN.from('1000000000000000000')],
+    [BN.from('3000000000000000000'), BN.from('1656699404'), BN.from('1000000000000000000')],
   ] as Awaited<ReturnType<XvsVault['getWithdrawalRequests']>>,
 };
 
