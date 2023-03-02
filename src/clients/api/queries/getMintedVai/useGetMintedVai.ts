@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { getContractAddress } from 'utilities';
 
 import getMintedVai, {
   GetMintedVaiInput,
@@ -6,6 +7,8 @@ import getMintedVai, {
 } from 'clients/api/queries/getMintedVai';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+
+const mainPoolComptrollerAddress = getContractAddress('comptroller');
 
 type Options = QueryObserverOptions<
   GetMintedVaiOutput,
@@ -19,7 +22,7 @@ const useGetMintedVai = (
   { accountAddress }: Omit<GetMintedVaiInput, 'comptrollerContract'>,
   options?: Options,
 ) => {
-  const comptrollerContract = useComptrollerContract();
+  const comptrollerContract = useComptrollerContract(mainPoolComptrollerAddress);
 
   return useQuery(
     FunctionKey.GET_MINTED_VAI,

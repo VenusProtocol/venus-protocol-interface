@@ -23,9 +23,9 @@ export const getVaiTreasuryPercentage = jest.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);
 
-export const getAssetsInAccount = jest.fn();
-export const useGetAssetsInAccount = () =>
-  useQuery(FunctionKey.GET_ASSETS_IN_ACCOUNT, getAssetsInAccount);
+export const getMainAssetsInAccount = jest.fn();
+export const useGetMainAssetsInAccount = () =>
+  useQuery(FunctionKey.GET_MAIN_ASSETS_IN_ACCOUNT, getMainAssetsInAccount);
 
 export const getHypotheticalAccountLiquidity = jest.fn();
 

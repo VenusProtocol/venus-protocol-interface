@@ -8,7 +8,7 @@ import { markets } from '__mocks__/models/markets';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
 import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import {
-  getAssetsInAccount,
+  getMainAssetsInAccount,
   getMainMarkets,
   getMintedVai,
   useGetVTokenBalancesAll,
@@ -24,7 +24,7 @@ const fakeUserVaiMintedWei = new BigNumber('10000000000000000');
 describe('api/queries/useGetMainAssets', () => {
   beforeEach(() => {
     (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
-    (getAssetsInAccount as jest.Mock).mockImplementation(() => ({
+    (getMainAssetsInAccount as jest.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
     (getMintedVai as jest.Mock).mockImplementation(() => ({

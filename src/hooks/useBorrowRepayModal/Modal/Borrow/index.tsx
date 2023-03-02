@@ -191,7 +191,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
     if (
       !asset ||
       !pool ||
-      !pool.userBorrowBalanceCents ||
+      pool.userBorrowBalanceCents === undefined ||
       !pool.userBorrowLimitCents ||
       pool.userBorrowBalanceCents >= pool.userBorrowLimitCents
     ) {

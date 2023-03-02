@@ -23,7 +23,7 @@ query IsolatedPools($accountAddress: ID) {
       borrowerCount
       liquidationThresholdMantissa
 
-      accounts(where: { id: $accountAddress }) {
+      accounts(where: { account_: { id: $accountAddress } }) {
         enteredMarket
         accountSupplyBalanceMantissa
         accountBorrowBalanceMantissa

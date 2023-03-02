@@ -85,7 +85,7 @@ Object {
               "address": "0xca83b44f7eea4ca927b6ce41a48f119458acde4c",
               "asset": "cake.svg",
               "decimals": 18,
-              "symbol": "Venus CAKE",
+              "symbol": "CAKE",
             },
           },
         },

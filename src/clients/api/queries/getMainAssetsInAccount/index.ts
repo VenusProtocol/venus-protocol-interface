@@ -1,18 +1,18 @@
 import { Comptroller } from 'types/contracts';
 
-export interface GetAssetsInAccountInput {
+export interface GetMainAssetsInAccountInput {
   comptrollerContract: Comptroller;
   accountAddress: string;
 }
 
-export type GetAssetsInAccountOutput = {
+export type GetMainAssetsInAccountOutput = {
   tokenAddresses: string[];
 };
 
-const getAssetsInAccount = async ({
+const getMainAssetsInAccount = async ({
   comptrollerContract,
   accountAddress,
-}: GetAssetsInAccountInput): Promise<GetAssetsInAccountOutput> => {
+}: GetMainAssetsInAccountInput): Promise<GetMainAssetsInAccountOutput> => {
   const tokenAddresses = await comptrollerContract.getAssetsIn(accountAddress);
 
   return {
@@ -20,4 +20,4 @@ const getAssetsInAccount = async ({
   };
 };
 
-export default getAssetsInAccount;
+export default getMainAssetsInAccount;

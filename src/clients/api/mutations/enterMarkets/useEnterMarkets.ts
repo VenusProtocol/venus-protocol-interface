@@ -1,36 +1,21 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { EnterMarketsInput, EnterMarketsOutput, enterMarkets, queryClient } from 'clients/api';
-import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 const useEnterMarkets = (
-  options?: MutationObserverOptions<
-    EnterMarketsOutput,
-    Error,
-    Omit<EnterMarketsInput, 'comptrollerContract'>
-  >,
-) => {
-  const comptrollerContract = useComptrollerContract();
+  options?: MutationObserverOptions<EnterMarketsOutput, Error, EnterMarketsInput>,
+) =>
+  useMutation(FunctionKey.ENTER_MARKETS, enterMarkets, {
+    ...options,
+    onSuccess: (...onSuccessParams) => {
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_ASSETS_IN_ACCOUNT);
+      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 
-  return useMutation(
-    FunctionKey.ENTER_MARKETS,
-    (params: Omit<EnterMarketsInput, 'comptrollerContract'>) =>
-      enterMarkets({
-        comptrollerContract,
-        ...params,
-      }),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      if (options?.onSuccess) {
+        options.onSuccess(...onSuccessParams);
+      }
     },
-  );
-};
+  });
 
 export default useEnterMarkets;
