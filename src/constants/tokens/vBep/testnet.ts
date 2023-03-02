@@ -136,12 +136,19 @@ export const TESTNET_VBEP_TOKENS = {
     asset: vTusd,
     underlyingToken: TESTNET_TOKENS.tusd,
   } as VToken,
-  '0x369fea97f6fb7510755dca389088d9e2e2819278': {
-    address: '0x369Fea97f6fB7510755DCA389088d9E2e2819278',
+  '0x6af3fdb3282c5bb6926269db10837fa8aec67c04': {
+    address: '0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04',
     decimals: 8,
     symbol: 'vTRX',
     asset: vTrx,
     underlyingToken: TESTNET_TOKENS.trx,
+  } as VToken,
+  '0x369fea97f6fb7510755dca389088d9e2e2819278': {
+    address: '0x369Fea97f6fB7510755DCA389088d9E2e2819278',
+    decimals: 8,
+    symbol: 'vTRXOLD',
+    asset: vTrx,
+    underlyingToken: TESTNET_TOKENS.trxold,
   } as VToken,
   '0xf206af85bc2761c4f876d27bd474681cfb335efa': {
     address: '0xF206af85BC2761c4F876d27Bd474681CfB335EfA',

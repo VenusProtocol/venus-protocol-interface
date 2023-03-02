@@ -121,9 +121,15 @@ export const TESTNET_TOKENS = {
     asset: tusd,
   } as Token,
   trx: {
+    address: '0x7D21841DC10BA1C5797951EFc62fADBBDD06704B',
+    decimals: 6,
+    symbol: 'TRX',
+    asset: trx,
+  } as Token,
+  trxold: {
     address: '0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F',
     decimals: 18,
-    symbol: 'TRX',
+    symbol: 'TRXOLD',
     asset: trx,
   } as Token,
   ust: {

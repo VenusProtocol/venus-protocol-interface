@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ButtonGroup, TextField, Toggle } from 'components';
+import { Announcement, ButtonGroup, TextField, Toggle } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { MarketTable } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -51,6 +52,8 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
+
+      <Announcement token={TOKENS.trxold} />
 
       <HigherRiskTokensNotice />
 

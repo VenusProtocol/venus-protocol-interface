@@ -32,5 +32,9 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
+    banner: css`
+      padding: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(4)};
+    `,
   };
 };

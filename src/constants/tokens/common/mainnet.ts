@@ -163,9 +163,15 @@ export const MAINNET_TOKENS = {
     asset: tusd,
   } as Token,
   trx: {
+    address: '0xCE7de646e7208a4Ef112cb6ed5038FA6cC6b12e3',
+    decimals: 6,
+    symbol: 'TRX',
+    asset: trx,
+  } as Token,
+  trxold: {
     address: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
     decimals: 18,
-    symbol: 'TRX',
+    symbol: 'TRXOLD',
     asset: trx,
   } as Token,
   vai: {

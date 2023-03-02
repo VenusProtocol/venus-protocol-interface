@@ -184,12 +184,19 @@ export const MAINNET_VBEP_TOKENS = {
     asset: vTusd,
     underlyingToken: MAINNET_TOKENS.tusd,
   } as VToken,
-  '0x61edcfe8dd6ba3c891cb9bec2dc7657b3b422e93': {
-    address: '0x61eDcFe8Dd6bA3c891CB9bEc2dc7657B3B422E93',
+  '0xc5d3466aa484b040ee977073fcf337f2c00071c1': {
+    address: '0xC5D3466aA484B040eE977073fcF337f2c00071c1',
     decimals: 8,
     symbol: 'vTRX',
     asset: vTrx,
     underlyingToken: MAINNET_TOKENS.trx,
+  } as VToken,
+  '0x61edcfe8dd6ba3c891cb9bec2dc7657b3b422e93': {
+    address: '0x61eDcFe8Dd6bA3c891CB9bEc2dc7657B3B422E93',
+    decimals: 8,
+    symbol: 'vTRXOLD',
+    asset: vTrx,
+    underlyingToken: MAINNET_TOKENS.trxold,
   } as VToken,
   '0x78366446547d062f45b4c0f320cdaa6d710d87bb': {
     address: '0x78366446547D062f45b4C0f320cDaa6d710D87bb',
