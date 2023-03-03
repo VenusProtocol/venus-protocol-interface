@@ -111,7 +111,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     uncheckedGroupNames,
   });
 
-  // Format groups into claims
+  // TODO: wire up (VEN-932)
   const handleClaimReward = async () => fakeContractReceipt;
 
   const handleOpenModal = () => {

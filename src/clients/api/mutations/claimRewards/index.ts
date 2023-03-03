@@ -7,19 +7,24 @@ import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
+import {
+  checkForComptrollerTransactionError,
+  checkForTokenTransactionError,
+  checkForVaiControllerTransactionError,
+  checkForVaiVaultTransactionError,
+  checkForXvsVaultProxyTransactionError,
+} from 'errors/transactionErrors';
 import { Multicall3 } from 'types/contracts/Multicall';
 
 import { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 
 export * from './types';
 
-// TODO: get addresses npm package (see VEN-836)
+// TODO: get addresses from npm package (see VEN-836)
 const comptrollerAddress = getContractAddress('comptroller');
 const vaiVaultAddress = getContractAddress('vaiVault');
 const vrtVaultAddress = getContractAddress('vrtVaultProxy');
 const xvsVaultAddress = getContractAddress('xvsVault');
-
-// TODO: add tests
 
 const claimRewards = async ({
   multicallContract,
@@ -44,7 +49,7 @@ const claimRewards = async ({
     if (claim.contract === 'vaiVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vaiVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData('claim', [accountAddress]);
+      const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
 
       return {
         target: vaiVaultAddress,
@@ -55,7 +60,7 @@ const claimRewards = async ({
     if (claim.contract === 'vrtVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vrtVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData('claim', [accountAddress]);
+      const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
 
       return {
         target: vrtVaultAddress,
@@ -66,7 +71,7 @@ const claimRewards = async ({
     if (claim.contract === 'xvsVestingVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(xvsVaultAbi));
 
-      const callData = executingInterface.encodeFunctionData('claim', [
+      const callData = executingInterface.encodeFunctionData('claim(address,address,uint256)', [
         accountAddress,
         claim.rewardTokenAddress,
         claim.poolIndex,
@@ -81,10 +86,9 @@ const claimRewards = async ({
     // rewardsDistributor
     const executingInterface = new ethers.utils.Interface(JSON.stringify(rewardsDistributorAbi));
 
-    const callData = executingInterface.encodeFunctionData('claimRewardToken', [
+    const callData = executingInterface.encodeFunctionData('claimRewardToken(address,address[])', [
       accountAddress,
       claim.vTokenAddressesWithPendingReward,
-      0,
     ]);
 
     return {
@@ -96,7 +100,13 @@ const claimRewards = async ({
   const transaction = await multicallContract.tryBlockAndAggregate(true, calls);
   const receipt = await transaction.wait(1);
 
-  // TODO: check for errors within contracts (checkForXvsVaultProxyTransactionError etc.)
+  // Check for errors that did not revert the transaction
+  checkForComptrollerTransactionError(receipt);
+  checkForTokenTransactionError(receipt);
+  checkForVaiControllerTransactionError(receipt);
+  checkForVaiVaultTransactionError(receipt);
+  checkForXvsVaultProxyTransactionError(receipt);
+
   return receipt;
 };
 

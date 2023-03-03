@@ -4073,9 +4073,9 @@ export const lenses: {
           },
         ],
       },
-      vestingVaults: {
+      xvsVestingVaults: {
         originalContractCallContext: {
-          reference: 'vestingVaults',
+          reference: 'xvsVestingVaults',
           contractAddress: '0x9aB56bAD2D7631B2A857ccf36d998232A8b82280',
           abi: xvsVaultAbi,
           calls: [

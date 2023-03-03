@@ -1893,6 +1893,21 @@ Array [
       },
       Object {
         "constant": false,
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "claim",
+        "outputs": Array [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "constant": false,
         "inputs": Array [],
         "name": "claim",
         "outputs": Array [],
@@ -2283,6 +2298,21 @@ Array [
       },
       Object {
         "constant": false,
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "claim",
+        "outputs": Array [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "constant": false,
         "inputs": Array [],
         "name": "claim",
         "outputs": Array [],
@@ -2577,6 +2607,37 @@ Array [
           Object {
             "indexed": true,
             "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "Claim",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
             "name": "delegator",
             "type": "address",
           },
@@ -2593,7 +2654,7 @@ Array [
             "type": "address",
           },
         ],
-        "name": "DelegateChanged",
+        "name": "DelegateChangedV2",
         "type": "event",
       },
       Object {
@@ -2618,7 +2679,7 @@ Array [
             "type": "uint256",
           },
         ],
-        "name": "DelegateVotesChanged",
+        "name": "DelegateVotesChangedV2",
         "type": "event",
       },
       Object {
@@ -3015,6 +3076,31 @@ Array [
         "inputs": Array [
           Object {
             "internalType": "address",
+            "name": "_account",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+        ],
+        "name": "claim",
+        "outputs": Array [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "constant": false,
+        "inputs": Array [
+          Object {
+            "internalType": "address",
             "name": "delegatee",
             "type": "address",
           },
@@ -3325,14 +3411,34 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "uint256",
+                "internalType": "uint128",
                 "name": "lockedUntil",
-                "type": "uint256",
+                "type": "uint128",
+              },
+              Object {
+                "internalType": "uint128",
+                "name": "afterUpgrade",
+                "type": "uint128",
               },
             ],
-            "internalType": "struct XVSVaultStorage.WithdrawalRequest[]",
+            "internalType": "struct XVSVaultStorageV1.WithdrawalRequest[]",
             "name": "",
             "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "constant": true,
+        "inputs": Array [],
+        "name": "implementation",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
           },
         ],
         "payable": false,
@@ -3600,21 +3706,6 @@ Array [
         "inputs": Array [
           Object {
             "internalType": "address",
-            "name": "newAdmin",
-            "type": "address",
-          },
-        ],
-        "name": "setNewAdmin",
-        "outputs": Array [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      Object {
-        "constant": false,
-        "inputs": Array [
-          Object {
-            "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
@@ -3746,21 +3837,6 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "constant": true,
-        "inputs": Array [],
-        "name": "xvsVaultImplementation",
-        "outputs": Array [
-          Object {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
     ],
     "calls": Array [
       Object {
@@ -3799,7 +3875,7 @@ Array [
       },
     ],
     "contractAddress": "0x9aB56bAD2D7631B2A857ccf36d998232A8b82280",
-    "reference": "vestingVaults",
+    "reference": "xvsVestingVaults",
   },
 ]
 `;
@@ -3870,6 +3946,7 @@ Object {
       "type": "vault",
     },
     Object {
+      "poolIndex": 0,
       "rewardAmountWei": "1.14191542975187e+22",
       "rewardToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -3877,15 +3954,10 @@ Object {
         "decimals": 18,
         "symbol": "XVS",
       },
-      "stakedToken": Object {
-        "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "vai.svg",
-        "decimals": 18,
-        "symbol": "VAI",
-      },
-      "type": "vestingVault",
+      "type": "xvsVestingVault",
     },
     Object {
+      "poolIndex": 1,
       "rewardAmountWei": "2.688138122377954e+21",
       "rewardToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -3893,13 +3965,7 @@ Object {
         "decimals": 18,
         "symbol": "XVS",
       },
-      "stakedToken": Object {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
-        "decimals": 18,
-        "symbol": "XVS",
-      },
-      "type": "vestingVault",
+      "type": "xvsVestingVault",
     },
   ],
 }

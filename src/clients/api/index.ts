@@ -42,10 +42,6 @@ export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/redeemUnderlying/useRedeemUnderlying';
 
-export { default as claimXvsReward } from './mutations/claimXvsReward';
-export * from './mutations/claimXvsReward';
-export { default as useClaimXvsReward } from './mutations/claimXvsReward/useClaimXvsReward';
-
 export { default as borrow } from './mutations/borrow';
 export * from './mutations/borrow';
 export { default as useBorrow } from './mutations/borrow/useBorrow';
@@ -73,18 +69,6 @@ export { default as useExecuteProposal } from './mutations/executeProposal/useEx
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
 export { default as useQueueProposal } from './mutations/queueProposal/useQueueProposal';
-
-export { default as claimVaiVaultReward } from './mutations/claimVaiVaultReward';
-export * from './mutations/claimVaiVaultReward';
-export { default as useClaimVaiVaultReward } from './mutations/claimVaiVaultReward/useClaimVaiVaultReward';
-
-export { default as claimVrtVaultReward } from './mutations/claimVrtVaultReward';
-export * from './mutations/claimVrtVaultReward';
-export { default as useClaimVrtVaultReward } from './mutations/claimVrtVaultReward/useClaimVrtVaultReward';
-
-export { default as claimXvsVaultReward } from './mutations/claimXvsVaultReward';
-export * from './mutations/claimXvsVaultReward';
-export { default as useClaimXvsVaultReward } from './mutations/claimXvsVaultReward/useClaimXvsVaultReward';
 
 export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
 export * from './mutations/stakeInXvsVault';
