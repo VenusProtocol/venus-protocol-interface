@@ -2,17 +2,19 @@ import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import { getTokenByAddress } from 'utilities';
 
-import { PoolPendingReward } from '../../types';
+import { IsolatedPoolPendingReward, MainPoolPendingReward } from '../../types';
 
-interface FormatToPoolPendingRewardsInput {
-  rewardSummaries: ContractCallReturnContext['callsReturnContext'][number]['returnValues'];
-}
+type FormatToPoolPendingRewardsOutput<T extends 'mainPool' | 'isolatedPool'> = T extends 'mainPool'
+  ? MainPoolPendingReward[]
+  : IsolatedPoolPendingReward[];
 
-type FormatToPoolPendingRewardsOutput = PoolPendingReward[];
-
-const formatToPoolPendingRewards = ({
+function formatToPoolPendingRewards<T extends 'mainPool' | 'isolatedPool'>({
+  type,
   rewardSummaries,
-}: FormatToPoolPendingRewardsInput): FormatToPoolPendingRewardsOutput => {
+}: {
+  type: T;
+  rewardSummaries: ContractCallReturnContext['callsReturnContext'][number]['returnValues'];
+}): FormatToPoolPendingRewardsOutput<T> {
   const pendingRewards = rewardSummaries
     .map(rewardSummary => {
       const rewardToken = getTokenByAddress(rewardSummary[1]);
@@ -45,17 +47,34 @@ const formatToPoolPendingRewards = ({
         return acc.plus(vTokenPendingReward);
       }, distributedRewardsWei);
 
-      const pendingReward: PoolPendingReward = {
+      // Return undefined if there's no pending reward
+      if (rewardAmountWei.isEqualTo(0)) {
+        return;
+      }
+
+      const pendingRewardBase = {
         rewardToken,
         rewardAmountWei,
         vTokenAddressesWithPendingReward,
       };
 
+      if (type === 'mainPool') {
+        const pendingReward: MainPoolPendingReward = pendingRewardBase;
+        return pendingReward;
+      }
+
+      const pendingReward: IsolatedPoolPendingReward = {
+        ...pendingRewardBase,
+        rewardsDistributorAddress: rewardSummary[0],
+      };
+
       return pendingReward;
     })
-    .filter(pendingReward => !!pendingReward) as PoolPendingReward[];
+    .filter(pendingReward => !!pendingReward) as T extends 'mainPool'
+    ? MainPoolPendingReward[]
+    : IsolatedPoolPendingReward[];
 
   return pendingRewards;
-};
+}
 
 export default formatToPoolPendingRewards;

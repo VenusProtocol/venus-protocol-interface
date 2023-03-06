@@ -1,18 +1,24 @@
 import { ContractCallReturnContext } from 'ethereum-multicall';
 
-import { PoolPendingRewardGroup } from '../../types';
+import {
+  IsolatedPoolPendingReward,
+  IsolatedPoolPendingRewardGroup,
+  MainPoolPendingReward,
+  MainPoolPendingRewardGroup,
+} from '../../types';
 import formatToPoolPendingReward from './formatToPoolPendingRewards';
 
-interface FormatToPoolPendingRewardsGroupsInput {
-  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number];
-}
-
-const formatToPoolPendingRewardGroup = ({
+function formatToPoolPendingRewardGroup<T extends 'mainPool' | 'isolatedPool'>({
   callsReturnContext,
-}: FormatToPoolPendingRewardsGroupsInput): PoolPendingRewardGroup | undefined => {
+  type,
+}: {
+  type: T;
+  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number];
+}): IsolatedPoolPendingRewardGroup | MainPoolPendingRewardGroup | undefined {
   const { returnValues, methodParameters } = callsReturnContext;
 
   const pendingRewards = formatToPoolPendingReward({
+    type,
     rewardSummaries:
       // Check if returnValues is just one RewardSummary (which is the case
       // for the main pool) or an array of RewardSummary instances (which is
@@ -26,11 +32,19 @@ const formatToPoolPendingRewardGroup = ({
     return undefined;
   }
 
+  if (type === 'mainPool') {
+    return {
+      type: 'mainPool',
+      comptrollerAddress: methodParameters[1],
+      pendingRewards: pendingRewards as MainPoolPendingReward[],
+    };
+  }
+
   return {
-    type: 'pool',
+    type: 'isolatedPool',
     comptrollerAddress: methodParameters[1],
-    pendingRewards,
+    pendingRewards: pendingRewards as IsolatedPoolPendingReward[],
   };
-};
+}
 
 export default formatToPoolPendingRewardGroup;

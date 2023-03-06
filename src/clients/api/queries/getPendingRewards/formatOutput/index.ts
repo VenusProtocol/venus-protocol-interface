@@ -6,7 +6,6 @@ import { TOKENS } from 'constants/tokens';
 
 import {
   PendingRewardGroup,
-  PoolPendingRewardGroup,
   VaultPendingRewardGroup,
   XvsVestingVaultPendingRewardGroup,
 } from '../types';
@@ -21,6 +20,7 @@ const formatOutput = ({
 
   // Extract pending rewards from main pool
   const mainPoolPendingRewardGroup = formatToPoolPendingRewardGroup({
+    type: 'mainPool',
     callsReturnContext: contractCallResults.results.venusLens.callsReturnContext[0],
   });
 
@@ -33,16 +33,13 @@ const formatOutput = ({
     contractCallResults.results.poolLens?.callsReturnContext
       // Ignore last call result as it is the oracle address
       .slice(0, -1) || []
-  ).reduce<PoolPendingRewardGroup[]>((acc, callsReturnContext) => {
+  ).reduce<PendingRewardGroup[]>((acc, callsReturnContext) => {
     const isolatedPoolPendingRewardGroup = formatToPoolPendingRewardGroup({
+      type: 'isolatedPool',
       callsReturnContext,
     });
 
-    if (!isolatedPoolPendingRewardGroup) {
-      return acc;
-    }
-
-    return [...acc, isolatedPoolPendingRewardGroup];
+    return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
   }, []);
 
   if (isolatedPoolPendingRewardGroups.length > 0) {

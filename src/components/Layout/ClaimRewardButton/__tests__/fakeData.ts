@@ -5,7 +5,7 @@ import { TESTNET_TOKENS } from 'constants/tokens';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
-    type: 'pool',
+    type: 'mainPool',
     comptrollerAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
     pendingRewards: [
       {
@@ -19,6 +19,28 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
       },
     ],
   },
+  {
+    type: 'isolatedPool',
+    comptrollerAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
+    pendingRewards: [
+      {
+        rewardToken: TESTNET_TOKENS.vai,
+        rewardAmountWei: new BigNumber('2000000000000000000000000000'),
+        rewardsDistributorAddress: '0xa14c236372228b6e8182748f3ebbfb4bfeea3574',
+        vTokenAddressesWithPendingReward: [
+          '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
+          '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
+        ],
+      },
+      {
+        rewardToken: TESTNET_TOKENS.xvs,
+        rewardAmountWei: new BigNumber('3000000000000000000000000000'),
+        rewardsDistributorAddress: '0xadbed07126b7b70cbc5e07bf73599d55be571b9c',
+        vTokenAddressesWithPendingReward: ['0xcfc8a73f9c888eea9af9ccca24646e84a915510b'],
+      },
+    ],
+  },
+  // TODO: add isolated pool
   {
     type: 'vault',
     stakedToken: TESTNET_TOKENS.vrt,
