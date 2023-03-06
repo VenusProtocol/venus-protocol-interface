@@ -4,7 +4,12 @@ import { getTokenByAddress } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
-import { PendingRewardGroup, PoolPendingRewardGroup, VaultPendingRewardGroup } from '../types';
+import {
+  PendingRewardGroup,
+  PoolPendingRewardGroup,
+  VaultPendingRewardGroup,
+  XvsVestingVaultPendingRewardGroup,
+} from '../types';
 import formatToPoolPendingRewardGroup from './formatToPoolPendingRewardGroup';
 
 const formatOutput = ({
@@ -77,27 +82,29 @@ const formatOutput = ({
   }
 
   // Extract pending rewards from vesting vaults
-  const vestingVaultPendingRewardGroups: VaultPendingRewardGroup[] = [];
-  const vestingVaultResults = contractCallResults.results.vestingVaults.callsReturnContext;
+  const xvsVestingVaultPendingRewardGroups: XvsVestingVaultPendingRewardGroup[] = [];
+  const xvsVestingVaultResults = contractCallResults.results.xvsVestingVaults.callsReturnContext;
 
-  for (let v = 0; v < vestingVaultResults.length - 1; v += 2) {
-    const stakedTokenAddress = vestingVaultResults[v].returnValues[0];
+  for (let v = 0; v < xvsVestingVaultResults.length - 1; v += 2) {
+    const stakedTokenAddress = xvsVestingVaultResults[v].returnValues[0];
     const stakedToken = getTokenByAddress(stakedTokenAddress);
 
-    const pendingRewardWei = new BigNumber(vestingVaultResults[v + 1].returnValues[0].hex);
+    const poolIndex = xvsVestingVaultResults[v].methodParameters[1];
+
+    const pendingRewardWei = new BigNumber(xvsVestingVaultResults[v + 1].returnValues[0].hex);
 
     if (stakedToken && pendingRewardWei.isGreaterThan(0)) {
-      vestingVaultPendingRewardGroups.push({
-        type: 'vestingVault',
-        stakedToken,
+      xvsVestingVaultPendingRewardGroups.push({
+        type: 'xvsVestingVault',
+        poolIndex,
         rewardToken: TOKENS.xvs,
         rewardAmountWei: pendingRewardWei,
       });
     }
   }
 
-  if (vestingVaultPendingRewardGroups.length > 0) {
-    pendingRewardGroups.push(...vestingVaultPendingRewardGroups);
+  if (xvsVestingVaultPendingRewardGroups.length > 0) {
+    pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
   }
 
   return pendingRewardGroups;

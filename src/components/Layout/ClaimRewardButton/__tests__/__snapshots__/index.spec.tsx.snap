@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Layout/ClaimRewardButton renders correct reward breakdown in modal 1`] = `"VRT vault1,000,000,000 VRTVAI vault1,000,000,000 XVSXVS vesting vault1,000,000,000 XVS"`;
+exports[`components/Layout/ClaimRewardButton renders correct reward breakdown in modal 1`] = `"VRT vault2,000,000,000 VRTVAI vault3,000,000,000 XVSXVS vesting vault4,000,000,000 XVS"`;

@@ -20,6 +20,7 @@ export interface PoolPendingReward {
   vTokenAddressesWithPendingReward: string[];
 }
 
+// TODO: update to divide between main pool and isolated pools
 export interface PoolPendingRewardGroup {
   type: 'pool';
   comptrollerAddress: string;
@@ -27,10 +28,20 @@ export interface PoolPendingRewardGroup {
 }
 
 export interface VaultPendingRewardGroup {
-  type: 'vault' | 'vestingVault';
+  type: 'vault';
   stakedToken: Token;
   rewardToken: Token;
   rewardAmountWei: BigNumber;
 }
 
-export type PendingRewardGroup = PoolPendingRewardGroup | VaultPendingRewardGroup;
+export interface XvsVestingVaultPendingRewardGroup {
+  type: 'xvsVestingVault';
+  poolIndex: number;
+  rewardToken: Token;
+  rewardAmountWei: BigNumber;
+}
+
+export type PendingRewardGroup =
+  | PoolPendingRewardGroup
+  | VaultPendingRewardGroup
+  | XvsVestingVaultPendingRewardGroup;

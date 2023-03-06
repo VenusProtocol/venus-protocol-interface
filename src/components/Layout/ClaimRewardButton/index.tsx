@@ -111,6 +111,9 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     uncheckedGroupNames,
   });
 
+  // TODO: wire up (VEN-932)
+  const handleClaimReward = async () => fakeContractReceipt;
+
   const handleOpenModal = () => {
     // Block action if user has LUNA or UST enabled as collateral
     if (hasLunaOrUstCollateralEnabled) {
@@ -131,9 +134,6 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
             currentCheckedGroupName => currentCheckedGroupName !== toggledGroup.name,
           ),
     );
-
-  // TODO: wire up (see VEN-932)
-  const handleClaimReward = async () => fakeContractReceipt;
 
   return (
     <ClaimRewardButtonUi

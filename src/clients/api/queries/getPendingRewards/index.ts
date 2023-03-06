@@ -75,7 +75,7 @@ const getPendingRewardGroups = async ({
       ],
     },
     {
-      reference: 'vestingVaults',
+      reference: 'xvsVestingVaults',
       contractAddress: xvsVaultAddress,
       abi: xvsVaultAbi,
       calls: new Array(xvsVestingVaultPoolCount).fill(undefined).reduce(

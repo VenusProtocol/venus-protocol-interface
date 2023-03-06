@@ -280,22 +280,6 @@ export const exitMarket = jest.fn();
 export const useExitMarket = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.EXIT_MARKET, exitMarket, options);
 
-export const claimXvsReward = jest.fn();
-export const useClaimXvsReward = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
-
-export const claimVaiVaultReward = jest.fn();
-export const useClaimVaiVaultReward = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CLAIM_VAI_VAULT_REWARD, claimVaiVaultReward, options);
-
-export const claimXvsVaultReward = jest.fn();
-export const useClaimXvsVaultReward = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CLAIM_XVS_VAULT_REWARD, claimXvsVaultReward, options);
-
-export const claimVrtVaultReward = jest.fn();
-export const useClaimVrtVaultReward = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CLAIM_VRT_VAULT_REWARD, claimVrtVaultReward, options);
-
 export const repay = jest.fn();
 export const useRepay = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.REPAY, repay, options);

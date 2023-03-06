@@ -16,13 +16,13 @@ const formatToPoolPendingRewards = ({
   const pendingRewards = rewardSummaries
     .map(rewardSummary => {
       const rewardToken = getTokenByAddress(rewardSummary[1]);
-      const vTokenAddressesWithPendingReward: string[] = [];
 
       // Filter out result if no corresponding token is found
       if (!rewardToken) {
         return undefined;
       }
 
+      const vTokenAddressesWithPendingReward: string[] = [];
       const distributedRewardsWei = new BigNumber(rewardSummary[2].hex);
 
       // Go through markets to aggregate rewards

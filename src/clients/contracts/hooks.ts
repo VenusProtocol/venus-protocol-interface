@@ -6,6 +6,7 @@ import { useAuth } from 'context/AuthContext';
 import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
+  getMulticallContract,
   getPancakeRouterContract,
   getTokenContract,
   getVTokenContract,
@@ -83,4 +84,9 @@ export const useVrtVaultProxyContract = () => {
 export const usePancakeRouterContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getPancakeRouterContract(signer || undefined), [signer]);
+};
+
+export const useMulticallContract = () => {
+  const { signer } = useAuth();
+  return useMemo(() => getMulticallContract(signer || undefined), [signer]);
 };
