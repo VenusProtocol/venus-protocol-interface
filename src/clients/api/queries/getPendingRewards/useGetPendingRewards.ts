@@ -1,6 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { useMulticall } from 'clients/web3';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 import getPendingRewardGroups from '.';
@@ -45,7 +46,10 @@ const useGetPendingRewards = (
         multicall,
         accountAddress,
       }),
-    options,
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      ...options,
+    },
   );
 };
 

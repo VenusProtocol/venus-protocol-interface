@@ -375,13 +375,11 @@ export const swapTokens = jest.fn();
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
 
-const claimReward = jest.fn();
-export const useClaimVaultReward = () => ({
-  claimReward,
-  isLoading: false,
-});
+export const claimRewards = jest.fn();
+export const useClaimRewards = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_REWARDS, claimRewards, options);
 
-const stake = jest.fn();
+export const stake = jest.fn();
 export const useStakeInVault = () => ({
   stake,
   isLoading: false,

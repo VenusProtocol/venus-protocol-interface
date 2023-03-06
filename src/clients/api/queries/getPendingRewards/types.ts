@@ -14,15 +14,10 @@ export type GetPendingRewardGroupsOutput = {
   pendingRewardGroups: PendingRewardGroup[];
 };
 
-interface PoolPendingReward {
+export interface IsolatedPoolPendingReward {
   rewardToken: Token;
   rewardAmountWei: BigNumber;
   vTokenAddressesWithPendingReward: string[];
-}
-
-export type MainPoolPendingReward = PoolPendingReward;
-
-export interface IsolatedPoolPendingReward extends PoolPendingReward {
   rewardsDistributorAddress: string;
 }
 
@@ -35,7 +30,9 @@ export interface IsolatedPoolPendingRewardGroup {
 export interface MainPoolPendingRewardGroup {
   type: 'mainPool';
   comptrollerAddress: string;
-  pendingRewards: MainPoolPendingReward[];
+  rewardToken: Token;
+  rewardAmountWei: BigNumber;
+  vTokenAddressesWithPendingReward: string[];
 }
 
 export interface VaultPendingRewardGroup {

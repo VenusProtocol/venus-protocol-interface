@@ -10,7 +10,7 @@ import { Group } from './types';
 
 const mainPoolComptrollerAddress = getContractAddress('comptroller');
 
-const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }) => {
+const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
@@ -54,6 +54,11 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
             pendingRewardGroup.type === 'vault' ||
             pendingRewardGroup.type === 'xvsVestingVault'
           ) {
+            const id =
+              pendingRewardGroup.type === 'vault'
+                ? `vault-${pendingRewardGroup.stakedToken.address}-${pendingRewardGroup.rewardToken.address}`
+                : `xvs-vesting-vault-${pendingRewardGroup.rewardToken.asset}-${pendingRewardGroup.poolIndex}`;
+
             const name =
               pendingRewardGroup.type === 'vault'
                 ? t('layout.claimRewardModal.vaultGroup', {
@@ -77,8 +82,9 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
                   };
 
             const group: Group = {
+              id,
               name,
-              isChecked: !uncheckedGroupNames.includes(name),
+              isChecked: !uncheckedGroupIds.includes(id),
               pendingRewards: [
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
@@ -109,39 +115,55 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
             return acc;
           }
 
-          const name = t('layout.claimRewardModal.poolGroup', { poolName: pool.name });
+          // Main pool
+          if (pendingRewardGroup.type === 'mainPool') {
+            const id = 'main-pool';
 
-          const claims: Claim[] =
-            pendingRewardGroup.type === 'mainPool'
-              ? [
-                  {
-                    contract: 'mainPoolComptroller',
-                    vTokenAddressesWithPendingReward: pendingRewardGroup.pendingRewards.map(
-                      pendingReward => pendingReward.rewardToken.address,
-                    ),
-                  },
-                ]
-              : pendingRewardGroup.pendingRewards.map(pendingReward => ({
-                  contract: 'rewardsDistributor',
-                  contractAddress: pendingReward.rewardsDistributorAddress,
-                  vTokenAddressesWithPendingReward: pendingReward.vTokenAddressesWithPendingReward,
-                }));
+            const group: Group = {
+              id,
+              name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
+              isChecked: !uncheckedGroupIds.includes(id),
+              pendingRewards: [
+                {
+                  rewardToken: pendingRewardGroup.rewardToken,
+                  rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                },
+              ],
+              claims: [
+                {
+                  contract: 'mainPoolComptroller',
+                  vTokenAddressesWithPendingReward:
+                    pendingRewardGroup.vTokenAddressesWithPendingReward,
+                },
+              ],
+            };
+
+            return [...acc, group];
+          }
+
+          // Isolated pools
+          const id = `isolated-pool-${pendingRewardGroup.comptrollerAddress}`;
 
           const group: Group = {
+            id,
             name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
-            isChecked: !uncheckedGroupNames.includes(name),
+            isChecked: !uncheckedGroupIds.includes(id),
             pendingRewards: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               rewardToken: pendingReward.rewardToken,
               rewardAmountWei: pendingReward.rewardAmountWei,
             })),
-            claims,
+            claims: pendingRewardGroup.pendingRewards.map(pendingReward => ({
+              contract: 'rewardsDistributor',
+              contractAddress: pendingReward.rewardsDistributorAddress,
+              vTokenAddressesWithPendingReward: pendingReward.vTokenAddressesWithPendingReward,
+            })),
           };
 
           return [...acc, group];
         },
         [],
       ),
-    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupNames, getPoolsData?.pools],
+    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds],
   );
 };
 

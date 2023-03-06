@@ -3,7 +3,8 @@ import { ContractReceipt } from 'ethers';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { Claim, useClaimRewards } from 'clients/api';
+import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -76,7 +77,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
               <RewardGroup
                 group={group}
                 onCheckChange={() => onToggleGroup(group)}
-                key={`claim-reward-modal-reward-group-${group.name}`}
+                key={`claim-reward-modal-reward-group-${group.id}`}
               />
             ))}
           </div>
@@ -100,19 +101,32 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 export type ClaimRewardButtonProps = Omit<ButtonProps, 'onClick'>;
 
 export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
+  const { accountAddress } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
   );
 
-  const [uncheckedGroupNames, setUncheckedGroupNames] = useState<string[]>([]);
+  const [uncheckedGroupIds, setUncheckedGroupIds] = useState<string[]>([]);
   const groups = useGetGroups({
-    uncheckedGroupNames,
+    uncheckedGroupIds,
   });
 
-  // TODO: wire up (VEN-932)
-  const handleClaimReward = async () => fakeContractReceipt;
+  const { mutateAsync: claimRewards } = useClaimRewards();
+
+  const handleClaimReward = async () => {
+    // Extract all claims from checked groups
+    const claims = groups.reduce<Claim[]>(
+      (allClaims, group) => (group.isChecked ? allClaims.concat(group.claims) : allClaims),
+      [],
+    );
+
+    return claimRewards({
+      claims,
+      accountAddress,
+    });
+  };
 
   const handleOpenModal = () => {
     // Block action if user has LUNA or UST enabled as collateral
@@ -127,11 +141,11 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handleToggleGroup = (toggledGroup: Group) =>
-    setUncheckedGroupNames(currentUncheckedGroupNames =>
+    setUncheckedGroupIds(currentUncheckedGroupIds =>
       toggledGroup.isChecked
-        ? [...currentUncheckedGroupNames, toggledGroup.name]
-        : currentUncheckedGroupNames.filter(
-            currentCheckedGroupName => currentCheckedGroupName !== toggledGroup.name,
+        ? [...currentUncheckedGroupIds, toggledGroup.id]
+        : currentUncheckedGroupIds.filter(
+            currentCheckedGroupName => currentCheckedGroupName !== toggledGroup.id,
           ),
     );
 

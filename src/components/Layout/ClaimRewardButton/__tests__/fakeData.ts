@@ -6,22 +6,18 @@ import { TESTNET_TOKENS } from 'constants/tokens';
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
     type: 'mainPool',
-    comptrollerAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
-    pendingRewards: [
-      {
-        rewardToken: TESTNET_TOKENS.xvs,
-        rewardAmountWei: new BigNumber('1000000000000000000000000000'),
-        vTokenAddressesWithPendingReward: [
-          '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
-          '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
-          '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
-        ],
-      },
+    comptrollerAddress: 'fake-comptroller-address-1',
+    rewardToken: TESTNET_TOKENS.xvs,
+    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+    vTokenAddressesWithPendingReward: [
+      '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+      '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
+      '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
     ],
   },
   {
     type: 'isolatedPool',
-    comptrollerAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
+    comptrollerAddress: 'fake-comptroller-address-2',
     pendingRewards: [
       {
         rewardToken: TESTNET_TOKENS.vai,

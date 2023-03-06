@@ -9,8 +9,9 @@ export interface PendingReward {
 }
 
 export interface Group {
+  id: string;
   name: string;
-  pendingRewards: PendingReward[];
   isChecked: boolean;
+  pendingRewards: PendingReward[];
   claims: Claim[];
 }
