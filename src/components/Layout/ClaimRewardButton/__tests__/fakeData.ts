@@ -40,7 +40,6 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
       },
     ],
   },
-  // TODO: add isolated pool
   {
     type: 'vault',
     stakedToken: TESTNET_TOKENS.vrt,
