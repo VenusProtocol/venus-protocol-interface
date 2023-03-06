@@ -18,7 +18,7 @@ const formatSignature = (action: FormValues['actions'][number] | ProposalAction)
       });
     } else {
       const unformattedArgs = ethers.utils.defaultAbiCoder.decode(
-        fragment.inputs.map(input => input.baseType),
+        fragment.inputs.map(input => input.type),
         action.callData,
       );
       args = fragment.inputs.map((i, idx) => {
