@@ -20,7 +20,6 @@ Array [
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000000000",
   },
   Object {
@@ -41,7 +40,6 @@ Array [
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000000000",
   },
   Object {
@@ -62,7 +60,6 @@ Array [
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000000000",
   },
   Object {
@@ -83,7 +80,6 @@ Array [
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000000000",
   },
   Object {
@@ -104,7 +100,6 @@ Array [
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000000000",
   },
   Object {
@@ -123,7 +118,6 @@ Array [
     },
     "stakingAprPercentage": 58339.473875,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "600000000",
     "userStakedWei": "1e+23",
   },
   Object {
@@ -142,7 +136,6 @@ Array [
     },
     "stakingAprPercentage": 9460.8,
     "totalStakedWei": "4000000000",
-    "userPendingRewardWei": "800000000000000",
     "userStakedWei": "100000000000000",
   },
 ]

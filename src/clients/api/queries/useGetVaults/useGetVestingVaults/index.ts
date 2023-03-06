@@ -4,7 +4,6 @@ import { Vault } from 'types';
 import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
-  GetXvsVaultPendingRewardOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolCount,
@@ -58,7 +57,6 @@ const useGetVestingVaults = ({
     const data: {
       [poolIndex: string]: {
         poolInfos: GetXvsVaultPoolInfoOutput;
-        userPendingReward?: GetXvsVaultPendingRewardOutput;
         userInfos?: GetXvsVaultUserInfoOutput;
       };
     } = {};
@@ -77,12 +75,8 @@ const useGetVestingVaults = ({
         poolQueryResultStartIndex
       ] as UseQueryResult<GetXvsVaultPoolInfoOutput>;
 
-      const userPendingRewardQueryResult = poolQueryResults[
-        poolQueryResultStartIndex + 1
-      ] as UseQueryResult<GetXvsVaultPendingRewardOutput>;
-
       const userInfoQueryResult = poolQueryResults[
-        poolQueryResultStartIndex + 2
+        poolQueryResultStartIndex + 1
       ] as UseQueryResult<GetXvsVaultUserInfoOutput>;
 
       if (poolInfosQueryResult?.data) {
@@ -91,7 +85,6 @@ const useGetVestingVaults = ({
         data[poolIndex] = {
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
-          userPendingReward: userPendingRewardQueryResult.data,
         };
       }
     }
@@ -132,7 +125,6 @@ const useGetVestingVaults = ({
           const totalStakedWeiData = poolBalances[poolIndex];
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
-          const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
 
           const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
@@ -173,7 +165,6 @@ const useGetVestingVaults = ({
               totalStakedWei: totalStakedWeiData.balanceWei,
               stakingAprPercentage,
               userStakedWei,
-              userPendingRewardWei,
               poolIndex,
             };
 

@@ -172,8 +172,6 @@ export const getXvsVaultLockedDeposits = jest.fn();
 export const useGetXvsVaultLockedDeposits = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
 
-export const getXvsVaultPendingReward = jest.fn();
-
 export const getXvsVaultUserInfo = jest.fn();
 export const useGetXvsVaultUserInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
@@ -205,10 +203,6 @@ export const getVaiVaultUserInfo = jest.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
 
-export const getVaiVaultPendingXvs = jest.fn();
-export const useGetVaiVaultPendingXvs = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvs);
-
 export const useGetVestingVaults = jest.fn();
 
 export const getVoteDelegateAddress = jest.fn();
@@ -230,10 +224,6 @@ export const useGetVrtVaultInterestRatePerBlock = () =>
 export const getVrtVaultUserInfo = jest.fn();
 export const useGetVrtVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
-
-export const getVrtVaultAccruedInterest = jest.fn();
-export const useGetVrtVaultAccruedInterest = () =>
-  useQuery([FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, fakeAddress], getVrtVaultAccruedInterest);
 
 export const getVoterAccounts = jest.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);

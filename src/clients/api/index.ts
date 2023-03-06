@@ -231,9 +231,6 @@ export { default as getXvsVaultRewardPerBlock } from './queries/getXvsVaultRewar
 export * from './queries/getXvsVaultRewardPerBlock';
 export { default as useGetXvsVaultRewardPerBlock } from './queries/getXvsVaultRewardPerBlock/useGetXvsVaultRewardPerBlock';
 
-export { default as getXvsVaultPendingReward } from './queries/getXvsVaultPendingReward';
-export * from './queries/getXvsVaultPendingReward';
-
 export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
 export * from './queries/getXvsVaultTotalAllocationPoints';
 export { default as useGetXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints/useGetXvsVaultTotalAllocationPoints';
@@ -272,10 +269,6 @@ export { default as getVoterHistory } from './queries/getVoterHistory';
 export * from './queries/getVoterHistory';
 export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
 
-export { default as getVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs';
-export * from './queries/getVaiVaultPendingXvs';
-export { default as useGetVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs/useGetVaiVaultPendingXvs';
-
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
 export { default as useGetVaiVaultUserInfo } from './queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
@@ -293,10 +286,6 @@ export { default as useGetVrtVaultInterestRatePerBlock } from './queries/getVrtV
 export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
 export * from './queries/getVrtVaultUserInfo';
 export { default as useGetVrtVaultUserInfo } from './queries/getVrtVaultUserInfo/useGetVrtVaultUserInfo';
-
-export { default as getVrtVaultAccruedInterest } from './queries/getVrtVaultAccruedInterest';
-export * from './queries/getVrtVaultAccruedInterest';
-export { default as useGetVrtVaultAccruedInterest } from './queries/getVrtVaultAccruedInterest/useGetVrtVaultAccruedInterest';
 
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';

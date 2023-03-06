@@ -270,7 +270,6 @@ export interface Vault {
   dailyEmissionWei: BigNumber;
   lockingPeriodMs?: number;
   userStakedWei?: BigNumber;
-  userPendingRewardWei?: BigNumber;
   poolIndex?: number;
 }
 
