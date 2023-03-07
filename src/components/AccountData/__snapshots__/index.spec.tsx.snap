@@ -10,7 +10,7 @@ exports[`components/AccountData renders correctly with props: { action: 'repay',
 
 exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1,926.73.Supply balance (XVS)90Borrow limit$1,926.73Daily earnings$0.01"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$65,860.40.Supply balance (XVS)90100,090Borrow limit$1,926.73$65,860.40Daily earnings$0.01$0.01"`;
+exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$65,860.40.Supply balance (XVS)90100,090Borrow limit$1,926.73$65,860.40Daily earnings$0.01$0.60"`;
 
 exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1,926.73.Supply balance (XVS)90Borrow limit$1,926.73Daily earnings$0.01"`;
 

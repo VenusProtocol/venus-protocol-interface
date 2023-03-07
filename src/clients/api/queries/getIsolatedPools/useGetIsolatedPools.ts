@@ -5,6 +5,7 @@ import getIsolatedPools, {
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
 import { useMulticall } from 'clients/web3';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
@@ -30,7 +31,10 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
         multicall,
         provider,
       }),
-    options,
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      ...options,
+    },
   );
 };
 
