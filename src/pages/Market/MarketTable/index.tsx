@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { LayeredValues, Table, TableProps, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Market } from 'types';
+import { Asset, Market } from 'types';
 import {
   convertPercentageFromSmartContract,
   formatCentsToReadableValue,
@@ -13,6 +14,7 @@ import {
 } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
+import { TableColumn } from 'components/Table/types';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
@@ -21,36 +23,91 @@ export interface MarketTableProps extends Pick<TableProps, 'getRowHref'> {
   markets: Market[];
 }
 
+const compareBigNumbers = (
+  valueA: BigNumber | undefined,
+  valueB: BigNumber | undefined,
+  direction: 'asc' | 'desc',
+): number => {
+  if (!valueA || !valueB) {
+    return 0;
+  }
+
+  if (valueA.isLessThan(valueB)) {
+    return direction === 'asc' ? -1 : 1;
+  }
+
+  if (valueA.isGreaterThan(valueB)) {
+    return direction === 'asc' ? 1 : -1;
+  }
+
+  return 0;
+};
+
 export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
 
-  const columns = useMemo(
+  const columns: TableColumn<Asset>[] = useMemo(
     () => [
-      { key: 'asset', label: t('market.columns.asset'), orderable: false, align: 'left' },
+      {
+        key: 'asset',
+        label: t('market.columns.asset'),
+        orderable: false,
+        align: 'left',
+      },
       {
         key: 'totalSupply',
         label: t('market.columns.totalSupply'),
         orderable: true,
         align: 'right',
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.supplyBalance, rowB.supplyBalance, direction),
       },
-      { key: 'supplyApy', label: t('market.columns.supplyApy'), orderable: true, align: 'right' },
+      {
+        key: 'supplyApy',
+        label: t('market.columns.supplyApy'),
+        orderable: true,
+        align: 'right',
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.supplyApy, rowB.supplyApy, direction),
+      },
       {
         key: 'totalBorrows',
         label: t('market.columns.totalBorrow'),
         orderable: true,
         align: 'right',
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.borrowBalance, rowB.borrowBalance, direction),
       },
-      { key: 'borrowApy', label: t('market.columns.borrowApy'), orderable: true, align: 'right' },
-      { key: 'liquidity', label: t('market.columns.liquidity'), orderable: true, align: 'right' },
+      {
+        key: 'borrowApy',
+        label: t('market.columns.borrowApy'),
+        orderable: true,
+        align: 'right',
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.borrowApy, rowB.borrowApy, direction),
+      },
+      {
+        key: 'liquidity',
+        label: t('market.columns.liquidity'),
+        orderable: true,
+        align: 'right',
+        sortRows: (rowA, rowB, direction) =>
+          compareBigNumbers(rowA.liquidity, rowB.liquidity, direction),
+      },
       {
         key: 'collateralFactor',
         label: t('market.columns.collateralFactor'),
         orderable: true,
         align: 'right',
       },
-      { key: 'price', label: t('market.columns.price'), orderable: true, align: 'right' },
+      {
+        key: 'price',
+        label: t('market.columns.price'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -180,7 +237,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       cardColumns={cardColumns}
       data={rows}
       initialOrder={{
-        orderBy: 'asset',
+        orderBy: 'totalSupply',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}

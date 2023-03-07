@@ -13,7 +13,7 @@ import { TextButton } from '../Button';
 import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
-interface Option {
+export interface Option {
   value: string | number;
   label: string;
 }
@@ -21,11 +21,12 @@ interface Option {
 export interface SelectProps {
   className?: string;
   options: Option[];
-  value: string | undefined;
-  onChange: (e: SelectChangeEvent) => void;
+  value: string | number | undefined;
+  onChange: (e: SelectChangeEvent<string | number | undefined>) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   ariaLabel: string;
   label?: string;
+  placeLabelToLeft?: boolean;
   name?: string;
 }
 
@@ -37,6 +38,7 @@ export const Select: React.FC<SelectProps> = ({
   onBlur,
   ariaLabel,
   label,
+  placeLabelToLeft = false,
   name,
 }) => {
   const { t } = useTranslation();
@@ -74,14 +76,14 @@ export const Select: React.FC<SelectProps> = ({
   }, [isSmDown]);
 
   return (
-    <div className={className}>
-      <div css={styles.label}>
+    <div className={className} css={styles.getContainer({ placeLabelToLeft })}>
+      <div css={styles.getLabel({ placeLabelToLeft })}>
         <Typography variant="small1" component="label" htmlFor="proposalType">
           {label || t('select.defaultLabel')}
         </Typography>
       </div>
 
-      <MuiSelect
+      <MuiSelect<string | number | undefined>
         name={name}
         open={isOpen}
         onClose={handleClose}

@@ -1,4 +1,3 @@
-import { SelectChangeEvent } from '@mui/material/Select';
 import { useField } from 'formik';
 import React from 'react';
 
@@ -11,7 +10,8 @@ interface FormikSelectFieldProps extends Omit<SelectProps, 'name' | 'onChange' |
 
 export const FormikSelectField = ({ name, onBlur, ...rest }: FormikSelectFieldProps) => {
   const [{ value, onBlur: formikOnBlur }, _formState, { setValue }] = useField(name); // eslint-disable-line @typescript-eslint/naming-convention
-  const onChange = (e: SelectChangeEvent) => {
+
+  const onChange: SelectProps['onChange'] = e => {
     const val = e.target.value;
     setValue(val);
   };

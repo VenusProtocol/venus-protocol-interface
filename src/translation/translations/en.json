@@ -461,6 +461,12 @@
       "label": "To"
     }
   },
+  "table": {
+    "cardsSelect": {
+      "accessibilityLabel": "Choose an option to sort table rows by",
+      "label": "Sort by"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
