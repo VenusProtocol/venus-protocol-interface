@@ -17,6 +17,7 @@ import useGetGroups from './useGetGroups';
 
 export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   isModalOpen: boolean;
+  isClaimingRewards: boolean;
   onOpenModal: () => void;
   onCloseModal: () => void;
   onClaimReward: () => Promise<ContractReceipt>;
@@ -26,6 +27,7 @@ export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
 
 export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   isModalOpen,
+  isClaimingRewards,
   onOpenModal,
   onCloseModal,
   onClaimReward,
@@ -87,6 +89,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
             fullWidth
             disabled={isSubmitDisabled}
             data-testid={TEST_IDS.claimRewardSubmitButton}
+            loading={isClaimingRewards}
           >
             {isSubmitDisabled
               ? t('claimReward.claimButton.disabledLabel')
@@ -113,7 +116,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     uncheckedGroupIds,
   });
 
-  const { mutateAsync: claimRewards } = useClaimRewards();
+  const { mutateAsync: claimRewards, isLoading: isClaimingRewards } = useClaimRewards();
 
   const handleClaimReward = async () => {
     // Extract all claims from checked groups
@@ -152,6 +155,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   return (
     <ClaimRewardButtonUi
       groups={groups}
+      isClaimingRewards={isClaimingRewards}
       isModalOpen={isModalOpen}
       onOpenModal={handleOpenModal}
       onCloseModal={handleCloseModal}
