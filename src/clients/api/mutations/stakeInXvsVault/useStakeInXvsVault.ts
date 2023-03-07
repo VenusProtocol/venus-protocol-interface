@@ -42,12 +42,6 @@ const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: O
           { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
-        // Invalidate cached user pending reward
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
-          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
-        ]);
-
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,

@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress } from 'utilities';
 
-import { useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
+import { Claim, useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
@@ -10,7 +10,7 @@ import { Group } from './types';
 
 const mainPoolComptrollerAddress = getContractAddress('comptroller');
 
-const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }) => {
+const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
@@ -54,6 +54,11 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
             pendingRewardGroup.type === 'vault' ||
             pendingRewardGroup.type === 'xvsVestingVault'
           ) {
+            const id =
+              pendingRewardGroup.type === 'vault'
+                ? `vault-${pendingRewardGroup.stakedToken.address}-${pendingRewardGroup.rewardToken.address}`
+                : `xvs-vesting-vault-${pendingRewardGroup.rewardToken.asset}-${pendingRewardGroup.poolIndex}`;
+
             const name =
               pendingRewardGroup.type === 'vault'
                 ? t('layout.claimRewardModal.vaultGroup', {
@@ -63,22 +68,40 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
                     stakedTokenSymbol: TOKENS.xvs.symbol,
                   });
 
+            const claim: Claim =
+              pendingRewardGroup.type === 'vault'
+                ? {
+                    contract: areTokensEqual(pendingRewardGroup.stakedToken, TOKENS.vai)
+                      ? 'vaiVault'
+                      : 'vrtVault',
+                  }
+                : {
+                    contract: 'xvsVestingVault',
+                    rewardTokenAddress: pendingRewardGroup.rewardToken.address,
+                    poolIndex: pendingRewardGroup.poolIndex,
+                  };
+
             const group: Group = {
+              id,
               name,
-              isChecked: !uncheckedGroupNames.includes(name),
+              isChecked: !uncheckedGroupIds.includes(id),
               pendingRewards: [
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
                   rewardAmountWei: pendingRewardGroup.rewardAmountWei,
                 },
               ],
+              claims: [claim],
             };
 
             return [...acc, group];
           }
 
           // Pools
-          if (pendingRewardGroup.type !== 'pool') {
+          if (
+            pendingRewardGroup.type !== 'mainPool' &&
+            pendingRewardGroup.type !== 'isolatedPool'
+          ) {
             return acc;
           }
 
@@ -92,14 +115,47 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
             return acc;
           }
 
-          const name = t('layout.claimRewardModal.poolGroup', { poolName: pool.name });
+          // Main pool
+          if (pendingRewardGroup.type === 'mainPool') {
+            const id = 'main-pool';
+
+            const group: Group = {
+              id,
+              name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
+              isChecked: !uncheckedGroupIds.includes(id),
+              pendingRewards: [
+                {
+                  rewardToken: pendingRewardGroup.rewardToken,
+                  rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                },
+              ],
+              claims: [
+                {
+                  contract: 'mainPoolComptroller',
+                  vTokenAddressesWithPendingReward:
+                    pendingRewardGroup.vTokenAddressesWithPendingReward,
+                },
+              ],
+            };
+
+            return [...acc, group];
+          }
+
+          // Isolated pools
+          const id = `isolated-pool-${pendingRewardGroup.comptrollerAddress}`;
 
           const group: Group = {
+            id,
             name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
-            isChecked: !uncheckedGroupNames.includes(name),
+            isChecked: !uncheckedGroupIds.includes(id),
             pendingRewards: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               rewardToken: pendingReward.rewardToken,
               rewardAmountWei: pendingReward.rewardAmountWei,
+            })),
+            claims: pendingRewardGroup.pendingRewards.map(pendingReward => ({
+              contract: 'rewardsDistributor',
+              contractAddress: pendingReward.rewardsDistributorAddress,
+              vTokenAddressesWithPendingReward: pendingReward.vTokenAddressesWithPendingReward,
             })),
           };
 
@@ -107,7 +163,7 @@ const useGetGroups = ({ uncheckedGroupNames }: { uncheckedGroupNames: string[] }
         },
         [],
       ),
-    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupNames, getPoolsData?.pools],
+    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds],
   );
 };
 

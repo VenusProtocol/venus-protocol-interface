@@ -6,7 +6,6 @@ import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilitie
 import {
   useGetBalanceOf,
   useGetMainAssets,
-  useGetVaiVaultPendingXvs,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
@@ -34,16 +33,6 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
-      {
-        accountAddress: accountAddress || '',
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
-
-  const { data: userPendingVaiRewardData, isLoading: isGetUserPendingVaiRewardWeiLoading } =
-    useGetVaiVaultPendingXvs(
       {
         accountAddress: accountAddress || '',
       },
@@ -93,22 +82,19 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
-      userPendingRewardWei: userPendingVaiRewardData?.pendingXvsWei,
     };
   }, [
     totalVaiStakedData?.balanceWei.toFixed(),
     vaiVaultDailyRateData?.dailyRateWei.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
-    userPendingVaiRewardData?.pendingXvsWei.toFixed(),
   ]);
 
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||
     isGetVaiVaultDailyRateWeiLoading ||
     isGetMainAssetsLoading ||
-    isGetVaiVaultUserInfoLoading ||
-    isGetUserPendingVaiRewardWeiLoading;
+    isGetVaiVaultUserInfoLoading;
 
   return {
     data,

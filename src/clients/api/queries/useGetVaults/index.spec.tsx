@@ -11,13 +11,10 @@ import { markets } from '__mocks__/models/markets';
 import {
   getBalanceOf,
   getMainMarkets,
-  getVaiVaultPendingXvs,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
-  getVrtVaultAccruedInterest,
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
-  getXvsVaultPendingReward,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
   getXvsVaultRewardPerBlock,
@@ -45,17 +42,8 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultRewardPerBlock as jest.Mock).mockImplementation(() => ({
       rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock.toString()),
     }));
-    (getXvsVaultPendingReward as jest.Mock).mockImplementation(() => ({
-      pendingXvsReward: new BigNumber(xvsVaultResponses.pendingReward.toString()),
-    }));
-    (getVaiVaultPendingXvs as jest.Mock).mockImplementation(() => ({
-      pendingXvsWei: new BigNumber(vaiVaultResponses.pendingXVS.toString()),
-    }));
     (getVenusVaiVaultDailyRate as jest.Mock).mockImplementation(() => ({
       dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
-    }));
-    (getVrtVaultAccruedInterest as jest.Mock).mockImplementation(() => ({
-      accruedInterestWei: new BigNumber(vrtVaultResponses.getAccruedInterest.toString()),
     }));
     (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(() => ({
       interestRatePerBlockWei: new BigNumber(vrtVaultResponses.interestRatePerBlock.toString()),

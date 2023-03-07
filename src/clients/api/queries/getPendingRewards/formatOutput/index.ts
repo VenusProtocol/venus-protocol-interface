@@ -6,11 +6,11 @@ import { TOKENS } from 'constants/tokens';
 
 import {
   PendingRewardGroup,
-  PoolPendingRewardGroup,
   VaultPendingRewardGroup,
   XvsVestingVaultPendingRewardGroup,
 } from '../types';
-import formatToPoolPendingRewardGroup from './formatToPoolPendingRewardGroup';
+import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
+import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
 
 const formatOutput = ({
   contractCallResults,
@@ -20,9 +20,9 @@ const formatOutput = ({
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
   // Extract pending rewards from main pool
-  const mainPoolPendingRewardGroup = formatToPoolPendingRewardGroup({
-    callsReturnContext: contractCallResults.results.venusLens.callsReturnContext[0],
-  });
+  const mainPoolPendingRewardGroup = formatToMainPoolPendingRewardGroup(
+    contractCallResults.results.venusLens.callsReturnContext[0],
+  );
 
   if (mainPoolPendingRewardGroup) {
     pendingRewardGroups.push(mainPoolPendingRewardGroup);
@@ -33,21 +33,14 @@ const formatOutput = ({
     contractCallResults.results.poolLens?.callsReturnContext
       // Ignore last call result as it is the oracle address
       .slice(0, -1) || []
-  ).reduce<PoolPendingRewardGroup[]>((acc, callsReturnContext) => {
-    const isolatedPoolPendingRewardGroup = formatToPoolPendingRewardGroup({
-      callsReturnContext,
-    });
+  ).reduce<PendingRewardGroup[]>((acc, callsReturnContext) => {
+    const isolatedPoolPendingRewardGroup =
+      formatToIsolatedPoolPendingRewardGroup(callsReturnContext);
 
-    if (!isolatedPoolPendingRewardGroup) {
-      return acc;
-    }
-
-    return [...acc, isolatedPoolPendingRewardGroup];
+    return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
   }, []);
 
-  if (isolatedPoolPendingRewardGroups.length > 0) {
-    pendingRewardGroups.concat(isolatedPoolPendingRewardGroups);
-  }
+  pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
   // Extract pending rewards from VRT vault
   const vrtVaultPendingRewardWei = new BigNumber(

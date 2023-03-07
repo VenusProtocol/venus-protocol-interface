@@ -24,7 +24,7 @@ export * from './types';
 const comptrollerAddress = getContractAddress('comptroller');
 const vaiVaultAddress = getContractAddress('vaiVault');
 const vrtVaultAddress = getContractAddress('vrtVaultProxy');
-const xvsVaultAddress = getContractAddress('xvsVault');
+const xvsVaultAddress = getContractAddress('xvsVaultProxy');
 
 const claimRewards = async ({
   multicallContract,

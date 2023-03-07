@@ -3,7 +3,7 @@ import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { getPendingRewards } from 'clients/api';
+import { claimRewards, getPendingRewards } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -96,6 +96,8 @@ describe('components/Layout/ClaimRewardButton', () => {
   });
 
   it('it claims reward on submit button click and displays successful transaction modal on success', async () => {
+    (claimRewards as jest.Mock).mockImplementationOnce(() => fakeContractReceipt);
+
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
@@ -112,7 +114,8 @@ describe('components/Layout/ClaimRewardButton', () => {
     // Trigger claim
     fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
 
-    // TODO: check claim function was called with the right arguments
+    await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
+    expect((claimRewards as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
@@ -122,7 +125,38 @@ describe('components/Layout/ClaimRewardButton', () => {
     });
   });
 
-  it.todo(
-    'it claims only selected rewards on submit button click and displays successful transaction modal on success',
-  );
+  it('it claims only selected rewards on submit button click and displays successful transaction modal on success', async () => {
+    (claimRewards as jest.Mock).mockImplementationOnce(() => fakeContractReceipt);
+
+    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+    const { getByTestId, queryAllByRole } = renderComponent(() => <ClaimRewardButton />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    // Unselect some reward groups
+    const checkboxes = queryAllByRole('checkbox');
+    fireEvent.click(checkboxes[0]);
+    fireEvent.click(checkboxes[2]);
+
+    // Trigger claim
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
+
+    await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
+    expect((claimRewards as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
+
+    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
+    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+      transactionHash: fakeContractReceipt.transactionHash,
+      content: expect.any(String),
+      title: expect.any(String),
+    });
+  });
 });

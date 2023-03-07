@@ -4,7 +4,6 @@ import { getContractAddress } from 'utilities';
 
 import {
   useGetBalanceOf,
-  useGetVrtVaultAccruedInterest,
   useGetVrtVaultInterestRatePerBlock,
   useGetVrtVaultUserInfo,
 } from 'clients/api';
@@ -46,16 +45,6 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: userPendingVrtRewardData, isLoading: isUserPendingVrtRewardWeiLoading } =
-    useGetVrtVaultAccruedInterest(
-      {
-        accountAddress: accountAddress || '',
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
-
   const data: Vault | undefined = useMemo(() => {
     if (!vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei || !totalVrtStakedData) {
       return undefined;
@@ -78,20 +67,17 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       totalStakedWei: totalVrtStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vrtVaultUserInfo?.stakedVrtWei,
-      userPendingRewardWei: userPendingVrtRewardData?.accruedInterestWei,
     };
   }, [
     vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei.toFixed(),
     totalVrtStakedData?.balanceWei.toFixed(),
     JSON.stringify(vrtVaultUserInfo),
-    userPendingVrtRewardData?.accruedInterestWei.toFixed(),
   ]);
 
   const isLoading =
     isGetVrtVaultInterestRatePerBlockLoading ||
     isGetTotalVrtStakedWeiLoading ||
-    isGetVrtVaultUserInfoLoading ||
-    isUserPendingVrtRewardWeiLoading;
+    isGetVrtVaultUserInfoLoading;
 
   return {
     data,
