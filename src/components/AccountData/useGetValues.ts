@@ -125,12 +125,24 @@ const useGetValues = ({
 
     const hypotheticalAssets = pool.assets.map(a => {
       if (areTokensEqual(a.vToken, asset.vToken)) {
+        const userSupplyBalanceTokens =
+          returnValues.hypotheticalUserSupplyBalanceTokens || asset.userSupplyBalanceTokens;
+        const userSupplyBalanceCents = convertDollarsToCents(
+          userSupplyBalanceTokens.multipliedBy(asset.tokenPriceDollars),
+        );
+
+        const userBorrowBalanceTokens =
+          returnValues.hypotheticalUserBorrowBalanceTokens || asset.userBorrowBalanceTokens;
+        const userBorrowBalanceCents = convertDollarsToCents(
+          userBorrowBalanceTokens.multipliedBy(asset.tokenPriceDollars),
+        );
+
         return {
           ...a,
-          userSupplyBalanceTokens:
-            returnValues.hypotheticalUserSupplyBalanceTokens || asset.userSupplyBalanceTokens,
-          userBorrowBalanceTokens:
-            returnValues.hypotheticalUserBorrowBalanceTokens || asset.userBorrowBalanceTokens,
+          userSupplyBalanceTokens,
+          userSupplyBalanceCents,
+          userBorrowBalanceTokens,
+          userBorrowBalanceCents,
         };
       }
 

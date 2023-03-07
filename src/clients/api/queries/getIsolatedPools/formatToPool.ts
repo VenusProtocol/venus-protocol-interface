@@ -46,30 +46,6 @@ const formatToPool = ({
       userWalletBalanceTokens.multipliedBy(tokenPriceDollars),
     );
 
-    const userSupplyBalanceTokens = new BigNumber(
-      subgraphMarket.accounts[0]?.accountSupplyBalanceMantissa || 0,
-    );
-    const userSupplyBalanceCents = convertDollarsToCents(
-      userSupplyBalanceTokens.multipliedBy(tokenPriceDollars),
-    );
-
-    const userBorrowBalanceTokens = new BigNumber(
-      subgraphMarket.accounts[0]?.accountBorrowBalanceMantissa || 0,
-    );
-    const userBorrowBalanceCents = convertDollarsToCents(
-      userBorrowBalanceTokens.multipliedBy(tokenPriceDollars),
-    );
-
-    const cashTokens = convertWeiToTokens({
-      valueWei: new BigNumber(subgraphMarket.cash),
-      token: vToken.underlyingToken,
-    });
-
-    const reserveTokens = convertWeiToTokens({
-      valueWei: new BigNumber(subgraphMarket.reservesMantissa),
-      token: vToken.underlyingToken,
-    });
-
     const exchangeRateVTokens = new BigNumber(1).div(
       new BigNumber(subgraphMarket.exchangeRateMantissa).div(
         new BigNumber(10).pow(
@@ -77,6 +53,35 @@ const formatToPool = ({
         ),
       ),
     );
+
+    const userSupplyBalanceVTokens = convertWeiToTokens({
+      valueWei: new BigNumber(subgraphMarket.accounts[0]?.accountSupplyBalanceMantissa || 0),
+      token: vToken,
+    });
+    const userSupplyBalanceTokens = userSupplyBalanceVTokens
+      // Convert to tokens
+      .div(exchangeRateVTokens)
+      .dp(vToken.underlyingToken.decimals);
+
+    const userSupplyBalanceCents = convertDollarsToCents(
+      userSupplyBalanceTokens.multipliedBy(tokenPriceDollars),
+    );
+
+    const userBorrowBalanceTokens = convertWeiToTokens({
+      valueWei: new BigNumber(subgraphMarket.accounts[0]?.accountBorrowBalanceMantissa || 0),
+      token: vToken.underlyingToken,
+    });
+
+    const userBorrowBalanceCents = convertDollarsToCents(
+      userBorrowBalanceTokens.multipliedBy(tokenPriceDollars),
+    );
+
+    const cashTokens = new BigNumber(subgraphMarket.cash);
+
+    const reserveTokens = convertWeiToTokens({
+      valueWei: new BigNumber(subgraphMarket.reservesMantissa),
+      token: vToken.underlyingToken,
+    });
 
     const supplyRatePerBlockTokens = new BigNumber(subgraphMarket.supplyRateMantissa).dividedBy(
       COMPOUND_MANTISSA,
@@ -105,15 +110,15 @@ const formatToPool = ({
       borrowBalanceTokens.multipliedBy(tokenPriceDollars),
     );
 
-    let borrowCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.borrowCapMantissa);
-    if (borrowCapTokens.isEqualTo(0)) {
-      borrowCapTokens = undefined;
-    }
+    const borrowCapMantissa = new BigNumber(subgraphMarket.borrowCapMantissa);
+    const borrowCapTokens: BigNumber | undefined = borrowCapMantissa.isEqualTo(0)
+      ? undefined
+      : borrowCapMantissa.dividedBy(COMPOUND_MANTISSA);
 
-    let supplyCapTokens: BigNumber | undefined = new BigNumber(subgraphMarket.supplyCapMantissa);
-    if (supplyCapTokens.isEqualTo(MAX_UINT256)) {
-      supplyCapTokens = undefined;
-    }
+    const supplyCapMantissa = new BigNumber(subgraphMarket.supplyCapMantissa);
+    const supplyCapTokens: BigNumber | undefined = supplyCapMantissa.isEqualTo(MAX_UINT256)
+      ? undefined
+      : supplyCapMantissa.dividedBy(COMPOUND_MANTISSA);
 
     const distributions = subgraphPool.rewardsDistributors.reduce<AssetDistribution[]>(
       (accDistributions, rewardsDistributor) => {

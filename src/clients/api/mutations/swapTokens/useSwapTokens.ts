@@ -50,6 +50,7 @@ const useSwapTokens = (options?: Options) => {
         ]);
 
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
+        queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

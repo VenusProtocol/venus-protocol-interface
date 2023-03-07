@@ -12,7 +12,7 @@ import {
 
 import {
   GetVTokenBalancesAllOutput,
-  useGetAssetsInAccount,
+  useGetMainAssetsInAccount,
   useGetMainMarkets,
   useGetMintedVai,
   useGetVTokenBalancesAll,
@@ -58,8 +58,8 @@ const useGetMainAssets = ({
     data: assetsInAccount = {
       tokenAddresses: [],
     },
-    isLoading: isGetAssetsInAccountLoading,
-  } = useGetAssetsInAccount(
+    isLoading: isGetMainAssetsInAccountLoading,
+  } = useGetMainAssetsInAccount(
     { accountAddress: accountAddress || '' },
     {
       enabled: !!accountAddress,
@@ -88,7 +88,7 @@ const useGetMainAssets = ({
 
   const isLoading =
     isGetMainMarketsLoading ||
-    isGetAssetsInAccountLoading ||
+    isGetMainAssetsInAccountLoading ||
     isGetVTokenBalancesAccountLoading ||
     isGetUserMintedVaiLoading;
 

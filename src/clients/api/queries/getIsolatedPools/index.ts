@@ -20,7 +20,7 @@ const getIsolatedPools = async ({
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   // Fetch isolated pools from subgraph
   const subgraphIsolatedPools = await getSubgraphIsolatedPools({
-    accountAddress,
+    accountAddress: accountAddress?.toLowerCase(),
   });
 
   // Extract all tokens by price oracle

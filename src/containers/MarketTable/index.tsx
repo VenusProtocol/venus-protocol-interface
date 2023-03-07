@@ -2,7 +2,7 @@
 import { Table, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
-import { Asset, Pool } from 'types';
+import { Pool } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -49,9 +49,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     DisableLunaUstWarningContext,
   );
 
-  const handleCollateralChange = async (assetToUpdate: Asset) => {
+  const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
-      await toggleCollateral(assetToUpdate);
+      await toggleCollateral({
+        asset: poolAssetToUpdate,
+        comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
+      });
     } catch (e) {
       if (e instanceof VError) {
         toast.error({

@@ -166,7 +166,7 @@ export const TESTNET_TOKENS = {
   venusCake: {
     address: '0xca83b44f7eea4ca927b6ce41a48f119458acde4c',
     decimals: 18,
-    symbol: 'Venus CAKE',
+    symbol: 'CAKE',
     asset: cake,
   } as Token,
   wbnb: {

@@ -40,9 +40,9 @@ export const useVaiVaultContract = () => {
   return useMemo(() => getVaiVaultContract(signer || undefined), [signer]);
 };
 
-export const useComptrollerContract = () => {
+export const useComptrollerContract = (address: string) => {
   const { signer } = useAuth();
-  return useMemo(() => getComptrollerContract(signer || undefined), [signer]);
+  return useMemo(() => getComptrollerContract(address, signer || undefined), [signer]);
 };
 
 export const useVenusLensContract = () => {

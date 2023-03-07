@@ -137,10 +137,10 @@ export const getXvsVaultStoreContract = (signer?: Signer) =>
     signer,
   }) as XvsVaultStore;
 
-export const getComptrollerContract = (signer?: Signer) =>
+export const getComptrollerContract = (address: string, signer?: Signer) =>
   getContract({
     abi: comptrollerAbi,
-    address: getContractAddress('comptroller'),
+    address,
     signer,
   }) as Comptroller;
 

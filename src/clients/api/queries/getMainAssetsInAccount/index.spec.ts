@@ -2,9 +2,9 @@ import fakeAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
 import { Comptroller } from 'types/contracts';
 
-import getAssetsInAccount from '.';
+import getMainAssetsInAccount from '.';
 
-describe('api/queries/getAssetsInAccount', () => {
+describe('api/queries/getMainAssetsInAccount', () => {
   test('returns addresses of assets in account on success', async () => {
     const fakeTokenAddresses = [TOKENS.aave.address, TOKENS.ada.address];
 
@@ -14,7 +14,7 @@ describe('api/queries/getAssetsInAccount', () => {
       getAssetsIn: getAssetsInMock,
     } as unknown as Comptroller;
 
-    const response = await getAssetsInAccount({
+    const response = await getMainAssetsInAccount({
       comptrollerContract: fakeContract,
       accountAddress: fakeAddress,
     });
