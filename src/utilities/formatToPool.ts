@@ -24,6 +24,11 @@ const formatToPool = (input: FormatToPoolInput): Pool => {
       }
 
       // Calculate user borrow limit
+      // Initialize user borrow limit if it necessary
+      if (acc.userBorrowLimitCents === undefined && assetUserSupplyBalanceCents !== undefined) {
+        acc.userBorrowLimitCents = 0;
+      }
+
       if (assetUserSupplyBalanceCents && asset.isCollateralOfUser) {
         acc.userBorrowLimitCents =
           (acc.userBorrowLimitCents || 0) + assetUserSupplyBalanceCents * asset.collateralFactor;
