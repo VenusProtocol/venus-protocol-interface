@@ -32,7 +32,7 @@ describe('api/queries/getMarketHistory', () => {
     });
   });
 
-  test('calls correct endpoint when passing limit and type params', async () => {
+  test('calls correct endpoint when passing type params', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { data: [marketSnapshot] } },
@@ -40,12 +40,11 @@ describe('api/queries/getMarketHistory', () => {
 
     await getMarketHistory({
       vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
-      limit: 6,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2&limit=6`,
+      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2`,
       method: 'GET',
     });
   });
