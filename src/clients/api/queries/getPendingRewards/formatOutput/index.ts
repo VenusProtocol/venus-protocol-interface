@@ -29,16 +29,14 @@ const formatOutput = ({
   }
 
   // Extract pending rewards from isolated pools
-  const isolatedPoolPendingRewardGroups =
-    (contractCallResults.results.poolLens?.callsReturnContext).reduce<PendingRewardGroup[]>(
-      (acc, callsReturnContext) => {
-        const isolatedPoolPendingRewardGroup =
-          formatToIsolatedPoolPendingRewardGroup(callsReturnContext);
+  const isolatedPoolPendingRewardGroups = (
+    contractCallResults.results.poolLens?.callsReturnContext || []
+  ).reduce<PendingRewardGroup[]>((acc, callsReturnContext) => {
+    const isolatedPoolPendingRewardGroup =
+      formatToIsolatedPoolPendingRewardGroup(callsReturnContext);
 
-        return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
-      },
-      [],
-    );
+    return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
+  }, []);
   pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
   // Extract pending rewards from VRT vault

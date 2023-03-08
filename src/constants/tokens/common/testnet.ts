@@ -181,4 +181,11 @@ export const TESTNET_TOKENS = {
     symbol: 'BNX',
     asset: xvs, // TODO: add correct asset
   } as Token,
+  // This token is distributed when supplying WBNB to the Pool 2
+  mockXvs: {
+    address: '0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c',
+    decimals: 18,
+    symbol: 'XVS',
+    asset: xvs,
+  } as Token,
 };

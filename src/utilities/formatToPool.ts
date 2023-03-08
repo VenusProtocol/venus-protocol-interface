@@ -24,7 +24,7 @@ const formatToPool = (input: FormatToPoolInput): Pool => {
       }
 
       // Calculate user borrow limit
-      // Initialize user borrow limit if it necessary
+      // Initialize user borrow limit if necessary
       if (acc.userBorrowLimitCents === undefined && assetUserSupplyBalanceCents !== undefined) {
         acc.userBorrowLimitCents = 0;
       }

@@ -97,7 +97,7 @@ Object {
       "riskRating": "VERY_HIGH_RISK",
       "userBorrowBalanceCents": 0,
       "userBorrowLimitCents": 0,
-      "userSupplyBalanceCents": 23743960,
+      "userSupplyBalanceCents": 0,
     },
     Object {
       "assets": Array [
@@ -193,7 +193,7 @@ Object {
       "riskRating": "VERY_HIGH_RISK",
       "userBorrowBalanceCents": 0,
       "userBorrowLimitCents": 0,
-      "userSupplyBalanceCents": 308290,
+      "userSupplyBalanceCents": 0,
     },
   ],
 }
