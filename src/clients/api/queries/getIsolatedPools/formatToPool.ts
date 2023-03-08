@@ -141,6 +141,7 @@ const formatToPool = ({
           dailyDistributedTokens: distributionSupplyDailyRateTokens,
           apyPercentage: distributionSupplyApyPercentage,
         } = calculateApy(rewardSpeeds.supplySpeedPerBlockMantissa);
+
         const {
           dailyDistributedTokens: distributionBorrowRateTokensPerDay,
           apyPercentage: distributionBorrowApyPercentage,
