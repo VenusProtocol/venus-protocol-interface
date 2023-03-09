@@ -113,7 +113,7 @@
     "i18next-parser": "^6.3.0",
     "jest-canvas-mock": "^2.4.0",
     "lint-staged": "^12.3.3",
-    "loki": "^0.25.1",
+    "loki": "^0.31.0",
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.6.0",
     "postcss-syntax": "^0.36.2",
@@ -152,7 +152,8 @@
     "react-error-overlay": "6.0.9",
     "babel-loader": "8.1.0",
     "**/@emotion/styled": "^11.0.0",
-    "@types/react": "^17.0.1"
+    "@types/react": "^17.0.1",
+    "chrome-remote-interface": "^0.32.1"
   },
   "loki": {
     "configurations": {
