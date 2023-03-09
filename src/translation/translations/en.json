@@ -37,7 +37,13 @@
     "assetsWillAppearHere": "Supplied and borrowed assets will appear here",
     "letsGetStarted": "Let’s get started"
   },
-  "announcements": {
+  "announcement": {
+    "busdDisablingBanner": {
+      "description": "Borrowing has been paused for the BUSD token. For more information see <Link>VIP-XXX</Link>."
+    },
+    "sxpDisablingBanner": {
+      "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+    },
     "trxMigrationBanner": {
       "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
     }
@@ -224,7 +230,6 @@
       "created": "Created",
       "from": "From",
       "hash": "Hash",
-      "id": "ID",
       "to": "To",
       "type": "Type"
     },

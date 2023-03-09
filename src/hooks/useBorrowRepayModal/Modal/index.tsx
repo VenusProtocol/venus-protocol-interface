@@ -3,7 +3,9 @@ import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol 
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
-import { isTokenEnabled } from 'utilities';
+import { areTokensEqual, isTokenEnabled } from 'utilities';
+
+import { TOKENS } from 'constants/tokens';
 
 import Borrow from './Borrow';
 import Repay from './Repay';
@@ -34,7 +36,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
     },
   ];
 
-  if (isTokenEnabled(vToken.underlyingToken)) {
+  if (
+    isTokenEnabled(vToken.underlyingToken) &&
+    // Temporarily disable borrowing BUSD
+    !areTokensEqual(vToken.underlyingToken, TOKENS.busd)
+  ) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (

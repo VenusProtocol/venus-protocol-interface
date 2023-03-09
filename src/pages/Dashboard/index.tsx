@@ -53,7 +53,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     <>
       <ConnectWalletBanner />
 
-      <Announcement token={TOKENS.trxold} />
+      <Announcement token={TOKENS.busd} />
 
       <HigherRiskTokensNotice />
 
