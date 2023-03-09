@@ -281,7 +281,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        token: TOKENS.busd,
+        token: TOKENS.xvs,
         walletBalance: new BigNumber('11'),
       };
 

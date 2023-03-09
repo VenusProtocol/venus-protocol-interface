@@ -2,11 +2,14 @@
 import BigNumber from 'bignumber.js';
 import { NoticeInfo, NoticeWarning } from 'components';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { formatPercentage } from 'utilities';
 
 import { useGetUserMarketInfo, useGetVaiRepayApy } from 'clients/api';
+import { BUSD_DISABLING_VIP_ID } from 'constants/busdDisablingProposalId';
+import Path from 'constants/path';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
@@ -69,15 +72,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         css={styles.banner}
         description={
           <Trans
-            i18nKey="dashboard.trxMigrationBanner.description"
+            i18nKey="dashboard.busdDisablingBanner.description"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
-                  rel="noreferrer"
-                  target="_blank"
-                />
+                <Link to={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', BUSD_DISABLING_VIP_ID)} />
               ),
             }}
           />

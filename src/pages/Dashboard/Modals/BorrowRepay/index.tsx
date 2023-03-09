@@ -5,6 +5,8 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { isAssetEnabled } from 'utilities';
 
+import { TOKENS } from 'constants/tokens';
+
 import Announcement from '../Announcement';
 import { useStyles } from '../styles';
 import Borrow from './Borrow';
@@ -32,7 +34,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   ];
 
   // Prevent user from being able to borrow a disabled token
-  if (isAssetEnabled(asset.token.id)) {
+  if (
+    isAssetEnabled(asset.token.id) &&
+    // Temporarily disable borrowing BUSD
+    asset.token.address.toLowerCase() !== TOKENS.busd.address.toLowerCase()
+  ) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (

@@ -118,6 +118,9 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
+    "busdDisablingBanner": {
+      "description": "Borrowing has been paused for the BUSD token. For more information see <Link>VIP-XXX</Link>."
+    },
     "markets": {
       "tabBorrow": "Borrow",
       "tabSupply": "Supply",
@@ -127,11 +130,11 @@
       "announcement": {
         "sxpDisablingBanner": {
           "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+        },
+        "trxMigrationBanner": {
+          "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
         }
       }
-    },
-    "trxMigrationBanner": {
-      "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
     },
     "vaiStabilityFeeBanner": {
       "description": "VAI stability fee is active. It is currently {{feePercentage}}% APY. For more information see <Link>VIP-92 Update VAI Floating Rate</Link>."
@@ -165,7 +168,6 @@
       "block": "Block",
       "created": "Created",
       "from": "From",
-      "id": "ID",
       "to": "To",
       "txnHash": "Txn Hash",
       "type": "Type"
