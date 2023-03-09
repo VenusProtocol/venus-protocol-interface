@@ -18,7 +18,6 @@ export interface GetMarketHistoryResponse {
 
 export interface GetMarketHistoryInput {
   vToken: VToken;
-  limit?: number;
   type?: MarketHistoryType;
 }
 
@@ -28,14 +27,9 @@ export type GetMarketHistoryOutput = {
 
 const getMarketHistory = async ({
   vToken,
-  limit = 30,
   type = '1 month',
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
-  let endpoint = `/market_history/graph?asset=${vToken.address}&version=v2`;
-
-  if (limit) {
-    endpoint += `&limit=${limit}`;
-  }
+  const endpoint = `/market_history/graph?asset=${vToken.address}&version=v2`;
 
   const response = await restService<GetMarketHistoryResponse>({
     endpoint,
