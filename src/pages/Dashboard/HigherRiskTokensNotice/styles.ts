@@ -8,6 +8,7 @@ export const useStyles = () => {
     container: css`
       position: relative;
       margin-bottom: ${theme.spacing(12)};
+      border: 1px ${theme.palette.secondary.light} solid;
     `,
     content: css`
       display: flex;

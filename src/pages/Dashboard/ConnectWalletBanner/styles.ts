@@ -10,6 +10,7 @@ export const useStyles = () => {
       display: flex;
       padding: 0;
       overflow: hidden;
+      border: 1px ${theme.palette.secondary.light} solid;
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
