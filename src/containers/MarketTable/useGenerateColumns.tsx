@@ -229,6 +229,11 @@ const useGenerateColumns = ({
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
                 }
 
+                // Put rows of tokens that can't be enabled as collateral at the
+                // bottom of the list
+                if (column === 'collateral' && rowA.collateralFactor === 0) return 1;
+                if (column === 'collateral' && rowB.collateralFactor === 0) return -1;
+                // Sort other rows normally
                 if (column === 'collateral') {
                   return compareBooleans(
                     rowA.isCollateralOfUser,
