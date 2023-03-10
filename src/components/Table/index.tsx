@@ -53,7 +53,7 @@ interface TableCardHrefProps extends TableBaseProps {
 
 export type TableProps = TableCardRowOnClickProps | TableCardHrefProps;
 
-export const Table = ({
+export function Table({
   columns,
   cardColumns,
   data,
@@ -67,7 +67,7 @@ export const Table = ({
   tableCss,
   cardsCss,
   isFetching,
-}: TableProps) => {
+}: TableProps) {
   const styles = useStyles();
 
   const [orderBy, setOrderBy] = React.useState<typeof columns[number]['key'] | undefined>(
@@ -77,6 +77,14 @@ export const Table = ({
   const [orderDirection, setOrderDirection] = React.useState<'asc' | 'desc' | undefined>(
     initialOrder?.orderDirection,
   );
+
+  const order =
+    orderBy && orderDirection
+      ? {
+          orderBy,
+          orderDirection,
+        }
+      : undefined;
 
   const onRequestOrder = (property: typeof columns[number]['key']) => {
     let newOrder: 'asc' | 'desc' = 'asc';
@@ -168,7 +176,12 @@ export const Table = ({
         getRowHref={getRowHref}
         columns={cardColumns || columns}
         css={cardsCss}
+        order={order}
+        onOrderChange={newOrder => {
+          setOrderBy(newOrder.orderBy);
+          setOrderDirection(newOrder.orderDirection);
+        }}
       />
     </Paper>
   );
-};
+}

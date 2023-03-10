@@ -17,12 +17,33 @@ export const useStyles = () => {
         padding: ${theme.spacing(3, 4)};
       }
     `,
+    getContainer: ({ placeLabelToLeft }: { placeLabelToLeft: boolean }) => css`
+      ${placeLabelToLeft &&
+      css`
+        display: inline-flex;
+        align-items: center;
+      `}
+    `,
+    getLabel: ({ placeLabelToLeft }: { placeLabelToLeft: boolean }) => css`
+      ${placeLabelToLeft
+        ? css`
+            flex-shrink: 0;
+            margin-right: ${theme.spacing(3)};
+          `
+        : css`
+            margin-bottom: ${theme.spacing(1)};
+
+            label {
+              color: ${theme.palette.text.primary};
+            }
+          `}
+    `,
     getArrowIcon: ({ isMenuOpened }: { isMenuOpened: boolean }) => css`
       position: absolute;
       right: ${theme.spacing(4)};
       width: ${theme.spacing(3)};
       transition: transform 0.3s;
-      transform: rotate(${isMenuOpened ? '180deg' : '0'});
+      transform: rotate(${isMenuOpened ? '0' : '180deg'});
     `,
     menuItem: css`
       display: flex;

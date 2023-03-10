@@ -36,6 +36,18 @@ export const useStyles = () => {
         }
       `}
     `,
+    cardsSelectContainer: css`
+      display: none;
+
+      ${theme.breakpoints.down('xxl')} {
+        display: block;
+      }
+    `,
+    cardsSelect: css`
+      width: ${theme.spacing(56)};
+      margin-bottom: ${theme.spacing(4)};
+      border-radius: 0;
+    `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
