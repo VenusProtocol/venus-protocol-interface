@@ -16,6 +16,7 @@ export const useModalStyles = ({
       top: 50%;
       left: calc(50% + ${theme.shape.drawerWidthDesktop});
       transform: translate(calc(-50% - (${theme.shape.drawerWidthDesktop}) / 2), -50%);
+      border: 1px ${theme.palette.secondary.light} solid;
       ${theme.breakpoints.down('lg')} {
         left: calc(50% + ${theme.shape.drawerWidthTablet});
         transform: translate(calc(-50% - (${theme.shape.drawerWidthTablet}) / 2), -50%);
