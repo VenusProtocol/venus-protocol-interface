@@ -218,8 +218,8 @@ const formatToPool = ({
         : 0;
 
       return {
-        userSupplyBalanceCents: accAssets.userSupplyBalanceCents + asset.supplyBalanceCents,
-        userBorrowBalanceCents: accAssets.userBorrowBalanceCents + asset.borrowBalanceCents,
+        userSupplyBalanceCents: accAssets.userSupplyBalanceCents + asset.userSupplyBalanceCents,
+        userBorrowBalanceCents: accAssets.userBorrowBalanceCents + asset.userBorrowBalanceCents,
         userBorrowLimitCents: accAssets.userBorrowLimitCents + assetUserCollateralValue,
       };
     },

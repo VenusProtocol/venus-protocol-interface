@@ -46,12 +46,12 @@ const useGetValues = ({
         : undefined;
 
     const poolUserBorrowLimitUsedPercentage =
-      pool.userBorrowBalanceCents &&
-      pool.userBorrowLimitCents &&
-      calculatePercentage({
-        numerator: pool.userBorrowBalanceCents,
-        denominator: pool.userBorrowLimitCents,
-      });
+      pool.userBorrowBalanceCents !== undefined && pool.userBorrowLimitCents !== undefined
+        ? calculatePercentage({
+            numerator: pool.userBorrowBalanceCents,
+            denominator: pool.userBorrowLimitCents,
+          })
+        : undefined;
 
     const returnValues: UseGetValuesOutput = {
       poolUserBorrowLimitUsedPercentage,
@@ -164,13 +164,6 @@ const useGetValues = ({
       calculateDailyEarningsCents(hypotheticalUserYearlyEarningsCents).dp(0).toNumber();
 
     return returnValues;
-  }, [
-    {
-      asset,
-      pool,
-      action,
-      amountTokens,
-    },
-  ]);
+  }, [asset, pool, action, amountTokens]);
 
 export default useGetValues;
