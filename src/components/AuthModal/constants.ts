@@ -7,6 +7,7 @@ import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/wallets/coinbas
 import { ReactComponent as InfinityWalletLogo } from 'assets/img/wallets/infinityWalletLogo.svg';
 import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg';
 import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
+import { ReactComponent as OkxWalletLogo } from 'assets/img/wallets/okxLogo.svg';
 import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
 import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalWalletLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
@@ -45,6 +46,11 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.safePal'),
     Logo: SafePalLogo,
     connector: Connector.SafePal,
+  },
+  {
+    name: t('wallets.okx'),
+    Logo: OkxWalletLogo,
+    connector: Connector.OkxWallet,
   },
   {
     name: t('wallets.binanceChainWallet'),
