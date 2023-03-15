@@ -5,6 +5,7 @@ export const connectorIdByName = {
   [Connector.BraveWallet]: 'injected',
   [Connector.TrustWallet]: 'injected',
   [Connector.OperaWallet]: 'injected',
+  [Connector.OkxWallet]: 'injected',
   [Connector.BitKeep]: 'injected',
   [Connector.InfinityWallet]: 'injected',
   [Connector.SafePal]: 'injected',
