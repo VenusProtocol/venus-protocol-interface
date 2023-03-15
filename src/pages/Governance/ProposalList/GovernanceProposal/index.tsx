@@ -119,6 +119,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   proposalId,
   proposalTitle,
   proposalState,
+  executedDate,
+  queuedDate,
+  cancelDate,
   endDate,
   userVoteStatus,
   forVotesWei,
@@ -149,6 +152,23 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
     abstainedVotesWei || 0,
   ]);
 
+  const [statusDate, statusKey] = useMemo(() => {
+    switch (proposalState) {
+      case 'Active':
+        return [endDate, 'voteProposalUi.activeUntilDate'];
+      case 'Canceled':
+        return [cancelDate, 'voteProposalUi.cancelledDate'];
+      case 'Executed':
+        return [executedDate, 'voteProposalUi.executedDate'];
+      case 'Queued':
+        return [queuedDate, 'voteProposalUi.queuedUntilDate'];
+      case 'Defeated':
+        return [endDate, 'voteProposalUi.defeatedDate'];
+      default:
+        return [undefined, undefined];
+    }
+  }, [proposalState]);
+
   return (
     <ProposalCard
       className={className}
@@ -176,24 +196,26 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         )
       }
       footer={
-        endDate && proposalState === 'Active' ? (
+        statusDate && statusKey ? (
           <div css={styles.timestamp}>
             <Typography variant="small2">
-              <div css={styles.greenPulseContainer}>
-                <GreenPulse css={styles.greenPulse} />
-              </div>
+              {proposalState === 'Active' && (
+                <div css={styles.greenPulseContainer}>
+                  <GreenPulse css={styles.greenPulse} />
+                </div>
+              )}
               <Trans
-                i18nKey="voteProposalUi.activeUntilDate"
+                i18nKey={statusKey}
                 components={{
                   Date: <Typography variant="small2" color="textPrimary" />,
                 }}
                 values={{
-                  date: endDate,
+                  date: statusDate,
                 }}
               />
             </Typography>
 
-            <Countdown date={endDate} />
+            <Countdown date={statusDate} />
           </div>
         ) : undefined
       }
