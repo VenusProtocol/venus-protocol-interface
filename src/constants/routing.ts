@@ -1,9 +1,12 @@
+import config from 'config';
+
 export enum Subdirectory {
   DASHBOARD = '/',
   ACCOUNT = '/account',
   XVS = '/xvs',
   POOLS = '/pools',
   POOL = '/pool/:poolComptrollerAddress',
+  MARKETS = '/markets/:poolComptrollerAddress',
   MARKET = '/market/:vTokenAddress',
   HISTORY = '/history',
   VAULTS = '/vaults',
@@ -22,7 +25,10 @@ const routeSubdirectories = {
   xvs: [Subdirectory.XVS],
   pools: [Subdirectory.POOLS],
   pool: [Subdirectory.POOLS, Subdirectory.POOL],
-  market: [Subdirectory.POOLS, Subdirectory.POOL, Subdirectory.MARKET],
+  markets: [Subdirectory.MARKETS],
+  market: config.featureFlags.isolatedPools
+    ? [Subdirectory.POOLS, Subdirectory.POOL, Subdirectory.MARKET]
+    : [Subdirectory.MARKETS, Subdirectory.MARKET],
   governance: [Subdirectory.GOVERNANCE],
   governanceProposal: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL],
   governanceLeaderBoard: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD],

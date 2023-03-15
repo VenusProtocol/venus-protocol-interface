@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
+import config from 'config';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -64,9 +65,11 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   return pool ? (
     <>
       <div css={styles.header}>
-        <Typography variant="small2" component="div" css={styles.headerDescription}>
-          {pool.description}
-        </Typography>
+        {config.featureFlags.isolatedPools && (
+          <Typography variant="small2" component="div" css={styles.headerDescription}>
+            {pool.description}
+          </Typography>
+        )}
 
         <CellGroup cells={cells} />
       </div>
@@ -100,7 +103,7 @@ const PoolPage: React.FC<PoolPageProps> = ({
     poolComptrollerAddress,
   });
 
-  // Redirect to Pools page if pool Comptroller address is incorrect
+  // Redirect to Dashboard page if pool Comptroller address is incorrect
   if (!isGetPoolLoading && !getPoolData?.pool) {
     <Redirect to={routes.dashboard.path} />;
   }

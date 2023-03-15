@@ -1,15 +1,19 @@
+import config from 'config';
 import { useMemo } from 'react';
+import { getContractAddress } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
 import { MenuItem } from '../types';
 
+const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
+
 const useGetMenuItems = () => {
   const { accountAddress, isReconnecting } = useAuth();
 
   return useMemo(() => {
-    let menuItems: MenuItem[] = [
+    const menuItems: MenuItem[] = [
       {
         href: routes.dashboard.path,
         // Translation key: do not remove this comment
@@ -17,13 +21,42 @@ const useGetMenuItems = () => {
         i18nKey: 'layout.menuItems.dashboard',
         icon: 'dashboard',
       },
-      {
-        href: routes.pools.path,
+    ];
+
+    // Insert account page if wallet is connected
+    if (accountAddress || isReconnecting) {
+      menuItems.push({
+        href: routes.account.path,
         // Translation key: do not remove this comment
-        // t('layout.menuItems.pools')
-        i18nKey: 'layout.menuItems.pools',
-        icon: 'market',
-      },
+        // t('layout.menuItems.account')
+        i18nKey: 'layout.menuItems.account',
+        icon: 'person',
+      });
+    }
+
+    // Add Pools or Markets page depending on isolated pools feature flag
+    menuItems.push(
+      config.featureFlags.isolatedPools
+        ? {
+            href: routes.pools.path,
+            // Translation key: do not remove this comment
+            // t('layout.menuItems.pools')
+            i18nKey: 'layout.menuItems.pools',
+            icon: 'market',
+          }
+        : {
+            href: routes.markets.path.replace(
+              ':poolComptrollerAddress',
+              MAIN_POOL_COMPTROLLER_ADDRESS,
+            ),
+            // Translation key: do not remove this comment
+            // t('layout.menuItems.markets')
+            i18nKey: 'layout.menuItems.markets',
+            icon: 'market',
+          },
+    );
+
+    menuItems.push(
       {
         href: routes.vaults.path,
         // Translation key: do not remove this comment
@@ -81,21 +114,7 @@ const useGetMenuItems = () => {
         i18nKey: 'layout.menuItems.predictions',
         icon: 'predictions',
       },
-    ];
-
-    if (accountAddress || isReconnecting) {
-      menuItems = [
-        ...menuItems.slice(0, 1),
-        {
-          href: routes.account.path,
-          // Translation key: do not remove this comment
-          // t('layout.menuItems.account')
-          i18nKey: 'layout.menuItems.account',
-          icon: 'person',
-        },
-        ...menuItems.slice(1),
-      ];
-    }
+    );
 
     return menuItems;
   }, [accountAddress]);

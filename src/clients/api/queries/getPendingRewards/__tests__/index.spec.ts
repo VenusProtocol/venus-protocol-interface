@@ -6,6 +6,7 @@ import fakeAddress from '__mocks__/models/address';
 import getPendingRewardGroups from '..';
 
 const fakeMainPoolComptrollerAddress = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
+const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC546b78k';
 
 describe('api/queries/getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
@@ -17,7 +18,7 @@ describe('api/queries/getPendingRewardGroups', () => {
 
     const res = await getPendingRewardGroups({
       mainPoolComptrollerAddress: fakeMainPoolComptrollerAddress,
-      isolatedPoolComptrollerAddresses: [],
+      isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       xvsVestingVaultPoolCount: 2,
       multicall,
       accountAddress: fakeAddress,

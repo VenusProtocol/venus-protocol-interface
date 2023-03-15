@@ -119,6 +119,7 @@
     "governance": "Governance",
     "history": "History",
     "leaderboard": "Leaderboard",
+    "markets": "Markets",
     "pools": "Pools",
     "proposal": "Proposal #{{proposalId}}",
     "swap": "Swap",
@@ -179,6 +180,7 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
+    "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
       "buttonLabel": "Connect wallet",
@@ -195,8 +197,10 @@
     "riskyTokensToggleLabel": "Display higher risk tokens",
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
-      "placeholder": "Search pool or asset"
+      "placeholder": "Search asset",
+      "placeholderIsolatedPools": "Search pool or asset"
     },
+    "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"
   },
   "enableToken": {
@@ -224,7 +228,6 @@
       "created": "Created",
       "from": "From",
       "hash": "Hash",
-      "id": "ID",
       "to": "To",
       "type": "Type"
     },
@@ -288,6 +291,7 @@
       "dashboard": "Dashboard",
       "governance": "Governance",
       "history": "History",
+      "markets": "Markets",
       "pools": "Pools",
       "predictions": "Predictions",
       "swap": "Swap",
@@ -387,7 +391,7 @@
       "userBorrowBalance": "Balance",
       "userPercentOfLimit": "% of limit",
       "userSupplyBalance": "Balance",
-      "userWalletBalanceTokens": "Wallet"
+      "userWalletBalance": "Wallet"
     }
   },
   "myAccount": {
@@ -991,8 +995,5 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
-  },
-  "xvsPage": {
-    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }

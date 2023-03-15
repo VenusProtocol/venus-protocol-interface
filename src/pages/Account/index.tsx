@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Spinner } from 'components';
+import config from 'config';
 import React, { useMemo } from 'react';
 import { Pool } from 'types';
 
@@ -43,7 +44,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
 
   return (
     <>
-      <Summary css={styles.section} pools={filteredPools} />
+      {config.featureFlags.isolatedPools && <Summary css={styles.section} pools={filteredPools} />}
 
       {filteredPools.map(pool => (
         <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />

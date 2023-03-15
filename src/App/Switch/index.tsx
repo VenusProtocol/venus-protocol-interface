@@ -1,3 +1,4 @@
+import config from 'config';
 import React, { useEffect } from 'react';
 import { Switch as RRSwitch, Redirect, Route, useHistory, useLocation } from 'react-router-dom';
 
@@ -42,8 +43,18 @@ const Switch = () => {
         <Route exact path={routes.account.path} component={Account} />
       )}
 
-      <Route exact path={routes.pools.path} component={Pools} />
-      <Route exact path={routes.pool.path} component={Pool} />
+      {config.featureFlags.isolatedPools && (
+        <Route exact path={routes.pools.path} component={Pools} />
+      )}
+
+      {config.featureFlags.isolatedPools && (
+        <Route exact path={routes.pool.path} component={Pool} />
+      )}
+
+      {!config.featureFlags.isolatedPools && (
+        <Route exact path={routes.markets.path} component={Pool} />
+      )}
+
       <Route exact path={routes.market.path} component={Market} />
 
       <Route exact path={routes.vaults.path} component={Vaults} />

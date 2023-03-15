@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Announcement, ButtonGroup, TextField, Toggle } from 'components';
+import config from 'config';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { MarketTable } from 'containers/MarketTable';
+import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
@@ -49,13 +50,41 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     searchValue,
   });
 
+  const supplyMarketTableProps: MarketTableProps = {
+    pools: formattedPools,
+    isFetching: isFetchingPools,
+    marketType: 'supply',
+    breakpoint: 'lg',
+    columns: config.featureFlags.isolatedPools
+      ? ['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']
+      : ['asset', 'supplyApyLtv', 'userWalletBalance', 'collateral'],
+    initialOrder: {
+      orderBy: 'supplyApyLtv',
+      orderDirection: 'desc',
+    },
+  };
+
+  const borrowMarketTableProps: MarketTableProps = {
+    pools: formattedPools,
+    isFetching: isFetchingPools,
+    marketType: 'borrow',
+    breakpoint: 'lg',
+    columns: config.featureFlags.isolatedPools
+      ? ['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']
+      : ['asset', 'borrowApy', 'userWalletBalance', 'liquidity'],
+    initialOrder: {
+      orderBy: 'borrowApy',
+      orderDirection: 'desc',
+    },
+  };
+
   return (
     <>
       <ConnectWalletBanner />
 
       <Announcement token={TOKENS.trxold} />
 
-      <HigherRiskTokensNotice />
+      {config.featureFlags.isolatedPools && <HigherRiskTokensNotice />}
 
       <div css={styles.header}>
         <TextField
@@ -63,7 +92,11 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           isSmall
           value={searchValue}
           onChange={handleSearchInputChange}
-          placeholder={t('dashboard.searchInput.placeholder')}
+          placeholder={
+            config.featureFlags.isolatedPools
+              ? t('dashboard.searchInput.placeholderIsolatedPools')
+              : t('dashboard.searchInput.placeholder')
+          }
           leftIconSrc="magnifier"
         />
 
@@ -76,62 +109,82 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          <ButtonGroup
-            css={hideXlDownCss}
-            buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-            activeButtonIndex={activeTabIndex}
-            onButtonClick={setActiveTabIndex}
-          />
+          {config.featureFlags.isolatedPools && (
+            <ButtonGroup
+              css={hideXlDownCss}
+              buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
+              activeButtonIndex={activeTabIndex}
+              onButtonClick={setActiveTabIndex}
+            />
+          )}
 
           <div css={styles.rightColumn}>
-            <Toggle
-              tooltip={t('dashboard.riskyTokensToggleTooltip')}
-              label={t('dashboard.riskyTokensToggleLabel')}
-              isLight
-              value={areHigherRiskPoolsDisplayed}
-              onChange={event => onHigherRiskPoolsToggleChange(event.currentTarget.checked)}
-            />
+            {config.featureFlags.isolatedPools && (
+              <Toggle
+                tooltip={t('dashboard.riskyTokensToggleTooltip')}
+                label={t('dashboard.riskyTokensToggleLabel')}
+                isLight
+                value={areHigherRiskPoolsDisplayed}
+                onChange={event => onHigherRiskPoolsToggleChange(event.currentTarget.checked)}
+              />
+            )}
 
             <TextField
               css={[styles.desktopSearchTextField, hideXlDownCss]}
               isSmall
               value={searchValue}
               onChange={handleSearchInputChange}
-              placeholder={t('dashboard.searchInput.placeholder')}
+              placeholder={
+                config.featureFlags.isolatedPools
+                  ? t('dashboard.searchInput.placeholderIsolatedPools')
+                  : t('dashboard.searchInput.placeholder')
+              }
               leftIconSrc="magnifier"
             />
           </div>
         </div>
       </div>
 
-      {activeTabIndex === 0 ? (
-        <MarketTable
-          testId={TEST_IDS.supplyMarketTable}
-          key="dashboard-supply-market-table"
-          pools={formattedPools}
-          isFetching={isFetchingPools}
-          marketType="supply"
-          breakpoint="lg"
-          columns={['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']}
-          initialOrder={{
-            orderBy: 'supplyApyLtv',
-            orderDirection: 'desc',
-          }}
-        />
+      {config.featureFlags.isolatedPools ? (
+        <>
+          {activeTabIndex === 0 ? (
+            <MarketTable
+              {...supplyMarketTableProps}
+              key="dashboard-supply-market-table"
+              testId={TEST_IDS.supplyMarketTable}
+            />
+          ) : (
+            <MarketTable
+              {...borrowMarketTableProps}
+              key="dashboard-borrow-market-table"
+              testId={TEST_IDS.borrowMarketTable}
+            />
+          )}
+        </>
       ) : (
-        <MarketTable
-          testId={TEST_IDS.borrowMarketTable}
-          key="dashboard-borrow-market-table"
-          pools={formattedPools}
-          isFetching={isFetchingPools}
-          marketType="borrow"
-          breakpoint="lg"
-          columns={['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']}
-          initialOrder={{
-            orderBy: 'borrowApy',
-            orderDirection: 'desc',
-          }}
-        />
+        <>
+          <div css={[styles.desktopMarketTables, hideXlDownCss]}>
+            <MarketTable
+              {...supplyMarketTableProps}
+              title={t('dashboard.supplyMarketTableTitle')}
+              testId={TEST_IDS.supplyMarketTable}
+            />
+
+            <MarketTable
+              {...borrowMarketTableProps}
+              title={t('dashboard.borrowMarketTableTitle')}
+              testId={TEST_IDS.borrowMarketTable}
+            />
+          </div>
+
+          <div css={showXlDownCss}>
+            {activeTabIndex === 0 ? (
+              <MarketTable {...supplyMarketTableProps} key="dashboard-supply-market-table" />
+            ) : (
+              <MarketTable {...borrowMarketTableProps} key="dashboard-borrow-market-table" />
+            )}
+          </div>
+        </>
       )}
     </>
   );

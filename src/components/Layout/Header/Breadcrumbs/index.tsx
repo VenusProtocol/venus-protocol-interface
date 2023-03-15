@@ -64,6 +64,14 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.ACCOUNT:
           dom = t('breadcrumbs.account');
           break;
+        case Subdirectory.MARKETS:
+          hrefFragment = Subdirectory.MARKETS.replace(
+            ':poolComptrollerAddress',
+            params.poolComptrollerAddress,
+          );
+
+          dom = t('breadcrumbs.markets');
+          break;
         case Subdirectory.POOLS:
           dom = t('breadcrumbs.pools');
           break;

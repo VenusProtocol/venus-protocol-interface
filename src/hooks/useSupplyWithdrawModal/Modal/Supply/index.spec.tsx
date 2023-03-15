@@ -3,12 +3,12 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Pool, VToken } from 'types';
-import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import { getAllowance, supply, useGetPool } from 'clients/api';
+import { DISABLED_TOKENS } from 'constants/disabledTokens';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
