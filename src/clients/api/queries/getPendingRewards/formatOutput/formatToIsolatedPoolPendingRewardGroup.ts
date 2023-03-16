@@ -8,6 +8,10 @@ function formatToPoolPendingRewardGroup(
 ) {
   const { returnValues, methodParameters } = callsReturnContext;
 
+  if (returnValues.length === 0) {
+    return;
+  }
+
   const pendingRewards: IsolatedPoolPendingReward[] = returnValues
     .map(formatRewardSummaryData)
     .filter((pendingReward): pendingReward is IsolatedPoolPendingReward => !!pendingReward);

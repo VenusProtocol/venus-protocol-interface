@@ -163,7 +163,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
         },
         [],
       ),
-    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds],
+    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds, getPoolsData?.pools],
   );
 };
 

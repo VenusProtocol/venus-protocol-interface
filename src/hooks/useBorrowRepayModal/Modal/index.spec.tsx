@@ -1,9 +1,9 @@
 import { waitFor } from '@testing-library/react';
 import React from 'react';
 import { Pool, VToken } from 'types';
-import { DISABLED_TOKENS } from 'utilities';
 
 import { poolData } from '__mocks__/models/pools';
+import { DISABLED_TOKENS } from 'constants/disabledTokens';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';

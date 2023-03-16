@@ -8,6 +8,10 @@ function formatToMainPoolPendingRewardGroup(
 ) {
   const { returnValues, methodParameters } = callsReturnContext;
 
+  if (returnValues.length === 0) {
+    return;
+  }
+
   const rewardSummaryData = formatRewardSummaryData(returnValues as RewardSummary);
 
   if (!rewardSummaryData) {

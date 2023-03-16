@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Notice } from 'components';
+import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
 
@@ -13,11 +14,13 @@ const Xvs: React.FC = () => {
 
   return (
     <div>
-      <Notice
-        css={styles.isolatedAssetsWarningNotice}
-        variant="warning"
-        description={t('xvsPage.isolatedAssetsWarning')}
-      />
+      {config.featureFlags.isolatedPools && (
+        <Notice
+          css={styles.isolatedAssetsWarningNotice}
+          variant="warning"
+          description={t('xvsPage.isolatedAssetsWarning')}
+        />
+      )}
 
       <Header css={styles.header} />
       <Table />

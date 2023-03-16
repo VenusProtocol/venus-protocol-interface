@@ -10,6 +10,9 @@ export interface Config {
   rpcUrl: string;
   apiUrl: string;
   bscScanUrl: string;
+  featureFlags: {
+    isolatedPools: boolean;
+  };
 }
 
 const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
@@ -27,6 +30,9 @@ const config: Config = {
   rpcUrl,
   apiUrl,
   bscScanUrl,
+  featureFlags: {
+    isolatedPools: !!process.env.REACT_APP_FF_ISOLATED_POOLS,
+  },
 };
 
 export default config;

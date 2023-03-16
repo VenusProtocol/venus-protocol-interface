@@ -42,7 +42,7 @@ import { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.borrowBalance')
 // t('marketTable.columnKeys.userBorrowBalance')
 // t('marketTable.columnKeys.userSupplyBalance')
-// t('marketTable.columnKeys.userWalletBalanceTokens')
+// t('marketTable.columnKeys.userWalletBalance')
 // t('marketTable.columnKeys.userPercentOfLimit')
 // t('marketTable.columnKeys.liquidity')
 
@@ -132,6 +132,14 @@ const useGenerateColumns = ({
 
           if (column === 'riskRating') {
             return <RiskLevel variant={poolAsset.pool.riskRating} />;
+          }
+
+          if (column === 'userWalletBalance') {
+            return formatTokensToReadableValue({
+              value: poolAsset.userSupplyBalanceTokens,
+              token: poolAsset.vToken.underlyingToken,
+              shortenLargeValue: true,
+            });
           }
 
           if (column === 'userSupplyBalance') {
@@ -254,6 +262,14 @@ const useGenerateColumns = ({
                   return comparePoolRiskRatings(
                     rowA.pool.riskRating,
                     rowB.pool.riskRating,
+                    direction,
+                  );
+                }
+
+                if (column === 'userWalletBalance') {
+                  return compareBigNumbers(
+                    rowA.userWalletBalanceTokens,
+                    rowB.userWalletBalanceTokens,
                     direction,
                   );
                 }

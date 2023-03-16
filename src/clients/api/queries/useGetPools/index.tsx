@@ -1,3 +1,4 @@
+import config from 'config';
 import { useMemo } from 'react';
 import { Pool } from 'types';
 
@@ -20,9 +21,14 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
   });
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
-    useGetIsolatedPools({
-      accountAddress,
-    });
+    useGetIsolatedPools(
+      {
+        accountAddress,
+      },
+      {
+        enabled: config.featureFlags.isolatedPools,
+      },
+    );
 
   const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
 

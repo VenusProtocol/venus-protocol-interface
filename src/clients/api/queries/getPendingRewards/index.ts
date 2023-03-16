@@ -39,17 +39,6 @@ const getPendingRewardGroups = async ({
         },
       ],
     },
-    // Pending rewards from isolated pools
-    {
-      reference: 'poolLens',
-      contractAddress: poolLensAddress,
-      abi: poolLensAbi,
-      calls: isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress => ({
-        reference: 'getPendingRewards',
-        methodName: 'getPendingRewards',
-        methodParameters: [accountAddress, isolatedPoolComptrollerAddress],
-      })),
-    },
     // Pending rewards from vaults
     {
       reference: 'vrtVault',
@@ -97,6 +86,20 @@ const getPendingRewardGroups = async ({
       ),
     },
   ];
+
+  if (isolatedPoolComptrollerAddresses.length > 0) {
+    // Pending rewards from isolated pools
+    contractCallContext.push({
+      reference: 'poolLens',
+      contractAddress: poolLensAddress,
+      abi: poolLensAbi,
+      calls: isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress => ({
+        reference: 'getPendingRewards',
+        methodName: 'getPendingRewards',
+        methodParameters: [accountAddress, isolatedPoolComptrollerAddress],
+      })),
+    });
+  }
 
   const contractCallResults: ContractCallResults = await multicall.call(contractCallContext);
 
