@@ -50,8 +50,9 @@ export const useStyles = () => {
       padding: ${theme.spacing(4, 0)};
 
       ${clickable &&
-      `
+      css`
         cursor: pointer;
+
         :hover {
           background-color: ${theme.palette.interactive.hover};
         }
@@ -70,6 +71,10 @@ export const useStyles = () => {
       ${clickable &&
       css`
         cursor: pointer;
+
+        :hover {
+          background-color: ${theme.palette.interactive.hover} !important;
+        }
       `}
     `,
     rowWrapperMobile: css`
