@@ -12,7 +12,7 @@ export const PALETTE = {
   mode: 'dark',
   background: {
     default: 'rgba(18, 22, 32, 1)',
-    paper: 'rgba(22, 27, 39, 1)',
+    paper: 'rgba(24, 29, 42, 1)',
     black: '#1F2028',
   },
   primary: {
@@ -21,8 +21,8 @@ export const PALETTE = {
     dark: 'var(--color-blue-hover)',
   },
   secondary: {
-    light: 'rgba(32, 39, 56, 1)',
-    main: 'rgba(22, 27, 39, 1)',
+    light: 'rgba(33, 41, 58, 1)',
+    main: 'rgba(24, 29, 42, 1)',
     dark: 'rgba(18, 22, 32, 1)',
   },
   text: {
@@ -43,9 +43,9 @@ export const PALETTE = {
     error: 'rgba(233, 61, 102, 1)',
     error50: 'rgba(233, 61, 68, 0.5)',
     tan: 'rgba(255, 231, 206, 1)',
-    delimiter: 'rgba(49, 50, 60, 1)',
+    delimiter: 'rgba(33, 41, 58, 1)',
     warning: 'rgba(220, 148, 68, 1)',
-    hover: 'rgba(255, 255, 255, 0.08)',
+    hover: 'rgba(32, 39, 56, 1)',
   },
 };
 

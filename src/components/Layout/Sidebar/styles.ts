@@ -53,17 +53,14 @@ export const useStyles = () => {
     `,
     listItem: css`
       transition: color 0.3s;
-      color: ${theme.palette.text.secondary};
       padding: 0;
 
-      ${theme.breakpoints.down('xl')} {
-        :hover {
-          background-color: transparent;
-        }
+      :hover {
+        background-color: transparent;
+      }
 
-        :hover > a {
-          background-color: ${theme.palette.secondary.light};
-        }
+      :hover > a {
+        background-color: ${theme.palette.secondary.light};
       }
 
       a {

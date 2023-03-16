@@ -1,17 +1,6 @@
 :root {
   /* Common styles */
-  --color-white: #fff;
   --color-black: #000;
-  --color-orange: var(--color-yellow);
-  --color-yellow: #3a78ff;
-  --color-gold: var(--color-yellow);
-  --color-purple: #906de5;
-  --color-red: #f9053e;
-  --color-green: #9dd562;
-  --color-blue: #039be5;
-  --color-dark-green: #09d395;
-  --color-dark-grey: #666771;
-
   --color-blue-hover: #265acc;
 
   /* Background colors */
@@ -20,17 +9,10 @@
   --color-bg-active: rgba(32, 39, 56, 1);
 
   /* Typography colors */
-  --color-text-main: #fff;
-  --color-text-secondary: #9597a1;
-  --color-text-inactive: #383944;
-  --color-text-red: #f9053e;
-  --color-text-green: #9dd562;
-  --color-text-blue: #2fe29b;
-  --color-input: rgba(56, 57, 68, 1);
-  --color-text-footer: #42434e;
-  --color-border-main: #eaeaea;
-  --color-primary: var(--color-yellow);
-  --color-secondary: #d3d3d3;
+  --color-text-main: rgba(255, 255, 255, 1);
+  --color-text-secondary: rgba(169, 171, 199, 1);
+  --color-text-inactive: rgba(161, 161, 161, 1);
+  --color-text-red: rgba(233, 61, 102, 1);
 }
 
 @font-face {
@@ -117,9 +99,4 @@ h6 {
 
 i {
   font-style: normal;
-}
-
-.input-error {
-  color: var(--color-red);
-  font-size: 18px;
 }
