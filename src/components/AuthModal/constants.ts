@@ -48,7 +48,7 @@ export const WALLETS: Wallet[] = [
     connector: Connector.SafePal,
   },
   {
-    name: t('wallets.okx'),
+    name: t('wallets.okxWallet'),
     Logo: OkxWalletLogo,
     connector: Connector.OkxWallet,
   },
