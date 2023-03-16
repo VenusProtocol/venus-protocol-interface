@@ -829,6 +829,10 @@
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "defeatedDate": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "executedDate": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
