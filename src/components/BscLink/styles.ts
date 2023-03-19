@@ -7,17 +7,7 @@ export const useStyles = () => {
   return {
     container: css`
       display: inline-block;
-      color: ${theme.palette.button.main};
-
-      :hover > a,
-      :hover > svg {
-        color: ${theme.palette.button.medium};
-      }
-
-      :active > a,
-      :active > svg {
-        color: ${theme.palette.button.dark};
-      }
+      color: ${theme.palette.interactive.primary};
     `,
     text: css`
       display: flex;

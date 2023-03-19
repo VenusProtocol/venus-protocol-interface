@@ -62,16 +62,5 @@ export const useStyles = () => {
       text-align: center;
       padding: ${theme.spacing(0, 4)};
     `,
-    footerLink: css`
-      color: ${theme.palette.button.main};
-
-      :hover {
-        color: ${theme.palette.button.medium};
-      }
-
-      :active {
-        color: ${theme.palette.button.dark};
-      }
-    `,
   };
 };

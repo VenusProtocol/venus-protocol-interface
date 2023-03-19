@@ -42,6 +42,11 @@ export const useStyles = () => {
       width: ${theme.spacing(56)};
       margin-bottom: ${theme.spacing(4)};
     `,
+    link: css`
+      :hover {
+        text-decoration: none;
+      }
+    `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
       &:not(:last-of-type) {
         margin-bottom: ${theme.spacing(6)};
@@ -68,13 +73,13 @@ export const useStyles = () => {
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
       height: ${theme.spacing(14)};
 
+      :hover {
+        background-color: ${theme.palette.interactive.hover} !important;
+      }
+
       ${clickable &&
       css`
         cursor: pointer;
-
-        :hover {
-          background-color: ${theme.palette.interactive.hover} !important;
-        }
       `}
     `,
     rowWrapperMobile: css`

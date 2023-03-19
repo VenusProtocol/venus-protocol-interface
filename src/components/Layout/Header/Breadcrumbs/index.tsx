@@ -174,7 +174,9 @@ const Breadcrumbs: React.FC = () => {
         <span key={`layout-header-breadcrumb-${pathNode.href}`} css={styles.pathNode}>
           {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
             <>
-              <Link to={pathNode.href}>{pathNode.dom}</Link>
+              <Link css={styles.link} to={pathNode.href}>
+                {pathNode.dom}
+              </Link>
               <span css={styles.separator}>/</span>
             </>
           ) : (

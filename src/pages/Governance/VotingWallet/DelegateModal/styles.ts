@@ -24,11 +24,6 @@ export const useStyles = () => {
       text-align: center;
       margin: auto;
       display: block;
-      color: ${theme.palette.interactive.primary};
-      :hover {
-        color: ${theme.palette.text.primary};
-        cursor: pointer;
-      }
     `,
   };
 };

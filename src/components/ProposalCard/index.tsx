@@ -40,7 +40,9 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
       css={styles.root}
       component={({ children, ...props }) => (
         <div {...props}>
-          <Link to={linkTo}>{children}</Link>
+          <Link css={styles.link} to={linkTo}>
+            {children}
+          </Link>
         </div>
       )}
       {...containerProps}

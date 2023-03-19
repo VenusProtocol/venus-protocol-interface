@@ -99,7 +99,13 @@ export function Table<R>({
                         title={cellTitle}
                         align={column.align}
                       >
-                        {getRowHref ? <Link to={getRowHref(row)}>{cellContent}</Link> : cellContent}
+                        {getRowHref ? (
+                          <Link css={styles.link} to={getRowHref(row)}>
+                            {cellContent}
+                          </Link>
+                        ) : (
+                          cellContent
+                        )}
                       </MuiTableCell>
                     );
                   })}
