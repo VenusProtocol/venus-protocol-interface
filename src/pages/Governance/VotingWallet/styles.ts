@@ -22,8 +22,9 @@ export const useStyles = () => {
     `,
     clickableText: css`
       color: ${theme.palette.interactive.primary};
+
       :hover {
-        color: ${theme.palette.text.primary};
+        text-decoration: underline;
         cursor: pointer;
       }
     `,

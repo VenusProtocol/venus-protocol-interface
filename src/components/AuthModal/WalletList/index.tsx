@@ -79,7 +79,6 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
                   href={VENUS_TERMS_OF_SERVICE_URL}
                   target="_blank"
                   rel="noreferrer"
-                  css={styles.footerLink}
                 />
               ),
             }}

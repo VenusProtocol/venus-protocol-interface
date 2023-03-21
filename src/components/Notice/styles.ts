@@ -69,6 +69,14 @@ export const useStyles = () => {
       flex-direction: column;
       padding-left: ${theme.spacing(7)};
       word-break: break-word;
+
+      a {
+        color: ${theme.palette.interactive.primary};
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
     `,
     title: css`
       font-weight: bold;

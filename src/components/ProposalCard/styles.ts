@@ -13,6 +13,11 @@ export const useStyles = () => {
         padding-right: 0;
       }
     `,
+    link: css`
+      :hover {
+        text-decoration: none;
+      }
+    `,
     gridItem: css`
       padding: ${theme.spacing(6, 0)};
       ${theme.breakpoints.down('sm')} {

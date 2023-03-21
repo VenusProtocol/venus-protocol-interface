@@ -69,6 +69,7 @@ export const useStyles = () => {
         justify-content: start;
         align-items: center;
         width: 100%;
+        text-decoration: none;
 
         ${theme.breakpoints.down('xl')} {
           width: auto;
@@ -218,6 +219,7 @@ export const useStyles = () => {
         margin-left: 0;
         margin-right: 0;
         border-radius: 0;
+        text-decoration: none;
       }
       .active-mobile-menu-item {
         background-color: ${theme.palette.secondary.light};

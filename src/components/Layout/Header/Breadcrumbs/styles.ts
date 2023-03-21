@@ -13,6 +13,15 @@ export const useStyles = () => {
       display: inline-flex;
       align-items: center;
     `,
+    link: css`
+      color: ${theme.palette.text.secondary};
+      transition: color 0.3s;
+
+      :hover {
+        text-decoration: none;
+        color: ${theme.palette.text.primary};
+      }
+    `,
     tokenSymbol: css`
       display: inline-flex;
       align-items: center;

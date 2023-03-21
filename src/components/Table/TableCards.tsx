@@ -97,7 +97,9 @@ export function TableCards<R>({
                 getRowHref
                   ? ({ children, ...props }) => (
                       <div {...props}>
-                        <Link to={getRowHref(row)}>{children}</Link>
+                        <Link css={styles.link} to={getRowHref(row)}>
+                          {children}
+                        </Link>
                       </div>
                     )
                   : 'div'
