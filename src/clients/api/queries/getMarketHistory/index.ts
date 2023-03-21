@@ -4,9 +4,9 @@ import { restService } from 'utilities';
 
 const ENTRIES_PER_HOUR = 2;
 const ENTRIES_PER_DAY = ENTRIES_PER_HOUR * 24;
-const ENTRIES_PER_WEEK = ENTRIES_PER_HOUR * 7;
-const ENTRIES_PER_30_DAYS = ENTRIES_PER_HOUR * 30;
-const ENTRIES_PER_YEAR = ENTRIES_PER_HOUR * 365;
+const ENTRIES_PER_WEEK = ENTRIES_PER_DAY * 7;
+const ENTRIES_PER_30_DAYS = ENTRIES_PER_DAY * 30;
+const ENTRIES_PER_YEAR = ENTRIES_PER_DAY * 365;
 
 export type MarketHistoryType = '1 day' | '1 week' | '1 month' | '1 year';
 
