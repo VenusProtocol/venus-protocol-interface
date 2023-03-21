@@ -75,7 +75,7 @@ const formatOutput = ({
   const xvsVestingVaultPendingRewardGroups: XvsVestingVaultPendingRewardGroup[] = [];
   const xvsVestingVaultResults = contractCallResults.results.xvsVestingVaults.callsReturnContext;
 
-  for (let v = 0; v < xvsVestingVaultResults.length - 1; v += 2) {
+  for (let v = 0; v < xvsVestingVaultResults.length - 1; v += 3) {
     const stakedTokenAddress = xvsVestingVaultResults[v].returnValues[0];
     const stakedToken = getTokenByAddress(stakedTokenAddress);
 
@@ -83,7 +83,15 @@ const formatOutput = ({
 
     const pendingRewardWei = new BigNumber(xvsVestingVaultResults[v + 1].returnValues[0].hex);
 
-    if (stakedToken && pendingRewardWei.isGreaterThan(0)) {
+    const hasPendingWithdrawalsFromBeforeUpgrade =
+      !!xvsVestingVaultResults[v].returnValues[2] &&
+      new BigNumber(xvsVestingVaultResults[v].returnValues[2].hex).isGreaterThan(0);
+
+    if (
+      !hasPendingWithdrawalsFromBeforeUpgrade &&
+      stakedToken &&
+      pendingRewardWei.isGreaterThan(0)
+    ) {
       xvsVestingVaultPendingRewardGroups.push({
         type: 'xvsVestingVault',
         poolIndex,

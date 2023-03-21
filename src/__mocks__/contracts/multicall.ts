@@ -3,6 +3,7 @@ import { ContractCallResults } from 'ethereum-multicall';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
+import poolLensAbi from 'constants/contracts/abis/poolLens.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
@@ -3866,42 +3867,42 @@ export const lenses: {
               '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
               {
                 type: 'BigNumber',
-                hex: '0x0304ee1427c877224ea8',
+                hex: '0x00',
               },
               [
                 [
                   '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
                   {
                     type: 'BigNumber',
-                    hex: '0x0b7fc30858',
+                    hex: '0x020652d584',
                   },
                 ],
                 [
                   '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
                   {
                     type: 'BigNumber',
-                    hex: '0x0808152c856d385015ce',
+                    hex: '0x0169ddac27be9fb9290c',
                   },
                 ],
                 [
                   '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
                   {
                     type: 'BigNumber',
-                    hex: '0x20a615b36dbef0dc',
+                    hex: '0x05bfa6c887f58ecb',
                   },
                 ],
                 [
                   '0x74469281310195A04840Daf6EdF576F559a3dE80',
                   {
                     type: 'BigNumber',
-                    hex: '0x3a260c874b',
+                    hex: '0x0a3d108c76',
                   },
                 ],
                 [
                   '0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c',
                   {
                     type: 'BigNumber',
-                    hex: '0x18c9f16be0db8c888eb9',
+                    hex: '0x04e5602f1da7599ad3c1',
                   },
                 ],
                 [
@@ -3915,49 +3916,49 @@ export const lenses: {
                   '0x162D005F0Fff510E54958Cfc5CF32A3180A84aab',
                   {
                     type: 'BigNumber',
-                    hex: '0x0237cb3f89ff5ebce9',
+                    hex: '0x63f8fe9c05c99b09',
                   },
                 ],
                 [
                   '0xAfc13BC065ABeE838540823431055D2ea52eBA52',
                   {
                     type: 'BigNumber',
-                    hex: '0x019268bdd412d4256c88',
+                    hex: '0x46d5c92dc1efb7d6f0',
                   },
                 ],
                 [
                   '0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C',
                   {
                     type: 'BigNumber',
-                    hex: '0x037d8a489c16786f10e6',
+                    hex: '0x9cff170aea1025e600',
                   },
                 ],
                 [
                   '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
                   {
                     type: 'BigNumber',
-                    hex: '0x01648d01882b1364bae3',
+                    hex: '0x3ea34275cf2676e924',
                   },
                 ],
                 [
                   '0x37C28DE42bA3d22217995D146FC684B2326Ede64',
                   {
                     type: 'BigNumber',
-                    hex: '0xf9f56213924350c9a4',
+                    hex: '0x2bf1200ff4d1c0506b',
                   },
                 ],
                 [
                   '0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9',
                   {
                     type: 'BigNumber',
-                    hex: '0x02483e1d45a918be49',
+                    hex: '0x66dee05befae8c13',
                   },
                 ],
                 [
                   '0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6',
                   {
                     type: 'BigNumber',
-                    hex: '0xf688e79a99b3bc5a75',
+                    hex: '0x2b6890bf27d3bb2032',
                   },
                 ],
                 [
@@ -3971,7 +3972,7 @@ export const lenses: {
                   '0x714db6c38A17883964B68a07d56cE331501d9eb6',
                   {
                     type: 'BigNumber',
-                    hex: '0x024936f8ad30',
+                    hex: '0x66fdfb8575',
                   },
                 ],
                 [
@@ -4000,6 +4001,13 @@ export const lenses: {
                   {
                     type: 'BigNumber',
                     hex: '0x00',
+                  },
+                ],
+                [
+                  '0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04',
+                  {
+                    type: 'BigNumber',
+                    hex: '0x14444458fa73d090bd',
                   },
                 ],
               ],
@@ -4033,7 +4041,7 @@ export const lenses: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x035d8be3c05fa90ef800',
+                hex: '0x42a3060061d1866e00',
               },
             ],
             decoded: true,
@@ -4062,7 +4070,7 @@ export const lenses: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x04980321148a8fce4692',
+                hex: '0x00',
               },
             ],
             decoded: true,
@@ -4094,6 +4102,15 @@ export const lenses: {
               ],
             },
             {
+              reference: 'vault-0-pendingWithdrawalsBeforeUpgrade',
+              methodName: 'pendingWithdrawalsBeforeUpgrade',
+              methodParameters: [
+                '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+                0,
+                '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+              ],
+            },
+            {
               reference: 'vault-1-poolInfos',
               methodName: 'poolInfos',
               methodParameters: ['0xB9e0E753630434d7863528cc73CB7AC638a7c8ff', 1],
@@ -4101,6 +4118,15 @@ export const lenses: {
             {
               reference: 'vault-1-pendingReward',
               methodName: 'pendingReward',
+              methodParameters: [
+                '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+                1,
+                '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+              ],
+            },
+            {
+              reference: 'vault-1-pendingWithdrawalsBeforeUpgrade',
+              methodName: 'pendingWithdrawalsBeforeUpgrade',
               methodParameters: [
                 '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
                 1,
@@ -4140,12 +4166,29 @@ export const lenses: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x026b0899ac5221627300',
+                hex: '0x039e30d2c16983b55100',
               },
             ],
             decoded: true,
             reference: 'vault-0-pendingReward',
             methodName: 'pendingReward',
+            methodParameters: [
+              '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+              0,
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+            ],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x3635c9adc5dea00000',
+              },
+            ],
+            decoded: true,
+            reference: 'vault-0-pendingWithdrawalsBeforeUpgrade',
+            methodName: 'pendingWithdrawalsBeforeUpgrade',
             methodParameters: [
               '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
               0,
@@ -4162,11 +4205,11 @@ export const lenses: {
               },
               {
                 type: 'BigNumber',
-                hex: '0x01920bbb',
+                hex: '0x01a8c566',
               },
               {
                 type: 'BigNumber',
-                hex: '0xa810570bb7',
+                hex: '0xa93798a311',
               },
               {
                 type: 'BigNumber',
@@ -4183,7 +4226,7 @@ export const lenses: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x91b96913efc37afc80',
+                hex: '0x7f371dc7ec6b78f840',
               },
             ],
             decoded: true,
@@ -4196,10 +4239,174 @@ export const lenses: {
             ],
             success: true,
           },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x3635c9adc5dea00000',
+              },
+            ],
+            decoded: true,
+            reference: 'vault-1-pendingWithdrawalsBeforeUpgrade',
+            methodName: 'pendingWithdrawalsBeforeUpgrade',
+            methodParameters: [
+              '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+              1,
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+            ],
+            success: true,
+          },
+        ],
+      },
+      poolLens: {
+        originalContractCallContext: {
+          reference: 'poolLens',
+          contractAddress: '0x90fAa4B139bb5Cba016d9d1D343981541A0C5251',
+          abi: poolLensAbi,
+          calls: [
+            {
+              reference: 'getPendingRewards',
+              methodName: 'getPendingRewards',
+              methodParameters: [
+                '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+                '0x2f83bc52a10546ec3a2cabbb706c82b869d2d677',
+              ],
+            },
+            {
+              reference: 'getPendingRewards',
+              methodName: 'getPendingRewards',
+              methodParameters: [
+                '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+                '0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9',
+              ],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: [
+              [
+                '0xb26C2976e0689eE710f12ddf15bcd26e9010D87F',
+                '0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c',
+                {
+                  type: 'BigNumber',
+                  hex: '0x00',
+                },
+                [
+                  [
+                    '0x37A0aC901578a7F05379Fc43330B3D1e39D0C40c',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                  [
+                    '0x75a10f0C415DCcCa275e8CdD8447D291a6b86f06',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                ],
+              ],
+              [
+                '0x89ab98Dc3072992CC78257CfA0900e4394Ce0350',
+                '0xca83b44F7EEa4ca927b6cE41A48f119458acde4C',
+                {
+                  type: 'BigNumber',
+                  hex: '0x00',
+                },
+                [
+                  [
+                    '0x37A0aC901578a7F05379Fc43330B3D1e39D0C40c',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                  [
+                    '0x75a10f0C415DCcCa275e8CdD8447D291a6b86f06',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                ],
+              ],
+            ],
+            decoded: true,
+            reference: 'getPendingRewards',
+            methodName: 'getPendingRewards',
+            methodParameters: [
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+              '0x2f83bc52a10546ec3a2cabbb706c82b869d2d677',
+            ],
+            success: true,
+          },
+          {
+            returnValues: [
+              [
+                '0xBfabfDC3A90C5a091DDA7721133E87871dd25d5F',
+                '0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c',
+                {
+                  type: 'BigNumber',
+                  hex: '0x1b1086bbcb85623f405c',
+                },
+                [
+                  [
+                    '0xcfC8A73F9c888EeA9AF9ccCa24646e84A915510B',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                  [
+                    '0x12d3a3Aa7f4917Ea3b8eE34F99A9A7Eec521FA61',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x239b98b3c730ab921742',
+                    },
+                  ],
+                ],
+              ],
+              [
+                '0x774fe56781613eDB1bFaFB1C53fbd1831C0234BD',
+                '0xa14C236372228B6e8182748F3eBbFb4BFEEA3574',
+                {
+                  type: 'BigNumber',
+                  hex: '0x00',
+                },
+                [
+                  [
+                    '0xcfC8A73F9c888EeA9AF9ccCa24646e84A915510B',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                  [
+                    '0x12d3a3Aa7f4917Ea3b8eE34F99A9A7Eec521FA61',
+                    {
+                      type: 'BigNumber',
+                      hex: '0x00',
+                    },
+                  ],
+                ],
+              ],
+            ],
+            decoded: true,
+            reference: 'getPendingRewards',
+            methodName: 'getPendingRewards',
+            methodParameters: [
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+              '0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9',
+            ],
+            success: true,
+          },
         ],
       },
     },
-    blockNumber: 27028318,
+    blockNumber: 28241755,
   },
 };
 

@@ -4,6 +4,7 @@ exports[`api/queries/useGetVaults fetches and returns vaults correctly 1`] = `
 Array [
   Object {
     "dailyEmissionWei": "28800000000",
+    "hasPendingWithdrawalsFromBeforeUpgrade": true,
     "lockingPeriodMs": 200000,
     "poolIndex": 0,
     "rewardToken": Object {
@@ -24,6 +25,7 @@ Array [
   },
   Object {
     "dailyEmissionWei": "28800000000",
+    "hasPendingWithdrawalsFromBeforeUpgrade": true,
     "lockingPeriodMs": 200000,
     "poolIndex": 1,
     "rewardToken": Object {
@@ -44,6 +46,7 @@ Array [
   },
   Object {
     "dailyEmissionWei": "28800000000",
+    "hasPendingWithdrawalsFromBeforeUpgrade": true,
     "lockingPeriodMs": 200000,
     "poolIndex": 2,
     "rewardToken": Object {
@@ -64,6 +67,7 @@ Array [
   },
   Object {
     "dailyEmissionWei": "28800000000",
+    "hasPendingWithdrawalsFromBeforeUpgrade": true,
     "lockingPeriodMs": 200000,
     "poolIndex": 3,
     "rewardToken": Object {
@@ -84,6 +88,7 @@ Array [
   },
   Object {
     "dailyEmissionWei": "28800000000",
+    "hasPendingWithdrawalsFromBeforeUpgrade": true,
     "lockingPeriodMs": 200000,
     "poolIndex": 4,
     "rewardToken": Object {

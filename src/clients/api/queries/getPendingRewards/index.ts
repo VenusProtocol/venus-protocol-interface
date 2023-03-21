@@ -81,6 +81,11 @@ const getPendingRewardGroups = async ({
               methodName: 'pendingReward',
               methodParameters: [TOKENS.xvs.address, poolIndex, accountAddress],
             },
+            {
+              reference: `vault-${poolIndex}-pendingWithdrawalsBeforeUpgrade`,
+              methodName: 'pendingWithdrawalsBeforeUpgrade',
+              methodParameters: [TOKENS.xvs.address, poolIndex, accountAddress],
+            },
           ]),
         [],
       ),

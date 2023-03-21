@@ -110,6 +110,13 @@ export const getXvsVaultPoolCount = jest.fn();
 export const useGetXvsVaultPoolCount = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolCount);
 
+export const getXvsVaultPendingWithdrawalsFromBeforeUpgrade = jest.fn();
+export const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = () =>
+  useQuery(
+    FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
+    getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
+  );
+
 export const useGetTreasuryTotals = jest.fn();
 
 export const useGetMainPoolTotalXvsDistributed = jest.fn();

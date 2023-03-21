@@ -322,3 +322,7 @@ export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs
 export { default as getVaiRepayApy } from './queries/getVaiRepayApy';
 export * from './queries/getVaiRepayApy';
 export { default as useGetVaiRepayApy } from './queries/getVaiRepayApy/useGetVaiRepayApy';
+
+export { default as getXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+export * from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+export { default as useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';

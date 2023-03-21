@@ -2002,7 +2002,7 @@ Array [
             "type": "uint256",
           },
         ],
-        "name": "ReqestedWithdrawal",
+        "name": "RequestedWithdrawal",
         "type": "event",
       },
       Object {
@@ -2706,6 +2706,37 @@ Array [
       },
       Object {
         "constant": true,
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "pendingWithdrawalsBeforeUpgrade",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "beforeUpgradeWithdrawalAmount",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "constant": true,
         "inputs": Array [],
         "name": "pendingXVSVaultImplementation",
         "outputs": Array [
@@ -3013,6 +3044,15 @@ Array [
         "reference": "vault-0-pendingReward",
       },
       Object {
+        "methodName": "pendingWithdrawalsBeforeUpgrade",
+        "methodParameters": Array [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          0,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-0-pendingWithdrawalsBeforeUpgrade",
+      },
+      Object {
         "methodName": "poolInfos",
         "methodParameters": Array [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -3028,6 +3068,15 @@ Array [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "vault-1-pendingReward",
+      },
+      Object {
+        "methodName": "pendingWithdrawalsBeforeUpgrade",
+        "methodParameters": Array [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          1,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-1-pendingWithdrawalsBeforeUpgrade",
       },
     ],
     "contractAddress": "0x9aB56bAD2D7631B2A857ccf36d998232A8b82280",
@@ -4065,7 +4114,7 @@ Object {
   "pendingRewardGroups": Array [
     Object {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "rewardAmountWei": "2.08975358214996139964538e+23",
+      "rewardAmountWei": "3.7154375659692912361873e+22",
       "rewardToken": Object {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "xvs.svg",
@@ -4087,10 +4136,30 @@ Object {
         "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
         "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
         "0x714db6c38A17883964B68a07d56cE331501d9eb6",
+        "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
       ],
     },
     Object {
-      "rewardAmountWei": "1.5892726759372e+22",
+      "comptrollerAddress": "0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9",
+      "pendingRewards": Array [
+        Object {
+          "rewardAmountWei": "2.95961827109044250302366e+23",
+          "rewardToken": Object {
+            "address": "0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c",
+            "asset": "xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+          "rewardsDistributorAddress": "0xBfabfDC3A90C5a091DDA7721133E87871dd25d5F",
+          "vTokenAddressesWithPendingReward": Array [
+            "0x12d3a3Aa7f4917Ea3b8eE34F99A9A7Eec521FA61",
+          ],
+        },
+      ],
+      "type": "isolatedPool",
+    },
+    Object {
+      "rewardAmountWei": "1.229232185963e+21",
       "rewardToken": Object {
         "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
         "asset": "vrt.svg",
@@ -4104,44 +4173,6 @@ Object {
         "symbol": "VRT",
       },
       "type": "vault",
-    },
-    Object {
-      "rewardAmountWei": "2.169359651472412863861e+22",
-      "rewardToken": Object {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
-        "decimals": 18,
-        "symbol": "XVS",
-      },
-      "stakedToken": Object {
-        "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "vai.svg",
-        "decimals": 18,
-        "symbol": "VAI",
-      },
-      "type": "vault",
-    },
-    Object {
-      "poolIndex": 0,
-      "rewardAmountWei": "1.14191542975187e+22",
-      "rewardToken": Object {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
-        "decimals": 18,
-        "symbol": "XVS",
-      },
-      "type": "xvsVestingVault",
-    },
-    Object {
-      "poolIndex": 1,
-      "rewardAmountWei": "2.688138122377954e+21",
-      "rewardToken": Object {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
-        "decimals": 18,
-        "symbol": "XVS",
-      },
-      "type": "xvsVestingVault",
     },
   ],
 }
