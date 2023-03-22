@@ -635,6 +635,7 @@
   },
   "vaultItem": {
     "claimButton": "Claim",
+    "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
     "reward": "Reward:",
     "stakeButton": "Stake",
@@ -833,7 +834,7 @@
     "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
-    "okx": "OKX",
+    "okxWallet": "OKX Wallet",
     "opera": "Opera Wallet",
     "safePal": "SafePal",
     "trustWallet": "Trust Wallet",
@@ -891,5 +892,8 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "xvsPage": {
+    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }
