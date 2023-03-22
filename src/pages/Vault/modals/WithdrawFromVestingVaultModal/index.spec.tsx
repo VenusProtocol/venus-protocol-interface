@@ -21,6 +21,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal', () => {
         poolIndex={fakePoolIndex}
         stakedTokenId={fakeStokedTokenId}
         handleClose={noop}
+        hasPendingWithdrawalsFromBeforeUpgrade={false}
       />,
       {
         authContextValue: { account: { address: fakeAddress } },
