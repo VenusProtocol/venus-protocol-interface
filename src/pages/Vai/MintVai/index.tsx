@@ -11,9 +11,19 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatPercentage,
+  getContractAddress,
+} from 'utilities';
 
-import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
+import {
+  useGetMintableVai,
+  useGetVaiRepayApy,
+  useGetVaiTreasuryPercentage,
+  useMintVai,
+} from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
@@ -31,6 +41,7 @@ export interface MintVaiUiProps {
   isInitialLoading: boolean;
   isSubmitting: boolean;
   mintVai: (value: BigNumber) => Promise<ContractReceipt | undefined>;
+  apyPercentage?: BigNumber;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
@@ -40,6 +51,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   limitWei,
   mintFeePercentage,
   isInitialLoading,
+  apyPercentage,
   isSubmitting,
   mintVai,
 }) => {
@@ -132,6 +144,14 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
                   </LabeledInlineContent>
 
                   <LabeledInlineContent
+                    css={styles.getRow({ isLast: false })}
+                    iconSrc="fee"
+                    label={t('vai.mintVai.apy')}
+                  >
+                    {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
+                  </LabeledInlineContent>
+
+                  <LabeledInlineContent
                     css={styles.getRow({ isLast: true })}
                     iconSrc="fee"
                     label={t('vai.mintVai.mintFeeLabel')}
@@ -168,6 +188,8 @@ const MintVai: React.FC = () => {
     },
   );
 
+  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+
   const { data: vaiTreasuryData, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
@@ -185,6 +207,7 @@ const MintVai: React.FC = () => {
       mintFeePercentage={vaiTreasuryData?.percentage}
       isInitialLoading={isGetMintableVaiLoading}
       isSubmitting={isSubmitting}
+      apyPercentage={getVaiRepayApyData?.repayApyPercentage}
       mintVai={mintVai}
     />
   );

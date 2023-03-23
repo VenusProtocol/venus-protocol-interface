@@ -704,6 +704,7 @@
   },
   "vai": {
     "mintVai": {
+      "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
       "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
       "mintFeeLabel": "Mint fee",
@@ -714,7 +715,8 @@
         "message": "You successfully minted",
         "title": "Your mint was successful"
       },
-      "vaiLimitLabel": "Available VAI limit"
+      "vaiLimitLabel": "Available VAI limit",
+      "walletBalance": "Wallet balance: <White>{{amount}}</White>"
     },
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
