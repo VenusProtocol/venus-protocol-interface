@@ -66,13 +66,15 @@ export const LinkButton = ({
   return <Link {...props} css={[styles.getButton({ disabled: false }), styles.link]} />;
 };
 
+type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
 export const AnchorButton = ({
   variant = 'primary',
   fullWidth = false,
   small = false,
   children,
   ...props
-}: BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+}: AnchorButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
   return (
     <a
@@ -85,3 +87,10 @@ export const AnchorButton = ({
     </a>
   );
 };
+
+export const PrimaryAnchorButton = (props: AnchorButtonProps) => (
+  <AnchorButton variant="primary" {...props} />
+);
+export const SecondaryAnchorButton = (props: AnchorButtonProps) => (
+  <AnchorButton variant="secondary" {...props} />
+);
