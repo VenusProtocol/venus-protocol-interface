@@ -121,6 +121,10 @@ export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculate
 export * from './queries/getVaiCalculateRepayAmount';
 export { default as useGetVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount/useGetVaiCalculateRepayAmount';
 
+export { default as getVaiRepayAmountWithInterests } from './queries/getVaiRepayAmountWithInterests';
+export * from './queries/getVaiRepayAmountWithInterests';
+export { default as useGetVaiRepayAmountWithInterests } from './queries/getVaiRepayAmountWithInterests/useGetVaiRepayAmountWithInterests';
+
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
 export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';

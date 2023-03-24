@@ -11,9 +11,11 @@ import {
   getBalanceOf,
   getMintedVai,
   getVaiCalculateRepayAmount,
+  getVaiRepayAmountWithInterests,
   repayVai,
 } from 'clients/api';
 import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
+import formatToGetVaiRepayAmountWithInterestsOutput from 'clients/api/queries/getVaiRepayAmountWithInterests/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -42,6 +44,12 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     (getMintedVai as jest.Mock).mockImplementation(() => ({
       mintedVaiWei: fakeUserVaiMintedWei,
     }));
+
+    (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() =>
+      formatToGetVaiRepayAmountWithInterestsOutput({
+        contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
+      }),
+    );
 
     (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
       formatToOutput({

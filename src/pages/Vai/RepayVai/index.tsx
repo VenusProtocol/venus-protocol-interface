@@ -13,7 +13,12 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 
-import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetMintedVai,
+  useGetVaiRepayAmountWithInterests,
+  useRepayVai,
+} from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
@@ -33,12 +38,14 @@ export interface IRepayVaiUiProps {
   isSubmitting: boolean;
   repayVai: (amountWei: BigNumber) => Promise<ContractReceipt | undefined>;
   userBalanceWei?: BigNumber;
+  repayBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
+  repayBalanceWei,
   userMintedWei,
   isInitialLoading,
   isSubmitting,
@@ -58,9 +65,9 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     return convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai }).toFixed();
   }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
-  // Convert minted wei into VAI
+  // Convert repay balance (minted + interests) into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
-    valueWei: userMintedWei,
+    valueWei: repayBalanceWei,
     token: TOKENS.vai,
   });
 
@@ -117,6 +124,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                     css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}
                     label={t('vai.repayVai.repayVaiBalance')}
+                    tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
                   >
                     {readableRepayableVai}
                   </LabeledInlineContent>
@@ -151,6 +159,16 @@ const RepayVai: React.FC = () => {
     },
   );
 
+  const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
+    useGetVaiRepayAmountWithInterests(
+      {
+        accountAddress,
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
+
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
@@ -173,8 +191,11 @@ const RepayVai: React.FC = () => {
     <RepayVaiUi
       disabled={!accountAddress}
       userBalanceWei={userVaiBalanceData?.balanceWei}
+      repayBalanceWei={repayAmountWithInterests?.vaiRepayAmountWithInterests}
       userMintedWei={mintedVaiData?.mintedVaiWei}
-      isInitialLoading={isGetMintedVaiLoading || isGetUserVaiBalance}
+      isInitialLoading={
+        isGetMintedVaiLoading || isGetUserVaiBalance || isGetVaiRepayAmountWithInterests
+      }
       isSubmitting={isSubmitting}
       repayVai={repayVai}
     />

@@ -19,6 +19,10 @@ export const getVaiCalculateRepayAmount = jest.fn();
 export const useGetVaiCalculateRepayAmount = () =>
   useQuery(FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT, getVaiCalculateRepayAmount);
 
+export const getVaiRepayAmountWithInterests = jest.fn();
+export const useGetVaiRepayAmountWithInterests = () =>
+  useQuery(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS, getVaiRepayAmountWithInterests);
+
 export const getVaiTreasuryPercentage = jest.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);

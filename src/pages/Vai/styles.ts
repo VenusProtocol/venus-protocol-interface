@@ -14,7 +14,7 @@ export const useStyles = () => {
       flex-direction: column;
     `,
     tabs: css`
-      max-width: ${theme.spacing(136)};
+      max-width: ${theme.spacing(140)};
       width: 100%;
       padding: ${theme.spacing(10)};
 

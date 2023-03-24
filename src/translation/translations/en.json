@@ -724,6 +724,7 @@
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
       "repayVaiBalance": "Repay VAI balance",
+      "repayVaiBalanceTooltip": "Total VAI balance to repay, including interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",

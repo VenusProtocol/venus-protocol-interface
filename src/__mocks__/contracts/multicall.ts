@@ -4206,6 +4206,53 @@ export const lenses: {
 const vaiController: {
   [key: string]: ContractCallResults;
 } = {
+  getVaiRepayTotalAmount: {
+    results: {
+      getVaiRepayTotalAmount: {
+        originalContractCallContext: {
+          reference: 'getVaiRepayTotalAmount',
+          contractAddress: '0xf70C3C6b749BbAb89C081737334E74C9aFD4BE16',
+          abi: [],
+          calls: [
+            {
+              reference: 'accrueVAIInterest',
+              methodName: 'accrueVAIInterest',
+              methodParameters: [],
+            },
+            {
+              reference: 'getVAIRepayAmount',
+              methodName: 'getVAIRepayAmount',
+              methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: ['0x'],
+            decoded: false,
+            reference: 'accrueVAIInterest',
+            methodName: 'accrueVAIInterest',
+            methodParameters: [],
+            success: true,
+          },
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x04b093ee60809ce69523a2',
+              },
+            ],
+            decoded: true,
+            reference: 'getVAIRepayAmount',
+            methodName: 'getVAIRepayAmount',
+            methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+            success: true,
+          },
+        ],
+      },
+    },
+    blockNumber: 26714340,
+  },
   getVaiRepayInterests: {
     results: {
       getVaiRepayInterests: {
