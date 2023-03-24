@@ -4,6 +4,7 @@ import { Vault } from 'types';
 import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
+  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolCount,
@@ -58,6 +59,7 @@ const useGetVestingVaults = ({
       [poolIndex: string]: {
         poolInfos: GetXvsVaultPoolInfoOutput;
         userInfos?: GetXvsVaultUserInfoOutput;
+        hasPendingWithdrawalsFromBeforeUpgrade: boolean;
       };
     } = {};
 
@@ -79,12 +81,20 @@ const useGetVestingVaults = ({
         poolQueryResultStartIndex + 1
       ] as UseQueryResult<GetXvsVaultUserInfoOutput>;
 
+      const userPendingWithdrawalsFromBeforeUpgradeQueryResult = poolQueryResults[
+        poolQueryResultStartIndex + 2
+      ] as UseQueryResult<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput>;
+
       if (poolInfosQueryResult?.data) {
         tokenAddresses.push(poolInfosQueryResult.data.stakedTokenAddress);
 
         data[poolIndex] = {
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
+          hasPendingWithdrawalsFromBeforeUpgrade:
+            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.pendingWithdrawalsFromBeforeUpgradeWei.isGreaterThan(
+              0,
+            ) || false,
         };
       }
     }
@@ -125,6 +135,8 @@ const useGetVestingVaults = ({
           const totalStakedWeiData = poolBalances[poolIndex];
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
+          const hasPendingWithdrawalsFromBeforeUpgrade =
+            poolData[poolIndex]?.hasPendingWithdrawalsFromBeforeUpgrade;
 
           const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
@@ -166,6 +178,7 @@ const useGetVestingVaults = ({
               stakingAprPercentage,
               userStakedWei,
               poolIndex,
+              hasPendingWithdrawalsFromBeforeUpgrade,
             };
 
             return [...acc, vault];

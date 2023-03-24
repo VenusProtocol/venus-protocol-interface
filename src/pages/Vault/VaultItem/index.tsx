@@ -4,7 +4,7 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { Button, TokenIcon } from 'components';
+import { Button, NoticeWarning, TokenIcon } from 'components';
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
@@ -39,6 +39,7 @@ export interface VaultItemUiProps {
   poolIndex?: number;
   activeModal?: ActiveModal;
   userStakedWei?: BigNumber;
+  hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
   className?: string;
 }
 
@@ -56,6 +57,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   poolIndex,
   isWithdrawLoading,
   closeActiveModal,
+  hasPendingWithdrawalsFromBeforeUpgrade,
   className,
 }) => {
   const styles = useStyles();
@@ -171,8 +173,17 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           ))}
         </ul>
 
+        {hasPendingWithdrawalsFromBeforeUpgrade && (
+          <NoticeWarning description={t('vaultItem.blockingPendingWithdrawalsWarning')} />
+        )}
+
         <div css={styles.buttonsWrapper}>
-          <Button onClick={onStake} css={styles.button} variant="primary">
+          <Button
+            onClick={onStake}
+            css={styles.button}
+            variant="primary"
+            disabled={hasPendingWithdrawalsFromBeforeUpgrade}
+          >
             {t('vaultItem.stakeButton')}
           </Button>
 
@@ -209,6 +220,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           handleClose={closeActiveModal}
           stakedToken={stakedToken}
           poolIndex={poolIndex}
+          hasPendingWithdrawalsFromBeforeUpgrade={hasPendingWithdrawalsFromBeforeUpgrade || false}
         />
       )}
     </>

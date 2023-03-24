@@ -271,6 +271,7 @@ export interface Vault {
   lockingPeriodMs?: number;
   userStakedWei?: BigNumber;
   poolIndex?: number;
+  hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
 }
 
 export interface VoterAccount {

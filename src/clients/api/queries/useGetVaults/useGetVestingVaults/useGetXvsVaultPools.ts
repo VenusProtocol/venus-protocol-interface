@@ -1,8 +1,10 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import {
+  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
+  getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -16,7 +18,9 @@ export interface UseGetXvsVaultPoolsInput {
 }
 
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
-  GetXvsVaultPoolInfoOutput | GetXvsVaultUserInfoOutput
+  | GetXvsVaultPoolInfoOutput
+  | GetXvsVaultUserInfoOutput
+  | GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput
 >[];
 
 const useGetXvsVaultPools = ({
@@ -25,7 +29,11 @@ const useGetXvsVaultPools = ({
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
-  const poolQueries: UseQueryOptions<GetXvsVaultPoolInfoOutput | GetXvsVaultUserInfoOutput>[] = [];
+  const poolQueries: UseQueryOptions<
+    | GetXvsVaultPoolInfoOutput
+    | GetXvsVaultUserInfoOutput
+    | GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput
+  >[] = [];
 
   // Fetch pool infos
   // TODO: use multicall
@@ -53,6 +61,21 @@ const useGetXvsVaultPools = ({
         }),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_USER_INFO,
+        { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+      ],
+      enabled: !!accountAddress,
+    });
+
+    poolQueries.push({
+      queryFn: () =>
+        getXvsVaultPendingWithdrawalsFromBeforeUpgrade({
+          xvsVaultContract,
+          rewardTokenAddress: TOKENS.xvs.address,
+          poolIndex,
+          accountAddress: accountAddress || '',
+        }),
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
         { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
       ],
       enabled: !!accountAddress,

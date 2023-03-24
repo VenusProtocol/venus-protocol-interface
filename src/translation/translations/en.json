@@ -743,6 +743,7 @@
     }
   },
   "vaultItem": {
+    "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
@@ -833,10 +834,6 @@
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "defeatedDate": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
-    "executedDate": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -942,9 +939,9 @@
     "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
+    "okxWallet": "OKX Wallet",
     "opera": "Opera Wallet",
     "safePal": "SafePal",
-    "okxWallet": "OKX Wallet",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },
@@ -1000,5 +997,8 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "xvsPage": {
+    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }

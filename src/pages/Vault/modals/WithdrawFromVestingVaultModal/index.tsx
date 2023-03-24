@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs } from 'components';
+import { Modal, ModalProps, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -13,12 +13,14 @@ export interface WithdrawFromVestingVaultModalProps {
   handleClose: ModalProps['handleClose'];
   stakedToken: Token;
   poolIndex: number;
+  hasPendingWithdrawalsFromBeforeUpgrade: boolean;
 }
 
 const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps> = ({
   handleClose,
   stakedToken,
   poolIndex,
+  hasPendingWithdrawalsFromBeforeUpgrade,
 }) => {
   const [initialActiveTabIndex, setInitialActiveTabIndex] = useState(0);
   const [shouldDisplayWithdrawalRequestList, setShouldDisplayWithdrawalRequestList] =
@@ -35,29 +37,11 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const tabsContent: TabContent[] = [
-    {
-      title: t('withdrawFromVestingVaultModalModal.withdrawTabTitle'),
-      content: (
-        <div css={styles.tabContainer}>
-          <Withdraw stakedToken={stakedToken} poolIndex={poolIndex} handleClose={handleClose} />
-        </div>
-      ),
-    },
-    {
-      title: t('withdrawFromVestingVaultModalModal.requestWithdrawalTabTitle'),
-      content: (
-        <div css={styles.tabContainer}>
-          <RequestWithdrawal
-            stakedToken={stakedToken}
-            poolIndex={poolIndex}
-            handleClose={handleClose}
-            handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
-          />
-        </div>
-      ),
-    },
-  ];
+  const withdrawTabDom = (
+    <div css={styles.tabContainer}>
+      <Withdraw stakedToken={stakedToken} poolIndex={poolIndex} handleClose={handleClose} />
+    </div>
+  );
 
   return (
     <Modal
@@ -79,7 +63,34 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       {shouldDisplayWithdrawalRequestList ? (
         <WithdrawalRequestList poolIndex={poolIndex} />
       ) : (
-        <Tabs initialActiveTabIndex={initialActiveTabIndex} tabsContent={tabsContent} />
+        <>
+          {hasPendingWithdrawalsFromBeforeUpgrade ? (
+            withdrawTabDom
+          ) : (
+            <Tabs
+              initialActiveTabIndex={initialActiveTabIndex}
+              tabsContent={[
+                {
+                  title: t('withdrawFromVestingVaultModalModal.withdrawTabTitle'),
+                  content: withdrawTabDom,
+                },
+                {
+                  title: t('withdrawFromVestingVaultModalModal.requestWithdrawalTabTitle'),
+                  content: (
+                    <div css={styles.tabContainer}>
+                      <RequestWithdrawal
+                        stakedToken={stakedToken}
+                        poolIndex={poolIndex}
+                        handleClose={handleClose}
+                        handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          )}
+        </>
       )}
     </Modal>
   );

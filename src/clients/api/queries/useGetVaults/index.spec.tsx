@@ -15,6 +15,7 @@ import {
   getVenusVaiVaultDailyRate,
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
+  getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
   getXvsVaultRewardPerBlock,
@@ -51,6 +52,10 @@ describe('api/queries/useGetVaults', () => {
     (getBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: new BigNumber('4000000000'),
     }));
+    (getXvsVaultPendingWithdrawalsFromBeforeUpgrade as jest.Mock).mockImplementation(() => ({
+      pendingWithdrawalsFromBeforeUpgradeWei: new BigNumber('100000'),
+    }));
+
     (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
 
     (getVaiVaultUserInfo as jest.Mock).mockImplementation(() =>
