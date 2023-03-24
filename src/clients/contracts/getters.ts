@@ -1,3 +1,4 @@
+import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
 import { Token, VToken } from 'types';
 import { areTokensEqual, getContractAddress } from 'utilities';
@@ -29,6 +30,7 @@ import {
   Maximillion,
   Multicall,
   PancakeRouter,
+  PoolLens,
   VaiController,
   VaiVault,
   VenusLens,
@@ -203,3 +205,10 @@ export const getMulticallContract = (signer?: Signer) =>
     address: getContractAddress('multicall'),
     signer,
   }) as Multicall;
+
+export const getPoolLensContract = (signer?: Signer) =>
+  getContract({
+    abi: poolLensAbi,
+    address: getContractAddress('poolLens'),
+    signer,
+  }) as PoolLens;

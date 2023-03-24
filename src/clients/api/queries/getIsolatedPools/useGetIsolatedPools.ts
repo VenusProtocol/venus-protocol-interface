@@ -4,12 +4,13 @@ import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
+import { useGetPoolLensContract } from 'clients/contracts';
 import { useMulticall } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
-type TrimmedInput = Omit<GetIsolatedPoolsInput, 'multicall' | 'provider'>;
+type TrimmedInput = Omit<GetIsolatedPoolsInput, 'multicall' | 'provider' | 'poolLensContract'>;
 
 type Options = QueryObserverOptions<
   GetIsolatedPoolsOutput,
@@ -21,6 +22,7 @@ type Options = QueryObserverOptions<
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const multicall = useMulticall();
+  const poolLensContract = useGetPoolLensContract();
   const { provider } = useAuth();
 
   return useQuery(
@@ -29,6 +31,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
       getIsolatedPools({
         ...input,
         multicall,
+        poolLensContract,
         provider,
       }),
     {

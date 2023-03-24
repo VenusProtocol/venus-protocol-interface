@@ -211,7 +211,9 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
     // Take borrow cap in consideration if asset has one
     if (asset.borrowCapTokens) {
       const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.userBorrowBalanceTokens);
-      maxTokens = BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
+      maxTokens = marginWithBorrowCapTokens.isLessThanOrEqualTo(0)
+        ? new BigNumber(0)
+        : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
     }
 
     const safeBorrowLimitCents = (pool.userBorrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;

@@ -1,129 +1,200 @@
-import BigNumber from 'bignumber.js';
+import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
+import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
+import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { VToken } from 'types';
-import { getVTokenByAddress } from 'utilities';
+import _cloneDeep from 'lodash/cloneDeep';
+import { Token } from 'types';
+import { areTokensEqual, getContractAddress, getTokenByAddress } from 'utilities';
 
-import { getIsolatedPools as getSubgraphIsolatedPools } from 'clients/subgraph';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import oracleAbi from 'constants/contracts/abis/oracle.json';
+import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 
 import getTokenBalances, { GetTokenBalancesOutput } from '../getTokenBalances';
-import formatToPool from './formatToPool';
-import { FormatToPoolInput, GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
+import formatOutput from './formatOutput';
+import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
+const POOL_REGISTRY_ADDRESS = getContractAddress('poolRegistry');
+
 const getIsolatedPools = async ({
   accountAddress,
-  multicall,
+  poolLensContract,
   provider,
+  multicall,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
-  // Fetch isolated pools from subgraph
-  const subgraphIsolatedPools = await getSubgraphIsolatedPools({
-    accountAddress: accountAddress?.toLowerCase(),
-  });
+  const [poolsResults, poolParticipantsCountResult] = await Promise.all([
+    // Fetch all pools
+    poolLensContract.getAllPools(POOL_REGISTRY_ADDRESS),
+    // Fetch borrower and supplier counts of each isolated token
+    getIsolatedPoolParticipantsCount(),
+  ]);
 
-  // Extract all tokens by price oracle
-  const vTokensByPriceOracle = (subgraphIsolatedPools.pools || []).reduce<{
-    [priceOracleAddress: string]: VToken[];
-  }>((accTokensByPool, pool) => {
-    // Extract all vTokens of pool
-    const poolTokens = pool.markets.reduce<VToken[]>((accPoolTokens, market) => {
-      const vToken = getVTokenByAddress(market.id);
-      return vToken ? [...accPoolTokens, vToken] : accPoolTokens;
-    }, []);
+  // Extract vToken addresses and their associated underlying tokens
+  const [vTokenAddresses, underlyingTokens] = poolsResults.reduce<[string[], Token[]]>(
+    (acc, poolResult) => {
+      const newVTokenAddresses: string[] = [];
+      const newUnderlyingTokens: Token[] = [];
 
-    if (poolTokens.length === 0) {
-      return accTokensByPool;
-    }
+      poolResult.vTokens.forEach(vToken => {
+        if (!newVTokenAddresses.includes(vToken.vToken)) {
+          newVTokenAddresses.push(vToken.vToken);
+        }
 
-    const priceOracleAddress = pool.priceOracleAddress.toLowerCase();
-    const existingTokens = accTokensByPool[priceOracleAddress] || [];
+        const underlyingToken = getTokenByAddress(vToken.underlyingAssetAddress);
 
-    return {
-      ...accTokensByPool,
-      [priceOracleAddress]: existingTokens.concat(poolTokens),
-    };
-  }, {});
+        if (!underlyingToken) {
+          // TODO: send error event to Sentry indicating we're missing a token
+          // record on the frontend (see VEN-1066)
+          console.error(`Record missing for underlying token: ${vToken.underlyingAssetAddress}`);
+        } else if (!newUnderlyingTokens.some(token => areTokensEqual(token, underlyingToken))) {
+          newUnderlyingTokens.push(underlyingToken);
+        }
+      });
 
-  const vTokens = Object.values(vTokensByPriceOracle).flat();
-
-  // Add promise to fetch dollar prices
-  const tokenPricesCallContext: ContractCallContext[] = Object.keys(vTokensByPriceOracle).map(
-    priceOracleAddress => ({
-      reference: priceOracleAddress,
-      contractAddress: priceOracleAddress,
-      abi: oracleAbi,
-      calls: vTokensByPriceOracle[priceOracleAddress].map(vToken => ({
-        reference: vToken.address,
-        methodName: 'getUnderlyingPrice',
-        methodParameters: [vToken.address],
-      })),
-    }),
+      return [acc[0].concat(newVTokenAddresses), acc[1].concat(newUnderlyingTokens)];
+    },
+    [[], []],
   );
 
-  const promises = [multicall.call(tokenPricesCallContext)] as
-    | [Promise<ContractCallResults>]
-    | [Promise<ContractCallResults>, Promise<GetTokenBalancesOutput>];
+  // Fetch additional vToken data
+  const poolLensCalls: ContractCallContext['calls'] = [
+    {
+      reference: 'vTokenUnderlyingPriceAll',
+      methodName: 'vTokenUnderlyingPriceAll(address[])',
+      methodParameters: [vTokenAddresses],
+    },
+  ];
 
   if (accountAddress) {
-    // Add promise to fetch user wallet balances
-    promises[1] = getTokenBalances({
-      accountAddress,
-      multicall,
-      provider,
-      tokens: vTokens.map(vToken => vToken.underlyingToken),
+    poolLensCalls.push({
+      reference: 'vTokenBalancesAll',
+      methodName: 'vTokenBalancesAll',
+      methodParameters: [vTokenAddresses, accountAddress],
     });
   }
 
-  const [tokenPricesCallResults, userWalletBalancesResult] = await Promise.all(promises);
+  const poolLensCallContext: ContractCallContext = {
+    reference: 'poolLens',
+    contractAddress: poolLensContract.address,
+    abi: poolLensAbi,
+    calls: poolLensCalls,
+  };
 
-  // Index token prices by their address
-  const tokenPricesDollars = Object.values(tokenPricesCallResults.results)
-    .map(result => result.callsReturnContext)
-    .flat()
-    .reduce<FormatToPoolInput['tokenPricesDollars']>((accTokenPricesDollars, callReturnContext) => {
-      if (!callReturnContext.returnValues[0]) {
-        return accTokenPricesDollars;
-      }
+  // Fetch addresses of reward distributors and user collaterals
+  const comptrollerCallsContext: ContractCallContext[] = poolsResults.map(result => {
+    const calls: ContractCallContext['calls'] = [
+      {
+        reference: 'getRewardDistributors',
+        methodName: 'getRewardDistributors',
+        methodParameters: [],
+      },
+    ];
 
-      const vTokenAddress = callReturnContext.methodParameters[0].toLowerCase();
-      const vToken = getVTokenByAddress(vTokenAddress);
+    if (accountAddress) {
+      calls.push({
+        reference: 'getAssetsIn',
+        methodName: 'getAssetsIn(address)',
+        methodParameters: [accountAddress],
+      });
+    }
 
-      if (!vToken) {
-        return accTokenPricesDollars;
-      }
+    return {
+      reference: result.comptroller,
+      contractAddress: result.comptroller,
+      abi: comptrollerAbi,
+      calls,
+    };
+  });
 
-      const priceDollars = new BigNumber(callReturnContext.returnValues[0].hex)
-        .dividedBy(COMPOUND_MANTISSA)
-        .dp(2);
+  const multicallPromise = multicall.call([poolLensCallContext, ...comptrollerCallsContext]);
+  let multicallOutput: ContractCallResults | undefined;
+  let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
 
-      return {
-        ...accTokenPricesDollars,
-        [vToken.underlyingToken.address.toLowerCase()]: priceDollars,
-      };
-    }, {});
-
-  // Index wallet token balances by their address
-  let userWalletBalances: FormatToPoolInput['userWalletBalances'];
-
-  if (userWalletBalancesResult) {
-    userWalletBalances = userWalletBalancesResult.tokenBalances.reduce<typeof userWalletBalances>(
-      (accTokenUserWalletBalances, userWalletBalance) => ({
-        ...accTokenUserWalletBalances,
-        [userWalletBalance.token.address.toLowerCase()]: userWalletBalance.balanceWei,
+  if (accountAddress) {
+    [multicallOutput, userWalletTokenBalances] = await Promise.all([
+      multicallPromise,
+      getTokenBalances({
+        multicall,
+        accountAddress,
+        tokens: underlyingTokens,
+        provider,
       }),
-      {},
-    );
+    ]);
+  } else {
+    multicallOutput = await multicallPromise;
   }
 
-  const pools = (subgraphIsolatedPools.pools || []).map(subgraphPool =>
-    formatToPool({
-      subgraphPool,
-      tokenPricesDollars,
-      userWalletBalances,
-    }),
+  const { poolLens: poolLensResult, ...comptrollerCallUnformattedResults } =
+    multicallOutput.results;
+
+  // Fetch reward distributors
+  const comptrollerResults = Object.values(comptrollerCallUnformattedResults);
+
+  const rewardsDistributorsCallsContext = comptrollerResults.reduce<ContractCallContext[]>(
+    (acc, res) => {
+      const pool = poolsResults.find(
+        item =>
+          item.comptroller.toLowerCase() ===
+          res.originalContractCallContext.contractAddress.toLowerCase(),
+      );
+
+      if (!pool) {
+        return acc;
+      }
+
+      const poolVTokenAddresses = pool.vTokens.map(item => item.vToken);
+      const rewardsDistributorAddresses = res.callsReturnContext[0].returnValues;
+
+      const speedCalls = poolVTokenAddresses.reduce<ContractCallContext['calls']>(
+        (acc2, vTokenAddress) =>
+          acc2.concat([
+            {
+              reference: 'rewardTokenSupplySpeed',
+              methodName: 'rewardTokenSupplySpeeds',
+              methodParameters: [vTokenAddress],
+            },
+            {
+              reference: 'rewardTokenBorrowSpeed',
+              methodName: 'rewardTokenBorrowSpeeds',
+              methodParameters: [vTokenAddress],
+            },
+          ]),
+        [],
+      );
+
+      const calls: ContractCallContext[] = rewardsDistributorAddresses.map(
+        rewardsDistributorAddress => ({
+          reference: rewardsDistributorAddress,
+          contractAddress: rewardsDistributorAddress,
+          abi: rewardsDistributorAbi,
+          calls: [
+            {
+              reference: 'rewardToken',
+              methodName: 'rewardToken',
+              methodParameters: [],
+            },
+            ...speedCalls,
+          ],
+        }),
+      );
+
+      return acc.concat(calls);
+    },
+    [],
   );
+
+  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContext);
+  const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
+
+  const pools = formatOutput({
+    poolsResults,
+    poolParticipantsCountResult,
+    comptrollerResults,
+    rewardsDistributorsResults,
+    poolLensResult,
+    userWalletTokenBalances,
+    accountAddress,
+  });
 
   return {
     pools,

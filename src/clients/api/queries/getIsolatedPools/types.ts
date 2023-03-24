@@ -1,26 +1,29 @@
 import type { Provider } from '@wagmi/core';
-import BigNumber from 'bignumber.js';
-import { Multicall } from 'ethereum-multicall';
+import { ContractCallReturnContext, Multicall } from 'ethereum-multicall';
 import { Pool } from 'types';
 
-import { IsolatedPoolsQuery } from 'clients/subgraph';
+import { IsolatedPoolParticipantsCountQuery } from 'clients/subgraph';
+import { PoolLens } from 'types/contracts';
+
+import { GetTokenBalancesOutput } from '../getTokenBalances';
 
 export interface FormatToPoolInput {
-  subgraphPool: IsolatedPoolsQuery['pools'][number];
-  tokenPricesDollars: {
-    [tokenAddress: string]: BigNumber;
-  };
-  userWalletBalances?: {
-    [tokenAddress: string]: BigNumber;
-  };
+  poolsResults: PoolLens.PoolDataStructOutput[];
+  poolParticipantsCountResult: IsolatedPoolParticipantsCountQuery;
+  comptrollerResults: ContractCallReturnContext[];
+  rewardsDistributorsResults: ContractCallReturnContext[];
+  poolLensResult: ContractCallReturnContext;
+  accountAddress?: string;
+  userWalletTokenBalances?: GetTokenBalancesOutput;
 }
 
-export type FormatToPoolOutput = Pool;
+export type FormatToPoolsOutput = Pool[];
 
 export interface GetIsolatedPoolsInput {
-  accountAddress?: string;
   multicall: Multicall;
+  poolLensContract: PoolLens;
   provider: Provider;
+  accountAddress?: string;
 }
 
 export interface GetIsolatedPoolsOutput {

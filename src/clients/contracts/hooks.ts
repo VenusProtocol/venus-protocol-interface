@@ -8,6 +8,7 @@ import {
   getGovernorBravoDelegateContract,
   getMulticallContract,
   getPancakeRouterContract,
+  getPoolLensContract,
   getTokenContract,
   getVTokenContract,
   getVaiControllerContract,
@@ -89,4 +90,9 @@ export const usePancakeRouterContract = () => {
 export const useMulticallContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getMulticallContract(signer || undefined), [signer]);
+};
+
+export const useGetPoolLensContract = () => {
+  const { signer } = useAuth();
+  return useMemo(() => getPoolLensContract(signer || undefined), [signer]);
 };

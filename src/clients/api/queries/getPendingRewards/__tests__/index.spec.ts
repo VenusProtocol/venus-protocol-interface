@@ -11,8 +11,6 @@ const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC5
 describe('api/queries/getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
     const multicall = {
-      // TODO: update fake Multicall response to include isolated pools once
-      // some have been released on testnet (see VEN-859)
       call: jest.fn(async () => fakeMulticallResponses.lenses.getPendingRewardGroups),
     } as unknown as Multicall;
 

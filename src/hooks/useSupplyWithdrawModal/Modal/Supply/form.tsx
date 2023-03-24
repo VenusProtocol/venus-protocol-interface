@@ -87,7 +87,7 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
             }}
             values={{
               amount: formatTokensToReadableValue({
-                value: maxInput,
+                value: asset.userWalletBalanceTokens,
                 token: asset.vToken.underlyingToken,
               }),
             }}

@@ -3122,7 +3122,7 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "enum PoolRegistry.RiskRating",
+                "internalType": "enum PoolRegistryInterface.RiskRating",
                 "name": "riskRating",
                 "type": "uint8",
               },
@@ -3162,11 +3162,6 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "uint256",
-                "name": "maxAssets",
-                "type": "uint256",
-              },
-              Object {
                 "components": Array [
                   Object {
                     "internalType": "address",
@@ -3191,6 +3186,16 @@ Array [
                   Object {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
                     "type": "uint256",
                   },
                   Object {
@@ -3314,6 +3319,54 @@ Array [
         "inputs": Array [
           Object {
             "internalType": "address",
+            "name": "comptrollerAddress",
+            "type": "address",
+          },
+        ],
+        "name": "getPoolBadDebt",
+        "outputs": Array [
+          Object {
+            "components": Array [
+              Object {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              Object {
+                "internalType": "uint256",
+                "name": "totalBadDebtUsd",
+                "type": "uint256",
+              },
+              Object {
+                "components": Array [
+                  Object {
+                    "internalType": "address",
+                    "name": "vTokenAddress",
+                    "type": "address",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "badDebtUsd",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.BadDebt[]",
+                "name": "badDebts",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.BadDebtSummary",
+            "name": "badDebtSummary",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
@@ -3353,7 +3406,7 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "enum PoolRegistry.RiskRating",
+                "internalType": "enum PoolRegistryInterface.RiskRating",
                 "name": "riskRating",
                 "type": "uint8",
               },
@@ -3393,11 +3446,6 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "uint256",
-                "name": "maxAssets",
-                "type": "uint256",
-              },
-              Object {
                 "components": Array [
                   Object {
                     "internalType": "address",
@@ -3422,6 +3470,16 @@ Array [
                   Object {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
                     "type": "uint256",
                   },
                   Object {
@@ -3518,7 +3576,7 @@ Array [
                 "type": "uint256",
               },
             ],
-            "internalType": "struct PoolRegistry.VenusPool",
+            "internalType": "struct PoolRegistryInterface.VenusPool",
             "name": "venusPool",
             "type": "tuple",
           },
@@ -3553,7 +3611,7 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "enum PoolRegistry.RiskRating",
+                "internalType": "enum PoolRegistryInterface.RiskRating",
                 "name": "riskRating",
                 "type": "uint8",
               },
@@ -3593,11 +3651,6 @@ Array [
                 "type": "uint256",
               },
               Object {
-                "internalType": "uint256",
-                "name": "maxAssets",
-                "type": "uint256",
-              },
-              Object {
                 "components": Array [
                   Object {
                     "internalType": "address",
@@ -3622,6 +3675,16 @@ Array [
                   Object {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  Object {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
                     "type": "uint256",
                   },
                   Object {
@@ -3699,9 +3762,9 @@ Array [
         "name": "getPoolsSupportedByAsset",
         "outputs": Array [
           Object {
-            "internalType": "uint256[]",
+            "internalType": "address[]",
             "name": "",
-            "type": "uint256[]",
+            "type": "address[]",
           },
         ],
         "stateMutability": "view",
@@ -3744,7 +3807,7 @@ Array [
             "type": "address",
           },
           Object {
-            "internalType": "address payable",
+            "internalType": "address",
             "name": "account",
             "type": "address",
           },
@@ -3800,7 +3863,7 @@ Array [
             "type": "address[]",
           },
           Object {
-            "internalType": "address payable",
+            "internalType": "address",
             "name": "account",
             "type": "address",
           },
@@ -3883,6 +3946,16 @@ Array [
               Object {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              Object {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256",
+              },
+              Object {
+                "internalType": "uint256",
+                "name": "borrowCaps",
                 "type": "uint256",
               },
               Object {
@@ -3974,6 +4047,16 @@ Array [
               Object {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              Object {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256",
+              },
+              Object {
+                "internalType": "uint256",
+                "name": "borrowCaps",
                 "type": "uint256",
               },
               Object {
@@ -4103,7 +4186,7 @@ Array [
         "reference": "getPendingRewards",
       },
     ],
-    "contractAddress": "0x90fAa4B139bb5Cba016d9d1D343981541A0C5251",
+    "contractAddress": "0x7d6A1a595dCa742B4FF4Fb8684e3F018C3c0bEC0",
     "reference": "poolLens",
   },
 ]
@@ -4145,7 +4228,7 @@ Object {
         Object {
           "rewardAmountWei": "2.95961827109044250302366e+23",
           "rewardToken": Object {
-            "address": "0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c",
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "xvs.svg",
             "decimals": 18,
             "symbol": "XVS",

@@ -1,32 +1,30 @@
-import { Multicall } from 'ethereum-multicall';
+import { ContractCallContext, Multicall } from 'ethereum-multicall';
 
-import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { getTokenBalances } from 'clients/api';
-import { getIsolatedPools as getSubgraphIsolatedPools } from 'clients/subgraph';
+import { PoolLens } from 'types/contracts';
 
 import getIsolatedPools from '..';
-import { fakeGetSubgraphIsolatedPoolsOutput, fakeGetTokenBalancesOutput } from './fakeData';
+import { fakeGetAllPoolsOuput, fakeMulticallResponse1, fakeMulticallResponse2 } from './fakeData';
 
-jest.mock('clients/api');
 jest.mock('clients/subgraph');
 
 describe('api/queries/getIsolatedPools', () => {
   test('returns isolated pools in the correct format', async () => {
-    (getSubgraphIsolatedPools as jest.Mock).mockImplementationOnce(
-      () => fakeGetSubgraphIsolatedPoolsOutput,
-    );
-    (getTokenBalances as jest.Mock).mockImplementationOnce(() => fakeGetTokenBalancesOutput);
+    const fakePoolLensContract = {
+      getAllPools: async () => fakeGetAllPoolsOuput,
+    } as unknown as PoolLens;
 
-    const multicall = {
-      call: jest.fn(async () => fakeMulticallResponses.priceOracle.isolatedAssets),
+    const fakeMulticall = {
+      call: (contexts: ContractCallContext[]) =>
+        contexts[0].reference === 'poolLens' ? fakeMulticallResponse1 : fakeMulticallResponse2,
     } as unknown as Multicall;
 
     const response = await getIsolatedPools({
+      poolLensContract: fakePoolLensContract,
       provider: fakeProvider,
       accountAddress: fakeAddress,
-      multicall,
+      multicall: fakeMulticall,
     });
 
     expect(response).toMatchSnapshot();
