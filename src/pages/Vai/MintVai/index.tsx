@@ -32,8 +32,8 @@ import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { useStyles } from '../styles';
 import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
+import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
 const vaiControllerContractAddress = getContractAddress('vaiController');

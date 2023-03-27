@@ -44,5 +44,8 @@ export const useStyles = () => {
       color: ${theme.palette.text.secondary};
       margin-bottom: ${theme.spacing(8)};
     `,
+    noticeWarning: css`
+      margin-bottom: ${theme.spacing(8)};
+    `,
   };
 };

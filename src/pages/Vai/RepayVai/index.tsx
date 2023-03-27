@@ -5,6 +5,7 @@ import {
   EnableToken,
   FormikSubmitButton,
   LabeledInlineContent,
+  NoticeWarning,
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
@@ -19,14 +20,15 @@ import {
   useRepayVai,
 } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { useStyles } from '../styles';
 import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
+import { useStyles } from '../styles';
 import RepayFee from './RepayFee';
 
 const vaiControllerContractAddress = getContractAddress('vaiController');
@@ -41,6 +43,18 @@ export interface IRepayVaiUiProps {
   userMintedWei?: BigNumber;
 }
 
+const isPayingFullRepayBalance = (
+  amount: string,
+  repayBalanceWei: BigNumber | undefined,
+): boolean => {
+  if (amount && repayBalanceWei) {
+    const amountWei = convertTokensToWei({ value: new BigNumber(amount), token: TOKENS.vai });
+    return amountWei.isEqualTo(repayBalanceWei);
+  }
+
+  return false;
+};
+
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
@@ -51,7 +65,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   repayVai,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -125,6 +139,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                   <RepayFee repayAmountTokens={values.amount} />
                 </div>
 
+                {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
+                  <NoticeWarning
+                    css={styles.noticeWarning}
+                    description={<Trans i18nKey="vai.repayVai.fullRepayWarning" />}
+                  />
+                )}
+
                 <FormikSubmitButton
                   loading={isSubmitting}
                   disabled={disabled}
@@ -175,10 +196,18 @@ const RepayVai: React.FC = () => {
 
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei =>
-    contractRepayVai({
-      amountWei,
+  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
+    const isRepayingFullLoan = amountWei.eq(
+      convertTokensToWei({
+        value: repayAmountWithInterests!.vaiRepayAmountWithInterests,
+        token: TOKENS.vai,
+      }),
+    );
+
+    return contractRepayVai({
+      amountWei: isRepayingFullLoan ? MAX_UINT256 : amountWei,
     });
+  };
 
   return (
     <RepayVaiUi

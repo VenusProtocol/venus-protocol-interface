@@ -720,6 +720,7 @@
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
       "repayVaiBalance": "Repay VAI balance",

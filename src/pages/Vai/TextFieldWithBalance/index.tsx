@@ -54,7 +54,7 @@ export const FormikTokenTextFieldWithBalance: React.FC<IFormikTokenTextFieldWith
                   addSymbol: true,
                 }),
               }}
-            />            
+            />
           </div>
         }
       />
