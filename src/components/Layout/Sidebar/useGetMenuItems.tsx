@@ -93,6 +93,13 @@ const useGetMenuItems = () => {
         icon: 'xvsOutlined',
       },
       {
+        href: routes.vai.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.vai')
+        i18nKey: 'layout.menuItems.vai',
+        icon: 'vaiOutline',
+      },
+      {
         href: routes.convertVrt.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.convertVrt')
@@ -100,13 +107,7 @@ const useGetMenuItems = () => {
         i18nKey: 'layout.menuItems.convertVrt',
         icon: 'convert',
       },
-      {
-        href: routes.vai.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.vai')
-        i18nKey: 'layout.menuItems.vai',
-        icon: 'vaiOutline',
-      },
+
       {
         href: 'https://prdt.finance/Application/Pro/BSC?partnerCode=Venus',
         // Translation key: do not remove this comment
