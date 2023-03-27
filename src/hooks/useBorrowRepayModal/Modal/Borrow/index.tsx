@@ -1,14 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  AccountData,
-  ConnectWallet,
-  EnableToken,
-  FormikSubmitButton,
-  FormikTokenTextField,
-  IsolatedAssetWarning,
-  Spinner,
-} from 'components';
+import { ConnectWallet, EnableToken, Spinner } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -17,14 +9,12 @@ import { areTokensEqual, convertTokensToWei, formatTokensToReadableValue } from 
 
 import { useBorrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { useStyles } from '../styles';
-import Notice from './Notice';
-import TEST_IDS from './testIds';
+import BorrowSection from './BorrowSection';
 
 // TODO: add stories
 
@@ -47,8 +37,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   borrow,
   isBorrowLoading,
 }) => {
-  const { t, Trans } = useTranslation();
-  const sharedStyles = useStyles();
+  const { t } = useTranslation();
 
   const hasUserCollateralizedSuppliedAssets = useMemo(
     () => (pool?.userBorrowLimitCents || 0) > 0,
@@ -98,73 +87,21 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, dirty, isValid, errors }) => (
-        <>
-          {pool.isIsolated && (
-            <IsolatedAssetWarning
-              pool={pool}
-              token={asset.vToken.underlyingToken}
-              type="borrow"
-              css={sharedStyles.isolatedAssetWarning}
-            />
-          )}
-
-          <div css={[sharedStyles.getRow({ isLast: true })]}>
-            <FormikTokenTextField
-              name="amount"
-              token={asset.vToken.underlyingToken}
-              disabled={
-                isBorrowLoading || !hasUserCollateralizedSuppliedAssets || hasBorrowCapBeenReached
-              }
-              rightMaxButton={{
-                label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
-                  limitPercentage: safeBorrowLimitPercentage,
-                }),
-                valueOnClick: safeLimitTokens,
-              }}
-              data-testid={TEST_IDS.tokenTextField}
-              // Only display error state if amount is higher than borrow limit
-              hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
-              description={
-                <Trans
-                  i18nKey="borrowRepayModal.borrow.borrowableAmount"
-                  components={{
-                    White: <span css={sharedStyles.whiteLabel} />,
-                  }}
-                  values={{ amount: readableTokenBorrowableAmount }}
-                />
-              }
-            />
-
-            <Notice
-              hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
-              amount={values.amount}
-              safeLimitTokens={safeLimitTokens}
-              limitTokens={limitTokens}
-              asset={asset}
-            />
-          </div>
-
-          <AccountData
-            asset={asset}
-            pool={pool}
-            amountTokens={new BigNumber(values.amount || 0)}
-            action="borrow"
-          />
-
-          <FormikSubmitButton
-            loading={isBorrowLoading}
-            disabled={
-              !isValid ||
-              !dirty ||
-              isBorrowLoading ||
-              !hasUserCollateralizedSuppliedAssets ||
-              hasBorrowCapBeenReached
-            }
-            fullWidth
-            enabledLabel={t('borrowRepayModal.borrow.submitButton')}
-            disabledLabel={t('borrowRepayModal.borrow.submitButtonDisabled')}
-          />
-        </>
+        <BorrowSection
+          asset={asset}
+          pool={pool}
+          safeBorrowLimitPercentage={safeBorrowLimitPercentage}
+          safeLimitTokens={safeLimitTokens}
+          readableTokenBorrowableAmount={readableTokenBorrowableAmount}
+          isBorrowLoading={isBorrowLoading}
+          hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
+          hasBorrowCapBeenReached={hasBorrowCapBeenReached}
+          limitTokens={limitTokens}
+          values={values}
+          dirty={dirty}
+          isValid={isValid}
+          errors={errors}
+        />
       )}
     </AmountForm>
   );

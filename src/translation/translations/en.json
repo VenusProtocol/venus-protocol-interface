@@ -78,7 +78,7 @@
     "borrow": {
       "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "aboveLiquidityWarning": "Insufficient asset liquidity",
-      "aboveSafeLimitWarning": "You entered a high amount, which puts you at risk of liquidation",
+      "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
@@ -89,6 +89,7 @@
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow",
+      "submitButtonHighRisk": "Borrow high risk amount",
       "successfulTransactionModal": {
         "message": "You successfully borrowed",
         "title": "Your borrow was successful"
