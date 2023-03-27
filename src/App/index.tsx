@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { Layout, ResetScrollOnRouteChange } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
@@ -15,27 +16,29 @@ import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 import Switch from './Switch';
 
 const App = () => (
-  <Web3Wrapper>
-    <QueryClientProvider client={queryClient}>
-      <MuiThemeProvider>
-        <AuthProvider>
-          <SuccessfulTransactionModalProvider>
-            <DisableLunaUstWarningProvider>
-              <BrowserRouter>
-                <ToastContainer />
+  <Sentry.ErrorBoundary>
+    <Web3Wrapper>
+      <QueryClientProvider client={queryClient}>
+        <MuiThemeProvider>
+          <AuthProvider>
+            <SuccessfulTransactionModalProvider>
+              <DisableLunaUstWarningProvider>
+                <BrowserRouter>
+                  <ToastContainer />
 
-                <Layout>
-                  <ResetScrollOnRouteChange />
+                  <Layout>
+                    <ResetScrollOnRouteChange />
 
-                  <Switch />
-                </Layout>
-              </BrowserRouter>
-            </DisableLunaUstWarningProvider>
-          </SuccessfulTransactionModalProvider>
-        </AuthProvider>
-      </MuiThemeProvider>
-    </QueryClientProvider>
-  </Web3Wrapper>
+                    <Switch />
+                  </Layout>
+                </BrowserRouter>
+              </DisableLunaUstWarningProvider>
+            </SuccessfulTransactionModalProvider>
+          </AuthProvider>
+        </MuiThemeProvider>
+      </QueryClientProvider>
+    </Web3Wrapper>
+  </Sentry.ErrorBoundary>
 );
 
 export default App;

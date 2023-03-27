@@ -3,6 +3,7 @@ import { BscChainId } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
+import { SENTRY_DSN } from 'constants/sentryDsn';
 
 export interface Config {
   chainId: BscChainId;
@@ -10,6 +11,7 @@ export interface Config {
   rpcUrl: string;
   apiUrl: string;
   bscScanUrl: string;
+  sentryDsn: string;
   featureFlags: {
     isolatedPools: boolean;
   };
@@ -30,6 +32,7 @@ const config: Config = {
   rpcUrl,
   apiUrl,
   bscScanUrl,
+  sentryDsn: SENTRY_DSN,
   featureFlags: {
     isolatedPools: !!process.env.REACT_APP_FF_ISOLATED_POOLS,
   },

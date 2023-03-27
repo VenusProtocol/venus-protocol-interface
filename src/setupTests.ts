@@ -2,3 +2,6 @@
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
 import 'jest-canvas-mock';
+
+// Prevent errors from being sent to logger during tests
+jest.mock('errors/logger');
