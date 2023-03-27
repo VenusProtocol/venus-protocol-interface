@@ -4,7 +4,6 @@ import {
   ConnectWallet,
   EnableToken,
   FormikSubmitButton,
-  FormikTokenTextField,
   LabeledInlineContent,
   Spinner,
 } from 'components';
@@ -27,8 +26,8 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
+import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import RepayFee from './RepayFee';
-import TEST_IDS from './testIds';
 
 const vaiControllerContractAddress = getContractAddress('vaiController');
 
@@ -106,20 +105,14 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
           <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
             {({ values }) => (
               <>
-                <div css={styles.ctaContainer}>
-                  <FormikTokenTextField
-                    name="amount"
-                    css={styles.textField}
-                    token={TOKENS.vai}
-                    max={limitTokens}
-                    disabled={disabled || isSubmitting || !hasRepayableVai}
-                    rightMaxButton={{
-                      label: t('vai.repayVai.rightMaxButtonLabel'),
-                      valueOnClick: limitTokens,
-                    }}
-                    data-testid={TEST_IDS.repayTextField}
-                  />
+                <FormikTokenTextFieldWithBalance
+                  disabled={disabled || isSubmitting || !hasRepayableVai}
+                  maxValue={limitTokens}
+                  userBalanceWei={userBalanceWei}
+                  maxButtonLabel={t('vai.repayVai.rightMaxButtonLabel')}
+                />
 
+                <div css={styles.ctaContainer}>
                   <LabeledInlineContent
                     css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}

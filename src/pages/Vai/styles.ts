@@ -32,10 +32,17 @@ export const useStyles = () => {
       flex: 1;
     `,
     textField: css`
-      margin-bottom: ${theme.spacing(8)};
+      margin-bottom: ${theme.spacing(1)};
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 4)};
+    `,
+    whiteLabel: css`
+      color: ${theme.palette.text.primary};
+    `,
+    greyLabel: css`
+      color: ${theme.palette.text.secondary};
+      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

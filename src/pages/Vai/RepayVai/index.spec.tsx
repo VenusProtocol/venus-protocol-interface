@@ -23,7 +23,7 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
-import TEST_IDS from './testIds';
+import TEST_IDS from '../testIds';
 
 jest.mock('clients/api');
 jest.mock('components/Toast');

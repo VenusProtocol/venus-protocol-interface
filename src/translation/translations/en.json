@@ -715,8 +715,7 @@
         "message": "You successfully minted",
         "title": "Your mint was successful"
       },
-      "vaiLimitLabel": "Available VAI limit",
-      "walletBalance": "Wallet balance: <White>{{amount}}</White>"
+      "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
@@ -734,7 +733,8 @@
       }
     },
     "tabMint": "Mint",
-    "tabRepay": "Repay"
+    "tabRepay": "Repay",
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
   },
   "vault": {
     "transactionForm": {
