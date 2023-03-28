@@ -1,5 +1,7 @@
 import { QueryClient } from 'react-query';
 
+import { logError } from 'context/ErrorLogger';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -7,6 +9,10 @@ const queryClient = new QueryClient({
       // the cache instantly after their hook unmounts (see documentation for
       // more info: https://react-query.tanstack.com/guides/important-defaults)
       staleTime: 10000,
+      onError: logError,
+    },
+    mutations: {
+      onError: logError,
     },
   },
 });
