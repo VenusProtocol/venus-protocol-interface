@@ -138,6 +138,9 @@ export const styles = ({
     `,
     link: css`
       font-weight: 600;
+      &:hover {
+        text-decoration: none;
+      }
     `,
   };
 };

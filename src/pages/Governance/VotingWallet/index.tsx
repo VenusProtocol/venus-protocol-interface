@@ -1,7 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Delimiter, InfoIcon, LinkButton, PrimaryButton, TokenIcon } from 'components';
+import {
+  Delimiter,
+  Icon,
+  InfoIcon,
+  LinkButton,
+  PrimaryButton,
+  SecondaryAnchorButton,
+  TokenIcon,
+} from 'components';
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -15,6 +23,7 @@ import {
 } from 'clients/api';
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
+import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useAuth } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -173,6 +182,16 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           />
         </Typography>
       </Paper>
+
+      <SecondaryAnchorButton
+        href={XVS_SNAPSHOT_URL}
+        target="_blank"
+        rel="noreferrer"
+        css={styles.snapshotButton}
+      >
+        <Icon css={styles.snapshotButtonIcon} name="lightening" />
+        {t('vote.goToXvsSnapshot')}
+      </SecondaryAnchorButton>
 
       <DelegateModal
         onClose={() => setDelegateModelIsOpen(false)}

@@ -130,5 +130,15 @@ export const useStyles = () => {
       align-items: flex-end;
       margin-bottom: ${theme.spacing(1)};
     `,
+    snapshotButton: css`
+      display: flex;
+      margin-top: ${theme.spacing(6)};
+      width: 100%;
+    `,
+    snapshotButtonIcon: css`
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
+      margin-right: ${theme.spacing(2)};
+    `,
   };
 };

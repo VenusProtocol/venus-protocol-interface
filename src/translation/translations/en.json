@@ -791,6 +791,7 @@
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
     "for": "For",
+    "goToXvsSnapshot": "Go to XVS Snapshot",
     "pages": {
       "actions": "3 of 3 Actions",
       "confirmation": "Confirmation",
