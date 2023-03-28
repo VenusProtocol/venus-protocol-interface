@@ -1,0 +1,1050 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/getVaiRepayAmountWithInterests returns the VAI fee with interests 1`] = `
+Object {
+  "abi": Array [
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "error",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "info",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "detail",
+          "type": "uint256",
+        },
+      ],
+      "name": "Failure",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "liquidator",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "repayAmount",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "vTokenCollateral",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "seizeTokens",
+          "type": "uint256",
+        },
+      ],
+      "name": "LiquidateVAI",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "minter",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "feeAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "MintFee",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "minter",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "mintVAIAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "MintVAI",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldAccessControlAddress",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newAccessControlAddress",
+          "type": "address",
+        },
+      ],
+      "name": "NewAccessControl",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "contract ComptrollerInterface",
+          "name": "oldComptroller",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "contract ComptrollerInterface",
+          "name": "newComptroller",
+          "type": "address",
+        },
+      ],
+      "name": "NewComptroller",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldTreasuryAddress",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newTreasuryAddress",
+          "type": "address",
+        },
+      ],
+      "name": "NewTreasuryAddress",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldTreasuryGuardian",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newTreasuryGuardian",
+          "type": "address",
+        },
+      ],
+      "name": "NewTreasuryGuardian",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldTreasuryPercent",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newTreasuryPercent",
+          "type": "uint256",
+        },
+      ],
+      "name": "NewTreasuryPercent",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldBaseRateMantissa",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newBaseRateMantissa",
+          "type": "uint256",
+        },
+      ],
+      "name": "NewVAIBaseRate",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldFloatRateMantissa",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newFlatRateMantissa",
+          "type": "uint256",
+        },
+      ],
+      "name": "NewVAIFloatRate",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldMintCap",
+          "type": "uint256",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newMintCap",
+          "type": "uint256",
+        },
+      ],
+      "name": "NewVAIMintCap",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldReceiver",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newReceiver",
+          "type": "address",
+        },
+      ],
+      "name": "NewVAIReceiver",
+      "type": "event",
+    },
+    Object {
+      "anonymous": false,
+      "inputs": Array [
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "payer",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address",
+        },
+        Object {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "repayVAIAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "RepayVAI",
+      "type": "event",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "INITIAL_VAI_MINT_INDEX",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "contract VAIUnitroller",
+          "name": "unitroller",
+          "type": "address",
+        },
+      ],
+      "name": "_become",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "contract ComptrollerInterface",
+          "name": "comptroller_",
+          "type": "address",
+        },
+      ],
+      "name": "_setComptroller",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "newTreasuryGuardian",
+          "type": "address",
+        },
+        Object {
+          "internalType": "address",
+          "name": "newTreasuryAddress",
+          "type": "address",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "newTreasuryPercent",
+          "type": "uint256",
+        },
+      ],
+      "name": "_setTreasuryData",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "accessControl",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [],
+      "name": "accrueVAIInterest",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "admin",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "baseRateMantissa",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "comptroller",
+      "outputs": Array [
+        Object {
+          "internalType": "contract ComptrollerInterface",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "floatRateMantissa",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "getBlockNumber",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "getBlocksPerYear",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "minter",
+          "type": "address",
+        },
+      ],
+      "name": "getMintableVAI",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "getVAIAddress",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "repayAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "getVAICalculateRepayAmount",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "minter",
+          "type": "address",
+        },
+      ],
+      "name": "getVAIMinterInterestIndex",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "account",
+          "type": "address",
+        },
+      ],
+      "name": "getVAIRepayAmount",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "getVAIRepayRate",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "getVAIRepayRatePerBlock",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [],
+      "name": "initialize",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "isVenusVAIInitialized",
+      "outputs": Array [
+        Object {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "repayAmount",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "contract VTokenInterface",
+          "name": "vTokenCollateral",
+          "type": "address",
+        },
+      ],
+      "name": "liquidateVAI",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "mintCap",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "mintVAIAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "mintVAI",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "name": "pastVAIInterest",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "pendingAdmin",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "pendingVAIControllerImplementation",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "receiver",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "repayVAIAmount",
+          "type": "uint256",
+        },
+      ],
+      "name": "repayVAI",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "newAccessControlAddress",
+          "type": "address",
+        },
+      ],
+      "name": "setAccessControl",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "newBaseRateMantissa",
+          "type": "uint256",
+        },
+      ],
+      "name": "setBaseRate",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "newFloatRateMantissa",
+          "type": "uint256",
+        },
+      ],
+      "name": "setFloatRate",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "_mintCap",
+          "type": "uint256",
+        },
+      ],
+      "name": "setMintCap",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": false,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "newReceiver",
+          "type": "address",
+        },
+      ],
+      "name": "setReceiver",
+      "outputs": Array [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "treasuryAddress",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "treasuryGuardian",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "treasuryPercent",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "vaiControllerImplementation",
+      "outputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "vaiMintIndex",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [
+        Object {
+          "internalType": "address",
+          "name": "",
+          "type": "address",
+        },
+      ],
+      "name": "venusVAIMinterIndex",
+      "outputs": Array [
+        Object {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+    Object {
+      "constant": true,
+      "inputs": Array [],
+      "name": "venusVAIState",
+      "outputs": Array [
+        Object {
+          "internalType": "uint224",
+          "name": "index",
+          "type": "uint224",
+        },
+        Object {
+          "internalType": "uint32",
+          "name": "block",
+          "type": "uint32",
+        },
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+    },
+  ],
+  "calls": Array [
+    Object {
+      "methodName": "accrueVAIInterest",
+      "methodParameters": Array [],
+      "reference": "accrueVAIInterest",
+    },
+    Object {
+      "methodName": "getVAIRepayAmount",
+      "methodParameters": Array [
+        "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+      ],
+      "reference": "getVAIRepayAmount",
+    },
+  ],
+  "contractAddress": "0xf70C3C6b749BbAb89C081737334E74C9aFD4BE16",
+  "reference": "getVaiRepayTotalAmount",
+}
+`;
+
+exports[`api/queries/getVaiRepayAmountWithInterests returns the VAI fee with interests 2`] = `
+Object {
+  "vaiRepayAmountWithInterests": "5.669568627692799723381666e+24",
+}
+`;

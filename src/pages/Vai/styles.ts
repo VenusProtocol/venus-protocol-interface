@@ -14,7 +14,7 @@ export const useStyles = () => {
       flex-direction: column;
     `,
     tabs: css`
-      max-width: ${theme.spacing(136)};
+      max-width: ${theme.spacing(140)};
       width: 100%;
       padding: ${theme.spacing(10)};
 
@@ -32,10 +32,20 @@ export const useStyles = () => {
       flex: 1;
     `,
     textField: css`
-      margin-bottom: ${theme.spacing(8)};
+      margin-bottom: ${theme.spacing(1)};
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 4)};
+    `,
+    whiteLabel: css`
+      color: ${theme.palette.text.primary};
+    `,
+    greyLabel: css`
+      color: ${theme.palette.text.secondary};
+      margin-bottom: ${theme.spacing(8)};
+    `,
+    noticeWarning: css`
+      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

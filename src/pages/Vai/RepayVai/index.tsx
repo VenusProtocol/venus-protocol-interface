@@ -4,8 +4,8 @@ import {
   ConnectWallet,
   EnableToken,
   FormikSubmitButton,
-  FormikTokenTextField,
   LabeledInlineContent,
+  NoticeWarning,
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
@@ -13,17 +13,23 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 
-import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetMintedVai,
+  useGetVaiRepayAmountWithInterests,
+  useRepayVai,
+} from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
+import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
 import RepayFee from './RepayFee';
-import TEST_IDS from './testIds';
 
 const vaiControllerContractAddress = getContractAddress('vaiController');
 
@@ -33,19 +39,33 @@ export interface IRepayVaiUiProps {
   isSubmitting: boolean;
   repayVai: (amountWei: BigNumber) => Promise<ContractReceipt | undefined>;
   userBalanceWei?: BigNumber;
+  repayBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
+
+const isPayingFullRepayBalance = (
+  amount: string,
+  repayBalanceWei: BigNumber | undefined,
+): boolean => {
+  if (amount && repayBalanceWei) {
+    const amountWei = convertTokensToWei({ value: new BigNumber(amount), token: TOKENS.vai });
+    return amountWei.isEqualTo(repayBalanceWei);
+  }
+
+  return false;
+};
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
+  repayBalanceWei,
   userMintedWei,
   isInitialLoading,
   isSubmitting,
   repayVai,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -58,9 +78,9 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     return convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai }).toFixed();
   }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
-  // Convert minted wei into VAI
+  // Convert repay balance (minted + interests) into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
-    valueWei: userMintedWei,
+    valueWei: repayBalanceWei,
     token: TOKENS.vai,
   });
 
@@ -99,30 +119,32 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
           <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
             {({ values }) => (
               <>
-                <div css={styles.ctaContainer}>
-                  <FormikTokenTextField
-                    name="amount"
-                    css={styles.textField}
-                    token={TOKENS.vai}
-                    max={limitTokens}
-                    disabled={disabled || isSubmitting || !hasRepayableVai}
-                    rightMaxButton={{
-                      label: t('vai.repayVai.rightMaxButtonLabel'),
-                      valueOnClick: limitTokens,
-                    }}
-                    data-testid={TEST_IDS.repayTextField}
-                  />
+                <FormikTokenTextFieldWithBalance
+                  disabled={disabled || isSubmitting || !hasRepayableVai}
+                  maxValue={limitTokens}
+                  userBalanceWei={userBalanceWei}
+                  maxButtonLabel={t('vai.repayVai.rightMaxButtonLabel')}
+                />
 
+                <div css={styles.ctaContainer}>
                   <LabeledInlineContent
                     css={styles.getRow({ isLast: false })}
                     iconSrc={TOKENS.vai}
                     label={t('vai.repayVai.repayVaiBalance')}
+                    tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
                   >
                     {readableRepayableVai}
                   </LabeledInlineContent>
 
                   <RepayFee repayAmountTokens={values.amount} />
                 </div>
+
+                {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
+                  <NoticeWarning
+                    css={styles.noticeWarning}
+                    description={<Trans i18nKey="vai.repayVai.fullRepayWarning" />}
+                  />
+                )}
 
                 <FormikSubmitButton
                   loading={isSubmitting}
@@ -151,6 +173,16 @@ const RepayVai: React.FC = () => {
     },
   );
 
+  const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
+    useGetVaiRepayAmountWithInterests(
+      {
+        accountAddress,
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
+
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
@@ -164,17 +196,28 @@ const RepayVai: React.FC = () => {
 
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei =>
-    contractRepayVai({
-      amountWei,
+  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
+    const isRepayingFullLoan = amountWei.eq(
+      convertTokensToWei({
+        value: repayAmountWithInterests!.vaiRepayAmountWithInterests,
+        token: TOKENS.vai,
+      }),
+    );
+
+    return contractRepayVai({
+      amountWei: isRepayingFullLoan ? MAX_UINT256 : amountWei,
     });
+  };
 
   return (
     <RepayVaiUi
       disabled={!accountAddress}
       userBalanceWei={userVaiBalanceData?.balanceWei}
+      repayBalanceWei={repayAmountWithInterests?.vaiRepayAmountWithInterests}
       userMintedWei={mintedVaiData?.mintedVaiWei}
-      isInitialLoading={isGetMintedVaiLoading || isGetUserVaiBalance}
+      isInitialLoading={
+        isGetMintedVaiLoading || isGetUserVaiBalance || isGetVaiRepayAmountWithInterests
+      }
       isSubmitting={isSubmitting}
       repayVai={repayVai}
     />

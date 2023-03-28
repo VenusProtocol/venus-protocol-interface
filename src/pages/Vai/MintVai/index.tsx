@@ -4,16 +4,27 @@ import {
   ConnectWallet,
   EnableToken,
   FormikSubmitButton,
-  FormikTokenTextField,
   LabeledInlineContent,
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatPercentage,
+  getContractAddress,
+} from 'utilities';
 
-import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetMintableVai,
+  useGetVaiRepayApy,
+  useGetVaiTreasuryPercentage,
+  useMintVai,
+} from 'clients/api';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
@@ -21,6 +32,7 @@ import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
+import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
@@ -31,6 +43,8 @@ export interface MintVaiUiProps {
   isInitialLoading: boolean;
   isSubmitting: boolean;
   mintVai: (value: BigNumber) => Promise<ContractReceipt | undefined>;
+  userBalanceWei?: BigNumber;
+  apyPercentage?: BigNumber;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
@@ -40,6 +54,8 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   limitWei,
   mintFeePercentage,
   isInitialLoading,
+  userBalanceWei,
+  apyPercentage,
   isSubmitting,
   mintVai,
 }) => {
@@ -111,16 +127,11 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
             {({ values }) => (
               <>
                 <div css={styles.ctaContainer}>
-                  <FormikTokenTextField
-                    name="amount"
-                    css={styles.textField}
-                    token={TOKENS.vai}
-                    max={limitTokens}
+                  <FormikTokenTextFieldWithBalance
                     disabled={disabled || isSubmitting || !hasMintableVai}
-                    rightMaxButton={{
-                      label: t('vai.mintVai.rightMaxButtonLabel'),
-                      valueOnClick: limitTokens,
-                    }}
+                    maxValue={limitTokens}
+                    userBalanceWei={userBalanceWei}
+                    maxButtonLabel={t('vai.mintVai.rightMaxButtonLabel')}
                   />
 
                   <LabeledInlineContent
@@ -129,6 +140,14 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
                     label={t('vai.mintVai.vaiLimitLabel')}
                   >
                     {readableVaiLimit}
+                  </LabeledInlineContent>
+
+                  <LabeledInlineContent
+                    css={styles.getRow({ isLast: false })}
+                    iconSrc="fee"
+                    label={t('vai.mintVai.apy')}
+                  >
+                    {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
                   </LabeledInlineContent>
 
                   <LabeledInlineContent
@@ -168,6 +187,19 @@ const MintVai: React.FC = () => {
     },
   );
 
+  const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
+    {
+      accountAddress: accountAddress || '',
+      token: TOKENS.vai,
+    },
+    {
+      enabled: !!accountAddress,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
+
+  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+
   const { data: vaiTreasuryData, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
@@ -180,11 +212,13 @@ const MintVai: React.FC = () => {
 
   return (
     <MintVaiUi
-      disabled={!accountAddress || isGetVaiTreasuryPercentageLoading}
+      disabled={!accountAddress || isGetVaiTreasuryPercentageLoading || isGetUserVaiBalance}
       limitWei={mintableVaiData?.mintableVaiWei}
+      userBalanceWei={userVaiBalanceData?.balanceWei}
       mintFeePercentage={vaiTreasuryData?.percentage}
       isInitialLoading={isGetMintableVaiLoading}
       isSubmitting={isSubmitting}
+      apyPercentage={getVaiRepayApyData?.repayApyPercentage}
       mintVai={mintVai}
     />
   );

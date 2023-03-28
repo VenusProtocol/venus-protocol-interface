@@ -704,6 +704,7 @@
   },
   "vai": {
     "mintVai": {
+      "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
       "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
       "mintFeeLabel": "Mint fee",
@@ -719,9 +720,11 @@
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
       "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
       "repayVaiBalance": "Repay VAI balance",
+      "repayVaiBalanceTooltip": "Total VAI balance to repay, including interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",
@@ -731,7 +734,8 @@
       }
     },
     "tabMint": "Mint",
-    "tabRepay": "Repay"
+    "tabRepay": "Repay",
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
   },
   "vault": {
     "transactionForm": {
