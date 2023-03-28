@@ -9,12 +9,11 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
-import { areTokensEqual, formatTokensToReadableValue } from 'utilities';
+import { formatTokensToReadableValue } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 
 import { useStyles } from '../styles';
@@ -48,9 +47,12 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
   const amount = new BigNumber(amountValue || 0);
   const isValidAmount = amount && !amount.isZero() && !amount.isNaN();
 
-  // Prevent users from supplying LUNA tokens. This is a temporary hotfix
-  // following the crash of the LUNA token
-  const isSupplyingLuna = areTokensEqual(asset.vToken.underlyingToken, TOKENS.luna);
+  const hasSupplyCapBeenReached = useMemo(
+    () =>
+      !!asset.supplyCapTokens &&
+      asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens),
+    [asset.supplyCapTokens, asset.supplyBalanceTokens],
+  );
 
   return (
     <>
@@ -69,7 +71,7 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
           data-testid={TEST_IDS.valueInput}
           name="amount"
           token={asset.vToken.underlyingToken}
-          disabled={isTransactionLoading || isSupplyingLuna}
+          disabled={isTransactionLoading || hasSupplyCapBeenReached}
           rightMaxButton={{
             label: t('supplyWithdraw.supply.max').toUpperCase(),
             valueOnClick: maxInput.toFixed(),
@@ -102,7 +104,7 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
       <FormikSubmitButton
         fullWidth
         data-testid={TEST_IDS.submitButton}
-        disabled={!isValidAmount || isSupplyingLuna}
+        disabled={!isValidAmount || hasSupplyCapBeenReached}
         loading={isTransactionLoading}
         enabledLabel={enabledButtonKey}
         disabledLabel={disabledButtonKey}

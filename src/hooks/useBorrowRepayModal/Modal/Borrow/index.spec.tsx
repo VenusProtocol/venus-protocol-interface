@@ -125,7 +125,48 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     );
   });
 
-  it('disables submit button and displays a warning notice if user has not supplied and collateralize any tokens yet', async () => {
+  it('disables form and displays a warning notice if the borrow cap of this market has been reached', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.borrowCapTokens = new BigNumber(100);
+    customFakeAsset.borrowBalanceTokens = new BigNumber(100);
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: customFakePool,
+      },
+      isLoading: false,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      <Borrow
+        vToken={fakeAsset.vToken}
+        poolComptrollerAddress={customFakePool.comptrollerAddress}
+        onClose={noop}
+      />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    // Check warning is displayed
+    await waitFor(() => getByTestId(TEST_IDS.notice));
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"The borrow cap of 100 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased."',
+    );
+
+    // Check submit button is disabled
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+  });
+
+  it('disables form and displays a warning notice if user has not supplied and collateralize any tokens yet', async () => {
     const customFakePool: Pool = {
       ...fakePool,
       userBorrowLimitCents: 0,
@@ -163,6 +204,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
       '"You need to supply tokens and enable them as collateral before you can borrow XVS from this pool"',
     );
 
+    // Check submit button is disabled
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
@@ -229,7 +271,8 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   it('disables submit button and displays a warning notice if an amount entered is higher than asset borrow cap', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
-    customFakeAsset.borrowCapTokens = new BigNumber(1);
+    customFakeAsset.borrowCapTokens = new BigNumber(100);
+    customFakeAsset.borrowBalanceTokens = new BigNumber(10);
 
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
@@ -257,7 +300,8 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     ).toBeDisabled();
 
     const incorrectValueTokens = new BigNumber(customFakeAsset.borrowCapTokens)
-      // Add one token more than the borrow cap
+      .minus(customFakeAsset.borrowBalanceTokens)
+      // Add one token too much
       .plus(1)
       .toFixed();
 
@@ -268,7 +312,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You can not borrow more than 1 XVS from this pool"',
+      '"You can not borrow more than 90 XVS from this pool, as the borrow cap for this market is set at 100 XVS and 10 XVS are currently being borrowed from it."',
     );
 
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));

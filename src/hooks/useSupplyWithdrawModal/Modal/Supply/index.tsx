@@ -53,7 +53,7 @@ export const SupplyUi: React.FC<SupplyUiProps> = ({
 
     // Handle supply cap if asset has one
     if (asset.supplyCapTokens) {
-      const marginWithSupplyCapTokens = asset.supplyCapTokens.minus(asset.userSupplyBalanceTokens);
+      const marginWithSupplyCapTokens = asset.supplyCapTokens.minus(asset.supplyBalanceTokens);
       maxInputTokens = marginWithSupplyCapTokens.isLessThanOrEqualTo(0)
         ? new BigNumber(0)
         : BigNumber.minimum(maxInputTokens, marginWithSupplyCapTokens);

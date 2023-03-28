@@ -27,6 +27,25 @@ const Notice: React.FC<NoticeProps> = ({
   const { t } = useTranslation();
   const styles = useSharedStyles();
 
+  if (
+    asset.borrowCapTokens &&
+    asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
+  ) {
+    // Borrow cap has been reached so borrowing more is forbidden
+    return (
+      <NoticeError
+        css={styles.notice}
+        data-testid={TEST_IDS.notice}
+        description={t('borrowRepayModal.borrow.borrowCapReachedWarning', {
+          assetBorrowCap: formatTokensToReadableValue({
+            value: asset.borrowCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+        })}
+      />
+    );
+  }
+
   if (!hasUserCollateralizedSuppliedAssets) {
     // User has not supplied any collateral yet
     return (
@@ -42,7 +61,7 @@ const Notice: React.FC<NoticeProps> = ({
 
   if (
     asset.borrowCapTokens &&
-    asset.userBorrowBalanceTokens.plus(amount).isGreaterThan(asset.borrowCapTokens)
+    asset.borrowBalanceTokens.plus(amount).isGreaterThan(asset.borrowCapTokens)
   ) {
     // User is trying to borrow above borrow cap
     return (
@@ -50,8 +69,16 @@ const Notice: React.FC<NoticeProps> = ({
         css={styles.notice}
         data-testid={TEST_IDS.notice}
         description={t('borrowRepayModal.borrow.aboveBorrowCapWarning', {
-          borrowCap: formatTokensToReadableValue({
+          userMaxBorrowAmount: formatTokensToReadableValue({
+            value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
+            token: asset.vToken.underlyingToken,
+          }),
+          assetBorrowCap: formatTokensToReadableValue({
             value: asset.borrowCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+          assetBorrowBalance: formatTokensToReadableValue({
+            value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,
           }),
         })}
