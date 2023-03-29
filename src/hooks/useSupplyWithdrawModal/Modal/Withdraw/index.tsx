@@ -79,7 +79,9 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
         .dividedBy(collateralAmountPerTokenDollars)
         .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
-      maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.userSupplyBalanceTokens);
+      maxInputTokens = maxTokensBeforeLiquidation.isLessThanOrEqualTo(0)
+        ? new BigNumber(0)
+        : BigNumber.minimum(maxTokensBeforeLiquidation, asset.userSupplyBalanceTokens);
     }
 
     return maxInputTokens;

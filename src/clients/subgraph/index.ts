@@ -1,2 +1,2 @@
-export * from './queries/getIsolatedPools';
+export * from './queries/getIsolatedPoolParticipantsCount';
 export * from './gql/queries';

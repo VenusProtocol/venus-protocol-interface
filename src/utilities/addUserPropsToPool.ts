@@ -1,11 +1,11 @@
 import { Pool } from 'types';
 
-export type FormatToPoolInput = Omit<
+export type AddUserPropsToPoolInput = Omit<
   Pool,
   'userSupplyBalanceCents' | 'userBorrowBalanceCents' | 'userBorrowLimitCents'
 >;
 
-const formatToPool = (input: FormatToPoolInput): Pool => {
+const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
   const userSpecificProps = input.assets.reduce(
     (acc, asset) => {
       let assetUserSupplyBalanceCents: number | undefined;
@@ -66,4 +66,4 @@ const formatToPool = (input: FormatToPoolInput): Pool => {
   };
 };
 
-export default formatToPool;
+export default addUserPropsToPool;

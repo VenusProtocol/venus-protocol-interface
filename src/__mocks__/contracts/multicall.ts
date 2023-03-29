@@ -4287,7 +4287,7 @@ export const lenses: {
             returnValues: [
               [
                 '0xb26C2976e0689eE710f12ddf15bcd26e9010D87F',
-                '0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c',
+                '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
                 {
                   type: 'BigNumber',
                   hex: '0x00',
@@ -4347,7 +4347,7 @@ export const lenses: {
             returnValues: [
               [
                 '0xBfabfDC3A90C5a091DDA7721133E87871dd25d5F',
-                '0xADBed07126B7b70cbc5E07Bf73599d55Be571b9c',
+                '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
                 {
                   type: 'BigNumber',
                   hex: '0x1b1086bbcb85623f405c',
@@ -4371,7 +4371,7 @@ export const lenses: {
               ],
               [
                 '0x774fe56781613eDB1bFaFB1C53fbd1831C0234BD',
-                '0xa14C236372228B6e8182748F3eBbFb4BFEEA3574',
+                '0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7',
                 {
                   type: 'BigNumber',
                   hex: '0x00',

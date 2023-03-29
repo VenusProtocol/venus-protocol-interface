@@ -1,141 +1,2231 @@
-import { BigNumber } from 'bignumber.js';
+import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
+import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
+import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
+import { BigNumber as BN } from 'ethers';
 
-import { GetTokenBalancesOutput } from 'clients/api/queries/getTokenBalances';
-import { IsolatedPoolsQuery, RiskRating } from 'clients/subgraph/gql/queries';
-import { TESTNET_TOKENS } from 'constants/tokens';
+import { PoolLens } from 'types/contracts';
 
-export const fakeGetTokenBalancesOutput: GetTokenBalancesOutput = {
-  tokenBalances: [
-    {
-      token: TESTNET_TOKENS.wbtc,
-      balanceWei: new BigNumber('10000000000'),
+export const fakeGetAllPoolsOuput = [
+  {
+    name: 'Pool 1',
+    description: '',
+    category: '',
+    blockPosted: BN.from('0x01ae6542'),
+    closeFactor: BN.from('0xb1a2bc2ec50000'),
+    comptroller: '0x80C88B6A34fadf3cf5e2086033be8f3d4DC1a195',
+    creator: '0x8BDA9f9E1fEF0DFd404Fef338D9fE4c543d172e1',
+    liquidationIncentive: BN.from('0x0de0b6b3a7640000'),
+    logoURL: '',
+    minLiquidatableCollateral: BN.from('0x056bc75e2d63100000'),
+    priceOracle: '0xb0de3Fce006d3434342383f941bD22720Ff9Fc0C',
+    riskRating: 0,
+    timestampPosted: BN.from('0x641833ef'),
+    vTokens: [
+      {
+        borrowCaps: BN.from('0x656d8ecddf3279900000'),
+        borrowRatePerBlock: BN.from('0x38b3973f'),
+        collateralFactorMantissa: BN.from('0x0853a0d2313c0000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0xc55cd9ea33b3eaec0000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0xa8062D2bd49D1D2C6376B444bde19402B38938d0',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x3635c9adc5dea00000'),
+        borrowRatePerBlock: BN.from('0x0ce2ff77'),
+        collateralFactorMantissa: BN.from('0x09b6e64a8ec60000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x3635c9adc5dea00000'),
+        supplyRatePerBlock: BN.from('0x167e40'),
+        totalBorrows: BN.from('0x016345785d8a0000'),
+        totalCash: BN.from('0x9744943fd3c20000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x4190ab00'),
+        underlyingAssetAddress: '0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+        vTokenDecimals: BN.from('0x08'),
+      },
+    ],
+  },
+  {
+    name: 'Pool 2',
+    description: '',
+    category: '',
+    blockPosted: BN.from('0x01ae6293'),
+    closeFactor: BN.from('0xb1a2bc2ec50000'),
+    comptroller: '0x019Ea8D2ce806f5496E67af93251D8936905917D',
+    creator: '0x8BDA9f9E1fEF0DFd404Fef338D9fE4c543d172e1',
+    liquidationIncentive: BN.from('0x0de0b6b3a7640000'),
+    logoURL: '',
+    minLiquidatableCollateral: BN.from('0x056bc75e2d63100000'),
+    priceOracle: '0xb0de3Fce006d3434342383f941bD22720Ff9Fc0C',
+    riskRating: 0,
+    timestampPosted: BN.from('0x64182be2'),
+    vTokens: [
+      {
+        borrowCaps: BN.from('0x027b46536c66c8e3000000'),
+        borrowRatePerBlock: BN.from('0x00'),
+        collateralFactorMantissa: BN.from('0x09b6e64a8ec60000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x027b46536c66c8e3000000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x056bc75e2d63100000'),
+        borrowRatePerBlock: BN.from('0x38b3973f'),
+        collateralFactorMantissa: BN.from('0x0853a0d2313c0000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x056bc75e2d63100000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x02a24cec731f5322d80000'),
+        borrowRatePerBlock: BN.from('0x00'),
+        collateralFactorMantissa: BN.from('0x09b6e64a8ec60000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x05ca4ec2a79a7f67000000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0x523027fFdf9B18Aa652dBcd6B92f885009153dA3',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x4fa98a953de2d827c9fc0000'),
+        borrowRatePerBlock: BN.from('0x38b3973f'),
+        collateralFactorMantissa: BN.from('0x0853a0d2313c0000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x01129a9b4895548cc1f7d40000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x0c4c182cb9f94619e9480000'),
+        borrowRatePerBlock: BN.from('0x38b3973f'),
+        collateralFactorMantissa: BN.from('0x0853a0d2313c0000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x4cc4d3f074640e6e5d180000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x1190673b5fda900000'),
+        borrowRatePerBlock: BN.from('0x38b3973f'),
+        collateralFactorMantissa: BN.from('0x0853a0d2313c0000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x03782dace9d90000'),
+        supplyCaps: BN.from('0x6a6a18f3948bcc0000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+        vTokenDecimals: BN.from('0x08'),
+      },
+      {
+        borrowCaps: BN.from('0x01679e7ac729fb0f140000'),
+        borrowRatePerBlock: BN.from('0x00'),
+        collateralFactorMantissa: BN.from('0x09b6e64a8ec60000'),
+        exchangeRateCurrent: BN.from('0x204fce5e3e25026110000000'),
+        isListed: true,
+        reserveFactorMantissa: BN.from('0x016345785d8a0000'),
+        supplyCaps: BN.from('0x08c505002b79bd4d140000'),
+        supplyRatePerBlock: BN.from('0x00'),
+        totalBorrows: BN.from('0x00'),
+        totalCash: BN.from('0x8ac7230489e80000'),
+        totalReserves: BN.from('0x00'),
+        totalSupply: BN.from('0x3b9aca00'),
+        underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
+        underlyingDecimals: BN.from('0x12'),
+        vToken: '0xC435541466890d74Ed7c7102D434162817712217',
+        vTokenDecimals: BN.from('0x08'),
+      },
+    ],
+  },
+] as unknown as PoolLens.PoolDataStructOutput[];
+
+export const fakeMulticallResponse1 = {
+  results: {
+    poolLens: {
+      originalContractCallContext: {
+        reference: 'poolLens',
+        contractAddress: '0x7d6A1a595dCa742B4FF4Fb8684e3F018C3c0bEC0',
+        abi: poolLensAbi,
+        calls: [
+          {
+            reference: 'vTokenUnderlyingPriceAll',
+            methodName: 'vTokenUnderlyingPriceAll(address[])',
+            methodParameters: [
+              [
+                '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+                '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+                '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+                '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+                '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+                '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+                '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+                '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+                '0xC435541466890d74Ed7c7102D434162817712217',
+              ],
+            ],
+          },
+          {
+            reference: 'vTokenBalancesAll',
+            methodName: 'vTokenBalancesAll',
+            methodParameters: [
+              [
+                '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+                '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+                '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+                '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+                '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+                '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+                '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+                '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+                '0xC435541466890d74Ed7c7102D434162817712217',
+              ],
+              '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+            ],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: [
+            [
+              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              {
+                type: 'BigNumber',
+                hex: '0x088ebcd2341ff400',
+              },
+            ],
+            [
+              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              {
+                type: 'BigNumber',
+                hex: '0x05fa0e50dcecd3770000',
+              },
+            ],
+            [
+              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              {
+                type: 'BigNumber',
+                hex: '0x7b53eac94b0400',
+              },
+            ],
+            [
+              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              {
+                type: 'BigNumber',
+                hex: '0x12426999090e17fc00',
+              },
+            ],
+            [
+              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              {
+                type: 'BigNumber',
+                hex: '0x06cde0813520d800',
+              },
+            ],
+            [
+              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              {
+                type: 'BigNumber',
+                hex: '0x5acdcfbc00',
+              },
+            ],
+            [
+              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              {
+                type: 'BigNumber',
+                hex: '0xae4956140c00',
+              },
+            ],
+            [
+              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              {
+                type: 'BigNumber',
+                hex: '0x11a509e5ca08857000',
+              },
+            ],
+            [
+              '0xC435541466890d74Ed7c7102D434162817712217',
+              {
+                type: 'BigNumber',
+                hex: '0x0dc456a89608b800',
+              },
+            ],
+          ],
+          decoded: true,
+          reference: 'vTokenUnderlyingPriceAll',
+          methodName: 'vTokenUnderlyingPriceAll(address[])',
+          methodParameters: [
+            [
+              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              '0xC435541466890d74Ed7c7102D434162817712217',
+            ],
+          ],
+          success: true,
+        },
+        {
+          returnValues: [
+            [
+              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              {
+                type: 'BigNumber',
+                hex: '0x05f5e100',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x016345f85c93fc0e',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x0de0b6bc6181c58c',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x9ce8d2993eda0294',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x9b858d20e1500294',
+              },
+            ],
+            [
+              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+            [
+              '0xC435541466890d74Ed7c7102D434162817712217',
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x00',
+              },
+            ],
+          ],
+          decoded: true,
+          reference: 'vTokenBalancesAll',
+          methodName: 'vTokenBalancesAll',
+          methodParameters: [
+            [
+              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              '0xC435541466890d74Ed7c7102D434162817712217',
+            ],
+            '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+          ],
+          success: true,
+        },
+      ],
     },
-    {
-      token: TESTNET_TOKENS.venusCake,
-      balanceWei: new BigNumber('20000000000'),
+    '0x019Ea8D2ce806f5496E67af93251D8936905917D': {
+      originalContractCallContext: {
+        reference: '0x019Ea8D2ce806f5496E67af93251D8936905917D',
+        contractAddress: '0x019Ea8D2ce806f5496E67af93251D8936905917D',
+        abi: comptrollerAbi,
+        calls: [
+          {
+            reference: 'getRewardDistributors',
+            methodName: 'getRewardDistributors',
+            methodParameters: [],
+          },
+          {
+            reference: 'getAssetsIn',
+            methodName: 'getAssetsIn(address)',
+            methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: [
+            '0x26964b3C0a897eef365b65C3390e90563cf09589',
+            '0x3986ECDa5Af27a8aDde8785f8d86B8bff6c49306',
+          ],
+          decoded: true,
+          reference: 'getRewardDistributors',
+          methodName: 'getRewardDistributors',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          decoded: true,
+          reference: 'getAssetsIn',
+          methodName: 'getAssetsIn(address)',
+          methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+          success: true,
+        },
+      ],
     },
-    {
-      token: TESTNET_TOKENS.wbnb,
-      balanceWei: new BigNumber('30000000000'),
+    '0x80C88B6A34fadf3cf5e2086033be8f3d4DC1a195': {
+      originalContractCallContext: {
+        reference: '0x80C88B6A34fadf3cf5e2086033be8f3d4DC1a195',
+        contractAddress: '0x80C88B6A34fadf3cf5e2086033be8f3d4DC1a195',
+        abi: comptrollerAbi,
+        calls: [
+          {
+            reference: 'getRewardDistributors',
+            methodName: 'getRewardDistributors',
+            methodParameters: [],
+          },
+          {
+            reference: 'getAssetsIn',
+            methodName: 'getAssetsIn(address)',
+            methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: [
+            '0x4B4aF7027fB3c1Fa8F515038b823Ed396ad19e34',
+            '0x6a52E48f2C4ab7BDE19a8F847C24F5453A298cA4',
+            '0xc43756b32fa8641061b444cb08621574d1faE918',
+            '0x853DD0fbf9589d069a38601de13b6C424c58C3A7',
+            '0xc7b0106373724a8682F450418b7fD92e31596Bdd',
+          ],
+          decoded: true,
+          reference: 'getRewardDistributors',
+          methodName: 'getRewardDistributors',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [],
+          decoded: true,
+          reference: 'getAssetsIn',
+          methodName: 'getAssetsIn(address)',
+          methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
+          success: true,
+        },
+      ],
     },
-    {
-      token: TESTNET_TOKENS.bnx,
-      balanceWei: new BigNumber('40000000000'),
-    },
-  ],
+  },
+  blockNumber: 28326007,
 };
 
-export const fakeGetSubgraphIsolatedPoolsOutput: IsolatedPoolsQuery = {
-  pools: [
-    {
-      id: '0x2f83bc52a10546ec3a2cabbb706c82b869d2d677',
-      priceOracleAddress: '0x4736cd7783736425b3855581c3d40fb153daf322',
-      name: 'Pool 2',
-      description: '',
-      riskRating: RiskRating.VeryHighRisk,
-      markets: [
+export const fakeMulticallResponse2 = {
+  results: {
+    '0x26964b3C0a897eef365b65C3390e90563cf09589': {
+      originalContractCallContext: {
+        reference: '0x26964b3C0a897eef365b65C3390e90563cf09589',
+        contractAddress: '0x26964b3C0a897eef365b65C3390e90563cf09589',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          },
+        ],
+      },
+      callsReturnContext: [
         {
-          id: '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
-          borrowCapMantissa: '10000000000000000000000',
-          supplyCapMantissa: '10000000000000000000000',
-          reservesMantissa: '0',
-          treasuryTotalSupplyMantissa: '1000000000',
-          treasuryTotalBorrowsMantissa: '0',
-          reserveFactorMantissa: '0',
-          collateralFactorMantissa: '700000000000000000',
-          borrowRateMantissa: '0',
-          supplyRateMantissa: '0',
-          exchangeRateMantissa: '10000000000000000000000000000',
-          cash: '10',
-          supplierCount: '0',
-          borrowerCount: '0',
-          liquidationThresholdMantissa: '700000000000000000',
-          accounts: [],
+          returnValues: ['0xB9e0E753630434d7863528cc73CB7AC638a7c8ff'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
         },
         {
-          id: '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
-          borrowCapMantissa: '10000000000000000000000',
-          supplyCapMantissa: '10000000000000000000000',
-          reservesMantissa: '0',
-          treasuryTotalSupplyMantissa: '1000000000',
-          treasuryTotalBorrowsMantissa: '0',
-          reserveFactorMantissa: '0',
-          collateralFactorMantissa: '700000000000000000',
-          borrowRateMantissa: '0',
-          supplyRateMantissa: '0',
-          exchangeRateMantissa: '10000000000000000000000000000',
-          cash: '10',
-          supplierCount: '0',
-          borrowerCount: '0',
-          liquidationThresholdMantissa: '700000000000000000',
-          accounts: [],
-        },
-      ],
-      rewardsDistributors: [
-        {
-          reward: '0xca83b44f7eea4ca927b6ce41a48f119458acde4c',
-          rewardSpeeds: [],
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          success: true,
         },
         {
-          reward: '0xadbed07126b7b70cbc5e07bf73599d55be571b9c',
-          rewardSpeeds: [],
-        },
-      ],
-    },
-    {
-      id: '0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9',
-      priceOracleAddress: '0x4736cd7783736425b3855581c3d40fb153daf322',
-      name: 'Pool 1',
-      description: '',
-      riskRating: RiskRating.VeryHighRisk,
-      markets: [
-        {
-          id: '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
-          borrowCapMantissa: '10000000000000000000000',
-          supplyCapMantissa: '10000000000000000000000',
-          reservesMantissa: '0',
-          treasuryTotalSupplyMantissa: '1000000000',
-          treasuryTotalBorrowsMantissa: '0',
-          reserveFactorMantissa: '0',
-          collateralFactorMantissa: '700000000000000000',
-          borrowRateMantissa: '0',
-          supplyRateMantissa: '0',
-          exchangeRateMantissa: '10000000000000000000000000000',
-          cash: '10',
-          supplierCount: '0',
-          borrowerCount: '0',
-          liquidationThresholdMantissa: '700000000000000000',
-          accounts: [],
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          success: true,
         },
         {
-          id: '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
-          borrowCapMantissa: '10000000000000000000000',
-          supplyCapMantissa: '10000000000000000000000',
-          reservesMantissa: '0',
-          treasuryTotalSupplyMantissa: '1000000000',
-          treasuryTotalBorrowsMantissa: '0',
-          reserveFactorMantissa: '0',
-          collateralFactorMantissa: '700000000000000000',
-          borrowRateMantissa: '0',
-          supplyRateMantissa: '0',
-          exchangeRateMantissa: '10000000000000000000000000000',
-          cash: '10',
-          supplierCount: '0',
-          borrowerCount: '0',
-          liquidationThresholdMantissa: '700000000000000000',
-          accounts: [],
-        },
-      ],
-      rewardsDistributors: [
-        {
-          reward: '0xa14c236372228b6e8182748f3ebbfb4bfeea3574',
-          rewardSpeeds: [],
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          success: true,
         },
         {
-          reward: '0xadbed07126b7b70cbc5e07bf73599d55be571b9c',
-          rewardSpeeds: [],
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          success: true,
         },
       ],
     },
-  ],
+    '0x3986ECDa5Af27a8aDde8785f8d86B8bff6c49306': {
+      originalContractCallContext: {
+        reference: '0x3986ECDa5Af27a8aDde8785f8d86B8bff6c49306',
+        contractAddress: '0x3986ECDa5Af27a8aDde8785f8d86B8bff6c49306',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0xa8062D2bd49D1D2C6376B444bde19402B38938d0'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc4b20100',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc4b20100',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          success: true,
+        },
+      ],
+    },
+    '0x4B4aF7027fB3c1Fa8F515038b823Ed396ad19e34': {
+      originalContractCallContext: {
+        reference: '0x4B4aF7027fB3c1Fa8F515038b823Ed396ad19e34',
+        contractAddress: '0x4B4aF7027fB3c1Fa8F515038b823Ed396ad19e34',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0xB9e0E753630434d7863528cc73CB7AC638a7c8ff'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x89173700',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+      ],
+    },
+    '0x6a52E48f2C4ab7BDE19a8F847C24F5453A298cA4': {
+      originalContractCallContext: {
+        reference: '0x6a52E48f2C4ab7BDE19a8F847C24F5453A298cA4',
+        contractAddress: '0x6a52E48f2C4ab7BDE19a8F847C24F5453A298cA4',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x77359400',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x77359400',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x77359400',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x77359400',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+      ],
+    },
+    '0xc43756b32fa8641061b444cb08621574d1faE918': {
+      originalContractCallContext: {
+        reference: '0xc43756b32fa8641061b444cb08621574d1faE918',
+        contractAddress: '0xc43756b32fa8641061b444cb08621574d1faE918',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0x523027fFdf9B18Aa652dBcd6B92f885009153dA3'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x9502f900',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x9502f900',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+      ],
+    },
+    '0x853DD0fbf9589d069a38601de13b6C424c58C3A7': {
+      originalContractCallContext: {
+        reference: '0x853DD0fbf9589d069a38601de13b6C424c58C3A7',
+        contractAddress: '0x853DD0fbf9589d069a38601de13b6C424c58C3A7',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x83215600',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x83215600',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+      ],
+    },
+    '0xc7b0106373724a8682F450418b7fD92e31596Bdd': {
+      originalContractCallContext: {
+        reference: '0xc7b0106373724a8682F450418b7fD92e31596Bdd',
+        contractAddress: '0xc7b0106373724a8682F450418b7fD92e31596Bdd',
+        abi: rewardsDistributorAbi,
+        calls: [
+          {
+            reference: 'rewardToken',
+            methodName: 'rewardToken',
+            methodParameters: [],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          },
+          {
+            reference: 'rewardTokenSupplySpeed',
+            methodName: 'rewardTokenSupplySpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+          {
+            reference: 'rewardTokenBorrowSpeed',
+            methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: ['0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26'],
+          decoded: true,
+          reference: 'rewardToken',
+          methodName: 'rewardToken',
+          methodParameters: [],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xa0eebb00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xa0eebb00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplySpeed',
+          methodName: 'rewardTokenSupplySpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x00',
+            },
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowSpeed',
+          methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          success: true,
+        },
+      ],
+    },
+  },
+  blockNumber: 28326215,
 };

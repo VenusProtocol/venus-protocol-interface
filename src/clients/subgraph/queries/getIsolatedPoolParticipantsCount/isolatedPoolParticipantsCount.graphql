@@ -1,0 +1,11 @@
+query IsolatedPoolParticipantsCount {
+  pools {
+    id
+
+    markets {
+      id
+      supplierCount
+      borrowerCount
+    }
+  }
+}

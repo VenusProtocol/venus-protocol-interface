@@ -1,8 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
-import { RiskRating } from 'clients/subgraph/gql/queries';
-
 export enum BscChainId {
   'MAINNET' = 56,
   'TESTNET' = 97,
@@ -68,7 +66,15 @@ export interface Asset {
   isCollateralOfUser: boolean;
 }
 
-export type PoolRiskRating = `${RiskRating}`;
+export enum ContractPoolRiskRating {
+  HighRisk = 'HIGH_RISK',
+  LowRisk = 'LOW_RISK',
+  MediumRisk = 'MEDIUM_RISK',
+  MinimalRisk = 'MINIMAL_RISK',
+  VeryHighRisk = 'VERY_HIGH_RISK',
+}
+
+export type PoolRiskRating = `${ContractPoolRiskRating}`;
 
 export interface Pool {
   comptrollerAddress: string;

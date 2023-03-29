@@ -37,7 +37,7 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum PoolRegistry.RiskRating",
+            "internalType": "enum PoolRegistryInterface.RiskRating",
             "name": "riskRating",
             "type": "uint8"
           },
@@ -77,11 +77,6 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
-            "name": "maxAssets",
-            "type": "uint256"
-          },
-          {
             "components": [
               {
                 "internalType": "address",
@@ -106,6 +101,16 @@
               {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowCaps",
                 "type": "uint256"
               },
               {
@@ -229,6 +234,54 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "comptrollerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getPoolBadDebt",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "comptroller",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBadDebtUsd",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vTokenAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "badDebtUsd",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct PoolLens.BadDebt[]",
+            "name": "badDebts",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct PoolLens.BadDebtSummary",
+        "name": "badDebtSummary",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "poolRegistryAddress",
         "type": "address"
       },
@@ -268,7 +321,7 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum PoolRegistry.RiskRating",
+            "internalType": "enum PoolRegistryInterface.RiskRating",
             "name": "riskRating",
             "type": "uint8"
           },
@@ -308,11 +361,6 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
-            "name": "maxAssets",
-            "type": "uint256"
-          },
-          {
             "components": [
               {
                 "internalType": "address",
@@ -337,6 +385,16 @@
               {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowCaps",
                 "type": "uint256"
               },
               {
@@ -433,7 +491,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct PoolRegistry.VenusPool",
+        "internalType": "struct PoolRegistryInterface.VenusPool",
         "name": "venusPool",
         "type": "tuple"
       }
@@ -468,7 +526,7 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum PoolRegistry.RiskRating",
+            "internalType": "enum PoolRegistryInterface.RiskRating",
             "name": "riskRating",
             "type": "uint8"
           },
@@ -508,11 +566,6 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
-            "name": "maxAssets",
-            "type": "uint256"
-          },
-          {
             "components": [
               {
                 "internalType": "address",
@@ -537,6 +590,16 @@
               {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowCaps",
                 "type": "uint256"
               },
               {
@@ -614,9 +677,9 @@
     "name": "getPoolsSupportedByAsset",
     "outputs": [
       {
-        "internalType": "uint256[]",
+        "internalType": "address[]",
         "name": "",
-        "type": "uint256[]"
+        "type": "address[]"
       }
     ],
     "stateMutability": "view",
@@ -659,7 +722,7 @@
         "type": "address"
       },
       {
-        "internalType": "address payable",
+        "internalType": "address",
         "name": "account",
         "type": "address"
       }
@@ -715,7 +778,7 @@
         "type": "address[]"
       },
       {
-        "internalType": "address payable",
+        "internalType": "address",
         "name": "account",
         "type": "address"
       }
@@ -798,6 +861,16 @@
           {
             "internalType": "uint256",
             "name": "reserveFactorMantissa",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "supplyCaps",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "borrowCaps",
             "type": "uint256"
           },
           {
@@ -889,6 +962,16 @@
           {
             "internalType": "uint256",
             "name": "reserveFactorMantissa",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "supplyCaps",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "borrowCaps",
             "type": "uint256"
           },
           {
