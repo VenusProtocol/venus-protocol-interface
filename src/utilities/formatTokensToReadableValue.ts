@@ -5,19 +5,21 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import { shortenValueWithSuffix } from './shortenValueWithSuffix';
 
+export interface FormatTokensToReadableValueInput {
+  value: BigNumber | undefined;
+  token: Token;
+  minimizeDecimals?: boolean;
+  shortenLargeValue?: boolean;
+  addSymbol?: boolean;
+}
+
 export const formatTokensToReadableValue = ({
   value,
   token,
   minimizeDecimals = false,
   shortenLargeValue = false,
   addSymbol = true,
-}: {
-  value: BigNumber | undefined;
-  token: Token;
-  minimizeDecimals?: boolean;
-  shortenLargeValue?: boolean;
-  addSymbol?: boolean;
-}) => {
+}: FormatTokensToReadableValueInput) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }

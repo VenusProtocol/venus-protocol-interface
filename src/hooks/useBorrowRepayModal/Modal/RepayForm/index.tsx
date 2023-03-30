@@ -11,10 +11,11 @@ import {
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
-import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
+import { formatToReadablePercentage } from 'utilities';
 
 import { useRepay } from 'clients/api';
 import { ErrorCode } from 'containers/AmountForm';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
@@ -53,25 +54,15 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
     [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.decimals],
   );
 
-  // TODO: create useFormatTokensToReadableValue hook
-  const readableTokenBorrowBalance = React.useMemo(
-    () =>
-      formatTokensToReadableValue({
-        value: asset.userBorrowBalanceTokens,
-        token: asset.vToken.underlyingToken,
-      }),
-    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken],
-  );
+  const readableTokenBorrowBalance = useFormatTokensToReadableValue({
+    value: asset.userBorrowBalanceTokens,
+    token: asset.vToken.underlyingToken,
+  });
 
-  // TODO: create useFormatTokensToReadableValue hook
-  const readableTokenWalletBalance = React.useMemo(
-    () =>
-      formatTokensToReadableValue({
-        value: asset.userWalletBalanceTokens,
-        token: asset.vToken.underlyingToken,
-      }),
-    [asset.userWalletBalanceTokens, asset.vToken.underlyingToken],
-  );
+  const readableTokenWalletBalance = useFormatTokensToReadableValue({
+    value: asset.userWalletBalanceTokens,
+    token: asset.vToken.underlyingToken,
+  });
 
   const shouldDisplayFullRepaymentWarning = React.useCallback(
     (repayAmountTokens: string) =>

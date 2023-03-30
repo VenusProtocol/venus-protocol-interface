@@ -13,7 +13,7 @@ export * from './generateBscScanUrl';
 export * from './isTokenEnabled';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 
-export { default as formatTokensToReadableValue } from './formatTokensToReadableValue';
+export * from './formatTokensToReadableValue';
 export * from './convertWeiToTokens';
 export { default as encodeParameters } from './encodeParameters';
 export { default as getArgs } from './getArgs';

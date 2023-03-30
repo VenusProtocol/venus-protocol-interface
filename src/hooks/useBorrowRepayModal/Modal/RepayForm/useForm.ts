@@ -50,8 +50,6 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
         }),
       );
 
-      // TODO: handle swap and repay flow (see VEN-1272)
-
       await handleTransactionMutation({
         mutate: async () =>
           onRepay({
