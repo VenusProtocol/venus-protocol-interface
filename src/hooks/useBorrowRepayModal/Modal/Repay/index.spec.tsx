@@ -14,8 +14,9 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import Repay, { PRESET_PERCENTAGES } from '.';
-import TEST_IDS from './testIds';
+import Repay from '.';
+import { PRESET_PERCENTAGES } from './RepayForm';
+import TEST_IDS from './RepayForm/testIds';
 
 const fakePool: Pool = {
   ...poolData[0],
