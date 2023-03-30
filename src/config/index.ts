@@ -12,6 +12,7 @@ export interface Config {
   bscScanUrl: string;
   featureFlags: {
     isolatedPools: boolean;
+    integratedSwap: boolean;
   };
 }
 
@@ -32,6 +33,7 @@ const config: Config = {
   bscScanUrl,
   featureFlags: {
     isolatedPools: !!process.env.REACT_APP_FF_ISOLATED_POOLS,
+    integratedSwap: !!process.env.REACT_APP_FF_INTEGRATED_SWAP,
   },
 };
 
