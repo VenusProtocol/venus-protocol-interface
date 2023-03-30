@@ -1,26 +1,32 @@
 /** @jsxImportSource @emotion/react */
 import { ConnectWallet, EnableToken, Spinner } from 'components';
 import React from 'react';
-import { useTranslation } from 'translation';
-import { VToken } from 'types';
+import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
 
-import RepayForm from './RepayForm';
-
-export interface RepayProps {
+export interface AssetAccessorProps {
   vToken: VToken;
   poolComptrollerAddress: string;
-  onClose: () => void;
+  connectWalletMessage: string;
+  enableTokenMessage: string;
+  assetInfoType: 'supply' | 'borrow';
+  children: (props: { asset: Asset; pool: Pool }) => React.ReactNode;
 }
 
-// TODO: build into a reusable wrapper for the supply, withdraw, borrow and
-// repay forms
-const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }) => {
-  const { t } = useTranslation();
+// TODO: add tests
+
+const AssetAccessor: React.FC<AssetAccessorProps> = ({
+  vToken,
+  poolComptrollerAddress,
+  children,
+  connectWalletMessage,
+  enableTokenMessage,
+  assetInfoType,
+}) => {
   const { accountAddress } = useAuth();
 
   const { data: getPoolData } = useGetPool({
@@ -32,21 +38,19 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
 
   const assetInfo = useAssetInfo({
     asset,
-    type: 'borrow',
+    type: assetInfoType,
   });
 
   return (
-    <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
-      {asset && pool ? (
+    <ConnectWallet message={connectWalletMessage}>
+      {pool && asset ? (
         <EnableToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
-          title={t('borrowRepayModal.repay.enableToken.title', {
-            symbol: vToken.underlyingToken.symbol,
-          })}
+          title={enableTokenMessage}
           assetInfo={assetInfo}
         >
-          <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />
+          {children({ asset, pool })}
         </EnableToken>
       ) : (
         <Spinner />
@@ -55,4 +59,4 @@ const Repay: React.FC<RepayProps> = ({ vToken, poolComptrollerAddress, onClose }
   );
 };
 
-export default Repay;
+export default AssetAccessor;

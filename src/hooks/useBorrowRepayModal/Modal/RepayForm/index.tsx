@@ -16,7 +16,7 @@ import { formatToReadablePercentage, formatTokensToReadableValue } from 'utiliti
 import { useRepay } from 'clients/api';
 import { ErrorCode } from 'containers/AmountForm';
 
-import { useStyles as useSharedStyles } from '../../styles';
+import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useForm, { UseFormProps } from './useForm';

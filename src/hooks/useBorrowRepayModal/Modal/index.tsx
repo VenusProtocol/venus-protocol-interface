@@ -5,8 +5,10 @@ import { useTranslation } from 'translation';
 import { VToken } from 'types';
 import { isTokenEnabled } from 'utilities';
 
+import AssetAccessor from 'containers/AssetAccessor';
+
 import Borrow from './Borrow';
-import Repay from './Repay';
+import RepayForm from './RepayForm';
 import { useStyles } from './styles';
 
 export interface BorrowRepayProps {
@@ -24,11 +26,17 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          <Repay
+          <AssetAccessor
             vToken={vToken}
             poolComptrollerAddress={poolComptrollerAddress}
-            onClose={onClose}
-          />
+            connectWalletMessage={t('borrowRepayModal.repay.connectWalletMessage')}
+            enableTokenMessage={t('borrowRepayModal.repay.enableToken.title', {
+              symbol: vToken.underlyingToken.symbol,
+            })}
+            assetInfoType="borrow"
+          >
+            {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}
+          </AssetAccessor>
         </div>
       ),
     },
