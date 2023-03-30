@@ -76,10 +76,11 @@
   },
   "borrowRepayModal": {
     "borrow": {
-      "aboveBorrowCapWarning": "You can not borrow more than {{borrowCap}} from this pool",
+      "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "aboveLiquidityWarning": "Insufficient asset liquidity",
       "aboveSafeLimitWarning": "You entered a high amount, which puts you at risk of liquidation",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
+      "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
         "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
@@ -457,7 +458,7 @@
   },
   "supplyWithdraw": {
     "supply": {
-      "amountAboveSupplyCapWarning": "You can not supply more than {{supplyCap}} to this pool",
+      "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "connectWalletToSupply": "Please connect your wallet to supply",
       "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
       "max": "MAX",
@@ -469,6 +470,7 @@
         "message": "You successfully supplied",
         "title": "Your supply was successful"
       },
+      "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "walletBalance": "Wallet balance: <White>{{amount}}</White>"
     },
     "supplyTabTitle": "Supply",

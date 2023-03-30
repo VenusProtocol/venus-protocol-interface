@@ -10,7 +10,7 @@ import {
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei, formatTokensToReadableValue } from 'utilities';
@@ -50,7 +50,17 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
   const { t, Trans } = useTranslation();
   const sharedStyles = useStyles();
 
-  const hasUserCollateralizedSuppliedAssets = (pool?.userBorrowLimitCents || 0) > 0;
+  const hasUserCollateralizedSuppliedAssets = useMemo(
+    () => (pool?.userBorrowLimitCents || 0) > 0,
+    [pool?.userBorrowLimitCents],
+  );
+
+  const hasBorrowCapBeenReached = useMemo(
+    () =>
+      !!asset.borrowCapTokens &&
+      asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens),
+    [asset.borrowCapTokens, asset.borrowBalanceTokens],
+  );
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -102,7 +112,9 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
             <FormikTokenTextField
               name="amount"
               token={asset.vToken.underlyingToken}
-              disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
+              disabled={
+                isBorrowLoading || !hasUserCollateralizedSuppliedAssets || hasBorrowCapBeenReached
+              }
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
                   limitPercentage: safeBorrowLimitPercentage,
@@ -141,7 +153,13 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
           <FormikSubmitButton
             loading={isBorrowLoading}
-            disabled={!isValid || !dirty || isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
+            disabled={
+              !isValid ||
+              !dirty ||
+              isBorrowLoading ||
+              !hasUserCollateralizedSuppliedAssets ||
+              hasBorrowCapBeenReached
+            }
             fullWidth
             enabledLabel={t('borrowRepayModal.borrow.submitButton')}
             disabledLabel={t('borrowRepayModal.borrow.submitButtonDisabled')}
@@ -210,7 +228,7 @@ const Borrow: React.FC<BorrowProps> = ({ vToken, poolComptrollerAddress, onClose
 
     // Take borrow cap in consideration if asset has one
     if (asset.borrowCapTokens) {
-      const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.userBorrowBalanceTokens);
+      const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
       maxTokens = marginWithBorrowCapTokens.isLessThanOrEqualTo(0)
         ? new BigNumber(0)
         : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);

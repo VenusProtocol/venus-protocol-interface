@@ -184,10 +184,56 @@ describe('Supply form', () => {
     ).toBeDisabled();
   });
 
-  it('disables submit button and displays error notice if an amount entered in input is higher than supply cap of token wallet balance', async () => {
+  it('disables form and displays a warning notice if the supply cap of this market has been reached', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
-    customFakeAsset.supplyCapTokens = new BigNumber(1);
+    customFakeAsset.supplyCapTokens = new BigNumber(100);
+    customFakeAsset.supplyBalanceTokens = new BigNumber(100);
+
+    (useGetPool as jest.Mock).mockImplementation(() => ({
+      data: {
+        pool: customFakePool,
+      },
+      isLoading: false,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      () => (
+        <Supply
+          onClose={jest.fn()}
+          vToken={fakeAsset.vToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    // Check warning is displayed
+    await waitFor(() => getByTestId(TEST_IDS.noticeError));
+    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
+      '"The supply cap of 100 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
+    );
+
+    // Check submit button is disabled
+    expect(
+      getByText(en.supplyWithdraw.supply.submitButton.enterValidAmountSupplyLabel).closest(
+        'button',
+      ),
+    ).toBeDisabled();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.valueInput).closest('input')).toBeDisabled();
+  });
+
+  it('disables submit button and displays error notice if an amount entered in input is higher than asset supply cap', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.supplyCapTokens = new BigNumber(100);
+    customFakeAsset.supplyBalanceTokens = new BigNumber(10);
 
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
@@ -221,7 +267,11 @@ describe('Supply form', () => {
       ),
     ).toBeDisabled();
 
-    const incorrectValueTokens = customFakeAsset.supplyCapTokens.plus(1).toFixed();
+    const incorrectValueTokens = customFakeAsset.supplyCapTokens
+      .minus(customFakeAsset.supplyBalanceTokens)
+      // Add one token too much
+      .plus(1)
+      .toFixed();
 
     // Enter amount in input
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -232,7 +282,7 @@ describe('Supply form', () => {
     // Check error notice is displayed
     await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You can not supply more than 1 XVS to this pool"',
+      '"You can not supply more than 90 XVS to this pool, as the supply cap for this market is set at 100 XVS and 10 XVS are currently being supplied to it."',
     );
 
     // Check submit button is still disabled
