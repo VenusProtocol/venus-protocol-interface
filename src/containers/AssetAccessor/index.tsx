@@ -17,8 +17,6 @@ export interface AssetAccessorProps {
   children: (props: { asset: Asset; pool: Pool }) => React.ReactNode;
 }
 
-// TODO: add tests
-
 const AssetAccessor: React.FC<AssetAccessorProps> = ({
   vToken,
   poolComptrollerAddress,

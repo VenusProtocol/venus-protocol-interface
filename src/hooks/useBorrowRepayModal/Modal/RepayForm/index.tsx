@@ -8,7 +8,7 @@ import {
   TertiaryButton,
   TokenTextField,
 } from 'components';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
 import { formatToReadablePercentage } from 'utilities';
@@ -21,8 +21,6 @@ import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useForm, { UseFormProps } from './useForm';
-
-// TODO: add stories
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
@@ -39,7 +37,16 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
-  const { formikProps, limitTokens } = useForm({
+  const limitTokens = useMemo(
+    () =>
+      asset
+        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens).toString()
+        : '0',
+    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
+  );
+
+  const { formikProps } = useForm({
+    limitTokens,
     asset,
     onCloseModal,
     onRepay,

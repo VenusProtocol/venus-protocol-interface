@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ContractReceipt } from 'ethers';
 import { useFormik } from 'formik';
-import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { convertTokensToWei } from 'utilities';
@@ -11,6 +10,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 export interface UseFormProps {
   asset: Asset;
+  limitTokens: string;
   onRepay: ({
     amountWei,
     isRepayingFullLoan,
@@ -21,17 +21,9 @@ export interface UseFormProps {
   onCloseModal: () => void;
 }
 
-const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
+const useForm = ({ asset, onRepay, onCloseModal, limitTokens }: UseFormProps) => {
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
-
-  const limitTokens = useMemo(
-    () =>
-      asset
-        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens).toString()
-        : '0',
-    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
-  );
 
   const formikProps = useFormik<FormValues>({
     initialValues: {
@@ -76,7 +68,6 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
 
   return {
     formikProps,
-    limitTokens,
   };
 };
 
