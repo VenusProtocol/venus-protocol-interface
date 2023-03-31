@@ -12,11 +12,13 @@ import {
 import config from 'config';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool } from 'types';
-import { formatToReadablePercentage } from 'utilities';
+import { Asset, Pool, TokenBalance } from 'types';
+import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
 
 import { useRepay } from 'clients/api';
+import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
@@ -30,27 +32,61 @@ export interface RepayFormUiProps {
   pool: Pool;
   onRepay: UseFormProps['onRepay'];
   onCloseModal: () => void;
+  tokenBalances?: TokenBalance[];
 }
 
-export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseModal, onRepay }) => {
+export const RepayFormUi: React.FC<RepayFormUiProps> = ({
+  asset,
+  pool,
+  onCloseModal,
+  onRepay,
+  tokenBalances = [],
+}) => {
   const { t, Trans } = useTranslation();
 
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
-
-  const maxButtonValueOnClick = useMemo(
-    () =>
-      asset
-        ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens).toString()
-        : '0',
-    [asset?.userBorrowBalanceTokens, asset?.userWalletBalanceTokens],
-  );
 
   const { formikProps } = useForm({
     asset,
     onCloseModal,
     onRepay,
   });
+
+  const userWalletBalanceTokens = useMemo(() => {
+    // Get the wallet balance from the asset object if it corresponds to the
+    // selected token of if the integrated swap feature is not enabled
+    if (
+      areTokensEqual(asset.vToken.underlyingToken, formikProps.values.fromToken) ||
+      !config.featureFlags.integratedSwap
+    ) {
+      return asset.userWalletBalanceTokens;
+    }
+
+    // Otherwise get wallet balance from the list of fetched token balances
+    const tokenBalance = tokenBalances.find(item =>
+      areTokensEqual(item.token, formikProps.values.fromToken),
+    );
+
+    return (
+      tokenBalance &&
+      convertTokensToWei({
+        value: tokenBalance.balanceWei,
+        token: tokenBalance.token,
+      })
+    );
+  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, formikProps.values.fromToken]);
+
+  const maxButtonValueOnClick = useMemo(
+    () =>
+      asset
+        ? BigNumber.min(
+            asset.userBorrowBalanceTokens,
+            new BigNumber(userWalletBalanceTokens || 0),
+          ).toString()
+        : '0',
+    [asset?.userBorrowBalanceTokens, userWalletBalanceTokens],
+  );
 
   const getTokenBorrowBalancePercentageTokens = React.useCallback(
     (percentage: number) =>
@@ -67,8 +103,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
   });
 
   const readableTokenWalletBalance = useFormatTokensToReadableValue({
-    value: asset.userWalletBalanceTokens,
-    token: asset.vToken.underlyingToken,
+    value: userWalletBalanceTokens,
+    token: formikProps.values.fromToken,
   });
 
   const shouldDisplayFullRepaymentWarning = React.useCallback(
@@ -91,7 +127,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
           <SelectTokenTextField
             selectedToken={formikProps.values.fromToken}
             value={formikProps.values.amountTokens}
-            // Only display error state if amount is higher than limit
+            // Only display error state if amount is higher than limits
             hasError={
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
@@ -103,7 +139,16 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
               label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
               valueOnClick: maxButtonValueOnClick,
             }}
-            tokenBalances={[]} // TODO: fetch token balances
+            tokenBalances={tokenBalances}
+            description={
+              <Trans
+                i18nKey="borrowRepayModal.repay.walletBalance"
+                components={{
+                  White: <span css={sharedStyles.whiteLabel} />,
+                }}
+                values={{ balance: readableTokenWalletBalance }}
+              />
+            }
           />
         ) : (
           <TokenTextField
@@ -118,7 +163,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
               valueOnClick: maxButtonValueOnClick,
             }}
             data-testid={TEST_IDS.tokenTextField}
-            // Only display error state if amount is higher than limit
+            // Only display error state if amount is higher than limits
             hasError={
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
@@ -191,11 +236,30 @@ export interface RepayFormProps {
 }
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
+  const { accountAddress } = useAuth();
+
   const { mutateAsync: onRepay } = useRepay({
     vToken: asset.vToken,
   });
 
-  return <RepayFormUi asset={asset} pool={pool} onCloseModal={onCloseModal} onRepay={onRepay} />;
+  const { data: tokenBalances } = useGetSwapTokenUserBalances(
+    {
+      accountAddress,
+    },
+    {
+      enabled: config.featureFlags.integratedSwap,
+    },
+  );
+
+  return (
+    <RepayFormUi
+      asset={asset}
+      pool={pool}
+      onCloseModal={onCloseModal}
+      onRepay={onRepay}
+      tokenBalances={tokenBalances}
+    />
+  );
 };
 
 export default RepayForm;
