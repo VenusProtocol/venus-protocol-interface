@@ -16,7 +16,7 @@ const getValidationSchema = ({
   walletBalanceTokens?: string;
 }) =>
   yup.object({
-    amount: yup
+    amountTokens: yup
       .string()
       .positive(ErrorCode.NOT_POSITIVE)
       .lowerThanOrEqualTo(repayBalanceTokens, ErrorCode.HIGHER_THAN_REPAY_BALANCE)

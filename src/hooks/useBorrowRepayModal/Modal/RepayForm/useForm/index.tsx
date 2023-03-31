@@ -29,10 +29,10 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
 
   const formikProps = useFormik<FormValues>({
     initialValues: {
-      amount: '',
+      amountTokens: '',
       fromToken: asset.vToken.underlyingToken,
     },
-    onSubmit: async ({ amount: amountTokens }) => {
+    onSubmit: async ({ amountTokens }) => {
       const amountWei = convertTokensToWei({
         value: new BigNumber(amountTokens.trim()),
         token: asset.vToken.underlyingToken,

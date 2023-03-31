@@ -5,9 +5,11 @@ import {
   LabeledInlineContent,
   NoticeWarning,
   PrimaryButton,
+  SelectTokenTextField,
   TertiaryButton,
   TokenTextField,
 } from 'components';
+import config from 'config';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
@@ -85,33 +87,53 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
       </LabeledInlineContent>
 
       <div css={[sharedStyles.getRow({ isLast: false })]}>
-        <TokenTextField
-          name="amount"
-          token={asset.vToken.underlyingToken}
-          value={formikProps.values.amount}
-          onChange={amount => formikProps.setFieldValue('amount', amount, true)}
-          disabled={formikProps.isSubmitting}
-          onBlur={formikProps.handleBlur}
-          rightMaxButton={{
-            label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
-            valueOnClick: maxButtonValueOnClick,
-          }}
-          data-testid={TEST_IDS.tokenTextField}
-          // Only display error state if amount is higher than limit
-          hasError={
-            formikProps.errors.amount === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
-            formikProps.errors.amount === ErrorCode.HIGHER_THAN_WALLET_BALANCE
-          }
-          description={
-            <Trans
-              i18nKey="borrowRepayModal.repay.walletBalance"
-              components={{
-                White: <span css={sharedStyles.whiteLabel} />,
-              }}
-              values={{ balance: readableTokenWalletBalance }}
-            />
-          }
-        />
+        {config.featureFlags.isolatedPools ? (
+          <SelectTokenTextField
+            selectedToken={formikProps.values.fromToken}
+            value={formikProps.values.amountTokens}
+            // Only display error state if amount is higher than limit
+            hasError={
+              formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
+              formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
+            }
+            disabled={formikProps.isSubmitting}
+            onChange={amountTokens => formikProps.setFieldValue('amountTokens', amountTokens)}
+            onChangeSelectedToken={token => formikProps.setFieldValue('fromToken', token)}
+            rightMaxButton={{
+              label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
+              valueOnClick: maxButtonValueOnClick,
+            }}
+            tokenBalances={[]} // TODO: fetch token balances
+          />
+        ) : (
+          <TokenTextField
+            name="amountTokens"
+            token={asset.vToken.underlyingToken}
+            value={formikProps.values.amountTokens}
+            onChange={amountTokens => formikProps.setFieldValue('amountTokens', amountTokens)}
+            disabled={formikProps.isSubmitting}
+            onBlur={formikProps.handleBlur}
+            rightMaxButton={{
+              label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
+              valueOnClick: maxButtonValueOnClick,
+            }}
+            data-testid={TEST_IDS.tokenTextField}
+            // Only display error state if amount is higher than limit
+            hasError={
+              formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
+              formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
+            }
+            description={
+              <Trans
+                i18nKey="borrowRepayModal.repay.walletBalance"
+                components={{
+                  White: <span css={sharedStyles.whiteLabel} />,
+                }}
+                values={{ balance: readableTokenWalletBalance }}
+              />
+            }
+          />
+        )}
       </div>
 
       <div css={[sharedStyles.getRow({ isLast: true })]}>
@@ -122,7 +144,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
               css={styles.selectButton}
               onClick={() =>
                 formikProps.setFieldValue(
-                  'amount',
+                  'amountTokens',
                   getTokenBorrowBalancePercentageTokens(percentage),
                   true,
                 )
@@ -133,7 +155,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
           ))}
         </div>
 
-        {shouldDisplayFullRepaymentWarning(formikProps.values.amount) && (
+        {shouldDisplayFullRepaymentWarning(formikProps.values.amountTokens) && (
           <NoticeWarning
             css={sharedStyles.notice}
             description={t('borrowRepayModal.repay.fullRepaymentWarning')}
@@ -144,7 +166,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
       <AccountData
         asset={asset}
         pool={pool}
-        amountTokens={new BigNumber(formikProps.values.amount || 0)}
+        amountTokens={new BigNumber(formikProps.values.amountTokens || 0)}
         action="repay"
       />
 
