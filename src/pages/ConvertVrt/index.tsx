@@ -7,8 +7,6 @@ import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 
 import {
-  useConvertVrt,
-  useGetBalanceOf,
   useGetVrtConversionEndTime,
   useGetVrtConversionRatio,
   useGetXvsWithdrawableAmount,
@@ -18,18 +16,13 @@ import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { VError } from 'errors/VError';
 
-import Convert, { ConvertProps } from './Convert';
+import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
 import { useStyles } from './styles';
 
-export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
+export type ConvertVrtUiProps = WithdrawProps;
 
 export const ConvertVrtUi = ({
-  xvsToVrtConversionRatio,
-  vrtConversionEndTime,
-  userVrtBalanceWei,
-  convertVrtLoading,
-  convertVrt,
   withdrawXvsLoading,
   withdrawXvs,
   xvsWithdrawableAmount,
@@ -40,15 +33,7 @@ export const ConvertVrtUi = ({
   const tabsContent = [
     {
       title: t('convertVrt.convert'),
-      content: (
-        <Convert
-          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
-          vrtConversionEndTime={vrtConversionEndTime}
-          userVrtBalanceWei={userVrtBalanceWei}
-          convertVrtLoading={convertVrtLoading}
-          convertVrt={convertVrt}
-        />
-      ),
+      content: <Convert />,
     },
     {
       title: t('convertVrt.withdraw'),
@@ -76,10 +61,6 @@ const ConvertVrt = () => {
   const accountAddress = account?.address;
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
-  const { data: userVrtBalanceData } = useGetBalanceOf(
-    { accountAddress: accountAddress || '', token: TOKENS.vrt },
-    { enabled: !!accountAddress },
-  );
 
   const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
     useGetXvsWithdrawableAmount(
@@ -87,19 +68,7 @@ const ConvertVrt = () => {
       { enabled: !!accountAddress },
     );
 
-  const { mutateAsync: convertVrt, isLoading: convertVrtLoading } = useConvertVrt();
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
-
-  const handleConvertVrt = async (amount: string) => {
-    if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
-    }
-
-    return convertVrt({
-      amountWei: amount,
-      accountAddress,
-    });
-  };
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
@@ -125,11 +94,6 @@ const ConvertVrt = () => {
   if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
     return (
       <ConvertVrtUi
-        xvsToVrtConversionRatio={conversionRatio}
-        userVrtBalanceWei={userVrtBalanceData?.balanceWei}
-        vrtConversionEndTime={vrtConversionEndTimeData.conversionEndTime}
-        convertVrtLoading={convertVrtLoading}
-        convertVrt={handleConvertVrt}
         withdrawXvs={handleWithdrawXvs}
         withdrawXvsLoading={withdrawXvsLoading}
         xvsWithdrawableAmount={xvsWithdrawableAmount}
