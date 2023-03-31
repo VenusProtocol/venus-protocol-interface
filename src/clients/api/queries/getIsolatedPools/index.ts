@@ -7,6 +7,7 @@ import { Token } from 'types';
 import { areTokensEqual, getContractAddress, getTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
+import { logError } from 'context/ErrorLogger';
 
 import getTokenBalances, { GetTokenBalancesOutput } from '../getTokenBalances';
 import formatOutput from './formatOutput';
@@ -43,9 +44,7 @@ const getIsolatedPools = async ({
         const underlyingToken = getTokenByAddress(vToken.underlyingAssetAddress);
 
         if (!underlyingToken) {
-          // TODO: send error event to Sentry indicating we're missing a token
-          // record on the frontend (see VEN-1066)
-          console.error(`Record missing for underlying token: ${vToken.underlyingAssetAddress}`);
+          logError(`Record missing for underlying token: ${vToken.underlyingAssetAddress}`);
         } else if (!newUnderlyingTokens.some(token => areTokensEqual(token, underlyingToken))) {
           newUnderlyingTokens.push(underlyingToken);
         }

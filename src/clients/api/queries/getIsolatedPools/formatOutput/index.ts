@@ -12,6 +12,7 @@ import {
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
+import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
@@ -51,9 +52,7 @@ const formatToPools = ({
       const vToken = getVTokenByAddress(vTokenAddress);
 
       if (!vToken) {
-        // TODO: send error event to Sentry indicating we're missing a token
-        // record on the frontend (see VEN-1066)
-        console.error(`Record missing for vToken: ${vTokenAddress}`);
+        logError(`Record missing for vToken: ${vTokenAddress}`);
         return acc;
       }
 

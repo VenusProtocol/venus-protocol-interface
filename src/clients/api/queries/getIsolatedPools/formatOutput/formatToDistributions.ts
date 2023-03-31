@@ -4,6 +4,8 @@ import _cloneDeep from 'lodash/cloneDeep';
 import { AssetDistribution } from 'types';
 import { calculateApy, getTokenByAddress } from 'utilities';
 
+import { logError } from 'context/ErrorLogger';
+
 const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnContext[]) =>
   rewardsDistributorsResults.reduce<{
     [vTokenAddress: string]: AssetDistribution[];
@@ -13,9 +15,7 @@ const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnCon
     const rewardToken = getTokenByAddress(rewardTokenAddress);
 
     if (!rewardToken) {
-      // TODO: send error event to Sentry indicating we're missing a token
-      // record on the frontend (see VEN-1066)
-      console.error(`Record missing for reward token: ${rewardTokenAddress}`);
+      logError(`Record missing for reward token: ${rewardTokenAddress}`);
       return acc;
     }
 
