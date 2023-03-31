@@ -14,13 +14,12 @@ import { Asset, Pool } from 'types';
 import { formatToReadablePercentage } from 'utilities';
 
 import { useRepay } from 'clients/api';
-import { ErrorCode } from 'containers/AmountForm';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
-import useForm, { UseFormProps } from './useForm';
+import useForm, { ErrorCode, UseFormProps } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
@@ -37,7 +36,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
-  const limitTokens = useMemo(
+  const maxButtonValueOnClick = useMemo(
     () =>
       asset
         ? BigNumber.min(asset.userBorrowBalanceTokens, asset.userWalletBalanceTokens).toString()
@@ -46,7 +45,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
   );
 
   const { formikProps } = useForm({
-    limitTokens,
     asset,
     onCloseModal,
     onRepay,
@@ -96,11 +94,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({ asset, pool, onCloseMo
           onBlur={formikProps.handleBlur}
           rightMaxButton={{
             label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
-            valueOnClick: limitTokens,
+            valueOnClick: maxButtonValueOnClick,
           }}
           data-testid={TEST_IDS.tokenTextField}
           // Only display error state if amount is higher than limit
-          hasError={formikProps.errors.amount === ErrorCode.HIGHER_THAN_MAX}
+          hasError={
+            formikProps.errors.amount === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
+            formikProps.errors.amount === ErrorCode.HIGHER_THAN_WALLET_BALANCE
+          }
           description={
             <Trans
               i18nKey="borrowRepayModal.repay.walletBalance"

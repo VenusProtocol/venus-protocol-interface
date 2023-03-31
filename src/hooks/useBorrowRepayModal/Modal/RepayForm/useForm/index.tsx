@@ -5,12 +5,14 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import getValidationSchema, { FormValues } from 'containers/AmountForm/validationSchema';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
+import getValidationSchema, { FormValues } from './validationSchema';
+
+export * from './validationSchema';
 
 export interface UseFormProps {
   asset: Asset;
-  limitTokens: string;
   onRepay: ({
     amountWei,
     isRepayingFullLoan,
@@ -21,13 +23,14 @@ export interface UseFormProps {
   onCloseModal: () => void;
 }
 
-const useForm = ({ asset, onRepay, onCloseModal, limitTokens }: UseFormProps) => {
+const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const formikProps = useFormik<FormValues>({
     initialValues: {
       amount: '',
+      fromToken: asset.vToken.underlyingToken,
     },
     onSubmit: async ({ amount: amountTokens }) => {
       const amountWei = convertTokensToWei({
@@ -63,7 +66,10 @@ const useForm = ({ asset, onRepay, onCloseModal, limitTokens }: UseFormProps) =>
     },
     validateOnMount: true,
     validateOnChange: true,
-    validationSchema: getValidationSchema(limitTokens),
+    validationSchema: getValidationSchema({
+      repayBalanceTokens: asset.userBorrowBalanceTokens.toFixed(),
+      walletBalanceTokens: asset.userWalletBalanceTokens.toFixed(),
+    }),
   });
 
   return {
