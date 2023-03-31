@@ -104,6 +104,7 @@
     "convertVrt": "Convert VRT",
     "convertVrtToXvs": "Convert VRT to XVS",
     "enableVrt": "To convert VRT to XVS with the Venus Protocol, you need to enable it",
+    "infoConversionCompleted": "Completed @ 16:00 on 3.31.23",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
     "max": "MAX",
     "remainingTime": "<Icon/> Remaining time:\u00a0<White>{{date, distanceToNow}}</White>",
