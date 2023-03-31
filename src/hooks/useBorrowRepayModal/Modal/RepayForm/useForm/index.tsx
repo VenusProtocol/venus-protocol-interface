@@ -32,7 +32,7 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
       amountTokens: '',
       fromToken: asset.vToken.underlyingToken,
     },
-    onSubmit: async ({ amountTokens }) => {
+    onSubmit: async ({ amountTokens }, formikHelpers) => {
       const amountWei = convertTokensToWei({
         value: new BigNumber(amountTokens.trim()),
         token: asset.vToken.underlyingToken,
@@ -46,7 +46,7 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
       );
 
       await handleTransactionMutation({
-        mutate: async () =>
+        mutate: () =>
           onRepay({
             amountWei,
             isRepayingFullLoan,
@@ -61,6 +61,8 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
           transactionHash: contractReceipt.transactionHash,
         }),
       });
+
+      formikHelpers.resetForm();
 
       onCloseModal();
     },

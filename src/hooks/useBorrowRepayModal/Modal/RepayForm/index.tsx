@@ -10,7 +10,7 @@ import {
   TokenTextField,
 } from 'components';
 import config from 'config';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, TokenBalance } from 'types';
 import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
@@ -18,12 +18,14 @@ import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from '
 import { useRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useIsMounted from 'hooks/useIsMounted';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
-import useForm, { ErrorCode, UseFormProps } from './useForm';
+import useForm, { ErrorCode, FormValues, UseFormProps } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
@@ -33,6 +35,7 @@ export interface RepayFormUiProps {
   onRepay: UseFormProps['onRepay'];
   onCloseModal: () => void;
   tokenBalances?: TokenBalance[];
+  onFormValuesChangeCallback: (formValues: FormValues) => void;
 }
 
 export const RepayFormUi: React.FC<RepayFormUiProps> = ({
@@ -41,7 +44,9 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   onCloseModal,
   onRepay,
   tokenBalances = [],
+  onFormValuesChangeCallback,
 }) => {
+  const isMounted = useIsMounted();
   const { t, Trans } = useTranslation();
 
   const sharedStyles = useSharedStyles();
@@ -52,6 +57,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     onCloseModal,
     onRepay,
   });
+
+  // Detect form value changes
+  useEffect(() => {
+    if (isMounted()) {
+      onFormValuesChangeCallback(formikProps.values);
+    }
+  }, [formikProps.values]);
 
   const userWalletBalanceTokens = useMemo(() => {
     // Get the wallet balance from the asset object if it corresponds to the
@@ -238,6 +250,10 @@ export interface RepayFormProps {
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress } = useAuth();
 
+  // We duplicate the form values here because we need them to fetch the swap
+  // info
+  const [formValues, setFormValues] = useState<FormValues | undefined>();
+
   const { mutateAsync: onRepay } = useRepay({
     vToken: asset.vToken,
   });
@@ -251,6 +267,15 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     },
   );
 
+  const swapInfo = useGetSwapInfo({
+    fromToken: formValues?.fromToken || asset.vToken.underlyingToken,
+    fromTokenAmountTokens: formValues?.amountTokens,
+    toToken: asset.vToken.underlyingToken,
+    direction: 'exactAmountIn', // TODO: update to exactAmountOut if user is repaying a full loan
+  });
+
+  console.log(swapInfo);
+
   return (
     <RepayFormUi
       asset={asset}
@@ -258,6 +283,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       onCloseModal={onCloseModal}
       onRepay={onRepay}
       tokenBalances={tokenBalances}
+      onFormValuesChangeCallback={setFormValues}
     />
   );
 };

@@ -2,9 +2,8 @@ import { getByText } from '@testing-library/react';
 import { ExactAmountInSwap } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
+import useGetSwapInfo from '../../../hooks/useGetSwapInfo';
 import en from 'translation/translations/en.json';
-
-import useGetSwapInfo from '../useGetSwapInfo';
 
 export const getEnabledSubmitButton = ({
   swap,

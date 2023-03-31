@@ -26,6 +26,7 @@ import {
 } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetSwapInfo, { SwapError } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -34,7 +35,6 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
-import useGetSwapInfo, { SwapError } from './useGetSwapInfo';
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,

@@ -4,6 +4,7 @@ import React from 'react';
 import { TokenBalance } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
+import useGetSwapInfo from '../../../hooks/useGetSwapInfo';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { swapTokens } from 'clients/api';
@@ -22,7 +23,6 @@ import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
 import TEST_IDS from '../testIds';
-import useGetSwapInfo from '../useGetSwapInfo';
 import {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_BUSD_BALANCE_TOKENS,
