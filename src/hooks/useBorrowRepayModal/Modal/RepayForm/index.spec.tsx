@@ -8,8 +8,7 @@ import { Pool } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import { getAllowance, repay, useGetPool } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { repay } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -32,37 +31,13 @@ jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Repay', () => {
-  beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: fakePool,
-      },
-      isLoading: false,
-    }));
-  });
-
   it('renders without crashing', () => {
-    renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
-    );
+    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
   it('displays correct token borrow balance', async () => {
     const { getByText } = renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -77,11 +52,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('displays correct token wallet balance', async () => {
     const { getByText } = renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -99,19 +70,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: customFakePool,
-      },
-      isLoading: false,
-    }));
-
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={customFakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -140,11 +100,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -177,19 +133,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
 
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: customFakePool,
-      },
-      isLoading: false,
-    }));
-
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={customFakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -221,19 +166,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(10);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: customFakePool,
-      },
-      isLoading: false,
-    }));
-
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={customFakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -265,19 +199,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
-    (useGetPool as jest.Mock).mockImplementation(() => ({
-      data: {
-        pool: customFakePool,
-      },
-      isLoading: false,
-    }));
-
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={customFakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={noop}
-      />,
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -318,11 +241,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={onCloseMock}
-      />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -373,11 +292,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText } = renderComponent(
-      <Repay
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-        onClose={jest.fn()}
-      />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
