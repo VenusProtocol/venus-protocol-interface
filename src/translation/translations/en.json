@@ -636,7 +636,6 @@
   },
   "vaultItem": {
     "claimButton": "Claim",
-    "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
     "reward": "Reward:",
     "stakeButton": "Stake",
@@ -893,8 +892,5 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
-  },
-  "xvsPage": {
-    "isolatedAssetsWarning": "Isolated assets are not included on this page"
   }
 }

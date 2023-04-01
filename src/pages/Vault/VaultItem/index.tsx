@@ -4,7 +4,7 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { Button, NoticeWarning, TokenIcon } from 'components';
+import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -42,7 +42,6 @@ export interface VaultItemUiProps {
   activeModal?: ActiveModal;
   userPendingRewardWei?: BigNumber;
   userStakedWei?: BigNumber;
-  hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
   className?: string;
 }
 
@@ -63,7 +62,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   isClaimRewardLoading,
   isWithdrawLoading,
   closeActiveModal,
-  hasPendingWithdrawalsFromBeforeUpgrade = false,
   className,
 }) => {
   const styles = useStyles();
@@ -188,7 +186,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
                 variant="text"
                 css={styles.buttonClaim}
                 loading={isClaimRewardLoading}
-                disabled={hasPendingWithdrawalsFromBeforeUpgrade}
               >
                 {t('vaultItem.claimButton')}
               </Button>
@@ -228,17 +225,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           ))}
         </ul>
 
-        {hasPendingWithdrawalsFromBeforeUpgrade && (
-          <NoticeWarning description={t('vaultItem.blockingPendingWithdrawalsWarning')} />
-        )}
-
         <div css={styles.buttonsWrapper}>
-          <Button
-            onClick={onStake}
-            css={styles.button}
-            variant="primary"
-            disabled={hasPendingWithdrawalsFromBeforeUpgrade}
-          >
+          <Button onClick={onStake} css={styles.button} variant="primary">
             {t('vaultItem.stakeButton')}
           </Button>
 
@@ -273,7 +261,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           handleClose={closeActiveModal}
           stakedTokenId={stakedTokenId}
           poolIndex={poolIndex}
-          hasPendingWithdrawalsFromBeforeUpgrade={hasPendingWithdrawalsFromBeforeUpgrade}
         />
       )}
     </>

@@ -238,7 +238,7 @@
         "type": "uint256"
       }
     ],
-    "name": "RequestedWithdrawal",
+    "name": "ReqestedWithdrawal",
     "type": "event"
   },
   {
@@ -888,37 +888,6 @@
       {
         "internalType": "uint256",
         "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_rewardToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      }
-    ],
-    "name": "pendingWithdrawalsBeforeUpgrade",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "beforeUpgradeWithdrawalAmount",
         "type": "uint256"
       }
     ],
