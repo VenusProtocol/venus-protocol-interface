@@ -5,7 +5,6 @@ import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
   GetXvsVaultPendingRewardOutput,
-  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolCount,
@@ -61,7 +60,6 @@ const useGetVestingVaults = ({
         poolInfos: GetXvsVaultPoolInfoOutput;
         userPendingReward?: GetXvsVaultPendingRewardOutput;
         userInfos?: GetXvsVaultUserInfoOutput;
-        hasPendingWithdrawalsFromBeforeUpgrade: boolean;
       };
     } = {};
 
@@ -87,10 +85,6 @@ const useGetVestingVaults = ({
         poolQueryResultStartIndex + 2
       ] as UseQueryResult<GetXvsVaultUserInfoOutput>;
 
-      const userPendingWithdrawalsFromBeforeUpgradeQueryResult = poolQueryResults[
-        poolQueryResultStartIndex + 3
-      ] as UseQueryResult<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput>;
-
       if (poolInfosQueryResult?.data) {
         tokenAddresses.push(poolInfosQueryResult.data.stakedTokenAddress);
 
@@ -98,10 +92,6 @@ const useGetVestingVaults = ({
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
           userPendingReward: userPendingRewardQueryResult.data,
-          hasPendingWithdrawalsFromBeforeUpgrade:
-            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.pendingWithdrawalsFromBeforeUpgradeWei.isGreaterThan(
-              0,
-            ) || false,
         };
       }
     }
@@ -143,8 +133,6 @@ const useGetVestingVaults = ({
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
           const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
-          const hasPendingWithdrawalsFromBeforeUpgrade =
-            poolData[poolIndex]?.hasPendingWithdrawalsFromBeforeUpgrade;
 
           const stakedTokenId =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
@@ -187,7 +175,6 @@ const useGetVestingVaults = ({
               userStakedWei,
               userPendingRewardWei,
               poolIndex,
-              hasPendingWithdrawalsFromBeforeUpgrade,
             };
 
             return [...acc, vault];
