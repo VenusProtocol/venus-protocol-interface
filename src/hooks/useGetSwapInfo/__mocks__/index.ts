@@ -4,6 +4,7 @@ const useGetSwapInfo = jest.fn(
   (): UseGetSwapInfoOutput => ({
     swap: undefined,
     error: undefined,
+    isLoading: false,
   }),
 );
 

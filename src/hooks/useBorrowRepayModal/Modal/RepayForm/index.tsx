@@ -4,7 +4,6 @@ import {
   AccountData,
   LabeledInlineContent,
   NoticeWarning,
-  PrimaryButton,
   SelectTokenTextField,
   TertiaryButton,
   TokenTextField,
@@ -13,7 +12,7 @@ import config from 'config';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenBalance } from 'types';
-import { areTokensEqual, convertTokensToWei, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { useRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -23,6 +22,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useIsMounted from 'hooks/useIsMounted';
 
 import { useStyles as useSharedStyles } from '../styles';
+import SubmitSection from './SubmitSection';
 import SwapDetails from './SwapDetails';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -51,6 +51,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   onFormValuesChangeCallback,
   isSwapLoading,
   swap,
+  swapError,
 }) => {
   const isMounted = useIsMounted();
   const { t, Trans } = useTranslation();
@@ -60,6 +61,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const formikProps = useForm({
     asset,
+    swap,
     onCloseModal,
     onRepay,
   });
@@ -88,8 +90,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
     return (
       tokenBalance &&
-      convertTokensToWei({
-        value: tokenBalance.balanceWei,
+      convertWeiToTokens({
+        valueWei: tokenBalance.balanceWei,
         token: tokenBalance.token,
       })
     );
@@ -103,7 +105,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             new BigNumber(userWalletBalanceTokens || 0),
           ).toString()
         : '0',
-    [asset?.userBorrowBalanceTokens, userWalletBalanceTokens],
+    [asset.userBorrowBalanceTokens, userWalletBalanceTokens],
   );
 
   const getTokenBorrowBalancePercentageTokens = React.useCallback(
@@ -112,7 +114,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         .multipliedBy(percentage / 100)
         .decimalPlaces(asset.vToken.underlyingToken.decimals)
         .toFixed(),
-    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.decimals],
+    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.decimals, swap?.exchangeRate],
   );
 
   const readableTokenBorrowBalance = useFormatTokensToReadableValue({
@@ -125,12 +127,26 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     token: formikProps.values.fromToken,
   });
 
-  const shouldDisplayFullRepaymentWarning = useMemo(
+  const isRepayingFullLoan = useMemo(
     () =>
       formikProps.values.amountTokens !== '0' &&
       asset.userBorrowBalanceTokens.eq(formikProps.values.amountTokens),
     [formikProps.values.amountTokens, asset.vToken.underlyingToken, asset.userBorrowBalanceTokens],
   );
+
+  const toTokenAmountTokens = useMemo(() => {
+    if (swap) {
+      return convertWeiToTokens({
+        valueWei:
+          swap.direction === 'exactAmountIn'
+            ? swap.expectedToTokenAmountReceivedWei
+            : swap.toTokenAmountReceivedWei,
+        token: swap.toToken,
+      }).toFixed();
+    }
+
+    return formikProps.values.amountTokens;
+  }, [swap, formikProps.values.amountTokens]);
 
   return (
     <form onSubmit={formikProps.handleSubmit}>
@@ -151,7 +167,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
             }
-            disabled={formikProps.isSubmitting}
+            disabled={formikProps.isSubmitting || isSwapLoading}
             onChange={amountTokens => formikProps.setFieldValue('amountTokens', amountTokens)}
             onChangeSelectedToken={token => formikProps.setFieldValue('fromToken', token)}
             rightMaxButton={{
@@ -202,6 +218,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       <div css={sharedStyles.getRow({ isLast: true })}>
         <div css={styles.selectButtonsContainer}>
+          {/* TODO: update to support swap and repay flow  */}
           {PRESET_PERCENTAGES.map(percentage => (
             <TertiaryButton
               key={`select-button-${percentage}`}
@@ -220,9 +237,9 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
-        {config.featureFlags.isolatedPools && swap && <SwapDetails swap={swap} />}
+        {swap && <SwapDetails swap={swap} />}
 
-        {shouldDisplayFullRepaymentWarning && (
+        {isRepayingFullLoan && (
           <NoticeWarning
             css={styles.notice}
             description={t('borrowRepayModal.repay.fullRepaymentWarning')}
@@ -233,26 +250,20 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       <AccountData
         asset={asset}
         pool={pool}
-        amountTokens={new BigNumber(formikProps.values.amountTokens || 0)}
+        amountTokens={new BigNumber(toTokenAmountTokens || 0)}
         action="repay"
       />
 
-      <PrimaryButton
-        type="submit"
-        loading={formikProps.isSubmitting}
-        disabled={
-          !formikProps.isValid || !formikProps.dirty || formikProps.isSubmitting || isSwapLoading
-        }
-        fullWidth
-      >
-        {formikProps.dirty && formikProps.isValid
-          ? t('borrowRepayModal.repay.submitButton')
-          : t('borrowRepayModal.repay.submitButtonDisabled')}
-
-        {/* TODO: update label is swap is processing (?) */}
-
-        {/* TODO: update label if there's a swap error */}
-      </PrimaryButton>
+      <SubmitSection
+        isFormDirty={formikProps.dirty}
+        isFormSubmitting={formikProps.isSubmitting}
+        isFormValid={formikProps.isValid}
+        isSwapLoading={isSwapLoading}
+        swapError={swapError}
+        formErrors={formikProps.errors}
+        fromToken={swap ? swap.fromToken : asset.vToken.underlyingToken}
+        fromTokenAmount={formikProps.values.amountTokens}
+      />
     </form>
   );
 };

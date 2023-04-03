@@ -41,7 +41,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
     expect(result).toEqual({
       swap: undefined,
-      error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
+      error: 'WRAPPING_UNSUPPORTED',
     });
   });
 
@@ -64,7 +64,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
     expect(result).toEqual({
       swap: undefined,
-      error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
+      error: 'UNWRAPPING_UNSUPPORTED',
     });
   });
 

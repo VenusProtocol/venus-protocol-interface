@@ -104,8 +104,15 @@
       },
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
-      "submitButton": "Repay",
-      "submitButtonDisabled": "Enter a valid amount to repay",
+      "submitButtonLabel": {
+        "enterValidAmount": "Enter a valid amount to repay",
+        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
+        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "processing": "Processing",
+        "repay": "Repay",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
       "swapDetails": {
         "exchangeRate": {
           "label": "Exchange rate",

@@ -40,11 +40,26 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     const wrappedFromToken = wrapToken(input.fromToken);
     const wrappedToToken = wrapToken(input.toToken);
 
-    // Return no trade if user is trying to wrap or unwrap BNB/wBNB
-    if (areTokensEqual(wrappedFromToken, wrappedToToken)) {
+    // Return no trade if user is trying to wrap BNB to wBNB
+    if (areTokensEqual(wrappedFromToken, wrappedToToken) && input.fromToken.isNative) {
       return {
         swap: undefined,
-        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
+        error: 'WRAPPING_UNSUPPORTED',
+      };
+    }
+
+    // Return no trade if user is trying to unwrap wBNB to BNB
+    if (areTokensEqual(wrappedFromToken, wrappedToToken) && input.toToken.isNative) {
+      return {
+        swap: undefined,
+        error: 'UNWRAPPING_UNSUPPORTED',
+      };
+    }
+
+    if (areTokensEqual(input.fromToken, input.toToken)) {
+      return {
+        swap: undefined,
+        error: undefined,
       };
     }
 

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractReceipt } from 'ethers';
 import { useFormik } from 'formik';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Swap } from 'types';
 import { convertTokensToWei } from 'utilities';
 
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -21,9 +21,10 @@ export interface UseFormProps {
     isRepayingFullLoan: boolean;
   }) => Promise<ContractReceipt>;
   onCloseModal: () => void;
+  swap?: Swap;
 }
 
-const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
+const useForm = ({ asset, onRepay, onCloseModal, swap }: UseFormProps) => {
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -44,6 +45,8 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
           token: asset.vToken.underlyingToken,
         }),
       );
+
+      // TODO: handle swap and repay flow
 
       await handleTransactionMutation({
         mutate: () =>
