@@ -28,10 +28,12 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   });
 
   // Fetch pair data
-  const { data: getPancakeSwapPairsData } = useGetPancakeSwapPairs({ tokenCombinations });
+  const { data: getPancakeSwapPairsData, isLoading } = useGetPancakeSwapPairs({
+    tokenCombinations,
+  });
 
   // Find the best trade based on pairs
-  return useMemo(() => {
+  const swapInfo: Omit<UseGetSwapInfoOutput, 'isLoading'> = useMemo(() => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
     let error: SwapError | undefined;
 
@@ -150,6 +152,11 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     input.fromTokenAmountTokens,
     input.toTokenAmountTokens,
   ]);
+
+  return {
+    ...swapInfo,
+    isLoading,
+  };
 };
 
 export default useGetSwapInfo;

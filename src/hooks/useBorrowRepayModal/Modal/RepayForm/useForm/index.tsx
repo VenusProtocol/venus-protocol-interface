@@ -74,9 +74,7 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
     }),
   });
 
-  return {
-    formikProps,
-  };
+  return formikProps;
 };
 
 export default useForm;

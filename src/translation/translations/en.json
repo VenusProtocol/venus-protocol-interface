@@ -106,9 +106,19 @@
       "rightMaxButtonLabel": "MAX",
       "submitButton": "Repay",
       "submitButtonDisabled": "Enter a valid amount to repay",
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
+      "swapDetails": {
+        "exchangeRate": {
+          "label": "Exchange rate",
+          "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+        },
+        "repayAmount": {
+          "estimatedValue": "≈ {{ value }}",
+          "exactValue": "{{ value }}",
+          "label": "You will repay"
+        },
+        "slippageTolerance": {
+          "label": "Slippage tolerance"
+        }
       },
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
@@ -737,8 +747,7 @@
       }
     },
     "tabMint": "Mint",
-    "tabRepay": "Repay",
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    "tabRepay": "Repay"
   },
   "vault": {
     "transactionForm": {

@@ -7,8 +7,8 @@ import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
 
-import { SwapError } from '../../../hooks/useGetSwapInfo';
 import { useAuth } from 'context/AuthContext';
+import { SwapError } from 'hooks/useGetSwapInfo';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { FormError, FormValues } from '../types';

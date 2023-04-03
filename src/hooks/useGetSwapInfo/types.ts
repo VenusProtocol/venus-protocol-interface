@@ -18,6 +18,7 @@ export interface UseGetSwapInfoInput {
 export interface UseGetSwapInfoOutput {
   swap: Swap | undefined;
   error: SwapError | undefined;
+  isLoading: boolean;
 }
 
 export interface FormatToSwapInput {

@@ -17,5 +17,11 @@ export default {
 } as ComponentMeta<typeof RepayFormUi>;
 
 export const Default = () => (
-  <RepayFormUi asset={fakeAsset} pool={fakePool} onRepay={noop} onCloseModal={noop} />
+  <RepayFormUi
+    asset={fakeAsset}
+    pool={fakePool}
+    onRepay={noop}
+    onCloseModal={noop}
+    onFormValuesChangeCallback={noop}
+  />
 );
