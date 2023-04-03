@@ -42,6 +42,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     expect(result).toEqual({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
+      isLoading: expect.any(Boolean),
     });
   });
 
@@ -55,7 +56,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
     let result: UseGetSwapInfoOutput | undefined;
 
     const TestComponent: React.FC = () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result = useGetSwapInfo(input);
       return <></>;
     };
@@ -65,6 +65,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     expect(result).toEqual({
       swap: undefined,
       error: 'UNWRAPPING_UNSUPPORTED',
+      isLoading: expect.any(Boolean),
     });
   });
 
@@ -80,7 +81,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };
@@ -90,6 +90,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
       expect(result).toEqual({
         swap: undefined,
         error: undefined,
+        isLoading: expect.any(Boolean),
       });
     });
 
@@ -115,7 +116,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };
@@ -126,6 +126,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
         expect(result).toEqual({
           swap: undefined,
           error: 'INSUFFICIENT_LIQUIDITY',
+          isLoading: expect.any(Boolean),
         }),
       );
     });
@@ -145,7 +146,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };
@@ -169,7 +169,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };
@@ -179,6 +178,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
       expect(result).toEqual({
         swap: undefined,
         error: undefined,
+        isLoading: expect.any(Boolean),
       });
     });
 
@@ -195,7 +195,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };
@@ -206,6 +205,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
         expect(result).toEqual({
           swap: undefined,
           error: 'INSUFFICIENT_LIQUIDITY',
+          isLoading: expect.any(Boolean),
         }),
       );
     });
@@ -225,7 +225,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
       let result: UseGetSwapInfoOutput | undefined;
 
       const TestComponent: React.FC = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         result = useGetSwapInfo(input);
         return <></>;
       };

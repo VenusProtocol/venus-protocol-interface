@@ -204,6 +204,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     fromTokenUserBalanceWei,
   });
 
+  const onFromInputChange = (amount: string) =>
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      fromTokenAmountTokens: amount,
+      // Reset toTokenAmount field value if users resets fromTokenAmount
+      // field value
+      toTokenAmountTokens:
+        amount === ''
+          ? initialFormValues.toTokenAmountTokens
+          : currentFormValues.toTokenAmountTokens,
+      direction: 'exactAmountIn',
+    }));
+
   return (
     <Paper css={styles.container}>
       <ConnectWallet message={t('swapPage.connectWalletToSwap')}>
@@ -214,19 +227,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           hasError={formErrors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
           data-testid={TEST_IDS.fromTokenSelectTokenTextField}
           disabled={isSubmitting}
-          onChange={amount =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              fromTokenAmountTokens: amount,
-              // Reset toTokenAmount field value if users resets fromTokenAmount
-              // field value
-              toTokenAmountTokens:
-                amount === ''
-                  ? initialFormValues.toTokenAmountTokens
-                  : currentFormValues.toTokenAmountTokens,
-              direction: 'exactAmountIn',
-            }))
-          }
+          onChange={onFromInputChange}
           onChangeSelectedToken={token =>
             setFormValues(currentFormValues => ({
               ...currentFormValues,
@@ -240,7 +241,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           }
           rightMaxButton={{
             label: t('swapPage.fromTokenAmountField.max').toUpperCase(),
-            valueOnClick: maxFromInput,
+            onClick: () => onFromInputChange(maxFromInput),
           }}
           tokenBalances={fromTokenBalances}
           css={styles.selectTokenTextField}

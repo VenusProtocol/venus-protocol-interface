@@ -4,7 +4,6 @@ import React from 'react';
 import { TokenBalance } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
-import useGetSwapInfo from '../../../hooks/useGetSwapInfo';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { swapTokens } from 'clients/api';
@@ -15,6 +14,7 @@ import {
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -37,7 +37,7 @@ jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 jest.mock('hooks/useTokenApproval');
 jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('../useGetSwapInfo');
+jest.mock('hooks/useGetSwapInfo');
 
 const useTokenApprovalOriginal = useTokenApproval(
   // These aren't used since useTokenApproval is mocked

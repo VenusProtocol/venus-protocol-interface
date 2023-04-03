@@ -1,4 +1,4 @@
-import { UseGetSwapInfoOutput } from '../types';
+import { UseGetSwapInfoOutput } from '../useGetSwapInfo/types';
 
 const useGetSwapInfo = jest.fn(
   (): UseGetSwapInfoOutput => ({

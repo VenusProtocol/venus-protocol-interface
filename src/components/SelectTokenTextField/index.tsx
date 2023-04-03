@@ -43,12 +43,6 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
     onChangeSelectedToken(newSelectedToken);
   };
 
-  const setMaxValue = (newValue: string) => {
-    if (onChange) {
-      onChange(newValue);
-    }
-  };
-
   return (
     <div className={className}>
       <TokenTextField
@@ -73,11 +67,11 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
             {rightMaxButton && (
               <TertiaryButton
-                onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
                 small
                 disabled={disabled}
                 css={styles.maxButton}
                 data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}
+                {...rightMaxButton}
               >
                 {rightMaxButton.label}
               </TertiaryButton>

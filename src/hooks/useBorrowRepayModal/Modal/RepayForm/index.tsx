@@ -9,7 +9,7 @@ import {
   TokenTextField,
 } from 'components';
 import config from 'config';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
@@ -61,7 +61,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const formikProps = useForm({
     asset,
-    swap,
     onCloseModal,
     onRepay,
   });
@@ -97,26 +96,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     );
   }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, formikProps.values.fromToken]);
 
-  const maxButtonValueOnClick = useMemo(
-    () =>
-      asset
-        ? BigNumber.min(
-            asset.userBorrowBalanceTokens,
-            new BigNumber(userWalletBalanceTokens || 0),
-          ).toString()
-        : '0',
-    [asset.userBorrowBalanceTokens, userWalletBalanceTokens],
-  );
-
-  const getTokenBorrowBalancePercentageTokens = React.useCallback(
-    (percentage: number) =>
-      asset.userBorrowBalanceTokens
-        .multipliedBy(percentage / 100)
-        .decimalPlaces(asset.vToken.underlyingToken.decimals)
-        .toFixed(),
-    [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.decimals, swap?.exchangeRate],
-  );
-
   const readableTokenBorrowBalance = useFormatTokensToReadableValue({
     value: asset.userBorrowBalanceTokens,
     token: asset.vToken.underlyingToken,
@@ -126,13 +105,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     value: userWalletBalanceTokens,
     token: formikProps.values.fromToken,
   });
-
-  const isRepayingFullLoan = useMemo(
-    () =>
-      formikProps.values.amountTokens !== '0' &&
-      asset.userBorrowBalanceTokens.eq(formikProps.values.amountTokens),
-    [formikProps.values.amountTokens, asset.vToken.underlyingToken, asset.userBorrowBalanceTokens],
-  );
 
   const toTokenAmountTokens = useMemo(() => {
     if (swap) {
@@ -147,6 +119,32 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
     return formikProps.values.amountTokens;
   }, [swap, formikProps.values.amountTokens]);
+
+  const isRepayingFullLoan = formikProps.values.fixedRepayPercentage === 100;
+
+  const handleRightMaxButtonClick = useCallback(() => {
+    if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
+      formikProps.setFieldValue('amountTokens', '0');
+      return;
+    }
+
+    // Mark user as wanting to repay full loan if they have the budget for it
+    // and if they have a loan to repay
+    if (
+      userWalletBalanceTokens &&
+      userWalletBalanceTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens)
+    ) {
+      formikProps.setFieldValue('fixedRepayPercentage', 100);
+      return;
+    }
+
+    // Otherwise update field value to correspond to user's balance
+    formikProps.setValues(currentValues => ({
+      ...currentValues,
+      amountTokens: new BigNumber(userWalletBalanceTokens || 0).toFixed(),
+      fixedRepayPercentage: undefined,
+    }));
+  }, [asset.userBorrowBalanceTokens, userWalletBalanceTokens]);
 
   return (
     <form onSubmit={formikProps.handleSubmit}>
@@ -168,11 +166,18 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
             }
             disabled={formikProps.isSubmitting || isSwapLoading}
-            onChange={amountTokens => formikProps.setFieldValue('amountTokens', amountTokens)}
+            onChange={amountTokens => {
+              formikProps.setValues(currentValues => ({
+                ...currentValues,
+                amountTokens,
+                // Reset selected fixed percentage
+                fixedRepayPercentage: undefined,
+              }));
+            }}
             onChangeSelectedToken={token => formikProps.setFieldValue('fromToken', token)}
             rightMaxButton={{
               label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
-              valueOnClick: maxButtonValueOnClick,
+              onClick: handleRightMaxButtonClick,
             }}
             tokenBalances={tokenBalances}
             description={
@@ -190,12 +195,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             name="amountTokens"
             token={asset.vToken.underlyingToken}
             value={formikProps.values.amountTokens}
-            onChange={amountTokens => formikProps.setFieldValue('amountTokens', amountTokens)}
+            onChange={amountTokens =>
+              formikProps.setValues(currentValues => ({
+                ...currentValues,
+                amountTokens,
+                // Reset selected fixed percentage
+                fixedRepayPercentage: undefined,
+              }))
+            }
             disabled={formikProps.isSubmitting}
             onBlur={formikProps.handleBlur}
             rightMaxButton={{
               label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
-              valueOnClick: maxButtonValueOnClick,
+              onClick: handleRightMaxButtonClick,
             }}
             data-testid={TEST_IDS.tokenTextField}
             // Only display error state if amount is higher than limits
@@ -218,19 +230,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       <div css={sharedStyles.getRow({ isLast: true })}>
         <div css={styles.selectButtonsContainer}>
-          {/* TODO: update to support swap and repay flow  */}
           {PRESET_PERCENTAGES.map(percentage => (
             <TertiaryButton
               key={`select-button-${percentage}`}
               css={styles.selectButton}
               small
-              onClick={() =>
-                formikProps.setFieldValue(
-                  'amountTokens',
-                  getTokenBorrowBalancePercentageTokens(percentage),
-                  true,
-                )
-              }
+              active={percentage === formikProps.values.fixedRepayPercentage}
+              onClick={() => formikProps.setFieldValue('fixedRepayPercentage', percentage)}
             >
               {formatToReadablePercentage(percentage)}
             </TertiaryButton>
@@ -284,6 +290,8 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { mutateAsync: onRepay } = useRepay({
     vToken: asset.vToken,
   });
+
+  // TODO: handle swap and repay
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances(
     {

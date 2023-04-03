@@ -165,7 +165,7 @@ const Convert: React.FC<ConvertProps> = ({
           </section>
 
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
-            {({ values }) => {
+            {({ values, setFieldValue }) => {
               const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount))
                 ?.dp(TOKENS.vrt.decimals)
                 .toFixed();
@@ -194,7 +194,7 @@ const Convert: React.FC<ConvertProps> = ({
                         userVrtBalance
                           ? {
                               label: t('convertVrt.max'),
-                              valueOnClick: userVrtBalance,
+                              onClick: () => setFieldValue('amount', userVrtBalance),
                             }
                           : undefined
                       }

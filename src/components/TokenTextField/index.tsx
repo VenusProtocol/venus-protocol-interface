@@ -3,8 +3,12 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import { Token } from 'types';
 
-import { TertiaryButton } from '../Button';
+import { ButtonProps, TertiaryButton } from '../Button';
 import { TextField, TextFieldProps } from '../TextField';
+
+export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children' | 'small'> {
+  label: string;
+}
 
 // Note: although we display all the values in tokens (equivalent of ether for
 // the given token) to the user, the underlying values (maxWei, value) are
@@ -14,10 +18,7 @@ export interface TokenTextFieldProps
   token: Token;
   value: string;
   onChange: (newValue: string) => void;
-  rightMaxButton?: {
-    label: string;
-    valueOnClick: string;
-  };
+  rightMaxButton?: RightMaxButton;
   displayTokenIcon?: boolean;
   max?: string;
 }
@@ -37,12 +38,6 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
 
     return tmpOneWeiInTokens.toFixed();
   }, [token.decimals]);
-
-  const setMaxValue = (newValue: string) => {
-    if (onChange) {
-      onChange(newValue);
-    }
-  };
 
   const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
     // Forbid values with more decimals than the token provided supports
@@ -64,11 +59,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
       leftIconSrc={displayTokenIcon ? token : undefined}
       rightAdornment={
         rightMaxButton ? (
-          <TertiaryButton
-            onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
-            small
-            disabled={disabled}
-          >
+          <TertiaryButton small disabled={disabled} {...rightMaxButton}>
             {rightMaxButton.label}
           </TertiaryButton>
         ) : undefined

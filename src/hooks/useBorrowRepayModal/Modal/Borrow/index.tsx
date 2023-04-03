@@ -86,7 +86,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
 
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
-      {({ values, dirty, isValid, errors }) => (
+      {({ values, dirty, isValid, errors, setFieldValue }) => (
         <BorrowSection
           asset={asset}
           pool={pool}
@@ -94,6 +94,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           safeLimitTokens={safeLimitTokens}
           readableTokenBorrowableAmount={readableTokenBorrowableAmount}
           isBorrowLoading={isBorrowLoading}
+          onRightMaxButtonClick={() => () => setFieldValue('amount', safeLimitTokens)}
           hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
           hasBorrowCapBeenReached={hasBorrowCapBeenReached}
           limitTokens={limitTokens}

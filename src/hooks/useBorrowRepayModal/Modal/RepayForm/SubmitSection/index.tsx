@@ -75,6 +75,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     >
       {submitButtonLabel}
     </PrimaryButton>
+
+    // TODO: add footer when swapping
   );
 };
 

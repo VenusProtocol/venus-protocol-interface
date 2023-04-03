@@ -23,6 +23,7 @@ const getValidationSchema = ({
       .lowerThanOrEqualTo(walletBalanceTokens, ErrorCode.HIGHER_THAN_WALLET_BALANCE)
       .required(ErrorCode.INVALID_TOKEN_AMOUNT),
     fromToken: yup.object().token().required(),
+    fixedRepayPercentage: yup.number().optional(),
   });
 
 export default getValidationSchema;

@@ -34,6 +34,12 @@ export const Disabled = () => (
   </PrimaryButton>
 );
 
+export const Active = () => (
+  <PrimaryButton onClick={console.log} active>
+    Active
+  </PrimaryButton>
+);
+
 export const Link = () => (
   <LinkButton onClick={console.log} to="/">
     Link

@@ -21,6 +21,7 @@ interface SubmitSectionProps {
   pool: Pool;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
+  onRightMaxButtonClick: () => void;
   readableTokenBorrowableAmount: string;
   isBorrowLoading: boolean;
   hasUserCollateralizedSuppliedAssets: boolean;
@@ -36,6 +37,7 @@ const BorrowSection: React.FC<SubmitSectionProps> = ({
   asset,
   pool,
   safeBorrowLimitPercentage,
+  onRightMaxButtonClick,
   readableTokenBorrowableAmount,
   isBorrowLoading,
   hasUserCollateralizedSuppliedAssets,
@@ -80,7 +82,7 @@ const BorrowSection: React.FC<SubmitSectionProps> = ({
             label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
               limitPercentage: safeBorrowLimitPercentage,
             }),
-            valueOnClick: safeLimitTokens,
+            onClick: onRightMaxButtonClick,
           }}
           data-testid={TEST_IDS.tokenTextField}
           // Only display error state if amount is higher than borrow limit
