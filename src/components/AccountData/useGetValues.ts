@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Pool } from 'types';
+import { Asset, Pool, Swap } from 'types';
 import {
   areTokensEqual,
   calculateCollateralValue,
@@ -9,6 +9,7 @@ import {
   calculateYearlyEarningsForAssets,
   convertDollarsToCents,
   convertTokensToWei,
+  convertWeiToTokens,
 } from 'utilities';
 
 export interface UseGetValuesInput {
@@ -16,6 +17,7 @@ export interface UseGetValuesInput {
   pool: Pool;
   action: 'supply' | 'withdraw' | 'repay' | 'borrow';
   amountTokens: BigNumber;
+  swap?: Swap;
 }
 
 export interface UseGetValuesOutput {
@@ -32,10 +34,25 @@ export interface UseGetValuesOutput {
 const useGetValues = ({
   asset,
   pool,
+  swap,
   action,
   amountTokens,
-}: UseGetValuesInput): UseGetValuesOutput =>
-  useMemo(() => {
+}: UseGetValuesInput): UseGetValuesOutput => {
+  const toTokenAmountTokens = useMemo(() => {
+    if (swap) {
+      return convertWeiToTokens({
+        valueWei:
+          swap.direction === 'exactAmountIn'
+            ? swap.expectedToTokenAmountReceivedWei
+            : swap.toTokenAmountReceivedWei,
+        token: swap.toToken,
+      });
+    }
+
+    return amountTokens;
+  }, [swap, amountTokens]);
+
+  return useMemo(() => {
     const poolUserYearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets: pool.assets,
     });
@@ -65,12 +82,12 @@ const useGetValues = ({
     };
 
     const isImpossibleWithdrawAction =
-      action === 'withdraw' && asset.userSupplyBalanceTokens.minus(amountTokens).isLessThan(0);
+      action === 'withdraw' && asset.userSupplyBalanceTokens.isLessThan(toTokenAmountTokens);
     const isImpossibleRepayAction =
-      action === 'repay' && asset.userBorrowBalanceTokens.minus(amountTokens).isLessThan(0);
+      action === 'repay' && asset.userBorrowBalanceTokens.isLessThan(toTokenAmountTokens);
 
     if (
-      amountTokens.isEqualTo(0) ||
+      toTokenAmountTokens.isEqualTo(0) ||
       isImpossibleWithdrawAction ||
       isImpossibleRepayAction ||
       // Check we have sufficient data
@@ -85,7 +102,7 @@ const useGetValues = ({
       ? convertDollarsToCents(
           calculateCollateralValue({
             amountWei: convertTokensToWei({
-              value: amountTokens,
+              value: toTokenAmountTokens,
               token: asset.vToken.underlyingToken,
             }),
             token: asset.vToken.underlyingToken,
@@ -97,30 +114,30 @@ const useGetValues = ({
 
     if (action === 'supply') {
       returnValues.hypotheticalUserSupplyBalanceTokens =
-        asset.userSupplyBalanceTokens.plus(amountTokens);
+        asset.userSupplyBalanceTokens.plus(toTokenAmountTokens);
 
       returnValues.hypotheticalPoolUserBorrowLimitCents =
         pool.userBorrowLimitCents + amountCollateralValueCents;
     } else if (action === 'withdraw') {
       returnValues.hypotheticalUserSupplyBalanceTokens =
-        asset.userSupplyBalanceTokens.minus(amountTokens);
+        asset.userSupplyBalanceTokens.minus(toTokenAmountTokens);
 
       returnValues.hypotheticalPoolUserBorrowLimitCents =
         pool.userBorrowLimitCents - amountCollateralValueCents;
     } else if (action === 'borrow') {
       returnValues.hypotheticalUserBorrowBalanceTokens =
-        asset.userBorrowBalanceTokens.plus(amountTokens);
+        asset.userBorrowBalanceTokens.plus(toTokenAmountTokens);
 
       returnValues.hypotheticalPoolUserBorrowBalanceCents =
         pool.userBorrowBalanceCents +
-        convertDollarsToCents(amountTokens.multipliedBy(asset.tokenPriceDollars));
+        convertDollarsToCents(toTokenAmountTokens.multipliedBy(asset.tokenPriceDollars));
     } else if (action === 'repay') {
       returnValues.hypotheticalUserBorrowBalanceTokens =
-        asset.userBorrowBalanceTokens.minus(amountTokens);
+        asset.userBorrowBalanceTokens.minus(toTokenAmountTokens);
 
       returnValues.hypotheticalPoolUserBorrowBalanceCents =
         pool.userBorrowBalanceCents -
-        convertDollarsToCents(amountTokens.multipliedBy(asset.tokenPriceDollars));
+        convertDollarsToCents(toTokenAmountTokens.multipliedBy(asset.tokenPriceDollars));
     }
 
     const hypotheticalAssets = pool.assets.map(a => {
@@ -164,6 +181,7 @@ const useGetValues = ({
       calculateDailyEarningsCents(hypotheticalUserYearlyEarningsCents).dp(0).toNumber();
 
     return returnValues;
-  }, [asset, pool, action, amountTokens]);
+  }, [asset, pool, action, toTokenAmountTokens]);
+};
 
 export default useGetValues;

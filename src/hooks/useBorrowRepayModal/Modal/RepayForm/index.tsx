@@ -112,20 +112,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     token: formikProps.values.fromToken,
   });
 
-  const toTokenAmountTokens = useMemo(() => {
-    if (swap) {
-      return convertWeiToTokens({
-        valueWei:
-          swap.direction === 'exactAmountIn'
-            ? swap.expectedToTokenAmountReceivedWei
-            : swap.toTokenAmountReceivedWei,
-        token: swap.toToken,
-      }).toFixed();
-    }
-
-    return formikProps.values.amountTokens;
-  }, [swap, formikProps.values.amountTokens]);
-
   const isRepayingFullLoan = formikProps.values.fixedRepayPercentage === 100;
 
   const handleRightMaxButtonClick = useCallback(() => {
@@ -262,7 +248,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       <AccountData
         asset={asset}
         pool={pool}
-        amountTokens={new BigNumber(toTokenAmountTokens || 0)}
+        swap={swap}
+        amountTokens={new BigNumber(formikProps.values.amountTokens || 0)}
         action="repay"
       />
 
