@@ -27,7 +27,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap }) => {
   const readableToTokenAmountRepaidTokens = useConvertWeiToReadableTokenString({
     valueWei:
       swap.direction === 'exactAmountIn'
-        ? swap.minimumToTokenAmountReceivedWei
+        ? swap.expectedToTokenAmountReceivedWei
         : swap.toTokenAmountReceivedWei,
     token: swap.toToken,
   });

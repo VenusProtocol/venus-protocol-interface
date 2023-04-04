@@ -3,12 +3,13 @@ import { ContractReceipt } from 'ethers';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { Asset, Swap } from 'types';
+import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useIsMounted from 'hooks/useIsMounted';
 
+import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import getValidationSchema, { FormValues } from './validationSchema';
 
 export * from './validationSchema';
@@ -23,9 +24,10 @@ export interface UseFormProps {
     isRepayingFullLoan: boolean;
   }) => Promise<ContractReceipt>;
   onCloseModal: () => void;
+  swap?: Swap;
 }
 
-const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
+const useForm = ({ asset, onRepay, onCloseModal, swap }: UseFormProps) => {
   const isMounted = useIsMounted();
 
   const { t } = useTranslation();
@@ -78,15 +80,35 @@ const useForm = ({ asset, onRepay, onCloseModal }: UseFormProps) => {
   // update the input value to that exact amount (and keep on updating when the
   // total loan value changes, for example when interests accumulate)
   useEffect(() => {
-    if (isMounted() && formikProps.values.fixedRepayPercentage) {
-      const fixedAmountToRepayTokens = asset.userBorrowBalanceTokens
-        .multipliedBy(formikProps.values.fixedRepayPercentage / 100)
-        .decimalPlaces(asset.vToken.underlyingToken.decimals)
-        .toFixed();
+    // Handle repaying a fixed percentage without swapping
+    const isNotSwapping = areTokensEqual(
+      formikProps.values.fromToken,
+      asset.vToken.underlyingToken,
+    );
+
+    if (isMounted() && formikProps.values.fixedRepayPercentage && isNotSwapping) {
+      const fixedAmountToRepayTokens = calculatePercentageOfUserBorrowBalance({
+        asset,
+        percentage: formikProps.values.fixedRepayPercentage,
+      });
 
       formikProps.setFieldValue('amountTokens', fixedAmountToRepayTokens);
     }
-  }, [formikProps.values.fixedRepayPercentage, asset.userBorrowBalanceTokens]);
+
+    // Handle repaying a fixed percentage using the swap
+    if (
+      isMounted() &&
+      formikProps.values.fixedRepayPercentage &&
+      swap?.direction === 'exactAmountOut'
+    ) {
+      const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
+        valueWei: swap.expectedFromTokenAmountSoldWei,
+        token: swap.fromToken,
+      }).toFixed();
+
+      formikProps.setFieldValue('amountTokens', expectedFromTokenAmountSoldTokens);
+    }
+  }, [formikProps.values.fixedRepayPercentage, formikProps.values.fromToken, asset, swap]);
 
   return formikProps;
 };

@@ -175,8 +175,15 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     input.toTokenAmountTokens,
   ]);
 
+  // Because the swap pairs are fetched on every new block (and they do change
+  // on every new block), the swap object generated ends up getting a new
+  // reference on every new block even if its content is the same. For that
+  // reason, we memoize it using its content as source of truth to check whether
+  // it does change from one instance to the other
+  const memoizedSwapInfo = useMemo(() => swapInfo, [JSON.stringify(swapInfo)]);
+
   return {
-    ...swapInfo,
+    ...memoizedSwapInfo,
     isLoading,
   };
 };

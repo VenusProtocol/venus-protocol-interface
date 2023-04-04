@@ -28,6 +28,7 @@ import useIsMounted from 'hooks/useIsMounted';
 import { useStyles as useSharedStyles } from '../styles';
 import SubmitSection from './SubmitSection';
 import SwapDetails from './SwapDetails';
+import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useForm, { ErrorCode, FormValues, UseFormProps } from './useForm';
@@ -65,6 +66,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const formikProps = useForm({
     asset,
+    swap,
     onCloseModal,
     onRepay,
   });
@@ -287,9 +289,9 @@ export interface RepayFormProps {
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress } = useAuth();
 
-  // We duplicate the form values here because we need them to fetch the swap
-  // info
-  const [formValues, setFormValues] = useState<FormValues | undefined>();
+  // We copy the form values from the UI component (and keep them updated via
+  // callback function) as we need them to generate the swap info
+  const [formValuesCopy, setFormValuesCopy] = useState<FormValues | undefined>();
 
   const { mutateAsync: onRepay } = useRepay({
     vToken: asset.vToken,
@@ -306,11 +308,20 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     },
   );
 
+  const swapDirection = formValuesCopy?.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
+
   const swapInfo = useGetSwapInfo({
-    fromToken: formValues?.fromToken || asset.vToken.underlyingToken,
-    fromTokenAmountTokens: formValues?.amountTokens,
+    fromToken: formValuesCopy?.fromToken || asset.vToken.underlyingToken,
+    fromTokenAmountTokens:
+      swapDirection === 'exactAmountIn' ? formValuesCopy?.amountTokens : undefined,
     toToken: asset.vToken.underlyingToken,
-    direction: 'exactAmountIn', // TODO: update to exactAmountOut if user is repaying a full loan
+    toTokenAmountTokens: formValuesCopy?.fixedRepayPercentage
+      ? calculatePercentageOfUserBorrowBalance({
+          asset,
+          percentage: formValuesCopy?.fixedRepayPercentage,
+        })
+      : undefined,
+    direction: swapDirection,
   });
 
   return (
@@ -320,7 +331,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       onCloseModal={onCloseModal}
       onRepay={onRepay}
       tokenBalances={tokenBalances}
-      onFormValuesChangeCallback={setFormValues}
+      onFormValuesChangeCallback={setFormValuesCopy}
       swap={swapInfo.swap}
       swapError={swapInfo.error}
       isSwapLoading={swapInfo.isLoading}
