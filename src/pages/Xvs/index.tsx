@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Notice } from 'components';
-import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { isFeatureEnabled } from 'utilities';
 
 import Header from './Header';
 import Table from './Table';
@@ -14,7 +14,7 @@ const Xvs: React.FC = () => {
 
   return (
     <div>
-      {config.featureFlags.isolatedPools && (
+      {isFeatureEnabled('isolatedPools') && (
         <Notice
           css={styles.isolatedAssetsWarningNotice}
           variant="warning"

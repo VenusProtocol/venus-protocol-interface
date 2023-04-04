@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
-import config from 'config';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue, isFeatureEnabled } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -65,7 +64,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   return pool ? (
     <>
       <div css={styles.header}>
-        {config.featureFlags.isolatedPools && (
+        {isFeatureEnabled('isolatedPools') && (
           <Typography variant="small2" component="div" css={styles.headerDescription}>
             {pool.description}
           </Typography>

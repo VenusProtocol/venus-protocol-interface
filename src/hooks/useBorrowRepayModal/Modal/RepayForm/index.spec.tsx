@@ -68,6 +68,41 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   it('disables submit button if an amount entered in input is higher than token borrow balance', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.userBorrowBalanceTokens = new BigNumber(1);
+    customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
+
+    const { getByText, getByTestId } = renderComponent(
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+    ).toBeDisabled();
+
+    const incorrectValueTokens = customFakeAsset.userBorrowBalanceTokens.plus(1).toFixed();
+
+    // Enter amount in input
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check submit button is disabled
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+    ).toBeDisabled();
+  });
+
+  it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
     const { getByText, getByTestId } = renderComponent(
@@ -78,10 +113,11 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
     const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
@@ -92,39 +128,14 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     });
 
     // Check submit button is disabled
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toBeDisabled();
-  });
+    const expectedSubmitButtonLabel =
+      en.borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance.replace(
+        '{{tokenSymbol}}',
+        customFakeAsset.vToken.underlyingToken.symbol,
+      );
 
-  it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
-    const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
-
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toBeDisabled();
-
-    const incorrectValueTokens = fakeAsset.userBorrowBalanceTokens.plus(1).toFixed();
-
-    // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
-      target: { value: incorrectValueTokens },
-    });
-
-    // Check submit button is disabled
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toBeDisabled();
+    await waitFor(() => getByText(expectedSubmitButtonLabel));
+    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
   });
 
   it('updates input value to token wallet balance when pressing on max button if token wallet balance is lower than token borrow balance', async () => {
@@ -141,7 +152,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     // Check input is empty
     const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
@@ -157,7 +168,9 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).toBeEnabled();
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
   });
 
   it('updates input value to token borrow balance when pressing on max button if token borrow balance is lower than token wallet balance', async () => {
@@ -174,7 +187,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     // Check input is empty
     const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
@@ -190,7 +203,9 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).toBeEnabled();
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
   });
 
   it('updates input value to correct value when pressing on preset percentage buttons', async () => {
@@ -207,13 +222,18 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     // Check input is empty
     const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     for (let i = 0; i < PRESET_PERCENTAGES.length; i++) {
+      // Clear input
+      fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+        target: { value: '' },
+      });
+
       const presetPercentage = PRESET_PERCENTAGES[i];
 
       // Press on preset percentage button
@@ -229,7 +249,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
       // Check submit button is enabled
       expect(
-        getByText(en.borrowRepayModal.repay.submitButton).closest('button'),
+        getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
       ).not.toBeDisabled();
     }
   });
@@ -248,10 +268,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
     const correctAmountTokens = 1;
@@ -262,8 +282,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     });
 
     // Click on submit button
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
-    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.repay));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButtonLabel.repay));
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
@@ -299,10 +319,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
         },
       },
     );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
 
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
     // Press on max button
@@ -314,8 +334,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     );
 
     // Click on submit button
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
-    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.repay));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButtonLabel.repay));
 
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
@@ -323,4 +343,6 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       isRepayingFullLoan: true,
     });
   });
+
+  // TODO: add test for integrated swap feature flag
 });

@@ -21,9 +21,5 @@ export const useStyles = () => {
     swapInfoContainer: css`
       margin-top: ${theme.spacing(6)};
     `,
-    notice: css`
-      margin-top: ${theme.spacing(3)};
-      padding: ${theme.spacing(4)};
-    `,
   };
 };

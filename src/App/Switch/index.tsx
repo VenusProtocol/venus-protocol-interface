@@ -1,6 +1,6 @@
-import config from 'config';
 import React, { useEffect } from 'react';
 import { Switch as RRSwitch, Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import { isFeatureEnabled } from 'utilities';
 
 import 'assets/styles/App.scss';
 import { routes } from 'constants/routing';
@@ -43,15 +43,15 @@ const Switch = () => {
         <Route exact path={routes.account.path} component={Account} />
       )}
 
-      {config.featureFlags.isolatedPools && (
+      {isFeatureEnabled('isolatedPools') && (
         <Route exact path={routes.pools.path} component={Pools} />
       )}
 
-      {config.featureFlags.isolatedPools && (
+      {isFeatureEnabled('isolatedPools') && (
         <Route exact path={routes.pool.path} component={Pool} />
       )}
 
-      {!config.featureFlags.isolatedPools && (
+      {!isFeatureEnabled('isolatedPools') && (
         <Route exact path={routes.markets.path} component={Pool} />
       )}
 

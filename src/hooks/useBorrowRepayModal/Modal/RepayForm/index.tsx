@@ -8,11 +8,15 @@ import {
   TertiaryButton,
   TokenTextField,
 } from 'components';
-import config from 'config';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenBalance } from 'types';
-import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import {
+  areTokensEqual,
+  convertWeiToTokens,
+  formatToReadablePercentage,
+  isFeatureEnabled,
+} from 'utilities';
 
 import { useRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -77,7 +81,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     // selected token of if the integrated swap feature is not enabled
     if (
       areTokensEqual(asset.vToken.underlyingToken, formikProps.values.fromToken) ||
-      !config.featureFlags.integratedSwap
+      !isFeatureEnabled('integratedSwap')
     ) {
       return asset.userWalletBalanceTokens;
     }
@@ -156,7 +160,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       </LabeledInlineContent>
 
       <div css={sharedStyles.getRow({ isLast: false })}>
-        {config.featureFlags.isolatedPools ? (
+        {isFeatureEnabled('integratedSwap') ? (
           <SelectTokenTextField
             selectedToken={formikProps.values.fromToken}
             value={formikProps.values.amountTokens}
@@ -247,7 +251,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
         {isRepayingFullLoan && (
           <NoticeWarning
-            css={styles.notice}
+            css={sharedStyles.notice}
             description={t('borrowRepayModal.repay.fullRepaymentWarning')}
           />
         )}
@@ -298,7 +302,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       accountAddress,
     },
     {
-      enabled: config.featureFlags.integratedSwap,
+      enabled: isFeatureEnabled('integratedSwap'),
     },
   );
 

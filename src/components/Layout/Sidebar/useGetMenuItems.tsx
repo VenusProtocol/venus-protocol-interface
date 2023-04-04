@@ -1,6 +1,5 @@
-import config from 'config';
 import { useMemo } from 'react';
-import { getContractAddress } from 'utilities';
+import { getContractAddress, isFeatureEnabled } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
@@ -36,7 +35,7 @@ const useGetMenuItems = () => {
 
     // Add Pools or Markets page depending on isolated pools feature flag
     menuItems.push(
-      config.featureFlags.isolatedPools
+      isFeatureEnabled('isolatedPools')
         ? {
             href: routes.pools.path,
             // Translation key: do not remove this comment

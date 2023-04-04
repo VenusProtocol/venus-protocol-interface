@@ -16,11 +16,11 @@ exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the 
 
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /history 1`] = `"History"`;
 
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Markets/XVS"`;
+
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools 1`] = `"Pools"`;
 
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Pools/Venus"`;
-
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Pools/Venus/XVS"`;
 
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path: /swap 1`] = `"Swap"`;
 

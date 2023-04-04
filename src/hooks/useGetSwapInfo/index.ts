@@ -17,8 +17,6 @@ import { SwapError, UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 
-console.log(useGetPancakeSwapPairs);
-
 export * from './types';
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {

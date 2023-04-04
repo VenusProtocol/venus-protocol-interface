@@ -1,6 +1,6 @@
-import config from 'config';
 import { useMemo } from 'react';
 import { Pool } from 'types';
+import { isFeatureEnabled } from 'utilities';
 
 import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
 
@@ -26,7 +26,7 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
         accountAddress,
       },
       {
-        enabled: config.featureFlags.isolatedPools,
+        enabled: isFeatureEnabled('isolatedPools'),
       },
     );
 

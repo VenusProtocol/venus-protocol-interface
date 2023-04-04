@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Announcement, ButtonGroup, TextField, Toggle } from 'components';
-import config from 'config';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
+import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -55,7 +55,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     isFetching: isFetchingPools,
     marketType: 'supply',
     breakpoint: 'lg',
-    columns: config.featureFlags.isolatedPools
+    columns: isFeatureEnabled('isolatedPools')
       ? ['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']
       : ['asset', 'supplyApyLtv', 'userWalletBalance', 'collateral'],
     initialOrder: {
@@ -69,7 +69,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     isFetching: isFetchingPools,
     marketType: 'borrow',
     breakpoint: 'lg',
-    columns: config.featureFlags.isolatedPools
+    columns: isFeatureEnabled('isolatedPools')
       ? ['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']
       : ['asset', 'borrowApy', 'userWalletBalance', 'liquidity'],
     initialOrder: {
@@ -84,7 +84,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
       <Announcement token={TOKENS.trxold} />
 
-      {config.featureFlags.isolatedPools && <HigherRiskTokensNotice />}
+      {isFeatureEnabled('isolatedPools') && <HigherRiskTokensNotice />}
 
       <div css={styles.header}>
         <TextField
@@ -93,7 +93,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           value={searchValue}
           onChange={handleSearchInputChange}
           placeholder={
-            config.featureFlags.isolatedPools
+            isFeatureEnabled('isolatedPools')
               ? t('dashboard.searchInput.placeholderIsolatedPools')
               : t('dashboard.searchInput.placeholder')
           }
@@ -109,7 +109,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          {config.featureFlags.isolatedPools && (
+          {isFeatureEnabled('isolatedPools') && (
             <ButtonGroup
               css={hideXlDownCss}
               buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
@@ -119,7 +119,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           )}
 
           <div css={styles.rightColumn}>
-            {config.featureFlags.isolatedPools && (
+            {isFeatureEnabled('isolatedPools') && (
               <Toggle
                 tooltip={t('dashboard.riskyTokensToggleTooltip')}
                 label={t('dashboard.riskyTokensToggleLabel')}
@@ -135,7 +135,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
               value={searchValue}
               onChange={handleSearchInputChange}
               placeholder={
-                config.featureFlags.isolatedPools
+                isFeatureEnabled('isolatedPools')
                   ? t('dashboard.searchInput.placeholderIsolatedPools')
                   : t('dashboard.searchInput.placeholder')
               }
@@ -145,7 +145,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         </div>
       </div>
 
-      {config.featureFlags.isolatedPools ? (
+      {isFeatureEnabled('isolatedPools') ? (
         <>
           {activeTabIndex === 0 ? (
             <MarketTable
