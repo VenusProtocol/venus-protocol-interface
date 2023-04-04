@@ -405,11 +405,13 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You entered a high amount, which puts you at risk of liquidation"',
+      '"You entered a high value. There is a risk of liquidation."',
     );
 
-    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));
-    expect(getByText(en.borrowRepayModal.borrow.submitButton).closest('button')).toBeEnabled();
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonHighRisk));
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonHighRisk).closest('button'),
+    ).toBeEnabled();
   });
 
   it('updates input value correctly when pressing on max button', async () => {
@@ -448,7 +450,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(getByText(en.borrowRepayModal.borrow.submitButton).closest('button')).toBeEnabled();
+    expect(getByTestId(TEST_IDS.submitButton).closest('button')).toBeEnabled();
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
