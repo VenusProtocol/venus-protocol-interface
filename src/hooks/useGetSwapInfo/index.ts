@@ -37,6 +37,13 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
     let error: SwapError | undefined;
 
+    if (areTokensEqual(input.fromToken, input.toToken)) {
+      return {
+        swap: undefined,
+        error: undefined,
+      };
+    }
+
     const wrappedFromToken = wrapToken(input.fromToken);
     const wrappedToToken = wrapToken(input.toToken);
 

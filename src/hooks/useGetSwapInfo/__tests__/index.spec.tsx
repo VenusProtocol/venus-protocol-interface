@@ -22,6 +22,30 @@ const fakePairs: PSPair[] = fakeTokenCombinations.map(
 );
 
 describe('pages/Swap/useGetSwapInfo', () => {
+  it('returns default state when fromToken and toToken reference the same token', async () => {
+    const input: UseGetSwapInfoInput = {
+      fromToken: PANCAKE_SWAP_TOKENS.bnb,
+      toToken: PANCAKE_SWAP_TOKENS.bnb,
+      direction: 'exactAmountIn',
+    };
+
+    let result: UseGetSwapInfoOutput | undefined;
+
+    const TestComponent: React.FC = () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      result = useGetSwapInfo(input);
+      return <></>;
+    };
+
+    renderComponent(<TestComponent />);
+
+    expect(result).toEqual({
+      swap: undefined,
+      error: undefined,
+      isLoading: expect.any(Boolean),
+    });
+  });
+
   it('returns an error when trade consists in a wrap', async () => {
     const input: UseGetSwapInfoInput = {
       fromToken: PANCAKE_SWAP_TOKENS.bnb,

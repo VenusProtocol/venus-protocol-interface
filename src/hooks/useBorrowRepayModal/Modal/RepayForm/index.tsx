@@ -169,7 +169,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE ||
               formikProps.errors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE
             }
-            disabled={formikProps.isSubmitting || isSwapLoading}
+            disabled={formikProps.isSubmitting}
             onChange={amountTokens => {
               formikProps.setValues(currentValues => ({
                 ...currentValues,
@@ -247,14 +247,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
-        {swap && <SwapDetails swap={swap} />}
-
         {isRepayingFullLoan && (
           <NoticeWarning
             css={sharedStyles.notice}
             description={t('borrowRepayModal.repay.fullRepaymentWarning')}
           />
         )}
+
+        {swap && <SwapDetails swap={swap} />}
       </div>
 
       <AccountData
