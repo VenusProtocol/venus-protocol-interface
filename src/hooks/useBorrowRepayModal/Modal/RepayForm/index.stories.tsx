@@ -19,9 +19,11 @@ export default {
 export const Default = () => (
   <RepayFormUi
     asset={fakeAsset}
+    userBorrowBalanceInFromTokens={fakeAsset.userBorrowBalanceTokens}
     pool={fakePool}
     onRepay={noop}
     onCloseModal={noop}
     onFormValuesChangeCallback={noop}
+    isSwapLoading={false}
   />
 );

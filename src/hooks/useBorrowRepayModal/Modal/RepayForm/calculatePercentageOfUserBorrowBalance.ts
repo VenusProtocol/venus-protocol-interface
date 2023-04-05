@@ -1,15 +1,18 @@
-import { Asset } from 'types';
+import BigNumber from 'bignumber.js';
+import { Token } from 'types';
 
 const calculatePercentageOfUserBorrowBalance = ({
-  asset,
+  userBorrowBalanceTokens,
+  token,
   percentage,
 }: {
-  asset: Asset;
+  userBorrowBalanceTokens: BigNumber;
+  token: Token;
   percentage: number;
 }) =>
-  asset.userBorrowBalanceTokens
+  userBorrowBalanceTokens
     .multipliedBy(percentage / 100)
-    .decimalPlaces(asset.vToken.underlyingToken.decimals)
+    .decimalPlaces(token.decimals)
     .toFixed();
 
 export default calculatePercentageOfUserBorrowBalance;

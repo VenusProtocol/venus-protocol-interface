@@ -37,6 +37,7 @@ export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
 export interface RepayFormUiProps {
   asset: Asset;
+  userBorrowBalanceInFromTokens: BigNumber;
   pool: Pool;
   onRepay: UseFormProps['onRepay'];
   onCloseModal: () => void;
@@ -49,6 +50,7 @@ export interface RepayFormUiProps {
 
 export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   asset,
+  userBorrowBalanceInFromTokens,
   pool,
   onCloseModal,
   onRepay,
@@ -64,8 +66,33 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
+  const fromTokenUserWalletBalanceTokens = useMemo(() => {
+    // Get wallet balance from the list of fetched token balances if integrated
+    // swap feature is enabled and the selected token is the same as the asset's
+    if (
+      isFeatureEnabled('integratedSwap') &&
+      swap?.fromToken &&
+      !areTokensEqual(asset.vToken.underlyingToken, swap.fromToken)
+    ) {
+      const tokenBalance = tokenBalances.find(item => areTokensEqual(item.token, swap.fromToken));
+
+      return (
+        tokenBalance &&
+        convertWeiToTokens({
+          valueWei: tokenBalance.balanceWei,
+          token: tokenBalance.token,
+        })
+      );
+    }
+
+    // Otherwise get the wallet balance from the asset object
+    return asset.userWalletBalanceTokens;
+  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, swap]);
+
   const formikProps = useForm({
-    asset,
+    toToken: asset.vToken.underlyingToken,
+    userWalletBalanceFromTokens: fromTokenUserWalletBalanceTokens,
+    userBorrowBalanceTokens: userBorrowBalanceInFromTokens,
     swap,
     onCloseModal,
     onRepay,
@@ -78,53 +105,29 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     }
   }, [formikProps.values]);
 
-  const userWalletBalanceTokens = useMemo(() => {
-    // Get the wallet balance from the asset object if it corresponds to the
-    // selected token of if the integrated swap feature is not enabled
-    if (
-      areTokensEqual(asset.vToken.underlyingToken, formikProps.values.fromToken) ||
-      !isFeatureEnabled('integratedSwap')
-    ) {
-      return asset.userWalletBalanceTokens;
-    }
-
-    // Otherwise get wallet balance from the list of fetched token balances
-    const tokenBalance = tokenBalances.find(item =>
-      areTokensEqual(item.token, formikProps.values.fromToken),
-    );
-
-    return (
-      tokenBalance &&
-      convertWeiToTokens({
-        valueWei: tokenBalance.balanceWei,
-        token: tokenBalance.token,
-      })
-    );
-  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, formikProps.values.fromToken]);
-
-  const readableTokenBorrowBalance = useFormatTokensToReadableValue({
-    value: asset.userBorrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
+  const readableUserWalletBalanceFromTokens = useFormatTokensToReadableValue({
+    value: fromTokenUserWalletBalanceTokens,
+    token: formikProps.values.fromToken,
   });
 
-  const readableTokenWalletBalance = useFormatTokensToReadableValue({
-    value: userWalletBalanceTokens,
-    token: formikProps.values.fromToken,
+  const readableUserBorrowBalanceTokens = useFormatTokensToReadableValue({
+    value: asset.userBorrowBalanceTokens,
+    token: asset.vToken.underlyingToken,
   });
 
   const isRepayingFullLoan = formikProps.values.fixedRepayPercentage === 100;
 
   const handleRightMaxButtonClick = useCallback(() => {
-    if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
+    if (userBorrowBalanceInFromTokens.isEqualTo(0)) {
       formikProps.setFieldValue('amountTokens', '0');
       return;
     }
 
-    // Mark user as wanting to repay full loan if they have the budget for it
-    // and if they have a loan to repay
+    // Mark user as wanting to repay full loan if they have a loan to repay
+    // and if they have the budget to repay it
     if (
-      userWalletBalanceTokens &&
-      userWalletBalanceTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens)
+      fromTokenUserWalletBalanceTokens &&
+      fromTokenUserWalletBalanceTokens.isGreaterThanOrEqualTo(userBorrowBalanceInFromTokens)
     ) {
       formikProps.setFieldValue('fixedRepayPercentage', 100);
       return;
@@ -133,10 +136,10 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     // Otherwise update field value to correspond to user's balance
     formikProps.setValues(currentValues => ({
       ...currentValues,
-      amountTokens: new BigNumber(userWalletBalanceTokens || 0).toFixed(),
+      amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
       fixedRepayPercentage: undefined,
     }));
-  }, [asset.userBorrowBalanceTokens, userWalletBalanceTokens]);
+  }, [userBorrowBalanceInFromTokens, fromTokenUserWalletBalanceTokens]);
 
   return (
     <form onSubmit={formikProps.handleSubmit}>
@@ -144,7 +147,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         css={sharedStyles.getRow({ isLast: true })}
         label={t('borrowRepayModal.repay.currentlyBorrowing')}
       >
-        {readableTokenBorrowBalance}
+        {readableUserBorrowBalanceTokens}
       </LabeledInlineContent>
 
       <div css={sharedStyles.getRow({ isLast: false })}>
@@ -178,7 +181,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
-                values={{ balance: readableTokenWalletBalance }}
+                values={{ balance: readableUserWalletBalanceFromTokens }}
               />
             }
           />
@@ -213,7 +216,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
-                values={{ balance: readableTokenWalletBalance }}
+                values={{ balance: readableUserWalletBalanceFromTokens }}
               />
             }
           />
@@ -304,16 +307,34 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     toToken: asset.vToken.underlyingToken,
     toTokenAmountTokens: formValuesCopy?.fixedRepayPercentage
       ? calculatePercentageOfUserBorrowBalance({
-          asset,
+          token: asset.vToken.underlyingToken,
+          userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
           percentage: formValuesCopy?.fixedRepayPercentage,
         })
       : undefined,
     direction: swapDirection,
   });
 
+  // Get total value of user loan in fromToken when swapping
+  const { swap: fullRepaymentSwap } = useGetSwapInfo({
+    fromToken: formValuesCopy?.fromToken || asset.vToken.underlyingToken,
+    toToken: asset.vToken.underlyingToken,
+    toTokenAmountTokens: asset.userBorrowBalanceTokens.toFixed(),
+    direction: 'exactAmountOut',
+  });
+
+  const userBorrowBalanceInFromTokens =
+    fullRepaymentSwap?.direction === 'exactAmountOut'
+      ? convertWeiToTokens({
+          valueWei: fullRepaymentSwap.expectedFromTokenAmountSoldWei,
+          token: fullRepaymentSwap.fromToken,
+        })
+      : asset.userBorrowBalanceTokens;
+
   return (
     <RepayFormUi
       asset={asset}
+      userBorrowBalanceInFromTokens={userBorrowBalanceInFromTokens}
       pool={pool}
       onCloseModal={onCloseModal}
       onRepay={onRepay}
