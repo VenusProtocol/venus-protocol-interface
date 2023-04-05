@@ -63,27 +63,37 @@ const useForm = ({
       fixedRepayPercentage: undefined,
     },
     onSubmit: async ({ amountTokens, fixedRepayPercentage, fromToken }, formikHelpers) => {
+      const isSwapping = areTokensEqual(fromToken, toToken);
       const isRepayingFullLoan = fixedRepayPercentage === 100;
-      const amountWei = convertTokensToWei({
-        value: new BigNumber(amountTokens.trim()),
-        token: fromToken,
-      });
+      let amountWei: BigNumber;
 
       await handleTransactionMutation({
         mutate: () => {
-          if (areTokensEqual(fromToken, toToken)) {
-            return onRepay({
-              isRepayingFullLoan,
-              amountWei,
-            });
-          }
-
           // Throw an error if we're meant to execute a swap but no swap was
           // passed through props. This should never happen since the form is
           // disabled while swap infos are being fetched, but we add this logic
           // as a safeguard
-          if (!swap) {
+          if (isSwapping && !swap) {
             throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+          }
+
+          if (swap) {
+            amountWei =
+              swap?.direction === 'exactAmountIn'
+                ? swap.expectedToTokenAmountReceivedWei
+                : swap.toTokenAmountReceivedWei;
+          } else {
+            amountWei = convertTokensToWei({
+              value: new BigNumber(amountTokens.trim()),
+              token: fromToken,
+            });
+          }
+
+          if (!swap) {
+            return onRepay({
+              isRepayingFullLoan,
+              amountWei,
+            });
           }
 
           return onSwapAndRepay({
@@ -92,8 +102,8 @@ const useForm = ({
           });
         },
         successTransactionModalProps: contractReceipt => ({
-          title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
-          content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+          title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
+          content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
           amount: {
             valueWei: amountWei,
             token: toToken,

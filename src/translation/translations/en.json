@@ -113,6 +113,10 @@
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      },
       "swapDetails": {
         "exchangeRate": {
           "label": "Exchange rate",

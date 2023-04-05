@@ -5,7 +5,11 @@ const tokenSchema = yup.object().shape({
   symbol: yup.string().required(),
   decimals: yup.number().required(),
   asset: yup.string().required(),
-  address: yup.string().required(),
+  address: yup.string().when('isNative', {
+    is: true,
+    then: schema => schema.optional(),
+    otherwise: schema => schema.required(),
+  }),
   isNative: yup.boolean().notRequired(),
 });
 
