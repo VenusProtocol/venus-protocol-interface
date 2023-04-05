@@ -1,21 +1,30 @@
+import { waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
-import { isFeatureEnabled } from 'utilities';
+import { TokenBalance } from 'types';
+import { convertTokensToWei, isFeatureEnabled } from 'utilities';
 
+import fakeAccountAddress from '__mocks__/models/address';
+import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
+import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import renderComponent from 'testUtils/renderComponent';
 import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay from '..';
+import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
 jest.mock('clients/api');
+jest.mock('hooks/useGetSwapTokenUserBalances');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: isolatedPools', () => {
+describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
     (isFeatureEnabled as jest.Mock).mockImplementation(
-      featureFlag => featureFlag === 'isolatedPools',
+      featureFlag => featureFlag === 'integratedSwap',
     );
   });
 
@@ -28,7 +37,41 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: isolatedPools'
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
-  it.todo('displays correct wallet balance');
+  it.only('displays correct wallet balance', async () => {
+    const fakeBalanceTokens = '10';
+    const fakeTokenBalances: TokenBalance[] = [
+      {
+        token: PANCAKE_SWAP_TOKENS.busd,
+        balanceWei: convertTokensToWei({
+          value: new BigNumber(fakeBalanceTokens),
+          token: PANCAKE_SWAP_TOKENS.busd,
+        }),
+      },
+    ];
+
+    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+      data: fakeTokenBalances,
+    }));
+
+    const { getByText, container } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: PANCAKE_SWAP_TOKENS.busd,
+    });
+
+    await waitFor(() =>
+      getByText(`${fakeBalanceTokens} ${PANCAKE_SWAP_TOKENS.busd.symbol.toUpperCase()}`),
+    );
+  });
 
   it.todo('disables form if no amount was entered in input');
 

@@ -33,13 +33,13 @@ export interface UseFormProps {
   }) => Promise<ContractReceipt>;
   onCloseModal: () => void;
   userBorrowBalanceTokens: BigNumber;
-  userWalletBalanceFromTokens?: BigNumber;
+  fromTokenUserWalletBalanceTokens?: BigNumber;
   swap?: Swap;
 }
 
 const useForm = ({
   toToken,
-  userWalletBalanceFromTokens = new BigNumber(0),
+  fromTokenUserWalletBalanceTokens = new BigNumber(0),
   userBorrowBalanceTokens,
   onRepay,
   onSwapAndRepay,
@@ -53,7 +53,7 @@ const useForm = ({
 
   const validationSchema = useGetValidationSchema({
     repayBalanceTokens: userBorrowBalanceTokens.toFixed(),
-    walletBalanceTokens: userWalletBalanceFromTokens.toFixed(),
+    walletBalanceTokens: fromTokenUserWalletBalanceTokens.toFixed(),
   });
 
   const formikProps = useFormik<FormValues>({

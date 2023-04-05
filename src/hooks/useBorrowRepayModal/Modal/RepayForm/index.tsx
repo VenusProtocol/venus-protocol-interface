@@ -38,7 +38,6 @@ export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
 export interface RepayFormUiProps {
   asset: Asset;
-  userBorrowBalanceInFromTokens: BigNumber;
   pool: Pool;
   onRepay: UseFormProps['onRepay'];
   onSwapAndRepay: UseFormProps['onSwapAndRepay'];
@@ -46,6 +45,8 @@ export interface RepayFormUiProps {
   tokenBalances?: TokenBalance[];
   onFormValuesChangeCallback: (formValues: FormValues) => void;
   isSwapLoading: boolean;
+  userBorrowBalanceInFromTokens: BigNumber;
+  fromTokenUserWalletBalanceTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -53,6 +54,7 @@ export interface RepayFormUiProps {
 export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   asset,
   userBorrowBalanceInFromTokens,
+  fromTokenUserWalletBalanceTokens,
   pool,
   onCloseModal,
   onRepay,
@@ -69,32 +71,9 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
-  const fromTokenUserWalletBalanceTokens = useMemo(() => {
-    // Get wallet balance from the list of fetched token balances if integrated
-    // swap feature is enabled and the selected token is the same as the asset's
-    if (
-      isFeatureEnabled('integratedSwap') &&
-      swap?.fromToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, swap.fromToken)
-    ) {
-      const tokenBalance = tokenBalances.find(item => areTokensEqual(item.token, swap.fromToken));
-
-      return (
-        tokenBalance &&
-        convertWeiToTokens({
-          valueWei: tokenBalance.balanceWei,
-          token: tokenBalance.token,
-        })
-      );
-    }
-
-    // Otherwise get the wallet balance from the asset object
-    return asset.userWalletBalanceTokens;
-  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, swap]);
-
   const formikProps = useForm({
     toToken: asset.vToken.underlyingToken,
-    userWalletBalanceFromTokens: fromTokenUserWalletBalanceTokens,
+    fromTokenUserWalletBalanceTokens,
     userBorrowBalanceTokens: userBorrowBalanceInFromTokens,
     swap,
     onCloseModal,
@@ -109,7 +88,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     }
   }, [formikProps.values]);
 
-  const readableUserWalletBalanceFromTokens = useFormatTokensToReadableValue({
+  const readablefromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
     token: formikProps.values.fromToken,
   });
@@ -157,6 +136,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       <div css={sharedStyles.getRow({ isLast: false })}>
         {isFeatureEnabled('integratedSwap') ? (
           <SelectTokenTextField
+            data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formikProps.values.fromToken}
             value={formikProps.values.amountTokens}
             // Only display error state if amount is higher than limits
@@ -185,7 +165,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
-                values={{ balance: readableUserWalletBalanceFromTokens }}
+                values={{ balance: readablefromTokenUserWalletBalanceTokens }}
               />
             }
           />
@@ -220,7 +200,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
-                values={{ balance: readableUserWalletBalanceFromTokens }}
+                values={{ balance: readablefromTokenUserWalletBalanceTokens }}
               />
             }
           />
@@ -349,10 +329,41 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
         })
       : asset.userBorrowBalanceTokens;
 
+  const fromTokenUserWalletBalanceTokens = useMemo(() => {
+    // Get wallet balance from the list of fetched token balances if integrated
+    // swap feature is enabled and the selected token is the same as the asset's
+    if (
+      isFeatureEnabled('integratedSwap') &&
+      formValuesCopy?.fromToken &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValuesCopy?.fromToken)
+    ) {
+      const tokenBalance = tokenBalances.find(item =>
+        areTokensEqual(item.token, formValuesCopy.fromToken),
+      );
+
+      return (
+        tokenBalance &&
+        convertWeiToTokens({
+          valueWei: tokenBalance.balanceWei,
+          token: tokenBalance.token,
+        })
+      );
+    }
+
+    // Otherwise get the wallet balance from the asset object
+    return asset.userWalletBalanceTokens;
+  }, [
+    asset.vToken.underlyingToken,
+    asset.userWalletBalanceTokens,
+    formValuesCopy?.fromToken,
+    tokenBalances,
+  ]);
+
   return (
     <RepayFormUi
       asset={asset}
       userBorrowBalanceInFromTokens={userBorrowBalanceInFromTokens}
+      fromTokenUserWalletBalanceTokens={fromTokenUserWalletBalanceTokens}
       pool={pool}
       onCloseModal={onCloseModal}
       onRepay={onRepay}
