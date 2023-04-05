@@ -2,15 +2,25 @@ import { ContractCallContext, Multicall } from 'ethereum-multicall';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
+import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { PoolLens } from 'types/contracts';
 
 import getIsolatedPools from '..';
-import { fakeGetAllPoolsOuput, fakeMulticallResponse1, fakeMulticallResponse2 } from './fakeData';
+import {
+  fakeGetAllPoolsOuput,
+  fakeIsolatedPoolParticipantsCount,
+  fakeMulticallResponse1,
+  fakeMulticallResponse2,
+} from './fakeData';
 
 jest.mock('clients/subgraph');
 
 describe('api/queries/getIsolatedPools', () => {
   test('returns isolated pools in the correct format', async () => {
+    (getIsolatedPoolParticipantsCount as jest.Mock).mockImplementationOnce(
+      () => fakeIsolatedPoolParticipantsCount,
+    );
+
     const fakePoolLensContract = {
       getAllPools: async () => fakeGetAllPoolsOuput,
     } as unknown as PoolLens;

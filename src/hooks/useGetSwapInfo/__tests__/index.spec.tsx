@@ -1,9 +1,7 @@
-import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
 import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
+import fakePancakeSwapPairs from '__mocks__/models/pancakeSwapPairs';
 import { getPancakeSwapPairs } from 'clients/api';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
@@ -12,14 +10,6 @@ import useGetSwapInfo from '..';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';
 
 jest.mock('clients/api');
-
-const fakePairs: PSPair[] = fakeTokenCombinations.map(
-  ([tokenA, tokenB]) =>
-    new PSPair(
-      PSCurrencyAmount.fromRawAmount(tokenA, new BigNumber(10).pow(tokenA.decimals).toFixed()),
-      PSCurrencyAmount.fromRawAmount(tokenB, new BigNumber(10).pow(tokenB.decimals).toFixed()),
-    ),
-);
 
 describe('pages/Swap/useGetSwapInfo', () => {
   it('returns default state when fromToken and toToken reference the same token', async () => {
@@ -120,14 +110,14 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
     it('returns an error if no trade is found for the input provided', async () => {
       // Remove pairs containing fromToken
-      const customFakePairs = fakePairs.filter(
+      const customfakePancakeSwapPairs = fakePancakeSwapPairs.filter(
         fakePair =>
           fakePair.token0.address !== PANCAKE_SWAP_TOKENS.busd.address &&
           fakePair.token1.address !== PANCAKE_SWAP_TOKENS.busd.address,
       );
 
       (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
-        pairs: customFakePairs,
+        pairs: customfakePancakeSwapPairs,
       }));
 
       const input: UseGetSwapInfoInput = {
@@ -157,7 +147,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
     it('returns swap in correct format if a trade is found', async () => {
       (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
-        pairs: fakePairs,
+        pairs: fakePancakeSwapPairs,
       }));
 
       const input: UseGetSwapInfoInput = {
@@ -207,7 +197,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns an error if no trade is found for the input provided', async () => {
-      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({ pairs: fakePairs }));
+      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
+        pairs: fakePancakeSwapPairs,
+      }));
 
       const input: UseGetSwapInfoInput = {
         fromToken: PANCAKE_SWAP_TOKENS.busd,
@@ -236,7 +228,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
     it('returns swap in correct format if a trade is found', async () => {
       (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
-        pairs: fakePairs,
+        pairs: fakePancakeSwapPairs,
       }));
 
       const input: UseGetSwapInfoInput = {

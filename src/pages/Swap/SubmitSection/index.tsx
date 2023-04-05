@@ -86,7 +86,7 @@ const SubmitSectionUi: React.FC<SubmitSectionUiProps> = ({
     }
 
     return t('swapPage.submitButton.processing');
-  }, [swap, swapError, formErrors[0], isFormValid]);
+  }, [swap, swapError, formErrors[0]]);
 
   const handleEnableFromToken = async () => {
     try {

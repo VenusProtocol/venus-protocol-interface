@@ -66,6 +66,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('borrowRepayModal.repay.submitButtonLabel.repay');
   }, [isFormDirty, isSwapLoading, formErrors.amountTokens, fromTokenAmount]);
 
+  // TODO: handle enable flow
+
   return (
     <PrimaryButton
       type="submit"

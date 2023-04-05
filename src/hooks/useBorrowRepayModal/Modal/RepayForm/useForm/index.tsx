@@ -118,12 +118,11 @@ const useForm = ({
   }, [validationSchema]);
 
   // If user selected a fixed percentage of their loan to repay, we manually
-  // update the input value to that exact amount (and keep on updating when the
-  // total loan value changes, for example when interests accumulate)
+  // update the input value to that exact amount (and keep on updating it when
+  // the total loan value changes, for example when interests accumulate)
   useEffect(() => {
-    // Handle repaying a fixed percentage without swapping
+    // Fixed percentage without swapping
     const isNotSwapping = areTokensEqual(formikProps.values.fromToken, toToken);
-
     if (isMounted() && formikProps.values.fixedRepayPercentage && isNotSwapping) {
       const fixedAmountToRepayTokens = calculatePercentageOfUserBorrowBalance({
         userBorrowBalanceTokens,
@@ -133,12 +132,21 @@ const useForm = ({
 
       formikProps.setFieldValue('amountTokens', fixedAmountToRepayTokens);
     }
+  }, [
+    formikProps.values.fixedRepayPercentage,
+    formikProps.values.fromToken,
+    toToken,
+    userBorrowBalanceTokens,
+  ]);
 
-    // Handle repaying a fixed percentage using the swap
+  useEffect(() => {
+    // Fixed percentage using the swap
+    const isSwapping = !!swap;
     if (
       isMounted() &&
       formikProps.values.fixedRepayPercentage &&
-      swap?.direction === 'exactAmountOut'
+      isSwapping &&
+      swap.direction === 'exactAmountOut'
     ) {
       const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
         valueWei: swap.expectedFromTokenAmountSoldWei,
@@ -147,13 +155,7 @@ const useForm = ({
 
       formikProps.setFieldValue('amountTokens', expectedFromTokenAmountSoldTokens);
     }
-  }, [
-    formikProps.values.fixedRepayPercentage,
-    formikProps.values.fromToken,
-    toToken,
-    userBorrowBalanceTokens,
-    swap,
-  ]);
+  }, [formikProps.values.fixedRepayPercentage, swap]);
 
   return formikProps;
 };
