@@ -18,6 +18,7 @@ import {
   isFeatureEnabled,
 } from 'utilities';
 
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { useRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -40,6 +41,7 @@ export interface RepayFormUiProps {
   userBorrowBalanceInFromTokens: BigNumber;
   pool: Pool;
   onRepay: UseFormProps['onRepay'];
+  onSwapAndRepay: UseFormProps['onSwapAndRepay'];
   onCloseModal: () => void;
   tokenBalances?: TokenBalance[];
   onFormValuesChangeCallback: (formValues: FormValues) => void;
@@ -54,6 +56,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   pool,
   onCloseModal,
   onRepay,
+  onSwapAndRepay,
   tokenBalances = [],
   onFormValuesChangeCallback,
   isSwapLoading,
@@ -96,6 +99,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     swap,
     onCloseModal,
     onRepay,
+    onSwapAndRepay,
   });
 
   // Detect form value changes
@@ -287,7 +291,21 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     vToken: asset.vToken,
   });
 
-  // TODO: handle swap and repay
+  const onSwapAndRepay = async ({
+    swap,
+    isRepayingFullLoan,
+  }: {
+    swap: Swap;
+    isRepayingFullLoan: boolean;
+  }) => {
+    // TODO: call relevant mutation function (see: VEN-1270)
+    console.log('TODO: execute swap and repay', {
+      swap,
+      isRepayingFullLoan,
+    });
+
+    return fakeContractReceipt;
+  };
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances(
     {
@@ -338,6 +356,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       pool={pool}
       onCloseModal={onCloseModal}
       onRepay={onRepay}
+      onSwapAndRepay={onSwapAndRepay}
       tokenBalances={tokenBalances}
       onFormValuesChangeCallback={setFormValuesCopy}
       swap={swapInfo.swap}

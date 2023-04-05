@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { Swap } from 'types';
 import * as yup from 'yup';
 
 export type FormValues = yup.InferType<ReturnType<typeof getValidationSchema>>;
@@ -16,7 +15,6 @@ export const getValidationSchema = ({
 }: {
   repayBalanceTokens?: string;
   walletBalanceTokens?: string;
-  swap?: Swap;
 }) =>
   yup.object({
     amountTokens: yup
@@ -32,16 +30,14 @@ export const getValidationSchema = ({
 const useGetValidationSchema = ({
   repayBalanceTokens,
   walletBalanceTokens,
-  swap,
 }: Parameters<typeof getValidationSchema>[0]) =>
   useMemo(
     () =>
       getValidationSchema({
         repayBalanceTokens,
         walletBalanceTokens,
-        swap,
       }),
-    [repayBalanceTokens, walletBalanceTokens, swap],
+    [repayBalanceTokens, walletBalanceTokens],
   );
 
 export default useGetValidationSchema;

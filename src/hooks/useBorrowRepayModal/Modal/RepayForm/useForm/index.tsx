@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -23,6 +24,13 @@ export interface UseFormProps {
     amountWei: BigNumber;
     isRepayingFullLoan: boolean;
   }) => Promise<ContractReceipt>;
+  onSwapAndRepay: ({
+    swap,
+    isRepayingFullLoan,
+  }: {
+    swap: Swap;
+    isRepayingFullLoan: boolean;
+  }) => Promise<ContractReceipt>;
   onCloseModal: () => void;
   userBorrowBalanceTokens: BigNumber;
   userWalletBalanceFromTokens?: BigNumber;
@@ -34,6 +42,7 @@ const useForm = ({
   userWalletBalanceFromTokens = new BigNumber(0),
   userBorrowBalanceTokens,
   onRepay,
+  onSwapAndRepay,
   onCloseModal,
   swap,
 }: UseFormProps) => {
@@ -43,7 +52,6 @@ const useForm = ({
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const validationSchema = useGetValidationSchema({
-    swap,
     repayBalanceTokens: userBorrowBalanceTokens.toFixed(),
     walletBalanceTokens: userWalletBalanceFromTokens.toFixed(),
   });
@@ -55,19 +63,34 @@ const useForm = ({
       fixedRepayPercentage: undefined,
     },
     onSubmit: async ({ amountTokens, fixedRepayPercentage, fromToken }, formikHelpers) => {
+      const isRepayingFullLoan = fixedRepayPercentage === 100;
       const amountWei = convertTokensToWei({
         value: new BigNumber(amountTokens.trim()),
         token: fromToken,
       });
 
-      const isRepayingFullLoan = fixedRepayPercentage === 100;
-
       await handleTransactionMutation({
-        mutate: () =>
-          onRepay({
-            amountWei,
+        mutate: () => {
+          if (areTokensEqual(fromToken, toToken)) {
+            return onRepay({
+              isRepayingFullLoan,
+              amountWei,
+            });
+          }
+
+          // Throw an error if we're meant to execute a swap but no swap was
+          // passed through props. This should never happen since the form is
+          // disabled while swap infos are being fetched, but we add this logic
+          // as a safeguard
+          if (!swap) {
+            throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+          }
+
+          return onSwapAndRepay({
             isRepayingFullLoan,
-          }),
+            swap,
+          });
+        },
         successTransactionModalProps: contractReceipt => ({
           title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
           content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
@@ -91,7 +114,6 @@ const useForm = ({
   // Revalidate form when validation schema changes, as it is based on swap
   // which itself changes based on form values
   useEffect(() => {
-    // TODO: check if still needed (perhaps when changing fromToken for swap)
     formikProps.validateForm();
   }, [validationSchema]);
 
