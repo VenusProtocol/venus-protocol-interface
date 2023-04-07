@@ -5,6 +5,11 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
+    description: css`
+      display: block;
+      color: ${theme.palette.text.secondary};
+      margin-top: ${theme.spacing(1)};
+    `,
     tokenListContainer: css`
       position: relative;
     `,

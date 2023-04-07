@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Token, TokenBalance } from 'types';
 
@@ -31,6 +32,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   value,
   rightMaxButton,
   'data-testid': testId,
+  description,
   ...otherTokenTextFieldProps
 }) => {
   const styles = useStyles();
@@ -82,11 +84,6 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
         {...otherTokenTextFieldProps}
       />
 
-      <div
-        css={styles.getBackdrop({ isTokenListShown })}
-        onClick={() => setIsTokenListShown(false)}
-      />
-
       <div css={styles.tokenListContainer}>
         {isTokenListShown && (
           <TokenList
@@ -96,6 +93,15 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           />
         )}
       </div>
+
+      <Typography variant="small2" css={styles.description}>
+        {description}
+      </Typography>
+
+      <div
+        css={styles.getBackdrop({ isTokenListShown })}
+        onClick={() => setIsTokenListShown(false)}
+      />
     </div>
   );
 };
