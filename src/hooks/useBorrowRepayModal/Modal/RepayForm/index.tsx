@@ -229,7 +229,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           />
         )}
 
-        {swap && <SwapDetails swap={swap} />}
+        {swap && <SwapDetails swap={swap} data-testid={TEST_IDS.swapDetails} />}
       </div>
 
       <AccountData
@@ -247,7 +247,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         isSwapLoading={isSwapLoading}
         swapError={swapError}
         formErrors={formikProps.errors}
-        fromToken={swap ? swap.fromToken : asset.vToken.underlyingToken}
+        fromToken={formikProps.values.fromToken}
         fromTokenAmount={formikProps.values.amountTokens}
       />
     </form>

@@ -34,7 +34,11 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     );
 
     await waitFor(() =>
-      getByText(`1,000 ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`),
+      getByText(
+        `${fakeAsset.userBorrowBalanceTokens.toFormat()} ${
+          fakeAsset.vToken.underlyingToken.symbol
+        }`,
+      ),
     );
   });
 
@@ -50,7 +54,9 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
     await waitFor(() =>
       getByText(
-        `${fakeAsset.userWalletBalanceTokens.toFormat()} ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`,
+        `${fakeAsset.userWalletBalanceTokens.toFormat()} ${
+          fakeAsset.vToken.underlyingToken.symbol
+        }`,
       ),
     );
   });
@@ -83,9 +89,13 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     });
 
     // Check submit button is disabled
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+    await waitFor(() =>
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance),
+    );
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+      getByText(en.borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance).closest(
+        'button',
+      ),
     ).toBeDisabled();
   });
 
@@ -151,9 +161,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
-    const expectedInputValue = customFakeAsset.userWalletBalanceTokens
-      .dp(customFakeAsset.vToken.underlyingToken.decimals)
-      .toFixed();
+    const expectedInputValue = customFakeAsset.userWalletBalanceTokens.toFormat();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 

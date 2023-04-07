@@ -22,6 +22,7 @@ export const Default = () => (
     userBorrowBalanceInFromTokens={fakeAsset.userBorrowBalanceTokens}
     pool={fakePool}
     onRepay={noop}
+    onSwapAndRepay={noop}
     onCloseModal={noop}
     onFormValuesChangeCallback={noop}
     isSwapLoading={false}

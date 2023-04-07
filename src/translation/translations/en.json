@@ -105,6 +105,7 @@
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
+        "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
         "enterValidAmount": "Enter a valid amount to repay",
         "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",

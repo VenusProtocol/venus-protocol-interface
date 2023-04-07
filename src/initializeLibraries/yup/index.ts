@@ -27,13 +27,17 @@ const initializeYup = () => {
     'lowerThanOrEqualTo',
     function (maxValue: BigNumber | string | number | undefined, errorMessage: string) {
       return this.test('positive', errorMessage, function (value: string | number | undefined) {
-        const areParamsValid =
-          (typeof value === 'string' || typeof value === 'number') && maxValue !== undefined;
+        // Mark value as valid if no maxValue has been defined
+        if (maxValue === undefined) {
+          return true;
+        }
+
+        const isValueValid = typeof value === 'string' || typeof value === 'number';
 
         const isLessThanOrEqualToMaxValue =
-          areParamsValid && new BigNumber(value).isLessThanOrEqualTo(maxValue);
+          isValueValid && new BigNumber(value).isLessThanOrEqualTo(maxValue);
 
-        const isValid = areParamsValid && isLessThanOrEqualToMaxValue;
+        const isValid = isValueValid && isLessThanOrEqualToMaxValue;
 
         return isValid || this.createError({ message: errorMessage });
       });

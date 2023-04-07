@@ -2,17 +2,14 @@ import BigNumber from 'bignumber.js';
 import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 import { convertTokensToWei } from 'utilities';
 
+import { FAKE_BNB_BALANCE_TOKENS, FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
-export const FAKE_DEFAULT_BALANCE_TOKENS = '1';
-
-export const FAKE_BNB_BALANCE_TOKENS = '10';
 export const FAKE_BNB_BALANCE_WEI = convertTokensToWei({
   value: new BigNumber(FAKE_BNB_BALANCE_TOKENS),
   token: PANCAKE_SWAP_TOKENS.bnb,
 });
 
-export const FAKE_BUSD_BALANCE_TOKENS = '20';
 export const FAKE_BUSD_BALANCE_WEI = convertTokensToWei({
   value: new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
   token: PANCAKE_SWAP_TOKENS.busd,

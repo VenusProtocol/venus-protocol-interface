@@ -41,12 +41,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity');
     }
 
-    if (swapError === 'WRAPPING_UNSUPPORTED') {
-      return t('borrowRepayModal.repay.submitButtonLabel.wrappingUnsupported');
+    if (!isFormDirty || !fromTokenAmount) {
+      return t('borrowRepayModal.repay.submitButtonLabel.enterValidAmount');
     }
 
-    if (swapError === 'UNWRAPPING_UNSUPPORTED') {
-      return t('borrowRepayModal.repay.submitButtonLabel.unwrappingUnsupported');
+    if (formErrors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE) {
+      return t('borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance');
     }
 
     if (formErrors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE) {
@@ -55,11 +55,15 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       });
     }
 
-    if (
-      !isFormDirty ||
-      !fromTokenAmount ||
-      formErrors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE
-    ) {
+    if (swapError === 'WRAPPING_UNSUPPORTED') {
+      return t('borrowRepayModal.repay.submitButtonLabel.wrappingUnsupported');
+    }
+
+    if (swapError === 'UNWRAPPING_UNSUPPORTED') {
+      return t('borrowRepayModal.repay.submitButtonLabel.unwrappingUnsupported');
+    }
+
+    if (!isFormValid) {
       return t('borrowRepayModal.repay.submitButtonLabel.enterValidAmount');
     }
 
@@ -72,7 +76,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     <PrimaryButton
       type="submit"
       loading={isFormSubmitting}
-      disabled={!isFormValid || !isFormDirty || isFormSubmitting || isSwapLoading}
+      disabled={!isFormValid || !isFormDirty || isFormSubmitting || isSwapLoading || !!swapError}
       fullWidth
     >
       {submitButtonLabel}

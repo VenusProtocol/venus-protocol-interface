@@ -63,7 +63,7 @@ const useForm = ({
       fixedRepayPercentage: undefined,
     },
     onSubmit: async ({ amountTokens, fixedRepayPercentage, fromToken }, formikHelpers) => {
-      const isSwapping = areTokensEqual(fromToken, toToken);
+      const isSwapping = !areTokensEqual(fromToken, toToken);
       const isRepayingFullLoan = fixedRepayPercentage === 100;
       let amountWei: BigNumber;
 
@@ -133,6 +133,7 @@ const useForm = ({
   useEffect(() => {
     // Fixed percentage without swapping
     const isNotSwapping = areTokensEqual(formikProps.values.fromToken, toToken);
+
     if (isMounted() && formikProps.values.fixedRepayPercentage && isNotSwapping) {
       const fixedAmountToRepayTokens = calculatePercentageOfUserBorrowBalance({
         userBorrowBalanceTokens,
@@ -152,6 +153,7 @@ const useForm = ({
   useEffect(() => {
     // Fixed percentage using the swap
     const isSwapping = !!swap;
+
     if (
       isMounted() &&
       formikProps.values.fixedRepayPercentage &&

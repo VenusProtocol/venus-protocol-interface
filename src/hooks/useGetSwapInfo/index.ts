@@ -63,13 +63,6 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
       };
     }
 
-    if (areTokensEqual(input.fromToken, input.toToken)) {
-      return {
-        swap: undefined,
-        error: undefined,
-      };
-    }
-
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
     // as many toTokens as possible)
     if (

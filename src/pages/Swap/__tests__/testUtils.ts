@@ -2,7 +2,7 @@ import { getByText } from '@testing-library/react';
 import { ExactAmountInSwap } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import useGetSwapInfo from '../../../hooks/useGetSwapInfo';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import en from 'translation/translations/en.json';
 
 export const getEnabledSubmitButton = ({
@@ -28,11 +28,11 @@ export const getEnabledSubmitButton = ({
     en.swapPage.submitButton.enabledLabel
       .replace(
         '{{fromTokenAmount}}',
-        `${expectedFromTokenAmountSoldTokens.toFixed()} ${swap.fromToken.symbol}`,
+        `${expectedFromTokenAmountSoldTokens.toFormat()} ${swap.fromToken.symbol}`,
       )
       .replace(
         '{{toTokenAmount}}',
-        `${expectedMinimumToTokenAmountReceivedTokens.toFixed()} ${swap.toToken.symbol}`,
+        `${expectedMinimumToTokenAmountReceivedTokens.toFormat()} ${swap.toToken.symbol}`,
       ),
   );
 

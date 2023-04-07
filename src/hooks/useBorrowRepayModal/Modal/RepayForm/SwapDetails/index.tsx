@@ -17,9 +17,10 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 
 export interface SwapDetailsProps {
   swap: Swap;
+  'data-testid'?: string;
 }
 
-export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap }) => {
+export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, ...containerProps }) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const sharedStyles = useSharedStyles();
@@ -33,7 +34,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap }) => {
   });
 
   return (
-    <div css={[styles.container, sharedStyles.getRow({ isLast: true })]}>
+    <div css={[styles.container, sharedStyles.getRow({ isLast: true })]} {...containerProps}>
       <LabeledInlineContent
         label={t('borrowRepayModal.repay.swapDetails.exchangeRate.label')}
         css={sharedStyles.getRow({ isLast: false })}
