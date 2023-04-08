@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { AccountData, FormikSubmitButton, FormikTokenTextField, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { useField } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
@@ -40,6 +41,9 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
   const amount = new BigNumber(amountValue || 0);
   const isAmountValid = amount && !amount.isZero() && !amount.isNaN();
 
+  // eslint-disable-next-line  @typescript-eslint/naming-convention
+  const [_inputProps, _metaProps, { setValue: setAmountFieldValue }] = useField('amount');
+
   return (
     <>
       <FormikTokenTextField
@@ -49,7 +53,7 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
         disabled={isTransactionLoading}
         rightMaxButton={{
           label: t('supplyWithdraw.withdraw.max').toUpperCase(),
-          valueOnClick: maxInput.toFixed(),
+          onClick: () => setAmountFieldValue(maxInput.toFixed()),
         }}
         css={styles.input}
         // Only display error state if amount is higher than borrow limit

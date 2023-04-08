@@ -1,16 +1,21 @@
-import { initialize, mswDecorator } from 'msw-storybook-addon';
-import { rest } from 'msw';
 import 'loki/configure-react';
-import '../src/assets/styles/index.scss';
-import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
-import { withThemeProvider, withQueryClientProvider } from '../src/stories/decorators';
+import { rest } from 'msw';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
-import VotersReponse from '../src/__mocks__/api/voters.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
+import VotersReponse from '../src/__mocks__/api/voters.json';
+import '../src/assets/styles/index.scss';
+import { withQueryClientProvider, withThemeProvider } from '../src/stories/decorators';
+import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
+
+import initializeLibraries from '../src/initializeLibraries';
 
 initialize({
   onUnhandledRequest: 'bypass',
 });
+
+initializeLibraries();
 
 const mockRpcProviderResponse = (req, res, ctx) => {
   let response = {};

@@ -5,7 +5,7 @@ import { useMulticall } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
-type Options = QueryObserverOptions<
+export type Options = QueryObserverOptions<
   GetTokenBalancesOutput,
   Error,
   GetTokenBalancesOutput,

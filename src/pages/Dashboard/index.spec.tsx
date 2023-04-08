@@ -62,14 +62,13 @@ describe('pages/Dashboard', () => {
     await waitFor(() => getByTestId(TEST_IDS.supplyMarketTable));
 
     // Enter value in search input
-    fireEvent.change(
-      queryAllByPlaceholderText(en.dashboard.searchInput.placeholderIsolatedPools)[0],
-      {
-        target: { value: 'usdt' },
-      },
-    );
+    fireEvent.change(queryAllByPlaceholderText(en.dashboard.searchInput.placeholder)[0], {
+      target: { value: 'usdt' },
+    });
 
     const supplyMarketTable = getByTestId(TEST_IDS.supplyMarketTable);
     expect(supplyMarketTable.textContent).toMatchSnapshot();
   });
+
+  // TODO: add tests for isolated pools feature flag
 });

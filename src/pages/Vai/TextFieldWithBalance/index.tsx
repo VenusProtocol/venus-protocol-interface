@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { FormikTokenTextField } from 'components';
+import { useField } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
@@ -17,6 +18,8 @@ export interface IFormikTokenTextFieldWithBalanceProps {
   userBalanceWei: BigNumber | undefined;
 }
 
+const FIELD_NAME = 'amount';
+
 export const FormikTokenTextFieldWithBalance: React.FC<IFormikTokenTextFieldWithBalanceProps> = ({
   disabled,
   maxValue,
@@ -26,17 +29,20 @@ export const FormikTokenTextFieldWithBalance: React.FC<IFormikTokenTextFieldWith
   const styles = useStyles();
   const { Trans } = useTranslation();
 
+  // eslint-disable-next-line  @typescript-eslint/naming-convention
+  const [_inputProps, _metaProps, { setValue }] = useField('amount');
+
   return (
     <>
       <FormikTokenTextField
-        name="amount"
+        name={FIELD_NAME}
         css={styles.textField}
         token={TOKENS.vai}
         max={maxValue}
         disabled={disabled}
         rightMaxButton={{
           label: maxButtonLabel,
-          valueOnClick: maxValue,
+          onClick: () => setValue(maxValue),
         }}
         data-testid={TEST_IDS.repayTextField}
         description={

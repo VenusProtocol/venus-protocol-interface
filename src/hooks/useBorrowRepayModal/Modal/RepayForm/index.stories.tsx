@@ -17,5 +17,14 @@ export default {
 } as ComponentMeta<typeof RepayFormUi>;
 
 export const Default = () => (
-  <RepayFormUi asset={fakeAsset} pool={fakePool} onRepay={noop} onCloseModal={noop} />
+  <RepayFormUi
+    asset={fakeAsset}
+    userBorrowBalanceInFromTokens={fakeAsset.userBorrowBalanceTokens}
+    pool={fakePool}
+    onRepay={noop}
+    onSwapAndRepay={noop}
+    onCloseModal={noop}
+    onFormValuesChangeCallback={noop}
+    isSwapLoading={false}
+  />
 );

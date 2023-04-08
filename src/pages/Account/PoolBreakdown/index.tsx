@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { RiskLevel } from 'components';
-import config from 'config';
 import React from 'react';
 import { Pool } from 'types';
+import { isFeatureEnabled } from 'utilities';
 
 import Summary from '../Summary';
 import Tables from './Tables';
@@ -20,7 +20,7 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className })
 
   return (
     <div className={className}>
-      {config.featureFlags.isolatedPools && (
+      {isFeatureEnabled('isolatedPools') && (
         <div css={styles.title} data-testid={TEST_IDS.title}>
           <Typography css={styles.marketName} variant="h3">
             {pool.name}

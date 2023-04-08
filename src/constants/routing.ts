@@ -1,4 +1,4 @@
-import config from 'config';
+import { isFeatureEnabled } from 'utilities';
 
 export enum Subdirectory {
   DASHBOARD = '/',
@@ -26,7 +26,7 @@ const routeSubdirectories = {
   pools: [Subdirectory.POOLS],
   pool: [Subdirectory.POOLS, Subdirectory.POOL],
   markets: [Subdirectory.MARKETS],
-  market: config.featureFlags.isolatedPools
+  market: isFeatureEnabled('isolatedPools')
     ? [Subdirectory.POOLS, Subdirectory.POOL, Subdirectory.MARKET]
     : [Subdirectory.MARKETS, Subdirectory.MARKET],
   governance: [Subdirectory.GOVERNANCE],

@@ -123,7 +123,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
         {isInitialLoading ? (
           <Spinner />
         ) : (
-          <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+          <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer} maxAmount={limitTokens}>
             {({ values }) => (
               <>
                 <div css={styles.ctaContainer}>
@@ -203,7 +203,7 @@ const MintVai: React.FC = () => {
   const { data: vaiTreasuryData, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
-  const { mutateAsync: contractMintVai, isLoading: isSubmitting } = useMintVai({});
+  const { mutateAsync: contractMintVai, isLoading: isSubmitting } = useMintVai();
 
   const mintVai: MintVaiUiProps['mintVai'] = async amountWei =>
     contractMintVai({

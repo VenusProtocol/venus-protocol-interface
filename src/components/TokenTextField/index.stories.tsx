@@ -1,4 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
+import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
 
@@ -55,7 +56,7 @@ export const WithRightMaxButtonLabel = () => (
         max="10"
         rightMaxButton={{
           label: '80% limit',
-          valueOnClick: '8',
+          onClick: noop,
         }}
       />
     )}

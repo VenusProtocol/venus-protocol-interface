@@ -92,7 +92,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
   return (
     <AmountForm onSubmit={handleSubmit} maxAmount={stringifiedAvailableTokens}>
-      {({ dirty, isValid }) => (
+      {({ dirty, isValid, setFieldValue }) => (
         <>
           <FormikTokenTextField
             name="amount"
@@ -100,7 +100,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             disabled={isSubmitting}
             rightMaxButton={{
               label: t('vault.transactionForm.rightMaxButtonLabel'),
-              valueOnClick: stringifiedAvailableTokens,
+              onClick: () => setFieldValue('amount', stringifiedAvailableTokens),
             }}
             max={stringifiedAvailableTokens}
             data-testid={TEST_IDS.tokenTextField}

@@ -28,21 +28,38 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   });
 
   // Fetch pair data
-  const { data: getPancakeSwapPairsData } = useGetPancakeSwapPairs({ tokenCombinations });
+  const { data: getPancakeSwapPairsData, isLoading } = useGetPancakeSwapPairs({
+    tokenCombinations,
+  });
 
   // Find the best trade based on pairs
-  return useMemo(() => {
+  const swapInfo: Omit<UseGetSwapInfoOutput, 'isLoading'> = useMemo(() => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
     let error: SwapError | undefined;
+
+    if (areTokensEqual(input.fromToken, input.toToken)) {
+      return {
+        swap: undefined,
+        error: undefined,
+      };
+    }
 
     const wrappedFromToken = wrapToken(input.fromToken);
     const wrappedToToken = wrapToken(input.toToken);
 
-    // Return no trade if user is trying to wrap or unwrap BNB/wBNB
-    if (areTokensEqual(wrappedFromToken, wrappedToToken)) {
+    // Return no trade if user is trying to wrap BNB to wBNB
+    if (areTokensEqual(wrappedFromToken, wrappedToToken) && input.fromToken.isNative) {
       return {
         swap: undefined,
-        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
+        error: 'WRAPPING_UNSUPPORTED',
+      };
+    }
+
+    // Return no trade if user is trying to unwrap wBNB to BNB
+    if (areTokensEqual(wrappedFromToken, wrappedToToken) && input.toToken.isNative) {
+      return {
+        swap: undefined,
+        error: 'UNWRAPPING_UNSUPPORTED',
       };
     }
 
@@ -150,6 +167,18 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     input.fromTokenAmountTokens,
     input.toTokenAmountTokens,
   ]);
+
+  // Because the swap pairs are fetched on every new block (and they do change
+  // on every new block), the swap object generated ends up getting a new
+  // reference on every new block even if its content is the same. For that
+  // reason, we memoize it using its content as source of truth to check whether
+  // it does change from one instance to the other
+  const memoizedSwapInfo = useMemo(() => swapInfo, [JSON.stringify(swapInfo)]);
+
+  return {
+    ...memoizedSwapInfo,
+    isLoading,
+  };
 };
 
 export default useGetSwapInfo;

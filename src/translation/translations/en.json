@@ -104,11 +104,33 @@
       },
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
-      "submitButton": "Repay",
-      "submitButtonDisabled": "Enter a valid amount to repay",
+      "submitButtonLabel": {
+        "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
+        "enterValidAmount": "Enter a valid amount to repay",
+        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
+        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "processing": "Processing",
+        "repay": "Repay",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
       "successfulTransactionModal": {
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
+      },
+      "swapDetails": {
+        "exchangeRate": {
+          "label": "Exchange rate",
+          "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+        },
+        "repayAmount": {
+          "estimatedValue": "≈ {{ value }}",
+          "exactValue": "{{ value }}",
+          "label": "You will repay"
+        },
+        "slippageTolerance": {
+          "label": "Slippage tolerance"
+        }
       },
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
@@ -737,8 +759,7 @@
       }
     },
     "tabMint": "Mint",
-    "tabRepay": "Repay",
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    "tabRepay": "Repay"
   },
   "vault": {
     "transactionForm": {

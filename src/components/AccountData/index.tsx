@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool } from 'types';
+import { Asset, Pool, Swap } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -20,9 +20,16 @@ export interface AccountDataProps {
   pool: Pool;
   action: 'supply' | 'withdraw' | 'borrow' | 'repay';
   amountTokens: BigNumber;
+  swap?: Swap;
 }
 
-export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, amountTokens }) => {
+export const AccountData: React.FC<AccountDataProps> = ({
+  asset,
+  pool,
+  action,
+  amountTokens,
+  swap,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -35,7 +42,7 @@ export const AccountData: React.FC<AccountDataProps> = ({ asset, pool, action, a
     hypotheticalPoolUserBorrowLimitCents,
     hypotheticalPoolUserBorrowLimitUsedPercentage,
     hypotheticalPoolUserDailyEarningsCents,
-  } = useGetValues({ asset, pool, amountTokens, action });
+  } = useGetValues({ asset, pool, swap, amountTokens, action });
 
   const assetInfo = useAssetInfo({
     asset,

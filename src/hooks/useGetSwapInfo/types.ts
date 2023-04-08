@@ -5,7 +5,10 @@ import {
 } from '@pancakeswap/sdk/dist/index.js';
 import { Swap, SwapDirection, Token } from 'types';
 
-export type SwapError = 'INSUFFICIENT_LIQUIDITY' | 'WRAPPING_UNWRAPPING_UNSUPPORTED';
+export type SwapError =
+  | 'INSUFFICIENT_LIQUIDITY'
+  | 'WRAPPING_UNSUPPORTED'
+  | 'UNWRAPPING_UNSUPPORTED';
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;
@@ -18,6 +21,7 @@ export interface UseGetSwapInfoInput {
 export interface UseGetSwapInfoOutput {
   swap: Swap | undefined;
   error: SwapError | undefined;
+  isLoading: boolean;
 }
 
 export interface FormatToSwapInput {

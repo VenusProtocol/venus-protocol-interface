@@ -14,7 +14,13 @@ export const styles = ({
 }) => {
   const theme = useTheme();
 
-  const getButtonVariantCss = (refVariant: Variant) => {
+  const getButtonVariantCss = ({
+    variant: refVariant,
+    active,
+  }: {
+    variant: Variant;
+    active: boolean;
+  }) => {
     if (refVariant === 'secondary') {
       return css`
         background-color: ${theme.palette.background.paper};
@@ -29,6 +35,12 @@ export const styles = ({
           background-color: ${theme.palette.button.main};
           border-color: ${theme.palette.button.main};
         }
+
+        ${active &&
+        css`
+          background-color: ${theme.palette.button.main};
+          border-color: ${theme.palette.button.main};
+        `}
 
         :active:not(:disabled) {
           background-color: ${theme.palette.button.medium};
@@ -52,6 +64,12 @@ export const styles = ({
           border-color: ${theme.palette.text.secondary};
         }
 
+        ${active &&
+        css`
+          background-color: ${theme.palette.text.secondary};
+          border-color: ${theme.palette.text.secondary};
+        `}
+
         :active:not(:disabled) {
           background-color: ${theme.palette.secondary.main};
           border-color: ${theme.palette.secondary.main};
@@ -67,6 +85,11 @@ export const styles = ({
         :hover:not(:disabled) {
           color: ${theme.palette.button.medium};
         }
+
+        ${active &&
+        css`
+          color: ${theme.palette.button.medium};
+        `}
 
         :active:not(:disabled) {
           color: ${theme.palette.button.dark};
@@ -89,6 +112,12 @@ export const styles = ({
         border-color: ${theme.palette.button.medium};
       }
 
+      ${active &&
+      css`
+        background-color: ${theme.palette.button.medium};
+        border-color: ${theme.palette.button.medium};
+      `}
+
       :active:not(:disabled) {
         background-color: ${theme.palette.button.dark};
         border-color: ${theme.palette.button.dark};
@@ -97,7 +126,7 @@ export const styles = ({
   };
 
   return {
-    getButton: ({ disabled }: { disabled: boolean }) => css`
+    getButton: ({ disabled, active }: { disabled: boolean; active: boolean }) => css`
       border-radius: 8px;
       padding: ${small ? theme.spacing(2, 3) : theme.spacing(3, 6)};
       border: 1px solid transparent;
@@ -124,7 +153,7 @@ export const styles = ({
         width: 100%;
       `};
 
-      ${getButtonVariantCss(variant)};
+      ${getButtonVariantCss({ variant, active })};
     `,
     loadingIcon: css`
       margin-right: ${theme.spacing(2)};

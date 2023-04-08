@@ -66,16 +66,16 @@ describe('components/TokenTextField', () => {
   });
 
   it('renders max button and updates value to provided value when pressing on it', async () => {
-    const onChangeMock = jest.fn();
+    const onMaxButtonClickMock = jest.fn();
     const rightMaxButton = {
       label: 'Test max button label',
-      valueOnClick: ONE_XVS,
+      onClick: onMaxButtonClickMock,
     };
 
     const { getByText } = renderComponent(
       <TokenTextField
         token={TOKENS.xvs}
-        onChange={onChangeMock}
+        onChange={noop}
         value=""
         data-testid={testId}
         max={ONE_XVS}
@@ -86,7 +86,7 @@ describe('components/TokenTextField', () => {
     const rightMaxButtonDom = getByText(rightMaxButton.label) as HTMLButtonElement;
     fireEvent.click(rightMaxButtonDom);
 
-    // Check onChange callback was called with correct value
-    expect(onChangeMock).toHaveBeenCalledWith(ONE_XVS);
+    // Check onClick prop of max button was called
+    expect(onMaxButtonClickMock).toHaveBeenCalledTimes(1);
   });
 });

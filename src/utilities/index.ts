@@ -39,3 +39,4 @@ export { default as areTokensEqual } from './areTokensEqual';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
 export { default as calculateApy } from './calculateApy';
 export { default as areAddressesEqual } from './areAddressesEqual';
+export { default as isFeatureEnabled } from './isFeatureEnabled';

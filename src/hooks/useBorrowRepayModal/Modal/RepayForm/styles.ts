@@ -12,12 +12,14 @@ export const useStyles = () => {
     selectButton: css`
       flex: 1;
       border-radius: ${theme.spacing(13)};
-      padding-left: ${theme.spacing(2)};
-      padding-right: ${theme.spacing(2)};
+      padding: ${theme.spacing(1, 2)};
 
       &:not(:last-child) {
         margin-right: ${theme.spacing(4)};
       }
+    `,
+    swapInfoContainer: css`
+      margin-top: ${theme.spacing(6)};
     `,
   };
 };

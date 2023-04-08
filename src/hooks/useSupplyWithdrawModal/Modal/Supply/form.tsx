@@ -9,6 +9,7 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { useField } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
@@ -54,6 +55,9 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
     [asset.supplyCapTokens, asset.supplyBalanceTokens],
   );
 
+  // eslint-disable-next-line  @typescript-eslint/naming-convention
+  const [_inputProps, _metaProps, { setValue: setAmountFieldValue }] = useField('amount');
+
   return (
     <>
       {pool.isIsolated && (
@@ -74,7 +78,7 @@ export const SupplyContent: React.FC<SupplyFormUiProps> = ({
           disabled={isTransactionLoading || hasSupplyCapBeenReached}
           rightMaxButton={{
             label: t('supplyWithdraw.supply.max').toUpperCase(),
-            valueOnClick: maxInput.toFixed(),
+            onClick: () => setAmountFieldValue(maxInput.toFixed()),
           }}
           css={styles.input}
           // Only display error state if amount is higher than borrow limit

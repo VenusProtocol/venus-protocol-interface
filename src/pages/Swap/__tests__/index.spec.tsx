@@ -1,11 +1,15 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenBalance } from 'types';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeTokenBalances, {
+  FAKE_BNB_BALANCE_TOKENS,
+  FAKE_BUSD_BALANCE_TOKENS,
+  FAKE_DEFAULT_BALANCE_TOKENS,
+} from '__mocks__/models/tokenBalances';
 import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import {
@@ -14,6 +18,7 @@ import {
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
 import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -22,22 +27,14 @@ import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
 import TEST_IDS from '../testIds';
-import useGetSwapInfo from '../useGetSwapInfo';
-import {
-  FAKE_BNB_BALANCE_TOKENS,
-  FAKE_BUSD_BALANCE_TOKENS,
-  FAKE_DEFAULT_BALANCE_TOKENS,
-  fakeExactAmountInSwap,
-  fakeExactAmountOutSwap,
-  fakeNonNativeSwap,
-} from './fakeData';
+import { fakeExactAmountInSwap, fakeExactAmountOutSwap, fakeNonNativeSwap } from './fakeData';
 import { getEnabledSubmitButton, getLastUseGetSwapInfoCallArgs } from './testUtils';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 jest.mock('hooks/useTokenApproval');
 jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('../useGetSwapInfo');
+jest.mock('hooks/useGetSwapInfo');
 
 const useTokenApprovalOriginal = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
@@ -47,24 +44,6 @@ const useTokenApprovalOriginal = useTokenApproval(
     accountAddress: '',
   },
 );
-
-const fakeTokenBalances: TokenBalance[] = Object.values(PANCAKE_SWAP_TOKENS).map(token => {
-  let fakeBalanceTokens = FAKE_DEFAULT_BALANCE_TOKENS;
-
-  if (token.isNative) {
-    fakeBalanceTokens = FAKE_BNB_BALANCE_TOKENS;
-  } else if (token.address === PANCAKE_SWAP_TOKENS.busd.address) {
-    fakeBalanceTokens = FAKE_BUSD_BALANCE_TOKENS;
-  }
-
-  return {
-    token,
-    balanceWei: convertTokensToWei({
-      value: new BigNumber(fakeBalanceTokens),
-      token,
-    }),
-  };
-});
 
 describe('pages/Swap', () => {
   beforeEach(() => {
@@ -77,6 +56,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
+      isLoading: false,
     }));
 
     (useTokenApproval as jest.Mock).mockImplementation(() => useTokenApprovalOriginal);
@@ -93,8 +73,12 @@ describe('pages/Swap', () => {
       },
     });
 
-    await waitFor(() => expect(getByText(`${FAKE_BNB_BALANCE_TOKENS} BNB`)));
-    await waitFor(() => expect(getByText(`${FAKE_BUSD_BALANCE_TOKENS} BUSD`)));
+    await waitFor(() =>
+      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
+    );
+    await waitFor(() =>
+      expect(getByText(`${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} BUSD`)),
+    );
   });
 
   it('updates toToken when changing fromToken for toToken', () => {
@@ -257,6 +241,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
@@ -301,6 +286,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
+      isLoading: false,
     }));
 
     const { getByTestId, getByText } = renderComponent(<SwapPage />, {
@@ -376,6 +362,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
@@ -419,6 +406,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountOutSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
@@ -462,6 +450,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
@@ -513,6 +502,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap,
       error: undefined,
+      isLoading: false,
     }));
 
     // Update fromToken input value to trigger rerender and display swap details
@@ -536,6 +526,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeNonNativeSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
@@ -590,6 +581,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
@@ -650,6 +642,7 @@ describe('pages/Swap', () => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
+      isLoading: false,
     }));
 
     const { container, getByTestId, getByText } = renderComponent(<SwapPage />, {
@@ -659,7 +652,9 @@ describe('pages/Swap', () => {
     });
 
     // wait for the balance to be updated
-    await waitFor(() => expect(getByText(`${FAKE_BNB_BALANCE_TOKENS} BNB`)));
+    await waitFor(() =>
+      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
+    );
 
     // get and click the MAX from token button
     const fromTokenInput = getByTestId(

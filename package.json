@@ -75,7 +75,7 @@
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
     "wagmi": "0.6.7",
-    "yup": "^0.32.11"
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^3.2.3",

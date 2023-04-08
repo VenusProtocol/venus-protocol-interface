@@ -3,6 +3,7 @@
 exports[`pages/Swap/useGetSwapInfo exactAmountIn returns swap in correct format if a trade is found 1`] = `
 Object {
   "error": undefined,
+  "isLoading": false,
   "swap": Object {
     "direction": "exactAmountIn",
     "exchangeRate": "0.499374217772215269",
@@ -32,6 +33,7 @@ Object {
 exports[`pages/Swap/useGetSwapInfo exactAmountOut returns swap in correct format if a trade is found 1`] = `
 Object {
   "error": undefined,
+  "isLoading": false,
   "swap": Object {
     "direction": "exactAmountOut",
     "exchangeRate": "0.49875",

@@ -8,6 +8,8 @@ import useStyles from './styles';
 import { Variant } from './types';
 
 export interface BaseButtonProps {
+  disabled?: boolean;
+  active?: boolean;
   fullWidth?: boolean;
   small?: boolean;
   variant?: Variant;
@@ -27,13 +29,14 @@ export const Button = ({
   small = false,
   variant = 'primary',
   children,
+  active = false,
   ...otherProps
 }: ButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
 
   return (
     <button
-      css={styles.getButton({ disabled })}
+      css={styles.getButton({ disabled, active })}
       className={className}
       disabled={loading || disabled}
       type="button"
@@ -60,10 +63,12 @@ export const LinkButton = ({
   variant = 'primary',
   fullWidth = false,
   small = false,
+  disabled = false,
+  active = false,
   ...props
 }: LinkProps & BaseButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
-  return <Link {...props} css={[styles.getButton({ disabled: false }), styles.link]} />;
+  return <Link {...props} css={[styles.getButton({ disabled, active }), styles.link]} />;
 };
 
 type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -73,6 +78,8 @@ export const AnchorButton = ({
   fullWidth = false,
   small = false,
   children,
+  disabled = false,
+  active = false,
   ...props
 }: AnchorButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
@@ -81,7 +88,7 @@ export const AnchorButton = ({
       target="_blank"
       rel="noreferrer"
       {...props}
-      css={[styles.getButton({ disabled: false }), styles.link]}
+      css={[styles.getButton({ disabled, active }), styles.link]}
     >
       {children}
     </a>
