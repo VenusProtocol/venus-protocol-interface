@@ -41,7 +41,7 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 );
 
 const initialFormValues: FormValues = {
-  fromToken: PANCAKE_SWAP_TOKENS.bnb,
+  fromToken: PANCAKE_SWAP_TOKENS.xvs,
   fromTokenAmountTokens: '',
   toToken: config.isOnTestnet ? TESTNET_PANCAKE_SWAP_TOKENS.busd : MAINNET_PANCAKE_SWAP_TOKENS.xvs,
   toTokenAmountTokens: '',
