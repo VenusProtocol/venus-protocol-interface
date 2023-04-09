@@ -420,7 +420,7 @@
   },
   "myAccount": {
     "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe."
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
