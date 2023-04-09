@@ -472,8 +472,8 @@ Array [
         "reference": "balanceOf",
       },
     ],
-    "contractAddress": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
-    "reference": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+    "contractAddress": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+    "reference": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
   },
   Object {
     "abi": Array [
@@ -945,34 +945,15 @@ Array [
         "reference": "balanceOf",
       },
     ],
-    "contractAddress": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
-    "reference": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+    "contractAddress": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
+    "reference": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
   },
 ]
 `;
 
 exports[`api/queries/getTokenBalances returns token balances in the right format on success 2`] = `
 Object {
-  "tokenBalances": Array [
-    Object {
-      "balanceWei": "0",
-      "token": Object {
-        "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
-        "asset": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.svg",
-        "decimals": 18,
-        "symbol": "CAKE",
-      },
-    },
-    Object {
-      "balanceWei": "156042672843864059",
-      "token": Object {
-        "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
-        "asset": "https://pancakeswap.finance/images/tokens/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56.svg",
-        "decimals": 18,
-        "symbol": "BUSD",
-      },
-    },
-  ],
+  "tokenBalances": Array [],
 }
 `;
 
@@ -1448,8 +1429,8 @@ Array [
         "reference": "balanceOf",
       },
     ],
-    "contractAddress": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
-    "reference": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+    "contractAddress": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+    "reference": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
   },
   Object {
     "abi": Array [
@@ -1921,8 +1902,8 @@ Array [
         "reference": "balanceOf",
       },
     ],
-    "contractAddress": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
-    "reference": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+    "contractAddress": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
+    "reference": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
   },
 ]
 `;
@@ -1931,27 +1912,9 @@ exports[`api/queries/getTokenBalances returns token balances, including BNB, in 
 Object {
   "tokenBalances": Array [
     Object {
-      "balanceWei": "0",
-      "token": Object {
-        "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
-        "asset": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.svg",
-        "decimals": 18,
-        "symbol": "CAKE",
-      },
-    },
-    Object {
-      "balanceWei": "156042672843864059",
-      "token": Object {
-        "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
-        "asset": "https://pancakeswap.finance/images/tokens/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56.svg",
-        "decimals": 18,
-        "symbol": "BUSD",
-      },
-    },
-    Object {
       "balanceWei": "1000000000000000000",
       "token": Object {
-        "address": "",
+        "address": "0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb",
         "asset": "bnb.svg",
         "decimals": 18,
         "isNative": true,

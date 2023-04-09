@@ -3,6 +3,7 @@ import { ContractCallResults } from 'ethereum-multicall';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
+import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 import poolLensAbi from 'constants/contracts/abis/poolLens.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
@@ -14,10 +15,44 @@ const pancakeSwapRouter: {
 } = {
   getReserves: {
     results: {
-      '0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6': {
+      '0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503': {
         originalContractCallContext: {
-          reference: '0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6',
-          contractAddress: '0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6',
+          reference: '0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503',
+          contractAddress: '0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503',
+          abi: pancakeSwapPairAbi,
+          calls: [
+            {
+              reference: 'getReserves',
+              methodName: 'getReserves()',
+              methodParameters: [],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x0ed4e8b757fb1537',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x5965c6270ff3187b40',
+              },
+              1680970043,
+            ],
+            decoded: true,
+            reference: 'getReserves',
+            methodName: 'getReserves()',
+            methodParameters: [],
+            success: true,
+          },
+        ],
+      },
+      '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E': {
+        originalContractCallContext: {
+          reference: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
+          contractAddress: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
           abi: pancakeRouterAbi,
           calls: [
             {
@@ -32,13 +67,13 @@ const pancakeSwapRouter: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x02fa1da65f37f4',
+                hex: '0x0909a0718af19c90216463',
               },
               {
                 type: 'BigNumber',
-                hex: '0xf7eea6d423c2',
+                hex: '0x1a99ab986cc0fc51',
               },
-              1667816951,
+              1681015376,
             ],
             decoded: true,
             reference: 'getReserves',
@@ -48,11 +83,11 @@ const pancakeSwapRouter: {
           },
         ],
       },
-      '0xa96818CA65B57bEc2155Ba5c81a70151f63300CD': {
+      '0x99BD785146aed59e179E839b01e57e7031f48a01': {
         originalContractCallContext: {
-          reference: '0xa96818CA65B57bEc2155Ba5c81a70151f63300CD',
-          contractAddress: '0xa96818CA65B57bEc2155Ba5c81a70151f63300CD',
-          abi: bep20Abi,
+          reference: '0x99BD785146aed59e179E839b01e57e7031f48a01',
+          contractAddress: '0x99BD785146aed59e179E839b01e57e7031f48a01',
+          abi: pancakeSwapPairAbi,
           calls: [
             {
               reference: 'getReserves',
@@ -66,13 +101,13 @@ const pancakeSwapRouter: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x0591ead4f637550903',
+                hex: '0x05bc32751d7a8118',
               },
               {
                 type: 'BigNumber',
-                hex: '0x179765af8d0005501a1bd5d6c7ef',
+                hex: '0x059ae8e2d6b8e4a1',
               },
-              1667818304,
+              1667993451,
             ],
             decoded: true,
             reference: 'getReserves',
@@ -82,11 +117,11 @@ const pancakeSwapRouter: {
           },
         ],
       },
-      '0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc': {
+      '0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07': {
         originalContractCallContext: {
-          reference: '0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc',
-          contractAddress: '0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc',
-          abi: bep20Abi,
+          reference: '0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07',
+          contractAddress: '0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07',
+          abi: pancakeSwapPairAbi,
           calls: [
             {
               reference: 'getReserves',
@@ -100,13 +135,81 @@ const pancakeSwapRouter: {
             returnValues: [
               {
                 type: 'BigNumber',
-                hex: '0x06243b4e36b7e817',
+                hex: '0x6c1e5c783e845d299c',
               },
               {
                 type: 'BigNumber',
-                hex: '0xcf61f251df1765c383508ae091',
+                hex: '0x560749990b208849',
               },
-              1667817053,
+              1669015866,
+            ],
+            decoded: true,
+            reference: 'getReserves',
+            methodName: 'getReserves()',
+            methodParameters: [],
+            success: true,
+          },
+        ],
+      },
+      '0x547C884cA56fb9e442ea05fEE73e6f21caEa933A': {
+        originalContractCallContext: {
+          reference: '0x547C884cA56fb9e442ea05fEE73e6f21caEa933A',
+          contractAddress: '0x547C884cA56fb9e442ea05fEE73e6f21caEa933A',
+          abi: pancakeSwapPairAbi,
+          calls: [
+            {
+              reference: 'getReserves',
+              methodName: 'getReserves()',
+              methodParameters: [],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x9a02be27c3be30',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x333a6c37aa3e5d3755',
+              },
+              1680970043,
+            ],
+            decoded: true,
+            reference: 'getReserves',
+            methodName: 'getReserves()',
+            methodParameters: [],
+            success: true,
+          },
+        ],
+      },
+      '0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c': {
+        originalContractCallContext: {
+          reference: '0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c',
+          contractAddress: '0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c',
+          abi: pancakeSwapPairAbi,
+          calls: [
+            {
+              reference: 'getReserves',
+              methodName: 'getReserves()',
+              methodParameters: [],
+            },
+          ],
+        },
+        callsReturnContext: [
+          {
+            returnValues: [
+              {
+                type: 'BigNumber',
+                hex: '0x012f2ff7231644092a48b3',
+              },
+              {
+                type: 'BigNumber',
+                hex: '0x253e5817516483d4a0',
+              },
+              1680970043,
             ],
             decoded: true,
             reference: 'getReserves',
@@ -117,7 +220,7 @@ const pancakeSwapRouter: {
         ],
       },
     },
-    blockNumber: 24382358,
+    blockNumber: 28786132,
   },
 };
 

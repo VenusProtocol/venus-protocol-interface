@@ -7,7 +7,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
-  FAKE_BUSD_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
 } from '__mocks__/models/tokenBalances';
 import { swapTokens } from 'clients/api';
@@ -77,7 +76,7 @@ describe('pages/Swap', () => {
       expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
     );
     await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} BUSD`)),
+      expect(getByText(`${new BigNumber(FAKE_DEFAULT_BALANCE_TOKENS).toFormat()} XVS`)),
     );
   });
 
@@ -88,11 +87,11 @@ describe('pages/Swap', () => {
       },
     });
 
-    // Since the initial toToken is BUSD, we change fromToken for BUSD
+    // Since the initial toToken is XVS, we change fromToken for XVS
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: PANCAKE_SWAP_TOKENS.xvs,
     });
 
     // Check toToken was updated to fromToken
@@ -110,13 +109,13 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
+    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
 
-    // Revert toToken back to BUSD
+    // Revert toToken back to XVS
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: PANCAKE_SWAP_TOKENS.xvs,
     });
 
     // Check fromToken was updated to toToken
@@ -134,7 +133,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
+    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
   });
 
   it('switches form values when pressing on switch tokens button', () => {
@@ -181,7 +180,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
+    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
 
     expect(
       getByTestId(
@@ -216,7 +215,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.busd.symbol);
+    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
 
     // Check swap direction was updated back correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn');
@@ -422,7 +421,7 @@ describe('pages/Swap', () => {
     ) as HTMLInputElement;
 
     // Enter valid amount in toToken input
-    fireEvent.change(toTokenInput, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
+    fireEvent.change(toTokenInput, { target: { value: FAKE_DEFAULT_BALANCE_TOKENS } });
 
     // Check fromToken input value was updated correctly
     const fromTokenInput = getByTestId(

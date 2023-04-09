@@ -10,7 +10,6 @@ import {
   TertiaryButton,
   toast,
 } from 'components';
-import config from 'config';
 import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -19,11 +18,7 @@ import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from '
 
 import { useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import {
-  MAINNET_PANCAKE_SWAP_TOKENS,
-  PANCAKE_SWAP_TOKENS,
-  TESTNET_PANCAKE_SWAP_TOKENS,
-} from 'constants/tokens';
+import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo, { SwapError } from 'hooks/useGetSwapInfo';
@@ -41,9 +36,9 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 );
 
 const initialFormValues: FormValues = {
-  fromToken: PANCAKE_SWAP_TOKENS.xvs,
+  fromToken: PANCAKE_SWAP_TOKENS.bnb,
   fromTokenAmountTokens: '',
-  toToken: config.isOnTestnet ? TESTNET_PANCAKE_SWAP_TOKENS.busd : MAINNET_PANCAKE_SWAP_TOKENS.xvs,
+  toToken: PANCAKE_SWAP_TOKENS.xvs,
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
