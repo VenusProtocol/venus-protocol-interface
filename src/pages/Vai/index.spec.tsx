@@ -45,14 +45,14 @@ describe('pages/Dashboard/Vai', () => {
       },
     });
 
-    // Check mint tab is display by default
-    await waitFor(() => getByText(en.vai.mintVai.enableToken));
+    // Check mint tab is displayed by default
+    await waitFor(() => getByText(en.vai.mintVai.submitButtonLabel));
 
     // Click on "Repay VAI" tab
     const repayVaiTabButton = getByText(en.vai.tabRepay).closest('button') as HTMLButtonElement;
     fireEvent.click(repayVaiTabButton);
 
     // Check repay tab is now displaying
-    await waitFor(() => getByText(en.vai.repayVai.enableToken));
+    await waitFor(() => getByText(en.vai.repayVai.submitButtonLabel));
   });
 });

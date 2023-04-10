@@ -1,22 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import { PrimaryButton } from 'components';
+import { EnableTokenSteps, PrimaryButton } from 'components';
 import { FormikErrors } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
+import { areTokensEqual, getContractAddress } from 'utilities';
 
 import { SwapError } from 'hooks/useGetSwapInfo';
 
 import { ErrorCode, FormValues } from '../useForm/validationSchema';
 
+const pancakeRouterContractAddress = getContractAddress('pancakeRouter');
+
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormDirty: boolean;
   isFormSubmitting: boolean;
-  isSwapLoading: boolean;
+  toToken: Token;
   fromToken: Token;
   fromTokenAmount: string;
   formErrors: FormikErrors<FormValues>;
+  isSwapLoading: boolean;
   swapError?: SwapError;
 }
 
@@ -24,10 +28,11 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormDirty,
   isFormSubmitting,
-  isSwapLoading,
+  toToken,
   fromToken,
   fromTokenAmount,
   formErrors,
+  isSwapLoading,
   swapError,
 }) => {
   const { t } = useTranslation();
@@ -70,19 +75,33 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('borrowRepayModal.repay.submitButtonLabel.repay');
   }, [isFormDirty, isSwapLoading, formErrors.amountTokens, fromTokenAmount]);
 
-  // TODO: handle enable flow
-
   return (
-    <PrimaryButton
-      type="submit"
-      loading={isFormSubmitting}
-      disabled={!isFormValid || !isFormDirty || isFormSubmitting || isSwapLoading || !!swapError}
-      fullWidth
+    <EnableTokenSteps
+      token={fromToken}
+      spenderAddress={pancakeRouterContractAddress}
+      submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
+      hideTokenEnablingStep={!isFormValid || !!swapError || areTokensEqual(fromToken, toToken)}
     >
-      {submitButtonLabel}
-    </PrimaryButton>
+      {({ isTokenApprovalStatusLoading }) => (
+        <PrimaryButton
+          type="submit"
+          loading={isFormSubmitting}
+          disabled={
+            !isFormValid ||
+            !isFormDirty ||
+            isFormSubmitting ||
+            isSwapLoading ||
+            !!swapError ||
+            isTokenApprovalStatusLoading
+          }
+          fullWidth
+        >
+          {submitButtonLabel}
+        </PrimaryButton>
 
-    // TODO: add footer when swapping
+        // TODO: add swap summary if using swap
+      )}
+    </EnableTokenSteps>
   );
 };
 

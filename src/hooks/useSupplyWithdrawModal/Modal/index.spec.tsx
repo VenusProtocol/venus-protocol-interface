@@ -3,8 +3,7 @@ import React from 'react';
 import { Pool } from 'types';
 
 import { poolData } from '__mocks__/models/pools';
-import { getAllowance, useGetPool } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { useGetPool } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -17,11 +16,6 @@ jest.mock('clients/api');
 
 describe('hooks/useSupplyWithdrawModal', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
         pool: fakePool,

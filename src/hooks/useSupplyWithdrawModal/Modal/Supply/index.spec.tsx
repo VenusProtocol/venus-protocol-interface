@@ -7,9 +7,8 @@ import { Pool, VToken } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import { getAllowance, supply, useGetPool } from 'clients/api';
+import { supply, useGetPool } from 'clients/api';
 import { DISABLED_TOKENS } from 'constants/disabledTokens';
-import MAX_UINT256 from 'constants/maxUint256';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -34,11 +33,6 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('Supply form', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
         pool: fakePool,

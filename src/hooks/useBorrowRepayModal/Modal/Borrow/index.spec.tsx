@@ -8,8 +8,7 @@ import { Pool } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
-import { borrow, getAllowance, useGetPool } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { borrow, useGetPool } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -34,11 +33,6 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Borrow', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     (useGetPool as jest.Mock).mockImplementation(() => ({
       data: {
         pool: fakePool,

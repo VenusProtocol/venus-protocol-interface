@@ -5,9 +5,8 @@ import { convertWeiToTokens } from 'utilities';
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { getAllowance, getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
+import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -25,11 +24,6 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/vai/MintVai', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     (getMintableVai as jest.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
   });
 

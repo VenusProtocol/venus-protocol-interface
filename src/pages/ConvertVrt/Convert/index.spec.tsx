@@ -6,8 +6,7 @@ import { act } from 'react-dom/test-utils';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeProvider from '__mocks__/models/provider';
-import { getAllowance, useGetMainAssets } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { useGetMainAssets } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -22,10 +21,6 @@ const ONE = '1';
 describe('pages/ConvertVRT/Convert', () => {
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
     (useGetMainAssets as jest.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,

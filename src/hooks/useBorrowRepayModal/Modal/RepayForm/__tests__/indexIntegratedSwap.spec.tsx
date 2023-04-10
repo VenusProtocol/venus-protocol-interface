@@ -23,8 +23,6 @@ import Repay, { PRESET_PERCENTAGES } from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('hooks/useSuccessfulTransactionModal');
-
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(PANCAKE_SWAP_TOKENS.busd.decimals),
 );
@@ -661,15 +659,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
         fakeToTokenAmountRepaidTokens,
       ).dp(PANCAKE_SWAP_TOKENS.busd.decimals);
 
-      // eslint-disable-next-line
-      await waitFor(() =>
-        expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed()),
-      );
-
-      // Check submit button is enabled
-      expect(
-        getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
-      ).not.toBeDisabled();
+      expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed());
     }
   });
 

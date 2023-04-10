@@ -6,9 +6,8 @@ import React from 'react';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { getAllowance, getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
+import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
-import MAX_UINT256 from 'constants/maxUint256';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -25,10 +24,6 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
 
 describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
     (getVaiVaultUserInfo as jest.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
   });
 
