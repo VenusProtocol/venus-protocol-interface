@@ -310,7 +310,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         </Typography>
 
         {swap && (
-          <div data-testid={TEST_IDS.swapDetails}>
+          <div data-testid={TEST_IDS.swapDetails} css={styles.swapDetails}>
             <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
