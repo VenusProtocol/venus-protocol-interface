@@ -1,6 +1,7 @@
 import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { ContractCallResults } from 'ethereum-multicall';
+import { areAddressesEqual } from 'utilities';
 
 import { PairAddress } from './types';
 
@@ -36,10 +37,8 @@ const formatToPairs = ({
 
     // Exclude pair if it already exists
     if (
-      acc.find(
-        existingPair =>
-          existingPair.liquidityToken.address.toLowerCase() ===
-          pair.liquidityToken.address.toLowerCase(),
+      acc.find(existingPair =>
+        areAddressesEqual(existingPair.liquidityToken.address, pair.liquidityToken.address),
       )
     ) {
       return acc;

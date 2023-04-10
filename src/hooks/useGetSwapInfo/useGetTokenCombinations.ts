@@ -16,9 +16,10 @@ export interface UseGetTokenCombinationsInput {
 // List tokens to check trades against
 const BASE_TRADE_TOKENS = config.isOnTestnet
   ? [
-      TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
       TESTNET_PANCAKE_SWAP_TOKENS.busd,
-      TESTNET_PANCAKE_SWAP_TOKENS.cake,
+      TESTNET_PANCAKE_SWAP_TOKENS.eth,
+      TESTNET_PANCAKE_SWAP_TOKENS.xvs,
+      TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
     ]
   : [
       MAINNET_PANCAKE_SWAP_TOKENS.wbnb,

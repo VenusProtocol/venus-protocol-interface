@@ -167,41 +167,41 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     symbol: 'ANKR',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   ankrbnb: {
     address: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
     decimals: 18,
     symbol: 'ankrBNB',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   mobx: {
     address: '0x523027fFdf9B18Aa652dBcd6B92f885009153dA3',
     decimals: 18,
     symbol: 'MOBX',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   nft: {
     address: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
     decimals: 18,
     symbol: 'NFT',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   raca: {
     address: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
     decimals: 18,
     symbol: 'RACA',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   stkbnb: {
     address: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
     decimals: 18,
     symbol: 'stkBNB',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
   usdd: {
     address: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
     decimals: 18,
     symbol: 'USDD',
     asset: xvs, // TODO: add correct asset
-  },
+  } as Token,
 };

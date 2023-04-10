@@ -663,8 +663,8 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
-    "reference": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
+    "contractAddress": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
+    "reference": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
   },
   Object {
     "abi": Array [
@@ -1327,8 +1327,8 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
-    "reference": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+    "contractAddress": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
+    "reference": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
   },
   Object {
     "abi": Array [
@@ -1991,8 +1991,8 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
-    "reference": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+    "contractAddress": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
+    "reference": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
   },
   Object {
     "abi": Array [
@@ -2655,8 +2655,8 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
-    "reference": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
+    "contractAddress": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
+    "reference": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
   },
   Object {
     "abi": Array [
@@ -3319,8 +3319,8 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
-    "reference": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+    "contractAddress": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
+    "reference": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
   },
   Object {
     "abi": Array [
@@ -3983,8 +3983,3992 @@ Array [
         "reference": "getReserves",
       },
     ],
-    "contractAddress": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
-    "reference": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+    "contractAddress": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+    "reference": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
+    "reference": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
+    "reference": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
+    "reference": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
+    "reference": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+    "reference": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+  },
+  Object {
+    "abi": Array [
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Approval",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Burn",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "name": "Mint",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1In",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "Swap",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+        ],
+        "name": "Sync",
+        "type": "event",
+      },
+      Object {
+        "anonymous": false,
+        "inputs": Array [
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "Transfer",
+        "type": "event",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "MINIMUM_LIQUIDITY",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "PERMIT_TYPEHASH",
+        "outputs": Array [
+          Object {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+        ],
+        "name": "allowance",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "approve",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "balanceOf",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "burn",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "decimals",
+        "outputs": Array [
+          Object {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "factory",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "getReserves",
+        "outputs": Array [
+          Object {
+            "internalType": "uint112",
+            "name": "reserve0",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint112",
+            "name": "reserve1",
+            "type": "uint112",
+          },
+          Object {
+            "internalType": "uint32",
+            "name": "blockTimestampLast",
+            "type": "uint32",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "initialize",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "kLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "mint",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "liquidity",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "name",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          Object {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "permit",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price0CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "price1CumulativeLast",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+        ],
+        "name": "skim",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "amount0Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "amount1Out",
+            "type": "uint256",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes",
+          },
+        ],
+        "name": "swap",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "symbol",
+        "outputs": Array [
+          Object {
+            "internalType": "string",
+            "name": "",
+            "type": "string",
+          },
+        ],
+        "stateMutability": "pure",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "sync",
+        "outputs": Array [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token0",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "token1",
+        "outputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [],
+        "name": "totalSupply",
+        "outputs": Array [
+          Object {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transfer",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      Object {
+        "inputs": Array [
+          Object {
+            "internalType": "address",
+            "name": "from",
+            "type": "address",
+          },
+          Object {
+            "internalType": "address",
+            "name": "to",
+            "type": "address",
+          },
+          Object {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256",
+          },
+        ],
+        "name": "transferFrom",
+        "outputs": Array [
+          Object {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+    ],
+    "calls": Array [
+      Object {
+        "methodName": "getReserves()",
+        "methodParameters": Array [],
+        "reference": "getReserves",
+      },
+    ],
+    "contractAddress": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
+    "reference": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
   },
 ]
 `;
@@ -3994,7 +7978,7 @@ Object {
   "pairs": Array [
     Pair {
       "liquidityToken": Token {
-        "address": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
+        "address": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
         "chainId": 97,
         "decimals": 18,
         "isNative": false,
@@ -4006,7 +7990,7 @@ Object {
       "tokenAmounts": Array [
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
@@ -4023,20 +8007,21 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            918022167,
-            412151096,
+            153766067,
+            478959888,
+            1241855,
           ],
         },
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
             "isToken": true,
             "name": undefined,
             "projectLink": undefined,
-            "symbol": "CAKE",
+            "symbol": "ETH",
           },
           "decimalScale": JSBI [
             660865024,
@@ -4046,17 +8031,16 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            277536913,
-            496438797,
-            522526193,
-            13272,
+            612619424,
+            962616645,
+            595,
           ],
         },
       ],
     },
     Pair {
       "liquidityToken": Token {
-        "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+        "address": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
         "chainId": 97,
         "decimals": 18,
         "isNative": false,
@@ -4068,7 +8052,7 @@ Object {
       "tokenAmounts": Array [
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
@@ -4085,8 +8069,71 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            643774452,
-            780406,
+            73214364,
+            963764474,
+            1729,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "XVS",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            186681417,
+            404563556,
+            5,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            270623843,
+            103532146,
+            9476615,
           ],
         },
         CurrencyAmount2 {
@@ -4108,15 +8155,137 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            651436994,
-            253882,
+            750845009,
+            711372385,
+            1,
           ],
         },
       ],
     },
     Pair {
       "liquidityToken": Token {
-        "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+        "address": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "ETH",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            667139632,
+            40372984,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "XVS",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            1046296405,
+            699457192,
+            819,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "ETH",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            494567704,
+            384879060,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            381215905,
+            376152971,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
         "chainId": 97,
         "decimals": 18,
         "isNative": false,
@@ -4145,21 +8314,20 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            928319747,
-            128668632,
-            89,
+            402330935,
+            995336925,
           ],
         },
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
             "isToken": true,
             "name": undefined,
             "projectLink": undefined,
-            "symbol": "CAKE",
+            "symbol": "XVS",
           },
           "decimalScale": JSBI [
             660865024,
@@ -4169,10 +8337,9 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            366397423,
-            356542575,
-            452513792,
-            386521,
+            857242432,
+            387488831,
+            1430,
           ],
         },
       ],
@@ -4186,7 +8353,7 @@ Object {
   "pairs": Array [
     Pair {
       "liquidityToken": Token {
-        "address": "0x58C6Fc654b3deE6839b65136f61cB9120d96BCc6",
+        "address": "0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07",
         "chainId": 97,
         "decimals": 18,
         "isNative": false,
@@ -4198,7 +8365,7 @@ Object {
       "tokenAmounts": Array [
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
@@ -4215,8 +8382,71 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            643774452,
-            780406,
+            73214364,
+            963764474,
+            1729,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "XVS",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            186681417,
+            404563556,
+            5,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            270623843,
+            103532146,
+            9476615,
           ],
         },
         CurrencyAmount2 {
@@ -4238,15 +8468,199 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            651436994,
-            253882,
+            750845009,
+            711372385,
+            1,
           ],
         },
       ],
     },
     Pair {
       "liquidityToken": Token {
-        "address": "0xa96818CA65B57bEc2155Ba5c81a70151f63300CD",
+        "address": "0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "BUSD",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            153766067,
+            478959888,
+            1241855,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "ETH",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            612619424,
+            962616645,
+            595,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x547C884cA56fb9e442ea05fEE73e6f21caEa933A",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "ETH",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            667139632,
+            40372984,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "XVS",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            1046296405,
+            699457192,
+            819,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0x99BD785146aed59e179E839b01e57e7031f48a01",
+        "chainId": 97,
+        "decimals": 18,
+        "isNative": false,
+        "isToken": true,
+        "name": "Pancake LPs",
+        "projectLink": undefined,
+        "symbol": "Cake-LP",
+      },
+      "tokenAmounts": Array [
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "ETH",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            494567704,
+            384879060,
+          ],
+        },
+        CurrencyAmount2 {
+          "currency": Token {
+            "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+            "chainId": 97,
+            "decimals": 18,
+            "isNative": false,
+            "isToken": true,
+            "name": undefined,
+            "projectLink": undefined,
+            "symbol": "WBNB",
+          },
+          "decimalScale": JSBI [
+            660865024,
+            931322574,
+          ],
+          "denominator": JSBI [
+            1,
+          ],
+          "numerator": JSBI [
+            381215905,
+            376152971,
+          ],
+        },
+      ],
+    },
+    Pair {
+      "liquidityToken": Token {
+        "address": "0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503",
         "chainId": 97,
         "decimals": 18,
         "isNative": false,
@@ -4275,21 +8689,20 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            928319747,
-            128668632,
-            89,
+            402330935,
+            995336925,
           ],
         },
         CurrencyAmount2 {
           "currency": Token {
-            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "chainId": 97,
             "decimals": 18,
             "isNative": false,
             "isToken": true,
             "name": undefined,
             "projectLink": undefined,
-            "symbol": "CAKE",
+            "symbol": "XVS",
           },
           "decimalScale": JSBI [
             660865024,
@@ -4299,72 +8712,9 @@ Object {
             1,
           ],
           "numerator": JSBI [
-            366397423,
-            356542575,
-            452513792,
-            386521,
-          ],
-        },
-      ],
-    },
-    Pair {
-      "liquidityToken": Token {
-        "address": "0x209eBd953FA5e3fE1375f7Dd0a848A9621e9eaFc",
-        "chainId": 97,
-        "decimals": 18,
-        "isNative": false,
-        "isToken": true,
-        "name": "Pancake LPs",
-        "projectLink": undefined,
-        "symbol": "Cake-LP",
-      },
-      "tokenAmounts": Array [
-        CurrencyAmount2 {
-          "currency": Token {
-            "address": "0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814",
-            "chainId": 97,
-            "decimals": 18,
-            "isNative": false,
-            "isToken": true,
-            "name": undefined,
-            "projectLink": undefined,
-            "symbol": "BUSD",
-          },
-          "decimalScale": JSBI [
-            660865024,
-            931322574,
-          ],
-          "denominator": JSBI [
-            1,
-          ],
-          "numerator": JSBI [
-            918022167,
-            412151096,
-          ],
-        },
-        CurrencyAmount2 {
-          "currency": Token {
-            "address": "0xFa60D973F7642B748046464e165A65B7323b0DEE",
-            "chainId": 97,
-            "decimals": 18,
-            "isNative": false,
-            "isToken": true,
-            "name": undefined,
-            "projectLink": undefined,
-            "symbol": "CAKE",
-          },
-          "decimalScale": JSBI [
-            660865024,
-            931322574,
-          ],
-          "denominator": JSBI [
-            1,
-          ],
-          "numerator": JSBI [
-            277536913,
-            496438797,
-            522526193,
-            13272,
+            857242432,
+            387488831,
+            1430,
           ],
         },
       ],
