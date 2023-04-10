@@ -1,11 +1,10 @@
-import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
+import { fireEvent, waitFor } from '@testing-library/react';
+import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { getAllowance } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -19,9 +18,15 @@ const fakeContent = 'Fake content';
 const fakeSubmitButtonLabel = 'Fake submit button label';
 
 describe('components/EnableTokenSteps', () => {
-  it('asks the user to enable token if not enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: new BigNumber(0),
+  it('asks user to enable token and lets them do so if they have not already', async () => {
+    const approveTokenMock = jest.fn();
+
+    // Mark all tokens as having not been approved
+    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+      isTokenApproved: false,
+      isTokenApprovalStatusLoading: false,
+      isApproveTokenLoading: false,
+      approveToken: approveTokenMock,
     }));
 
     const { getByText } = renderComponent(
@@ -38,12 +43,22 @@ describe('components/EnableTokenSteps', () => {
       '{{tokenSymbol}}',
       fakeAsset.vToken.underlyingToken.symbol,
     );
+
     await waitFor(() => expect(getByText(enableButtonText)));
+
+    // Click on enable button
+    fireEvent.click(getByText(enableButtonText));
+
+    await waitFor(() => expect(approveTokenMock).toHaveBeenCalledTimes(1));
   });
 
   it('renders content when hideTokenEnablingStep is true, even if user has not enabled token', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: new BigNumber(0),
+    // Mark all tokens as having not been approved
+    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+      isTokenApproved: false,
+      isTokenApprovalStatusLoading: false,
+      isApproveTokenLoading: false,
+      approveToken: noop,
     }));
 
     const { getByText } = renderComponent(
@@ -51,6 +66,7 @@ describe('components/EnableTokenSteps', () => {
         token={fakeAsset.vToken.underlyingToken}
         spenderAddress={fakeAddress}
         submitButtonLabel={fakeSubmitButtonLabel}
+        hideTokenEnablingStep
       >
         {() => fakeContent}
       </EnableTokenSteps>,
@@ -60,10 +76,6 @@ describe('components/EnableTokenSteps', () => {
   });
 
   it('renders content when token is enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     const { getByText } = renderComponent(
       <EnableTokenSteps
         token={fakeAsset.vToken.underlyingToken}

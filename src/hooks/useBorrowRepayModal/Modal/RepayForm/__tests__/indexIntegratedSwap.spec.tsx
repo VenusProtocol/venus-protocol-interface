@@ -23,8 +23,6 @@ import Repay, { PRESET_PERCENTAGES } from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('hooks/useSuccessfulTransactionModal');
-
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
 );

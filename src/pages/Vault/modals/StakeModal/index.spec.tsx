@@ -4,8 +4,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { getAllowance, getBalanceOf, useStakeInVault } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { getBalanceOf, useStakeInVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -26,10 +25,6 @@ const baseProps: StakeModalProps = {
 
 describe('pages/Vault/modals/StakeModal', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
     (getBalanceOf as jest.Mock).mockImplementation(() => ({ balanceWei: fakeBalanceWei }));
   });
 

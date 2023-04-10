@@ -42,8 +42,7 @@ const EnableTokenStepsUi: React.FC<EnableTokenStepsUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const showTokenEnablingStep =
-    !hideTokenEnablingStep && !isTokenApprovalStatusLoading && !isTokenEnabled;
+  const showChildren = hideTokenEnablingStep || isTokenApprovalStatusLoading || isTokenEnabled;
 
   const handleEnableToken = async () => {
     try {
@@ -61,7 +60,7 @@ const EnableTokenStepsUi: React.FC<EnableTokenStepsUiProps> = ({
     }
   };
 
-  if (!showTokenEnablingStep) {
+  if (showChildren) {
     return <>{children({ isTokenApprovalStatusLoading })}</>;
   }
 

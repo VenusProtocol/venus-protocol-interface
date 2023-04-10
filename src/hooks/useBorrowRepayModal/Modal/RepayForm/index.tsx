@@ -247,6 +247,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         isSwapLoading={isSwapLoading}
         swapError={swapError}
         formErrors={formikProps.errors}
+        toToken={asset.vToken.underlyingToken}
         fromToken={formikProps.values.fromToken}
         fromTokenAmount={formikProps.values.amountTokens}
       />

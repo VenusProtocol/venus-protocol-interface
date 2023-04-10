@@ -20,7 +20,6 @@ import { SWAP_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -31,34 +30,20 @@ import { getLastUseGetSwapInfoCallArgs } from './testUtils';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('hooks/useTokenApproval');
 jest.mock('hooks/useGetSwapTokenUserBalances');
 jest.mock('hooks/useGetSwapInfo');
-
-const useTokenApprovalOriginal = useTokenApproval(
-  // These aren't used since useTokenApproval is mocked
-  {
-    token: SWAP_TOKENS.cake,
-    spenderAddress: '',
-    accountAddress: '',
-  },
-);
 
 describe('pages/Swap', () => {
   beforeEach(() => {
     (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
-  });
 
-  beforeEach(() => {
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
-
-    (useTokenApproval as jest.Mock).mockImplementation(() => useTokenApprovalOriginal);
   });
 
   it('renders without crashing', () => {
