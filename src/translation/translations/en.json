@@ -230,6 +230,14 @@
   "enableToken": {
     "enableButtonLabel": "Enable"
   },
+  "enableTokenSteps": {
+    "enableTokenButton": {
+      "text": "Enable {{tokenSymbol}}",
+      "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
+    },
+    "step1": "Step 1",
+    "step2": "Step 2"
+  },
   "errors": {
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
@@ -520,14 +528,6 @@
   },
   "swapPage": {
     "connectWalletToSwap": "Please connect your wallet to swap tokens",
-    "enablingStep": {
-      "enableTokenButton": {
-        "text": "Enable {{tokenSymbol}}",
-        "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
-      },
-      "step1": "Step 1",
-      "step2": "Step 2"
-    },
     "exchangeRate": {
       "label": "Exchange rate",
       "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
@@ -553,7 +553,7 @@
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}",
+      "enabledLabel": "Swap",
       "processing": "Processing"
     },
     "successfulConvertTransactionModal": {

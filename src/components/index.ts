@@ -15,6 +15,7 @@ export * from './ConnectWallet';
 export * from './Delimiter';
 export * from './EllipseAddress';
 export * from './EnableToken';
+export * from './EnableTokenSteps';
 export * from './Form';
 export * from './Icon';
 export * from './LabeledInlineContent';

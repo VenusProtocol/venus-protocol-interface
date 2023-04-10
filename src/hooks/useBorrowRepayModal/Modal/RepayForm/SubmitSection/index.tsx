@@ -37,10 +37,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('borrowRepayModal.repay.submitButtonLabel.processing');
     }
 
-    if (swapError === 'INSUFFICIENT_LIQUIDITY') {
-      return t('borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity');
-    }
-
     if (!isFormDirty || !fromTokenAmount) {
       return t('borrowRepayModal.repay.submitButtonLabel.enterValidAmount');
     }
@@ -53,6 +49,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance', {
         tokenSymbol: fromToken.symbol,
       });
+    }
+
+    if (swapError === 'INSUFFICIENT_LIQUIDITY') {
+      return t('borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity');
     }
 
     if (swapError === 'WRAPPING_UNSUPPORTED') {

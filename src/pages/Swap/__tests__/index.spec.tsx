@@ -26,8 +26,8 @@ import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
 import TEST_IDS from '../testIds';
-import { fakeExactAmountInSwap, fakeExactAmountOutSwap, fakeNonNativeSwap } from './fakeData';
-import { getEnabledSubmitButton, getLastUseGetSwapInfoCallArgs } from './testUtils';
+import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from './fakeData';
+import { getLastUseGetSwapInfoCallArgs } from './testUtils';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -243,7 +243,7 @@ describe('pages/Swap', () => {
       isLoading: false,
     }));
 
-    const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
+    const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -259,12 +259,8 @@ describe('pages/Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     // Check submit button is enabled
-    const enabledSubmitButton = getEnabledSubmitButton({
-      container,
-      swap: fakeExactAmountInSwap,
-    });
-
-    await waitFor(() => expect(enabledSubmitButton).toBeEnabled());
+    const submitButton = getByText(en.swapPage.submitButton.enabledLabel).closest('button');
+    await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Enter amount higher than user balance in fromToken input
     fireEvent.change(fromTokenInput, {
@@ -303,11 +299,11 @@ describe('pages/Swap', () => {
     // Enter valid amount in fromToken input
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
-    const submitButtonTest = getByText(
+    const submitButtonText = getByText(
       en.swapPage.submitButton.disabledLabels.insufficientLiquidity,
     );
-    expect(submitButtonTest);
-    await waitFor(() => expect(submitButtonTest.closest('button')).toBeDisabled());
+    expect(submitButtonText);
+    await waitFor(() => expect(submitButtonText.closest('button')).toBeDisabled());
   });
 
   it('disables submit button when swap is a wrap', async () => {
@@ -324,9 +320,9 @@ describe('pages/Swap', () => {
       token: PANCAKE_SWAP_TOKENS.wbnb,
     });
 
-    const submitButtonTest = getByText(en.swapPage.submitButton.disabledLabels.wrappingUnsupported);
-    expect(submitButtonTest);
-    await waitFor(() => expect(submitButtonTest.closest('button')).toBeDisabled());
+    const submitButtonText = getByText(en.swapPage.submitButton.disabledLabels.wrappingUnsupported);
+    expect(submitButtonText);
+    await waitFor(() => expect(submitButtonText.closest('button')).toBeDisabled());
   });
 
   it('disables submit button when swap is an unwrap', async () => {
@@ -350,11 +346,11 @@ describe('pages/Swap', () => {
       token: PANCAKE_SWAP_TOKENS.bnb,
     });
 
-    const submitButtonTest = getByText(
+    const submitButtonText = getByText(
       en.swapPage.submitButton.disabledLabels.unwrappingUnsupported,
     );
-    expect(submitButtonTest);
-    await waitFor(() => expect(submitButtonTest.closest('button')).toBeDisabled());
+    expect(submitButtonText);
+    await waitFor(() => expect(submitButtonText.closest('button')).toBeDisabled());
   });
 
   it('updates toToken input value correctly when user updates fromToken input value', async () => {
@@ -516,64 +512,6 @@ describe('pages/Swap', () => {
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
   });
 
-  it('asks user to approve a non-native token before they can execute a swap', async () => {
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
-      ...useTokenApprovalOriginal,
-      isTokenApproved: false,
-    }));
-
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
-      swap: fakeNonNativeSwap,
-      error: undefined,
-      isLoading: false,
-    }));
-
-    const { container, getByText, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-    });
-
-    // Change fromToken for a non-native token
-    selectToken({
-      container,
-      token: fakeNonNativeSwap.fromToken,
-      selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-    });
-
-    // Enter valid amount in fromToken input
-    const fromTokenInput = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    fireEvent.change(fromTokenInput, { target: { value: FAKE_DEFAULT_BALANCE_TOKENS } });
-
-    // Check submit button is disabled
-    const submitButton = getEnabledSubmitButton({
-      swap: fakeNonNativeSwap,
-      container,
-    });
-    await waitFor(() => expect(submitButton).toBeDisabled());
-
-    // Check enable token button is showing and enabled
-    const enableTokenButtonTextContent = en.swapPage.enablingStep.enableTokenButton.text.replace(
-      '{{tokenSymbol}}',
-      fakeNonNativeSwap.fromToken.symbol,
-    );
-    const enableTokenButtonText = getByText(enableTokenButtonTextContent);
-
-    expect(enableTokenButtonText);
-    await waitFor(() => expect(enableTokenButtonText.closest('button')).toBeEnabled());
-
-    // Click on enable token
-    fireEvent.click(enableTokenButtonText);
-
-    // Check token approval was requested
-    await waitFor(() => expect(useTokenApprovalOriginal.approveToken).toHaveBeenCalledTimes(1));
-  });
-
   it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -585,7 +523,7 @@ describe('pages/Swap', () => {
 
     (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    const { container, getByTestId } = renderComponent(<SwapPage />, {
+    const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -601,10 +539,7 @@ describe('pages/Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     // Check submit button is enabled
-    const submitButton = getEnabledSubmitButton({
-      swap: fakeExactAmountInSwap,
-      container,
-    });
+    const submitButton = getByText(en.swapPage.submitButton.enabledLabel);
     await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Submit form
@@ -644,7 +579,7 @@ describe('pages/Swap', () => {
       isLoading: false,
     }));
 
-    const { container, getByTestId, getByText } = renderComponent(<SwapPage />, {
+    const { getByTestId, getByText } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -687,10 +622,7 @@ describe('pages/Swap', () => {
     await waitFor(() => expect(toTokenInput.value).toBe(expectedToTokenAmountSoldTokens.toFixed()));
 
     // Check submit button is enabled
-    const submitButton = getEnabledSubmitButton({
-      swap: fakeExactAmountInSwap,
-      container,
-    });
+    const submitButton = getByText(en.swapPage.submitButton.enabledLabel);
     await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Submit form

@@ -42,14 +42,3 @@ export const fakeExactAmountOutSwap: ExactAmountOutSwap = {
   routePath: [PANCAKE_SWAP_TOKENS.bnb.address, PANCAKE_SWAP_TOKENS.busd.address],
   exchangeRate: new BigNumber(2),
 };
-
-export const fakeNonNativeSwap: ExactAmountInSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.cake,
-  fromTokenAmountSoldWei: FAKE_CAKE_BALANCE_WEI,
-  toToken: PANCAKE_SWAP_TOKENS.busd,
-  minimumToTokenAmountReceivedWei: FAKE_CAKE_BALANCE_WEI.multipliedBy(1.5),
-  expectedToTokenAmountReceivedWei: FAKE_CAKE_BALANCE_WEI.multipliedBy(2),
-  direction: 'exactAmountIn',
-  routePath: [PANCAKE_SWAP_TOKENS.cake.address, PANCAKE_SWAP_TOKENS.busd.address],
-  exchangeRate: new BigNumber(2),
-};
