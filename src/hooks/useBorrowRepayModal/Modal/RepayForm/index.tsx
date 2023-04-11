@@ -98,6 +98,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     token: asset.vToken.underlyingToken,
   });
 
+  const isUsingSwap = !areTokensEqual(formikProps.values.fromToken, asset.vToken.underlyingToken);
   const isRepayingFullLoan = formikProps.values.fixedRepayPercentage === 100;
 
   const handleRightMaxButtonClick = useCallback(() => {
@@ -229,7 +230,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           />
         )}
 
-        {swap && <SwapDetails swap={swap} data-testid={TEST_IDS.swapDetails} />}
+        {isUsingSwap && <SwapDetails swap={swap} data-testid={TEST_IDS.swapDetails} />}
       </div>
 
       <AccountData
