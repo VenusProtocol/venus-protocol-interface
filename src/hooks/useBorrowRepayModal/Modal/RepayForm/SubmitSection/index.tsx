@@ -10,7 +10,7 @@ import { SwapError } from 'hooks/useGetSwapInfo';
 
 import { ErrorCode, FormValues } from '../useForm/validationSchema';
 
-const pancakeRouterContractAddress = getContractAddress('pancakeRouter');
+const swapRouterContractAddress = getContractAddress('swapRouter');
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
@@ -42,7 +42,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('borrowRepayModal.repay.submitButtonLabel.processing');
     }
 
-    if (!isFormDirty || !fromTokenAmount) {
+    if (!isFormDirty || !Number(fromTokenAmount)) {
       return t('borrowRepayModal.repay.submitButtonLabel.enterValidAmount');
     }
 
@@ -78,8 +78,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <EnableTokenSteps
       token={fromToken}
-      spenderAddress={pancakeRouterContractAddress}
-      submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
+      spenderAddress={swapRouterContractAddress}
+      submitButtonLabel={t('borrowRepayModal.repay.submitButtonLabel.repay')}
       hideTokenEnablingStep={!isFormValid || !!swapError || areTokensEqual(fromToken, toToken)}
     >
       {({ isTokenApprovalStatusLoading }) => (

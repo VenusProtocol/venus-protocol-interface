@@ -2,6 +2,7 @@ import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Swap } from 'types';
 
+import { TRANSACTION_TIMEOUT_MS } from 'constants/transactionTimeout';
 import { PancakeRouter } from 'types/contracts';
 
 export interface SwapTokensInput {
@@ -11,16 +12,11 @@ export interface SwapTokensInput {
 
 export type SwapTokensOutput = ContractReceipt;
 
-const TRANSACTION_DEADLINE_MS = 60 * 1000 * 10; // 10 minutes
-
 const swapTokens = async ({
   pancakeRouterContract,
   swap,
 }: SwapTokensInput): Promise<SwapTokensOutput> => {
-  const transactionDeadline = new Date().getTime() + TRANSACTION_DEADLINE_MS;
-
-  console.log(pancakeRouterContract);
-
+  const transactionDeadline = new Date().getTime() + TRANSACTION_TIMEOUT_MS;
   const fromAccountAddress = await pancakeRouterContract.signer.getAddress();
 
   // Sell fromTokens for as many toTokens as possible

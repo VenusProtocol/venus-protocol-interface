@@ -68,7 +68,7 @@ const useForm = ({
       let amountWei: BigNumber;
 
       await handleTransactionMutation({
-        mutate: () => {
+        mutate: async () => {
           // Throw an error if we're meant to execute a swap but no swap was
           // passed through props. This should never happen since the form is
           // disabled while swap infos are being fetched, but we add this logic
@@ -89,17 +89,21 @@ const useForm = ({
             });
           }
 
-          if (!swap) {
-            return onRepay({
-              isRepayingFullLoan,
-              amountWei,
-            });
-          }
+          const contractReceipt = swap
+            ? await onSwapAndRepay({
+                isRepayingFullLoan,
+                swap,
+              })
+            : await onRepay({
+                isRepayingFullLoan,
+                amountWei,
+              });
 
-          return onSwapAndRepay({
-            isRepayingFullLoan,
-            swap,
-          });
+          // Reset form and close modal on success only
+          formikHelpers.resetForm();
+          onCloseModal();
+
+          return contractReceipt;
         },
         successTransactionModalProps: contractReceipt => ({
           title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
@@ -111,10 +115,6 @@ const useForm = ({
           transactionHash: contractReceipt.transactionHash,
         }),
       });
-
-      formikHelpers.resetForm();
-
-      onCloseModal();
     },
     validateOnMount: true,
     validateOnChange: true,

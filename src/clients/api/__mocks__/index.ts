@@ -372,11 +372,11 @@ export const useExecuteWithdrawalFromXvsVault = (
     options,
   );
 
-export const swapTokens = jest.fn();
+export const swapTokens = jest.fn(async () => fakeContractReceipt);
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
 
-export const swapTokensAndRepay = jest.fn();
+export const swapTokensAndRepay = jest.fn(async () => fakeContractReceipt);
 export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS_AND_REPAY, swapTokensAndRepay, options);
 

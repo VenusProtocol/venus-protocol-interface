@@ -2,6 +2,7 @@ import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Swap, VToken } from 'types';
 
+import { TRANSACTION_TIMEOUT_MS } from 'constants/transactionTimeout';
 import { SwapRouter } from 'types/contracts';
 
 export interface SwapTokensAndRepayInput {
@@ -13,15 +14,13 @@ export interface SwapTokensAndRepayInput {
 
 export type SwapTokensAndRepayOutput = ContractReceipt;
 
-const TRANSACTION_DEADLINE_MS = 60 * 1000 * 10; // 10 minutes
-
 const swapTokensAndRepay = async ({
   swapRouterContract,
   swap,
   vToken,
   isRepayingFullLoan = false,
 }: SwapTokensAndRepayInput): Promise<SwapTokensAndRepayOutput> => {
-  const transactionDeadline = new Date().getTime() + TRANSACTION_DEADLINE_MS;
+  const transactionDeadline = new Date().getTime() + TRANSACTION_TIMEOUT_MS;
 
   // Repay full loan in tokens using tokens
   if (
@@ -46,6 +45,16 @@ const swapTokensAndRepay = async ({
     !swap.fromToken.isNative &&
     swap.toToken.isNative
   ) {
+    console.log(
+      `swapTokensForFullETHDebtAndRepay (attempting to repay ${swap.toToken.symbol} loan with ${swap.fromToken.symbol})`,
+    );
+    console.log([
+      vToken.address,
+      swap.maximumFromTokenAmountSoldWei.toFixed(),
+      swap.routePath,
+      transactionDeadline,
+    ]);
+
     const transaction = await swapRouterContract.swapTokensForFullETHDebtAndRepay(
       vToken.address,
       swap.maximumFromTokenAmountSoldWei.toFixed(),
@@ -83,6 +92,17 @@ const swapTokensAndRepay = async ({
 
   // Sell fromTokens to repay as many BNBs as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && swap.toToken.isNative) {
+    console.log(
+      `swapExactTokensForETHAndRepay (attempting to repay ${swap.toToken.symbol} loan with ${swap.fromToken.symbol})`,
+    );
+    console.log([
+      vToken.address,
+      swap.fromTokenAmountSoldWei.toFixed(),
+      swap.minimumToTokenAmountReceivedWei.toFixed(),
+      swap.routePath,
+      transactionDeadline,
+    ]);
+
     const transaction = await swapRouterContract.swapExactTokensForETHAndRepay(
       vToken.address,
       swap.fromTokenAmountSoldWei.toFixed(),
@@ -119,6 +139,17 @@ const swapTokensAndRepay = async ({
 
   // Repay BNBs by selling as few fromTokens as possible
   if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && swap.toToken.isNative) {
+    console.log(
+      `swapTokensForExactETHAndRepay (attempting to repay ${swap.toToken.symbol} loan with ${swap.fromToken.symbol})`,
+    );
+    console.log([
+      vToken.address,
+      swap.toTokenAmountReceivedWei.toFixed(),
+      swap.maximumFromTokenAmountSoldWei.toFixed(),
+      swap.routePath,
+      transactionDeadline,
+    ]);
+
     const transaction = await swapRouterContract.swapTokensForExactETHAndRepay(
       vToken.address,
       swap.toTokenAmountReceivedWei.toFixed(),

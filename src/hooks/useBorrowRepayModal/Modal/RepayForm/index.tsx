@@ -18,8 +18,7 @@ import {
   isFeatureEnabled,
 } from 'utilities';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useRepay } from 'clients/api';
+import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo, { SwapError } from 'hooks/useGetSwapInfo';
@@ -273,21 +272,9 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     vToken: asset.vToken,
   });
 
-  const onSwapAndRepay = async ({
-    swap,
-    isRepayingFullLoan,
-  }: {
-    swap: Swap;
-    isRepayingFullLoan: boolean;
-  }) => {
-    // TODO: call relevant mutation function (see: VEN-1270)
-    console.log('TODO: execute swap and repay', {
-      swap,
-      isRepayingFullLoan,
-    });
-
-    return fakeContractReceipt;
-  };
+  const { mutateAsync: onSwapAndRepay } = useSwapTokensAndRepay({
+    vToken: asset.vToken,
+  });
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances(
     {

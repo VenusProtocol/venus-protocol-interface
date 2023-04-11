@@ -33,6 +33,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, ...containerProp
             ? swap.expectedToTokenAmountReceivedWei
             : swap.toTokenAmountReceivedWei,
         token: swap.toToken,
+        returnInReadableFormat: true,
       }),
     [swap],
   );

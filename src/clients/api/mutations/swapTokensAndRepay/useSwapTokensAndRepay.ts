@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { VToken } from 'types';
 
 import {
   SwapTokensAndRepayInput,
@@ -12,17 +13,18 @@ import FunctionKey from 'constants/functionKey';
 type Options = MutationObserverOptions<
   SwapTokensAndRepayOutput,
   Error,
-  Omit<SwapTokensAndRepayInput, 'swapRouterContract'>
+  Omit<SwapTokensAndRepayInput, 'swapRouterContract' | 'vToken'>
 >;
 
-const useSwapTokensAndRepayAndRepay = (options?: Options) => {
+const useSwapTokensAndRepayAndRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
   const swapRouterContract = useSwapRouterContract();
 
   return useMutation(
     FunctionKey.SWAP_TOKENS_AND_REPAY,
-    (params: Omit<SwapTokensAndRepayInput, 'swapRouterContract'>) =>
+    params =>
       swapTokensAndRepay({
         swapRouterContract,
+        vToken,
         ...params,
       }),
     {

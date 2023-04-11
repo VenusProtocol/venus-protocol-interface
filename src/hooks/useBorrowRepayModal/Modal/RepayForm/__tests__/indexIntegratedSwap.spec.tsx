@@ -9,6 +9,7 @@ import { isFeatureEnabled } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
@@ -718,10 +719,12 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     fireEvent.click(getByText(expectedSubmitButtonLabel));
 
-    // TODO: check onSwapAndRepay is called once with the correct arguments (see VEN-1270)
-    // const expectedAmountSwappedWei = new BigNumber(validAmountTokens).multipliedBy(
-    //   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
-    // );
+    // Check swapTokensAndRepay is called with correct arguments
+    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
+    expect(swapTokensAndRepay).toHaveBeenCalledWith({
+      swap: fakeSwap,
+      isRepayingFullLoan: false,
+    });
 
     const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
 
