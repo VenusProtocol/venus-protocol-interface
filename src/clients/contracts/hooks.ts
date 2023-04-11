@@ -9,6 +9,7 @@ import {
   getMulticallContract,
   getPancakeRouterContract,
   getPoolLensContract,
+  getSwapRouterContract,
   getTokenContract,
   getVTokenContract,
   getVaiControllerContract,
@@ -85,6 +86,11 @@ export const useVrtVaultProxyContract = () => {
 export const usePancakeRouterContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getPancakeRouterContract(signer || undefined), [signer]);
+};
+
+export const useSwapRouterContract = () => {
+  const { signer } = useAuth();
+  return useMemo(() => getSwapRouterContract(signer || undefined), [signer]);
 };
 
 export const useMulticallContract = () => {

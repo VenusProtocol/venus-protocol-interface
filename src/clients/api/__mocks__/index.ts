@@ -376,6 +376,10 @@ export const swapTokens = jest.fn();
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
 
+export const swapTokensAndRepay = jest.fn();
+export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SWAP_TOKENS_AND_REPAY, swapTokensAndRepay, options);
+
 export const claimRewards = jest.fn();
 export const useClaimRewards = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_REWARDS, claimRewards, options);

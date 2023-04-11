@@ -18,6 +18,9 @@ const swapTokens = async ({
   swap,
 }: SwapTokensInput): Promise<SwapTokensOutput> => {
   const transactionDeadline = new Date().getTime() + TRANSACTION_DEADLINE_MS;
+
+  console.log(pancakeRouterContract);
+
   const fromAccountAddress = await pancakeRouterContract.signer.getAddress();
 
   // Sell fromTokens for as many toTokens as possible

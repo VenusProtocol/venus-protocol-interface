@@ -61,7 +61,11 @@
   },
   "pancakeRouter": {
     "56": "0x17f4a746A7BF05C3e24A2BB7d7d25e4d3e5BBE3e",
-    "97": "0xE019BC84feF91a5985eb3315dC09c480319f7e68"
+    "97": "0xbB9E7f5067F1986ecDb5d870DC7cdB4e60eD2D45"
+  },
+  "swapRouter": {
+    "56": "",
+    "97": "0xbB9E7f5067F1986ecDb5d870DC7cdB4e60eD2D45"
   },
   "multicall": {
     "56": "0xca11bde05977b3631167028862be2a173976ca11",

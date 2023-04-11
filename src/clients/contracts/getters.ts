@@ -10,6 +10,7 @@ import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDele
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import multicallAbi from 'constants/contracts/abis/multicall.json';
 import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
+import swapRouterAbi from 'constants/contracts/abis/swapRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
@@ -31,6 +32,7 @@ import {
   Multicall,
   PancakeRouter,
   PoolLens,
+  SwapRouter,
   VaiController,
   VaiVault,
   VenusLens,
@@ -197,6 +199,14 @@ export const getPancakeRouterContract = (signer?: Signer) =>
     address: getContractAddress('pancakeRouter'),
     signer,
   }) as PancakeRouter;
+
+// Swap router
+export const getSwapRouterContract = (signer?: Signer) =>
+  getContract({
+    abi: swapRouterAbi,
+    address: getContractAddress('swapRouter'),
+    signer,
+  }) as SwapRouter;
 
 // Multicall
 export const getMulticallContract = (signer?: Signer) =>
