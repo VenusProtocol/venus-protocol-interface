@@ -81,6 +81,15 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     onSwapAndRepay,
   });
 
+  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+    // Prevent submission if there's a swap error (Formik will prevent the submission if the form is invalid)
+    if (swapError) {
+      e?.preventDefault();
+    }
+
+    return formikProps.handleSubmit(e);
+  };
+
   // Detect form value changes
   useEffect(() => {
     if (isMounted()) {
@@ -125,7 +134,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   }, [userBorrowBalanceInFromTokens, fromTokenUserWalletBalanceTokens]);
 
   return (
-    <form onSubmit={formikProps.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <LabeledInlineContent
         css={sharedStyles.getRow({ isLast: true })}
         label={t('borrowRepayModal.repay.currentlyBorrowing')}
@@ -266,7 +275,11 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   // We copy the form values from the UI component (and keep them updated via
   // callback function) as we need them to generate the swap info
-  const [formValuesCopy, setFormValuesCopy] = useState<FormValues | undefined>();
+  const [formValuesCopy, setFormValuesCopy] = useState<FormValues>({
+    amountTokens: '',
+    fromToken: asset.vToken.underlyingToken,
+    fixedRepayPercentage: undefined,
+  });
 
   const { mutateAsync: onRepay } = useRepay({
     vToken: asset.vToken,
@@ -297,18 +310,18 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     },
   );
 
-  const swapDirection = formValuesCopy?.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
+  const swapDirection = formValuesCopy.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
 
   const swapInfo = useGetSwapInfo({
-    fromToken: formValuesCopy?.fromToken || asset.vToken.underlyingToken,
+    fromToken: formValuesCopy.fromToken || asset.vToken.underlyingToken,
     fromTokenAmountTokens:
-      swapDirection === 'exactAmountIn' ? formValuesCopy?.amountTokens : undefined,
+      swapDirection === 'exactAmountIn' ? formValuesCopy.amountTokens : undefined,
     toToken: asset.vToken.underlyingToken,
-    toTokenAmountTokens: formValuesCopy?.fixedRepayPercentage
+    toTokenAmountTokens: formValuesCopy.fixedRepayPercentage
       ? calculatePercentageOfUserBorrowBalance({
           token: asset.vToken.underlyingToken,
           userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
-          percentage: formValuesCopy?.fixedRepayPercentage,
+          percentage: formValuesCopy.fixedRepayPercentage,
         })
       : undefined,
     direction: swapDirection,
@@ -316,7 +329,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   // Get total value of user loan in fromToken when swapping
   const { swap: fullRepaymentSwap } = useGetSwapInfo({
-    fromToken: formValuesCopy?.fromToken || asset.vToken.underlyingToken,
+    fromToken: formValuesCopy.fromToken || asset.vToken.underlyingToken,
     toToken: asset.vToken.underlyingToken,
     toTokenAmountTokens: asset.userBorrowBalanceTokens.toFixed(),
     direction: 'exactAmountOut',
@@ -335,8 +348,8 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     // swap feature is enabled and the selected token is the same as the asset's
     if (
       isFeatureEnabled('integratedSwap') &&
-      formValuesCopy?.fromToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValuesCopy?.fromToken)
+      formValuesCopy.fromToken &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValuesCopy.fromToken)
     ) {
       const tokenBalance = tokenBalances.find(item =>
         areTokensEqual(item.token, formValuesCopy.fromToken),
@@ -356,7 +369,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   }, [
     asset.vToken.underlyingToken,
     asset.userWalletBalanceTokens,
-    formValuesCopy?.fromToken,
+    formValuesCopy.fromToken,
     tokenBalances,
   ]);
 
