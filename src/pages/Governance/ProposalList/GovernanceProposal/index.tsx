@@ -22,6 +22,13 @@ import { useAuth } from 'context/AuthContext';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
+// Translation keys: do not remove this comment
+// t('voteProposalUi.activeUntilDate')
+// t('voteProposalUi.cancelledDate')
+// t('voteProposalUi.executedDate')
+// t('voteProposalUi.queuedUntilDate')
+// t('voteProposalUi.defeatedDate')
+
 interface StateCard {
   state: ProposalState | undefined;
 }

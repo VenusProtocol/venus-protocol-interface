@@ -864,14 +864,17 @@
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "cancel": "Cancel",
+    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"
     },
+    "defeatedDate": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "description": "Description",
     "execute": "Execute",
+    "executedDate": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
@@ -891,6 +894,7 @@
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
+    "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",
