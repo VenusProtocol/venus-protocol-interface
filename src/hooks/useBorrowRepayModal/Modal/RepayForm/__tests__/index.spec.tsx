@@ -138,7 +138,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
   });
 
-  it('updates input value to wallet balance when pressing on max button if wallet balance is lower than borrow balance', async () => {
+  it('updates input value to wallet balance when pressing on max button', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
@@ -162,41 +162,6 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
     const expectedInputValue = customFakeAsset.userWalletBalanceTokens.toFormat();
-
-    await waitFor(() => expect(input.value).toBe(expectedInputValue));
-
-    // Check submit button is enabled
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
-    ).toBeEnabled();
-  });
-
-  it('updates input value to borrow balance when pressing on max button if borrow balance is lower than wallet balance', async () => {
-    const customFakePool = _cloneDeep(fakePool);
-    const customFakeAsset = customFakePool.assets[0];
-    customFakeAsset.userBorrowBalanceTokens = new BigNumber(10);
-    customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
-
-    const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
-
-    // Check input is empty
-    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
-    expect(input.value).toBe('');
-
-    // Press on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
-
-    const expectedInputValue = customFakeAsset.userBorrowBalanceTokens
-      .dp(customFakeAsset.vToken.underlyingToken.decimals)
-      .toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -323,8 +288,8 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
-    // Press on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
+    // Click on 100% button
+    fireEvent.click(getByText('100%'));
 
     // Check notice is displayed
     await waitFor(() =>

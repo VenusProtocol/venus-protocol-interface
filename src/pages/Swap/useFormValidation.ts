@@ -31,7 +31,7 @@ const useFormValidation = ({
         token: formValues.fromToken,
       });
 
-    const isInvalid = !fromTokenAmountWei || fromTokenAmountWei.isZero();
+    const isInvalid = !fromTokenAmountWei || fromTokenAmountWei.isLessThanOrEqualTo(0);
 
     const isHigherThanMax =
       fromTokenUserBalanceWei && fromTokenUserBalanceWei.isLessThan(fromTokenAmountWei);

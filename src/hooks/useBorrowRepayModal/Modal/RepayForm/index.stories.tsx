@@ -3,6 +3,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
+import { TESTNET_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { RepayFormUi } from '.';
@@ -19,12 +20,15 @@ export default {
 export const Default = () => (
   <RepayFormUi
     asset={fakeAsset}
-    userBorrowBalanceInFromTokens={fakeAsset.userBorrowBalanceTokens}
     pool={fakePool}
-    onRepay={noop}
-    onSwapAndRepay={noop}
+    onSubmit={noop}
     onCloseModal={noop}
-    onFormValuesChangeCallback={noop}
     isSwapLoading={false}
+    isSubmitting={false}
+    formValues={{
+      fromToken: TESTNET_TOKENS.xvs,
+      amountTokens: '',
+    }}
+    setFormValues={noop}
   />
 );

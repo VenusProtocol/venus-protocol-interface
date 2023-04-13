@@ -2,10 +2,8 @@
 import { EnableTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Swap } from 'types';
+import { Swap, SwapError } from 'types';
 import { getContractAddress } from 'utilities';
-
-import { SwapError } from 'hooks/useGetSwapInfo';
 
 import { FormError, FormValues } from '../types';
 
