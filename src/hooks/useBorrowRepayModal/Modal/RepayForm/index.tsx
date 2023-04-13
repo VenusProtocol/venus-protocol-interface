@@ -263,6 +263,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       <SubmitSection
         isFormSubmitting={isSubmitting}
         isFormValid={isFormValid}
+        swap={swap}
         isSwapLoading={isSwapLoading}
         formError={formError}
         toToken={asset.vToken.underlyingToken}

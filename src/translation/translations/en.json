@@ -133,6 +133,7 @@
           "label": "Slippage tolerance"
         }
       },
+      "swapSummary": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "repayTabTitle": "Repay"

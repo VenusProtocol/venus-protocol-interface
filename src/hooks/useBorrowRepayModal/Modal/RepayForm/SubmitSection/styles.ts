@@ -5,8 +5,9 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
-      margin-top: ${theme.spacing(6)};
+    swapSummary: css`
+      margin-top: ${theme.spacing(4)};
+      text-align: center;
     `,
   };
 };

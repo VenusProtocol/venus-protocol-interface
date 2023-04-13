@@ -368,6 +368,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
     expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.swapSummary)).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {

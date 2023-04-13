@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import { EnableTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { Swap, Token } from 'types';
+import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilities';
 
+import TEST_IDS from '../testIds';
 import { FormError } from '../useForm/types';
+import { useStyles } from './styles';
 
 const swapRouterContractAddress = getContractAddress('swapRouter');
 
@@ -16,6 +19,7 @@ export interface SubmitSectionProps {
   fromToken: Token;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
+  swap?: Swap;
   formError?: FormError;
 }
 
@@ -26,9 +30,11 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   fromToken,
   fromTokenAmountTokens,
   formError,
+  swap,
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const submitButtonLabel = useMemo(() => {
     if (isSwapLoading && Number(fromTokenAmountTokens) > 0) {
@@ -64,6 +70,40 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('borrowRepayModal.repay.submitButtonLabel.repay');
   }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError]);
 
+  const swapSummary = useMemo(() => {
+    if (!swap) {
+      return undefined;
+    }
+
+    const fromTokenAmountWei =
+      swap.direction === 'exactAmountIn'
+        ? swap.fromTokenAmountSoldWei
+        : swap.expectedFromTokenAmountSoldWei;
+    const toTokenAmountWei =
+      swap.direction === 'exactAmountIn'
+        ? swap.expectedToTokenAmountReceivedWei
+        : swap.toTokenAmountReceivedWei;
+
+    const readableFromTokenAmount = convertWeiToTokens({
+      valueWei: fromTokenAmountWei,
+      token: swap.fromToken,
+      returnInReadableFormat: true,
+      minimizeDecimals: true,
+    });
+
+    const readableToTokenAmount = convertWeiToTokens({
+      valueWei: toTokenAmountWei,
+      token: swap.toToken,
+      returnInReadableFormat: true,
+      minimizeDecimals: true,
+    });
+
+    return t('borrowRepayModal.repay.swapSummary', {
+      toTokenAmount: readableToTokenAmount,
+      fromTokenAmount: readableFromTokenAmount,
+    });
+  }, [swap]);
+
   return (
     <EnableTokenSteps
       token={fromToken}
@@ -72,18 +112,29 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       hideTokenEnablingStep={!isFormValid || areTokensEqual(fromToken, toToken)}
     >
       {({ isTokenApprovalStatusLoading }) => (
-        <PrimaryButton
-          type="submit"
-          loading={isFormSubmitting}
-          disabled={
-            !isFormValid || isFormSubmitting || isSwapLoading || isTokenApprovalStatusLoading
-          }
-          fullWidth
-        >
-          {submitButtonLabel}
-        </PrimaryButton>
+        <>
+          <PrimaryButton
+            type="submit"
+            loading={isFormSubmitting}
+            disabled={
+              !isFormValid || isFormSubmitting || isSwapLoading || isTokenApprovalStatusLoading
+            }
+            fullWidth
+          >
+            {submitButtonLabel}
+          </PrimaryButton>
 
-        // TODO: add swap summary if using swap
+          {swapSummary && (
+            <Typography
+              data-testid={TEST_IDS.swapSummary}
+              css={styles.swapSummary}
+              variant="small2"
+              component="div"
+            >
+              {swapSummary}
+            </Typography>
+          )}
+        </>
       )}
     </EnableTokenSteps>
   );
