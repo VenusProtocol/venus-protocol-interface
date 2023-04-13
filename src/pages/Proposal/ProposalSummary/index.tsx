@@ -234,7 +234,7 @@ export const ProposalSummaryUi: React.FC<
 
             {transactionHash && (
               <BscLink
-                text={createdTxHash}
+                text={transactionHash}
                 urlType="tx"
                 hash={transactionHash}
                 css={styles.transactionLink}
