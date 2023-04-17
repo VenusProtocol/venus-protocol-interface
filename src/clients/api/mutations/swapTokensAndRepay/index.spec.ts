@@ -52,12 +52,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForFullETHDebtAndRepayMock = jest.fn(() => ({
+    const swapTokensForFullBNBDebtAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapTokensForFullETHDebtAndRepay: swapTokensForFullETHDebtAndRepayMock,
+      swapTokensForFullBNBDebtAndRepay: swapTokensForFullBNBDebtAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -68,8 +68,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: true,
     });
 
-    expect(swapTokensForFullETHDebtAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForFullETHDebtAndRepayMock).toHaveBeenCalledWith(
+    expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,
@@ -121,12 +121,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapBnbAndRepayMock = jest.fn(() => ({
+    const swapBNBForExactTokensAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapBnbAndRepay: swapBnbAndRepayMock,
+      swapBNBForExactTokensAndRepay: swapBNBForExactTokensAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -137,8 +137,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: false,
     });
 
-    expect(swapBnbAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapBnbAndRepayMock).toHaveBeenCalledWith(
+    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountInSwap.routePath,
@@ -159,12 +159,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForETHAndRepayMock = jest.fn(() => ({
+    const swapExactTokensForBNBAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapExactTokensForETHAndRepay: swapExactTokensForETHAndRepayMock,
+      swapExactTokensForBNBAndRepay: swapExactTokensForBNBAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -175,8 +175,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: false,
     });
 
-    expect(swapExactTokensForETHAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForETHAndRepayMock).toHaveBeenCalledWith(
+    expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
@@ -225,12 +225,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapETHForExactTokensAndRepayMock = jest.fn(() => ({
+    const swapBNBForExactTokensAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapETHForExactTokensAndRepay: swapETHForExactTokensAndRepayMock,
+      swapBNBForExactTokensAndRepay: swapBNBForExactTokensAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -241,8 +241,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: false,
     });
 
-    expect(swapETHForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapETHForExactTokensAndRepayMock).toHaveBeenCalledWith(
+    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       customFakeExactAmountOutSwap.toTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,
@@ -263,12 +263,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForExactETHAndRepayMock = jest.fn(() => ({
+    const swapTokensForExactBNBAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapTokensForExactETHAndRepay: swapTokensForExactETHAndRepayMock,
+      swapTokensForExactBNBAndRepay: swapTokensForExactBNBAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -279,8 +279,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: false,
     });
 
-    expect(swapTokensForExactETHAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactETHAndRepayMock).toHaveBeenCalledWith(
+    expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       customFakeExactAmountOutSwap.toTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
