@@ -1,1 +1,1 @@
-export const TRANSACTION_TIMEOUT_MS = 60 * 1000 * 10; // 10 minutes
+export const TRANSACTION_TIMEOUT_S = 60 * 10; // 10 minutes in seconds

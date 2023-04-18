@@ -1,8 +1,8 @@
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Swap, VToken } from 'types';
+import { generateTransactionDeadline } from 'utilities';
 
-import { TRANSACTION_TIMEOUT_MS } from 'constants/transactionTimeout';
 import { SwapRouter } from 'types/contracts';
 
 export interface SwapTokensAndRepayInput {
@@ -20,7 +20,7 @@ const swapTokensAndRepay = async ({
   vToken,
   isRepayingFullLoan = false,
 }: SwapTokensAndRepayInput): Promise<SwapTokensAndRepayOutput> => {
-  const transactionDeadline = new Date().getTime() + TRANSACTION_TIMEOUT_MS;
+  const transactionDeadline = generateTransactionDeadline();
 
   // Repay full loan in tokens using tokens
   if (
