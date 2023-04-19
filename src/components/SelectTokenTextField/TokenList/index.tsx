@@ -5,6 +5,9 @@ import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
+import { TOKENS } from 'constants/tokens';
+
+import { SecondaryButton } from '../../Button';
 import { TextField } from '../../TextField';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
@@ -16,6 +19,8 @@ export interface TokenListProps {
   onTokenClick: (token: Token) => void;
   'data-testid'?: string;
 }
+
+const COMMON_TOKENS = [TOKENS.xvs, TOKENS.bnb, TOKENS.usdt, TOKENS.btcb];
 
 export const TokenList: React.FC<TokenListProps> = ({
   tokenBalances,
@@ -73,15 +78,29 @@ export const TokenList: React.FC<TokenListProps> = ({
 
   return (
     <div css={styles.container}>
-      <TextField
-        css={styles.searchField}
-        isSmall
-        autoFocus
-        value={searchValue}
-        onChange={handleSearchInputChange}
-        placeholder={t('selectTokenTextField.searchInput.placeholder')}
-        leftIconSrc="magnifier"
-      />
+      <div css={styles.header}>
+        <TextField
+          css={styles.searchField}
+          isSmall
+          autoFocus
+          value={searchValue}
+          onChange={handleSearchInputChange}
+          placeholder={t('selectTokenTextField.searchInput.placeholder')}
+          leftIconSrc="magnifier"
+        />
+
+        <div css={styles.commonTokenList}>
+          {COMMON_TOKENS.map(commonToken => (
+            <SecondaryButton
+              small
+              onClick={() => onTokenClick(commonToken)}
+              css={styles.commonTokenButton}
+            >
+              <TokenIconWithSymbol css={parentStyles.token} token={commonToken} />
+            </SecondaryButton>
+          ))}
+        </div>
+      </div>
 
       <div css={styles.list}>
         {filteredTokenBalances.map(tokenBalance => (
