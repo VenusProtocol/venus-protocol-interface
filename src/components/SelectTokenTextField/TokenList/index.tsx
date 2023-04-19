@@ -31,12 +31,27 @@ export const TokenList: React.FC<TokenListProps> = ({
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
     setSearchValue(event.currentTarget.value);
 
-  // Sort tokens alphabetically by their symbols
+  // Sort tokens alphabetically, placing tokens with a non-zero balance at the
+  // top of the list
   const sortedTokenBalances = useMemo(
     () =>
-      [...tokenBalances].sort((a, b) =>
-        a.token.symbol.localeCompare(b.token.symbol),
-      ) as TokenBalance[],
+      [...tokenBalances].sort((a, b) => {
+        const aIsNonNegative = a.balanceWei.isGreaterThan(0);
+        const bIsNonNegative = b.balanceWei.isGreaterThan(0);
+
+        // Both are non-negative or both are negative
+        if (aIsNonNegative === bIsNonNegative) {
+          return a.token.symbol.localeCompare(b.token.symbol);
+        }
+
+        // If a is non-negative and b is negative, a comes first
+        if (aIsNonNegative) {
+          return -1;
+        }
+
+        // If b is non-negative and a is negative, b comes first
+        return 1;
+      }) as TokenBalance[],
     [tokenBalances],
   );
 
@@ -46,8 +61,13 @@ export const TokenList: React.FC<TokenListProps> = ({
       return sortedTokenBalances;
     }
 
-    return sortedTokenBalances.filter(tokenBalance =>
-      tokenBalance.token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
+    const formattedSearchValue = searchValue.toLowerCase();
+
+    // Enable user to search by symbol or address
+    return sortedTokenBalances.filter(
+      tokenBalance =>
+        tokenBalance.token.symbol.toLowerCase().includes(formattedSearchValue) ||
+        tokenBalance.token.address.toLowerCase().includes(formattedSearchValue),
     );
   }, [sortedTokenBalances, searchValue]);
 
