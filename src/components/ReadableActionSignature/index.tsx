@@ -31,6 +31,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
       >
         {getContractName(action.target)}
       </Typography>
+
       {formatSignature(action)}
     </Typography>
   );
