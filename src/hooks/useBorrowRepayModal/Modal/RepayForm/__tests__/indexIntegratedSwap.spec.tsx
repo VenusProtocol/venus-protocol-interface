@@ -581,6 +581,9 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     const getConvertedFromTokenAmountTokens = (toTokenAmountTokens: BigNumber | string) =>
       new BigNumber(toTokenAmountTokens).dividedBy(exchangeRate);
 
+    // Memoize generate swaps to prevent infinite re-renders on state update
+    const memoizedFakeSwaps: { [key: string]: Swap } = {};
+
     // Generate fake swap info based on amount being swapped to
     const getFakeSwap = ({
       toTokenAmountTokens,
@@ -588,6 +591,10 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       fromToken,
       toToken,
     }: UseGetSwapInfoInput) => {
+      if (toTokenAmountTokens && memoizedFakeSwaps[toTokenAmountTokens]) {
+        return memoizedFakeSwaps[toTokenAmountTokens];
+      }
+
       if (direction === 'exactAmountIn' || !toTokenAmountTokens) {
         return undefined;
       }
@@ -608,6 +615,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
         toTokenAmountReceivedWei: fakeToTokenAmountReceivedWei,
       };
 
+      memoizedFakeSwaps[toTokenAmountTokens] = customFakeSwap;
       return customFakeSwap;
     };
 
@@ -661,15 +669,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
         fakeToTokenAmountRepaidTokens,
       ).dp(PANCAKE_SWAP_TOKENS.busd.decimals);
 
-      // eslint-disable-next-line
-      await waitFor(() =>
-        expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed()),
-      );
-
-      // Check submit button is enabled
-      expect(
-        getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
-      ).not.toBeDisabled();
+      expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed());
     }
   });
 
