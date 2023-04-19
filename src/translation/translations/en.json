@@ -218,6 +218,13 @@
       "description": "Long-tail assets, tokens with lower liquidity and volume, may be volatile and carry greater risk relative to the market in general.",
       "title": "What are higher risk tokens?"
     },
+    "modals": {
+      "announcement": {
+        "sxpDisablingBanner": {
+          "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+        }
+      }
+    },
     "riskyTokensToggleLabel": "Display higher risk tokens",
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
