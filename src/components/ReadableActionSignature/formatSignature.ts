@@ -7,11 +7,17 @@ import { ProposalAction } from 'types';
 import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
 
 const formatParamType = (paramType: ParamType): string => {
-  if (paramType.type === 'tuple') {
-    return `tuple(${paramType.components.map(formatParamType).join(', ')})`;
+  if (paramType.type !== 'tuple' && paramType.type !== 'tuple[]') {
+    return paramType.type;
   }
 
-  return paramType.type;
+  let res = `tuple(${paramType.components.map(formatParamType).join(', ')})`;
+
+  if (paramType.baseType === 'array') {
+    res += '[]';
+  }
+
+  return res;
 };
 
 const formatArgToReadableFormat = (argument: Result): string => {
