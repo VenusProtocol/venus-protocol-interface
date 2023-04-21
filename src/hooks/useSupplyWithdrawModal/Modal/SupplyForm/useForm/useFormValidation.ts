@@ -18,7 +18,6 @@ interface UseFormValidationOutput {
   formError?: FormError;
 }
 
-// TODO: make function into a reusable utility
 const getSwapToTokenAmountReceivedTokens = (swap?: Swap) => {
   let swapToTokenAmountReceivedTokens;
 

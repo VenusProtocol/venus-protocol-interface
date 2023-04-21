@@ -19,8 +19,7 @@ import {
   isFeatureEnabled,
 } from 'utilities';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useSupply } from 'clients/api';
+import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -271,7 +270,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     vToken: asset.vToken,
   });
 
-  const isSubmitting = isSupplyLoading;
+  const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
+    useSwapTokensAndSupply({
+      vToken: asset.vToken,
+    });
+
+  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
 
   const onSubmit: SupplyFormUiProps['onSubmit'] = async ({
     toVToken,
@@ -299,10 +303,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
-    // Handle swap and supply flow
-
-    // TODO: wire up (see VEN-1270)
-    return fakeContractReceipt;
+    return swapExactTokensForTokensAndSupply({
+      swap,
+    });
   };
 
   const swapInfo = useGetSwapInfo({
