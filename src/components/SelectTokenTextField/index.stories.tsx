@@ -5,7 +5,7 @@ import React from 'react';
 import { State } from 'react-powerplug';
 import { Token, TokenBalance } from 'types';
 
-import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { TESTNET_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { SelectTokenTextField } from '.';
@@ -18,15 +18,15 @@ export default {
 
 const tokenBalances: TokenBalance[] = [
   {
-    token: TESTNET_PANCAKE_SWAP_TOKENS.busd,
+    token: TESTNET_SWAP_TOKENS.busd,
     balanceWei: new BigNumber('1000000000000'),
   },
   {
-    token: TESTNET_PANCAKE_SWAP_TOKENS.cake,
+    token: TESTNET_SWAP_TOKENS.cake,
     balanceWei: new BigNumber('2000000000000'),
   },
   {
-    token: TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+    token: TESTNET_SWAP_TOKENS.wbnb,
     balanceWei: new BigNumber('3000000000000'),
   },
 ];

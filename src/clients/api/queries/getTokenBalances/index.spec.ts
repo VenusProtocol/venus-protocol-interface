@@ -3,12 +3,12 @@ import { Multicall } from 'ethereum-multicall';
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 
 import getTokenBalances from '.';
 
-const tokens = [PANCAKE_SWAP_TOKENS.busd, PANCAKE_SWAP_TOKENS.cake];
-const tokensWithBnB = [...tokens, PANCAKE_SWAP_TOKENS.bnb];
+const tokens = [SWAP_TOKENS.busd, SWAP_TOKENS.cake];
+const tokensWithBnB = [...tokens, SWAP_TOKENS.bnb];
 
 describe('api/queries/getTokenBalances', () => {
   test('returns token balances in the right format on success', async () => {

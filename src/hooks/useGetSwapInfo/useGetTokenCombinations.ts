@@ -4,7 +4,7 @@ import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { PSTokenCombination, Token } from 'types';
 
-import { MAINNET_PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { MAINNET_SWAP_TOKENS, TESTNET_SWAP_TOKENS } from 'constants/tokens';
 
 import wrapToken from './wrapToken';
 
@@ -16,19 +16,19 @@ export interface UseGetTokenCombinationsInput {
 // List tokens to check trades against
 const BASE_TRADE_TOKENS = config.isOnTestnet
   ? [
-      TESTNET_PANCAKE_SWAP_TOKENS.busd,
-      TESTNET_PANCAKE_SWAP_TOKENS.eth,
-      TESTNET_PANCAKE_SWAP_TOKENS.xvs,
-      TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+      TESTNET_SWAP_TOKENS.busd,
+      TESTNET_SWAP_TOKENS.eth,
+      TESTNET_SWAP_TOKENS.xvs,
+      TESTNET_SWAP_TOKENS.wbnb,
     ]
   : [
-      MAINNET_PANCAKE_SWAP_TOKENS.wbnb,
-      MAINNET_PANCAKE_SWAP_TOKENS.cake,
-      MAINNET_PANCAKE_SWAP_TOKENS.busd,
-      MAINNET_PANCAKE_SWAP_TOKENS.usdt,
-      MAINNET_PANCAKE_SWAP_TOKENS.btcb,
-      MAINNET_PANCAKE_SWAP_TOKENS.eth,
-      MAINNET_PANCAKE_SWAP_TOKENS.usdc,
+      MAINNET_SWAP_TOKENS.wbnb,
+      MAINNET_SWAP_TOKENS.cake,
+      MAINNET_SWAP_TOKENS.busd,
+      MAINNET_SWAP_TOKENS.usdt,
+      MAINNET_SWAP_TOKENS.btcb,
+      MAINNET_SWAP_TOKENS.eth,
+      MAINNET_SWAP_TOKENS.usdc,
     ];
 
 const useGetTokenCombinations = ({

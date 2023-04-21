@@ -18,6 +18,9 @@
     "rootDir": "./src",
     "baseUrl": "./src"
   },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node"
+  },
   "exclude": ["node_modules"],
   "include": ["src"]
 }

@@ -2,7 +2,7 @@ import { Token } from 'types';
 
 import { TESTNET_TOKENS } from '../common/testnet';
 
-export const TESTNET_PANCAKE_SWAP_TOKENS = {
+export const TESTNET_SWAP_TOKENS = {
   wbnb: {
     symbol: 'WBNB',
     decimals: 18,

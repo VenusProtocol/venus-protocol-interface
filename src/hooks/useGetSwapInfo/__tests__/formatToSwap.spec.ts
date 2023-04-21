@@ -2,7 +2,7 @@ import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { BscChainId } from 'types';
 
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 
 import formatToSwap from '../formatToSwap';
 import { FormatToSwapInput } from '../types';
@@ -11,15 +11,15 @@ const fakeRoute = {
   path: [
     new PSToken(
       BscChainId.TESTNET,
-      PANCAKE_SWAP_TOKENS.busd.address,
-      PANCAKE_SWAP_TOKENS.busd.decimals,
-      PANCAKE_SWAP_TOKENS.busd.symbol,
+      SWAP_TOKENS.busd.address,
+      SWAP_TOKENS.busd.decimals,
+      SWAP_TOKENS.busd.symbol,
     ),
     new PSToken(
       BscChainId.TESTNET,
-      PANCAKE_SWAP_TOKENS.cake.address,
-      PANCAKE_SWAP_TOKENS.cake.decimals,
-      PANCAKE_SWAP_TOKENS.cake.symbol,
+      SWAP_TOKENS.cake.address,
+      SWAP_TOKENS.cake.decimals,
+      SWAP_TOKENS.cake.symbol,
     ),
   ],
 };
@@ -35,8 +35,8 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
     } as unknown as FormatToSwapInput['trade'];
 
     const fakeInput: FormatToSwapInput['input'] = {
-      fromToken: PANCAKE_SWAP_TOKENS.busd,
-      toToken: PANCAKE_SWAP_TOKENS.cake,
+      fromToken: SWAP_TOKENS.busd,
+      toToken: SWAP_TOKENS.cake,
       direction: 'exactAmountIn',
     };
 
@@ -55,8 +55,8 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
     } as unknown as FormatToSwapInput['trade'];
 
     const fakeInput: FormatToSwapInput['input'] = {
-      fromToken: PANCAKE_SWAP_TOKENS.busd,
-      toToken: PANCAKE_SWAP_TOKENS.cake,
+      fromToken: SWAP_TOKENS.busd,
+      toToken: SWAP_TOKENS.cake,
       direction: 'exactAmountOut',
     };
 

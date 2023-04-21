@@ -18,7 +18,7 @@ import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from '
 
 import { useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo, { SwapError } from 'hooks/useGetSwapInfo';
@@ -36,9 +36,9 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 );
 
 const initialFormValues: FormValues = {
-  fromToken: PANCAKE_SWAP_TOKENS.bnb,
+  fromToken: SWAP_TOKENS.bnb,
   fromTokenAmountTokens: '',
-  toToken: PANCAKE_SWAP_TOKENS.xvs,
+  toToken: SWAP_TOKENS.xvs,
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };

@@ -3,7 +3,7 @@ import React from 'react';
 
 import fakePancakeSwapPairs from '__mocks__/models/pancakeSwapPairs';
 import { getPancakeSwapPairs } from 'clients/api';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import useGetSwapInfo from '..';
@@ -14,8 +14,8 @@ jest.mock('clients/api');
 describe('pages/Swap/useGetSwapInfo', () => {
   it('returns default state when fromToken and toToken reference the same token', async () => {
     const input: UseGetSwapInfoInput = {
-      fromToken: PANCAKE_SWAP_TOKENS.bnb,
-      toToken: PANCAKE_SWAP_TOKENS.bnb,
+      fromToken: SWAP_TOKENS.bnb,
+      toToken: SWAP_TOKENS.bnb,
       direction: 'exactAmountIn',
     };
 
@@ -38,8 +38,8 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
   it('returns an error when trade consists in a wrap', async () => {
     const input: UseGetSwapInfoInput = {
-      fromToken: PANCAKE_SWAP_TOKENS.bnb,
-      toToken: PANCAKE_SWAP_TOKENS.wbnb,
+      fromToken: SWAP_TOKENS.bnb,
+      toToken: SWAP_TOKENS.wbnb,
       direction: 'exactAmountIn',
     };
 
@@ -62,8 +62,8 @@ describe('pages/Swap/useGetSwapInfo', () => {
 
   it('returns an error when trade consists in an unwrap', async () => {
     const input: UseGetSwapInfoInput = {
-      fromToken: PANCAKE_SWAP_TOKENS.wbnb,
-      toToken: PANCAKE_SWAP_TOKENS.bnb,
+      fromToken: SWAP_TOKENS.wbnb,
+      toToken: SWAP_TOKENS.bnb,
       direction: 'exactAmountIn',
     };
 
@@ -86,8 +86,8 @@ describe('pages/Swap/useGetSwapInfo', () => {
   describe('exactAmountIn', () => {
     it('returns no swap and no error if fromTokenAmountTokens is not provided', async () => {
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        fromToken: SWAP_TOKENS.bnb,
+        toToken: SWAP_TOKENS.xvs,
         toTokenAmountTokens: '1',
         direction: 'exactAmountIn',
       };
@@ -112,8 +112,8 @@ describe('pages/Swap/useGetSwapInfo', () => {
       // Remove pairs containing fromToken
       const customfakePancakeSwapPairs = fakePancakeSwapPairs.filter(
         fakePair =>
-          fakePair.token0.address !== PANCAKE_SWAP_TOKENS.bnb.address &&
-          fakePair.token1.address !== PANCAKE_SWAP_TOKENS.xvs.address,
+          fakePair.token0.address !== SWAP_TOKENS.bnb.address &&
+          fakePair.token1.address !== SWAP_TOKENS.xvs.address,
       );
 
       (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
@@ -121,9 +121,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
       }));
 
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
+        fromToken: SWAP_TOKENS.bnb,
         fromTokenAmountTokens: '1',
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        toToken: SWAP_TOKENS.xvs,
         direction: 'exactAmountIn',
       };
 
@@ -151,9 +151,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
       }));
 
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
+        fromToken: SWAP_TOKENS.bnb,
         fromTokenAmountTokens: '1',
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        toToken: SWAP_TOKENS.xvs,
         direction: 'exactAmountIn',
       };
 
@@ -174,9 +174,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
   describe('exactAmountOut', () => {
     it('returns no swap and no error if toTokenAmountTokens is not provided', async () => {
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
+        fromToken: SWAP_TOKENS.bnb,
         fromTokenAmountTokens: '1',
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        toToken: SWAP_TOKENS.xvs,
         direction: 'exactAmountOut',
       };
 
@@ -202,9 +202,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
       }));
 
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
+        fromToken: SWAP_TOKENS.bnb,
         toTokenAmountTokens: '10', // Higher amount than available liquidities in pools
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        toToken: SWAP_TOKENS.xvs,
         direction: 'exactAmountOut',
       };
 
@@ -232,9 +232,9 @@ describe('pages/Swap/useGetSwapInfo', () => {
       }));
 
       const input: UseGetSwapInfoInput = {
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
+        fromToken: SWAP_TOKENS.bnb,
         toTokenAmountTokens: '0.5',
-        toToken: PANCAKE_SWAP_TOKENS.xvs,
+        toToken: SWAP_TOKENS.xvs,
         direction: 'exactAmountOut',
       };
 

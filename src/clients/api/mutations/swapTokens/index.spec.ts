@@ -4,30 +4,30 @@ import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 import { PancakeRouter } from 'types/contracts';
 
 import swapTokens from '.';
 
 const fakeExactAmountInSwap: ExactAmountInSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.cake,
+  fromToken: SWAP_TOKENS.cake,
   fromTokenAmountSoldWei: new BigNumber('10000000000000000'),
-  toToken: PANCAKE_SWAP_TOKENS.busd,
+  toToken: SWAP_TOKENS.busd,
   minimumToTokenAmountReceivedWei: new BigNumber('20000000000000000'),
   expectedToTokenAmountReceivedWei: new BigNumber('30000000000000000'),
   direction: 'exactAmountIn',
-  routePath: [PANCAKE_SWAP_TOKENS.cake.address, PANCAKE_SWAP_TOKENS.busd.address],
+  routePath: [SWAP_TOKENS.cake.address, SWAP_TOKENS.busd.address],
   exchangeRate: new BigNumber(2),
 };
 
 const fakeExactAmountOutSwap: ExactAmountOutSwap = {
-  fromToken: PANCAKE_SWAP_TOKENS.cake,
+  fromToken: SWAP_TOKENS.cake,
   expectedFromTokenAmountSoldWei: new BigNumber('20000000000000000'),
   maximumFromTokenAmountSoldWei: new BigNumber('30000000000000000'),
-  toToken: PANCAKE_SWAP_TOKENS.busd,
+  toToken: SWAP_TOKENS.busd,
   toTokenAmountReceivedWei: new BigNumber('10000000000000000'),
   direction: 'exactAmountOut',
-  routePath: [PANCAKE_SWAP_TOKENS.cake.address, PANCAKE_SWAP_TOKENS.busd.address],
+  routePath: [SWAP_TOKENS.cake.address, SWAP_TOKENS.busd.address],
   exchangeRate: new BigNumber(2),
 };
 
@@ -63,8 +63,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when selling an exact amount of native tokens for as many non-native tokens as possible', async () => {
     const customFakeExactAmountInSwap: ExactAmountInSwap = {
       ...fakeExactAmountInSwap,
-      fromToken: PANCAKE_SWAP_TOKENS.bnb,
-      routePath: [PANCAKE_SWAP_TOKENS.bnb.address, PANCAKE_SWAP_TOKENS.busd.address],
+      fromToken: SWAP_TOKENS.bnb,
+      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
@@ -99,8 +99,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens for as many native tokens as possible', async () => {
     const customFakeExactAmountInSwap: ExactAmountInSwap = {
       ...fakeExactAmountInSwap,
-      toToken: PANCAKE_SWAP_TOKENS.bnb,
-      routePath: [PANCAKE_SWAP_TOKENS.busd.address, PANCAKE_SWAP_TOKENS.bnb.address],
+      toToken: SWAP_TOKENS.bnb,
+      routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
@@ -161,8 +161,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when buying an exact amount of non-native tokens for as few native tokens as possible', async () => {
     const customFakeExactAmountOutSwap: ExactAmountOutSwap = {
       ...fakeExactAmountOutSwap,
-      fromToken: PANCAKE_SWAP_TOKENS.bnb,
-      routePath: [PANCAKE_SWAP_TOKENS.bnb.address, PANCAKE_SWAP_TOKENS.busd.address],
+      fromToken: SWAP_TOKENS.bnb,
+      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);
@@ -197,8 +197,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when buying an exact amount of native tokens for as few non-native tokens as possible', async () => {
     const customFakeExactAmountOutSwap: ExactAmountOutSwap = {
       ...fakeExactAmountOutSwap,
-      toToken: PANCAKE_SWAP_TOKENS.bnb,
-      routePath: [PANCAKE_SWAP_TOKENS.busd.address, PANCAKE_SWAP_TOKENS.bnb.address],
+      toToken: SWAP_TOKENS.bnb,
+      routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
     const waitMock = jest.fn(async () => fakeContractReceipt);

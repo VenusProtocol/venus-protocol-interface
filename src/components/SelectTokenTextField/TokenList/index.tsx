@@ -5,6 +5,9 @@ import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
+import { TOKENS } from 'constants/tokens';
+
+import { SecondaryButton } from '../../Button';
 import { TextField } from '../../TextField';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
@@ -16,6 +19,8 @@ export interface TokenListProps {
   onTokenClick: (token: Token) => void;
   'data-testid'?: string;
 }
+
+const COMMON_TOKENS = [TOKENS.xvs, TOKENS.bnb, TOKENS.usdt, TOKENS.btcb];
 
 export const TokenList: React.FC<TokenListProps> = ({
   tokenBalances,
@@ -31,12 +36,27 @@ export const TokenList: React.FC<TokenListProps> = ({
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
     setSearchValue(event.currentTarget.value);
 
-  // Sort tokens alphabetically by their symbols
+  // Sort tokens alphabetically, placing tokens with a non-zero balance at the
+  // top of the list
   const sortedTokenBalances = useMemo(
     () =>
-      [...tokenBalances].sort((a, b) =>
-        a.token.symbol.localeCompare(b.token.symbol),
-      ) as TokenBalance[],
+      [...tokenBalances].sort((a, b) => {
+        const aIsNonNegative = a.balanceWei.isGreaterThan(0);
+        const bIsNonNegative = b.balanceWei.isGreaterThan(0);
+
+        // Both are non-negative or both are negative
+        if (aIsNonNegative === bIsNonNegative) {
+          return a.token.symbol.localeCompare(b.token.symbol);
+        }
+
+        // If a is non-negative and b is negative, a comes first
+        if (aIsNonNegative) {
+          return -1;
+        }
+
+        // If b is non-negative and a is negative, b comes first
+        return 1;
+      }) as TokenBalance[],
     [tokenBalances],
   );
 
@@ -46,22 +66,42 @@ export const TokenList: React.FC<TokenListProps> = ({
       return sortedTokenBalances;
     }
 
-    return sortedTokenBalances.filter(tokenBalance =>
-      tokenBalance.token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
+    const formattedSearchValue = searchValue.toLowerCase();
+
+    // Enable user to search by symbol or address
+    return sortedTokenBalances.filter(
+      tokenBalance =>
+        tokenBalance.token.symbol.toLowerCase().includes(formattedSearchValue) ||
+        tokenBalance.token.address.toLowerCase().includes(formattedSearchValue),
     );
   }, [sortedTokenBalances, searchValue]);
 
   return (
     <div css={styles.container}>
-      <TextField
-        css={styles.searchField}
-        isSmall
-        autoFocus
-        value={searchValue}
-        onChange={handleSearchInputChange}
-        placeholder={t('selectTokenTextField.searchInput.placeholder')}
-        leftIconSrc="magnifier"
-      />
+      <div css={styles.header}>
+        <TextField
+          css={styles.searchField}
+          isSmall
+          autoFocus
+          value={searchValue}
+          onChange={handleSearchInputChange}
+          placeholder={t('selectTokenTextField.searchInput.placeholder')}
+          leftIconSrc="magnifier"
+        />
+
+        <div css={styles.commonTokenList}>
+          {COMMON_TOKENS.map(commonToken => (
+            <SecondaryButton
+              small
+              onClick={() => onTokenClick(commonToken)}
+              css={styles.commonTokenButton}
+              key={`select-token-text-field-common-token-${commonToken.symbol}`}
+            >
+              <TokenIconWithSymbol css={parentStyles.token} token={commonToken} />
+            </SecondaryButton>
+          ))}
+        </div>
+      </div>
 
       <div css={styles.list}>
         {filteredTokenBalances.map(tokenBalance => (

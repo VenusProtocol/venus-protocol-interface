@@ -18,11 +18,43 @@ export const useStyles = () => {
       box-shadow: 0 4px 15px 0 rgba(22, 23, 30, 0.8);
       overflow: hidden;
     `,
+    header: css`
+      padding: ${theme.spacing(3, 3, 0)};
+      margin-bottom: ${theme.spacing(5)};
+    `,
     searchField: css`
-      margin: ${theme.spacing(3, 3, 2)};
+      margin-bottom: ${theme.spacing(4)};
 
       > div {
         background-color: ${theme.palette.secondary.main};
+      }
+    `,
+    commonTokenList: css`
+      display: flex;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    `,
+    commonTokenButton: css`
+      padding: ${theme.spacing(1, 2)};
+      border-color: ${theme.palette.secondary.light};
+
+      :hover:not(:disabled) {
+        border-color: ${theme.palette.interactive.primary};
+        background-color: ${theme.palette.secondary.light};
+      }
+
+      :active:not(:disabled) {
+        border-color: ${theme.palette.secondary.light};
+        background-color: ${theme.palette.secondary.light};
+      }
+
+      :not(:last-of-type) {
+        margin-right: ${theme.spacing(2)};
       }
     `,
     list: css`

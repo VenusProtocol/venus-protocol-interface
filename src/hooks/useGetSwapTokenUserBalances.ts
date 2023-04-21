@@ -3,9 +3,9 @@ import { TokenBalance } from 'types';
 
 import { useGetTokenBalances } from 'clients/api';
 import { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/getTokenBalances/useGetTokenBalances';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 
-const tokens = Object.values(PANCAKE_SWAP_TOKENS);
+const tokens = Object.values(SWAP_TOKENS);
 
 const useGetSwapTokenUserBalances = (
   {
