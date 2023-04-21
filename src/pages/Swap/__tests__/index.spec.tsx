@@ -16,7 +16,7 @@ import {
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -38,7 +38,7 @@ jest.mock('hooks/useGetSwapInfo');
 const useTokenApprovalOriginal = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {
-    token: PANCAKE_SWAP_TOKENS.cake,
+    token: SWAP_TOKENS.cake,
     spenderAddress: '',
     accountAddress: '',
   },
@@ -91,7 +91,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.xvs,
+      token: SWAP_TOKENS.xvs,
     });
 
     // Check toToken was updated to fromToken
@@ -101,7 +101,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
+    ).toBe(SWAP_TOKENS.bnb.symbol);
 
     expect(
       getByTestId(
@@ -109,13 +109,13 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
+    ).toBe(SWAP_TOKENS.xvs.symbol);
 
     // Revert toToken back to XVS
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.xvs,
+      token: SWAP_TOKENS.xvs,
     });
 
     // Check fromToken was updated to toToken
@@ -125,7 +125,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
+    ).toBe(SWAP_TOKENS.bnb.symbol);
 
     expect(
       getByTestId(
@@ -133,7 +133,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
+    ).toBe(SWAP_TOKENS.xvs.symbol);
   });
 
   it('switches form values when pressing on switch tokens button', () => {
@@ -180,7 +180,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
+    ).toBe(SWAP_TOKENS.xvs.symbol);
 
     expect(
       getByTestId(
@@ -188,7 +188,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
+    ).toBe(SWAP_TOKENS.bnb.symbol);
 
     // Check swap direction was updated correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountOut');
@@ -207,7 +207,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.bnb.symbol);
+    ).toBe(SWAP_TOKENS.bnb.symbol);
 
     expect(
       getByTestId(
@@ -215,7 +215,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(PANCAKE_SWAP_TOKENS.xvs.symbol);
+    ).toBe(SWAP_TOKENS.xvs.symbol);
 
     // Check swap direction was updated back correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn');
@@ -321,7 +321,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.wbnb,
+      token: SWAP_TOKENS.wbnb,
     });
 
     const submitButtonTest = getByText(en.swapPage.submitButton.disabledLabels.wrappingUnsupported);
@@ -340,14 +340,14 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.wbnb,
+      token: SWAP_TOKENS.wbnb,
     });
 
     // Change toToken to BNB
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.bnb,
+      token: SWAP_TOKENS.bnb,
     });
 
     const submitButtonTest = getByText(

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PSTokenCombination } from 'types';
 
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import useGetTokenCombinations from '../useGetTokenCombinations';
@@ -12,8 +12,8 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
-        fromToken: PANCAKE_SWAP_TOKENS.busd,
-        toToken: PANCAKE_SWAP_TOKENS.cake,
+        fromToken: SWAP_TOKENS.busd,
+        toToken: SWAP_TOKENS.cake,
       });
 
       return <></>;
@@ -46,8 +46,8 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
-        fromToken: PANCAKE_SWAP_TOKENS.bnb,
-        toToken: PANCAKE_SWAP_TOKENS.cake,
+        fromToken: SWAP_TOKENS.bnb,
+        toToken: SWAP_TOKENS.cake,
       });
 
       return <></>;

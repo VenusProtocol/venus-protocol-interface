@@ -95,6 +95,7 @@ export const TokenList: React.FC<TokenListProps> = ({
               small
               onClick={() => onTokenClick(commonToken)}
               css={styles.commonTokenButton}
+              key={`select-token-text-field-common-token-${commonToken.symbol}`}
             >
               <TokenIconWithSymbol css={parentStyles.token} token={commonToken} />
             </SecondaryButton>

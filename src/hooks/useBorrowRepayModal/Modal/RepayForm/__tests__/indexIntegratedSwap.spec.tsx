@@ -11,7 +11,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { PANCAKE_SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -26,7 +26,7 @@ import { fakeAsset, fakePool } from './fakeData';
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
-  new BigNumber(10).pow(PANCAKE_SWAP_TOKENS.busd.decimals),
+  new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
 );
 
 const fakeBusdAmountBellowWalletBalanceWei = fakeBusdWalletBalanceWei.minus(100);
@@ -38,25 +38,25 @@ const fakeXvsUserBorrowBalanceInWei = new BigNumber(fakeAsset.userBorrowBalanceT
 const fakeXvsAmountBelowUserBorrowBalanceWei = fakeXvsUserBorrowBalanceInWei.minus(100);
 
 const fakeSwap: Swap = {
-  fromToken: PANCAKE_SWAP_TOKENS.busd,
+  fromToken: SWAP_TOKENS.busd,
   fromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
   toToken: TESTNET_TOKENS.xvs,
   expectedToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
   minimumToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
   exchangeRate: fakeXvsAmountBelowUserBorrowBalanceWei.div(fakeBusdAmountBellowWalletBalanceWei),
-  routePath: [PANCAKE_SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
   direction: 'exactAmountIn',
 };
 
 // Fake full repayment swap in which the wallet balance covers exactly the entire user loan
 const fakeFullRepaymentSwap: Swap = {
-  fromToken: PANCAKE_SWAP_TOKENS.busd,
+  fromToken: SWAP_TOKENS.busd,
   expectedFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
   maximumFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
   toToken: TESTNET_TOKENS.xvs,
   toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei,
   exchangeRate: fakeXvsUserBorrowBalanceInWei.div(fakeBusdWalletBalanceWei),
-  routePath: [PANCAKE_SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
   direction: 'exactAmountOut',
 };
 
@@ -104,13 +104,11 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     await waitFor(() =>
-      getByText(
-        `${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} ${PANCAKE_SWAP_TOKENS.busd.symbol}`,
-      ),
+      getByText(`${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} ${SWAP_TOKENS.busd.symbol}`),
     );
   });
 
@@ -141,7 +139,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       ...fakeAsset,
       vToken: {
         ...fakeAsset.vToken,
-        underlyingToken: PANCAKE_SWAP_TOKENS.wbnb,
+        underlyingToken: SWAP_TOKENS.wbnb,
       },
     };
 
@@ -157,7 +155,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.bnb,
+      token: SWAP_TOKENS.bnb,
     });
 
     const selectTokenTextField = getByTestId(
@@ -186,7 +184,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       ...fakeAsset,
       vToken: {
         ...fakeAsset.vToken,
-        underlyingToken: PANCAKE_SWAP_TOKENS.bnb,
+        underlyingToken: SWAP_TOKENS.bnb,
       },
     };
 
@@ -202,7 +200,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.wbnb,
+      token: SWAP_TOKENS.wbnb,
     });
 
     const selectTokenTextField = getByTestId(
@@ -272,7 +270,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -288,7 +286,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     const expectedSubmitButtonLabel =
       en.borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance.replace(
         '{{tokenSymbol}}',
-        PANCAKE_SWAP_TOKENS.busd.symbol,
+        SWAP_TOKENS.busd.symbol,
       );
 
     await waitFor(() => getByText(expectedSubmitButtonLabel));
@@ -327,7 +325,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -372,7 +370,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -392,7 +390,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceWei:
-        tokenBalance.token.address.toLowerCase() === PANCAKE_SWAP_TOKENS.busd.address.toLowerCase()
+        tokenBalance.token.address.toLowerCase() === SWAP_TOKENS.busd.address.toLowerCase()
           ? new BigNumber(0)
           : tokenBalance.balanceWei,
     }));
@@ -428,7 +426,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     // Check input is empty
@@ -487,7 +485,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     // Check input is empty
@@ -515,7 +513,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     // covered it fully
     const fakeBorrowBalanceInBusdTokens = Number(FAKE_BUSD_BALANCE_TOKENS) - 1;
     const fakeBorrowBalanceInBusdWei = new BigNumber(fakeBorrowBalanceInBusdTokens).multipliedBy(
-      new BigNumber(10).pow(PANCAKE_SWAP_TOKENS.busd.decimals),
+      new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
     );
 
     const customFakeFullRepaymentSwap: Swap = {
@@ -551,7 +549,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     // Check input is empty
@@ -639,7 +637,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     // Check input is empty
@@ -667,7 +665,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
       const fakeConvertedFromTokenAmountTokens = getConvertedFromTokenAmountTokens(
         fakeToTokenAmountRepaidTokens,
-      ).dp(PANCAKE_SWAP_TOKENS.busd.decimals);
+      ).dp(SWAP_TOKENS.busd.decimals);
 
       expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed());
     }
@@ -702,7 +700,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -724,7 +722,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     // TODO: check onSwapAndRepay is called once with the correct arguments (see VEN-1270)
     // const expectedAmountSwappedWei = new BigNumber(validAmountTokens).multipliedBy(
-    //   new BigNumber(10).pow(PANCAKE_SWAP_TOKENS.busd.decimals),
+    //   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
     // );
 
     const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
@@ -771,7 +769,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: PANCAKE_SWAP_TOKENS.busd,
+      token: SWAP_TOKENS.busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -798,7 +796,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     // TODO: check onSwapAndRepay is called once with the correct arguments (see VEN-1270)
     // const expectedAmountSwappedWei = new BigNumber(validAmountTokens).multipliedBy(
-    //   new BigNumber(10).pow(PANCAKE_SWAP_TOKENS.busd.decimals),
+    //   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
     // );
 
     const expectedAmountRepaidWei = fakeFullRepaymentSwap.toTokenAmountReceivedWei;

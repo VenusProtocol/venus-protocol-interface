@@ -57,7 +57,7 @@ module.exports = {
     // Custom
     'import/no-named-as-default': 0,
     'import/export': 0,
-    '@typescript-eslint/no-unused-vars': ["error", { "varsIgnorePattern": "^_.+" }],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_.+' }],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
@@ -79,7 +79,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src'],
+        paths: ['src', 'scripts'],
       },
     },
   },

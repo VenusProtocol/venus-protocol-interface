@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Swap } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS } from 'constants/tokens';
 
 import { FormError, FormValues } from './types';
 
@@ -52,17 +52,11 @@ const useFormValidation = ({
   const wrapUnwrapErrors = useMemo(() => {
     const errorsTmp: FormError[] = [];
 
-    if (
-      formValues.fromToken.isNative &&
-      areTokensEqual(formValues.toToken, PANCAKE_SWAP_TOKENS.wbnb)
-    ) {
+    if (formValues.fromToken.isNative && areTokensEqual(formValues.toToken, SWAP_TOKENS.wbnb)) {
       errorsTmp.push('WRAPPING_UNSUPPORTED');
     }
 
-    if (
-      formValues.toToken.isNative &&
-      areTokensEqual(formValues.fromToken, PANCAKE_SWAP_TOKENS.wbnb)
-    ) {
+    if (formValues.toToken.isNative && areTokensEqual(formValues.fromToken, SWAP_TOKENS.wbnb)) {
       errorsTmp.push('UNWRAPPING_UNSUPPORTED');
     }
 
