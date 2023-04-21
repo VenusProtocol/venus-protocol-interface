@@ -81,15 +81,16 @@
       "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
-      "connectWalletMessage": "Please connect your wallet to borrow",
-      "enableToken": {
-        "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
-      },
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
-      "submitButton": "Borrow",
-      "submitButtonDisabled": "Enter a valid amount to borrow",
-      "submitButtonHighRisk": "Borrow high risk amount",
+      "submitButtonLabel": {
+        "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",
+        "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
+        "borrow": "Borrow",
+        "borrowCapReached": "Borrow cap reached",
+        "borrowHighRiskAmount": "Borrow high risk amount",
+        "enterValidAmount": "Enter a valid amount to borrow"
+      },
       "successfulTransactionModal": {
         "message": "You successfully borrowed",
         "title": "Your borrow was successful"
