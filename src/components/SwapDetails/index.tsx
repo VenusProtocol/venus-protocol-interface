@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Delimiter, LabeledInlineContent } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap } from 'types';
@@ -7,7 +6,7 @@ import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
-import { useStyles as useSharedStyles } from '../../styles';
+import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
@@ -15,16 +14,16 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 );
 
 export interface SwapDetailsProps {
+  action: 'repay' | 'supply';
   swap?: Swap;
-  'data-testid'?: string;
+  className?: string;
 }
 
-export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, ...containerProps }) => {
+export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...containerProps }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const sharedStyles = useSharedStyles();
 
-  const readableToTokenAmountRepaidTokens = useMemo(
+  const readableToTokenAmountReceived = useMemo(
     () =>
       swap &&
       convertWeiToTokens({
@@ -38,14 +37,16 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, ...containerProp
     [swap],
   );
 
+  const receivedAmountLabel =
+    action === 'repay'
+      ? t('swapDetails.receivedAmount.repayLabel')
+      : t('swapDetails.receivedAmount.supplyLabel');
+
   return (
-    <div css={[styles.container, sharedStyles.getRow({ isLast: true })]} {...containerProps}>
+    <div {...containerProps}>
       {swap && (
-        <LabeledInlineContent
-          label={t('borrowRepayModal.repay.swapDetails.exchangeRate.label')}
-          css={sharedStyles.getRow({ isLast: false })}
-        >
-          {t('borrowRepayModal.repay.swapDetails.exchangeRate.value', {
+        <LabeledInlineContent label={t('swapDetails.exchangeRate.label')} css={styles.row}>
+          {t('swapDetails.exchangeRate.value', {
             fromTokenSymbol: swap.fromToken.symbol,
             toTokenSymbol: swap.toToken.symbol,
             rate: swap.exchangeRate.toFixed(),
@@ -53,29 +54,21 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, ...containerProp
         </LabeledInlineContent>
       )}
 
-      <LabeledInlineContent
-        label={t('borrowRepayModal.repay.swapDetails.slippageTolerance.label')}
-        css={sharedStyles.getRow({ isLast: !swap })}
-      >
+      <LabeledInlineContent label={t('swapDetails.slippageTolerance.label')} css={styles.row}>
         {readableSlippageTolerancePercentage}
       </LabeledInlineContent>
 
       {swap && (
-        <LabeledInlineContent
-          label={t('borrowRepayModal.repay.swapDetails.repayAmount.label')}
-          css={sharedStyles.getRow({ isLast: true })}
-        >
+        <LabeledInlineContent label={receivedAmountLabel}>
           {swap.direction === 'exactAmountIn'
-            ? t('borrowRepayModal.repay.swapDetails.repayAmount.estimatedValue', {
-                value: readableToTokenAmountRepaidTokens,
+            ? t('swapDetails.receivedAmount.estimatedValue', {
+                value: readableToTokenAmountReceived,
               })
-            : t('borrowRepayModal.repay.swapDetails.repayAmount.exactValue', {
-                value: readableToTokenAmountRepaidTokens,
+            : t('swapDetails.receivedAmount.exactValue', {
+                value: readableToTokenAmountReceived,
               })}
         </LabeledInlineContent>
       )}
-
-      <Delimiter />
     </div>
   );
 };

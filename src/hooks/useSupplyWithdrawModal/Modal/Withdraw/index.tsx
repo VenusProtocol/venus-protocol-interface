@@ -93,12 +93,12 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdraw.withdraw.connectWalletToWithdraw')}>
+      <ConnectWallet message={t('supplyWithdrawModal.withdraw.connectWalletToWithdraw')}>
         {asset && pool ? (
           <EnableToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
-            title={t('supplyWithdraw.withdraw.enableToWithdraw', {
+            title={t('supplyWithdrawModal.withdraw.enableToWithdraw', {
               symbol: asset?.vToken.underlyingToken.symbol,
             })}
             assetInfo={assetInfo}
@@ -108,10 +108,10 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
               asset={asset}
               pool={pool}
               onSubmit={onSubmit}
-              inputLabel={t('supplyWithdraw.withdraw.withdrawableAmount')}
-              enabledButtonKey={t('supplyWithdraw.withdraw.submitButton.enabledLabel')}
+              inputLabel={t('supplyWithdrawModal.withdraw.withdrawableAmount')}
+              enabledButtonKey={t('supplyWithdrawModal.withdraw.submitButton.enabledLabel')}
               disabledButtonKey={t(
-                'supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel',
+                'supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel',
               )}
               maxInput={maxInput}
               isTransactionLoading={isLoading}
@@ -192,8 +192,8 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
 
     if (transactionHash) {
       openSuccessfulTransactionModal({
-        title: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.title'),
-        content: t('supplyWithdraw.withdraw.successfulWithdrawTransactionModal.message'),
+        title: t('supplyWithdrawModal.withdraw.successfulWithdrawTransactionModal.title'),
+        content: t('supplyWithdrawModal.withdraw.successfulWithdrawTransactionModal.message'),
         amount: {
           valueWei: convertTokensToWei({ value: amount, token: vToken.underlyingToken }),
           token: vToken.underlyingToken,

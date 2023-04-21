@@ -18,8 +18,5 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(4)};
       }
     `,
-    swapInfoContainer: css`
-      margin-top: ${theme.spacing(6)};
-    `,
   };
 };

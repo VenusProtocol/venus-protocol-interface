@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { NoticeError } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -10,7 +9,7 @@ import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
 
 export interface NoticeProps {
-  amount: BigNumber;
+  amount: string;
   asset: Asset;
 }
 
@@ -27,7 +26,7 @@ const Notice: React.FC<NoticeProps> = ({ amount, asset }) => {
       <NoticeError
         css={styles.notice}
         data-testid={TEST_IDS.noticeError}
-        description={t('supplyWithdraw.supply.supplyCapReachedWarning', {
+        description={t('supplyWithdrawModal.supply.supplyCapReachedWarning', {
           assetSupplyCap: formatTokensToReadableValue({
             value: asset.supplyCapTokens,
             token: asset.vToken.underlyingToken,
@@ -46,7 +45,7 @@ const Notice: React.FC<NoticeProps> = ({ amount, asset }) => {
       <NoticeError
         css={styles.notice}
         data-testid={TEST_IDS.noticeError}
-        description={t('supplyWithdraw.supply.amountAboveSupplyCapWarning', {
+        description={t('supplyWithdrawModal.supply.amountAboveSupplyCapWarning', {
           userMaxSupplyAmount: formatTokensToReadableValue({
             value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
             token: asset.vToken.underlyingToken,

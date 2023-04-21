@@ -52,7 +52,7 @@ export const WithdrawContent: React.FC<WithdrawFormUiProps> = ({
         token={asset.vToken.underlyingToken}
         disabled={isTransactionLoading}
         rightMaxButton={{
-          label: t('supplyWithdraw.withdraw.max').toUpperCase(),
+          label: t('supplyWithdrawModal.withdraw.max').toUpperCase(),
           onClick: () => setAmountFieldValue(maxInput.toFixed()),
         }}
         css={styles.input}

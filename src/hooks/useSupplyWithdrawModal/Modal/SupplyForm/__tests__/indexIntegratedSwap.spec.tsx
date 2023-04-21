@@ -9,18 +9,17 @@ import { isFeatureEnabled } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
-import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
-import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
-import Repay, { PRESET_PERCENTAGES } from '..';
+import Repay from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
@@ -30,33 +29,23 @@ const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipl
 
 const fakeBusdAmountBellowWalletBalanceWei = fakeBusdWalletBalanceWei.minus(100);
 
-const fakeXvsUserBorrowBalanceInWei = new BigNumber(fakeAsset.userBorrowBalanceTokens).multipliedBy(
-  new BigNumber(10).pow(TESTNET_TOKENS.xvs.decimals),
+const fakeMarginWithSupplyCapTokens = fakeAsset.supplyCapTokens.minus(
+  fakeAsset.supplyBalanceTokens,
 );
 
-const fakeXvsAmountBelowUserBorrowBalanceWei = fakeXvsUserBorrowBalanceInWei.minus(100);
+const fakeMarginWithSupplyCapWei = fakeMarginWithSupplyCapTokens.multipliedBy(
+  new BigNumber(10).pow(TESTNET_TOKENS.xvs.decimals),
+);
 
 const fakeSwap: Swap = {
   fromToken: SWAP_TOKENS.busd,
   fromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
   toToken: TESTNET_TOKENS.xvs,
-  expectedToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
-  minimumToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
-  exchangeRate: fakeXvsAmountBelowUserBorrowBalanceWei.div(fakeBusdAmountBellowWalletBalanceWei),
+  expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
+  minimumToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
+  exchangeRate: fakeMarginWithSupplyCapWei.div(fakeBusdAmountBellowWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
   direction: 'exactAmountIn',
-};
-
-// Fake full repayment swap in which the wallet balance covers exactly the entire user loan
-const fakeFullRepaymentSwap: Swap = {
-  fromToken: SWAP_TOKENS.busd,
-  expectedFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
-  maximumFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
-  toToken: TESTNET_TOKENS.xvs,
-  toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei,
-  exchangeRate: fakeXvsUserBorrowBalanceInWei.div(fakeBusdWalletBalanceWei),
-  routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
-  direction: 'exactAmountOut',
 };
 
 jest.mock('clients/api');
@@ -64,7 +53,7 @@ jest.mock('hooks/useGetSwapTokenUserBalances');
 jest.mock('hooks/useSuccessfulTransactionModal');
 jest.mock('hooks/useGetSwapInfo');
 
-describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap', () => {
+describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
     (isFeatureEnabled as jest.Mock).mockImplementation(
       featureFlag => featureFlag === 'integratedSwap',
@@ -88,6 +77,27 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
   it('renders without crashing', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
+  });
+
+  it('disables swap feature when underlying token of asset is BNB', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      vToken: {
+        ...fakeAsset.vToken,
+        underlyingToken: SWAP_TOKENS.bnb,
+      },
+    };
+
+    const { queryByTestId } = renderComponent(
+      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
   });
 
   it('displays correct wallet balance', async () => {
@@ -121,9 +131,11 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       },
     );
 
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+    await waitFor(() =>
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.enterValidAmount),
+    );
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
   });
 
@@ -166,56 +178,11 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.wrappingUnsupported));
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.wrappingUnsupported).closest('button'),
-    ).toBeDisabled();
-  });
-
-  it('disables submit button if swap is an unwrap', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
-      swap: undefined,
-      error: 'UNWRAPPING_UNSUPPORTED',
-      isLoading: false,
-    }));
-
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: SWAP_TOKENS.bnb,
-      },
-    };
-
-    const { getByText, container, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.wbnb,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
-
     await waitFor(() =>
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.unwrappingUnsupported),
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.wrappingUnsupported),
     );
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.unwrappingUnsupported).closest(
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.wrappingUnsupported).closest(
         'button',
       ),
     ).toBeDisabled();
@@ -247,10 +214,10 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
     await waitFor(() =>
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity),
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.insufficientSwapLiquidity),
     );
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity).closest(
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.insufficientSwapLiquidity).closest(
         'button',
       ),
     ).toBeDisabled();
@@ -283,7 +250,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     fireEvent.change(selectTokenTextField, { target: { value: invalidAmount } });
 
     const expectedSubmitButtonLabel =
-      en.borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance.replace(
+      en.supplyWithdrawModal.supply.submitButtonLabel.insufficientWalletBalance.replace(
         '{{tokenSymbol}}',
         SWAP_TOKENS.busd.symbol,
       );
@@ -292,14 +259,14 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
   });
 
-  it('disables submit button if amount entered in input would have a higher value than borrow balance after swapping', async () => {
-    const customFakeFullRepaymentSwap: Swap = {
-      ...fakeFullRepaymentSwap,
-      toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei.plus(1),
+  it('disables submit button if amount entered in input would have a higher value than supply cap after swapping', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeSwap,
+      expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei.plus(1),
     };
 
     (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
-      swap: customFakeFullRepaymentSwap,
+      swap: customFakeSwap,
       error: undefined,
       isLoading: false,
     }));
@@ -329,7 +296,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     const expectedSubmitButtonLabel =
-      en.borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance;
+      en.supplyWithdrawModal.supply.submitButtonLabel.amountHigherThanSupplyCap;
 
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
@@ -368,7 +335,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
     expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
-    expect(getByTestId(TEST_IDS.swapSummary)).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
@@ -393,7 +359,9 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       },
     );
 
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+    await waitFor(() =>
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.enterValidAmount),
+    );
 
     selectToken({
       container,
@@ -410,14 +378,14 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     expect(selectTokenTextField.value).toBe('');
 
     // Click on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.supplyWithdrawModal.supply.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe('0'));
 
     // Check submit button is disabled
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
   });
 
@@ -431,7 +399,9 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       },
     );
 
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
+    await waitFor(() =>
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.enterValidAmount),
+    );
 
     selectToken({
       container,
@@ -448,125 +418,27 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     expect(selectTokenTextField.value).toBe('');
 
     // Click on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.supplyWithdrawModal.supply.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
 
     // Check submit button is enabled
     expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
+      getByText(en.supplyWithdrawModal.supply.submitButtonLabel.supply).closest('button'),
     ).toBeEnabled();
   });
 
-  it('updates input value to correct value when pressing on preset percentage buttons', async () => {
-    const exchangeRate = new BigNumber(2);
-    const getConvertedFromTokenAmountTokens = (toTokenAmountTokens: BigNumber | string) =>
-      new BigNumber(toTokenAmountTokens).dividedBy(exchangeRate);
-
-    // Memoize generate swaps to prevent infinite re-renders on state update
-    const memoizedFakeSwaps: { [key: string]: Swap } = {};
-
-    // Generate fake swap info based on amount being swapped to
-    const getFakeSwap = ({
-      toTokenAmountTokens,
-      direction,
-      fromToken,
-      toToken,
-    }: UseGetSwapInfoInput) => {
-      if (toTokenAmountTokens && memoizedFakeSwaps[toTokenAmountTokens]) {
-        return memoizedFakeSwaps[toTokenAmountTokens];
-      }
-
-      if (direction === 'exactAmountIn' || !toTokenAmountTokens) {
-        return undefined;
-      }
-
-      const fakeConvertedFromTokenAmountTokens =
-        getConvertedFromTokenAmountTokens(toTokenAmountTokens);
-      const fakeConvertedFromTokenAmountWei = fakeConvertedFromTokenAmountTokens.multipliedBy(
-        new BigNumber(10).pow(fromToken.decimals),
-      );
-      const fakeToTokenAmountReceivedWei = new BigNumber(toTokenAmountTokens).multipliedBy(
-        new BigNumber(10).pow(toToken.decimals),
-      );
-
-      const customFakeSwap: Swap = {
-        ...fakeFullRepaymentSwap,
-        expectedFromTokenAmountSoldWei: fakeConvertedFromTokenAmountWei,
-        maximumFromTokenAmountSoldWei: fakeConvertedFromTokenAmountWei,
-        toTokenAmountReceivedWei: fakeToTokenAmountReceivedWei,
-      };
-
-      memoizedFakeSwaps[toTokenAmountTokens] = customFakeSwap;
-      return customFakeSwap;
-    };
-
-    (useGetSwapInfo as jest.Mock).mockImplementation((input: UseGetSwapInfoInput) => ({
-      swap: getFakeSwap(input),
-      error: undefined,
+  it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: fakeSwap,
       isLoading: false,
     }));
+
+    const onCloseMock = jest.fn();
+    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
-    });
-
-    // Check input is empty
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-    expect(selectTokenTextField.value).toBe('');
-
-    for (let i = 0; i < PRESET_PERCENTAGES.length; i++) {
-      // Clear input
-      fireEvent.change(selectTokenTextField, {
-        target: { value: '' },
-      });
-
-      const presetPercentage = PRESET_PERCENTAGES[i];
-
-      // Press on preset percentage button
-      fireEvent.click(getByText(`${presetPercentage}%`));
-
-      const fakeToTokenAmountRepaidTokens = fakeAsset.userBorrowBalanceTokens
-        .multipliedBy(presetPercentage / 100)
-        .dp(fakeAsset.vToken.underlyingToken.decimals);
-
-      const fakeConvertedFromTokenAmountTokens = getConvertedFromTokenAmountTokens(
-        fakeToTokenAmountRepaidTokens,
-      ).dp(SWAP_TOKENS.busd.decimals);
-
-      expect(selectTokenTextField.value).toBe(fakeConvertedFromTokenAmountTokens.toFixed());
-    }
-  });
-
-  it('lets user swap and repay partial loan, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
-      swap: fakeSwap,
-      error: undefined,
-      isLoading: false,
-    }));
-
-    const onCloseMock = jest.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-    const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         authContextValue: {
@@ -586,86 +458,23 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
         parentTestId: TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
-
-    const validAmountTokens = FAKE_BUSD_BALANCE_TOKENS;
 
     // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: validAmountTokens } });
+    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    const expectedSubmitButtonLabel = en.borrowRepayModal.repay.submitButtonLabel.repay;
+    const expectedSubmitButtonLabel = en.supplyWithdrawModal.supply.submitButtonLabel.supply;
 
     // Click on submit button
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     fireEvent.click(getByText(expectedSubmitButtonLabel));
 
-    // Check swapTokensAndRepay is called with correct arguments
-    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
-    expect(swapTokensAndRepay).toHaveBeenCalledWith({
-      swap: fakeSwap,
-      isRepayingFullLoan: false,
-    });
+    // TODO: check swapTokensAndSupply is called with correct arguments
+    // await waitFor(() => expect(swapTokensAndSupply).toHaveBeenCalledTimes(1));
+    // expect(swapTokensAndSupply).toHaveBeenCalledWith({
+    //   swap: fakeSwap,
+    // });
 
     const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
-
-    await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountRepaidWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
-  });
-
-  it('lets user swap and repay full loan', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
-      swap: fakeFullRepaymentSwap,
-      isLoading: false,
-    }));
-
-    const onCloseMock = jest.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-    const { container, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
-    });
-
-    // Click on 100% button
-    fireEvent.click(getByText('100%'));
-
-    // Check notice is displayed
-    await waitFor(() =>
-      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
-    );
-
-    const expectedSubmitButtonLabel = en.borrowRepayModal.repay.submitButtonLabel.repay;
-
-    // Click on submit button
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    fireEvent.click(getByText(expectedSubmitButtonLabel));
-
-    // Check swapTokensAndRepay is called with correct arguments
-    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
-    expect(swapTokensAndRepay).toHaveBeenCalledWith({
-      swap: fakeFullRepaymentSwap,
-      isRepayingFullLoan: true,
-    });
-
-    const expectedAmountRepaidWei = fakeFullRepaymentSwap.toTokenAmountReceivedWei;
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
 
