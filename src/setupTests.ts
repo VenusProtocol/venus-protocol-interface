@@ -9,7 +9,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 jest.mock('utilities/isFeatureEnabled');
 jest.mock('hooks/useTokenApproval');
 
-const useTokenApprovalOriginalOuput = useTokenApproval(
+const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {
     token: SWAP_TOKENS.cake,
@@ -19,5 +19,5 @@ const useTokenApprovalOriginalOuput = useTokenApproval(
 );
 
 afterEach(() => {
-  (useTokenApproval as jest.Mock).mockImplementation(() => useTokenApprovalOriginalOuput);
+  (useTokenApproval as jest.Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
 });
