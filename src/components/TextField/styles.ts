@@ -55,6 +55,7 @@ export const useStyles = () => {
     },
     getLeftIcon: ({ isSmall }: { isSmall: boolean }) => css`
       margin-right: ${theme.spacing(2)};
+      margin-top: 0;
       width: ${theme.spacing(isSmall ? 5 : 6)};
       height: ${theme.spacing(isSmall ? 5 : 6)};
     `,
