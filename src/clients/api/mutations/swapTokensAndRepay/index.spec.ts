@@ -79,9 +79,42 @@ describe('api/mutation/swapTokensAndRepay', () => {
     expect(waitMock).toHaveBeenCalledWith(1);
   });
 
-  it.todo(
-    'calls the right contract method when repaying a full loan in non-native tokens by selling as few native tokens as possible',
-  );
+  it('calls the right contract method when repaying a full loan in non-native tokens by selling as few native tokens as possible', async () => {
+    const customFakeExactAmountOutSwap: ExactAmountOutSwap = {
+      ...fakeExactAmountOutSwap,
+      fromToken: SWAP_TOKENS.bnb,
+      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
+    };
+
+    const waitMock = jest.fn(async () => fakeContractReceipt);
+    const swapBNBForFullTokenDebtAndRepayMock = jest.fn(() => ({
+      wait: waitMock,
+    }));
+
+    const fakeContract = {
+      swapBNBForFullTokenDebtAndRepay: swapBNBForFullTokenDebtAndRepayMock,
+      signer: fakeSigner,
+    } as unknown as SwapRouter;
+
+    await swapTokens({
+      swapRouterContract: fakeContract,
+      swap: customFakeExactAmountOutSwap,
+      vToken: fakeVToken,
+      isRepayingFullLoan: true,
+    });
+
+    expect(swapBNBForFullTokenDebtAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapBNBForFullTokenDebtAndRepayMock).toHaveBeenCalledWith(
+      fakeVToken.address,
+      customFakeExactAmountOutSwap.routePath,
+      expect.any(Number),
+      {
+        value: customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
+      },
+    );
+    expect(waitMock).toBeCalledTimes(1);
+    expect(waitMock).toHaveBeenCalledWith(1);
+  });
 
   it('calls the right contract method when selling an exact amount of non-native tokens to repay as many non-native tokens as possible', async () => {
     const waitMock = jest.fn(async () => fakeContractReceipt);

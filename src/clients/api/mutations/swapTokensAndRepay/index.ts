@@ -54,7 +54,23 @@ const swapTokensAndRepay = async ({
     return transaction.wait(1);
   }
 
-  // TODO: handle repaying full loan in tokens using BNBs
+  // Repay full loan in tokens using BNBs
+  if (
+    isRepayingFullLoan &&
+    swap.direction === 'exactAmountOut' &&
+    swap.fromToken.isNative &&
+    !swap.toToken.isNative
+  ) {
+    const transaction = await swapRouterContract.swapBNBForFullTokenDebtAndRepay(
+      vToken.address,
+      swap.routePath,
+      transactionDeadline,
+      {
+        value: swap.maximumFromTokenAmountSoldWei.toFixed(),
+      },
+    );
+    return transaction.wait(1);
+  }
 
   // Sell fromTokens to repay as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {

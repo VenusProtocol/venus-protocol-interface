@@ -64,11 +64,6 @@
     "type": "error"
   },
   {
-    "inputs": [{ "internalType": "address[]", "name": "path", "type": "address[]" }],
-    "name": "SwapInvalidAddressesPath",
-    "type": "error"
-  },
-  {
     "inputs": [{ "internalType": "address", "name": "vToken", "type": "address" }],
     "name": "VTokenNotListed",
     "type": "error"
@@ -82,6 +77,24 @@
     "type": "error"
   },
   { "inputs": [], "name": "ZeroAddress", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "OwnershipTransferStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -109,6 +122,15 @@
       { "indexed": true, "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }
     ],
     "name": "SwapTokensForBnb",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "swapper", "type": "address" },
+      { "indexed": true, "internalType": "address[]", "name": "path", "type": "address[]" }
+    ],
+    "name": "SwapTokensForBnbAtSupportingFee",
     "type": "event"
   },
   {
@@ -145,6 +167,13 @@
     "name": "WBNB",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "acceptOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -204,6 +233,20 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingOwner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "uint256", "name": "amountA", "type": "uint256" },
       { "internalType": "uint256", "name": "reserveA", "type": "uint256" },
@@ -212,6 +255,13 @@
     "name": "quote",
     "outputs": [{ "internalType": "uint256", "name": "amountB", "type": "uint256" }],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -238,68 +288,6 @@
     "name": "swapAndRepayAtSupportingFee",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
-      { "internalType": "address[]", "name": "path", "type": "address[]" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
-    ],
-    "name": "swapAndSupply",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
-      { "internalType": "address[]", "name": "path", "type": "address[]" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
-    ],
-    "name": "swapAndSupplyAtSupportingFee",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
-      { "internalType": "address[]", "name": "path", "type": "address[]" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
-    ],
-    "name": "swapBNBAndRepay",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
-      { "internalType": "address[]", "name": "path", "type": "address[]" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
-    ],
-    "name": "swapBNBAndRepayAtSupportingFee",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
-      { "internalType": "address[]", "name": "path", "type": "address[]" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
-    ],
-    "name": "swapBNBAndSupplyAtSupportingFee",
-    "outputs": [],
-    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -341,11 +329,10 @@
   {
     "inputs": [
       { "internalType": "address", "name": "vTokenAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
       { "internalType": "address[]", "name": "path", "type": "address[]" },
       { "internalType": "uint256", "name": "deadline", "type": "uint256" }
     ],
-    "name": "swapBnbAndSupply",
+    "name": "swapBNBForFullTokenDebtAndRepay",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -359,6 +346,54 @@
     ],
     "name": "swapExactBNBForTokens",
     "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactBNBForTokensAndRepay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactBNBForTokensAndRepayAtSupportingFee",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactBNBForTokensAndSupply",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactBNBForTokensAndSupplyAtSupportingFee",
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -422,7 +457,7 @@
       { "internalType": "uint256", "name": "deadline", "type": "uint256" }
     ],
     "name": "swapExactTokensForBNBAtSupportingFee",
-    "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }],
+    "outputs": [{ "internalType": "uint256", "name": "swapAmount", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -436,6 +471,32 @@
     ],
     "name": "swapExactTokensForTokens",
     "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactTokensForTokensAndSupply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vTokenAddress", "type": "address" },
+      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" },
+      { "internalType": "address[]", "name": "path", "type": "address[]" },
+      { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+    ],
+    "name": "swapExactTokensForTokensAndSupplyAtSupportingFee",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -537,6 +598,24 @@
       { "internalType": "uint256", "name": "deadline", "type": "uint256" }
     ],
     "name": "swapTokensForFullTokenDebtAndRepay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract IERC20", "name": "token", "type": "address" },
+      { "internalType": "address", "name": "to", "type": "address" },
+      { "internalType": "uint256", "name": "sweepAmount", "type": "uint256" }
+    ],
+    "name": "sweepToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
