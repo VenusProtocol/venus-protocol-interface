@@ -14,7 +14,17 @@ export interface AnnouncementProps {
 
 export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
   const styles = useStyles();
-  const { Trans } = useTranslation();
+  const { Trans, t } = useTranslation();
+
+  // SXP disabling
+  if (token.address.toLowerCase() === TOKENS.sxp.address.toLowerCase()) {
+    return (
+      <NoticeWarning
+        css={styles.banner}
+        description={t('dashboard.modals.announcement.sxpDisablingBanner.description')}
+      />
+    );
+  }
 
   // TRX migration
   if (token.address.toLowerCase() === TOKENS.trxold.address.toLowerCase()) {
