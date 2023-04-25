@@ -7,7 +7,7 @@ import { isTokenEnabled } from 'utilities';
 
 import AssetAccessor from 'containers/AssetAccessor';
 
-import Borrow from './Borrow';
+import BorrowForm from './BorrowForm';
 import RepayForm from './RepayForm';
 import { useStyles } from './styles';
 
@@ -47,11 +47,17 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
         <div css={styles.container}>
-          <Borrow
+          <AssetAccessor
             vToken={vToken}
             poolComptrollerAddress={poolComptrollerAddress}
-            onClose={onClose}
-          />
+            connectWalletMessage={t('borrowRepayModal.repay.connectWalletMessage')}
+            enableTokenMessage={t('borrowRepayModal.repay.enableToken.title', {
+              symbol: vToken.underlyingToken.symbol,
+            })}
+            assetInfoType="borrow"
+          >
+            {({ asset, pool }) => <BorrowForm asset={asset} pool={pool} onCloseModal={onClose} />}
+          </AssetAccessor>
         </div>
       ),
     });
