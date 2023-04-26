@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { RiskLevel } from 'components';
 import React from 'react';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
@@ -25,8 +24,6 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className })
           <Typography css={styles.marketName} variant="h3">
             {pool.name}
           </Typography>
-
-          <RiskLevel variant={pool.riskRating} />
         </div>
       )}
 

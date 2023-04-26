@@ -7,7 +7,6 @@ export type ColumnKey =
   | 'borrowApy'
   | 'labeledBorrowApy'
   | 'pool'
-  | 'riskRating'
   | 'collateral'
   | 'userSupplyBalance'
   | 'userBorrowBalance'

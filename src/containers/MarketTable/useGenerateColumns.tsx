@@ -1,13 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import {
-  LayeredValues,
-  ProgressBar,
-  RiskLevel,
-  TableColumn,
-  Toggle,
-  TokenIconWithSymbol,
-} from 'components';
+import { LayeredValues, ProgressBar, TableColumn, Toggle, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -15,7 +8,6 @@ import {
   compareBigNumbers,
   compareBooleans,
   compareNumbers,
-  comparePoolRiskRatings,
   compareStrings,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -36,7 +28,6 @@ import { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.borrowApy')
 // t('marketTable.columnKeys.labeledBorrowApy')yar
 // t('marketTable.columnKeys.pool')
-// t('marketTable.columnKeys.riskRating')
 // t('marketTable.columnKeys.collateral')
 // t('marketTable.columnKeys.supplyBalance')
 // t('marketTable.columnKeys.borrowBalance')
@@ -128,10 +119,6 @@ const useGenerateColumns = ({
                 </Link>
               </div>
             );
-          }
-
-          if (column === 'riskRating') {
-            return <RiskLevel variant={poolAsset.pool.riskRating} />;
           }
 
           if (column === 'userWalletBalance') {
@@ -256,14 +243,6 @@ const useGenerateColumns = ({
 
                 if (column === 'pool') {
                   return compareStrings(rowA.pool.name, rowB.pool.name, direction);
-                }
-
-                if (column === 'riskRating') {
-                  return comparePoolRiskRatings(
-                    rowA.pool.riskRating,
-                    rowB.pool.riskRating,
-                    direction,
-                  );
                 }
 
                 if (column === 'userWalletBalance') {

@@ -18,29 +18,13 @@ const isAssetInSearch = ({
   );
 };
 
-const useFormatPools = ({
-  pools,
-  includeHigherRiskPools,
-  searchValue,
-}: {
-  pools: Pool[];
-  includeHigherRiskPools: boolean;
-  searchValue: string;
-}) => {
-  const filteredPools = useMemo(
-    () =>
-      // Filter ou pools that don't have a minimal risk rating if switch is
-      // turned off
-      includeHigherRiskPools ? pools : pools.filter(pool => pool.riskRating === 'MINIMAL_RISK'),
-    [pools, includeHigherRiskPools],
-  );
-
+const useFormatPools = ({ pools, searchValue }: { pools: Pool[]; searchValue: string }) => {
   const formattedPools = useMemo(() => {
     if (!searchValue) {
-      return filteredPools;
+      return pools;
     }
 
-    return filteredPools.map(pool => ({
+    return pools.map(pool => ({
       ...pool,
       assets: pool.assets.filter(asset =>
         isAssetInSearch({
@@ -50,7 +34,7 @@ const useFormatPools = ({
         }),
       ),
     }));
-  }, [filteredPools, searchValue]);
+  }, [pools, searchValue]);
 
   return formattedPools;
 };

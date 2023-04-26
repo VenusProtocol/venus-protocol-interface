@@ -68,21 +68,10 @@ export interface Asset {
   isCollateralOfUser: boolean;
 }
 
-export enum ContractPoolRiskRating {
-  HighRisk = 'HIGH_RISK',
-  LowRisk = 'LOW_RISK',
-  MediumRisk = 'MEDIUM_RISK',
-  MinimalRisk = 'MINIMAL_RISK',
-  VeryHighRisk = 'VERY_HIGH_RISK',
-}
-
-export type PoolRiskRating = `${ContractPoolRiskRating}`;
-
 export interface Pool {
   comptrollerAddress: string;
   name: string;
   description: string;
-  riskRating: PoolRiskRating;
   isIsolated: boolean;
   assets: Asset[];
   // User-specific props

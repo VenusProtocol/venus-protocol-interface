@@ -215,10 +215,6 @@
       },
       "title": "Connect your wallet"
     },
-    "higherRiskTokensNotice": {
-      "description": "Long-tail assets, tokens with lower liquidity and volume, may be volatile and carry greater risk relative to the market in general.",
-      "title": "What are higher risk tokens?"
-    },
     "modals": {
       "announcement": {
         "sxpDisablingBanner": {
@@ -226,8 +222,6 @@
         }
       }
     },
-    "riskyTokensToggleLabel": "Display higher risk tokens",
-    "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
       "placeholder": "Search asset",
       "placeholderIsolatedPools": "Search pool or asset"
@@ -417,7 +411,6 @@
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "pool": "Pool",
-      "riskRating": "Risk level",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
@@ -449,19 +442,10 @@
         "assets": "Assets",
         "liquidity": "Liquidity",
         "pool": "Pool",
-        "riskRating": "Risk level",
         "totalBorrow": "Total borrow",
         "totalSupply": "Total supply"
       }
     }
-  },
-  "riskRating": {
-    "high": "High risk",
-    "low": "Low risk",
-    "medium": "Medium risk",
-    "minimal": "Minimal risk",
-    "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
-    "veryHigh": "Very high risk"
   },
   "select": {
     "defaultLabel": "Select"

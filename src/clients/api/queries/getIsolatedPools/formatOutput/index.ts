@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Asset, ContractPoolRiskRating, Pool } from 'types';
+import { Asset, Pool } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -239,7 +239,6 @@ const formatToPools = ({
       name: poolResult.name,
       description: poolResult.description,
       comptrollerAddress: poolResult.comptroller,
-      riskRating: Object.values(ContractPoolRiskRating)[poolResult.riskRating],
       isIsolated: true,
       assets,
     });

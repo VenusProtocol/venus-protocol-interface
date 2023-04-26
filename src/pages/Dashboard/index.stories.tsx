@@ -14,11 +14,5 @@ export default {
 } as ComponentMeta<typeof DashboardUi>;
 
 export const Default = () => (
-  <DashboardUi
-    areHigherRiskPoolsDisplayed
-    onHigherRiskPoolsToggleChange={noop}
-    searchValue=""
-    onSearchInputChange={noop}
-    pools={poolData}
-  />
+  <DashboardUi searchValue="" onSearchInputChange={noop} pools={poolData} />
 );
