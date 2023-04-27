@@ -69,12 +69,12 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         css={styles.banner}
         description={
           <Trans
-            i18nKey="dashboard.trxMigrationBanner.description"
+            i18nKey="dashboard.bethUpdateBanner.description"
             components={{
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 <a
-                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
+                  href="https://binance.com/en/support/announcement/binance-introduces-wrapped-beacon-eth-wbeth-on-eth-staking-a1197f34d832445db41654ad01f56b4d"
                   rel="noreferrer"
                   target="_blank"
                 />
