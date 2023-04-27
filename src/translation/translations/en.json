@@ -131,8 +131,8 @@
         }
       }
     },
-    "trxMigrationBanner": {
-      "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>"
+    "bethUpdateBanner": {
+      "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
     },
     "vaiStabilityFeeBanner": {
       "description": "VAI stability fee is active. It is currently {{feePercentage}}% APY. For more information see <Link>VIP-92 Update VAI Floating Rate</Link>."

@@ -198,7 +198,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
   ];
 
   // Prevent user from being able to supply a disabled token
-  if (isAssetEnabled(assetId)) {
+  if (isAssetEnabled(assetId) || assetId === 'beth') {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
