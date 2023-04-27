@@ -32,7 +32,6 @@ const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPool
         comptrollerAddress: mainPoolComptrollerAddress,
         name: t('mainPool.name'),
         description: t('mainPool.description'),
-        riskRating: 'MINIMAL_RISK',
         isIsolated: false,
         assets: getMainAssetsData.assets,
       }),

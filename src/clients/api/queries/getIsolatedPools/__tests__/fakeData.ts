@@ -19,7 +19,6 @@ export const fakeGetAllPoolsOuput = [
     logoURL: '',
     minLiquidatableCollateral: BN.from('0x056bc75e2d63100000'),
     priceOracle: '0xb0de3Fce006d3434342383f941bD22720Ff9Fc0C',
-    riskRating: 0,
     timestampPosted: BN.from('0x641833ef'),
     vTokens: [
       {
@@ -72,7 +71,6 @@ export const fakeGetAllPoolsOuput = [
     logoURL: '',
     minLiquidatableCollateral: BN.from('0x056bc75e2d63100000'),
     priceOracle: '0xb0de3Fce006d3434342383f941bD22720Ff9Fc0C',
-    riskRating: 0,
     timestampPosted: BN.from('0x64182be2'),
     vTokens: [
       {

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, TextField, Toggle } from 'components';
+import { Announcement, ButtonGroup, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -12,14 +12,11 @@ import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import ConnectWalletBanner from './ConnectWalletBanner';
-import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
 
 interface DashboardUiProps {
-  areHigherRiskPoolsDisplayed: boolean;
-  onHigherRiskPoolsToggleChange: (newValue: boolean) => void;
   searchValue: string;
   onSearchInputChange: (newValue: string) => void;
   pools: Pool[];
@@ -29,8 +26,6 @@ interface DashboardUiProps {
 export const DashboardUi: React.FC<DashboardUiProps> = ({
   pools,
   isFetchingPools,
-  areHigherRiskPoolsDisplayed,
-  onHigherRiskPoolsToggleChange,
   searchValue,
   onSearchInputChange,
 }) => {
@@ -46,7 +41,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
   const formattedPools = useFormatPools({
     pools,
-    includeHigherRiskPools: areHigherRiskPoolsDisplayed,
     searchValue,
   });
 
@@ -56,7 +50,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     marketType: 'supply',
     breakpoint: 'lg',
     columns: isFeatureEnabled('isolatedPools')
-      ? ['asset', 'supplyApyLtv', 'pool', 'riskRating', 'collateral']
+      ? ['asset', 'supplyApyLtv', 'pool', 'collateral']
       : ['asset', 'supplyApyLtv', 'userWalletBalance', 'collateral'],
     initialOrder: {
       orderBy: 'supplyApyLtv',
@@ -70,7 +64,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     marketType: 'borrow',
     breakpoint: 'lg',
     columns: isFeatureEnabled('isolatedPools')
-      ? ['asset', 'borrowApy', 'pool', 'riskRating', 'liquidity']
+      ? ['asset', 'borrowApy', 'pool', 'liquidity']
       : ['asset', 'borrowApy', 'userWalletBalance', 'liquidity'],
     initialOrder: {
       orderBy: 'borrowApy',
@@ -83,8 +77,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
       <ConnectWalletBanner />
 
       <Announcement token={TOKENS.trxold} />
-
-      {isFeatureEnabled('isolatedPools') && <HigherRiskTokensNotice />}
 
       <div css={styles.header}>
         <TextField
@@ -119,16 +111,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           )}
 
           <div css={styles.rightColumn}>
-            {isFeatureEnabled('isolatedPools') && (
-              <Toggle
-                tooltip={t('dashboard.riskyTokensToggleTooltip')}
-                label={t('dashboard.riskyTokensToggleLabel')}
-                isLight
-                value={areHigherRiskPoolsDisplayed}
-                onChange={event => onHigherRiskPoolsToggleChange(event.currentTarget.checked)}
-              />
-            )}
-
             <TextField
               css={[styles.desktopSearchTextField, hideXlDownCss]}
               isSmall
@@ -194,7 +176,6 @@ const Dashboard: React.FC = () => {
   const { accountAddress } = useAuth();
 
   const [searchValue, setSearchValue] = useState('');
-  const [areHigherRiskPoolsDisplayed, setAreHigherRiskTokensDisplayed] = useState(true);
 
   const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
@@ -204,8 +185,6 @@ const Dashboard: React.FC = () => {
     <DashboardUi
       pools={getPoolData?.pools || []}
       isFetchingPools={isGetPoolsLoading}
-      areHigherRiskPoolsDisplayed={areHigherRiskPoolsDisplayed}
-      onHigherRiskPoolsToggleChange={setAreHigherRiskTokensDisplayed}
       searchValue={searchValue}
       onSearchInputChange={setSearchValue}
     />

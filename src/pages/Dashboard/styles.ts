@@ -35,7 +35,6 @@ export const useStyles = () => {
       margin-bottom: ${theme.spacing(6)};
     `,
     desktopSearchTextField: css`
-      margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
     banner: css`

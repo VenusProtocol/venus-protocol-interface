@@ -217,7 +217,6 @@ Object {
     "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
     "isIsolated": false,
     "name": "Venus",
-    "riskRating": "MINIMAL_RISK",
     "userBorrowBalanceCents": 9001,
     "userBorrowLimitCents": 5754,
     "userSupplyBalanceCents": 21507,

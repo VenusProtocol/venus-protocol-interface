@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { RiskLevel, Table, TableColumn, TokenGroup } from 'components';
+import { Table, TableColumn, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import poolRiskRatingMapping from 'constants/poolRiskRatingMapping';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
@@ -67,18 +66,6 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
             : rowB.pool.name.localeCompare(rowA.pool.name),
       },
       {
-        key: 'riskRating',
-        label: t('pools.poolTable.columns.riskRating'),
-        align: 'right',
-        renderCell: ({ pool }) => <RiskLevel variant={pool.riskRating} />,
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? poolRiskRatingMapping[rowA.pool.riskRating] -
-              poolRiskRatingMapping[rowB.pool.riskRating]
-            : poolRiskRatingMapping[rowB.pool.riskRating] -
-              poolRiskRatingMapping[rowA.pool.riskRating],
-      },
-      {
         key: 'totalSupply',
         label: t('pools.poolTable.columns.totalSupply'),
         align: 'right',
@@ -133,7 +120,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       columns={columns}
       data={data}
       initialOrder={{
-        orderBy: columns[5],
+        orderBy: columns[4],
         orderDirection: 'desc',
       }}
       rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}

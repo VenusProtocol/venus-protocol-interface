@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pages/Account/PoolBreakdown Feature flag enabled: isolatedPools displays content correctly 1`] = `"VenusMinimal risk"`;
+exports[`pages/Account/PoolBreakdown Feature flag enabled: isolatedPools displays content correctly 1`] = `"Venus"`;
 
 exports[`pages/Account/PoolBreakdown Feature flag enabled: isolatedPools displays content correctly 2`] = `"Net APY0.96%Daily Earnings$0.01Total Supply$215.07Total Borrow$90.01Borrow limit used:156.43%Limit:$57.54.Your safe limit:$46.03"`;
 

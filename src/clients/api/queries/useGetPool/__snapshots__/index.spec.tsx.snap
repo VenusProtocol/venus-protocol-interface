@@ -217,7 +217,6 @@ Object {
     "description": "Fake description 1",
     "isIsolated": false,
     "name": "Venus",
-    "riskRating": "MINIMAL_RISK",
     "userBorrowBalanceCents": 12333,
     "userBorrowLimitCents": 192673,
     "userSupplyBalanceCents": 123879865,
