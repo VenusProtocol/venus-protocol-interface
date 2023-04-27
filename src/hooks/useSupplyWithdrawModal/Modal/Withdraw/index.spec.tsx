@@ -6,14 +6,7 @@ import { Pool } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import {
-  getAllowance,
-  getVTokenBalanceOf,
-  redeem,
-  redeemUnderlying,
-  useGetPool,
-} from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import { getVTokenBalanceOf, redeem, redeemUnderlying, useGetPool } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -40,10 +33,6 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   beforeEach(() => {
     (getVTokenBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: fakeVTokenBalanceWei,
-    }));
-
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
     }));
 
     (useGetPool as jest.Mock).mockImplementation(() => ({

@@ -8,12 +8,13 @@ import {
 import BigNumber from 'bignumber.js';
 import config from 'config';
 import { useMemo } from 'react';
+import { SwapError } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
-import { SwapError, UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
+import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 

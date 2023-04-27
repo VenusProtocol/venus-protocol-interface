@@ -1,11 +1,10 @@
 import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { getAllowance } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 
 import EnableToken from '.';
@@ -18,8 +17,12 @@ const fakeContent = 'Fake Content';
 
 describe('components/EnableToken', () => {
   it('asks the user to enable token if not enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: new BigNumber(0),
+    // Mark all tokens as having not been approved
+    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+      isTokenApproved: false,
+      isTokenApprovalStatusLoading: false,
+      isApproveTokenLoading: false,
+      approveToken: noop,
     }));
 
     const fakeEnableTitle = 'Enable token to proceed';
@@ -38,10 +41,6 @@ describe('components/EnableToken', () => {
   });
 
   it('renders content when token is enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     const { getByText } = renderComponent(
       <EnableToken
         token={fakeAsset.vToken.underlyingToken}

@@ -363,4 +363,9 @@ export interface ExactAmountOutSwap extends SwapBase {
 
 export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
+export type SwapError =
+  | 'INSUFFICIENT_LIQUIDITY'
+  | 'WRAPPING_UNSUPPORTED'
+  | 'UNWRAPPING_UNSUPPORTED';
+
 export type PSTokenCombination = [PSToken, PSToken];

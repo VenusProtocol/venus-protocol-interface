@@ -41,8 +41,8 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(3)};
       }
     `,
-    submitButton: css`
-      margin-top: ${theme.spacing(8)};
+    swapDetails: css`
+      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

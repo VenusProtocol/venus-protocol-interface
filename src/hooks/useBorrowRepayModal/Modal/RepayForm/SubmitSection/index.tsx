@@ -1,66 +1,66 @@
 /** @jsxImportSource @emotion/react */
-import { PrimaryButton } from 'components';
-import { FormikErrors } from 'formik';
+import { Typography } from '@mui/material';
+import { EnableTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { Swap, Token } from 'types';
+import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilities';
 
-import { SwapError } from 'hooks/useGetSwapInfo';
+import TEST_IDS from '../testIds';
+import { FormError } from '../useForm/types';
+import { useStyles } from './styles';
 
-import { ErrorCode, FormValues } from '../useForm/validationSchema';
+const swapRouterContractAddress = getContractAddress('swapRouter');
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
-  isFormDirty: boolean;
   isFormSubmitting: boolean;
-  isSwapLoading: boolean;
+  toToken: Token;
   fromToken: Token;
-  fromTokenAmount: string;
-  formErrors: FormikErrors<FormValues>;
-  swapError?: SwapError;
+  fromTokenAmountTokens: string;
+  isSwapLoading: boolean;
+  swap?: Swap;
+  formError?: FormError;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
-  isFormDirty,
   isFormSubmitting,
-  isSwapLoading,
+  toToken,
   fromToken,
-  fromTokenAmount,
-  formErrors,
-  swapError,
+  fromTokenAmountTokens,
+  formError,
+  swap,
+  isSwapLoading,
 }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const submitButtonLabel = useMemo(() => {
-    if (isSwapLoading && Number(fromTokenAmount) > 0) {
+    if (isSwapLoading && Number(fromTokenAmountTokens) > 0) {
       return t('borrowRepayModal.repay.submitButtonLabel.processing');
     }
 
-    if (swapError === 'INSUFFICIENT_LIQUIDITY') {
+    if (formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
       return t('borrowRepayModal.repay.submitButtonLabel.insufficientSwapLiquidity');
     }
 
-    if (!isFormDirty || !fromTokenAmount) {
-      return t('borrowRepayModal.repay.submitButtonLabel.enterValidAmount');
-    }
-
-    if (formErrors.amountTokens === ErrorCode.HIGHER_THAN_REPAY_BALANCE) {
-      return t('borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance');
-    }
-
-    if (formErrors.amountTokens === ErrorCode.HIGHER_THAN_WALLET_BALANCE) {
-      return t('borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance', {
-        tokenSymbol: fromToken.symbol,
-      });
-    }
-
-    if (swapError === 'WRAPPING_UNSUPPORTED') {
+    if (formError === 'SWAP_WRAPPING_UNSUPPORTED') {
       return t('borrowRepayModal.repay.submitButtonLabel.wrappingUnsupported');
     }
 
-    if (swapError === 'UNWRAPPING_UNSUPPORTED') {
+    if (formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
       return t('borrowRepayModal.repay.submitButtonLabel.unwrappingUnsupported');
+    }
+
+    if (formError === 'HIGHER_THAN_REPAY_BALANCE') {
+      return t('borrowRepayModal.repay.submitButtonLabel.amountHigherThanRepayBalance');
+    }
+
+    if (formError === 'HIGHER_THAN_WALLET_BALANCE') {
+      return t('borrowRepayModal.repay.submitButtonLabel.insufficientWalletBalance', {
+        tokenSymbol: fromToken.symbol,
+      });
     }
 
     if (!isFormValid) {
@@ -68,21 +68,75 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('borrowRepayModal.repay.submitButtonLabel.repay');
-  }, [isFormDirty, isSwapLoading, formErrors.amountTokens, fromTokenAmount]);
+  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError]);
 
-  // TODO: handle enable flow
+  const swapSummary = useMemo(() => {
+    if (!swap) {
+      return undefined;
+    }
+
+    const fromTokenAmountWei =
+      swap.direction === 'exactAmountIn'
+        ? swap.fromTokenAmountSoldWei
+        : swap.expectedFromTokenAmountSoldWei;
+    const toTokenAmountWei =
+      swap.direction === 'exactAmountIn'
+        ? swap.expectedToTokenAmountReceivedWei
+        : swap.toTokenAmountReceivedWei;
+
+    const readableFromTokenAmount = convertWeiToTokens({
+      valueWei: fromTokenAmountWei,
+      token: swap.fromToken,
+      returnInReadableFormat: true,
+      minimizeDecimals: true,
+    });
+
+    const readableToTokenAmount = convertWeiToTokens({
+      valueWei: toTokenAmountWei,
+      token: swap.toToken,
+      returnInReadableFormat: true,
+      minimizeDecimals: true,
+    });
+
+    return t('borrowRepayModal.repay.swapSummary', {
+      toTokenAmount: readableToTokenAmount,
+      fromTokenAmount: readableFromTokenAmount,
+    });
+  }, [swap]);
 
   return (
-    <PrimaryButton
-      type="submit"
-      loading={isFormSubmitting}
-      disabled={!isFormValid || !isFormDirty || isFormSubmitting || isSwapLoading || !!swapError}
-      fullWidth
+    <EnableTokenSteps
+      token={fromToken}
+      spenderAddress={swapRouterContractAddress}
+      submitButtonLabel={t('borrowRepayModal.repay.submitButtonLabel.repay')}
+      hideTokenEnablingStep={!isFormValid || areTokensEqual(fromToken, toToken)}
     >
-      {submitButtonLabel}
-    </PrimaryButton>
+      {({ isTokenApprovalStatusLoading }) => (
+        <>
+          <PrimaryButton
+            type="submit"
+            loading={isFormSubmitting}
+            disabled={
+              !isFormValid || isFormSubmitting || isSwapLoading || isTokenApprovalStatusLoading
+            }
+            fullWidth
+          >
+            {submitButtonLabel}
+          </PrimaryButton>
 
-    // TODO: add footer when swapping
+          {swapSummary && (
+            <Typography
+              data-testid={TEST_IDS.swapSummary}
+              css={styles.swapSummary}
+              variant="small2"
+              component="div"
+            >
+              {swapSummary}
+            </Typography>
+          )}
+        </>
+      )}
+    </EnableTokenSteps>
   );
 };
 

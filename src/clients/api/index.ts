@@ -110,6 +110,10 @@ export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';
 export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
 
+export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
+export * from './mutations/swapTokensAndRepay';
+export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
+
 export { default as claimRewards } from './mutations/claimRewards';
 export * from './mutations/claimRewards';
 export { default as useClaimRewards } from './mutations/claimRewards/useClaimRewards';

@@ -1,6 +1,6 @@
 import * as yup from 'Yup';
 import BigNumber from 'bignumber.js';
-import { Token } from 'types';
+import { Swap, Token } from 'types';
 
 declare module 'yup' {
   interface StringSchema extends yup.StringSchema {
@@ -10,5 +10,6 @@ declare module 'yup' {
 
   interface ObjectSchema<T extends object = Token, C = object> extends yup.BaseSchema<T, C> {
     token(): ObjectSchema<Token, C>;
+    swap(): ObjectSchema<Swap, C>;
   }
 }

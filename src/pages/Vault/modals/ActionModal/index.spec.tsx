@@ -5,11 +5,10 @@ import React from 'react';
 import { BscChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { getAllowance } from 'clients/api';
 import TEST_IDS from 'components/Spinner/testIds';
 import mainContractAddresses from 'constants/contracts/addresses/main.json';
-import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
@@ -57,9 +56,12 @@ describe('pages/Vault/modals/ActionModal', () => {
   });
 
   it('prompts user who connected their wallet to enable token if they have not done so already', async () => {
-    // Mark token as disabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: new BigNumber(0),
+    // Mark all tokens as having not been approved
+    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+      isTokenApproved: false,
+      isTokenApprovalStatusLoading: false,
+      isApproveTokenLoading: false,
+      approveToken: noop,
     }));
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
@@ -72,11 +74,6 @@ describe('pages/Vault/modals/ActionModal', () => {
   });
 
   it('displays transaction form if user have connected their wallet and enabled token', async () => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,

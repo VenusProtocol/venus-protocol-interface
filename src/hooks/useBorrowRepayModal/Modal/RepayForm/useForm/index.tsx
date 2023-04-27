@@ -1,153 +1,145 @@
 import BigNumber from 'bignumber.js';
-import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { useTranslation } from 'translation';
-import { Swap, Token } from 'types';
+import { Swap, SwapError, Token, VToken } from 'types';
 import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useIsMounted from 'hooks/useIsMounted';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
-import useGetValidationSchema, { FormValues } from './validationSchema';
+import { FormError, FormValues } from './types';
+import useFormValidation from './useFormValidation';
 
-export * from './validationSchema';
+export * from './types';
 
-export interface UseFormProps {
-  toToken: Token;
-  onRepay: ({
-    amountWei,
-    isRepayingFullLoan,
-  }: {
-    amountWei: BigNumber;
-    isRepayingFullLoan: boolean;
-  }) => Promise<ContractReceipt>;
-  onSwapAndRepay: ({
-    swap,
-    isRepayingFullLoan,
-  }: {
-    swap: Swap;
-    isRepayingFullLoan: boolean;
+export interface UseFormInput {
+  toVToken: VToken;
+  onSubmit: (input: {
+    toVToken: VToken;
+    fromToken: Token;
+    fromTokenAmountTokens: string;
+    swap?: Swap;
+    fixedRepayPercentage?: number;
   }) => Promise<ContractReceipt>;
   onCloseModal: () => void;
-  userBorrowBalanceTokens: BigNumber;
+  formValues: FormValues;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  fromTokenUserBorrowBalanceTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
   swap?: Swap;
+  swapError?: SwapError;
+}
+
+interface UseFormOutput {
+  handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
+  isFormValid: boolean;
+  formError?: FormError;
 }
 
 const useForm = ({
-  toToken,
+  toVToken,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
-  userBorrowBalanceTokens,
-  onRepay,
-  onSwapAndRepay,
+  fromTokenUserBorrowBalanceTokens = new BigNumber(0),
   onCloseModal,
   swap,
-}: UseFormProps) => {
+  swapError,
+  formValues,
+  setFormValues,
+  onSubmit,
+}: UseFormInput): UseFormOutput => {
   const isMounted = useIsMounted();
 
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
 
-  const validationSchema = useGetValidationSchema({
-    repayBalanceTokens: userBorrowBalanceTokens.toFixed(),
-    walletBalanceTokens: fromTokenUserWalletBalanceTokens.toFixed(),
+  const { isFormValid, formError } = useFormValidation({
+    toToken: toVToken.underlyingToken,
+    formValues,
+    swap,
+    swapError,
+    fromTokenUserWalletBalanceTokens,
+    fromTokenUserBorrowBalanceTokens,
   });
 
-  const formikProps = useFormik<FormValues>({
-    initialValues: {
-      amountTokens: '',
-      fromToken: toToken,
-      fixedRepayPercentage: undefined,
-    },
-    onSubmit: async ({ amountTokens, fixedRepayPercentage, fromToken }, formikHelpers) => {
-      const isSwapping = !areTokensEqual(fromToken, toToken);
-      const isRepayingFullLoan = fixedRepayPercentage === 100;
-      let amountWei: BigNumber;
+  const handleSubmit = async (e?: React.SyntheticEvent) => {
+    e?.preventDefault();
 
-      await handleTransactionMutation({
-        mutate: () => {
-          // Throw an error if we're meant to execute a swap but no swap was
-          // passed through props. This should never happen since the form is
-          // disabled while swap infos are being fetched, but we add this logic
-          // as a safeguard
-          if (isSwapping && !swap) {
-            throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-          }
+    if (!isFormValid) {
+      return;
+    }
 
-          if (swap) {
-            amountWei =
-              swap?.direction === 'exactAmountIn'
-                ? swap.expectedToTokenAmountReceivedWei
-                : swap.toTokenAmountReceivedWei;
-          } else {
-            amountWei = convertTokensToWei({
-              value: new BigNumber(amountTokens.trim()),
-              token: fromToken,
-            });
-          }
+    let amountWei: BigNumber;
 
-          if (!swap) {
-            return onRepay({
-              isRepayingFullLoan,
-              amountWei,
-            });
-          }
+    await handleTransactionMutation({
+      mutate: async () => {
+        const contractReceipt = await onSubmit({
+          toVToken,
+          fromTokenAmountTokens: formValues.amountTokens,
+          fromToken: formValues.fromToken,
+          fixedRepayPercentage: formValues.fixedRepayPercentage,
+          swap,
+        });
 
-          return onSwapAndRepay({
-            isRepayingFullLoan,
-            swap,
+        if (swap) {
+          amountWei =
+            swap?.direction === 'exactAmountIn'
+              ? swap.expectedToTokenAmountReceivedWei
+              : swap.toTokenAmountReceivedWei;
+        } else {
+          amountWei = convertTokensToWei({
+            value: new BigNumber(formValues.amountTokens.trim()),
+            token: formValues.fromToken,
           });
+        }
+
+        // Reset form and close modal on success only
+        setFormValues(() => ({
+          fromToken: toVToken.underlyingToken,
+          amountTokens: '',
+        }));
+        onCloseModal();
+
+        return contractReceipt;
+      },
+      successTransactionModalProps: contractReceipt => ({
+        title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
+        content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          token: toVToken.underlyingToken,
         },
-        successTransactionModalProps: contractReceipt => ({
-          title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
-          content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            token: toToken,
-          },
-          transactionHash: contractReceipt.transactionHash,
-        }),
-      });
-
-      formikHelpers.resetForm();
-
-      onCloseModal();
-    },
-    validateOnMount: true,
-    validateOnChange: true,
-    validationSchema,
-  });
-
-  // Revalidate form when validation schema changes, as it is based on swap
-  // which itself changes based on form values
-  useEffect(() => {
-    formikProps.validateForm();
-  }, [validationSchema]);
+        transactionHash: contractReceipt.transactionHash,
+      }),
+    });
+  };
 
   // If user selected a fixed percentage of their loan to repay, we manually
   // update the input value to that exact amount (and keep on updating it when
   // the total loan value changes, for example when interests accumulate)
   useEffect(() => {
     // Fixed percentage without swapping
-    const isNotSwapping = areTokensEqual(formikProps.values.fromToken, toToken);
+    const isNotSwapping = areTokensEqual(formValues.fromToken, toVToken.underlyingToken);
 
-    if (isMounted() && formikProps.values.fixedRepayPercentage && isNotSwapping) {
+    if (isMounted() && formValues.fixedRepayPercentage && isNotSwapping) {
       const fixedAmountToRepayTokens = calculatePercentageOfUserBorrowBalance({
-        userBorrowBalanceTokens,
-        token: formikProps.values.fromToken,
-        percentage: formikProps.values.fixedRepayPercentage,
+        userBorrowBalanceTokens: fromTokenUserBorrowBalanceTokens,
+        token: formValues.fromToken,
+        percentage: formValues.fixedRepayPercentage,
       });
 
-      formikProps.setFieldValue('amountTokens', fixedAmountToRepayTokens);
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        amountTokens: fixedAmountToRepayTokens,
+      }));
     }
   }, [
-    formikProps.values.fixedRepayPercentage,
-    formikProps.values.fromToken,
-    toToken,
-    userBorrowBalanceTokens,
+    formValues.fixedRepayPercentage,
+    formValues.fromToken,
+    toVToken.underlyingToken,
+    fromTokenUserBorrowBalanceTokens,
+    setFormValues,
   ]);
 
   useEffect(() => {
@@ -156,7 +148,7 @@ const useForm = ({
 
     if (
       isMounted() &&
-      formikProps.values.fixedRepayPercentage &&
+      formValues.fixedRepayPercentage &&
       isSwapping &&
       swap.direction === 'exactAmountOut'
     ) {
@@ -165,11 +157,18 @@ const useForm = ({
         token: swap.fromToken,
       }).toFixed();
 
-      formikProps.setFieldValue('amountTokens', expectedFromTokenAmountSoldTokens);
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        amountTokens: expectedFromTokenAmountSoldTokens,
+      }));
     }
-  }, [formikProps.values.fixedRepayPercentage, swap]);
+  }, [formValues.fixedRepayPercentage, swap, setFormValues]);
 
-  return formikProps;
+  return {
+    handleSubmit,
+    isFormValid,
+    formError,
+  };
 };
 
 export default useForm;

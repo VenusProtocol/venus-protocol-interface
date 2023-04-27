@@ -9,6 +9,7 @@ import { isFeatureEnabled } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
@@ -22,8 +23,6 @@ import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 import Repay, { PRESET_PERCENTAGES } from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
-
-jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
@@ -296,22 +295,14 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   it('disables submit button if amount entered in input would have a higher value than borrow balance after swapping', async () => {
     const customFakeFullRepaymentSwap: Swap = {
       ...fakeFullRepaymentSwap,
-      expectedFromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
-      maximumFromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
+      toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei.plus(1),
     };
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? customFakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: customFakeFullRepaymentSwap,
+      error: undefined,
+      isLoading: false,
+    }));
 
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
@@ -345,18 +336,11 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? fakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: fakeSwap,
+      error: undefined,
+      isLoading: false,
+    }));
 
     const { container, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
@@ -384,6 +368,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
     expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.swapSummary)).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
@@ -398,19 +383,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
-
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? fakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
 
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
@@ -449,28 +421,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     ).toBeDisabled();
   });
 
-  it('updates input value to wallet balance when pressing on max button if wallet balance would be lower than borrow balance after swapping', async () => {
-    const fakeBusdAmountAboveWalletBalanceWei = fakeBusdWalletBalanceWei.plus(100);
-
-    const customFakeFullRepaymentSwap: Swap = {
-      ...fakeFullRepaymentSwap,
-      expectedFromTokenAmountSoldWei: fakeBusdAmountAboveWalletBalanceWei,
-      maximumFromTokenAmountSoldWei: fakeBusdAmountAboveWalletBalanceWei,
-    };
-
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? customFakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
-
+  it('updates input value to wallet balance when clicking on max button', async () => {
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
@@ -501,72 +452,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
-
-    // Check submit button is enabled
-    expect(
-      getByText(en.borrowRepayModal.repay.submitButtonLabel.repay).closest('button'),
-    ).toBeEnabled();
-  });
-
-  it('updates input value to converted borrow balance when pressing on max button if wallet balance is high enough to cover borrow balance after swapping', async () => {
-    // Set a borrow balance in BUSD that's inferior to wallet balance so it be
-    // covered it fully
-    const fakeBorrowBalanceInBusdTokens = Number(FAKE_BUSD_BALANCE_TOKENS) - 1;
-    const fakeBorrowBalanceInBusdWei = new BigNumber(fakeBorrowBalanceInBusdTokens).multipliedBy(
-      new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
-    );
-
-    const customFakeFullRepaymentSwap: Swap = {
-      ...fakeFullRepaymentSwap,
-      expectedFromTokenAmountSoldWei: fakeBorrowBalanceInBusdWei,
-      maximumFromTokenAmountSoldWei: fakeBorrowBalanceInBusdWei,
-    };
-
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? customFakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
-
-    const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
-
-    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonLabel.enterValidAmount));
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
-    });
-
-    // Check input is empty
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-    expect(selectTokenTextField.value).toBe('');
-
-    // Click on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
-
-    // Check input value was updated correctly
-    await waitFor(() =>
-      expect(selectTokenTextField.value).toBe(`${fakeBorrowBalanceInBusdTokens}`),
-    );
 
     // Check submit button is enabled
     expect(
@@ -672,18 +557,11 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('lets user swap and repay partial loan, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? fakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: fakeSwap,
+      error: undefined,
+      isLoading: false,
+    }));
 
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -720,10 +598,12 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     fireEvent.click(getByText(expectedSubmitButtonLabel));
 
-    // TODO: check onSwapAndRepay is called once with the correct arguments (see VEN-1270)
-    // const expectedAmountSwappedWei = new BigNumber(validAmountTokens).multipliedBy(
-    //   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
-    // );
+    // Check swapTokensAndRepay is called with correct arguments
+    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
+    expect(swapTokensAndRepay).toHaveBeenCalledWith({
+      swap: fakeSwap,
+      isRepayingFullLoan: false,
+    });
 
     const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
 
@@ -741,23 +621,15 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('lets user swap and repay full loan', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(
-      ({ direction, toTokenAmountTokens }: UseGetSwapInfoInput) => ({
-        swap:
-          direction === 'exactAmountOut' &&
-          toTokenAmountTokens &&
-          new BigNumber(toTokenAmountTokens).isEqualTo(fakeAsset.userBorrowBalanceTokens)
-            ? fakeFullRepaymentSwap
-            : fakeSwap,
-        error: undefined,
-        isLoading: false,
-      }),
-    );
+    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+      swap: fakeFullRepaymentSwap,
+      isLoading: false,
+    }));
 
     const onCloseMock = jest.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    const { container, getByTestId, getByText } = renderComponent(
+    const { container, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         authContextValue: {
@@ -772,16 +644,8 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       token: SWAP_TOKENS.busd,
     });
 
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Click on max button
-    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
-
-    await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
+    // Click on 100% button
+    fireEvent.click(getByText('100%'));
 
     // Check notice is displayed
     await waitFor(() =>
@@ -794,10 +658,12 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     fireEvent.click(getByText(expectedSubmitButtonLabel));
 
-    // TODO: check onSwapAndRepay is called once with the correct arguments (see VEN-1270)
-    // const expectedAmountSwappedWei = new BigNumber(validAmountTokens).multipliedBy(
-    //   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
-    // );
+    // Check swapTokensAndRepay is called with correct arguments
+    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
+    expect(swapTokensAndRepay).toHaveBeenCalledWith({
+      swap: fakeFullRepaymentSwap,
+      isRepayingFullLoan: true,
+    });
 
     const expectedAmountRepaidWei = fakeFullRepaymentSwap.toTokenAmountReceivedWei;
 

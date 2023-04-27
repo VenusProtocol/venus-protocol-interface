@@ -1,11 +1,11 @@
 import { waitFor } from '@testing-library/react';
+import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { getAllowance } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
@@ -32,17 +32,25 @@ describe('containers/AssetAccessor', () => {
   });
 
   it('asks user to connect their wallet if they have not done so already', async () => {
-    const { getByText } = renderComponent(() => (
+    const { getByText, queryByText } = renderComponent(() => (
       <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>
     ));
 
     await waitFor(() => expect(getByText(fakeProps.connectWalletMessage)).toBeInTheDocument());
-    waitFor(() => expect(getByText(fakeProps.enableTokenMessage)).not.toBeInTheDocument());
-    waitFor(() => expect(getByText(fakeChildrenContent)).not.toBeInTheDocument());
+    expect(queryByText(fakeProps.enableTokenMessage)).toBeNull();
+    expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
   it('asks user with their wallet connected to enable token if they have not done so already', async () => {
-    const { getByText } = renderComponent(
+    // Mark all tokens as having not been approved
+    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+      isTokenApproved: false,
+      isTokenApprovalStatusLoading: false,
+      isApproveTokenLoading: false,
+      approveToken: noop,
+    }));
+
+    const { getByText, queryByText } = renderComponent(
       () => <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
       {
         authContextValue: { accountAddress: fakeAddress },
@@ -50,14 +58,14 @@ describe('containers/AssetAccessor', () => {
     );
 
     await waitFor(() => expect(getByText(fakeProps.enableTokenMessage)).toBeInTheDocument());
-    waitFor(() => expect(getByText(fakeChildrenContent)).not.toBeInTheDocument());
+    expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
   it('fetches the correct pool and asset and passes them to the children render function', async () => {
     let fetchedPool: Pool | undefined;
     let fetchedAsset: Asset | undefined;
 
-    const { getByText } = renderComponent(
+    renderComponent(
       () => (
         <AssetAccessor {...fakeProps}>
           {({ asset, pool }) => {
@@ -73,17 +81,11 @@ describe('containers/AssetAccessor', () => {
       },
     );
 
-    await waitFor(() => expect(getByText(fakeProps.enableTokenMessage)).toBeInTheDocument());
-
-    expect(fetchedPool).toBe(fakePool);
+    await waitFor(() => expect(fetchedPool).toBe(fakePool));
     expect(fetchedAsset).toBe(fakeAsset);
   });
 
   it('renders children if user has connected their wallet and enabled token', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     const { getByText } = renderComponent(
       () => <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
       {

@@ -7,7 +7,6 @@ import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import {
-  getAllowance,
   getBalanceOf,
   getMintedVai,
   getVaiCalculateRepayAmount,
@@ -16,7 +15,6 @@ import {
 } from 'clients/api';
 import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
 import formatToGetVaiRepayAmountWithInterestsOutput from 'clients/api/queries/getVaiRepayAmountWithInterests/formatToOutput';
-import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -36,11 +34,6 @@ const repayInputAmountTokens = '100';
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => ({
-      allowanceWei: MAX_UINT256,
-    }));
-
     (getMintedVai as jest.Mock).mockImplementation(() => ({
       mintedVaiWei: fakeUserVaiMintedWei,
     }));

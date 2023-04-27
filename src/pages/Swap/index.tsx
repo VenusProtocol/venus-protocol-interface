@@ -13,7 +13,7 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Swap, TokenBalance } from 'types';
+import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
@@ -21,7 +21,7 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useGetSwapInfo, { SwapError } from 'hooks/useGetSwapInfo';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -310,7 +310,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         </Typography>
 
         {swap && (
-          <div data-testid={TEST_IDS.swapDetails}>
+          <div data-testid={TEST_IDS.swapDetails} css={styles.swapDetails}>
             <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
