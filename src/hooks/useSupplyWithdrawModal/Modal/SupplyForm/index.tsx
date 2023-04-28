@@ -3,11 +3,9 @@ import BigNumber from 'bignumber.js';
 import {
   AccountData,
   Delimiter,
-  LabeledInlineContent,
-  NoticeWarning,
+  IsolatedAssetWarning,
   SelectTokenTextField,
   SwapDetails,
-  TertiaryButton,
   TokenTextField,
 } from 'components';
 import { VError } from 'errors';
@@ -18,26 +16,26 @@ import {
   areTokensEqual,
   convertTokensToWei,
   convertWeiToTokens,
-  formatToReadablePercentage,
   isFeatureEnabled,
 } from 'utilities';
 
-import { useRepay, useSwapTokensAndRepay } from 'clients/api';
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { useSupply } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 
 import { useStyles as useSharedStyles } from '../styles';
+import Notice from './Notice';
 import SubmitSection from './SubmitSection';
-import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useForm, { FormValues, UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface RepayFormUiProps {
+export interface SupplyFormUiProps {
   asset: Asset;
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
@@ -51,7 +49,7 @@ export interface RepayFormUiProps {
   swapError?: SwapError;
 }
 
-export const RepayFormUi: React.FC<RepayFormUiProps> = ({
+export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   asset,
   pool,
   onCloseModal,
@@ -65,16 +63,21 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   swapError,
 }) => {
   const { t, Trans } = useTranslation();
-
   const sharedStyles = useSharedStyles();
-  const styles = useStyles();
+
+  const isIntegratedSwapEnabled = useMemo(
+    () =>
+      isFeatureEnabled('integratedSwap') &&
+      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.bnb),
+    [asset.vToken.underlyingToken],
+  );
 
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
     // Get wallet balance from the list of fetched token balances if integrated
     // swap feature is enabled and the selected token is different from the
     // asset object
     if (
-      isFeatureEnabled('integratedSwap') &&
+      isIntegratedSwapEnabled &&
       formValues.fromToken &&
       !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
     ) {
@@ -94,6 +97,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     // Otherwise get the wallet balance from the asset object
     return asset.userWalletBalanceTokens;
   }, [
+    isIntegratedSwapEnabled,
     asset.vToken.underlyingToken,
     asset.userWalletBalanceTokens,
     formValues.fromToken,
@@ -101,9 +105,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   ]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
-    toVToken: asset.vToken,
+    asset,
     fromTokenUserWalletBalanceTokens,
-    fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
     swap,
     swapError,
     onCloseModal,
@@ -117,56 +120,38 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const readableUserBorrowBalanceTokens = useFormatTokensToReadableValue({
-    value: asset.userBorrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
-  });
-
-  const isRepayingFullLoan = useMemo(
-    () => formValues.fixedRepayPercentage === 100,
-    [formValues.fixedRepayPercentage],
-  );
-
   const handleRightMaxButtonClick = useCallback(() => {
-    if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
-      setFormValues(currentFormValues => ({
-        ...currentFormValues,
-        amountTokens: '0',
-      }));
-      return;
-    }
-
-    // Update field value to correspond to user's balance
+    // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
-      fixedRepayPercentage: undefined,
     }));
-  }, [asset.userBorrowBalanceTokens, fromTokenUserWalletBalanceTokens]);
+  }, [fromTokenUserWalletBalanceTokens]);
 
   return (
     <form onSubmit={handleSubmit}>
-      <LabeledInlineContent
-        css={sharedStyles.getRow({ isLast: true })}
-        label={t('borrowRepayModal.repay.currentlyBorrowing')}
-      >
-        {readableUserBorrowBalanceTokens}
-      </LabeledInlineContent>
+      {pool.isIsolated && (
+        <IsolatedAssetWarning
+          token={asset.vToken.underlyingToken}
+          pool={pool}
+          type="supply"
+          css={sharedStyles.isolatedAssetWarning}
+          data-testid={TEST_IDS.noticeIsolatedAsset}
+        />
+      )}
 
-      <div css={sharedStyles.getRow({ isLast: false })}>
-        {isFeatureEnabled('integratedSwap') ? (
+      <div css={sharedStyles.getRow({ isLast: true })}>
+        {isIntegratedSwapEnabled ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
             value={formValues.amountTokens}
             hasError={!!formError && Number(formValues.amountTokens) > 0}
-            disabled={isSubmitting}
+            disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
             onChange={amountTokens =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
                 amountTokens,
-                // Reset selected fixed percentage
-                fixedRepayPercentage: undefined,
               }))
             }
             onChangeSelectedToken={fromToken =>
@@ -176,13 +161,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               }))
             }
             rightMaxButton={{
-              label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
+              label: t('supplyWithdrawModal.supply.rightMaxButtonLabel'),
               onClick: handleRightMaxButtonClick,
             }}
             tokenBalances={tokenBalances}
             description={
               <Trans
-                i18nKey="borrowRepayModal.repay.walletBalance"
+                i18nKey="supplyWithdrawModal.supply.walletBalance"
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
@@ -192,6 +177,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           />
         ) : (
           <TokenTextField
+            data-testid={TEST_IDS.tokenTextField}
             name="amountTokens"
             token={asset.vToken.underlyingToken}
             value={formValues.amountTokens}
@@ -203,16 +189,15 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 fixedRepayPercentage: undefined,
               }))
             }
-            disabled={isSubmitting}
+            disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
             rightMaxButton={{
-              label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
+              label: t('supplyWithdrawModal.supply.rightMaxButtonLabel'),
               onClick: handleRightMaxButtonClick,
             }}
-            data-testid={TEST_IDS.tokenTextField}
             hasError={!!formError && Number(formValues.amountTokens) > 0}
             description={
               <Trans
-                i18nKey="borrowRepayModal.repay.walletBalance"
+                i18nKey="supplyWithdrawModal.supply.walletBalance"
                 components={{
                   White: <span css={sharedStyles.whiteLabel} />,
                 }}
@@ -221,40 +206,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             }
           />
         )}
-      </div>
 
-      <div css={sharedStyles.getRow({ isLast: true })}>
-        <div css={styles.selectButtonsContainer}>
-          {PRESET_PERCENTAGES.map(percentage => (
-            <TertiaryButton
-              key={`select-button-${percentage}`}
-              css={styles.selectButton}
-              small
-              active={percentage === formValues.fixedRepayPercentage}
-              onClick={() =>
-                setFormValues(currentFormValues => ({
-                  ...currentFormValues,
-                  fixedRepayPercentage: percentage,
-                }))
-              }
-            >
-              {formatToReadablePercentage(percentage)}
-            </TertiaryButton>
-          ))}
-        </div>
-
-        {isRepayingFullLoan && (
-          <NoticeWarning
-            css={sharedStyles.notice}
-            description={t('borrowRepayModal.repay.fullRepaymentWarning')}
-          />
-        )}
+        <Notice asset={asset} amount={formValues.amountTokens} />
       </div>
 
       {swap && (
         <>
           <SwapDetails
-            action="repay"
+            action="supply"
             swap={swap}
             data-testid={TEST_IDS.swapDetails}
             css={sharedStyles.getRow({ isLast: true })}
@@ -269,13 +228,12 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         pool={pool}
         swap={swap}
         amountTokens={new BigNumber(formValues.amountTokens || 0)}
-        action="repay"
+        action="supply"
       />
 
       <SubmitSection
         isFormSubmitting={isSubmitting}
         isFormValid={isFormValid}
-        swap={swap}
         isSwapLoading={isSwapLoading}
         formError={formError}
         toToken={asset.vToken.underlyingToken}
@@ -286,30 +244,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   );
 };
 
-export interface RepayFormProps {
+export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
   onCloseModal: () => void;
 }
 
-const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
+const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress } = useAuth();
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
-    fixedRepayPercentage: undefined,
   });
-
-  const { mutateAsync: onRepay, isLoading: isRepayLoading } = useRepay({
-    vToken: asset.vToken,
-  });
-
-  const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
-    vToken: asset.vToken,
-  });
-
-  const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances(
     {
@@ -320,27 +267,28 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     },
   );
 
-  const onSubmit: RepayFormUiProps['onSubmit'] = async ({
+  const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
+    vToken: asset.vToken,
+  });
+
+  const isSubmitting = isSupplyLoading;
+
+  const onSubmit: SupplyFormUiProps['onSubmit'] = async ({
     toVToken,
     fromToken,
     fromTokenAmountTokens,
     swap,
-    fixedRepayPercentage,
   }) => {
     const isSwapping = !areTokensEqual(fromToken, toVToken.underlyingToken);
-    const isRepayingFullLoan = fixedRepayPercentage === 100;
 
-    // Handle repay flow
+    // Handle supply flow
     if (!isSwapping) {
       const amountWei = convertTokensToWei({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
-      return onRepay({
-        isRepayingFullLoan,
-        amountWei,
-      });
+      return supply({ amountWei });
     }
 
     // Throw an error if we're meant to execute a swap but no swap was
@@ -351,31 +299,21 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
-    // Handle swap and repay flow
-    return onSwapAndRepay({
-      isRepayingFullLoan,
-      swap,
-    });
+    // Handle swap and supply flow
+
+    // TODO: wire up (see VEN-1270)
+    return fakeContractReceipt;
   };
 
-  const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
-
   const swapInfo = useGetSwapInfo({
-    fromToken: formValues.fromToken || asset.vToken.underlyingToken,
-    fromTokenAmountTokens: swapDirection === 'exactAmountIn' ? formValues.amountTokens : undefined,
+    fromToken: formValues.fromToken,
+    fromTokenAmountTokens: formValues.amountTokens,
     toToken: asset.vToken.underlyingToken,
-    toTokenAmountTokens: formValues.fixedRepayPercentage
-      ? calculatePercentageOfUserBorrowBalance({
-          token: asset.vToken.underlyingToken,
-          userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
-          percentage: formValues.fixedRepayPercentage,
-        })
-      : undefined,
-    direction: swapDirection,
+    direction: 'exactAmountIn',
   });
 
   return (
-    <RepayFormUi
+    <SupplyFormUi
       asset={asset}
       pool={pool}
       formValues={formValues}
@@ -391,4 +329,4 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   );
 };
 
-export default RepayForm;
+export default SupplyForm;

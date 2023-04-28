@@ -69,7 +69,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     if (
       getPancakeSwapPairsData?.pairs &&
       input.direction === 'exactAmountIn' &&
-      !!input.fromTokenAmountTokens
+      input.fromTokenAmountTokens &&
+      Number(input.fromTokenAmountTokens) > 0
     ) {
       const fromTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.fromTokenAmountTokens),
@@ -112,7 +113,8 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     if (
       getPancakeSwapPairsData?.pairs &&
       input.direction === 'exactAmountOut' &&
-      !!input.toTokenAmountTokens
+      input.toTokenAmountTokens &&
+      Number(input.toTokenAmountTokens) > 0
     ) {
       const currencyIn = new PSToken(
         config.chainId,

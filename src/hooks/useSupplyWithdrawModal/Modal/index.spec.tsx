@@ -1,9 +1,11 @@
-import { fireEvent } from '@testing-library/react';
+import { waitFor } from '@testing-library/dom';
 import React from 'react';
-import { Pool } from 'types';
+import { Pool, VToken } from 'types';
 
+import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
+import { DISABLED_TOKENS } from 'constants/disabledTokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -34,25 +36,27 @@ describe('hooks/useSupplyWithdrawModal', () => {
     ));
   });
 
-  // TODO: add test to check Supply tab is hidden when token is LUNA or UST
+  it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
+    const customFakeVToken: VToken = {
+      ...fakeAsset.vToken,
+      underlyingToken: token,
+    };
 
-  // TODO: move to each tab
-  it('asks the user to connect if wallet is not connected', async () => {
-    const { getByText } = renderComponent(() => (
-      <SupplyWithdraw
-        onClose={jest.fn()}
-        vToken={fakeAsset.vToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-      />
-    ));
-
-    const connectTextSupply = getByText(en.supplyWithdraw.supply.connectWalletToSupply);
-    expect(connectTextSupply).toHaveTextContent(en.supplyWithdraw.supply.connectWalletToSupply);
-    const withdrawButton = getByText(en.supplyWithdraw.withdrawTabTitle);
-    fireEvent.click(withdrawButton);
-    const connectTextWithdraw = getByText(en.supplyWithdraw.withdraw.connectWalletToWithdraw);
-    expect(connectTextWithdraw).toHaveTextContent(
-      en.supplyWithdraw.withdraw.connectWalletToWithdraw,
+    const { queryByText } = renderComponent(
+      () => (
+        <SupplyWithdraw
+          onClose={jest.fn()}
+          vToken={customFakeVToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ),
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
     );
+
+    await waitFor(() => expect(queryByText(en.supplyWithdrawModal.supplyTabTitle)).toBeNull());
   });
 });

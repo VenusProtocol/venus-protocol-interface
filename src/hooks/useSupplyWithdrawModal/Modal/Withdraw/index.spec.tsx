@@ -60,14 +60,14 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     );
 
     await waitFor(() =>
-      getByText(en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel),
+      getByText(en.supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel),
     );
 
     const disabledButtonText = getByText(
-      en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel,
+      en.supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel,
     );
     expect(disabledButtonText).toHaveTextContent(
-      en.supplyWithdraw.withdraw.submitButton.enterValidAmountWithdrawLabel,
+      en.supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel,
     );
     const disabledButton = document.querySelector('button[type="submit"]');
     expect(disabledButton).toBeDisabled();
@@ -119,7 +119,9 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       },
     );
 
-    const maxButton = await waitFor(() => getByText(en.supplyWithdraw.withdraw.max.toUpperCase()));
+    const maxButton = await waitFor(() =>
+      getByText(en.supplyWithdrawModal.withdraw.max.toUpperCase()),
+    );
     act(() => {
       fireEvent.click(maxButton);
     });
@@ -128,7 +130,9 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     );
 
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw.submitButton.enabledLabel),
+      expect(submitButton).toHaveTextContent(
+        en.supplyWithdrawModal.withdraw.submitButton.enabledLabel,
+      ),
     );
     fireEvent.click(submitButton);
 
@@ -158,7 +162,9 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
     });
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw.submitButton.enabledLabel);
+    expect(submitButton).toHaveTextContent(
+      en.supplyWithdrawModal.withdraw.submitButton.enabledLabel,
+    );
     fireEvent.click(submitButton);
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(

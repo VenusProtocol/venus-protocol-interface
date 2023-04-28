@@ -46,7 +46,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   };
 
   return (
-    <div className={className}>
+    <div className={className} data-testid={testId}>
       <TokenTextField
         token={selectedToken}
         disabled={disabled}

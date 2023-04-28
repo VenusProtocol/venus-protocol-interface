@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap displays correct swap details 1`] = `
+exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap displays correct swap details 1`] = `
 <div
   class="css-fycvtl-Component"
   data-testid="swap-details"
@@ -20,7 +20,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
     <div
       class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
     >
-      1 BUSD ≈ 0.00333333333333333333 XVS
+      1 BUSD ≈ 0.02966666666666666667 XVS
     </div>
   </div>
   <div
@@ -50,23 +50,14 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
       <span
         class="MuiTypography-root MuiTypography-body1 css-11ac4r0-MuiTypography-root-Component"
       >
-        You will repay
+        You will supply
       </span>
     </div>
     <div
       class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
     >
-      ≈ 999.9999999999999999 XVS
+      ≈ 8,900 XVS
     </div>
   </div>
-</div>
-`;
-
-exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap displays correct swap details 2`] = `
-<div
-  class="MuiTypography-root MuiTypography-small2 css-4z38vk-MuiTypography-root-Component"
-  data-testid="swap-summary"
->
-  You will repay 1,000 XVS using 300,000 BUSD
 </div>
 `;

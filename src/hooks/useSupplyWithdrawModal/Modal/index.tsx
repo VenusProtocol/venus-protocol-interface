@@ -5,7 +5,9 @@ import { useTranslation } from 'translation';
 import { VToken } from 'types';
 import { isTokenEnabled } from 'utilities';
 
-import SupplyModal from './Supply';
+import AssetAccessor from 'containers/AssetAccessor';
+
+import SupplyForm from './SupplyForm';
 import WithdrawModal from './Withdraw';
 
 export interface SupplyWithdrawProps {
@@ -27,7 +29,7 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
 
   const tabsContent: TabContent[] = [
     {
-      title: t('supplyWithdraw.withdrawTabTitle'),
+      title: t('supplyWithdrawModal.withdrawTabTitle'),
       content: (
         <WithdrawModal
           onClose={onClose}
@@ -38,16 +40,22 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
     },
   ];
 
-  // Prevent user from being able to supply UST or LUNA
+  // Prevent user from being able to supply disabled tokens
   if (isTokenEnabled(vToken.underlyingToken)) {
     tabsContent.unshift({
-      title: t('supplyWithdraw.supplyTabTitle'),
+      title: t('supplyWithdrawModal.supplyTabTitle'),
       content: (
-        <SupplyModal
-          onClose={onClose}
+        <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-        />
+          connectWalletMessage={t('supplyWithdrawModal.supply.connectWalletMessage')}
+          enableTokenMessage={t('supplyWithdrawModal.supply.enableToken.title', {
+            symbol: vToken.underlyingToken.symbol,
+          })}
+          assetInfoType="supply"
+        >
+          {({ asset, pool }) => <SupplyForm asset={asset} pool={pool} onCloseModal={onClose} />}
+        </AssetAccessor>
       ),
     });
   }

@@ -119,20 +119,6 @@
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
       },
-      "swapDetails": {
-        "exchangeRate": {
-          "label": "Exchange rate",
-          "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
-        },
-        "repayAmount": {
-          "estimatedValue": "≈ {{ value }}",
-          "exactValue": "{{ value }}",
-          "label": "You will repay"
-        },
-        "slippageTolerance": {
-          "label": "Slippage tolerance"
-        }
-      },
       "swapSummary": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
@@ -480,22 +466,31 @@
     },
     "title": "Stake {{tokenSymbol}}"
   },
-  "supplyWithdraw": {
+  "supplyWithdrawModal": {
     "supply": {
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
-      "connectWalletToSupply": "Please connect your wallet to supply",
-      "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
-      "max": "MAX",
-      "submitButton": {
-        "enabledLabel": "Supply",
-        "enterValidAmountSupplyLabel": "Enter a valid amount to supply"
+      "connectWalletMessage": "Please connect your wallet to supply",
+      "enableToken": {
+        "title": "To supply {{symbol}} to the Venus Protocol, you need to enable it first"
       },
-      "successfulSupplyTransactionModal": {
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonLabel": {
+        "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
+        "enterValidAmount": "Enter a valid amount to supply",
+        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
+        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "processing": "Processing",
+        "supply": "Supply",
+        "supplyCapReached": "Supply cap reached",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
+      "successfulTransactionModal": {
         "message": "You successfully supplied",
         "title": "Your supply was successful"
       },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "walletBalance": "Wallet balance: <White>{{amount}}</White>"
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "supplyTabTitle": "Supply",
     "withdraw": {
@@ -517,6 +512,21 @@
   "swap": {
     "errors": {
       "incorrectSwapInput": "Incorrect input provided for swap"
+    }
+  },
+  "swapDetails": {
+    "exchangeRate": {
+      "label": "Exchange rate",
+      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    },
+    "receivedAmount": {
+      "estimatedValue": "≈ {{ value }}",
+      "exactValue": "{{ value }}",
+      "repayLabel": "You will repay",
+      "supplyLabel": "You will supply"
+    },
+    "slippageTolerance": {
+      "label": "Slippage tolerance"
     }
   },
   "swapPage": {
