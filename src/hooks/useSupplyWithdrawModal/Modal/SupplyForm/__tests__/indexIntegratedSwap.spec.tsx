@@ -9,6 +9,7 @@ import { isFeatureEnabled } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { swapTokensAndSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
@@ -468,11 +469,10 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     fireEvent.click(getByText(expectedSubmitButtonLabel));
 
-    // TODO: check swapTokensAndSupply is called with correct arguments
-    // await waitFor(() => expect(swapTokensAndSupply).toHaveBeenCalledTimes(1));
-    // expect(swapTokensAndSupply).toHaveBeenCalledWith({
-    //   swap: fakeSwap,
-    // });
+    await waitFor(() => expect(swapTokensAndSupply).toHaveBeenCalledTimes(1));
+    expect(swapTokensAndSupply).toHaveBeenCalledWith({
+      swap: fakeSwap,
+    });
 
     const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
 
