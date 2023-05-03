@@ -1,8 +1,7 @@
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 import React from 'react';
 import { Pool, VToken } from 'types';
 
-import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
 import { DISABLED_TOKENS } from 'constants/disabledTokens';
@@ -36,27 +35,39 @@ describe('hooks/useSupplyWithdrawModal', () => {
     ));
   });
 
-  it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
-    const customFakeVToken: VToken = {
-      ...fakeAsset.vToken,
-      underlyingToken: token,
-    };
+  it.each(DISABLED_TOKENS)(
+    'does not display supply or/and withdraw tabs when asset is %o',
+    async disabledToken => {
+      const fakeVToken: VToken = {
+        ...fakeAsset.vToken,
+        underlyingToken: disabledToken.token,
+      };
 
-    const { queryByText } = renderComponent(
-      () => (
+      const { queryByText } = renderComponent(() => (
         <SupplyWithdraw
           onClose={jest.fn()}
-          vToken={customFakeVToken}
+          vToken={fakeVToken}
           poolComptrollerAddress={fakePool.comptrollerAddress}
         />
-      ),
-      {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
-      },
-    );
+      ));
 
-    await waitFor(() => expect(queryByText(en.supplyWithdrawModal.supplyTabTitle)).toBeNull());
-  });
+      if (disabledToken.disabledActions.includes('supply')) {
+        await waitFor(() => expect(queryByText(en.supplyWithdrawModal.supplyTabTitle)).toBeNull());
+      } else {
+        await waitFor(() =>
+          expect(queryByText(en.supplyWithdrawModal.supplyTabTitle)).toBeTruthy(),
+        );
+      }
+
+      if (disabledToken.disabledActions.includes('withdraw')) {
+        await waitFor(() =>
+          expect(queryByText(en.supplyWithdrawModal.withdrawTabTitle)).toBeNull(),
+        );
+      } else {
+        await waitFor(() =>
+          expect(queryByText(en.supplyWithdrawModal.withdrawTabTitle)).toBeTruthy(),
+        );
+      }
+    },
+  );
 });

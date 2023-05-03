@@ -4,7 +4,6 @@ import { Pool, VToken } from 'types';
 
 import { poolData } from '__mocks__/models/pools';
 import { DISABLED_TOKENS } from 'constants/disabledTokens';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -27,20 +26,33 @@ describe('hooks/useBorrowRepayModal', () => {
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
   });
 
-  it.each(DISABLED_TOKENS)('does not display borrow tab when asset is %s', async token => {
-    const fakeVToken: VToken = {
-      ...TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'], // This doesn't matter, only the underlying token is used
-      underlyingToken: token,
-    };
+  it.each(DISABLED_TOKENS)(
+    'does not display borrow or/and supply tabs when asset is %s',
+    async disabledToken => {
+      const fakeVToken: VToken = {
+        ...fakeAsset.vToken,
+        underlyingToken: disabledToken.token,
+      };
 
-    const { queryByText } = renderComponent(() => (
-      <BorrowRepay
-        onClose={jest.fn()}
-        vToken={fakeVToken}
-        poolComptrollerAddress={fakePool.comptrollerAddress}
-      />
-    ));
+      const { queryByText } = renderComponent(() => (
+        <BorrowRepay
+          onClose={jest.fn()}
+          vToken={fakeVToken}
+          poolComptrollerAddress={fakePool.comptrollerAddress}
+        />
+      ));
 
-    await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());
-  });
+      if (disabledToken.disabledActions.includes('borrow')) {
+        await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());
+      } else {
+        await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeTruthy());
+      }
+
+      if (disabledToken.disabledActions.includes('repay')) {
+        await waitFor(() => expect(queryByText(en.borrowRepayModal.repayTabTitle)).toBeNull());
+      } else {
+        await waitFor(() => expect(queryByText(en.borrowRepayModal.repayTabTitle)).toBeTruthy());
+      }
+    },
+  );
 });

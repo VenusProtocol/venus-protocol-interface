@@ -3,7 +3,7 @@ import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol 
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
-import { isTokenEnabled } from 'utilities';
+import { isTokenActionEnabled } from 'utilities';
 
 import AssetAccessor from 'containers/AssetAccessor';
 
@@ -21,29 +21,15 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const tabsContent: TabContent[] = [
-    {
-      title: t('borrowRepayModal.repayTabTitle'),
-      content: (
-        <div css={styles.container}>
-          <AssetAccessor
-            vToken={vToken}
-            poolComptrollerAddress={poolComptrollerAddress}
-            connectWalletMessage={t('borrowRepayModal.repay.connectWalletMessage')}
-            enableTokenMessage={t('borrowRepayModal.repay.enableToken.title', {
-              symbol: vToken.underlyingToken.symbol,
-            })}
-            assetInfoType="borrow"
-          >
-            {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}
-          </AssetAccessor>
-        </div>
-      ),
-    },
-  ];
+  const tabsContent: TabContent[] = [];
 
-  if (isTokenEnabled(vToken.underlyingToken)) {
-    tabsContent.unshift({
+  if (
+    isTokenActionEnabled({
+      token: vToken.underlyingToken,
+      action: 'borrow',
+    })
+  ) {
+    tabsContent.push({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
         <div css={styles.container}>
@@ -63,6 +49,32 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
     });
   }
 
+  if (
+    isTokenActionEnabled({
+      token: vToken.underlyingToken,
+      action: 'repay',
+    })
+  ) {
+    tabsContent.push({
+      title: t('borrowRepayModal.repayTabTitle'),
+      content: (
+        <div css={styles.container}>
+          <AssetAccessor
+            vToken={vToken}
+            poolComptrollerAddress={poolComptrollerAddress}
+            connectWalletMessage={t('borrowRepayModal.repay.connectWalletMessage')}
+            enableTokenMessage={t('borrowRepayModal.repay.enableToken.title', {
+              symbol: vToken.underlyingToken.symbol,
+            })}
+            assetInfoType="borrow"
+          >
+            {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}
+          </AssetAccessor>
+        </div>
+      ),
+    });
+  }
+
   return (
     <Modal
       isOpen
@@ -72,7 +84,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
       <>
         <Announcement token={vToken.underlyingToken} />
 
-        <Tabs tabsContent={tabsContent} />
+        {tabsContent.length > 0 && <Tabs tabsContent={tabsContent} />}
       </>
     </Modal>
   );

@@ -10,7 +10,7 @@ export {
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';
-export * from './isTokenEnabled';
+export * from './isTokenActionEnabled';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 
 export * from './formatTokensToReadableValue';

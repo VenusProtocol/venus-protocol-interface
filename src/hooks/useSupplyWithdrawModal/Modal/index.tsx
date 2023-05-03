@@ -3,7 +3,7 @@ import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol 
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
-import { isTokenEnabled } from 'utilities';
+import { isTokenActionEnabled } from 'utilities';
 
 import AssetAccessor from 'containers/AssetAccessor';
 
@@ -27,22 +27,15 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const tabsContent: TabContent[] = [
-    {
-      title: t('supplyWithdrawModal.withdrawTabTitle'),
-      content: (
-        <WithdrawModal
-          onClose={onClose}
-          vToken={vToken}
-          poolComptrollerAddress={poolComptrollerAddress}
-        />
-      ),
-    },
-  ];
+  const tabsContent: TabContent[] = [];
 
-  // Prevent user from being able to supply disabled tokens
-  if (isTokenEnabled(vToken.underlyingToken)) {
-    tabsContent.unshift({
+  if (
+    isTokenActionEnabled({
+      token: vToken.underlyingToken,
+      action: 'supply',
+    })
+  ) {
+    tabsContent.push({
       title: t('supplyWithdrawModal.supplyTabTitle'),
       content: (
         <AssetAccessor
@@ -60,6 +53,24 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
     });
   }
 
+  if (
+    isTokenActionEnabled({
+      token: vToken.underlyingToken,
+      action: 'withdraw',
+    })
+  ) {
+    tabsContent.push({
+      title: t('supplyWithdrawModal.withdrawTabTitle'),
+      content: (
+        <WithdrawModal
+          onClose={onClose}
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+        />
+      ),
+    });
+  }
+
   return (
     <Modal
       isOpen
@@ -69,7 +80,7 @@ export const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({
       <>
         <Announcement token={vToken.underlyingToken} />
 
-        <Tabs tabsContent={tabsContent} />
+        {tabsContent.length > 0 && <Tabs tabsContent={tabsContent} />}
       </>
     </Modal>
   );
