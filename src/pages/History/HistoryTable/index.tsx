@@ -192,7 +192,9 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         orderBy: columns[1],
         orderDirection: 'desc',
       }}
-      rowKeyExtractor={row => `history-table-row-${row.transactionHash}`}
+      rowKeyExtractor={row =>
+        `history-table-row-${row.transactionHash}-${row.amountWei}-${row.category}-${row.from}-${row.to}-${row.event}`
+      }
       breakpoint="xl"
       css={styles.cardContentGrid}
       isFetching={isFetching}
