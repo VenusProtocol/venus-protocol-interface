@@ -97,28 +97,21 @@
     "connectButton": "Connect wallet"
   },
   "convertVrt": {
-    "balance": "Balance: <White>{{amount}}</White>",
-    "connectWalletToConvertVrtToXvs": "Please connect your wallet to convert VRT to XVS",
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
     "convert": "Convert",
-    "convertVrt": "Convert VRT",
-    "convertVrtToXvs": "Convert VRT to XVS",
-    "enableVrt": "To convert VRT to XVS with the Venus Protocol, you need to enable it",
     "infoConversionCompleted": "Completed @ 16:00 on 3.31.23",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
-    "max": "MAX",
-    "remainingTime": "<Icon/> Remaining time:\u00a0<White>{{date, distanceToNow}}</White>",
     "successfulConvertTransactionModal": {
       "title": "Convert submitted successfully"
     },
-    "vrtEqualsXvs": "1 VRT = {{xvsToVrtConversionRatio}} XVS",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount",
-    "withdrawXvs": "Withdraw XVS",
-    "xvsAVailable": "Current XVS Available",
-    "youWillReceive": "You will receive"
+    "withdrawXvs": "Withdraw XVS"
   },
   "dashboard": {
+    "bethUpdateBanner": {
+      "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
+    },
     "markets": {
       "tabBorrow": "Borrow",
       "tabSupply": "Supply",
@@ -130,9 +123,6 @@
           "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
         }
       }
-    },
-    "bethUpdateBanner": {
-      "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
     },
     "vaiStabilityFeeBanner": {
       "description": "VAI stability fee is active. It is currently {{feePercentage}}% APY. For more information see <Link>VIP-92 Update VAI Floating Rate</Link>."
@@ -166,7 +156,6 @@
       "block": "Block",
       "created": "Created",
       "from": "From",
-      "id": "ID",
       "to": "To",
       "txnHash": "Txn Hash",
       "type": "Type"
@@ -834,6 +823,7 @@
     "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
+    "nabox": "Nabox",
     "okxWallet": "OKX Wallet",
     "opera": "Opera Wallet",
     "safePal": "SafePal",

@@ -40,4 +40,5 @@ export const connectorsByName = {
   [Connector.OkxWallet]: injectedConnector,
   [Connector.BitKeep]: injectedConnector,
   [Connector.SafePal]: injectedConnector,
+  [Connector.Nabox]: injectedConnector,
 };
