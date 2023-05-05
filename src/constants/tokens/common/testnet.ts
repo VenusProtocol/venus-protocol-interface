@@ -204,4 +204,10 @@ export const TESTNET_TOKENS = {
     symbol: 'USDD',
     asset: xvs, // TODO: add correct asset
   } as Token,
+  bifi: {
+    address: '0x5B662703775171c4212F2FBAdb7F92e64116c154',
+    decimals: 18,
+    symbol: 'BIFI',
+    asset: xvs, // TODO: add correct asset
+  } as Token,
 };

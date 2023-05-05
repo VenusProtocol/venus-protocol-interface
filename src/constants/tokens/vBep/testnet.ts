@@ -228,4 +228,12 @@ export const TESTNET_VBEP_TOKENS = {
     asset: vXvs, // TODO: add correct asset
     underlyingToken: TESTNET_TOKENS.usdd,
   } as VToken,
+  // TODO: replace 0x with correct address (I couldn't figure it out from Simeon's PR
+  '0x': {
+    address: '0x', // TODO: replace this property with the same address used to index this vBEP20 token
+    decimals: 8,
+    symbol: 'vBIFI',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.bifi,
+  } as VToken,
 };
