@@ -29,7 +29,7 @@
   },
   "poolLens": {
     "56": "",
-    "97": "0x7d6A1a595dCa742B4FF4Fb8684e3F018C3c0bEC0"
+    "97": "0x73Ac8216b93597264e2bf233B92a8F8cf413D609"
   },
   "xvsVault": {
     "56": "0x6eF49b4e0772Fe78128F981d42D54172b55eCF9F",
@@ -73,6 +73,6 @@
   },
   "poolRegistry": {
     "56": "",
-    "97": "0x1aF50D1Ee859Bb972384F1f96F3cFCccfC5Ac210"
+    "97": "0xF57fdd25224807B1113f40E4F95c5f625fB458E2"
   }
 }

@@ -162,7 +162,7 @@ Object {
               "supplyApyPercentage": "2.1187122550748488",
               "token": Object {
                 "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
-                "asset": "xvs.svg",
+                "asset": "ankr.svg",
                 "decimals": 18,
                 "symbol": "ANKR",
               },
@@ -194,7 +194,7 @@ Object {
             "symbol": "vANKR",
             "underlyingToken": Object {
               "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
-              "asset": "xvs.svg",
+              "asset": "ankr.svg",
               "decimals": 18,
               "symbol": "ANKR",
             },
@@ -227,7 +227,7 @@ Object {
               "supplyApyPercentage": "2.1187122550748488",
               "token": Object {
                 "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
-                "asset": "xvs.svg",
+                "asset": "ankr.svg",
                 "decimals": 18,
                 "symbol": "ANKR",
               },
@@ -259,7 +259,7 @@ Object {
             "symbol": "vAnkrBNB",
             "underlyingToken": Object {
               "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-              "asset": "xvs.svg",
+              "asset": "ankrBNB.svg",
               "decimals": 18,
               "symbol": "ankrBNB",
             },
@@ -422,7 +422,7 @@ Object {
               "supplyApyPercentage": "2.8707890589048025",
               "token": Object {
                 "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-                "asset": "xvs.svg",
+                "asset": "raca.png",
                 "decimals": 18,
                 "symbol": "RACA",
               },
@@ -454,7 +454,7 @@ Object {
             "symbol": "vRACA",
             "underlyingToken": Object {
               "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-              "asset": "xvs.svg",
+              "asset": "raca.png",
               "decimals": 18,
               "symbol": "RACA",
             },
@@ -508,7 +508,7 @@ Object {
             "symbol": "vStkBNB",
             "underlyingToken": Object {
               "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-              "asset": "xvs.svg",
+              "asset": "stkBNB.svg",
               "decimals": 18,
               "symbol": "stkBNB",
             },
@@ -562,7 +562,7 @@ Object {
             "symbol": "vUSDD",
             "underlyingToken": Object {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "xvs.svg",
+              "asset": "usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
