@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Asset } from 'types';
 import { formatToReadablePercentage, getCombinedDistributionApys } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
-
 export interface UseAssetInfoInput {
   asset?: Asset;
   type: 'supply' | 'borrow';

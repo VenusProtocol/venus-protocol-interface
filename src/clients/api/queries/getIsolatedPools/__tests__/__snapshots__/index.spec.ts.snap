@@ -357,7 +357,7 @@ Object {
               "supplyApyPercentage": "2.3330300651382091",
               "token": Object {
                 "address": "0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA",
-                "asset": "xvs.svg",
+                "asset": "nft.png",
                 "decimals": 18,
                 "symbol": "NFT",
               },
@@ -389,7 +389,7 @@ Object {
             "symbol": "vNFT",
             "underlyingToken": Object {
               "address": "0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA",
-              "asset": "xvs.svg",
+              "asset": "nft.png",
               "decimals": 18,
               "symbol": "NFT",
             },

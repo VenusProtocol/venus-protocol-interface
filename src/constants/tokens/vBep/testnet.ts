@@ -228,4 +228,191 @@ export const TESTNET_VBEP_TOKENS = {
     asset: vXvs, // TODO: add correct asset
     underlyingToken: TESTNET_TOKENS.usdd,
   } as VToken,
+  // Pool 1
+  '0x9b921bbcdc18030540bcb341b1fec7fa00f7bee5': {
+    address: '0x9b921bbcdc18030540bcb341b1fec7fa00f7bee5',
+    decimals: 8,
+    symbol: 'vUSDD',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdd,
+  } as VToken,
+  '0x225a34c5f03b31f9f4648d9c4eee5191c87d1b25': {
+    address: '0x225a34c5f03b31f9f4648d9c4eee5191c87d1b25',
+    decimals: 8,
+    symbol: 'vUSDT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdt,
+  } as VToken,
+  '0x91f90e30b1695218d1ecbdc41177133d9de2b094': {
+    address: '0x91f90e30b1695218d1ecbdc41177133d9de2b094',
+    decimals: 8,
+    symbol: 'vWOO',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.woo,
+  } as VToken,
+  '0x1723958488d5acd4f2db5e5a4efd7c4e07973425': {
+    address: '0x1723958488d5acd4f2db5e5a4efd7c4e07973425',
+    decimals: 8,
+    symbol: 'vALPACA',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.alpaca,
+  } as VToken,
+  '0x7250b36b8971adf911f0d82c162634de684fc9b3': {
+    address: '0x7250b36b8971adf911f0d82c162634de684fc9b3',
+    decimals: 8,
+    symbol: 'vBSW',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.bsw,
+  } as VToken,
+  '0xa7a4c0f7fabd808a4336c71f15d27a2efced5c70': {
+    address: '0xa7a4c0f7fabd808a4336c71f15d27a2efced5c70',
+    decimals: 8,
+    symbol: 'vBIFI',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.bifi,
+  } as VToken,
+  // Pool 2
+  '0x6d258734b003e803c1f67ccaa2ccddab93a60067': {
+    address: '0x6d258734b003e803c1f67ccaa2ccddab93a60067',
+    decimals: 8,
+    symbol: 'vUSDD',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdd,
+  } as VToken,
+  '0x4d7c197046394fc8477f604e4cf20c66b4adf418': {
+    address: '0x4d7c197046394fc8477f604e4cf20c66b4adf418',
+    decimals: 8,
+    symbol: 'vUDST',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdt,
+  } as VToken,
+  '0xe2c9bffe2c954ffe5f04be5e6e84b20b9d57e137': {
+    address: '0xe2c9bffe2c954ffe5f04be5e6e84b20b9d57e137',
+    decimals: 8,
+    symbol: 'vFLOKI',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.floki,
+  } as VToken,
+  '0xb6ec04a2172c89c9471c840de005fca979f7f32f': {
+    address: '0xb6ec04a2172c89c9471c840de005fca979f7f32f',
+    decimals: 8,
+    symbol: 'vRACA',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.raca,
+  } as VToken,
+  // Pool 3
+  '0x8b9b8a9028b48d3c324b29aeae6fa43c8257e7e5': {
+    address: '0x8b9b8a9028b48d3c324b29aeae6fa43c8257e7e5',
+    decimals: 8,
+    symbol: 'vUSDD',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdd,
+  } as VToken,
+  '0x5789e9069c4c9f335a92f5908736aadf77f659d0': {
+    address: '0x5789e9069c4c9f335a92f5908736aadf77f659d0',
+    decimals: 8,
+    symbol: 'vUSDT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdt,
+  } as VToken,
+  '0xadeffa38abb2372bb89effb5950527bb873442ec': {
+    address: '0xadeffa38abb2372bb89effb5950527bb873442ec',
+    decimals: 8,
+    symbol: 'vANKR',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.ankr,
+  } as VToken,
+  '0xeab5bd00dde710d2a85fa31815640206da5efda6': {
+    address: '0xeab5bd00dde710d2a85fa31815640206da5efda6',
+    decimals: 8,
+    symbol: 'vWBNB',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.wbnb,
+  } as VToken,
+  '0xfee3c1b0c7fd69bc0840c205a2957dd367754d59': {
+    address: '0xfee3c1b0c7fd69bc0840c205a2957dd367754d59',
+    decimals: 8,
+    symbol: 'vstkBNB',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.stkbnb,
+  } as VToken,
+  '0xc3a86d21a4d9260c6469d7d565851f2ec28af43f': {
+    address: '0xC3A86D21a4D9260C6469D7D565851F2eC28Af43F',
+    decimals: 8,
+    symbol: 'vBNBx',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.bnbx,
+  } as VToken,
+  '0xa3c9ad26fb87ec864624730c45f5d11a4f37face': {
+    address: '0xA3c9ad26Fb87ec864624730C45f5d11A4F37fAcE',
+    decimals: 8,
+    symbol: 'vankrBNB',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.ankrbnb,
+  } as VToken,
+  // Pool 4
+  '0xed7401294ebf0a1b0721562a69031565f4a4bacd': {
+    address: '0xed7401294ebf0a1b0721562a69031565f4a4bacd',
+    decimals: 8,
+    symbol: 'vUSDD',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdd,
+  } as VToken,
+  '0x296da137120562c79b26808c1aa142a59ebf31f4': {
+    address: '0x296da137120562c79b26808c1aa142a59ebf31f4',
+    decimals: 8,
+    symbol: 'vUSDT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdt,
+  } as VToken,
+  '0x3e745593031bedbea4fed90f8065783a9d067333': {
+    address: '0x3e745593031bedbea4fed90f8065783a9d067333',
+    decimals: 8,
+    symbol: 'vHAY',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.hay,
+  } as VToken,
+  // Pool 5
+  '0xf341ddfa5b2458700cec29a2f54d8701a0b5b6c2': {
+    address: '0xf341ddfa5b2458700cec29a2f54d8701a0b5b6c2',
+    decimals: 8,
+    symbol: 'vUSDD',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdd,
+  } as VToken,
+  '0xde288908b76b50e1a1a1a1b96fa80e6c0000a0b4': {
+    address: '0xde288908b76b50e1a1a1a1b96fa80e6c0000a0b4',
+    decimals: 8,
+    symbol: 'vUSDT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.usdt,
+  } as VToken,
+  '0xd17ed879ce75926d845b61587302a3944a2765ea': {
+    address: '0xd17ed879ce75926d845b61587302a3944a2765ea',
+    decimals: 8,
+    symbol: 'vTRX',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.trx,
+  } as VToken,
+  '0x72b0ef3b4ce14ab76b34c77436f2424b8cd6a9c7': {
+    address: '0x72b0ef3b4ce14ab76b34c77436f2424b8cd6a9c7',
+    decimals: 8,
+    symbol: 'vWIN',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.win,
+  } as VToken,
+  '0x21f21cea7758482ec57b3e523e1c3496b6dc0115': {
+    address: '0x21f21cea7758482ec57b3e523e1c3496b6dc0115',
+    decimals: 8,
+    symbol: 'vNFT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.nft,
+  } as VToken,
+  '0x5d8d75e15e9a85443061da07f6bdce701dafe6c9': {
+    address: '0x5d8d75E15E9a85443061Da07F6BdCe701dAFE6C9',
+    decimals: 8,
+    symbol: 'vBTT',
+    asset: vXvs, // TODO: add correct asset
+    underlyingToken: TESTNET_TOKENS.btt,
+  } as VToken,
 };
