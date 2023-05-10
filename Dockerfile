@@ -19,6 +19,8 @@ COPY src/constants/contracts/abis ./src/constants/contracts/abis
 COPY src/clients/subgraph ./src/clients/subgraph
 COPY patches ./patches
 
+COPY venusprotocol-isolated-pools-0.1.0-local.1.tgz ./
+
 RUN yarn
 
 COPY . .

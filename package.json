@@ -46,7 +46,7 @@
     "@testing-library/react": "^12.1.4",
     "@uiw/react-markdown-preview": "^4.0.17",
     "@uiw/react-md-editor": "^3.14.3",
-    "@venusprotocol/isolated-pools": "^0.1.0-develop.3",
+    "@venusprotocol/isolated-pools": "file:venusprotocol-isolated-pools-0.1.0-local.1.tgz",
     "@wagmi/core": "0.5.7",
     "bignumber.js": "^9.0.0",
     "copy-to-clipboard": "^3.3.1",

@@ -5998,10 +5998,9 @@
     "@uiw/react-markdown-preview" "^4.0.10"
     rehype "~12.0.1"
 
-"@venusprotocol/isolated-pools@^0.1.0-develop.3":
-  version "0.1.0-develop.3"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-0.1.0-develop.3.tgz#47b1e357d9c5e77cd883a7e9cc390c91b8a99cf0"
-  integrity sha512-och30eQXAxf/5jGpLj3mkjLD0+wfkoerdS4Ad92jaW8hUrFvYkUZIdQ5Q3y+3s8O4fcklQDMquI1D7b0KD9YOQ==
+"@venusprotocol/isolated-pools@file:venusprotocol-isolated-pools-0.1.0-local.1.tgz":
+  version "0.1.0-local.1"
+  resolved "file:venusprotocol-isolated-pools-0.1.0-local.1.tgz#007f56390dff56d9a649b0169c4fb035aff8ef4d"
   dependencies:
     "@openzeppelin/contracts" "^4.8.0"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
