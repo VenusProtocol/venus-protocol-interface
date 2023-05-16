@@ -18,7 +18,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
 
     const distributionRows = asset.distributions.map(distribution => ({
       label: t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
-      iconSrc: TOKENS.xvs,
+      iconSrc: distribution.token,
       children: formatToReadablePercentage(
         type === 'borrow' ? distribution.borrowApyPercentage : distribution.supplyApyPercentage,
       ),
