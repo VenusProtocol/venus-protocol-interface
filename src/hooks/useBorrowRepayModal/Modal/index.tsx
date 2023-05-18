@@ -37,7 +37,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, vToken, poolComptrol
             vToken={vToken}
             poolComptrollerAddress={poolComptrollerAddress}
             connectWalletMessage={t('borrowRepayModal.repay.connectWalletMessage')}
-            enableTokenMessage={t('borrowRepayModal.repay.enableToken.title', {
+            enableTokenMessage={t('borrowRepayModal.borrow.enableToken.title', {
               symbol: vToken.underlyingToken.symbol,
             })}
             assetInfoType="borrow"
