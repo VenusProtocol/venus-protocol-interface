@@ -26,7 +26,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetchingPools, pools }) 
       pools.filter(
         pool =>
           !!pool.assets.find(
-            asset => asset.userSupplyBalanceCents > 0 || asset.userBorrowBalanceCents > 0,
+            asset => asset.userSupplyBalanceTokens.isGreaterThan(0) || asset.userBorrowBalanceTokens.isGreaterThan(0),
           ),
       ),
     [pools],
