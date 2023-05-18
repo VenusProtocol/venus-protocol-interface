@@ -81,6 +81,7 @@
       "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
         "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
       },
