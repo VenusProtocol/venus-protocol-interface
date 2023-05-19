@@ -64,7 +64,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   return pool ? (
     <>
       <div css={styles.header}>
-        {isFeatureEnabled('isolatedPools') && (
+        {isFeatureEnabled('isolatedPools') && pool.description && (
           <Typography variant="small2" component="div" css={styles.headerDescription}>
             {pool.description}
           </Typography>
