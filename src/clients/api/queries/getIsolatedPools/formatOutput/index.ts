@@ -81,7 +81,7 @@ const formatToPools = ({
         new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
       );
 
-      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
+      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars, { whole: false });
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>
