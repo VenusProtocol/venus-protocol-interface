@@ -1,7 +1,7 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
 import { Token, VToken } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress, getIsolatedPoolAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
@@ -219,6 +219,6 @@ export const getMulticallContract = (signer?: Signer) =>
 export const getPoolLensContract = (signer?: Signer) =>
   getContract({
     abi: poolLensAbi,
-    address: getContractAddress('poolLens'),
+    address: getIsolatedPoolAddress('PoolLens'),
     signer,
   }) as PoolLens;

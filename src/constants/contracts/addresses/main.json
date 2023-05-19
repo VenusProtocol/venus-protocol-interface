@@ -27,10 +27,6 @@
     "56": "0x2a914D534715F1A84205fb05d1dc8281F8da6540",
     "97": "0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3"
   },
-  "poolLens": {
-    "56": "",
-    "97": "0x73Ac8216b93597264e2bf233B92a8F8cf413D609"
-  },
   "xvsVault": {
     "56": "0x6eF49b4e0772Fe78128F981d42D54172b55eCF9F",
     "97": "0xa4Fd54cACdA379FB7CaA783B83Cc846f8ac0Faa6"
@@ -70,9 +66,5 @@
   "multicall": {
     "56": "0xca11bde05977b3631167028862be2a173976ca11",
     "97": "0xca11bde05977b3631167028862be2a173976ca11"
-  },
-  "poolRegistry": {
-    "56": "",
-    "97": "0xF57fdd25224807B1113f40E4F95c5f625fB458E2"
   }
 }
