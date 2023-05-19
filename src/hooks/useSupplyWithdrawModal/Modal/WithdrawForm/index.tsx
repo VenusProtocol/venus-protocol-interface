@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
+import { EnableToken, ModalProps, Spinner } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
@@ -93,34 +93,32 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   return (
     <div className={className} css={styles.container}>
-      <ConnectWallet message={t('supplyWithdrawModal.withdraw.connectWalletToWithdraw')}>
-        {asset && pool ? (
-          <EnableToken
-            token={asset.vToken.underlyingToken}
-            spenderAddress={asset.vToken.address}
-            title={t('supplyWithdrawModal.withdraw.enableToWithdraw', {
-              symbol: asset?.vToken.underlyingToken.symbol,
-            })}
-            assetInfo={assetInfo}
-          >
-            <WithdrawForm
-              key="form-withdraw"
-              asset={asset}
-              pool={pool}
-              onSubmit={onSubmit}
-              inputLabel={t('supplyWithdrawModal.withdraw.withdrawableAmount')}
-              enabledButtonKey={t('supplyWithdrawModal.withdraw.submitButton.enabledLabel')}
-              disabledButtonKey={t(
-                'supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel',
-              )}
-              maxInput={maxInput}
-              isTransactionLoading={isLoading}
-            />
-          </EnableToken>
-        ) : (
-          <Spinner />
-        )}
-      </ConnectWallet>
+      {asset && pool ? (
+        <EnableToken
+          token={asset.vToken.underlyingToken}
+          spenderAddress={asset.vToken.address}
+          title={t('supplyWithdrawModal.withdraw.enableToWithdraw', {
+            symbol: asset?.vToken.underlyingToken.symbol,
+          })}
+          assetInfo={assetInfo}
+        >
+          <WithdrawForm
+            key="form-withdraw"
+            asset={asset}
+            pool={pool}
+            onSubmit={onSubmit}
+            inputLabel={t('supplyWithdrawModal.withdraw.withdrawableAmount')}
+            enabledButtonKey={t('supplyWithdrawModal.withdraw.submitButton.enabledLabel')}
+            disabledButtonKey={t(
+              'supplyWithdrawModal.withdraw.submitButton.enterValidAmountWithdrawLabel',
+            )}
+            maxInput={maxInput}
+            isTransactionLoading={isLoading}
+          />
+        </EnableToken>
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };
@@ -156,6 +154,7 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+  console.log({ isRedeemLoading, isRedeemUnderlyingLoading })
 
   const onSubmit: AmountFormProps['onSubmit'] = async value => {
     if (!asset) {
