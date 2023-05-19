@@ -116,7 +116,7 @@ const useGetMainAssets = ({
           .map(address => address.toLowerCase())
           .includes(vTokenAddress);
 
-        const tokenPriceDollars = new BigNumber(market.tokenPrice || 0);
+        const tokenPriceCents = convertDollarsToCents(new BigNumber(market.tokenPrice || 0));
 
         let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
@@ -131,19 +131,13 @@ const useGetMainAssets = ({
             new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
 
           userWalletBalanceTokens = toDecimalAmount(wallet.tokenBalance);
-          userWalletBalanceCents = convertDollarsToCents(
-            userWalletBalanceTokens.times(tokenPriceDollars),
-          );
+          userWalletBalanceCents = +userWalletBalanceTokens.times(tokenPriceCents);
 
           userSupplyBalanceTokens = toDecimalAmount(wallet.balanceOfUnderlying);
-          userSupplyBalanceCents = convertDollarsToCents(
-            userSupplyBalanceTokens.times(tokenPriceDollars),
-          );
+          userSupplyBalanceCents = +userSupplyBalanceTokens.times(tokenPriceCents);
 
           userBorrowBalanceTokens = toDecimalAmount(wallet.borrowBalanceCurrent);
-          userBorrowBalanceCents = convertDollarsToCents(
-            userBorrowBalanceTokens.times(tokenPriceDollars),
-          );
+          userBorrowBalanceCents = +userBorrowBalanceTokens.times(tokenPriceCents);
         }
 
         const reserveTokens = market.totalReserves
