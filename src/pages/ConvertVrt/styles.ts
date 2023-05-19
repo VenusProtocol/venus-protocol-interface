@@ -84,5 +84,8 @@ export const useStyles = () => {
     successModalArrow: css`
       margin: 0 ${theme.spacing(3.5)};
     `,
+    notice: css`
+      width: 100%;
+    `,
   };
 };

@@ -1,14 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import BigNumber from 'bignumber.js';
 import { Spinner, Tabs } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 
 import {
-  useConvertVrt,
-  useGetBalanceOf,
   useGetVrtConversionEndTime,
   useGetVrtConversionRatio,
   useGetXvsWithdrawableAmount,
@@ -17,18 +14,13 @@ import {
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
-import Convert, { ConvertProps } from './Convert';
+import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
 import { useStyles } from './styles';
 
-export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
+export type ConvertVrtUiProps = WithdrawProps;
 
 export const ConvertVrtUi = ({
-  xvsToVrtConversionRatio,
-  vrtConversionEndTime,
-  userVrtBalanceWei,
-  convertVrtLoading,
-  convertVrt,
   withdrawXvsLoading,
   withdrawXvs,
   xvsWithdrawableAmount,
@@ -39,15 +31,7 @@ export const ConvertVrtUi = ({
   const tabsContent = [
     {
       title: t('convertVrt.convert'),
-      content: (
-        <Convert
-          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
-          vrtConversionEndTime={vrtConversionEndTime}
-          userVrtBalanceWei={userVrtBalanceWei}
-          convertVrtLoading={convertVrtLoading}
-          convertVrt={convertVrt}
-        />
-      ),
+      content: <Convert />,
     },
     {
       title: t('convertVrt.withdraw'),
@@ -74,10 +58,6 @@ const ConvertVrt = () => {
   const { accountAddress } = useAuth();
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
-  const { data: userVrtBalanceData } = useGetBalanceOf(
-    { accountAddress: accountAddress || '', token: TOKENS.vrt },
-    { enabled: !!accountAddress },
-  );
 
   const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
     useGetXvsWithdrawableAmount(
@@ -85,13 +65,7 @@ const ConvertVrt = () => {
       { enabled: !!accountAddress },
     );
 
-  const { mutateAsync: convertVrt, isLoading: convertVrtLoading } = useConvertVrt();
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
-
-  const handleConvertVrt = async (amountWei: string) =>
-    convertVrt({
-      amountWei: new BigNumber(amountWei),
-    });
 
   const conversionRatio = useMemo(() => {
     if (vrtConversionRatioData?.conversionRatio) {
@@ -107,11 +81,6 @@ const ConvertVrt = () => {
   if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
     return (
       <ConvertVrtUi
-        xvsToVrtConversionRatio={conversionRatio}
-        userVrtBalanceWei={userVrtBalanceData?.balanceWei}
-        vrtConversionEndTime={vrtConversionEndTimeData.conversionEndTime}
-        convertVrtLoading={convertVrtLoading}
-        convertVrt={handleConvertVrt}
         withdrawXvs={withdrawXvs}
         withdrawXvsLoading={withdrawXvsLoading}
         xvsWithdrawableAmount={xvsWithdrawableAmount}

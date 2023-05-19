@@ -175,25 +175,16 @@
     "connectButton": "Connect wallet"
   },
   "convertVrt": {
-    "balance": "Balance: <White>{{amount}}</White>",
-    "connectWalletToConvertVrtToXvs": "Please connect your wallet to convert VRT to XVS",
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
     "convert": "Convert",
-    "convertVrt": "Convert VRT",
-    "convertVrtToXvs": "Convert VRT to XVS",
-    "enableVrt": "To convert VRT to XVS with the Venus Protocol, you need to enable it",
+    "infoConversionCompleted": "Completed @ 16:00 on 3.31.23",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
-    "max": "MAX",
-    "remainingTime": "<Icon/> Remaining time:\u00a0<White>{{date, distanceToNow}}</White>",
     "successfulConvertTransactionModal": {
       "title": "Convert submitted successfully"
     },
-    "vrtEqualsXvs": "1 VRT = {{xvsToVrtConversionRatio}} XVS",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount",
-    "withdrawXvs": "Withdraw XVS",
-    "xvsAVailable": "Current XVS Available",
-    "youWillReceive": "You will receive"
+    "withdrawXvs": "Withdraw XVS"
   },
   "dashboard": {
     "borrowMarketTableTitle": "Borrow market",

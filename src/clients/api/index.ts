@@ -21,10 +21,6 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/approveToken/useApproveToken';
 
-export { default as convertVrt } from './mutations/convertVrt';
-export * from './mutations/convertVrt';
-export { default as useConvertVrt } from './mutations/convertVrt/useConvertVrt';
-
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
 export { default as useSupply } from './mutations/supply/useSupply';
