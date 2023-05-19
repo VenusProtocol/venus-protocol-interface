@@ -139,7 +139,6 @@ const WithdrawModal: React.FC<WithdrawProps> = ({ vToken, poolComptrollerAddress
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
-  console.log({ isRedeemLoading, isRedeemUnderlyingLoading })
 
   const onSubmit: AmountFormProps['onSubmit'] = async value => {
     if (!asset) {
