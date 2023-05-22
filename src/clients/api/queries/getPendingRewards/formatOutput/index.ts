@@ -84,8 +84,8 @@ const formatOutput = ({
     const pendingRewardWei = new BigNumber(xvsVestingVaultResults[v + 1].returnValues[0].hex);
 
     const hasPendingWithdrawalsFromBeforeUpgrade =
-      !!xvsVestingVaultResults[v].returnValues[2] &&
-      new BigNumber(xvsVestingVaultResults[v].returnValues[2].hex).isGreaterThan(0);
+      !!xvsVestingVaultResults[v + 2].returnValues[0] &&
+      new BigNumber(xvsVestingVaultResults[v + 2].returnValues[0].hex).isGreaterThan(0);
 
     if (
       !hasPendingWithdrawalsFromBeforeUpgrade &&
