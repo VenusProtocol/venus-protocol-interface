@@ -27,7 +27,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidityCents: 100000000,
+      liquidityCents: new BigNumber(100000000),
     };
 
     const { getByText } = renderComponent(
@@ -39,11 +39,8 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
       },
     );
 
-    const borrowDeltaDollars =
-      (fakePool.userBorrowLimitCents! - fakePool.userBorrowBalanceCents!) / 100;
-    const borrowDeltaTokens = new BigNumber(borrowDeltaDollars).dividedBy(
-      fakeAsset.tokenPriceDollars,
-    );
+    const borrowDeltaCents = fakePool.userBorrowLimitCents!.minus(fakePool.userBorrowBalanceCents!);
+    const borrowDeltaTokens = new BigNumber(borrowDeltaCents).dividedBy(fakeAsset.tokenPriceCents);
 
     await waitFor(() =>
       getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
@@ -53,7 +50,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
     const customFakeAsset = {
       ...fakeAsset,
-      liquidityCents: 50,
+      liquidityCents: new BigNumber(50),
     };
 
     const { getByText } = renderComponent(
@@ -67,7 +64,9 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
     await waitFor(() =>
       getByText(
-        `${customFakeAsset.liquidityCents / 100} ${customFakeAsset.vToken.underlyingToken.symbol}`,
+        `${customFakeAsset.liquidityCents.dividedBy(100)} ${
+          customFakeAsset.vToken.underlyingToken.symbol
+        }`,
       ),
     );
   });
@@ -106,8 +105,8 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('disables form and displays a warning notice if user has not supplied and collateralize any tokens yet', async () => {
     const customFakePool: Pool = {
       ...fakePool,
-      userBorrowLimitCents: 0,
-      userBorrowBalanceCents: 0,
+      userBorrowLimitCents: new BigNumber(0),
+      userBorrowBalanceCents: new BigNumber(0),
       assets: fakePool.assets.map(asset => ({
         ...asset,
         isCollateralOfUser: false,
@@ -142,7 +141,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('disables submit button and displays a warning notice if an amount entered is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      liquidityCents: 200,
+      liquidityCents: new BigNumber(200),
     };
 
     const { getByText, getByTestId } = renderComponent(
@@ -160,9 +159,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     ).toBeDisabled();
 
     const incorrectValueTokens = new BigNumber(customFakeAsset.liquidityCents)
-      // Convert to dollars
-      .dividedBy(100)
-      .dividedBy(customFakeAsset.tokenPriceDollars)
+      .dividedBy(customFakeAsset.tokenPriceCents)
       // Add one token more than the available liquidity
       .plus(1)
       .dp(customFakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
@@ -251,11 +248,12 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
-    const fakeBorrowDeltaDollars =
-      (fakePool.userBorrowLimitCents! - fakePool.userBorrowBalanceCents!) / 100;
+    const fakeBorrowDeltaCents = fakePool.userBorrowLimitCents!.minus(
+      fakePool.userBorrowBalanceCents!,
+    );
 
-    const incorrectValueTokens = new BigNumber(fakeBorrowDeltaDollars)
-      .dividedBy(fakeAsset.tokenPriceDollars)
+    const incorrectValueTokens = new BigNumber(fakeBorrowDeltaCents)
+      .dividedBy(fakeAsset.tokenPriceCents)
       // Add one token more than the maximum
       .plus(1)
       .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
@@ -292,15 +290,13 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
-    const safeBorrowLimitCents =
-      (fakePool.userBorrowLimitCents! * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
-    const marginWithSafeBorrowLimitDollars =
-      (safeBorrowLimitCents - fakePool.userBorrowBalanceCents!) /
-      // Convert cents to dollars
-      100;
-    const safeMaxTokens = new BigNumber(marginWithSafeBorrowLimitDollars).dividedBy(
-      fakeAsset.tokenPriceDollars,
+    const safeBorrowLimitCents = fakePool
+      .userBorrowLimitCents!.times(SAFE_BORROW_LIMIT_PERCENTAGE)
+      .dividedBy(100);
+    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(
+      fakePool.userBorrowBalanceCents!,
     );
+    const safeMaxTokens = marginWithSafeBorrowLimitCents.dividedBy(fakeAsset.tokenPriceCents);
 
     const riskyValueTokens = safeMaxTokens
       // Add one token to safe borrow limit
@@ -349,10 +345,8 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     const safeUserBorrowLimitCents = new BigNumber(fakePool.userBorrowLimitCents!)
       .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
       .dividedBy(100);
-    const safeBorrowDeltaDollars = safeUserBorrowLimitCents
-      .minus(fakePool.userBorrowBalanceCents!)
-      .dividedBy(100);
-    const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPriceDollars);
+    const safeBorrowDeltaCents = safeUserBorrowLimitCents.minus(fakePool.userBorrowBalanceCents!);
+    const safeBorrowDeltaTokens = safeBorrowDeltaCents.dividedBy(fakeAsset.tokenPriceCents);
     const expectedInputValue = safeBorrowDeltaTokens
       .dp(fakeAsset.vToken.underlyingToken.decimals)
       .toFixed();

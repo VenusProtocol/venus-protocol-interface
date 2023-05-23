@@ -86,9 +86,7 @@ const Notice: React.FC<NoticeProps> = ({
     );
   }
 
-  const assetLiquidityTokens = new BigNumber(asset.liquidityCents / 100).dividedBy(
-    asset.tokenPriceDollars,
-  );
+  const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(asset.tokenPriceCents);
 
   if (new BigNumber(amount).isGreaterThan(assetLiquidityTokens)) {
     // User is trying to borrow more than available liquidities

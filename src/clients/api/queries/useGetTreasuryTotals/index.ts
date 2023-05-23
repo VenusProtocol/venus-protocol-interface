@@ -18,10 +18,10 @@ const TREASURY_ADDRESSES = {
 export const treasuryAddress = TREASURY_ADDRESSES[config.chainId];
 
 export interface Data {
-  treasurySupplyBalanceCents: number;
-  treasuryBorrowBalanceCents: number;
-  treasuryBalanceCents: number;
-  treasuryLiquidityBalanceCents: number;
+  treasurySupplyBalanceCents: BigNumber;
+  treasuryBorrowBalanceCents: BigNumber;
+  treasuryBalanceCents: BigNumber;
+  treasuryLiquidityBalanceCents: BigNumber;
 }
 
 export interface UseGetTreasuryTotalsOutput {
@@ -86,27 +86,30 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
             });
 
             const assetTreasuryBalanceCents = assetTreasuryBalanceTokens
-              .multipliedBy(asset.tokenPriceDollars)
-              // Convert to cents
-              .times(100)
-              .dp(0)
+              .multipliedBy(asset.tokenPriceCents)
               .toNumber();
 
-            acc.treasuryBalanceCents += assetTreasuryBalanceCents;
+            acc.treasuryBalanceCents = acc.treasuryBalanceCents.plus(assetTreasuryBalanceCents);
 
-            acc.treasurySupplyBalanceCents += asset.supplyBalanceCents;
-            acc.treasuryBorrowBalanceCents += asset.borrowBalanceCents;
-            acc.treasuryLiquidityBalanceCents += asset.liquidityCents;
+            acc.treasurySupplyBalanceCents = acc.treasurySupplyBalanceCents.plus(
+              asset.supplyBalanceCents,
+            );
+            acc.treasuryBorrowBalanceCents = acc.treasuryBorrowBalanceCents.plus(
+              asset.borrowBalanceCents,
+            );
+            acc.treasuryLiquidityBalanceCents = acc.treasuryLiquidityBalanceCents.plus(
+              asset.liquidityCents,
+            );
           }
         });
 
         return acc;
       },
       {
-        treasurySupplyBalanceCents: 0,
-        treasuryBorrowBalanceCents: 0,
-        treasuryBalanceCents: 0,
-        treasuryLiquidityBalanceCents: 0,
+        treasurySupplyBalanceCents: new BigNumber(0),
+        treasuryBorrowBalanceCents: new BigNumber(0),
+        treasuryBalanceCents: new BigNumber(0),
+        treasuryLiquidityBalanceCents: new BigNumber(0),
       },
     );
 

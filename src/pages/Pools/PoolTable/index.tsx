@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -13,8 +14,8 @@ import { useStyles } from './styles';
 
 interface PoolRow {
   pool: Pool;
-  poolTotalSupplyCents: number;
-  poolTotalBorrowCents: number;
+  poolTotalSupplyCents: BigNumber;
+  poolTotalBorrowCents: BigNumber;
 }
 
 export interface PoolTableProps {
@@ -32,12 +33,12 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       pools.map(pool => {
         const { poolTotalSupplyCents, poolTotalBorrowCents } = pool.assets.reduce(
           (acc, item) => ({
-            poolTotalSupplyCents: acc.poolTotalSupplyCents + item.supplyBalanceCents,
-            poolTotalBorrowCents: acc.poolTotalBorrowCents + item.borrowBalanceCents,
+            poolTotalSupplyCents: acc.poolTotalSupplyCents.plus(item.supplyBalanceCents),
+            poolTotalBorrowCents: acc.poolTotalBorrowCents.plus(item.borrowBalanceCents),
           }),
           {
-            poolTotalSupplyCents: 0,
-            poolTotalBorrowCents: 0,
+            poolTotalSupplyCents: new BigNumber(0),
+            poolTotalBorrowCents: new BigNumber(0),
           },
         );
 
@@ -76,8 +77,8 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
           }),
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
-            ? rowA.poolTotalSupplyCents - rowB.poolTotalSupplyCents
-            : rowB.poolTotalSupplyCents - rowA.poolTotalSupplyCents,
+            ? rowA.poolTotalSupplyCents.minus(rowB.poolTotalSupplyCents).toNumber()
+            : rowB.poolTotalSupplyCents.minus(rowA.poolTotalSupplyCents).toNumber(),
       },
       {
         key: 'totalBorrow',
@@ -90,8 +91,8 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
           }),
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
-            ? rowA.poolTotalBorrowCents - rowB.poolTotalBorrowCents
-            : rowB.poolTotalBorrowCents - rowA.poolTotalBorrowCents,
+            ? rowA.poolTotalBorrowCents.minus(rowB.poolTotalBorrowCents).toNumber()
+            : rowB.poolTotalBorrowCents.minus(rowA.poolTotalBorrowCents).toNumber(),
       },
       {
         key: 'liquidity',
@@ -99,16 +100,16 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         align: 'right',
         renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
           formatCentsToReadableValue({
-            value: poolTotalSupplyCents - poolTotalBorrowCents,
+            value: poolTotalSupplyCents.minus(poolTotalBorrowCents),
             shortenLargeValue: true,
           }),
         sortRows: (rowA, rowB, direction) => {
-          const poolALiquidityCents = rowA.poolTotalSupplyCents - rowA.poolTotalBorrowCents;
-          const poolBLiquidityCents = rowB.poolTotalSupplyCents - rowB.poolTotalBorrowCents;
+          const poolALiquidityCents = rowA.poolTotalSupplyCents.minus(rowA.poolTotalBorrowCents);
+          const poolBLiquidityCents = rowB.poolTotalSupplyCents.minus(rowB.poolTotalBorrowCents);
 
           return direction === 'asc'
-            ? poolALiquidityCents - poolBLiquidityCents
-            : poolBLiquidityCents - poolALiquidityCents;
+            ? poolALiquidityCents.minus(poolBLiquidityCents).toNumber()
+            : poolBLiquidityCents.minus(poolALiquidityCents).toNumber();
         },
       },
     ],

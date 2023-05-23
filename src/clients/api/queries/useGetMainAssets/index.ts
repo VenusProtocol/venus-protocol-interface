@@ -116,14 +116,14 @@ const useGetMainAssets = ({
           .map(address => address.toLowerCase())
           .includes(vTokenAddress);
 
-        const tokenPriceCents = convertDollarsToCents(new BigNumber(market.tokenPrice || 0));
+        const tokenPriceCents = new BigNumber(convertDollarsToCents(market.tokenPrice));
 
         let userWalletBalanceTokens = new BigNumber(0);
         let userSupplyBalanceTokens = new BigNumber(0);
-        let userSupplyBalanceCents = 0;
+        let userSupplyBalanceCents = new BigNumber(0);
         let userBorrowBalanceTokens = new BigNumber(0);
-        let userBorrowBalanceCents = 0;
-        let userWalletBalanceCents = 0;
+        let userBorrowBalanceCents = new BigNumber(0);
+        let userWalletBalanceCents = new BigNumber(0);
 
         const wallet = vTokenBalances && vTokenBalances[vTokenAddress];
         if (accountAddress && wallet) {
@@ -131,13 +131,13 @@ const useGetMainAssets = ({
             new BigNumber(mantissa).shiftedBy(-vToken.underlyingToken.decimals);
 
           userWalletBalanceTokens = toDecimalAmount(wallet.tokenBalance);
-          userWalletBalanceCents = +userWalletBalanceTokens.times(tokenPriceCents);
+          userWalletBalanceCents = userWalletBalanceTokens.times(tokenPriceCents);
 
           userSupplyBalanceTokens = toDecimalAmount(wallet.balanceOfUnderlying);
-          userSupplyBalanceCents = +userSupplyBalanceTokens.times(tokenPriceCents);
+          userSupplyBalanceCents = userSupplyBalanceTokens.times(tokenPriceCents);
 
           userBorrowBalanceTokens = toDecimalAmount(wallet.borrowBalanceCurrent);
-          userBorrowBalanceCents = +userBorrowBalanceTokens.times(tokenPriceCents);
+          userBorrowBalanceCents = userBorrowBalanceTokens.times(tokenPriceCents);
         }
 
         const reserveTokens = market.totalReserves
@@ -181,7 +181,7 @@ const useGetMainAssets = ({
 
         const asset: Asset = {
           vToken,
-          tokenPriceDollars: new BigNumber(market.tokenPrice || 0),
+          tokenPriceCents,
           supplyApyPercentage: new BigNumber(market.supplyApy || 0),
           borrowApyPercentage: new BigNumber(market.borrowApy || 0),
           collateralFactor: new BigNumber(market.collateralFactor || 0)
@@ -191,7 +191,7 @@ const useGetMainAssets = ({
           reserveTokens,
           cashTokens,
           exchangeRateVTokens,
-          liquidityCents: new BigNumber(market.liquidity || 0).multipliedBy(100).dp(0).toNumber(),
+          liquidityCents: new BigNumber(market.liquidity || 0).multipliedBy(100),
           borrowCapTokens: +market.borrowCaps === 0 ? undefined : new BigNumber(market.borrowCaps),
           supplyCapTokens: new BigNumber(market.supplyCaps)
             .multipliedBy(COMPOUND_MANTISSA)
@@ -202,11 +202,11 @@ const useGetMainAssets = ({
           borrowerCount: market.borrowerCount || 0,
           supplyBalanceTokens: new BigNumber(market.totalSupply2 || 0).div(exchangeRateVTokens),
           supplyBalanceCents: convertDollarsToCents(
-            market.totalSupplyUsd ? +market.totalSupplyUsd : 0,
+            new BigNumber(market.totalSupplyUsd ? market.totalSupplyUsd : 0),
           ),
           borrowBalanceTokens: new BigNumber(market.totalBorrows2 || 0),
           borrowBalanceCents: convertDollarsToCents(
-            market.totalBorrowsUsd ? +market.totalBorrowsUsd : 0,
+            new BigNumber(market.totalBorrowsUsd ? +market.totalBorrowsUsd : 0),
           ),
           supplyRatePerBlockTokens,
           borrowRatePerBlockTokens,
@@ -236,9 +236,9 @@ const useGetMainAssets = ({
                 token: vToken.underlyingToken,
               }),
               token: asset.vToken.underlyingToken,
-              tokenPriceDollars: asset.tokenPriceDollars,
+              tokenPriceCents: asset.tokenPriceCents,
               collateralFactor: asset.collateralFactor,
-            }).times(100),
+            }),
           );
         }
 

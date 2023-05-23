@@ -63,14 +63,15 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
         return new BigNumber(0);
       }
 
-      const marginWithBorrowLimitDollars =
-        (pool.userBorrowLimitCents - pool.userBorrowBalanceCents) / 100;
+      const marginWithBorrowLimitCents = pool.userBorrowLimitCents.minus(
+        pool.userBorrowBalanceCents,
+      );
 
-      const collateralAmountPerTokenDollars = asset.tokenPriceDollars.multipliedBy(
+      const collateralAmountPerTokenCents = asset.tokenPriceCents.multipliedBy(
         asset.collateralFactor,
       );
-      const maxTokensBeforeLiquidation = new BigNumber(marginWithBorrowLimitDollars)
-        .dividedBy(collateralAmountPerTokenDollars)
+      const maxTokensBeforeLiquidation = new BigNumber(marginWithBorrowLimitCents)
+        .dividedBy(collateralAmountPerTokenCents)
         .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
       maxInputTokens = maxTokensBeforeLiquidation.isLessThanOrEqualTo(0)

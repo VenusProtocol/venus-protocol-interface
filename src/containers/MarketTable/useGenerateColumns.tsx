@@ -7,7 +7,6 @@ import { useTranslation } from 'translation';
 import {
   compareBigNumbers,
   compareBooleans,
-  compareNumbers,
   compareStrings,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -238,7 +237,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'liquidity') {
-                  return compareNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
+                  return compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
                 }
 
                 if (column === 'pool') {
@@ -254,7 +253,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'userSupplyBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.userSupplyBalanceCents,
                     rowB.userSupplyBalanceCents,
                     direction,
@@ -262,7 +261,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.userBorrowBalanceCents,
                     rowB.userBorrowBalanceCents,
                     direction,
@@ -270,7 +269,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'supplyBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.supplyBalanceCents,
                     rowB.supplyBalanceCents,
                     direction,
@@ -278,7 +277,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'borrowBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.borrowBalanceCents,
                     rowB.borrowBalanceCents,
                     direction,

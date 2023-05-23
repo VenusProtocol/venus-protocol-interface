@@ -52,15 +52,12 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitDollars =
-      (pool.userBorrowLimitCents - pool.userBorrowBalanceCents) /
-      // Convert cents to dollars
-      100;
-    const liquidityDollars = asset.liquidityCents / 100;
+    const marginWithBorrowLimitCents = pool.userBorrowLimitCents.minus(pool.userBorrowBalanceCents);
+    const { liquidityCents } = asset;
 
-    let maxTokens = BigNumber.minimum(liquidityDollars, marginWithBorrowLimitDollars)
+    let maxTokens = BigNumber.minimum(liquidityCents, marginWithBorrowLimitCents)
       // Convert dollars to tokens
-      .dividedBy(asset.tokenPriceDollars);
+      .dividedBy(asset.tokenPriceCents);
 
     // Take borrow cap in consideration if asset has one
     if (asset.borrowCapTokens) {
@@ -70,16 +67,15 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
     }
 
-    const safeBorrowLimitCents = (pool.userBorrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100;
-    const marginWithSafeBorrowLimitDollars =
-      (safeBorrowLimitCents - pool.userBorrowBalanceCents) /
-      // Convert cents to dollars
-      100;
+    const safeBorrowLimitCents = pool.userBorrowLimitCents
+      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
+      .dividedBy(100);
+    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(pool.userBorrowBalanceCents);
 
     const safeMaxTokens =
       pool.userBorrowBalanceCents < safeBorrowLimitCents
         ? // Convert dollars to tokens
-          new BigNumber(marginWithSafeBorrowLimitDollars).dividedBy(asset.tokenPriceDollars)
+          new BigNumber(marginWithSafeBorrowLimitCents).dividedBy(asset.tokenPriceCents)
         : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
@@ -95,7 +91,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
-    userBorrowLimitCents: pool.userBorrowLimitCents,
+    userBorrowLimitCents: pool.userBorrowLimitCents && pool.userBorrowLimitCents.toNumber(),
     limitTokens,
     onCloseModal,
     onSubmit,
