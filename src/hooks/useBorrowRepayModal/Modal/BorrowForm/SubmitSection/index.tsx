@@ -31,15 +31,15 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   const submitButtonLabel = useMemo(() => {
-    if (formError === 'BORROW_CAP_ALREADY_REACHED') {
+    if (!isFormSubmitting && formError === 'BORROW_CAP_ALREADY_REACHED') {
       return t('borrowRepayModal.borrow.submitButtonLabel.borrowCapReached');
     }
 
-    if (formError === 'HIGHER_THAN_BORROWABLE_AMOUNT') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_BORROWABLE_AMOUNT') {
       return t('borrowRepayModal.borrow.submitButtonLabel.amountHigherThanBorrowableAmount');
     }
 
-    if (formError === 'HIGHER_THAN_BORROW_CAP') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_BORROW_CAP') {
       return t('borrowRepayModal.borrow.submitButtonLabel.amountHigherThanBorrowCap');
     }
 
@@ -47,7 +47,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('borrowRepayModal.borrow.submitButtonLabel.enterValidAmount');
     }
 
-    if (isHighRiskBorrow) {
+    if (!isFormSubmitting && isHighRiskBorrow) {
       return t('borrowRepayModal.borrow.submitButtonLabel.borrowHighRiskAmount');
     }
 

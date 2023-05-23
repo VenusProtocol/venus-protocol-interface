@@ -8,7 +8,7 @@ import { isTokenActionEnabled } from 'utilities';
 import AssetAccessor from 'containers/AssetAccessor';
 
 import SupplyForm from './SupplyForm';
-import WithdrawModal from './Withdraw';
+import WithdrawModal from './WithdrawForm';
 
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];

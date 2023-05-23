@@ -35,27 +35,27 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('supplyWithdrawModal.supply.submitButtonLabel.processing');
     }
 
-    if (formError === 'SUPPLY_CAP_ALREADY_REACHED') {
+    if (!isFormSubmitting && formError === 'SUPPLY_CAP_ALREADY_REACHED') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.supplyCapReached');
     }
 
-    if (formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
+    if (!isFormSubmitting && formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.insufficientSwapLiquidity');
     }
 
-    if (formError === 'SWAP_WRAPPING_UNSUPPORTED') {
+    if (!isFormSubmitting && formError === 'SWAP_WRAPPING_UNSUPPORTED') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.wrappingUnsupported');
     }
 
-    if (formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
+    if (!isFormSubmitting && formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.unwrappingUnsupported');
     }
 
-    if (formError === 'HIGHER_THAN_SUPPLY_CAP') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_SUPPLY_CAP') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.amountHigherThanSupplyCap');
     }
 
-    if (formError === 'HIGHER_THAN_WALLET_BALANCE') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_BALANCE') {
       return t('supplyWithdrawModal.supply.submitButtonLabel.insufficientWalletBalance', {
         tokenSymbol: fromToken.symbol,
       });
