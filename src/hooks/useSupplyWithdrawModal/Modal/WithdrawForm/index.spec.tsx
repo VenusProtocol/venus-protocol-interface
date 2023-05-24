@@ -15,14 +15,14 @@ import TEST_IDS from './testIds';
 
 const fakePool: Pool = {
   ...poolData[0],
-  userBorrowBalanceCents: 10,
-  userBorrowLimitCents: 1000,
+  userBorrowBalanceCents: new BigNumber(10),
+  userBorrowLimitCents: new BigNumber(1000),
 };
 
 const fakeAsset = fakePool.assets[0];
 fakeAsset.userSupplyBalanceTokens = new BigNumber(1000);
 fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
-fakeAsset.tokenPriceDollars = new BigNumber(1);
+fakeAsset.tokenPriceCents = new BigNumber(100);
 
 const fakeVTokenBalanceWei = new BigNumber(10000000);
 

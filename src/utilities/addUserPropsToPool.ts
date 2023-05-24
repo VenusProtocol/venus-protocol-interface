@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { Pool } from 'types';
 
 export type AddUserPropsToPoolInput = Omit<
@@ -8,43 +9,40 @@ export type AddUserPropsToPoolInput = Omit<
 const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
   const userSpecificProps = input.assets.reduce(
     (acc, asset) => {
-      let assetUserSupplyBalanceCents: number | undefined;
+      let assetUserSupplyBalanceCents: BigNumber | undefined;
 
       // Calculate user supply balance
       if (asset.userSupplyBalanceTokens) {
-        assetUserSupplyBalanceCents = asset.userSupplyBalanceTokens
-          .multipliedBy(asset.tokenPriceDollars)
-          // Convert to cents
-          .multipliedBy(100)
-          .dp(0)
-          .toNumber();
+        assetUserSupplyBalanceCents = asset.userSupplyBalanceTokens.multipliedBy(
+          asset.tokenPriceCents,
+        );
 
-        acc.userSupplyBalanceCents =
-          (acc.userSupplyBalanceCents || 0) + assetUserSupplyBalanceCents;
+        acc.userSupplyBalanceCents = (acc.userSupplyBalanceCents || new BigNumber(0)).plus(
+          assetUserSupplyBalanceCents,
+        );
       }
 
       // Calculate user borrow limit
       // Initialize user borrow limit if necessary
       if (acc.userBorrowLimitCents === undefined && assetUserSupplyBalanceCents !== undefined) {
-        acc.userBorrowLimitCents = 0;
+        acc.userBorrowLimitCents = new BigNumber(0);
       }
 
       if (assetUserSupplyBalanceCents && asset.isCollateralOfUser) {
-        acc.userBorrowLimitCents =
-          (acc.userBorrowLimitCents || 0) + assetUserSupplyBalanceCents * asset.collateralFactor;
+        acc.userBorrowLimitCents = (acc.userBorrowLimitCents || new BigNumber(0)).plus(
+          assetUserSupplyBalanceCents.times(asset.collateralFactor),
+        );
       }
 
       // Calculate user borrow balance
       if (asset.userBorrowBalanceTokens) {
-        const assetUserBorrowBalanceCents = asset.userBorrowBalanceTokens
-          .multipliedBy(asset.tokenPriceDollars)
-          // Convert to cents
-          .multipliedBy(100)
-          .dp(0)
-          .toNumber();
+        const assetUserBorrowBalanceCents = asset.userBorrowBalanceTokens.multipliedBy(
+          asset.tokenPriceCents,
+        );
 
-        acc.userBorrowBalanceCents =
-          (acc.userBorrowBalanceCents || 0) + assetUserBorrowBalanceCents;
+        acc.userBorrowBalanceCents = (acc.userBorrowBalanceCents || new BigNumber(0)).plus(
+          assetUserBorrowBalanceCents,
+        );
       }
 
       return acc;

@@ -196,8 +196,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     return [
       {
         label: t('market.marketInfo.stats.priceLabel'),
-        value: asset.tokenPriceDollars
-          ? `$${asset.tokenPriceDollars.toFormat(2)}`
+        value: asset.tokenPriceCents
+          ? formatCentsToReadableValue({
+              value: asset.tokenPriceCents,
+              shortenLargeValue: true,
+            })
           : PLACEHOLDER_KEY,
       },
       {
@@ -286,7 +289,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
     ];
   }, [
-    asset?.tokenPriceDollars,
+    asset?.tokenPriceCents,
     asset?.liquidityCents,
     asset?.supplierCount,
     asset?.borrowerCount,

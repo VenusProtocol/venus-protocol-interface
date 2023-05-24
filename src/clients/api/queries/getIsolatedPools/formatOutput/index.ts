@@ -81,7 +81,7 @@ const formatToPools = ({
         new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
       );
 
-      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars, { whole: false });
+      const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>
@@ -113,7 +113,7 @@ const formatToPools = ({
         token: vToken.underlyingToken,
       });
 
-      const liquidityCents = +cashTokens.multipliedBy(tokenPriceCents);
+      const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalReserves.toString()),
@@ -146,14 +146,14 @@ const formatToPools = ({
         token: vToken,
       });
       const supplyBalanceTokens = supplyBalanceVTokens.multipliedBy(exchangeRateVTokens);
-      const supplyBalanceCents = +supplyBalanceTokens.multipliedBy(tokenPriceDollars).dividedBy(36);
+      const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
 
-      const borrowBalanceCents = +borrowBalanceTokens.multipliedBy(tokenPriceCents);
+      const borrowBalanceCents = borrowBalanceTokens.multipliedBy(tokenPriceCents);
 
       // User-specific props
       const userBorrowBalanceTokens = vTokenUserBalances
@@ -181,9 +181,9 @@ const formatToPools = ({
           })
         : new BigNumber(0);
 
-      const userSupplyBalanceCents = +userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
-      const userBorrowBalanceCents = +userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
-      const userWalletBalanceCents = +userWalletBalanceTokens.multipliedBy(tokenPriceCents);
+      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
+      const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const isCollateralOfUser = userCollateralVTokenAddresses.includes(
         vTokenAddress.toLowerCase(),
@@ -193,7 +193,7 @@ const formatToPools = ({
 
       const asset: Asset = {
         vToken,
-        tokenPriceDollars,
+        tokenPriceCents,
         reserveFactor,
         collateralFactor,
         cashTokens,
@@ -238,13 +238,15 @@ const formatToPools = ({
     // Calculate userPercentOfLimit for each asset
     const formattedAssets: Asset[] = assets.map(asset => ({
       ...asset,
-      userPercentOfLimit: pool.userBorrowLimitCents
-        ? new BigNumber(asset.userBorrowBalanceCents)
-            .times(100)
-            .div(pool.userBorrowLimitCents)
-            .dp(2)
-            .toNumber()
-        : 0,
+      userPercentOfLimit:
+        asset.userBorrowBalanceCents?.isGreaterThan(0) &&
+        pool.userBorrowLimitCents?.isGreaterThan(0)
+          ? new BigNumber(asset.userBorrowBalanceCents)
+              .times(100)
+              .div(pool.userBorrowLimitCents)
+              .dp(2)
+              .toNumber()
+          : 0,
     }));
 
     return {

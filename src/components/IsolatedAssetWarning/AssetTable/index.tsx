@@ -3,7 +3,11 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import { compareNumbers, formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+import {
+  compareBigNumbers,
+  formatCentsToReadableValue,
+  formatToReadablePercentage,
+} from 'utilities';
 
 import { TextButton } from '../../Button';
 import { Icon } from '../../Icon';
@@ -37,7 +41,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
   ];
 
   const sortedAssets = [...assets].sort((a, b) =>
-    compareNumbers(a.liquidityCents, b.liquidityCents, 'desc'),
+    compareBigNumbers(a.liquidityCents, b.liquidityCents, 'desc'),
   );
 
   return (

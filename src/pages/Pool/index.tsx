@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
@@ -26,12 +27,12 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const cells: Cell[] = useMemo(() => {
     const { totalSupplyCents, totalBorrowCents } = (pool?.assets || []).reduce(
       (acc, item) => ({
-        totalSupplyCents: acc.totalSupplyCents + item.supplyBalanceCents,
-        totalBorrowCents: acc.totalBorrowCents + item.borrowBalanceCents,
+        totalSupplyCents: acc.totalSupplyCents.plus(item.supplyBalanceCents),
+        totalBorrowCents: acc.totalBorrowCents.plus(item.borrowBalanceCents),
       }),
       {
-        totalSupplyCents: 0,
-        totalBorrowCents: 0,
+        totalSupplyCents: new BigNumber(0),
+        totalBorrowCents: new BigNumber(0),
       },
     );
 
@@ -51,7 +52,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
       {
         label: t('pool.header.availableLiquidityLabel'),
         value: formatCentsToReadableValue({
-          value: totalSupplyCents - totalBorrowCents,
+          value: totalSupplyCents.minus(totalBorrowCents),
         }),
       },
       {

@@ -64,8 +64,10 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
       <BorrowBalanceAccountHealth
         css={styles.getRow({ isLast: true })}
-        borrowBalanceCents={pool.userBorrowBalanceCents}
-        borrowLimitCents={hypotheticalPoolUserBorrowLimitCents ?? pool.userBorrowLimitCents}
+        borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber()}
+        borrowLimitCents={
+          hypotheticalPoolUserBorrowLimitCents ?? pool.userBorrowLimitCents?.toNumber()
+        }
         hypotheticalBorrowBalanceCents={
           action === 'borrow' || action === 'repay'
             ? hypotheticalPoolUserBorrowBalanceCents
@@ -123,7 +125,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
           css={styles.getRow({ isLast: false })}
         >
           <ValueUpdate
-            original={pool.userBorrowLimitCents}
+            original={pool.userBorrowLimitCents?.toNumber()}
             update={hypotheticalPoolUserBorrowLimitCents}
           />
         </LabeledInlineContent>

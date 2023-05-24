@@ -13,5 +13,5 @@ export const fakeAsset = {
   supplyBalanceTokens: new BigNumber(1100),
   userSupplyBalanceTokens: new BigNumber(1000),
   userWalletBalanceTokens: new BigNumber(10000000),
-  tokenPriceDollars: new BigNumber(1),
+  tokenPriceCents: new BigNumber(100),
 };

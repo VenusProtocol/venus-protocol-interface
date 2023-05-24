@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import BigNumber from 'bignumber.js';
 import { Cell, CellGroup } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -9,10 +10,10 @@ import { useGetTreasuryTotals } from 'clients/api';
 import { useStyles } from './styles';
 
 interface HeaderProps {
-  treasurySupplyBalanceCents: number;
-  treasuryBorrowBalanceCents: number;
-  treasuryLiquidityBalanceCents: number;
-  treasuryBalanceCents: number;
+  treasurySupplyBalanceCents: BigNumber;
+  treasuryBorrowBalanceCents: BigNumber;
+  treasuryLiquidityBalanceCents: BigNumber;
+  treasuryBalanceCents: BigNumber;
 }
 
 export const HeaderUi: React.FC<HeaderProps> = ({
