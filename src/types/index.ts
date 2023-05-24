@@ -256,6 +256,7 @@ export interface Transaction {
   to: string;
   timestamp: Date;
   transactionHash: string;
+  logIndex: string;
   vTokenAddress: string;
 }
 

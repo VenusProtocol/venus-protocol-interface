@@ -7,5 +7,6 @@ export interface TransactionResponse {
   timestamp: number;
   to: string;
   transactionHash: string;
+  logIndex: string;
   vTokenAddress: string;
 }
