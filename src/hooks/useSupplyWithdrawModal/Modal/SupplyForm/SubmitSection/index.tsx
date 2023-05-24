@@ -66,7 +66,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('supplyWithdrawModal.supply.submitButtonLabel.supply');
-  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError]);
+  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError, isFormSubmitting]);
 
   return (
     <EnableTokenSteps
