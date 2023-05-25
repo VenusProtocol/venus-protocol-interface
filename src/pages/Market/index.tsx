@@ -321,6 +321,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           openOperationModal({
             vToken: asset.vToken,
             poolComptrollerAddress,
+            initialActiveTabIndex: 0,
           })
         }
       >
@@ -334,6 +335,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           openOperationModal({
             vToken: asset.vToken,
             poolComptrollerAddress,
+            initialActiveTabIndex: 2,
           })
         }
       >
