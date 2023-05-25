@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { VToken } from 'types';
 
-import Modal from './Modal';
+import Modal, { OperationModalProps } from './Modal';
 
 interface Params {
-  vToken: VToken;
-  poolComptrollerAddress: string;
+  vToken: OperationModalProps['vToken'];
+  poolComptrollerAddress: OperationModalProps['poolComptrollerAddress'];
+  initialActiveTabIndex?: OperationModalProps['initialActiveTabIndex'];
 }
 
 const useOperationModal = () => {
@@ -20,10 +20,7 @@ const useOperationModal = () => {
   }, [params]);
 
   return {
-    openOperationModal: (
-      newParams: Params,
-      // TODO: add initial tab param
-    ) => setParams(newParams),
+    openOperationModal: (newParams: Params) => setParams(newParams),
     closeOperationModal: () => setParams(undefined),
     OperationModal,
   };
