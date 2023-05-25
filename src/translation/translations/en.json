@@ -414,6 +414,7 @@
     "repayTabTitle": "Repay",
     "supply": {
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "enableToken": {
         "title": "To supply {{symbol}} to the Venus Protocol, you need to enable it first"
