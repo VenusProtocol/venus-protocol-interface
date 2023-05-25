@@ -121,7 +121,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
             const group: Group = {
               id,
-              name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
+              name: pool.name,
               isChecked: !uncheckedGroupIds.includes(id),
               pendingRewards: [
                 {
@@ -146,7 +146,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
           const group: Group = {
             id,
-            name: t('layout.claimRewardModal.poolGroup', { poolName: pool.name }),
+            name: pool.name,
             isChecked: !uncheckedGroupIds.includes(id),
             pendingRewards: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               rewardToken: pendingReward.rewardToken,

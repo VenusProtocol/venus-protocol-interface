@@ -296,7 +296,6 @@
   },
   "layout": {
     "claimRewardModal": {
-      "poolGroup": "{{poolName}} pool",
       "vaultGroup": "{{stakedTokenSymbol}} vault",
       "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
     },
