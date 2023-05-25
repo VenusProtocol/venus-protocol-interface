@@ -154,15 +154,14 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           breakpoint="lg"
           columns={[
             'asset',
-            'pool',
-            'supplyBalance',
             'labeledSupplyApyLtv',
-            'borrowBalance',
             'labeledBorrowApy',
+            'userWalletBalance',
             'liquidity',
+            'pool',
           ]}
           initialOrder={{
-            orderBy: 'supplyBalance',
+            orderBy: 'userWalletBalance',
             orderDirection: 'desc',
           }}
           testId={TEST_IDS.marketTable}
