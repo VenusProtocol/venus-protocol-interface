@@ -12,14 +12,7 @@ WORKDIR /usr/app
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-COPY package.json ./
-COPY yarn.lock ./
-COPY scripts ./scripts
-COPY src/constants/contracts/abis ./src/constants/contracts/abis
-COPY src/clients/subgraph ./src/clients/subgraph
-COPY patches ./patches
-
-COPY venusprotocol-isolated-pools-0.1.0-local.1.tgz ./
+COPY . .
 
 RUN yarn
 
