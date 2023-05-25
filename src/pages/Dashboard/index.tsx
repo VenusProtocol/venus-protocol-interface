@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, TextField } from 'components';
+import { Announcement, ButtonGroup, QuaternaryButton, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -32,6 +32,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [selectedPoolName, setSelectedPoolName] = useState<string | undefined>();
 
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
@@ -42,6 +43,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const formattedPools = useFormatPools({
     pools,
     searchValue,
+    selectedPoolName,
   });
 
   const supplyMarketTableProps: MarketTableProps = {
@@ -92,22 +94,40 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           leftIconSrc="magnifier"
         />
 
-        <ButtonGroup
-          css={[styles.tabletButtonGroup, showXlDownCss]}
-          fullWidth
-          buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-          activeButtonIndex={activeTabIndex}
-          onButtonClick={setActiveTabIndex}
-        />
+        {!isFeatureEnabled('isolatedPools') && (
+          <ButtonGroup
+            css={[styles.tabletButtonGroup, showXlDownCss]}
+            fullWidth
+            buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
+            activeButtonIndex={activeTabIndex}
+            onButtonClick={setActiveTabIndex}
+          />
+        )}
 
         <div css={styles.headerBottomRow}>
-          {isFeatureEnabled('isolatedPools') && (
-            <ButtonGroup
-              css={hideXlDownCss}
-              buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-              activeButtonIndex={activeTabIndex}
-              onButtonClick={setActiveTabIndex}
-            />
+          {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
+            <div css={styles.tags}>
+              <QuaternaryButton
+                small
+                active={!selectedPoolName}
+                onClick={() => setSelectedPoolName(undefined)}
+                css={styles.tag}
+              >
+                {t('dashboard.allTag')}
+              </QuaternaryButton>
+
+              {pools.map(pool => (
+                <QuaternaryButton
+                  small
+                  active={pool.name === selectedPoolName}
+                  onClick={() => setSelectedPoolName(pool.name)}
+                  css={styles.tag}
+                  key={`tag-${pool.name}`}
+                >
+                  {pool.name}
+                </QuaternaryButton>
+              ))}
+            </div>
           )}
 
           <div css={styles.rightColumn}>
