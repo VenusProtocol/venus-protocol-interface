@@ -66,6 +66,7 @@ export const useStyles = () => {
     tabletSearchTextField: css`
       width: 100%;
       margin-bottom: ${theme.spacing(6)};
+      background-color: ${theme.palette.secondary.main};
     `,
     desktopSearchTextField: css`
       min-width: ${theme.spacing(75)};

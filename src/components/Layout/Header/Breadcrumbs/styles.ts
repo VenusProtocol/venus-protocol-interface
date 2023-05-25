@@ -29,6 +29,7 @@ export const useStyles = () => {
     addTokenButton: css`
       margin-left: ${theme.spacing(4)};
       padding: ${theme.spacing(1)};
+      height: auto;
       color: ${theme.palette.interactive.primary};
       background-color: ${theme.palette.background.paper};
       border-color: ${theme.palette.background.paper};

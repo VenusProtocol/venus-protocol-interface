@@ -5,9 +5,9 @@ import {
   Delimiter,
   LabeledInlineContent,
   NoticeWarning,
+  QuaternaryButton,
   SelectTokenTextField,
   SwapDetails,
-  TertiaryButton,
   TokenTextField,
 } from 'components';
 import { VError } from 'errors';
@@ -226,10 +226,9 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       <div css={sharedStyles.getRow({ isLast: true })}>
         <div css={styles.selectButtonsContainer}>
           {PRESET_PERCENTAGES.map(percentage => (
-            <TertiaryButton
+            <QuaternaryButton
               key={`select-button-${percentage}`}
               css={styles.selectButton}
-              small
               active={percentage === formValues.fixedRepayPercentage}
               onClick={() =>
                 setFormValues(currentFormValues => ({
@@ -239,7 +238,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               }
             >
               {formatToReadablePercentage(percentage)}
-            </TertiaryButton>
+            </QuaternaryButton>
           ))}
         </div>
 

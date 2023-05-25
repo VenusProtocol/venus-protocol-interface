@@ -85,7 +85,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
       </div>
 
       <div css={[styles.row, styles.footer]}>
-        <TextButton css={parentStyles.inlineButton} onClick={onHideAssetsButtonClick} small>
+        <TextButton css={parentStyles.inlineButton} onClick={onHideAssetsButtonClick}>
           <div css={styles.hideAssetButtonContent}>
             <span>{t('isolatedAssetWarning.hideAssetsButtonLabel')}</span>
 

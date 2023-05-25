@@ -7,7 +7,7 @@ import { convertWeiToTokens } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
-import { SecondaryButton } from '../../Button';
+import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
@@ -91,14 +91,13 @@ export const TokenList: React.FC<TokenListProps> = ({
 
         <div css={styles.commonTokenList}>
           {COMMON_TOKENS.map(commonToken => (
-            <SecondaryButton
-              small
+            <SenaryButton
               onClick={() => onTokenClick(commonToken)}
               css={styles.commonTokenButton}
               key={`select-token-text-field-common-token-${commonToken.symbol}`}
             >
               <TokenIconWithSymbol css={parentStyles.token} token={commonToken} />
-            </SecondaryButton>
+            </SenaryButton>
           ))}
         </div>
       </div>

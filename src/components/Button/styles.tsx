@@ -3,15 +3,7 @@ import { useTheme } from '@mui/material';
 
 import { Variant } from './types';
 
-export const styles = ({
-  fullWidth,
-  variant,
-  small,
-}: {
-  fullWidth: boolean;
-  variant: Variant;
-  small: boolean;
-}) => {
+export const styles = ({ fullWidth, variant }: { fullWidth: boolean; variant: Variant }) => {
   const theme = useTheme();
 
   const getButtonVariantCss = ({
@@ -23,11 +15,9 @@ export const styles = ({
   }) => {
     if (refVariant === 'secondary') {
       return css`
-        background-color: ${theme.palette.background.paper};
         border-color: ${theme.palette.button.medium};
 
         :disabled {
-          background-color: ${theme.palette.secondary.light};
           border-color: ${theme.palette.secondary.light};
         }
 
@@ -54,6 +44,9 @@ export const styles = ({
 
     if (refVariant === 'tertiary') {
       return css`
+        padding-left: ${theme.spacing(3)};
+        padding-right: ${theme.spacing(3)};
+        height: ${theme.spacing(10)};
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
 
@@ -85,7 +78,43 @@ export const styles = ({
 
     if (refVariant === 'quaternary') {
       return css`
-        background-color: ${theme.palette.secondary.main};
+        padding: ${theme.spacing(1, 6)};
+        height: ${theme.spacing(8)};
+        border-radius: ${theme.spacing(5)};
+        background-color: ${theme.palette.secondary.light};
+        border-color: ${theme.palette.secondary.light};
+
+        :disabled {
+          background-color: ${theme.palette.secondary.light};
+          border-color: ${theme.palette.secondary.light};
+        }
+
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            background-color: ${theme.palette.secondary.light};
+            border-color: ${theme.palette.interactive.primary};
+          }
+        `}
+
+        ${active &&
+        css`
+          background-color: ${theme.palette.text.secondary};
+          border-color: ${theme.palette.text.secondary};
+        `}
+
+        :active:not(:disabled) {
+          background-color: ${theme.palette.text.secondary};
+          border-color: ${theme.palette.text.secondary};
+        }
+      `;
+    }
+
+    if (refVariant === 'quinary') {
+      return css`
+        padding: ${theme.spacing(1, 5)};
+        height: ${theme.spacing(8)};
+        background-color: ${theme.palette.background.paper};
         border-color: ${theme.palette.secondary.light};
 
         :disabled {
@@ -109,6 +138,39 @@ export const styles = ({
 
         :active:not(:disabled) {
           background-color: ${theme.palette.interactive.primary};
+          border-color: ${theme.palette.interactive.primary};
+        }
+      `;
+    }
+
+    if (refVariant === 'senary') {
+      return css`
+        padding: ${theme.spacing(1, 2)};
+        height: ${theme.spacing(8)};
+        background-color: ${theme.palette.background.paper};
+        border-color: ${theme.palette.secondary.light};
+
+        :disabled {
+          background-color: ${theme.palette.secondary.main};
+          border-color: ${theme.palette.secondary.light};
+        }
+
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            background-color: ${theme.palette.secondary.main};
+            border-color: ${theme.palette.interactive.primary};
+          }
+        `}
+
+        ${active &&
+        css`
+          background-color: ${theme.palette.secondary.main};
+          border-color: ${theme.palette.interactive.primary};
+        `}
+
+        :active:not(:disabled) {
+          background-color: ${theme.palette.secondary.main};
           border-color: ${theme.palette.interactive.primary};
         }
       `;
@@ -171,8 +233,10 @@ export const styles = ({
   return {
     getButton: ({ disabled, active }: { disabled: boolean; active: boolean }) => css`
       border-radius: 8px;
-      padding: ${small ? theme.spacing(2, 3) : theme.spacing(3, 6)};
+      padding: ${theme.spacing(2, 6)};
+      height: ${theme.spacing(12)};
       border: 1px solid transparent;
+      background-color: transparent;
       box-shadow: none;
       display: flex;
       align-items: center;
@@ -207,9 +271,13 @@ export const styles = ({
       display: inline-flex;
       font-weight: 600;
       color: inherit;
+      font-size: ${variant === 'primary' || variant === 'secondary'
+        ? theme.typography.body1.fontSize
+        : theme.typography.small1.fontSize};
     `,
     link: css`
       font-weight: 600;
+
       &:hover {
         text-decoration: none;
       }
