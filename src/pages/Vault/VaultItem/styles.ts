@@ -7,6 +7,8 @@ export const useStyles = () => {
   return {
     container: css`
       width: 100%;
+      display: flex;
+      flex-direction: column;
     `,
     header: css`
       display: flex;
@@ -97,7 +99,7 @@ export const useStyles = () => {
     buttonsWrapper: css`
       display: flex;
       justify-content: space-between;
-      margin-top: ${theme.spacing(8)};
+      margin-top: auto;
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
@@ -105,6 +107,7 @@ export const useStyles = () => {
       }
     `,
     button: css`
+      margin-top: ${theme.spacing(8)};
       width: calc(50% - ${theme.spacing(2)});
 
       ${theme.breakpoints.down('sm')} {
