@@ -74,60 +74,6 @@
       "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>"
     }
   },
-  "borrowRepayModal": {
-    "borrow": {
-      "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
-      "aboveLiquidityWarning": "Insufficient asset liquidity",
-      "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
-      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
-      "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
-      "connectWalletMessage": "Please connect your wallet to borrow",
-      "enableToken": {
-        "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
-      },
-      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
-      "submitButtonLabel": {
-        "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",
-        "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
-        "borrow": "Borrow",
-        "borrowCapReached": "Borrow cap reached",
-        "borrowHighRiskAmount": "Borrow high risk amount",
-        "enterValidAmount": "Enter a valid amount to borrow"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully borrowed",
-        "title": "Your borrow was successful"
-      }
-    },
-    "borrowTabTitle": "Borrow",
-    "repay": {
-      "connectWalletMessage": "Please connect your wallet to repay",
-      "currentlyBorrowing": "Currently borrowing",
-      "enableToken": {
-        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
-      },
-      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
-        "enterValidAmount": "Enter a valid amount to repay",
-        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
-        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
-        "processing": "Processing",
-        "repay": "Repay",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
-      },
-      "swapSummary": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
-    },
-    "repayTabTitle": "Repay"
-  },
   "breadcrumbs": {
     "account": "Account",
     "convertVrt": "Convert VRT",
@@ -412,6 +358,101 @@
     "safeLimit": "Your safe limit:",
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
   },
+  "operationModal": {
+    "borrow": {
+      "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
+      "aboveLiquidityWarning": "Insufficient asset liquidity",
+      "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
+      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
+      "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "connectWalletMessage": "Please connect your wallet to borrow",
+      "enableToken": {
+        "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
+      },
+      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
+      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
+      "submitButtonLabel": {
+        "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",
+        "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
+        "borrow": "Borrow",
+        "borrowCapReached": "Borrow cap reached",
+        "borrowHighRiskAmount": "Borrow high risk amount",
+        "enterValidAmount": "Enter a valid amount to borrow"
+      },
+      "successfulTransactionModal": {
+        "message": "You successfully borrowed",
+        "title": "Your borrow was successful"
+      }
+    },
+    "borrowTabTitle": "Borrow",
+    "repay": {
+      "connectWalletMessage": "Please connect your wallet to repay",
+      "currentlyBorrowing": "Currently borrowing",
+      "enableToken": {
+        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
+      },
+      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonLabel": {
+        "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
+        "enterValidAmount": "Enter a valid amount to repay",
+        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
+        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "processing": "Processing",
+        "repay": "Repay",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      },
+      "swapSummary": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    },
+    "repayTabTitle": "Repay",
+    "supply": {
+      "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "connectWalletMessage": "Please connect your wallet to supply",
+      "enableToken": {
+        "title": "To supply {{symbol}} to the Venus Protocol, you need to enable it first"
+      },
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonLabel": {
+        "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
+        "enterValidAmount": "Enter a valid amount to supply",
+        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
+        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "processing": "Processing",
+        "supply": "Supply",
+        "supplyCapReached": "Supply cap reached",
+        "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrappingUnsupported": "Wrapping unsupported"
+      },
+      "successfulTransactionModal": {
+        "message": "You successfully supplied",
+        "title": "Your supply was successful"
+      },
+      "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    },
+    "supplyTabTitle": "Supply",
+    "withdraw": {
+      "connectWalletToWithdraw": "Please connect your wallet to withdraw",
+      "enableToWithdraw": "To withdraw {{symbol}} from the Venus Protocol, you need to enable it first",
+      "max": "MAX",
+      "submitButton": {
+        "enabledLabel": "Withdraw",
+        "enterValidAmountWithdrawLabel": "Enter a valid amount to withdraw"
+      },
+      "successfulWithdrawTransactionModal": {
+        "message": "You successfully withdrew",
+        "title": "Your withdrawal was successful"
+      },
+      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+    },
+    "withdrawTabTitle": "Withdraw"
+  },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
@@ -459,49 +500,6 @@
       "title": "Your stake was successful"
     },
     "title": "Stake {{tokenSymbol}}"
-  },
-  "supplyWithdrawModal": {
-    "supply": {
-      "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
-      "connectWalletMessage": "Please connect your wallet to supply",
-      "enableToken": {
-        "title": "To supply {{symbol}} to the Venus Protocol, you need to enable it first"
-      },
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
-        "enterValidAmount": "Enter a valid amount to supply",
-        "insufficientSwapLiquidity": "Insufficient liquidity for this swap",
-        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
-        "processing": "Processing",
-        "supply": "Supply",
-        "supplyCapReached": "Supply cap reached",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully supplied",
-        "title": "Your supply was successful"
-      },
-      "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
-    },
-    "supplyTabTitle": "Supply",
-    "withdraw": {
-      "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-      "enableToWithdraw": "To withdraw {{symbol}} from the Venus Protocol, you need to enable it first",
-      "max": "MAX",
-      "submitButton": {
-        "enabledLabel": "Withdraw",
-        "enterValidAmountWithdrawLabel": "Enter a valid amount to withdraw"
-      },
-      "successfulWithdrawTransactionModal": {
-        "message": "You successfully withdrew",
-        "title": "Your withdrawal was successful"
-      },
-      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
-    },
-    "withdrawTabTitle": "Withdraw"
   },
   "swap": {
     "errors": {
