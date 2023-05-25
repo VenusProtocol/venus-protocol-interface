@@ -153,13 +153,15 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }
         />
 
-        <Notice
-          hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
-          amount={formValues.amountTokens}
-          safeLimitTokens={safeLimitTokens}
-          limitTokens={limitTokens}
-          asset={asset}
-        />
+        {!isSubmitting && (
+          <Notice
+            hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
+            amount={formValues.amountTokens}
+            safeLimitTokens={safeLimitTokens}
+            limitTokens={limitTokens}
+            asset={asset}
+          />
+        )}
       </div>
 
       <AccountData
