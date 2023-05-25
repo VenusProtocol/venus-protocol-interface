@@ -32,6 +32,9 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
     accountAddress,
   });
   const pool = getPoolData?.pool;
+
+  console.log(pool?.assets);
+
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   const assetInfo = useAssetInfo({
