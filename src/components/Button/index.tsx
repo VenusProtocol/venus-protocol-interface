@@ -58,7 +58,9 @@ export const Button = ({
 export const PrimaryButton = (props: ButtonProps) => <Button variant="primary" {...props} />;
 export const SecondaryButton = (props: ButtonProps) => <Button variant="secondary" {...props} />;
 export const TertiaryButton = (props: ButtonProps) => <Button variant="tertiary" {...props} />;
+export const QuaternaryButton = (props: ButtonProps) => <Button variant="quaternary" {...props} />;
 export const TextButton = (props: ButtonProps) => <Button variant="text" {...props} />;
+
 export const LinkButton = ({
   variant = 'primary',
   fullWidth = false,
@@ -98,6 +100,7 @@ export const AnchorButton = ({
 export const PrimaryAnchorButton = (props: AnchorButtonProps) => (
   <AnchorButton variant="primary" {...props} />
 );
+
 export const SecondaryAnchorButton = (props: AnchorButtonProps) => (
   <AnchorButton variant="secondary" {...props} />
 );

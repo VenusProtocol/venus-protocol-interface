@@ -3,7 +3,15 @@ import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
 
-import { Button, LinkButton, PrimaryButton, SecondaryButton, TertiaryButton, TextButton } from '.';
+import {
+  Button,
+  LinkButton,
+  PrimaryButton,
+  QuaternaryButton,
+  SecondaryButton,
+  TertiaryButton,
+  TextButton,
+} from '.';
 
 export default {
   title: 'Components/Button',
@@ -14,6 +22,9 @@ export default {
 export const Primary = () => <PrimaryButton onClick={console.log}>Primary</PrimaryButton>;
 export const Secondary = () => <SecondaryButton onClick={console.log}>Secondary</SecondaryButton>;
 export const Tertiary = () => <TertiaryButton onClick={console.log}>Tertiary</TertiaryButton>;
+export const Quaternary = () => (
+  <QuaternaryButton onClick={console.log}>Quaternary</QuaternaryButton>
+);
 export const Text = () => <TextButton onClick={console.log}>Text</TextButton>;
 
 export const Small = () => (

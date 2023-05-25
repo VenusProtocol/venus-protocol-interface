@@ -48,11 +48,6 @@ export const useStyles = () => {
         background-color: ${theme.palette.secondary.light};
       }
 
-      :active:not(:disabled) {
-        border-color: ${theme.palette.secondary.light};
-        background-color: ${theme.palette.secondary.light};
-      }
-
       :not(:last-of-type) {
         margin-right: ${theme.spacing(2)};
       }

@@ -31,10 +31,13 @@ export const styles = ({
           border-color: ${theme.palette.secondary.light};
         }
 
-        :hover:not(:disabled) {
-          background-color: ${theme.palette.button.main};
-          border-color: ${theme.palette.button.main};
-        }
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            background-color: ${theme.palette.button.main};
+            border-color: ${theme.palette.button.main};
+          }
+        `}
 
         ${active &&
         css`
@@ -59,10 +62,13 @@ export const styles = ({
           border-color: ${theme.palette.secondary.light};
         }
 
-        :hover:not(:disabled) {
-          background-color: ${theme.palette.text.secondary};
-          border-color: ${theme.palette.text.secondary};
-        }
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            background-color: ${theme.palette.secondary.light};
+            border-color: ${theme.palette.interactive.primary};
+          }
+        `}
 
         ${active &&
         css`
@@ -71,8 +77,39 @@ export const styles = ({
         `}
 
         :active:not(:disabled) {
+          background-color: ${theme.palette.text.secondary};
+          border-color: ${theme.palette.text.secondary};
+        }
+      `;
+    }
+
+    if (refVariant === 'quaternary') {
+      return css`
+        background-color: ${theme.palette.secondary.main};
+        border-color: ${theme.palette.secondary.light};
+
+        :disabled {
           background-color: ${theme.palette.secondary.main};
-          border-color: ${theme.palette.secondary.main};
+          border-color: ${theme.palette.secondary.light};
+        }
+
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            background-color: ${theme.palette.secondary.light};
+            border-color: ${theme.palette.secondary.light};
+          }
+        `}
+
+        ${active &&
+        css`
+          background-color: ${theme.palette.interactive.primary};
+          border-color: ${theme.palette.interactive.primary};
+        `}
+
+        :active:not(:disabled) {
+          background-color: ${theme.palette.interactive.primary};
+          border-color: ${theme.palette.interactive.primary};
         }
       `;
     }
@@ -82,9 +119,12 @@ export const styles = ({
         background-color: transparent;
         color: ${theme.palette.button.main};
 
-        :hover:not(:disabled) {
-          color: ${theme.palette.button.medium};
-        }
+        ${!active &&
+        css`
+          :hover:not(:disabled) {
+            color: ${theme.palette.button.medium};
+          }
+        `}
 
         ${active &&
         css`
@@ -107,10 +147,13 @@ export const styles = ({
         border-color: ${theme.palette.secondary.light};
       }
 
-      :hover:not(:disabled) {
-        background-color: ${theme.palette.button.medium};
-        border-color: ${theme.palette.button.medium};
-      }
+      ${!active &&
+      css`
+        :hover:not(:disabled) {
+          background-color: ${theme.palette.button.medium};
+          border-color: ${theme.palette.button.medium};
+        }
+      `}
 
       ${active &&
       css`
