@@ -148,21 +148,26 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
       </div>
 
       {isFeatureEnabled('isolatedPools') ? (
-        <>
-          {activeTabIndex === 0 ? (
-            <MarketTable
-              {...supplyMarketTableProps}
-              key="dashboard-supply-market-table"
-              testId={TEST_IDS.supplyMarketTable}
-            />
-          ) : (
-            <MarketTable
-              {...borrowMarketTableProps}
-              key="dashboard-borrow-market-table"
-              testId={TEST_IDS.borrowMarketTable}
-            />
-          )}
-        </>
+        <MarketTable
+          pools={formattedPools}
+          isFetching={isFetchingPools}
+          breakpoint="lg"
+          columns={[
+            'asset',
+            'pool',
+            'supplyBalance',
+            'labeledSupplyApyLtv',
+            'borrowBalance',
+            'labeledBorrowApy',
+            'liquidity',
+          ]}
+          initialOrder={{
+            orderBy: 'supplyBalance',
+            orderDirection: 'desc',
+          }}
+          testId={TEST_IDS.marketTable}
+          key="dashboard-market-table"
+        />
       ) : (
         <>
           <div css={[styles.desktopMarketTables, hideXlDownCss]}>
