@@ -4,11 +4,14 @@ import {
   AccountData,
   Delimiter,
   IsolatedAssetWarning,
+  LabeledInlineContent,
   SelectTokenTextField,
   SwapDetails,
+  Toggle,
   TokenTextField,
+  toast,
 } from 'components';
-import { VError } from 'errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
@@ -22,6 +25,7 @@ import {
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -63,6 +67,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 }) => {
   const { t, Trans } = useTranslation();
   const sharedStyles = useSharedStyles();
+  const { CollateralModal, toggleCollateral } = useCollateral();
 
   const isIntegratedSwapEnabled = useMemo(
     () =>
@@ -119,6 +124,21 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     token: formValues.fromToken,
   });
 
+  const handleToggleCollateral = async () => {
+    try {
+      await toggleCollateral({
+        asset,
+        comptrollerAddress: pool.comptrollerAddress,
+      });
+    } catch (e) {
+      if (e instanceof VError) {
+        toast.error({
+          message: formatVErrorToReadableString(e),
+        });
+      }
+    }
+  };
+
   const handleRightMaxButtonClick = useCallback(() => {
     // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
@@ -128,118 +148,131 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   }, [fromTokenUserWalletBalanceTokens]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      {pool.isIsolated && (
-        <IsolatedAssetWarning
-          token={asset.vToken.underlyingToken}
-          pool={pool}
-          type="supply"
-          css={sharedStyles.isolatedAssetWarning}
-          data-testid={TEST_IDS.noticeIsolatedAsset}
-        />
-      )}
-
-      <div css={sharedStyles.getRow({ isLast: true })}>
-        {isIntegratedSwapEnabled ? (
-          <SelectTokenTextField
-            data-testid={TEST_IDS.selectTokenTextField}
-            selectedToken={formValues.fromToken}
-            value={formValues.amountTokens}
-            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-            disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
-            onChange={amountTokens =>
-              setFormValues(currentFormValues => ({
-                ...currentFormValues,
-                amountTokens,
-              }))
-            }
-            onChangeSelectedToken={fromToken =>
-              setFormValues(currentFormValues => ({
-                ...currentFormValues,
-                fromToken,
-              }))
-            }
-            rightMaxButton={{
-              label: t('operationModal.supply.rightMaxButtonLabel'),
-              onClick: handleRightMaxButtonClick,
-            }}
-            tokenBalances={tokenBalances}
-            description={
-              <Trans
-                i18nKey="operationModal.supply.walletBalance"
-                components={{
-                  White: <span css={sharedStyles.whiteLabel} />,
-                }}
-                values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-              />
-            }
-          />
-        ) : (
-          <TokenTextField
-            data-testid={TEST_IDS.tokenTextField}
-            name="amountTokens"
+    <>
+      <form onSubmit={handleSubmit}>
+        {pool.isIsolated && (
+          <IsolatedAssetWarning
             token={asset.vToken.underlyingToken}
-            value={formValues.amountTokens}
-            onChange={amountTokens =>
-              setFormValues(currentFormValues => ({
-                ...currentFormValues,
-                amountTokens,
-                // Reset selected fixed percentage
-                fixedRepayPercentage: undefined,
-              }))
-            }
-            disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
-            rightMaxButton={{
-              label: t('operationModal.supply.rightMaxButtonLabel'),
-              onClick: handleRightMaxButtonClick,
-            }}
-            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-            description={
-              <Trans
-                i18nKey="operationModal.supply.walletBalance"
-                components={{
-                  White: <span css={sharedStyles.whiteLabel} />,
-                }}
-                values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-              />
-            }
+            pool={pool}
+            type="supply"
+            css={sharedStyles.isolatedAssetWarning}
+            data-testid={TEST_IDS.noticeIsolatedAsset}
           />
         )}
 
-        {!isSubmitting && <Notice asset={asset} amount={formValues.amountTokens} />}
-      </div>
-
-      {swap && (
-        <>
-          <SwapDetails
-            action="supply"
-            swap={swap}
-            data-testid={TEST_IDS.swapDetails}
+        {(asset.collateralFactor || asset.isCollateralOfUser) && (
+          <LabeledInlineContent
+            label={t('operationModal.supply.collateral')}
             css={sharedStyles.getRow({ isLast: true })}
-          />
+          >
+            <Toggle onChange={() => handleToggleCollateral()} value={asset.isCollateralOfUser} />
+          </LabeledInlineContent>
+        )}
 
-          <Delimiter css={sharedStyles.getRow({ isLast: true })} />
-        </>
-      )}
+        <div css={sharedStyles.getRow({ isLast: true })}>
+          {isIntegratedSwapEnabled ? (
+            <SelectTokenTextField
+              data-testid={TEST_IDS.selectTokenTextField}
+              selectedToken={formValues.fromToken}
+              value={formValues.amountTokens}
+              hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+              disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
+              onChange={amountTokens =>
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  amountTokens,
+                }))
+              }
+              onChangeSelectedToken={fromToken =>
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  fromToken,
+                }))
+              }
+              rightMaxButton={{
+                label: t('operationModal.supply.rightMaxButtonLabel'),
+                onClick: handleRightMaxButtonClick,
+              }}
+              tokenBalances={tokenBalances}
+              description={
+                <Trans
+                  i18nKey="operationModal.supply.walletBalance"
+                  components={{
+                    White: <span css={sharedStyles.whiteLabel} />,
+                  }}
+                  values={{ balance: readableFromTokenUserWalletBalanceTokens }}
+                />
+              }
+            />
+          ) : (
+            <TokenTextField
+              data-testid={TEST_IDS.tokenTextField}
+              name="amountTokens"
+              token={asset.vToken.underlyingToken}
+              value={formValues.amountTokens}
+              onChange={amountTokens =>
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  amountTokens,
+                  // Reset selected fixed percentage
+                  fixedRepayPercentage: undefined,
+                }))
+              }
+              disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
+              rightMaxButton={{
+                label: t('operationModal.supply.rightMaxButtonLabel'),
+                onClick: handleRightMaxButtonClick,
+              }}
+              hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+              description={
+                <Trans
+                  i18nKey="operationModal.supply.walletBalance"
+                  components={{
+                    White: <span css={sharedStyles.whiteLabel} />,
+                  }}
+                  values={{ balance: readableFromTokenUserWalletBalanceTokens }}
+                />
+              }
+            />
+          )}
 
-      <AccountData
-        asset={asset}
-        pool={pool}
-        swap={swap}
-        amountTokens={new BigNumber(formValues.amountTokens || 0)}
-        action="supply"
-      />
+          {!isSubmitting && <Notice asset={asset} amount={formValues.amountTokens} />}
+        </div>
 
-      <SubmitSection
-        isFormSubmitting={isSubmitting}
-        isFormValid={isFormValid}
-        isSwapLoading={isSwapLoading}
-        formError={formError}
-        toToken={asset.vToken.underlyingToken}
-        fromToken={formValues.fromToken}
-        fromTokenAmountTokens={formValues.amountTokens}
-      />
-    </form>
+        {swap && (
+          <>
+            <SwapDetails
+              action="supply"
+              swap={swap}
+              data-testid={TEST_IDS.swapDetails}
+              css={sharedStyles.getRow({ isLast: true })}
+            />
+
+            <Delimiter css={sharedStyles.getRow({ isLast: true })} />
+          </>
+        )}
+
+        <AccountData
+          asset={asset}
+          pool={pool}
+          swap={swap}
+          amountTokens={new BigNumber(formValues.amountTokens || 0)}
+          action="supply"
+        />
+
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          isFormValid={isFormValid}
+          isSwapLoading={isSwapLoading}
+          formError={formError}
+          toToken={asset.vToken.underlyingToken}
+          fromToken={formValues.fromToken}
+          fromTokenAmountTokens={formValues.amountTokens}
+        />
+      </form>
+
+      <CollateralModal />
+    </>
   );
 };
 
