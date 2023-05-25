@@ -133,6 +133,7 @@
     "withdrawXvs": "Withdraw XVS"
   },
   "dashboard": {
+    "allTag": "All",
     "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
@@ -152,7 +153,7 @@
     },
     "searchInput": {
       "placeholder": "Search asset",
-      "placeholderIsolatedPools": "Search pool or asset"
+      "placeholderIsolatedPools": "Search asset"
     },
     "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"

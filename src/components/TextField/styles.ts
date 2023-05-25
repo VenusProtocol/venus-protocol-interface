@@ -73,7 +73,7 @@ export const useStyles = () => {
       padding-top: 2px; /* Vertically align input content */
       border: 0;
       width: 100%;
-      height: ${theme.spacing(isSmall ? 7 : 10)};
+      height: ${theme.spacing(isSmall ? 6 : 10)};
 
       ${isSmall &&
       css`
