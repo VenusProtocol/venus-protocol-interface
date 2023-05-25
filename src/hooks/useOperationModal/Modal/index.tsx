@@ -16,12 +16,14 @@ export interface OperationModalProps {
   onClose: ModalProps['handleClose'];
   vToken: VToken;
   poolComptrollerAddress: string;
+  initialActiveTabIndex?: number;
 }
 
 const OperationModal: React.FC<OperationModalProps> = ({
   onClose,
   vToken,
   poolComptrollerAddress,
+  initialActiveTabIndex = 0,
 }) => {
   const { t } = useTranslation();
 
@@ -126,7 +128,9 @@ const OperationModal: React.FC<OperationModalProps> = ({
       <>
         <Announcement token={vToken.underlyingToken} />
 
-        {tabsContent.length > 0 && <Tabs tabsContent={tabsContent} />}
+        {tabsContent.length > 0 && (
+          <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />
+        )}
       </>
     </Modal>
   );
