@@ -10,7 +10,7 @@ import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/deco
 import { WithdrawUi, WithdrawUiProps } from '.';
 
 export default {
-  title: 'Modals/Withdraw',
+  title: 'Components/OperationModal/WithdrawForm',
   component: WithdrawUi,
   decorators: [withCenterStory({ width: 600 })],
   parameters: {
