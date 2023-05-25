@@ -159,7 +159,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
             value={formValues.amountTokens}
-            hasError={!!formError && Number(formValues.amountTokens) > 0}
+            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             disabled={isSubmitting}
             onChange={amountTokens =>
               setFormValues(currentFormValues => ({
@@ -209,7 +209,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               onClick: handleRightMaxButtonClick,
             }}
             data-testid={TEST_IDS.tokenTextField}
-            hasError={!!formError && Number(formValues.amountTokens) > 0}
+            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             description={
               <Trans
                 i18nKey="operationModal.repay.walletBalance"

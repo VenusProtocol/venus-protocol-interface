@@ -145,7 +145,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
             value={formValues.amountTokens}
-            hasError={!!formError && Number(formValues.amountTokens) > 0}
+            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
             onChange={amountTokens =>
               setFormValues(currentFormValues => ({
@@ -193,7 +193,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               label: t('operationModal.supply.rightMaxButtonLabel'),
               onClick: handleRightMaxButtonClick,
             }}
-            hasError={!!formError && Number(formValues.amountTokens) > 0}
+            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             description={
               <Trans
                 i18nKey="operationModal.supply.walletBalance"
@@ -206,7 +206,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           />
         )}
 
-        <Notice asset={asset} amount={formValues.amountTokens} />
+        {!isSubmitting && <Notice asset={asset} amount={formValues.amountTokens} />}
       </div>
 
       {swap && (

@@ -41,23 +41,23 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.repay.submitButtonLabel.processing');
     }
 
-    if (formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
+    if (!isFormSubmitting && formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
       return t('operationModal.repay.submitButtonLabel.insufficientSwapLiquidity');
     }
 
-    if (formError === 'SWAP_WRAPPING_UNSUPPORTED') {
+    if (!isFormSubmitting && formError === 'SWAP_WRAPPING_UNSUPPORTED') {
       return t('operationModal.repay.submitButtonLabel.wrappingUnsupported');
     }
 
-    if (formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
+    if (!isFormSubmitting && formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
       return t('operationModal.repay.submitButtonLabel.unwrappingUnsupported');
     }
 
-    if (formError === 'HIGHER_THAN_REPAY_BALANCE') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_REPAY_BALANCE') {
       return t('operationModal.repay.submitButtonLabel.amountHigherThanRepayBalance');
     }
 
-    if (formError === 'HIGHER_THAN_WALLET_BALANCE') {
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_BALANCE') {
       return t('operationModal.repay.submitButtonLabel.insufficientWalletBalance', {
         tokenSymbol: fromToken.symbol,
       });
@@ -68,7 +68,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('operationModal.repay.submitButtonLabel.repay');
-  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError]);
+  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError, isFormSubmitting]);
 
   const swapSummary = useMemo(() => {
     if (!swap) {
