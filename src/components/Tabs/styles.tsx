@@ -11,6 +11,11 @@ export const styles = () => {
       margin-bottom: ${theme.spacing(8)};
       width: 100%;
 
+      > button {
+        padding-left: ${theme.spacing(1)};
+        padding-right: ${theme.spacing(1)};
+      }
+
       ${theme.breakpoints.down('sm')} {
         width: 100%;
       }

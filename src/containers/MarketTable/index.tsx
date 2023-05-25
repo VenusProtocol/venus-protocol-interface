@@ -6,9 +6,8 @@ import { Pool } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useCollateral from 'hooks/useCollateral';
-import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
+import useOperationModal from 'hooks/useOperationModal';
 
 import { useStyles } from './styles';
 import { ColumnKey, PoolAsset } from './types';
@@ -41,8 +40,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 }) => {
   const styles = useStyles();
 
-  const { BorrowRepayModal, openBorrowRepayModal } = useBorrowRepayModal();
-  const { SupplyWithdrawModal, openSupplyWithdrawModal } = useSupplyWithdrawModal();
+  const { OperationModal, openOperationModal } = useOperationModal();
   const { CollateralModal, toggleCollateral } = useCollateral();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
@@ -118,17 +116,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       return;
     }
 
-    if (marketType === 'borrow') {
-      openBorrowRepayModal({
-        vToken: row.vToken,
-        poolComptrollerAddress: row.pool.comptrollerAddress,
-      });
-    } else {
-      openSupplyWithdrawModal({
-        vToken: row.vToken,
-        poolComptrollerAddress: row.pool.comptrollerAddress,
-      });
-    }
+    openOperationModal({
+      vToken: row.vToken,
+      poolComptrollerAddress: row.pool.comptrollerAddress,
+    });
   };
 
   return (
@@ -145,8 +136,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       />
 
       <CollateralModal />
-      <BorrowRepayModal />
-      <SupplyWithdrawModal />
+      <OperationModal />
     </div>
   );
 };
