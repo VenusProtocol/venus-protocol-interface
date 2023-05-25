@@ -11,7 +11,6 @@ export interface BaseButtonProps {
   disabled?: boolean;
   active?: boolean;
   fullWidth?: boolean;
-  small?: boolean;
   variant?: Variant;
 }
 
@@ -26,13 +25,12 @@ export const Button = ({
   loading,
   disabled = false,
   fullWidth = false,
-  small = false,
   variant = 'primary',
   children,
   active = false,
   ...otherProps
 }: ButtonProps) => {
-  const styles = useStyles({ fullWidth, variant, small });
+  const styles = useStyles({ fullWidth, variant });
 
   return (
     <button
@@ -48,7 +46,7 @@ export const Button = ({
         </div>
       )}
 
-      <Typography css={styles.label} component="span" variant={small ? 'small1' : 'body1'}>
+      <Typography css={styles.label} component="span">
         {children}
       </Typography>
     </button>
@@ -59,17 +57,18 @@ export const PrimaryButton = (props: ButtonProps) => <Button variant="primary" {
 export const SecondaryButton = (props: ButtonProps) => <Button variant="secondary" {...props} />;
 export const TertiaryButton = (props: ButtonProps) => <Button variant="tertiary" {...props} />;
 export const QuaternaryButton = (props: ButtonProps) => <Button variant="quaternary" {...props} />;
+export const QuinaryButton = (props: ButtonProps) => <Button variant="quinary" {...props} />;
+export const SenaryButton = (props: ButtonProps) => <Button variant="senary" {...props} />;
 export const TextButton = (props: ButtonProps) => <Button variant="text" {...props} />;
 
 export const LinkButton = ({
   variant = 'primary',
   fullWidth = false,
-  small = false,
   disabled = false,
   active = false,
   ...props
 }: LinkProps & BaseButtonProps) => {
-  const styles = useStyles({ fullWidth, variant, small });
+  const styles = useStyles({ fullWidth, variant });
   return <Link {...props} css={[styles.getButton({ disabled, active }), styles.link]} />;
 };
 
@@ -78,13 +77,12 @@ type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchor
 export const AnchorButton = ({
   variant = 'primary',
   fullWidth = false,
-  small = false,
   children,
   disabled = false,
   active = false,
   ...props
 }: AnchorButtonProps) => {
-  const styles = useStyles({ fullWidth, variant, small });
+  const styles = useStyles({ fullWidth, variant });
   return (
     <a
       target="_blank"

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, QuaternaryButton, TextField } from 'components';
+import { Announcement, ButtonGroup, QuinaryButton, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -107,25 +107,23 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         <div css={styles.headerBottomRow}>
           {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
             <div css={styles.tags}>
-              <QuaternaryButton
-                small
+              <QuinaryButton
                 active={!selectedPoolName}
                 onClick={() => setSelectedPoolName(undefined)}
                 css={styles.tag}
               >
                 {t('dashboard.allTag')}
-              </QuaternaryButton>
+              </QuinaryButton>
 
               {pools.map(pool => (
-                <QuaternaryButton
-                  small
+                <QuinaryButton
                   active={pool.name === selectedPoolName}
                   onClick={() => setSelectedPoolName(pool.name)}
                   css={styles.tag}
                   key={`tag-${pool.name}`}
                 >
                   {pool.name}
-                </QuaternaryButton>
+                </QuinaryButton>
               ))}
             </div>
           )}
@@ -142,6 +140,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
                   : t('dashboard.searchInput.placeholder')
               }
               leftIconSrc="magnifier"
+              variant="secondary"
             />
           </div>
         </div>
@@ -154,11 +153,11 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           breakpoint="lg"
           columns={[
             'asset',
+            'pool',
+            'userWalletBalance',
             'labeledSupplyApyLtv',
             'labeledBorrowApy',
-            'userWalletBalance',
             'liquidity',
-            'pool',
           ]}
           initialOrder={{
             orderBy: 'userWalletBalance',

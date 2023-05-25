@@ -57,7 +57,6 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           <>
             <TertiaryButton
               onClick={handleButtonClick}
-              small
               css={styles.getButton({ isTokenListShown })}
               disabled={disabled}
               data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
@@ -69,7 +68,6 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
             {rightMaxButton && (
               <TertiaryButton
-                small
                 disabled={disabled}
                 css={styles.maxButton}
                 data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}

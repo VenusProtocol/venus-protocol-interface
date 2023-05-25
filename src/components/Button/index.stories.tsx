@@ -8,7 +8,9 @@ import {
   LinkButton,
   PrimaryButton,
   QuaternaryButton,
+  QuinaryButton,
   SecondaryButton,
+  SenaryButton,
   TertiaryButton,
   TextButton,
 } from '.';
@@ -25,13 +27,9 @@ export const Tertiary = () => <TertiaryButton onClick={console.log}>Tertiary</Te
 export const Quaternary = () => (
   <QuaternaryButton onClick={console.log}>Quaternary</QuaternaryButton>
 );
+export const Quinary = () => <QuinaryButton onClick={console.log}>Quinary</QuinaryButton>;
+export const Senary = () => <SenaryButton onClick={console.log}>Senary</SenaryButton>;
 export const Text = () => <TextButton onClick={console.log}>Text</TextButton>;
-
-export const Small = () => (
-  <PrimaryButton onClick={console.log} small>
-    Small
-  </PrimaryButton>
-);
 
 export const FullWidth = () => (
   <PrimaryButton onClick={console.log} fullWidth>

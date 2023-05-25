@@ -8,17 +8,22 @@ export const useStyles = () => {
     getLabel: ({ hasError }: { hasError: boolean }) => css`
       display: block;
       margin-bottom: ${theme.spacing(1)};
-
       color: ${hasError ? theme.palette.error.main : theme.palette.text.primary};
     `,
     getInputContainer: ({
       hasError,
       disabled,
+      variant,
+      isSmall,
     }: {
       hasError: boolean;
       disabled: boolean | undefined;
+      variant: 'primary' | 'secondary';
+      isSmall: boolean;
     }) => {
-      let borderColor: undefined | string = theme.palette.secondary.light;
+      let borderColor = theme.palette.secondary.light;
+      let backgroundColor =
+        variant === 'primary' ? theme.palette.background.default : theme.palette.background.paper;
 
       if (hasError) {
         borderColor = theme.palette.interactive.error;
@@ -26,18 +31,23 @@ export const useStyles = () => {
 
       if (disabled) {
         borderColor = theme.palette.secondary.light;
+        backgroundColor =
+          variant === 'primary' ? theme.palette.background.paper : theme.palette.secondary.light;
       }
 
       return css`
         display: flex;
         align-items: center;
-        padding: ${theme.spacing(2, 2, 2, 4)};
+        padding: ${isSmall ? theme.spacing(1, 2, 1, 4) : theme.spacing(2, 2, 2, 4)};
         border-radius: ${theme.spacing(3)};
         border: 1px solid ${borderColor};
-        background-color: ${disabled
-          ? theme.palette.background.paper
-          : theme.palette.background.default};
         transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: ${backgroundColor};
+
+        ${isSmall &&
+        css`
+          height: ${theme.spacing(10)};
+        `}
 
         ${!disabled &&
         css`
