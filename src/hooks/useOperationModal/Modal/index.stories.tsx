@@ -11,7 +11,7 @@ import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/deco
 import OperationModal, { OperationModalProps } from '.';
 
 export default {
-  title: 'Pages/Dashboard/Modals/OperationModal',
+  title: 'Components/OperationModal',
   component: OperationModal,
   decorators: [withCenterStory({ width: 600 })],
   parameters: {
