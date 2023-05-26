@@ -164,6 +164,10 @@ export { default as getPendingRewards } from './queries/getPendingRewards';
 export * from './queries/getPendingRewards';
 export { default as useGetPendingRewards } from './queries/getPendingRewards/useGetPendingRewards';
 
+export { default as getIsAddressAuthorized } from './queries/getIsAddressAuthorized';
+export * from './queries/getIsAddressAuthorized';
+export { default as useGetIsAddressAuthorized } from './queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
+
 export { default as getAllowance } from './queries/getAllowance';
 export * from './queries/getAllowance';
 export { default as useGetAllowance } from './queries/getAllowance/useGetAllowance';
