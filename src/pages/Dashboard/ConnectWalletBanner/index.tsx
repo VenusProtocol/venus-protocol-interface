@@ -30,7 +30,7 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
   return (
     <Paper css={styles.container} {...containerProps}>
       <div css={styles.content}>
-        <Typography variant="h2" css={styles.title}>
+        <Typography variant="h4" css={styles.title}>
           {t('dashboard.connectWalletBanner.title')}
         </Typography>
 
