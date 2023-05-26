@@ -73,4 +73,4 @@ Object {
 }
 `;
 
-exports[`components/Layout/ClaimRewardButton renders correct reward breakdown in modal 1`] = `"Venus pool1,000,000,000 XVSMetaverse pool2,000,000,000 VAI3,000,000,000 XVSVRT vault2,000,000,000 VRTVAI vault3,000,000,000 XVSXVS vesting vault4,000,000,000 XVS"`;
+exports[`components/Layout/ClaimRewardButton renders correct reward breakdown in modal 1`] = `"Venus1,000,000,000 XVSMetaverse2,000,000,000 VAI3,000,000,000 XVSVRT vault2,000,000,000 VRTVAI vault3,000,000,000 XVSXVS vesting vault4,000,000,000 XVS"`;
