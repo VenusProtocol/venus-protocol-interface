@@ -2,6 +2,7 @@ import noop from 'noop-ts';
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { Connector, useAuth } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
@@ -30,6 +31,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
 
   const { login, accountAddress, logOut, connectedConnector } = useAuth();
+  const { data: authData } = useGetIsAddressAuthorized(accountAddress || '', {
+    enabled: !!accountAddress,
+  });
 
   const { t } = useTranslation();
 
@@ -43,12 +47,13 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const account = accountAddress
-    ? {
-        address: accountAddress,
-        connector: connectedConnector,
-      }
-    : undefined;
+  const account =
+    accountAddress && authData?.authorized
+      ? {
+          address: accountAddress,
+          connector: connectedConnector,
+        }
+      : undefined;
 
   return (
     <AuthContext.Provider

@@ -11,6 +11,10 @@ import FunctionKey from 'constants/functionKey';
 import { GetBalanceOfInput } from '../queries/getBalanceOf';
 
 // Queries
+export const getIsAddressAuthorized = jest.fn(accountAddress => fakeAddress !== accountAddress);
+export const useGetIsAddressAuthorized = (accountAddress: string | undefined) =>
+  useQuery(FunctionKey.GET_IS_ADDRESS_AUTHORIZED, () => getIsAddressAuthorized(accountAddress));
+
 export const getBlockNumber = jest.fn();
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
 
