@@ -165,7 +165,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             label={t('operationModal.supply.collateral')}
             css={sharedStyles.getRow({ isLast: true })}
           >
-            <Toggle onChange={() => handleToggleCollateral()} value={asset.isCollateralOfUser} />
+            <Toggle onChange={handleToggleCollateral} value={asset.isCollateralOfUser} />
           </LabeledInlineContent>
         )}
 
