@@ -7,6 +7,7 @@ import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'translation';
 import { useAccount, useConnect, useDisconnect, useProvider, useSigner } from 'wagmi';
 
+import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { Connector, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
@@ -40,6 +41,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const { data: signer } = useSigner();
   const provider = useProvider();
   const { address, status } = useAccount();
+  const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
+    enabled: address !== undefined,
+  });
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -76,7 +80,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const accountAddress = address && status === 'connected' ? address : '';
+  const accountAddress =
+    address && status === 'connected' && accountAuth?.authorized ? address : '';
 
   return (
     <AuthContext.Provider
