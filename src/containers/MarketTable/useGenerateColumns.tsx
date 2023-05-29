@@ -121,11 +121,19 @@ const useGenerateColumns = ({
           }
 
           if (column === 'userWalletBalance') {
-            return formatTokensToReadableValue({
-              value: poolAsset.userSupplyBalanceTokens,
-              token: poolAsset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
+            return (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.userWalletBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.userWalletBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            );
           }
 
           if (column === 'userSupplyBalance') {
@@ -246,8 +254,8 @@ const useGenerateColumns = ({
 
                 if (column === 'userWalletBalance') {
                   return compareBigNumbers(
-                    rowA.userWalletBalanceTokens,
-                    rowB.userWalletBalanceTokens,
+                    rowA.userWalletBalanceCents,
+                    rowB.userWalletBalanceCents,
                     direction,
                   );
                 }

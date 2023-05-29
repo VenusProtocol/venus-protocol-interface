@@ -1,1 +1,8 @@
-export type Variant = 'primary' | 'secondary' | 'tertiary' | 'text';
+export type Variant =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'quaternary'
+  | 'quinary'
+  | 'senary'
+  | 'text';

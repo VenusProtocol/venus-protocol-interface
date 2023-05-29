@@ -49,9 +49,17 @@ const useCollateral = () => {
           vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
         });
 
-        if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
-          await exitMarket({ vTokenAddress: asset.vToken.address, comptrollerContract });
+        if (+assetHypotheticalLiquidity['1'] === 0 && +assetHypotheticalLiquidity['2'] > 0) {
+          throw new VError({
+            type: 'interaction',
+            code: 'collateralRequired',
+            data: {
+              assetName: asset.vToken.underlyingToken.symbol,
+            },
+          });
         }
+
+        await exitMarket({ vTokenAddress: asset.vToken.address, comptrollerContract });
       } catch (error) {
         if (error instanceof VError) {
           throw error;

@@ -9,6 +9,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { supply } from 'clients/api';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import useCollateral from 'hooks/useCollateral';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -18,6 +19,7 @@ import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
 jest.mock('clients/api');
+jest.mock('hooks/useCollateral');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Supply', () => {
@@ -95,8 +97,13 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   });
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
-    const { getByText } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userWalletBalanceTokens: new BigNumber(100),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -111,10 +118,13 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
-    const incorrectValueTokens = fakeAsset.userWalletBalanceTokens.plus(1).toFixed();
+    const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
     // Enter amount in input
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
+
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
     });
@@ -189,7 +199,9 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       .toFixed();
 
     // Enter amount in input
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
     });
@@ -211,6 +223,37 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     ).toBeDisabled();
   });
 
+  it('displays collateral switch and lets user enable asset as collateral if it has a positive collateral factor', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      collateralFactor: 10,
+      isCollateralOfUser: false,
+    };
+
+    const { toggleCollateral } = useCollateral();
+
+    const { getByRole } = renderComponent(
+      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    await waitFor(() => getByRole('checkbox'));
+
+    // Slide collateral switch
+    const collateralSwitch = getByRole('checkbox');
+    fireEvent.click(collateralSwitch);
+
+    await waitFor(() => expect(toggleCollateral).toHaveBeenCalledTimes(1));
+    expect(toggleCollateral).toHaveBeenCalledWith({
+      asset: customFakeAsset,
+      comptrollerAddress: fakePool.comptrollerAddress,
+    });
+  });
+
   it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
@@ -222,7 +265,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
     (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    renderComponent(
+    const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
@@ -234,7 +277,9 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     const correctAmountTokens = fakeAsset.supplyCapTokens
       .minus(fakeAsset.supplyBalanceTokens)
       .minus(1);
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
     fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
 
     // Click on submit button

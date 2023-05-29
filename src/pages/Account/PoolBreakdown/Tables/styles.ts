@@ -33,6 +33,11 @@ export const useStyles = () => {
       }
     `,
     tabletHeaderButtonGroup: css`
+      > button {
+        padding-left: ${theme.spacing(5)};
+        padding-right: ${theme.spacing(5)};
+      }
+
       ${theme.breakpoints.down('md')} {
         margin-bottom: ${theme.spacing(4)};
 

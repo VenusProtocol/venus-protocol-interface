@@ -52,7 +52,7 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
                 : t('isolatedAssetWarning.supplyDescription', translationArgs)}
             </div>
 
-            <TextButton css={styles.inlineButton} onClick={handleShowAssets} small>
+            <TextButton css={styles.inlineButton} onClick={handleShowAssets}>
               {t('isolatedAssetWarning.showMarketsButtonLabel', {
                 poolName: pool.name,
               })}

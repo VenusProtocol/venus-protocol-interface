@@ -1,40 +1,39 @@
 import { useMemo } from 'react';
 import { Asset, Pool } from 'types';
 
-const isAssetInSearch = ({
-  asset,
-  pool,
-  searchValue,
-}: {
-  asset: Asset;
-  pool: Pool;
-  searchValue: string;
-}) => {
+const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: string }) => {
   const lowerCasedSearchValue = searchValue.toLowerCase();
-
-  return (
-    asset.vToken.underlyingToken.symbol.toLowerCase().includes(lowerCasedSearchValue) ||
-    pool.name.toLowerCase().includes(lowerCasedSearchValue)
-  );
+  return asset.vToken.underlyingToken.symbol.toLowerCase().includes(lowerCasedSearchValue);
 };
 
-const useFormatPools = ({ pools, searchValue }: { pools: Pool[]; searchValue: string }) => {
+const useFormatPools = ({
+  pools,
+  searchValue,
+  selectedPoolName,
+}: {
+  pools: Pool[];
+  searchValue: string;
+  selectedPoolName?: string;
+}) => {
   const formattedPools = useMemo(() => {
+    const filteredPools = selectedPoolName
+      ? pools.filter(pool => pool.name === selectedPoolName)
+      : pools;
+
     if (!searchValue) {
-      return pools;
+      return filteredPools;
     }
 
-    return pools.map(pool => ({
+    return filteredPools.map(pool => ({
       ...pool,
       assets: pool.assets.filter(asset =>
         isAssetInSearch({
           asset,
-          pool,
           searchValue,
         }),
       ),
     }));
-  }, [pools, searchValue]);
+  }, [pools, searchValue, selectedPoolName]);
 
   return formattedPools;
 };

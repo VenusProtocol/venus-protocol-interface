@@ -100,6 +100,7 @@ const Notice: React.FC<NoticeProps> = ({
   }
 
   if (
+    new BigNumber(amount).isGreaterThan(0) &&
     new BigNumber(amount).isGreaterThanOrEqualTo(safeLimitTokens) &&
     new BigNumber(amount).isLessThanOrEqualTo(limitTokens)
   ) {

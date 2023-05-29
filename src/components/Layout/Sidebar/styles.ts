@@ -268,6 +268,9 @@ export const useStyles = () => {
     mobileConnectButton: css`
       margin-left: ${theme.spacing(8)};
       margin-right: ${theme.spacing(8)};
+      height: ${theme.spacing(9)};
+      font-size: ${theme.typography.small1.fontSize};
+      border-width: 2px;
     `,
     claimRewardButton: css`
       margin: ${theme.spacing(4, 4, 0, 4)};
