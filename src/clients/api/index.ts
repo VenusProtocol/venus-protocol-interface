@@ -173,6 +173,10 @@ export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/getXvsReward/useGetXvsReward';
 
+export { default as getIsAddressAuthorized } from './queries/getIsAddressAuthorized';
+export * from './queries/getIsAddressAuthorized';
+export { default as useGetIsAddressAuthorized } from './queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
+
 export { default as getAllowance } from './queries/getAllowance';
 export * from './queries/getAllowance';
 export { default as useGetAllowance } from './queries/getAllowance/useGetAllowance';
