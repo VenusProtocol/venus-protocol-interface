@@ -47,7 +47,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       !pool ||
       pool.userBorrowBalanceCents === undefined ||
       !pool.userBorrowLimitCents ||
-      pool.userBorrowBalanceCents >= pool.userBorrowLimitCents
+      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)
     ) {
       return ['0', '0'];
     }
@@ -72,11 +72,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       .dividedBy(100);
     const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(pool.userBorrowBalanceCents);
 
-    const safeMaxTokens =
-      pool.userBorrowBalanceCents < safeBorrowLimitCents
-        ? // Convert dollars to tokens
-          new BigNumber(marginWithSafeBorrowLimitCents).dividedBy(asset.tokenPriceCents)
-        : new BigNumber(0);
+    const safeMaxTokens = pool.userBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+      ? // Convert dollars to tokens
+        new BigNumber(marginWithSafeBorrowLimitCents).dividedBy(asset.tokenPriceCents)
+      : new BigNumber(0);
 
     const formatValue = (value: BigNumber) =>
       value.dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
