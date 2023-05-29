@@ -62,7 +62,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
       // liquidated (if their borrow balance goes above their borrow limit)
 
       // Return 0 if borrow limit has already been reached
-      if (pool.userBorrowBalanceCents > pool.userBorrowLimitCents) {
+      if (pool.userBorrowBalanceCents.isGreaterThan(pool.userBorrowLimitCents)) {
         return new BigNumber(0);
       }
 
