@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { EnableTokenSteps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
@@ -61,7 +61,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   }, [swap, swapError, formErrors[0]]);
 
   return (
-    <EnableTokenSteps
+    <ApproveTokenSteps
       token={fromToken}
       spenderAddress={pancakeRouterContractAddress}
       submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
@@ -77,7 +77,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
           {submitButtonLabel}
         </PrimaryButton>
       )}
-    </EnableTokenSteps>
+    </ApproveTokenSteps>
   );
 };
 

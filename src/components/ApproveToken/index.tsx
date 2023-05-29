@@ -17,38 +17,38 @@ import { toast } from '../Toast';
 import { TokenIcon } from '../TokenIcon';
 import useStyles from './styles';
 
-export interface EnableTokenUiProps {
+export interface ApproveTokenUiProps {
   token: Token;
   title: string | React.ReactElement;
-  isTokenEnabled: boolean;
-  enableToken: () => Promise<ContractReceipt | undefined>;
+  isTokenApproved: boolean;
+  approvedToken: () => Promise<ContractReceipt | undefined>;
   isInitialLoading?: boolean;
-  isEnableTokenLoading?: boolean;
+  isApproveTokenLoading?: boolean;
   assetInfo?: LabeledInlineContentProps[];
   disabled?: boolean;
 }
 
-export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
+export const ApproveTokenUi: React.FC<ApproveTokenUiProps> = ({
   token,
   title,
   assetInfo = [],
   children,
-  enableToken,
-  isTokenEnabled,
+  approvedToken,
+  isTokenApproved,
   isInitialLoading = false,
-  isEnableTokenLoading = false,
+  isApproveTokenLoading = false,
   disabled = false,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  if (isTokenEnabled) {
+  if (isTokenApproved) {
     return <>{children}</>;
   }
 
-  const handleEnableToken = async () => {
+  const handleApproveToken = async () => {
     try {
-      await enableToken();
+      await approvedToken();
     } catch (error) {
       let { message } = error as Error;
 
@@ -89,12 +89,12 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
           )}
 
           <SecondaryButton
-            disabled={disabled || isEnableTokenLoading}
-            loading={isEnableTokenLoading}
+            disabled={disabled || isApproveTokenLoading}
+            loading={isApproveTokenLoading}
             fullWidth
-            onClick={handleEnableToken}
+            onClick={handleApproveToken}
           >
-            {t('enableToken.enableButtonLabel')}
+            {t('approvedToken.approveButtonLabel')}
           </SecondaryButton>
         </>
       )}
@@ -102,12 +102,12 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
   );
 };
 
-export interface EnableTokenProps
-  extends Pick<EnableTokenUiProps, 'assetInfo' | 'disabled' | 'title' | 'token'> {
+export interface ApproveTokenProps
+  extends Pick<ApproveTokenUiProps, 'assetInfo' | 'disabled' | 'title' | 'token'> {
   spenderAddress: string;
 }
 
-export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
+export const ApproveToken: React.FC<ApproveTokenProps> = ({ token, spenderAddress, ...rest }) => {
   const { accountAddress } = useAuth();
 
   const { isTokenApprovalStatusLoading, isTokenApproved, approveToken, isApproveTokenLoading } =
@@ -118,16 +118,16 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
     });
 
   return (
-    <EnableTokenUi
+    <ApproveTokenUi
       {...rest}
       token={token}
-      enableToken={approveToken}
-      isTokenEnabled={isTokenApproved ?? false}
-      isEnableTokenLoading={isApproveTokenLoading}
+      approvedToken={approveToken}
+      isTokenApproved={isTokenApproved ?? false}
+      isApproveTokenLoading={isApproveTokenLoading}
       isInitialLoading={isTokenApprovalStatusLoading}
       disabled={!accountAddress}
     />
   );
 };
 
-export default EnableToken;
+export default ApproveToken;

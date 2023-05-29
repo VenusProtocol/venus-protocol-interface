@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, EnableToken, ModalProps, Spinner } from 'components';
+import { ApproveToken, ConnectWallet, ModalProps, Spinner } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, VToken } from 'types';
@@ -93,7 +93,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
     <div className={className}>
       <ConnectWallet message={t('operationModal.withdraw.connectWalletToWithdraw')}>
         {asset && pool ? (
-          <EnableToken
+          <ApproveToken
             token={asset.vToken.underlyingToken}
             spenderAddress={asset.vToken.address}
             title={t('operationModal.withdraw.enableToWithdraw', {
@@ -114,7 +114,7 @@ export const WithdrawUi: React.FC<WithdrawUiProps> = ({
               maxInput={maxInput}
               isTransactionLoading={isLoading}
             />
-          </EnableToken>
+          </ApproveToken>
         ) : (
           <Spinner />
         )}

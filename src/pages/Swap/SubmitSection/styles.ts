@@ -17,10 +17,10 @@ export const useStyles = () => {
       display: block;
       color: ${theme.palette.text.primary};
     `,
-    enableTokenButton: css`
+    approvedTokenButton: css`
       margin-bottom: ${theme.spacing(8)};
     `,
-    enableTokenTooltip: css`
+    approvedTokenTooltip: css`
       display: flex;
       margin-left: ${theme.spacing(2)};
     `,

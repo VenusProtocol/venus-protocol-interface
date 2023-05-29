@@ -8,7 +8,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import { EnableTokenSteps } from '.';
+import { ApproveTokenSteps } from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Toast');
@@ -17,7 +17,7 @@ const fakeAsset = assetData[0];
 const fakeContent = 'Fake content';
 const fakeSubmitButtonLabel = 'Fake submit button label';
 
-describe('components/EnableTokenSteps', () => {
+describe('components/ApproveTokenSteps', () => {
   it('asks user to enable token and lets them do so if they have not already', async () => {
     const approveTokenMock = jest.fn();
 
@@ -30,24 +30,24 @@ describe('components/EnableTokenSteps', () => {
     }));
 
     const { getByText } = renderComponent(
-      <EnableTokenSteps
+      <ApproveTokenSteps
         token={fakeAsset.vToken.underlyingToken}
         spenderAddress={fakeAddress}
         submitButtonLabel={fakeSubmitButtonLabel}
       >
         {() => fakeContent}
-      </EnableTokenSteps>,
+      </ApproveTokenSteps>,
     );
 
-    const enableButtonText = en.enableTokenSteps.enableTokenButton.text.replace(
+    const approveButtonText = en.approvedTokenSteps.approvedTokenButton.text.replace(
       '{{tokenSymbol}}',
       fakeAsset.vToken.underlyingToken.symbol,
     );
 
-    await waitFor(() => expect(getByText(enableButtonText)));
+    await waitFor(() => expect(getByText(approveButtonText)));
 
     // Click on enable button
-    fireEvent.click(getByText(enableButtonText));
+    fireEvent.click(getByText(approveButtonText));
 
     await waitFor(() => expect(approveTokenMock).toHaveBeenCalledTimes(1));
   });
@@ -62,14 +62,14 @@ describe('components/EnableTokenSteps', () => {
     }));
 
     const { getByText } = renderComponent(
-      <EnableTokenSteps
+      <ApproveTokenSteps
         token={fakeAsset.vToken.underlyingToken}
         spenderAddress={fakeAddress}
         submitButtonLabel={fakeSubmitButtonLabel}
         hideTokenEnablingStep
       >
         {() => fakeContent}
-      </EnableTokenSteps>,
+      </ApproveTokenSteps>,
     );
 
     await waitFor(() => expect(getByText(fakeContent)));
@@ -77,13 +77,13 @@ describe('components/EnableTokenSteps', () => {
 
   it('renders content when token is enabled', async () => {
     const { getByText } = renderComponent(
-      <EnableTokenSteps
+      <ApproveTokenSteps
         token={fakeAsset.vToken.underlyingToken}
         spenderAddress={fakeAddress}
         submitButtonLabel={fakeSubmitButtonLabel}
       >
         {() => fakeContent}
-      </EnableTokenSteps>,
+      </ApproveTokenSteps>,
     );
 
     await waitFor(() => expect(getByText(fakeContent)));

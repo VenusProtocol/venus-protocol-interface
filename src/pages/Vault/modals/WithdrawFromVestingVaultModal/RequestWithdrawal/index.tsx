@@ -186,7 +186,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   return (
     <ConnectWallet
       message={t(
-        'withdrawFromVestingVaultModalModal.requestWithdrawalTab.enableToken.connectWalletMessage',
+        'withdrawFromVestingVaultModalModal.requestWithdrawalTab.approvedToken.connectWalletMessage',
       )}
     >
       <RequestWithdrawalUi

@@ -78,8 +78,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
       connectWalletMessage={t('stakeModal.connectWalletMessage', {
         tokenSymbol: stakedToken.symbol,
       })}
-      tokenNeedsToBeEnabled
-      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedToken.symbol })}
+      tokenNeedsToBeApproved
+      approveTokenMessage={t('stakeModal.approveTokenMessage', {
+        tokenSymbol: stakedToken.symbol,
+      })}
       spenderAddress={spenderAddress}
       availableTokensLabel={t('stakeModal.availableTokensLabel', {
         tokenSymbol: stakedToken.symbol,

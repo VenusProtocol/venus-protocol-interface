@@ -19,7 +19,7 @@ const fakeProps: Omit<AssetAccessorProps, 'children'> = {
   poolComptrollerAddress: fakePool.comptrollerAddress,
   vToken: fakeAsset.vToken,
   connectWalletMessage: 'Fake connect wallet message',
-  enableTokenMessage: 'Fake enable token message',
+  approveTokenMessage: 'Fake enable token message',
   assetInfoType: 'borrow',
 };
 
@@ -37,7 +37,7 @@ describe('containers/AssetAccessor', () => {
     ));
 
     await waitFor(() => expect(getByText(fakeProps.connectWalletMessage)).toBeInTheDocument());
-    expect(queryByText(fakeProps.enableTokenMessage)).toBeNull();
+    expect(queryByText(fakeProps.approveTokenMessage)).toBeNull();
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
@@ -57,7 +57,7 @@ describe('containers/AssetAccessor', () => {
       },
     );
 
-    await waitFor(() => expect(getByText(fakeProps.enableTokenMessage)).toBeInTheDocument());
+    await waitFor(() => expect(getByText(fakeProps.approveTokenMessage)).toBeInTheDocument());
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 

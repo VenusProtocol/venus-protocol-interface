@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ConnectWallet, EnableToken, Modal, ModalProps, Spinner } from 'components';
+import { ApproveToken, ConnectWallet, Modal, ModalProps, Spinner } from 'components';
 import React from 'react';
 
 import TransactionForm, { TransactionFormProps } from '../../TransactionForm';
@@ -9,8 +9,8 @@ export interface ActionModalProps extends Pick<ModalProps, 'handleClose'>, Trans
   isInitialLoading: boolean;
   connectWalletMessage: string;
   spenderAddress?: string;
-  tokenNeedsToBeEnabled?: boolean;
-  enableTokenMessage?: string;
+  tokenNeedsToBeApproved?: boolean;
+  approveTokenMessage?: string;
 }
 
 const ActionModal: React.FC<ActionModalProps> = ({
@@ -20,16 +20,16 @@ const ActionModal: React.FC<ActionModalProps> = ({
   isInitialLoading,
   title,
   connectWalletMessage,
-  tokenNeedsToBeEnabled = false,
-  enableTokenMessage,
+  tokenNeedsToBeApproved = false,
+  approveTokenMessage,
   ...otherTransactionFormProps
 }) => {
   const transactionFormDom = <TransactionForm token={token} {...otherTransactionFormProps} />;
   const content =
-    tokenNeedsToBeEnabled && !!enableTokenMessage && !!spenderAddress ? (
-      <EnableToken title={enableTokenMessage} token={token} spenderAddress={spenderAddress}>
+    tokenNeedsToBeApproved && !!approveTokenMessage && !!spenderAddress ? (
+      <ApproveToken title={approveTokenMessage} token={token} spenderAddress={spenderAddress}>
         {transactionFormDom}
-      </EnableToken>
+      </ApproveToken>
     ) : (
       transactionFormDom
     );

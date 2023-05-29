@@ -5,8 +5,6 @@ import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from
 import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
-import setCachedTokenAllowanceToMax from '../../queries/getAllowance/setCachedTokenAllowanceToMax';
-
 const useApproveToken = (
   { token }: { token: Token },
   options?: MutationObserverOptions<
@@ -30,7 +28,14 @@ const useApproveToken = (
         const { spenderAddress } = onSuccessParams[1];
         const accountAddress = await tokenContract.signer.getAddress();
 
-        setCachedTokenAllowanceToMax({ queryClient, token, spenderAddress, accountAddress });
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: token.address,
+            spenderAddress,
+            accountAddress,
+          },
+        ]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

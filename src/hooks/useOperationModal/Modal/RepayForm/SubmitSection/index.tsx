@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EnableTokenSteps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, Token } from 'types';
@@ -105,7 +105,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   }, [swap]);
 
   return (
-    <EnableTokenSteps
+    <ApproveTokenSteps
       token={fromToken}
       spenderAddress={swapRouterContractAddress}
       submitButtonLabel={t('operationModal.repay.submitButtonLabel.repay')}
@@ -136,7 +136,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           )}
         </>
       )}
-    </EnableTokenSteps>
+    </ApproveTokenSteps>
   );
 };
 

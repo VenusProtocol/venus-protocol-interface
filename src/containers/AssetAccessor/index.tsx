@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ConnectWallet, EnableToken, Spinner } from 'components';
+import { ApproveToken, ConnectWallet, Spinner } from 'components';
 import React from 'react';
 import { Asset, Pool, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
@@ -12,7 +12,7 @@ export interface AssetAccessorProps {
   vToken: VToken;
   poolComptrollerAddress: string;
   connectWalletMessage: string;
-  enableTokenMessage: string;
+  approveTokenMessage: string;
   assetInfoType: 'supply' | 'borrow';
   children: (props: { asset: Asset; pool: Pool }) => React.ReactNode;
 }
@@ -22,7 +22,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   poolComptrollerAddress,
   children,
   connectWalletMessage,
-  enableTokenMessage,
+  approveTokenMessage,
   assetInfoType,
 }) => {
   const { accountAddress } = useAuth();
@@ -42,14 +42,14 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   return (
     <ConnectWallet message={connectWalletMessage}>
       {pool && asset ? (
-        <EnableToken
+        <ApproveToken
           token={vToken.underlyingToken}
           spenderAddress={vToken.address}
-          title={enableTokenMessage}
+          title={approveTokenMessage}
           assetInfo={assetInfo}
         >
           {children({ asset, pool })}
-        </EnableToken>
+        </ApproveToken>
       ) : (
         <Spinner />
       )}

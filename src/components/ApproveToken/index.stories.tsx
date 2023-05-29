@@ -6,48 +6,48 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
-import { EnableTokenUi } from '.';
+import { ApproveTokenUi } from '.';
 
 export default {
-  title: 'Components/EnableToken',
-  component: EnableTokenUi,
+  title: 'Components/ApproveToken',
+  component: ApproveTokenUi,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof EnableTokenUi>;
+} as ComponentMeta<typeof ApproveTokenUi>;
 
 export const Disabled = () => (
-  <EnableTokenUi
-    title="To withdraw XVS to the Venus Protocol, you need to enable it first."
+  <ApproveTokenUi
+    title="To withdraw XVS to the Venus Protocol, you need to approve it first."
     token={TOKENS.xvs}
-    isTokenEnabled={false}
-    enableToken={async () => fakeContractReceipt}
+    isTokenApproved={false}
+    approvedToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
-  </EnableTokenUi>
+  </ApproveTokenUi>
 );
 
 export const DisabledWithTokenInfo = () => (
-  <EnableTokenUi
-    title="To withdraw USDC to the Venus Protocol, you need to enable it first."
+  <ApproveTokenUi
+    title="To withdraw USDC to the Venus Protocol, you need to approve it first."
     token={TOKENS.usdc}
-    isTokenEnabled={false}
+    isTokenApproved={false}
     assetInfo={[
       { iconSrc: TOKENS.usdc, label: 'Supply APY', children: '77.36' },
       { iconSrc: TOKENS.usdc, label: 'Distribution APY', children: '0.82' },
     ]}
-    enableToken={async () => fakeContractReceipt}
+    approvedToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
-  </EnableTokenUi>
+  </ApproveTokenUi>
 );
 
 export const Enabled = () => (
-  <EnableTokenUi
+  <ApproveTokenUi
     title="Enable Token"
-    isTokenEnabled
+    isTokenApproved
     token={TOKENS.usdc}
     assetInfo={[]}
-    enableToken={async () => fakeContractReceipt}
+    approvedToken={async () => fakeContractReceipt}
   >
     <Typography>Visible Content</Typography>
-  </EnableTokenUi>
+  </ApproveTokenUi>
 );

@@ -6,7 +6,7 @@ import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeProvider from '__mocks__/models/provider';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
-import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import OperationModal, { OperationModalProps } from '.';
 
@@ -49,7 +49,7 @@ Disabled.args = {
 export const Default = Template.bind({});
 Default.decorators = [
   withAuthContext(context),
-  withEnabledToken({
+  withApprovedToken({
     token: assetData[0].vToken.underlyingToken,
     accountAddress: fakeAddress,
     spenderAddress: assetData[0].vToken.underlyingToken.address,
