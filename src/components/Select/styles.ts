@@ -111,14 +111,12 @@ export const useStyles = () => {
     menuWrapper: {
       backgroundColor: theme.palette.secondary.light,
       padding: 0,
-      borderRadius: `${theme.shape.borderRadius.small}px`,
       marginTop: theme.spacing(1),
 
       [theme.breakpoints.down('sm')]: {
         minWidth: 'calc(100vw)',
         height: '100%',
         backgroundColor: theme.palette.background.paper,
-        borderRadius: `${theme.shape.borderRadius.large}px`,
       },
     },
     label: css`
