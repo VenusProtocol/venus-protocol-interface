@@ -29,8 +29,7 @@ import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
-import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
-import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
+import useOperationModal from 'hooks/useOperationModal';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -59,8 +58,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
 
-  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
-  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
+  const { openOperationModal, OperationModal } = useOperationModal();
 
   const { currentUtilizationRate, dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
     () => ({
@@ -320,9 +318,10 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         fullWidth
         css={styles.statsColumnButton}
         onClick={() =>
-          openSupplyWithdrawModal({
+          openOperationModal({
             vToken: asset.vToken,
             poolComptrollerAddress,
+            initialActiveTabIndex: 0,
           })
         }
       >
@@ -333,9 +332,10 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         fullWidth
         css={styles.statsColumnButton}
         onClick={() =>
-          openBorrowRepayModal({
+          openOperationModal({
             vToken: asset.vToken,
             poolComptrollerAddress,
+            initialActiveTabIndex: 2,
           })
         }
       >
@@ -396,8 +396,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         </div>
       </div>
 
-      <BorrowRepayModal />
-      <SupplyWithdrawModal />
+      <OperationModal />
     </>
   );
 };
