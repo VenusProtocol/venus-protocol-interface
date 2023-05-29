@@ -31,6 +31,7 @@ const useSetVoteDelegate = (
         const accountAddress = await xvsVaultContract.signer.getAddress();
 
         queryClient.invalidateQueries([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, { accountAddress }]);
+        queryClient.invalidateQueries([FunctionKey.GET_CURRENT_VOTES, accountAddress]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
