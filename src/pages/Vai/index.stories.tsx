@@ -6,7 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TOKENS } from 'constants/tokens';
-import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import Vai, { VaiProps } from '.';
 
@@ -41,7 +41,7 @@ Disabled.decorators = [withAuthContext(context)];
 export const Default = Template.bind({});
 Default.decorators = [
   withAuthContext(context),
-  withEnabledToken({
+  withApprovedToken({
     token: TOKENS.vai,
     accountAddress: fakeAddress,
     spenderAddress: getContractAddress('vaiController'),

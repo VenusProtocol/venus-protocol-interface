@@ -5,7 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import fakeProvider from '__mocks__/models/provider';
-import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import { WithdrawUi, WithdrawUiProps } from '.';
 
@@ -54,7 +54,7 @@ DisabledWithdraw.args = {
 export const Withdraw = Template.bind({});
 Withdraw.decorators = [
   withAuthContext(context),
-  withEnabledToken({
+  withApprovedToken({
     token: poolData[0].assets[0].vToken.underlyingToken,
     accountAddress: fakeAddress,
     spenderAddress: poolData[0].assets[0].vToken.address,

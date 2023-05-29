@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
+  ApproveToken,
   ConnectWallet,
-  EnableToken,
   FormikSubmitButton,
   LabeledInlineContent,
   NoticeWarning,
@@ -108,8 +108,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('vai.repayVai.connectWallet')}>
-      <EnableToken
-        title={t('vai.repayVai.enableToken')}
+      <ApproveToken
+        title={t('vai.repayVai.approvedToken')}
         token={TOKENS.vai}
         spenderAddress={vaiControllerContractAddress}
       >
@@ -157,7 +157,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
             )}
           </AmountForm>
         )}
-      </EnableToken>
+      </ApproveToken>
     </ConnectWallet>
   );
 };

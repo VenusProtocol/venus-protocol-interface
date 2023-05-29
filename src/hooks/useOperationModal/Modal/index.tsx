@@ -42,7 +42,7 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
-          enableTokenMessage={t('operationModal.supply.enableToken.title', {
+          approveTokenMessage={t('operationModal.supply.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
           assetInfoType="supply"
@@ -84,7 +84,7 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.borrow.connectWalletMessage')}
-          enableTokenMessage={t('operationModal.borrow.enableToken.title', {
+          approveTokenMessage={t('operationModal.borrow.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
           assetInfoType="borrow"
@@ -108,7 +108,7 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.repay.connectWalletMessage')}
-          enableTokenMessage={t('operationModal.repay.enableToken.title', {
+          approveTokenMessage={t('operationModal.repay.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
           assetInfoType="borrow"

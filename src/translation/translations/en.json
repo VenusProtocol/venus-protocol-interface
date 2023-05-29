@@ -158,11 +158,11 @@
     "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"
   },
-  "enableToken": {
-    "enableButtonLabel": "Enable"
+  "approvedToken": {
+    "approveButtonLabel": "Approve"
   },
-  "enableTokenSteps": {
-    "enableTokenButton": {
+  "approvedTokenSteps": {
+    "approvedTokenButton": {
       "text": "Enable {{tokenSymbol}}",
       "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
     },
@@ -494,7 +494,7 @@
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
-    "enableTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to enable it first",
+    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
     "successfulTransactionModal": {
@@ -728,7 +728,7 @@
     "mintVai": {
       "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
-      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
+      "approvedToken": "To mint VAI with the Venus Protocol, you need to approve it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to mint",
@@ -741,7 +741,7 @@
     },
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",
-      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "approvedToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
@@ -990,7 +990,7 @@
     "requestWithdrawalTab": {
       "availableTokensLabel": "Requestable {{tokenSymbol}}",
       "displayWithdrawalRequestListButton": "Withdrawal request list",
-      "enableToken": {
+      "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "submitButtonDisabledLabel": "Enter a valid amount to request",
@@ -1002,7 +1002,7 @@
     "title": "Withdraw {{tokenSymbol}}",
     "withdrawalRequestList": {
       "emptyState": "You have no active withdrawal requests",
-      "enableToken": {
+      "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
       },
       "itemContent": "Locked until {{date, dd.MM.yy h:mm a}}"
@@ -1010,7 +1010,7 @@
     "withdrawalRequestListTitle": "Withdrawal request list",
     "withdrawTab": {
       "availableTokens": "Available {{tokenSymbol}}",
-      "enableToken": {
+      "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "submitButton": "Withdraw"

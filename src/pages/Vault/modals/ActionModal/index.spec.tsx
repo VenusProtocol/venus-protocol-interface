@@ -27,8 +27,8 @@ const baseProps: ActionModalProps = {
   isSubmitting: false,
   availableTokensWei: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
-  tokenNeedsToBeEnabled: true,
-  enableTokenMessage: 'Fake enable token message',
+  tokenNeedsToBeApproved: true,
+  approveTokenMessage: 'Fake approve token message',
   spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
@@ -55,7 +55,7 @@ describe('pages/Vault/modals/ActionModal', () => {
     await waitFor(() => getByText(baseProps.connectWalletMessage));
   });
 
-  it('prompts user who connected their wallet to enable token if they have not done so already', async () => {
+  it('prompts user who connected their wallet to approve token if they have not done so already', async () => {
     // Mark all tokens as having not been approved
     (useTokenApproval as jest.Mock).mockImplementation(() => ({
       isTokenApproved: false,
@@ -70,10 +70,10 @@ describe('pages/Vault/modals/ActionModal', () => {
       },
     });
 
-    await waitFor(() => getByText(baseProps.enableTokenMessage as string));
+    await waitFor(() => getByText(baseProps.approveTokenMessage as string));
   });
 
-  it('displays transaction form if user have connected their wallet and enabled token', async () => {
+  it('displays transaction form if user have connected their wallet and approved token', async () => {
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,

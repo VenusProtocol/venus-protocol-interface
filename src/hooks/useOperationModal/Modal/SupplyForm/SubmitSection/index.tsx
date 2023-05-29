@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { EnableTokenSteps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -69,7 +69,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError, isFormSubmitting]);
 
   return (
-    <EnableTokenSteps
+    <ApproveTokenSteps
       token={fromToken}
       spenderAddress={swapRouterContractAddress}
       submitButtonLabel={t('operationModal.supply.submitButtonLabel.supply')}
@@ -89,7 +89,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           </PrimaryButton>
         </>
       )}
-    </EnableTokenSteps>
+    </ApproveTokenSteps>
   );
 };
 
