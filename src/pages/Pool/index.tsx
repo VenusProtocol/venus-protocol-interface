@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { formatCentsToReadableValue, isFeatureEnabled } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -64,15 +63,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
 
   return pool ? (
     <>
-      <div css={styles.header}>
-        {isFeatureEnabled('isolatedPools') && pool.description && (
-          <Typography variant="small2" component="div" css={styles.headerDescription}>
-            {pool.description}
-          </Typography>
-        )}
-
-        <CellGroup cells={cells} />
-      </div>
+      <CellGroup cells={cells} css={styles.header} />
 
       {pool.isIsolated && (
         <Notice
