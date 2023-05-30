@@ -6,6 +6,8 @@ export enum BscChainId {
   'TESTNET' = 97,
 }
 
+export type Environments = 'testnet' | 'preview' | 'mainnet';
+
 export interface User {
   Token: string;
 }
