@@ -1,8 +1,9 @@
-import { BscChainId } from 'types';
+import { BscChainId, Environment } from 'types';
 
-export const API_ENDPOINT_URLS = {
-  [BscChainId.MAINNET]: 'https://api.venus.io/api',
-  [BscChainId.TESTNET]: 'https://testnetapi.venus.io/api',
+export const API_ENDPOINT_URLS: Record<Environment, string> = {
+  mainnet: 'https://api.venus.io/api',
+  preview: 'https://api-preview.venus.io/api',
+  testnet: 'https://testnetapi.venus.io/api',
 };
 
 export const RPC_URLS: {
