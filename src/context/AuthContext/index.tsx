@@ -1,11 +1,19 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
 import type { Provider } from '@wagmi/core';
 import config from 'config';
+import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'translation';
-import { useAccount, useConnect, useDisconnect, useProvider, useSigner } from 'wagmi';
+import {
+  ConnectorNotFoundError,
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useProvider,
+  useSigner,
+} from 'wagmi';
 
 import { Connector, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
@@ -56,7 +64,9 @@ export const AuthProvider: React.FC = ({ children }) => {
       // Log user in
       await connectAsync({ connector, chainId: config.chainId });
     } catch (error) {
-      // Do nothing, failing scenarios are handled by wagmi
+      if (error instanceof ConnectorNotFoundError) {
+        throw new VError({ type: 'interaction', code: 'noProvider' });
+      }
     }
   }, []);
 
@@ -71,8 +81,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
 
-  const handleLogin = (connector: Connector) => {
-    login(connector);
+  const handleLogin = async (connector: Connector) => {
+    await login(connector);
     closeAuthModal();
   };
 
