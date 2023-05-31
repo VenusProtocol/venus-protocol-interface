@@ -9,12 +9,24 @@ export const useStyles = () => {
   return {
     root: css`
       border-radius: ${theme.shape.borderRadius.medium}px;
-      background-color: ${theme.palette.background.default};
       border-radius: ${theme.shape.borderRadius.medium}px;
       border: 1px solid ${theme.palette.secondary.light};
+      overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: row;
       padding: ${theme.spacing(5)};
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: ${theme.palette.background.default};
+      }
 
       ${theme.breakpoints.down('md')} {
         padding: ${theme.spacing(4)};

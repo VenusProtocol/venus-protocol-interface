@@ -77,9 +77,17 @@ const formatToPools = ({
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
 
+      if (vToken.symbol === 'vTRX') {
+        console.log(new BigNumber(tokenPriceRecord[1].hex).toFixed());
+      }
+
       const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(
         new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
       );
+
+      if (vToken.symbol === 'vTRX') {
+        console.log(tokenPriceDollars.toFixed());
+      }
 
       const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 
