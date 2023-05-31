@@ -5,14 +5,19 @@ import { NoticeVariant } from './types';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
     root: css`
       border-radius: ${theme.shape.borderRadius.medium}px;
       background-color: ${theme.palette.background.default};
-    `,
-    inner: css`
       border-radius: ${theme.shape.borderRadius.medium}px;
       border: 1px solid ${theme.palette.secondary.light};
+      display: flex;
+      flex-direction: row;
+
+      ${theme.breakpoints.down('md')} {
+        padding: ${theme.spacing(4)};
+      }
     `,
     getInnerStyles: ({ variant }: { variant: NoticeVariant }) => {
       switch (variant) {
@@ -40,8 +45,7 @@ export const useStyles = () => {
       }
     },
     icon: css`
-      position: absolute;
-      margin-top: ${theme.spacing(0.5)};
+      margin-right: ${theme.spacing(3)};
     `,
     getIconStyles: ({ variant }: { variant: NoticeVariant }) => {
       switch (variant) {
@@ -64,10 +68,10 @@ export const useStyles = () => {
           `;
       }
     },
+    iconSize: theme.shape.iconSize.large,
     content: css`
       display: flex;
       flex-direction: column;
-      padding-left: ${theme.spacing(7)};
       word-break: break-word;
 
       a {

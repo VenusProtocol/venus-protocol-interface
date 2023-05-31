@@ -6,7 +6,7 @@ import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import { MAINNET_TOKENS } from 'constants/tokens';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -78,7 +78,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     <>
       <ConnectWalletBanner />
 
-      <Announcement token={TOKENS.trxold} />
+      <Announcement token={MAINNET_TOKENS.beth} />
 
       <div css={styles.header}>
         <TextField
