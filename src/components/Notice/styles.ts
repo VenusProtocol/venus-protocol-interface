@@ -14,6 +14,7 @@ export const useStyles = () => {
       border: 1px solid ${theme.palette.secondary.light};
       display: flex;
       flex-direction: row;
+      padding: ${theme.spacing(5)};
 
       ${theme.breakpoints.down('md')} {
         padding: ${theme.spacing(4)};
@@ -70,6 +71,7 @@ export const useStyles = () => {
     },
     iconSize: theme.shape.iconSize.large,
     content: css`
+      flex: 1;
       display: flex;
       flex-direction: column;
       word-break: break-word;

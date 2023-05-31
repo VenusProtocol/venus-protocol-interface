@@ -6,8 +6,7 @@ export const useStyles = () => {
 
   return {
     banner: css`
-      padding: ${theme.spacing(4)};
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };
