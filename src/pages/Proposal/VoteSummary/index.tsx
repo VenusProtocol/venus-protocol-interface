@@ -65,7 +65,7 @@ const VoteSummary = ({
             max={votedTotalWei.toNumber() || 100}
             step={1}
             ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
-            successColor={progressBarColor}
+            progressBarColor={progressBarColor}
           />
         </div>
 
