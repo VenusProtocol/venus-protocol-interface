@@ -1,5 +1,5 @@
 import sample from 'lodash/sample';
-import { BscChainId } from 'types';
+import { BscChainId, Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
@@ -16,9 +16,12 @@ const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
   ? parseInt(process.env.REACT_APP_CHAIN_ID, 10)
   : BscChainId.MAINNET;
 
+const environment: Environment =
+  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'testnet';
+
 const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
-const apiUrl = API_ENDPOINT_URLS[chainId];
+const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
 
 const config: Config = {
