@@ -39,7 +39,7 @@ export const useStyles = () => {
         display: flex;
         align-items: center;
         padding: ${isSmall ? theme.spacing(1, 2, 1, 4) : theme.spacing(2, 2, 2, 4)};
-        border-radius: ${theme.spacing(3)};
+        border-radius: ${theme.spacing(isSmall ? 2 : 3)};
         border: 1px solid ${borderColor};
         transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         background-color: ${backgroundColor};

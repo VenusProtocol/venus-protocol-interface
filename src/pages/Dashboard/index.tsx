@@ -92,6 +92,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
               : t('dashboard.searchInput.placeholder')
           }
           leftIconSrc="magnifier"
+          variant="secondary"
         />
 
         {!isFeatureEnabled('isolatedPools') && (
