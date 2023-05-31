@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = ({
             )}
             <div css={s.titleComponent}>{title}</div>
             <Button css={s.closeIcon} disableRipple onClick={handleClose}>
-              <Icon name="close" />
+              <Icon name="close" size={`${s.closeIconSize}`} />
             </Button>
           </div>
           <div css={s.contentWrapper}>{children}</div>

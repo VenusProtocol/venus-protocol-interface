@@ -80,7 +80,8 @@ export const useModalStyles = ({
     `,
     closeIcon: css`
       right: ${theme.spacing(6)};
-      top: ${theme.spacing(6)};
+      top: 50%;
+      margin-top: ${-theme.shape.iconSize.xLarge / 2}px;
       position: absolute;
       height: ${theme.shape.iconSize.xLarge}px;
       width: ${theme.shape.iconSize.xLarge}px;
@@ -93,6 +94,7 @@ export const useModalStyles = ({
         background-color: transparent;
       }
     `,
+    closeIconSize: theme.shape.iconSize,
     contentWrapper: css`
       padding-bottom: ${theme.spacing(10)};
       padding-left: ${noHorizontalPadding ? 0 : theme.spacing(10)};
