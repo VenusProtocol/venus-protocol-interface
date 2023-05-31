@@ -198,6 +198,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           ? formatCentsToReadableValue({
               value: asset.tokenPriceCents,
               shortenLargeValue: true,
+              showAllDecimals: true,
             })
           : PLACEHOLDER_KEY,
       },

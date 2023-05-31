@@ -11,7 +11,7 @@ import {
 } from 'utilities';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
@@ -77,7 +77,10 @@ const formatToPools = ({
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
 
-      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(COMPOUND_MANTISSA);
+      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(
+        new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
+      );
+
       const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 
       // Extract supplierCount and borrowerCount from subgraph result

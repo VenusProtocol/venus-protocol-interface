@@ -6,4 +6,4 @@ exports[`pages/Market fetches market details and displays them correctly 2`] = `
 
 exports[`pages/Market fetches market details and displays them correctly 3`] = `"Interest Rate ModelUtilization rateBorrow APYSupply APY"`;
 
-exports[`pages/Market fetches market details and displays them correctly 4`] = `"Market infoPrice$1.28Market liquidity$80,364,658.75# of suppliers100# of borrowers10Supply capUncappedBorrow capUncappedDaily supplying interests$81,319.05Daily borrowing interests$2,045.60Daily XVS distributed19,999,999Reserves1,000 XVSReserve factor25%Collateral factor50%vXVS minted959,039,057,918,815,337.89690249Exchange rate1 XVS=49.589181 vXVS"`;
+exports[`pages/Market fetches market details and displays them correctly 4`] = `"Market infoPrice$1.2786734Market liquidity$80,364,658.75# of suppliers100# of borrowers10Supply capUncappedBorrow capUncappedDaily supplying interests$81,319.05Daily borrowing interests$2,045.60Daily XVS distributed19,999,999Reserves1,000 XVSReserve factor25%Collateral factor50%vXVS minted959,039,057,918,815,337.89690249Exchange rate1 XVS=49.589181 vXVS"`;
