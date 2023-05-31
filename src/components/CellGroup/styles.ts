@@ -5,27 +5,19 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     container: css`
-      ${theme.breakpoints.down('xl')} {
-        padding: 0;
-        background-color: transparent;
-      }
-    `,
-    title: css`
-      margin-bottom: ${theme.spacing(4)};
-    `,
-    cellContainer: css`
       display: flex;
       flex-wrap: wrap;
 
       ${theme.breakpoints.down('xl')} {
+        padding: 0;
+        background-color: transparent;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: ${theme.spacing(2)};
       }
-
-      ${theme.breakpoints.down('md')} {
-        grid-template-columns: 1fr;
-      }
+    `,
+    title: css`
+      margin-bottom: ${theme.spacing(4)};
     `,
     cell: css`
       flex-direction: column;

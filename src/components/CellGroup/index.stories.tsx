@@ -39,6 +39,4 @@ const cells: Cell[] = [
 
 export const Default = () => <CellGroup cells={cells} />;
 
-export const WithTitle = () => <CellGroup cells={cells} title="Summary" />;
-
 export const WithSmallValues = () => <CellGroup cells={cells} smallValues />;

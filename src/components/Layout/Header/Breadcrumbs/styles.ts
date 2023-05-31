@@ -8,6 +8,7 @@ export const useStyles = () => {
     container: css`
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     `,
     pathNode: css`
       display: inline-flex;
