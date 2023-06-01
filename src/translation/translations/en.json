@@ -42,6 +42,17 @@
       "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
     }
   },
+  "approvedToken": {
+    "approveButtonLabel": "Approve"
+  },
+  "approvedTokenSteps": {
+    "approvedTokenButton": {
+      "text": "Enable {{tokenSymbol}}",
+      "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
+    },
+    "step1": "Step 1",
+    "step2": "Step 2"
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -157,17 +168,6 @@
     },
     "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"
-  },
-  "approvedToken": {
-    "approveButtonLabel": "Approve"
-  },
-  "approvedTokenSteps": {
-    "approvedTokenButton": {
-      "text": "Enable {{tokenSymbol}}",
-      "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
-    },
-    "step1": "Step 1",
-    "step2": "Step 2"
   },
   "errors": {
     "somethingWentWrong": "Something went wrong",
@@ -492,9 +492,9 @@
     "newBadge": "NEW"
   },
   "stakeModal": {
+    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
-    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
     "successfulTransactionModal": {
@@ -726,9 +726,9 @@
   },
   "vai": {
     "mintVai": {
+      "approvedToken": "To mint VAI with the Venus Protocol, you need to approve it first",
       "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
-      "approvedToken": "To mint VAI with the Venus Protocol, you need to approve it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to mint",
@@ -740,8 +740,8 @@
       "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
-      "connectWallet": "Please connect your wallet to repay VAI",
       "approvedToken": "To repay VAI to the Venus Protocol, you need to approve it first",
+      "connectWallet": "Please connect your wallet to repay VAI",
       "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
       "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
@@ -772,10 +772,6 @@
     "dailyEmission": "Daily Emission",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulWithdrawVrtTransactionModal": {
-      "description": "You successfully withdrew your VRT tokens",
-      "title": "Your withdrawal was successful"
-    },
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
     "youAreStaking": "You are staking"
@@ -988,11 +984,11 @@
   },
   "withdrawFromVestingVaultModalModal": {
     "requestWithdrawalTab": {
-      "availableTokensLabel": "Requestable {{tokenSymbol}}",
-      "displayWithdrawalRequestListButton": "Withdrawal request list",
       "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
+      "availableTokensLabel": "Requestable {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "Withdrawal request list",
       "submitButtonDisabledLabel": "Enter a valid amount to request",
       "submitButtonLabel": "Request withdrawal",
       "successfulTransactionDescription": "You successfully requested a withdrawal of",
@@ -1001,18 +997,18 @@
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
     "withdrawalRequestList": {
-      "emptyState": "You have no active withdrawal requests",
       "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
       },
+      "emptyState": "You have no active withdrawal requests",
       "itemContent": "Locked until {{date, dd.MM.yy h:mm a}}"
     },
     "withdrawalRequestListTitle": "Withdrawal request list",
     "withdrawTab": {
-      "availableTokens": "Available {{tokenSymbol}}",
       "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
+      "availableTokens": "Available {{tokenSymbol}}",
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"

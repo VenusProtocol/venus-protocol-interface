@@ -39,22 +39,6 @@ const formatOutput = ({
   }, []);
   pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
-  // Extract pending rewards from VRT vault
-  const vrtVaultPendingRewardWei = new BigNumber(
-    contractCallResults.results.vrtVault.callsReturnContext[0].returnValues[0].hex,
-  );
-
-  if (vrtVaultPendingRewardWei.isGreaterThan(0)) {
-    const vrtVaultRewardGroup: VaultPendingRewardGroup = {
-      type: 'vault',
-      stakedToken: TOKENS.vrt,
-      rewardToken: TOKENS.vrt,
-      rewardAmountWei: vrtVaultPendingRewardWei,
-    };
-
-    pendingRewardGroups.push(vrtVaultRewardGroup);
-  }
-
   // Extract pending rewards from VAI vault
   const vaiVaultPendingRewardWei = new BigNumber(
     contractCallResults.results.vaiVault.callsReturnContext[0].returnValues[0].hex,

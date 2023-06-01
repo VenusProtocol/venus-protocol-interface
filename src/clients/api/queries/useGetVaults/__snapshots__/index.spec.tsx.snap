@@ -125,23 +125,5 @@ Array [
     "totalStakedWei": "4000000000",
     "userStakedWei": "1e+23",
   },
-  Object {
-    "dailyEmissionWei": "1036800000",
-    "rewardToken": Object {
-      "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
-      "asset": "vrt.svg",
-      "decimals": 18,
-      "symbol": "VRT",
-    },
-    "stakedToken": Object {
-      "address": "0x331F639B4F3CF6E391CD244e0b5027C5968Ec325",
-      "asset": "vrt.svg",
-      "decimals": 18,
-      "symbol": "VRT",
-    },
-    "stakingAprPercentage": 9460.8,
-    "totalStakedWei": "4000000000",
-    "userStakedWei": "100000000000000",
-  },
 ]
 `;

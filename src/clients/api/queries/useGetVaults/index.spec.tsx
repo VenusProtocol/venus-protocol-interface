@@ -4,7 +4,6 @@ import React from 'react';
 
 import compTrollerResponses from '__mocks__/contracts/comptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
-import vrtVaultResponses from '__mocks__/contracts/vrtVault';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
@@ -13,8 +12,6 @@ import {
   getMainMarkets,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
-  getVrtVaultInterestRatePerBlock,
-  getVrtVaultUserInfo,
   getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
@@ -23,7 +20,6 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
-import formatToVrtVaultUserInfo from 'clients/api/queries/getVrtVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import renderComponent from 'testUtils/renderComponent';
@@ -46,9 +42,6 @@ describe('api/queries/useGetVaults', () => {
     (getVenusVaiVaultDailyRate as jest.Mock).mockImplementation(() => ({
       dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
     }));
-    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(() => ({
-      interestRatePerBlockWei: new BigNumber(vrtVaultResponses.interestRatePerBlock.toString()),
-    }));
     (getBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: new BigNumber('4000000000'),
     }));
@@ -68,10 +61,6 @@ describe('api/queries/useGetVaults', () => {
 
     (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
       formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
-    );
-
-    (getVrtVaultUserInfo as jest.Mock).mockImplementation(() =>
-      formatToVrtVaultUserInfo(vrtVaultResponses.userInfo),
     );
   });
 

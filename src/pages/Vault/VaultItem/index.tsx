@@ -5,19 +5,14 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, NoticeWarning, TokenIcon } from 'components';
-import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
-import { useWithdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
@@ -32,10 +27,9 @@ export interface VaultItemUiProps {
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
   onStake: () => void;
-  onWithdraw: () => Promise<ContractReceipt | void>;
+  onWithdraw: () => void;
   closeActiveModal: () => void;
   canWithdraw?: boolean;
-  isWithdrawLoading?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
   userStakedWei?: BigNumber;
@@ -55,25 +49,12 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   canWithdraw = true,
   activeModal,
   poolIndex,
-  isWithdrawLoading,
   closeActiveModal,
   hasPendingWithdrawalsFromBeforeUpgrade,
   className,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const handleTransactionMutation = useHandleTransactionMutation();
-
-  const handleWithdraw = () =>
-    handleTransactionMutation({
-      mutate: onWithdraw,
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vaultItem.successfulWithdrawVrtTransactionModal.title'),
-        content: t('vaultItem.successfulWithdrawVrtTransactionModal.description'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
 
   const readableUserStakedTokens = useConvertWeiToReadableTokenString({
     token: stakedToken,
@@ -188,12 +169,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           </Button>
 
           {canWithdraw && (
-            <Button
-              onClick={handleWithdraw}
-              css={styles.button}
-              variant="secondary"
-              loading={isWithdrawLoading}
-            >
+            <Button onClick={onWithdraw} css={styles.button} variant="secondary">
               {t('vaultItem.withdrawButton')}
             </Button>
           )}
@@ -238,8 +214,6 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
-  const { accountAddress } = useAuth();
-
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
   );
@@ -255,9 +229,6 @@ const VaultItem: React.FC<VaultItemProps> = ({
     setActiveModal('stake');
   };
 
-  const { mutateAsync: withdrawFromVrtVault, isLoading: isWithdrawFromVrtVault } =
-    useWithdrawFromVrtVault();
-
   const onWithdraw = async () => {
     // Block action is user has LUNA or UST enabled as collateral
     if (hasLunaOrUstCollateralEnabled) {
@@ -265,20 +236,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
       return;
     }
 
-    if (stakedToken.address !== TOKENS.vrt.address || typeof poolIndex === 'number') {
-      // Handle withdrawing from any vault except the VRT non-vesting vault
-      setActiveModal('withdraw');
-      return;
-    }
-
-    // Handle withdrawing from VRT non-vesting vault
-    if (!accountAddress) {
-      throw new VError({ type: 'interaction', code: 'accountError' });
-    }
-
-    // Users can only withdraw the totality of their staked tokens when
-    // withdrawing from the VRT non-vesting vault
-    return withdrawFromVrtVault();
+    setActiveModal('withdraw');
   };
 
   const closeActiveModal = () => setActiveModal(undefined);
@@ -300,9 +258,6 @@ const VaultItem: React.FC<VaultItemProps> = ({
         !vaultItemUiProps.userStakedWei ||
         vaultItemUiProps.userStakedWei.isGreaterThan(0)
       }
-      // We only track the loading state of a withdrawal for the VRT vault,
-      // since all the other vaults handle that through a modal
-      isWithdrawLoading={isWithdrawFromVrtVault}
       {...vaultItemUiProps}
     />
   );
