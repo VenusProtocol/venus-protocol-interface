@@ -28,7 +28,7 @@ export const useStyles = () => {
       align-items: center;
     `,
     select: css`
-      width: ${theme.spacing(41)};
+      min-width: ${theme.spacing(41)};
     `,
   };
 };
