@@ -22,6 +22,7 @@ export const useStyles = () => {
     `,
     /* extra padding for placing the close button */
     noticeContainer: css`
+      max-width: ${theme.spacing(140)};
       padding-right: ${theme.spacing(9)};
 
       ${theme.breakpoints.down('md')} {
