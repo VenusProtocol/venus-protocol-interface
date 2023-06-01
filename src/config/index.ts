@@ -30,14 +30,14 @@ if (!window) {
   environment = 'mock';
 } else if (DAPP_HOSTS.testnet.includes(window.location.host)) {
   environment = 'testnet';
-} else if (DAPP_HOSTS['app-preview'].includes(window.location.host)) {
-  environment = 'app-preview';
+} else if (DAPP_HOSTS.preview.includes(window.location.host)) {
+  environment = 'preview';
 } else if (DAPP_HOSTS.mainnet === window.location.host) {
   environment = 'mainnet';
 }
 
 const isInLiveEnvironment =
-  environment === 'testnet' || environment === 'app-preview' || environment === 'mainnet';
+  environment === 'testnet' || environment === 'preview' || environment === 'mainnet';
 
 const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
   ? Number(process.env.REACT_APP_CHAIN_ID)
@@ -45,7 +45,7 @@ const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
 
 const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
-const apiUrl = API_ENDPOINT_URLS[chainId];
+const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
 
 const config: Config = {
