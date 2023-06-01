@@ -8,8 +8,7 @@ export const useStyles = () => {
 
   return {
     root: css`
-      border-radius: ${theme.shape.borderRadius.medium}px;
-      border-radius: ${theme.shape.borderRadius.medium}px;
+      border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${theme.palette.secondary.light};
       overflow: hidden;
       position: relative;
