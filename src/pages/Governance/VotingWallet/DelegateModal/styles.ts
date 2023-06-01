@@ -13,8 +13,7 @@ export const useStyles = () => {
       margin-top: ${theme.spacing(8)};
     `,
     inline: css`
-      padding-top: 0;
-      padding-bottom: ${theme.spacing(1)};
+      padding: 0;
     `,
     submitButton: css`
       margin-top: ${theme.spacing(10)};

@@ -17,6 +17,7 @@ export const useStyles = () => {
     `,
     marginLess: css`
       padding: 0;
+      height: ${theme.spacing(7)};
       margin-right: ${theme.spacing(2.5)};
     `,
     header: css`
