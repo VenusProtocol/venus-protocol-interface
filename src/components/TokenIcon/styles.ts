@@ -7,8 +7,8 @@ export const useStyles = () => {
   return {
     icon: css`
       margin-top: -2px;
-      width: ${theme.shape.iconSize.large}px;
-      height: ${theme.shape.iconSize.large}px;
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
     `,
   };
 };

@@ -44,6 +44,11 @@ export const useStyles = () => {
       `}
     `,
     token: css`
+      > img {
+        width: ${theme.shape.iconSize.large}px;
+        height: ${theme.shape.iconSize.large}px;
+      }
+
       > span {
         font-size: ${theme.typography.small1.fontSize};
         font-weight: ${theme.typography.small1.fontWeight};

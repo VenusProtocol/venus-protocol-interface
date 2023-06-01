@@ -11,8 +11,8 @@ export const useStyles = () => {
     `,
     icon: css`
       margin-right: ${theme.spacing(2)};
-      width: ${theme.shape.iconSize.large}px;
-      height: ${theme.shape.iconSize.large}px;
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
     `,
   };
 };
