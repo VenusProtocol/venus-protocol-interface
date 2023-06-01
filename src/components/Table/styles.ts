@@ -43,6 +43,8 @@ export const useStyles = () => {
       margin-bottom: ${theme.spacing(4)};
     `,
     link: css`
+      color: ${theme.palette.text.primary};
+
       :hover {
         text-decoration: none;
       }
