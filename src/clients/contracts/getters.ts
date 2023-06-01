@@ -19,7 +19,6 @@ import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
 import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
-import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
@@ -37,7 +36,6 @@ import {
   VaiVault,
   VenusLens,
   VrtConverter,
-  VrtVault,
   XvsVault,
   XvsVaultStore,
   XvsVesting,
@@ -183,14 +181,6 @@ export const getVrtConverterProxyContract = (signer?: Signer) =>
     address: getContractAddress('vrtConverterProxy'),
     signer,
   }) as VrtConverter;
-
-// VRT vault
-export const getVrtVaultProxyContract = (signer?: Signer) =>
-  getContract({
-    abi: vrtVaultAbi,
-    address: getContractAddress('vrtVaultProxy'),
-    signer,
-  }) as VrtVault;
 
 // PancakeSwap router
 export const getPancakeRouterContract = (signer?: Signer) =>

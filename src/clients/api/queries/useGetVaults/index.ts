@@ -3,7 +3,6 @@ import { Vault } from 'types';
 
 import useGetVaiVault from './useGetVaiVault';
 import useGetVestingVaults from './useGetVestingVaults';
-import useGetVrtVault from './useGetVrtVault';
 
 export interface UseGetVaultsOutput {
   isLoading: boolean;
@@ -19,10 +18,6 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     accountAddress,
   });
 
-  const { data: vrtVault, isLoading: isVrtVaultLoading } = useGetVrtVault({
-    accountAddress,
-  });
-
   const data: Vault[] = useMemo(() => {
     const allVaults = [...vestingVaults];
 
@@ -30,14 +25,10 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
       allVaults.push(vaiVault);
     }
 
-    if (vrtVault) {
-      allVaults.push(vrtVault);
-    }
-
     return allVaults;
-  }, [JSON.stringify(vestingVaults), JSON.stringify(vaiVault), JSON.stringify(vrtVault)]);
+  }, [JSON.stringify(vestingVaults), JSON.stringify(vaiVault)]);
 
-  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading || isVrtVaultLoading;
+  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading;
 
   return {
     data,

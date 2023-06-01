@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`api/queries/getVrtVaultUserInfo returns the user info in the correct format 1`] = `
-Object {
-  "stakedVrtWei": "100000000000000",
-}
-`;

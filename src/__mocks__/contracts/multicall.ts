@@ -7,7 +7,6 @@ import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 import poolLensAbi from 'constants/contracts/abis/poolLens.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
-import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 
 const pancakeSwapRouter: {
@@ -4122,35 +4121,6 @@ export const lenses: {
               '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
               '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
             ],
-            success: true,
-          },
-        ],
-      },
-      vrtVault: {
-        originalContractCallContext: {
-          reference: 'vrtVault',
-          contractAddress: '0x1ffD1b8B67A1AE0C189c734B0F58B0954522FF71',
-          abi: vrtVaultAbi,
-          calls: [
-            {
-              reference: 'getAccruedInterest',
-              methodName: 'getAccruedInterest',
-              methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
-            },
-          ],
-        },
-        callsReturnContext: [
-          {
-            returnValues: [
-              {
-                type: 'BigNumber',
-                hex: '0x42a3060061d1866e00',
-              },
-            ],
-            decoded: true,
-            reference: 'getAccruedInterest',
-            methodName: 'getAccruedInterest',
-            methodParameters: ['0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706'],
             success: true,
           },
         ],

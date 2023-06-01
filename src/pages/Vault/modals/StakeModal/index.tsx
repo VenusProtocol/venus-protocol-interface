@@ -3,10 +3,9 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { getContractAddress } from 'utilities';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
@@ -31,11 +30,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
       return getContractAddress('xvsVaultProxy');
     }
 
-    if (areTokensEqual(stakedToken, TOKENS.vai)) {
-      return getContractAddress('vaiVault');
-    }
-
-    return getContractAddress('vrtVaultProxy');
+    return getContractAddress('vaiVault');
   }, [stakedToken, poolIndex]);
 
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(

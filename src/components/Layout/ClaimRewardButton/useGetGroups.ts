@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { getContractAddress } from 'utilities';
 
 import { Claim, useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -71,9 +71,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             const claim: Claim =
               pendingRewardGroup.type === 'vault'
                 ? {
-                    contract: areTokensEqual(pendingRewardGroup.stakedToken, TOKENS.vai)
-                      ? 'vaiVault'
-                      : 'vrtVault',
+                    contract: 'vaiVault',
                   }
                 : {
                     contract: 'xvsVestingVault',
