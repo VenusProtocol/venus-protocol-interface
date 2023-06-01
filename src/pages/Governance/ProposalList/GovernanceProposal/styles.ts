@@ -33,7 +33,7 @@ export const useStyles = () => {
       background-color: ${theme.palette.text.secondary};
     `,
     iconInfoWrapper: css`
-      background-color: ${theme.palette.interactive.primary};
+      background-color: ${theme.palette.interactive.warning};
     `,
     iconMarkWrapper: css`
       background-color: ${theme.palette.interactive.success};
