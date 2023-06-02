@@ -15,7 +15,7 @@ const getIsAddressAuthorized = async ({
       method: 'GET',
     });
 
-    const authorized = response.status === 404;
+    const authorized = response.status !== 403;
 
     return {
       authorized,
