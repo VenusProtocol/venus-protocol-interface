@@ -14,7 +14,8 @@ const getIsAddressAuthorized = async ({
       endpoint: `/authentication/${accountAddress}`,
       method: 'GET',
     });
-    const authorized = response.status === 200;
+
+    const authorized = response.status === 404;
 
     return {
       authorized,
