@@ -21,20 +21,22 @@ interface CloseButtonProps {
 }
 
 const CloseButton: React.FC<CloseButtonProps> = ({ closeToast }) => {
-  const classes = useStyles();
+  const styles = useStyles();
+
   return (
-    <Button css={classes.btnClose} onClick={closeToast} variant="text">
-      <Icon name="close" />
+    <Button css={styles.btnClose} onClick={closeToast} variant="text">
+      <Icon name="close" size={`${styles.iconSize}`} />
     </Button>
   );
 };
 
 const ToastComponent: React.FC<ToastProps> = ({ message, type = 'info' }) => {
-  const classes = useStyles();
+  const styles = useStyles();
+
   return (
     <>
       <GlobalStyles styles={customToastGlobalStyles} />
-      <Notice css={classes.noticeContainer} description={message} variant={type} />
+      <Notice css={styles.noticeContainer} description={message} variant={type} />
     </>
   );
 };

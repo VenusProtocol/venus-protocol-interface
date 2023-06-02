@@ -5,14 +5,31 @@ import { NoticeVariant } from './types';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
     root: css`
-      border-radius: ${theme.shape.borderRadius.medium}px;
-      background-color: ${theme.palette.background.default};
-    `,
-    inner: css`
-      border-radius: ${theme.shape.borderRadius.medium}px;
+      border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${theme.palette.secondary.light};
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      padding: ${theme.spacing(5)};
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: ${theme.palette.background.default};
+      }
+
+      ${theme.breakpoints.down('md')} {
+        padding: ${theme.spacing(4)};
+      }
     `,
     getInnerStyles: ({ variant }: { variant: NoticeVariant }) => {
       switch (variant) {
@@ -40,8 +57,7 @@ export const useStyles = () => {
       }
     },
     icon: css`
-      position: absolute;
-      margin-top: ${theme.spacing(0.5)};
+      margin-right: ${theme.spacing(3)};
     `,
     getIconStyles: ({ variant }: { variant: NoticeVariant }) => {
       switch (variant) {
@@ -64,10 +80,11 @@ export const useStyles = () => {
           `;
       }
     },
+    iconSize: theme.shape.iconSize.large,
     content: css`
+      flex: 1;
       display: flex;
       flex-direction: column;
-      padding-left: ${theme.spacing(7)};
       word-break: break-word;
 
       a {

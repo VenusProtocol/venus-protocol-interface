@@ -51,7 +51,7 @@ export const useStyles = () => {
         flex: initial;
         order: -1;
         overflow: hidden;
-        background-color: #313239;
+        background-color: ${theme.palette.secondary.light};
       }
     `,
     illustration: css`

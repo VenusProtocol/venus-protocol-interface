@@ -9,7 +9,7 @@ export const useStyles = () => {
       width: 100%;
     `,
     notice: css`
-      margin-bottom: ${theme.spacing(10)};
+      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

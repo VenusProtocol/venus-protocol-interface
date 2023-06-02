@@ -82,9 +82,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   return (
     <Paper className={className} css={styles.headerRoot}>
       <div css={styles.addressContainer}>
-        <div css={styles.xvsIconContainer}>
-          <TokenIcon token={TOKENS.xvs} css={styles.icon} />
-        </div>
+        <TokenIcon token={TOKENS.xvs} />
 
         <Typography
           href={generateBscScanUrl(TOKENS.xvs.address, 'token')}

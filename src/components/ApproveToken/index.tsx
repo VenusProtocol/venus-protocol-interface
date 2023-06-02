@@ -10,7 +10,6 @@ import { useAuth } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { SecondaryButton } from '../Button';
-import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
 import { toast } from '../Toast';
@@ -76,8 +75,6 @@ export const ApproveTokenUi: React.FC<ApproveTokenUiProps> = ({
 
           {assetInfo.length > 0 && (
             <div css={styles.assetInfoContainer}>
-              <Delimiter css={styles.delimiter} />
-
               {assetInfo.map(info => (
                 <LabeledInlineContent
                   {...info}

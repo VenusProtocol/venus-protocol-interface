@@ -23,12 +23,9 @@ export const styles = () => {
       text-align: center;
       margin-bottom: ${theme.spacing(8)};
     `,
-    delimiter: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
     assetInfoContainer: css`
       width: 100%;
-      margin-bottom: ${theme.spacing(12)};
+      margin-bottom: ${theme.spacing(8)};
     `,
     labeledInlineContent: css`
       :not(:last-of-type) {

@@ -21,18 +21,18 @@ export interface StepperProps {
 const getActiveStepIndex = (proposalState: ProposalState) => {
   switch (proposalState) {
     case 'Pending':
-      return 1;
+      return 0;
     case 'Active':
-      return 2;
+      return 1;
     case 'Defeated':
     case 'Succeeded':
     case 'Canceled':
     case 'Expired':
-      return 3;
+      return 2;
     case 'Queued':
-      return 4;
+      return 3;
     default:
-      return 5;
+      return 4;
   }
 };
 
@@ -97,7 +97,7 @@ const Stepper: React.FC<StepperProps> = ({
           if (state === 'Canceled' || state === 'Defeated' || state === 'Expired') {
             return (
               <span css={[styles.iconContainer, styles.errorIconContainer]}>
-                <Icon name="close" css={styles.closeIcon} />
+                <Icon name="closeRounded" css={styles.closeIcon} />
               </span>
             );
           }
@@ -130,10 +130,13 @@ const Stepper: React.FC<StepperProps> = ({
     [createdDate, startDate, cancelDate, queuedDate, executedDate, state],
   );
   const activeStepIndex = getActiveStepIndex(state);
+
   return (
     <div className={className} css={styles.root}>
       {steps.map((step, idx) => {
-        const completed = activeStepIndex > idx;
+        const completed = activeStepIndex >= idx;
+        const active = state === 'Active' && activeStepIndex === idx;
+
         return (
           <React.Fragment key={step.getLabel()}>
             <div css={styles.step}>
@@ -141,13 +144,13 @@ const Stepper: React.FC<StepperProps> = ({
                 {completed ? (
                   step.completedIcon()
                 ) : (
-                  <span css={[styles.iconContainer, styles.numberIconContainer]}>
-                    <Typography variant="tiny" color="textSecondary">
+                  <span css={[styles.iconContainer, styles.getNumberIconContainer({ active })]}>
+                    <Typography variant="tiny" css={styles.getNumberIconText({ active })}>
                       {idx + 1}
                     </Typography>
                   </span>
                 )}
-                <Typography variant="small1" css={styles.labelText({ completed })}>
+                <Typography variant="small1" css={styles.labelText({ completed, active })}>
                   {step.getLabel()}
                   {step.getTimestamp() && (
                     <Typography variant="tiny" css={styles.dateTablet}>

@@ -105,7 +105,7 @@ export const Select: React.FC<SelectProps> = ({
           <Typography variant="h4">{label || t('select.defaultLabel')}</Typography>
 
           <TextButton css={styles.closeMenuButton} onClick={handleClose}>
-            <Icon name="close" />
+            <Icon name="closeRounded" />
           </TextButton>
         </div>
 

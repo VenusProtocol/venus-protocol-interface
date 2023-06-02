@@ -9,7 +9,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: ${theme.spacing(3, 0, 10)};
+      padding: ${theme.spacing(3, 0, 6)};
     `,
     headerIcon: css`
       width: ${theme.spacing(16)};

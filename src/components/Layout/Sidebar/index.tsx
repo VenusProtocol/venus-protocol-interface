@@ -108,7 +108,7 @@ export const SidebarUi: React.FC = () => {
             <ConnectButton fullWidth css={styles.mobileConnectButton} />
 
             <button type="button" onClick={closeMenu} css={styles.actionButton}>
-              <Icon name="close" css={styles.burger} />
+              <Icon name="closeRounded" css={styles.burger} />
             </button>
           </div>
 

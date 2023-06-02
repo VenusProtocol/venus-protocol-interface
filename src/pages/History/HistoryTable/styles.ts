@@ -35,8 +35,9 @@ export const useStyles = () => {
       }
     `,
     txnHashText: css`
+      text-decoration: underline;
       align-items: center;
-      color: ${theme.palette.button.main};
+      color: ${theme.palette.text.primary};
       padding: 0 !important;
 
       :hover {

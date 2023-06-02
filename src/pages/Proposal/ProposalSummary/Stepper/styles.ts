@@ -51,8 +51,8 @@ export const useStyles = () => {
         align-items: center;
       }
     `,
-    labelText: ({ completed }: { completed: boolean }) => css`
-      color: ${completed ? theme.palette.text.primary : theme.palette.text.secondary};
+    labelText: ({ completed, active }: { completed: boolean; active: boolean }) => css`
+      color: ${completed || active ? theme.palette.text.primary : theme.palette.text.secondary};
       font-weight: 600;
       padding-left: ${theme.spacing(3)};
       ${theme.breakpoints.down('lg')} {
@@ -92,11 +92,13 @@ export const useStyles = () => {
       }
     `,
     closeIcon: css`
-      height: ${theme.spacing(1.5)};
-      width: ${theme.spacing(1.5)};
+      margin-top: 1px;
+      height: ${theme.spacing(2)};
+      width: ${theme.spacing(2)};
     `,
     markIcon: css`
-      height: ${theme.spacing(1.5)};
+      margin-top: 1px;
+      height: ${theme.spacing(2)};
       width: ${theme.spacing(2)};
     `,
     iconContainer: css`
@@ -122,34 +124,39 @@ export const useStyles = () => {
       background-color: ${theme.palette.interactive.success};
       border: 1px solid ${theme.palette.interactive.success};
     `,
-    numberIconContainer: css`
+    getNumberIconContainer: ({ active }: { active: boolean }) => css`
       background-color: transparent;
-      border: 1px solid ${theme.palette.text.secondary};
+      border: 1px solid ${active ? theme.palette.interactive.success : theme.palette.text.secondary};
+    `,
+    getNumberIconText: ({ active }: { active: boolean }) => css`
+      color: ${active ? theme.palette.interactive.success : theme.palette.text.secondary};
     `,
     connector: css`
-      border-left: 1px solid ${theme.palette.text.secondary};
-      height: ${theme.spacing(4)};
-      width: 0;
+      height: ${theme.spacing(2)};
+      width: 1px;
+      background-color: ${theme.palette.text.secondary};
       margin-left: calc(${theme.spacing(3)} - 0.5px);
+      margin-top: 2px;
+      margin-bottom: 2px;
 
       ${theme.breakpoints.down('lg')} {
         display: flex;
         flex: 1;
-        margin-left: 0;
-        margin-top: calc(${theme.spacing(3)} - 0.5px);
+        margin: calc(${theme.spacing(3)} - 0.5px) 2px 0;
         height: 100%;
         border-bottom: 1px solid ${theme.palette.text.secondary};
         border-left: none;
-        max-width: ${theme.spacing(25)};
+        max-width: ${theme.spacing(20)};
         width: auto;
       }
       ${theme.breakpoints.down('sm')} {
         border-bottom: none;
         border-left: 1px solid ${theme.palette.text.secondary};
-        height: ${theme.spacing(4)};
+        height: ${theme.spacing(2)};
         width: 0;
         margin-left: calc(${theme.spacing(3)} - 0.5px);
-        margin-top: 0;
+        margin-top: 2px;
+        margin-bottom: 2px;
         flex: initial;
       }
     `,

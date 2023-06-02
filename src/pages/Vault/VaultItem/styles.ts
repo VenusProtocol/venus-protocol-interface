@@ -21,13 +21,13 @@ export const useStyles = () => {
       align-items: center;
     `,
     tokenIcon: css`
-      width: ${theme.shape.iconSize.large}px;
-      height: ${theme.shape.iconSize.large}px;
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
       margin-right: ${theme.spacing(1)};
     `,
     tokenIconLarge: css`
-      width: ${theme.shape.iconSize.xLarge}px;
-      height: ${theme.shape.iconSize.xLarge}px;
+      width: ${theme.spacing(8)};
+      height: ${theme.spacing(8)};
       margin-right: ${theme.spacing(2)};
     `,
     tokenIconWithdraw: css`
