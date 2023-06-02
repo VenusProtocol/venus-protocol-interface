@@ -9,7 +9,7 @@ jest.mock('utilities/restService');
 describe('api/queries/getAuthentication', () => {
   it('returns the user is authenticated if using a valid address', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
-      status: 200,
+      status: 404,
     }));
 
     const { authorized } = await getIsAddressAuthorized({
@@ -21,7 +21,7 @@ describe('api/queries/getAuthentication', () => {
 
   it('returns not authenticated if using an invalid address', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
-      status: 403,
+      status: 200,
     }));
 
     const { authorized } = await getIsAddressAuthorized({
