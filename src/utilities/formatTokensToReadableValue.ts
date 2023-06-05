@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Token } from 'types';
+import { Token, VToken } from 'types';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
@@ -7,7 +7,7 @@ import { shortenValueWithSuffix } from './shortenValueWithSuffix';
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
-  token: Token;
+  token: Token | VToken;
   minimizeDecimals?: boolean;
   shortenLargeValue?: boolean;
   addSymbol?: boolean;

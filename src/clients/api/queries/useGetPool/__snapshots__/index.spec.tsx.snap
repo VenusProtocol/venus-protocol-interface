@@ -45,7 +45,6 @@ Object {
         "userWalletBalanceTokens": "100",
         "vToken": Object {
           "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-          "asset": "vXvs.svg",
           "decimals": 8,
           "symbol": "vXVS",
           "underlyingToken": Object {
@@ -97,7 +96,6 @@ Object {
         "userWalletBalanceTokens": "0",
         "vToken": Object {
           "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
-          "asset": "vUsdc.svg",
           "decimals": 8,
           "symbol": "vUSDC",
           "underlyingToken": Object {
@@ -149,7 +147,6 @@ Object {
         "userWalletBalanceTokens": "900",
         "vToken": Object {
           "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
-          "asset": "vUsdt.svg",
           "decimals": 8,
           "symbol": "vUSDT",
           "underlyingToken": Object {
@@ -201,7 +198,6 @@ Object {
         "userWalletBalanceTokens": "110",
         "vToken": Object {
           "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-          "asset": "vBusd.svg",
           "decimals": 8,
           "symbol": "vBUSD",
           "underlyingToken": Object {
