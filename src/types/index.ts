@@ -16,7 +16,7 @@ export interface Token {
   isNative?: boolean;
 }
 
-export interface VToken extends Omit<Token, 'isNative'> {
+export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
 }

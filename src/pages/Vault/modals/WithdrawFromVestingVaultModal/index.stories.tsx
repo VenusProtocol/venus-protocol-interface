@@ -32,12 +32,12 @@ const authContext = {
 export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
-  stakedToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  stakedToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
 };
 Default.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+    token: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
     accountAddress: fakeAddress,
     spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
   }),

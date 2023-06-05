@@ -59,7 +59,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vBNX",
             "underlyingToken": Object {
@@ -113,7 +112,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vBTCB",
             "underlyingToken": Object {
@@ -189,7 +187,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vANKR",
             "underlyingToken": Object {
@@ -254,7 +251,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vAnkrBNB",
             "underlyingToken": Object {
@@ -319,7 +315,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0x81F71fa6eBf7393501A0a9fE851742Ff4990549e",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vMOBX",
             "underlyingToken": Object {
@@ -384,7 +379,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0xbe516d022b9214416D7B5B4e38977C1d80A27f61",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vNFT",
             "underlyingToken": Object {
@@ -449,7 +443,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vRACA",
             "underlyingToken": Object {
@@ -503,7 +496,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0x16689D4153D2d234D0c17cE671Fb61848078a0dB",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vStkBNB",
             "underlyingToken": Object {
@@ -557,7 +549,6 @@ Object {
           "userWalletBalanceTokens": "0",
           "vToken": Object {
             "address": "0xC435541466890d74Ed7c7102D434162817712217",
-            "asset": "vXvs.svg",
             "decimals": 8,
             "symbol": "vUSDD",
             "underlyingToken": Object {

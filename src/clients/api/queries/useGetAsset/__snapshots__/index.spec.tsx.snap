@@ -43,7 +43,6 @@ Object {
     "userWalletBalanceTokens": "100",
     "vToken": Object {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-      "asset": "vXvs.svg",
       "decimals": 8,
       "symbol": "vXVS",
       "underlyingToken": Object {
