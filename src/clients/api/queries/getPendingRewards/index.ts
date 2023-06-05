@@ -1,6 +1,6 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { getContractAddress, getIsolatedPoolAddress } from 'utilities';
+import { getContractAddress } from 'utilities';
 
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
@@ -11,7 +11,7 @@ import formatOutput from './formatOutput';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
 
 const venusLensAddress = getContractAddress('venusLens');
-const poolLensAddress = getIsolatedPoolAddress('PoolLens');
+const poolLensAddress = getContractAddress('PoolLens');
 const vaiVaultAddress = getContractAddress('vaiVault');
 const xvsVaultAddress = getContractAddress('xvsVaultProxy');
 
