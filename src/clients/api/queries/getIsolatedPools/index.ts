@@ -4,7 +4,7 @@ import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/arti
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
-import { areTokensEqual, getIsolatedPoolAddress, getTokenByAddress } from 'utilities';
+import { areTokensEqual, getContractAddress, getTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
@@ -15,7 +15,7 @@ import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
-const POOL_REGISTRY_ADDRESS = getIsolatedPoolAddress('PoolRegistry');
+const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry');
 
 const getIsolatedPools = async ({
   accountAddress,
