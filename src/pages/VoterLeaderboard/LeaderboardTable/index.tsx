@@ -33,7 +33,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         key: 'rank',
         label: t('voterLeaderboard.columns.rank'),
         renderCell: (voter, rowIndex) => (
-          <Typography css={styles.inline} color="textPrimary" variant="small2">
+          <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
             {rowIndex + 1 + offset}
             <Link
               to={routes.governanceVoter.path.replace(':address', voter.address)}
