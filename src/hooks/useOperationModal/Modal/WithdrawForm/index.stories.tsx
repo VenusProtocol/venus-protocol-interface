@@ -1,70 +1,33 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
-import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import fakeProvider from '__mocks__/models/provider';
-import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
+import { TESTNET_TOKENS } from 'constants/tokens';
+import { withCenterStory } from 'stories/decorators';
 
-import { WithdrawUi, WithdrawUiProps } from '.';
+import { WithdrawFormUi } from '.';
+
+const fakePool = poolData[0];
+const fakeAsset = fakePool.assets[2];
 
 export default {
   title: 'Components/OperationModal/WithdrawForm',
-  component: WithdrawUi,
+  component: WithdrawFormUi,
   decorators: [withCenterStory({ width: 600 })],
-  parameters: {
-    backgrounds: {
-      default: 'Primary',
-    },
-  },
-} as ComponentMeta<typeof WithdrawUi>;
+} as ComponentMeta<typeof WithdrawFormUi>;
 
-const Template: Story<WithdrawUiProps> = args => <WithdrawUi {...args} />;
-
-const context = {
-  login: noop,
-  logOut: noop,
-  openAuthModal: noop,
-  closeAuthModal: noop,
-  provider: fakeProvider,
-  isReconnecting: false,
-  accountAddress: fakeAddress,
-};
-
-export const DisconnectedWithdraw = Template.bind({});
-DisconnectedWithdraw.args = {
-  asset: poolData[0].assets[0],
-  pool: poolData[0],
-  onSubmit: noop,
-  isLoading: false,
-  onClose: noop,
-};
-
-export const DisabledWithdraw = Template.bind({});
-DisabledWithdraw.decorators = [withAuthContext(context)];
-DisabledWithdraw.args = {
-  asset: poolData[0].assets[0],
-  pool: poolData[0],
-  onSubmit: noop,
-  isLoading: false,
-  onClose: noop,
-};
-
-export const Withdraw = Template.bind({});
-Withdraw.decorators = [
-  withAuthContext(context),
-  withApprovedToken({
-    token: poolData[0].assets[0].vToken.underlyingToken,
-    accountAddress: fakeAddress,
-    spenderAddress: poolData[0].assets[0].vToken.address,
-  }),
-];
-
-Withdraw.args = {
-  asset: poolData[0].assets[0],
-  pool: poolData[0],
-  onSubmit: noop,
-  isLoading: false,
-  onClose: noop,
-};
+export const Default = () => (
+  <WithdrawFormUi
+    asset={fakeAsset}
+    pool={fakePool}
+    onSubmit={noop}
+    onCloseModal={noop}
+    isSubmitting={false}
+    formValues={{
+      fromToken: TESTNET_TOKENS.xvs,
+      amountTokens: '',
+    }}
+    setFormValues={noop}
+  />
+);
