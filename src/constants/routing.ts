@@ -32,7 +32,7 @@ const routeSubdirectories = {
   governance: [Subdirectory.GOVERNANCE],
   governanceProposal: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL],
   governanceLeaderBoard: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD],
-  governanceVoter: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD, Subdirectory.VOTER],
+  governanceVoter: [Subdirectory.GOVERNANCE, Subdirectory.VOTER],
   history: [Subdirectory.HISTORY],
   swap: [Subdirectory.SWAP],
   convertVrt: [Subdirectory.CONVERT_VRT],

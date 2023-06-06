@@ -10,15 +10,17 @@ type PaginationProps = {
 
 const PAGES_TO_SHOW_COUNT = 4;
 
-export function usePagination({
-  itemsCount,
-  onChange,
-  initialPageIndex = 0,
-  itemsPerPageCount = 10,
-}: PaginationProps) {
+const getInitialPageIndex = () => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const pageParam = searchParams.get('page');
+  const initialPageIndex = pageParam ? +pageParam - 1 : 0;
+  return initialPageIndex;
+};
+
+export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
   const { t } = useTranslation();
 
-  const [activePageIndex, setActivePageIndex] = useState(initialPageIndex);
+  const [activePageIndex, setActivePageIndex] = useState(getInitialPageIndex());
   const [pagesCount, setPagesCount] = useState(0);
 
   /* calculating items per page count */
