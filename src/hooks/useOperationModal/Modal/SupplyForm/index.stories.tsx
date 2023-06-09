@@ -12,7 +12,7 @@ const fakePool = poolData[0];
 const fakeAsset = fakePool.assets[2];
 
 export default {
-  title: 'Components/OperationModal/RepayForm',
+  title: 'Components/OperationModal/SupplyForm',
   component: SupplyFormUi,
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof SupplyFormUi>;

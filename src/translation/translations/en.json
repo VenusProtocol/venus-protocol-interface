@@ -377,7 +377,7 @@
         "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
         "borrow": "Borrow",
         "borrowCapReached": "Borrow cap reached",
-        "borrowHighRiskAmount": "Borrow high risk amount",
+        "borrowHighRiskAmount": "Borrow at high risk",
         "enterValidAmount": "Enter a valid amount to borrow"
       },
       "successfulTransactionModal": {
@@ -440,14 +440,13 @@
     },
     "supplyTabTitle": "Supply",
     "withdraw": {
-      "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-      "enableToWithdraw": "To withdraw {{symbol}} from the Venus Protocol, you need to enable it first",
-      "max": "MAX",
-      "submitButton": {
-        "enabledLabel": "Withdraw",
-        "enterValidAmountWithdrawLabel": "Enter a valid amount to withdraw"
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonLabel": {
+        "enterValidAmount": "Enter a valid amount to withdraw",
+        "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
+        "withdraw": "Withdraw"
       },
-      "successfulWithdrawTransactionModal": {
+      "successfulTransactionModal": {
         "message": "You successfully withdrew",
         "title": "Your withdrawal was successful"
       },

@@ -10,7 +10,7 @@ import AssetAccessor from 'containers/AssetAccessor';
 import BorrowForm from './BorrowForm';
 import RepayForm from './RepayForm';
 import SupplyForm from './SupplyForm';
-import WithdrawModal from './WithdrawForm';
+import WithdrawForm from './WithdrawForm';
 
 export interface OperationModalProps {
   onClose: ModalProps['handleClose'];
@@ -62,11 +62,17 @@ const OperationModal: React.FC<OperationModalProps> = ({
     tabsContent.push({
       title: t('operationModal.withdrawTabTitle'),
       content: (
-        <WithdrawModal
-          onClose={onClose}
+        <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-        />
+          connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
+          approveTokenMessage={t('operationModal.supply.enableToken.title', {
+            symbol: vToken.underlyingToken.symbol,
+          })}
+          assetInfoType="supply"
+        >
+          {({ asset, pool }) => <WithdrawForm asset={asset} pool={pool} onCloseModal={onClose} />}
+        </AssetAccessor>
       ),
     });
   }
