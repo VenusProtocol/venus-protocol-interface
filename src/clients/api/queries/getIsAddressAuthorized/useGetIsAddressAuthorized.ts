@@ -13,6 +13,8 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_IS_ADDRESS_AUTHORIZED
 >;
 
+const ONE_HOUR_MS = 60 * 60 * 1000;
+
 const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
   useQuery(
     FunctionKey.GET_IS_ADDRESS_AUTHORIZED,
@@ -21,7 +23,7 @@ const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
       refetchOnMount: false,
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: ONE_HOUR_MS,
       ...options,
     },
   );
