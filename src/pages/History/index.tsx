@@ -60,12 +60,19 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
-  const { data: { transactions, total, limit } = { transactions: [] }, isFetching } =
-    useGetTransactions({
-      page: currentPage,
-      address: showOnlyMyTxns ? accountAddress : undefined,
-      event: eventType !== ALL_VALUE ? eventType : undefined,
-    });
+  const {
+    data: { transactions, total, limit } = { transactions: [] },
+    isLoading: isGetTransactionsLoading,
+    isFetching: isGetTransactionsFetching,
+    isPreviousData: isGetTransactionsPreviousData,
+  } = useGetTransactions({
+    page: currentPage,
+    address: showOnlyMyTxns ? accountAddress : undefined,
+    event: eventType !== ALL_VALUE ? eventType : undefined,
+  });
+
+  const isFetching =
+    isGetTransactionsLoading || (isGetTransactionsFetching && isGetTransactionsPreviousData);
 
   return (
     <HistoryUi

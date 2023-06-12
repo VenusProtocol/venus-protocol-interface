@@ -32,6 +32,7 @@ describe('pages/History', () => {
     (useGetTransactions as jest.Mock).mockImplementation(() => ({
       data: undefined,
       isFetching: true,
+      isPreviousData: true,
     }));
     const { getByTestId } = renderComponent(History);
     getByTestId(TEST_IDS.spinner);
