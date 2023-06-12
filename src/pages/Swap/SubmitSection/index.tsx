@@ -7,7 +7,7 @@ import { getContractAddress } from 'utilities';
 
 import { FormError, FormValues } from '../types';
 
-const pancakeRouterContractAddress = getContractAddress('pancakeRouter');
+const swapRouterContractAddress = getContractAddress('swapRouter');
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -63,7 +63,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={pancakeRouterContractAddress}
+      spenderAddress={swapRouterContractAddress}
       submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
       hideTokenEnablingStep={!isFormValid}
     >

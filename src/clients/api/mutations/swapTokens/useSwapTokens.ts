@@ -1,30 +1,30 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clients/api';
-import { usePancakeRouterContract } from 'clients/contracts/hooks';
+import { useSwapRouterContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   SwapTokensOutput,
   Error,
-  Omit<SwapTokensInput, 'pancakeRouterContract'>
+  Omit<SwapTokensInput, 'swapRouterContract'>
 >;
 
 const useSwapTokens = (options?: Options) => {
-  const pancakeRouterContract = usePancakeRouterContract();
+  const swapRouterContract = useSwapRouterContract();
 
   return useMutation(
     FunctionKey.SWAP_TOKENS,
-    (params: Omit<SwapTokensInput, 'pancakeRouterContract'>) =>
+    (params: Omit<SwapTokensInput, 'swapRouterContract'>) =>
       swapTokens({
-        pancakeRouterContract,
+        swapRouterContract,
         ...params,
       }),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { swap } = onSuccessParams[1];
-        const accountAddress = await pancakeRouterContract.signer.getAddress();
+        const accountAddress = await swapRouterContract.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
