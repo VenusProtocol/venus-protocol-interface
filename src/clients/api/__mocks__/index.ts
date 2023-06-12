@@ -6,6 +6,7 @@ import { assetData } from '__mocks__/models/asset';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import proposals from '__mocks__/models/proposals';
+import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
@@ -167,6 +168,11 @@ export const useGetAsset = jest.fn(() => ({
   },
 }));
 
+export const useGetVaults = jest.fn(() => ({
+  isLoading: false,
+  data: vaults,
+}));
+
 export const getXvsVaultPoolInfo = jest.fn();
 export const useGetXvsVaultPoolInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
@@ -207,8 +213,6 @@ export const useGetVoterDetails = () => useQuery(FunctionKey.GET_VOTER_DETAILS, 
 
 export const getVoteReceipt = jest.fn();
 export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
-
-export const useGetVaults = jest.fn();
 
 export const getVaiVaultUserInfo = jest.fn();
 export const useGetVaiVaultUserInfo = () =>

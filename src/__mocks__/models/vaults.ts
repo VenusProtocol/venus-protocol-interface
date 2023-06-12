@@ -19,5 +19,6 @@ export const vaults: Vault[] = [
     dailyEmissionWei: new BigNumber('144000000000000000000'),
     totalStakedWei: new BigNumber('400000000000000000000000000'),
     stakingAprPercentage: 12.92281835063781,
+    userStakedWei: new BigNumber('233000000000000000000'),
   },
 ];

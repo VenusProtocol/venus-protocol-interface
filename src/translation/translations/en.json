@@ -5,8 +5,10 @@
         "dailyEarnings": "Daily Earnings",
         "netApy": "Net APY",
         "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "netApyWithVaultStakingTooltip": "Percentage of your total supply and vault staking balances received as yearly interests",
         "totalBorrow": "Total Borrow",
-        "totalSupply": "Total Supply"
+        "totalSupply": "Total Supply",
+        "totalVaultStaking": "Total Vault Staking"
       },
       "tables": {
         "borrowTableTitle": "Borrowed assets",

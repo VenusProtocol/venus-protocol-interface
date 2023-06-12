@@ -3,6 +3,20 @@ import { Asset } from 'types';
 
 import getCombinedDistributionApys from './getCombinedDistributionApys';
 
+export const calculateYearlyEarnings = ({
+  balance,
+  interestPercentage,
+}: {
+  balance: BigNumber;
+  interestPercentage: BigNumber;
+}) => {
+  if (!interestPercentage.isFinite()) {
+    return new BigNumber(0);
+  }
+
+  return balance.multipliedBy(interestPercentage).dividedBy(100);
+};
+
 export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
   // Combine supply and borrow APYs with distribution APYs
   const combinedDistributionApys = getCombinedDistributionApys({ asset });
@@ -14,17 +28,15 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
     combinedDistributionApys.borrowApyPercentage,
   );
 
-  if (!totalSupplyApyPercentage.isFinite() || !totalBorrowApyPercentage.isFinite()) {
-    return new BigNumber(0);
-  }
-
   // Calculate yearly earnings
-  const supplyYearlyEarningsCents = new BigNumber(asset.userSupplyBalanceCents)
-    .multipliedBy(totalSupplyApyPercentage)
-    .dividedBy(100);
-  const borrowYearlyEarningsCents = new BigNumber(asset.userBorrowBalanceCents)
-    .multipliedBy(totalBorrowApyPercentage)
-    .dividedBy(100);
+  const supplyYearlyEarningsCents = calculateYearlyEarnings({
+    balance: asset.userSupplyBalanceCents,
+    interestPercentage: totalSupplyApyPercentage,
+  });
+  const borrowYearlyEarningsCents = calculateYearlyEarnings({
+    balance: asset.userBorrowBalanceCents,
+    interestPercentage: totalBorrowApyPercentage,
+  });
 
   return supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents).dp(0);
 };
