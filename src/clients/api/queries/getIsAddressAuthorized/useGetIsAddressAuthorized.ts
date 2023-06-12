@@ -3,7 +3,6 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import getIsAddressAuthorized, {
   GetIsAddressAuthorizedOutput,
 } from 'clients/api/queries/getIsAddressAuthorized';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -14,12 +13,17 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_IS_ADDRESS_AUTHORIZED
 >;
 
+const ONE_HOUR_MS = 60 * 60 * 1000;
+
 const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
   useQuery(
     FunctionKey.GET_IS_ADDRESS_AUTHORIZED,
     () => getIsAddressAuthorized({ accountAddress }),
     {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      staleTime: ONE_HOUR_MS,
       ...options,
     },
   );

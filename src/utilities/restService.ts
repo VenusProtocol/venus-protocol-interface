@@ -29,10 +29,10 @@ export async function restService<D>({
       data: { data: D; status: boolean } | undefined;
     }
   | {
+      status: boolean;
       data: undefined;
       result: 'error';
       message: string;
-      status: boolean;
     }
 > {
   const headers = {};
@@ -58,15 +58,19 @@ export async function restService<D>({
     path = `${path}?${queryParams}`;
   }
   return fetch(path)
-    .then(response =>
-      response
-        .json()
-        .then(json =>
-          json
-            ? { status: response.status, data: json }
-            : { status: response.status, data: undefined },
-        ),
-    )
+    .then(async response => {
+      const { status } = response;
+
+      let data: undefined;
+
+      try {
+        data = await response.json();
+      } catch (error) {
+        // Do nothing
+      }
+
+      return { status, data };
+    })
     .catch(error => ({
       status: false,
       data: undefined,
