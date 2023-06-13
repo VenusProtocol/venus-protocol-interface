@@ -77,9 +77,11 @@ const formatToPools = ({
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
 
-      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex)
-        .dividedBy(new BigNumber(10).pow(36 - vToken.underlyingToken.decimals))
-        .dp(2);
+      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(
+        new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
+      );
+
+      const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>
@@ -111,7 +113,7 @@ const formatToPools = ({
         token: vToken.underlyingToken,
       });
 
-      const liquidityCents = convertDollarsToCents(cashTokens.multipliedBy(tokenPriceDollars));
+      const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalReserves.toString()),
@@ -143,19 +145,15 @@ const formatToPools = ({
         valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
         token: vToken,
       });
-      const supplyBalanceTokens = supplyBalanceVTokens.dividedBy(exchangeRateVTokens);
-      const supplyBalanceCents = convertDollarsToCents(
-        supplyBalanceTokens.multipliedBy(tokenPriceDollars),
-      );
+      const supplyBalanceTokens = supplyBalanceVTokens.multipliedBy(exchangeRateVTokens);
+      const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
 
-      const borrowBalanceCents = convertDollarsToCents(
-        borrowBalanceTokens.multipliedBy(tokenPriceDollars),
-      );
+      const borrowBalanceCents = borrowBalanceTokens.multipliedBy(tokenPriceCents);
 
       // User-specific props
       const userBorrowBalanceTokens = vTokenUserBalances
@@ -183,15 +181,9 @@ const formatToPools = ({
           })
         : new BigNumber(0);
 
-      const userSupplyBalanceCents = convertDollarsToCents(
-        userSupplyBalanceTokens.multipliedBy(tokenPriceDollars),
-      );
-      const userBorrowBalanceCents = convertDollarsToCents(
-        userBorrowBalanceTokens.multipliedBy(tokenPriceDollars),
-      );
-      const userWalletBalanceCents = convertDollarsToCents(
-        userWalletBalanceTokens.multipliedBy(tokenPriceDollars),
-      );
+      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
+      const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const isCollateralOfUser = userCollateralVTokenAddresses.includes(
         vTokenAddress.toLowerCase(),
@@ -201,7 +193,7 @@ const formatToPools = ({
 
       const asset: Asset = {
         vToken,
-        tokenPriceDollars,
+        tokenPriceCents,
         reserveFactor,
         collateralFactor,
         cashTokens,
@@ -246,13 +238,15 @@ const formatToPools = ({
     // Calculate userPercentOfLimit for each asset
     const formattedAssets: Asset[] = assets.map(asset => ({
       ...asset,
-      userPercentOfLimit: pool.userBorrowLimitCents
-        ? new BigNumber(asset.userBorrowBalanceCents)
-            .times(100)
-            .div(pool.userBorrowLimitCents)
-            .dp(2)
-            .toNumber()
-        : 0,
+      userPercentOfLimit:
+        asset.userBorrowBalanceCents?.isGreaterThan(0) &&
+        pool.userBorrowLimitCents?.isGreaterThan(0)
+          ? new BigNumber(asset.userBorrowBalanceCents)
+              .times(100)
+              .div(pool.userBorrowLimitCents)
+              .dp(2)
+              .toNumber()
+          : 0,
     }));
 
     return {

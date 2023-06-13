@@ -57,7 +57,7 @@ const ActionAccordion: React.FC = () => {
                   rightAdornment={
                     idx === 0 ? undefined : (
                       <button onClick={() => remove(idx)} type="button" css={styles.iconButton}>
-                        <Icon name="close" css={styles.closeIcon} />
+                        <Icon name="closeRounded" css={styles.closeIcon} />
                       </button>
                     )
                   }

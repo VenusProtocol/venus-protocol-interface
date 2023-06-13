@@ -232,14 +232,6 @@ export const useGetLatestProposalIdByProposer = () =>
   );
 export const useGetActiveProposal = jest.fn();
 
-export const getVrtVaultInterestRatePerBlock = jest.fn();
-export const useGetVrtVaultInterestRatePerBlock = () =>
-  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK, getVrtVaultInterestRatePerBlock);
-
-export const getVrtVaultUserInfo = jest.fn();
-export const useGetVrtVaultUserInfo = () =>
-  useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
-
 export const getVoterAccounts = jest.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
 
@@ -337,10 +329,6 @@ export const stakeInVaiVault = jest.fn();
 export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
 
-export const stakeInVrtVault = jest.fn();
-export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
-
 export const castVote = jest.fn();
 export const useCastVote = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CAST_VOTE, castVote, options);
@@ -352,10 +340,6 @@ export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
 export const withdrawFromVaiVault = jest.fn();
 export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.WITHDRAW_FROM_VAI_VAULT, withdrawFromVaiVault, options);
-
-export const withdrawFromVrtVault = jest.fn();
-export const useWithdrawFromVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_FROM_VRT_VAULT, withdrawFromVrtVault, options);
 
 export const requestWithdrawalFromXvsVault = jest.fn();
 export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>

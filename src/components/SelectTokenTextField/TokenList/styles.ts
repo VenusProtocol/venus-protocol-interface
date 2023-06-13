@@ -40,19 +40,6 @@ export const useStyles = () => {
       }
     `,
     commonTokenButton: css`
-      padding: ${theme.spacing(1, 2)};
-      border-color: ${theme.palette.secondary.light};
-
-      :hover:not(:disabled) {
-        border-color: ${theme.palette.interactive.primary};
-        background-color: ${theme.palette.secondary.light};
-      }
-
-      :active:not(:disabled) {
-        border-color: ${theme.palette.secondary.light};
-        background-color: ${theme.palette.secondary.light};
-      }
-
       :not(:last-of-type) {
         margin-right: ${theme.spacing(2)};
       }

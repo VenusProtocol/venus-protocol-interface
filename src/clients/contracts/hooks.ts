@@ -16,7 +16,6 @@ import {
   getVaiVaultContract,
   getVenusLensContract,
   getVrtConverterProxyContract,
-  getVrtVaultProxyContract,
   getXvsVaultContract,
   getXvsVaultProxyContract,
   getXvsVestingProxyContract,
@@ -76,11 +75,6 @@ export const useVrtConverterProxyContract = () => {
 export const useXvsVestingProxyContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getXvsVestingProxyContract(signer || undefined), [signer]);
-};
-
-export const useVrtVaultProxyContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getVrtVaultProxyContract(signer || undefined), [signer]);
 };
 
 export const usePancakeRouterContract = () => {

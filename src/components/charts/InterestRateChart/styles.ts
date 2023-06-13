@@ -17,7 +17,10 @@ export const useStyles = () => {
     `,
     referenceLineColor: theme.palette.interactive.primary,
     referenceLineLabel: {
-      position: 'top',
+      position: {
+        y: -10,
+        x: 48,
+      },
       fill: theme.palette.text.primary,
       fontSize: theme.typography.small1.fontSize,
       fontWeight: theme.typography.small1.fontWeight,

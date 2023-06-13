@@ -49,9 +49,9 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   });
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (getMainAssetsData?.assets || []).find(asset =>
-        areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs),
-      )?.tokenPriceDollars,
+      (getMainAssetsData?.assets || [])
+        .find(asset => areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs))
+        ?.tokenPriceCents.dividedBy(100),
     [getMainAssetsData?.assets],
   );
 

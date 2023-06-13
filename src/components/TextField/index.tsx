@@ -16,6 +16,7 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   leftIconSrc?: IconName | Token;
   rightAdornment?: React.ReactElement;
   isSmall?: boolean;
+  variant?: 'primary' | 'secondary';
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -31,6 +32,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   type,
   disabled,
   isSmall = false,
+  variant = 'primary',
   ...inputProps
 }) => {
   const styles = useStyles();
@@ -64,7 +66,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         </Typography>
       )}
 
-      <Box css={styles.getInputContainer({ hasError, disabled })}>
+      <Box css={styles.getInputContainer({ hasError, disabled, variant, isSmall })}>
         {typeof leftIconSrc === 'string' && (
           <Icon name={leftIconSrc} css={styles.getLeftIcon({ isSmall })} />
         )}

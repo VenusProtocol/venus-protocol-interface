@@ -6,20 +6,20 @@ export const useStyles = () => {
   return {
     inline: css`
       display: flex;
+
+      > a {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: ${theme.spacing(8)};
+        color: ${theme.palette.interactive.primary};
+      }
     `,
     address: css`
-      padding-left: ${theme.spacing(7)};
-      color: ${theme.palette.interactive.primary};
-
       :hover {
         color: ${theme.palette.button.medium};
       }
     `,
     cardContentGrid: css`
-      .MuiTableCell-root:first-of-type {
-        overflow: visible;
-      }
-
       .table__table-cards__card-content {
         ${theme.breakpoints.down('xl')} {
           grid-template-columns: 1fr 1fr 1fr;

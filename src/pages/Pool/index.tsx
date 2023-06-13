@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { formatCentsToReadableValue, isFeatureEnabled } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -26,12 +26,12 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
   const cells: Cell[] = useMemo(() => {
     const { totalSupplyCents, totalBorrowCents } = (pool?.assets || []).reduce(
       (acc, item) => ({
-        totalSupplyCents: acc.totalSupplyCents + item.supplyBalanceCents,
-        totalBorrowCents: acc.totalBorrowCents + item.borrowBalanceCents,
+        totalSupplyCents: acc.totalSupplyCents.plus(item.supplyBalanceCents),
+        totalBorrowCents: acc.totalBorrowCents.plus(item.borrowBalanceCents),
       }),
       {
-        totalSupplyCents: 0,
-        totalBorrowCents: 0,
+        totalSupplyCents: new BigNumber(0),
+        totalBorrowCents: new BigNumber(0),
       },
     );
 
@@ -51,7 +51,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
       {
         label: t('pool.header.availableLiquidityLabel'),
         value: formatCentsToReadableValue({
-          value: totalSupplyCents - totalBorrowCents,
+          value: totalSupplyCents.minus(totalBorrowCents),
         }),
       },
       {
@@ -63,15 +63,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
 
   return pool ? (
     <>
-      <div css={styles.header}>
-        {isFeatureEnabled('isolatedPools') && (
-          <Typography variant="small2" component="div" css={styles.headerDescription}>
-            {pool.description}
-          </Typography>
-        )}
-
-        <CellGroup cells={cells} />
-      </div>
+      <CellGroup cells={cells} css={styles.header} />
 
       {pool.isIsolated && (
         <Notice

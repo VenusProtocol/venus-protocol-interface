@@ -8,6 +8,7 @@ export const useStyles = () => {
     container: css`
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     `,
     pathNode: css`
       display: inline-flex;
@@ -29,6 +30,7 @@ export const useStyles = () => {
     addTokenButton: css`
       margin-left: ${theme.spacing(4)};
       padding: ${theme.spacing(1)};
+      height: auto;
       color: ${theme.palette.interactive.primary};
       background-color: ${theme.palette.background.paper};
       border-color: ${theme.palette.background.paper};

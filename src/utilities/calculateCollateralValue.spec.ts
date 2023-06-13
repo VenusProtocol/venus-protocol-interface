@@ -9,9 +9,9 @@ describe('utilities/calculateCollateralValue', () => {
     const collateralValue = calculateCollateralValue({
       amountWei: new BigNumber('100000000000000000'),
       token: assetData[0].vToken.underlyingToken,
-      tokenPriceDollars: assetData[0].tokenPriceDollars,
+      tokenPriceCents: assetData[0].tokenPriceCents,
       collateralFactor: assetData[0].collateralFactor,
     });
-    expect(collateralValue.toString()).toBe('0.06393367');
+    expect(collateralValue.toString()).toBe('6.393367');
   });
 });

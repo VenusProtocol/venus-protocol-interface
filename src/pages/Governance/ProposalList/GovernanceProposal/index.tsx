@@ -65,7 +65,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       },
       Defeated: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
+        iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.defeated'),
       },
       Succeeded: {
@@ -75,12 +75,12 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       },
       Expired: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
+        iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.expired'),
       },
       Canceled: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
+        iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.cancelled'),
       },
     }),

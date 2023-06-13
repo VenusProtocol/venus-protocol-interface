@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Token } from 'types';
+import { Token, VToken } from 'types';
 
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
 export interface ConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;
-  token: Token;
+  token: Token | VToken;
   returnInReadableFormat?: T;
   minimizeDecimals?: boolean;
   addSymbol?: boolean;

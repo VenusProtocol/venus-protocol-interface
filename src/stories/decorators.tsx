@@ -5,8 +5,11 @@ import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { Token } from 'types';
 
-import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
+import { GetAllowanceOutput } from 'clients/api';
+import { UseGetAllowanceQueryKey } from 'clients/api/queries/getAllowance/useGetAllowance';
 import { Web3Wrapper } from 'clients/web3';
+import FunctionKey from 'constants/functionKey';
+import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -55,7 +58,7 @@ export const withQueryClientProvider: DecoratorFunction = Story => {
   );
 };
 
-export const withEnabledToken =
+export const withApprovedToken =
   ({
     token,
     spenderAddress,
@@ -69,7 +72,18 @@ export const withEnabledToken =
     const queryClient = useQueryClient();
 
     // Update cache to set token as enabled
-    setCachedTokenAllowanceToMax({ queryClient, token, spenderAddress, accountAddress });
+    const queryKey: UseGetAllowanceQueryKey = [
+      FunctionKey.GET_TOKEN_ALLOWANCE,
+      {
+        tokenAddress: token.address,
+        spenderAddress,
+        accountAddress,
+      },
+    ];
+
+    queryClient.setQueryData<GetAllowanceOutput>(queryKey, {
+      allowanceWei: MAX_UINT256,
+    });
 
     return (
       <QueryClientProvider client={queryClient}>

@@ -18,6 +18,7 @@ export const useStyles = () => {
     `,
     inlineButton: css`
       padding: 0;
+      height: auto;
 
       > span {
         font-weight: ${theme.typography.body1.fontWeight};

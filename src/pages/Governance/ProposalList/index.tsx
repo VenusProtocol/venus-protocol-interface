@@ -134,10 +134,14 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
 
   const {
     data: { proposals, total, limit = 5 } = { proposals: [] },
+    isLoading,
     isFetching: isGetProposalsFetching,
+    isPreviousData: isGetProposalsPreviousData,
   } = useGetProposals({
     page: currentPage,
   });
+
+  const isFetchingProposals = isLoading || (isGetProposalsFetching && isGetProposalsPreviousData);
 
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
@@ -165,7 +169,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
   return (
     <ProposalListUi
       proposals={proposals}
-      isLoading={isGetProposalsFetching}
+      isLoading={isFetchingProposals}
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}

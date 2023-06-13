@@ -1,4 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
@@ -18,9 +19,9 @@ export default {
 
 export const Default = () => (
   <HeaderUi
-    treasurySupplyBalanceCents={912902278}
-    treasuryBorrowBalanceCents={912902278}
-    treasuryLiquidityBalanceCents={912902278}
-    treasuryBalanceCents={912902278}
+    treasurySupplyBalanceCents={new BigNumber(912902278)}
+    treasuryBorrowBalanceCents={new BigNumber(912902278)}
+    treasuryLiquidityBalanceCents={new BigNumber(912902278)}
+    treasuryBalanceCents={new BigNumber(912902278)}
   />
 );

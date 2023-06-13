@@ -28,17 +28,6 @@ export const useStyles = () => {
       `}
     `,
     getButton: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      :not(:disabled) {
-        background-color: ${theme.palette.secondary.light};
-        border-color: ${theme.palette.secondary.light};
-      }
-
-      :hover:not(:disabled),
-      :active:not(:disabled) {
-        background-color: ${theme.palette.secondary.light};
-        border-color: ${theme.palette.text.secondary};
-      }
-
       > span {
         display: flex;
         align-items: center;
@@ -55,6 +44,11 @@ export const useStyles = () => {
       `}
     `,
     token: css`
+      > img {
+        width: ${theme.shape.iconSize.large}px;
+        height: ${theme.shape.iconSize.large}px;
+      }
+
       > span {
         font-size: ${theme.typography.small1.fontSize};
         font-weight: ${theme.typography.small1.fontWeight};

@@ -17,7 +17,7 @@ export const ValidProgressBar = () => (
 
 export const ProgressBarWithCustomProgressColor = () => (
   <ProgressBar
-    successColor="yellow"
+    progressBarColor="yellow"
     value={50}
     step={5}
     mark={75}

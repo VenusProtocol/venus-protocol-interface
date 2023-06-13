@@ -25,7 +25,7 @@ export interface ProgressBarProps {
   markTooltip?: TooltipProps['title'];
   className?: string;
   tooltipPlacement?: TooltipProps['placement'];
-  successColor?: string;
+  progressBarColor?: string;
 }
 
 export const ProgressBar = ({
@@ -40,7 +40,7 @@ export const ProgressBar = ({
   markTooltip,
   className,
   tooltipPlacement = 'top',
-  successColor = PALETTE.interactive.success,
+  progressBarColor = PALETTE.interactive.success,
 }: ProgressBarProps) => {
   const safeValue = value < max ? value : max;
 
@@ -48,7 +48,7 @@ export const ProgressBar = ({
   const styles = useStyles({
     over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
-    successColor,
+    progressBarColor,
   });
 
   const renderMark = (

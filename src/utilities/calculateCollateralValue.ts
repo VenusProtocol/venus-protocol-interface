@@ -4,17 +4,17 @@ import { convertWeiToTokens } from 'utilities';
 
 const calculateCollateralValue = ({
   token,
-  tokenPriceDollars,
+  tokenPriceCents,
   collateralFactor,
   amountWei,
 }: {
   token: Token;
-  tokenPriceDollars: Asset['tokenPriceDollars'];
+  tokenPriceCents: Asset['tokenPriceCents'];
   collateralFactor: Asset['collateralFactor'];
   amountWei: BigNumber;
 }) => {
   const collateralValue = convertWeiToTokens({ valueWei: amountWei, token })
-    .times(tokenPriceDollars)
+    .times(tokenPriceCents)
     .times(collateralFactor);
   return collateralValue;
 };

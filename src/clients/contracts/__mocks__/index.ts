@@ -36,7 +36,4 @@ export const useXvsVestingProxyContract = () => getXvsVestingProxyContract;
 export const getVrtConverterProxyContract = jest.fn();
 export const useVrtConverterProxyContract = () => getVrtConverterProxyContract;
 
-export const getVrtVaultProxyContract = jest.fn();
-export const useVrtVaultProxyContract = () => getVrtVaultProxyContract;
-
 export const getMaximillionContract = jest.fn();

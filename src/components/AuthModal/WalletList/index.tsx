@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import config from 'config';
+import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3/types';
 
+import { toast } from '../../Toast';
 import {
   INTEGRATED_WALLETS,
   UPCOMING_WALLETS,
@@ -15,12 +17,28 @@ import {
 import { useStyles } from './styles';
 
 export interface WalletListProps {
-  onLogin: (connector: Connector) => void;
+  onLogin: (connector: Connector) => Promise<void>;
 }
 
 export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
+
+  const handleLogin = async (connector: Connector) => {
+    try {
+      await onLogin(connector);
+    } catch (error) {
+      let { message } = error as Error;
+
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+
+      toast.error({
+        message,
+      });
+    }
+  };
 
   return (
     <div css={styles.container}>
@@ -31,7 +49,7 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
               css={styles.getListItem({ isActionable: true })}
               key={`wallet-${name}`}
               type="button"
-              onClick={() => onLogin(connector)}
+              onClick={() => handleLogin(connector)}
             >
               <Logo css={styles.walletLogo} />
 

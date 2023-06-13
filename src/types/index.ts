@@ -1,7 +1,7 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
-export type Environment = 'local' | 'mock' | 'testnet' | 'app-preview' | 'mainnet';
+export type Environment = 'local' | 'mock' | 'testnet' | 'preview' | 'mainnet';
 
 export enum BscChainId {
   'MAINNET' = 56,
@@ -16,7 +16,7 @@ export interface Token {
   isNative?: boolean;
 }
 
-export interface VToken extends Omit<Token, 'isNative'> {
+export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
 }
@@ -35,10 +35,10 @@ export interface AssetDistribution {
 
 export interface Asset {
   vToken: VToken;
-  tokenPriceDollars: BigNumber;
+  tokenPriceCents: BigNumber;
   reserveFactor: number;
   collateralFactor: number;
-  liquidityCents: number;
+  liquidityCents: BigNumber;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
   exchangeRateVTokens: BigNumber;
@@ -47,9 +47,9 @@ export interface Asset {
   borrowApyPercentage: BigNumber;
   supplyApyPercentage: BigNumber;
   supplyBalanceTokens: BigNumber;
-  supplyBalanceCents: number;
+  supplyBalanceCents: BigNumber;
   borrowBalanceTokens: BigNumber;
-  borrowBalanceCents: number;
+  borrowBalanceCents: BigNumber;
   supplyRatePerBlockTokens: BigNumber;
   borrowRatePerBlockTokens: BigNumber;
   distributions: AssetDistribution[];
@@ -59,11 +59,11 @@ export interface Asset {
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
   userSupplyBalanceTokens: BigNumber;
-  userSupplyBalanceCents: number;
+  userSupplyBalanceCents: BigNumber;
   userBorrowBalanceTokens: BigNumber;
-  userBorrowBalanceCents: number;
+  userBorrowBalanceCents: BigNumber;
   userWalletBalanceTokens: BigNumber;
-  userWalletBalanceCents: number;
+  userWalletBalanceCents: BigNumber;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
 }
@@ -75,9 +75,9 @@ export interface Pool {
   isIsolated: boolean;
   assets: Asset[];
   // User-specific props
-  userSupplyBalanceCents?: number;
-  userBorrowBalanceCents?: number;
-  userBorrowLimitCents?: number;
+  userSupplyBalanceCents?: BigNumber;
+  userBorrowBalanceCents?: BigNumber;
+  userBorrowLimitCents?: BigNumber;
 }
 
 export type ProposalState =
@@ -256,6 +256,7 @@ export interface Transaction {
   to: string;
   timestamp: Date;
   transactionHash: string;
+  logIndex: string;
   vTokenAddress: string;
 }
 

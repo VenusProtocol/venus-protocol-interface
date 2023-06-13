@@ -37,11 +37,6 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum PoolRegistryInterface.RiskRating",
-            "name": "riskRating",
-            "type": "uint8"
-          },
-          {
             "internalType": "string",
             "name": "category",
             "type": "string"
@@ -271,7 +266,7 @@
           }
         ],
         "internalType": "struct PoolLens.BadDebtSummary",
-        "name": "badDebtSummary",
+        "name": "",
         "type": "tuple"
       }
     ],
@@ -319,11 +314,6 @@
             "internalType": "uint256",
             "name": "timestampPosted",
             "type": "uint256"
-          },
-          {
-            "internalType": "enum PoolRegistryInterface.RiskRating",
-            "name": "riskRating",
-            "type": "uint8"
           },
           {
             "internalType": "string",
@@ -524,11 +514,6 @@
             "internalType": "uint256",
             "name": "timestampPosted",
             "type": "uint256"
-          },
-          {
-            "internalType": "enum PoolRegistryInterface.RiskRating",
-            "name": "riskRating",
-            "type": "uint8"
           },
           {
             "internalType": "string",

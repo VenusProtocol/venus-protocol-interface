@@ -7,7 +7,6 @@ import { useTranslation } from 'translation';
 import {
   compareBigNumbers,
   compareBooleans,
-  compareNumbers,
   compareStrings,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -122,11 +121,19 @@ const useGenerateColumns = ({
           }
 
           if (column === 'userWalletBalance') {
-            return formatTokensToReadableValue({
-              value: poolAsset.userSupplyBalanceTokens,
-              token: poolAsset.vToken.underlyingToken,
-              shortenLargeValue: true,
-            });
+            return (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.userWalletBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.userWalletBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            );
           }
 
           if (column === 'userSupplyBalance') {
@@ -238,7 +245,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'liquidity') {
-                  return compareNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
+                  return compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
                 }
 
                 if (column === 'pool') {
@@ -247,14 +254,14 @@ const useGenerateColumns = ({
 
                 if (column === 'userWalletBalance') {
                   return compareBigNumbers(
-                    rowA.userWalletBalanceTokens,
-                    rowB.userWalletBalanceTokens,
+                    rowA.userWalletBalanceCents,
+                    rowB.userWalletBalanceCents,
                     direction,
                   );
                 }
 
                 if (column === 'userSupplyBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.userSupplyBalanceCents,
                     rowB.userSupplyBalanceCents,
                     direction,
@@ -262,7 +269,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.userBorrowBalanceCents,
                     rowB.userBorrowBalanceCents,
                     direction,
@@ -270,7 +277,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'supplyBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.supplyBalanceCents,
                     rowB.supplyBalanceCents,
                     direction,
@@ -278,7 +285,7 @@ const useGenerateColumns = ({
                 }
 
                 if (column === 'borrowBalance') {
-                  return compareNumbers(
+                  return compareBigNumbers(
                     rowA.borrowBalanceCents,
                     rowB.borrowBalanceCents,
                     direction,

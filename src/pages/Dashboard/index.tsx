@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, TextField } from 'components';
+import { Announcement, ButtonGroup, QuinaryButton, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import { MAINNET_TOKENS } from 'constants/tokens';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -32,6 +32,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [selectedPoolName, setSelectedPoolName] = useState<string | undefined>();
 
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
@@ -42,6 +43,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const formattedPools = useFormatPools({
     pools,
     searchValue,
+    selectedPoolName,
   });
 
   const supplyMarketTableProps: MarketTableProps = {
@@ -76,7 +78,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     <>
       <ConnectWalletBanner />
 
-      <Announcement token={TOKENS.trxold} />
+      <Announcement token={MAINNET_TOKENS.beth} />
 
       <div css={styles.header}>
         <TextField
@@ -90,24 +92,41 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
               : t('dashboard.searchInput.placeholder')
           }
           leftIconSrc="magnifier"
+          variant="secondary"
         />
 
-        <ButtonGroup
-          css={[styles.tabletButtonGroup, showXlDownCss]}
-          fullWidth
-          buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-          activeButtonIndex={activeTabIndex}
-          onButtonClick={setActiveTabIndex}
-        />
+        {!isFeatureEnabled('isolatedPools') && (
+          <ButtonGroup
+            css={[styles.tabletButtonGroup, showXlDownCss]}
+            fullWidth
+            buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
+            activeButtonIndex={activeTabIndex}
+            onButtonClick={setActiveTabIndex}
+          />
+        )}
 
         <div css={styles.headerBottomRow}>
-          {isFeatureEnabled('isolatedPools') && (
-            <ButtonGroup
-              css={hideXlDownCss}
-              buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-              activeButtonIndex={activeTabIndex}
-              onButtonClick={setActiveTabIndex}
-            />
+          {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
+            <div css={styles.tags}>
+              <QuinaryButton
+                active={!selectedPoolName}
+                onClick={() => setSelectedPoolName(undefined)}
+                css={styles.tag}
+              >
+                {t('dashboard.allTag')}
+              </QuinaryButton>
+
+              {pools.map(pool => (
+                <QuinaryButton
+                  active={pool.name === selectedPoolName}
+                  onClick={() => setSelectedPoolName(pool.name)}
+                  css={styles.tag}
+                  key={`tag-${pool.name}`}
+                >
+                  {pool.name}
+                </QuinaryButton>
+              ))}
+            </div>
           )}
 
           <div css={styles.rightColumn}>
@@ -122,27 +141,32 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
                   : t('dashboard.searchInput.placeholder')
               }
               leftIconSrc="magnifier"
+              variant="secondary"
             />
           </div>
         </div>
       </div>
 
       {isFeatureEnabled('isolatedPools') ? (
-        <>
-          {activeTabIndex === 0 ? (
-            <MarketTable
-              {...supplyMarketTableProps}
-              key="dashboard-supply-market-table"
-              testId={TEST_IDS.supplyMarketTable}
-            />
-          ) : (
-            <MarketTable
-              {...borrowMarketTableProps}
-              key="dashboard-borrow-market-table"
-              testId={TEST_IDS.borrowMarketTable}
-            />
-          )}
-        </>
+        <MarketTable
+          pools={formattedPools}
+          isFetching={isFetchingPools}
+          breakpoint="lg"
+          columns={[
+            'asset',
+            'pool',
+            'userWalletBalance',
+            'labeledSupplyApyLtv',
+            'labeledBorrowApy',
+            'liquidity',
+          ]}
+          initialOrder={{
+            orderBy: 'userWalletBalance',
+            orderDirection: 'desc',
+          }}
+          testId={TEST_IDS.marketTable}
+          key="dashboard-market-table"
+        />
       ) : (
         <>
           <div css={[styles.desktopMarketTables, hideXlDownCss]}>

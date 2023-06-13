@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
+  ApproveToken,
   ConnectWallet,
-  EnableToken,
   FormikSubmitButton,
   LabeledInlineContent,
   Spinner,
@@ -115,8 +115,8 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('vai.mintVai.connectWallet')}>
-      <EnableToken
-        title={t('vai.mintVai.enableToken')}
+      <ApproveToken
+        title={t('vai.mintVai.approvedToken')}
         token={TOKENS.vai}
         spenderAddress={vaiControllerContractAddress}
       >
@@ -170,7 +170,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
             )}
           </AmountForm>
         )}
-      </EnableToken>
+      </ApproveToken>
     </ConnectWallet>
   );
 };

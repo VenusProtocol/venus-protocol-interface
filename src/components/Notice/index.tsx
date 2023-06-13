@@ -40,28 +40,33 @@ export const Notice = ({
   const styles = useStyles();
 
   return (
-    <div css={styles.root} {...otherProps}>
-      <Paper css={[styles.inner, styles.getInnerStyles({ variant })]} className={className}>
-        <Icon
-          css={[styles.icon, styles.getIconStyles({ variant })]}
-          name={getNoticeIconName(variant)}
-        />
-        <div css={styles.content}>
-          {title && (
-            <Typography variant="small2" color="text.primary" css={styles.title}>
-              {title}
-            </Typography>
-          )}
-          <Typography
-            variant="small2"
-            color="text.primary"
-            css={styles.getDescription({ hasMarginTop: !!title })}
-          >
-            {description}
+    <Paper
+      css={[styles.root, styles.getInnerStyles({ variant })]}
+      className={className}
+      {...otherProps}
+    >
+      <Icon
+        css={[styles.icon, styles.getIconStyles({ variant })]}
+        name={getNoticeIconName(variant)}
+        size={`${styles.iconSize}`}
+      />
+
+      <div css={styles.content}>
+        {title && (
+          <Typography variant="small2" color="text.primary" css={styles.title}>
+            {title}
           </Typography>
-        </div>
-      </Paper>
-    </div>
+        )}
+
+        <Typography
+          variant="small2"
+          color="text.primary"
+          css={styles.getDescription({ hasMarginTop: !!title })}
+        >
+          {description}
+        </Typography>
+      </div>
+    </Paper>
   );
 };
 

@@ -6,10 +6,6 @@ export interface VaiVaultClaim {
   contract: 'vaiVault';
 }
 
-export interface VrtVaultClaim {
-  contract: 'vrtVault';
-}
-
 export interface XvsVestingVaultClaim {
   contract: 'xvsVestingVault';
   rewardTokenAddress: string;
@@ -29,7 +25,6 @@ export interface RewardsDistributorClaim {
 
 export type Claim =
   | VaiVaultClaim
-  | VrtVaultClaim
   | XvsVestingVaultClaim
   | MainPoolComptrollerClaim
   | RewardsDistributorClaim;

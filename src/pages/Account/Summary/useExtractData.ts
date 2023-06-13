@@ -19,10 +19,10 @@ const useExtractData = ({ assets }: { assets: Asset[] }) =>
     const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
       (acc, asset) => ({
         totalBorrowCents: acc.totalBorrowCents.plus(
-          asset.userBorrowBalanceTokens.times(asset.tokenPriceDollars).times(100),
+          asset.userBorrowBalanceTokens.times(asset.tokenPriceCents),
         ),
         totalSupplyCents: acc.totalSupplyCents.plus(
-          asset.userSupplyBalanceTokens.times(asset.tokenPriceDollars).times(100),
+          asset.userSupplyBalanceTokens.times(asset.tokenPriceCents),
         ),
         borrowLimitCents: asset.isCollateralOfUser
           ? acc.borrowLimitCents.plus(
@@ -32,9 +32,9 @@ const useExtractData = ({ assets }: { assets: Asset[] }) =>
                   token: asset.vToken.underlyingToken,
                 }),
                 token: asset.vToken.underlyingToken,
-                tokenPriceDollars: asset.tokenPriceDollars,
+                tokenPriceCents: asset.tokenPriceCents,
                 collateralFactor: asset.collateralFactor,
-              }).times(100),
+              }),
             )
           : acc.borrowLimitCents,
       }),

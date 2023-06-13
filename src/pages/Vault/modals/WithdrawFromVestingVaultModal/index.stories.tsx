@@ -5,7 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
-import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import WithdrawFromVestingVaultModal, { WithdrawFromVestingVaultModalProps } from '.';
 
@@ -32,12 +32,12 @@ const authContext = {
 export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
-  stakedToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  stakedToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
 };
 Default.decorators = [
   withAuthContext(authContext),
-  withEnabledToken({
-    token: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  withApprovedToken({
+    token: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
     accountAddress: fakeAddress,
     spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
   }),

@@ -44,7 +44,7 @@ export const PALETTE = {
     error50: 'rgba(233, 61, 68, 0.5)',
     tan: 'rgba(255, 231, 206, 1)',
     delimiter: 'rgba(33, 41, 58, 1)',
-    warning: 'rgba(220, 148, 68, 1)',
+    warning: 'rgba(245, 120, 66, 1)',
     hover: 'rgba(32, 39, 56, 1)',
   },
 };

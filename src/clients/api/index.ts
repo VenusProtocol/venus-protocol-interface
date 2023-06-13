@@ -21,10 +21,6 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/approveToken/useApproveToken';
 
-export { default as convertVrt } from './mutations/convertVrt';
-export * from './mutations/convertVrt';
-export { default as useConvertVrt } from './mutations/convertVrt/useConvertVrt';
-
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
 export { default as useSupply } from './mutations/supply/useSupply';
@@ -78,10 +74,6 @@ export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
 export * from './mutations/stakeInVaiVault';
 export { default as useStakeInVaiVault } from './mutations/stakeInVaiVault/useStakeInVaiVault';
 
-export { default as stakeInVrtVault } from './mutations/stakeInVrtVault';
-export * from './mutations/stakeInVrtVault';
-export { default as useStakeInVrtVault } from './mutations/stakeInVrtVault/useStakeInVrtVault';
-
 export { default as castVote } from './mutations/vote/castVote';
 export * from './mutations/vote/castVote';
 export { default as useCastVote } from './mutations/vote/useCastVote';
@@ -93,10 +85,6 @@ export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWi
 export { default as withdrawFromVaiVault } from './mutations/withdrawFromVaiVault';
 export * from './mutations/withdrawFromVaiVault';
 export { default as useWithdrawFromVaiVault } from './mutations/withdrawFromVaiVault/useWithdrawFromVaiVault';
-
-export { default as withdrawFromVrtVault } from './mutations/withdrawFromVrtVault';
-export * from './mutations/withdrawFromVrtVault';
-export { default as useWithdrawFromVrtVault } from './mutations/withdrawFromVrtVault/useWithdrawFromVrtVault';
 
 export { default as requestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault';
 export * from './mutations/requestWithdrawalFromXvsVault';
@@ -294,14 +282,6 @@ export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVes
 export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
 export * from './queries/getVoteDelegateAddress';
 export { default as useGetVoteDelegateAddress } from './queries/getVoteDelegateAddress/useGetVoteDelegateAddress';
-
-export { default as getVrtVaultInterestRatePerBlock } from './queries/getVrtVaultInterestRatePerBlock';
-export * from './queries/getVrtVaultInterestRatePerBlock';
-export { default as useGetVrtVaultInterestRatePerBlock } from './queries/getVrtVaultInterestRatePerBlock/useGetVrtVaultInterestRatePerBlock';
-
-export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
-export * from './queries/getVrtVaultUserInfo';
-export { default as useGetVrtVaultUserInfo } from './queries/getVrtVaultUserInfo/useGetVrtVaultUserInfo';
 
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';

@@ -43,6 +43,8 @@ export const useStyles = () => {
       margin-bottom: ${theme.spacing(4)};
     `,
     link: css`
+      color: ${theme.palette.text.primary};
+
       :hover {
         text-decoration: none;
       }
@@ -174,10 +176,14 @@ export const useStyles = () => {
       text-overflow: ellipsis;
       padding: ${containsLink ? 0 : theme.spacing(0, 4)};
 
-      > a {
+      a {
         color: inherit;
         display: block;
         padding: ${containsLink ? theme.spacing(0, 4) : 0};
+      }
+
+      a > * {
+        color: inherit;
       }
 
       :first-of-type > a {

@@ -39,22 +39,6 @@ const formatOutput = ({
   }, []);
   pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
-  // Extract pending rewards from VRT vault
-  const vrtVaultPendingRewardWei = new BigNumber(
-    contractCallResults.results.vrtVault.callsReturnContext[0].returnValues[0].hex,
-  );
-
-  if (vrtVaultPendingRewardWei.isGreaterThan(0)) {
-    const vrtVaultRewardGroup: VaultPendingRewardGroup = {
-      type: 'vault',
-      stakedToken: TOKENS.vrt,
-      rewardToken: TOKENS.vrt,
-      rewardAmountWei: vrtVaultPendingRewardWei,
-    };
-
-    pendingRewardGroups.push(vrtVaultRewardGroup);
-  }
-
   // Extract pending rewards from VAI vault
   const vaiVaultPendingRewardWei = new BigNumber(
     contractCallResults.results.vaiVault.callsReturnContext[0].returnValues[0].hex,
@@ -84,8 +68,8 @@ const formatOutput = ({
     const pendingRewardWei = new BigNumber(xvsVestingVaultResults[v + 1].returnValues[0].hex);
 
     const hasPendingWithdrawalsFromBeforeUpgrade =
-      !!xvsVestingVaultResults[v].returnValues[2] &&
-      new BigNumber(xvsVestingVaultResults[v].returnValues[2].hex).isGreaterThan(0);
+      !!xvsVestingVaultResults[v + 2].returnValues[0] &&
+      new BigNumber(xvsVestingVaultResults[v + 2].returnValues[0].hex).isGreaterThan(0);
 
     if (
       !hasPendingWithdrawalsFromBeforeUpgrade &&

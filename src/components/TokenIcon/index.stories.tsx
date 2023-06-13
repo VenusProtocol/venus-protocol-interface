@@ -41,16 +41,16 @@ export const Default = () => (
     <h2 style={{ marginBottom: '12px' }}>VBep20 tokens (testnet)</h2>
 
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px 24px' }}>
-      {Object.values(VBEP_TOKENS).map(token => (
+      {Object.values(VBEP_TOKENS).map(vToken => (
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
           }}
         >
-          <h4 style={{ marginRight: '8px' }}>{token.symbol}</h4>
+          <h4 style={{ marginRight: '8px' }}>{vToken.symbol}</h4>
 
-          <TokenIcon token={token} />
+          <TokenIcon token={vToken.underlyingToken} />
         </div>
       ))}
     </div>

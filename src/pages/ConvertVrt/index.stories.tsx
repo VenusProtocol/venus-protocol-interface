@@ -37,20 +37,10 @@ export const ConnectWallet = () => <ConvertVRT />;
 
 export const Enable = Template.bind({});
 Enable.decorators = [withAuthContext(context)];
-Enable.args = {
-  xvsToVrtConversionRatio: new BigNumber('0.000083'),
-  vrtConversionEndTime: new Date('1678859525'),
-};
+Enable.args = {};
 
-export const ConvertTab = () => (
-  <ConvertComp
-    xvsToVrtConversionRatio={new BigNumber(0.000006333)}
-    vrtConversionEndTime={new Date(Date.now() + 60 * 60 * 24 * 3)}
-    userVrtBalanceWei={new BigNumber(33333)}
-    convertVrtLoading={false}
-    convertVrt={noop}
-  />
-);
+export const ConvertTab = () => <ConvertComp />;
+
 ConvertTab.decorators = [withAuthContext(context)];
 
 export const WithdrawTab = () => (

@@ -5,7 +5,6 @@ import { getContractAddress } from 'utilities';
 // TODO: import ABIs from npm package (see VEN-836)
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import {
   checkForComptrollerTransactionError,
@@ -23,7 +22,6 @@ export * from './types';
 // TODO: get addresses from npm package (see VEN-836)
 const comptrollerAddress = getContractAddress('comptroller');
 const vaiVaultAddress = getContractAddress('vaiVault');
-const vrtVaultAddress = getContractAddress('vrtVaultProxy');
 const xvsVaultAddress = getContractAddress('xvsVaultProxy');
 
 const claimRewards = async ({
@@ -53,17 +51,6 @@ const claimRewards = async ({
 
       return {
         target: vaiVaultAddress,
-        callData,
-      };
-    }
-
-    if (claim.contract === 'vrtVault') {
-      const executingInterface = new ethers.utils.Interface(JSON.stringify(vrtVaultAbi));
-
-      const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
-
-      return {
-        target: vrtVaultAddress,
         callData,
       };
     }

@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Asset } from 'types';
 import { formatToReadablePercentage, getCombinedDistributionApys } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
-
 export interface UseAssetInfoInput {
   asset?: Asset;
   type: 'supply' | 'borrow';
@@ -20,7 +18,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
 
     const distributionRows = asset.distributions.map(distribution => ({
       label: t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
-      iconSrc: TOKENS.xvs,
+      iconSrc: distribution.token,
       children: formatToReadablePercentage(
         type === 'borrow' ? distribution.borrowApyPercentage : distribution.supplyApyPercentage,
       ),

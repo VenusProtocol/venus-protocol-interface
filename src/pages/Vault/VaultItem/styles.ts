@@ -7,6 +7,8 @@ export const useStyles = () => {
   return {
     container: css`
       width: 100%;
+      display: flex;
+      flex-direction: column;
     `,
     header: css`
       display: flex;
@@ -19,13 +21,13 @@ export const useStyles = () => {
       align-items: center;
     `,
     tokenIcon: css`
-      width: ${theme.shape.iconSize.large}px;
-      height: ${theme.shape.iconSize.large}px;
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
       margin-right: ${theme.spacing(1)};
     `,
     tokenIconLarge: css`
-      width: ${theme.shape.iconSize.xLarge}px;
-      height: ${theme.shape.iconSize.xLarge}px;
+      width: ${theme.spacing(8)};
+      height: ${theme.spacing(8)};
       margin-right: ${theme.spacing(2)};
     `,
     tokenIconWithdraw: css`
@@ -97,7 +99,7 @@ export const useStyles = () => {
     buttonsWrapper: css`
       display: flex;
       justify-content: space-between;
-      margin-top: ${theme.spacing(8)};
+      margin-top: auto;
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
@@ -105,6 +107,7 @@ export const useStyles = () => {
       }
     `,
     button: css`
+      margin-top: ${theme.spacing(8)};
       width: calc(50% - ${theme.spacing(2)});
 
       ${theme.breakpoints.down('sm')} {

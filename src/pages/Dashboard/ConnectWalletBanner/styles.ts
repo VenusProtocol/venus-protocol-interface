@@ -18,15 +18,7 @@ export const useStyles = () => {
     `,
     content: css`
       flex: 4;
-      padding: ${theme.spacing(10)};
-
-      ${theme.breakpoints.down('lg')} {
-        flex: 5;
-      }
-
-      ${theme.breakpoints.down('md')} {
-        padding: ${theme.spacing(6)};
-      }
+      padding: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('sm')} {
         flex: initial;
@@ -35,7 +27,7 @@ export const useStyles = () => {
       }
     `,
     title: css`
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(3)};
     `,
     description: css`
       margin-bottom: ${theme.spacing(8)};
@@ -59,30 +51,27 @@ export const useStyles = () => {
         flex: initial;
         order: -1;
         overflow: hidden;
-        background-color: #313239;
+        background-color: ${theme.palette.secondary.light};
       }
     `,
     illustration: css`
       position: absolute;
-      height: ${theme.spacing(219)};
-      top: ${theme.spacing(-45)};
-      left: ${theme.spacing(-18)};
+      height: ${theme.spacing(125)};
+      top: ${theme.spacing(-17)};
+      right: ${theme.spacing(-12)};
 
       ${theme.breakpoints.down('xl')} {
-        height: ${theme.spacing(156)};
-        top: ${theme.spacing(-15)};
-        left: ${theme.spacing(-10)};
+        right: ${theme.spacing(-24)};
       }
 
       ${theme.breakpoints.down('lg')} {
-        height: ${theme.spacing(112)};
-        top: 0;
-        left: ${theme.spacing(-6)};
+        right: ${theme.spacing(-68)};
       }
 
       ${theme.breakpoints.down('sm')} {
         height: auto;
         width: ${theme.spacing(102)};
+        top: ${theme.spacing(-8)};
         left: auto;
         right: 50%;
         margin-right: ${theme.spacing(-57)};

@@ -2,23 +2,39 @@ import { Token } from 'types';
 
 import aave from 'assets/img/tokens/aave.svg';
 import ada from 'assets/img/tokens/ada.svg';
+import alpaca from 'assets/img/tokens/alpaca.svg';
+import ankr from 'assets/img/tokens/ankr.svg';
+import ankrBNB from 'assets/img/tokens/ankrBNB.svg';
+import bifi from 'assets/img/tokens/bifi.png';
 import bnb from 'assets/img/tokens/bnb.svg';
+import bnbx from 'assets/img/tokens/bnbx.png';
+import bsw from 'assets/img/tokens/bsw.svg';
 import btcb from 'assets/img/tokens/btcb.svg';
+import btt from 'assets/img/tokens/btt.svg';
 import busd from 'assets/img/tokens/busd.svg';
 import cake from 'assets/img/tokens/cake.svg';
 import doge from 'assets/img/tokens/doge.svg';
 import eth from 'assets/img/tokens/eth.svg';
+import floki from 'assets/img/tokens/floki.svg';
+import hay from 'assets/img/tokens/hay.png';
 import ltc from 'assets/img/tokens/ltc.svg';
 import luna from 'assets/img/tokens/luna.svg';
 import matic from 'assets/img/tokens/matic.svg';
+import nft from 'assets/img/tokens/nft.png';
+import raca from 'assets/img/tokens/raca.png';
+import stkBNB from 'assets/img/tokens/stkBNB.svg';
 import sxp from 'assets/img/tokens/sxp.svg';
 import trx from 'assets/img/tokens/trx.svg';
 import tusd from 'assets/img/tokens/tusd.svg';
 import usdc from 'assets/img/tokens/usdc.svg';
+import usdd from 'assets/img/tokens/usdd.svg';
 import usdt from 'assets/img/tokens/usdt.svg';
 import ust from 'assets/img/tokens/ust.svg';
 import vai from 'assets/img/tokens/vai.svg';
 import vrt from 'assets/img/tokens/vrt.svg';
+import wbnb from 'assets/img/tokens/wbnb.svg';
+import win from 'assets/img/tokens/win.svg';
+import woo from 'assets/img/tokens/woo.svg';
 import xrp from 'assets/img/tokens/xrp.svg';
 import xvs from 'assets/img/tokens/xvs.svg';
 
@@ -162,17 +178,59 @@ export const TESTNET_TOKENS = {
     symbol: 'BNX',
     asset: xvs, // TODO: add correct asset
   } as Token,
+  alpaca: {
+    address: '0x6923189d91fdF62dBAe623a55273F1d20306D9f2',
+    decimals: 18,
+    symbol: 'ALPACA',
+    asset: alpaca,
+  } as Token,
   ankr: {
     address: '0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B',
     decimals: 18,
     symbol: 'ANKR',
-    asset: xvs, // TODO: add correct asset
+    asset: ankr,
   } as Token,
   ankrbnb: {
     address: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
     decimals: 18,
     symbol: 'ankrBNB',
-    asset: xvs, // TODO: add correct asset
+    asset: ankrBNB,
+  } as Token,
+  bifi: {
+    address: '0x5B662703775171c4212F2FBAdb7F92e64116c154',
+    decimals: 18,
+    symbol: 'BIFI',
+    asset: bifi,
+  } as Token,
+  bnbx: {
+    address: '0x327d6E6FAC0228070884e913263CFF9eFed4a2C8',
+    decimals: 18,
+    symbol: 'BNBx',
+    asset: bnbx,
+  } as Token,
+  bsw: {
+    address: '0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE',
+    decimals: 18,
+    symbol: 'BSW',
+    asset: bsw,
+  } as Token,
+  btt: {
+    address: '0xE98344A7c691B200EF47c9b8829110087D832C64',
+    decimals: 18,
+    symbol: 'BTT',
+    asset: btt,
+  } as Token,
+  floki: {
+    address: '0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88',
+    decimals: 18,
+    symbol: 'FLOKI',
+    asset: floki,
+  } as Token,
+  hay: {
+    address: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
+    decimals: 18,
+    symbol: 'HAY',
+    asset: hay,
   } as Token,
   mobx: {
     address: '0x523027fFdf9B18Aa652dBcd6B92f885009153dA3',
@@ -184,24 +242,42 @@ export const TESTNET_TOKENS = {
     address: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
     decimals: 18,
     symbol: 'NFT',
-    asset: xvs, // TODO: add correct asset
+    asset: nft,
   } as Token,
   raca: {
     address: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
     decimals: 18,
     symbol: 'RACA',
-    asset: xvs, // TODO: add correct asset
+    asset: raca,
   } as Token,
   stkbnb: {
     address: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
     decimals: 18,
     symbol: 'stkBNB',
-    asset: xvs, // TODO: add correct asset
+    asset: stkBNB,
   } as Token,
   usdd: {
     address: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
     decimals: 18,
     symbol: 'USDD',
-    asset: xvs, // TODO: add correct asset
+    asset: usdd,
+  } as Token,
+  wbnb: {
+    symbol: 'WBNB',
+    decimals: 18,
+    address: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+    asset: wbnb,
+  } as Token,
+  win: {
+    address: '0x2E6Af3f3F059F43D764060968658c9F3c8f9479D',
+    decimals: 18,
+    symbol: 'WIN',
+    asset: win,
+  } as Token,
+  woo: {
+    address: '0x65B849A4Fc306AF413E341D44dF8482F963fBB91',
+    decimals: 18,
+    symbol: 'WOO',
+    asset: woo,
   } as Token,
 };

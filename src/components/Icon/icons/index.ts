@@ -23,6 +23,7 @@ export { default as github } from './github';
 export { default as venus } from './venus';
 export { default as convert } from './convert';
 export { default as close } from './close';
+export { default as closeRounded } from './closeRounded';
 export { default as open } from './open';
 export { default as copy } from './copy';
 export { default as attention } from './attention';

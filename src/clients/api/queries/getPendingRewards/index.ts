@@ -4,7 +4,6 @@ import { getContractAddress } from 'utilities';
 
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
-import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import { TOKENS } from 'constants/tokens';
 
@@ -12,8 +11,7 @@ import formatOutput from './formatOutput';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
 
 const venusLensAddress = getContractAddress('venusLens');
-const poolLensAddress = getContractAddress('poolLens');
-const vrtVaultAddress = getContractAddress('vrtVaultProxy');
+const poolLensAddress = getContractAddress('PoolLens');
 const vaiVaultAddress = getContractAddress('vaiVault');
 const xvsVaultAddress = getContractAddress('xvsVaultProxy');
 
@@ -40,18 +38,6 @@ const getPendingRewardGroups = async ({
       ],
     },
     // Pending rewards from vaults
-    {
-      reference: 'vrtVault',
-      contractAddress: vrtVaultAddress,
-      abi: vrtVaultAbi,
-      calls: [
-        {
-          reference: 'getAccruedInterest',
-          methodName: 'getAccruedInterest',
-          methodParameters: [accountAddress],
-        },
-      ],
-    },
     {
       reference: 'vaiVault',
       contractAddress: vaiVaultAddress,

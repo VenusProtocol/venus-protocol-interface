@@ -13,6 +13,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0xD4aDbd5ed497c7720127Bfe9b05D725aC72ae2a9',
     transactionHash: '0x6b8f0ebd99034cf5bec250a2e14b1d594e85be39a2cecd1193536e9576897800',
+    logIndex: '1',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -24,6 +25,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
     transactionHash: '0xb1739f27bf65398459df3228c0c74d955e8438e831fbde17506490368b264bf4',
+    logIndex: '2',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -35,6 +37,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0x8eE02B3FeCcae787992c4790bc31b350E7d1F382',
     transactionHash: '0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7',
+    logIndex: '3',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -46,6 +49,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x40bcf58c72dcf0f56cf349155178de5d5b34b1cc36a00ee3c52789538acbfa23',
+    logIndex: '4',
     vTokenAddress: '0x74469281310195a04840daf6edf576f559a3de80',
   },
   {
@@ -57,6 +61,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x389d646c3b3516eb905a571e327b4a368757f9c24963efe88e9c3cb6bacd89c4',
+    logIndex: '5',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -68,6 +73,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0xa60dF6af57fb55c62511cA96eD6dA0AfE977436b',
     transactionHash: '0xc2fff9b3781c39d727773f8233e72a45af3d49fa967057a7f1c7724ef244882e',
+    logIndex: '6',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -79,6 +85,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0xebc9e9d632f30fe45b7181801eb7c03e60b275c207c7d8ebb5e317a1becf9f5b',
+    logIndex: '7',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -90,6 +97,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x862bdfa3b617562c5729b258728d2e504856c6f267bbba80fc432c3a8afe29fd',
+    logIndex: '8',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -101,6 +109,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x85dca6ce86ae0e68b7a6486c72109322781fc4fdfd87bfccd59be258b7e7d8a1',
+    logIndex: '9',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -112,6 +121,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x496c5be16dcd2c1127f45879e0e571bb63b31cf197cbf069cf81cadf23686cfc',
+    logIndex: '10',
     vTokenAddress: '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
   },
   {
@@ -123,6 +133,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x4eeeab99581780110930b584faa5a2290c6dd989da23d67142da94aef6e2567c',
+    logIndex: '11',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -134,6 +145,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0x7b702744A7F9042670FD3d294eD81C82bA6A0350',
     transactionHash: '0x000e045d8120d6de9a36e0d24bfcff2a52f8dbb2612e507fbe1d89d772a4f335',
+    logIndex: '12',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -145,6 +157,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x65f3e3923876aca08d4a4b6ad2e0a985f049732ede665faacf0490b04d35144d',
+    logIndex: '13',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -156,6 +169,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
     transactionHash: '0x406ed11513e989a8532130c88a776416d91166aede02d152500af64700f63a76',
+    logIndex: '14',
     vTokenAddress: '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
   },
   {
@@ -167,6 +181,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C',
     transactionHash: '0xbd3324f298e8064e7cd6e4d53b322ea5778a79003abb25e010340857ac2ef5e2',
+    logIndex: '15',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -178,6 +193,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x85df57add40993d57b11b203743ffb3ec7b615c684c79754c84217e645898717',
+    logIndex: '16',
     vTokenAddress: '0x37c28de42ba3d22217995d146fc684b2326ede64',
   },
   {
@@ -189,6 +205,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C',
     transactionHash: '0x102add48b0ce2de31d39b45d4e1bb8f55eb45c884146607487d09857b1b0bf7b',
+    logIndex: '17',
     vTokenAddress: '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
   },
   {
@@ -200,6 +217,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C',
     transactionHash: '0x839f73ce52cd04472dcea7e7b6670d3027ebd309e9bd7170345965d96ffed914',
+    logIndex: '18',
     vTokenAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
   },
   {
@@ -211,6 +229,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '',
     transactionHash: '0x716d01587f26bbe313dab9858756f32c79efd5b0d33609e8ad7a294dfa7a6d31',
+    logIndex: '19',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
   {
@@ -222,6 +241,7 @@ export const transactionResponse: TransactionResponse[] = [
     timestamp: 1677583364669,
     to: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
     transactionHash: '0x51cea410036b49398541f309c855acd8ec51f3ea802a61a85edd0af67944767d',
+    logIndex: '20',
     vTokenAddress: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
   },
 ];

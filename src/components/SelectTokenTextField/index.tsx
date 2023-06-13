@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Token, TokenBalance } from 'types';
 
-import { PrimaryButton, TertiaryButton } from '../Button';
+import { TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
@@ -55,9 +55,8 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
         onChange={onChange}
         rightAdornment={
           <>
-            <PrimaryButton
+            <TertiaryButton
               onClick={handleButtonClick}
-              small
               css={styles.getButton({ isTokenListShown })}
               disabled={disabled}
               data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
@@ -65,11 +64,10 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               <TokenIconWithSymbol token={selectedToken} css={styles.token} />
 
               <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
-            </PrimaryButton>
+            </TertiaryButton>
 
             {rightMaxButton && (
               <TertiaryButton
-                small
                 disabled={disabled}
                 css={styles.maxButton}
                 data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}

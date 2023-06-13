@@ -7,31 +7,41 @@ const ONE_THOUSAND = 1000;
 export const shortenValueWithSuffix = ({
   value,
   outputsDollars = false,
+  showAllDecimals = false,
 }: {
   value: BigNumber;
   outputsDollars?: boolean;
+  showAllDecimals?: boolean;
 }) => {
+  const decimals = showAllDecimals ? undefined : 2;
+
   if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
-    return `${value.dividedBy(ONE_BILLION).toFormat(2)}B`;
+    return `${value.dividedBy(ONE_BILLION).toFormat(decimals)}B`;
   }
 
   if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
-    return `${value.dividedBy(ONE_MILLION).toFormat(2)}M`;
+    return `${value.dividedBy(ONE_MILLION).toFormat(decimals)}M`;
   }
 
   if (value.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
-    return `${value.dividedBy(ONE_THOUSAND).toFormat(2)}K`;
+    return `${value.dividedBy(ONE_THOUSAND).toFormat(decimals)}K`;
   }
 
   if (value.isGreaterThanOrEqualTo(1)) {
-    return value.toFormat(2);
+    return value.toFormat(decimals);
   }
 
   if (value.isEqualTo(0) && !outputsDollars) {
     return '0';
   }
 
-  return value.toFormat(outputsDollars ? 2 : 8);
+  let smallValueDecimals;
+
+  if (!showAllDecimals) {
+    smallValueDecimals = outputsDollars ? 2 : 8;
+  }
+
+  return value.toFormat(smallValueDecimals);
 };
 
 export default shortenValueWithSuffix;

@@ -59,10 +59,6 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
     `,
-    xvsIconContainer: css`
-      height: ${theme.shape.iconSize.large}px;
-      width: ${theme.shape.iconSize.large}px;
-    `,
     copyIconContainer: css`
       height: ${theme.shape.iconSize.xLarge}px;
       width: ${theme.shape.iconSize.xLarge}px;
@@ -70,10 +66,6 @@ export const useStyles = () => {
       &:hover > svg {
         color: ${theme.palette.button.medium};
       }
-    `,
-    icon: css`
-      width: ${theme.shape.iconSize.large}px;
-      height: ${theme.shape.iconSize.large}px;
     `,
     iconSizeXl: `${theme.shape.iconSize.xLarge}px`,
     slider: css`

@@ -6,13 +6,11 @@ export const useStyles = () => {
 
   return {
     header: css`
+      flex: 1;
       margin-bottom: ${theme.spacing(8)};
-      display: flex;
-      align-items: center;
 
       ${theme.breakpoints.down('xxl')} {
         margin-bottom: ${theme.spacing(6)};
-        display: block;
       }
     `,
     headerDescription: css`

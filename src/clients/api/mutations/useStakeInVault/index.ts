@@ -3,7 +3,7 @@ import { VError } from 'errors';
 import { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
-import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';
+import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 
 export interface UseStakeInVaultInput {
@@ -24,11 +24,7 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
   const { mutateAsync: stakeInVaiVault, isLoading: isStakeInVaiVaultLoading } =
     useStakeInVaiVault();
 
-  const { mutateAsync: stakeInVrtVault, isLoading: isStakeInVrtVaultLoading } =
-    useStakeInVrtVault();
-
-  const isLoading =
-    isStakeInXvsVaultLoading || isStakeInVaiVaultLoading || isStakeInVrtVaultLoading;
+  const isLoading = isStakeInXvsVaultLoading || isStakeInVaiVaultLoading;
 
   const stake = async ({ amountWei }: StakeInput) => {
     if (typeof poolIndex === 'number') {
@@ -41,12 +37,6 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
 
     if (areTokensEqual(stakedToken, TOKENS.vai)) {
       return stakeInVaiVault({
-        amountWei,
-      });
-    }
-
-    if (areTokensEqual(stakedToken, TOKENS.vrt)) {
-      return stakeInVrtVault({
         amountWei,
       });
     }

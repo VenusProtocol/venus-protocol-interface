@@ -117,7 +117,7 @@ export function Table<R>({
       </MuiTableContainer>
 
       <TableCards
-        data={data}
+        data={sortedData}
         rowKeyExtractor={rowKeyExtractor}
         rowOnClick={rowOnClick}
         getRowHref={getRowHref}
