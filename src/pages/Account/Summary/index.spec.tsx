@@ -21,14 +21,14 @@ describe('pages/Account/Summary', () => {
     expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
   });
 
-  it('displays total vault staking when passing vaults prop and displayTotalVaultStaking prop as true', () => {
+  it('displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true', () => {
     const { getByTestId } = renderComponent(
       <Summary
         pools={poolData}
         vaults={vaults}
         xvsPriceCents={new BigNumber(100)}
         vaiPriceCents={new BigNumber(328)}
-        displayTotalVaultStaking
+        displayTotalVaultStake
       />,
     );
 

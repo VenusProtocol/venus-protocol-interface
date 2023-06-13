@@ -4,4 +4,4 @@ exports[`pages/Account/Summary displays account health when passing displayAccou
 
 exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY0.96%Daily Earnings$0.02Total Supply$645.22Total Borrow$270.03"`;
 
-exports[`pages/Account/Summary displays total vault staking when passing vaults prop and displayTotalVaultStaking prop as true 1`] = `"Net APY4.13%Daily Earnings$0.10Total Supply$645.22Total Borrow$270.03Total Vault Staking$233.00"`;
+exports[`pages/Account/Summary displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true 1`] = `"Net APY4.13%Daily Earnings$0.10Total Supply$645.22Total Borrow$270.03Total Vault Stake$233.00"`;

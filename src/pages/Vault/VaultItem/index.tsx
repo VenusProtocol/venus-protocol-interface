@@ -123,12 +123,12 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         </div>
 
         <Typography variant="small2" css={[styles.label, styles.stakingLabel]}>
-          {t('vaultItem.youAreStaking')}
+          {t('vaultItem.youAreStake')}
         </Typography>
 
         <Typography
           variant="h1"
-          css={styles.textStakingValue}
+          css={styles.textStakeValue}
           data-testid={TEST_IDS.userStakedTokens}
         >
           <TokenIcon css={[styles.tokenIconLarge]} token={stakedToken} />

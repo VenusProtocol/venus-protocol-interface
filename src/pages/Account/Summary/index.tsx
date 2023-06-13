@@ -19,7 +19,7 @@ export interface SummaryProps {
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   displayAccountHealth?: boolean;
-  displayTotalVaultStaking?: boolean;
+  displayTotalVaultStake?: boolean;
   className?: string;
 }
 
@@ -27,7 +27,7 @@ export const Summary: React.FC<SummaryProps> = ({
   pools,
   vaults,
   displayAccountHealth = false,
-  displayTotalVaultStaking = false,
+  displayTotalVaultStake = false,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
   className,
@@ -43,7 +43,7 @@ export const Summary: React.FC<SummaryProps> = ({
   const {
     totalSupplyCents,
     totalBorrowCents,
-    totalVaultStakingCents,
+    totalVaultStakeCents,
     borrowLimitCents,
     readableSafeBorrowLimit,
     safeBorrowLimitPercentage,
@@ -60,8 +60,8 @@ export const Summary: React.FC<SummaryProps> = ({
     {
       label: t('account.marketBreakdown.cellGroup.netApy'),
       value: formatToReadablePercentage(netApyPercentage),
-      tooltip: displayTotalVaultStaking
-        ? t('account.marketBreakdown.cellGroup.netApyWithVaultStakingTooltip')
+      tooltip: displayTotalVaultStake
+        ? t('account.marketBreakdown.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.marketBreakdown.cellGroup.netApyTooltip'),
       color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
     },
@@ -79,10 +79,10 @@ export const Summary: React.FC<SummaryProps> = ({
     },
   ];
 
-  if (displayTotalVaultStaking) {
+  if (displayTotalVaultStake) {
     cells.push({
-      label: t('account.marketBreakdown.cellGroup.totalVaultStaking'),
-      value: formatCentsToReadableValue({ value: totalVaultStakingCents }),
+      label: t('account.marketBreakdown.cellGroup.totalVaultStake'),
+      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
     });
   }
 

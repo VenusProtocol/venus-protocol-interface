@@ -83,11 +83,13 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
           vaults={filteredVaults}
           xvsPriceCents={xvsPriceCents}
           vaiPriceCents={VAI_PRICE_CENTS}
-          displayTotalVaultStaking
+          displayTotalVaultStake
         />
       )}
 
-      {filteredVaults.length > 0 && <VaultsBreakdown vaults={filteredVaults} />}
+      {filteredVaults.length > 0 && (
+        <VaultsBreakdown css={styles.section} vaults={filteredVaults} />
+      )}
 
       {filteredPools.map(pool => (
         <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />

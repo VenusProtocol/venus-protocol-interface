@@ -56,9 +56,9 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
       },
     );
 
-    const { totalVaultStakingCents, yearlyVaultEarningsCents } = vaults.reduce(
-      (accTotalVaultStakingCents, vault) => {
-        const vaultStakingCents = convertWeiToTokens({
+    const { totalVaultStakeCents, yearlyVaultEarningsCents } = vaults.reduce(
+      (accTotalVaultStakeCents, vault) => {
+        const vaultStakeCents = convertWeiToTokens({
           valueWei: new BigNumber(vault.userStakedWei || 0),
           token: vault.stakedToken,
         }).multipliedBy(
@@ -66,17 +66,16 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
         );
 
         return {
-          totalVaultStakingCents:
-            accTotalVaultStakingCents.totalVaultStakingCents.plus(vaultStakingCents),
-          yearlyVaultEarningsCents: accTotalVaultStakingCents.yearlyVaultEarningsCents.plus(
+          totalVaultStakeCents: accTotalVaultStakeCents.totalVaultStakeCents.plus(vaultStakeCents),
+          yearlyVaultEarningsCents: accTotalVaultStakeCents.yearlyVaultEarningsCents.plus(
             calculateYearlyEarnings({
-              balance: vaultStakingCents,
+              balance: vaultStakeCents,
               interestPercentage: new BigNumber(vault.stakingAprPercentage),
             }),
           ),
         };
       },
-      { totalVaultStakingCents: new BigNumber(0), yearlyVaultEarningsCents: new BigNumber(0) },
+      { totalVaultStakeCents: new BigNumber(0), yearlyVaultEarningsCents: new BigNumber(0) },
     );
 
     const yearlyAssetEarningsCents = new BigNumber(
@@ -91,7 +90,7 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
     const netApyPercentageTmp =
       yearlyAssetEarningsCents &&
       calculateNetApy({
-        supplyBalanceCents: totalSupplyCents.plus(totalVaultStakingCents),
+        supplyBalanceCents: totalSupplyCents.plus(totalVaultStakeCents),
         yearlyEarningsCents,
       });
 
@@ -112,7 +111,7 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
       netApyPercentage: netApyPercentageTmp,
       readableSafeBorrowLimit: readableSafeBorrowLimitTmp,
       safeBorrowLimitPercentage: safeBorrowLimitPercentageTmp,
-      totalVaultStakingCents,
+      totalVaultStakeCents,
       totalBorrowCents,
       totalSupplyCents,
       borrowLimitCents,

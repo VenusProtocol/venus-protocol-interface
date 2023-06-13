@@ -5,10 +5,12 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    title: css`
-      display: flex;
-      align-items: center;
-      margin-bottom: ${theme.spacing(4)};
+    table: css`
+      width: calc(50% - ${theme.spacing(3)});
+
+      ${theme.breakpoints.down('lg')} {
+        width: auto;
+      }
     `,
   };
 };

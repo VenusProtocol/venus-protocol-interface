@@ -50,7 +50,7 @@ export const useStyles = () => {
     textRewardValue: css`
       font-weight: 600;
     `,
-    textStakingValue: css`
+    textStakeValue: css`
       display: inline-flex;
       align-items: center;
     `,
