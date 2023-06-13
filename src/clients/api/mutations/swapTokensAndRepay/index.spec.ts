@@ -70,7 +70,6 @@ describe('api/mutation/swapTokensAndRepay', () => {
 
     expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledTimes(1);
     expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
       customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,
       expect.any(Number),
@@ -118,12 +117,12 @@ describe('api/mutation/swapTokensAndRepay', () => {
 
   it('calls the right contract method when selling an exact amount of non-native tokens to repay as many non-native tokens as possible', async () => {
     const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapAndRepayMock = jest.fn(() => ({
+    const swapExactTokensForTokensAndRepayMock = jest.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapAndRepay: swapAndRepayMock,
+      swapExactTokensForTokensAndRepay: swapExactTokensForTokensAndRepayMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
@@ -134,8 +133,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       isRepayingFullLoan: false,
     });
 
-    expect(swapAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapAndRepayMock).toHaveBeenCalledWith(
+    expect(swapExactTokensForTokensAndRepayMock).toHaveBeenCalledTimes(1);
+    expect(swapExactTokensForTokensAndRepayMock).toHaveBeenCalledWith(
       fakeVToken.address,
       fakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       fakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
@@ -210,7 +209,6 @@ describe('api/mutation/swapTokensAndRepay', () => {
 
     expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledTimes(1);
     expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
       customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountInSwap.routePath,
@@ -314,7 +312,6 @@ describe('api/mutation/swapTokensAndRepay', () => {
 
     expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledTimes(1);
     expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
       customFakeExactAmountOutSwap.toTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,
