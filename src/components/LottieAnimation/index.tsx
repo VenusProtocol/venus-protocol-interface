@@ -14,7 +14,7 @@ export interface LottieAnimationProps {
 
 export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   name,
-  autoplay = !process.env.STORYBOOK,
+  autoplay = !import.meta.env.STORYBOOK,
   loop = true,
   className,
 }) => {

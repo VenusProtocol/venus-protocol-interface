@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const codegenConfig: CodegenConfig = {
-  schema: process.env.SUBGRAPH_GRAPHQL_ENDPOINT,
+  schema: import.meta.env.SUBGRAPH_GRAPHQL_ENDPOINT,
   documents: ['src/clients/subgraph/**/*.graphql'],
   generates: {
     './src/clients/subgraph/gql/queries.ts': {
@@ -9,7 +9,9 @@ const codegenConfig: CodegenConfig = {
         {
           add: {
             placement: 'append',
-            content: `export const subgraphEndpoint = '${process.env.SUBGRAPH_GRAPHQL_ENDPOINT}';`,
+            content: `export const subgraphEndpoint = '${
+              import.meta.env.SUBGRAPH_GRAPHQL_ENDPOINT
+            }';`,
           },
         },
         'typescript',

@@ -32,8 +32,8 @@ const isInLiveEnvironment =
   mode === 'production' &&
   (environment === 'testnet' || environment === 'preview' || environment === 'mainnet');
 
-const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
-  ? Number(process.env.REACT_APP_CHAIN_ID)
+const chainId: BscChainId = import.meta.env.VITE_CHAIN_ID
+  ? Number(import.meta.env.VITE_CHAIN_ID)
   : BscChainId.MAINNET;
 
 const isOnTestnet = chainId === BscChainId.TESTNET;
@@ -49,16 +49,16 @@ const config: Config = {
   rpcUrl,
   apiUrl,
   bscScanUrl,
-  sentryDsn: process.env.REACT_APP_SENTRY_DSN || '',
+  sentryDsn: import.meta.env.VITE_SENTRY_DSN || '',
   posthog: {
-    apiKey: process.env.REACT_APP_POSTHOG_API_KEY || '',
-    hostUrl: process.env.REACT_APP_POSTHOG_HOST_URL || '',
+    apiKey: import.meta.env.VITE_POSTHOG_API_KEY || '',
+    hostUrl: import.meta.env.VITE_POSTHOG_HOST_URL || '',
   },
   // Note: never access these directly, use the utility function
   // isFeatureEnabled instead. This is necessary to make testing easier
   featureFlags: {
-    isolatedPools: process.env.REACT_APP_FF_ISOLATED_POOLS === 'true',
-    integratedSwap: process.env.REACT_APP_FF_INTEGRATED_SWAP === 'true',
+    isolatedPools: import.meta.env.VITE_FF_ISOLATED_POOLS === 'true',
+    integratedSwap: import.meta.env.VITE_FF_INTEGRATED_SWAP === 'true',
   },
 };
 

@@ -37,7 +37,7 @@ export const Modal: React.FC<ModalProps> = ({
       BackdropProps={{
         timeout: 500,
       }}
-      disablePortal={!!process.env.STORYBOOK}
+      disablePortal={!!import.meta.env.STORYBOOK}
       {...otherModalProps}
     >
       <Fade in={isOpen}>

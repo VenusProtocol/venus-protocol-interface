@@ -1,6 +1,6 @@
 module.exports = {
   stories: [
-    !!process.env.IS_CI_ENV
+    !!import.meta.env.IS_CI_ENV
       ? // Only build root page stories when running on CI pipeline
         '../src/pages/*/*.stories.@(js|jsx|ts|tsx)'
       : '../src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -14,6 +14,6 @@ module.exports = {
   env: config => ({
     ...config,
     // Always run Storybook in test environment
-    REACT_APP_CHAIN_ID: 97,
+    VITE_CHAIN_ID: 97,
   }),
 };
