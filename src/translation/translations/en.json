@@ -994,6 +994,7 @@
     "title": "Withdraw {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "Withdrawal request list",
     "requestWithdrawalTab": {
       "approvedToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"

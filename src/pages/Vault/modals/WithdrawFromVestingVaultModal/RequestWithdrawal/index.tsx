@@ -15,7 +15,7 @@ import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
-import { useStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
 
 export interface RequestWithdrawalUiProps {
   stakedToken: Token;
@@ -39,7 +39,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   displayWithdrawalRequestList,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei => {
     const res = await onSubmit(amountWei);
@@ -79,7 +79,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
 
           <TextButton
             onClick={displayWithdrawalRequestList}
-            css={styles.displayWithdrawalRequestListButton}
+            css={sharedStyles.displayWithdrawalRequestListButton}
           >
             {t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.displayWithdrawalRequestListButton',
