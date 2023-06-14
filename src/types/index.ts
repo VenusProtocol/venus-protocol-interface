@@ -257,7 +257,7 @@ export interface Transaction {
   timestamp: Date;
   transactionHash: string;
   logIndex: string;
-  vTokenAddress: string;
+  token: Token;
 }
 
 export interface Vault {
