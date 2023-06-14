@@ -135,7 +135,14 @@ export class BinanceWalletConnector extends InjectedConnector {
             name: `Chain ${id}`,
             network: `${id}`,
             nativeCurrency: { decimals: 18, name: 'BNB', symbol: 'BNB' },
-            rpcUrls: { default: '' },
+            rpcUrls: {
+              default: {
+                http: [''],
+              },
+              public: {
+                http: [''],
+              },
+            },
           }
         );
       } catch (error) {

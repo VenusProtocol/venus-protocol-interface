@@ -47,7 +47,6 @@
     "@uiw/react-markdown-preview": "^4.1.13",
     "@uiw/react-md-editor": "^3.14.3",
     "@venusprotocol/isolated-pools": "1.0.0-dev.13",
-    "@wagmi/core": "0.5.7",
     "bignumber.js": "^9.0.0",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.28.0",
@@ -74,7 +73,7 @@
     "recharts": "2.1.9",
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
-    "wagmi": "0.6.7",
+    "wagmi": "^0.12",
     "yup": "^1.0.2"
   },
   "devDependencies": {
