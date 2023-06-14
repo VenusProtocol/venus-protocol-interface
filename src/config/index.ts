@@ -2,7 +2,6 @@ import sample from 'lodash/sample';
 import { BscChainId, Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
-import { DAPP_HOSTS } from 'constants/dAppHosts';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 
 export interface Config {
@@ -24,17 +23,8 @@ export interface Config {
   };
 }
 
-let environment: Environment = 'local';
-
-if (!window) {
-  environment = 'mock';
-} else if (DAPP_HOSTS.testnet.includes(window.location.host)) {
-  environment = 'testnet';
-} else if (DAPP_HOSTS.preview.includes(window.location.host)) {
-  environment = 'preview';
-} else if (DAPP_HOSTS.mainnet === window.location.host) {
-  environment = 'mainnet';
-}
+const environment: Environment =
+  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
 const isInLiveEnvironment =
   environment === 'testnet' || environment === 'preview' || environment === 'mainnet';
