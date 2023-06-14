@@ -79,13 +79,12 @@ const Voter: React.FC<VoterDetailsPageProps> = ({ history, location }) => {
   const { data: voterDetails } = useGetVoterDetails({ address });
   const {
     data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
-    isLoading: isGetVoterHistoryLoading,
     isFetching: isGetVoterHistoryFetching,
     isPreviousData: isGetVoterHistoryPreviousData,
   } = useGetVoterHistory({ address, page: currentPage });
 
   const isFetching =
-    isGetVoterHistoryLoading || (isGetVoterHistoryFetching && isGetVoterHistoryPreviousData);
+    isGetVoterHistoryFetching && (isGetVoterHistoryPreviousData || voterHistory.length === 0);
 
   return (
     <VoterUi
