@@ -24,7 +24,7 @@ export interface Config {
 }
 
 const environment: Environment =
-  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'testnet';
+  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
 const isInLiveEnvironment =
   environment === 'testnet' || environment === 'preview' || environment === 'mainnet';
