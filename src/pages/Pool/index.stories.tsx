@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
@@ -10,6 +10,6 @@ export default {
   title: 'Pages/Pool',
   component: PoolUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof PoolUi>;
+} as Meta<typeof PoolUi>;
 
 export const Default = () => <PoolUi pool={poolData[0]} />;

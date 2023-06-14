@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -512,6 +512,6 @@ export default {
   title: 'Components/charts/InterestRateChart',
   component: InterestRateChart,
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
-} as ComponentMeta<typeof InterestRateChart>;
+} as Meta<typeof InterestRateChart>;
 
 export const Default = () => <InterestRateChart currentUtilizationRate={56} data={data} />;

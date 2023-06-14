@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { noop } from 'lodash';
 import React from 'react';
 
@@ -17,9 +17,9 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof Checkbox>;
+} as Meta<typeof Checkbox>;
 
-const Template: Story<CheckboxProps> = (args: CheckboxProps) => <Checkbox {...args} />;
+const Template: StoryFn<CheckboxProps> = (args: CheckboxProps) => <Checkbox {...args} />;
 
 export const Checked = Template.bind({});
 Checked.args = {

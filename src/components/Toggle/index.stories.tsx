@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withOnChange, withThemeProvider } from 'stories/decorators';
@@ -14,9 +14,9 @@ export default {
     withThemeProvider,
     withOnChange(e => e.target.checked),
   ],
-} as ComponentMeta<typeof Toggle>;
+} as Meta<typeof Toggle>;
 
-const Template: Story<ToggleProps> = (args: ToggleProps) => <Toggle {...args} />;
+const Template: StoryFn<ToggleProps> = (args: ToggleProps) => <Toggle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

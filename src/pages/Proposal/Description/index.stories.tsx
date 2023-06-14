@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
@@ -14,7 +14,7 @@ export default {
       default: 'Default',
     },
   },
-} as ComponentMeta<typeof Description>;
+} as Meta<typeof Description>;
 
 const descriptionV1 = {
   version: 'v1' as const,

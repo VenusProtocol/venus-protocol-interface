@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
@@ -10,7 +10,7 @@ export default {
   title: 'Components/IsolatedAssetWarningUi',
   component: IsolatedAssetWarning,
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
-} as ComponentMeta<typeof IsolatedAssetWarning>;
+} as Meta<typeof IsolatedAssetWarning>;
 
 export const Borrow = () => (
   <IsolatedAssetWarning

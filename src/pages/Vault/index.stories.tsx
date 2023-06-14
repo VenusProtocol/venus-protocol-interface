@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { vaults } from '__mocks__/models/vaults';
@@ -10,7 +10,7 @@ export default {
   title: 'Pages/Vault',
   component: VaultUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof VaultUi>;
+} as Meta<typeof VaultUi>;
 
 export const Loading = () => <VaultUi vaults={vaults} isInitialLoading />;
 

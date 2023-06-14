@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default {
   title: 'Components/AccountData',
   component: AccountData,
   decorators: [withCenterStory({ width: 800 })],
-} as ComponentMeta<typeof AccountData>;
+} as Meta<typeof AccountData>;
 
 export const SupplyInfo = () => (
   <AccountData

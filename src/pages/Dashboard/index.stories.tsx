@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default {
   title: 'Pages/Dashboard',
   component: DashboardUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof DashboardUi>;
+} as Meta<typeof DashboardUi>;
 
 export const Default = () => (
   <DashboardUi searchValue="" onSearchInputChange={noop} pools={poolData} />

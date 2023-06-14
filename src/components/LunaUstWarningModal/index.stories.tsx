@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -10,6 +10,6 @@ export default {
   title: 'Components/LunaUstWarningModal',
   component: LunaUstWarningModal,
   decorators: [withCenterStory({ width: 55 })],
-} as ComponentMeta<typeof LunaUstWarningModal>;
+} as Meta<typeof LunaUstWarningModal>;
 
 export const Default = () => <LunaUstWarningModal onClose={noop} />;

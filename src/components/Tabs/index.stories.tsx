@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/Tabs',
   component: Tabs,
   decorators: [withCenterStory({ width: 650 })],
-} as ComponentMeta<typeof Tabs>;
+} as Meta<typeof Tabs>;
 
 const tabsContent = [
   { title: 'Borrow', content: <>first tab content</> },

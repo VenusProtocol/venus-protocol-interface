@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { getContractAddress } from 'utilities';
@@ -20,9 +20,9 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof Vai>;
+} as Meta<typeof Vai>;
 
-const Template: Story<VaiProps> = props => <Vai {...props} />;
+const Template: StoryFn<VaiProps> = props => <Vai {...props} />;
 
 const context: AuthContextValue = {
   login: noop,

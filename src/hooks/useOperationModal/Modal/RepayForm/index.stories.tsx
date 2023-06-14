@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default {
   title: 'Components/OperationModal/RepayForm',
   component: RepayFormUi,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof RepayFormUi>;
+} as Meta<typeof RepayFormUi>;
 
 export const Default = () => (
   <RepayFormUi

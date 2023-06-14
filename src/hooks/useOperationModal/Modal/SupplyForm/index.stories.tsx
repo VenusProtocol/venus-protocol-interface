@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default {
   title: 'Components/OperationModal/SupplyForm',
   component: SupplyFormUi,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SupplyFormUi>;
+} as Meta<typeof SupplyFormUi>;
 
 export const Default = () => (
   <SupplyFormUi

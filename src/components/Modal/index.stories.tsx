@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -10,9 +10,9 @@ export default {
   title: 'Components/Modal',
   component: Modal,
   decorators: [withCenterStory({ width: 600 }), withThemeProvider],
-} as ComponentMeta<typeof Modal>;
+} as Meta<typeof Modal>;
 
-const Template: Story<ModalProps> = (args: ModalProps) => <Modal {...args} />;
+const Template: StoryFn<ModalProps> = (args: ModalProps) => <Modal {...args} />;
 const ModalContent = () => (
   <>
     <Typography variant="h6" component="h2">

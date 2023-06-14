@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -14,7 +14,7 @@ export default {
   title: 'Components/SelectTokenTextField',
   component: SelectTokenTextField,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SelectTokenTextField>;
+} as Meta<typeof SelectTokenTextField>;
 
 const tokenBalances: TokenBalance[] = [
   {

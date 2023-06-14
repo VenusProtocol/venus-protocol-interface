@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/ProgressBar',
   component: ProgressBar,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof ProgressBar>;
+} as Meta<typeof ProgressBar>;
 
 export const ValidProgressBar = () => (
   <ProgressBar value={50} step={5} mark={75} ariaLabel="Storybook slider" min={0} max={100} />

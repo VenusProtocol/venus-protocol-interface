@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -17,9 +17,9 @@ export default {
       default: PALETTE.background.default,
     },
   },
-} as ComponentMeta<typeof Pagination>;
+} as Meta<typeof Pagination>;
 
-const PaginationTemplate: Story<{
+const PaginationTemplate: StoryFn<{
   itemsCount: number;
   itemsPerPageCount?: number;
 }> = ({ itemsPerPageCount }) => (

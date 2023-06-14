@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { getContractAddress } from 'utilities';
@@ -15,9 +15,9 @@ export default {
   title: 'Pages/Vault/modals/StakeModal',
   component: StakeModal,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof StakeModal>;
+} as Meta<typeof StakeModal>;
 
-const Template: Story<StakeModalProps> = args => <StakeModal {...args} />;
+const Template: StoryFn<StakeModalProps> = args => <StakeModal {...args} />;
 
 const authContext: AuthContextValue = {
   login: noop,

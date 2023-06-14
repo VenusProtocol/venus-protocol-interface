@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/ProgressBar/AccountHealth',
   component: AccountHealth,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof AccountHealth>;
+} as Meta<typeof AccountHealth>;
 
 export const BorrowBalanceAccountHealthWithValues = () => (
   <BorrowBalanceAccountHealth

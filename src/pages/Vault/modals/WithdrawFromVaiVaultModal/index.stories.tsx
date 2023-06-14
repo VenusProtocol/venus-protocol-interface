@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { getContractAddress } from 'utilities';
@@ -15,9 +15,9 @@ export default {
   title: 'Pages/Vault/modals/WithdrawFromVaiVaultModal',
   component: WithdrawFromVaiVaultModal,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof WithdrawFromVaiVaultModal>;
+} as Meta<typeof WithdrawFromVaiVaultModal>;
 
-const Template: Story<WithdrawFromVaiVaultModalProps> = args => (
+const Template: StoryFn<WithdrawFromVaiVaultModalProps> = args => (
   <WithdrawFromVaiVaultModal {...args} />
 );
 

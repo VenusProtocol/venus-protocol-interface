@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -10,7 +10,7 @@ export default {
   title: 'Components/AuthModal',
   component: AuthModal,
   decorators: [withCenterStory({ width: 800 })],
-} as ComponentMeta<typeof AuthModal>;
+} as Meta<typeof AuthModal>;
 
 export const Default = () => (
   <AuthModal isOpen onClose={noop} onLogOut={noop} onLogin={noop} onCopyAccountAddress={noop} />

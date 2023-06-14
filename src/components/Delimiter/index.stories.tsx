@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/Delimiter',
   component: Delimiter,
   decorators: [withThemeProvider, withCenterStory({ width: 650 })],
-} as ComponentMeta<typeof Delimiter>;
+} as Meta<typeof Delimiter>;
 
 export const Default = () => (
   <>
