@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool } from 'types';
+import { Asset, Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -14,11 +15,23 @@ import useExtractData from './useExtractData';
 
 export interface SummaryProps {
   pools: Pool[];
+  vaults?: Vault[];
+  xvsPriceCents?: BigNumber;
+  vaiPriceCents?: BigNumber;
   displayAccountHealth?: boolean;
+  displayTotalVaultStake?: boolean;
   className?: string;
 }
 
-export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, className }) => {
+export const Summary: React.FC<SummaryProps> = ({
+  pools,
+  vaults,
+  displayAccountHealth = false,
+  displayTotalVaultStake = false,
+  xvsPriceCents = new BigNumber(0),
+  vaiPriceCents = new BigNumber(0),
+  className,
+}) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -30,6 +43,7 @@ export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, c
   const {
     totalSupplyCents,
     totalBorrowCents,
+    totalVaultStakeCents,
     borrowLimitCents,
     readableSafeBorrowLimit,
     safeBorrowLimitPercentage,
@@ -37,13 +51,18 @@ export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, c
     netApyPercentage,
   } = useExtractData({
     assets,
+    vaults: vaults || [],
+    xvsPriceCents,
+    vaiPriceCents,
   });
 
   const cells: Cell[] = [
     {
       label: t('account.marketBreakdown.cellGroup.netApy'),
       value: formatToReadablePercentage(netApyPercentage),
-      tooltip: t('account.marketBreakdown.cellGroup.netApyTooltip'),
+      tooltip: displayTotalVaultStake
+        ? t('account.marketBreakdown.cellGroup.netApyWithVaultStakeTooltip')
+        : t('account.marketBreakdown.cellGroup.netApyTooltip'),
       color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
     },
     {
@@ -59,6 +78,13 @@ export const Summary: React.FC<SummaryProps> = ({ pools, displayAccountHealth, c
       value: formatCentsToReadableValue({ value: totalBorrowCents }),
     },
   ];
+
+  if (displayTotalVaultStake) {
+    cells.push({
+      label: t('account.marketBreakdown.cellGroup.totalVaultStake'),
+      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
+    });
+  }
 
   return (
     <Paper css={styles.container} className={className} data-testid={TEST_IDS.container}>

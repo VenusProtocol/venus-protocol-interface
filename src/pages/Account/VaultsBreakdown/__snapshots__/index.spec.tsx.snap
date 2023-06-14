@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Account/VaultsBreakdown displays content correctly 1`] = `"VaultsStakedAssetAPRStakesorted descendingVAI12665.06%0 VAIXVS12.92%233 XVSSort byStake​VAIAPR12665.06%Stake0 VAIXVSAPR12.92%Stake233 XVS"`;

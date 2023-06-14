@@ -5,8 +5,10 @@
         "dailyEarnings": "Daily Earnings",
         "netApy": "Net APY",
         "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
         "totalBorrow": "Total Borrow",
-        "totalSupply": "Total Supply"
+        "totalSupply": "Total Supply",
+        "totalVaultStake": "Total Vault Stake"
       },
       "tables": {
         "borrowTableTitle": "Borrowed assets",
@@ -15,6 +17,17 @@
         "tabletSupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
       }
+    },
+    "vaultsBreakdown": {
+      "table": {
+        "column": {
+          "apr": "APR",
+          "asset": "Asset",
+          "stake": "Stake"
+        },
+        "title": "Staked"
+      },
+      "title": "Vaults"
     }
   },
   "accountData": {
@@ -770,10 +783,10 @@
     "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
     "stakeButton": "Stake",
-    "stakingApr": "{{stakeTokenName}} Staking APR",
+    "stakingApr": "{{stakeTokenName}} Stake APR",
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
-    "youAreStaking": "You are staking"
+    "youAreStake": "You are staking"
   },
   "vote": {
     "abstain": "Abstain",

@@ -7,6 +7,7 @@ export { default as calculateDailyEarningsCents } from './calculateDailyEarnings
 export {
   calculateYearlyEarningsForAssets,
   calculateYearlyEarningsForAsset,
+  calculateYearlyEarnings,
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';

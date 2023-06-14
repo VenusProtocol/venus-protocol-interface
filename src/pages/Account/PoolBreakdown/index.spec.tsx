@@ -40,9 +40,9 @@ describe('pages/Account/PoolBreakdown', () => {
     });
 
     it('displays content correctly', () => {
-      const { getByTestId } = renderComponent(<PoolBreakdown {...baseProps} />);
+      const { getByTestId, getByText } = renderComponent(<PoolBreakdown {...baseProps} />);
 
-      expect(getByTestId(TEST_IDS.title).textContent).toMatchSnapshot();
+      expect(getByText(baseProps.pool.name)).toBeTruthy();
       expect(getByTestId(SUMMARY_TEST_IDS.container).textContent).toMatchSnapshot();
       expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
     });

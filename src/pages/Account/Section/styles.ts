@@ -10,12 +10,5 @@ export const useStyles = () => {
       align-items: center;
       margin-bottom: ${theme.spacing(4)};
     `,
-    summary: css`
-      margin-bottom: ${theme.spacing(6)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(10)};
-      }
-    `,
   };
 };
