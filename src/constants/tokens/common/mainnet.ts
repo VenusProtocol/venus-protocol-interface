@@ -157,9 +157,15 @@ export const MAINNET_TOKENS = {
     asset: aave,
   } as Token,
   tusd: {
-    address: '0x14016e85a25aeb13065688cafb43044c2ef86784',
+    address: '0x14016e85a25aeb13065688cafb43044c2ef86784', // TODO: update with new address
     decimals: 18,
     symbol: 'TUSD',
+    asset: tusd,
+  } as Token,
+  tusdold: {
+    address: '0x14016e85a25aeb13065688cafb43044c2ef86784',
+    decimals: 18,
+    symbol: 'TUSDOLD',
     asset: tusd,
   } as Token,
   trx: {

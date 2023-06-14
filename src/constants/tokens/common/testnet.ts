@@ -132,9 +132,15 @@ export const TESTNET_TOKENS = {
     asset: aave,
   } as Token,
   tusd: {
-    address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
+    address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169', // TODO: update with new address
     decimals: 18,
     symbol: 'TUSD',
+    asset: tusd,
+  } as Token,
+  tusdold: {
+    address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
+    decimals: 18,
+    symbol: 'TUSDOLD',
     asset: tusd,
   } as Token,
   trx: {
