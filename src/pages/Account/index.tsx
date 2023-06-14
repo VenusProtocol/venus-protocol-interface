@@ -68,9 +68,9 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
     return <Spinner />;
   }
 
-  const hasSuppliedOrBorrowed = filteredPools.length > 0;
+  const hasPositions = filteredPools.length > 0 || filteredVaults.length > 0;
 
-  if (!hasSuppliedOrBorrowed) {
+  if (!hasPositions) {
     return <AccountPlaceholder />;
   }
 
