@@ -17,21 +17,3 @@ exports[`api/queries/getVoteReceipt > returns the correct string depending on wh
   "voteSupport": "ABSTAIN",
 }
 `;
-
-exports[`api/queries/getVoteReceipt returns the correct string depending on what the contract call returns 1`] = `
-Object {
-  "voteSupport": "AGAINST",
-}
-`;
-
-exports[`api/queries/getVoteReceipt returns the correct string depending on what the contract call returns 2`] = `
-Object {
-  "voteSupport": "FOR",
-}
-`;
-
-exports[`api/queries/getVoteReceipt returns the correct string depending on what the contract call returns 3`] = `
-Object {
-  "voteSupport": "ABSTAIN",
-}
-`;

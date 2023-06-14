@@ -7,11 +7,3 @@ exports[`api/queries/getXvsVaultUserInfo > returns user info related to XVS vaul
   "stakedAmountWei": "30000000000000000000",
 }
 `;
-
-exports[`api/queries/getXvsVaultUserInfo returns user info related to XVS vault in correct format on success 1`] = `
-Object {
-  "pendingWithdrawalsTotalAmountWei": "1000000000000000000",
-  "rewardDebtAmountWei": "2000000000000000000",
-  "stakedAmountWei": "30000000000000000000",
-}
-`;

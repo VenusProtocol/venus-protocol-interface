@@ -5,9 +5,3 @@ exports[`api/queries/getMintableVai > returns the mintable VAI in the correct fo
   "mintableVaiWei": "40000000000000000000",
 }
 `;
-
-exports[`api/queries/getMintableVai returns the mintable VAI in the correct format on success 1`] = `
-Object {
-  "mintableVaiWei": "40000000000000000000",
-}
-`;

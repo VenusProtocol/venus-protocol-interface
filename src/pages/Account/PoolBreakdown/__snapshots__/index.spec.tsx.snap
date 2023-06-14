@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`pages/Account/PoolBreakdown Feature flag enabled: isolatedPools displays content correctly 1`] = `"Net APY0%Daily Earnings$0.03Total Supply$1.24MTotal Borrow$123.33Borrow limit used:6.4%Limit:$1.93K.Your safe limit:$1.54K"`;
 

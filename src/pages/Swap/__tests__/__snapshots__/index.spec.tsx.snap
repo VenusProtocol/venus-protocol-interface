@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`pages/Swap displays exactAmountIn swap details correctly  1`] = `"Exchange rate1 BNB ≈ 2 XVSSlippage tolerance0.5%Minimum received300.00K BUSD"`;
 

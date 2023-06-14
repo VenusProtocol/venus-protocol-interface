@@ -5,9 +5,3 @@ exports[`api/queries/getVaiVaultUserInfo > returns the user info in the correct 
   "stakedVaiWei": "1e+23",
 }
 `;
-
-exports[`api/queries/getVaiVaultUserInfo returns the user info in the correct format 1`] = `
-Object {
-  "stakedVaiWei": "1e+23",
-}
-`;

@@ -5,9 +5,3 @@ exports[`api/queries/getProposalEta > returns ETA in correct format on success 1
   "eta": 2022-07-13T09:48:26.000Z,
 }
 `;
-
-exports[`api/queries/getProposalEta returns ETA in correct format on success 1`] = `
-Object {
-  "eta": 2022-07-13T09:48:26.000Z,
-}
-`;

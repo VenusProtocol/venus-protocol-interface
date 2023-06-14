@@ -16,6 +16,24 @@ vi.mock('@lottiefiles/react-lottie-player', () => ({
   Player: () => null,
 }));
 
+// Mock React Markdown library
+vi.mock('@uiw/react-md-editor', () => ({
+  default: null,
+  commands: {
+    title1: '',
+    title2: '',
+    title3: '',
+    title4: '',
+    unorderedListCommand: '',
+    link: '',
+    bold: '',
+    italic: '',
+  },
+}));
+vi.mock('@uiw/react-markdown-preview', () => ({
+  default: null,
+}));
+
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {

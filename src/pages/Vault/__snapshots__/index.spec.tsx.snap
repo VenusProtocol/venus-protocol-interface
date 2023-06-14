@@ -1,21 +1,21 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Vault renders vaults correctly 1`] = `"VAI"`;
+exports[`pages/Vault > renders vaults correctly 1`] = `"VAI"`;
 
-exports[`pages/Vault renders vaults correctly 2`] = `"XVS"`;
+exports[`pages/Vault > renders vaults correctly 2`] = `"XVS"`;
 
-exports[`pages/Vault renders vaults correctly 3`] = `"0"`;
+exports[`pages/Vault > renders vaults correctly 3`] = `"0"`;
 
 exports[`pages/Vault renders vaults correctly 4`] = `"233.00"`;
 
-exports[`pages/Vault renders vaults correctly 5`] = `"12665.06%"`;
+exports[`pages/Vault > renders vaults correctly 5`] = `"12665.06%"`;
 
-exports[`pages/Vault renders vaults correctly 6`] = `"144.00"`;
+exports[`pages/Vault > renders vaults correctly 6`] = `"144.00"`;
 
-exports[`pages/Vault renders vaults correctly 7`] = `"415.00"`;
+exports[`pages/Vault > renders vaults correctly 7`] = `"415.00"`;
 
-exports[`pages/Vault renders vaults correctly 8`] = `"12.92%"`;
+exports[`pages/Vault > renders vaults correctly 8`] = `"12.92%"`;
 
-exports[`pages/Vault renders vaults correctly 9`] = `"144.00"`;
+exports[`pages/Vault > renders vaults correctly 9`] = `"144.00"`;
 
-exports[`pages/Vault renders vaults correctly 10`] = `"400.00M"`;
+exports[`pages/Vault > renders vaults correctly 10`] = `"400.00M"`;

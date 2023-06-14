@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 1`] = `"1.00 XVSLocked until 29.06.22 10:43 AM"`;
 

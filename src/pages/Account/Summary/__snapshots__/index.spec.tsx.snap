@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`pages/Account/Summary displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:6.4%Limit:$1.93K.Your safe limit:$1.54K"`;
 

@@ -5,9 +5,3 @@ exports[`api/queries/useGetMainPoolTotalXvsDistributed > returns data in the cor
   "totalXvsDistributedWei": "3.110919e+24",
 }
 `;
-
-exports[`api/queries/useGetMainPoolTotalXvsDistributed returns data in the correct format 1`] = `
-Object {
-  "totalXvsDistributedWei": "3.110919e+24",
-}
-`;

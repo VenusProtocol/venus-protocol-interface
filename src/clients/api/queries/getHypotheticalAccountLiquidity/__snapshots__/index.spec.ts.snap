@@ -7,11 +7,3 @@ exports[`api/queries/getHypotheticalAccountLiquidity > with account return asset
   "300000000",
 ]
 `;
-
-exports[`api/queries/getHypotheticalAccountLiquidity with account return asset with updated hypothetical Account Liquidity 1`] = `
-Array [
-  "100000000",
-  "200000000",
-  "300000000",
-]
-`;
