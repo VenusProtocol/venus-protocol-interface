@@ -59,6 +59,13 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
   const { accountAddress } = useAuth();
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
+
+  const handleSetEventType = (newEventType: TransactionEvent | typeof ALL_VALUE) => {
+    // Reset current page
+    setCurrentPage(0);
+    setEventType(newEventType);
+  };
+
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const {
     data: { transactions, total, limit } = { transactions: [] },
@@ -76,7 +83,7 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
   return (
     <HistoryUi
       eventType={eventType}
-      setEventType={setEventType}
+      setEventType={handleSetEventType}
       showOnlyMyTxns={showOnlyMyTxns}
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       transactions={transactions}

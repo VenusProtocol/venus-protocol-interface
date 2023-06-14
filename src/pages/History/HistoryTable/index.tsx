@@ -4,7 +4,7 @@ import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import { convertWeiToTokens, generateBscScanUrl, getVTokenByAddress } from 'utilities';
+import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -50,33 +50,28 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'type',
         label: t('history.columns.type'),
-        renderCell: transaction => {
-          const vToken = getVTokenByAddress(transaction.vTokenAddress);
+        renderCell: transaction =>
+          transaction.token && (
+            <>
+              <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
+                <TokenIcon token={transaction.token} css={styles.icon} />
 
-          return (
-            vToken && (
-              <>
-                <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
-                  <TokenIcon token={vToken.underlyingToken} css={styles.icon} />
+                <Typography variant="small2" color="textPrimary">
+                  {eventTranslationKeys[transaction.event]}
+                </Typography>
+              </div>
+
+              <div css={[styles.cardTitle, showXlDownCss]}>
+                <div css={styles.typeCol}>
+                  <TokenIcon token={transaction.token} css={styles.icon} />
 
                   <Typography variant="small2" color="textPrimary">
-                    {eventTranslationKeys[transaction.event]}
+                    {transaction.event}
                   </Typography>
                 </div>
-
-                <div css={[styles.cardTitle, showXlDownCss]}>
-                  <div css={styles.typeCol}>
-                    <TokenIcon token={vToken.underlyingToken} css={styles.icon} />
-
-                    <Typography variant="small2" color="textPrimary">
-                      {transaction.event}
-                    </Typography>
-                  </div>
-                </div>
-              </>
-            )
-          );
-        },
+              </div>
+            </>
+          ),
       },
       {
         key: 'hash',
@@ -141,23 +136,18 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'amount',
         label: t('history.columns.amount'),
-        renderCell: transaction => {
-          const vToken = getVTokenByAddress(transaction.vTokenAddress);
-
-          return (
-            vToken && (
-              <Typography variant="small2" css={styles.whiteText}>
-                {convertWeiToTokens({
-                  valueWei: transaction.amountWei,
-                  token: vToken.underlyingToken,
-                  returnInReadableFormat: true,
-                  minimizeDecimals: true,
-                  addSymbol: false,
-                })}
-              </Typography>
-            )
-          );
-        },
+        renderCell: transaction =>
+          transaction.token && (
+            <Typography variant="small2" css={styles.whiteText}>
+              {convertWeiToTokens({
+                valueWei: transaction.amountWei,
+                token: transaction.token,
+                returnInReadableFormat: true,
+                minimizeDecimals: true,
+                addSymbol: false,
+              })}
+            </Typography>
+          ),
       },
       {
         key: 'created',
@@ -193,7 +183,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         orderDirection: 'desc',
       }}
       rowKeyExtractor={row =>
-        `history-table-row-${row.transactionHash}-${row.logIndex}-${row.amountWei}-${row.category}-${row.from}-${row.to}-${row.event}`
+        `history-table-row-${row.transactionHash}-${row.logIndex}-${row.amountWei}-${row.category}-${row.from}-${row.to}-${row.event}-${row.token.address}-${row.blockNumber}`
       }
       breakpoint="xl"
       css={styles.cardContentGrid}
