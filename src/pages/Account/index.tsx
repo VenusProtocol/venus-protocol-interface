@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { Pool, Vault } from 'types';
-import { areTokensEqual, isFeatureEnabled } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
 import { useGetPools, useGetVaults } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -76,16 +76,14 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 
   return (
     <>
-      {isFeatureEnabled('isolatedPools') && (
-        <Summary
-          css={styles.section}
-          pools={filteredPools}
-          vaults={filteredVaults}
-          xvsPriceCents={xvsPriceCents}
-          vaiPriceCents={VAI_PRICE_CENTS}
-          displayTotalVaultStake
-        />
-      )}
+      <Summary
+        css={styles.section}
+        pools={filteredPools}
+        vaults={filteredVaults}
+        xvsPriceCents={xvsPriceCents}
+        vaiPriceCents={VAI_PRICE_CENTS}
+        displayTotalVaultStake
+      />
 
       {filteredVaults.length > 0 && (
         <VaultsBreakdown css={styles.section} vaults={filteredVaults} />
