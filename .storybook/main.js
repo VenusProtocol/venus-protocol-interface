@@ -1,6 +1,6 @@
 module.exports = {
   stories: [
-    !!import.meta.env.IS_CI_ENV
+    !!process.env.IS_CI_ENV
       ? // Only build root page stories when running on CI pipeline
         '../src/pages/*/*.stories.@(js|jsx|ts|tsx)'
       : '../src/**/*.stories.@(js|jsx|ts|tsx)',
