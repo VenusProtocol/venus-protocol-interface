@@ -27,7 +27,7 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   provider: Provider;
-  isReconnecting: boolean;
+  status: 'disconnected' | 'connecting' | 'connected' | 'reconnecting';
   accountAddress: string;
   signer?: Signer;
 }
@@ -37,7 +37,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
-  isReconnecting: false,
+  status: 'disconnected',
   provider: getDefaultProvider(),
   accountAddress: '',
 });
@@ -49,6 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const { data: signer } = useSigner();
   const provider = useProvider();
   const { address, status } = useAccount();
+
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
     enabled: address !== undefined,
   });
@@ -90,8 +91,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const accountAddress =
-    address && status === 'connected' && accountAuth?.authorized ? address : '';
+  const accountAddress = address && accountAuth?.authorized ? address : '';
 
   return (
     <AuthContext.Provider
@@ -101,7 +101,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         logOut,
         openAuthModal,
         closeAuthModal,
-        isReconnecting: status === 'reconnecting',
+        status,
         provider,
         signer: signer || undefined,
       }}

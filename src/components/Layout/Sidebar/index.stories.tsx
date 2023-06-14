@@ -5,17 +5,18 @@ import { MemoryRouter, Route } from 'react-router';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
+import { AuthContextValue } from 'context/AuthContext';
 import { withAuthContext, withRouter, withThemeProvider } from 'stories/decorators';
 
 import { SidebarUi } from '.';
 
-const context = {
+const context: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'connected',
   accountAddress: fakeAddress,
 };
 

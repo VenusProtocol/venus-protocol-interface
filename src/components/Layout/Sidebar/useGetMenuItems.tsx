@@ -9,7 +9,7 @@ import { MenuItem } from '../types';
 const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 
 const useGetMenuItems = () => {
-  const { accountAddress, isReconnecting } = useAuth();
+  const { accountAddress, status } = useAuth();
 
   return useMemo(() => {
     const menuItems: MenuItem[] = [
@@ -23,7 +23,7 @@ const useGetMenuItems = () => {
     ];
 
     // Insert account page if wallet is connected
-    if (accountAddress || isReconnecting) {
+    if (accountAddress || status === 'reconnecting' || status === 'connected') {
       menuItems.push({
         href: routes.account.path,
         // Translation key: do not remove this comment

@@ -6,6 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TOKENS } from 'constants/tokens';
+import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import Vai, { VaiProps } from '.';
@@ -23,13 +24,13 @@ export default {
 
 const Template: Story<VaiProps> = props => <Vai {...props} />;
 
-const context = {
+const context: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'connected',
   accountAddress: fakeAddress,
 };
 

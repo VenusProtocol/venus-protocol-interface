@@ -32,13 +32,12 @@ const renderComponent = (
     },
   });
 
-  const defaultAuthContextValues = {
+  const defaultAuthContextValues: AuthContextValue = {
     login: jest.fn(),
     logOut: jest.fn(),
     openAuthModal: jest.fn(),
     closeAuthModal: jest.fn(),
-    account: undefined,
-    isReconnecting: false,
+    status: 'disconnected',
     provider: getDefaultProvider(),
     accountAddress: '',
     ...authContextValue,

@@ -5,6 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import WithdrawFromVestingVaultModal, { WithdrawFromVestingVaultModalProps } from '.';
@@ -19,13 +20,13 @@ const Template: Story<WithdrawFromVestingVaultModalProps> = args => (
   <WithdrawFromVestingVaultModal {...args} />
 );
 
-const authContext = {
+const authContext: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'disconnected',
   accountAddress: fakeAddress,
 };
 
