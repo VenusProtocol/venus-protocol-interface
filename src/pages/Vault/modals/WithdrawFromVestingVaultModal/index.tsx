@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, Tabs } from 'components';
+import { Modal, ModalProps, Tabs, TextButton } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -37,12 +37,6 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const withdrawTabDom = (
-    <div css={styles.tabContainer}>
-      <Withdraw stakedToken={stakedToken} poolIndex={poolIndex} handleClose={handleClose} />
-    </div>
-  );
-
   return (
     <Modal
       isOpen
@@ -65,14 +59,37 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       ) : (
         <>
           {hasPendingWithdrawalsFromBeforeUpgrade ? (
-            withdrawTabDom
+            <>
+              <div css={styles.tabContainer}>
+                <Withdraw
+                  stakedToken={stakedToken}
+                  poolIndex={poolIndex}
+                  handleClose={handleClose}
+                />
+
+                <TextButton
+                  onClick={handleDisplayWithdrawalRequestList}
+                  css={styles.displayWithdrawalRequestListButton}
+                >
+                  {t('withdrawFromVestingVaultModalModal.displayWithdrawalRequestListButton')}
+                </TextButton>
+              </div>
+            </>
           ) : (
             <Tabs
               initialActiveTabIndex={initialActiveTabIndex}
               tabsContent={[
                 {
                   title: t('withdrawFromVestingVaultModalModal.withdrawTabTitle'),
-                  content: withdrawTabDom,
+                  content: (
+                    <div css={styles.tabContainer}>
+                      <Withdraw
+                        stakedToken={stakedToken}
+                        poolIndex={poolIndex}
+                        handleClose={handleClose}
+                      />
+                    </div>
+                  ),
                 },
                 {
                   title: t('withdrawFromVestingVaultModalModal.requestWithdrawalTabTitle'),

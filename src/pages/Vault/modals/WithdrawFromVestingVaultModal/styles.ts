@@ -12,5 +12,8 @@ export const useStyles = () => {
         margin-top: ${theme.spacing(8)};
       }
     `,
+    displayWithdrawalRequestListButton: css`
+      margin: ${theme.spacing(3, 'auto', -3)};
+    `,
   };
 };
