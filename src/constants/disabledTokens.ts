@@ -27,6 +27,10 @@ export const DISABLED_TOKENS: DisabledToken[] = [
     disabledActions: ['borrow', 'supply'],
   },
   {
+    token: MAINNET_TOKENS.tusdold,
+    disabledActions: ['borrow', 'supply'],
+  },
+  {
     token: MAINNET_TOKENS.beth,
     disabledActions: ['borrow'],
   },
