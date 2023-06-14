@@ -6,6 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TOKENS } from 'constants/tokens';
+import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import StakeModal, { StakeModalProps } from '.';
@@ -18,13 +19,13 @@ export default {
 
 const Template: Story<StakeModalProps> = args => <StakeModal {...args} />;
 
-const authContext = {
+const authContext: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'connected',
   accountAddress: fakeAddress,
 };
 

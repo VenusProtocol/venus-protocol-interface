@@ -6,6 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { TOKENS } from 'constants/tokens';
+import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
@@ -20,13 +21,13 @@ const Template: Story<WithdrawFromVaiVaultModalProps> = args => (
   <WithdrawFromVaiVaultModal {...args} />
 );
 
-const authContext = {
+const authContext: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'connected',
   accountAddress: '0x0000000000000000000000000000000000000000',
 };
 

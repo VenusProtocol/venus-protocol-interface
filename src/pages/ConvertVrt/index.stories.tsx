@@ -4,6 +4,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeProvider from '__mocks__/models/provider';
+import { AuthContextValue } from 'context/AuthContext';
 import { withAuthContext, withCenterStory, withRouter } from 'stories/decorators';
 
 import ConvertVRT, { ConvertVrtUi, ConvertVrtUiProps } from '.';
@@ -23,13 +24,13 @@ export default {
 
 const Template: Story<ConvertVrtUiProps> = args => <ConvertVrtUi {...args} />;
 
-const context = {
+const context: AuthContextValue = {
   login: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isReconnecting: false,
+  status: 'connected',
   accountAddress: '0x0000000000000000000000000000000000000000',
 };
 
