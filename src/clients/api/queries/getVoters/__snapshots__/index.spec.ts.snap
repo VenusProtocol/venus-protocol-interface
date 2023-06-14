@@ -1,4 +1,59 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVoters > returns proposal 1`] = `
+{
+  "result": [
+    {
+      "address": "0x60277add339d936c4ab907376afee4f7ac17d760",
+      "reason": undefined,
+      "support": "FOR",
+      "voteWeightWei": "6.222586268e+23",
+    },
+    {
+      "address": "0xc444949e0054a23c44fc45789738bdf64aed2391",
+      "reason": "Finally more income for the protocol and XVS holders! ;)",
+      "support": "FOR",
+      "voteWeightWei": "2.4543029897767607315925e+22",
+    },
+    {
+      "address": "0xb98fa0292e2927018c03ad5110673b7daa1424a7",
+      "reason": "This is the best feature for XVS Holders",
+      "support": "FOR",
+      "voteWeightWei": "1.55214637e+22",
+    },
+    {
+      "address": "0x73da76e9283a259c687713b6670c5ba5866bb338",
+      "reason": "We keep building through the downturns and on the next BTC Bull Run we will Shine.",
+      "support": "FOR",
+      "voteWeightWei": "9.2862418e+21",
+    },
+    {
+      "address": "0xb6e0928537289164cb0d11969cf7b9fcd2c9982a",
+      "reason": "Should share revenue with token holder.",
+      "support": "FOR",
+      "voteWeightWei": "9.2543427e+21",
+    },
+    {
+      "address": "0xc6b0fe3bf997453806d8d94ca6828e793e42df8f",
+      "reason": "ok",
+      "support": "FOR",
+      "voteWeightWei": "5.6811531e+21",
+    },
+    {
+      "address": "0xa205358b29bb5466c8d0ad25f84d2aa118e967e5",
+      "reason": "Income for xvs vault",
+      "support": "FOR",
+      "voteWeightWei": "1.6639618e+21",
+    },
+  ],
+  "sumVotes": {
+    "abstain": "0",
+    "against": "0",
+    "for": "6.93308509013115329138466e+23",
+    "total": "6.93308509013115329138466e+23",
+  },
+}
+`;
 
 exports[`api/queries/getVoters returns proposal 1`] = `
 Object {

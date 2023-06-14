@@ -1,4 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/useGetTreasuryTotals > calculates totals correctly 1`] = `
+{
+  "treasuryBalanceCents": "93.074308884638349",
+  "treasuryBorrowBalanceCents": "2576426391691125",
+  "treasuryLiquidityBalanceCents": "56784040965",
+  "treasurySupplyBalanceCents": "6297840237169404",
+}
+`;
 
 exports[`api/queries/useGetTreasuryTotals calculates totals correctly 1`] = `
 Object {

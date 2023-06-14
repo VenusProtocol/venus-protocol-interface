@@ -6,12 +6,12 @@ import { XvsVault } from 'types/contracts';
 
 import setVoteDelegate from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/setVoteDelegate', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const delegateMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const delegateMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

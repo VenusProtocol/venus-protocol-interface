@@ -17,21 +17,21 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainAssets, { UseGetMainAssetsOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeUserVaiRepayAmountWithInterestsWei = new BigNumber('10000000000000000');
 
 describe('api/queries/useGetMainAssets', () => {
   beforeEach(() => {
-    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
-    (getMainAssetsInAccount as jest.Mock).mockImplementation(() => ({
+    (getMainMarkets as vi.Mock).mockImplementation(() => ({ markets }));
+    (getMainAssetsInAccount as vi.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
     (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterests: fakeUserVaiRepayAmountWithInterestsWei,
     }));
 
-    (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
+    (useGetVTokenBalancesAll as vi.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
         return { data: { balances: vTokenBalancesAccount } };
       }

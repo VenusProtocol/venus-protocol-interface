@@ -1,4 +1,43 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getProposal > returns proposal 1`] = `
+{
+  "abstainedVotesWei": "0",
+  "actions": [
+    {
+      "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
+      "signature": "_setPriceOracle",
+      "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+      "value": "0",
+    },
+  ],
+  "againstVotesWei": "0",
+  "cancelDate": undefined,
+  "cancelTxHash": undefined,
+  "createdDate": 2022-05-30T16:36:33.000Z,
+  "createdTxHash": undefined,
+  "description": {
+    "description": "Fake description",
+    "title": "Fake title",
+    "version": "v1",
+  },
+  "endBlock": 19788034,
+  "endDate": 2022-05-30T15:19:12.000Z,
+  "endTxHash": undefined,
+  "executedDate": undefined,
+  "executedTxHash": undefined,
+  "forVotesWei": "0",
+  "id": 98,
+  "proposalType": 0,
+  "proposer": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
+  "queuedDate": undefined,
+  "queuedTxHash": undefined,
+  "startDate": 1970-01-01T00:00:00.000Z,
+  "startTxHash": undefined,
+  "state": "Pending",
+  "totalVotesWei": "0",
+}
+`;
 
 exports[`api/queries/getProposal returns proposal 1`] = `
 Object {

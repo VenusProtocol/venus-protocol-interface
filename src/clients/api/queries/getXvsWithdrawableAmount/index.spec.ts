@@ -7,7 +7,7 @@ const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
 describe('api/queries/getXvsWithdrawableAmount', () => {
   test('returns the withdrawable amount on success', async () => {
-    const xvsWithdrawableAmountMock = jest.fn(async () => xvsVestingResponses.withdrawableAmount);
+    const xvsWithdrawableAmountMock = vi.fn(async () => xvsVestingResponses.withdrawableAmount);
 
     const fakeContract = {
       getWithdrawableAmount: xvsWithdrawableAmountMock,

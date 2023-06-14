@@ -14,22 +14,22 @@ import renderComponent from 'testUtils/renderComponent';
 import Market from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Market', () => {
   beforeEach(() => {
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
+    (useGetAsset as vi.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: assetData[0],
       },
     }));
 
-    (getMarketHistory as jest.Mock).mockImplementation(() => ({
+    (getMarketHistory as vi.Mock).mockImplementation(() => ({
       marketSnapshots,
     }));
 
-    (getVTokenApySimulations as jest.Mock).mockImplementation(() => ({
+    (getVTokenApySimulations as vi.Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));
   });

@@ -12,13 +12,13 @@ import BorrowRepay from '.';
 const fakePool: Pool = poolData[0];
 const fakeAsset = fakePool.assets[0];
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('hooks/useBorrowRepayModal', () => {
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
       <BorrowRepay
-        onClose={jest.fn()}
+        onClose={vi.fn()}
         vToken={fakeAsset.vToken}
         poolComptrollerAddress={fakePool.comptrollerAddress}
       />,
@@ -34,7 +34,7 @@ describe('hooks/useBorrowRepayModal', () => {
 
     const { queryByText } = renderComponent(() => (
       <BorrowRepay
-        onClose={jest.fn()}
+        onClose={vi.fn()}
         vToken={fakeVToken}
         poolComptrollerAddress={fakePool.comptrollerAddress}
       />

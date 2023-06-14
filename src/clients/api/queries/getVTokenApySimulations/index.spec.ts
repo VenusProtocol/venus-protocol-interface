@@ -11,7 +11,7 @@ const fakeReserveFactorMantissa = new BigNumber(18);
 describe('api/queries/getVTokenApySimulations', () => {
   test('returns the APY simulations in the correct format on success', async () => {
     const multicall = {
-      call: jest.fn(async () => fakeMulticallResponses.interestRateModel.getVTokenBalances),
+      call: vi.fn(async () => fakeMulticallResponses.interestRateModel.getVTokenBalances),
     } as unknown as Multicall;
 
     const response = await getVTokenApySimulations({

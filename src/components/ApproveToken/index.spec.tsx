@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -9,8 +10,8 @@ import renderComponent from 'testUtils/renderComponent';
 
 import ApproveToken from '.';
 
-jest.mock('clients/api');
-jest.mock('components/Toast');
+vi.mock('clients/api');
+vi.mock('components/Toast');
 
 const fakeAsset = assetData[0];
 const fakeContent = 'Fake Content';
@@ -18,7 +19,7 @@ const fakeContent = 'Fake Content';
 describe('components/ApproveToken', () => {
   it('asks the user to approve token if not approved', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

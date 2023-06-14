@@ -7,7 +7,7 @@ import getVaiRepayApy from '.';
 
 describe('api/queries/getVaiRepayApy', () => {
   test('returns the VAI repay APY in the correct format on success', async () => {
-    const getVAIRepayRatePerBlockMock = jest.fn(
+    const getVAIRepayRatePerBlockMock = vi.fn(
       async () => vaiControllerResponses.getVAIRepayRatePerBlock,
     );
 

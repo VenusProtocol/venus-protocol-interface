@@ -13,11 +13,11 @@ import en from 'translation/translations/en.json';
 
 import Vai from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Dashboard/Vai', () => {
   beforeEach(() => {
-    (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
+    (getVaiCalculateRepayAmount as vi.Mock).mockImplementation(() =>
       formatToOutput({
         repayAmountWei: convertTokensToWei({
           value: new BigNumber(0),

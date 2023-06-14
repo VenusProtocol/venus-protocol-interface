@@ -12,7 +12,7 @@ const fakePid = 1;
 
 describe('api/queries/getXvsVaultUserInfo', () => {
   test('returns user info related to XVS vault in correct format on success', async () => {
-    const getUserInfoMock = jest.fn(async () => xvsVaultResponses.userInfo);
+    const getUserInfoMock = vi.fn(async () => xvsVaultResponses.userInfo);
 
     const fakeContract = {
       getUserInfo: getUserInfoMock,

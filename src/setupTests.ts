@@ -1,13 +1,20 @@
 // react-testing-library renders your components to document.body,
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
-import 'jest-canvas-mock';
+import Vi from 'vitest';
+// Polyfill "window.fetch"
+import 'whatwg-fetch';
 
 import { SWAP_TOKENS } from 'constants/tokens';
 import useTokenApproval from 'hooks/useTokenApproval';
 
-jest.mock('utilities/isFeatureEnabled');
-jest.mock('hooks/useTokenApproval');
+vi.mock('utilities/isFeatureEnabled');
+vi.mock('hooks/useTokenApproval');
+
+// Mock Lottie
+vi.mock('@lottiefiles/react-lottie-player', () => ({
+  Player: () => null,
+}));
 
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
@@ -18,6 +25,10 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
   },
 );
 
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
 afterEach(() => {
-  (useTokenApproval as jest.Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
+  (useTokenApproval as Vi.Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
 });

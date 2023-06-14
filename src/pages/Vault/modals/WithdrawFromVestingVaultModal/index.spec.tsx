@@ -9,7 +9,7 @@ import en from 'translation/translations/en.json';
 
 import WithdrawFromVestingVaultModal from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakePoolIndex = 6;
 const fakeStokedToken = TOKENS.vai;

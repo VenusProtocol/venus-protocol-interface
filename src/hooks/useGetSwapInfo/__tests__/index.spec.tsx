@@ -9,7 +9,7 @@ import renderComponent from 'testUtils/renderComponent';
 import useGetSwapInfo from '..';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Swap/useGetSwapInfo', () => {
   it('returns default state when fromToken and toToken reference the same token', async () => {
@@ -116,7 +116,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
           fakePair.token1.address !== SWAP_TOKENS.xvs.address,
       );
 
-      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
         pairs: customfakePancakeSwapPairs,
       }));
 
@@ -146,7 +146,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns swap in correct format if a trade is found', async () => {
-      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 
@@ -197,7 +197,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns an error if no trade is found for the input provided', async () => {
-      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 
@@ -227,7 +227,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns swap in correct format if a trade is found', async () => {
-      (getPancakeSwapPairs as jest.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 

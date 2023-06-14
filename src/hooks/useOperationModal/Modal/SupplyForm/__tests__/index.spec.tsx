@@ -18,9 +18,9 @@ import SupplyForm from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useCollateral');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useCollateral');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('displays correct token wallet balance', async () => {
@@ -256,10 +256,10 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       vToken: TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'], // vBNB
     };
 
-    const onCloseModalMock = jest.fn();
+    const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
@@ -305,10 +305,10 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   });
 
   it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const onCloseModalMock = jest.fn();
+    const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,

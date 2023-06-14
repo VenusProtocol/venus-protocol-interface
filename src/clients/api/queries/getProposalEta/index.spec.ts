@@ -7,7 +7,7 @@ const fakeProposalId = 123;
 
 describe('api/queries/getProposalEta', () => {
   test('returns ETA in correct format on success', async () => {
-    const proposalsMock = jest.fn(async () => governorBravoDelegateResponses.proposals);
+    const proposalsMock = vi.fn(async () => governorBravoDelegateResponses.proposals);
 
     const fakeContract = {
       proposals: proposalsMock,

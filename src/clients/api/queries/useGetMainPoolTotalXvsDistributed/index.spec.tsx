@@ -8,11 +8,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainPoolTotalXvsDistributed, { UseGetMainPoolTotalXvsDistributedOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetMainPoolTotalXvsDistributed', () => {
   beforeEach(() => {
-    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+    (getMainMarkets as vi.Mock).mockImplementation(() => ({ markets }));
   });
 
   it('returns data in the correct format', async () => {

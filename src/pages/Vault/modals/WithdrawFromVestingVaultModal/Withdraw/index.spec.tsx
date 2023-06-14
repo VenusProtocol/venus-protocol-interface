@@ -13,15 +13,15 @@ import en from 'translation/translations/en.json';
 import Withdraw from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakePoolIndex = 6;
 const fakeStakedToken = TOKENS.vai;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+    vi.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
+    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     }));
   });
@@ -51,7 +51,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('disables submit button when there is no tokens available', async () => {
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
       lockedDeposits: [],
     }));
 
@@ -71,7 +71,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('lets user withdraw their available tokens and calls handleClose callback on success', async () => {
-    const handleCloseMock = jest.fn();
+    const handleCloseMock = vi.fn();
 
     const { getByTestId, getByText } = renderComponent(
       <Withdraw

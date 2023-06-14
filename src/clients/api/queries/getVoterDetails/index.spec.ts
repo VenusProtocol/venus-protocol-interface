@@ -5,11 +5,11 @@ import fakeAddress from '__mocks__/models/address';
 
 import getVoterDetail from '.';
 
-jest.mock('utilities/restService');
+vi.mock('utilities/restService');
 
 describe('api/queries/getVoterDetail', () => {
   test('returns  formatted voter details', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterDetailsResponse,
     }));

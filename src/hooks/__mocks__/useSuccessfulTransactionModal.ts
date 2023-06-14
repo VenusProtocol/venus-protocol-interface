@@ -1,5 +1,5 @@
-const openSuccessfulTransactionModal = jest.fn();
-const closeSuccessfulTransactionModal = jest.fn();
+const openSuccessfulTransactionModal = vi.fn();
+const closeSuccessfulTransactionModal = vi.fn();
 
 export default () => ({
   openSuccessfulTransactionModal,

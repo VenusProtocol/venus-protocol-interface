@@ -10,7 +10,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { swapTokensAndSupply } from 'clients/api';
-import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
+import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -50,31 +50,31 @@ const fakeSwap: Swap = {
   direction: 'exactAmountIn',
 };
 
-jest.mock('clients/api');
-jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('hooks/useGetSwapInfo');
+vi.mock('clients/api');
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useGetSwapInfo');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (isFeatureEnabled as jest.Mock).mockImplementation(
+    (isFeatureEnabled as vi.Mock).mockImplementation(
       featureFlag => featureFlag === 'integratedSwap',
     );
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
   });
 
   afterEach(() => {
-    (isFeatureEnabled as jest.Mock).mockRestore();
-    (isFeatureEnabled as jest.Mock).mockImplementation(originalIsFeatureEnabledMock);
+    (isFeatureEnabled as vi.Mock).mockRestore();
+    (isFeatureEnabled as vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
   });
 
   it('renders without crashing', () => {
@@ -138,7 +138,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -183,7 +183,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -259,7 +259,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei.plus(1),
     };
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       error: undefined,
       isLoading: false,
@@ -297,7 +297,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
@@ -341,7 +341,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
           : tokenBalance.balanceWei,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as vi.Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
 
@@ -421,12 +421,12 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,
     }));
 
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText, getByTestId } = renderComponent(

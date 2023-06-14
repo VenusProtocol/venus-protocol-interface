@@ -4,7 +4,7 @@ import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 import getMainMarkets from '.';
 
-jest.mock('utilities/restService');
+vi.mock('utilities/restService');
 
 const fakeVToken = TESTNET_VBEP_TOKENS['0x08e0a5575de71037ae36abfafb516595fe68e5e4'];
 
@@ -51,7 +51,7 @@ const supportedMarket = {
 
 describe('api/queries/getMainMarkets', () => {
   test('returns supported markets', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { markets: [supportedMarket] } },
     }));
@@ -63,7 +63,7 @@ describe('api/queries/getMainMarkets', () => {
 
   test('filters unsupported markets', async () => {
     const unsupportedMarket = { ...supportedMarket, address: 'invalid-address' };
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { markets: [unsupportedMarket] } },
     }));

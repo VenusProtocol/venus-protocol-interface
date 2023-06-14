@@ -11,8 +11,8 @@ describe('api/mutation/createProposal', () => {
     const fakeDescription = 'Description';
     const proposalType = 0;
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const createProposalMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const createProposalMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

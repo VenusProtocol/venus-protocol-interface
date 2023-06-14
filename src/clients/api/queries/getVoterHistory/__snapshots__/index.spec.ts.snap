@@ -1,4 +1,526 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVoterHistory > Gets called with correct default arguments 1`] = `
+{
+  "limit": 5,
+  "offset": 0,
+  "total": 5,
+  "voterHistory": [
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6752554,
+      "blockTimestamp": 1618987812,
+      "createdAt": 2021-04-21T06:51:10.000Z,
+      "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "27014047767849131149",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-21T02:11:13.000Z,
+        "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
+        "description": {
+          "description": "
+Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
+
+- VAI Vault Rate from 1250 XVS to 500 XVS daily
+- vUSDC Speed Rate from 1000 XVS to 1250 XVS daily
+
+This proposal begins efforts of setting daily XVS emission rate for VAI and vUSDC.
+",
+          "title": " VAI and USDC Speed Recalibration",
+          "version": "v1",
+        },
+        "endBlock": 6833387,
+        "endDate": 2021-04-24T03:39:49.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-26T05:26:17.000Z,
+        "executedTxHash": "0xb10169204331b0b6a1d6d6f818dbd2e511455c21e0927e1d1c580f20b1c6c9f8",
+        "forVotesWei": "6.02104728669217991013071e+23",
+        "id": 15,
+        "proposalType": 0,
+        "proposer": "0x4f38bbabf2197d8b7484cc904499f724e830408f",
+        "queuedDate": 2021-04-24T05:25:55.000Z,
+        "queuedTxHash": "0xb78d62fc008612f07a993f48b47004b84768c5fada450cb6c877feeee97cdf64",
+        "startDate": 2021-04-21T02:11:16.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.0213174271698584014422e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-21T06:51:10.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6755308,
+      "blockTimestamp": 1618996126,
+      "createdAt": 2021-04-21T09:12:03.000Z,
+      "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "1008475453184684811",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-21T03:58:41.000Z,
+        "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
+        "description": {
+          "description": "
+In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
+",
+          "title": " VIP-16 Venus XVS Burn",
+          "version": "v1",
+        },
+        "endBlock": 6835526,
+        "endDate": 2021-04-24T05:26:46.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-26T05:28:08.000Z,
+        "executedTxHash": "0xd4025a072e97840c604d7dd3afa8f2f0f0d6d41b6ae2262be234451a617e3f18",
+        "forVotesWei": "6.02571978482817997675743e+23",
+        "id": 16,
+        "proposalType": 1,
+        "proposer": "0x1ca3ac3686071be692be7f1fbecd668641476d7e",
+        "queuedDate": 2021-04-24T05:27:49.000Z,
+        "queuedTxHash": "0x30196ecabd366da698ff0465ed2186050c740f27f79be090bcc429bc66221ec3",
+        "startDate": 2021-04-21T03:58:44.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.02572986958271182360554e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-21T09:12:03.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6778623,
+      "blockTimestamp": 1619068919,
+      "createdAt": 2021-04-22T05:22:34.000Z,
+      "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "271645438287511902563",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-22T02:26:21.000Z,
+        "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
+        "description": {
+          "description": "
+Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
+
+## Asset Details
+Name: Dogecoin
+Symbol: DOGE
+Type: Cross-chain pegged asset by Binance 
+Price: $0.3032
+Market Cap: $39,197,370,632
+Rank: 6
+
+## About Dogecoin
+Dogecoin (DOGE) is based on the popular \\"doge\\" Internet meme and features a Shiba Inu on its logo. The open-source digital currency was created by [Billy Markus](https://coinmarketcap.com/alexandria/article/dogecoin-a-stunning-surge-a-crushing-blow-a-surprise-comeback) from Portland, Oregon and Jackson Palmer from Sydney, Australia, and was forked from Litecoin in December 2013. Dogecoin's creators envisaged it as a fun, light-hearted cryptocurrency that would have greater appeal beyond the core Bitcoin audience, since it was based on a dog meme. Tesla CEO Elon Musk posted several tweets on social media that Dogecoin is his favorite coin.
+
+For more information please visit: https://coinmarketcap.com/currencies/dogecoin/
+",
+          "title": " VIP-17 Support vDOGE",
+          "version": "v1",
+        },
+        "endBlock": 6861512,
+        "endDate": 2021-04-25T03:10:31.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-27T04:43:23.000Z,
+        "executedTxHash": "0x67c0b09c133f308f359253c4635bbeee51a1f329ed4f5d70b0cce3c0a307adea",
+        "forVotesWei": "6.00552505805358480959992e+23",
+        "id": 17,
+        "proposalType": 1,
+        "proposer": "0x5108944f6ac60adc9f152648c7c6b14d29426eb4",
+        "queuedDate": 2021-04-25T04:42:40.000Z,
+        "queuedTxHash": "0xd3d4cf260e5dc36431b81749dcf2ab3db691f55b5bb5a5100e6357b18953b0cb",
+        "startDate": 2021-04-22T02:26:24.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.00824151243645992862555e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-22T05:22:34.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6960733,
+      "blockTimestamp": 1619619883,
+      "createdAt": 2021-04-28T14:24:51.000Z,
+      "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "2342202445218922408",
+        "cancelDate": 2021-05-03T10:13:35.000Z,
+        "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
+        "createdDate": 2021-04-28T13:57:04.000Z,
+        "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
+        "description": {
+          "description": "
+## Summary
+Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
+
+Update speed setting for Doge and Bitcoin Cash to 50 XVS daily.
+
+Proposal:
+- BTCB 60% to 80%
+- ETH 60% to 80%
+- BNB 60% to 80%
+- XVS 60% 80%
+- SXP 60% to 80%
+- USDT 60% to 80%
+- BUSD 60% to 80%
+- USDC 60% to 80%
+
+- Doge: Decrease speed setting from 119.99 to 50 XVS daily
+- BCH: Increase speed setting from 18.32 to 50 XVS daily
+
+By increasing the above asset collateral to 80%, which will allow users to utilize the higher borrow factors on their existing positions or receive more security for their open positions.
+",
+          "title": " VIP-18 Increase Qualifed Asset's Collateral Factor",
+          "version": "v1",
+        },
+        "endBlock": 7046581,
+        "endDate": 2021-05-01T14:44:30.000Z,
+        "endTxHash": undefined,
+        "executedDate": undefined,
+        "executedTxHash": undefined,
+        "forVotesWei": "9.0114116127025256799144e+23",
+        "id": 18,
+        "proposalType": 0,
+        "proposer": "0x5108944f6ac60adc9f152648c7c6b14d29426eb4",
+        "queuedDate": 2021-05-01T14:48:21.000Z,
+        "queuedTxHash": "0xa1a99e026a7ec21a31d5131203c7e0933bc3b22eb419c51bd57f8862ab9f93ed",
+        "startDate": 2021-04-28T13:57:07.000Z,
+        "startTxHash": undefined,
+        "state": "Canceled",
+        "totalVotesWei": "9.01143503472697786913848e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-28T14:24:51.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6970646,
+      "blockTimestamp": 1619649813,
+      "createdAt": 2021-04-28T22:43:45.000Z,
+      "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "6.00654038898943986646375e+23",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-28T14:40:25.000Z,
+        "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
+        "description": {
+          "description": "
+Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
+
+Proposal:
+Increase liquidator fee incentives from 10% to 15% for all assets
+
+FIL: Increase speed setting from 18.32 to 50 XVS daily
+",
+          "title": " VIP-19 Increase Liquidation Incentive Rate",
+          "version": "v1",
+        },
+        "endBlock": 7047448,
+        "endDate": 2021-05-01T15:28:18.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-05-03T15:59:08.000Z,
+        "executedTxHash": "0x9b4e0e2c189f0250df82d369d81625ca190c4455ecbc6d8198264b19600d36b9",
+        "forVotesWei": "6.00922622227605168758294e+23",
+        "id": 19,
+        "proposalType": 0,
+        "proposer": "0x4f38bbabf2197d8b7484cc904499f724e830408f",
+        "queuedDate": 2021-05-01T15:56:53.000Z,
+        "queuedTxHash": "0x5b650ae3d9f49d7a7951fe4c2ec73ec5c237e8e2674a126e8fba2bbce064131b",
+        "startDate": 2021-04-28T14:40:28.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "1.201576661126549155404669e+24",
+      },
+      "reason": undefined,
+      "support": "AGAINST",
+      "updatedAt": 2021-04-28T22:43:45.000Z,
+      "votesWei": "19000000007051654283",
+    },
+  ],
+}
+`;
+
+exports[`api/queries/getVoterHistory > returns formatted voter history 1`] = `
+{
+  "limit": 5,
+  "offset": 0,
+  "total": 5,
+  "voterHistory": [
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6752554,
+      "blockTimestamp": 1618987812,
+      "createdAt": 2021-04-21T06:51:10.000Z,
+      "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "27014047767849131149",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-21T02:11:13.000Z,
+        "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
+        "description": {
+          "description": "
+Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
+
+- VAI Vault Rate from 1250 XVS to 500 XVS daily
+- vUSDC Speed Rate from 1000 XVS to 1250 XVS daily
+
+This proposal begins efforts of setting daily XVS emission rate for VAI and vUSDC.
+",
+          "title": " VAI and USDC Speed Recalibration",
+          "version": "v1",
+        },
+        "endBlock": 6833387,
+        "endDate": 2021-04-24T03:39:49.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-26T05:26:17.000Z,
+        "executedTxHash": "0xb10169204331b0b6a1d6d6f818dbd2e511455c21e0927e1d1c580f20b1c6c9f8",
+        "forVotesWei": "6.02104728669217991013071e+23",
+        "id": 15,
+        "proposalType": 0,
+        "proposer": "0x4f38bbabf2197d8b7484cc904499f724e830408f",
+        "queuedDate": 2021-04-24T05:25:55.000Z,
+        "queuedTxHash": "0xb78d62fc008612f07a993f48b47004b84768c5fada450cb6c877feeee97cdf64",
+        "startDate": 2021-04-21T02:11:16.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.0213174271698584014422e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-21T06:51:10.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6755308,
+      "blockTimestamp": 1618996126,
+      "createdAt": 2021-04-21T09:12:03.000Z,
+      "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "1008475453184684811",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-21T03:58:41.000Z,
+        "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
+        "description": {
+          "description": "
+In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
+",
+          "title": " VIP-16 Venus XVS Burn",
+          "version": "v1",
+        },
+        "endBlock": 6835526,
+        "endDate": 2021-04-24T05:26:46.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-26T05:28:08.000Z,
+        "executedTxHash": "0xd4025a072e97840c604d7dd3afa8f2f0f0d6d41b6ae2262be234451a617e3f18",
+        "forVotesWei": "6.02571978482817997675743e+23",
+        "id": 16,
+        "proposalType": 1,
+        "proposer": "0x1ca3ac3686071be692be7f1fbecd668641476d7e",
+        "queuedDate": 2021-04-24T05:27:49.000Z,
+        "queuedTxHash": "0x30196ecabd366da698ff0465ed2186050c740f27f79be090bcc429bc66221ec3",
+        "startDate": 2021-04-21T03:58:44.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.02572986958271182360554e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-21T09:12:03.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6778623,
+      "blockTimestamp": 1619068919,
+      "createdAt": 2021-04-22T05:22:34.000Z,
+      "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "271645438287511902563",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-22T02:26:21.000Z,
+        "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
+        "description": {
+          "description": "
+Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
+
+## Asset Details
+Name: Dogecoin
+Symbol: DOGE
+Type: Cross-chain pegged asset by Binance 
+Price: $0.3032
+Market Cap: $39,197,370,632
+Rank: 6
+
+## About Dogecoin
+Dogecoin (DOGE) is based on the popular \\"doge\\" Internet meme and features a Shiba Inu on its logo. The open-source digital currency was created by [Billy Markus](https://coinmarketcap.com/alexandria/article/dogecoin-a-stunning-surge-a-crushing-blow-a-surprise-comeback) from Portland, Oregon and Jackson Palmer from Sydney, Australia, and was forked from Litecoin in December 2013. Dogecoin's creators envisaged it as a fun, light-hearted cryptocurrency that would have greater appeal beyond the core Bitcoin audience, since it was based on a dog meme. Tesla CEO Elon Musk posted several tweets on social media that Dogecoin is his favorite coin.
+
+For more information please visit: https://coinmarketcap.com/currencies/dogecoin/
+",
+          "title": " VIP-17 Support vDOGE",
+          "version": "v1",
+        },
+        "endBlock": 6861512,
+        "endDate": 2021-04-25T03:10:31.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-04-27T04:43:23.000Z,
+        "executedTxHash": "0x67c0b09c133f308f359253c4635bbeee51a1f329ed4f5d70b0cce3c0a307adea",
+        "forVotesWei": "6.00552505805358480959992e+23",
+        "id": 17,
+        "proposalType": 1,
+        "proposer": "0x5108944f6ac60adc9f152648c7c6b14d29426eb4",
+        "queuedDate": 2021-04-25T04:42:40.000Z,
+        "queuedTxHash": "0xd3d4cf260e5dc36431b81749dcf2ab3db691f55b5bb5a5100e6357b18953b0cb",
+        "startDate": 2021-04-22T02:26:24.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "6.00824151243645992862555e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-22T05:22:34.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6960733,
+      "blockTimestamp": 1619619883,
+      "createdAt": 2021-04-28T14:24:51.000Z,
+      "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "2342202445218922408",
+        "cancelDate": 2021-05-03T10:13:35.000Z,
+        "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
+        "createdDate": 2021-04-28T13:57:04.000Z,
+        "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
+        "description": {
+          "description": "
+## Summary
+Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
+
+Update speed setting for Doge and Bitcoin Cash to 50 XVS daily.
+
+Proposal:
+- BTCB 60% to 80%
+- ETH 60% to 80%
+- BNB 60% to 80%
+- XVS 60% 80%
+- SXP 60% to 80%
+- USDT 60% to 80%
+- BUSD 60% to 80%
+- USDC 60% to 80%
+
+- Doge: Decrease speed setting from 119.99 to 50 XVS daily
+- BCH: Increase speed setting from 18.32 to 50 XVS daily
+
+By increasing the above asset collateral to 80%, which will allow users to utilize the higher borrow factors on their existing positions or receive more security for their open positions.
+",
+          "title": " VIP-18 Increase Qualifed Asset's Collateral Factor",
+          "version": "v1",
+        },
+        "endBlock": 7046581,
+        "endDate": 2021-05-01T14:44:30.000Z,
+        "endTxHash": undefined,
+        "executedDate": undefined,
+        "executedTxHash": undefined,
+        "forVotesWei": "9.0114116127025256799144e+23",
+        "id": 18,
+        "proposalType": 0,
+        "proposer": "0x5108944f6ac60adc9f152648c7c6b14d29426eb4",
+        "queuedDate": 2021-05-01T14:48:21.000Z,
+        "queuedTxHash": "0xa1a99e026a7ec21a31d5131203c7e0933bc3b22eb419c51bd57f8862ab9f93ed",
+        "startDate": 2021-04-28T13:57:07.000Z,
+        "startTxHash": undefined,
+        "state": "Canceled",
+        "totalVotesWei": "9.01143503472697786913848e+23",
+      },
+      "reason": undefined,
+      "support": "FOR",
+      "updatedAt": 2021-04-28T14:24:51.000Z,
+      "votesWei": "19000000007051654283",
+    },
+    {
+      "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
+      "blockNumber": 6970646,
+      "blockTimestamp": 1619649813,
+      "createdAt": 2021-04-28T22:43:45.000Z,
+      "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
+      "proposal": {
+        "abstainedVotesWei": "0",
+        "actions": [],
+        "againstVotesWei": "6.00654038898943986646375e+23",
+        "cancelDate": undefined,
+        "cancelTxHash": undefined,
+        "createdDate": 2021-04-28T14:40:25.000Z,
+        "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
+        "description": {
+          "description": "
+Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
+
+Proposal:
+Increase liquidator fee incentives from 10% to 15% for all assets
+
+FIL: Increase speed setting from 18.32 to 50 XVS daily
+",
+          "title": " VIP-19 Increase Liquidation Incentive Rate",
+          "version": "v1",
+        },
+        "endBlock": 7047448,
+        "endDate": 2021-05-01T15:28:18.000Z,
+        "endTxHash": undefined,
+        "executedDate": 2021-05-03T15:59:08.000Z,
+        "executedTxHash": "0x9b4e0e2c189f0250df82d369d81625ca190c4455ecbc6d8198264b19600d36b9",
+        "forVotesWei": "6.00922622227605168758294e+23",
+        "id": 19,
+        "proposalType": 0,
+        "proposer": "0x4f38bbabf2197d8b7484cc904499f724e830408f",
+        "queuedDate": 2021-05-01T15:56:53.000Z,
+        "queuedTxHash": "0x5b650ae3d9f49d7a7951fe4c2ec73ec5c237e8e2674a126e8fba2bbce064131b",
+        "startDate": 2021-04-28T14:40:28.000Z,
+        "startTxHash": undefined,
+        "state": "Executed",
+        "totalVotesWei": "1.201576661126549155404669e+24",
+      },
+      "reason": undefined,
+      "support": "AGAINST",
+      "updatedAt": 2021-04-28T22:43:45.000Z,
+      "votesWei": "19000000007051654283",
+    },
+  ],
+}
+`;
 
 exports[`api/queries/getVoterHistory Gets called with correct default arguments 1`] = `
 Object {

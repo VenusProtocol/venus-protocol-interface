@@ -5,7 +5,7 @@ import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 import getMarketHistory from '.';
 
-jest.mock('utilities/restService');
+vi.mock('utilities/restService');
 
 const marketSnapshot: MarketSnapshot = {
   blockNumber: 1,
@@ -18,7 +18,7 @@ const marketSnapshot: MarketSnapshot = {
 
 describe('api/queries/getMarketHistory', () => {
   test('returns market history on success', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { data: [marketSnapshot] } },
     }));
@@ -33,7 +33,7 @@ describe('api/queries/getMarketHistory', () => {
   });
 
   test('calls correct endpoint when passing type params', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { data: [marketSnapshot] } },
     }));

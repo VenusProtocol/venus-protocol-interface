@@ -11,13 +11,13 @@ import {
   fakeIsolatedPoolParticipantsCount,
   fakeMulticallResponse1,
   fakeMulticallResponse2,
-} from './fakeData';
+} from '../__testUtils__/fakeData';
 
-jest.mock('clients/subgraph');
+vi.mock('clients/subgraph');
 
 describe('api/queries/getIsolatedPools', () => {
   test('returns isolated pools in the correct format', async () => {
-    (getIsolatedPoolParticipantsCount as jest.Mock).mockImplementationOnce(
+    (getIsolatedPoolParticipantsCount as vi.Mock).mockImplementationOnce(
       () => fakeIsolatedPoolParticipantsCount,
     );
 

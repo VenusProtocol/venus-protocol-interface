@@ -10,13 +10,13 @@ import supply from '.';
 
 const fakeAmountWei = new BigNumber('10000000000000000');
 
-jest.mock('clients/contracts');
+vi.mock('clients/contracts');
 
 describe('api/mutation/supply', () => {
   describe('supply BNB', () => {
     test('returns contract receipt when request succeeds', async () => {
-      const waitMock = jest.fn(async () => fakeContractReceipt);
-      const mintMock = jest.fn(() => ({
+      const waitMock = vi.fn(async () => fakeContractReceipt);
+      const mintMock = vi.fn(() => ({
         wait: waitMock,
       }));
 
@@ -24,7 +24,7 @@ describe('api/mutation/supply', () => {
         mint: mintMock,
       } as unknown as VBep20;
 
-      (getVTokenContract as jest.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await supply({
         signer: fakeSigner,
@@ -45,8 +45,8 @@ describe('api/mutation/supply', () => {
 
   describe('supply non-BNB token', () => {
     test('returns contract receipt when request succeeds', async () => {
-      const waitMock = jest.fn(async () => fakeContractReceipt);
-      const mintMock = jest.fn(() => ({
+      const waitMock = vi.fn(async () => fakeContractReceipt);
+      const mintMock = vi.fn(() => ({
         wait: waitMock,
       }));
 
@@ -54,7 +54,7 @@ describe('api/mutation/supply', () => {
         mint: mintMock,
       } as unknown as VBnbToken;
 
-      (getVTokenContract as jest.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await supply({
         signer: fakeSigner,

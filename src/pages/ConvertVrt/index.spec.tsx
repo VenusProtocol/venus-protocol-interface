@@ -7,11 +7,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import ConvertVrt from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

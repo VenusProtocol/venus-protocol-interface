@@ -6,11 +6,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Xvs from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Xvs', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
       data: {
         assets: [],
         userTotalBorrowLimitCents: new BigNumber('111'),
@@ -20,7 +20,7 @@ describe('pages/Xvs', () => {
       isLoading: false,
     }));
 
-    (useGetMainPoolTotalXvsDistributed as jest.Mock).mockImplementation(() => ({
+    (useGetMainPoolTotalXvsDistributed as vi.Mock).mockImplementation(() => ({
       data: {
         totalXvsDistributedWei: new BigNumber('91823912i376'),
       },

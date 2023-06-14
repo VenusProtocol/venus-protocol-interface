@@ -5,14 +5,14 @@ import { Comptroller } from 'types/contracts';
 
 import exitMarket from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/exitMarket', () => {
   test('returns contract receipt when request succeeds', async () => {
     const vTokenAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const exitMarketMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const exitMarketMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

@@ -7,8 +7,8 @@ import approveToken from '.';
 
 describe('api/mutations/approveToken', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const approveTokenMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const approveTokenMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

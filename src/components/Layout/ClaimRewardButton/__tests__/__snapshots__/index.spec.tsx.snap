@@ -1,28 +1,28 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`components/Layout/ClaimRewardButton it claims only selected rewards on submit button click and displays successful transaction modal on success 1`] = `
-Object {
+exports[`components/Layout/ClaimRewardButton > it claims only selected rewards on submit button click and displays successful transaction modal on success 1`] = `
+{
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-  "claims": Array [
-    Object {
+  "claims": [
+    {
       "contract": "rewardsDistributor",
       "contractAddress": "0xa14c236372228b6e8182748f3ebbfb4bfeea3574",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
         "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",
       ],
     },
-    Object {
+    {
       "contract": "rewardsDistributor",
       "contractAddress": "0xadbed07126b7b70cbc5e07bf73599d55be571b9c",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
       ],
     },
-    Object {
+    {
       "contract": "vaiVault",
     },
-    Object {
+    {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
       "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -31,40 +31,40 @@ Object {
 }
 `;
 
-exports[`components/Layout/ClaimRewardButton it claims reward on submit button click and displays successful transaction modal on success 1`] = `
-Object {
+exports[`components/Layout/ClaimRewardButton > it claims reward on submit button click and displays successful transaction modal on success 1`] = `
+{
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-  "claims": Array [
-    Object {
+  "claims": [
+    {
       "contract": "mainPoolComptroller",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
         "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
       ],
     },
-    Object {
+    {
       "contract": "rewardsDistributor",
       "contractAddress": "0xa14c236372228b6e8182748f3ebbfb4bfeea3574",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
         "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",
       ],
     },
-    Object {
+    {
       "contract": "rewardsDistributor",
       "contractAddress": "0xadbed07126b7b70cbc5e07bf73599d55be571b9c",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
       ],
     },
-    Object {
+    {
       "contract": "vaiVault",
     },
-    Object {
+    {
       "contract": "vaiVault",
     },
-    Object {
+    {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
       "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

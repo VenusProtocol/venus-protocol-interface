@@ -9,7 +9,7 @@ import PoolBreakdown, { PoolBreakdownProps } from '.';
 import SUMMARY_TEST_IDS from '../Summary/testIds';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const baseProps: PoolBreakdownProps = {
   pool: poolData[0],
@@ -29,14 +29,14 @@ describe('pages/Account/PoolBreakdown', () => {
 
   describe('Feature flag enabled: isolatedPools', () => {
     beforeEach(() => {
-      (isFeatureEnabled as jest.Mock).mockImplementation(
+      (isFeatureEnabled as vi.Mock).mockImplementation(
         featureFlag => featureFlag === 'isolatedPools',
       );
     });
 
     afterEach(() => {
-      (isFeatureEnabled as jest.Mock).mockRestore();
-      (isFeatureEnabled as jest.Mock).mockImplementation(originalIsFeatureEnabledMock);
+      (isFeatureEnabled as vi.Mock).mockRestore();
+      (isFeatureEnabled as vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
     });
 
     it('displays content correctly', () => {

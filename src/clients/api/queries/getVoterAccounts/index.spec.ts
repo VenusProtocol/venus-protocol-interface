@@ -4,11 +4,11 @@ import voterAccountsResponse from '__mocks__/api/voterAccounts.json';
 
 import getVoterAccounts from '.';
 
-jest.mock('utilities/restService');
+vi.mock('utilities/restService');
 
 describe('api/queries/getVoterAccounts', () => {
   test('returns formatted Voter Accounts', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterAccountsResponse,
     }));
@@ -32,7 +32,7 @@ describe('api/queries/getVoterAccounts', () => {
   });
 
   test('Gets called with correct default arguments', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterAccountsResponse,
     }));

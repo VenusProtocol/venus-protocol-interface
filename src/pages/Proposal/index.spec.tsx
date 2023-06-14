@@ -27,8 +27,8 @@ import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';
 import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
-jest.mock('hooks/useVote');
+vi.mock('clients/api');
+vi.mock('hooks/useVote');
 
 const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
@@ -61,21 +61,21 @@ describe('pages/Proposal', () => {
       .useFakeTimers('modern')
       .setSystemTime(activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5));
 
-    (getVoteReceipt as jest.Mock).mockImplementation(() => ({
+    (getVoteReceipt as vi.Mock).mockImplementation(() => ({
       voteSupport: 'NOT_VOTED',
     }));
-    (getProposal as jest.Mock).mockImplementation(() => activeProposal);
+    (getProposal as vi.Mock).mockImplementation(() => activeProposal);
 
-    (getProposalThreshold as jest.Mock).mockImplementation(() => ({
+    (getProposalThreshold as vi.Mock).mockImplementation(() => ({
       thresholdWei: CREATE_PROPOSAL_THRESHOLD_WEI,
     }));
 
-    (useVote as jest.Mock).mockImplementation(() => ({
-      vote: jest.fn(),
+    (useVote as vi.Mock).mockImplementation(() => ({
+      vote: vi.fn(),
       isLoading: false,
     }));
 
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber('100000000000000000'),
     }));
   });
@@ -85,7 +85,7 @@ describe('pages/Proposal', () => {
   });
 
   it('renders without crashing on', async () => {
-    (getProposal as jest.Mock).mockImplementation(() => incorrectAction);
+    (getProposal as vi.Mock).mockImplementation(() => incorrectAction);
     renderComponent(<Proposal />);
   });
 
@@ -95,7 +95,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when proposal is not active', async () => {
-    (getProposal as jest.Mock).mockImplementationOnce(() => cancelledProposal);
+    (getProposal as vi.Mock).mockImplementationOnce(() => cancelledProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -105,7 +105,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when vote is cast', async () => {
-    (getVoteReceipt as jest.Mock).mockImplementation(() => ({
+    (getVoteReceipt as vi.Mock).mockImplementation(() => ({
       voteSupport: 'FOR',
     }));
 
@@ -119,7 +119,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when voting weight is 0', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -141,8 +141,8 @@ describe('pages/Proposal', () => {
   });
 
   it('allows user to vote for', async () => {
-    const vote = jest.fn();
-    (useVote as jest.Mock).mockImplementation(() => ({
+    const vote = vi.fn();
+    (useVote as vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -171,8 +171,8 @@ describe('pages/Proposal', () => {
   });
 
   it('allows user to vote against with reason', async () => {
-    const vote = jest.fn();
-    (useVote as jest.Mock).mockImplementation(() => ({
+    const vote = vi.fn();
+    (useVote as vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -209,8 +209,8 @@ describe('pages/Proposal', () => {
   });
 
   it('allows user to vote abstain', async () => {
-    const vote = jest.fn();
-    (useVote as jest.Mock).mockImplementation(() => ({
+    const vote = vi.fn();
+    (useVote as vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -242,7 +242,7 @@ describe('pages/Proposal', () => {
   });
 
   it('lists votes cast', async () => {
-    (useGetVoters as jest.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
+    (useGetVoters as vi.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
       const votersCopy = cloneDeep(voters);
       votersCopy.result = [votersCopy.result[filter]];
       return { data: votersCopy, isLoading: false };
@@ -267,7 +267,7 @@ describe('pages/Proposal', () => {
   });
 
   it('proposer can always cancel their own proposal', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const proposerAddress = activeProposal.proposer;
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -286,7 +286,7 @@ describe('pages/Proposal', () => {
   });
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
     }));
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -303,7 +303,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can cancel if voting power of the proposer dropped below threshold', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -322,7 +322,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can queue succeeded proposal', async () => {
-    (getProposal as jest.Mock).mockImplementationOnce(() => succeededProposal);
+    (getProposal as vi.Mock).mockImplementationOnce(() => succeededProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -338,7 +338,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can execute queued proposal', async () => {
-    (getProposal as jest.Mock).mockImplementationOnce(() => queuedProposal);
+    (getProposal as vi.Mock).mockImplementationOnce(() => queuedProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,

@@ -5,8 +5,8 @@ import executeProposal from '.';
 
 describe('api/mutation/executeProposal', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const executeProposalMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const executeProposalMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

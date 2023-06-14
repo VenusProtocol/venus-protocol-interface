@@ -8,7 +8,7 @@ import getVaiVaultUserInfo from '.';
 
 describe('api/queries/getVaiVaultUserInfo', () => {
   test('returns the user info in the correct format', async () => {
-    const userInfoMock = jest.fn(async () => vaiVaultResponses.userInfo);
+    const userInfoMock = vi.fn(async () => vaiVaultResponses.userInfo);
 
     const fakeContract = {
       userInfo: userInfoMock,

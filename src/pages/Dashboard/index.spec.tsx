@@ -9,11 +9,11 @@ import en from 'translation/translations/en.json';
 import Dashboard from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Dashboard', () => {
   beforeEach(() => {
-    (useGetPools as jest.Mock).mockImplementation(() => ({
+    (useGetPools as vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },

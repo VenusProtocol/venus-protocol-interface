@@ -16,8 +16,8 @@ import BorrowForm from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('renders without crashing', () => {
@@ -356,10 +356,10 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (borrow as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (borrow as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,

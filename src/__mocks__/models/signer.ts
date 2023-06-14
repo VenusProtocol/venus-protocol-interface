@@ -5,22 +5,22 @@ import fakeAddress from './address';
 export const signerAddress = fakeAddress;
 export const signerBalance = BigNumber.from('1000000000000000000');
 
-const getAddress = jest.fn(async () => signerAddress);
-const getBalance = jest.fn(async () => signerBalance);
-const signMessage = jest.fn();
-const signTransaction = jest.fn();
-const connect = jest.fn();
-const getTransactionCount = jest.fn();
-const estimateGas = jest.fn();
-const call = jest.fn();
-const sendTransaction = jest.fn();
-const getChainId = jest.fn();
-const getGasPrice = jest.fn();
-const getFeeData = jest.fn();
-const resolveName = jest.fn();
-const checkTransaction = jest.fn();
-const populateTransaction = jest.fn();
-const checkProvider = jest.fn();
+const getAddress = vi.fn(async () => signerAddress);
+const getBalance = vi.fn(async () => signerBalance);
+const signMessage = vi.fn();
+const signTransaction = vi.fn();
+const connect = vi.fn();
+const getTransactionCount = vi.fn();
+const estimateGas = vi.fn();
+const call = vi.fn();
+const sendTransaction = vi.fn();
+const getChainId = vi.fn();
+const getGasPrice = vi.fn();
+const getFeeData = vi.fn();
+const resolveName = vi.fn();
+const checkTransaction = vi.fn();
+const populateTransaction = vi.fn();
+const checkProvider = vi.fn();
 
 const signer: Signer = {
   getAddress,

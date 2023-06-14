@@ -10,7 +10,7 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
   test('returns the vault rate state on success', async () => {
     const fakeOutput = BN.from('1000');
 
-    const venusVaiVaultRateMock = jest.fn(async () => fakeOutput);
+    const venusVaiVaultRateMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       venusVAIVaultRate: venusVaiVaultRateMock,

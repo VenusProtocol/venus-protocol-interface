@@ -6,14 +6,14 @@ import { VaiController } from 'types/contracts';
 
 import mintVai from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/mintVai', () => {
   test('returns contract receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const mintVaiMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const mintVaiMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

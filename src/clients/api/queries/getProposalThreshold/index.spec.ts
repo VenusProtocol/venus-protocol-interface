@@ -9,7 +9,7 @@ describe('api/queries/getProposalThreshold', () => {
   test('returns proposal threshold on success', async () => {
     const fakeOutput = BN.from('1000');
 
-    const proposalThresholdMock = jest.fn(async () => fakeOutput);
+    const proposalThresholdMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       proposalThreshold: proposalThresholdMock,

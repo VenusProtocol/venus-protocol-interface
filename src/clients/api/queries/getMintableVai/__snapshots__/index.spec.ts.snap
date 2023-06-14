@@ -1,4 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getMintableVai > returns the mintable VAI in the correct format on success 1`] = `
+{
+  "mintableVaiWei": "40000000000000000000",
+}
+`;
 
 exports[`api/queries/getMintableVai returns the mintable VAI in the correct format on success 1`] = `
 Object {

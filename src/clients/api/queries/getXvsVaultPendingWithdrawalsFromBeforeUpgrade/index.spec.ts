@@ -11,7 +11,7 @@ const fakeAmount = new BigNumber(1000);
 
 describe('api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade', () => {
   test('returns total amount of pending withdrawals before the contract upgrade on success', async () => {
-    const pendingWithdrawalsBeforeUpgradeMock = jest.fn(async () => fakeAmount);
+    const pendingWithdrawalsBeforeUpgradeMock = vi.fn(async () => fakeAmount);
 
     const fakeContract = {
       pendingWithdrawalsBeforeUpgrade: pendingWithdrawalsBeforeUpgradeMock,

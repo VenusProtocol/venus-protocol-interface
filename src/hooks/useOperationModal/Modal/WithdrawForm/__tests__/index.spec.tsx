@@ -13,8 +13,8 @@ import Withdraw from '..';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool, fakeVTokenBalanceWei } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   it('submit button is disabled with no amount', async () => {
@@ -77,7 +77,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
-    (getVTokenBalanceOf as jest.Mock).mockImplementation(() => ({
+    (getVTokenBalanceOf as vi.Mock).mockImplementation(() => ({
       balanceWei: fakeVTokenBalanceWei,
     }));
 

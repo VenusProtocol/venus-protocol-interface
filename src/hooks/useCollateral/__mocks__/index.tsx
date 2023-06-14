@@ -1,6 +1,6 @@
 import React from 'react';
 
-const toggleCollateralMock = jest.fn();
+const toggleCollateralMock = vi.fn();
 
 export default () => ({
   toggleCollateral: toggleCollateralMock,

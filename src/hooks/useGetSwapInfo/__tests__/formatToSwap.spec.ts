@@ -31,7 +31,7 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
       inputAmount: new BigNumber(10),
       outputAmount: new BigNumber(10),
       executionPrice: new BigNumber(1),
-      minimumAmountOut: jest.fn(() => new BigNumber(9)),
+      minimumAmountOut: vi.fn(() => new BigNumber(9)),
     } as unknown as FormatToSwapInput['trade'];
 
     const fakeInput: FormatToSwapInput['input'] = {
@@ -51,7 +51,7 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
       inputAmount: new BigNumber(10),
       outputAmount: new BigNumber(10),
       executionPrice: new BigNumber(1),
-      maximumAmountIn: jest.fn(() => new BigNumber(11)),
+      maximumAmountIn: vi.fn(() => new BigNumber(11)),
     } as unknown as FormatToSwapInput['trade'];
 
     const fakeInput: FormatToSwapInput['input'] = {

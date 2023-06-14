@@ -9,11 +9,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainPool, { UseGetMainPoolOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetMainPool', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

@@ -26,40 +26,40 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
-    (getXvsVaultPoolCount as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultPoolCount as vi.Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));
-    (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultTotalAllocationPoints as vi.Mock).mockImplementation(() => ({
       totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
     }));
-    (getXvsVaultRewardPerBlock as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultRewardPerBlock as vi.Mock).mockImplementation(() => ({
       rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock.toString()),
     }));
-    (getVenusVaiVaultDailyRate as jest.Mock).mockImplementation(() => ({
+    (getVenusVaiVaultDailyRate as vi.Mock).mockImplementation(() => ({
       dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
     }));
-    (getBalanceOf as jest.Mock).mockImplementation(() => ({
+    (getBalanceOf as vi.Mock).mockImplementation(() => ({
       balanceWei: new BigNumber('4000000000'),
     }));
-    (getXvsVaultPendingWithdrawalsFromBeforeUpgrade as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultPendingWithdrawalsFromBeforeUpgrade as vi.Mock).mockImplementation(() => ({
       pendingWithdrawalsFromBeforeUpgradeWei: new BigNumber('100000'),
     }));
 
-    (getMainMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+    (getMainMarkets as vi.Mock).mockImplementation(() => ({ markets }));
 
-    (getVaiVaultUserInfo as jest.Mock).mockImplementation(() =>
+    (getVaiVaultUserInfo as vi.Mock).mockImplementation(() =>
       formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),
     );
 
-    (getXvsVaultPoolInfo as jest.Mock).mockImplementation(() =>
+    (getXvsVaultPoolInfo as vi.Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),
     );
 
-    (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
+    (getXvsVaultUserInfo as vi.Mock).mockImplementation(() =>
       formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
     );
   });

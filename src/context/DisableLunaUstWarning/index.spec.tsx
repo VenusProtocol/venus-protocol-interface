@@ -9,7 +9,7 @@ import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('context/DisableLunaUstWarning', () => {
   it.each([
@@ -25,7 +25,7 @@ describe('context/DisableLunaUstWarning', () => {
       },
     ];
 
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
       data: {
         assets: customAssets,
         userTotalBorrowLimitCents: new BigNumber('111'),

@@ -14,11 +14,11 @@ import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT/Withdraw', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimit: new BigNumber('111'),
@@ -30,7 +30,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
   });
 
   it('submit button is enabled with input, good vesting period and not loading', async () => {
-    const withdrawXvs = jest.fn().mockReturnValue(fakeContractReceipt.transactionHash);
+    const withdrawXvs = vi.fn().mockReturnValue(fakeContractReceipt.transactionHash);
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{

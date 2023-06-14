@@ -10,7 +10,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakePool = poolData[0];
 const fakeAsset = fakePool.assets[0];
@@ -43,7 +43,7 @@ describe('containers/AssetAccessor', () => {
 
   it('asks user with their wallet connected to enable token if they have not done so already', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

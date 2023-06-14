@@ -10,7 +10,7 @@ describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
   test('returns the total allocation points on success', async () => {
     const fakeOutput = BN.from('100');
 
-    const totalAllocPointsMock = jest.fn(async () => fakeOutput);
+    const totalAllocPointsMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       totalAllocPoints: totalAllocPointsMock,

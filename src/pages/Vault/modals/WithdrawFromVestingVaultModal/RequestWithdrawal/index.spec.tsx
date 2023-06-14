@@ -21,20 +21,20 @@ import en from 'translation/translations/en.json';
 import RequestWithdrawal from '.';
 import TEST_IDS from '../../../TransactionForm/testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeStakedToken = TOKENS.vai;
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {
   beforeEach(() => {
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     }));
-    (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
+    (getXvsVaultUserInfo as vi.Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),
     );
-    (getXvsVaultPoolInfo as jest.Mock).mockImplementation(() =>
+    (getXvsVaultPoolInfo as vi.Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),
     );
   });
@@ -75,7 +75,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
   });
 
   it('calls handleDisplayWithdrawalRequestList callback when clicking on "Withdrawal request list" button', async () => {
-    const handleDisplayWithdrawalRequestListMock = jest.fn();
+    const handleDisplayWithdrawalRequestListMock = vi.fn();
 
     const { getByText } = renderComponent(
       <RequestWithdrawal
@@ -107,7 +107,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
   });
 
   it('lets user request a withdrawal and calls handleClose callback on success', async () => {
-    const handleCloseMock = jest.fn();
+    const handleCloseMock = vi.fn();
 
     const { getByTestId, getByText } = renderComponent(
       <RequestWithdrawal

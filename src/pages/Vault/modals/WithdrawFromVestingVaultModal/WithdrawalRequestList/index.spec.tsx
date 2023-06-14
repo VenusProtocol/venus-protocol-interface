@@ -11,15 +11,15 @@ import en from 'translation/translations/en.json';
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList', () => {
   beforeEach(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
+    vi.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
 
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     }));
   });
@@ -31,7 +31,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   });
 
   it('fetches withdrawal requests and displays empty state when none was returned', async () => {
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
       lockedDeposits: [],
     }));
 

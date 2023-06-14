@@ -13,7 +13,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const baseProps: ActionModalProps = {
   title: 'Fake title',
@@ -57,7 +57,7 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('prompts user who connected their wallet to approve token if they have not done so already', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

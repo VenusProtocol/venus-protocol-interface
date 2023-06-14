@@ -12,7 +12,7 @@ describe('api/queries/getXvsVaultRewardPerBlock', () => {
   test('returns the reward per block in wei on success', async () => {
     const fakeOutput = BN.from('2000000000000000000');
 
-    const rewardTokenAmountsPerBlockMock = jest.fn(async () => fakeOutput);
+    const rewardTokenAmountsPerBlockMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       rewardTokenAmountsPerBlock: rewardTokenAmountsPerBlockMock,

@@ -24,25 +24,25 @@ import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';
 import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('pages/Governance', () => {
   beforeEach(() => {
-    (useGetVestingVaults as jest.Mock).mockImplementation(() => ({
+    (useGetVestingVaults as vi.Mock).mockImplementation(() => ({
       data: [],
       isLoading: false,
     }));
-    (getProposals as jest.Mock).mockImplementation(() => ({
+    (getProposals as vi.Mock).mockImplementation(() => ({
       proposals,
       limit: 10,
       total: 100,
       offset: 10,
     }));
-    (setVoteDelegate as jest.Mock).mockImplementation(() => fakeContractReceipt);
-    (getLatestProposalIdByProposer as jest.Mock).mockImplementation(() => '1');
+    (setVoteDelegate as vi.Mock).mockImplementation(() => fakeContractReceipt);
+    (getLatestProposalIdByProposer as vi.Mock).mockImplementation(() => '1');
 
-    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber(0),
     }));
   });
@@ -63,10 +63,10 @@ describe('pages/Governance', () => {
   });
 
   it('create proposal is disabled if pending proposal', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementationOnce(() => ({
       votesWei: new BigNumber('50000000000000000000'),
     }));
-    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '0' }));
+    (getProposalState as vi.Mock).mockImplementation(async () => ({ state: '0' }));
     const { getByText } = renderComponent(Governance);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -74,10 +74,10 @@ describe('pages/Governance', () => {
   });
 
   it('create proposal is disabled if active proposal', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementationOnce(() => ({
       votesWei: new BigNumber('50000000000000000000'),
     }));
-    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '1' }));
+    (getProposalState as vi.Mock).mockImplementation(async () => ({ state: '1' }));
     const { getByText } = renderComponent(Governance);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -120,7 +120,7 @@ describe('pages/Governance', () => {
   });
 
   it('prompts user to connect Wallet', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
 
     const { getByText } = renderComponent(Governance);
     getByText(en.connectWallet.connectButton);
@@ -129,8 +129,8 @@ describe('pages/Governance', () => {
   it('prompts user to deposit XVS', async () => {
     const vaultsCopy = cloneDeep(vaults);
     vaultsCopy[1].userStakedWei = new BigNumber(0);
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
-    (useGetVestingVaults as jest.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
+    (useGetVestingVaults as vi.Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,
     }));
@@ -152,11 +152,11 @@ describe('pages/Governance', () => {
     const vaultsCopy = cloneDeep(vaults);
     vaultsCopy[1].userStakedWei = new BigNumber('10000000000000000000');
 
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as vi.Mock).mockImplementationOnce(() => ({
       votesWei: new BigNumber('50000000000000000000'),
     }));
 
-    (useGetVestingVaults as jest.Mock).mockImplementationOnce(() => ({
+    (useGetVestingVaults as vi.Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,
     }));

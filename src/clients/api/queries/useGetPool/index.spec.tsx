@@ -8,11 +8,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetPool, { UseGetPoolOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetPool', () => {
   beforeEach(() => {
-    (useGetPools as jest.Mock).mockImplementation(() => ({
+    (useGetPools as vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },

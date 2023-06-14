@@ -9,7 +9,7 @@ import en from 'translation/translations/en.json';
 
 import Convert from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT/Convert', () => {
   it('renders info that the conversion deadline has been reached', async () => {

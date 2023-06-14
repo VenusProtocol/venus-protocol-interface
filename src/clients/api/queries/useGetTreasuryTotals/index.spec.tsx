@@ -7,18 +7,18 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetTreasuryTotals, { UseGetTreasuryTotalsOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetTreasuryTotals', () => {
   beforeEach(() => {
-    (useGetPools as jest.Mock).mockImplementation(() => ({
+    (useGetPools as vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
       isLoading: false,
     }));
 
-    (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
+    (useGetVTokenBalancesAll as vi.Mock).mockImplementation(() => ({
       data: {
         balances: vTokenBalanceTreasury,
       },

@@ -6,11 +6,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Pools from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Pools', () => {
   beforeEach(() => {
-    (useGetTreasuryTotals as jest.Mock).mockImplementation(() => ({
+    (useGetTreasuryTotals as vi.Mock).mockImplementation(() => ({
       data: {
         treasurySupplyBalanceCents: new BigNumber(0),
         treasuryBorrowBalanceCents: new BigNumber(0),

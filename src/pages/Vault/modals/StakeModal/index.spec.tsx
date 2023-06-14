@@ -12,7 +12,7 @@ import en from 'translation/translations/en.json';
 import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
@@ -25,7 +25,7 @@ const baseProps: StakeModalProps = {
 
 describe('pages/Vault/modals/StakeModal', () => {
   beforeEach(() => {
-    (getBalanceOf as jest.Mock).mockImplementation(() => ({ balanceWei: fakeBalanceWei }));
+    (getBalanceOf as vi.Mock).mockImplementation(() => ({ balanceWei: fakeBalanceWei }));
   });
 
   it('renders without crashing', async () => {
@@ -47,7 +47,7 @@ describe('pages/Vault/modals/StakeModal', () => {
   it('calls stake function then calls handleClose callback on success', async () => {
     const customProps: StakeModalProps = {
       ...baseProps,
-      handleClose: jest.fn(),
+      handleClose: vi.fn(),
     };
 
     const { stake } = useStakeInVault({

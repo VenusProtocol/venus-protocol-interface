@@ -9,7 +9,7 @@ import getPancakeSwapPairs from '..';
 describe('api/queries/getPancakeSwapPairs', () => {
   test('returns pairs in the right format on success', async () => {
     const multicall = {
-      call: jest.fn(async () => fakeMulticallResponses.pancakeSwapRouter.getReserves),
+      call: vi.fn(async () => fakeMulticallResponses.pancakeSwapRouter.getReserves),
     } as unknown as Multicall;
 
     const res = await getPancakeSwapPairs({
@@ -18,14 +18,14 @@ describe('api/queries/getPancakeSwapPairs', () => {
     });
 
     expect(multicall.call).toHaveBeenCalledTimes(1);
-    expect((multicall.call as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((multicall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });
 
   test('skips token combinations for which a pair address could not be generated', async () => {
     const multicall = {
-      call: jest.fn(async () => fakeMulticallResponses.pancakeSwapRouter.getReserves),
+      call: vi.fn(async () => fakeMulticallResponses.pancakeSwapRouter.getReserves),
     } as unknown as Multicall;
 
     const customFakeTokenCombinations = [...fakeTokenCombinations];

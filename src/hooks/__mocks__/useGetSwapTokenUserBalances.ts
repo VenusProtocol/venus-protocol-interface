@@ -1,4 +1,4 @@
-const useGetSwapTokenUserBalances = jest.fn(() => ({
+const useGetSwapTokenUserBalances = vi.fn(() => ({
   data: [],
 }));
 

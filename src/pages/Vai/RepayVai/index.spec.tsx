@@ -23,28 +23,28 @@ import en from 'translation/translations/en.json';
 import RepayVai from '.';
 import TEST_IDS from '../testIds';
 
-jest.mock('clients/api');
-jest.mock('components/Toast');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('components/Toast');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const repayInputAmountTokens = '100';
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (getMintedVai as jest.Mock).mockImplementation(() => ({
+    (getMintedVai as vi.Mock).mockImplementation(() => ({
       mintedVaiWei: fakeUserVaiMintedWei,
     }));
 
-    (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() =>
+    (getVaiRepayAmountWithInterests as vi.Mock).mockImplementation(() =>
       formatToGetVaiRepayAmountWithInterestsOutput({
         contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
       }),
     );
 
-    (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
+    (getVaiCalculateRepayAmount as vi.Mock).mockImplementation(() =>
       formatToOutput({
         repayAmountWei: convertTokensToWei({
           value: new BigNumber(repayInputAmountTokens),
@@ -77,9 +77,9 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repayVai as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    (getBalanceOf as jest.Mock).mockImplementation(() => ({
+    (getBalanceOf as vi.Mock).mockImplementation(() => ({
       balanceWei: fakeUserVaiMintedWei,
     }));
 

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 

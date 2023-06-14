@@ -1,4 +1,3756 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user in the correct format on success 1`] = `
+[
+  {
+    "abi": [
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "BLOCKS_PER_DAY",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract ComptrollerInterface",
+            "name": "comptroller",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "getAccountLimits",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "contract VToken[]",
+                "name": "markets",
+                "type": "address[]",
+              },
+              {
+                "internalType": "uint256",
+                "name": "liquidity",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "shortfall",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.AccountLimits",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address payable",
+            "name": "account",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "comptrollerAddress",
+            "type": "address",
+          },
+        ],
+        "name": "getDailyXVS",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract GovernorAlpha",
+            "name": "governor",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "proposalIds",
+            "type": "uint256[]",
+          },
+        ],
+        "name": "getGovProposals",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "proposalId",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "proposer",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "eta",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address[]",
+                "name": "targets",
+                "type": "address[]",
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "values",
+                "type": "uint256[]",
+              },
+              {
+                "internalType": "string[]",
+                "name": "signatures",
+                "type": "string[]",
+              },
+              {
+                "internalType": "bytes[]",
+                "name": "calldatas",
+                "type": "bytes[]",
+              },
+              {
+                "internalType": "uint256",
+                "name": "startBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "endBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "forVotes",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "againstVotes",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "canceled",
+                "type": "bool",
+              },
+              {
+                "internalType": "bool",
+                "name": "executed",
+                "type": "bool",
+              },
+            ],
+            "internalType": "struct VenusLens.GovProposal[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract GovernorAlpha",
+            "name": "governor",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "voter",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "proposalIds",
+            "type": "uint256[]",
+          },
+        ],
+        "name": "getGovReceipts",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "proposalId",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "hasVoted",
+                "type": "bool",
+              },
+              {
+                "internalType": "bool",
+                "name": "support",
+                "type": "bool",
+              },
+              {
+                "internalType": "uint96",
+                "name": "votes",
+                "type": "uint96",
+              },
+            ],
+            "internalType": "struct VenusLens.GovReceipt[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract XVS",
+            "name": "xvs",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "blockNumbers",
+            "type": "uint32[]",
+          },
+        ],
+        "name": "getVenusVotes",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "blockNumber",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "votes",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VenusVotes[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract XVS",
+            "name": "xvs",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "getXVSBalanceMetadata",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "votes",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "delegate",
+                "type": "address",
+              },
+            ],
+            "internalType": "struct VenusLens.XVSBalanceMetadata",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract XVS",
+            "name": "xvs",
+            "type": "address",
+          },
+          {
+            "internalType": "contract ComptrollerInterface",
+            "name": "comptroller",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "getXVSBalanceMetadataExt",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "balance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "votes",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "delegate",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "allocated",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.XVSBalanceMetadataExt",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "holder",
+            "type": "address",
+          },
+          {
+            "internalType": "contract ComptrollerInterface",
+            "name": "comptroller",
+            "type": "address",
+          },
+        ],
+        "name": "pendingRewards",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "distributorAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "rewardTokenAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalRewards",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vTokenAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct VenusLens.PendingReward[]",
+                "name": "pendingRewards",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct VenusLens.RewardSummary",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+          {
+            "internalType": "address payable",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenBalances",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOf",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowBalanceCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOfUnderlying",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenBalance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenAllowance",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenBalances",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+          {
+            "internalType": "address payable",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenBalancesAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOf",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowBalanceCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOfUnderlying",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenBalance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenAllowance",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenBalances[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenMetadata",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "exchangeRateCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBorrows",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalReserves",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalSupply",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalCash",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "isListed",
+                "type": "bool",
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateralFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "underlyingAssetAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "vTokenDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "venusSupplySpeed",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "venusBorrowSpeed",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "dailySupplyXvs",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "dailyBorrowXvs",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenMetadata",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+        ],
+        "name": "vTokenMetadataAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "exchangeRateCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBorrows",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalReserves",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalSupply",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalCash",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "isListed",
+                "type": "bool",
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateralFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "underlyingAssetAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "vTokenDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "venusSupplySpeed",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "venusBorrowSpeed",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "dailySupplyXvs",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "dailyBorrowXvs",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenMetadata[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenUnderlyingPrice",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingPrice",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenUnderlyingPrice",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+        ],
+        "name": "vTokenUnderlyingPriceAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingPrice",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct VenusLens.VTokenUnderlyingPrice[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+    ],
+    "calls": [
+      {
+        "methodName": "pendingRewards",
+        "methodParameters": [
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+        ],
+        "reference": "pendingRewards",
+      },
+    ],
+    "contractAddress": "0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3",
+    "reference": "venusLens",
+  },
+  {
+    "abi": [
+      {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "oldAdmin",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address",
+          },
+        ],
+        "name": "AdminTransfered",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "Deposit",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "Withdraw",
+        "type": "event",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract VAIVaultProxy",
+            "name": "vaiVaultProxy",
+            "type": "address",
+          },
+        ],
+        "name": "_become",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "accXVSPerShare",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "admin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "burnAdmin",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "claim",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "claim",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "deposit",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getAdmin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingAdmin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingRewards",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingVAIVaultImplementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "pendingXVS",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address",
+          },
+        ],
+        "name": "setNewAdmin",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_xvs",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "_vai",
+            "type": "address",
+          },
+        ],
+        "name": "setVenusInfo",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "updatePendingRewards",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "userInfo",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardDebt",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "vai",
+        "outputs": [
+          {
+            "internalType": "contract IBEP20",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "vaiVaultImplementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "withdraw",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "xvs",
+        "outputs": [
+          {
+            "internalType": "contract IBEP20",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "xvsBalance",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+    ],
+    "calls": [
+      {
+        "methodName": "pendingXVS",
+        "methodParameters": [
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "pendingXVS",
+      },
+    ],
+    "contractAddress": "0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118",
+    "reference": "vaiVault",
+  },
+  {
+    "abi": [
+      {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "oldAdmin",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address",
+          },
+        ],
+        "name": "AdminTransferred",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "Claim",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "delegator",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "fromDelegate",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "toDelegate",
+            "type": "address",
+          },
+        ],
+        "name": "DelegateChangedV2",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "delegate",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "previousBalance",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newBalance",
+            "type": "uint256",
+          },
+        ],
+        "name": "DelegateVotesChangedV2",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "Deposit",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "ExecutedWithdrawal",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "token",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "allocPoints",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "rewardPerBlock",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "lockPeriod",
+            "type": "uint256",
+          },
+        ],
+        "name": "PoolAdded",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "oldAllocPoints",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newAllocPoints",
+            "type": "uint256",
+          },
+        ],
+        "name": "PoolUpdated",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "RequestedWithdrawal",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "oldReward",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newReward",
+            "type": "uint256",
+          },
+        ],
+        "name": "RewardAmountUpdated",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldXvs",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldStore",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newXvs",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newStore",
+            "type": "address",
+          },
+        ],
+        "name": "StoreUpdated",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "oldPeriod",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newPeriod",
+            "type": "uint256",
+          },
+        ],
+        "name": "WithdrawalLockingPeriodUpdated",
+        "type": "event",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "DELEGATION_TYPEHASH",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "DOMAIN_TYPEHASH",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "contract XVSVaultProxy",
+            "name": "xvsVaultProxy",
+            "type": "address",
+          },
+        ],
+        "name": "_become",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_allocPoint",
+            "type": "uint256",
+          },
+          {
+            "internalType": "contract IBEP20",
+            "name": "_token",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_rewardPerBlock",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_lockPeriod",
+            "type": "uint256",
+          },
+        ],
+        "name": "add",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "admin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "burnAdmin",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          {
+            "internalType": "uint32",
+            "name": "",
+            "type": "uint32",
+          },
+        ],
+        "name": "checkpoints",
+        "outputs": [
+          {
+            "internalType": "uint32",
+            "name": "fromBlock",
+            "type": "uint32",
+          },
+          {
+            "internalType": "uint96",
+            "name": "votes",
+            "type": "uint96",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_account",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+        ],
+        "name": "claim",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "delegatee",
+            "type": "address",
+          },
+        ],
+        "name": "delegate",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "delegatee",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "nonce",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "expiry",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8",
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32",
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32",
+          },
+        ],
+        "name": "delegateBySig",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "delegates",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "deposit",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+        ],
+        "name": "executeWithdrawal",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getAdmin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "getCurrentVotes",
+        "outputs": [
+          {
+            "internalType": "uint96",
+            "name": "",
+            "type": "uint96",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "getEligibleWithdrawalAmount",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "withdrawalAmount",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "blockNumber",
+            "type": "uint256",
+          },
+        ],
+        "name": "getPriorVotes",
+        "outputs": [
+          {
+            "internalType": "uint96",
+            "name": "",
+            "type": "uint96",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "getRequestedAmount",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "getUserInfo",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardDebt",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "pendingWithdrawals",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "getWithdrawalRequests",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint128",
+                "name": "lockedUntil",
+                "type": "uint128",
+              },
+              {
+                "internalType": "uint128",
+                "name": "afterUpgrade",
+                "type": "uint128",
+              },
+            ],
+            "internalType": "struct XVSVaultStorageV1.WithdrawalRequest[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "implementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+        ],
+        "name": "massUpdatePools",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "nonces",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "numCheckpoints",
+        "outputs": [
+          {
+            "internalType": "uint32",
+            "name": "",
+            "type": "uint32",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingAdmin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "pendingReward",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "address",
+            "name": "_user",
+            "type": "address",
+          },
+        ],
+        "name": "pendingWithdrawalsBeforeUpgrade",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "beforeUpgradeWithdrawalAmount",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pendingXVSVaultImplementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "name": "poolInfos",
+        "outputs": [
+          {
+            "internalType": "contract IBEP20",
+            "name": "token",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastRewardBlock",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "accRewardPerShare",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "lockPeriod",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+        ],
+        "name": "poolLength",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256",
+          },
+        ],
+        "name": "requestWithdrawal",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "rewardTokenAmountsPerBlock",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_allocPoint",
+            "type": "uint256",
+          },
+        ],
+        "name": "set",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_rewardAmount",
+            "type": "uint256",
+          },
+        ],
+        "name": "setRewardAmountPerBlock",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_newPeriod",
+            "type": "uint256",
+          },
+        ],
+        "name": "setWithdrawalLockingPeriod",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_xvs",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "_xvsStore",
+            "type": "address",
+          },
+        ],
+        "name": "setXvsStore",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "totalAllocPoints",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_rewardToken",
+            "type": "address",
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pid",
+            "type": "uint256",
+          },
+        ],
+        "name": "updatePool",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "xvsAddress",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "xvsStore",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+    ],
+    "calls": [
+      {
+        "methodName": "poolInfos",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          0,
+        ],
+        "reference": "vault-0-poolInfos",
+      },
+      {
+        "methodName": "pendingReward",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          0,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-0-pendingReward",
+      },
+      {
+        "methodName": "pendingWithdrawalsBeforeUpgrade",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          0,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-0-pendingWithdrawalsBeforeUpgrade",
+      },
+      {
+        "methodName": "poolInfos",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          1,
+        ],
+        "reference": "vault-1-poolInfos",
+      },
+      {
+        "methodName": "pendingReward",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          1,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-1-pendingReward",
+      },
+      {
+        "methodName": "pendingWithdrawalsBeforeUpgrade",
+        "methodParameters": [
+          "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          1,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        ],
+        "reference": "vault-1-pendingWithdrawalsBeforeUpgrade",
+      },
+    ],
+    "contractAddress": "0x9aB56bAD2D7631B2A857ccf36d998232A8b82280",
+    "reference": "xvsVestingVaults",
+  },
+  {
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "poolRegistryAddress",
+            "type": "address",
+          },
+        ],
+        "name": "getAllPools",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "blockPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "timestampPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "string",
+                "name": "category",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "logoURL",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "priceOracle",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "closeFactor",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "liquidationIncentive",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "minLiquidatableCollateral",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vToken",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "exchangeRateCurrent",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalBorrows",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalReserves",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalSupply",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalCash",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "isListed",
+                    "type": "bool",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "collateralFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "underlyingAssetAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "vTokenDecimals",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "underlyingDecimals",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.VTokenMetadata[]",
+                "name": "vTokens",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.PoolData[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "comptrollerAddress",
+            "type": "address",
+          },
+        ],
+        "name": "getPendingRewards",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "distributorAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "rewardTokenAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalRewards",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vTokenAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.PendingReward[]",
+                "name": "pendingRewards",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.RewardSummary[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "comptrollerAddress",
+            "type": "address",
+          },
+        ],
+        "name": "getPoolBadDebt",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBadDebtUsd",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vTokenAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "badDebtUsd",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.BadDebt[]",
+                "name": "badDebts",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.BadDebtSummary",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "poolRegistryAddress",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "comptroller",
+            "type": "address",
+          },
+        ],
+        "name": "getPoolByComptroller",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "blockPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "timestampPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "string",
+                "name": "category",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "logoURL",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "priceOracle",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "closeFactor",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "liquidationIncentive",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "minLiquidatableCollateral",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vToken",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "exchangeRateCurrent",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalBorrows",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalReserves",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalSupply",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalCash",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "isListed",
+                    "type": "bool",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "collateralFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "underlyingAssetAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "vTokenDecimals",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "underlyingDecimals",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.VTokenMetadata[]",
+                "name": "vTokens",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.PoolData",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "poolRegistryAddress",
+            "type": "address",
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "blockPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "timestampPosted",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolRegistryInterface.VenusPool",
+            "name": "venusPool",
+            "type": "tuple",
+          },
+        ],
+        "name": "getPoolDataFromVenusPool",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address",
+              },
+              {
+                "internalType": "address",
+                "name": "comptroller",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "blockPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "timestampPosted",
+                "type": "uint256",
+              },
+              {
+                "internalType": "string",
+                "name": "category",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "logoURL",
+                "type": "string",
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string",
+              },
+              {
+                "internalType": "address",
+                "name": "priceOracle",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "closeFactor",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "liquidationIncentive",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "minLiquidatableCollateral",
+                "type": "uint256",
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "vToken",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "exchangeRateCurrent",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowRatePerBlock",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "supplyCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "borrowCaps",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalBorrows",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalReserves",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalSupply",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "totalCash",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "isListed",
+                    "type": "bool",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "collateralFactorMantissa",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "underlyingAssetAddress",
+                    "type": "address",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "vTokenDecimals",
+                    "type": "uint256",
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "underlyingDecimals",
+                    "type": "uint256",
+                  },
+                ],
+                "internalType": "struct PoolLens.VTokenMetadata[]",
+                "name": "vTokens",
+                "type": "tuple[]",
+              },
+            ],
+            "internalType": "struct PoolLens.PoolData",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "poolRegistryAddress",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "asset",
+            "type": "address",
+          },
+        ],
+        "name": "getPoolsSupportedByAsset",
+        "outputs": [
+          {
+            "internalType": "address[]",
+            "name": "",
+            "type": "address[]",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "poolRegistryAddress",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "comptroller",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "asset",
+            "type": "address",
+          },
+        ],
+        "name": "getVTokenForAsset",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenBalances",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOf",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowBalanceCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOfUnderlying",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenBalance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenAllowance",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenBalances",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenBalancesAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOf",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowBalanceCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "balanceOfUnderlying",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenBalance",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "tokenAllowance",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenBalances[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenMetadata",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "exchangeRateCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowCaps",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBorrows",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalReserves",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalSupply",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalCash",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "isListed",
+                "type": "bool",
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateralFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "underlyingAssetAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "vTokenDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingDecimals",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenMetadata",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+        ],
+        "name": "vTokenMetadataAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "exchangeRateCurrent",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowRatePerBlock",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "reserveFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "supplyCaps",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "borrowCaps",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBorrows",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalReserves",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalSupply",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalCash",
+                "type": "uint256",
+              },
+              {
+                "internalType": "bool",
+                "name": "isListed",
+                "type": "bool",
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateralFactorMantissa",
+                "type": "uint256",
+              },
+              {
+                "internalType": "address",
+                "name": "underlyingAssetAddress",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "vTokenDecimals",
+                "type": "uint256",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingDecimals",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenMetadata[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken",
+            "name": "vToken",
+            "type": "address",
+          },
+        ],
+        "name": "vTokenUnderlyingPrice",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingPrice",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenUnderlyingPrice",
+            "name": "",
+            "type": "tuple",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract VToken[]",
+            "name": "vTokens",
+            "type": "address[]",
+          },
+        ],
+        "name": "vTokenUnderlyingPriceAll",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vToken",
+                "type": "address",
+              },
+              {
+                "internalType": "uint256",
+                "name": "underlyingPrice",
+                "type": "uint256",
+              },
+            ],
+            "internalType": "struct PoolLens.VTokenUnderlyingPrice[]",
+            "name": "",
+            "type": "tuple[]",
+          },
+        ],
+        "stateMutability": "view",
+        "type": "function",
+      },
+    ],
+    "calls": [
+      {
+        "methodName": "getPendingRewards",
+        "methodParameters": [
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
+        ],
+        "reference": "getPendingRewards",
+      },
+    ],
+    "contractAddress": "0x73Ac8216b93597264e2bf233B92a8F8cf413D609",
+    "reference": "poolLens",
+  },
+]
+`;
+
+exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user in the correct format on success 2`] = `
+{
+  "pendingRewardGroups": [
+    {
+      "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+      "rewardAmountWei": "3.7154375659692912361873e+22",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/assets/img/tokens/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
+      "type": "mainPool",
+      "vTokenAddressesWithPendingReward": [
+        "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+        "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+        "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+        "0x74469281310195A04840Daf6EdF576F559a3dE80",
+        "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+        "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+        "0xAfc13BC065ABeE838540823431055D2ea52eBA52",
+        "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
+        "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
+        "0x37C28DE42bA3d22217995D146FC684B2326Ede64",
+        "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
+        "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
+        "0x714db6c38A17883964B68a07d56cE331501d9eb6",
+        "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
+      ],
+    },
+    {
+      "comptrollerAddress": "0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9",
+      "pendingRewards": [
+        {
+          "rewardAmountWei": "2.95961827109044250302366e+23",
+          "rewardToken": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+          "rewardsDistributorAddress": "0xBfabfDC3A90C5a091DDA7721133E87871dd25d5F",
+          "vTokenAddressesWithPendingReward": [
+            "0x12d3a3Aa7f4917Ea3b8eE34F99A9A7Eec521FA61",
+          ],
+        },
+      ],
+      "type": "isolatedPool",
+    },
+  ],
+}
+`;
 
 exports[`api/queries/getPendingRewardGroups returns pool rewards of the user in the correct format on success 1`] = `
 Array [

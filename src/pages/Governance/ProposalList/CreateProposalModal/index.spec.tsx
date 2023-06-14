@@ -8,7 +8,7 @@ import en from 'translation/translations/en.json';
 
 import CreateProposalModal from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeName = 'Proposal';
 const fakeDescription = 'Interesting idea';
@@ -65,8 +65,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -76,8 +76,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     renderComponent(
       <CreateProposalModal
         isOpen={false}
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -87,8 +87,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByPlaceholderText, getByText } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -104,8 +104,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByPlaceholderText, getByText } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -123,8 +123,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -170,8 +170,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -227,8 +227,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -277,8 +277,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getByText, getAllByPlaceholderText, getByPlaceholderText } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -321,8 +321,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const { getAllByPlaceholderText, getByText, getByPlaceholderText } = renderComponent(
       <CreateProposalModal
         isOpen
-        handleClose={jest.fn()}
-        createProposal={jest.fn()}
+        handleClose={vi.fn()}
+        createProposal={vi.fn()}
         isCreateProposalLoading={false}
       />,
     );

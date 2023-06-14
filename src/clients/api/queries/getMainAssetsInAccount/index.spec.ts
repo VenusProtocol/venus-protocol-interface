@@ -8,7 +8,7 @@ describe('api/queries/getMainAssetsInAccount', () => {
   test('returns addresses of assets in account on success', async () => {
     const fakeTokenAddresses = [TOKENS.aave.address, TOKENS.ada.address];
 
-    const getAssetsInMock = jest.fn(async () => fakeTokenAddresses);
+    const getAssetsInMock = vi.fn(async () => fakeTokenAddresses);
 
     const fakeContract = {
       getAssetsIn: getAssetsInMock,

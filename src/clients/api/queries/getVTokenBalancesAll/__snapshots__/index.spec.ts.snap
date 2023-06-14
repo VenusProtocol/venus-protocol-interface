@@ -1,4 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVTokenBalancesAll > returns the APY simulations in the correct format on success 1`] = `
+{
+  "balances": [
+    {
+      "balanceOf": "10000",
+      "balanceOfUnderlying": "20000",
+      "borrowBalanceCurrent": "300",
+      "tokenAllowance": "40000000000000000",
+      "tokenBalance": "5000",
+      "vToken": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    },
+  ],
+}
+`;
 
 exports[`api/queries/getVTokenBalancesAll returns the APY simulations in the correct format on success 1`] = `
 Object {

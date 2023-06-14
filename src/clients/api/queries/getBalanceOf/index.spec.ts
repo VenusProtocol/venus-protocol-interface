@@ -9,18 +9,18 @@ import getBalanceOf from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-jest.mock('clients/contracts');
+vi.mock('clients/contracts');
 
 describe('api/queries/getBalanceOf', () => {
   describe('non-BNB token', () => {
     test('returns the balance on success', async () => {
-      const balanceOfMock = jest.fn(async () => fakeBalanceWei);
+      const balanceOfMock = vi.fn(async () => fakeBalanceWei);
 
       const fakeContract = {
         balanceOf: balanceOfMock,
       } as unknown as TokenContract;
 
-      (getTokenContract as jest.Mock).mockImplementationOnce(() => fakeContract);
+      (getTokenContract as vi.Mock).mockImplementationOnce(() => fakeContract);
 
       const response = await getBalanceOf({
         provider: fakeProvider,

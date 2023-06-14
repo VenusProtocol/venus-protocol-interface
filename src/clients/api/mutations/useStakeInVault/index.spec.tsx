@@ -8,7 +8,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useStakeInVault from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeAmountWei = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
