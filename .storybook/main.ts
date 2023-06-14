@@ -1,4 +1,6 @@
-module.exports = {
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const config: StorybookConfig = {
   stories: [
     !!process.env.IS_CI_ENV
       ? // Only build root page stories when running on CI pipeline
@@ -8,12 +10,19 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
+    '@storybook/addon-interactions',
   ],
-  framework: '@storybook/react',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: true,
+  },
   env: config => ({
     ...config,
     // Always run Storybook in test environment
-    VITE_CHAIN_ID: 97,
+    VITE_CHAIN_ID: '97',
   }),
 };
+export default config;
