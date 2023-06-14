@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Pool } from 'types';
-import { isFeatureEnabled } from 'utilities';
 
 import Section from '../Section';
 import Summary from '../Summary';
@@ -18,9 +17,7 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className })
 
   return (
     <Section className={className} title={pool.name}>
-      {isFeatureEnabled('isolatedPools') && (
-        <Summary pools={[pool]} displayAccountHealth css={styles.summary} />
-      )}
+      <Summary pools={[pool]} displayAccountHealth css={styles.summary} />
 
       <Tables pool={pool} />
     </Section>
