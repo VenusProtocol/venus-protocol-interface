@@ -59,13 +59,12 @@ const VoterLeaderboard: React.FC<VoterLeaderboardPageProps> = ({ history, locati
       total: undefined,
       limit: undefined,
     },
-    isLoading: isGetVoterAccountsLoading,
     isFetching: isGetVoterAccountsFetching,
     isPreviousData: isGetVoterAccountsPreviousData,
   } = useGetVoterAccounts({ page: currentPage });
 
   const isFetching =
-    isGetVoterAccountsLoading || (isGetVoterAccountsFetching && isGetVoterAccountsPreviousData);
+    isGetVoterAccountsFetching && (isGetVoterAccountsPreviousData || voterAccounts.length === 0);
 
   return (
     <VoterLeaderboardUi

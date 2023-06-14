@@ -62,7 +62,6 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const {
     data: { transactions, total, limit } = { transactions: [] },
-    isLoading: isGetTransactionsLoading,
     isFetching: isGetTransactionsFetching,
     isPreviousData: isGetTransactionsPreviousData,
   } = useGetTransactions({
@@ -72,7 +71,7 @@ const History: React.FC<RouteComponentProps> = ({ history, location }) => {
   });
 
   const isFetching =
-    isGetTransactionsLoading || (isGetTransactionsFetching && isGetTransactionsPreviousData);
+    isGetTransactionsFetching && (isGetTransactionsPreviousData || transactions.length === 0);
 
   return (
     <HistoryUi

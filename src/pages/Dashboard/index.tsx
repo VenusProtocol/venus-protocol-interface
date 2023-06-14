@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, QuinaryButton, TextField } from 'components';
+import { ButtonGroup, QuinaryButton, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import { MAINNET_TOKENS } from 'constants/tokens';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -77,8 +76,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
-
-      <Announcement token={MAINNET_TOKENS.beth} />
 
       <div css={styles.header}>
         <TextField

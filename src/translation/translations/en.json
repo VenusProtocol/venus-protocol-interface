@@ -51,8 +51,14 @@
     "letsGetStarted": "Let’s get started"
   },
   "announcements": {
-    "bethUpdateBanner": {
+    "bethUpdate": {
       "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
+    },
+    "sxpDisabling": {
+      "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
+    },
+    "trxMigration": {
+      "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
   "approvedToken": {
@@ -167,13 +173,6 @@
         "alt": "Illustration of a wallet"
       },
       "title": "Connect your wallet"
-    },
-    "modals": {
-      "announcement": {
-        "sxpDisablingBanner": {
-          "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
-        }
-      }
     },
     "searchInput": {
       "placeholder": "Search asset",

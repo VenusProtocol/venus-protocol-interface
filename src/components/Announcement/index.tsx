@@ -22,7 +22,30 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
     return (
       <NoticeWarning
         css={styles.banner}
-        description={t('dashboard.modals.announcement.sxpDisablingBanner.description')}
+        description={t('announcements.sxpDisabling.description')}
+      />
+    );
+  }
+
+  // TRX migration
+  if (areTokensEqual(token, MAINNET_TOKENS.trxold)) {
+    return (
+      <NoticeWarning
+        css={styles.banner}
+        description={
+          <Trans
+            i18nKey="announcements.trxMigration.description"
+            components={{
+              Link: (
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                <a
+                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
+                  rel="noreferrer"
+                />
+              ),
+            }}
+          />
+        }
       />
     );
   }
@@ -34,7 +57,7 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
         css={styles.banner}
         description={
           <Trans
-            i18nKey="announcements.bethUpdateBanner.description"
+            i18nKey="announcements.bethUpdate.description"
             components={{
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
