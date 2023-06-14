@@ -1,34 +1,30 @@
 import BigNumber from 'bignumber.js';
-import config from 'config';
 import { TransactionCategory, TransactionEvent } from 'types';
-import { convertTokensToWei, getVTokenByAddress } from 'utilities';
+import { convertTokensToWei, getTokenByAddress, getVTokenByAddress } from 'utilities';
 
-import { xvs } from 'constants/contracts/addresses/vBepTokens.json';
+import { TOKENS } from 'constants/tokens';
 
 import { TransactionResponse } from './types';
-
-const MAIN_POOL_VXVS_ADDRESS = xvs[config.chainId];
 
 const formatTransaction = ({
   amount,
   category,
   event,
-  vTokenAddress,
+  tokenAddress,
   timestamp,
   ...rest
 }: TransactionResponse) => {
-  const vToken = getVTokenByAddress(vTokenAddress || MAIN_POOL_VXVS_ADDRESS);
-
-  if (!vToken) {
-    return undefined;
-  }
+  const token =
+    getTokenByAddress(tokenAddress) ||
+    getVTokenByAddress(tokenAddress)?.underlyingToken ||
+    TOKENS.xvs;
 
   return {
     ...rest,
-    amountWei: convertTokensToWei({ value: new BigNumber(amount), token: vToken?.underlyingToken }),
+    amountWei: convertTokensToWei({ value: new BigNumber(amount), token }),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
-    vTokenAddress: vToken.address,
+    token,
     timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
   };
 };

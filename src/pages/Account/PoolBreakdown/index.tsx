@@ -17,11 +17,10 @@ export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, className })
   const styles = useStyles();
 
   return (
-    <Section
-      className={className}
-      title={isFeatureEnabled('isolatedPools') ? pool.name : undefined}
-    >
-      <Summary pools={[pool]} displayAccountHealth css={styles.summary} />
+    <Section className={className} title={pool.name}>
+      {isFeatureEnabled('isolatedPools') && (
+        <Summary pools={[pool]} displayAccountHealth css={styles.summary} />
+      )}
 
       <Tables pool={pool} />
     </Section>
