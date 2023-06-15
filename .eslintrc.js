@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    node: true
+    node: true,
   },
   parser: '@typescript-eslint/parser',
   plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
@@ -12,7 +12,7 @@ module.exports = {
     'plugin:storybook/recommended',
   ],
   parserOptions: {
-    project: './tsconfig.eslint.json'
+    project: './tsconfig.eslint.json',
   },
   rules: {
     // handled by prettier
@@ -30,10 +30,13 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/no-static-element-interactions': 0,
-    'max-len': [0, {
-      code: 100,
-      ignoreComments: true
-    }],
+    'max-len': [
+      0,
+      {
+        code: 100,
+        ignoreComments: true,
+      },
+    ],
     'no-param-reassign': 0,
     'no-plusplus': [
       'error',
@@ -82,21 +85,30 @@ module.exports = {
           requireLast: false,
         },
       },
-      singleline: {
-        delimiter: 'semi',
-        requireLast: false
-      }
-    }],
+    ],
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: false,
+        },
+      },
+    ],
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/jsx-wrap-multilines': 0,
     'generator-star-spacing': 0,
-    'consistent-return': 0
+    'consistent-return': 0,
   },
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src', 'scripts']
-      }
-    }
-  }
+        paths: ['src', 'scripts'],
+      },
+    },
+  },
 };
