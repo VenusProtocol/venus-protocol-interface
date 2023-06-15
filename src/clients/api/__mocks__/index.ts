@@ -218,8 +218,6 @@ export const useGetVoterDetails = () => useQuery(FunctionKey.GET_VOTER_DETAILS, 
 export const getVoteReceipt = vi.fn();
 export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
 
-export const useGetVaults = vi.fn();
-
 export const getVaiVaultUserInfo = vi.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);

@@ -14,7 +14,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
     minThreads: 1,
-    maxThreads: 8,
+    maxThreads: 6,
     coverage: {
       reporter: ['text', 'html'],
       exclude: ['node_modules/', 'src/setupTests.ts'],

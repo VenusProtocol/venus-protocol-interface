@@ -24,7 +24,7 @@ export interface Config {
 }
 
 const environment: Environment =
-  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
+  (import.meta.env.VITE_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
 const mode: Mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
