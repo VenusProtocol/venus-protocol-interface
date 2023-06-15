@@ -14,8 +14,8 @@ import {
   GetVTokenBalancesAllOutput,
   useGetMainAssetsInAccount,
   useGetMainMarkets,
-  useGetMintedVai,
   useGetVTokenBalancesAll,
+  useGetVaiRepayAmountWithInterests,
 } from 'clients/api';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -43,7 +43,10 @@ const useGetMainAssets = ({
 }: {
   accountAddress?: string;
 }): UseGetMainAssetsOutput => {
-  const { data: userMintedVaiData, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
+  const {
+    data: userVaiRepayAmountWithInterests,
+    isLoading: isGetuserVaiRepayAmountWithInterestsLoading,
+  } = useGetVaiRepayAmountWithInterests(
     {
       accountAddress: accountAddress || '',
     },
@@ -90,7 +93,7 @@ const useGetMainAssets = ({
     isGetMainMarketsLoading ||
     isGetMainAssetsInAccountLoading ||
     isGetVTokenBalancesAccountLoading ||
-    isGetUserMintedVaiLoading;
+    isGetuserVaiRepayAmountWithInterestsLoading;
 
   const data = useMemo(() => {
     if (!getMainMarketsData?.markets) {
@@ -255,9 +258,9 @@ const useGetMainAssets = ({
     let assetList = assets;
 
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
-      userMintedVaiData?.mintedVaiWei
+      userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests
         ? convertWeiToTokens({
-            valueWei: userMintedVaiData.mintedVaiWei,
+            valueWei: userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests,
             token: TOKENS.vai,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
@@ -283,7 +286,7 @@ const useGetMainAssets = ({
       userTotalSupplyBalanceCents,
     };
   }, [
-    userMintedVaiData?.mintedVaiWei,
+    userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests,
     getMainMarketsData?.markets,
     assetsInAccount,
     vTokenBalances,

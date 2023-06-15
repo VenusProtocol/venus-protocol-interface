@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { addUserPropsToPool, getContractAddress } from 'utilities';
+import { getContractAddress } from 'utilities';
 
 import { useGetMainAssets } from 'clients/api';
 
@@ -27,14 +27,16 @@ const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPool
 
   const pool: Pool | undefined = useMemo(
     () =>
-      getMainAssetsData?.assets &&
-      addUserPropsToPool({
+      getMainAssetsData?.assets && {
         comptrollerAddress: mainPoolComptrollerAddress,
         name: t('mainPool.name'),
         description: t('mainPool.description'),
         isIsolated: false,
         assets: getMainAssetsData.assets,
-      }),
+        userSupplyBalanceCents: getMainAssetsData.userTotalSupplyBalanceCents,
+        userBorrowBalanceCents: getMainAssetsData.userTotalBorrowBalanceCents,
+        userBorrowLimitCents: getMainAssetsData.userTotalBorrowLimitCents,
+      },
     [getMainAssetsData?.assets],
   );
 

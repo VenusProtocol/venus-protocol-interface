@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Vault } from 'types';
+import { Asset, Pool, Vault } from 'types';
 import {
   areTokensEqual,
-  calculateCollateralValue,
   calculateDailyEarningsCents,
   calculateYearlyEarnings,
   calculateYearlyEarningsForAssets,
-  convertTokensToWei,
   convertWeiToTokens,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -19,35 +17,19 @@ import { TOKENS } from 'constants/tokens';
 import calculateNetApy from './calculateNetApy';
 
 interface UseExtractDataInput {
-  assets: Asset[];
+  pools: Pool[];
   vaults: Vault[];
   xvsPriceCents: BigNumber;
   vaiPriceCents: BigNumber;
 }
 
-const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExtractDataInput) =>
+const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtractDataInput) =>
   useMemo(() => {
-    const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
-      (acc, asset) => ({
-        totalBorrowCents: acc.totalBorrowCents.plus(
-          asset.userBorrowBalanceTokens.times(asset.tokenPriceCents),
-        ),
-        totalSupplyCents: acc.totalSupplyCents.plus(
-          asset.userSupplyBalanceTokens.times(asset.tokenPriceCents),
-        ),
-        borrowLimitCents: asset.isCollateralOfUser
-          ? acc.borrowLimitCents.plus(
-              calculateCollateralValue({
-                amountWei: convertTokensToWei({
-                  value: asset.userSupplyBalanceTokens,
-                  token: asset.vToken.underlyingToken,
-                }),
-                token: asset.vToken.underlyingToken,
-                tokenPriceCents: asset.tokenPriceCents,
-                collateralFactor: asset.collateralFactor,
-              }),
-            )
-          : acc.borrowLimitCents,
+    const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = pools.reduce(
+      (acc, pool) => ({
+        totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
+        totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
+        borrowLimitCents: acc.borrowLimitCents.plus(pool.userBorrowLimitCents || 0),
       }),
       {
         totalSupplyCents: new BigNumber(0),
@@ -77,6 +59,8 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
       },
       { totalVaultStakeCents: new BigNumber(0), yearlyVaultEarningsCents: new BigNumber(0) },
     );
+
+    const assets = pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]);
 
     const yearlyAssetEarningsCents = new BigNumber(
       calculateYearlyEarningsForAssets({
@@ -116,6 +100,6 @@ const useExtractData = ({ assets, vaults, xvsPriceCents, vaiPriceCents }: UseExt
       totalSupplyCents,
       borrowLimitCents,
     };
-  }, [assets, vaults, xvsPriceCents, vaiPriceCents]);
+  }, [pools, vaults, xvsPriceCents, vaiPriceCents]);
 
 export default useExtractData;

@@ -10,7 +10,7 @@ import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import {
   getMainAssetsInAccount,
   getMainMarkets,
-  getMintedVai,
+  getVaiRepayAmountWithInterests,
   useGetVTokenBalancesAll,
 } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
@@ -19,7 +19,7 @@ import useGetMainAssets, { UseGetMainAssetsOutput } from '.';
 
 jest.mock('clients/api');
 
-const fakeUserVaiMintedWei = new BigNumber('10000000000000000');
+const fakeUserVaiRepayAmountWithInterestsWei = new BigNumber('10000000000000000');
 
 describe('api/queries/useGetMainAssets', () => {
   beforeEach(() => {
@@ -27,8 +27,8 @@ describe('api/queries/useGetMainAssets', () => {
     (getMainAssetsInAccount as jest.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
-    (getMintedVai as jest.Mock).mockImplementation(() => ({
-      mintedVaiWei: fakeUserVaiMintedWei,
+    (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() => ({
+      vaiRepayAmountWithInterests: fakeUserVaiRepayAmountWithInterestsWei,
     }));
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
