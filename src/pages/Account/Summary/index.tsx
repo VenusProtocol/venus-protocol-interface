@@ -2,9 +2,9 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool, Vault } from 'types';
+import { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -35,11 +35,6 @@ export const Summary: React.FC<SummaryProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const assets = useMemo(
-    () => pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]),
-    [pools],
-  );
-
   const {
     totalSupplyCents,
     totalBorrowCents,
@@ -50,7 +45,7 @@ export const Summary: React.FC<SummaryProps> = ({
     dailyEarningsCents,
     netApyPercentage,
   } = useExtractData({
-    assets,
+    pools,
     vaults: vaults || [],
     xvsPriceCents,
     vaiPriceCents,
