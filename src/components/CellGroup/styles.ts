@@ -15,6 +15,10 @@ export const useStyles = () => {
         grid-template-columns: 1fr 1fr;
         grid-gap: ${theme.spacing(2)};
       }
+
+      ${theme.breakpoints.down('sm')} {
+        grid-template-columns: 1fr;
+      }
     `,
     title: css`
       margin-bottom: ${theme.spacing(4)};

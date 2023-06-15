@@ -98,10 +98,19 @@ const useGenerateColumns = ({
           }
 
           if (column === 'liquidity') {
-            return formatCentsToReadableValue({
-              value: poolAsset.liquidityCents,
-              shortenLargeValue: true,
-            });
+            return (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.cashTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.liquidityCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            );
           }
 
           if (column === 'pool') {
@@ -173,17 +182,35 @@ const useGenerateColumns = ({
           }
 
           if (column === 'supplyBalance') {
-            return formatCentsToReadableValue({
-              value: poolAsset.supplyBalanceCents,
-              shortenLargeValue: true,
-            });
+            return (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.supplyBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.supplyBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            );
           }
 
           if (column === 'borrowBalance') {
-            return formatCentsToReadableValue({
-              value: poolAsset.borrowBalanceCents,
-              shortenLargeValue: true,
-            });
+            return (
+              <LayeredValues
+                topValue={formatTokensToReadableValue({
+                  value: poolAsset.borrowBalanceTokens,
+                  token: poolAsset.vToken.underlyingToken,
+                  shortenLargeValue: true,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: poolAsset.borrowBalanceCents,
+                  shortenLargeValue: true,
+                })}
+              />
+            );
           }
 
           if (column === 'userPercentOfLimit') {
