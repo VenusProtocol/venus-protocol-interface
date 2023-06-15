@@ -10,8 +10,8 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Withdraw from '..';
+import { fakeAsset, fakePool, fakeVTokenBalanceWei } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool, fakeVTokenBalanceWei } from './fakeData';
 
 vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');

@@ -23,8 +23,8 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
+import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from './fakeData';
 
 vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');

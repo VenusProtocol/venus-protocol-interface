@@ -22,8 +22,8 @@ import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),

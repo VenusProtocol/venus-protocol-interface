@@ -15,8 +15,8 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import SupplyForm from '..';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
 vi.mock('clients/api');
 vi.mock('hooks/useCollateral');
