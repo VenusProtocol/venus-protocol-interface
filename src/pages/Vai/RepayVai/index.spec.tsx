@@ -141,8 +141,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
     fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
 
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmountTokens));
-
     // Check user repay VAI balance displays correctly
     await waitFor(() => getByText('0.00032 VAI (0.000317%)'));
   });

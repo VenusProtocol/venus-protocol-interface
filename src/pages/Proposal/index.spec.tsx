@@ -57,9 +57,9 @@ const checkAllButtons = async (
 
 describe('pages/Proposal', () => {
   beforeEach(() => {
-    jest
-      .useFakeTimers('modern')
-      .setSystemTime(activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5));
+    vi.useFakeTimers().setSystemTime(
+      activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
+    );
 
     (getVoteReceipt as vi.Mock).mockImplementation(() => ({
       voteSupport: 'NOT_VOTED',

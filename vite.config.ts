@@ -12,12 +12,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    setupFiles: './src/setupTests.tsx',
     minThreads: 1,
     maxThreads: 6,
     coverage: {
       reporter: ['text', 'html'],
-      exclude: ['node_modules/', 'src/setupTests.ts'],
+      exclude: ['node_modules/', 'src/setupTests.tsx'],
     },
   },
 });

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { MarkdownEditor, MarkdownEditorProps } from '../Markdown';
 
-interface FormikMarkdownEditorProps
+export interface FormikMarkdownEditorProps
   extends Omit<MarkdownEditorProps, 'name' | 'onChange' | 'value' | 'onBlur'> {
   name: string;
   displayableErrorCodes?: string[];

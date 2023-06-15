@@ -1,6 +1,5 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 
 import fakeAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
@@ -27,17 +26,15 @@ const completeFirstStep = async (
 ) => {
   const proposalNameInput = await waitFor(() =>
     // failing
-    getByPlaceholderText(en.vote.createProposalForm.proposalName),
+    getByPlaceholderText(en.vote.createProposalForm.name),
   );
 
   const descriptionInput = await waitFor(() =>
     getByPlaceholderText(en.vote.createProposalForm.addDescription),
   );
 
-  act(async () => {
-    fireEvent.change(proposalNameInput, { target: { value: fakeName } });
-    fireEvent.change(descriptionInput, { target: { value: fakeDescription } });
-  });
+  fireEvent.change(proposalNameInput, { target: { value: fakeName } });
+  fireEvent.change(descriptionInput, { target: { value: fakeDescription } });
 };
 
 const completeSecondStep = async (
@@ -96,8 +93,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
     await waitFor(() => expect(nextButton).toBeDisabled());
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
   });
 
   it('Complete vote option descriptions', async () => {
@@ -113,10 +110,10 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
     ) as HTMLButtonElement;
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
   });
 
   it('Action Acccordion adds more fields when clicking button', async () => {
@@ -132,11 +129,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
 
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
 
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
 
     const addActionButton = await waitFor(
       () =>
@@ -148,19 +145,17 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const addressInput0 = await waitFor(() => getByTestId('actions.0.address'));
     const signatureInput0 = await waitFor(() => getByTestId('actions.0.signature'));
 
-    act(async () => {
-      fireEvent.change(addressInput0, { target: { value: fakeAddress } });
-      fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
+    fireEvent.change(addressInput0, { target: { value: fakeAddress } });
+    fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+    const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+    const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
-      fireEvent.change(dataInput0, { target: { value: 'root' } });
-      fireEvent.change(dataInput1, { target: { value: 'false' } });
+    fireEvent.change(dataInput0, { target: { value: 'root' } });
+    fireEvent.change(dataInput1, { target: { value: 'false' } });
 
-      await waitFor(() => expect(addActionButton).toBeEnabled());
-      await waitFor(() => fireEvent.click(addActionButton));
-    });
+    await waitFor(() => expect(addActionButton).toBeEnabled());
+    await waitFor(() => fireEvent.click(addActionButton));
 
     await waitFor(() => getByTestId('actions.1.address'));
     await waitFor(() => getByTestId('actions.1.signature'));
@@ -179,11 +174,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
 
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
 
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
 
     const addActionButton = await waitFor(
       () =>
@@ -195,32 +190,25 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const addressInput0 = await waitFor(() => getByTestId('actions.0.address'));
     const signatureInput0 = await waitFor(() => getByTestId('actions.0.signature'));
 
-    act(async () => {
-      fireEvent.change(addressInput0, { target: { value: fakeAddress } });
-      fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
-
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
-
-      fireEvent.change(dataInput0, { target: { value: 'root' } });
-      fireEvent.change(dataInput1, { target: { value: 'false' } });
-
-      await waitFor(() => fireEvent.click(addActionButton));
-    });
-
-    act(async () => {
-      fireEvent.change(signatureInput0, { target: { value: 'bad Address' } });
-      await waitFor(() => expect(addActionButton).toBeDisabled());
-    });
-
+    fireEvent.change(addressInput0, { target: { value: fakeAddress } });
     fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
+    const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+    const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+
+    fireEvent.change(dataInput0, { target: { value: 'root' } });
+    fireEvent.change(dataInput1, { target: { value: 'false' } });
+
+    await waitFor(() => fireEvent.click(addActionButton));
+
+    fireEvent.change(signatureInput0, { target: { value: 'bad Address' } });
+    await waitFor(() => expect(addActionButton).toBeDisabled());
+
+    fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
     await waitFor(() => expect(addActionButton).toBeEnabled());
 
-    act(async () => {
-      fireEvent.change(signatureInput0, { target: { value: undefined } });
-      await waitFor(() => expect(addActionButton).toDisabled());
-    });
+    fireEvent.change(signatureInput0, { target: { value: '' } });
+    await waitFor(() => expect(addActionButton).toBeDisabled());
   });
 
   it('Sets signature as accordion title', async () => {
@@ -236,11 +224,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
 
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
 
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
 
     const addActionButton = await waitFor(
       () =>
@@ -254,23 +242,19 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const addressInput0 = await waitFor(() => getByTestId('actions.0.address'));
     const signatureInput0 = await waitFor(() => getByTestId('actions.0.signature'));
 
-    await act(async () => {
-      fireEvent.change(addressInput0, { target: { value: fakeAddress } });
-      fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
+    fireEvent.change(addressInput0, { target: { value: fakeAddress } });
+    fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+    const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+    const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
-      fireEvent.change(dataInput0, { target: { value: 'root' } });
-      fireEvent.change(dataInput1, { target: { value: 'false' } });
-    });
+    fireEvent.change(dataInput0, { target: { value: 'root' } });
+    fireEvent.change(dataInput1, { target: { value: 'false' } });
 
     await waitFor(() => expect(addActionButton).toBeEnabled()); // failing
 
-    act(async () => {
-      fireEvent.click(addActionButton);
-      await waitFor(() => getByText(fakeSignature).closest('p'));
-    });
+    fireEvent.click(addActionButton);
+    await waitFor(() => getByText(fakeSignature).closest('p'));
   });
 
   it('Adds callData fields with correctly formatted signature', async () => {
@@ -287,11 +271,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
 
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
 
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
 
     const addActionButton = await waitFor(
       () =>
@@ -331,11 +315,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       'button',
     ) as HTMLButtonElement;
 
-    completeFirstStep(getByPlaceholderText);
-    next(nextButton);
+    await completeFirstStep(getByPlaceholderText);
+    await next(nextButton);
 
-    completeSecondStep(getByPlaceholderText);
-    next(nextButton);
+    await completeSecondStep(getByPlaceholderText);
+    await next(nextButton);
 
     const addActionButton = await waitFor(
       () =>

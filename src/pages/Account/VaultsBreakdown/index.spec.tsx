@@ -5,7 +5,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import VaultsBreakdown from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Account/VaultsBreakdown', () => {
   it('renders without crashing', () => {

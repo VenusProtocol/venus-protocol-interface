@@ -13,12 +13,14 @@ vi.mock('hooks/useTokenApproval');
 
 // Mock Lottie
 vi.mock('@lottiefiles/react-lottie-player', () => ({
-  Player: () => null,
+  Player: () => <></>,
 }));
 
 // Mock React Markdown library
 vi.mock('@uiw/react-md-editor', () => ({
-  default: null,
+  default: ({ onChange, previewOptions, textareaProps, commands, ...otherProps }: any) => (
+    <input onChange={e => onChange(e.currentTarget.value)} {...otherProps} />
+  ),
   commands: {
     title1: '',
     title2: '',
@@ -31,7 +33,7 @@ vi.mock('@uiw/react-md-editor', () => ({
   },
 }));
 vi.mock('@uiw/react-markdown-preview', () => ({
-  default: null,
+  default: ({ content, ...otherProps }: any) => <p {...otherProps}>content</p>,
 }));
 
 const useTokenApprovalOriginalOutput = useTokenApproval(
@@ -44,7 +46,7 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 );
 
 beforeEach(() => {
-  vi.clearAllMocks();
+  vi.restoreAllMocks();
 });
 
 afterEach(() => {
