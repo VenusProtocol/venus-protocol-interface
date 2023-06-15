@@ -70,6 +70,11 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       .dividedBy(collateralAmountPerTokenCents)
       .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
 
+    maxTokensBeforeLiquidation = BigNumber.minimum(
+      maxTokensBeforeLiquidation,
+      asset.userSupplyBalanceTokens,
+    );
+
     maxTokensBeforeLiquidation = maxTokensBeforeLiquidation.isLessThanOrEqualTo(0)
       ? new BigNumber(0)
       : maxTokensBeforeLiquidation;
