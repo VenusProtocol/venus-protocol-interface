@@ -70,7 +70,7 @@ const getTransactions = async ({
   const { limit, page: payloadPage, total } = payload;
   const transactions = payload.result.reduce((acc, data) => {
     const transaction = formatTransaction(data);
-    return transaction ? [...acc, transaction] : acc;
+    return [...acc, transaction];
   }, [] as Transaction[]);
 
   return { limit, page: payloadPage, total, transactions };
