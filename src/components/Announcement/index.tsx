@@ -31,6 +31,7 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
                 <a
                   href="https://www.binance.com/en/support/announcement/binance-will-support-the-trueusd-tusd-contract-swap-52b29fadf71542afabf23acf3454f9c7"
                   rel="noreferrer"
+                  target="_blank"
                 />
               ),
             }}
