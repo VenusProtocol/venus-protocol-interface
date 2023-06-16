@@ -26,7 +26,7 @@ const authContext: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  status: 'disconnected',
+  isConnected: true,
   accountAddress: fakeAddress,
 };
 
