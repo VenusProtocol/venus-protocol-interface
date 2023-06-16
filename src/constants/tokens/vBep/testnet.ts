@@ -340,4 +340,10 @@ export const TESTNET_VBEP_TOKENS = {
     symbol: 'vBTT',
     underlyingToken: TESTNET_TOKENS.btt,
   } as VToken,
+  '0x35566ED3AF9E537Be487C98b1811cDf95ad0C32b': {
+    address: '0x35566ED3AF9E537Be487C98b1811cDf95ad0C32b',
+    decimals: 8,
+    symbol: 'vWBETH',
+    underlyingToken: TESTNET_TOKENS.wbeth,
+  } as VToken,
 };
