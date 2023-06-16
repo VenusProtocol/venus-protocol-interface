@@ -21,7 +21,7 @@ import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalM
 
 import ActionAccordion from './ActionAccordion';
 import ProposalPreview from './ProposalPreview';
-import proposalSchema, { ErrorCode, FormValues } from './proposalSchema';
+import proposalSchema, { ErrorCode, FormValues, initialActionData } from './proposalSchema';
 import { useStyles } from './styles';
 
 interface CreateProposalProps {
@@ -161,7 +161,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     >
       <Formik
         initialValues={{
-          actions: [{ target: '', signature: '', callData: [] }],
+          actions: [initialActionData],
           description: '',
           forDescription: '',
           againstDescription: '',

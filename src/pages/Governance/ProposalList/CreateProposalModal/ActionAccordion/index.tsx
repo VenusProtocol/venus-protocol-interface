@@ -5,7 +5,7 @@ import { FieldArray, useField } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { ErrorCode } from '../proposalSchema';
+import { ErrorCode, initialActionData } from '../proposalSchema';
 import CallDataFields from './CallDataFields';
 import { useStyles } from './styles';
 
@@ -95,7 +95,7 @@ const ActionAccordion: React.FC = () => {
 
             <SecondaryButton
               onClick={() => {
-                push({ address: '', signature: '' });
+                push(initialActionData);
                 setExpanded(actions.length || 0);
               }}
               fullWidth
