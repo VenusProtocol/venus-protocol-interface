@@ -199,7 +199,7 @@ export const useStyles = () => {
         border-radius: 0;
         border: 0;
         box-shadow: none;
-        padding: 0;
+        padding: ${theme.spacing(0, 0, 16)};
         top: 0 !important;
       }
     `,
