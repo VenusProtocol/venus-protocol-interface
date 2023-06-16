@@ -82,4 +82,10 @@ const proposalSchema = yup.object({
 
 export type FormValues = yup.InferType<typeof proposalSchema>;
 
+export const initialActionData: FormValues['actions'][number] = {
+  target: '',
+  signature: '',
+  callData: [],
+};
+
 export default proposalSchema;
