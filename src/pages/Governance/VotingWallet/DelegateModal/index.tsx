@@ -44,6 +44,8 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
 
   const onSubmit = async (address: string) => {
     try {
+      console.log('CALLED');
+
       await setVoteDelegation(address);
     } catch (error) {
       const { message } = error as Error;
@@ -74,7 +76,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
           validateOnMount
           validateOnChange
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <div css={styles.inputLabels}>
                 <Typography color="textPrimary">{t('vote.delegateAddress')}</Typography>
