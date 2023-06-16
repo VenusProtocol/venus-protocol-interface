@@ -32,7 +32,6 @@ import usdt from 'assets/img/tokens/usdt.svg';
 import ust from 'assets/img/tokens/ust.svg';
 import vai from 'assets/img/tokens/vai.svg';
 import vrt from 'assets/img/tokens/vrt.svg';
-import wbeth from 'assets/img/tokens/wbeth.svg';
 import wbnb from 'assets/img/tokens/wbnb.svg';
 import win from 'assets/img/tokens/win.svg';
 import woo from 'assets/img/tokens/woo.svg';
@@ -280,11 +279,5 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     symbol: 'WOO',
     asset: woo,
-  } as Token,
-  wbeth: {
-    address: '0xccBB1b1Be3663D22530aAB798e90DE29e2cbC8EE',
-    decimals: 18,
-    symbol: 'WBETH',
-    asset: wbeth,
   } as Token,
 };
