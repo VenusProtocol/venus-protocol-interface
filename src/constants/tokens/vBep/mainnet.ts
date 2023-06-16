@@ -160,11 +160,5 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vLUNA',
     underlyingToken: MAINNET_TOKENS.luna,
   } as VToken,
-  '0x6cfdec747f37daf3b87a35a1d9c8ad3063a1a8a0': {
-    address: '0x6CFdEc747f37DAf3b87a35a1D9c8AD3063A1A8A0',
-    decimals: 8,
-    symbol: 'vWBETH',
-    underlyingToken: MAINNET_TOKENS.wbeth,
-  } as VToken,
   // TODO: add tokens from isolated pools
 };
