@@ -9,6 +9,7 @@ import {
   TextButton,
   toast,
 } from 'components';
+import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -23,7 +24,7 @@ interface DelegateModalProps {
   onClose: () => void;
   isOpen: boolean;
   currentUserAccountAddress: string | undefined;
-  setVoteDelegation: (address: string) => void;
+  setVoteDelegation: (address: string) => Promise<ContractReceipt>;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
   openAuthModal: () => void;
@@ -43,6 +44,8 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
 
   const onSubmit = async (address: string) => {
     try {
+      console.log('CALLED');
+
       await setVoteDelegation(address);
     } catch (error) {
       const { message } = error as Error;
@@ -73,7 +76,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
           validateOnMount
           validateOnChange
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <div css={styles.inputLabels}>
                 <Typography color="textPrimary">{t('vote.delegateAddress')}</Typography>

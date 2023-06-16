@@ -13,8 +13,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.tsx',
-    minThreads: 1,
-    maxThreads: 6,
     coverage: {
       reporter: ['text', 'html'],
       exclude: ['node_modules/', 'src/setupTests.tsx'],
