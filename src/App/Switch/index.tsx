@@ -22,7 +22,7 @@ import VoterLeaderboard from 'pages/VoterLeaderboard';
 import Xvs from 'pages/Xvs';
 
 const Switch = () => {
-  const { accountAddress, status } = useAuth();
+  const { isConnected } = useAuth();
   const location = useLocation();
   const history = useHistory();
 
@@ -30,22 +30,16 @@ const Switch = () => {
   // visiting the dashboard. If they refresh the page while being on the
   // dashboard, the redirection will not happen
   useEffect(() => {
-    if (
-      (status === 'reconnecting' || status === 'connected') &&
-      location.pathname === routes.dashboard.path &&
-      history.length <= 2
-    ) {
+    if (isConnected && location.pathname === routes.dashboard.path && history.length <= 2) {
       history.replace(routes.account.path);
     }
-  }, [location, status, history]);
+  }, [location, isConnected, history]);
 
   return (
     <RRSwitch>
       <Route exact path={routes.dashboard.path} component={Dashboard} />
 
-      {(accountAddress || status === 'reconnecting' || status === 'connected') && (
-        <Route exact path={routes.account.path} component={Account} />
-      )}
+      {isConnected && <Route exact path={routes.account.path} component={Account} />}
 
       {isFeatureEnabled('isolatedPools') && (
         <Route exact path={routes.pools.path} component={Pools} />

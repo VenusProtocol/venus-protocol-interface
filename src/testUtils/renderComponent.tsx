@@ -37,7 +37,7 @@ const renderComponent = (
     logOut: jest.fn(),
     openAuthModal: jest.fn(),
     closeAuthModal: jest.fn(),
-    status: 'disconnected',
+    isConnected: false,
     provider: getDefaultProvider(),
     accountAddress: '',
     ...authContextValue,

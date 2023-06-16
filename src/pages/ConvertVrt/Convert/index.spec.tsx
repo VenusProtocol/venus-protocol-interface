@@ -20,7 +20,7 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: jest.fn(),
           openAuthModal: jest.fn(),
           closeAuthModal: jest.fn(),
-          status: 'connected',
+          isConnected: true,
           provider: fakeProvider,
           accountAddress: fakeAccountAddress,
         }}
