@@ -25,6 +25,7 @@ import usdt from 'assets/img/tokens/usdt.svg';
 import ust from 'assets/img/tokens/ust.svg';
 import vai from 'assets/img/tokens/vai.svg';
 import vrt from 'assets/img/tokens/vrt.svg';
+import wbeth from 'assets/img/tokens/wbeth.svg';
 import xrp from 'assets/img/tokens/xrp.svg';
 import xvs from 'assets/img/tokens/xvs.svg';
 
@@ -197,5 +198,11 @@ export const MAINNET_TOKENS = {
     decimals: 6,
     symbol: 'LUNA',
     asset: luna,
+  } as Token,
+  wbeth: {
+    address: '0xa2E3356610840701BDf5611a53974510Ae27E2e1',
+    decimals: 18,
+    symbol: 'WBETH',
+    asset: wbeth,
   } as Token,
 };
