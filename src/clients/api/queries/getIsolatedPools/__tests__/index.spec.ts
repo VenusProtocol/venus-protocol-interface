@@ -1,4 +1,5 @@
 import { ContractCallContext, Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -17,7 +18,7 @@ vi.mock('clients/subgraph');
 
 describe('api/queries/getIsolatedPools', () => {
   test('returns isolated pools in the correct format', async () => {
-    (getIsolatedPoolParticipantsCount as vi.Mock).mockImplementationOnce(
+    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementationOnce(
       () => fakeIsolatedPoolParticipantsCount,
     );
 

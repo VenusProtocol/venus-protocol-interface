@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
@@ -61,21 +62,21 @@ describe('pages/Proposal', () => {
       activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
     );
 
-    (getVoteReceipt as vi.Mock).mockImplementation(() => ({
+    (getVoteReceipt as Vi.Mock).mockImplementation(() => ({
       voteSupport: 'NOT_VOTED',
     }));
-    (getProposal as vi.Mock).mockImplementation(() => activeProposal);
+    (getProposal as Vi.Mock).mockImplementation(() => activeProposal);
 
-    (getProposalThreshold as vi.Mock).mockImplementation(() => ({
+    (getProposalThreshold as Vi.Mock).mockImplementation(() => ({
       thresholdWei: CREATE_PROPOSAL_THRESHOLD_WEI,
     }));
 
-    (useVote as vi.Mock).mockImplementation(() => ({
+    (useVote as Vi.Mock).mockImplementation(() => ({
       vote: vi.fn(),
       isLoading: false,
     }));
 
-    (getCurrentVotes as vi.Mock).mockImplementation(() => ({
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber('100000000000000000'),
     }));
   });
@@ -85,7 +86,7 @@ describe('pages/Proposal', () => {
   });
 
   it('renders without crashing on', async () => {
-    (getProposal as vi.Mock).mockImplementation(() => incorrectAction);
+    (getProposal as Vi.Mock).mockImplementation(() => incorrectAction);
     renderComponent(<Proposal />);
   });
 
@@ -95,7 +96,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when proposal is not active', async () => {
-    (getProposal as vi.Mock).mockImplementationOnce(() => cancelledProposal);
+    (getProposal as Vi.Mock).mockImplementationOnce(() => cancelledProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -105,7 +106,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when vote is cast', async () => {
-    (getVoteReceipt as vi.Mock).mockImplementation(() => ({
+    (getVoteReceipt as Vi.Mock).mockImplementation(() => ({
       voteSupport: 'FOR',
     }));
 
@@ -119,7 +120,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when voting weight is 0', async () => {
-    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -142,7 +143,7 @@ describe('pages/Proposal', () => {
 
   it('allows user to vote for', async () => {
     const vote = vi.fn();
-    (useVote as vi.Mock).mockImplementation(() => ({
+    (useVote as Vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -172,7 +173,7 @@ describe('pages/Proposal', () => {
 
   it('allows user to vote against with reason', async () => {
     const vote = vi.fn();
-    (useVote as vi.Mock).mockImplementation(() => ({
+    (useVote as Vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -210,7 +211,7 @@ describe('pages/Proposal', () => {
 
   it('allows user to vote abstain', async () => {
     const vote = vi.fn();
-    (useVote as vi.Mock).mockImplementation(() => ({
+    (useVote as Vi.Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -242,7 +243,7 @@ describe('pages/Proposal', () => {
   });
 
   it('lists votes cast', async () => {
-    (useGetVoters as vi.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
+    (useGetVoters as Vi.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
       const votersCopy = cloneDeep(voters);
       votersCopy.result = [votersCopy.result[filter]];
       return { data: votersCopy, isLoading: false };
@@ -267,7 +268,7 @@ describe('pages/Proposal', () => {
   });
 
   it('proposer can always cancel their own proposal', async () => {
-    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const proposerAddress = activeProposal.proposer;
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -286,7 +287,7 @@ describe('pages/Proposal', () => {
   });
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
-    (getCurrentVotes as vi.Mock).mockImplementation(() => ({
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
     }));
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -303,7 +304,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can cancel if voting power of the proposer dropped below threshold', async () => {
-    (getCurrentVotes as vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -322,7 +323,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can queue succeeded proposal', async () => {
-    (getProposal as vi.Mock).mockImplementationOnce(() => succeededProposal);
+    (getProposal as Vi.Mock).mockImplementationOnce(() => succeededProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -338,7 +339,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can execute queued proposal', async () => {
-    (getProposal as vi.Mock).mockImplementationOnce(() => queuedProposal);
+    (getProposal as Vi.Mock).mockImplementationOnce(() => queuedProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,

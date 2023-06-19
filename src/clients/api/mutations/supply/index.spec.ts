@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
@@ -24,7 +25,7 @@ describe('api/mutation/supply', () => {
         mint: mintMock,
       } as unknown as VBep20;
 
-      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await supply({
         signer: fakeSigner,
@@ -54,7 +55,7 @@ describe('api/mutation/supply', () => {
         mint: mintMock,
       } as unknown as VBnbToken;
 
-      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await supply({
         signer: fakeSigner,

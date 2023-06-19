@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -209,7 +210,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repay as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -260,7 +261,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('lets user repay full loan', async () => {
-    (repay as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,

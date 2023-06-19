@@ -1,4 +1,5 @@
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -24,7 +25,7 @@ describe('api/queries/getTokenBalances', () => {
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });
@@ -42,7 +43,7 @@ describe('api/queries/getTokenBalances', () => {
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

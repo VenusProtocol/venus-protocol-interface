@@ -1,3 +1,5 @@
+import Vi from 'vitest';
+
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import {
@@ -56,9 +58,9 @@ describe('api/mutation/claimVaiVaultReward', () => {
     });
 
     expect(fakeMulticallContract.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
-    expect((fakeMulticallContract.tryBlockAndAggregate as vi.Mock).mock.calls[0][0]).toBe(true);
+    expect((fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(true);
     expect(
-      (fakeMulticallContract.tryBlockAndAggregate as vi.Mock).mock.calls[0][1],
+      (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
     ).toMatchSnapshot();
 
     // Check it looked for errors present in contract receipt

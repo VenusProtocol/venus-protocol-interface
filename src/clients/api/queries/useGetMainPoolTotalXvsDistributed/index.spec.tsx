@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import Vi from 'vitest';
 
 import { markets } from '__mocks__/models/markets';
 import { getMainMarkets } from 'clients/api';
@@ -12,7 +13,7 @@ vi.mock('clients/api');
 
 describe('api/queries/useGetMainPoolTotalXvsDistributed', () => {
   beforeEach(() => {
-    (getMainMarkets as vi.Mock).mockImplementation(() => ({ markets }));
+    (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
   });
 
   it('returns data in the correct format', async () => {

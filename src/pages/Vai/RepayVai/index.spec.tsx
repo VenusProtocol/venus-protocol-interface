@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -34,17 +35,17 @@ const repayInputAmountTokens = '100';
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (getMintedVai as vi.Mock).mockImplementation(() => ({
+    (getMintedVai as Vi.Mock).mockImplementation(() => ({
       mintedVaiWei: fakeUserVaiMintedWei,
     }));
 
-    (getVaiRepayAmountWithInterests as vi.Mock).mockImplementation(() =>
+    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() =>
       formatToGetVaiRepayAmountWithInterestsOutput({
         contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
       }),
     );
 
-    (getVaiCalculateRepayAmount as vi.Mock).mockImplementation(() =>
+    (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>
       formatToOutput({
         repayAmountWei: convertTokensToWei({
           value: new BigNumber(repayInputAmountTokens),
@@ -77,9 +78,9 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repayVai as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    (getBalanceOf as vi.Mock).mockImplementation(() => ({
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fakeUserVaiMintedWei,
     }));
 

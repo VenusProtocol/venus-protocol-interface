@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
+import Vi from 'vitest';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -24,7 +25,7 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/vai/MintVai', () => {
   beforeEach(() => {
-    (getMintableVai as vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
+    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
   });
 
   it('renders without crashing', () => {
@@ -36,7 +37,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {
-    (getVaiTreasuryPercentage as vi.Mock).mockImplementationOnce(async () => ({
+    (getVaiTreasuryPercentage as Vi.Mock).mockImplementationOnce(async () => ({
       percentage: fakeVaiTreasuryPercentage,
     }));
 
@@ -54,7 +55,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
 
   it('lets user mint VAI', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    (mintVai as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {

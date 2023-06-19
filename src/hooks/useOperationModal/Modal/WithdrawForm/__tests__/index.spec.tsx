@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
@@ -77,7 +78,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
-    (getVTokenBalanceOf as vi.Mock).mockImplementation(() => ({
+    (getVTokenBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fakeVTokenBalanceWei,
     }));
 

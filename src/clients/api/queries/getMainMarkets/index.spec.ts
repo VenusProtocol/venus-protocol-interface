@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import Vi from 'vitest';
 
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
@@ -51,7 +52,7 @@ const supportedMarket = {
 
 describe('api/queries/getMainMarkets', () => {
   test('returns supported markets', async () => {
-    (restService as vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { markets: [supportedMarket] } },
     }));
@@ -63,7 +64,7 @@ describe('api/queries/getMainMarkets', () => {
 
   test('filters unsupported markets', async () => {
     const unsupportedMarket = { ...supportedMarket, address: 'invalid-address' };
-    (restService as vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { markets: [unsupportedMarket] } },
     }));

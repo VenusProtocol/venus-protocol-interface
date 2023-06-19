@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import Vi from 'vitest';
 
 import fakeProvider, { balance as fakeBalanceWei } from '__mocks__/models/provider';
 import { getTokenContract } from 'clients/contracts';
@@ -20,7 +21,7 @@ describe('api/queries/getBalanceOf', () => {
         balanceOf: balanceOfMock,
       } as unknown as TokenContract;
 
-      (getTokenContract as vi.Mock).mockImplementationOnce(() => fakeContract);
+      (getTokenContract as Vi.Mock).mockImplementationOnce(() => fakeContract);
 
       const response = await getBalanceOf({
         provider: fakeProvider,

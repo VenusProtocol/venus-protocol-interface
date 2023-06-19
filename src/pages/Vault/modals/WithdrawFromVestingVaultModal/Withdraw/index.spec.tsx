@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
@@ -20,8 +21,8 @@ const fakeStakedToken = TOKENS.vai;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
-    vi.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
-    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
+    vi.useFakeTimers().setSystemTime(new Date(1656603774626));
+    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     }));
   });
@@ -51,7 +52,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('disables submit button when there is no tokens available', async () => {
-    (getXvsVaultLockedDeposits as vi.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
       lockedDeposits: [],
     }));
 

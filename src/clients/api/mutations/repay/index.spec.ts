@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
+import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
@@ -28,7 +29,7 @@ describe('api/mutation/repay', () => {
         repayBorrow: repayBorrowMock,
       } as unknown as VBep20;
 
-      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await repay({
         signer: fakeSigner,
@@ -58,7 +59,7 @@ describe('api/mutation/repay', () => {
         repayBehalfExplicit: repayBehalfExplicitMock,
       } as unknown as VBep20;
 
-      (getMaximillionContract as vi.Mock).mockImplementationOnce(() => fakeMaximillionContract);
+      (getMaximillionContract as Vi.Mock).mockImplementationOnce(() => fakeMaximillionContract);
 
       const response = await repay({
         signer: fakeSigner,
@@ -88,7 +89,7 @@ describe('api/mutation/repay', () => {
         repayBorrow: repayBorrowMock,
       } as unknown as VBnbToken;
 
-      (getVTokenContract as vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await repay({
         signer: fakeSigner,

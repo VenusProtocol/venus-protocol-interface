@@ -1,4 +1,5 @@
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
@@ -23,7 +24,7 @@ describe('api/queries/getPendingRewardGroups', () => {
     });
 
     expect(multicall.call).toHaveBeenCalledTimes(1);
-    expect((multicall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((multicall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

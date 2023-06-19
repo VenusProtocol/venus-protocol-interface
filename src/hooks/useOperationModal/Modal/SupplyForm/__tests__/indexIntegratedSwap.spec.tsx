@@ -5,6 +5,7 @@ import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
 import { isFeatureEnabled } from 'utilities';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -57,24 +58,24 @@ vi.mock('hooks/useGetSwapInfo');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (isFeatureEnabled as vi.Mock).mockImplementation(
+    (isFeatureEnabled as Vi.Mock).mockImplementation(
       featureFlag => featureFlag === 'integratedSwap',
     );
 
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as vi.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
   });
 
   afterEach(() => {
-    (isFeatureEnabled as vi.Mock).mockRestore();
-    (isFeatureEnabled as vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
+    (isFeatureEnabled as Vi.Mock).mockRestore();
+    (isFeatureEnabled as Vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
   });
 
   it('renders without crashing', () => {
@@ -138,7 +139,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -183,7 +184,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -259,7 +260,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei.plus(1),
     };
 
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       error: undefined,
       isLoading: false,
@@ -297,7 +298,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
@@ -341,7 +342,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
           : tokenBalance.balanceWei,
     }));
 
-    (useGetSwapTokenUserBalances as vi.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
 
@@ -421,7 +422,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,
     }));

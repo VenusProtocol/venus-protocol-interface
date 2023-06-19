@@ -1,4 +1,5 @@
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
@@ -36,7 +37,7 @@ describe('api/queries/getVaiRepayAmountWithInterests', () => {
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(response).toMatchSnapshot();
   });

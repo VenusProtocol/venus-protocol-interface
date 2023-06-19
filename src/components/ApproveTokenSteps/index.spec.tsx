@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -22,7 +23,7 @@ describe('components/ApproveTokenSteps', () => {
     const approveTokenMock = vi.fn();
 
     // Mark all tokens as having not been approved
-    (useTokenApproval as vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,
@@ -54,7 +55,7 @@ describe('components/ApproveTokenSteps', () => {
 
   it('renders content when hideTokenEnablingStep is true, even if user has not enabled token', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

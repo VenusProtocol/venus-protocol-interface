@@ -4,6 +4,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -259,7 +260,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
@@ -308,7 +309,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,

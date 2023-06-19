@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetsInAccount } from '__mocks__/models/assetsInAccount';
@@ -23,15 +24,15 @@ const fakeUserVaiRepayAmountWithInterestsWei = new BigNumber('10000000000000000'
 
 describe('api/queries/useGetMainAssets', () => {
   beforeEach(() => {
-    (getMainMarkets as vi.Mock).mockImplementation(() => ({ markets }));
-    (getMainAssetsInAccount as vi.Mock).mockImplementation(() => ({
+    (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
+    (getMainAssetsInAccount as Vi.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
-    (getVaiRepayAmountWithInterests as vi.Mock).mockImplementation(() => ({
+    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterests: fakeUserVaiRepayAmountWithInterestsWei,
     }));
 
-    (useGetVTokenBalancesAll as vi.Mock).mockImplementation(({ account }) => {
+    (useGetVTokenBalancesAll as Vi.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
         return { data: { balances: vTokenBalancesAccount } };
       }

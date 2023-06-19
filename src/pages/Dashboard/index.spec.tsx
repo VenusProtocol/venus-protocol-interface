@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api';
@@ -13,7 +14,7 @@ vi.mock('clients/api');
 
 describe('pages/Dashboard', () => {
   beforeEach(() => {
-    (useGetPools as vi.Mock).mockImplementation(() => ({
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },

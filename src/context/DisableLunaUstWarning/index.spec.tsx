@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { Asset } from 'types';
+import Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { useGetMainAssets } from 'clients/api';
@@ -25,7 +26,7 @@ describe('context/DisableLunaUstWarning', () => {
       },
     ];
 
-    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
+    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
       data: {
         assets: customAssets,
         userTotalBorrowLimitCents: new BigNumber('111'),

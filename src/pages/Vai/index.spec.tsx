@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { convertTokensToWei } from 'utilities';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -17,7 +18,7 @@ vi.mock('clients/api');
 
 describe('pages/Dashboard/Vai', () => {
   beforeEach(() => {
-    (getVaiCalculateRepayAmount as vi.Mock).mockImplementation(() =>
+    (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>
       formatToOutput({
         repayAmountWei: convertTokensToWei({
           value: new BigNumber(0),

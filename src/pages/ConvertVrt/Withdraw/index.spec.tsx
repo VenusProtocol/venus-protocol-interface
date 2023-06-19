@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -18,7 +19,7 @@ vi.mock('clients/api');
 
 describe('pages/ConvertVRT/Withdraw', () => {
   beforeEach(() => {
-    (useGetMainAssets as vi.Mock).mockImplementation(() => ({
+    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimit: new BigNumber('111'),

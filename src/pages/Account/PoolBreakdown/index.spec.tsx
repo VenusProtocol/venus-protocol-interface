@@ -1,5 +1,6 @@
 import React from 'react';
 import { isFeatureEnabled } from 'utilities';
+import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
@@ -29,14 +30,14 @@ describe('pages/Account/PoolBreakdown', () => {
 
   describe('Feature flag enabled: isolatedPools', () => {
     beforeEach(() => {
-      (isFeatureEnabled as vi.Mock).mockImplementation(
+      (isFeatureEnabled as Vi.Mock).mockImplementation(
         featureFlag => featureFlag === 'isolatedPools',
       );
     });
 
     afterEach(() => {
-      (isFeatureEnabled as vi.Mock).mockRestore();
-      (isFeatureEnabled as vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
+      (isFeatureEnabled as Vi.Mock).mockRestore();
+      (isFeatureEnabled as Vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
     });
 
     it('displays content correctly', () => {

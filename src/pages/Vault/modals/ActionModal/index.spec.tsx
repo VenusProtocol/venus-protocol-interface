@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { BscChainId } from 'types';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import TEST_IDS from 'components/Spinner/testIds';
@@ -57,7 +58,7 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('prompts user who connected their wallet to approve token if they have not done so already', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

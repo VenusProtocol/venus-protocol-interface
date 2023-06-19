@@ -1,4 +1,5 @@
 import React from 'react';
+import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
@@ -11,14 +12,14 @@ vi.mock('clients/api');
 
 describe('api/queries/useGetTreasuryTotals', () => {
   beforeEach(() => {
-    (useGetPools as vi.Mock).mockImplementation(() => ({
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
       isLoading: false,
     }));
 
-    (useGetVTokenBalancesAll as vi.Mock).mockImplementation(() => ({
+    (useGetVTokenBalancesAll as Vi.Mock).mockImplementation(() => ({
       data: {
         balances: vTokenBalanceTreasury,
       },

@@ -1,5 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
@@ -18,7 +19,7 @@ describe('api/queries/getPancakeSwapPairs', () => {
     });
 
     expect(multicall.call).toHaveBeenCalledTimes(1);
-    expect((multicall.call as vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((multicall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

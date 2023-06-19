@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakePancakeSwapPairs from '__mocks__/models/pancakeSwapPairs';
 import { getPancakeSwapPairs } from 'clients/api';
@@ -116,7 +117,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
           fakePair.token1.address !== SWAP_TOKENS.xvs.address,
       );
 
-      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as Vi.Mock).mockImplementationOnce(async () => ({
         pairs: customfakePancakeSwapPairs,
       }));
 
@@ -146,7 +147,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns swap in correct format if a trade is found', async () => {
-      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as Vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 
@@ -197,7 +198,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns an error if no trade is found for the input provided', async () => {
-      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as Vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 
@@ -227,7 +228,7 @@ describe('pages/Swap/useGetSwapInfo', () => {
     });
 
     it('returns swap in correct format if a trade is found', async () => {
-      (getPancakeSwapPairs as vi.Mock).mockImplementationOnce(async () => ({
+      (getPancakeSwapPairs as Vi.Mock).mockImplementationOnce(async () => ({
         pairs: fakePancakeSwapPairs,
       }));
 

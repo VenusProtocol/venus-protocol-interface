@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import Vi from 'vitest';
 
 import proposalResponse from '__mocks__/api/proposals.json';
 
@@ -8,7 +9,7 @@ vi.mock('utilities/restService');
 
 describe('api/queries/getProposals', () => {
   test('returns formatted proposals', async () => {
-    (restService as vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: proposalResponse, limit: 20, offset: 20 },
     }));
@@ -32,7 +33,7 @@ describe('api/queries/getProposals', () => {
   });
 
   test('Gets called with correct default arguments', async () => {
-    (restService as vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: proposalResponse },
     }));
