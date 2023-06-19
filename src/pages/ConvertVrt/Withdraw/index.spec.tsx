@@ -34,10 +34,10 @@ describe('pages/ConvertVRT/Withdraw', () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+          login: vi.fn(),
+          logOut: vi.fn(),
+          openAuthModal: vi.fn(),
+          closeAuthModal: vi.fn(),
           isConnected: true,
           provider: fakeProvider,
           accountAddress: fakeAccountAddress,

@@ -27,7 +27,7 @@ describe('api/queries/useGetMainAssets', () => {
     (getMainAssetsInAccount as vi.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
-    (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() => ({
+    (getVaiRepayAmountWithInterests as vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterests: fakeUserVaiRepayAmountWithInterestsWei,
     }));
 
