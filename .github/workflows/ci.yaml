@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16.20.0'
           cache: 'yarn'
 
       - name: Install deps
@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16.20.0'
           cache: 'yarn'
 
       - name: Install deps
@@ -59,7 +59,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16.20.0'
           cache: 'yarn'
 
       - run: |
@@ -90,30 +90,15 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16.20.0'
           cache: 'yarn'
 
       - name: Install deps
         run: yarn
 
-      - name: Run tests
-        run:
-          yarn test --ci --json --coverage --testLocationInResults
-          --outputFile=./coverage/report.json
+      - name: Run tests and collect coverage
+        run: yarn test --coverage
 
-      - uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        id: coverage
-        with:
-          package-manager: yarn
-          coverage-file: ./coverage/report.json
-          skip-step: all
-          output: report-markdown
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          number: ${{ steps.findPr.outputs.number }}
-          message: ${{ steps.coverage.outputs.report }}
+      - name: 'Report Coverage'
+        if: always() # Also generate the report even if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v2
