@@ -59,6 +59,7 @@ module.exports = {
           '**/*.stories.ts',
           'src/stories/**',
           '**/*.spec.tsx',
+          '**/*.spec.ts',
           'src/setupTests.tsx',
         ],
       },
