@@ -1,4 +1,5 @@
 import { IPlayerProps, Player } from '@lottiefiles/react-lottie-player';
+import config from 'config';
 import React from 'react';
 
 import * as files from './files';
@@ -14,7 +15,7 @@ export interface LottieAnimationProps {
 
 export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   name,
-  autoplay = !import.meta.env.STORYBOOK,
+  autoplay = config.environment !== 'ci',
   loop = true,
   className,
 }) => {

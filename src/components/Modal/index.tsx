@@ -2,6 +2,7 @@
 import { Button, Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
+import config from 'config';
 import React, { ReactElement } from 'react';
 
 import { Icon } from '../Icon';
@@ -37,7 +38,7 @@ export const Modal: React.FC<ModalProps> = ({
       BackdropProps={{
         timeout: 500,
       }}
-      disablePortal={!!import.meta.env.STORYBOOK}
+      disablePortal={config.environment === 'storybook'}
       {...otherModalProps}
     >
       <Fade in={isOpen}>

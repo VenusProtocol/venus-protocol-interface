@@ -7,19 +7,15 @@ import TEST_IDS from './testIds';
 
 interface SpinnerProps {
   variant?: 'large' | 'small';
-  autoplay?: boolean;
   className?: string;
 }
 
-export const Spinner: React.FC<SpinnerProps> = ({
-  variant = 'large',
-  autoplay = true,
-  className,
-}) => {
+export const Spinner: React.FC<SpinnerProps> = ({ variant = 'large', className }) => {
   const styles = useStyles({ variant });
+
   return (
     <div css={styles.container} className={className} data-testid={TEST_IDS.spinner}>
-      <SpinnerAnimation autoplay={autoplay} css={styles.spinner} />
+      <SpinnerAnimation css={styles.spinner} />
     </div>
   );
 };

@@ -22,7 +22,7 @@ const config: StorybookConfig = {
   env: config => ({
     ...config,
     // Always run Storybook in test environment
-    VITE_CHAIN_ID: '97',
+    VITE_ENVIRONMENT: 'testnet',
   }),
 };
 export default config;

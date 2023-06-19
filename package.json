@@ -10,7 +10,7 @@
     "prepare": "git apply patches/@stylelint+postcss-css-in-js+0.37.2.patch",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "TZ=UTC VITE_CHAIN_ID=97 VITE_FF_ISOLATED_POOLS=true vitest run",
+    "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "pretty": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,html,json,md}\" public/**/*.html --check",
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
     "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",

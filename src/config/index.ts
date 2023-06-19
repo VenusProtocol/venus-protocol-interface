@@ -17,14 +17,12 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
-  featureFlags: {
-    isolatedPools: boolean;
-    integratedSwap: boolean;
-  };
 }
 
+export const ENV_VARIABLES = typeof process !== 'undefined' ? process.env : import.meta.env;
+
 const environment: Environment =
-  (import.meta.env.VITE_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
+  (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'testnet';
 
 const mode: Mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -32,9 +30,7 @@ const isInLiveEnvironment =
   mode === 'production' &&
   (environment === 'testnet' || environment === 'preview' || environment === 'mainnet');
 
-const chainId: BscChainId = import.meta.env.VITE_CHAIN_ID
-  ? Number(import.meta.env.VITE_CHAIN_ID)
-  : BscChainId.MAINNET;
+const chainId: BscChainId = environment === 'preview' || environment === 'mainnet' ? 56 : 97;
 
 const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
@@ -49,16 +45,10 @@ const config: Config = {
   rpcUrl,
   apiUrl,
   bscScanUrl,
-  sentryDsn: import.meta.env.VITE_SENTRY_DSN || '',
+  sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
-    apiKey: import.meta.env.VITE_POSTHOG_API_KEY || '',
-    hostUrl: import.meta.env.VITE_POSTHOG_HOST_URL || '',
-  },
-  // Note: never access these directly, use the utility function
-  // isFeatureEnabled instead. This is necessary to make testing easier
-  featureFlags: {
-    isolatedPools: import.meta.env.VITE_FF_ISOLATED_POOLS === 'true',
-    integratedSwap: import.meta.env.VITE_FF_INTEGRATED_SWAP === 'true',
+    apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
+    hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
 };
 
