@@ -130,11 +130,17 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vAAVE',
     underlyingToken: MAINNET_TOKENS.aave,
   } as VToken,
-  '0x08ceb3f4a7ed3500ca0982bcd0fc7816688084c3': {
-    address: '0x08ceb3f4a7ed3500ca0982bcd0fc7816688084c3',
+  '0xbf762cd5991ca1dcddac9ae5c638f5b5dc3bee6e': {
+    address: '0xBf762cd5991cA1DCdDaC9ae5C638F5B5Dc3Bee6E',
     decimals: 8,
     symbol: 'vTUSD',
     underlyingToken: MAINNET_TOKENS.tusd,
+  } as VToken,
+  '0x08ceb3f4a7ed3500ca0982bcd0fc7816688084c3': {
+    address: '0x08CEB3F4a7ed3500cA0982bcd0FC7816688084c3',
+    decimals: 8,
+    symbol: 'vTUSDOLD',
+    underlyingToken: MAINNET_TOKENS.tusdold,
   } as VToken,
   '0xc5d3466aa484b040ee977073fcf337f2c00071c1': {
     address: '0xC5D3466aA484B040eE977073fcF337f2c00071c1',
