@@ -19,6 +19,7 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getVTokenByAddress,
+  isTokenActionEnabled,
 } from 'utilities';
 
 import { useGetAsset, useGetVTokenApySimulations } from 'clients/api';
@@ -85,6 +86,14 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       asset?.borrowRatePerBlockTokens,
       asset?.borrowRatePerBlockTokens,
     ],
+  );
+
+  const isSupplyOrBorrowEnabled = React.useMemo(
+    () =>
+      asset &&
+      (isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'supply' }) ||
+        isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'borrow' })),
+    [asset?.vToken.underlyingToken],
   );
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
@@ -315,40 +324,45 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const buttonsDom = (
     <>
-      <Button
-        fullWidth
-        css={styles.statsColumnButton}
-        onClick={() =>
-          openOperationModal({
-            vToken: asset.vToken,
-            poolComptrollerAddress,
-            initialActiveTabIndex: 0,
-          })
-        }
-      >
-        {t('market.supplyButtonLabel')}
-      </Button>
-
-      <SecondaryButton
-        fullWidth
-        css={styles.statsColumnButton}
-        onClick={() =>
-          openOperationModal({
-            vToken: asset.vToken,
-            poolComptrollerAddress,
-            initialActiveTabIndex: 2,
-          })
-        }
-      >
-        {t('market.borrowButtonLabel')}
-      </SecondaryButton>
+      {isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'supply' }) && (
+        <Button
+          fullWidth
+          css={styles.statsColumnButton}
+          onClick={() =>
+            openOperationModal({
+              vToken: asset.vToken,
+              poolComptrollerAddress,
+              initialActiveTabIndex: 0,
+            })
+          }
+        >
+          {t('market.supplyButtonLabel')}
+        </Button>
+      )}
+      {isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'borrow' }) && (
+        <SecondaryButton
+          fullWidth
+          css={styles.statsColumnButton}
+          onClick={() =>
+            openOperationModal({
+              vToken: asset.vToken,
+              poolComptrollerAddress,
+              initialActiveTabIndex: 2,
+            })
+          }
+        >
+          {t('market.borrowButtonLabel')}
+        </SecondaryButton>
+      )}
     </>
   );
 
   return (
     <>
       <div css={styles.container}>
-        <Paper css={[styles.statsColumnButtonContainer, showXlDownCss]}>{buttonsDom}</Paper>
+        {isSupplyOrBorrowEnabled && (
+          <Paper css={[styles.statsColumnButtonContainer, showXlDownCss]}>{buttonsDom}</Paper>
+        )}
 
         <div css={[styles.column, styles.graphsColumn]}>
           <Card
@@ -391,7 +405,9 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         </div>
 
         <div css={[styles.column, styles.statsColumn]}>
-          <Paper css={[styles.statsColumnButtonContainer, hideXlDownCss]}>{buttonsDom}</Paper>
+          {isSupplyOrBorrowEnabled && (
+            <Paper css={[styles.statsColumnButtonContainer, hideXlDownCss]}>{buttonsDom}</Paper>
+          )}
 
           <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
         </div>
