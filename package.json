@@ -73,7 +73,7 @@
     "recharts": "2.1.9",
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
-    "wagmi": "^0.12",
+    "wagmi": "^0.12.16",
     "yup": "^1.0.2"
   },
   "devDependencies": {
