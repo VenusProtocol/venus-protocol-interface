@@ -94,11 +94,17 @@ export const TESTNET_VBEP_TOKENS = {
     symbol: 'vAAVE',
     underlyingToken: TESTNET_TOKENS.aave,
   } as VToken,
-  '0x3a00d9b02781f47d033bad62edc55fbf8d083fb0': {
-    address: '0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0',
+  '0xefaacf73ce2d38ed40991f29e72b12c74bd4cf23': {
+    address: '0xEFAACF73CE2D38ED40991f29E72B12C74bd4cf23',
     decimals: 8,
     symbol: 'vTUSD',
     underlyingToken: TESTNET_TOKENS.tusd,
+  } as VToken,
+  '0x3a00d9b02781f47d033bad62edc55fbf8d083fb0': {
+    address: '0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0',
+    decimals: 8,
+    symbol: 'vTUSDOLD',
+    underlyingToken: TESTNET_TOKENS.tusdold,
   } as VToken,
   '0x6af3fdb3282c5bb6926269db10837fa8aec67c04': {
     address: '0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04',

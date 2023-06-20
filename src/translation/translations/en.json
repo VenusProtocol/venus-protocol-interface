@@ -59,6 +59,9 @@
     },
     "trxMigration": {
       "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>."
+    },
+    "tusdMigration": {
+      "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
   "approvedToken": {
