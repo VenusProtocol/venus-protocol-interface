@@ -843,12 +843,12 @@ Object {
       "vToken": Object {
         "address": "0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0",
         "decimals": 8,
-        "symbol": "vTUSD",
+        "symbol": "vTUSDOLD",
         "underlyingToken": Object {
           "address": "0xFeC3A63401Eb9C1476200d7C32c4009Be0154169",
           "asset": "tusd.svg",
           "decimals": 18,
-          "symbol": "TUSD",
+          "symbol": "TUSDOLD",
         },
       },
     },

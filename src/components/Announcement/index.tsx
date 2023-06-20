@@ -17,18 +17,32 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
   const styles = useStyles();
   const { Trans, t } = useTranslation();
 
-  // SXP disabling
-  if (areTokensEqual(token, MAINNET_TOKENS.sxp)) {
+  // TUSD migration
+  if (areTokensEqual(token, MAINNET_TOKENS.tusdold)) {
     return (
       <NoticeWarning
         css={styles.banner}
-        description={t('announcements.sxpDisabling.description')}
+        description={
+          <Trans
+            i18nKey="announcements.tusdMigration.description"
+            components={{
+              Link: (
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                <a
+                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-trueusd-tusd-contract-swap-52b29fadf71542afabf23acf3454f9c7"
+                  rel="noreferrer"
+                  target="_blank"
+                />
+              ),
+            }}
+          />
+        }
       />
     );
   }
 
   // TRX migration
-  if (areTokensEqual(token, MAINNET_TOKENS.trxold)) {
+  if (token.address.toLowerCase() === MAINNET_TOKENS.trxold.address.toLowerCase()) {
     return (
       <NoticeWarning
         css={styles.banner}
@@ -46,6 +60,16 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
             }}
           />
         }
+      />
+    );
+  }
+
+  // SXP disabling
+  if (areTokensEqual(token, MAINNET_TOKENS.sxp)) {
+    return (
+      <NoticeWarning
+        css={styles.banner}
+        description={t('announcements.sxpDisabling.description')}
       />
     );
   }

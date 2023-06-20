@@ -59,6 +59,9 @@
     },
     "trxMigration": {
       "description": "Venus supports the new TRX token in a new market. Borrowing and supplying has been paused for the old TRX token. For more information see the <Link>official announcement by Binance</Link>."
+    },
+    "tusdMigration": {
+      "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
   "approvedToken": {
@@ -866,19 +869,19 @@
     "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
-    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "cancel": "Cancel",
-    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"
     },
-    "defeatedDate": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "defeatedDate": "Defeated: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "description": "Description",
     "execute": "Execute",
-    "executedDate": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
@@ -898,7 +901,7 @@
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
-    "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",
