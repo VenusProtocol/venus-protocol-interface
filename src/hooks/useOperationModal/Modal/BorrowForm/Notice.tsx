@@ -8,6 +8,7 @@ import { formatTokensToReadableValue } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
+import { FormError } from './useForm';
 
 export interface NoticeProps {
   hasUserCollateralizedSuppliedAssets: boolean;
@@ -15,6 +16,7 @@ export interface NoticeProps {
   safeLimitTokens: string;
   limitTokens: string;
   asset: Asset;
+  formError?: FormError;
 }
 
 const Notice: React.FC<NoticeProps> = ({
@@ -22,15 +24,13 @@ const Notice: React.FC<NoticeProps> = ({
   amount,
   asset,
   safeLimitTokens,
+  formError,
   limitTokens,
 }) => {
   const { t } = useTranslation();
   const styles = useSharedStyles();
 
-  if (
-    asset.borrowCapTokens &&
-    asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
-  ) {
+  if (asset.borrowCapTokens && formError === 'BORROW_CAP_ALREADY_REACHED') {
     // Borrow cap has been reached so borrowing more is forbidden
     return (
       <NoticeError
@@ -59,10 +59,7 @@ const Notice: React.FC<NoticeProps> = ({
     );
   }
 
-  if (
-    asset.borrowCapTokens &&
-    asset.borrowBalanceTokens.plus(amount).isGreaterThan(asset.borrowCapTokens)
-  ) {
+  if (asset.borrowCapTokens && formError === 'HIGHER_THAN_BORROW_CAP') {
     // User is trying to borrow above borrow cap
     return (
       <NoticeError

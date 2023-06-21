@@ -1,12 +1,13 @@
 import { BigNumber } from 'bignumber.js';
 
+import { poolData } from '__mocks__/models/pools';
 import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
 import { TESTNET_TOKENS } from 'constants/tokens';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
     type: 'mainPool',
-    comptrollerAddress: 'fake-comptroller-address-1',
+    comptrollerAddress: poolData[0].comptrollerAddress,
     rewardToken: TESTNET_TOKENS.xvs,
     rewardAmountWei: new BigNumber('1000000000000000000000000000'),
     vTokenAddressesWithPendingReward: [
@@ -17,7 +18,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'isolatedPool',
-    comptrollerAddress: 'fake-comptroller-address-2',
+    comptrollerAddress: poolData[1].comptrollerAddress,
     pendingRewards: [
       {
         rewardToken: TESTNET_TOKENS.vai,

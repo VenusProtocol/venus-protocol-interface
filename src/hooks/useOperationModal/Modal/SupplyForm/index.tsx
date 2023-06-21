@@ -236,7 +236,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             />
           )}
 
-          {!isSubmitting && <Notice asset={asset} amount={formValues.amountTokens} />}
+          {!isSubmitting && !isSwapLoading && <Notice asset={asset} formError={formError} />}
         </div>
 
         {swap && (
@@ -265,6 +265,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           isFormValid={isFormValid}
           isSwapLoading={isSwapLoading}
           formError={formError}
+          poolComptrollerAddress={pool.comptrollerAddress}
           toToken={asset.vToken.underlyingToken}
           fromToken={formValues.fromToken}
           fromTokenAmountTokens={formValues.amountTokens}
@@ -305,6 +306,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
 
   const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
+      poolComptrollerAddress: pool.comptrollerAddress,
       vToken: asset.vToken,
     });
 

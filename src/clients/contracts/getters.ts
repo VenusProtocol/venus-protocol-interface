@@ -1,7 +1,7 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
 import { Token, VToken } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
@@ -181,12 +181,15 @@ export const getVrtConverterProxyContract = (signer?: Signer) =>
   }) as VrtConverter;
 
 // Swap router
-export const getSwapRouterContract = (signer?: Signer) =>
-  getContract({
+export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: Signer) => {
+  const swapRouterAddress = getSwapRouterContractAddress(poolComptrollerAddress);
+
+  return getContract({
     abi: swapRouterAbi,
-    address: getContractAddress('swapRouter'),
+    address: swapRouterAddress,
     signer,
   }) as SwapRouter;
+};
 
 // Multicall
 export const getMulticallContract = (signer?: Signer) =>

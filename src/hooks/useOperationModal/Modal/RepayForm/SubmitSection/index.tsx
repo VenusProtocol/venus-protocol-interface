@@ -4,17 +4,16 @@ import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, Token } from 'types';
-import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, getSwapRouterContractAddress } from 'utilities';
 
 import TEST_IDS from '../testIds';
 import { FormError } from '../useForm/types';
 import { useStyles } from './styles';
 
-const swapRouterContractAddress = getContractAddress('swapRouter');
-
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
+  poolComptrollerAddress: string;
   toToken: Token;
   fromToken: Token;
   fromTokenAmountTokens: string;
@@ -26,6 +25,7 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
+  poolComptrollerAddress,
   toToken,
   fromToken,
   fromTokenAmountTokens,
@@ -88,14 +88,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       valueWei: fromTokenAmountWei,
       token: swap.fromToken,
       returnInReadableFormat: true,
-      minimizeDecimals: true,
     });
 
     const readableToTokenAmount = convertWeiToTokens({
       valueWei: toTokenAmountWei,
       token: swap.toToken,
       returnInReadableFormat: true,
-      minimizeDecimals: true,
     });
 
     return t('operationModal.repay.swapSummary', {
@@ -107,7 +105,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={swapRouterContractAddress}
+      spenderAddress={getSwapRouterContractAddress(poolComptrollerAddress)}
       submitButtonLabel={t('operationModal.repay.submitButtonLabel.repay')}
       hideTokenEnablingStep={!isFormValid || areTokensEqual(fromToken, toToken)}
     >

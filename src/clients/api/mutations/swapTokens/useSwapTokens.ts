@@ -10,8 +10,11 @@ type Options = MutationObserverOptions<
   Omit<SwapTokensInput, 'swapRouterContract'>
 >;
 
-const useSwapTokens = (options?: Options) => {
-  const swapRouterContract = useSwapRouterContract();
+const useSwapTokens = (
+  { poolComptrollerAddress }: { poolComptrollerAddress: string },
+  options?: Options,
+) => {
+  const swapRouterContract = useSwapRouterContract(poolComptrollerAddress);
 
   return useMutation(
     FunctionKey.SWAP_TOKENS,

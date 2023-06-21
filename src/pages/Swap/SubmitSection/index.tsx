@@ -3,11 +3,13 @@ import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
-import { getContractAddress } from 'utilities';
+import { getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { FormError, FormValues } from '../types';
 
-const swapRouterContractAddress = getContractAddress('swapRouter');
+const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(
+  getContractAddress('comptroller'),
+);
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -63,7 +65,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={swapRouterContractAddress}
+      spenderAddress={MAIN_POOL_SWAP_ROUTER_ADDRESS}
       submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
       hideTokenEnablingStep={!isFormValid}
     >

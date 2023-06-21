@@ -1,5 +1,5 @@
 import sample from 'lodash/sample';
-import { BscChainId, Environment } from 'types';
+import { BscChainId, Environment, Mode } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
@@ -26,8 +26,11 @@ export interface Config {
 const environment: Environment =
   (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
+const mode: Mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+
 const isInLiveEnvironment =
-  environment === 'testnet' || environment === 'preview' || environment === 'mainnet';
+  mode === 'production' &&
+  (environment === 'testnet' || environment === 'preview' || environment === 'mainnet');
 
 const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
   ? Number(process.env.REACT_APP_CHAIN_ID)

@@ -76,9 +76,12 @@ export const useXvsVestingProxyContract = () => {
   return useMemo(() => getXvsVestingProxyContract(signer || undefined), [signer]);
 };
 
-export const useSwapRouterContract = () => {
+export const useSwapRouterContract = (poolComptrollerAddress: string) => {
   const { signer } = useAuth();
-  return useMemo(() => getSwapRouterContract(signer || undefined), [signer]);
+  return useMemo(
+    () => getSwapRouterContract(poolComptrollerAddress, signer || undefined),
+    [signer],
+  );
 };
 
 export const useMulticallContract = () => {

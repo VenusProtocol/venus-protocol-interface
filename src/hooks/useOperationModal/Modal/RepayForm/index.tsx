@@ -277,6 +277,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         swap={swap}
         isSwapLoading={isSwapLoading}
         formError={formError}
+        poolComptrollerAddress={pool.comptrollerAddress}
         toToken={asset.vToken.underlyingToken}
         fromToken={formValues.fromToken}
         fromTokenAmountTokens={formValues.amountTokens}
@@ -305,6 +306,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   });
 
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
+    poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 

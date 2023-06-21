@@ -3,17 +3,16 @@ import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { areTokensEqual, getSwapRouterContractAddress } from 'utilities';
 
 import { FormError } from '../useForm/types';
-
-const swapRouterContractAddress = getContractAddress('swapRouter');
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
   toToken: Token;
   fromToken: Token;
+  poolComptrollerAddress: string;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
   formError?: FormError;
@@ -24,6 +23,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormSubmitting,
   toToken,
   fromToken,
+  poolComptrollerAddress,
   fromTokenAmountTokens,
   formError,
   isSwapLoading,
@@ -71,7 +71,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={swapRouterContractAddress}
+      spenderAddress={getSwapRouterContractAddress(poolComptrollerAddress)}
       submitButtonLabel={t('operationModal.supply.submitButtonLabel.supply')}
       hideTokenEnablingStep={!isFormValid || areTokensEqual(fromToken, toToken)}
     >
