@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, QuinaryButton, TextField } from 'components';
+import { Announcement, ButtonGroup, NoticeInfo, QuinaryButton, TextField } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -77,6 +77,8 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
+
+      <NoticeInfo css={styles.banner} description={t('dashboard.banner.borrowApyChange')} />
 
       <Announcement token={MAINNET_TOKENS.tusdold} />
 

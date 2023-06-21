@@ -71,8 +71,7 @@ export const useStyles = () => {
       min-width: ${theme.spacing(75)};
     `,
     banner: css`
-      padding: ${theme.spacing(4)};
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(6)};
     `,
     desktopMarketTables: css`
       display: grid;

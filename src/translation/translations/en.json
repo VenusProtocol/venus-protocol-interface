@@ -171,6 +171,9 @@
   },
   "dashboard": {
     "allTag": "All",
+    "banner": {
+      "borrowApyChange": "Borrow APYs now align with the industry standard: a positive borrow APY means you'll pay interest when borrowing from a market, and a negative one means you'll earn interest from borrowing. The calculation of supply APYs is still the same."
+    },
     "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
