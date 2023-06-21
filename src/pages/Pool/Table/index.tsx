@@ -27,6 +27,7 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
         'borrowBalance',
         'labeledBorrowApy',
         'liquidity',
+        'price',
       ]}
       initialOrder={{
         orderBy: 'liquidity',

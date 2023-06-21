@@ -362,6 +362,7 @@
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "pool": "Pool",
+      "price": "Price",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
