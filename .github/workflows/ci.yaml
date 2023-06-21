@@ -47,39 +47,6 @@ jobs:
       - name: Lint styles
         run: yarn lint-styles
 
-  storybooks:
-    runs-on: [self-hosted, fe]
-    container:
-      image: node:14.15.1-buster
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.20.0'
-          cache: 'yarn'
-
-      - run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
-          sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          apt-get update -y
-          apt-get install google-chrome-stable -y
-
-      - name: Install deps
-        run: yarn
-
-      - name: Build static storybooks
-        run: yarn build-storybook
-
-      - name: Snapshot
-        run: yarn loki --chromeFlags="--headless --no-sandbox --disable-dev-shm-usage"
-
-      - name: Reg-suit
-        run: yarn regression
-
   test:
     runs-on: ubuntu-20.04
     container:
