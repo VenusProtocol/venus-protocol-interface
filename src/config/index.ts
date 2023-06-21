@@ -6,6 +6,7 @@ import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 
 export interface Config {
   environment: Environment;
+  mode: Mode;
   isInLiveEnvironment: boolean;
   chainId: BscChainId;
   isOnTestnet: boolean;
@@ -20,6 +21,11 @@ export interface Config {
 }
 
 export const ENV_VARIABLES = typeof process !== 'undefined' ? process.env : import.meta.env;
+
+const mode: Mode =
+  ENV_VARIABLES.NODE_ENV === 'development' || ENV_VARIABLES.VITE_MODE === 'development'
+    ? 'development'
+    : 'production';
 
 const environment: Environment =
   (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'testnet';
@@ -39,6 +45,7 @@ const bscScanUrl = BSC_SCAN_URLS[chainId];
 
 const config: Config = {
   environment,
+  mode,
   isInLiveEnvironment,
   chainId,
   isOnTestnet,
