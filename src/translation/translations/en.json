@@ -92,7 +92,11 @@
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
-    "totalApy": "Total APY"
+    "totalApy": {
+      "borrowApyTooltip": "Borrow APY - Distribution APYs",
+      "label": "Total APY",
+      "supplyApyTooltip": "Supply APY + Distribution APYs"
+    }
   },
   "authModal": {
     "accountDetails": {

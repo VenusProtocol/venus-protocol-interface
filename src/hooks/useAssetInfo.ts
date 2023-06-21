@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Asset } from 'types';
@@ -38,7 +39,11 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
       },
       ...distributionRows,
       {
-        label: t('assetInfo.totalApy'),
+        label: t('assetInfo.totalApy.label'),
+        tooltip:
+          type === 'borrow'
+            ? t('assetInfo.totalApy.borrowApyTooltip')
+            : t('assetInfo.totalApy.supplyApyTooltip'),
         children: formatToReadablePercentage(
           type === 'borrow'
             ? asset.borrowApyPercentage.plus(combinedDistributionApys.borrowApyPercentage)
