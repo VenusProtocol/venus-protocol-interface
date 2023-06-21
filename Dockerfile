@@ -10,8 +10,6 @@ RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
-
 COPY . .
 
 RUN yarn
