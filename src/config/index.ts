@@ -20,8 +20,6 @@ export interface Config {
   };
 }
 
-typeof process !== 'undefined' ? process.env : import.meta.env;
-
 // Note: because Vite statically replaces env variables when building, we need
 // to reference each of them by their full name
 export const ENV_VARIABLES = {
