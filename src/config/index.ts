@@ -59,7 +59,7 @@ const mode: Mode =
     : 'production';
 
 const environment: Environment =
-  (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'testnet';
+  (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
 const mode: Mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -67,7 +67,8 @@ const isInLiveEnvironment =
   mode === 'production' &&
   (environment === 'testnet' || environment === 'preview' || environment === 'mainnet');
 
-const chainId: BscChainId = environment === 'preview' || environment === 'mainnet' ? 56 : 97;
+const chainId: BscChainId =
+  environment === 'testnet' || environment === 'storybook' || environment === 'ci' ? 97 : 56;
 
 const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
@@ -89,5 +90,7 @@ const config: Config = {
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
 };
+
+console.log(config);
 
 export default config;
