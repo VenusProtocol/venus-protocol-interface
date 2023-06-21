@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { LayeredValues, ProgressBar, TableColumn, Toggle, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,9 @@ import { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.userWalletBalance')
 // t('marketTable.columnKeys.userPercentOfLimit')
 // t('marketTable.columnKeys.liquidity')
+// t('marketTable.columnKeys.price')
+
+const PRICE_THRESHOLD = new BigNumber(0.0000000000000001);
 
 const useGenerateColumns = ({
   poolAssets,
@@ -111,6 +115,18 @@ const useGenerateColumns = ({
                 })}
               />
             );
+          }
+
+          if (column === 'price') {
+            const { tokenPriceCents } = poolAsset;
+            const price = tokenPriceCents.isGreaterThan(PRICE_THRESHOLD)
+              ? tokenPriceCents
+              : new BigNumber(0);
+            return formatCentsToReadableValue({
+              value: price,
+              shortenLargeValue: true,
+              showAllDecimals: true,
+            });
           }
 
           if (column === 'pool') {
@@ -273,6 +289,10 @@ const useGenerateColumns = ({
 
                 if (column === 'liquidity') {
                   return compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
+                }
+
+                if (column === 'price') {
+                  return compareBigNumbers(rowA.tokenPriceCents, rowB.tokenPriceCents, direction);
                 }
 
                 if (column === 'pool') {
