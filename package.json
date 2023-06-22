@@ -7,7 +7,6 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
-    "prepare": "git apply patches/@stylelint+postcss-css-in-js+0.37.2.patch",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "TZ=UTC REACT_APP_CHAIN_ID=97 REACT_APP_FF_ISOLATED_POOLS=true react-scripts test",
     "eject": "react-scripts eject",
