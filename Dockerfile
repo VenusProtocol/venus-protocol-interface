@@ -1,4 +1,4 @@
-FROM node:16.14.2-alpine3.14 as builder
+FROM node:18.16.1-alpine as builder
 
 ARG VERSION
 ARG TAR_FILE_PREFIX
