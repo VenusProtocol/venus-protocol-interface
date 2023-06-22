@@ -3,7 +3,7 @@ import { Asset } from 'types';
 
 import getCombinedDistributionApys from './getCombinedDistributionApys';
 
-export const calculateYearlyEarnings = ({
+export const calculateYearlyInterests = ({
   balance,
   interestPercentage,
 }: {
@@ -24,21 +24,21 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
   const totalSupplyApyPercentage = asset.supplyApyPercentage.plus(
     combinedDistributionApys.supplyApyPercentage,
   );
-  const totalBorrowApyPercentage = asset.borrowApyPercentage.plus(
+  const totalBorrowApyPercentage = asset.borrowApyPercentage.minus(
     combinedDistributionApys.borrowApyPercentage,
   );
 
   // Calculate yearly earnings
-  const supplyYearlyEarningsCents = calculateYearlyEarnings({
+  const supplyYearlyEarningsCents = calculateYearlyInterests({
     balance: asset.userSupplyBalanceCents,
     interestPercentage: totalSupplyApyPercentage,
   });
-  const borrowYearlyEarningsCents = calculateYearlyEarnings({
+  const borrowYearlyInterestsCents = calculateYearlyInterests({
     balance: asset.userBorrowBalanceCents,
     interestPercentage: totalBorrowApyPercentage,
   });
 
-  return supplyYearlyEarningsCents.plus(borrowYearlyEarningsCents).dp(0);
+  return supplyYearlyEarningsCents.minus(borrowYearlyInterestsCents).dp(0);
 };
 
 export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }) => {

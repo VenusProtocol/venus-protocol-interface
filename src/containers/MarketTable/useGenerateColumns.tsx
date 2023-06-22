@@ -66,7 +66,7 @@ const useGenerateColumns = ({
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
-            const borrowApy = poolAsset.borrowApyPercentage.plus(
+            const borrowApy = poolAsset.borrowApyPercentage.minus(
               combinedDistributionApys.borrowApyPercentage,
             );
 
@@ -253,10 +253,10 @@ const useGenerateColumns = ({
             ? undefined
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                  const roaABorrowApy = rowA.borrowApyPercentage.plus(
+                  const roaABorrowApy = rowA.borrowApyPercentage.minus(
                     getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
                   );
-                  const roaBBorrowApy = rowB.borrowApyPercentage.plus(
+                  const roaBBorrowApy = rowB.borrowApyPercentage.minus(
                     getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
                   );
 

@@ -70,7 +70,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
       : ['asset', 'borrowApy', 'userWalletBalance', 'liquidity'],
     initialOrder: {
       orderBy: 'borrowApy',
-      orderDirection: 'desc',
+      orderDirection: 'asc',
     },
   };
 

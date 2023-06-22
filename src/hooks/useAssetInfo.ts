@@ -46,7 +46,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
             : t('assetInfo.totalApy.supplyApyTooltip'),
         children: formatToReadablePercentage(
           type === 'borrow'
-            ? asset.borrowApyPercentage.plus(combinedDistributionApys.borrowApyPercentage)
+            ? asset.borrowApyPercentage.minus(combinedDistributionApys.borrowApyPercentage)
             : asset.supplyApyPercentage.plus(combinedDistributionApys.supplyApyPercentage),
         ),
       },
