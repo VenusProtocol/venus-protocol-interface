@@ -3,8 +3,6 @@ import BigNumber from 'bignumber.js';
 
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
-export type Mode = 'development' | 'production';
-
 export enum BscChainId {
   'MAINNET' = 56,
   'TESTNET' = 97,

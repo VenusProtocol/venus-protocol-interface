@@ -1,5 +1,5 @@
 import sample from 'lodash/sample';
-import { BscChainId, Environment, Mode } from 'types';
+import { BscChainId, Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
@@ -75,7 +75,5 @@ const config: Config = {
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
 };
-
-console.log(config);
 
 export default config;
