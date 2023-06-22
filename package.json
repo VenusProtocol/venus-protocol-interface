@@ -7,7 +7,6 @@
   },
   "scripts": {
     "start": "vite",
-    "prepare": "git apply patches/@stylelint+postcss-css-in-js+0.37.2.patch",
     "build": "vite build",
     "serve": "vite preview",
     "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",

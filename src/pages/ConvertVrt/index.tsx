@@ -88,7 +88,7 @@ const ConvertVrt = () => {
     );
   }
 
-  // TODO - Handle error state
+  // TODO: handle error state
   return <Spinner />;
 };
 
