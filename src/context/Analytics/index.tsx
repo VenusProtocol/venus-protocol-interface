@@ -41,7 +41,7 @@ export const useAnalytics = () => {
   const posthog = usePostHog();
 
   const captureEvent: PostHog['capture'] =
-    config.isInLiveEnvironment && posthog ? posthog.capture : noop;
+    config.environment === 'mainnet' && posthog ? posthog.capture : noop;
 
   return {
     captureEvent,

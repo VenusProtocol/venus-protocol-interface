@@ -20,8 +20,8 @@ export const ErrorLoggerProvider: React.FC = ({ children }) => {
 
 export const logError = (error: string | unknown) => {
   // Only log errors in live environments
-  if (!config.isInLiveEnvironment) {
-    console.error(error);
+  if (config.environment !== 'mainnet') {
+    console.error(`[Logger]: ${error}`);
     return;
   }
 

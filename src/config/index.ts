@@ -1,13 +1,11 @@
 import sample from 'lodash/sample';
-import { BscChainId, Environment, Mode } from 'types';
+import { BscChainId, Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 
 export interface Config {
   environment: Environment;
-  mode: Mode;
-  isInLiveEnvironment: boolean;
   chainId: BscChainId;
   isOnTestnet: boolean;
   rpcUrl: string;
@@ -24,7 +22,6 @@ export interface Config {
 // to reference each of them by their full name
 export const ENV_VARIABLES = {
   NODE_ENV: typeof process !== 'undefined' ? process.env.NODE_ENV : undefined,
-  VITE_MODE: typeof process !== 'undefined' ? undefined : import.meta.env.MODE,
   VITE_ENVIRONMENT:
     typeof process !== 'undefined'
       ? process.env.VITE_ENVIRONMENT
@@ -53,32 +50,20 @@ export const ENV_VARIABLES = {
       : import.meta.env.VITE_FF_INTEGRATED_SWAP,
 };
 
-const mode: Mode =
-  ENV_VARIABLES.NODE_ENV === 'development' || ENV_VARIABLES.VITE_MODE === 'development'
-    ? 'development'
-    : 'production';
-
 const environment: Environment =
   (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
-const mode: Mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const isOnTestnet =
+  environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
-const isInLiveEnvironment =
-  mode === 'production' &&
-  (environment === 'testnet' || environment === 'preview' || environment === 'mainnet');
+const chainId: BscChainId = isOnTestnet ? 97 : 56;
 
-const chainId: BscChainId =
-  environment === 'testnet' || environment === 'storybook' || environment === 'ci' ? 97 : 56;
-
-const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
 const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
 
 const config: Config = {
   environment,
-  mode,
-  isInLiveEnvironment,
   chainId,
   isOnTestnet,
   rpcUrl,
@@ -90,7 +75,5 @@ const config: Config = {
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
 };
-
-console.log(config);
 
 export default config;
