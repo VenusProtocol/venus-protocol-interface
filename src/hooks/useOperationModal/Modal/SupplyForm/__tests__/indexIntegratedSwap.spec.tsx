@@ -21,6 +21,7 @@ import en from 'translation/translations/en.json';
 import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay from '..';
+import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import TEST_IDS from '../testIds';
 import { fakeAsset, fakePool } from './fakeData';
 
@@ -330,6 +331,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
     expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
+    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary)).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {

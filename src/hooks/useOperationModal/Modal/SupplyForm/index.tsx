@@ -264,6 +264,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
           isSwapLoading={isSwapLoading}
+          swap={swap}
           formError={formError}
           poolComptrollerAddress={pool.comptrollerAddress}
           toToken={asset.vToken.underlyingToken}

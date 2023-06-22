@@ -61,3 +61,12 @@ exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedS
   </div>
 </div>
 `;
+
+exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap displays correct swap details 2`] = `
+<div
+  class="MuiTypography-root MuiTypography-small2 css-4z38vk-MuiTypography-root-Component"
+  data-testid="swap-summary"
+>
+  You will supply 8,900 XVS using 299,999.9999999999999999 BUSD
+</div>
+`;

@@ -455,6 +455,10 @@
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "supplyTabTitle": "Supply",
+    "swapSummary": {
+      "repay": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
+      "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
+    },
     "withdraw": {
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {

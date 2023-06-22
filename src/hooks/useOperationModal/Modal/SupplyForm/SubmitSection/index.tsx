@@ -2,9 +2,10 @@
 import { ApproveTokenSteps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { Swap, Token } from 'types';
 import { areTokensEqual, getSwapRouterContractAddress } from 'utilities';
 
+import SwapSummary from '../../SwapSummary';
 import { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
@@ -15,6 +16,7 @@ export interface SubmitSectionProps {
   poolComptrollerAddress: string;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
+  swap?: Swap;
   formError?: FormError;
 }
 
@@ -26,6 +28,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   poolComptrollerAddress,
   fromTokenAmountTokens,
   formError,
+  swap,
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
@@ -87,6 +90,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           >
             {submitButtonLabel}
           </PrimaryButton>
+
+          <SwapSummary swap={swap} type="supply" />
         </>
       )}
     </ApproveTokenSteps>
