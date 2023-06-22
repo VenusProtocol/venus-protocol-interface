@@ -6011,14 +6011,6 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@wagmi/core@0.5.7":
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.5.7.tgz#59ad5691275762e3b87c43230e56a4ee599ec2bd"
-  integrity sha512-q2RL3gHJ15lozjJUcUmdOlmz2b9DCiLfF1ksxNwi1Fy/CJ7FsHbnufJrrvn26nxkJdKWbqTvr7xv46yr6Sp0Ug==
-  dependencies:
-    eventemitter3 "^4.0.7"
-    zustand "^4.0.0"
-
 "@wagmi/core@^0.5.7":
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.5.8.tgz#9e375c0dd31c3b22973d000694e1c2b06c05dbbc"
