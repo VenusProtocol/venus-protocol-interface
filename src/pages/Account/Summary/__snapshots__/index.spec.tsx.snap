@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pages/Account/Summary displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:6.85%Limit:$1,946.73.Your safe limit:$1,557.38"`;
+exports[`pages/Account/Summary displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:6.4%Limit:$1,926.73.Your safe limit:$1,541.38"`;
 
-exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY0%Daily Earnings$0.02Total Supply$1,239,798.65Total Borrow$133.33"`;
+exports[`pages/Account/Summary displays stats correctly 1`] = `"Net APY0%Daily Earnings$0.01Total Supply$1,238,798.65Total Borrow$123.33"`;
 
-exports[`pages/Account/Summary displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true 1`] = `"Net APY0%Daily Earnings$0.10Total Supply$1,239,798.65Total Borrow$133.33Total Vault Stake$233.00"`;
+exports[`pages/Account/Summary displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true 1`] = `"Net APY0%Daily Earnings$0.09Total Supply$1,238,798.65Total Borrow$123.33Total Vault Stake$233.00"`;

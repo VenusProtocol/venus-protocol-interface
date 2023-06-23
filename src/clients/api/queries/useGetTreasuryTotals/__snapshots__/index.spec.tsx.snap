@@ -2,9 +2,9 @@
 
 exports[`api/queries/useGetTreasuryTotals calculates totals correctly 1`] = `
 Object {
-  "treasuryBalanceCents": "93.074308884638349",
-  "treasuryBorrowBalanceCents": "2576426391691125",
-  "treasuryLiquidityBalanceCents": "56784040965",
-  "treasurySupplyBalanceCents": "6297840237169404",
+  "treasuryBalanceCents": "62.049539256425566",
+  "treasuryBorrowBalanceCents": "1717617594460750",
+  "treasuryLiquidityBalanceCents": "37856027310",
+  "treasurySupplyBalanceCents": "4198560158112936",
 }
 `;

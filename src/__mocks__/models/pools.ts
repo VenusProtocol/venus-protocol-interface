@@ -27,14 +27,4 @@ export const poolData: Pool[] = [
     userBorrowBalanceCents: new BigNumber(0),
     userBorrowLimitCents: new BigNumber(0),
   },
-  {
-    comptrollerAddress: COMPTROLLER_ADDRESSES[2],
-    assets: assetData,
-    name: 'Gaming',
-    description: 'Fake description 3',
-    isIsolated: true,
-    userSupplyBalanceCents: new BigNumber(100000),
-    userBorrowBalanceCents: new BigNumber(1000),
-    userBorrowLimitCents: new BigNumber(2000),
-  },
 ];
