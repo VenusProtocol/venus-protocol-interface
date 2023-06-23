@@ -76,15 +76,18 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     [asset.vToken.underlyingToken],
   );
 
+  const isUsingSwap = useMemo(
+    () =>
+      isIntegratedSwapEnabled &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
+    [isIntegratedSwapEnabled, formValues.fromToken, asset.vToken.underlyingToken],
+  );
+
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
     // Get wallet balance from the list of fetched token balances if integrated
     // swap feature is enabled and the selected token is different from the
     // asset object
-    if (
-      isIntegratedSwapEnabled &&
-      formValues.fromToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
-    ) {
+    if (isUsingSwap) {
       const tokenBalance = tokenBalances.find(item =>
         areTokensEqual(item.token, formValues.fromToken),
       );
@@ -100,13 +103,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
     // Otherwise get the wallet balance from the asset object
     return asset.userWalletBalanceTokens;
-  }, [
-    isIntegratedSwapEnabled,
-    asset.vToken.underlyingToken,
-    asset.userWalletBalanceTokens,
-    formValues.fromToken,
-    tokenBalances,
-  ]);
+  }, [isUsingSwap, asset.userWalletBalanceTokens, formValues.fromToken, tokenBalances]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
@@ -258,6 +255,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           swap={swap}
           amountTokens={new BigNumber(formValues.amountTokens || 0)}
           action="supply"
+          isUsingSwap={isUsingSwap}
         />
 
         <SubmitSection

@@ -91,7 +91,9 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
             {submitButtonLabel}
           </PrimaryButton>
 
-          <SwapSummary swap={swap} type="supply" />
+          {isFormValid && !isSwapLoading && !isTokenApprovalStatusLoading && (
+            <SwapSummary swap={swap} type="supply" />
+          )}
         </>
       )}
     </ApproveTokenSteps>
