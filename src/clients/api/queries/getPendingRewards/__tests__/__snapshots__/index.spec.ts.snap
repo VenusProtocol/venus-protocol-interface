@@ -3693,7 +3693,7 @@ Array [
         "reference": "getPendingRewards",
       },
     ],
-    "contractAddress": "0x73Ac8216b93597264e2bf233B92a8F8cf413D609",
+    "contractAddress": "0x559936086C5f65b92240012ae0D2F70C082Ac0b0",
     "reference": "poolLens",
   },
 ]
