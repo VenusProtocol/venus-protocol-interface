@@ -1,5 +1,5 @@
 import sample from 'lodash/sample';
-import { BscChainId, Environment } from 'types';
+import { BscChainId, Environment, Mode } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
