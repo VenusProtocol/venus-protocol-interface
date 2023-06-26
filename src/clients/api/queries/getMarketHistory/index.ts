@@ -62,7 +62,7 @@ const getMarketHistory = async ({
       break;
   }
 
-  const marketSnapshots = response.data?.data.data.slice(-sampleSize) || [];
+  const marketSnapshots = response.data?.data?.data?.slice(-sampleSize) || [];
 
   return {
     marketSnapshots,
