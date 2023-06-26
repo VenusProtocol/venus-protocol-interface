@@ -6,7 +6,7 @@ import { areTokensEqual } from 'utilities';
 
 import { MAINNET_TOKENS } from 'constants/tokens';
 
-import { NoticeWarning } from '../Notice';
+import { NoticeInfo, NoticeWarning } from '../Notice';
 import { useStyles } from './styles';
 
 export interface AnnouncementProps {
@@ -20,7 +20,7 @@ export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
   // TUSD migration
   if (areTokensEqual(token, MAINNET_TOKENS.tusdold)) {
     return (
-      <NoticeWarning
+      <NoticeInfo
         css={styles.banner}
         description={
           <Trans
