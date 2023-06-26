@@ -33,14 +33,12 @@ export const Holding: React.FC<HoldingProps> = ({
     valueWei: balanceWei,
     token: TOKENS.xvs,
     addSymbol: false,
-    minimizeDecimals: true,
   });
 
   const readableVotes = useConvertWeiToReadableTokenString({
     valueWei: votesWei,
     token: TOKENS.xvs,
     addSymbol: false,
-    minimizeDecimals: true,
   });
 
   return (

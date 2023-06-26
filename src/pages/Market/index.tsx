@@ -104,7 +104,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               label: t('market.supplyInfo.stats.totalSupply'),
               value: formatCentsToReadableValue({
                 value: asset.supplyBalanceCents,
-                shortenLargeValue: true,
               }),
             },
             {
@@ -140,7 +139,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               label: t('market.borrowInfo.stats.totalBorrow'),
               value: formatCentsToReadableValue({
                 value: asset.borrowBalanceCents,
-                shortenLargeValue: true,
               }),
             },
             {
@@ -194,7 +192,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       }),
       value: formatTokensToReadableValue({
         value: distribution.dailyDistributedTokens,
-        minimizeDecimals: true,
         addSymbol: false,
         token: TOKENS.xvs,
       }),
@@ -206,8 +203,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         value: asset.tokenPriceCents
           ? formatCentsToReadableValue({
               value: asset.tokenPriceCents,
-              shortenLargeValue: true,
-              showAllDecimals: true,
+              isTokenPrice: true,
             })
           : PLACEHOLDER_KEY,
       },
@@ -231,7 +227,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           ? t('market.marketInfo.stats.unlimitedSupplyCap')
           : formatTokensToReadableValue({
               value: asset.supplyCapTokens,
-              minimizeDecimals: true,
               token: asset.vToken.underlyingToken,
             }),
       },
@@ -241,7 +236,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           ? t('market.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: asset.borrowCapTokens,
-              minimizeDecimals: true,
               token: asset.vToken.underlyingToken,
             }),
       },
@@ -262,7 +256,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.marketInfo.stats.reserveTokensLabel'),
         value: formatTokensToReadableValue({
           value: asset.reserveTokens,
-          minimizeDecimals: true,
           token: asset.vToken.underlyingToken,
         }),
       },
@@ -280,7 +273,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         }),
         value: formatTokensToReadableValue({
           value: asset.supplyBalanceTokens.multipliedBy(asset.exchangeRateVTokens),
-          minimizeDecimals: true,
           addSymbol: false,
           token: asset.vToken,
         }),

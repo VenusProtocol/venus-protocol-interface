@@ -107,11 +107,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.cashTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.liquidityCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -124,8 +122,7 @@ const useGenerateColumns = ({
               : new BigNumber(0);
             return formatCentsToReadableValue({
               value: price,
-              shortenLargeValue: true,
-              showAllDecimals: true,
+              isTokenPrice: true,
             });
           }
 
@@ -151,11 +148,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userWalletBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userWalletBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -167,11 +162,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userSupplyBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userSupplyBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             ) : (
@@ -185,11 +178,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userBorrowBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userBorrowBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             ) : (
@@ -203,11 +194,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.supplyBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.supplyBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -219,11 +208,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.borrowBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.borrowBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );

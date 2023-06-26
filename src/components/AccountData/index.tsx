@@ -92,7 +92,6 @@ export const AccountData: React.FC<AccountDataProps> = ({
               formatTokensToReadableValue({
                 value,
                 token: asset.vToken.underlyingToken,
-                minimizeDecimals: true,
                 addSymbol: false,
               })
             }
@@ -113,7 +112,6 @@ export const AccountData: React.FC<AccountDataProps> = ({
               formatTokensToReadableValue({
                 value,
                 token: asset.vToken.underlyingToken,
-                minimizeDecimals: true,
                 addSymbol: false,
               })
             }

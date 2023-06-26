@@ -59,7 +59,6 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   const readableUserStakedTokens = useConvertWeiToReadableTokenString({
     token: stakedToken,
     valueWei: userStakedWei || new BigNumber(0),
-    minimizeDecimals: true,
     addSymbol: false,
   });
 
@@ -78,7 +77,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               valueWei: dailyEmissionWei,
               token: rewardToken,
               returnInReadableFormat: true,
-              shortenLargeValue: true,
+
               addSymbol: false,
             })}
           </>
@@ -93,7 +92,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               valueWei: totalStakedWei,
               token: stakedToken,
               returnInReadableFormat: true,
-              shortenLargeValue: true,
+
               addSymbol: false,
             })}
           </>

@@ -5,30 +5,23 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 const formatCentsToReadableValue = ({
   value,
-  shortenLargeValue = false,
-  showAllDecimals = false,
+  isTokenPrice = false,
 }: {
   value: number | BigNumber | undefined;
-  shortenLargeValue?: boolean;
-  showAllDecimals?: boolean;
+  isTokenPrice?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
-  let wrappedValueDollars = new BigNumber(value).dividedBy(100);
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
 
-  if (!showAllDecimals) {
-    wrappedValueDollars = wrappedValueDollars.dp(2);
-  }
-
-  const formattedValueDollars = shortenLargeValue
-    ? shortenValueWithSuffix({
+  const formattedValueDollars = isTokenPrice
+    ? wrappedValueDollars.toFormat()
+    : shortenValueWithSuffix({
         value: wrappedValueDollars,
-        outputsDollars: true,
-        showAllDecimals,
-      })
-    : wrappedValueDollars.toFormat(showAllDecimals ? undefined : 2);
+        decimalPlaces: 2,
+      });
 
   return formattedValueDollars[0] === '-'
     ? // Format negative values to place minus sign before dollar sign

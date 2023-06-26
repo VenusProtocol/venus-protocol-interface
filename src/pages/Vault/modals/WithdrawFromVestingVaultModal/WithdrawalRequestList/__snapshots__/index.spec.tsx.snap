@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 1`] = `"1 XVSLocked until 29.06.22 10:43 AM"`;
+exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 1`] = `"1.00 XVSLocked until 29.06.22 10:43 AM"`;
 
-exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 2`] = `"2 XVSLocked until 30.06.22 2:30 PM"`;
+exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 2`] = `"2.00 XVSLocked until 30.06.22 2:30 PM"`;
 
-exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 3`] = `"3 XVSLocked until 01.07.22 6:16 PM"`;
+exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList fetches withdrawal requests and displays them correctly 3`] = `"3.00 XVSLocked until 01.07.22 6:16 PM"`;

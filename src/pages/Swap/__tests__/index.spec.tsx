@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
 
@@ -57,12 +56,8 @@ describe('pages/Swap', () => {
       },
     });
 
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
-    );
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_DEFAULT_BALANCE_TOKENS).toFormat()} XVS`)),
-    );
+    await waitFor(() => expect(getByText('200.00K BNB')));
+    await waitFor(() => expect(getByText('10.00K XVS')));
   });
 
   it('updates toToken when changing fromToken for toToken', () => {
@@ -571,9 +566,7 @@ describe('pages/Swap', () => {
     });
 
     // wait for the balance to be updated
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
-    );
+    await waitFor(() => expect(getByText('200.00K BNB')));
 
     // get and click the MAX from token button
     const fromTokenInput = getByTestId(

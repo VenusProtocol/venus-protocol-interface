@@ -66,7 +66,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         token: TOKENS.xvs,
         returnInReadableFormat: true,
         addSymbol: false,
-        minimizeDecimals: true,
       }),
     [userStakedWei],
   );
@@ -78,7 +77,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         token: TOKENS.xvs,
         returnInReadableFormat: true,
         addSymbol: false,
-        minimizeDecimals: true,
       }),
     [votingWeightWei],
   );

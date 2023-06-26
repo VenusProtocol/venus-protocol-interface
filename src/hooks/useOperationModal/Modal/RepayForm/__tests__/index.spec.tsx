@@ -33,13 +33,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       },
     );
 
-    await waitFor(() =>
-      getByText(
-        `${fakeAsset.userBorrowBalanceTokens.toFormat()} ${
-          fakeAsset.vToken.underlyingToken.symbol
-        }`,
-      ),
-    );
+    await waitFor(() => getByText('1.00K XVS'));
   });
 
   it('displays correct wallet balance', async () => {
@@ -52,13 +46,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
       },
     );
 
-    await waitFor(() =>
-      getByText(
-        `${fakeAsset.userWalletBalanceTokens.toFormat()} ${
-          fakeAsset.vToken.underlyingToken.symbol
-        }`,
-      ),
-    );
+    await waitFor(() => getByText('10.00M XVS'));
   });
 
   it('disables submit button if amount entered in input is higher than user borrow balance', async () => {

@@ -43,7 +43,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     const borrowDeltaTokens = new BigNumber(borrowDeltaCents).dividedBy(fakeAsset.tokenPriceCents);
 
     await waitFor(() =>
-      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
+      getByText(`${borrowDeltaTokens.toFixed(2)} ${customFakeAsset.vToken.underlyingToken.symbol}`),
     );
   });
 
@@ -64,7 +64,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
     await waitFor(() =>
       getByText(
-        `${customFakeAsset.liquidityCents.dividedBy(100)} ${
+        `${customFakeAsset.liquidityCents.dividedBy(100).toFixed(2)} ${
           customFakeAsset.vToken.underlyingToken.symbol
         }`,
       ),
@@ -90,7 +90,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"The borrow cap of 100 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased."',
+      '"The borrow cap of 100.00 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased."',
     );
 
     // Check submit button is disabled
@@ -219,7 +219,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You can not borrow more than 90 XVS from this pool, as the borrow cap for this market is set at 100 XVS and 10 XVS are currently being borrowed from it."',
+      '"You can not borrow more than 90.00 XVS from this pool, as the borrow cap for this market is set at 100.00 XVS and 10.00 XVS are currently being borrowed from it."',
     );
 
     await waitFor(() =>

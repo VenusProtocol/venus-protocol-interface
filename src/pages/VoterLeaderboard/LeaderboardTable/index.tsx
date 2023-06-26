@@ -55,7 +55,6 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
               token: TOKENS.xvs,
               returnInReadableFormat: true,
               addSymbol: false,
-              minimizeDecimals: true,
             })}
           </Typography>
         ),
