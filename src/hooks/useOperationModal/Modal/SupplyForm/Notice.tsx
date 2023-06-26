@@ -7,20 +7,18 @@ import { formatTokensToReadableValue } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
+import { FormError } from './useForm';
 
 export interface NoticeProps {
-  amount: string;
   asset: Asset;
+  formError?: FormError;
 }
 
-const Notice: React.FC<NoticeProps> = ({ amount, asset }) => {
+const Notice: React.FC<NoticeProps> = ({ asset, formError }) => {
   const { t } = useTranslation();
   const styles = useSharedStyles();
 
-  if (
-    asset.supplyCapTokens &&
-    asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
-  ) {
+  if (formError === 'SUPPLY_CAP_ALREADY_REACHED') {
     // Supply cap has been reached so supplying more is forbidden
     return (
       <NoticeError
@@ -36,10 +34,7 @@ const Notice: React.FC<NoticeProps> = ({ amount, asset }) => {
     );
   }
 
-  if (
-    asset.supplyCapTokens &&
-    asset.supplyBalanceTokens.plus(amount).isGreaterThan(asset.supplyCapTokens)
-  ) {
+  if (formError === 'HIGHER_THAN_SUPPLY_CAP' && asset.supplyCapTokens) {
     // User is trying to supply above supply cap
     return (
       <NoticeError

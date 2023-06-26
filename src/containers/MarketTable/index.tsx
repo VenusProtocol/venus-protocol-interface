@@ -119,6 +119,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     openOperationModal({
       vToken: row.vToken,
       poolComptrollerAddress: row.pool.comptrollerAddress,
+      initialActiveTabIndex: marketType === 'supply' ? 0 : 2,
     });
   };
 

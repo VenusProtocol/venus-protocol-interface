@@ -20,6 +20,7 @@ export interface AccountDataProps {
   pool: Pool;
   action: 'supply' | 'withdraw' | 'borrow' | 'repay';
   amountTokens: BigNumber;
+  isUsingSwap?: boolean;
   swap?: Swap;
 }
 
@@ -28,6 +29,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
   pool,
   action,
   amountTokens,
+  isUsingSwap = false,
   swap,
 }) => {
   const styles = useStyles();
@@ -42,7 +44,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
     hypotheticalPoolUserBorrowLimitCents,
     hypotheticalPoolUserBorrowLimitUsedPercentage,
     hypotheticalPoolUserDailyEarningsCents,
-  } = useGetValues({ asset, pool, swap, amountTokens, action });
+  } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
 
   const assetInfo = useAssetInfo({
     asset,

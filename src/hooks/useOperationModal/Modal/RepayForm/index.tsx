@@ -69,15 +69,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
+  const isUsingSwap = useMemo(
+    () =>
+      isFeatureEnabled('integratedSwap') &&
+      formValues.fromToken &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
+    [formValues.fromToken, asset.vToken.underlyingToken],
+  );
+
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
     // Get wallet balance from the list of fetched token balances if integrated
     // swap feature is enabled and the selected token is different from the
     // asset object
-    if (
-      isFeatureEnabled('integratedSwap') &&
-      formValues.fromToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
-    ) {
+    if (isUsingSwap) {
       const tokenBalance = tokenBalances.find(item =>
         areTokensEqual(item.token, formValues.fromToken),
       );
@@ -93,12 +97,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
     // Otherwise get the wallet balance from the asset object
     return asset.userWalletBalanceTokens;
-  }, [
-    asset.vToken.underlyingToken,
-    asset.userWalletBalanceTokens,
-    formValues.fromToken,
-    tokenBalances,
-  ]);
+  }, [asset.userWalletBalanceTokens, formValues.fromToken, tokenBalances, isUsingSwap]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     toVToken: asset.vToken,
@@ -269,6 +268,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         swap={swap}
         amountTokens={new BigNumber(formValues.amountTokens || 0)}
         action="repay"
+        isUsingSwap={isUsingSwap}
       />
 
       <SubmitSection
@@ -277,6 +277,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         swap={swap}
         isSwapLoading={isSwapLoading}
         formError={formError}
+        poolComptrollerAddress={pool.comptrollerAddress}
         toToken={asset.vToken.underlyingToken}
         fromToken={formValues.fromToken}
         fromTokenAmountTokens={formValues.amountTokens}
@@ -305,6 +306,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   });
 
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
+    poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 

@@ -3,6 +3,8 @@ import BigNumber from 'bignumber.js';
 
 export type Environment = 'local' | 'mock' | 'testnet' | 'preview' | 'mainnet';
 
+export type Mode = 'development' | 'production';
+
 export enum BscChainId {
   'MAINNET' = 56,
   'TESTNET' = 97,
@@ -66,6 +68,10 @@ export interface Asset {
   userWalletBalanceCents: BigNumber;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
+}
+
+export interface SwapRouterAddressMapping {
+  [poolComptrollerAddress: string]: string;
 }
 
 export interface Pool {

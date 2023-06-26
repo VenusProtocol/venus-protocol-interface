@@ -1,7 +1,7 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
 import { Token, VToken } from 'types';
-import { areTokensEqual, getContractAddress } from 'utilities';
+import { areTokensEqual, getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
@@ -9,7 +9,6 @@ import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDelegate.json';
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import multicallAbi from 'constants/contracts/abis/multicall.json';
-import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import swapRouterAbi from 'constants/contracts/abis/swapRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
@@ -29,7 +28,6 @@ import {
   GovernorBravoDelegate,
   Maximillion,
   Multicall,
-  PancakeRouter,
   PoolLens,
   SwapRouter,
   VaiController,
@@ -182,21 +180,16 @@ export const getVrtConverterProxyContract = (signer?: Signer) =>
     signer,
   }) as VrtConverter;
 
-// PancakeSwap router
-export const getPancakeRouterContract = (signer?: Signer) =>
-  getContract({
-    abi: pancakeRouterAbi,
-    address: getContractAddress('pancakeRouter'),
-    signer,
-  }) as PancakeRouter;
-
 // Swap router
-export const getSwapRouterContract = (signer?: Signer) =>
-  getContract({
+export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: Signer) => {
+  const swapRouterAddress = getSwapRouterContractAddress(poolComptrollerAddress);
+
+  return getContract({
     abi: swapRouterAbi,
-    address: getContractAddress('swapRouter'),
+    address: swapRouterAddress,
     signer,
   }) as SwapRouter;
+};
 
 // Multicall
 export const getMulticallContract = (signer?: Signer) =>

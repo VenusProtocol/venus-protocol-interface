@@ -7,7 +7,6 @@ import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
   getMulticallContract,
-  getPancakeRouterContract,
   getPoolLensContract,
   getSwapRouterContract,
   getTokenContract,
@@ -77,14 +76,12 @@ export const useXvsVestingProxyContract = () => {
   return useMemo(() => getXvsVestingProxyContract(signer || undefined), [signer]);
 };
 
-export const usePancakeRouterContract = () => {
+export const useSwapRouterContract = (poolComptrollerAddress: string) => {
   const { signer } = useAuth();
-  return useMemo(() => getPancakeRouterContract(signer || undefined), [signer]);
-};
-
-export const useSwapRouterContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getSwapRouterContract(signer || undefined), [signer]);
+  return useMemo(
+    () => getSwapRouterContract(poolComptrollerAddress, signer || undefined),
+    [signer],
+  );
 };
 
 export const useMulticallContract = () => {

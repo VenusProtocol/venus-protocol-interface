@@ -16,6 +16,7 @@ export interface UseGetValuesInput {
   pool: Pool;
   action: 'supply' | 'withdraw' | 'repay' | 'borrow';
   amountTokens: BigNumber;
+  isUsingSwap: boolean;
   swap?: Swap;
 }
 
@@ -35,21 +36,24 @@ const useGetValues = ({
   pool,
   swap,
   action,
+  isUsingSwap,
   amountTokens,
 }: UseGetValuesInput): UseGetValuesOutput => {
   const toTokenAmountTokens = useMemo(() => {
-    if (swap) {
-      return convertWeiToTokens({
-        valueWei:
-          swap.direction === 'exactAmountIn'
-            ? swap.expectedToTokenAmountReceivedWei
-            : swap.toTokenAmountReceivedWei,
-        token: swap.toToken,
-      });
+    if (isUsingSwap) {
+      return swap
+        ? convertWeiToTokens({
+            valueWei:
+              swap.direction === 'exactAmountIn'
+                ? swap.expectedToTokenAmountReceivedWei
+                : swap.toTokenAmountReceivedWei,
+            token: swap.toToken,
+          })
+        : new BigNumber(0);
     }
 
     return amountTokens;
-  }, [swap, amountTokens]);
+  }, [swap, amountTokens, isUsingSwap]);
 
   return useMemo(() => {
     const poolUserYearlyEarningsCents = calculateYearlyEarningsForAssets({

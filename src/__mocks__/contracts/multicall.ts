@@ -2,7 +2,6 @@ import { ContractCallResults } from 'ethereum-multicall';
 
 import bep20Abi from 'constants/contracts/abis/bep20.json';
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
-import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 import poolLensAbi from 'constants/contracts/abis/poolLens.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
@@ -52,7 +51,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
           contractAddress: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
-          abi: pancakeRouterAbi,
+          abi: pancakeSwapPairAbi,
           calls: [
             {
               reference: 'getReserves',

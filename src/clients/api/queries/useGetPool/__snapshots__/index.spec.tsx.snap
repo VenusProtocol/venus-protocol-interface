@@ -209,7 +209,7 @@ Object {
         },
       },
     ],
-    "comptrollerAddress": "fake-comptroller-address-1",
+    "comptrollerAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
     "description": "Fake description 1",
     "isIsolated": false,
     "name": "Venus",
