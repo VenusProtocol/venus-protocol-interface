@@ -39,7 +39,10 @@ const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
           liquidity: new BigNumber(activeMarket.liquidity),
           borrowVenusApy: new BigNumber(activeMarket.borrowVenusApy),
           borrowVenusApr: new BigNumber(activeMarket.borrowVenusApr),
-          borrowApy: new BigNumber(activeMarket.borrowApy),
+          // Note: the API returns negative borrowAPY, so until this gets
+          // updated we need to flip the sign.
+          // TODO: remove this once the API is updated
+          borrowApy: new BigNumber(-activeMarket.borrowApy),
           supplyVenusApr: new BigNumber(activeMarket.supplyVenusApr),
           supplyVenusApy: new BigNumber(activeMarket.supplyVenusApy),
           supplyApy: new BigNumber(activeMarket.supplyApy),
