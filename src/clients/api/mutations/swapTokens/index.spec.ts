@@ -49,7 +49,7 @@ describe('api/mutation/swapTokens', () => {
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactETHForTokensMock = vi.fn(() => ({
+    const swapExactBNBForTokensMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

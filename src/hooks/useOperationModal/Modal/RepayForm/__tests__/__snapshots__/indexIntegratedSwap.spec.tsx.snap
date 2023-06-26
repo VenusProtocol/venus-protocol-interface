@@ -64,7 +64,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
 
 exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `
 <div
-  class="MuiTypography-root MuiTypography-small2 css-k06rwp-MuiTypography-root-ApproveTokenStepsUi"
+  class="MuiTypography-root MuiTypography-small2 css-5mdu71-MuiTypography-root-SwapSummary"
   data-testid="swap-summary"
 >
   You will repay 1,000.00 XVS using 300.00K BUSD
