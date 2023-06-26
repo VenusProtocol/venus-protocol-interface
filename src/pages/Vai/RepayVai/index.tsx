@@ -109,7 +109,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   return (
     <ConnectWallet message={t('vai.repayVai.connectWallet')}>
       <ApproveToken
-        title={t('vai.repayVai.approvedToken')}
+        title={t('vai.repayVai.approveToken')}
         token={TOKENS.vai}
         spenderAddress={vaiControllerContractAddress}
       >

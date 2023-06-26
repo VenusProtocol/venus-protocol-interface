@@ -39,7 +39,7 @@ describe('components/ApproveTokenSteps', () => {
       </ApproveTokenSteps>,
     );
 
-    const approveButtonText = en.approvedTokenSteps.approvedTokenButton.text.replace(
+    const approveButtonText = en.approveTokenSteps.approveTokenButton.text.replace(
       '{{tokenSymbol}}',
       fakeAsset.vToken.underlyingToken.symbol,
     );

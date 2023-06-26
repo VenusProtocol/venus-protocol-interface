@@ -65,8 +65,8 @@ const OperationModal: React.FC<OperationModalProps> = ({
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
-          approveTokenMessage={t('operationModal.supply.enableToken.title', {
+          connectWalletMessage={t('operationModal.withdraw.connectWalletMessage')}
+          approveTokenMessage={t('operationModal.withdraw.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
           assetInfoType="supply"
