@@ -39,18 +39,22 @@ import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 
 export interface MarketUiProps {
+  isChartDataLoading: boolean;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
+  isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
   asset?: Asset;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
   asset,
+  isChartDataLoading,
   poolComptrollerAddress,
   supplyChartData,
   borrowChartData,
+  isInterestRateChartDataLoading,
   interestRateChartData,
 }) => {
   const { t } = useTranslation();
@@ -313,12 +317,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     dailyBorrowInterestsCents,
   ]);
 
-  if (
-    !asset ||
-    !supplyChartData.length ||
-    !borrowChartData.length ||
-    !interestRateChartData.length
-  ) {
+  if (!asset) {
     return <Spinner />;
   }
 
@@ -372,9 +371,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             stats={supplyInfoStats}
             legends={supplyInfoLegends}
           >
-            <div css={styles.apyChart}>
-              <ApyChart data={supplyChartData} type="supply" />
-            </div>
+            {isChartDataLoading && supplyChartData.length === 0 && <Spinner />}
+            {supplyChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <ApyChart data={supplyChartData} type="supply" />
+              </div>
+            )}
           </Card>
 
           <Card
@@ -384,9 +386,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             stats={borrowInfoStats}
             legends={borrowInfoLegends}
           >
-            <div css={styles.apyChart}>
-              <ApyChart data={borrowChartData} type="borrow" />
-            </div>
+            {isChartDataLoading && borrowChartData.length === 0 && <Spinner />}
+            {borrowChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <ApyChart data={borrowChartData} type="borrow" />
+              </div>
+            )}
           </Card>
 
           <Card
@@ -395,12 +400,15 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             css={styles.graphCard}
             legends={interestRateModelLegends}
           >
-            <div css={styles.apyChart}>
-              <InterestRateChart
-                data={interestRateChartData}
-                currentUtilizationRate={currentUtilizationRate}
-              />
-            </div>
+            {isInterestRateChartDataLoading && interestRateChartData.length === 0 && <Spinner />}
+            {interestRateChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <InterestRateChart
+                  data={interestRateChartData}
+                  currentUtilizationRate={currentUtilizationRate}
+                />
+              </div>
+            )}
           </Card>
         </div>
 
@@ -441,7 +449,7 @@ const Market: React.FC<MarketProps> = ({
     accountAddress,
   });
 
-  const chartData = useGetChartData({
+  const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken,
   });
 
@@ -453,6 +461,7 @@ const Market: React.FC<MarketProps> = ({
   );
 
   const {
+    isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
     },
@@ -465,7 +474,9 @@ const Market: React.FC<MarketProps> = ({
     <MarketUi
       asset={getAssetData?.asset}
       poolComptrollerAddress={poolComptrollerAddress}
+      isChartDataLoading={isChartDataLoading}
       {...chartData}
+      isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
     />
   );

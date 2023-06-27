@@ -8,6 +8,7 @@ import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   const {
+    isLoading,
     data: marketSnapshotsData = {
       marketSnapshots: [],
     },
@@ -36,9 +37,10 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
           balanceCents: new BigNumber(marketSnapshot.totalBorrowCents),
         });
       });
+
     return {
-      supplyChartData,
-      borrowChartData,
+      isLoading,
+      data: { supplyChartData, borrowChartData },
     };
   }, [JSON.stringify(marketSnapshotsData?.marketSnapshots)]);
 };

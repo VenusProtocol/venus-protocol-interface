@@ -61,5 +61,7 @@ export const Default = () => (
     borrowChartData={fakeApyChartData}
     interestRateChartData={vTokenApySimulations}
     poolComptrollerAddress={poolData[0].comptrollerAddress}
+    isChartDataLoading={false}
+    isInterestRateChartDataLoading={false}
   />
 );

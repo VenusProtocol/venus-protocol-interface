@@ -17,7 +17,10 @@ export const useStyles = () => {
     `,
     row: css`
       display: flex;
-      margin-bottom: ${theme.spacing(6)};
+
+      :not(:last-of-type) {
+        margin-bottom: ${theme.spacing(6)};
+      }
     `,
     legend: css`
       display: flex;
