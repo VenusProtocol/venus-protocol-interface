@@ -64,12 +64,12 @@
       "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
-  "approvedToken": {
+  "approveToken": {
     "approveButtonLabel": "Approve"
   },
-  "approvedTokenSteps": {
-    "approvedTokenButton": {
-      "text": "Enable {{tokenSymbol}}",
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "Approve {{tokenSymbol}}",
       "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
     },
     "step1": "Step 1",
@@ -391,7 +391,7 @@
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "enableToken": {
-        "title": "To borrow {{symbol}} from the Venus Protocol, you need to enable it first"
+        "title": "To borrow {{symbol}} from the Venus Protocol, you need to approve it first"
       },
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
@@ -413,7 +413,7 @@
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "enableToken": {
-        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
+        "title": "To repay {{symbol}} to the Venus Protocol, you need to approve it first"
       },
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
@@ -431,7 +431,6 @@
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
       },
-      "swapSummary": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
       "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "repayTabTitle": "Repay",
@@ -440,7 +439,7 @@
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "enableToken": {
-        "title": "To supply {{symbol}} to the Venus Protocol, you need to enable it first"
+        "title": "To supply {{symbol}} to the Venus Protocol, you need to approve it first"
       },
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
@@ -467,6 +466,10 @@
       "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
     },
     "withdraw": {
+      "connectWalletMessage": "Please connect your wallet to withdraw",
+      "enableToken": {
+        "title": "To withdraw {{symbol}} from the Venus Protocol, you need to approve it first"
+      },
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "enterValidAmount": "Enter a valid amount to withdraw",
@@ -752,7 +755,7 @@
   },
   "vai": {
     "mintVai": {
-      "approvedToken": "To mint VAI with the Venus Protocol, you need to approve it first",
+      "approveToken": "To mint VAI with the Venus Protocol, you need to approve it first",
       "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
       "mintFeeLabel": "Mint fee",
@@ -766,7 +769,7 @@
       "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
-      "approvedToken": "To repay VAI to the Venus Protocol, you need to approve it first",
+      "approveToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "connectWallet": "Please connect your wallet to repay VAI",
       "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
@@ -1011,7 +1014,7 @@
   "withdrawFromVestingVaultModalModal": {
     "displayWithdrawalRequestListButton": "Withdrawal request list",
     "requestWithdrawalTab": {
-      "approvedToken": {
+      "approveToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "availableTokensLabel": "Requestable {{tokenSymbol}}",
@@ -1024,7 +1027,7 @@
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
     "withdrawalRequestList": {
-      "approvedToken": {
+      "approveToken": {
         "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
       },
       "emptyState": "You have no active withdrawal requests",
@@ -1032,7 +1035,7 @@
     },
     "withdrawalRequestListTitle": "Withdrawal request list",
     "withdrawTab": {
-      "approvedToken": {
+      "approveToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "availableTokens": "Available {{tokenSymbol}}",

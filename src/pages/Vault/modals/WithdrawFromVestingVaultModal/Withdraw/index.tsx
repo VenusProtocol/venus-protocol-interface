@@ -135,7 +135,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   return (
     <ConnectWallet
       message={t(
-        'withdrawFromVestingVaultModalModal.withdrawTab.approvedToken.connectWalletMessage',
+        'withdrawFromVestingVaultModalModal.withdrawTab.approveToken.connectWalletMessage',
       )}
     >
       <WithdrawUi
