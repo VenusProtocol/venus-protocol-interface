@@ -42,4 +42,3 @@ export { default as calculateApy } from './calculateApy';
 export { default as areAddressesEqual } from './areAddressesEqual';
 export { default as isFeatureEnabled } from './isFeatureEnabled';
 export { default as generateTransactionDeadline } from './generateTransactionDeadline';
-export { default as determineDecimalPlaces } from './determineDecimalPlaces';

@@ -1,30 +1,53 @@
 import BigNumber from 'bignumber.js';
 
-import determineDecimalPlaces from '../determineDecimalPlaces';
-
 const ONE_BILLION = 1000000000;
 const ONE_MILLION = 1000000;
 const ONE_THOUSAND = 1000;
-export const SMALLEST_READABLE_VALUE = 0.0000001;
+
+const determineDecimalPlaces = (value: BigNumber) => {
+  const fixedValue = value.toFixed();
+  const dotIndex = fixedValue.indexOf('.');
+
+  if (dotIndex < 0) {
+    return 2;
+  }
+
+  const decimals = fixedValue.substring(dotIndex + 1);
+  const firstNonZeroDecimalIndex = decimals.split('').findIndex(decimal => decimal !== '0');
+
+  const decimalPlaces =
+    // If the decimal next to the first non-zero decimal found is also a
+    // non-zero, we increment the decimal places by one to include it in the
+    // final amount
+    decimals[firstNonZeroDecimalIndex + 1] !== '0'
+      ? firstNonZeroDecimalIndex + 2
+      : firstNonZeroDecimalIndex + 1;
+
+  return decimalPlaces;
+};
 
 export interface ShortenValueWithSuffix {
   value: BigNumber;
-  decimalPlaces?: number;
+  minDecimalPlaces?: number;
+  maxDecimalPlaces?: number;
 }
 
-const shortenValueWithSuffix = ({ value, decimalPlaces }: ShortenValueWithSuffix) => {
+const shortenValueWithSuffix = ({
+  value,
+  minDecimalPlaces = 2,
+  maxDecimalPlaces,
+}: ShortenValueWithSuffix) => {
   if (value.isEqualTo(0)) {
     return '0';
-  }
-
-  if (value.isLessThan(SMALLEST_READABLE_VALUE) && Number(value) > 0) {
-    return `< ${new BigNumber(SMALLEST_READABLE_VALUE).toFixed()}`;
   }
 
   let formattedValue = value;
   let suffix = '';
 
   if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
+    formattedValue = formattedValue.dividedBy(ONE_BILLION);
+    suffix = 'B';
+  } else if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
     formattedValue = formattedValue.dividedBy(ONE_BILLION);
     suffix = 'B';
   } else if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
@@ -35,8 +58,13 @@ const shortenValueWithSuffix = ({ value, decimalPlaces }: ShortenValueWithSuffix
     suffix = 'K';
   }
 
-  const formattedDecimalPlaces =
-    decimalPlaces !== undefined ? decimalPlaces : determineDecimalPlaces(formattedValue);
+  let formattedDecimalPlaces = determineDecimalPlaces(formattedValue);
+
+  if (typeof minDecimalPlaces === 'number' && formattedDecimalPlaces < minDecimalPlaces) {
+    formattedDecimalPlaces = minDecimalPlaces;
+  } else if (typeof maxDecimalPlaces === 'number' && formattedDecimalPlaces > maxDecimalPlaces) {
+    formattedDecimalPlaces = maxDecimalPlaces;
+  }
 
   return `${new BigNumber(formattedValue).toFormat(formattedDecimalPlaces)}${suffix}`;
 };
