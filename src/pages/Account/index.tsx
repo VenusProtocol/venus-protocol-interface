@@ -10,7 +10,7 @@ import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 import AccountPlaceholder from './AccountPlaceholder';
-import PoolBreakdown from './PoolBreakdown';
+import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
 import VaultsBreakdown from './VaultsBreakdown';
 import { useStyles } from './styles';
@@ -89,9 +89,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
         <VaultsBreakdown css={styles.section} vaults={filteredVaults} />
       )}
 
-      {filteredPools.map(pool => (
-        <PoolBreakdown key={`pool-breakdown-${pool.name}`} css={styles.section} pool={pool} />
-      ))}
+      {/* {filteredPools.length > 0 && <PoolsBreakdown css={styles.section} pools={filteredPools} />} */}
     </>
   );
 };

@@ -9,16 +9,14 @@ const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: st
 const useFormatPools = ({
   pools,
   searchValue,
-  selectedPoolName,
+  selectedPoolIndex,
 }: {
   pools: Pool[];
   searchValue: string;
-  selectedPoolName?: string;
+  selectedPoolIndex: number;
 }) => {
   const formattedPools = useMemo(() => {
-    const filteredPools = selectedPoolName
-      ? pools.filter(pool => pool.name === selectedPoolName)
-      : pools;
+    const filteredPools = selectedPoolIndex < 0 ? pools : [pools[selectedPoolIndex]];
 
     if (!searchValue) {
       return filteredPools;
@@ -33,7 +31,7 @@ const useFormatPools = ({
         }),
       ),
     }));
-  }, [pools, searchValue, selectedPoolName]);
+  }, [pools, searchValue, selectedPoolIndex]);
 
   return formattedPools;
 };

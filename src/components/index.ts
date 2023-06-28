@@ -52,3 +52,4 @@ export * from './TokenGroup';
 export * from './IsolatedAssetWarning';
 export * from './AccountData';
 export * from './SwapDetails';
+export * from './TagGroup';

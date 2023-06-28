@@ -1,11 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import {
-  ButtonGroup,
-  NoticeWarning,
-  QuinaryButton,
-  TextField,
-  TokenAnnouncement,
-} from 'components';
+import { ButtonGroup, NoticeWarning, TagGroup, TextField, TokenAnnouncement } from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -38,7 +32,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [selectedPoolName, setSelectedPoolName] = useState<string | undefined>();
+  const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
 
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
@@ -49,7 +43,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   const formattedPools = useFormatPools({
     pools,
     searchValue,
-    selectedPoolName,
+    selectedPoolIndex: selectedPoolTagIndex - 1,
   });
 
   const supplyMarketTableProps: MarketTableProps = {
@@ -115,26 +109,12 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
         <div css={styles.headerBottomRow}>
           {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
-            <div css={styles.tags}>
-              <QuinaryButton
-                active={!selectedPoolName}
-                onClick={() => setSelectedPoolName(undefined)}
-                css={styles.tag}
-              >
-                {t('dashboard.allTag')}
-              </QuinaryButton>
-
-              {pools.map(pool => (
-                <QuinaryButton
-                  active={pool.name === selectedPoolName}
-                  onClick={() => setSelectedPoolName(pool.name)}
-                  css={styles.tag}
-                  key={`tag-${pool.name}`}
-                >
-                  {pool.name}
-                </QuinaryButton>
-              ))}
-            </div>
+            <TagGroup
+              css={styles.tags}
+              tagsContent={[t('dashboard.allTag')].concat(pools.map(pool => pool.name))}
+              activeTagIndex={selectedPoolTagIndex}
+              onTagClick={setSelectedPoolTagIndex}
+            />
           )}
 
           <div css={styles.rightColumn}>
