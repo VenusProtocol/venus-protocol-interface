@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { ProgressCircle, Tag, TagGroup } from 'components';
+import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { isFeatureEnabled } from 'utilities';
+import { calculatePercentage, formatToReadablePercentage, isFeatureEnabled } from 'utilities';
 
 import Section from '../Section';
 import Summary from '../Summary';
@@ -23,23 +23,47 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
 
   const tags: Tag[] = useMemo(
     () =>
-      pools.map(pool => ({
-        id: pool.comptrollerAddress,
-        content: (
-          <>
-            <span css={styles.tagText}>{pool.name}</span>
+      pools.map(pool => {
+        const borrowLimitUsedPercentage =
+          pool.userBorrowBalanceCents &&
+          pool.userBorrowLimitCents &&
+          calculatePercentage({
+            numerator: pool.userBorrowBalanceCents.toNumber(),
+            denominator: pool.userBorrowLimitCents.toNumber(),
+          });
 
-            <ProgressCircle value={75} />
-          </>
-        ),
-      })),
+        const readableBorrowLimitUsedPercentage =
+          formatToReadablePercentage(borrowLimitUsedPercentage);
+
+        return {
+          id: pool.comptrollerAddress,
+          content: (
+            <>
+              <span>{pool.name}</span>
+
+              {borrowLimitUsedPercentage !== undefined && (
+                <Tooltip
+                  title={t('account.poolsBreakdown.poolTagTooltip', {
+                    borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
+                  })}
+                  css={styles.tagTooltip}
+                >
+                  <ProgressCircle value={borrowLimitUsedPercentage} />
+                </Tooltip>
+              )}
+            </>
+          ),
+        };
+      }),
     [pools],
   );
 
   return (
     <Section
       className={className}
-      title={isFeatureEnabled('isolatedPools') ? t('account.poolsBreakdown') : selectedPool.name}
+      title={
+        isFeatureEnabled('isolatedPools') ? t('account.poolsBreakdown.title') : selectedPool.name
+      }
     >
       {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
         <TagGroup

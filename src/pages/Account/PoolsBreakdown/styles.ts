@@ -24,8 +24,9 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(6)};
       }
     `,
-    tagText: css`
-      margin-right: ${theme.spacing(1)};
+    tagTooltip: css`
+      display: inline-flex;
+      margin-left: ${theme.spacing(1)};
     `,
   };
 };

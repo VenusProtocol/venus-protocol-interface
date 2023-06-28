@@ -18,7 +18,10 @@
         "tabletTitle": "Assets"
       }
     },
-    "poolsBreakdown": "Pools",
+    "poolsBreakdown": {
+      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
+      "title": "Pools"
+    },
     "vaultsBreakdown": {
       "table": {
         "column": {
