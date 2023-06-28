@@ -18,4 +18,4 @@ export default {
   },
 } as Meta<typeof PoolBreakdown>;
 
-export const Default = () => <PoolBreakdown pool={poolData[0]} />;
+export const Default = () => <PoolBreakdown pools={poolData} />;
