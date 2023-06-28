@@ -8,6 +8,7 @@ const initializeBigNumber = () => {
       groupSize: 3,
       groupSeparator: ',',
     },
+    ROUNDING_MODE: BigNumber.ROUND_DOWN,
   });
 };
 

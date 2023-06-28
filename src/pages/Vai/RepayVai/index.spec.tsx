@@ -143,7 +143,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
 
     // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText('0.00032 VAI (0.000317%)'));
+    await waitFor(() => getByText('0.00031 VAI (0.000317%)'));
   });
 
   // TODO: add tests to cover failing scenarios (see VEN-631)
