@@ -2,7 +2,11 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import {
+  convertWeiToTokens,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
@@ -37,6 +41,17 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     [swap],
   );
 
+  const readableExchangeRate = useMemo(
+    () =>
+      swap &&
+      formatTokensToReadableValue({
+        value: swap.exchangeRate,
+        token: swap.toToken,
+        addSymbol: false,
+      }),
+    [swap?.exchangeRate, swap?.toToken],
+  );
+
   const receivedAmountLabel =
     action === 'repay'
       ? t('swapDetails.receivedAmount.repayLabel')
@@ -49,7 +64,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
           {t('swapDetails.exchangeRate.value', {
             fromTokenSymbol: swap.fromToken.symbol,
             toTokenSymbol: swap.toToken.symbol,
-            rate: swap.exchangeRate.toFixed(),
+            rate: readableExchangeRate,
           })}
         </LabeledInlineContent>
       )}

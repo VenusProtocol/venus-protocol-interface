@@ -20,7 +20,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
     <div
       class="MuiTypography-root MuiTypography-body1 css-19c7lst-MuiTypography-root-LabeledInlineContent"
     >
-      1 BUSD ≈ 0.00333333333333333333 XVS
+      1 BUSD ≈ 0.0033 XVS
     </div>
   </div>
   <div
