@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -14,7 +14,7 @@ export default {
   title: 'Pages/Voter',
   component: VoterUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof VoterUi>;
+} as Meta<typeof VoterUi>;
 
 export const Default = () => (
   <VoterUi

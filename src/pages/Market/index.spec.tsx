@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
+import Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
@@ -14,22 +15,22 @@ import renderComponent from 'testUtils/renderComponent';
 import Market from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Market', () => {
   beforeEach(() => {
-    (useGetAsset as jest.Mock).mockImplementation(() => ({
+    (useGetAsset as Vi.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: assetData[0],
       },
     }));
 
-    (getMarketHistory as jest.Mock).mockImplementation(() => ({
+    (getMarketHistory as Vi.Mock).mockImplementation(() => ({
       marketSnapshots,
     }));
 
-    (getVTokenApySimulations as jest.Mock).mockImplementation(() => ({
+    (getVTokenApySimulations as Vi.Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));
   });

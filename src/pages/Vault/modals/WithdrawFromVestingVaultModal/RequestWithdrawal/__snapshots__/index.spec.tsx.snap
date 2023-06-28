@@ -1,5 +1,5 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal fetches staked tokens and locking period and displays them correctly 1`] = `"Requestable VAI24.00 VAI"`;
+exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 1`] = `"Requestable VAI24.00 VAI"`;
 
-exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal fetches staked tokens and locking period and displays them correctly 2`] = `"Locking period3 minutes"`;
+exports[`pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 2`] = `"Locking period3 minutes"`;

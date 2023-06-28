@@ -1,22 +1,20 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
 
 import { Icon, IconName, IconProps } from '.';
+import * as Svgs from './icons';
 
 export default {
   title: 'Components/Icon',
   component: Icon,
   decorators: [withCenterStory({ width: '50vw' })],
-} as ComponentMeta<typeof Icon>;
+} as Meta<typeof Icon>;
 
 export const IconDefault = () => {
   // Get all SVG file names
-  const svgs = require.context('./icons', true, /\.tsx$/);
-  const svgFileNames = svgs
-    .keys()
-    .map(path => path.replace('./', '').replace('tokens/', '').replace('.tsx', '')) as IconName[];
+  const svgFileNames = Object.keys(Svgs) as IconName[];
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px 24px' }}>
@@ -35,7 +33,7 @@ export const IconDefault = () => {
   );
 };
 
-const IconWithCustomColorAndSizeTemplate: Story<IconProps> = args => <Icon {...args} />;
+const IconWithCustomColorAndSizeTemplate: StoryFn<IconProps> = args => <Icon {...args} />;
 
 export const IconWithCustomColorAndSize = IconWithCustomColorAndSizeTemplate.bind({});
 IconWithCustomColorAndSize.args = {

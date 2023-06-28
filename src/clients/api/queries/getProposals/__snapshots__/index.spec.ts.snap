@@ -1,14 +1,14 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getProposals Gets called with correct default arguments 1`] = `
-Object {
+exports[`api/queries/getProposals > Gets called with correct default arguments 1`] = `
+{
   "limit": 5,
   "offset": 0,
-  "proposals": Array [
-    Object {
+  "proposals": [
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -20,7 +20,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T16:36:33.000Z,
       "createdTxHash": undefined,
-      "description": Object {
+      "description": {
         "description": "Fake description",
         "title": "Fake title",
         "version": "v1",
@@ -41,10 +41,10 @@ Object {
       "state": "Pending",
       "totalVotesWei": "0",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -56,7 +56,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T16:36:33.000Z,
       "createdTxHash": "0x1be5bbf92d0e4b786c2ce49b7492bebeb5618e026f0701a561afdbad5057a7ad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -77,10 +77,10 @@ Object {
       "state": "Active",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -92,7 +92,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T15:09:09.000Z,
       "createdTxHash": "0x3fae3378858510ebed7966aaab7262bcf0e3c2066656d82f74ef032b2b997ca2",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -113,10 +113,10 @@ Object {
       "state": "Defeated",
       "totalVotesWei": "0",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -128,7 +128,7 @@ Object {
       "cancelTxHash": "0xcdd887ccac98a4673cddac4a36391f554d79b7cdf3104f34651323f2ecef39e7",
       "createdDate": 2022-05-20T19:14:49.000Z,
       "createdTxHash": "0xadae322e69be165ecf09323fcf8efc4b2754c8e8a73f8bb8d8f42430d42c9cde",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -149,10 +149,10 @@ Object {
       "state": "Canceled",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -164,7 +164,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-20T19:17:16.000Z,
       "createdTxHash": "0x8e4c1fe62085e26611e4d93391039f087d8cf3d8b894d6fc7bfec63c53a8edad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -185,10 +185,10 @@ Object {
       "state": "Succeeded",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle(address)",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -200,7 +200,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-31T13:23:24.000Z,
       "createdTxHash": "0xcea88b7817b3182cfa79e76e26d155b0ee8173e960fb0a30dd8e354a9989ef36",
-      "description": Object {
+      "description": {
         "description": undefined,
         "title": "set new price oracle",
         "version": "v1",
@@ -221,10 +221,10 @@ Object {
       "state": "Queued",
       "totalVotesWei": "2.01e+21",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -236,7 +236,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-20T19:17:16.000Z,
       "createdTxHash": "0x8e4c1fe62085e26611e4d93391039f087d8cf3d8b894d6fc7bfec63c53a8edad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -257,10 +257,10 @@ Object {
       "state": "Expired",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle(address)",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -272,7 +272,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-31T13:23:24.000Z,
       "createdTxHash": "0xcea88b7817b3182cfa79e76e26d155b0ee8173e960fb0a30dd8e354a9989ef36",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -298,15 +298,15 @@ Object {
 }
 `;
 
-exports[`api/queries/getProposals returns formatted proposals 1`] = `
-Object {
+exports[`api/queries/getProposals > returns formatted proposals 1`] = `
+{
   "limit": 5,
   "offset": 0,
-  "proposals": Array [
-    Object {
+  "proposals": [
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -318,7 +318,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T16:36:33.000Z,
       "createdTxHash": undefined,
-      "description": Object {
+      "description": {
         "description": "Fake description",
         "title": "Fake title",
         "version": "v1",
@@ -339,10 +339,10 @@ Object {
       "state": "Pending",
       "totalVotesWei": "0",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -354,7 +354,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T16:36:33.000Z,
       "createdTxHash": "0x1be5bbf92d0e4b786c2ce49b7492bebeb5618e026f0701a561afdbad5057a7ad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -375,10 +375,10 @@ Object {
       "state": "Active",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -390,7 +390,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-30T15:09:09.000Z,
       "createdTxHash": "0x3fae3378858510ebed7966aaab7262bcf0e3c2066656d82f74ef032b2b997ca2",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -411,10 +411,10 @@ Object {
       "state": "Defeated",
       "totalVotesWei": "0",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -426,7 +426,7 @@ Object {
       "cancelTxHash": "0xcdd887ccac98a4673cddac4a36391f554d79b7cdf3104f34651323f2ecef39e7",
       "createdDate": 2022-05-20T19:14:49.000Z,
       "createdTxHash": "0xadae322e69be165ecf09323fcf8efc4b2754c8e8a73f8bb8d8f42430d42c9cde",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -447,10 +447,10 @@ Object {
       "state": "Canceled",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -462,7 +462,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-20T19:17:16.000Z,
       "createdTxHash": "0x8e4c1fe62085e26611e4d93391039f087d8cf3d8b894d6fc7bfec63c53a8edad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -483,10 +483,10 @@ Object {
       "state": "Succeeded",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle(address)",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -498,7 +498,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-31T13:23:24.000Z,
       "createdTxHash": "0xcea88b7817b3182cfa79e76e26d155b0ee8173e960fb0a30dd8e354a9989ef36",
-      "description": Object {
+      "description": {
         "description": undefined,
         "title": "set new price oracle",
         "version": "v1",
@@ -519,10 +519,10 @@ Object {
       "state": "Queued",
       "totalVotesWei": "2.01e+21",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x0000000000000000000000002ce1d0ffd7e869d9df33e28552b12ddded326706",
           "signature": "_setPendingAdmin(address)",
           "target": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706",
@@ -534,7 +534,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-20T19:17:16.000Z,
       "createdTxHash": "0x8e4c1fe62085e26611e4d93391039f087d8cf3d8b894d6fc7bfec63c53a8edad",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",
@@ -555,10 +555,10 @@ Object {
       "state": "Expired",
       "totalVotesWei": "3.05004e+23",
     },
-    Object {
+    {
       "abstainedVotesWei": "0",
-      "actions": Array [
-        Object {
+      "actions": [
+        {
           "callData": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
           "signature": "_setPriceOracle(address)",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
@@ -570,7 +570,7 @@ Object {
       "cancelTxHash": undefined,
       "createdDate": 2022-05-31T13:23:24.000Z,
       "createdTxHash": "0xcea88b7817b3182cfa79e76e26d155b0ee8173e960fb0a30dd8e354a9989ef36",
-      "description": Object {
+      "description": {
         "description": "Fake v2 description",
         "title": "Fake v2 title",
         "version": "v2",

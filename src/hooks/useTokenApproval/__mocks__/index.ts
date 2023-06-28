@@ -1,9 +1,9 @@
 const isTokenApproved = true;
 const isTokenApprovalStatusLoading = false;
 const isApproveTokenLoading = false;
-const approveToken = jest.fn();
+const approveToken = vi.fn();
 
-export default jest.fn(() => ({
+export default vi.fn(() => ({
   isTokenApproved,
   isTokenApprovalStatusLoading,
   isApproveTokenLoading,

@@ -13,7 +13,7 @@ describe('api/queries/getAllowance', () => {
   test('returns the allowance on success', async () => {
     const fakeAllowanceWei = BN.from(10000);
 
-    const vrtAllowanceMock = jest.fn(async () => fakeAllowanceWei);
+    const vrtAllowanceMock = vi.fn(async () => fakeAllowanceWei);
 
     const fakeContract = {
       allowance: vrtAllowanceMock,

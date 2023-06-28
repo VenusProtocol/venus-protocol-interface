@@ -17,7 +17,7 @@ describe('components/TokenTextField', () => {
   });
 
   it('does not let user enter value with more decimal places than token associated to tokenSymbol provided has', async () => {
-    const onChangeMock = jest.fn();
+    const onChangeMock = vi.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField token={TOKENS.xvs} onChange={onChangeMock} value="" data-testid={testId} />,
     );
@@ -48,7 +48,7 @@ describe('components/TokenTextField', () => {
   it('passes the correct max and step values down to the TextField component', async () => {
     const oneWeiInXvs = new BigNumber(ONE_XVS).dividedBy(new BigNumber(10).pow(18));
 
-    const onChangeMock = jest.fn();
+    const onChangeMock = vi.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField
         token={TOKENS.xvs}
@@ -66,7 +66,7 @@ describe('components/TokenTextField', () => {
   });
 
   it('renders max button and updates value to provided value when pressing on it', async () => {
-    const onMaxButtonClickMock = jest.fn();
+    const onMaxButtonClickMock = vi.fn();
     const rightMaxButton = {
       label: 'Test max button label',
       onClick: onMaxButtonClickMock,

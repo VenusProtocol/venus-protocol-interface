@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/Chip',
   component: Chip,
   decorators: [withThemeProvider, withCenterStory({ width: 200 })],
-} as ComponentMeta<typeof Chip>;
+} as Meta<typeof Chip>;
 
 export const Default = () => <Chip text="Some text" />;
 

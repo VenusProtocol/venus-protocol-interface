@@ -7,7 +7,7 @@ import en from 'translation/translations/en.json';
 
 import ConnectWalletBanner, { ConnectWalletBannerUi } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Dashboard/ConnectWalletBanner', () => {
   it('renders without crashing', () => {
@@ -23,7 +23,7 @@ describe('pages/Dashboard/ConnectWalletBanner', () => {
   });
 
   it('prompt user to connect their wallet when pressing on connect button', () => {
-    const openAuthModalMock = jest.fn();
+    const openAuthModalMock = vi.fn();
 
     const { getByText } = renderComponent(
       <ConnectWalletBannerUi openAuthModal={openAuthModalMock} isWalletConnected={false} />,

@@ -30,7 +30,7 @@ const proposalSchema = yup.object({
             value => !!value && !!parseFunctionSignature(value),
           )
           .required(),
-        // TODO add specific validation and errors for specific types
+        // TODO: add specific validation and errors for specific types
         callData: yup
           .array()
           .of(

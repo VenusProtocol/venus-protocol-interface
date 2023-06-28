@@ -10,8 +10,8 @@ import en from 'translation/translations/en.json';
 import VaultItem, { VaultItemProps } from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeVault = fakeVaults[0];
 

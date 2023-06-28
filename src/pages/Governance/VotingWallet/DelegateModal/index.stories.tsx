@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default {
   title: 'Pages/Vote/DelegateModal',
   component: DelegateModal,
   decorators: [withRouter],
-} as ComponentMeta<typeof DelegateModal>;
+} as Meta<typeof DelegateModal>;
 
 export const Default = () => (
   <DelegateModal

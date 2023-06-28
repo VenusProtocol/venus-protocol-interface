@@ -5,14 +5,14 @@ import { Comptroller } from 'types/contracts';
 
 import enterMarkets from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/enterMarkets', () => {
   test('returns contract receipt when request succeeds', async () => {
     const vTokenAddresses = ['0x3d759121234cd36F8124C21aFe1c6852d2bEd848'];
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const enterMarketsMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const enterMarketsMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

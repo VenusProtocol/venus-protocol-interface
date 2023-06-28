@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -14,7 +15,7 @@ import en from 'translation/translations/en.json';
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakeVaiVaultUserInfo = formatToUserInfo(vaiVaultResponses.userInfo);
 
@@ -24,7 +25,7 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
 
 describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
-    (getVaiVaultUserInfo as jest.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
+    (getVaiVaultUserInfo as Vi.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
   });
 
   it('renders without crashing', async () => {
@@ -44,11 +45,11 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    (withdrawFromVaiVault as jest.Mock).mockImplementation(() => fakeContractReceipt);
+    (withdrawFromVaiVault as Vi.Mock).mockImplementation(() => fakeContractReceipt);
 
     const customProps: WithdrawFromVaiVaultModalProps = {
       ...baseProps,
-      handleClose: jest.fn(),
+      handleClose: vi.fn(),
     };
 
     const { getByTestId, getByText } = renderComponent(

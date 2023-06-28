@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
@@ -10,11 +11,11 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Withdraw from '..';
+import { fakeAsset, fakePool, fakeVTokenBalanceWei } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool, fakeVTokenBalanceWei } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   it('submit button is disabled with no amount', async () => {
@@ -77,7 +78,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
-    (getVTokenBalanceOf as jest.Mock).mockImplementation(() => ({
+    (getVTokenBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fakeVTokenBalanceWei,
     }));
 

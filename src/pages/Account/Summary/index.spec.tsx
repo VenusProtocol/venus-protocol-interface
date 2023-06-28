@@ -8,7 +8,7 @@ import renderComponent from 'testUtils/renderComponent';
 import Summary from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Account/Summary', () => {
   it('renders without crashing', () => {

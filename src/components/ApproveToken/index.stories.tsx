@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -12,7 +12,7 @@ export default {
   title: 'Components/ApproveToken',
   component: ApproveTokenUi,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof ApproveTokenUi>;
+} as Meta<typeof ApproveTokenUi>;
 
 export const Disabled = () => (
   <ApproveTokenUi

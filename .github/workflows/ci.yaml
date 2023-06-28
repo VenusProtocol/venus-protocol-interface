@@ -3,8 +3,12 @@ name: Tests and Checks
 on: [push]
 
 env:
-  REACT_APP_CHAIN_ID: 97
-  IS_CI_ENV: true
+  VITE_ENVIRONMENT: 'ci'
+  NODE_OPTIONS: '--max_old_space_size=4096'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   typecheck:
@@ -15,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '18.16.1'
           cache: 'yarn'
 
       - name: Install deps
@@ -32,7 +36,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '18.16.1'
           cache: 'yarn'
 
       - name: Install deps
@@ -47,39 +51,6 @@ jobs:
       - name: Lint styles
         run: yarn lint-styles
 
-  storybooks:
-    runs-on: [self-hosted, fe]
-    container:
-      image: node:14.15.1-buster
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
-          sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          apt-get update -y
-          apt-get install google-chrome-stable -y
-
-      - name: Install deps
-        run: yarn
-
-      - name: Build static storybooks
-        run: yarn build-storybook
-
-      - name: Snapshot
-        run: yarn loki --chromeFlags="--headless --no-sandbox --disable-dev-shm-usage"
-
-      - name: Reg-suit
-        run: yarn regression
-
   test:
     runs-on: ubuntu-20.04
     container:
@@ -90,30 +61,15 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '18.16.1'
           cache: 'yarn'
 
       - name: Install deps
         run: yarn
 
-      - name: Run tests
-        run:
-          yarn test --ci --json --coverage --testLocationInResults
-          --outputFile=./coverage/report.json
+      - name: Run tests and collect coverage
+        run: yarn test --coverage
 
-      - uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        id: coverage
-        with:
-          package-manager: yarn
-          coverage-file: ./coverage/report.json
-          skip-step: all
-          output: report-markdown
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          number: ${{ steps.findPr.outputs.number }}
-          message: ${{ steps.coverage.outputs.report }}
+      - name: 'Report Coverage'
+        if: always() # Also generate the report even if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v2

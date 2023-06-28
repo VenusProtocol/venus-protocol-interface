@@ -1,4 +1,5 @@
 import { ContractCallContext, Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -11,13 +12,13 @@ import {
   fakeIsolatedPoolParticipantsCount,
   fakeMulticallResponse1,
   fakeMulticallResponse2,
-} from './fakeData';
+} from '../__testUtils__/fakeData';
 
-jest.mock('clients/subgraph');
+vi.mock('clients/subgraph');
 
 describe('api/queries/getIsolatedPools', () => {
   test('returns isolated pools in the correct format', async () => {
-    (getIsolatedPoolParticipantsCount as jest.Mock).mockImplementationOnce(
+    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementationOnce(
       () => fakeIsolatedPoolParticipantsCount,
     );
 

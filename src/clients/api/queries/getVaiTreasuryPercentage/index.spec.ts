@@ -6,7 +6,7 @@ import getVaiTreasuryPercentage from '.';
 
 describe('api/queries/getVaiTreasuryPercentage', () => {
   test('returns the VAI treasury percentage in the correct format', async () => {
-    const treasuryPercentMock = jest.fn(async () => BN.from('1000000000000000'));
+    const treasuryPercentMock = vi.fn(async () => BN.from('1000000000000000'));
 
     const fakeContract = {
       treasuryPercent: treasuryPercentMock,

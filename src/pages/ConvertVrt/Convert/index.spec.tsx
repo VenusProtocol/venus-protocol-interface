@@ -9,17 +9,17 @@ import en from 'translation/translations/en.json';
 
 import Convert from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT/Convert', () => {
   it('renders info that the conversion deadline has been reached', async () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+          login: vi.fn(),
+          logOut: vi.fn(),
+          openAuthModal: vi.fn(),
+          closeAuthModal: vi.fn(),
           isConnected: true,
           provider: fakeProvider,
           accountAddress: fakeAccountAddress,

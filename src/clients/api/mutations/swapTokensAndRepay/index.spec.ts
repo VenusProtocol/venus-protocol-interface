@@ -16,8 +16,8 @@ const fakeVToken = assetData[0].vToken;
 
 describe('api/mutation/swapTokensAndRepay', () => {
   it('calls the right contract method when repaying a full loan in non-native tokens by selling as few non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForFullTokenDebtAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForFullTokenDebtAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -51,8 +51,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForFullBNBDebtAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForFullBNBDebtAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -85,8 +85,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapBNBForFullTokenDebtAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapBNBForFullTokenDebtAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -116,8 +116,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
   });
 
   it('calls the right contract method when selling an exact amount of non-native tokens to repay as many non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForTokensAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactTokensForTokensAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -152,8 +152,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapBNBForExactTokensAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapBNBForExactTokensAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -190,8 +190,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForBNBAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactTokensForBNBAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -219,8 +219,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
   });
 
   it('calls the right contract method when repaying an exact amount of non-native tokens by selling as few non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForExactTokensAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForExactTokensAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -255,8 +255,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapBNBForExactTokensAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapBNBForExactTokensAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -293,8 +293,8 @@ describe('api/mutation/swapTokensAndRepay', () => {
       routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForExactBNBAndRepayMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForExactBNBAndRepayMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

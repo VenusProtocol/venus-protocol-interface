@@ -1,39 +1,39 @@
-export const getTokenContract = jest.fn();
+export const getTokenContract = vi.fn();
 export const useTokenContract = () => getTokenContract;
 
-export const getTokenContractByAddress = jest.fn();
+export const getTokenContractByAddress = vi.fn();
 export const useTokenContractByAddress = () => getTokenContractByAddress;
 
-export const getVTokenContract = jest.fn();
+export const getVTokenContract = vi.fn();
 export const useVTokenContract = () => getVTokenContract;
 
-export const getVaiControllerContract = jest.fn();
+export const getVaiControllerContract = vi.fn();
 export const useVaiControllerContract = () => getVaiControllerContract;
 
-export const getVaiVaultContract = jest.fn();
+export const getVaiVaultContract = vi.fn();
 export const useVaiVaultContract = () => getVaiVaultContract;
 
-export const getXvsVaultContract = jest.fn();
+export const getXvsVaultContract = vi.fn();
 export const useXvsVaultContract = () => getXvsVaultContract;
 
-export const getXvsVaultProxyContract = jest.fn();
+export const getXvsVaultProxyContract = vi.fn();
 export const useXvsVaultProxyContract = () => getXvsVaultProxyContract;
 
-export const getXvsVaultStoreContract = jest.fn();
+export const getXvsVaultStoreContract = vi.fn();
 
-export const getComptrollerContract = jest.fn();
+export const getComptrollerContract = vi.fn();
 export const useComptrollerContract = () => getComptrollerContract;
 
-export const getVenusLensContract = jest.fn();
+export const getVenusLensContract = vi.fn();
 export const useVenusLensContract = () => getVenusLensContract;
 
-export const getGovernorBravoDelegateContract = jest.fn();
+export const getGovernorBravoDelegateContract = vi.fn();
 export const useGovernorBravoDelegateContract = () => getGovernorBravoDelegateContract;
 
-export const getXvsVestingProxyContract = jest.fn();
+export const getXvsVestingProxyContract = vi.fn();
 export const useXvsVestingProxyContract = () => getXvsVestingProxyContract;
 
-export const getVrtConverterProxyContract = jest.fn();
+export const getVrtConverterProxyContract = vi.fn();
 export const useVrtConverterProxyContract = () => getVrtConverterProxyContract;
 
-export const getMaximillionContract = jest.fn();
+export const getMaximillionContract = vi.fn();

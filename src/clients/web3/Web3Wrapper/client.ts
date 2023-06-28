@@ -6,6 +6,8 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { publicProvider } from 'wagmi/providers/public';
 
+import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
+
 import { BinanceWalletConnector } from './binanceWalletConnector';
 
 const bscExplorer = {
@@ -18,8 +20,12 @@ export const chain: Chain = {
   name: config.isOnTestnet ? 'BNB Smart Chain Testnet' : 'BNB Smart Chain',
   network: config.isOnTestnet ? 'bsc-testnet' : 'bsc',
   rpcUrls: {
-    public: config.rpcUrl,
-    default: config.rpcUrl,
+    default: {
+      http: [config.rpcUrl],
+    },
+    public: {
+      http: [config.rpcUrl],
+    },
   },
   blockExplorers: {
     default: bscExplorer,
@@ -43,7 +49,8 @@ const client = createClient({
     new WalletConnectConnector({
       chains: [chain],
       options: {
-        qrcode: true,
+        projectId: WALLET_CONNECT_PROJECT_ID,
+        showQrModal: true,
       },
     }),
     new CoinbaseWalletConnector({

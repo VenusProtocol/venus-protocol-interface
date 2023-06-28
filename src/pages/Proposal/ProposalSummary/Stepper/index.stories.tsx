@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import proposals from '__mocks__/models/proposals';
@@ -10,9 +10,9 @@ export default {
   title: 'Pages/Proposal/Components/Stepper',
   component: Stepper,
   decorators: [withCenterStory({ width: 400 })],
-} as ComponentMeta<typeof Stepper>;
+} as Meta<typeof Stepper>;
 
-const Template: Story<StepperProps> = (args: StepperProps) => <Stepper {...args} />;
+const Template: StoryFn<StepperProps> = (args: StepperProps) => <Stepper {...args} />;
 
 export const Pending = Template.bind({});
 Pending.args = {

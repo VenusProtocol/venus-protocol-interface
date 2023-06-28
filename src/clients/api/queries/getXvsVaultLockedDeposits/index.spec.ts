@@ -10,7 +10,7 @@ const fakePid = 1;
 
 describe('api/queries/getXvsVaultLockedDeposits', () => {
   test('returns withdrawal requests on success', async () => {
-    const getWithdrawalRequestsMock = jest.fn(async () => xvsVaultResponses.getWithdrawalRequests);
+    const getWithdrawalRequestsMock = vi.fn(async () => xvsVaultResponses.getWithdrawalRequests);
 
     const fakeContract = {
       getWithdrawalRequests: getWithdrawalRequestsMock,

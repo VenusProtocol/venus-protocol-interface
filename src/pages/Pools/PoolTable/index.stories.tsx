@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
@@ -15,9 +15,9 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof PoolTableUi>;
+} as Meta<typeof PoolTableUi>;
 
-const Template: Story<PoolTableProps> = args => <PoolTableUi {...args} />;
+const Template: StoryFn<PoolTableProps> = args => <PoolTableUi {...args} />;
 
 export const Primary = Template.bind({});
 

@@ -1,9 +1,7 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
-export type Environment = 'local' | 'mock' | 'testnet' | 'preview' | 'mainnet';
-
-export type Mode = 'development' | 'production';
+export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
 export enum BscChainId {
   'MAINNET' = 56,

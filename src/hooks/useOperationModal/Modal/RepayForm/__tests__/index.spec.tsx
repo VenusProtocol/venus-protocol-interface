@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -12,11 +13,11 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/Repay', () => {
   it('renders without crashing', () => {
@@ -206,10 +207,10 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('lets user repay borrowed tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -260,7 +261,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('lets user repay full loan', async () => {
-    (repay as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,

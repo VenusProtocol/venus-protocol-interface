@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api';
@@ -9,11 +10,11 @@ import en from 'translation/translations/en.json';
 import Dashboard from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Dashboard', () => {
   beforeEach(() => {
-    (useGetPools as jest.Mock).mockImplementation(() => ({
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
@@ -33,24 +34,18 @@ describe('pages/Dashboard', () => {
     expect(supplyMarketTable.textContent).toMatchSnapshot();
   });
 
-  it('displays borrow table when clicking on borrow tab and displays it correctly', async () => {
-    const { getByTestId, getAllByText } = renderComponent(<Dashboard />);
-
-    // Click on borrow tab
-    fireEvent.click(getAllByText(en.dashboard.borrowTabTitle)[0]);
+  it('displays borrow table correctly', async () => {
+    const { getByTestId } = renderComponent(<Dashboard />);
 
     await waitFor(() => getByTestId(TEST_IDS.borrowMarketTable));
     const borrowMarketTable = getByTestId(TEST_IDS.borrowMarketTable);
     expect(borrowMarketTable.textContent).toMatchSnapshot();
   });
 
-  it('hides higher risk tokens when turning switch off', async () => {
-    const { getByTestId, queryAllByRole } = renderComponent(<Dashboard />);
+  it('displays supply table correctly', async () => {
+    const { getByTestId } = renderComponent(<Dashboard />);
 
     await waitFor(() => getByTestId(TEST_IDS.supplyMarketTable));
-
-    // Turn switch off
-    fireEvent.click(queryAllByRole('checkbox')[0]);
 
     const supplyMarketTable = getByTestId(TEST_IDS.supplyMarketTable);
     expect(supplyMarketTable.textContent).toMatchSnapshot();

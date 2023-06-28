@@ -5,8 +5,8 @@ import cancelProposal from '.';
 
 describe('api/mutation/cancelProposal', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const cancelProposalMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const cancelProposalMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

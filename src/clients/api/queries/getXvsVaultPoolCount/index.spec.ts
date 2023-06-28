@@ -11,7 +11,7 @@ describe('api/queries/getXvsVaultPoolCount', () => {
   test('returns the XVS vault pool length on success', async () => {
     const fakeOutput = BN.from('10');
 
-    const poolLengthMock = jest.fn(async () => fakeOutput);
+    const poolLengthMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       poolLength: poolLengthMock,

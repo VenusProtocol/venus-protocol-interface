@@ -6,8 +6,12 @@ export const canRegisterToken = () =>
 
 const addTokenToWallet = async (token: Token) =>
   window.ethereum?.request({
+    // @ts-expect-error Wagmi's type for request method is incorrect in the
+    // current version
     method: 'wallet_watchAsset',
     params: {
+      // @ts-expect-error Wagmi's type for request method 1is incorrect in the
+      // current version
       type: 'ERC20',
       options: {
         address: token.address,

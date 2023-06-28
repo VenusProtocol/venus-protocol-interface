@@ -11,7 +11,7 @@ import renderComponent from 'testUtils/renderComponent';
 import TransactionForm, { TransactionFormProps } from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 const baseProps: TransactionFormProps = {
   token: TOKENS.xvs,
@@ -48,7 +48,7 @@ describe('pages/Vault/TransactionForm', () => {
 
   it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const onSubmitMock = jest.fn(async () => fakeContractReceipt);
+    const onSubmitMock = vi.fn(async () => fakeContractReceipt);
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />);

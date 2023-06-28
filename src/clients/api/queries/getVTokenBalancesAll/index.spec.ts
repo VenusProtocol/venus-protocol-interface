@@ -7,7 +7,7 @@ import getVTokenBalancesAll from '.';
 
 describe('api/queries/getVTokenBalancesAll', () => {
   test('returns the APY simulations in the correct format on success', async () => {
-    const vTokenBalancesAllCallMock = jest.fn(async () => [
+    const vTokenBalancesAllCallMock = vi.fn(async () => [
       {
         balanceOf: BN.from('10000'),
         balanceOfUnderlying: BN.from('20000'),

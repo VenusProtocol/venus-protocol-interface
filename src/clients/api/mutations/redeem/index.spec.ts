@@ -8,12 +8,12 @@ import redeem from '.';
 
 const fakeAmount = new BigNumber('10000000000000000');
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/redeem', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const redeemMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const redeemMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

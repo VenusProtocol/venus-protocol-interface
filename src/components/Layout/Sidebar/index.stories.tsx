@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
@@ -29,7 +29,7 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof SidebarUi>;
+} as Meta<typeof SidebarUi>;
 
 export const SidebarDefault = () => (
   <MemoryRouter initialEntries={['/dashboard']}>

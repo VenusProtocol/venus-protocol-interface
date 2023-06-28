@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -10,8 +11,8 @@ import en from 'translation/translations/en.json';
 
 import { ApproveTokenSteps } from '.';
 
-jest.mock('clients/api');
-jest.mock('components/Toast');
+vi.mock('clients/api');
+vi.mock('components/Toast');
 
 const fakeAsset = assetData[0];
 const fakeContent = 'Fake content';
@@ -19,10 +20,10 @@ const fakeSubmitButtonLabel = 'Fake submit button label';
 
 describe('components/ApproveTokenSteps', () => {
   it('asks user to enable token and lets them do so if they have not already', async () => {
-    const approveTokenMock = jest.fn();
+    const approveTokenMock = vi.fn();
 
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,
@@ -54,7 +55,7 @@ describe('components/ApproveTokenSteps', () => {
 
   it('renders content when hideTokenEnablingStep is true, even if user has not enabled token', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

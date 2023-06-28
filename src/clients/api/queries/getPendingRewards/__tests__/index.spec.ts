@@ -1,4 +1,5 @@
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
@@ -11,7 +12,7 @@ const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC5
 describe('api/queries/getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
     const multicall = {
-      call: jest.fn(async () => fakeMulticallResponses.lenses.getPendingRewardGroups),
+      call: vi.fn(async () => fakeMulticallResponses.lenses.getPendingRewardGroups),
     } as unknown as Multicall;
 
     const res = await getPendingRewardGroups({
@@ -23,7 +24,7 @@ describe('api/queries/getPendingRewardGroups', () => {
     });
 
     expect(multicall.call).toHaveBeenCalledTimes(1);
-    expect((multicall.call as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((multicall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

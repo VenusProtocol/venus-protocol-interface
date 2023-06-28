@@ -1,60 +1,60 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap displays correct swap details 1`] = `
+exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `
 <div
-  class="css-fycvtl-Component"
+  class="css-zia0g7-RepayFormUi"
   data-testid="swap-details"
 >
   <div
-    class="css-16k4o3c-Component"
+    class="css-u34kla-SwapDetails"
   >
     <div
-      class="css-1tz5all-Component"
+      class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-11ac4r0-MuiTypography-root-Component"
+        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
       >
         Exchange rate
       </span>
     </div>
     <div
-      class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
+      class="MuiTypography-root MuiTypography-body1 css-19c7lst-MuiTypography-root-LabeledInlineContent"
     >
-      1 BUSD ≈ 0.00333333333333333333 XVS
+      1 BUSD ≈ 0.0033 XVS
     </div>
   </div>
   <div
-    class="css-16k4o3c-Component"
+    class="css-u34kla-SwapDetails"
   >
     <div
-      class="css-1tz5all-Component"
+      class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-11ac4r0-MuiTypography-root-Component"
+        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
       >
         Slippage tolerance
       </span>
     </div>
     <div
-      class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
+      class="MuiTypography-root MuiTypography-body1 css-19c7lst-MuiTypography-root-LabeledInlineContent"
     >
       0.5%
     </div>
   </div>
   <div
-    class="css-o3pmhk-Component"
+    class="css-15iu4si-LabeledInlineContent"
   >
     <div
-      class="css-1tz5all-Component"
+      class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-11ac4r0-MuiTypography-root-Component"
+        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
       >
         You will repay
       </span>
     </div>
     <div
-      class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
+      class="MuiTypography-root MuiTypography-body1 css-19c7lst-MuiTypography-root-LabeledInlineContent"
     >
       ≈ 1,000.00 XVS
     </div>
@@ -62,9 +62,9 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
 </div>
 `;
 
-exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap displays correct swap details 2`] = `
+exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `
 <div
-  class="MuiTypography-root MuiTypography-small2 css-4z38vk-MuiTypography-root-Component"
+  class="MuiTypography-root MuiTypography-small2 css-5mdu71-MuiTypography-root-SwapSummary"
   data-testid="swap-summary"
 >
   You will repay 1,000.00 XVS using 300.00K BUSD

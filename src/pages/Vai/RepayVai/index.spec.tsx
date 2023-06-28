@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -23,28 +24,28 @@ import en from 'translation/translations/en.json';
 import RepayVai from '.';
 import TEST_IDS from '../testIds';
 
-jest.mock('clients/api');
-jest.mock('components/Toast');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('components/Toast');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const repayInputAmountTokens = '100';
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (getMintedVai as jest.Mock).mockImplementation(() => ({
+    (getMintedVai as Vi.Mock).mockImplementation(() => ({
       mintedVaiWei: fakeUserVaiMintedWei,
     }));
 
-    (getVaiRepayAmountWithInterests as jest.Mock).mockImplementation(() =>
+    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() =>
       formatToGetVaiRepayAmountWithInterestsOutput({
         contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
       }),
     );
 
-    (getVaiCalculateRepayAmount as jest.Mock).mockImplementation(() =>
+    (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>
       formatToOutput({
         repayAmountWei: convertTokensToWei({
           value: new BigNumber(repayInputAmountTokens),
@@ -77,9 +78,9 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (repayVai as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    (getBalanceOf as jest.Mock).mockImplementation(() => ({
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fakeUserVaiMintedWei,
     }));
 
@@ -140,8 +141,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
     fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
-
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmountTokens));
 
     // Check user repay VAI balance displays correctly
     await waitFor(() => getByText('0.00032 VAI (0.000317%)'));

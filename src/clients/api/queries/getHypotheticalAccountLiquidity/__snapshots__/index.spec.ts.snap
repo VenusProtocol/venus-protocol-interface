@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getHypotheticalAccountLiquidity with account return asset with updated hypothetical Account Liquidity 1`] = `
-Array [
+exports[`api/queries/getHypotheticalAccountLiquidity > with account return asset with updated hypothetical Account Liquidity 1`] = `
+[
   "100000000",
   "200000000",
   "300000000",

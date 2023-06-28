@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import { ApyChartProps } from 'components';
 import React from 'react';
@@ -52,7 +52,7 @@ export default {
   title: 'Pages/MarketDetail',
   component: MarketUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof MarketUi>;
+} as Meta<typeof MarketUi>;
 
 export const Default = () => (
   <MarketUi

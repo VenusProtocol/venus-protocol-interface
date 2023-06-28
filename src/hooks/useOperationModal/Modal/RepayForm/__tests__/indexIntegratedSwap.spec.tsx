@@ -5,12 +5,13 @@ import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
 import { isFeatureEnabled } from 'utilities';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { swapTokensAndRepay } from 'clients/api';
-import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
+import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
@@ -22,8 +23,8 @@ import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
@@ -60,31 +61,31 @@ const fakeFullRepaymentSwap: Swap = {
   direction: 'exactAmountOut',
 };
 
-jest.mock('clients/api');
-jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('hooks/useGetSwapInfo');
+vi.mock('clients/api');
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useGetSwapInfo');
 
 describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (isFeatureEnabled as jest.Mock).mockImplementation(
+    (isFeatureEnabled as Vi.Mock).mockImplementation(
       featureFlag => featureFlag === 'integratedSwap',
     );
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
   });
 
   afterEach(() => {
-    (isFeatureEnabled as jest.Mock).mockRestore();
-    (isFeatureEnabled as jest.Mock).mockImplementation(originalIsFeatureEnabledMock);
+    (isFeatureEnabled as Vi.Mock).mockRestore();
+    (isFeatureEnabled as Vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
   });
 
   it('renders without crashing', () => {
@@ -127,7 +128,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -172,7 +173,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('disables submit button if swap is an unwrap', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'UNWRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -217,7 +218,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -293,7 +294,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei.plus(1),
     };
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: customFakeFullRepaymentSwap,
       error: undefined,
       isLoading: false,
@@ -331,7 +332,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
@@ -375,7 +376,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
           : tokenBalance.balanceWei,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
 
@@ -497,7 +498,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       return customFakeSwap;
     };
 
-    (useGetSwapInfo as jest.Mock).mockImplementation((input: UseGetSwapInfoInput) => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation((input: UseGetSwapInfoInput) => ({
       swap: getFakeSwap(input),
       error: undefined,
       isLoading: false,
@@ -552,13 +553,13 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('lets user swap and repay partial loan, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
     }));
 
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByTestId, getByText } = renderComponent(
@@ -616,12 +617,12 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
   });
 
   it('lets user swap and repay full loan', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeFullRepaymentSwap,
       isLoading: false,
     }));
 
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText } = renderComponent(

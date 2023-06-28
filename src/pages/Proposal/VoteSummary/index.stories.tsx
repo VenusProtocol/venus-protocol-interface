@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -17,7 +17,7 @@ export default {
       default: 'Default',
     },
   },
-} as ComponentMeta<typeof VoteSummary>;
+} as Meta<typeof VoteSummary>;
 
 const votes = [
   {

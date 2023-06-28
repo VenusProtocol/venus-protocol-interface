@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -20,9 +20,9 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof OperationModal>;
+} as Meta<typeof OperationModal>;
 
-const Template: Story<OperationModalProps> = args => <OperationModal {...args} />;
+const Template: StoryFn<OperationModalProps> = args => <OperationModal {...args} />;
 
 const context: AuthContextValue = {
   login: noop,

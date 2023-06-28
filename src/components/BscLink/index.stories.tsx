@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/BscLink',
   component: BscLink,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof BscLink>;
+} as Meta<typeof BscLink>;
 
 export const Default = () => (
   <BscLink hash="0x6b8a5663cd46f7b719391c518c60e2f45427b95a082e3e47739b011faccbfc96" />

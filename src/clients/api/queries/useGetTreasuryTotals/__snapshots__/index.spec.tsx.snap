@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetTreasuryTotals calculates totals correctly 1`] = `
-Object {
+exports[`api/queries/useGetTreasuryTotals > calculates totals correctly 1`] = `
+{
   "treasuryBalanceCents": "62.049539256425566",
   "treasuryBorrowBalanceCents": "1717617594460750",
   "treasuryLiquidityBalanceCents": "37856027310",

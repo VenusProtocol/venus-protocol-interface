@@ -1,31 +1,31 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getTokenBalances returns token balances in the right format on success 1`] = `
-Array [
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+exports[`api/queries/getTokenBalances > returns token balances in the right format on success 1`] = `
+[
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -35,16 +35,16 @@ Array [
         "name": "Approval",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newOwner",
@@ -54,22 +54,22 @@ Array [
         "name": "OwnershipTransferred",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "from",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "to",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -79,12 +79,12 @@ Array [
         "name": "Transfer",
         "type": "event",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -94,12 +94,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -109,12 +109,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -124,23 +124,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
         ],
         "name": "allowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -150,23 +150,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "approve",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -176,18 +176,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "balanceOf",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -197,18 +197,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "burn",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -218,12 +218,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -233,23 +233,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "subtractedValue",
             "type": "uint256",
           },
         ],
         "name": "decreaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -259,12 +259,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getOwner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -274,23 +274,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "addedValue",
             "type": "uint256",
           },
         ],
         "name": "increaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -300,18 +300,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "mint",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -321,12 +321,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -336,12 +336,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "owner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -351,21 +351,21 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "renounceOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -375,12 +375,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "totalSupply",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -390,23 +390,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transfer",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -416,28 +416,28 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "sender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transferFrom",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -447,26 +447,26 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "newOwner",
             "type": "address",
           },
         ],
         "name": "transferOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "balanceOf",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "balanceOf",
@@ -475,30 +475,30 @@ Array [
     "contractAddress": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "reference": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
   },
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -508,16 +508,16 @@ Array [
         "name": "Approval",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newOwner",
@@ -527,22 +527,22 @@ Array [
         "name": "OwnershipTransferred",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "from",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "to",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -552,12 +552,12 @@ Array [
         "name": "Transfer",
         "type": "event",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -567,12 +567,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -582,12 +582,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -597,23 +597,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
         ],
         "name": "allowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -623,23 +623,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "approve",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -649,18 +649,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "balanceOf",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -670,18 +670,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "burn",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -691,12 +691,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -706,23 +706,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "subtractedValue",
             "type": "uint256",
           },
         ],
         "name": "decreaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -732,12 +732,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getOwner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -747,23 +747,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "addedValue",
             "type": "uint256",
           },
         ],
         "name": "increaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -773,18 +773,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "mint",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -794,12 +794,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -809,12 +809,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "owner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -824,21 +824,21 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "renounceOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -848,12 +848,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "totalSupply",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -863,23 +863,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transfer",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -889,28 +889,28 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "sender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transferFrom",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -920,26 +920,26 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "newOwner",
             "type": "address",
           },
         ],
         "name": "transferOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "balanceOf",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "balanceOf",
@@ -951,38 +951,38 @@ Array [
 ]
 `;
 
-exports[`api/queries/getTokenBalances returns token balances in the right format on success 2`] = `
-Object {
-  "tokenBalances": Array [],
+exports[`api/queries/getTokenBalances > returns token balances in the right format on success 2`] = `
+{
+  "tokenBalances": [],
 }
 `;
 
-exports[`api/queries/getTokenBalances returns token balances, including BNB, in the right format on success 1`] = `
-Array [
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+exports[`api/queries/getTokenBalances > returns token balances, including BNB, in the right format on success 1`] = `
+[
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -992,16 +992,16 @@ Array [
         "name": "Approval",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newOwner",
@@ -1011,22 +1011,22 @@ Array [
         "name": "OwnershipTransferred",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "from",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "to",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -1036,12 +1036,12 @@ Array [
         "name": "Transfer",
         "type": "event",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -1051,12 +1051,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1066,12 +1066,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1081,23 +1081,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
         ],
         "name": "allowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1107,23 +1107,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "approve",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1133,18 +1133,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "balanceOf",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1154,18 +1154,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "burn",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1175,12 +1175,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -1190,23 +1190,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "subtractedValue",
             "type": "uint256",
           },
         ],
         "name": "decreaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1216,12 +1216,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getOwner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1231,23 +1231,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "addedValue",
             "type": "uint256",
           },
         ],
         "name": "increaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1257,18 +1257,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "mint",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1278,12 +1278,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1293,12 +1293,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "owner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1308,21 +1308,21 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "renounceOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1332,12 +1332,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "totalSupply",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1347,23 +1347,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transfer",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1373,28 +1373,28 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "sender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transferFrom",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1404,26 +1404,26 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "newOwner",
             "type": "address",
           },
         ],
         "name": "transferOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "balanceOf",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "balanceOf",
@@ -1432,30 +1432,30 @@ Array [
     "contractAddress": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "reference": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
   },
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -1465,16 +1465,16 @@ Array [
         "name": "Approval",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newOwner",
@@ -1484,22 +1484,22 @@ Array [
         "name": "OwnershipTransferred",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "from",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "to",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
@@ -1509,12 +1509,12 @@ Array [
         "name": "Transfer",
         "type": "event",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -1524,12 +1524,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1539,12 +1539,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "_symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1554,23 +1554,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "owner",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
         ],
         "name": "allowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1580,23 +1580,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "approve",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1606,18 +1606,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "balanceOf",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1627,18 +1627,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "burn",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1648,12 +1648,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "decimals",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint8",
             "name": "",
             "type": "uint8",
@@ -1663,23 +1663,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "subtractedValue",
             "type": "uint256",
           },
         ],
         "name": "decreaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1689,12 +1689,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getOwner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1704,23 +1704,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "spender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "addedValue",
             "type": "uint256",
           },
         ],
         "name": "increaseAllowance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1730,18 +1730,18 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "mint",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1751,12 +1751,12 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "name",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1766,12 +1766,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "owner",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1781,21 +1781,21 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "renounceOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "symbol",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "string",
             "name": "",
             "type": "string",
@@ -1805,12 +1805,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "totalSupply",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1820,23 +1820,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transfer",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1846,28 +1846,28 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "sender",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "recipient",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
         ],
         "name": "transferFrom",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bool",
             "name": "",
             "type": "bool",
@@ -1877,26 +1877,26 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "newOwner",
             "type": "address",
           },
         ],
         "name": "transferOwnership",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "balanceOf",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "balanceOf",
@@ -1908,14 +1908,14 @@ Array [
 ]
 `;
 
-exports[`api/queries/getTokenBalances returns token balances, including BNB, in the right format on success 2`] = `
-Object {
-  "tokenBalances": Array [
-    Object {
+exports[`api/queries/getTokenBalances > returns token balances, including BNB, in the right format on success 2`] = `
+{
+  "tokenBalances": [
+    {
       "balanceWei": "1000000000000000000",
-      "token": Object {
+      "token": {
         "address": "0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb",
-        "asset": "bnb.svg",
+        "asset": "/src/assets/img/tokens/bnb.svg",
         "decimals": 18,
         "isNative": true,
         "symbol": "BNB",

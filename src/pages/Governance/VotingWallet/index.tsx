@@ -10,6 +10,7 @@ import {
   SecondaryAnchorButton,
   TokenIcon,
 } from 'components';
+import { ContractReceipt } from 'ethers';
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -38,7 +39,7 @@ interface VotingWalletUiProps {
   connectedWallet: boolean;
   currentUserAccountAddress: string | undefined;
   delegate: string | undefined;
-  setVoteDelegation: (address: string) => void;
+  setVoteDelegation: (address: string) => Promise<ContractReceipt>;
   isVoteDelegationLoading: boolean;
   delegateModelIsOpen: boolean;
   setDelegateModelIsOpen: (open: boolean) => void;

@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default {
   title: 'Components/OperationModal/WithdrawForm',
   component: WithdrawFormUi,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof WithdrawFormUi>;
+} as Meta<typeof WithdrawFormUi>;
 
 export const Default = () => (
   <WithdrawFormUi

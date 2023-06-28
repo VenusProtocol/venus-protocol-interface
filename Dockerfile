@@ -1,4 +1,4 @@
-FROM node:16.14.2-alpine3.14 as builder
+FROM node:18.16.1-alpine as builder
 
 ARG VERSION
 ARG TAR_FILE_PREFIX
@@ -9,8 +9,6 @@ ENV NODE_PATH=src/
 RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
-
-RUN ln -s /usr/bin/python3 /usr/bin/python
 
 COPY . .
 

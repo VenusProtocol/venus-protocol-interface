@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
@@ -14,7 +14,7 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof CellGroup>;
+} as Meta<typeof CellGroup>;
 
 const cells: Cell[] = [
   {

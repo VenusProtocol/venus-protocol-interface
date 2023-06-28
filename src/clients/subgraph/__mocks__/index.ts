@@ -1,4 +1,4 @@
 export * from '../queries/getIsolatedPoolParticipantsCount';
 
-export const getIsolatedPools = jest.fn();
-export const getIsolatedPoolParticipantsCount = jest.fn();
+export const getIsolatedPools = vi.fn();
+export const getIsolatedPoolParticipantsCount = vi.fn();

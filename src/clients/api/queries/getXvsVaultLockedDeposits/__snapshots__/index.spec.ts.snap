@@ -1,17 +1,17 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getXvsVaultLockedDeposits returns withdrawal requests on success 1`] = `
-Object {
-  "lockedDeposits": Array [
-    Object {
+exports[`api/queries/getXvsVaultLockedDeposits > returns withdrawal requests on success 1`] = `
+{
+  "lockedDeposits": [
+    {
       "amountWei": "1000000000000000000",
       "unlockedAt": 2022-06-29T10:43:24.000Z,
     },
-    Object {
+    {
       "amountWei": "2000000000000000000",
       "unlockedAt": 2022-06-30T14:30:04.000Z,
     },
-    Object {
+    {
       "amountWei": "3000000000000000000",
       "unlockedAt": 2022-07-01T18:16:44.000Z,
     },

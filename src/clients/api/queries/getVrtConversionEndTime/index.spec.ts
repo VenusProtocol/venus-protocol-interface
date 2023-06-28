@@ -7,7 +7,7 @@ import getVrtConversionEndTime from '.';
 describe('api/queries/getVrtConversionEndTime', () => {
   test('returns the conversion end time on success', async () => {
     const fakeOutput = BN.from(1678859525000);
-    const vrtConversionEndtimeMock = jest.fn(async () => fakeOutput);
+    const vrtConversionEndtimeMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       conversionEndTime: vrtConversionEndtimeMock,

@@ -6,13 +6,13 @@ import { VTokenContract } from 'clients/contracts/types';
 
 import borrow from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/borrow', () => {
   test('returns contract receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const borrowMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const borrowMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

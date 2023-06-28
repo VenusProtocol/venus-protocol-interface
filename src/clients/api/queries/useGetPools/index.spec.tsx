@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -8,11 +9,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetPools, { UseGetPoolsOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetPools', () => {
   beforeEach(() => {
-    (useGetMainPool as jest.Mock).mockImplementation(() => ({
+    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],
       },

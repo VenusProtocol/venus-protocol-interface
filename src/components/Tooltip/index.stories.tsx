@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -15,7 +15,7 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof Tooltip>;
+} as Meta<typeof Tooltip>;
 
 export const TooltipDefault = () => (
   <Tooltip title="hello from tooltip" open>

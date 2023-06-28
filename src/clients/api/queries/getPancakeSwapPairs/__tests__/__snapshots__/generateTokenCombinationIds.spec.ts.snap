@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getPancakeSwapPairs/generateTokenCombinationIds generates unique IDs for provided token combinations 1`] = `
-Array [
+exports[`api/queries/getPancakeSwapPairs/generateTokenCombinationIds > generates unique IDs for provided token combinations 1`] = `
+[
   "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47-0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
   "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47-0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
   "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47-0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",

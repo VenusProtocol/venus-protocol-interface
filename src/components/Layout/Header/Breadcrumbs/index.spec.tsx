@@ -1,5 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -9,11 +10,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Breadcrumbs from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
-    (useGetPool as jest.Mock).mockImplementation(() => ({
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],
       },

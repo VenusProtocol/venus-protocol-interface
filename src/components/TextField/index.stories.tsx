@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { Button } from 'components';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default {
   title: 'Components/TextField',
   component: TextField,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof TextField>;
+} as Meta<typeof TextField>;
 
 export const Default = () => <TextField placeholder="0.0" type="number" min={0} />;
 

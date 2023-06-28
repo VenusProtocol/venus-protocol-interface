@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 import { Token } from 'types';
 
@@ -11,7 +11,7 @@ export default {
   title: 'Components/TokenGroup',
   component: TokenGroup,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof TokenGroup>;
+} as Meta<typeof TokenGroup>;
 
 const tokens: Token[] = [
   TESTNET_TOKENS.usdt,

@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
@@ -17,7 +17,7 @@ export default {
       // default: 'background.default',
     },
   },
-} as ComponentMeta<typeof TokenTextField>;
+} as Meta<typeof TokenTextField>;
 
 const initialData: { value: string } = { value: '' };
 

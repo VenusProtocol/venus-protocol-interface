@@ -8,8 +8,8 @@ const fakePoolIndex = 4;
 
 describe('api/mutation/executeWithdrawalFromXvsVault', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const executeWithdrawalMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const executeWithdrawalMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

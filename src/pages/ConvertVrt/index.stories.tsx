@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -20,9 +20,9 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof ConvertVrtUi>;
+} as Meta<typeof ConvertVrtUi>;
 
-const Template: Story<ConvertVrtUiProps> = args => <ConvertVrtUi {...args} />;
+const Template: StoryFn<ConvertVrtUiProps> = args => <ConvertVrtUi {...args} />;
 
 const context: AuthContextValue = {
   login: noop,
