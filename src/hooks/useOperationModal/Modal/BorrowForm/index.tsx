@@ -158,6 +158,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             amount={formValues.amountTokens}
             safeLimitTokens={safeLimitTokens}
             limitTokens={limitTokens}
+            formError={formError}
             asset={asset}
           />
         )}

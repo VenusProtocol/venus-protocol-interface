@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -12,14 +12,14 @@ export default {
   title: 'Components/ApproveToken',
   component: ApproveTokenUi,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof ApproveTokenUi>;
+} as Meta<typeof ApproveTokenUi>;
 
 export const Disabled = () => (
   <ApproveTokenUi
     title="To withdraw XVS to the Venus Protocol, you need to approve it first."
     token={TOKENS.xvs}
     isTokenApproved={false}
-    approvedToken={async () => fakeContractReceipt}
+    approveToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
   </ApproveTokenUi>
@@ -34,7 +34,7 @@ export const DisabledWithTokenInfo = () => (
       { iconSrc: TOKENS.usdc, label: 'Supply APY', children: '77.36' },
       { iconSrc: TOKENS.usdc, label: 'Distribution APY', children: '0.82' },
     ]}
-    approvedToken={async () => fakeContractReceipt}
+    approveToken={async () => fakeContractReceipt}
   >
     <Typography>Invisible Content</Typography>
   </ApproveTokenUi>
@@ -46,7 +46,7 @@ export const Enabled = () => (
     isTokenApproved
     token={TOKENS.usdc}
     assetInfo={[]}
-    approvedToken={async () => fakeContractReceipt}
+    approveToken={async () => fakeContractReceipt}
   >
     <Typography>Visible Content</Typography>
   </ApproveTokenUi>

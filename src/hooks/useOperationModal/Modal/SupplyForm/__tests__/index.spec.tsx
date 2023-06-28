@@ -4,6 +4,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -15,12 +16,12 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import SupplyForm from '..';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useCollateral');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useCollateral');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('displays correct token wallet balance', async () => {
@@ -33,11 +34,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       },
     );
 
-    await waitFor(() =>
-      getByText(
-        `${fakeAsset.userWalletBalanceTokens.toFormat()} ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`,
-      ),
-    );
+    await waitFor(() => getByText('10.00M XVS'));
   });
 
   it('displays correct token supply balance', async () => {
@@ -50,7 +47,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       },
     );
 
-    await waitFor(() => getByText(fakeAsset.userSupplyBalanceTokens.toFormat()));
+    await waitFor(() => getByText('1.00K'));
   });
 
   it('displays warning notice if asset is from an isolated pool', async () => {
@@ -158,7 +155,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.noticeError));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"The supply cap of 100 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
+      '"The supply cap of 100.00 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
     );
 
     // Check submit button is disabled
@@ -209,7 +206,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     // Check error notice is displayed
     await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You can not supply more than 90 XVS to this pool, as the supply cap for this market is set at 100 XVS and 10 XVS are currently being supplied to it."',
+      '"You can not supply more than 90.00 XVS to this pool, as the supply cap for this market is set at 100.00 XVS and 10.00 XVS are currently being supplied to it."',
     );
 
     // Check submit button is still disabled
@@ -260,10 +257,10 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       vToken: TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'], // vBNB
     };
 
-    const onCloseModalMock = jest.fn();
+    const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
@@ -309,10 +306,10 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   });
 
   it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const onCloseModalMock = jest.fn();
+    const onCloseModalMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (supply as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
       () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,

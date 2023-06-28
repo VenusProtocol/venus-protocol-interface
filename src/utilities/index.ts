@@ -3,11 +3,12 @@ export { restService } from './restService';
 export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as getContractAddress } from './getContractAddress';
+export { default as getSwapRouterContractAddress } from './getSwapRouterContractAddress';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,
   calculateYearlyEarningsForAsset,
-  calculateYearlyEarnings,
+  calculateYearlyInterests,
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';

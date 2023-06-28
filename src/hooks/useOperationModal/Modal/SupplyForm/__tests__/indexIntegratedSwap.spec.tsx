@@ -5,12 +5,13 @@ import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
 import { isFeatureEnabled } from 'utilities';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { swapTokensAndSupply } from 'clients/api';
-import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
+import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -21,8 +22,9 @@ import en from 'translation/translations/en.json';
 import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay from '..';
+import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
@@ -49,31 +51,31 @@ const fakeSwap: Swap = {
   direction: 'exactAmountIn',
 };
 
-jest.mock('clients/api');
-jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('hooks/useGetSwapInfo');
+vi.mock('clients/api');
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useGetSwapInfo');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (isFeatureEnabled as jest.Mock).mockImplementation(
+    (isFeatureEnabled as Vi.Mock).mockImplementation(
       featureFlag => featureFlag === 'integratedSwap',
     );
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
   });
 
   afterEach(() => {
-    (isFeatureEnabled as jest.Mock).mockRestore();
-    (isFeatureEnabled as jest.Mock).mockImplementation(originalIsFeatureEnabledMock);
+    (isFeatureEnabled as Vi.Mock).mockRestore();
+    (isFeatureEnabled as Vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
   });
 
   it('renders without crashing', () => {
@@ -117,9 +119,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       token: SWAP_TOKENS.busd,
     });
 
-    await waitFor(() =>
-      getByText(`${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} ${SWAP_TOKENS.busd.symbol}`),
-    );
+    await waitFor(() => getByText('300.00K BUSD'));
   });
 
   it('disables submit button if no amount was entered in input', async () => {
@@ -139,7 +139,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -184,7 +184,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -260,7 +260,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei.plus(1),
     };
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       error: undefined,
       isLoading: false,
@@ -298,7 +298,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
@@ -330,6 +330,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
     expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
+    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary)).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
@@ -341,7 +342,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
           : tokenBalance.balanceWei,
     }));
 
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
 
@@ -421,12 +422,12 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,
     }));
 
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText, getByTestId } = renderComponent(

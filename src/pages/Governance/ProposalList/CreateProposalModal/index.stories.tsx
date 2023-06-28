@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -7,7 +7,7 @@ import CreateProposalModal from '.';
 export default {
   title: 'Pages/Proposal/CreateProposalModal',
   component: CreateProposalModal,
-} as ComponentMeta<typeof CreateProposalModal>;
+} as Meta<typeof CreateProposalModal>;
 
 export const Default = () => (
   <CreateProposalModal

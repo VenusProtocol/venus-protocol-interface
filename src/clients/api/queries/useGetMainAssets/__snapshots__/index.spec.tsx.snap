@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetMainAssets calculates totals correctly 1`] = `
-Object {
-  "assets": Array [
-    Object {
+exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
+{
+  "assets": [
+    {
       "borrowApyPercentage": "-4.6398079628683675",
       "borrowBalanceCents": "67985300.36106606",
       "borrowBalanceTokens": "1008551.9121941992969102",
@@ -12,14 +12,14 @@ Object {
       "borrowerCount": 306,
       "cashTokens": "2953394.670260493182198196",
       "collateralFactor": 0.5,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "1.351224864211795426",
           "dailyDistributedTokens": "49.999999999999968",
           "supplyApyPercentage": "0.34260730848036692",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -44,19 +44,19 @@ Object {
       "userSupplyBalanceTokens": "117016.712722872983975881",
       "userWalletBalanceCents": "693757242367.5109474",
       "userWalletBalanceTokens": "10291786454.9",
-      "vToken": Object {
+      "vToken": {
         "address": "0x74469281310195A04840Daf6EdF576F559a3dE80",
         "decimals": 8,
         "symbol": "vSXP",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x75107940Cf1121232C0559c747A986DEfbc69DA9",
-          "asset": "sxp.svg",
+          "asset": "/src/assets/img/tokens/sxp.svg",
           "decimals": 18,
           "symbol": "SXP",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-2.0144969997738267",
       "borrowBalanceCents": "858682573794807.3",
       "borrowBalanceTokens": "8586112918853.550179",
@@ -65,14 +65,14 @@ Object {
       "borrowerCount": 232,
       "cashTokens": "10001000096016525033.105349",
       "collateralFactor": 0.81,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.000002125348834693",
           "dailyDistributedTokens": "999.9999936",
           "supplyApyPercentage": "1.824635e-12",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -97,19 +97,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "2133023701.211112192774",
       "userWalletBalanceTokens": "21328466.322837",
-      "vToken": Object {
+      "vToken": {
         "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "decimals": 8,
         "symbol": "vUSDC",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-          "asset": "usdc.svg",
+          "asset": "/src/assets/img/tokens/usdc.svg",
           "decimals": 6,
           "symbol": "USDC",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-2.014488268288307",
       "borrowBalanceCents": "3046289448.421817",
       "borrowBalanceTokens": "30465941.078326",
@@ -118,14 +118,14 @@ Object {
       "borrowerCount": 315,
       "cashTokens": "1.009900000007157528256867649649e+24",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.600882672824011072",
           "dailyDistributedTokens": "999.9999936",
           "supplyApyPercentage": "0",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -150,19 +150,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "9.9990000000000222855930212386581e+23",
       "userWalletBalanceTokens": "1.0000000000000022287821803419e+22",
-      "vToken": Object {
+      "vToken": {
         "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
         "decimals": 8,
         "symbol": "vUSDT",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-          "asset": "usdt.svg",
+          "asset": "/src/assets/img/tokens/usdt.svg",
           "decimals": 6,
           "symbol": "USDT",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-2.8269802937000055",
       "borrowBalanceCents": "83904467212.08831",
       "borrowBalanceTokens": "838879295.456576767818085792",
@@ -171,14 +171,14 @@ Object {
       "borrowerCount": 533,
       "cashTokens": "9706099325.362378744807744335",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.021753286763848276",
           "dailyDistributedTokens": "999.9999936",
           "supplyApyPercentage": "0.001730355354365121",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -203,19 +203,19 @@ Object {
       "userSupplyBalanceTokens": "100002044.854604682831251369",
       "userWalletBalanceCents": "991745614881.552537868676826372128942",
       "userWalletBalanceTokens": "9915501406.868175386591055703",
-      "vToken": Object {
+      "vToken": {
         "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
         "decimals": 8,
         "symbol": "vBUSD",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-          "asset": "busd.svg",
+          "asset": "/src/assets/img/tokens/busd.svg",
           "decimals": 18,
           "symbol": "BUSD",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-94.54098055818199",
       "borrowBalanceCents": "4644293442.793576",
       "borrowBalanceTokens": "163570.361869451489735025",
@@ -224,14 +224,14 @@ Object {
       "borrowerCount": 261,
       "cashTokens": "0.13472495639294993",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "1.141107132664179593",
           "dailyDistributedTokens": "2999.9999808",
           "supplyApyPercentage": "1.185821799653397884",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -256,20 +256,20 @@ Object {
       "userSupplyBalanceTokens": "136076.839108609628017125",
       "userWalletBalanceCents": "11003.51627791526445",
       "userWalletBalanceTokens": "0.37300871",
-      "vToken": Object {
+      "vToken": {
         "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
         "decimals": 8,
         "symbol": "vBNB",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb",
-          "asset": "bnb.svg",
+          "asset": "/src/assets/img/tokens/bnb.svg",
           "decimals": 18,
           "isNative": true,
           "symbol": "BNB",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-19.90282685098207",
       "borrowBalanceCents": "30648883.710283635",
       "borrowBalanceTokens": "306488.837102836344256144",
@@ -278,14 +278,14 @@ Object {
       "borrowerCount": 77,
       "cashTokens": "1384009.148852251251535718",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0",
           "dailyDistributedTokens": "0",
           "supplyApyPercentage": "0",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -310,19 +310,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "796091163.8875779896204111",
       "userWalletBalanceTokens": "7960911.638875779896204111",
-      "vToken": Object {
+      "vToken": {
         "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
         "decimals": 8,
         "symbol": "vXVS",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "xvs.svg",
+          "asset": "/src/assets/img/tokens/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-5.7292945208867785",
       "borrowBalanceCents": "1232054135.6261484",
       "borrowBalanceTokens": "410.044985006090348771",
@@ -331,14 +331,14 @@ Object {
       "borrowerCount": 51,
       "cashTokens": "734.855505167845506968",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "4.543731091576054636",
           "dailyDistributedTokens": "2999.9999808",
           "supplyApyPercentage": "1.606740170918635611",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -363,19 +363,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "231980913.790268561748007912247324",
       "userWalletBalanceTokens": "77.206518420139934356",
-      "vToken": Object {
+      "vToken": {
         "address": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
         "decimals": 8,
         "symbol": "vBTCB",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4",
-          "asset": "btcb.svg",
+          "asset": "/src/assets/img/tokens/btcb.svg",
           "decimals": 18,
           "symbol": "BTCB",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-8.426578436066722",
       "borrowBalanceCents": "1539590955.2987011",
       "borrowBalanceTokens": "6946.982350412691554991",
@@ -384,14 +384,14 @@ Object {
       "borrowerCount": 51,
       "cashTokens": "4442.714417049498808402",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.594444965549789125",
           "dailyDistributedTokens": "500.0000256",
           "supplyApyPercentage": "0.363034531797658077",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -416,19 +416,19 @@ Object {
       "userSupplyBalanceTokens": "0.000002413831330426",
       "userWalletBalanceCents": "449394.301295725209142416193764",
       "userWalletBalanceTokens": "2.027768654221373684",
-      "vToken": Object {
+      "vToken": {
         "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
         "decimals": 8,
         "symbol": "vETH",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-          "asset": "eth.svg",
+          "asset": "/src/assets/img/tokens/eth.svg",
           "decimals": 18,
           "symbol": "ETH",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-3.1620166111983328",
       "borrowBalanceCents": "126638087.21955398",
       "borrowBalanceTokens": "16429.365902695430643694",
@@ -437,14 +437,14 @@ Object {
       "borrowerCount": 15,
       "cashTokens": "130061.670563178365758133",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "7.470759902626424876",
           "dailyDistributedTokens": "500.0000256",
           "supplyApyPercentage": "0.811613513165150039",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -469,19 +469,19 @@ Object {
       "userSupplyBalanceTokens": "96005.08925446772751426",
       "userWalletBalanceCents": "72532586.33314",
       "userWalletBalanceTokens": "9410",
-      "vToken": Object {
+      "vToken": {
         "address": "0xAfc13BC065ABeE838540823431055D2ea52eBA52",
         "decimals": 8,
         "symbol": "vLTC",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x969F147B6b8D81f86175de33206A4FD43dF17913",
-          "asset": "ltc.svg",
+          "asset": "/src/assets/img/tokens/ltc.svg",
           "decimals": 18,
           "symbol": "LTC",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-4.83745439850239",
       "borrowBalanceCents": "264952314.1081648",
       "borrowBalanceTokens": "5394143.0828219372345264",
@@ -490,14 +490,14 @@ Object {
       "borrowerCount": 31,
       "cashTokens": "14330025.564828778936472031",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "3.503840954113091774",
           "dailyDistributedTokens": "500.0000256",
           "supplyApyPercentage": "0.947264218064808693",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -522,19 +522,19 @@ Object {
       "userSupplyBalanceTokens": "15283991.474622634742699028",
       "userWalletBalanceCents": "1314297866.628393794075506693448168",
       "userWalletBalanceTokens": "26757685.698668550913435676",
-      "vToken": Object {
+      "vToken": {
         "address": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
         "decimals": 8,
         "symbol": "vXRP",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x3022A32fdAdB4f02281E8Fab33e0A6811237aab0",
-          "asset": "xrp.svg",
+          "asset": "/src/assets/img/tokens/xrp.svg",
           "decimals": 18,
           "symbol": "XRP",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-6.222291162175558",
       "borrowBalanceCents": "424976431.56555025",
       "borrowBalanceTokens": "7087754.765387647865700213",
@@ -543,14 +543,14 @@ Object {
       "borrowerCount": 19,
       "cashTokens": "10395941.328841921560972686",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.754335409204269745",
           "dailyDistributedTokens": "174.999999999999744",
           "supplyApyPercentage": "0.305120518892226646",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -575,19 +575,19 @@ Object {
       "userSupplyBalanceTokens": "10223438.720317962598219735",
       "userWalletBalanceCents": "599591888012600.851152447733418551713234",
       "userWalletBalanceTokens": "9999990460397.064552020012616879",
-      "vToken": Object {
+      "vToken": {
         "address": "0x37C28DE42bA3d22217995D146FC684B2326Ede64",
         "decimals": 8,
         "symbol": "vADA",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xcD34BC54106bd45A04Ed99EBcC2A6a3e70d7210F",
-          "asset": "ada.svg",
+          "asset": "/src/assets/img/tokens/ada.svg",
           "decimals": 18,
           "symbol": "ADA",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-11.43143544764434",
       "borrowBalanceCents": "97985006.66293829",
       "borrowBalanceTokens": "9675013.6298295",
@@ -596,14 +596,14 @@ Object {
       "borrowerCount": 20,
       "cashTokens": "1249474.80837593",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "1.720862854912494938",
           "dailyDistributedTokens": "91.610000000000064",
           "supplyApyPercentage": "1.522555082433944633",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -628,19 +628,19 @@ Object {
       "userSupplyBalanceTokens": "10892830.35019871",
       "userWalletBalanceCents": "1.0127635000000101276349999978424294500514118696195e+35",
       "userWalletBalanceTokens": "1.000000000000009999999999997869620548184657e+34",
-      "vToken": Object {
+      "vToken": {
         "address": "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
         "decimals": 8,
         "symbol": "vDOGE",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x67D262CE2b8b846d9B94060BC04DC40a83F0e25B",
-          "asset": "doge.svg",
+          "asset": "/src/assets/img/tokens/doge.svg",
           "decimals": 8,
           "symbol": "DOGE",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-3.3210326984806846",
       "borrowBalanceCents": "10194525.209929273",
       "borrowBalanceTokens": "127045.101864562779374701",
@@ -649,14 +649,14 @@ Object {
       "borrowerCount": 7,
       "cashTokens": "1366473.497104608422125521",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0",
           "dailyDistributedTokens": "0",
           "supplyApyPercentage": "0",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -681,19 +681,19 @@ Object {
       "userSupplyBalanceTokens": "1003104.395412477901702707",
       "userWalletBalanceCents": "8.0243355000802363186447517421645e+22",
       "userWalletBalanceTokens": "1.000000000009999123122999e+21",
-      "vToken": Object {
+      "vToken": {
         "address": "0x3619bdDc61189F33365CC572DF3a68FB3b316516",
         "decimals": 8,
         "symbol": "vMATIC",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xcfeb0103d4BEfa041EA4c2dACce7B3E83E1aE7E3",
-          "asset": "matic.svg",
+          "asset": "/src/assets/img/tokens/matic.svg",
           "decimals": 18,
           "symbol": "MATIC",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-9.944536924720465",
       "borrowBalanceCents": "1185227872.1560158",
       "borrowBalanceTokens": "1116641.764130412123471042",
@@ -702,14 +702,14 @@ Object {
       "borrowerCount": 9,
       "cashTokens": "1201245.300450770370010712",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "0.26982533135294494",
           "dailyDistributedTokens": "174.999999999999744",
           "supplyApyPercentage": "0.134967169585684514",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -734,19 +734,19 @@ Object {
       "userSupplyBalanceTokens": "1971598.000879882140081876",
       "userWalletBalanceCents": "10719358314155.32288272884672079104415",
       "userWalletBalanceTokens": "10099056442.61527168017781011",
-      "vToken": Object {
+      "vToken": {
         "address": "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
         "decimals": 8,
         "symbol": "vCAKE",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-          "asset": "cake.svg",
+          "asset": "/src/assets/img/tokens/cake.svg",
           "decimals": 18,
           "symbol": "CAKE",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-0.15634638954092597",
       "borrowBalanceCents": "3314470.130667992",
       "borrowBalanceTokens": "83.019490298266506222",
@@ -755,14 +755,14 @@ Object {
       "borrowerCount": 6,
       "cashTokens": "10516.052559851006074971",
       "collateralFactor": 0.55,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "14.754861490074778241",
           "dailyDistributedTokens": "25.0000000000000128",
           "supplyApyPercentage": "0.10787839946684478",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -787,19 +787,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "0",
       "userWalletBalanceTokens": "0",
-      "vToken": Object {
+      "vToken": {
         "address": "0x714db6c38A17883964B68a07d56cE331501d9eb6",
         "decimals": 8,
         "symbol": "vAAVE",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144",
-          "asset": "aave.svg",
+          "asset": "/src/assets/img/tokens/aave.svg",
           "decimals": 18,
           "symbol": "AAVE",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-0.000407488053549464",
       "borrowBalanceCents": "827924.3179938772",
       "borrowBalanceTokens": "8279.243179938772394707",
@@ -808,14 +808,14 @@ Object {
       "borrowerCount": 5,
       "cashTokens": "101302248.124545613039422944",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "200.564801757396621173",
           "dailyDistributedTokens": "50.0000000000000256",
           "supplyApyPercentage": "0.009007365834885316",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -840,19 +840,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "1081300700000",
       "userWalletBalanceTokens": "10813007000",
-      "vToken": Object {
+      "vToken": {
         "address": "0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0",
         "decimals": 8,
         "symbol": "vTUSDOLD",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xFeC3A63401Eb9C1476200d7C32c4009Be0154169",
-          "asset": "tusd.svg",
+          "asset": "/src/assets/img/tokens/tusd.svg",
           "decimals": 18,
           "symbol": "TUSDOLD",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-2.025978773806436",
       "borrowBalanceCents": "205808.2101085432",
       "borrowBalanceTokens": "2058.082101085432106229",
@@ -861,14 +861,14 @@ Object {
       "borrowerCount": 3,
       "cashTokens": "2731134.739119160849766471",
       "collateralFactor": 0.6,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "8102.522495213142034502",
           "dailyDistributedTokens": "50.0000000000000256",
           "supplyApyPercentage": "0.334415260865180737",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -893,19 +893,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "300.0003203144915042",
       "userWalletBalanceTokens": "3.000003203144915042",
-      "vToken": Object {
+      "vToken": {
         "address": "0x369Fea97f6fB7510755DCA389088d9E2e2819278",
         "decimals": 8,
         "symbol": "vTRXOLD",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F",
-          "asset": "trx.svg",
+          "asset": "/src/assets/img/tokens/trx.svg",
           "decimals": 18,
           "symbol": "TRXOLD",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-0.03324775882974874",
       "borrowBalanceCents": "10000.793237213038",
       "borrowBalanceTokens": "100.007932372130381683",
@@ -914,14 +914,14 @@ Object {
       "borrowerCount": 2,
       "cashTokens": "14900.999999998926001055",
       "collateralFactor": 0.8,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "2.342286892512915770892913642930703690751510720619883895e+37",
           "dailyDistributedTokens": "50.0000000000000256",
           "supplyApyPercentage": "83.636157517717037851",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -946,19 +946,19 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "0",
       "userWalletBalanceTokens": "0",
-      "vToken": Object {
+      "vToken": {
         "address": "0xF206af85BC2761c4F876d27Bd474681CfB335EfA",
         "decimals": 8,
         "symbol": "vUST",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0x5A79efD958432E72211ee73D5DDFa9bc8f248b5F",
-          "asset": "ust.svg",
+          "asset": "/src/assets/img/tokens/ust.svg",
           "decimals": 18,
           "symbol": "UST",
         },
       },
     },
-    Object {
+    {
       "borrowApyPercentage": "-2.014488268288307",
       "borrowBalanceCents": "0",
       "borrowBalanceTokens": "0",
@@ -967,14 +967,14 @@ Object {
       "borrowerCount": 0,
       "cashTokens": "1375",
       "collateralFactor": 0.55,
-      "distributions": Array [
-        Object {
+      "distributions": [
+        {
           "borrowApyPercentage": "1.587706392698558375",
           "dailyDistributedTokens": "75.0000000000000384",
           "supplyApyPercentage": "18.587706392698558375",
-          "token": Object {
+          "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -999,13 +999,13 @@ Object {
       "userSupplyBalanceTokens": "0",
       "userWalletBalanceCents": "0",
       "userWalletBalanceTokens": "0",
-      "vToken": Object {
+      "vToken": {
         "address": "0x9C3015191d39cF1930F92EB7e7BCbd020bCA286a",
         "decimals": 8,
         "symbol": "vLUNA",
-        "underlyingToken": Object {
+        "underlyingToken": {
           "address": "0xf36160EC62E3B191EA375dadfe465E8Fa1F8CabB",
-          "asset": "luna.svg",
+          "asset": "/src/assets/img/tokens/luna.svg",
           "decimals": 6,
           "symbol": "LUNA",
         },

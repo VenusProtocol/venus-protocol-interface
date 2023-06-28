@@ -1,11 +1,11 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Vault/VaultItem renders vault correctly 1`] = `"VAI"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 1`] = `"VAI"`;
 
-exports[`pages/Vault/VaultItem renders vault correctly 2`] = `"200"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 2`] = `"200.00"`;
 
-exports[`pages/Vault/VaultItem renders vault correctly 3`] = `"12665.06%"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 3`] = `"12665.06%"`;
 
-exports[`pages/Vault/VaultItem renders vault correctly 4`] = `"144.00"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 4`] = `"144.00"`;
 
-exports[`pages/Vault/VaultItem renders vault correctly 5`] = `"415.00"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 5`] = `"415.00"`;

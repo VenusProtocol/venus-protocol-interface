@@ -24,6 +24,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const handleLogin: WalletListProps['onLogin'] = connector => {
+    onClose();
+    return onLogin(connector);
+  };
+
   return (
     <Modal
       className="venus-modal"
@@ -37,7 +42,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }
     >
       {!accountAddress ? (
-        <WalletList onLogin={onLogin} />
+        <WalletList onLogin={handleLogin} />
       ) : (
         <AccountDetails
           accountAddress={accountAddress}

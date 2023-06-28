@@ -16,7 +16,7 @@ import { useStyles } from './styles';
 
 interface ApproveTokenStepsUiProps {
   token: Token;
-  approvedToken: () => Promise<unknown>;
+  approveToken: () => Promise<unknown>;
   isTokenApproved: boolean | undefined;
   isTokenApprovalStatusLoading: boolean;
   isApproveTokenLoading: boolean;
@@ -30,7 +30,7 @@ interface ApproveTokenStepsUiProps {
 
 const ApproveTokenStepsUi: React.FC<ApproveTokenStepsUiProps> = ({
   token,
-  approvedToken,
+  approveToken,
   isTokenApproved,
   isTokenApprovalStatusLoading,
   isApproveTokenLoading,
@@ -46,7 +46,7 @@ const ApproveTokenStepsUi: React.FC<ApproveTokenStepsUiProps> = ({
 
   const handleApproveToken = async () => {
     try {
-      await approvedToken();
+      await approveToken();
     } catch (error) {
       let { message } = error as Error;
 
@@ -68,12 +68,12 @@ const ApproveTokenStepsUi: React.FC<ApproveTokenStepsUiProps> = ({
     <div className={className}>
       <div css={styles.buttonLabelContainer}>
         <Typography variant="small1" component="label" css={styles.buttonLabel}>
-          {t('approvedTokenSteps.step1')}
+          {t('approveTokenSteps.step1')}
         </Typography>
 
         <Tooltip
-          title={t('approvedTokenSteps.approvedTokenButton.tooltip')}
-          css={styles.approvedTokenTooltip}
+          title={t('approveTokenSteps.approveTokenButton.tooltip')}
+          css={styles.approveTokenTooltip}
         >
           <Icon name="info" />
         </Tooltip>
@@ -83,16 +83,16 @@ const ApproveTokenStepsUi: React.FC<ApproveTokenStepsUiProps> = ({
         fullWidth
         onClick={handleApproveToken}
         loading={isApproveTokenLoading}
-        css={styles.approvedTokenButton}
+        css={styles.approveTokenButton}
       >
-        {t('approvedTokenSteps.approvedTokenButton.text', {
+        {t('approveTokenSteps.approveTokenButton.text', {
           tokenSymbol: token.symbol,
         })}
       </PrimaryButton>
 
       <div css={styles.buttonLabelContainer}>
         <Typography variant="small1" component="label" css={styles.buttonLabel}>
-          {t('approvedTokenSteps.step2')}
+          {t('approveTokenSteps.step2')}
         </Typography>
       </div>
 
@@ -106,7 +106,7 @@ const ApproveTokenStepsUi: React.FC<ApproveTokenStepsUiProps> = ({
 export interface ApproveTokenStepsProps
   extends Omit<
     ApproveTokenStepsUiProps,
-    'approvedToken' | 'isTokenApproved' | 'isTokenApprovalStatusLoading' | 'isApproveTokenLoading'
+    'approveToken' | 'isTokenApproved' | 'isTokenApprovalStatusLoading' | 'isApproveTokenLoading'
   > {
   spenderAddress: string;
 }
@@ -118,21 +118,17 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
 }) => {
   const { accountAddress } = useAuth();
 
-  const {
-    isTokenApproved,
-    approveToken: approvedToken,
-    isApproveTokenLoading,
-    isTokenApprovalStatusLoading,
-  } = useTokenApproval({
-    token,
-    spenderAddress,
-    accountAddress,
-  });
+  const { isTokenApproved, approveToken, isApproveTokenLoading, isTokenApprovalStatusLoading } =
+    useTokenApproval({
+      token,
+      spenderAddress,
+      accountAddress,
+    });
 
   return (
     <ApproveTokenStepsUi
       token={token}
-      approvedToken={approvedToken}
+      approveToken={approveToken}
       isTokenApproved={isTokenApproved}
       isTokenApprovalStatusLoading={isTokenApprovalStatusLoading}
       isApproveTokenLoading={isApproveTokenLoading}

@@ -11,7 +11,7 @@ describe('api/queries/getCurrentVotes', () => {
   test('returns current votes on success', async () => {
     const fakeOutput = BN.from(10000);
 
-    const getCurrentVotesMock = jest.fn(async () => fakeOutput);
+    const getCurrentVotesMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       getCurrentVotes: getCurrentVotesMock,

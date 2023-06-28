@@ -53,7 +53,6 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
             {formatTokensToReadableValue({
               value: xvsPerDay,
               token: TOKENS.xvs,
-              minimizeDecimals: true,
             })}
           </Typography>
         ),

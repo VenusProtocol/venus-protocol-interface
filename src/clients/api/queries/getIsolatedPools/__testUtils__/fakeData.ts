@@ -36,7 +36,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0xa8062D2bd49D1D2C6376B444bde19402B38938d0',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+        vToken: '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -54,7 +54,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x4190ab00'),
         underlyingAssetAddress: '0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+        vToken: '0x3338988d0beb4419acb8fe624218754053362d06',
         vTokenDecimals: BN.from('0x08'),
       },
     ],
@@ -88,7 +88,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+        vToken: '0x74469281310195a04840daf6edf576f559a3de80',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -106,7 +106,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+        vToken: '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -124,7 +124,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0x523027fFdf9B18Aa652dBcd6B92f885009153dA3',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+        vToken: '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -142,7 +142,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+        vToken: '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -160,7 +160,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+        vToken: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -178,7 +178,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+        vToken: '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
         vTokenDecimals: BN.from('0x08'),
       },
       {
@@ -196,7 +196,7 @@ export const fakeGetAllPoolsOuput = [
         totalSupply: BN.from('0x3b9aca00'),
         underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
         underlyingDecimals: BN.from('0x12'),
-        vToken: '0xC435541466890d74Ed7c7102D434162817712217',
+        vToken: '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
         vTokenDecimals: BN.from('0x08'),
       },
     ],
@@ -216,15 +216,15 @@ export const fakeMulticallResponse1 = {
             methodName: 'vTokenUnderlyingPriceAll(address[])',
             methodParameters: [
               [
-                '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
-                '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
-                '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
-                '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
-                '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
-                '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
-                '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
-                '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
-                '0xC435541466890d74Ed7c7102D434162817712217',
+                '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
+                '0x3338988d0beb4419acb8fe624218754053362d06',
+                '0x74469281310195a04840daf6edf576f559a3de80',
+                '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+                '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
+                '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
+                '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
+                '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
+                '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
               ],
             ],
           },
@@ -233,15 +233,15 @@ export const fakeMulticallResponse1 = {
             methodName: 'vTokenBalancesAll',
             methodParameters: [
               [
-                '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
-                '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
-                '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
-                '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
-                '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
-                '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
-                '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
-                '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
-                '0xC435541466890d74Ed7c7102D434162817712217',
+                '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
+                '0x3338988d0beb4419acb8fe624218754053362d06',
+                '0x74469281310195a04840daf6edf576f559a3de80',
+                '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+                '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
+                '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
+                '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
+                '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
+                '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
               ],
               '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
             ],
@@ -252,63 +252,63 @@ export const fakeMulticallResponse1 = {
         {
           returnValues: [
             [
-              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
               {
                 type: 'BigNumber',
                 hex: '0x088ebcd2341ff400',
               },
             ],
             [
-              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              '0x3338988d0beb4419acb8fe624218754053362d06',
               {
                 type: 'BigNumber',
                 hex: '0x05fa0e50dcecd3770000',
               },
             ],
             [
-              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              '0x74469281310195a04840daf6edf576f559a3de80',
               {
                 type: 'BigNumber',
                 hex: '0x7b53eac94b0400',
               },
             ],
             [
-              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
               {
                 type: 'BigNumber',
                 hex: '0x12426999090e17fc00',
               },
             ],
             [
-              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
               {
                 type: 'BigNumber',
                 hex: '0x06cde0813520d800',
               },
             ],
             [
-              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
               {
                 type: 'BigNumber',
                 hex: '0x5acdcfbc00',
               },
             ],
             [
-              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
               {
                 type: 'BigNumber',
                 hex: '0xae4956140c00',
               },
             ],
             [
-              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
               {
                 type: 'BigNumber',
                 hex: '0x11a509e5ca08857000',
               },
             ],
             [
-              '0xC435541466890d74Ed7c7102D434162817712217',
+              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
               {
                 type: 'BigNumber',
                 hex: '0x0dc456a89608b800',
@@ -320,15 +320,15 @@ export const fakeMulticallResponse1 = {
           methodName: 'vTokenUnderlyingPriceAll(address[])',
           methodParameters: [
             [
-              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
-              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
-              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
-              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
-              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
-              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
-              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
-              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
-              '0xC435541466890d74Ed7c7102D434162817712217',
+              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
+              '0x3338988d0beb4419acb8fe624218754053362d06',
+              '0x74469281310195a04840daf6edf576f559a3de80',
+              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
+              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
+              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
+              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
+              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
             ],
           ],
           success: true,
@@ -336,7 +336,7 @@ export const fakeMulticallResponse1 = {
         {
           returnValues: [
             [
-              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
+              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -359,7 +359,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
+              '0x3338988d0beb4419acb8fe624218754053362d06',
               {
                 type: 'BigNumber',
                 hex: '0x05f5e100',
@@ -382,7 +382,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
+              '0x74469281310195a04840daf6edf576f559a3de80',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -405,7 +405,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
+              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -428,7 +428,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
+              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -451,7 +451,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
+              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -474,7 +474,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
+              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -497,7 +497,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
+              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -520,7 +520,7 @@ export const fakeMulticallResponse1 = {
               },
             ],
             [
-              '0xC435541466890d74Ed7c7102D434162817712217',
+              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
               {
                 type: 'BigNumber',
                 hex: '0x00',
@@ -548,15 +548,15 @@ export const fakeMulticallResponse1 = {
           methodName: 'vTokenBalancesAll',
           methodParameters: [
             [
-              '0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa',
-              '0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33',
-              '0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199',
-              '0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553',
-              '0x81F71fa6eBf7393501A0a9fE851742Ff4990549e',
-              '0xbe516d022b9214416D7B5B4e38977C1d80A27f61',
-              '0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce',
-              '0x16689D4153D2d234D0c17cE671Fb61848078a0dB',
-              '0xC435541466890d74Ed7c7102D434162817712217',
+              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
+              '0x3338988d0beb4419acb8fe624218754053362d06',
+              '0x74469281310195a04840daf6edf576f559a3de80',
+              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
+              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
+              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
+              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
+              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
             ],
             '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
           ],
@@ -595,7 +595,7 @@ export const fakeMulticallResponse1 = {
           success: true,
         },
         {
-          returnValues: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          returnValues: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           decoded: true,
           reference: 'getAssetsIn',
           methodName: 'getAssetsIn(address)',
@@ -667,22 +667,22 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+            methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+            methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+            methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+            methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           },
         ],
       },
@@ -705,7 +705,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           success: true,
         },
         {
@@ -718,7 +718,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           success: true,
         },
         {
@@ -731,7 +731,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           success: true,
         },
         {
@@ -744,7 +744,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           success: true,
         },
       ],
@@ -763,22 +763,22 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+            methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+            methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+            methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+            methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           },
         ],
       },
@@ -801,7 +801,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           success: true,
         },
         {
@@ -814,7 +814,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xE2002F16496faec6ec3d032c4c4fB924E5E7e2fa'],
+          methodParameters: ['0x899ddf81dfbbf5889a16d075c352f2b959dd24a4'],
           success: true,
         },
         {
@@ -827,7 +827,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           success: true,
         },
         {
@@ -840,7 +840,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xE33A97a3b2a03aA064F3A83A322aaA4eD20e3c33'],
+          methodParameters: ['0x3338988d0beb4419acb8fe624218754053362d06'],
           success: true,
         },
       ],
@@ -859,72 +859,72 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
         ],
       },
@@ -947,7 +947,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -960,7 +960,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -973,7 +973,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -986,7 +986,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -999,7 +999,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1012,7 +1012,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1025,7 +1025,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1038,7 +1038,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1051,7 +1051,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1064,7 +1064,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1077,7 +1077,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1090,7 +1090,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1103,7 +1103,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
         {
@@ -1116,7 +1116,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
       ],
@@ -1135,72 +1135,72 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
         ],
       },
@@ -1223,7 +1223,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1236,7 +1236,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1249,7 +1249,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1262,7 +1262,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1275,7 +1275,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1288,7 +1288,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1301,7 +1301,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1314,7 +1314,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1327,7 +1327,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1340,7 +1340,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1353,7 +1353,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1366,7 +1366,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1379,7 +1379,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
         {
@@ -1392,7 +1392,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
       ],
@@ -1411,72 +1411,72 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
         ],
       },
@@ -1499,7 +1499,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1512,7 +1512,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1525,7 +1525,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1538,7 +1538,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1551,7 +1551,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1564,7 +1564,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1577,7 +1577,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1590,7 +1590,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1603,7 +1603,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1616,7 +1616,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1629,7 +1629,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1642,7 +1642,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1655,7 +1655,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
         {
@@ -1668,7 +1668,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
       ],
@@ -1687,72 +1687,72 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
         ],
       },
@@ -1775,7 +1775,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1788,7 +1788,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -1801,7 +1801,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1814,7 +1814,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -1827,7 +1827,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1840,7 +1840,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -1853,7 +1853,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1866,7 +1866,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -1879,7 +1879,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1892,7 +1892,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -1905,7 +1905,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1918,7 +1918,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -1931,7 +1931,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
         {
@@ -1944,7 +1944,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
       ],
@@ -1963,72 +1963,72 @@ export const fakeMulticallResponse2 = {
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+            methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+            methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+            methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+            methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+            methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+            methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           },
           {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
-            methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+            methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           },
         ],
       },
@@ -2051,7 +2051,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -2064,7 +2064,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x8bd9C7E9Ff20ce9bb0a57D63Aff1058116fba199'],
+          methodParameters: ['0x74469281310195a04840daf6edf576f559a3de80'],
           success: true,
         },
         {
@@ -2077,7 +2077,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -2090,7 +2090,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC8E2d418dAE56DcC9fa05A1c67AfeD876F04e553'],
+          methodParameters: ['0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7'],
           success: true,
         },
         {
@@ -2103,7 +2103,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -2116,7 +2116,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x81F71fa6eBf7393501A0a9fE851742Ff4990549e'],
+          methodParameters: ['0xb7526572ffe56ab9d7489838bf2e18e3323b441a'],
           success: true,
         },
         {
@@ -2129,7 +2129,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -2142,7 +2142,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xbe516d022b9214416D7B5B4e38977C1d80A27f61'],
+          methodParameters: ['0x08e0a5575de71037ae36abfafb516595fe68e5e4'],
           success: true,
         },
         {
@@ -2155,7 +2155,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -2168,7 +2168,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x67020F61F4F9ec23542cdB9d14bAd0768190c4ce'],
+          methodParameters: ['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
           success: true,
         },
         {
@@ -2181,7 +2181,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -2194,7 +2194,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0x16689D4153D2d234D0c17cE671Fb61848078a0dB'],
+          methodParameters: ['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
           success: true,
         },
         {
@@ -2207,7 +2207,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenSupplySpeed',
           methodName: 'rewardTokenSupplySpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
         {
@@ -2220,7 +2220,7 @@ export const fakeMulticallResponse2 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
-          methodParameters: ['0xC435541466890d74Ed7c7102D434162817712217'],
+          methodParameters: ['0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe'],
           success: true,
         },
       ],

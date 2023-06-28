@@ -1,50 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Swap/useGetSwapInfo/formatToSwap formats trade to swap correctly when direction is "exactAmountIn" 1`] = `
-Object {
+exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctly when direction is "exactAmountIn" 1`] = `
+{
   "direction": "exactAmountIn",
   "exchangeRate": "1",
   "expectedToTokenAmountReceivedWei": "10000000000000000000",
-  "fromToken": Object {
+  "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "asset": "busd.svg",
+    "asset": "/src/assets/img/tokens/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
   "fromTokenAmountSoldWei": "10000000000000000000",
   "minimumToTokenAmountReceivedWei": "9000000000000000000",
-  "routePath": Array [
+  "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
   ],
-  "toToken": Object {
+  "toToken": {
     "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "cake.svg",
+    "asset": "/src/assets/img/tokens/cake.svg",
     "decimals": 18,
     "symbol": "CAKE",
   },
 }
 `;
 
-exports[`pages/Swap/useGetSwapInfo/formatToSwap formats trade to swap correctly when direction is "exactAmountOut" 1`] = `
-Object {
+exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctly when direction is "exactAmountOut" 1`] = `
+{
   "direction": "exactAmountOut",
   "exchangeRate": "1",
   "expectedFromTokenAmountSoldWei": "10000000000000000000",
-  "fromToken": Object {
+  "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "asset": "busd.svg",
+    "asset": "/src/assets/img/tokens/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
   "maximumFromTokenAmountSoldWei": "11000000000000000000",
-  "routePath": Array [
+  "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
   ],
-  "toToken": Object {
+  "toToken": {
     "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "cake.svg",
+    "asset": "/src/assets/img/tokens/cake.svg",
     "decimals": 18,
     "symbol": "CAKE",
   },

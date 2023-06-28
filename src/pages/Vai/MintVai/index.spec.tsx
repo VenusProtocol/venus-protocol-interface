@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
+import Vi from 'vitest';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -14,9 +15,9 @@ import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
 
-jest.mock('clients/api');
-jest.mock('components/Toast');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('components/Toast');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiControllerResponses.getMintableVAI);
 
@@ -24,7 +25,7 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/vai/MintVai', () => {
   beforeEach(() => {
-    (getMintableVai as jest.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
+    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
   });
 
   it('renders without crashing', () => {
@@ -36,7 +37,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {
-    (getVaiTreasuryPercentage as jest.Mock).mockImplementationOnce(async () => ({
+    (getVaiTreasuryPercentage as Vi.Mock).mockImplementationOnce(async () => ({
       percentage: fakeVaiTreasuryPercentage,
     }));
 
@@ -47,20 +48,14 @@ describe('pages/Dashboard/vai/MintVai', () => {
     });
 
     // Check available VAI limit displays correctly
-    const readableFakeMintableVai = convertWeiToTokens({
-      valueWei: fakeGetMintableVaiOutput.mintableVaiWei,
-      token: TOKENS.vai,
-      returnInReadableFormat: true,
-    });
-
-    await waitFor(() => getByText(readableFakeMintableVai));
+    await waitFor(() => getByText('40.00 VAI'));
     // Check mint fee displays correctly
     await waitFor(() => getByText(`0 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });
 
   it('lets user mint VAI', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    (mintVai as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {

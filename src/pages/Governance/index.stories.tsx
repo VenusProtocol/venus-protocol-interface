@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 import { State } from 'react-powerplug';
 
@@ -10,7 +10,7 @@ export default {
   title: 'Pages/Vote',
   component: GovernanceUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof GovernanceUi>;
+} as Meta<typeof GovernanceUi>;
 
 const initialData: { value: number } = { value: 0 };
 

@@ -1,3 +1,5 @@
+import Vi from 'vitest';
+
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import {
@@ -12,7 +14,7 @@ import { Multicall as MulticallContract } from 'types/contracts';
 import claimRewards from '.';
 import { Claim } from './types';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 const fakeClaims: Claim[] = [
   {
@@ -44,8 +46,8 @@ const fakeClaims: Claim[] = [
 describe('api/mutation/claimVaiVaultReward', () => {
   test('calls multicall correctly', async () => {
     const fakeMulticallContract = {
-      tryBlockAndAggregate: jest.fn(async () => ({
-        wait: jest.fn(async () => fakeContractReceipt),
+      tryBlockAndAggregate: vi.fn(async () => ({
+        wait: vi.fn(async () => fakeContractReceipt),
       })),
     } as unknown as MulticallContract;
 
@@ -56,9 +58,9 @@ describe('api/mutation/claimVaiVaultReward', () => {
     });
 
     expect(fakeMulticallContract.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
-    expect((fakeMulticallContract.tryBlockAndAggregate as jest.Mock).mock.calls[0][0]).toBe(true);
+    expect((fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(true);
     expect(
-      (fakeMulticallContract.tryBlockAndAggregate as jest.Mock).mock.calls[0][1],
+      (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
     ).toMatchSnapshot();
 
     // Check it looked for errors present in contract receipt

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getXvsVaultUserInfo returns user info related to XVS vault in correct format on success 1`] = `
-Object {
+exports[`api/queries/getXvsVaultUserInfo > returns user info related to XVS vault in correct format on success 1`] = `
+{
   "pendingWithdrawalsTotalAmountWei": "1000000000000000000",
   "rewardDebtAmountWei": "2000000000000000000",
   "stakedAmountWei": "30000000000000000000",

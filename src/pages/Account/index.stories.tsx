@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
@@ -11,7 +11,7 @@ export default {
   title: 'Pages/Account',
   component: AccountUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof AccountUi>;
+} as Meta<typeof AccountUi>;
 
 export const WhileFetchingPools = () => <AccountUi pools={poolData} vaults={vaults} isFetching />;
 

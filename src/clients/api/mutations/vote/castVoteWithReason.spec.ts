@@ -5,8 +5,8 @@ import castVoteWithReason from './castVoteWithReason';
 
 describe('api/mutation/castVoteWithReason', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const castVoteWithReasonMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const castVoteWithReasonMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

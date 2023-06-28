@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
@@ -10,7 +10,7 @@ export default {
   title: 'Components/ApproveToken',
   component: EllipseAddress,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof EllipseAddress>;
+} as Meta<typeof EllipseAddress>;
 
 export const Default = () => <EllipseAddress address={fakeAddress} />;
 

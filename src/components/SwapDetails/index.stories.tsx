@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { exactAmountInSwap } from '__mocks__/models/swaps';
@@ -10,7 +10,7 @@ export default {
   title: 'Components/SwapDetails',
   component: SwapDetails,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SwapDetails>;
+} as Meta<typeof SwapDetails>;
 
 export const Default = () => <SwapDetails action="repay" />;
 

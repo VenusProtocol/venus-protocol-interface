@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -12,7 +12,7 @@ export default {
   title: 'Components/SuccessfulTransactionModal',
   component: SuccessfulTransactionModal,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SuccessfulTransactionModal>;
+} as Meta<typeof SuccessfulTransactionModal>;
 
 export const InModal = () => (
   <SuccessfulTransactionModal

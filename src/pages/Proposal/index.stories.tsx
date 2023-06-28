@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -12,7 +12,7 @@ export default {
   title: 'Pages/Proposal',
   component: ProposalUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof ProposalUi>;
+} as Meta<typeof ProposalUi>;
 
 export const Default = () => (
   <ProposalUi

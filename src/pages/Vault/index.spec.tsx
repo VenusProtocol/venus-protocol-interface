@@ -1,4 +1,5 @@
 import React from 'react';
+import Vi from 'vitest';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { useGetVaults } from 'clients/api';
@@ -7,11 +8,11 @@ import renderComponent from 'testUtils/renderComponent';
 import Vault from '.';
 import TEST_IDS from './VaultItem/testIds';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/Vault', () => {
   beforeEach(() => {
-    (useGetVaults as jest.Mock).mockImplementation(() => ({
+    (useGetVaults as Vi.Mock).mockImplementation(() => ({
       data: fakeVaults,
       isLoading: false,
     }));

@@ -4,8 +4,8 @@ import { Asset, Pool, Vault } from 'types';
 import {
   areTokensEqual,
   calculateDailyEarningsCents,
-  calculateYearlyEarnings,
   calculateYearlyEarningsForAssets,
+  calculateYearlyInterests,
   convertWeiToTokens,
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -50,7 +50,7 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
         return {
           totalVaultStakeCents: accTotalVaultStakeCents.totalVaultStakeCents.plus(vaultStakeCents),
           yearlyVaultEarningsCents: accTotalVaultStakeCents.yearlyVaultEarningsCents.plus(
-            calculateYearlyEarnings({
+            calculateYearlyInterests({
               balance: vaultStakeCents,
               interestPercentage: new BigNumber(vault.stakingAprPercentage),
             }),

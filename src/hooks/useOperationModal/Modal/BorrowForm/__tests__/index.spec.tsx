@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -13,11 +14,11 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import BorrowForm from '..';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeAsset, fakePool } from './fakeData';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   it('renders without crashing', () => {
@@ -43,7 +44,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     const borrowDeltaTokens = new BigNumber(borrowDeltaCents).dividedBy(fakeAsset.tokenPriceCents);
 
     await waitFor(() =>
-      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.vToken.underlyingToken.symbol}`),
+      getByText(`${borrowDeltaTokens.toFixed(2)} ${customFakeAsset.vToken.underlyingToken.symbol}`),
     );
   });
 
@@ -64,7 +65,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
     await waitFor(() =>
       getByText(
-        `${customFakeAsset.liquidityCents.dividedBy(100)} ${
+        `${customFakeAsset.liquidityCents.dividedBy(100).toFixed(2)} ${
           customFakeAsset.vToken.underlyingToken.symbol
         }`,
       ),
@@ -90,7 +91,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"The borrow cap of 100 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased."',
+      '"The borrow cap of 100.00 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased."',
     );
 
     // Check submit button is disabled
@@ -219,7 +220,7 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
     await waitFor(() => getByTestId(TEST_IDS.notice));
     expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"You can not borrow more than 90 XVS from this pool, as the borrow cap for this market is set at 100 XVS and 10 XVS are currently being borrowed from it."',
+      '"You can not borrow more than 90.00 XVS from this pool, as the borrow cap for this market is set at 100.00 XVS and 10.00 XVS are currently being borrowed from it."',
     );
 
     await waitFor(() =>
@@ -356,10 +357,10 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (borrow as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,

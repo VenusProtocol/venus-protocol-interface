@@ -1,6 +1,6 @@
 import { UseGetSwapInfoOutput } from '../types';
 
-const useGetSwapInfo = jest.fn(
+const useGetSwapInfo = vi.fn(
   (): UseGetSwapInfoOutput => ({
     swap: undefined,
     error: undefined,

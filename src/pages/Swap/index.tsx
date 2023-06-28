@@ -14,7 +14,12 @@ import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
-import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import {
+  areTokensEqual,
+  convertWeiToTokens,
+  formatToReadablePercentage,
+  getContractAddress,
+} from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
@@ -30,6 +35,8 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
+
+const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -377,7 +384,9 @@ const SwapPage: React.FC = () => {
     accountAddress,
   });
 
-  const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens();
+  const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens({
+    poolComptrollerAddress: MAIN_POOL_COMPTROLLER_ADDRESS,
+  });
 
   const onSwap = async (swap: Swap) =>
     swapTokens({

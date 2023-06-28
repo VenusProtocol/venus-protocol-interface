@@ -1,1 +1,1 @@
-export const restService = jest.fn();
+export const restService = vi.fn();

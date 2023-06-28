@@ -20,7 +20,7 @@ export interface ApproveTokenUiProps {
   token: Token;
   title: string | React.ReactElement;
   isTokenApproved: boolean;
-  approvedToken: () => Promise<ContractReceipt | undefined>;
+  approveToken: () => Promise<ContractReceipt | undefined>;
   isInitialLoading?: boolean;
   isApproveTokenLoading?: boolean;
   assetInfo?: LabeledInlineContentProps[];
@@ -32,7 +32,7 @@ export const ApproveTokenUi: React.FC<ApproveTokenUiProps> = ({
   title,
   assetInfo = [],
   children,
-  approvedToken,
+  approveToken,
   isTokenApproved,
   isInitialLoading = false,
   isApproveTokenLoading = false,
@@ -47,7 +47,7 @@ export const ApproveTokenUi: React.FC<ApproveTokenUiProps> = ({
 
   const handleApproveToken = async () => {
     try {
-      await approvedToken();
+      await approveToken();
     } catch (error) {
       let { message } = error as Error;
 
@@ -91,7 +91,7 @@ export const ApproveTokenUi: React.FC<ApproveTokenUiProps> = ({
             fullWidth
             onClick={handleApproveToken}
           >
-            {t('approvedToken.approveButtonLabel')}
+            {t('approveToken.approveButtonLabel')}
           </SecondaryButton>
         </>
       )}
@@ -118,7 +118,7 @@ export const ApproveToken: React.FC<ApproveTokenProps> = ({ token, spenderAddres
     <ApproveTokenUi
       {...rest}
       token={token}
-      approvedToken={approveToken}
+      approveToken={approveToken}
       isTokenApproved={isTokenApproved ?? false}
       isApproveTokenLoading={isApproveTokenLoading}
       isInitialLoading={isTokenApprovalStatusLoading}

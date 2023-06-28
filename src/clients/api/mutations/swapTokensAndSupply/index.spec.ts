@@ -13,8 +13,8 @@ const fakeVToken = assetData[0].vToken;
 
 describe('api/mutation/swapTokensAndSupply', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens to supply as many non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForTokensAndSupplyMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactTokensForTokensAndSupplyMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
@@ -48,8 +48,8 @@ describe('api/mutation/swapTokensAndSupply', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactBNBForTokensAndSupplyMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactBNBForTokensAndSupplyMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

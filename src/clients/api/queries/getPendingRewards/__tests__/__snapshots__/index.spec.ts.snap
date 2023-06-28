@@ -1,15 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getPendingRewardGroups returns pool rewards of the user in the correct format on success 1`] = `
-Array [
-  Object {
-    "abi": Array [
-      Object {
+exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user in the correct format on success 1`] = `
+[
+  {
+    "abi": [
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "BLOCKS_PER_DAY",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -19,35 +19,35 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract ComptrollerInterface",
             "name": "comptroller",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "getAccountLimits",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "contract VToken[]",
                 "name": "markets",
                 "type": "address[]",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "liquidity",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "shortfall",
                 "type": "uint256",
@@ -62,23 +62,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address payable",
             "name": "account",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "comptrollerAddress",
             "type": "address",
           },
         ],
         "name": "getDailyXVS",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -88,85 +88,85 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract GovernorAlpha",
             "name": "governor",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256[]",
             "name": "proposalIds",
             "type": "uint256[]",
           },
         ],
         "name": "getGovProposals",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "proposalId",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "proposer",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "eta",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address[]",
                 "name": "targets",
                 "type": "address[]",
               },
-              Object {
+              {
                 "internalType": "uint256[]",
                 "name": "values",
                 "type": "uint256[]",
               },
-              Object {
+              {
                 "internalType": "string[]",
                 "name": "signatures",
                 "type": "string[]",
               },
-              Object {
+              {
                 "internalType": "bytes[]",
                 "name": "calldatas",
                 "type": "bytes[]",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "startBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "endBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "forVotes",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "againstVotes",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "canceled",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "executed",
                 "type": "bool",
@@ -181,45 +181,45 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract GovernorAlpha",
             "name": "governor",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "voter",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256[]",
             "name": "proposalIds",
             "type": "uint256[]",
           },
         ],
         "name": "getGovReceipts",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "proposalId",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "hasVoted",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "support",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "uint96",
                 "name": "votes",
                 "type": "uint96",
@@ -234,35 +234,35 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract XVS",
             "name": "xvs",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint32[]",
             "name": "blockNumbers",
             "type": "uint32[]",
           },
         ],
         "name": "getVenusVotes",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "blockNumber",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "votes",
                 "type": "uint256",
@@ -277,35 +277,35 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract XVS",
             "name": "xvs",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "getXVSBalanceMetadata",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "balance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "votes",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "delegate",
                 "type": "address",
@@ -320,45 +320,45 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract XVS",
             "name": "xvs",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "contract ComptrollerInterface",
             "name": "comptroller",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "getXVSBalanceMetadataExt",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "balance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "votes",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "delegate",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "allocated",
                 "type": "uint256",
@@ -373,47 +373,47 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "holder",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "contract ComptrollerInterface",
             "name": "comptroller",
             "type": "address",
           },
         ],
         "name": "pendingRewards",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "distributorAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "rewardTokenAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalRewards",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vTokenAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "amount",
                     "type": "uint256",
@@ -433,50 +433,50 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address payable",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "vTokenBalances",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOf",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowBalanceCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOfUnderlying",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenBalance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenAllowance",
                 "type": "uint256",
@@ -491,50 +491,50 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
-          Object {
+          {
             "internalType": "address payable",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "vTokenBalancesAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOf",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowBalanceCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOfUnderlying",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenBalance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenAllowance",
                 "type": "uint256",
@@ -549,105 +549,105 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
         ],
         "name": "vTokenMetadata",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "exchangeRateCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalBorrows",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalReserves",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalSupply",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalCash",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "isListed",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "collateralFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "underlyingAssetAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "vTokenDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "venusSupplySpeed",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "venusBorrowSpeed",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "dailySupplyXvs",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "dailyBorrowXvs",
                 "type": "uint256",
@@ -662,105 +662,105 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
         ],
         "name": "vTokenMetadataAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "exchangeRateCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalBorrows",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalReserves",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalSupply",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalCash",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "isListed",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "collateralFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "underlyingAssetAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "vTokenDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "venusSupplySpeed",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "venusBorrowSpeed",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "dailySupplyXvs",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "dailyBorrowXvs",
                 "type": "uint256",
@@ -775,25 +775,25 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
         ],
         "name": "vTokenUnderlyingPrice",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingPrice",
                 "type": "uint256",
@@ -808,25 +808,25 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
         ],
         "name": "vTokenUnderlyingPriceAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingPrice",
                 "type": "uint256",
@@ -842,10 +842,10 @@ Array [
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "pendingRewards",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
         ],
@@ -855,24 +855,24 @@ Array [
     "contractAddress": "0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3",
     "reference": "venusLens",
   },
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "oldAdmin",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newAdmin",
@@ -882,16 +882,16 @@ Array [
         "name": "AdminTransfered",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -901,16 +901,16 @@ Array [
         "name": "Deposit",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -920,27 +920,27 @@ Array [
         "name": "Withdraw",
         "type": "event",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract VAIVaultProxy",
             "name": "vaiVaultProxy",
             "type": "address",
           },
         ],
         "name": "_become",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "accXVSPerShare",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -950,12 +950,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "admin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -965,60 +965,60 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "burnAdmin",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "claim",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "claim",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "_amount",
             "type": "uint256",
           },
         ],
         "name": "deposit",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getAdmin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1028,12 +1028,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "pendingAdmin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1043,12 +1043,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "pendingRewards",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1058,12 +1058,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "pendingVAIVaultImplementation",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1073,18 +1073,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "pendingXVS",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1094,67 +1094,67 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "newAdmin",
             "type": "address",
           },
         ],
         "name": "setNewAdmin",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_xvs",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_vai",
             "type": "address",
           },
         ],
         "name": "setVenusInfo",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "updatePendingRewards",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "userInfo",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "rewardDebt",
             "type": "uint256",
@@ -1164,12 +1164,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "vai",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "contract IBEP20",
             "name": "",
             "type": "address",
@@ -1179,12 +1179,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "vaiVaultImplementation",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1194,27 +1194,27 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "uint256",
             "name": "_amount",
             "type": "uint256",
           },
         ],
         "name": "withdraw",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "xvs",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "contract IBEP20",
             "name": "",
             "type": "address",
@@ -1224,12 +1224,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "xvsBalance",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -1240,10 +1240,10 @@ Array [
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "pendingXVS",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "pendingXVS",
@@ -1252,24 +1252,24 @@ Array [
     "contractAddress": "0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118",
     "reference": "vaiVault",
   },
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [],
+  {
+    "abi": [
+      {
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "oldAdmin",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "newAdmin",
@@ -1279,28 +1279,28 @@ Array [
         "name": "AdminTransferred",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -1310,22 +1310,22 @@ Array [
         "name": "Claim",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "delegator",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "fromDelegate",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "toDelegate",
@@ -1335,22 +1335,22 @@ Array [
         "name": "DelegateChangedV2",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "delegate",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "previousBalance",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "newBalance",
@@ -1360,28 +1360,28 @@ Array [
         "name": "DelegateVotesChangedV2",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -1391,28 +1391,28 @@ Array [
         "name": "Deposit",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -1422,40 +1422,40 @@ Array [
         "name": "ExecutedWithdrawal",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "token",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "allocPoints",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "rewardPerBlock",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "lockPeriod",
@@ -1465,28 +1465,28 @@ Array [
         "name": "PoolAdded",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "oldAllocPoints",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "newAllocPoints",
@@ -1496,28 +1496,28 @@ Array [
         "name": "PoolUpdated",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "user",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
@@ -1527,22 +1527,22 @@ Array [
         "name": "RequestedWithdrawal",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "oldReward",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "newReward",
@@ -1552,28 +1552,28 @@ Array [
         "name": "RewardAmountUpdated",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": false,
             "internalType": "address",
             "name": "oldXvs",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "address",
             "name": "oldStore",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "address",
             "name": "newXvs",
             "type": "address",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "address",
             "name": "newStore",
@@ -1583,28 +1583,28 @@ Array [
         "name": "StoreUpdated",
         "type": "event",
       },
-      Object {
+      {
         "anonymous": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "indexed": true,
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "oldPeriod",
             "type": "uint256",
           },
-          Object {
+          {
             "indexed": false,
             "internalType": "uint256",
             "name": "newPeriod",
@@ -1614,12 +1614,12 @@ Array [
         "name": "WithdrawalLockingPeriodUpdated",
         "type": "event",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "DELEGATION_TYPEHASH",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bytes32",
             "name": "",
             "type": "bytes32",
@@ -1629,12 +1629,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "DOMAIN_TYPEHASH",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "bytes32",
             "name": "",
             "type": "bytes32",
@@ -1644,62 +1644,62 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "contract XVSVaultProxy",
             "name": "xvsVaultProxy",
             "type": "address",
           },
         ],
         "name": "_become",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_allocPoint",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "contract IBEP20",
             "name": "_token",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_rewardPerBlock",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_lockPeriod",
             "type": "uint256",
           },
         ],
         "name": "add",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "admin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1709,37 +1709,37 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [],
+        "inputs": [],
         "name": "burnAdmin",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint32",
             "name": "",
             "type": "uint32",
           },
         ],
         "name": "checkpoints",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint32",
             "name": "fromBlock",
             "type": "uint32",
           },
-          Object {
+          {
             "internalType": "uint96",
             "name": "votes",
             "type": "uint96",
@@ -1749,98 +1749,98 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_account",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
         ],
         "name": "claim",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "delegatee",
             "type": "address",
           },
         ],
         "name": "delegate",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "delegatee",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "nonce",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "expiry",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint8",
             "name": "v",
             "type": "uint8",
           },
-          Object {
+          {
             "internalType": "bytes32",
             "name": "r",
             "type": "bytes32",
           },
-          Object {
+          {
             "internalType": "bytes32",
             "name": "s",
             "type": "bytes32",
           },
         ],
         "name": "delegateBySig",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "delegates",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1850,57 +1850,57 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_amount",
             "type": "uint256",
           },
         ],
         "name": "deposit",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
         ],
         "name": "executeWithdrawal",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "getAdmin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -1910,18 +1910,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "getCurrentVotes",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint96",
             "name": "",
             "type": "uint96",
@@ -1931,28 +1931,28 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "getEligibleWithdrawalAmount",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "withdrawalAmount",
             "type": "uint256",
@@ -1962,23 +1962,23 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "blockNumber",
             "type": "uint256",
           },
         ],
         "name": "getPriorVotes",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint96",
             "name": "",
             "type": "uint96",
@@ -1988,28 +1988,28 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "getRequestedAmount",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2019,38 +2019,38 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "getUserInfo",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "rewardDebt",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "pendingWithdrawals",
             "type": "uint256",
@@ -2060,40 +2060,40 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "getWithdrawalRequests",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "uint256",
                 "name": "amount",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint128",
                 "name": "lockedUntil",
                 "type": "uint128",
               },
-              Object {
+              {
                 "internalType": "uint128",
                 "name": "afterUpgrade",
                 "type": "uint128",
@@ -2108,12 +2108,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "implementation",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -2123,33 +2123,33 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
         ],
         "name": "massUpdatePools",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "nonces",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2159,18 +2159,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "numCheckpoints",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint32",
             "name": "",
             "type": "uint32",
@@ -2180,12 +2180,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "pendingAdmin",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -2195,28 +2195,28 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "pendingReward",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2226,28 +2226,28 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_user",
             "type": "address",
           },
         ],
         "name": "pendingWithdrawalsBeforeUpgrade",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "beforeUpgradeWithdrawalAmount",
             "type": "uint256",
@@ -2257,12 +2257,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "pendingXVSVaultImplementation",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -2272,43 +2272,43 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
           },
         ],
         "name": "poolInfos",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "contract IBEP20",
             "name": "token",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "allocPoint",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "lastRewardBlock",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "accRewardPerShare",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "lockPeriod",
             "type": "uint256",
@@ -2318,18 +2318,18 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "rewardToken",
             "type": "address",
           },
         ],
         "name": "poolLength",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2339,43 +2339,43 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_amount",
             "type": "uint256",
           },
         ],
         "name": "requestWithdrawal",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "rewardTokenAmountsPerBlock",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2385,108 +2385,108 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_allocPoint",
             "type": "uint256",
           },
         ],
         "name": "set",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_rewardAmount",
             "type": "uint256",
           },
         ],
         "name": "setRewardAmountPerBlock",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_newPeriod",
             "type": "uint256",
           },
         ],
         "name": "setWithdrawalLockingPeriod",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_xvs",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "_xvsStore",
             "type": "address",
           },
         ],
         "name": "setXvsStore",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
           },
         ],
         "name": "totalAllocPoints",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "uint256",
             "name": "",
             "type": "uint256",
@@ -2496,32 +2496,32 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": false,
-        "inputs": Array [
-          Object {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "_rewardToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "uint256",
             "name": "_pid",
             "type": "uint256",
           },
         ],
         "name": "updatePool",
-        "outputs": Array [],
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "xvsAddress",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -2531,12 +2531,12 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
+      {
         "constant": true,
-        "inputs": Array [],
+        "inputs": [],
         "name": "xvsStore",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -2547,53 +2547,53 @@ Array [
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "poolInfos",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           0,
         ],
         "reference": "vault-0-poolInfos",
       },
-      Object {
+      {
         "methodName": "pendingReward",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           0,
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "vault-0-pendingReward",
       },
-      Object {
+      {
         "methodName": "pendingWithdrawalsBeforeUpgrade",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           0,
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "vault-0-pendingWithdrawalsBeforeUpgrade",
       },
-      Object {
+      {
         "methodName": "poolInfos",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           1,
         ],
         "reference": "vault-1-poolInfos",
       },
-      Object {
+      {
         "methodName": "pendingReward",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           1,
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "reference": "vault-1-pendingReward",
       },
-      Object {
+      {
         "methodName": "pendingWithdrawalsBeforeUpgrade",
-        "methodParameters": Array [
+        "methodParameters": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           1,
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
@@ -2604,158 +2604,158 @@ Array [
     "contractAddress": "0x9aB56bAD2D7631B2A857ccf36d998232A8b82280",
     "reference": "xvsVestingVaults",
   },
-  Object {
-    "abi": Array [
-      Object {
-        "inputs": Array [
-          Object {
+  {
+    "abi": [
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
         ],
         "name": "getAllPools",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "string",
                 "name": "name",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "creator",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "comptroller",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "blockPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "timestampPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "category",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "logoURL",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "description",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "priceOracle",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "closeFactor",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "liquidationIncentive",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "minLiquidatableCollateral",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vToken",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "exchangeRateCurrent",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalBorrows",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalReserves",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalSupply",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalCash",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "bool",
                     "name": "isListed",
                     "type": "bool",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "collateralFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "address",
                     "name": "underlyingAssetAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "vTokenDecimals",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "underlyingDecimals",
                     "type": "uint256",
@@ -2774,46 +2774,46 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "comptrollerAddress",
             "type": "address",
           },
         ],
         "name": "getPendingRewards",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "distributorAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "rewardTokenAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalRewards",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vTokenAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "amount",
                     "type": "uint256",
@@ -2832,36 +2832,36 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "comptrollerAddress",
             "type": "address",
           },
         ],
         "name": "getPoolBadDebt",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "comptroller",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalBadDebtUsd",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vTokenAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "badDebtUsd",
                     "type": "uint256",
@@ -2880,161 +2880,161 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "comptroller",
             "type": "address",
           },
         ],
         "name": "getPoolByComptroller",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "string",
                 "name": "name",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "creator",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "comptroller",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "blockPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "timestampPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "category",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "logoURL",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "description",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "priceOracle",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "closeFactor",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "liquidationIncentive",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "minLiquidatableCollateral",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vToken",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "exchangeRateCurrent",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalBorrows",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalReserves",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalSupply",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalCash",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "bool",
                     "name": "isListed",
                     "type": "bool",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "collateralFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "address",
                     "name": "underlyingAssetAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "vTokenDecimals",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "underlyingDecimals",
                     "type": "uint256",
@@ -3053,36 +3053,36 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
-          Object {
-            "components": Array [
-              Object {
+          {
+            "components": [
+              {
                 "internalType": "string",
                 "name": "name",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "creator",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "comptroller",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "blockPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "timestampPosted",
                 "type": "uint256",
@@ -3094,147 +3094,147 @@ Array [
           },
         ],
         "name": "getPoolDataFromVenusPool",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "string",
                 "name": "name",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "creator",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "comptroller",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "blockPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "timestampPosted",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "category",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "logoURL",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "string",
                 "name": "description",
                 "type": "string",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "priceOracle",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "closeFactor",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "liquidationIncentive",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "minLiquidatableCollateral",
                 "type": "uint256",
               },
-              Object {
-                "components": Array [
-                  Object {
+              {
+                "components": [
+                  {
                     "internalType": "address",
                     "name": "vToken",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "exchangeRateCurrent",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowRatePerBlock",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "reserveFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "supplyCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "borrowCaps",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalBorrows",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalReserves",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalSupply",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "totalCash",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "bool",
                     "name": "isListed",
                     "type": "bool",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "collateralFactorMantissa",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "address",
                     "name": "underlyingAssetAddress",
                     "type": "address",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "vTokenDecimals",
                     "type": "uint256",
                   },
-                  Object {
+                  {
                     "internalType": "uint256",
                     "name": "underlyingDecimals",
                     "type": "uint256",
@@ -3253,22 +3253,22 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "asset",
             "type": "address",
           },
         ],
         "name": "getPoolsSupportedByAsset",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address[]",
             "name": "",
             "type": "address[]",
@@ -3277,27 +3277,27 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "address",
             "name": "poolRegistryAddress",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "comptroller",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "asset",
             "type": "address",
           },
         ],
         "name": "getVTokenForAsset",
-        "outputs": Array [
-          Object {
+        "outputs": [
+          {
             "internalType": "address",
             "name": "",
             "type": "address",
@@ -3306,49 +3306,49 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "vTokenBalances",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOf",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowBalanceCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOfUnderlying",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenBalance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenAllowance",
                 "type": "uint256",
@@ -3362,49 +3362,49 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
-          Object {
+          {
             "internalType": "address",
             "name": "account",
             "type": "address",
           },
         ],
         "name": "vTokenBalancesAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOf",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowBalanceCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "balanceOfUnderlying",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenBalance",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "tokenAllowance",
                 "type": "uint256",
@@ -3418,94 +3418,94 @@ Array [
         "stateMutability": "nonpayable",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
         ],
         "name": "vTokenMetadata",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "exchangeRateCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyCaps",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowCaps",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalBorrows",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalReserves",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalSupply",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalCash",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "isListed",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "collateralFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "underlyingAssetAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "vTokenDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingDecimals",
                 "type": "uint256",
@@ -3519,94 +3519,94 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
         ],
         "name": "vTokenMetadataAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "exchangeRateCurrent",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowRatePerBlock",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "reserveFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "supplyCaps",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "borrowCaps",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalBorrows",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalReserves",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalSupply",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "totalCash",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "bool",
                 "name": "isListed",
                 "type": "bool",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "collateralFactorMantissa",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "address",
                 "name": "underlyingAssetAddress",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "vTokenDecimals",
                 "type": "uint256",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingDecimals",
                 "type": "uint256",
@@ -3620,24 +3620,24 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken",
             "name": "vToken",
             "type": "address",
           },
         ],
         "name": "vTokenUnderlyingPrice",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingPrice",
                 "type": "uint256",
@@ -3651,24 +3651,24 @@ Array [
         "stateMutability": "view",
         "type": "function",
       },
-      Object {
-        "inputs": Array [
-          Object {
+      {
+        "inputs": [
+          {
             "internalType": "contract VToken[]",
             "name": "vTokens",
             "type": "address[]",
           },
         ],
         "name": "vTokenUnderlyingPriceAll",
-        "outputs": Array [
-          Object {
-            "components": Array [
-              Object {
+        "outputs": [
+          {
+            "components": [
+              {
                 "internalType": "address",
                 "name": "vToken",
                 "type": "address",
               },
-              Object {
+              {
                 "internalType": "uint256",
                 "name": "underlyingPrice",
                 "type": "uint256",
@@ -3683,36 +3683,36 @@ Array [
         "type": "function",
       },
     ],
-    "calls": Array [
-      Object {
+    "calls": [
+      {
         "methodName": "getPendingRewards",
-        "methodParameters": Array [
+        "methodParameters": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
         ],
         "reference": "getPendingRewards",
       },
     ],
-    "contractAddress": "0x73Ac8216b93597264e2bf233B92a8F8cf413D609",
+    "contractAddress": "0x559936086C5f65b92240012ae0D2F70C082Ac0b0",
     "reference": "poolLens",
   },
 ]
 `;
 
-exports[`api/queries/getPendingRewardGroups returns pool rewards of the user in the correct format on success 2`] = `
-Object {
-  "pendingRewardGroups": Array [
-    Object {
+exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user in the correct format on success 2`] = `
+{
+  "pendingRewardGroups": [
+    {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
       "rewardAmountWei": "3.7154375659692912361873e+22",
-      "rewardToken": Object {
+      "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
+        "asset": "/src/assets/img/tokens/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
       "type": "mainPool",
-      "vTokenAddressesWithPendingReward": Array [
+      "vTokenAddressesWithPendingReward": [
         "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
         "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
@@ -3729,19 +3729,19 @@ Object {
         "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
       ],
     },
-    Object {
+    {
       "comptrollerAddress": "0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9",
-      "pendingRewards": Array [
-        Object {
+      "pendingRewards": [
+        {
           "rewardAmountWei": "2.95961827109044250302366e+23",
-          "rewardToken": Object {
+          "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "xvs.svg",
+            "asset": "/src/assets/img/tokens/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
           "rewardsDistributorAddress": "0xBfabfDC3A90C5a091DDA7721133E87871dd25d5F",
-          "vTokenAddressesWithPendingReward": Array [
+          "vTokenAddressesWithPendingReward": [
             "0x12d3a3Aa7f4917Ea3b8eE34F99A9A7Eec521FA61",
           ],
         },

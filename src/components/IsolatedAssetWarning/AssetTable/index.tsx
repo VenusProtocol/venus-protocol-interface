@@ -76,7 +76,6 @@ export const AssetTable: React.FC<AssetTableProps> = ({
               <Typography variant="small2">
                 {formatCentsToReadableValue({
                   value: asset.liquidityCents,
-                  shortenLargeValue: true,
                 })}
               </Typography>
             </div>

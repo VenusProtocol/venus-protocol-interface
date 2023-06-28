@@ -1,4 +1,5 @@
 import { Multicall } from 'ethereum-multicall';
+import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAddress from '__mocks__/models/address';
@@ -27,7 +28,7 @@ describe('api/queries/getVaiRepayAmountWithInterests', () => {
 
   test('returns the VAI fee with interests', async () => {
     const fakeMulticall = {
-      call: jest.fn(async () => fakeMulticallResponses.vaiController.getVaiRepayTotalAmount),
+      call: vi.fn(async () => fakeMulticallResponses.vaiController.getVaiRepayTotalAmount),
     } as unknown as Multicall;
 
     const response = await getVaiRepayAmountWithInterests({
@@ -36,7 +37,7 @@ describe('api/queries/getVaiRepayAmountWithInterests', () => {
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(response).toMatchSnapshot();
   });

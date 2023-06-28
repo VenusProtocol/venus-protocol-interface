@@ -8,7 +8,7 @@ import getMintableVai from '.';
 
 describe('api/queries/getMintableVai', () => {
   test('returns the mintable VAI in the correct format on success', async () => {
-    const getMintableVAIMock = jest.fn(async () => vaiControllerResponses.getMintableVAI);
+    const getMintableVAIMock = vi.fn(async () => vaiControllerResponses.getMintableVAI);
 
     const fakeContract = {
       getMintableVAI: getMintableVAIMock,

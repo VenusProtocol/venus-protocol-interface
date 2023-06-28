@@ -66,7 +66,7 @@ const useGenerateColumns = ({
           if (column === 'borrowApy' || column === 'labeledBorrowApy') {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
-            const borrowApy = poolAsset.borrowApyPercentage.plus(
+            const borrowApy = poolAsset.borrowApyPercentage.minus(
               combinedDistributionApys.borrowApyPercentage,
             );
 
@@ -107,11 +107,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.cashTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.liquidityCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -124,8 +122,7 @@ const useGenerateColumns = ({
               : new BigNumber(0);
             return formatCentsToReadableValue({
               value: price,
-              shortenLargeValue: true,
-              showAllDecimals: true,
+              isTokenPrice: true,
             });
           }
 
@@ -151,11 +148,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userWalletBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userWalletBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -167,11 +162,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userSupplyBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userSupplyBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             ) : (
@@ -185,11 +178,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.userBorrowBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.userBorrowBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             ) : (
@@ -203,11 +194,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.supplyBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.supplyBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -219,11 +208,9 @@ const useGenerateColumns = ({
                 topValue={formatTokensToReadableValue({
                   value: poolAsset.borrowBalanceTokens,
                   token: poolAsset.vToken.underlyingToken,
-                  shortenLargeValue: true,
                 })}
                 bottomValue={formatCentsToReadableValue({
                   value: poolAsset.borrowBalanceCents,
-                  shortenLargeValue: true,
                 })}
               />
             );
@@ -253,10 +240,10 @@ const useGenerateColumns = ({
             ? undefined
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                  const roaABorrowApy = rowA.borrowApyPercentage.plus(
+                  const roaABorrowApy = rowA.borrowApyPercentage.minus(
                     getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
                   );
-                  const roaBBorrowApy = rowB.borrowApyPercentage.plus(
+                  const roaBBorrowApy = rowB.borrowApyPercentage.minus(
                     getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
                   );
 

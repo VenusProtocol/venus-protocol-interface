@@ -24,7 +24,6 @@ const getValueString = (valueWei?: BigNumber) => {
     valueWei,
     token: TOKENS.xvs,
     returnInReadableFormat: true,
-    minimizeDecimals: true,
   });
 };
 

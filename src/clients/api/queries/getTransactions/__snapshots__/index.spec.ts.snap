@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getTransactions Gets called with correct default arguments 1`] = `
-Array [
-  Object {
+exports[`api/queries/getTransactions > Gets called with correct default arguments 1`] = `
+[
+  {
     "amountWei": "0",
     "blockNumber": 19636734,
     "category": "vtoken",
@@ -11,15 +11,15 @@ Array [
     "logIndex": "1",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xD4aDbd5ed497c7720127Bfe9b05D725aC72ae2a9",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x6b8f0ebd99034cf5bec250a2e14b1d594e85be39a2cecd1193536e9576897800",
   },
-  Object {
+  {
     "amountWei": "65379900000",
     "blockNumber": 19636720,
     "category": "vtoken",
@@ -28,15 +28,15 @@ Array [
     "logIndex": "2",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xb1739f27bf65398459df3228c0c74d955e8438e831fbde17506490368b264bf4",
   },
-  Object {
+  {
     "amountWei": "146960000",
     "blockNumber": 19632326,
     "category": "vtoken",
@@ -45,15 +45,15 @@ Array [
     "logIndex": "3",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x8eE02B3FeCcae787992c4790bc31b350E7d1F382",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7",
   },
-  Object {
+  {
     "amountWei": "1.7191e+21",
     "blockNumber": 19625976,
     "category": "vtoken",
@@ -62,15 +62,15 @@ Array [
     "logIndex": "4",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x40bcf58c72dcf0f56cf349155178de5d5b34b1cc36a00ee3c52789538acbfa23",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614816,
     "category": "vtoken",
@@ -79,15 +79,15 @@ Array [
     "logIndex": "5",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x389d646c3b3516eb905a571e327b4a368757f9c24963efe88e9c3cb6bacd89c4",
   },
-  Object {
+  {
     "amountWei": "2942280",
     "blockNumber": 19614805,
     "category": "vtoken",
@@ -96,15 +96,15 @@ Array [
     "logIndex": "6",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xa60dF6af57fb55c62511cA96eD6dA0AfE977436b",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xc2fff9b3781c39d727773f8233e72a45af3d49fa967057a7f1c7724ef244882e",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614713,
     "category": "vtoken",
@@ -113,15 +113,15 @@ Array [
     "logIndex": "7",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xebc9e9d632f30fe45b7181801eb7c03e60b275c207c7d8ebb5e317a1becf9f5b",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614700,
     "category": "vtoken",
@@ -130,15 +130,15 @@ Array [
     "logIndex": "8",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x862bdfa3b617562c5729b258728d2e504856c6f267bbba80fc432c3a8afe29fd",
   },
-  Object {
+  {
     "amountWei": "50000000000000000",
     "blockNumber": 19612497,
     "category": "vtoken",
@@ -147,15 +147,15 @@ Array [
     "logIndex": "9",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x85dca6ce86ae0e68b7a6486c72109322781fc4fdfd87bfccd59be258b7e7d8a1",
   },
-  Object {
+  {
     "amountWei": "42433200",
     "blockNumber": 19606971,
     "category": "vtoken",
@@ -164,15 +164,15 @@ Array [
     "logIndex": "10",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x496c5be16dcd2c1127f45879e0e571bb63b31cf197cbf069cf81cadf23686cfc",
   },
-  Object {
+  {
     "amountWei": "200000000000000000",
     "blockNumber": 19606940,
     "category": "vtoken",
@@ -181,15 +181,15 @@ Array [
     "logIndex": "11",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x4eeeab99581780110930b584faa5a2290c6dd989da23d67142da94aef6e2567c",
   },
-  Object {
+  {
     "amountWei": "393566000000",
     "blockNumber": 19605600,
     "category": "vtoken",
@@ -198,15 +198,15 @@ Array [
     "logIndex": "12",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x7b702744A7F9042670FD3d294eD81C82bA6A0350",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x000e045d8120d6de9a36e0d24bfcff2a52f8dbb2612e507fbe1d89d772a4f335",
   },
-  Object {
+  {
     "amountWei": "8000000000000000000",
     "blockNumber": 19605119,
     "category": "vtoken",
@@ -215,15 +215,15 @@ Array [
     "logIndex": "13",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x65f3e3923876aca08d4a4b6ad2e0a985f049732ede665faacf0490b04d35144d",
   },
-  Object {
+  {
     "amountWei": "9432770000",
     "blockNumber": 19589102,
     "category": "vtoken",
@@ -232,15 +232,15 @@ Array [
     "logIndex": "14",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x406ed11513e989a8532130c88a776416d91166aede02d152500af64700f63a76",
   },
-  Object {
+  {
     "amountWei": "1218900000000",
     "blockNumber": 19589089,
     "category": "vtoken",
@@ -249,15 +249,15 @@ Array [
     "logIndex": "15",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xbd3324f298e8064e7cd6e4d53b322ea5778a79003abb25e010340857ac2ef5e2",
   },
-  Object {
+  {
     "amountWei": "1e+22",
     "blockNumber": 19589043,
     "category": "vtoken",
@@ -266,15 +266,15 @@ Array [
     "logIndex": "16",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x85df57add40993d57b11b203743ffb3ec7b615c684c79754c84217e645898717",
   },
-  Object {
+  {
     "amountWei": "420132000",
     "blockNumber": 19588967,
     "category": "vtoken",
@@ -283,15 +283,15 @@ Array [
     "logIndex": "17",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x102add48b0ce2de31d39b45d4e1bb8f55eb45c884146607487d09857b1b0bf7b",
   },
-  Object {
+  {
     "amountWei": "292342000",
     "blockNumber": 19588945,
     "category": "vtoken",
@@ -300,15 +300,15 @@ Array [
     "logIndex": "18",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x839f73ce52cd04472dcea7e7b6670d3027ebd309e9bd7170345965d96ffed914",
   },
-  Object {
+  {
     "amountWei": "80043000000000000000",
     "blockNumber": 19588667,
     "category": "vtoken",
@@ -317,15 +317,15 @@ Array [
     "logIndex": "19",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x716d01587f26bbe313dab9858756f32c79efd5b0d33609e8ad7a294dfa7a6d31",
   },
-  Object {
+  {
     "amountWei": "2364790000000",
     "blockNumber": 19588665,
     "category": "vtoken",
@@ -334,9 +334,9 @@ Array [
     "logIndex": "20",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -345,9 +345,9 @@ Array [
 ]
 `;
 
-exports[`api/queries/getTransactions returns transaction models 1`] = `
-Array [
-  Object {
+exports[`api/queries/getTransactions > returns transaction models 1`] = `
+[
+  {
     "amountWei": "0",
     "blockNumber": 19636734,
     "category": "vtoken",
@@ -356,15 +356,15 @@ Array [
     "logIndex": "1",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xD4aDbd5ed497c7720127Bfe9b05D725aC72ae2a9",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x6b8f0ebd99034cf5bec250a2e14b1d594e85be39a2cecd1193536e9576897800",
   },
-  Object {
+  {
     "amountWei": "65379900000",
     "blockNumber": 19636720,
     "category": "vtoken",
@@ -373,15 +373,15 @@ Array [
     "logIndex": "2",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xb1739f27bf65398459df3228c0c74d955e8438e831fbde17506490368b264bf4",
   },
-  Object {
+  {
     "amountWei": "146960000",
     "blockNumber": 19632326,
     "category": "vtoken",
@@ -390,15 +390,15 @@ Array [
     "logIndex": "3",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x8eE02B3FeCcae787992c4790bc31b350E7d1F382",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7",
   },
-  Object {
+  {
     "amountWei": "1.7191e+21",
     "blockNumber": 19625976,
     "category": "vtoken",
@@ -407,15 +407,15 @@ Array [
     "logIndex": "4",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x40bcf58c72dcf0f56cf349155178de5d5b34b1cc36a00ee3c52789538acbfa23",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614816,
     "category": "vtoken",
@@ -424,15 +424,15 @@ Array [
     "logIndex": "5",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x389d646c3b3516eb905a571e327b4a368757f9c24963efe88e9c3cb6bacd89c4",
   },
-  Object {
+  {
     "amountWei": "2942280",
     "blockNumber": 19614805,
     "category": "vtoken",
@@ -441,15 +441,15 @@ Array [
     "logIndex": "6",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xa60dF6af57fb55c62511cA96eD6dA0AfE977436b",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xc2fff9b3781c39d727773f8233e72a45af3d49fa967057a7f1c7724ef244882e",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614713,
     "category": "vtoken",
@@ -458,15 +458,15 @@ Array [
     "logIndex": "7",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xebc9e9d632f30fe45b7181801eb7c03e60b275c207c7d8ebb5e317a1becf9f5b",
   },
-  Object {
+  {
     "amountWei": "1000000000000000",
     "blockNumber": 19614700,
     "category": "vtoken",
@@ -475,15 +475,15 @@ Array [
     "logIndex": "8",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x862bdfa3b617562c5729b258728d2e504856c6f267bbba80fc432c3a8afe29fd",
   },
-  Object {
+  {
     "amountWei": "50000000000000000",
     "blockNumber": 19612497,
     "category": "vtoken",
@@ -492,15 +492,15 @@ Array [
     "logIndex": "9",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x85dca6ce86ae0e68b7a6486c72109322781fc4fdfd87bfccd59be258b7e7d8a1",
   },
-  Object {
+  {
     "amountWei": "42433200",
     "blockNumber": 19606971,
     "category": "vtoken",
@@ -509,15 +509,15 @@ Array [
     "logIndex": "10",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x496c5be16dcd2c1127f45879e0e571bb63b31cf197cbf069cf81cadf23686cfc",
   },
-  Object {
+  {
     "amountWei": "200000000000000000",
     "blockNumber": 19606940,
     "category": "vtoken",
@@ -526,15 +526,15 @@ Array [
     "logIndex": "11",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x4eeeab99581780110930b584faa5a2290c6dd989da23d67142da94aef6e2567c",
   },
-  Object {
+  {
     "amountWei": "393566000000",
     "blockNumber": 19605600,
     "category": "vtoken",
@@ -543,15 +543,15 @@ Array [
     "logIndex": "12",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x7b702744A7F9042670FD3d294eD81C82bA6A0350",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x000e045d8120d6de9a36e0d24bfcff2a52f8dbb2612e507fbe1d89d772a4f335",
   },
-  Object {
+  {
     "amountWei": "8000000000000000000",
     "blockNumber": 19605119,
     "category": "vtoken",
@@ -560,15 +560,15 @@ Array [
     "logIndex": "13",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x65f3e3923876aca08d4a4b6ad2e0a985f049732ede665faacf0490b04d35144d",
   },
-  Object {
+  {
     "amountWei": "9432770000",
     "blockNumber": 19589102,
     "category": "vtoken",
@@ -577,15 +577,15 @@ Array [
     "logIndex": "14",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x406ed11513e989a8532130c88a776416d91166aede02d152500af64700f63a76",
   },
-  Object {
+  {
     "amountWei": "1218900000000",
     "blockNumber": 19589089,
     "category": "vtoken",
@@ -594,15 +594,15 @@ Array [
     "logIndex": "15",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0xbd3324f298e8064e7cd6e4d53b322ea5778a79003abb25e010340857ac2ef5e2",
   },
-  Object {
+  {
     "amountWei": "1e+22",
     "blockNumber": 19589043,
     "category": "vtoken",
@@ -611,15 +611,15 @@ Array [
     "logIndex": "16",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x85df57add40993d57b11b203743ffb3ec7b615c684c79754c84217e645898717",
   },
-  Object {
+  {
     "amountWei": "420132000",
     "blockNumber": 19588967,
     "category": "vtoken",
@@ -628,15 +628,15 @@ Array [
     "logIndex": "17",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x102add48b0ce2de31d39b45d4e1bb8f55eb45c884146607487d09857b1b0bf7b",
   },
-  Object {
+  {
     "amountWei": "292342000",
     "blockNumber": 19588945,
     "category": "vtoken",
@@ -645,15 +645,15 @@ Array [
     "logIndex": "18",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x839f73ce52cd04472dcea7e7b6670d3027ebd309e9bd7170345965d96ffed914",
   },
-  Object {
+  {
     "amountWei": "80043000000000000000",
     "blockNumber": 19588667,
     "category": "vtoken",
@@ -662,15 +662,15 @@ Array [
     "logIndex": "19",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
     "transactionHash": "0x716d01587f26bbe313dab9858756f32c79efd5b0d33609e8ad7a294dfa7a6d31",
   },
-  Object {
+  {
     "amountWei": "2364790000000",
     "blockNumber": 19588665,
     "category": "vtoken",
@@ -679,9 +679,9 @@ Array [
     "logIndex": "20",
     "timestamp": +055130-07-03T03:04:29.000Z,
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-    "token": Object {
+    "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "xvs.svg",
+      "asset": "/src/assets/img/tokens/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },

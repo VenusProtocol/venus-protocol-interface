@@ -7,15 +7,15 @@ import { XvsVault } from 'types/contracts';
 
 import stakeInXvsVault from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 const fakeAmountWei = new BigNumber('1000000000000');
 const fakePoolIndex = 4;
 
 describe('api/mutation/stakeInXvsVault', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const depositMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const depositMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

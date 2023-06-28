@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof HeaderUi>;
+} as Meta<typeof HeaderUi>;
 
 export const Default = () => (
   <HeaderUi

@@ -9,7 +9,7 @@ describe('api/queries/getVrtConversionRatio', () => {
   test('returns the conversion ratio on success', async () => {
     const fakeOutput = BN.from('100000000000000000000000');
 
-    const vrtConversionRatioMock = jest.fn(async () => fakeOutput);
+    const vrtConversionRatioMock = vi.fn(async () => fakeOutput);
 
     const fakeContract = {
       conversionRatio: vrtConversionRatioMock,

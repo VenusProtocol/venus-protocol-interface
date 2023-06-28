@@ -1,26 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoterHistory Gets called with correct default arguments 1`] = `
-Object {
+exports[`api/queries/getVoterHistory > Gets called with correct default arguments 1`] = `
+{
   "limit": 5,
   "offset": 0,
   "total": 5,
-  "voterHistory": Array [
-    Object {
+  "voterHistory": [
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6752554,
       "blockTimestamp": 1618987812,
       "createdAt": 2021-04-21T06:51:10.000Z,
       "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "27014047767849131149",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T02:11:13.000Z,
         "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
-        "description": Object {
+        "description": {
           "description": "
 Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
 
@@ -53,21 +53,21 @@ This proposal begins efforts of setting daily XVS emission rate for VAI and vUSD
       "updatedAt": 2021-04-21T06:51:10.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6755308,
       "blockTimestamp": 1618996126,
       "createdAt": 2021-04-21T09:12:03.000Z,
       "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "1008475453184684811",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T03:58:41.000Z,
         "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
-        "description": Object {
+        "description": {
           "description": "
 In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
 ",
@@ -95,21 +95,21 @@ In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first comm
       "updatedAt": 2021-04-21T09:12:03.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6778623,
       "blockTimestamp": 1619068919,
       "createdAt": 2021-04-22T05:22:34.000Z,
       "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "271645438287511902563",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-22T02:26:21.000Z,
         "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
-        "description": Object {
+        "description": {
           "description": "
 Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
 
@@ -150,21 +150,21 @@ For more information please visit: https://coinmarketcap.com/currencies/dogecoin
       "updatedAt": 2021-04-22T05:22:34.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6960733,
       "blockTimestamp": 1619619883,
       "createdAt": 2021-04-28T14:24:51.000Z,
       "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "2342202445218922408",
         "cancelDate": 2021-05-03T10:13:35.000Z,
         "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
         "createdDate": 2021-04-28T13:57:04.000Z,
         "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
-        "description": Object {
+        "description": {
           "description": "
 ## Summary
 Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
@@ -210,21 +210,21 @@ By increasing the above asset collateral to 80%, which will allow users to utili
       "updatedAt": 2021-04-28T14:24:51.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6970646,
       "blockTimestamp": 1619649813,
       "createdAt": 2021-04-28T22:43:45.000Z,
       "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "6.00654038898943986646375e+23",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-28T14:40:25.000Z,
         "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
-        "description": Object {
+        "description": {
           "description": "
 Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
 
@@ -261,27 +261,27 @@ FIL: Increase speed setting from 18.32 to 50 XVS daily
 }
 `;
 
-exports[`api/queries/getVoterHistory returns formatted voter history 1`] = `
-Object {
+exports[`api/queries/getVoterHistory > returns formatted voter history 1`] = `
+{
   "limit": 5,
   "offset": 0,
   "total": 5,
-  "voterHistory": Array [
-    Object {
+  "voterHistory": [
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6752554,
       "blockTimestamp": 1618987812,
       "createdAt": 2021-04-21T06:51:10.000Z,
       "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "27014047767849131149",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T02:11:13.000Z,
         "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
-        "description": Object {
+        "description": {
           "description": "
 Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
 
@@ -314,21 +314,21 @@ This proposal begins efforts of setting daily XVS emission rate for VAI and vUSD
       "updatedAt": 2021-04-21T06:51:10.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6755308,
       "blockTimestamp": 1618996126,
       "createdAt": 2021-04-21T09:12:03.000Z,
       "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "1008475453184684811",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T03:58:41.000Z,
         "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
-        "description": Object {
+        "description": {
           "description": "
 In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
 ",
@@ -356,21 +356,21 @@ In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first comm
       "updatedAt": 2021-04-21T09:12:03.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6778623,
       "blockTimestamp": 1619068919,
       "createdAt": 2021-04-22T05:22:34.000Z,
       "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "271645438287511902563",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-22T02:26:21.000Z,
         "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
-        "description": Object {
+        "description": {
           "description": "
 Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
 
@@ -411,21 +411,21 @@ For more information please visit: https://coinmarketcap.com/currencies/dogecoin
       "updatedAt": 2021-04-22T05:22:34.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6960733,
       "blockTimestamp": 1619619883,
       "createdAt": 2021-04-28T14:24:51.000Z,
       "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "2342202445218922408",
         "cancelDate": 2021-05-03T10:13:35.000Z,
         "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
         "createdDate": 2021-04-28T13:57:04.000Z,
         "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
-        "description": Object {
+        "description": {
           "description": "
 ## Summary
 Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
@@ -471,21 +471,21 @@ By increasing the above asset collateral to 80%, which will allow users to utili
       "updatedAt": 2021-04-28T14:24:51.000Z,
       "votesWei": "19000000007051654283",
     },
-    Object {
+    {
       "address": "0x8b592f7b651b3b4200a05834929f5b28ead289fe",
       "blockNumber": 6970646,
       "blockTimestamp": 1619649813,
       "createdAt": 2021-04-28T22:43:45.000Z,
       "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
-      "proposal": Object {
+      "proposal": {
         "abstainedVotesWei": "0",
-        "actions": Array [],
+        "actions": [],
         "againstVotesWei": "6.00654038898943986646375e+23",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-28T14:40:25.000Z,
         "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
-        "description": Object {
+        "description": {
           "description": "
 Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
 

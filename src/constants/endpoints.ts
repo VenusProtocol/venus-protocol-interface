@@ -4,8 +4,8 @@ export const API_ENDPOINT_URLS: Record<Environment, string> = {
   mainnet: 'https://api.venus.io/api',
   preview: 'https://api-preview.venus.io/api',
   testnet: 'https://testnetapi.venus.io/api',
-  local: 'https://testnetapi.venus.io/api',
-  mock: 'https://testnetapi.venus.io/api',
+  storybook: 'https://testnetapi.venus.io/api',
+  ci: 'https://testnetapi.venus.io/api',
 };
 
 export const RPC_URLS: {

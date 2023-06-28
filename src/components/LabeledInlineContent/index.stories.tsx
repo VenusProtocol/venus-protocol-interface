@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { TOKENS } from 'constants/tokens';
@@ -10,7 +10,7 @@ export default {
   title: 'Components/LabeledInlineContent',
   component: LabeledInlineContent,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof LabeledInlineContent>;
+} as Meta<typeof LabeledInlineContent>;
 
 export const Default = () => (
   <LabeledInlineContent label="Available VAI LIMIT">2000 VAI</LabeledInlineContent>

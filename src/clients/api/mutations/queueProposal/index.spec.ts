@@ -5,8 +5,8 @@ import queueProposal from '.';
 
 describe('api/mutation/queueProposal', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const queueProposalMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const queueProposalMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

@@ -1,15 +1,16 @@
 import { restService } from 'utilities';
+import Vi from 'vitest';
 
 import voterDetailsResponse from '__mocks__/api/voterDetails.json';
 import fakeAddress from '__mocks__/models/address';
 
 import getVoterDetail from '.';
 
-jest.mock('utilities/restService');
+vi.mock('utilities/restService');
 
 describe('api/queries/getVoterDetail', () => {
   test('returns  formatted voter details', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
+    (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterDetailsResponse,
     }));

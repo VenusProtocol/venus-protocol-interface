@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
@@ -16,6 +16,6 @@ export default {
       default: PALETTE.background.default,
     },
   },
-} as ComponentMeta<typeof PoolBreakdown>;
+} as Meta<typeof PoolBreakdown>;
 
 export const Default = () => <PoolBreakdown pool={poolData[0]} />;

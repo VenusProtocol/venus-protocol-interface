@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
@@ -10,7 +10,7 @@ export default {
   title: 'Components/Layout/Header',
   component: Header,
   decorators: [withThemeProvider, withRouter],
-} as ComponentMeta<typeof Header>;
+} as Meta<typeof Header>;
 
 export const HeaderDefault = () => (
   <div style={{ minHeight: 100 }}>

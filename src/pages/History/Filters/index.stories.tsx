@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'lodash';
 import React from 'react';
 
@@ -12,7 +12,7 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof Filters>;
+} as Meta<typeof Filters>;
 
 export const Default = () => (
   <Filters

@@ -39,18 +39,22 @@ import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 
 export interface MarketUiProps {
+  isChartDataLoading: boolean;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
+  isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
   asset?: Asset;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
   asset,
+  isChartDataLoading,
   poolComptrollerAddress,
   supplyChartData,
   borrowChartData,
+  isInterestRateChartDataLoading,
   interestRateChartData,
 }) => {
   const { t } = useTranslation();
@@ -104,7 +108,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               label: t('market.supplyInfo.stats.totalSupply'),
               value: formatCentsToReadableValue({
                 value: asset.supplyBalanceCents,
-                shortenLargeValue: true,
               }),
             },
             {
@@ -140,7 +143,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               label: t('market.borrowInfo.stats.totalBorrow'),
               value: formatCentsToReadableValue({
                 value: asset.borrowBalanceCents,
-                shortenLargeValue: true,
               }),
             },
             {
@@ -194,7 +196,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       }),
       value: formatTokensToReadableValue({
         value: distribution.dailyDistributedTokens,
-        minimizeDecimals: true,
         addSymbol: false,
         token: TOKENS.xvs,
       }),
@@ -206,8 +207,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         value: asset.tokenPriceCents
           ? formatCentsToReadableValue({
               value: asset.tokenPriceCents,
-              shortenLargeValue: true,
-              showAllDecimals: true,
+              isTokenPrice: true,
             })
           : PLACEHOLDER_KEY,
       },
@@ -231,7 +231,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           ? t('market.marketInfo.stats.unlimitedSupplyCap')
           : formatTokensToReadableValue({
               value: asset.supplyCapTokens,
-              minimizeDecimals: true,
               token: asset.vToken.underlyingToken,
             }),
       },
@@ -241,7 +240,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           ? t('market.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: asset.borrowCapTokens,
-              minimizeDecimals: true,
               token: asset.vToken.underlyingToken,
             }),
       },
@@ -262,7 +260,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.marketInfo.stats.reserveTokensLabel'),
         value: formatTokensToReadableValue({
           value: asset.reserveTokens,
-          minimizeDecimals: true,
           token: asset.vToken.underlyingToken,
         }),
       },
@@ -280,7 +277,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         }),
         value: formatTokensToReadableValue({
           value: asset.supplyBalanceTokens.multipliedBy(asset.exchangeRateVTokens),
-          minimizeDecimals: true,
           addSymbol: false,
           token: asset.vToken,
         }),
@@ -313,12 +309,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     dailyBorrowInterestsCents,
   ]);
 
-  if (
-    !asset ||
-    !supplyChartData.length ||
-    !borrowChartData.length ||
-    !interestRateChartData.length
-  ) {
+  if (!asset) {
     return <Spinner />;
   }
 
@@ -372,9 +363,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             stats={supplyInfoStats}
             legends={supplyInfoLegends}
           >
-            <div css={styles.apyChart}>
-              <ApyChart data={supplyChartData} type="supply" />
-            </div>
+            {isChartDataLoading && supplyChartData.length === 0 && <Spinner />}
+            {supplyChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <ApyChart data={supplyChartData} type="supply" />
+              </div>
+            )}
           </Card>
 
           <Card
@@ -384,9 +378,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             stats={borrowInfoStats}
             legends={borrowInfoLegends}
           >
-            <div css={styles.apyChart}>
-              <ApyChart data={borrowChartData} type="borrow" />
-            </div>
+            {isChartDataLoading && borrowChartData.length === 0 && <Spinner />}
+            {borrowChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <ApyChart data={borrowChartData} type="borrow" />
+              </div>
+            )}
           </Card>
 
           <Card
@@ -395,12 +392,15 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             css={styles.graphCard}
             legends={interestRateModelLegends}
           >
-            <div css={styles.apyChart}>
-              <InterestRateChart
-                data={interestRateChartData}
-                currentUtilizationRate={currentUtilizationRate}
-              />
-            </div>
+            {isInterestRateChartDataLoading && interestRateChartData.length === 0 && <Spinner />}
+            {interestRateChartData.length > 0 && (
+              <div css={styles.apyChart}>
+                <InterestRateChart
+                  data={interestRateChartData}
+                  currentUtilizationRate={currentUtilizationRate}
+                />
+              </div>
+            )}
           </Card>
         </div>
 
@@ -441,7 +441,7 @@ const Market: React.FC<MarketProps> = ({
     accountAddress,
   });
 
-  const chartData = useGetChartData({
+  const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken,
   });
 
@@ -453,6 +453,7 @@ const Market: React.FC<MarketProps> = ({
   );
 
   const {
+    isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
     },
@@ -465,7 +466,9 @@ const Market: React.FC<MarketProps> = ({
     <MarketUi
       asset={getAssetData?.asset}
       poolComptrollerAddress={poolComptrollerAddress}
+      isChartDataLoading={isChartDataLoading}
       {...chartData}
+      isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
     />
   );

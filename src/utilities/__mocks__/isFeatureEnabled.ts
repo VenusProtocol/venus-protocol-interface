@@ -1,3 +1,3 @@
-const isFeatureEnabled = jest.fn(() => false);
+const isFeatureEnabled = vi.fn(() => false);
 
 export default isFeatureEnabled;

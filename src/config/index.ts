@@ -6,7 +6,6 @@ import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 
 export interface Config {
   environment: Environment;
-  isInLiveEnvironment: boolean;
   chainId: BscChainId;
   isOnTestnet: boolean;
   rpcUrl: string;
@@ -17,45 +16,63 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
-  featureFlags: {
-    isolatedPools: boolean;
-    integratedSwap: boolean;
-  };
 }
 
+// Note: because Vite statically replaces env variables when building, we need
+// to reference each of them by their full name
+export const ENV_VARIABLES = {
+  NODE_ENV: typeof process !== 'undefined' ? process.env.NODE_ENV : undefined,
+  VITE_ENVIRONMENT:
+    typeof process !== 'undefined'
+      ? process.env.VITE_ENVIRONMENT
+      : import.meta.env.VITE_ENVIRONMENT,
+
+  // Third-parties
+  VITE_SENTRY_DSN:
+    typeof process !== 'undefined' ? process.env.VITE_SENTRY_DSN : import.meta.env.VITE_SENTRY_DSN,
+  VITE_POSTHOG_API_KEY:
+    typeof process !== 'undefined'
+      ? process.env.VITE_POSTHOG_API_KEY
+      : import.meta.env.VITE_POSTHOG_API_KEY,
+  VITE_POSTHOG_HOST_URL:
+    typeof process !== 'undefined'
+      ? process.env.VITE_POSTHOG_HOST_URL
+      : import.meta.env.VITE_POSTHOG_HOST_URL,
+
+  // Feature flags
+  VITE_FF_ISOLATED_POOLS:
+    typeof process !== 'undefined'
+      ? process.env.VITE_FF_ISOLATED_POOLS
+      : import.meta.env.VITE_FF_ISOLATED_POOLS,
+  VITE_FF_INTEGRATED_SWAP:
+    typeof process !== 'undefined'
+      ? process.env.VITE_FF_INTEGRATED_SWAP
+      : import.meta.env.VITE_FF_INTEGRATED_SWAP,
+};
+
 const environment: Environment =
-  (process.env.REACT_APP_ENVIRONMENT as Environment | undefined) || 'mainnet';
+  (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
-const isInLiveEnvironment =
-  environment === 'testnet' || environment === 'preview' || environment === 'mainnet';
+const isOnTestnet =
+  environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
-const chainId: BscChainId = process.env.REACT_APP_CHAIN_ID
-  ? Number(process.env.REACT_APP_CHAIN_ID)
-  : BscChainId.MAINNET;
+const chainId: BscChainId = isOnTestnet ? 97 : 56;
 
-const isOnTestnet = chainId === BscChainId.TESTNET;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
 const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
 
 const config: Config = {
   environment,
-  isInLiveEnvironment,
   chainId,
   isOnTestnet,
   rpcUrl,
   apiUrl,
   bscScanUrl,
-  sentryDsn: process.env.REACT_APP_SENTRY_DSN || '',
+  sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
-    apiKey: process.env.REACT_APP_POSTHOG_API_KEY || '',
-    hostUrl: process.env.REACT_APP_POSTHOG_HOST_URL || '',
-  },
-  // Note: never access these directly, use the utility function
-  // isFeatureEnabled instead. This is necessary to make testing easier
-  featureFlags: {
-    isolatedPools: process.env.REACT_APP_FF_ISOLATED_POOLS === 'true',
-    integratedSwap: process.env.REACT_APP_FF_INTEGRATED_SWAP === 'true',
+    apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
+    hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
 };
 

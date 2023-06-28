@@ -10,7 +10,7 @@ describe('api/queries/getVTokenBalance', () => {
   test('returns the balance on success', async () => {
     const fakeBalanceWei = BN.from('1000');
 
-    const getBalanceOfMock = jest.fn(async () => fakeBalanceWei);
+    const getBalanceOfMock = vi.fn(async () => fakeBalanceWei);
 
     const fakeContract = {
       balanceOf: getBalanceOfMock,

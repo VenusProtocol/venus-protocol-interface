@@ -7,7 +7,7 @@ import Table from '.';
 
 describe('pages/VoterLeaderboard/Table', () => {
   beforeAll(() => {
-    jest.mock('clients/api');
+    vi.mock('clients/api');
   });
 
   it('renders without crashing', async () => {

@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 
 import { withRouter } from 'stories/decorators';
 
@@ -8,6 +8,6 @@ export default {
   title: 'Pages/Xvs',
   component: Xvs,
   decorators: [withRouter],
-} as ComponentMeta<typeof Xvs>;
+} as Meta<typeof Xvs>;
 
 export { Xvs };

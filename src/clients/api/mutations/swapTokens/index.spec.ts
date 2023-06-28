@@ -8,24 +8,24 @@ import {
   exactAmountOutSwap as fakeExactAmountOutSwap,
 } from '__mocks__/models/swaps';
 import { SWAP_TOKENS } from 'constants/tokens';
-import { PancakeRouter } from 'types/contracts';
+import { SwapRouter } from 'types/contracts';
 
 import swapTokens from '.';
 
 describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens for as many non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForTokensMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactTokensForTokensMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
       swapExactTokensForTokens: swapExactTokensForTokensMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: fakeExactAmountInSwap,
     });
 
@@ -48,23 +48,23 @@ describe('api/mutation/swapTokens', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactETHForTokensMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactBNBForTokensMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapExactETHForTokens: swapExactETHForTokensMock,
+      swapExactBNBForTokens: swapExactBNBForTokensMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
     });
 
-    expect(swapExactETHForTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapExactETHForTokensMock).toHaveBeenCalledWith(
+    expect(swapExactBNBForTokensMock).toHaveBeenCalledTimes(1);
+    expect(swapExactBNBForTokensMock).toHaveBeenCalledWith(
       customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountInSwap.routePath,
       fakeAccountAddress,
@@ -84,23 +84,23 @@ describe('api/mutation/swapTokens', () => {
       routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapExactTokensForETHMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapExactTokensForBNBMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapExactTokensForETH: swapExactTokensForETHMock,
+      swapExactTokensForBNB: swapExactTokensForBNBMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
     });
 
-    expect(swapExactTokensForETHMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForETHMock).toHaveBeenCalledWith(
+    expect(swapExactTokensForBNBMock).toHaveBeenCalledTimes(1);
+    expect(swapExactTokensForBNBMock).toHaveBeenCalledWith(
       customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountInSwap.routePath,
@@ -112,18 +112,18 @@ describe('api/mutation/swapTokens', () => {
   });
 
   it('calls the right contract method when buying an exact amount of non-native tokens for as few non-native tokens as possible', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForExactTokensMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForExactTokensMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
       swapTokensForExactTokens: swapTokensForExactTokensMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
     });
 
@@ -146,23 +146,23 @@ describe('api/mutation/swapTokens', () => {
       routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapETHForExactTokensMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapBNBForExactTokensMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapETHForExactTokens: swapETHForExactTokensMock,
+      swapBNBForExactTokens: swapBNBForExactTokensMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
     });
 
-    expect(swapETHForExactTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapETHForExactTokensMock).toHaveBeenCalledWith(
+    expect(swapBNBForExactTokensMock).toHaveBeenCalledTimes(1);
+    expect(swapBNBForExactTokensMock).toHaveBeenCalledWith(
       customFakeExactAmountOutSwap.toTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,
       fakeAccountAddress,
@@ -182,23 +182,23 @@ describe('api/mutation/swapTokens', () => {
       routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
     };
 
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const swapTokensForExactETHMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const swapTokensForExactBNBMock = vi.fn(() => ({
       wait: waitMock,
     }));
 
     const fakeContract = {
-      swapTokensForExactETH: swapTokensForExactETHMock,
+      swapTokensForExactBNB: swapTokensForExactBNBMock,
       signer: fakeSigner,
-    } as unknown as PancakeRouter;
+    } as unknown as SwapRouter;
 
     await swapTokens({
-      pancakeRouterContract: fakeContract,
+      swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
     });
 
-    expect(swapTokensForExactETHMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactETHMock).toHaveBeenCalledWith(
+    expect(swapTokensForExactBNBMock).toHaveBeenCalledTimes(1);
+    expect(swapTokensForExactBNBMock).toHaveBeenCalledWith(
       customFakeExactAmountOutSwap.toTokenAmountReceivedWei.toFixed(),
       customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
       customFakeExactAmountOutSwap.routePath,

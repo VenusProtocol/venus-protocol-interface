@@ -10,7 +10,7 @@ const fakePid = 0;
 
 describe('api/queries/getXvsVaultPoolInfo', () => {
   test('returns the pool infos on success', async () => {
-    const poolInfosMock = jest.fn(async () => xvsVaultResponses.poolInfo);
+    const poolInfosMock = vi.fn(async () => xvsVaultResponses.poolInfo);
 
     const fakeContract = {
       poolInfos: poolInfosMock,

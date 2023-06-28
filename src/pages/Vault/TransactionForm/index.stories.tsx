@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -11,9 +11,9 @@ export default {
   title: 'Pages/Vault/TransactionForm',
   component: TransactionForm,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof TransactionForm>;
+} as Meta<typeof TransactionForm>;
 
-const Template: Story<TransactionFormProps> = args => <TransactionForm {...args} />;
+const Template: StoryFn<TransactionFormProps> = args => <TransactionForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

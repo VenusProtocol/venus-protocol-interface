@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVaiVaultUserInfo returns the user info in the correct format 1`] = `
-Object {
+exports[`api/queries/getVaiVaultUserInfo > returns the user info in the correct format 1`] = `
+{
   "stakedVaiWei": "1e+23",
 }
 `;

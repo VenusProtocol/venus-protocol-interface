@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -9,11 +10,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainPool, { UseGetMainPoolOutput } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('api/queries/useGetMainPool', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

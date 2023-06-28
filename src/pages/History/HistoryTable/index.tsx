@@ -143,7 +143,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                 valueWei: transaction.amountWei,
                 token: transaction.token,
                 returnInReadableFormat: true,
-                minimizeDecimals: true,
+
                 addSymbol: false,
               })}
             </Typography>

@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -10,7 +10,7 @@ import fakeTokenBalances, {
   FAKE_DEFAULT_BALANCE_TOKENS,
 } from '__mocks__/models/tokenBalances';
 import { swapTokens } from 'clients/api';
-import { selectToken } from 'components/SelectTokenTextField/__tests__/testUtils';
+import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import {
   getTokenMaxButtonTestId,
   getTokenSelectButtonTestId,
@@ -24,22 +24,24 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
+import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from './fakeData';
-import { getLastUseGetSwapInfoCallArgs } from './testUtils';
 
-jest.mock('clients/api');
-jest.mock('hooks/useSuccessfulTransactionModal');
-jest.mock('hooks/useGetSwapTokenUserBalances');
-jest.mock('hooks/useGetSwapInfo');
+vi.mock('clients/api');
+vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useGetSwapInfo');
+
+export const getLastUseGetSwapInfoCallArgs = () =>
+  (useGetSwapInfo as Vi.Mock).mock.calls[(useGetSwapInfo as Vi.Mock).mock.calls.length - 1];
 
 describe('pages/Swap', () => {
   beforeEach(() => {
-    (useGetSwapTokenUserBalances as jest.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
@@ -57,12 +59,8 @@ describe('pages/Swap', () => {
       },
     });
 
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
-    );
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_DEFAULT_BALANCE_TOKENS).toFormat()} XVS`)),
-    );
+    await waitFor(() => expect(getByText('200.00K BNB')));
+    await waitFor(() => expect(getByText('10.00K XVS')));
   });
 
   it('updates toToken when changing fromToken for toToken', () => {
@@ -222,7 +220,7 @@ describe('pages/Swap', () => {
   });
 
   it('disables submit button if fromToken amount entered is higher than user balance', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -263,7 +261,7 @@ describe('pages/Swap', () => {
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -339,7 +337,7 @@ describe('pages/Swap', () => {
   });
 
   it('updates toToken input value correctly when user updates fromToken input value', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -383,7 +381,7 @@ describe('pages/Swap', () => {
   });
 
   it('updates fromToken input value correctly when user updates toToken input value', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountOutSwap,
       error: undefined,
       isLoading: false,
@@ -427,7 +425,7 @@ describe('pages/Swap', () => {
   });
 
   it('updates swap direction correctly when updating an input value', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -479,7 +477,7 @@ describe('pages/Swap', () => {
     expect(queryByTestId(TEST_IDS.swapDetails)).toBeNull();
 
     // Simulate a swap having been fetched
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap,
       error: undefined,
       isLoading: false,
@@ -500,13 +498,13 @@ describe('pages/Swap', () => {
   it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
     }));
 
-    (swapTokens as jest.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
@@ -558,7 +556,7 @@ describe('pages/Swap', () => {
   });
 
   it('updates fromToken input value correctly when user clicks on the max toToken button', async () => {
-    (useGetSwapInfo as jest.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -571,9 +569,7 @@ describe('pages/Swap', () => {
     });
 
     // wait for the balance to be updated
-    await waitFor(() =>
-      expect(getByText(`${new BigNumber(FAKE_BNB_BALANCE_TOKENS).toFormat()} BNB`)),
-    );
+    await waitFor(() => expect(getByText('200.00K BNB')));
 
     // get and click the MAX from token button
     const fromTokenInput = getByTestId(

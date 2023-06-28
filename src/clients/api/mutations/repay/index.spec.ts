@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
+import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
@@ -13,14 +14,14 @@ const fakeAmountWei = new BigNumber(10000000000000000);
 
 const vBnb = TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'];
 
-jest.mock('clients/contracts');
-jest.mock('errors/transactionErrors');
+vi.mock('clients/contracts');
+vi.mock('errors/transactionErrors');
 
 describe('api/mutation/repay', () => {
   describe('repay non-BNB loan', () => {
     test('returns transaction when request to repay a loan succeeds', async () => {
-      const waitMock = jest.fn(async () => fakeContractReceipt);
-      const repayBorrowMock = jest.fn(() => ({
+      const waitMock = vi.fn(async () => fakeContractReceipt);
+      const repayBorrowMock = vi.fn(() => ({
         wait: waitMock,
       }));
 
@@ -28,7 +29,7 @@ describe('api/mutation/repay', () => {
         repayBorrow: repayBorrowMock,
       } as unknown as VBep20;
 
-      (getVTokenContract as jest.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await repay({
         signer: fakeSigner,
@@ -49,8 +50,8 @@ describe('api/mutation/repay', () => {
 
   describe('repay BNB loan', () => {
     test('returns transaction when request to repay full loan succeeds', async () => {
-      const waitMock = jest.fn(async () => fakeContractReceipt);
-      const repayBehalfExplicitMock = jest.fn(() => ({
+      const waitMock = vi.fn(async () => fakeContractReceipt);
+      const repayBehalfExplicitMock = vi.fn(() => ({
         wait: waitMock,
       }));
 
@@ -58,7 +59,7 @@ describe('api/mutation/repay', () => {
         repayBehalfExplicit: repayBehalfExplicitMock,
       } as unknown as VBep20;
 
-      (getMaximillionContract as jest.Mock).mockImplementationOnce(() => fakeMaximillionContract);
+      (getMaximillionContract as Vi.Mock).mockImplementationOnce(() => fakeMaximillionContract);
 
       const response = await repay({
         signer: fakeSigner,
@@ -79,8 +80,8 @@ describe('api/mutation/repay', () => {
     });
 
     test('returns transaction when request to repay partial loan succeeds', async () => {
-      const waitMock = jest.fn(async () => fakeContractReceipt);
-      const repayBorrowMock = jest.fn(() => ({
+      const waitMock = vi.fn(async () => fakeContractReceipt);
+      const repayBorrowMock = vi.fn(() => ({
         wait: waitMock,
       }));
 
@@ -88,7 +89,7 @@ describe('api/mutation/repay', () => {
         repayBorrow: repayBorrowMock,
       } as unknown as VBnbToken;
 
-      (getVTokenContract as jest.Mock).mockImplementationOnce(() => fakeVTokenContract);
+      (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
       const response = await repay({
         signer: fakeSigner,

@@ -116,7 +116,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   return (
     <ConnectWallet message={t('vai.mintVai.connectWallet')}>
       <ApproveToken
-        title={t('vai.mintVai.approvedToken')}
+        title={t('vai.mintVai.approveToken')}
         token={TOKENS.vai}
         spenderAddress={vaiControllerContractAddress}
       >

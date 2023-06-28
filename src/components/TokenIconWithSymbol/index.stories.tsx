@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { TOKENS } from 'constants/tokens';
@@ -10,6 +10,6 @@ export default {
   title: 'Components/TokenIconWithSymbol',
   component: TokenIconWithSymbol,
   decorators: [withCenterStory({ width: '100px' })],
-} as ComponentMeta<typeof TokenIconWithSymbol>;
+} as Meta<typeof TokenIconWithSymbol>;
 
 export const Default = () => <TokenIconWithSymbol token={TOKENS.xvs} />;

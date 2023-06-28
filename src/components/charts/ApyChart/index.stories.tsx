@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -48,7 +48,7 @@ export default {
   title: 'Components/charts/ApyChart',
   component: ApyChart,
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
-} as ComponentMeta<typeof ApyChart>;
+} as Meta<typeof ApyChart>;
 
 export const SupplyAPY = () => <SupplyApyChart data={data} />;
 export const BorrowAPY = () => <BorrowApyChart data={data} />;

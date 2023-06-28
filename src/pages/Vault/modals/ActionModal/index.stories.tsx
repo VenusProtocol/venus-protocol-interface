@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -16,9 +16,9 @@ export default {
   title: 'Pages/Vault/modals/ActionModal',
   component: ActionModal,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof ActionModal>;
+} as Meta<typeof ActionModal>;
 
-const Template: Story<ActionModalProps> = args => <ActionModal {...args} />;
+const Template: StoryFn<ActionModalProps> = args => <ActionModal {...args} />;
 
 const authContext: AuthContextValue = {
   login: noop,

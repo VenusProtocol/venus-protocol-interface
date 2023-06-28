@@ -6,14 +6,14 @@ import { VBep20 } from 'types/contracts';
 
 import redeemUnderlying from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 const fakeAmount = new BigNumber('10000000000000000');
 
 describe('api/mutation/redeemUnderlying', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const redeemUnderlyingMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const redeemUnderlyingMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

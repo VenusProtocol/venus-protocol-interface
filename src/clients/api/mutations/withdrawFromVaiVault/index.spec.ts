@@ -6,14 +6,14 @@ import { VaiVault } from 'types/contracts';
 
 import withdrawFromVaiVault from '.';
 
-jest.mock('errors/transactionErrors');
+vi.mock('errors/transactionErrors');
 
 const fakeAmountWei = new BigNumber('1000000000000');
 
 describe('api/mutation/withdrawFromVaiVault', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const withdrawMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const withdrawMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

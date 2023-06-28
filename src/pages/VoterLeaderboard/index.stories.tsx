@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -17,7 +17,7 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof VoterLeaderboardUi>;
+} as Meta<typeof VoterLeaderboardUi>;
 
 const getVoterAccountsOutput = formatVoterAccountResponse(voterAccountsResponse.data);
 

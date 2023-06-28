@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoterDetail returns  formatted voter details 1`] = `
-Object {
+exports[`api/queries/getVoterDetail > returns  formatted voter details 1`] = `
+{
   "balanceWei": "0",
   "delegateAddress": "0x315deBE419d9f9aec19807609b396Ef33a9c44C0",
   "delegateCount": 1,
   "delegating": true,
-  "voterTransactions": Array [
-    Object {
+  "voterTransactions": [
+    {
       "amountWei": "2470334759651375154",
       "blockNumber": 18051658,
       "blockTimestamp": 2022-05-23T12:15:22.000Z,
@@ -20,7 +20,7 @@ Object {
       "updatedAt": 2022-05-23T12:15:31.000Z,
       "votesWei": "0",
     },
-    Object {
+    {
       "amountWei": "2470307000576804910",
       "blockNumber": 18051572,
       "blockTimestamp": 2022-05-23T12:11:04.000Z,
@@ -33,7 +33,7 @@ Object {
       "updatedAt": 2022-05-23T12:11:30.000Z,
       "votesWei": "0",
     },
-    Object {
+    {
       "amountWei": "3019084454051545384",
       "blockNumber": 17824116,
       "blockTimestamp": 2022-05-15T13:02:04.000Z,

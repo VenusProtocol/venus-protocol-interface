@@ -5,8 +5,8 @@ import withdrawXvs from '.';
 
 describe('api/mutation/withdrawXvs', () => {
   test('send vrt conversion with correct arguments and returns contract receipt when request succeeds', async () => {
-    const waitMock = jest.fn(async () => fakeContractReceipt);
-    const withdrawVrtMock = jest.fn(() => ({
+    const waitMock = vi.fn(async () => fakeContractReceipt);
+    const withdrawVrtMock = vi.fn(() => ({
       wait: waitMock,
     }));
 

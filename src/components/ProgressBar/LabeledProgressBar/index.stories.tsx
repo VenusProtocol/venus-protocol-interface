@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -9,7 +9,7 @@ export default {
   title: 'Components/ProgressBar/LabeledProgressBar',
   component: LabeledProgressBar,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof LabeledProgressBar>;
+} as Meta<typeof LabeledProgressBar>;
 
 export const BorrowBalanceAccountHealthWithValues = () => (
   <LabeledProgressBar

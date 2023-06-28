@@ -1,16 +1,15 @@
 {
   "name": "venus",
-  "version": "2.0.4",
+  "version": "2.1.1",
   "private": true,
   "engines": {
-    "node": ">=16.x.x"
+    "node": ">=18.x.x"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=4096 start",
-    "prepare": "git apply patches/@stylelint+postcss-css-in-js+0.37.2.patch",
-    "build": "react-scripts --max_old_space_size=4096 build",
-    "test": "TZ=UTC REACT_APP_CHAIN_ID=97 REACT_APP_FF_ISOLATED_POOLS=true react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "pretty": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,html,json,md}\" public/**/*.html --check",
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
     "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",
@@ -21,8 +20,8 @@
     "generate-contract-types": "rimraf src/types/contracts && typechain --target=ethers-v5 --out-dir=src/types/contracts 'src/constants/contracts/abis/*.json'",
     "generate-pancake-swap-tokens": "node ./scripts/generatePancakeSwapTokens.mjs && yarn prettier --write ./src/constants/tokens/swap/mainnetPancakeSwapTokens.ts",
     "postinstall": "yarn generate-contract-types && yarn generate-subgraph-types && yarn generate-pancake-swap-tokens && genversion --es6 --semi src/constants/version.ts",
-    "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
-    "build-storybook": "STORYBOOK=true build-storybook -s public",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "loki": "loki update --reactUri file:./storybook-static",
     "regression": "reg-suit run"
   },
@@ -44,10 +43,9 @@
     "@sentry/tracing": "^7.43.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
-    "@uiw/react-markdown-preview": "^4.0.17",
+    "@uiw/react-markdown-preview": "^4.1.13",
     "@uiw/react-md-editor": "^3.14.3",
-    "@venusprotocol/isolated-pools": "1.0.0-dev.3",
-    "@wagmi/core": "0.5.7",
+    "@venusprotocol/isolated-pools": "1.0.0-dev.13",
     "bignumber.js": "^9.0.0",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.28.0",
@@ -69,13 +67,12 @@
     "react-query": "^3.34.16",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "4.0.3",
     "react-toastify": "9.0.1",
     "react-uid": "^2.3.1",
     "recharts": "2.1.9",
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
-    "wagmi": "0.6.7",
+    "wagmi": "^0.12.16",
     "yup": "^1.0.2"
   },
   "devDependencies": {
@@ -83,18 +80,18 @@
     "@graphql-codegen/client-preset": "^1.2.3",
     "@graphql-codegen/typed-document-node": "2.3.10",
     "@graphql-codegen/typescript-operations": "2.5.10",
-    "@storybook/addon-actions": "6.4.9",
-    "@storybook/addon-essentials": "6.4.9",
-    "@storybook/addon-links": "6.4.9",
-    "@storybook/node-logger": "6.4.9",
-    "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "6.4.9",
+    "@storybook/addon-essentials": "^7.0.20",
+    "@storybook/addon-interactions": "^7.0.20",
+    "@storybook/addon-links": "^7.0.20",
+    "@storybook/blocks": "^7.0.20",
+    "@storybook/react": "^7.0.20",
+    "@storybook/react-vite": "^7.0.20",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@stylelint/postcss-css-in-js": "0.37.2",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@typechain/ethers-v5": "^10.2.0",
-    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
     "@types/react": "^17.0.01",
     "@types/react-dom": "^17.0.11",
@@ -104,6 +101,9 @@
     "@types/styled-components": "^5.1.22",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
+    "@vitejs/plugin-react": "^4.0.0",
+    "@vitest/coverage-v8": "^0.32.2",
+    "c8": "^7.14.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "17.1.1",
     "eslint-config-airbnb-typescript": "^16.1.0",
@@ -112,14 +112,15 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-storybook": "^0.6.12",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
     "history": "^5.3.0",
     "husky": "^7.0.4",
     "i18next-parser": "^6.3.0",
-    "jest-canvas-mock": "^2.4.0",
+    "jsdom": "^22.1.0",
     "lint-staged": "^12.3.3",
-    "loki": "^0.31.0",
+    "loki": "^0.32.0",
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.6.0",
     "node-fetch": "^3.3.1",
@@ -128,6 +129,7 @@
     "postcss-syntax": "^0.36.2",
     "prettier": "^2.5.1",
     "prettier-airbnb-config": "^1.0.0",
+    "prop-types": "^15.8.1",
     "react-error-overlay": "6.0.9",
     "react-powerplug": "^1.0.0",
     "reg-keygen-git-hash-plugin": "^0.11.1",
@@ -135,14 +137,18 @@
     "reg-publish-s3-plugin": "^0.11.0",
     "reg-suit": "^0.11.1",
     "rimraf": "^4.1.2",
+    "storybook": "^7.0.20",
     "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.9.2",
     "typechain": "^8.1.1",
     "typescript": "^4.5.5",
-    "web3-core": "^1.8.1",
-    "web3-eth-contract": "^1.8.1"
+    "vite": "^4.3.9",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.32.0",
+    "whatwg-fetch": "^3.6.2"
   },
   "browserslist": {
     "production": [
@@ -189,22 +195,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "jest": {
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/?!(react-markdown)"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js"
-    },
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{ts,tsx}",
-      "!<rootDir>/src/**/*.stories.tsx"
-    ],
-    "resetMocks": false,
-    "clearMocks": true
   }
 }

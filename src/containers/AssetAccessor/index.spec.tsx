@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -10,7 +11,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 const fakePool = poolData[0];
 const fakeAsset = fakePool.assets[0];
@@ -24,6 +25,7 @@ const fakeProps: Omit<AssetAccessorProps, 'children'> = {
 };
 
 const fakeChildrenContent = 'Fake content';
+
 const TestComponent = () => <>{fakeChildrenContent}</>;
 
 describe('containers/AssetAccessor', () => {
@@ -43,7 +45,7 @@ describe('containers/AssetAccessor', () => {
 
   it('asks user with their wallet connected to enable token if they have not done so already', async () => {
     // Mark all tokens as having not been approved
-    (useTokenApproval as jest.Mock).mockImplementation(() => ({
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       isTokenApproved: false,
       isTokenApprovalStatusLoading: false,
       isApproveTokenLoading: false,

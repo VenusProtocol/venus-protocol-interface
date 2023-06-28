@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import transactions from '__mocks__/models/transactions';
@@ -8,11 +9,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import History from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/History', () => {
   beforeEach(() => {
-    (useGetTransactions as jest.Mock).mockImplementation(() => ({
+    (useGetTransactions as Vi.Mock).mockImplementation(() => ({
       data: { transactions, total: 120 },
       isLoading: false,
     }));
@@ -29,7 +30,7 @@ describe('pages/History', () => {
   });
 
   it('renders spinner when fetching', async () => {
-    (useGetTransactions as jest.Mock).mockImplementation(() => ({
+    (useGetTransactions as Vi.Mock).mockImplementation(() => ({
       data: undefined,
       isFetching: true,
       isPreviousData: true,

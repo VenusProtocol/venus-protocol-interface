@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withOnChange } from 'stories/decorators';
@@ -14,9 +14,9 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof Select>;
+} as Meta<typeof Select>;
 
-const Template: Story<SelectProps> = (args: SelectProps) => <Select {...args} />;
+const Template: StoryFn<SelectProps> = (args: SelectProps) => <Select {...args} />;
 
 const options = Array.from(Array(5).keys()).map(i => ({
   value: `value${i}`,

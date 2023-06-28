@@ -1,7 +1,7 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
-export type Environment = 'local' | 'mock' | 'testnet' | 'preview' | 'mainnet';
+export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
 export enum BscChainId {
   'MAINNET' = 56,
@@ -66,6 +66,10 @@ export interface Asset {
   userWalletBalanceCents: BigNumber;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
+}
+
+export interface SwapRouterAddressMapping {
+  [poolComptrollerAddress: string]: string;
 }
 
 export interface Pool {

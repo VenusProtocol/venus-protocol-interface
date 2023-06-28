@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { useGetMainAssets } from 'clients/api';
@@ -7,11 +8,11 @@ import renderComponent from 'testUtils/renderComponent';
 
 import ConvertVrt from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimitCents: new BigNumber('111'),

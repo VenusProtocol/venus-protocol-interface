@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -14,11 +15,11 @@ import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 
-jest.mock('clients/api');
+vi.mock('clients/api');
 
 describe('pages/ConvertVRT/Withdraw', () => {
   beforeEach(() => {
-    (useGetMainAssets as jest.Mock).mockImplementation(() => ({
+    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
       data: {
         assets: assetData,
         userTotalBorrowLimit: new BigNumber('111'),
@@ -30,14 +31,14 @@ describe('pages/ConvertVRT/Withdraw', () => {
   });
 
   it('submit button is enabled with input, good vesting period and not loading', async () => {
-    const withdrawXvs = jest.fn().mockReturnValue(fakeContractReceipt.transactionHash);
+    const withdrawXvs = vi.fn().mockReturnValue(fakeContractReceipt.transactionHash);
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+          login: vi.fn(),
+          logOut: vi.fn(),
+          openAuthModal: vi.fn(),
+          closeAuthModal: vi.fn(),
           isConnected: true,
           provider: fakeProvider,
           accountAddress: fakeAccountAddress,

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetMainPoolTotalXvsDistributed returns data in the correct format 1`] = `
-Object {
+exports[`api/queries/useGetMainPoolTotalXvsDistributed > returns data in the correct format 1`] = `
+{
   "totalXvsDistributedWei": "3.110919e+24",
 }
 `;

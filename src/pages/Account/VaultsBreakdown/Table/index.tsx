@@ -44,7 +44,7 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
           convertWeiToTokens({
             valueWei: new BigNumber(vault.userStakedWei || 0),
             token: vault.stakedToken,
-            minimizeDecimals: true,
+
             returnInReadableFormat: true,
             addSymbol: true,
           }),

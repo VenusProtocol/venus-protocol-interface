@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
@@ -19,7 +19,7 @@ export default {
   title: 'Components/Button',
   component: Button,
   decorators: [withCenterStory({ width: 250 })],
-} as ComponentMeta<typeof Button>;
+} as Meta<typeof Button>;
 
 export const Primary = () => <PrimaryButton onClick={console.log}>Primary</PrimaryButton>;
 export const Secondary = () => <SecondaryButton onClick={console.log}>Secondary</SecondaryButton>;

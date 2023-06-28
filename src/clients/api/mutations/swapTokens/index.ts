@@ -3,25 +3,25 @@ import { ContractReceipt } from 'ethers';
 import { Swap } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 
-import { PancakeRouter } from 'types/contracts';
+import { SwapRouter } from 'types/contracts';
 
 export interface SwapTokensInput {
-  pancakeRouterContract: PancakeRouter;
+  swapRouterContract: SwapRouter;
   swap: Swap;
 }
 
 export type SwapTokensOutput = ContractReceipt;
 
 const swapTokens = async ({
-  pancakeRouterContract,
+  swapRouterContract,
   swap,
 }: SwapTokensInput): Promise<SwapTokensOutput> => {
   const transactionDeadline = generateTransactionDeadline();
-  const fromAccountAddress = await pancakeRouterContract.signer.getAddress();
+  const fromAccountAddress = await swapRouterContract.signer.getAddress();
 
   // Sell fromTokens for as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapExactTokensForTokens(
+    const transaction = await swapRouterContract.swapExactTokensForTokens(
       swap.fromTokenAmountSoldWei.toFixed(),
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
@@ -33,7 +33,7 @@ const swapTokens = async ({
 
   // Sell BNBs for as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapExactETHForTokens(
+    const transaction = await swapRouterContract.swapExactBNBForTokens(
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
@@ -45,7 +45,7 @@ const swapTokens = async ({
 
   // Sell fromTokens for as many BNBs as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapExactTokensForETH(
+    const transaction = await swapRouterContract.swapExactTokensForBNB(
       swap.fromTokenAmountSoldWei.toFixed(),
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
@@ -57,7 +57,7 @@ const swapTokens = async ({
 
   // Buy toTokens by selling as few fromTokens as possible
   if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapTokensForExactTokens(
+    const transaction = await swapRouterContract.swapTokensForExactTokens(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.maximumFromTokenAmountSoldWei.toFixed(),
       swap.routePath,
@@ -69,7 +69,7 @@ const swapTokens = async ({
 
   // Buy toTokens by selling as few BNBs as possible
   if (swap.direction === 'exactAmountOut' && swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapETHForExactTokens(
+    const transaction = await swapRouterContract.swapBNBForExactTokens(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
@@ -81,7 +81,7 @@ const swapTokens = async ({
 
   // Buy BNBs by selling as few fromTokens as possible
   if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && swap.toToken.isNative) {
-    const transaction = await pancakeRouterContract.swapTokensForExactETH(
+    const transaction = await swapRouterContract.swapTokensForExactBNB(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.maximumFromTokenAmountSoldWei.toFixed(),
       swap.routePath,

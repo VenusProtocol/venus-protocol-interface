@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import MUITypography from '@mui/material/Typography';
-import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
 import { withThemeProvider } from 'stories/decorators';
@@ -51,6 +50,6 @@ export default {
   title: 'Typography',
   component: Typography,
   decorators: [withThemeProvider],
-} as ComponentMeta<typeof Typography>;
+};
 
 export { Typography };

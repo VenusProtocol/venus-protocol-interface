@@ -1,4 +1,4 @@
-import { ComponentMeta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -10,9 +10,9 @@ export default {
   title: 'Components/Markdown/Editor',
   component: MarkdownEditor,
   decorators: [withCenterStory({ width: 600 }), withOnChange(string => string)],
-} as ComponentMeta<typeof MarkdownEditor>;
+} as Meta<typeof MarkdownEditor>;
 
-const Template: Story<MarkdownEditorProps> = (args: MarkdownEditorProps) => (
+const Template: StoryFn<MarkdownEditorProps> = (args: MarkdownEditorProps) => (
   <MarkdownEditor {...args} />
 );
 

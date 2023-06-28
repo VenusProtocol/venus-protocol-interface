@@ -59,7 +59,6 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     return formatTokensToReadableValue({
       value: dailyDistribution,
       token: TOKENS.xvs,
-      minimizeDecimals: true,
     });
   }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei]);
 
@@ -69,7 +68,6 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         valueWei: remainingDistributionWei,
         token: TOKENS.xvs,
         returnInReadableFormat: true,
-        minimizeDecimals: true,
       }),
     [remainingDistributionWei],
   );

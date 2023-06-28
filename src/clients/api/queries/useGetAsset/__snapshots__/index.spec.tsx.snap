@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetAsset returns the correct asset 1`] = `
-Object {
-  "asset": Object {
+exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
+{
+  "asset": {
     "borrowApyPercentage": "-2.3062487835658776",
     "borrowBalanceCents": "70925716",
     "borrowBalanceTokens": "1852935.597521220541385584",
@@ -10,14 +10,14 @@ Object {
     "borrowerCount": 10,
     "cashTokens": "10",
     "collateralFactor": 0.5,
-    "distributions": Array [
-      Object {
+    "distributions": [
+      {
         "borrowApyPercentage": "4.17469243006608279",
         "dailyDistributedTokens": "19999999",
         "supplyApyPercentage": "0.11720675342484096",
-        "token": Object {
+        "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "xvs.svg",
+          "asset": "/src/assets/img/tokens/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
@@ -41,13 +41,13 @@ Object {
     "userSupplyBalanceTokens": "90",
     "userWalletBalanceCents": "12786",
     "userWalletBalanceTokens": "100",
-    "vToken": Object {
+    "vToken": {
       "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
       "decimals": 8,
       "symbol": "vXVS",
-      "underlyingToken": Object {
+      "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "xvs.svg",
+        "asset": "/src/assets/img/tokens/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
@@ -56,8 +56,8 @@ Object {
 }
 `;
 
-exports[`api/queries/useGetAsset returns undefined when no matching asset is found 1`] = `
-Object {
+exports[`api/queries/useGetAsset > returns undefined when no matching asset is found 1`] = `
+{
   "asset": undefined,
 }
 `;

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -16,7 +16,7 @@ export default {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof Table>;
+} as Meta<typeof Table>;
 
 export const TableDefault = () => {
   const styles = useTableStyles();

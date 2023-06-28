@@ -106,7 +106,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
             ? convertWeiToTokens({
                 valueWei,
                 token: TOKENS.xvs,
-                minimizeDecimals: true,
+
                 returnInReadableFormat: true,
               })
             : PLACEHOLDER_KEY;
