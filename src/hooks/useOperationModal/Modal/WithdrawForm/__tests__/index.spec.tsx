@@ -69,7 +69,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
       },
     );
 
-    await waitFor(() => getByText('19.8 XVS'));
+    await waitFor(() => getByText('19.80 XVS'));
   });
 
   it('redeem is called when full amount is withdrawn', async () => {

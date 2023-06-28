@@ -73,7 +73,6 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         renderCell: ({ poolTotalSupplyCents }) =>
           formatCentsToReadableValue({
             value: poolTotalSupplyCents,
-            shortenLargeValue: true,
           }),
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
@@ -87,7 +86,6 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         renderCell: ({ poolTotalBorrowCents }) =>
           formatCentsToReadableValue({
             value: poolTotalBorrowCents,
-            shortenLargeValue: true,
           }),
         sortRows: (rowA, rowB, direction) =>
           direction === 'asc'
@@ -101,7 +99,6 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
           formatCentsToReadableValue({
             value: poolTotalSupplyCents.minus(poolTotalBorrowCents),
-            shortenLargeValue: true,
           }),
         sortRows: (rowA, rowB, direction) => {
           const poolALiquidityCents = rowA.poolTotalSupplyCents.minus(rowA.poolTotalBorrowCents);

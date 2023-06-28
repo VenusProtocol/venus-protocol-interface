@@ -160,7 +160,7 @@ describe('pages/Proposal', () => {
     });
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
-    expect(votingPower).toHaveValue('0.1');
+    expect(votingPower).toHaveValue('0.10');
 
     const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
@@ -192,7 +192,7 @@ describe('pages/Proposal', () => {
     });
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
-    expect(votingPower).toHaveValue('0.1');
+    expect(votingPower).toHaveValue('0.10');
 
     const commentInput = await waitFor(async () => getByLabelText(en.vote.comment));
     fireEvent.change(commentInput, { target: { value: comment } });
@@ -229,7 +229,7 @@ describe('pages/Proposal', () => {
     });
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
-    expect(votingPower).toHaveValue('0.1');
+    expect(votingPower).toHaveValue('0.10');
 
     const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();

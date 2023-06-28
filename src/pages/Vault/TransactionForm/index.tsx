@@ -56,7 +56,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const readableAvailableTokens = useConvertWeiToReadableTokenString({
     valueWei: availableTokensWei,
     token,
-    minimizeDecimals: true,
   });
 
   const readableLockingPeriod = React.useMemo(() => {

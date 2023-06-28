@@ -57,6 +57,7 @@ export const FormikTokenTextFieldWithBalance: React.FC<IFormikTokenTextFieldWith
                   valueWei: userBalanceWei || new BigNumber(0),
                   token: TOKENS.vai,
                   returnInReadableFormat: true,
+
                   addSymbol: true,
                 }),
               }}

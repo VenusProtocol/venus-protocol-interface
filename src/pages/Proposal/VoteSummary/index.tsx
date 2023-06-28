@@ -45,7 +45,7 @@ const VoteSummary = ({
       convertWeiToTokens({
         valueWei: voteWeightWei,
         token: TOKENS.xvs,
-        shortenLargeValue: true,
+
         addSymbol: false,
         returnInReadableFormat: true,
       }),
@@ -101,7 +101,7 @@ const VoteSummary = ({
               {convertWeiToTokens({
                 valueWei: voteWeightWei,
                 token: TOKENS.xvs,
-                shortenLargeValue: true,
+
                 addSymbol: false,
                 returnInReadableFormat: true,
               })}

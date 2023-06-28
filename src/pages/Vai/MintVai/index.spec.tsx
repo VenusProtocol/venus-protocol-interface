@@ -47,13 +47,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
     });
 
     // Check available VAI limit displays correctly
-    const readableFakeMintableVai = convertWeiToTokens({
-      valueWei: fakeGetMintableVaiOutput.mintableVaiWei,
-      token: TOKENS.vai,
-      returnInReadableFormat: true,
-    });
-
-    await waitFor(() => getByText(readableFakeMintableVai));
+    await waitFor(() => getByText('40.00 VAI'));
     // Check mint fee displays correctly
     await waitFor(() => getByText(`0 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });

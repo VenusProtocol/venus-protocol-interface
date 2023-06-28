@@ -118,9 +118,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       token: SWAP_TOKENS.busd,
     });
 
-    await waitFor(() =>
-      getByText(`${new BigNumber(FAKE_BUSD_BALANCE_TOKENS).toFormat()} ${SWAP_TOKENS.busd.symbol}`),
-    );
+    await waitFor(() => getByText('300.00K BUSD'));
   });
 
   it('disables submit button if no amount was entered in input', async () => {

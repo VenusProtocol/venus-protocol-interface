@@ -56,7 +56,7 @@ exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedS
     <div
       class="MuiTypography-root MuiTypography-body1 css-gfiqmq-MuiTypography-root-Component"
     >
-      ≈ 8,900 XVS
+      ≈ 8.90K XVS
     </div>
   </div>
 </div>
@@ -67,6 +67,6 @@ exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedS
   class="MuiTypography-root MuiTypography-small2 css-4z38vk-MuiTypography-root-Component"
   data-testid="swap-summary"
 >
-  You will supply 8,900 XVS using 299,999.9999999999999999 BUSD
+  You will supply 8.90K XVS using 300.00K BUSD
 </div>
 `;

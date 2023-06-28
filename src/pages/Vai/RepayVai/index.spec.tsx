@@ -144,7 +144,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmountTokens));
 
     // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText('0.00031735 VAI (0.000317%)'));
+    await waitFor(() => getByText('0.00032 VAI (0.000317%)'));
   });
 
   // TODO: add tests to cover failing scenarios (see VEN-631)

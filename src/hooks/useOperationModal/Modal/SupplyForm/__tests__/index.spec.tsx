@@ -33,11 +33,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       },
     );
 
-    await waitFor(() =>
-      getByText(
-        `${fakeAsset.userWalletBalanceTokens.toFormat()} ${fakeAsset.vToken.underlyingToken.symbol.toUpperCase()}`,
-      ),
-    );
+    await waitFor(() => getByText('10.00M XVS'));
   });
 
   it('displays correct token supply balance', async () => {
@@ -50,7 +46,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       },
     );
 
-    await waitFor(() => getByText(fakeAsset.userSupplyBalanceTokens.toFormat()));
+    await waitFor(() => getByText('1.00K'));
   });
 
   it('displays warning notice if asset is from an isolated pool', async () => {
@@ -158,7 +154,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.noticeError));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"The supply cap of 100 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
+      '"The supply cap of 100.00 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
     );
 
     // Check submit button is disabled
@@ -209,7 +205,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     // Check error notice is displayed
     await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
     expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You can not supply more than 90 XVS to this pool, as the supply cap for this market is set at 100 XVS and 10 XVS are currently being supplied to it."',
+      '"You can not supply more than 90.00 XVS to this pool, as the supply cap for this market is set at 100.00 XVS and 10.00 XVS are currently being supplied to it."',
     );
 
     // Check submit button is still disabled

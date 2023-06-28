@@ -123,7 +123,7 @@ export const TokenList: React.FC<TokenListProps> = ({
                 valueWei: tokenBalance.balanceWei,
                 token: tokenBalance.token,
                 returnInReadableFormat: true,
-                minimizeDecimals: true,
+
                 addSymbol: false,
               })}
             </Typography>
