@@ -26,6 +26,7 @@ export * from './Modal';
 export * from './Notice';
 export * from './Pagination';
 export * from './ProgressBar';
+export * from './ProgressCircle';
 export * from './ProposalCard';
 export * from './ProgressBar/AccountHealth';
 export * from './ProgressBar/PercentageRepresentation';

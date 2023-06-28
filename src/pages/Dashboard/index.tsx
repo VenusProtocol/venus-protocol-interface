@@ -1,6 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { ButtonGroup, NoticeWarning, TagGroup, TextField, TokenAnnouncement } from 'components';
-import React, { InputHTMLAttributes, useState } from 'react';
+import {
+  ButtonGroup,
+  NoticeWarning,
+  Tag,
+  TagGroup,
+  TextField,
+  TokenAnnouncement,
+} from 'components';
+import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
@@ -45,6 +52,22 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     searchValue,
     selectedPoolIndex: selectedPoolTagIndex - 1,
   });
+
+  const poolTags: Tag[] = useMemo(
+    () =>
+      [
+        {
+          id: 'all',
+          content: t('dashboard.allTag'),
+        },
+      ].concat(
+        pools.map(pool => ({
+          id: pool.comptrollerAddress,
+          content: pool.name,
+        })),
+      ),
+    [pools],
+  );
 
   const supplyMarketTableProps: MarketTableProps = {
     pools: formattedPools,
@@ -111,7 +134,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
             <TagGroup
               css={styles.tags}
-              tagsContent={[t('dashboard.allTag')].concat(pools.map(pool => pool.name))}
+              tags={poolTags}
               activeTagIndex={selectedPoolTagIndex}
               onTagClick={setSelectedPoolTagIndex}
             />

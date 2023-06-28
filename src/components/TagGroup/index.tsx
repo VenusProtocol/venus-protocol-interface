@@ -4,28 +4,31 @@ import React, { ReactElement } from 'react';
 import { QuinaryButton } from '../Button';
 import { useStyles } from './styles';
 
-export type TagContent = string | number | ReactElement;
+export interface Tag {
+  content: string | number | ReactElement;
+  id: number | string;
+}
 
 export interface TagGroupProps {
-  tagsContent: TagContent[];
+  tags: Tag[];
   activeTagIndex: number;
   onTagClick: (newIndex: number) => void;
   className?: string;
 }
 
-export const TagGroup = ({ tagsContent, activeTagIndex, onTagClick, className }: TagGroupProps) => {
+export const TagGroup = ({ tags, activeTagIndex, onTagClick, className }: TagGroupProps) => {
   const styles = useStyles();
 
   return (
     <div css={styles.container} className={className}>
-      {tagsContent.map((tagContent, index) => (
+      {tags.map((tag, index) => (
         <QuinaryButton
           active={index === activeTagIndex}
-          key={`tag-group-tag-${tagContent.toString()}`}
+          key={`tag-group-tag-${tag.id}`}
           onClick={() => onTagClick(index)}
           css={styles.tag}
         >
-          {tagContent}
+          {tag.content}
         </QuinaryButton>
       ))}
     </div>

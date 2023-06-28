@@ -26,7 +26,12 @@ export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TagGroup
-        tagsContent={['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5']}
+        tags={[
+          { id: 1, content: 'Tag 1' },
+          { id: 2, content: 'Tag 2' },
+          { id: 3, content: 'Tag 3' },
+          { id: 4, content: 'Tag 4' },
+        ]}
         activeTagIndex={state.activeTagIndex}
         onTagClick={newIndex => setState({ activeTagIndex: newIndex })}
       />

@@ -269,6 +269,7 @@ export const styles = ({ fullWidth, variant }: { fullWidth: boolean; variant: Va
     `,
     label: css`
       display: inline-flex;
+      align-items: center;
       font-weight: 600;
       color: inherit;
       font-size: ${variant === 'primary' || variant === 'secondary'

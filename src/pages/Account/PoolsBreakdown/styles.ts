@@ -24,5 +24,8 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(6)};
       }
     `,
+    tagText: css`
+      margin-right: ${theme.spacing(1)};
+    `,
   };
 };

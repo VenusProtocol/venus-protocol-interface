@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { TagGroup } from 'components';
-import React, { useState } from 'react';
+import { ProgressCircle, Tag, TagGroup } from 'components';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
@@ -21,6 +21,21 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
   const [selectedPoolIndex, setSelectedPoolIndex] = useState<number>(0);
   const selectedPool = pools[selectedPoolIndex];
 
+  const tags: Tag[] = useMemo(
+    () =>
+      pools.map(pool => ({
+        id: pool.comptrollerAddress,
+        content: (
+          <>
+            <span css={styles.tagText}>{pool.name}</span>
+
+            <ProgressCircle value={75} />
+          </>
+        ),
+      })),
+    [pools],
+  );
+
   return (
     <Section
       className={className}
@@ -29,7 +44,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
       {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
         <TagGroup
           css={styles.tags}
-          tagsContent={pools.map(pool => pool.name)}
+          tags={tags}
           activeTagIndex={selectedPoolIndex}
           onTagClick={setSelectedPoolIndex}
         />

@@ -15,6 +15,10 @@ export const useStyles = () => {
       stroke-dashoffset: ${offset};
       stroke-width: 2px;
     `,
+    circleBackground: css`
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 2px;
+    `,
   };
 };
 
