@@ -236,7 +236,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           {!isSubmitting && !isSwapLoading && <Notice asset={asset} formError={formError} />}
         </div>
 
-        {swap && (
+        {isUsingSwap && (
           <>
             <SwapDetails
               action="supply"
