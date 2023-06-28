@@ -5,9 +5,9 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import formatCentsToReadableValue, { FormatCentsToReadableValueInput } from '..';
 import shortenValueWithSuffix, { ShortenValueWithSuffix } from '../../shortenValueWithSuffix';
 
-jest.mock('../../shortenValueWithSuffix', () =>
-  jest.fn(({ value }: ShortenValueWithSuffix) => value.toFixed()),
-);
+vi.mock('../../shortenValueWithSuffix', () => ({
+  default: vi.fn(({ value }: ShortenValueWithSuffix) => value.toFixed()),
+}));
 
 describe('utilities/formatCentsToReadableValue', () => {
   test('should return PLACEHOLDER_KEY when value is undefined', () => {

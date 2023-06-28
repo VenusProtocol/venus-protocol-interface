@@ -6,7 +6,7 @@ exports[`pages/Vault > renders vaults correctly 2`] = `"XVS"`;
 
 exports[`pages/Vault > renders vaults correctly 3`] = `"0"`;
 
-exports[`pages/Vault renders vaults correctly 4`] = `"233.00"`;
+exports[`pages/Vault > renders vaults correctly 4`] = `"233.00"`;
 
 exports[`pages/Vault > renders vaults correctly 5`] = `"12665.06%"`;
 

@@ -6,9 +6,9 @@ import { TOKENS } from 'constants/tokens';
 import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
 import shortenValueWithSuffix, { ShortenValueWithSuffix } from '../../shortenValueWithSuffix';
 
-jest.mock('../../shortenValueWithSuffix', () =>
-  jest.fn(({ value }: ShortenValueWithSuffix) => value.toFixed()),
-);
+vi.mock('../../shortenValueWithSuffix', () => ({
+  default: vi.fn(({ value }: ShortenValueWithSuffix) => value.toFixed()),
+}));
 
 describe('utilities/formatTokensToReadableValue', () => {
   test('should return PLACEHOLDER_KEY when value is undefined', () => {

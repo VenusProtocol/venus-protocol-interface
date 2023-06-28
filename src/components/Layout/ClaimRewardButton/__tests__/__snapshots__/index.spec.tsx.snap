@@ -73,4 +73,4 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
 }
 `;
 
-exports[`components/Layout/ClaimRewardButton renders correct reward breakdown in modal 1`] = `"Venus1.00B XVSMetaverse2.00B VAI3.00B XVSVRT vault2.00B VRTVAI vault3.00B XVSXVS vesting vault4.00B XVS"`;
+exports[`components/Layout/ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"Venus1.00B XVSMetaverse2.00B VAI3.00B XVSVRT vault2.00B VRTVAI vault3.00B XVSXVS vesting vault4.00B XVS"`;

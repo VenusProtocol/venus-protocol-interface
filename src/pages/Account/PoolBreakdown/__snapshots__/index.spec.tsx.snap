@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Account/PoolBreakdown Feature flag enabled: isolatedPools displays content correctly 1`] = `"Net APY0%Daily Earnings$0.03Total Supply$1.24MTotal Borrow$123.33Borrow limit used:6.4%Limit:$1.93K.Your safe limit:$1.54K"`;
+exports[`pages/Account/PoolBreakdown > Feature flag enabled: isolatedPools > displays content correctly 1`] = `"Net APY0%Daily Earnings$0.03Total Supply$1.24MTotal Borrow$123.33Borrow limit used:6.4%Limit:$1.93K.Your safe limit:$1.54K"`;
 
 exports[`pages/Account/PoolBreakdown > Feature flag enabled: isolatedPools > displays content correctly 2`] = `"Supplied assetsAssetAPY / LTVBalancesorted descendingCollateralXVS0.17%50%90.00 XVS$115.08USDC5.24%80%100.00 USDC$99.99Sort byBalance​XVSAPY / LTV0.17%50%Balance90.00 XVS$115.08CollateralUSDCAPY / LTV5.24%80%Balance100.00 USDC$99.99CollateralBorrowed assetsAssetAPYBalancesorted descending% of limitBUSD-4.9%50.00 BUSD$50.000%USDT-5.5%40.00 USDT$40.000%Sort byBalance​BUSDAPY-4.9%Balance50.00 BUSD$50.00% of limit0%USDTAPY-5.5%Balance40.00 USDT$40.00% of limit0%AssetsSuppliedBorrowAssetAPY / LTVBalancesorted descendingCollateralXVS0.17%50%90.00 XVS$115.08USDC5.24%80%100.00 USDC$99.99Sort byBalance​XVSAPY / LTV0.17%50%Balance90.00 XVS$115.08CollateralUSDCAPY / LTV5.24%80%Balance100.00 USDC$99.99Collateral"`;
 

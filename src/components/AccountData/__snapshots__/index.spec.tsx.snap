@@ -1,17 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'borrow', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'borrow', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0100.00Borrow limit used6.4%13.04%Daily earnings$0.03$0.05"`;
+exports[`components/AccountData > renders correctly with props: { action: 'borrow', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0100.00Borrow limit used6.4%13.04%Daily earnings$0.03$0.05"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'repay', amountToken: 0 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'repay', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'repay', amountToken: 100 } 1`] = `"Borrow APY-2.31%Distribution APY (XVS)4.17%Total APY-6.48%Current:$123.33Max:$1.93K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.93K.Supply balance (XVS)90.00Borrow limit$1.93KDaily earnings$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'supply', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.93K.Supply balance (XVS)90.00Borrow limit$1.93KDaily earnings$0.03"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$65.86K.Supply balance (XVS)90.00100.090KBorrow limit$1.93K$65.86KDaily earnings$0.03$0.62"`;
+exports[`components/AccountData > renders correctly with props: { action: 'supply', amountToken: 100000 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$65.86K.Supply balance (XVS)90.00100.090KBorrow limit$1.93K$65.86KDaily earnings$0.03$0.62"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.93K.Supply balance (XVS)90.00Borrow limit$1.93KDaily earnings$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'withdraw', amountToken: 0 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.93K.Supply balance (XVS)90.00Borrow limit$1.93KDaily earnings$0.03"`;
 
-exports[`components/AccountData renders correctly with props: { action: 'withdraw', amountToken: 50 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.89K.Supply balance (XVS)90.0040.00Borrow limit$1.93K$1.89KDaily earnings$0.03$0.03"`;
+exports[`components/AccountData > renders correctly with props: { action: 'withdraw', amountToken: 50 } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%Current:$123.33Max:$1.89K.Supply balance (XVS)90.0040.00Borrow limit$1.93K$1.89KDaily earnings$0.03$0.03"`;
