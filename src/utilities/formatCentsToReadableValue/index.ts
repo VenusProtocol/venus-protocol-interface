@@ -39,8 +39,8 @@ const formatCentsToReadableValue = ({
   // Handle token prices
   if (isTokenPrice) {
     const isInsignificant =
-      new BigNumber(value).isLessThan(SMALLEST_READABLE_TOKEN_PRICE_VALUE) &&
-      new BigNumber(value).isGreaterThan(-SMALLEST_READABLE_TOKEN_PRICE_VALUE);
+      wrappedValueDollars.isLessThan(SMALLEST_READABLE_TOKEN_PRICE_VALUE) &&
+      wrappedValueDollars.isGreaterThan(-SMALLEST_READABLE_TOKEN_PRICE_VALUE);
 
     return isInsignificant
       ? `< $${new BigNumber(SMALLEST_READABLE_TOKEN_PRICE_VALUE).toFormat()}`
@@ -49,8 +49,8 @@ const formatCentsToReadableValue = ({
 
   // Handle dollar values that aren't token prices
   if (
-    new BigNumber(value).isLessThan(SMALLEST_READABLE_VALUE) &&
-    new BigNumber(value).isGreaterThan(-SMALLEST_READABLE_VALUE)
+    wrappedValueDollars.isLessThan(SMALLEST_READABLE_VALUE) &&
+    wrappedValueDollars.isGreaterThan(-SMALLEST_READABLE_VALUE)
   ) {
     return `< $${new BigNumber(SMALLEST_READABLE_VALUE).toFormat()}`;
   }
