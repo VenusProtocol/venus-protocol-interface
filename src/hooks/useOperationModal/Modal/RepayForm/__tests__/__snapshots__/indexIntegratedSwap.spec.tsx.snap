@@ -56,7 +56,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
     <div
       class="MuiTypography-root MuiTypography-body1 css-19c7lst-MuiTypography-root-LabeledInlineContent"
     >
-      ≈ 1,000.00 XVS
+      ≈ 999.99 XVS
     </div>
   </div>
 </div>
@@ -67,6 +67,6 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
   class="MuiTypography-root MuiTypography-small2 css-5mdu71-MuiTypography-root-SwapSummary"
   data-testid="swap-summary"
 >
-  You will repay 1,000.00 XVS using 300.00K BUSD
+  You will repay 999.99 XVS using 299.99K BUSD
 </div>
 `;
