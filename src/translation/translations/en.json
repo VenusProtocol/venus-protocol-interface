@@ -52,7 +52,7 @@
   },
   "announcements": {
     "bethUpdate": {
-      "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. For more information <Link>see the official announcement by Binance</Link>."
+      "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. Convert BETH to WBETH on-chain at a 1:1 ratio <Link>here</Link>."
     },
     "sxpDisabling": {
       "description": "Following recommendation from Gauntlet, borrow and supply for SXP has been paused given concerns around SXP migrating to a new chain and expected decline in SXP liquidity."
