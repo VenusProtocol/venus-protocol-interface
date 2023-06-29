@@ -9,11 +9,11 @@ import { MAINNET_TOKENS } from 'constants/tokens';
 import { NoticeInfo, NoticeWarning } from '../Notice';
 import { useStyles } from './styles';
 
-export interface AnnouncementProps {
+export interface TokenAnnouncementProps {
   token: Token;
 }
 
-export const Announcement: React.FC<AnnouncementProps> = ({ token }) => {
+export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token }) => {
   const styles = useStyles();
   const { Trans, t } = useTranslation();
 

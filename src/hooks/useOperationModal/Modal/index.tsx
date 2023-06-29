@@ -1,5 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
+import {
+  Modal,
+  ModalProps,
+  TabContent,
+  Tabs,
+  TokenAnnouncement,
+  TokenIconWithSymbol,
+} from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
@@ -132,7 +139,7 @@ const OperationModal: React.FC<OperationModalProps> = ({
       handleClose={onClose}
     >
       <>
-        <Announcement token={vToken.underlyingToken} />
+        <TokenAnnouncement token={vToken.underlyingToken} />
 
         {tabsContent.length > 0 && (
           <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />
