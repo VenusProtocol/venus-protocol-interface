@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'translation';
 import {
   calculatePercentage,
@@ -9,6 +8,7 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import useProgressColor from 'hooks/useProgressColor';
 
 import { LabeledProgressBar } from '../LabeledProgressBar';
 
@@ -30,7 +30,6 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
   safeBorrowLimitPercentage,
 }) => {
   const { t, Trans } = useTranslation();
-  const theme = useTheme();
 
   const borrowLimitUsedPercentage =
     typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
@@ -68,18 +67,7 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
   });
 
   const sanitizedBorrowLimitUsedPercentage = borrowLimitUsedPercentage || 0;
-
-  const progressBarColor = useMemo(() => {
-    if (sanitizedBorrowLimitUsedPercentage >= 80) {
-      return theme.palette.interactive.error;
-    }
-
-    if (sanitizedBorrowLimitUsedPercentage >= 50) {
-      return theme.palette.interactive.warning;
-    }
-
-    return theme.palette.interactive.success;
-  }, [sanitizedBorrowLimitUsedPercentage]);
+  const progressBarColor = useProgressColor(sanitizedBorrowLimitUsedPercentage);
 
   return (
     <div className={className}>
