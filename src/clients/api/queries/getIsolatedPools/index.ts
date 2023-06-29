@@ -15,7 +15,7 @@ import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
-const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry');
+const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry_Proxy');
 
 const getIsolatedPools = async ({
   accountAddress,

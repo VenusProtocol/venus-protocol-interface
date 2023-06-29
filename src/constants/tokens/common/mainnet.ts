@@ -13,6 +13,7 @@ import doge from 'assets/img/tokens/doge.svg';
 import dot from 'assets/img/tokens/dot.svg';
 import eth from 'assets/img/tokens/eth.svg';
 import fil from 'assets/img/tokens/fil.svg';
+import hay from 'assets/img/tokens/hay.png';
 import link from 'assets/img/tokens/link.svg';
 import ltc from 'assets/img/tokens/ltc.svg';
 import luna from 'assets/img/tokens/luna.svg';
@@ -21,6 +22,7 @@ import sxp from 'assets/img/tokens/sxp.svg';
 import trx from 'assets/img/tokens/trx.svg';
 import tusd from 'assets/img/tokens/tusd.svg';
 import usdc from 'assets/img/tokens/usdc.svg';
+import usdd from 'assets/img/tokens/usdd.svg';
 import usdt from 'assets/img/tokens/usdt.svg';
 import ust from 'assets/img/tokens/ust.svg';
 import vai from 'assets/img/tokens/vai.svg';
@@ -210,5 +212,17 @@ export const MAINNET_TOKENS = {
     decimals: 18,
     symbol: 'WBETH',
     asset: wbeth,
+  } as Token,
+  hay: {
+    address: '0x0782b6d8c4551B9760e74c0545a9bCD90bdc41E5',
+    decimals: 18,
+    symbol: 'HAY',
+    asset: hay,
+  } as Token,
+  usdd: {
+    address: '0xd17479997F34dd9156Deef8F95A52D81D265be9c',
+    decimals: 18,
+    symbol: 'USDD',
+    asset: usdd,
   } as Token,
 };
