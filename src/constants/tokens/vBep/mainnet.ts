@@ -172,5 +172,25 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vWBETH',
     underlyingToken: MAINNET_TOKENS.wbeth,
   } as VToken,
-  // TODO: add tokens from isolated pools
+
+  // Isolated assets
+  // Pool 1 – Stable Coins
+  '0xca2d81aa7c09a1a025de797600a7081146dceed9': {
+    address: '0xca2d81aa7c09a1a025de797600a7081146dceed9',
+    decimals: 8,
+    symbol: 'vHAY',
+    underlyingToken: MAINNET_TOKENS.hay,
+  } as VToken,
+  '0xc3a45ad8812189cab659ad99e64b1376f6acd035': {
+    address: '0xc3a45ad8812189cab659ad99e64b1376f6acd035',
+    decimals: 8,
+    symbol: 'vUSDD',
+    underlyingToken: MAINNET_TOKENS.usdd,
+  } as VToken,
+  '0x5e3072305f9cae1c7a82f6fe9e38811c74922c3b': {
+    address: '0x5e3072305f9cae1c7a82f6fe9e38811c74922c3b',
+    decimals: 8,
+    symbol: 'vUSDT',
+    underlyingToken: MAINNET_TOKENS.usdt,
+  } as VToken,
 };
