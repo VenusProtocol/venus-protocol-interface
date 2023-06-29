@@ -18,6 +18,7 @@ import {
   areTokensEqual,
   convertWeiToTokens,
   formatToReadablePercentage,
+  formatTokensToReadableValue,
   getContractAddress,
 } from 'utilities';
 
@@ -199,6 +200,17 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     token: formValues.toToken,
   });
 
+  const readableExchangeRate = useMemo(
+    () =>
+      swap &&
+      formatTokensToReadableValue({
+        value: swap.exchangeRate,
+        token: swap.toToken,
+        addSymbol: false,
+      }),
+    [swap?.exchangeRate, swap?.toToken],
+  );
+
   // Form validation
   const { isFormValid, errors: formErrors } = useFormValidation({
     swap,
@@ -322,7 +334,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
               {t('swapPage.exchangeRate.value', {
                 fromTokenSymbol: formValues.fromToken.symbol,
                 toTokenSymbol: formValues.toToken.symbol,
-                rate: swap.exchangeRate.toFixed(),
+                rate: readableExchangeRate,
               })}
             </LabeledInlineContent>
 

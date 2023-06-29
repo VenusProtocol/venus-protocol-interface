@@ -249,7 +249,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         )}
       </div>
 
-      {swap && (
+      {isUsingSwap && (
         <>
           <SwapDetails
             action="repay"
