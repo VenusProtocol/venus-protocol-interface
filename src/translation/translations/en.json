@@ -409,6 +409,12 @@
       }
     },
     "borrowTabTitle": "Borrow",
+    "disabledActionNotice": {
+      "borrow": "Borrowing has been disabled for this token",
+      "repay": "Repaying has been disabled for this token",
+      "supply": "Supplying has been disabled for this token",
+      "withdraw": "Withdrawing has been disabled for this token"
+    },
     "repay": {
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",

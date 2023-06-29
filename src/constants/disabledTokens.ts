@@ -1,13 +1,11 @@
 import config from 'config';
-import { Token } from 'types';
+import { Token, TokenAction } from 'types';
 
 import { MAINNET_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 
-export type Action = 'borrow' | 'repay' | 'supply' | 'withdraw';
-
 interface DisabledToken {
   token: Token;
-  disabledActions: Action[];
+  disabledActions: TokenAction[];
 }
 
 export const DISABLED_TOKENS_TESTNET: DisabledToken[] = [

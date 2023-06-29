@@ -21,6 +21,8 @@ export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
   underlyingToken: Token;
 }
 
+export type TokenAction = 'supply' | 'withdraw' | 'borrow' | 'repay';
+
 export interface TokenBalance {
   token: Token;
   balanceWei: BigNumber;

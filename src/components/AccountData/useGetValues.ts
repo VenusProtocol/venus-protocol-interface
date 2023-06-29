@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Pool, Swap } from 'types';
+import { Asset, Pool, Swap, TokenAction } from 'types';
 import {
   areTokensEqual,
   calculateCollateralValue,
@@ -14,7 +14,7 @@ import {
 export interface UseGetValuesInput {
   asset: Asset;
   pool: Pool;
-  action: 'supply' | 'withdraw' | 'repay' | 'borrow';
+  action: TokenAction;
   amountTokens: BigNumber;
   isUsingSwap: boolean;
   swap?: Swap;
