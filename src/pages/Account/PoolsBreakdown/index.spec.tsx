@@ -6,25 +6,28 @@ import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
 import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
-import PoolBreakdown, { PoolBreakdownProps } from '.';
+import PoolsBreakdown, { PoolsBreakdownProps } from '.';
 import SUMMARY_TEST_IDS from '../Summary/testIds';
 import TEST_IDS from './testIds';
 
 vi.mock('clients/api');
 
-const baseProps: PoolBreakdownProps = {
-  pool: poolData[0],
+const baseProps: PoolsBreakdownProps = {
+  pools: poolData,
 };
 
 describe('pages/Account/PoolBreakdown', () => {
   it('renders without crashing', () => {
-    renderComponent(<PoolBreakdown {...baseProps} />);
+    renderComponent(<PoolsBreakdown {...baseProps} />);
   });
 
   it('displays content correctly', () => {
-    const { getByTestId, getByText } = renderComponent(<PoolBreakdown {...baseProps} />);
+    const mainPool = baseProps.pools[0];
+    const { getByTestId, getByText } = renderComponent(
+      <PoolsBreakdown {...baseProps} pools={[mainPool]} />,
+    );
 
-    expect(getByText(baseProps.pool.name)).toBeTruthy();
+    expect(getByText(mainPool.name)).toBeTruthy();
     expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
   });
 
@@ -41,9 +44,9 @@ describe('pages/Account/PoolBreakdown', () => {
     });
 
     it('displays content correctly', () => {
-      const { getByTestId, getByText } = renderComponent(<PoolBreakdown {...baseProps} />);
+      const { getByTestId, getByText } = renderComponent(<PoolsBreakdown {...baseProps} />);
 
-      expect(getByText(baseProps.pool.name)).toBeTruthy();
+      expect(getByText(baseProps.pools[0].name)).toBeTruthy();
       expect(getByTestId(SUMMARY_TEST_IDS.container).textContent).toMatchSnapshot();
       expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
     });
