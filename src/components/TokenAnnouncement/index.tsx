@@ -82,7 +82,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, cla
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 <a
-                  href="https://binance.com/en/support/announcement/binance-introduces-wrapped-beacon-eth-wbeth-on-eth-staking-a1197f34d832445db41654ad01f56b4d"
+                  href="https://www.binance.com/en/support/announcement/binance-supports-beth-to-wbeth-conversion-on-bnb-smart-chain-a7d439452e034c3c85fcc7128d0973b0"
                   rel="noreferrer"
                   target="_blank"
                 />
