@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
+import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
-import { isTokenActionEnabled } from 'utilities';
 
 import AssetAccessor from 'containers/AssetAccessor';
 
@@ -27,15 +26,8 @@ const OperationModal: React.FC<OperationModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const tabsContent: TabContent[] = [];
-
-  if (
-    isTokenActionEnabled({
-      token: vToken.underlyingToken,
-      action: 'supply',
-    })
-  ) {
-    tabsContent.push({
+  const tabsContent: TabContent[] = [
+    {
       title: t('operationModal.supplyTabTitle'),
       content: (
         <AssetAccessor
@@ -45,21 +37,13 @@ const OperationModal: React.FC<OperationModalProps> = ({
           approveTokenMessage={t('operationModal.supply.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          assetInfoType="supply"
+          action="supply"
         >
           {({ asset, pool }) => <SupplyForm asset={asset} pool={pool} onCloseModal={onClose} />}
         </AssetAccessor>
       ),
-    });
-  }
-
-  if (
-    isTokenActionEnabled({
-      token: vToken.underlyingToken,
-      action: 'withdraw',
-    })
-  ) {
-    tabsContent.push({
+    },
+    {
       title: t('operationModal.withdrawTabTitle'),
       content: (
         <AssetAccessor
@@ -69,21 +53,13 @@ const OperationModal: React.FC<OperationModalProps> = ({
           approveTokenMessage={t('operationModal.withdraw.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          assetInfoType="supply"
+          action="withdraw"
         >
           {({ asset, pool }) => <WithdrawForm asset={asset} pool={pool} onCloseModal={onClose} />}
         </AssetAccessor>
       ),
-    });
-  }
-
-  if (
-    isTokenActionEnabled({
-      token: vToken.underlyingToken,
-      action: 'borrow',
-    })
-  ) {
-    tabsContent.push({
+    },
+    {
       title: t('operationModal.borrowTabTitle'),
       content: (
         <AssetAccessor
@@ -93,21 +69,13 @@ const OperationModal: React.FC<OperationModalProps> = ({
           approveTokenMessage={t('operationModal.borrow.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          assetInfoType="borrow"
+          action="borrow"
         >
           {({ asset, pool }) => <BorrowForm asset={asset} pool={pool} onCloseModal={onClose} />}
         </AssetAccessor>
       ),
-    });
-  }
-
-  if (
-    isTokenActionEnabled({
-      token: vToken.underlyingToken,
-      action: 'repay',
-    })
-  ) {
-    tabsContent.push({
+    },
+    {
       title: t('operationModal.repayTabTitle'),
       content: (
         <AssetAccessor
@@ -117,13 +85,13 @@ const OperationModal: React.FC<OperationModalProps> = ({
           approveTokenMessage={t('operationModal.repay.enableToken.title', {
             symbol: vToken.underlyingToken.symbol,
           })}
-          assetInfoType="borrow"
+          action="repay"
         >
           {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}
         </AssetAccessor>
       ),
-    });
-  }
+    },
+  ];
 
   return (
     <Modal
@@ -131,13 +99,7 @@ const OperationModal: React.FC<OperationModalProps> = ({
       title={<TokenIconWithSymbol token={vToken.underlyingToken} variant="h4" />}
       handleClose={onClose}
     >
-      <>
-        <Announcement token={vToken.underlyingToken} />
-
-        {tabsContent.length > 0 && (
-          <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />
-        )}
-      </>
+      <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />
     </Modal>
   );
 };

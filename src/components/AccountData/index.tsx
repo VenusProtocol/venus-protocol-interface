@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool, Swap } from 'types';
+import { Asset, Pool, Swap, TokenAction } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -18,7 +18,7 @@ import useGetValues from './useGetValues';
 export interface AccountDataProps {
   asset: Asset;
   pool: Pool;
-  action: 'supply' | 'withdraw' | 'borrow' | 'repay';
+  action: TokenAction;
   amountTokens: BigNumber;
   isUsingSwap?: boolean;
   swap?: Swap;

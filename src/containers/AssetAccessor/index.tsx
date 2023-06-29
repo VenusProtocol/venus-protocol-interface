@@ -1,19 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { ApproveToken, ConnectWallet, Spinner } from 'components';
 import React from 'react';
-import { Asset, Pool, VToken } from 'types';
-import { areTokensEqual } from 'utilities';
+import { Asset, Pool, TokenAction, VToken } from 'types';
+import { areTokensEqual, isTokenActionEnabled } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useAssetInfo from 'hooks/useAssetInfo';
+
+import DisabledActionNotice from './DisabledActionNotice';
 
 export interface AssetAccessorProps {
   vToken: VToken;
   poolComptrollerAddress: string;
   connectWalletMessage: string;
   approveTokenMessage: string;
-  assetInfoType: 'supply' | 'borrow';
+  action: TokenAction;
   children: (props: { asset: Asset; pool: Pool }) => React.ReactNode;
 }
 
@@ -23,7 +25,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   children,
   connectWalletMessage,
   approveTokenMessage,
-  assetInfoType,
+  action,
 }) => {
   const { accountAddress } = useAuth();
 
@@ -36,8 +38,17 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
 
   const assetInfo = useAssetInfo({
     asset,
-    type: assetInfoType,
+    type: action === 'supply' || action === 'withdraw' ? 'supply' : 'borrow',
   });
+
+  if (
+    !isTokenActionEnabled({
+      token: vToken.underlyingToken,
+      action,
+    })
+  ) {
+    return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
+  }
 
   return (
     <ConnectWallet message={connectWalletMessage}>

@@ -1,5 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Announcement, ButtonGroup, NoticeWarning, QuinaryButton, TextField } from 'components';
+import {
+  ButtonGroup,
+  NoticeWarning,
+  QuinaryButton,
+  TextField,
+  TokenAnnouncement,
+} from 'components';
 import React, { InputHTMLAttributes, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -80,7 +86,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
       <NoticeWarning css={styles.banner} description={t('dashboard.banner.borrowApyChange')} />
 
-      <Announcement token={MAINNET_TOKENS.tusdold} />
+      <TokenAnnouncement css={styles.banner} token={MAINNET_TOKENS.tusdold} />
 
       <div css={styles.header}>
         <TextField
