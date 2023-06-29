@@ -6422,10 +6422,10 @@
     "@uiw/react-markdown-preview" "^4.0.10"
     rehype "~12.0.1"
 
-"@venusprotocol/isolated-pools@1.0.0-dev.13":
-  version "1.0.0-dev.13"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-1.0.0-dev.13.tgz#fa8fcdfff934522870e74dbcb5f0674f6b30a21f"
-  integrity sha512-DtMTxtMnTWymKH/cpBuqP/IbDLq9BDkmBCC/8LrlwjIb/qBPHkWkgwugstM/6iFT/0H7tat3AjH61Cg8UdK7bg==
+"@venusprotocol/isolated-pools@1.0.0-dev.18":
+  version "1.0.0-dev.18"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-1.0.0-dev.18.tgz#626f8f51082ac8cb65954c85ca6b983086b93db7"
+  integrity sha512-xVkol4MCky6d1ywUBPXJ29CFEd0/qqrcCWiqosYxUKpUAFS8rC8esh9/INY5elnj3JFiipBGREOKbv1pKwrniw==
   dependencies:
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.3"

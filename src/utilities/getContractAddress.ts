@@ -1,27 +1,32 @@
+import isolatedLendingMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedLendingTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import config from 'config';
 
-import mainContractAddresses from 'constants/contracts/addresses/main.json';
+import mainContractChainAddresses from 'constants/contracts/addresses/main.json';
 
-type IsolatedLendingContractName = keyof typeof isolatedLendingTestnetDeployments['contracts'];
+const mainContractAddresses = Object.entries(mainContractChainAddresses).reduce(
+  (accContractAddresses, [contractName, addresses]) => ({
+    ...accContractAddresses,
+    [contractName]: addresses[config.chainId],
+  }),
+  {} as Record<keyof typeof mainContractChainAddresses, string>,
+);
+
+const isolatedLendingContractChainAddresses = config.isOnTestnet
+  ? isolatedLendingTestnetDeployments.contracts
+  : isolatedLendingMainnetDeployments.contracts;
+
+type IsolatedLendingContractName = keyof typeof isolatedLendingContractChainAddresses;
 
 const isolatedLendingContractAddresses = Object.entries(
-  isolatedLendingTestnetDeployments.contracts,
+  isolatedLendingContractChainAddresses,
 ).reduce(
   (accContractAddresses, [contractName, contractInfo]) => ({
     ...accContractAddresses,
-    [contractName]: {
-      97: contractInfo.address,
-      56: '', // TODO: fill up once contracts have been deployed to mainnet
-    },
+    [contractName]: contractInfo.address,
   }),
   {},
-) as Record<
-  IsolatedLendingContractName,
-  {
-    [chainId: number]: string;
-  }
->;
+) as Record<IsolatedLendingContractName, string>;
 
 const contractAddresses = {
   ...mainContractAddresses,
@@ -29,6 +34,6 @@ const contractAddresses = {
 };
 
 const getContractAddress = (contractName: keyof typeof contractAddresses) =>
-  contractAddresses[contractName][config.chainId];
+  contractAddresses[contractName];
 
 export default getContractAddress;
