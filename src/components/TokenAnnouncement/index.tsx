@@ -7,21 +7,20 @@ import { areTokensEqual } from 'utilities';
 import { MAINNET_TOKENS } from 'constants/tokens';
 
 import { NoticeInfo, NoticeWarning } from '../Notice';
-import { useStyles } from './styles';
 
 export interface TokenAnnouncementProps {
   token: Token;
+  className?: string;
 }
 
-export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token }) => {
-  const styles = useStyles();
+export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, className }) => {
   const { Trans, t } = useTranslation();
 
   // TUSD migration
   if (areTokensEqual(token, MAINNET_TOKENS.tusdold)) {
     return (
       <NoticeInfo
-        css={styles.banner}
+        css={className}
         description={
           <Trans
             i18nKey="announcements.tusdMigration.description"
@@ -45,7 +44,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token }) =
   if (areTokensEqual(token, MAINNET_TOKENS.trxold)) {
     return (
       <NoticeWarning
-        css={styles.banner}
+        css={className}
         description={
           <Trans
             i18nKey="announcements.trxMigration.description"
@@ -67,10 +66,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token }) =
   // SXP disabling
   if (areTokensEqual(token, MAINNET_TOKENS.sxp)) {
     return (
-      <NoticeWarning
-        css={styles.banner}
-        description={t('announcements.sxpDisabling.description')}
-      />
+      <NoticeWarning css={className} description={t('announcements.sxpDisabling.description')} />
     );
   }
 
@@ -78,7 +74,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token }) =
   if (areTokensEqual(token, MAINNET_TOKENS.beth)) {
     return (
       <NoticeWarning
-        css={styles.banner}
+        css={className}
         description={
           <Trans
             i18nKey="announcements.bethUpdate.description"

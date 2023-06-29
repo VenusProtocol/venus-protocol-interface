@@ -86,7 +86,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
       <NoticeWarning css={styles.banner} description={t('dashboard.banner.borrowApyChange')} />
 
-      <TokenAnnouncement token={MAINNET_TOKENS.tusdold} />
+      <TokenAnnouncement css={styles.banner} token={MAINNET_TOKENS.tusdold} />
 
       <div css={styles.header}>
         <TextField
