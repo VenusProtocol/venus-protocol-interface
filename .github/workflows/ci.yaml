@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  typecheck:
+  checks:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -25,31 +25,17 @@ jobs:
       - name: Install deps
         run: yarn
 
-      - name: TSC
-        run: yarn run typecheck
+      - name: Typecheck
+        run: yarn typecheck
 
-  lint:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '18.16.1'
-          cache: 'yarn'
-
-      - name: Install deps
-        run: yarn
-
-      - name: Lint
-        run: yarn lint
-
-      - name: pretty
-        run: yarn pretty
+      - name: Pretty
+        run: yarn lint:format
 
       - name: Lint styles
-        run: yarn lint-styles
+        run: yarn lint:styles
+
+      - name: Lint
+        run: yarn lint:ts
 
   test:
     runs-on: ubuntu-20.04

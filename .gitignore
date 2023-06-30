@@ -33,6 +33,7 @@ yarn-error.log
 npm-debug.log
 testem.log
 /typings
+.eslintcache
 
 # e2e
 /e2e/*.js

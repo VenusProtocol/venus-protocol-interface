@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
 import { getDefaultProvider } from 'ethers';
 import React from 'react';
