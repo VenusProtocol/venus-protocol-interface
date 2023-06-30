@@ -30,7 +30,6 @@ const context: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isConnected: true,
   accountAddress: '0x0000000000000000000000000000000000000000',
 };
 

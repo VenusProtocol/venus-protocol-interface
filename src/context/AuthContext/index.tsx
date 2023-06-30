@@ -29,7 +29,6 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   provider: Provider;
-  isConnected: boolean;
   accountAddress: string;
   signer?: Signer;
 }
@@ -39,7 +38,6 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
-  isConnected: false,
   provider: getDefaultProvider(),
   accountAddress: '',
 });
@@ -59,8 +57,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   // Set address as authorized by default
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
-  const isUserConnected = isConnected && !!signer;
-  const accountAddress = isUserConnected && address && isAuthorizedAddress ? address : '';
+  const accountAddress = isConnected && !!signer && address && isAuthorizedAddress ? address : '';
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -122,7 +119,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         logOut,
         openAuthModal,
         closeAuthModal,
-        isConnected: isUserConnected,
         provider,
         signer: signer || undefined,
       }}
