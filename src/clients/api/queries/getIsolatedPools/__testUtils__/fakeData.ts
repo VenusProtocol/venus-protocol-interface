@@ -3,7 +3,7 @@ import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/cont
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { BigNumber as BN } from 'ethers';
 
-import { IsolatedPoolParticipantsCountQuery } from 'clients/subgraph';
+import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { PoolLens } from 'types/contracts';
 
 export const fakeGetAllPoolsOuput = [
@@ -2229,7 +2229,9 @@ export const fakeMulticallResponse2 = {
   blockNumber: 28326215,
 };
 
-export const fakeIsolatedPoolParticipantsCount: IsolatedPoolParticipantsCountQuery = {
+export const fakeIsolatedPoolParticipantsCount: Awaited<
+  ReturnType<typeof getIsolatedPoolParticipantsCount>
+> = {
   pools: fakeGetAllPoolsOuput.map(pool => ({
     __typename: 'Pool',
     id: pool.comptroller,

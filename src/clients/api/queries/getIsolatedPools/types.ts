@@ -2,14 +2,14 @@ import type { Provider } from '@wagmi/core';
 import { ContractCallReturnContext, Multicall } from 'ethereum-multicall';
 import { Pool } from 'types';
 
-import { IsolatedPoolParticipantsCountQuery } from 'clients/subgraph';
+import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { PoolLens } from 'types/contracts';
 
 import { GetTokenBalancesOutput } from '../getTokenBalances';
 
 export interface FormatToPoolInput {
   poolsResults: PoolLens.PoolDataStructOutput[];
-  poolParticipantsCountResult: IsolatedPoolParticipantsCountQuery;
+  poolParticipantsCountResult: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
   poolLensResult: ContractCallReturnContext;

@@ -1,9 +1,7 @@
+import config from 'config';
 import { request } from 'graphql-request';
 
-import {
-  IsolatedPoolParticipantsCountDocument,
-  subgraphEndpoint,
-} from 'clients/subgraph/gql/queries';
+import gql from 'clients/subgraph/gql';
 
 export const getIsolatedPoolParticipantsCount = () =>
-  request(subgraphEndpoint, IsolatedPoolParticipantsCountDocument);
+  request(config.subgraphUrl, gql.IsolatedPoolParticipantsCountDocument);
