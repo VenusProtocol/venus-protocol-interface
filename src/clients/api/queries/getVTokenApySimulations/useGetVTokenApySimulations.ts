@@ -18,7 +18,11 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenApySimulations = (
-  { vToken, reserveFactorMantissa }: { vToken: VToken; reserveFactorMantissa?: BigNumber },
+  {
+    vToken,
+    isIsolatedPoolMarket,
+    reserveFactorMantissa,
+  }: { vToken: VToken; isIsolatedPoolMarket: boolean; reserveFactorMantissa?: BigNumber },
   options?: Options,
 ) => {
   const multicall = useMulticall();
@@ -31,6 +35,7 @@ const useGetVTokenApySimulations = (
         multicall,
         reserveFactorMantissa: reserveFactorMantissa || new BigNumber(0),
         interestRateModelContractAddress: interestRateModelData?.contractAddress || '',
+        isIsolatedPoolMarket,
       }),
     {
       ...options,

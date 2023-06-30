@@ -18,6 +18,7 @@ describe('api/queries/getVTokenApySimulations', () => {
       multicall,
       reserveFactorMantissa: fakeReserveFactorMantissa,
       interestRateModelContractAddress: fakeAddress,
+      isIsolatedPoolMarket: false,
     });
 
     expect(response).toMatchSnapshot();
