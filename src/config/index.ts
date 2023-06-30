@@ -4,12 +4,15 @@ import { BscChainId, Environment } from 'types';
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 
+import { MAINNET_SUBGRAPH_URL, TESTNET_SUBGRAPH_URL } from './codegen';
+
 export interface Config {
   environment: Environment;
   chainId: BscChainId;
   isOnTestnet: boolean;
   rpcUrl: string;
   apiUrl: string;
+  subgraphUrl: string;
   bscScanUrl: string;
   sentryDsn: string;
   posthog: {
@@ -61,6 +64,7 @@ const chainId: BscChainId = isOnTestnet ? 97 : 56;
 const rpcUrl = sample(RPC_URLS[chainId]) as string;
 const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
+const subgraphUrl = isOnTestnet ? TESTNET_SUBGRAPH_URL : MAINNET_SUBGRAPH_URL;
 
 const config: Config = {
   environment,
@@ -68,6 +72,7 @@ const config: Config = {
   isOnTestnet,
   rpcUrl,
   apiUrl,
+  subgraphUrl,
   bscScanUrl,
   sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
