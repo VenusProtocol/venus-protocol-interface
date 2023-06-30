@@ -5,6 +5,7 @@ export interface GetVTokenInterestRatesInput {
   multicall: Multicall;
   reserveFactorMantissa: BigNumber;
   interestRateModelContractAddress: string;
+  isIsolatedPoolMarket: boolean;
 }
 
 export interface VTokenApySnapshot {

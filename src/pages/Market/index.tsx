@@ -15,9 +15,11 @@ import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
+  areAddressesEqual,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
+  getContractAddress,
   getVTokenByAddress,
   isTokenActionEnabled,
 } from 'utilities';
@@ -436,6 +438,13 @@ const Market: React.FC<MarketProps> = ({
     return <Redirect to={routes.pools.path} />;
   }
 
+  const mainPoolComptrollerAddress = getContractAddress('comptroller');
+
+  const isIsolatedPoolMarket = !areAddressesEqual(
+    mainPoolComptrollerAddress,
+    poolComptrollerAddress,
+  );
+
   const { data: getAssetData } = useGetAsset({
     vToken,
     accountAddress,
@@ -460,6 +469,7 @@ const Market: React.FC<MarketProps> = ({
   } = useGetVTokenApySimulations({
     vToken,
     reserveFactorMantissa,
+    isIsolatedPoolMarket,
   });
 
   return (

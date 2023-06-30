@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
+import interestModelAbiV2 from 'constants/contracts/abis/interestModelV2.json';
 
 import formatToApySnapshots from './formatToApySnapshots';
 import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
@@ -14,6 +15,7 @@ const getVTokenApySimulations = async ({
   multicall,
   reserveFactorMantissa,
   interestRateModelContractAddress,
+  isIsolatedPoolMarket,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
   const calls: ContractCallContext['calls'] = [];
 
@@ -26,29 +28,38 @@ const getVTokenApySimulations = async ({
 
     const borrowsAmountWei = new BigNumber(REFERENCE_AMOUNT_WEI).toFixed();
     const reservesAmountWei = new BigNumber(0).toFixed();
+    const badDebtWei = new BigNumber(0).toFixed();
+
+    const getBorrowRateParams = [cashAmountWei, borrowsAmountWei, reservesAmountWei];
+
+    if (isIsolatedPoolMarket) getBorrowRateParams.push(badDebtWei);
 
     calls.push({
       reference: 'getBorrowRate',
       methodName: 'getBorrowRate',
-      methodParameters: [cashAmountWei, borrowsAmountWei, reservesAmountWei],
+      methodParameters: getBorrowRateParams,
     });
+
+    const getSupplyRateParams = [
+      cashAmountWei,
+      borrowsAmountWei,
+      reservesAmountWei,
+      reserveFactorMantissa.toFixed(),
+    ];
+
+    if (isIsolatedPoolMarket) getSupplyRateParams.push(badDebtWei);
 
     calls.push({
       reference: 'getSupplyRate',
       methodName: 'getSupplyRate',
-      methodParameters: [
-        cashAmountWei,
-        borrowsAmountWei,
-        reservesAmountWei,
-        reserveFactorMantissa.toFixed(),
-      ],
+      methodParameters: getSupplyRateParams,
     });
   }
 
   const contractCallContext: ContractCallContext = {
     reference: 'getVTokenRates',
     contractAddress: interestRateModelContractAddress,
-    abi: interestModelAbi,
+    abi: isIsolatedPoolMarket ? interestModelAbiV2 : interestModelAbi,
     calls,
   };
 
