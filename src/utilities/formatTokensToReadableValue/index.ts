@@ -5,8 +5,8 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import shortenValueWithSuffix from '../shortenValueWithSuffix';
 
-export const SMALLEST_READABLE_VALUE = 0.000001;
-export const HIGHEST_READABLE_VALUE = 100000000000;
+const MIN_VALUE = 0.000001;
+const MAX_VALUE = 100000000000;
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
@@ -24,24 +24,25 @@ export const formatTokensToReadableValue = ({
   }
 
   let readableValue;
+  const absoluteValue = value.absoluteValue();
+  const isNegative = value.isLessThan(0);
 
-  if (value.isEqualTo(0)) {
+  if (absoluteValue.isEqualTo(0)) {
     readableValue = '0';
-  } else if (value.isGreaterThan(HIGHEST_READABLE_VALUE)) {
-    readableValue = `> ${shortenValueWithSuffix({
-      value: new BigNumber(HIGHEST_READABLE_VALUE),
-    })}`;
+  } else if (absoluteValue.isGreaterThan(MAX_VALUE)) {
+    const formattedReadableValue = shortenValueWithSuffix({
+      value: new BigNumber(MAX_VALUE),
+    });
+    readableValue = `${isNegative ? '< -' : '> '}${formattedReadableValue}`;
+  } else if (absoluteValue.isLessThan(MIN_VALUE)) {
+    readableValue = `< ${new BigNumber(MIN_VALUE).toFormat()}`;
   } else {
-    const isInsignificant =
-      new BigNumber(value).isLessThan(SMALLEST_READABLE_VALUE) &&
-      new BigNumber(value).isGreaterThan(-SMALLEST_READABLE_VALUE);
+    const formattedReadableValue = shortenValueWithSuffix({
+      value: absoluteValue,
+      maxDecimalPlaces: token.decimals,
+    });
 
-    readableValue = isInsignificant
-      ? `< ${new BigNumber(SMALLEST_READABLE_VALUE).toFormat()}`
-      : shortenValueWithSuffix({
-          value,
-          maxDecimalPlaces: token.decimals,
-        });
+    readableValue = `${isNegative ? '-' : ''}${formattedReadableValue}`;
   }
 
   if (addSymbol) {

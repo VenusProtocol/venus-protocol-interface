@@ -4,11 +4,15 @@ import { shortenValueWithSuffix } from 'utilities';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 const THRESHOLDS = {
-  DEFAULT: { MAX: new BigNumber(100000000000), MIN: new BigNumber(0.01), DECIMALS: 2 },
+  DEFAULT: {
+    MAX_VALUE: new BigNumber(100000000000),
+    MIN_VALUE: new BigNumber(0.01),
+    MAX_DECIMALS: 2,
+  },
   TOKEN_PRICE: {
-    MAX: new BigNumber(100000000000),
-    MIN: new BigNumber(0.00000001),
-    DECIMALS: 6,
+    MAX_VALUE: new BigNumber(100000000000),
+    MIN_VALUE: new BigNumber(0.00000001),
+    MAX_DECIMALS: 6,
   },
 };
 
@@ -35,21 +39,23 @@ const formatCentsToReadableValue = ({
   const absoluteValueDollars = wrappedValueDollars.absoluteValue();
   const isNegative = wrappedValueDollars.isLessThan(0);
 
-  // If the value exceeds the maximum threshold
-  if (absoluteValueDollars.isGreaterThan(threshold.MAX)) {
-    return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({ value: threshold.MAX })}`;
+  // If the value exceeds the MAX_VALUEimum threshold
+  if (absoluteValueDollars.isGreaterThan(threshold.MAX_VALUE)) {
+    return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({
+      value: threshold.MAX_VALUE,
+    })}`;
   }
 
-  // If the value is less than the minimum threshold
-  if (absoluteValueDollars.isLessThan(threshold.MIN)) {
-    return `< $${threshold.MIN.toFormat()}`;
+  // If the value is less than the MIN_VALUEimum threshold
+  if (absoluteValueDollars.isLessThan(threshold.MIN_VALUE)) {
+    return `< $${threshold.MIN_VALUE.toFormat()}`;
   }
 
   const formattedValueDollars = isTokenPrice
-    ? absoluteValueDollars.dp(threshold.DECIMALS).toFormat()
+    ? absoluteValueDollars.dp(threshold.MAX_DECIMALS).toFormat()
     : shortenValueWithSuffix({
         value: absoluteValueDollars,
-        maxDecimalPlaces: threshold.DECIMALS,
+        maxDecimalPlaces: threshold.MAX_DECIMALS,
       });
 
   return `${isNegative ? '-' : ''}$${formattedValueDollars}`;
