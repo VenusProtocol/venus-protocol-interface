@@ -21,14 +21,11 @@ export const useStyles = () => {
       }
 
       .table__table-cards__card-content {
-        ${theme.breakpoints.down('xxl')} {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-          row-gap: ${theme.spacing(5)};
-        }
+        row-gap: ${theme.spacing(5)};
 
-        ${theme.breakpoints.down('md')} {
+        ${theme.breakpoints.down('xxl')} {
           grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
         }
       }
     `,
