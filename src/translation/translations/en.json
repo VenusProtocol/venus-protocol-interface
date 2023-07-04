@@ -978,6 +978,14 @@
     "addresses_other": "{{count}} addresses",
     "votes": "Votes"
   },
+  "walletData": {
+    "spendingLimit": {
+      "label": "Spending limit: <White>{{limit}}</White>",
+      "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
+    },
+    "spendingLimitRevokeButtonLabel": "Revoke",
+    "walletBalance": "Wallet balance: <White>{{walletBalance}}</White>"
+  },
   "wallets": {
     "binanceChainWallet": "Binance Chain Wallet",
     "bitKeep": "BitKeep",
