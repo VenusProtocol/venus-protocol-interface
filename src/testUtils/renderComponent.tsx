@@ -34,7 +34,6 @@ const renderComponent = (
     logOut: vi.fn(),
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
-    isConnected: false,
     provider: getDefaultProvider(),
     accountAddress: '',
     ...authContextValue,
