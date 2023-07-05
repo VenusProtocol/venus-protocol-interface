@@ -14,7 +14,6 @@ export * from './Countdown';
 export * from './ConnectWallet';
 export * from './Delimiter';
 export * from './EllipseAddress';
-export * from './ApproveToken';
 export * from './ApproveTokenSteps';
 export * from './Form';
 export * from './Icon';

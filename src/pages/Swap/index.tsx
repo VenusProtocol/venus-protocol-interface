@@ -20,6 +20,7 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getContractAddress,
+  getSwapRouterContractAddress,
 } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
@@ -30,14 +31,16 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useTokenApproval from 'hooks/useTokenApproval';
 
-import SubmitSection from './SubmitSection';
+import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
 const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
+const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(MAIN_POOL_COMPTROLLER_ADDRESS);
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -51,12 +54,20 @@ const initialFormValues: FormValues = {
   direction: 'exactAmountIn',
 };
 
-export interface SwapPageUiProps {
+export interface SwapPageUiProps
+  extends Pick<
+    SubmitSectionProps,
+    | 'approveFromToken'
+    | 'isApproveFromTokenLoading'
+    | 'isFromTokenApproved'
+    | 'isFromTokenApprovalStatusLoading'
+  > {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   onSubmit: (swap: Swap) => Promise<ContractReceipt>;
   isSubmitting: boolean;
   tokenBalances: TokenBalance[];
+  isSwapLoading: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -66,6 +77,11 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   setFormValues,
   swap,
   swapError,
+  isSwapLoading,
+  approveFromToken,
+  isApproveFromTokenLoading,
+  isFromTokenApproved,
+  isFromTokenApprovalStatusLoading,
   onSubmit,
   isSubmitting,
   tokenBalances,
@@ -373,6 +389,11 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           formErrors={formErrors}
           swap={swap}
           swapError={swapError}
+          isSwapLoading={isSwapLoading}
+          approveFromToken={approveFromToken}
+          isApproveFromTokenLoading={isApproveFromTokenLoading}
+          isFromTokenApproved={isFromTokenApproved}
+          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
         />
       </ConnectWallet>
     </Paper>
@@ -390,6 +411,17 @@ const SwapPage: React.FC = () => {
     toToken: formValues.toToken,
     toTokenAmountTokens: formValues.toTokenAmountTokens,
     direction: formValues.direction,
+  });
+
+  const {
+    isTokenApproved: isFromTokenApproved,
+    approveToken: approveFromToken,
+    isApproveTokenLoading: isApproveFromTokenLoading,
+    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+  } = useTokenApproval({
+    token: formValues.fromToken,
+    spenderAddress: MAIN_POOL_SWAP_ROUTER_ADDRESS,
+    accountAddress,
   });
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances({
@@ -411,9 +443,14 @@ const SwapPage: React.FC = () => {
       setFormValues={setFormValues}
       swap={swapInfo.swap}
       swapError={swapInfo.error}
+      isSwapLoading={swapInfo.isLoading}
       tokenBalances={tokenBalances}
       onSubmit={onSwap}
       isSubmitting={isSwapTokensLoading}
+      isFromTokenApproved={isFromTokenApproved}
+      approveFromToken={approveFromToken}
+      isApproveFromTokenLoading={isApproveFromTokenLoading}
+      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
     />
   );
 };

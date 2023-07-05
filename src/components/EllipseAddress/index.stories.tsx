@@ -7,7 +7,7 @@ import { withCenterStory } from 'stories/decorators';
 import { EllipseAddress } from '.';
 
 export default {
-  title: 'Components/ApproveToken',
+  title: 'Components/EllipseAddress',
   component: EllipseAddress,
   decorators: [withCenterStory({ width: 450 })],
 } as Meta<typeof EllipseAddress>;

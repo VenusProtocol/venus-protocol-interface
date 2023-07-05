@@ -34,9 +34,6 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
-          approveTokenMessage={t('operationModal.supply.enableToken.title', {
-            symbol: vToken.underlyingToken.symbol,
-          })}
           action="supply"
         >
           {({ asset, pool }) => <SupplyForm asset={asset} pool={pool} onCloseModal={onClose} />}
@@ -50,9 +47,6 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.withdraw.connectWalletMessage')}
-          approveTokenMessage={t('operationModal.withdraw.enableToken.title', {
-            symbol: vToken.underlyingToken.symbol,
-          })}
           action="withdraw"
         >
           {({ asset, pool }) => <WithdrawForm asset={asset} pool={pool} onCloseModal={onClose} />}
@@ -66,9 +60,6 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.borrow.connectWalletMessage')}
-          approveTokenMessage={t('operationModal.borrow.enableToken.title', {
-            symbol: vToken.underlyingToken.symbol,
-          })}
           action="borrow"
         >
           {({ asset, pool }) => <BorrowForm asset={asset} pool={pool} onCloseModal={onClose} />}
@@ -82,9 +73,6 @@ const OperationModal: React.FC<OperationModalProps> = ({
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
           connectWalletMessage={t('operationModal.repay.connectWalletMessage')}
-          approveTokenMessage={t('operationModal.repay.enableToken.title', {
-            symbol: vToken.underlyingToken.symbol,
-          })}
           action="repay"
         >
           {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}

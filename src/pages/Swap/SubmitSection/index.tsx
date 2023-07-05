@@ -1,15 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { ApproveTokenSteps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
-import { getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { FormError, FormValues } from '../types';
-
-const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(
-  getContractAddress('comptroller'),
-);
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -17,6 +12,11 @@ export interface SubmitSectionProps {
   isSubmitting: boolean;
   isFormValid: boolean;
   formErrors: FormError[];
+  isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
+  approveFromToken: ApproveTokenStepsProps['approveToken'];
+  isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
+  isFromTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isSwapLoading: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -26,6 +26,11 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   isSubmitting,
   fromToken,
   isFormValid,
+  isFromTokenApproved,
+  approveFromToken,
+  isApproveFromTokenLoading,
+  isFromTokenApprovalStatusLoading,
+  isSwapLoading,
   swapError,
   swap,
   formErrors,
@@ -65,20 +70,28 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={MAIN_POOL_SWAP_ROUTER_ADDRESS}
-      submitButtonLabel={t('swapPage.submitButton.enabledLabel')}
+      isUsingSwap
       hideTokenEnablingStep={!isFormValid}
+      isTokenApproved={isFromTokenApproved}
+      approveToken={approveFromToken}
+      isApproveTokenLoading={isApproveFromTokenLoading}
+      isTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
     >
-      {({ isTokenApprovalStatusLoading }) => (
-        <PrimaryButton
-          fullWidth
-          disabled={!isFormValid || isTokenApprovalStatusLoading}
-          onClick={onSubmit}
-          loading={isSubmitting}
-        >
-          {submitButtonLabel}
-        </PrimaryButton>
-      )}
+      <PrimaryButton
+        fullWidth
+        disabled={
+          !isFormValid ||
+          isSubmitting ||
+          isSwapLoading ||
+          isApproveFromTokenLoading ||
+          isFromTokenApprovalStatusLoading ||
+          !isFromTokenApproved
+        }
+        onClick={onSubmit}
+        loading={isSubmitting}
+      >
+        {submitButtonLabel}
+      </PrimaryButton>
     </ApproveTokenSteps>
   );
 };

@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
-  ApproveToken,
+  ApproveTokenSteps,
+  ApproveTokenStepsProps,
   ConnectWallet,
   FormikSubmitButton,
   LabeledInlineContent,
@@ -26,18 +27,23 @@ import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
 import RepayFee from './RepayFee';
 
-const vaiControllerContractAddress = getContractAddress('vaiController');
+const VAI_CONTROLLER_ADDRESS = getContractAddress('vaiController');
 
 export interface IRepayVaiUiProps {
   disabled: boolean;
   isInitialLoading: boolean;
   isSubmitting: boolean;
   repayVai: (amountWei: BigNumber) => Promise<ContractReceipt | undefined>;
+  isVaiApproved: ApproveTokenStepsProps['isTokenApproved'];
+  approveVai: ApproveTokenStepsProps['approveToken'];
+  isApproveVaiLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
+  isVaiApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
   userBalanceWei?: BigNumber;
   repayBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
@@ -60,6 +66,10 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   userBalanceWei,
   repayBalanceWei,
   userMintedWei,
+  isVaiApproved,
+  approveVai,
+  isApproveVaiLoading,
+  isVaiApprovalStatusLoading,
   isInitialLoading,
   isSubmitting,
   repayVai,
@@ -108,56 +118,65 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('vai.repayVai.connectWallet')}>
-      <ApproveToken
-        title={t('vai.repayVai.approveToken')}
-        token={TOKENS.vai}
-        spenderAddress={vaiControllerContractAddress}
-      >
-        {isInitialLoading ? (
-          <Spinner />
-        ) : (
-          <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-            {({ values }) => (
-              <>
-                <FormikTokenTextFieldWithBalance
-                  disabled={disabled || isSubmitting || !hasRepayableVai}
-                  maxValue={limitTokens}
-                  userBalanceWei={userBalanceWei}
-                  maxButtonLabel={t('vai.repayVai.rightMaxButtonLabel')}
+      {isInitialLoading ? (
+        <Spinner />
+      ) : (
+        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+          {({ values, isValid, dirty }) => (
+            <>
+              <FormikTokenTextFieldWithBalance
+                disabled={disabled || isSubmitting || !hasRepayableVai}
+                maxValue={limitTokens}
+                userBalanceWei={userBalanceWei}
+                maxButtonLabel={t('vai.repayVai.rightMaxButtonLabel')}
+              />
+
+              <div css={styles.ctaContainer}>
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: false })}
+                  iconSrc={TOKENS.vai}
+                  label={t('vai.repayVai.repayVaiBalance')}
+                  tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
+                >
+                  {readableRepayableVai}
+                </LabeledInlineContent>
+
+                <RepayFee repayAmountTokens={values.amount} />
+              </div>
+
+              {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
+                <NoticeWarning
+                  css={styles.noticeWarning}
+                  description={<Trans i18nKey="vai.repayVai.fullRepayWarning" />}
                 />
+              )}
 
-                <div css={styles.ctaContainer}>
-                  <LabeledInlineContent
-                    css={styles.getRow({ isLast: false })}
-                    iconSrc={TOKENS.vai}
-                    label={t('vai.repayVai.repayVaiBalance')}
-                    tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
-                  >
-                    {readableRepayableVai}
-                  </LabeledInlineContent>
-
-                  <RepayFee repayAmountTokens={values.amount} />
-                </div>
-
-                {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
-                  <NoticeWarning
-                    css={styles.noticeWarning}
-                    description={<Trans i18nKey="vai.repayVai.fullRepayWarning" />}
-                  />
-                )}
-
+              <ApproveTokenSteps
+                token={TOKENS.vai}
+                hideTokenEnablingStep={!isValid || !dirty}
+                isTokenApproved={isVaiApproved}
+                approveToken={approveVai}
+                isApproveTokenLoading={isApproveVaiLoading}
+                isTokenApprovalStatusLoading={isVaiApprovalStatusLoading}
+              >
                 <FormikSubmitButton
                   loading={isSubmitting}
-                  disabled={disabled}
+                  disabled={
+                    disabled ||
+                    !dirty ||
+                    isVaiApprovalStatusLoading ||
+                    isApproveVaiLoading ||
+                    !isVaiApproved
+                  }
                   enabledLabel={t('vai.repayVai.submitButtonLabel')}
                   disabledLabel={t('vai.repayVai.submitButtonDisabledLabel')}
                   fullWidth
                 />
-              </>
-            )}
-          </AmountForm>
-        )}
-      </ApproveToken>
+              </ApproveTokenSteps>
+            </>
+          )}
+        </AmountForm>
+      )}
     </ConnectWallet>
   );
 };
@@ -194,6 +213,17 @@ const RepayVai: React.FC = () => {
     },
   );
 
+  const {
+    isTokenApproved: isVaiApproved,
+    approveToken: approveVai,
+    isApproveTokenLoading: isApproveVaiLoading,
+    isTokenApprovalStatusLoading: isVaiApprovalStatusLoading,
+  } = useTokenApproval({
+    token: TOKENS.vai,
+    spenderAddress: VAI_CONTROLLER_ADDRESS,
+    accountAddress,
+  });
+
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
   const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
@@ -220,6 +250,10 @@ const RepayVai: React.FC = () => {
       }
       isSubmitting={isSubmitting}
       repayVai={repayVai}
+      isVaiApproved={isVaiApproved}
+      approveVai={approveVai}
+      isApproveVaiLoading={isApproveVaiLoading}
+      isVaiApprovalStatusLoading={isVaiApprovalStatusLoading}
     />
   );
 };

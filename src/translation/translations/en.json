@@ -394,9 +394,6 @@
       "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
-      "enableToken": {
-        "title": "To borrow {{symbol}} from the Venus Protocol, you need to approve it first"
-      },
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButtonLabel": {
@@ -422,9 +419,6 @@
     "repay": {
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
-      "enableToken": {
-        "title": "To repay {{symbol}} to the Venus Protocol, you need to approve it first"
-      },
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
@@ -448,9 +442,6 @@
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
-      "enableToken": {
-        "title": "To supply {{symbol}} to the Venus Protocol, you need to approve it first"
-      },
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
@@ -477,9 +468,6 @@
     },
     "withdraw": {
       "connectWalletMessage": "Please connect your wallet to withdraw",
-      "enableToken": {
-        "title": "To withdraw {{symbol}} from the Venus Protocol, you need to approve it first"
-      },
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "enterValidAmount": "Enter a valid amount to withdraw",
@@ -765,7 +753,6 @@
   },
   "vai": {
     "mintVai": {
-      "approveToken": "To mint VAI with the Venus Protocol, you need to approve it first",
       "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
       "mintFeeLabel": "Mint fee",
@@ -779,7 +766,6 @@
       "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
-      "approveToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "connectWallet": "Please connect your wallet to repay VAI",
       "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
       "repayFeeLabel": "Repay fee",
