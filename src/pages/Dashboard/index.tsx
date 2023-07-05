@@ -171,6 +171,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
             'labeledBorrowApy',
             'liquidity',
           ]}
+          marketType="supply"
           initialOrder={{
             orderBy: 'userWalletBalance',
             orderDirection: 'desc',
