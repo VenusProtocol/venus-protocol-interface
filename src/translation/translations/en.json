@@ -82,6 +82,7 @@
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
+      "date": "Date",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"

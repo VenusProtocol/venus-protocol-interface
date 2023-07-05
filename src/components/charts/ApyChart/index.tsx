@@ -91,6 +91,10 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
                 <TooltipContent
                   items={[
                     {
+                      label: t('apyChart.tooltipItemLabels.date'),
+                      value: formatToReadableDate((payload[0].payload as ApyChartItem).timestampMs),
+                    },
+                    {
                       label:
                         type === 'supply'
                           ? t('apyChart.tooltipItemLabels.supplyApy')
