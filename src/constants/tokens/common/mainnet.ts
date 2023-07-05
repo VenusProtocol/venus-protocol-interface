@@ -2,10 +2,17 @@ import { Token } from 'types';
 
 import aave from 'assets/img/tokens/aave.svg';
 import ada from 'assets/img/tokens/ada.svg';
+import alpaca from 'assets/img/tokens/alpaca.svg';
+import ankr from 'assets/img/tokens/ankr.svg';
+import ankrbnb from 'assets/img/tokens/ankrBNB.svg';
 import bch from 'assets/img/tokens/bch.svg';
 import beth from 'assets/img/tokens/beth.svg';
+import bifi from 'assets/img/tokens/bifi.png';
 import bnb from 'assets/img/tokens/bnb.svg';
+import bnbx from 'assets/img/tokens/bnbx.png';
+import bsw from 'assets/img/tokens/bsw.svg';
 import btcb from 'assets/img/tokens/btcb.svg';
+import btt from 'assets/img/tokens/btt.svg';
 import busd from 'assets/img/tokens/busd.svg';
 import cake from 'assets/img/tokens/cake.svg';
 import dai from 'assets/img/tokens/dai.svg';
@@ -13,11 +20,15 @@ import doge from 'assets/img/tokens/doge.svg';
 import dot from 'assets/img/tokens/dot.svg';
 import eth from 'assets/img/tokens/eth.svg';
 import fil from 'assets/img/tokens/fil.svg';
+import floki from 'assets/img/tokens/floki.svg';
 import hay from 'assets/img/tokens/hay.png';
 import link from 'assets/img/tokens/link.svg';
 import ltc from 'assets/img/tokens/ltc.svg';
 import luna from 'assets/img/tokens/luna.svg';
 import matic from 'assets/img/tokens/matic.svg';
+import nft from 'assets/img/tokens/nft.png';
+import raca from 'assets/img/tokens/raca.png';
+import stkbnb from 'assets/img/tokens/stkBNB.svg';
 import sxp from 'assets/img/tokens/sxp.svg';
 import trx from 'assets/img/tokens/trx.svg';
 import tusd from 'assets/img/tokens/tusd.svg';
@@ -28,6 +39,8 @@ import ust from 'assets/img/tokens/ust.svg';
 import vai from 'assets/img/tokens/vai.svg';
 import vrt from 'assets/img/tokens/vrt.svg';
 import wbeth from 'assets/img/tokens/wbeth.svg';
+import wbnb from 'assets/img/tokens/wbnb.svg';
+import win from 'assets/img/tokens/win.svg';
 import xrp from 'assets/img/tokens/xrp.svg';
 import xvs from 'assets/img/tokens/xvs.svg';
 
@@ -224,5 +237,84 @@ export const MAINNET_TOKENS = {
     decimals: 18,
     symbol: 'USDD',
     asset: usdd,
+  } as Token,
+  // Underlying tokens for isolated markets
+  btt: {
+    address: '0x352Cb5E19b12FC216548a2677bD0fce83BaE434B',
+    decimals: 18,
+    symbol: 'BTT',
+    asset: btt,
+  } as Token,
+  nft: {
+    address: '0x20eE7B720f4E4c4FFcB00C4065cdae55271aECCa',
+    decimals: 18,
+    symbol: 'NFT',
+    asset: nft,
+  } as Token,
+  win: {
+    address: '0xaeF0d72a118ce24feE3cD1d43d383897D05B4e99',
+    decimals: 18,
+    symbol: 'WIN',
+    asset: win,
+  } as Token,
+  raca: {
+    address: '0x12BB890508c125661E03b09EC06E404bc9289040',
+    decimals: 18,
+    symbol: 'RACA',
+    asset: raca,
+  } as Token,
+  floki: {
+    address: '0xfb5B838b6cfEEdC2873aB27866079AC55363D37E',
+    decimals: 18,
+    symbol: 'FLOKI',
+    asset: floki,
+  } as Token,
+  bifi: {
+    address: '0xCa3F508B8e4Dd382eE878A314789373D80A5190A',
+    decimals: 18,
+    symbol: 'BIFI',
+    asset: bifi,
+  } as Token,
+  bsw: {
+    address: '0x965F527D9159dCe6288a2219DB51fc6Eef120dD1',
+    decimals: 18,
+    symbol: 'BSW',
+    asset: bsw,
+  } as Token,
+  alpaca: {
+    address: '0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F',
+    decimals: 18,
+    symbol: 'ALPACA',
+    asset: alpaca,
+  } as Token,
+  ankr: {
+    address: '0xf307910A4c7bbc79691fD374889b36d8531B08e3',
+    decimals: 18,
+    symbol: 'ANKR',
+    asset: ankr,
+  } as Token,
+  ankrbnb: {
+    address: '0x52F24a5e03aee338Da5fd9Df68D2b6FAe1178827',
+    decimals: 18,
+    symbol: 'ankrBNB',
+    asset: ankrbnb,
+  } as Token,
+  bnbx: {
+    address: '0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275',
+    decimals: 18,
+    symbol: 'BNBx',
+    asset: bnbx,
+  } as Token,
+  stkbnb: {
+    address: '0xc2E9d07F66A89c44062459A47a0D2Dc038E4fb16',
+    decimals: 18,
+    symbol: 'stkBNB',
+    asset: stkbnb,
+  } as Token,
+  wbnb: {
+    address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    decimals: 18,
+    symbol: 'WBNB',
+    asset: wbnb,
   } as Token,
 };

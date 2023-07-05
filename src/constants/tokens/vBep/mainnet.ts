@@ -193,4 +193,128 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vUSDT',
     underlyingToken: MAINNET_TOKENS.usdt,
   } as VToken,
+  // Tron
+  '0x836beb2cb723c498136e1119248436a645845f4e': {
+    address: '0x836beb2cB723C498136e1119248436A645845F4E',
+    decimals: 8,
+    symbol: 'vTRX',
+    underlyingToken: MAINNET_TOKENS.trx,
+  } as VToken,
+  '0x85baa9cd6186b416ef92c0587cd9e9be3bce2a4d': {
+    address: '0x85baA9CD6186B416Ef92c0587Cd9E9Be3BCe2a4D',
+    decimals: 8,
+    symbol: 'vNFT',
+    underlyingToken: MAINNET_TOKENS.nft,
+  } as VToken,
+  '0x49c26e12959345472e2fd95e5f79f8381058d3ee': {
+    address: '0x49c26e12959345472E2Fd95E5f79F8381058d3Ee',
+    decimals: 8,
+    symbol: 'vBTT',
+    underlyingToken: MAINNET_TOKENS.btt,
+  } as VToken,
+  '0x281e5378f99a4bc55b295abc0a3e7ed32deba059': {
+    address: '0x281E5378f99A4bc55b295ABc0A3E7eD32Deba059',
+    decimals: 8,
+    symbol: 'vUSDT',
+    underlyingToken: MAINNET_TOKENS.usdt,
+  } as VToken,
+  '0xf1da185cce5bed1bebbb3007ef738ea4224025f7': {
+    address: '0xf1da185CCe5BeD1BeBbb3007Ef738Ea4224025F7',
+    decimals: 8,
+    symbol: 'vUSDD',
+    underlyingToken: MAINNET_TOKENS.usdd,
+  } as VToken,
+  '0xb114cfa615c828d88021a41bfc524b800e64a9d5': {
+    address: '0xb114cfA615c828D88021a41bFc524B800E64a9D5',
+    decimals: 8,
+    symbol: 'vWIN',
+    underlyingToken: MAINNET_TOKENS.win,
+  } as VToken,
+  // GameFi
+  '0x4978591f17670a846137d9d613e333c38dc68a37': {
+    address: '0x4978591f17670A846137d9d613e333C38dc68A37',
+    decimals: 8,
+    symbol: 'vUSDT',
+    underlyingToken: MAINNET_TOKENS.usdt,
+  } as VToken,
+  '0xe5fe5527a5b76c75eede77fdfa6b80d52444a465': {
+    address: '0xE5FE5527A5b76C75eedE77FdFA6B80D52444A465',
+    decimals: 8,
+    symbol: 'vRACA',
+    underlyingToken: MAINNET_TOKENS.raca,
+  } as VToken,
+  '0x9f2fd23bd0a5e08c5f2b9dd6cf9c96bfb5fa515c': {
+    address: '0x9f2FD23bd0A5E08C5f2b9DD6CF9C96Bfb5fA515C',
+    decimals: 8,
+    symbol: 'vUSDD',
+    underlyingToken: MAINNET_TOKENS.usdd,
+  } as VToken,
+  '0xc353b7a1e13ddba393b5e120d4169da7185aa2cb': {
+    address: '0xc353B7a1E13dDba393B5E120D4169Da7185aA2cb',
+    decimals: 8,
+    symbol: 'vFLOKI',
+    underlyingToken: MAINNET_TOKENS.floki,
+  } as VToken,
+  // DeFi
+  '0x02c5fb0f26761093d297165e902e96d08576d344': {
+    address: '0x02c5Fb0F26761093D297165e902e96D08576D344',
+    decimals: 8,
+    symbol: 'vALPACA',
+    underlyingToken: MAINNET_TOKENS.alpaca,
+  } as VToken,
+  '0x19ce11c8817a1828d1d357dfbf62dcf5b0b2a362': {
+    address: '0x19CE11C8817a1828D1d357DFBF62dCf5b0B2A362',
+    decimals: 8,
+    symbol: 'vANKR',
+    underlyingToken: MAINNET_TOKENS.ankr,
+  } as VToken,
+  '0xc718c51958d3fd44f5f9580c9ffac2f89815c909': {
+    address: '0xC718c51958d3fd44f5F9580c9fFAC2F89815C909',
+    decimals: 8,
+    symbol: 'vBIFI',
+    underlyingToken: MAINNET_TOKENS.bifi,
+  } as VToken,
+  '0x8f657dfd3a1354deb4545765fe6840cc54afd379': {
+    address: '0x8f657dFD3a1354DEB4545765fE6840cc54AFd379',
+    decimals: 8,
+    symbol: 'vBSW',
+    underlyingToken: MAINNET_TOKENS.bsw,
+  } as VToken,
+  '0xa615467cae6b9e0bb98bc04b4411d9296fd1dfa0': {
+    address: '0xA615467caE6B9E0bb98BC04B4411d9296fd1dFa0',
+    decimals: 8,
+    symbol: 'vUSDD',
+    underlyingToken: MAINNET_TOKENS.usdd,
+  } as VToken,
+  '0x1d8bbde12b6b34140604e18e9f9c6e14dec16854': {
+    address: '0x1D8bBDE12B6b34140604E18e9f9c6e14deC16854',
+    decimals: 8,
+    symbol: 'vUSDT',
+    underlyingToken: MAINNET_TOKENS.usdt,
+  } as VToken,
+  // Liquid Staked BNB
+  '0xe10e80b7fd3a29fe46e16c30cc8f4dd938b742e2': {
+    address: '0xe10E80B7FD3a29fE46E16C30CC8F4dd938B742e2',
+    decimals: 8,
+    symbol: 'vWBNB',
+    underlyingToken: MAINNET_TOKENS.wbnb,
+  } as VToken,
+  '0xbfe25459ba784e70e2d7a718be99a1f3521ca17f': {
+    address: '0xBfe25459BA784e70E2D7a718Be99a1f3521cA17f',
+    decimals: 8,
+    symbol: 'vankrBNB',
+    underlyingToken: MAINNET_TOKENS.ankrbnb,
+  } as VToken,
+  '0x5e21bf67a6af41c74c1773e4b473ca5ce8fd3791': {
+    address: '0x5E21bF67a6af41c74C1773E4b473ca5ce8fd3791',
+    decimals: 8,
+    symbol: 'vBNBx',
+    underlyingToken: MAINNET_TOKENS.bnbx,
+  } as VToken,
+  '0xcc5d9e502574cda17215e70bc0b4546663785227': {
+    address: '0xcc5D9e502574cda17215E70bC0B4546663785227',
+    decimals: 8,
+    symbol: 'vstkBNB',
+    underlyingToken: MAINNET_TOKENS.stkbnb,
+  } as VToken,
 };
