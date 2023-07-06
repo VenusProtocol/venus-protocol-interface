@@ -4,12 +4,12 @@ import { UseTokenApprovalOutput } from '..';
 
 const output: UseTokenApprovalOutput = {
   isTokenApproved: true,
-  isSpendingLimitLoading: false,
+  isWalletSpendingLimitLoading: false,
   isApproveTokenLoading: false,
-  isRevokeSpendingLimitLoading: false,
-  spendingLimitTokens: MAX_UINT256,
+  isRevokeWalletSpendingLimitLoading: false,
+  walletSpendingLimitTokens: MAX_UINT256,
   approveToken: vi.fn(),
-  revokeSpendingLimit: vi.fn(),
+  revokeWalletSpendingLimit: vi.fn(),
 };
 
 export default vi.fn(() => output);

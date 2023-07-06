@@ -18,7 +18,7 @@ export const Default = () => (
   <WalletData
     onRevoke={noop}
     walletBalanceTokens={new BigNumber('100000')}
-    spendingLimitTokens={new BigNumber('1000000')}
+    walletSpendingLimitTokens={new BigNumber('1000000')}
     token={TESTNET_TOKENS.xvs}
   />
 );
@@ -27,7 +27,7 @@ export const CoversWalletBalance = () => (
   <WalletData
     onRevoke={noop}
     walletBalanceTokens={new BigNumber('100000')}
-    spendingLimitTokens={new BigNumber('100000')}
+    walletSpendingLimitTokens={new BigNumber('100000')}
     token={TESTNET_TOKENS.xvs}
   />
 );

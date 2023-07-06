@@ -9,7 +9,7 @@ interface UseFormValidationInput {
   asset: Asset;
   formValues: FormValues;
   fromTokenUserWalletBalanceTokens?: BigNumber;
-  fromTokenSpendingLimitTokens?: BigNumber;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
   swap?: Swap;
   swapError?: SwapError;
@@ -45,7 +45,7 @@ const useFormValidation = ({
   formValues,
   isFromTokenApproved,
   fromTokenUserWalletBalanceTokens,
-  fromTokenSpendingLimitTokens,
+  fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const formError: FormError | undefined = useMemo(() => {
     const swapErrorMapping: {
@@ -99,8 +99,8 @@ const useFormValidation = ({
 
     if (
       isFromTokenApproved &&
-      fromTokenSpendingLimitTokens &&
-      fromTokenAmountTokens.isGreaterThan(fromTokenSpendingLimitTokens)
+      fromTokenWalletSpendingLimitTokens &&
+      fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
     ) {
       return 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
     }
@@ -109,7 +109,7 @@ const useFormValidation = ({
     asset.supplyCapTokens,
     asset.supplyBalanceTokens,
     fromTokenUserWalletBalanceTokens,
-    fromTokenSpendingLimitTokens,
+    fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
     formValues.amountTokens,
     formValues.fromToken,
