@@ -12,7 +12,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
       class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
+        class="MuiTypography-root MuiTypography-body1 css-1degdl8-MuiTypography-root-LabeledInlineContent"
       >
         Exchange rate
       </span>
@@ -30,7 +30,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
       class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
+        class="MuiTypography-root MuiTypography-body1 css-1degdl8-MuiTypography-root-LabeledInlineContent"
       >
         Slippage tolerance
       </span>
@@ -48,7 +48,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
       class="css-wkfae5-LabeledInlineContent"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 css-dalffx-MuiTypography-root-LabeledInlineContent"
+        class="MuiTypography-root MuiTypography-body1 css-1degdl8-MuiTypography-root-LabeledInlineContent"
       >
         You will repay
       </span>
@@ -64,7 +64,7 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
 
 exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `
 <div
-  class="MuiTypography-root MuiTypography-small2 css-5mdu71-MuiTypography-root-SwapSummary"
+  class="MuiTypography-root MuiTypography-small2 css-leg3sr-MuiTypography-root-SwapSummary"
   data-testid="swap-summary"
 >
   You will repay 999.99 XVS using 299.99K BUSD

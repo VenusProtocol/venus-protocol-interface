@@ -11,8 +11,8 @@ export const FONTS = {
 export const PALETTE = {
   mode: 'dark',
   background: {
-    default: 'rgba(18, 22, 32, 1)',
-    paper: 'rgba(24, 29, 42, 1)',
+    default: 'rgba(24, 29, 39, 1)',
+    paper: 'rgba(30, 36, 49, 1)',
     black: '#1F2028',
   },
   primary: {
@@ -21,13 +21,13 @@ export const PALETTE = {
     dark: 'var(--color-blue-hover)',
   },
   secondary: {
-    light: 'rgba(33, 41, 58, 1)',
+    light: 'rgba(45, 53, 73, 1)',
     main: 'rgba(24, 29, 42, 1)',
     dark: 'rgba(18, 22, 32, 1)',
   },
   text: {
     primary: 'rgba(255, 255, 255, 1)',
-    secondary: 'rgba(169, 171, 199, 1)',
+    secondary: 'rgba(170, 179, 202, 1)',
     disabled: 'rgba(161, 161, 161, 1)',
   },
   button: {
