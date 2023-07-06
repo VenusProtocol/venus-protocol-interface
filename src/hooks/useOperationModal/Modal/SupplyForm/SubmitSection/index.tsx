@@ -72,6 +72,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       });
     }
 
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_SPENDING_LIMIT') {
+      return t('operationModal.supply.submitButtonLabel.amountHigherThanWalletSpendingLimit');
+    }
+
     if (!isFormValid) {
       return t('operationModal.supply.submitButtonLabel.enterValidAmount');
     }

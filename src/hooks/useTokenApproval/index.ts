@@ -8,17 +8,18 @@ import { convertWeiToTokens } from 'utilities';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { useApproveToken, useGetAllowance } from 'clients/api';
 
-interface UseTokenApprovalInput {
+export interface UseTokenApprovalInput {
   token: Token;
   spenderAddress?: string;
   accountAddress?: string;
 }
 
-interface UseTokenApprovalOutput {
+export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined; // TODO: remove
   approveToken: () => Promise<ContractReceipt | undefined>;
   revokeSpendingLimit: () => Promise<ContractReceipt>;
   isApproveTokenLoading: boolean;
+  // TODO: rename spendingLimit to walletSpendingLimit
   isRevokeSpendingLimitLoading: boolean;
   isSpendingLimitLoading: boolean;
   spendingLimitTokens?: BigNumber;

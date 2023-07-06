@@ -58,6 +58,17 @@ const Notice: React.FC<NoticeProps> = ({ asset, formError }) => {
     );
   }
 
+  if (formError === 'HIGHER_THAN_WALLET_SPENDING_LIMIT') {
+    // User is trying to supply above their spending limit
+    return (
+      <NoticeError
+        css={styles.notice}
+        data-testid={TEST_IDS.noticeError}
+        description={t('operationModal.supply.amountAboveSpendingLimit')}
+      />
+    );
+  }
+
   return null;
 };
 
