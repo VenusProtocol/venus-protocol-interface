@@ -68,9 +68,6 @@
       "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
-  "approveToken": {
-    "approveButtonLabel": "Approve"
-  },
   "approveTokenSteps": {
     "approveTokenButton": {
       "text": "Approve {{tokenSymbol}}",
@@ -441,12 +438,14 @@
     },
     "repayTabTitle": "Repay",
     "supply": {
+      "amountAboveSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
+        "amountHigherThanWalletSpendingLimit": "Amount entered higher than spending limit",
         "enterValidAmount": "Enter a valid amount to supply",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
@@ -521,7 +520,6 @@
     "newBadge": "NEW"
   },
   "stakeModal": {
-    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",

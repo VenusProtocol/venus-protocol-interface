@@ -9,9 +9,10 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { supply } from 'clients/api';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useCollateral from 'hooks/useCollateral';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -22,6 +23,7 @@ import TEST_IDS from '../testIds';
 vi.mock('clients/api');
 vi.mock('hooks/useCollateral');
 vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useTokenApproval');
 
 describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('displays correct token wallet balance', async () => {
@@ -217,6 +219,65 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       getByText(en.operationModal.supply.submitButtonLabel.amountHigherThanSupplyCap).closest(
         'button',
       ),
+    ).toBeDisabled();
+  });
+
+  it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TESTNET_TOKENS.xvs,
+      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeSpendingLimitTokens = new BigNumber(10);
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      spendingLimitTokens: fakeSpendingLimitTokens,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+
+    // Check submit button is disabled
+    expect(
+      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
+    ).toBeDisabled();
+
+    const incorrectValueTokens = fakeSpendingLimitTokens
+      // Add one token too much
+      .plus(1)
+      .toFixed();
+
+    // Enter amount in input
+    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
+    fireEvent.change(tokenTextInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check error notice is displayed
+    await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
+    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
+      '"You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction."',
+    );
+
+    // Check submit button is still disabled
+    await waitFor(() =>
+      getByText(en.operationModal.supply.submitButtonLabel.amountHigherThanWalletSpendingLimit),
+    );
+    expect(
+      getByText(
+        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletSpendingLimit,
+      ).closest('button'),
     ).toBeDisabled();
   });
 
