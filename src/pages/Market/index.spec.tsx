@@ -12,7 +12,7 @@ import { routes } from 'constants/routing';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
-import Market from '.';
+import { CorePoolMarket, IsolatedPoolMarket } from '.';
 import TEST_IDS from './testIds';
 
 vi.mock('clients/api');
@@ -35,52 +35,103 @@ describe('pages/Market', () => {
     }));
   });
 
-  it('renders without crashing', () => {
-    const fakeHistory = createMemoryHistory();
-    renderComponent(
-      <Market
-        history={fakeHistory}
-        location="/"
-        match={{
-          params: {
-            vTokenAddress:
-              TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-            poolComptrollerAddress: poolData[0].comptrollerAddress,
-          },
-          isExact: true,
-          path: routes.market.path,
-          url: '',
-        }}
-      />,
-    );
+  describe('CorePoolMarket', () => {
+    it('renders without crashing', () => {
+      const fakeHistory = createMemoryHistory();
+      renderComponent(
+        <CorePoolMarket
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {
+              vTokenAddress:
+                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
+            },
+            isExact: true,
+            path: routes.corePoolMarket.path,
+            url: '',
+          }}
+        />,
+      );
+    });
+
+    it('fetches market details and displays them correctly', async () => {
+      const fakeHistory = createMemoryHistory();
+      const { getByTestId } = renderComponent(
+        <CorePoolMarket
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {
+              vTokenAddress:
+                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
+            },
+            isExact: true,
+            path: routes.corePoolMarket.path,
+            url: '',
+          }}
+        />,
+      );
+
+      // Check supply info displays correctly
+      await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
+      // Check borrow info displays correctly
+      expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
+      // Check interest rate model displays correctly
+      expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot();
+      // Check market info displays correctly
+      expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
+    });
   });
 
-  it('fetches market details and displays them correctly', async () => {
-    const fakeHistory = createMemoryHistory();
-    const { getByTestId } = renderComponent(
-      <Market
-        history={fakeHistory}
-        location="/"
-        match={{
-          params: {
-            vTokenAddress:
-              TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-            poolComptrollerAddress: poolData[0].comptrollerAddress,
-          },
-          isExact: true,
-          path: routes.market.path,
-          url: '',
-        }}
-      />,
-    );
+  describe('IsolatedPoolMarket', () => {
+    it('renders without crashing', () => {
+      const fakeHistory = createMemoryHistory();
+      renderComponent(
+        <IsolatedPoolMarket
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {
+              vTokenAddress:
+                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
+              poolComptrollerAddress: poolData[0].comptrollerAddress,
+            },
+            isExact: true,
+            path: routes.isolatedPoolMarket.path,
+            url: '',
+          }}
+        />,
+      );
+    });
 
-    // Check supply info displays correctly
-    await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
-    // Check borrow info displays correctly
-    expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
-    // Check interest rate model displays correctly
-    expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot();
-    // Check market info displays correctly
-    expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
+    it('fetches market details and displays them correctly', async () => {
+      const fakeHistory = createMemoryHistory();
+      const { getByTestId } = renderComponent(
+        <IsolatedPoolMarket
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {
+              vTokenAddress:
+                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
+              poolComptrollerAddress: poolData[0].comptrollerAddress,
+            },
+            isExact: true,
+            path: routes.isolatedPoolMarket.path,
+            url: '',
+          }}
+        />,
+      );
+
+      // Check supply info displays correctly
+      await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
+      // Check borrow info displays correctly
+      expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
+      // Check interest rate model displays correctly
+      expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot();
+      // Check market info displays correctly
+      expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
+    });
   });
 });

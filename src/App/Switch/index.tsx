@@ -10,9 +10,9 @@ import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
 import Vote from 'pages/Governance';
 import History from 'pages/History';
-import Market from 'pages/Market';
-import Pool from 'pages/Pool';
-import Pools from 'pages/Pools';
+import IsolatedPools from 'pages/IsolatedPools';
+import { CorePoolMarket, IsolatedPoolMarket } from 'pages/Market';
+import { CorePool, IsolatedPool } from 'pages/Pool';
 import Proposal from 'pages/Proposal';
 import Swap from 'pages/Swap';
 import Vai from 'pages/Vai';
@@ -42,18 +42,19 @@ const Switch = () => {
       {!!accountAddress && <Route exact path={routes.account.path} component={Account} />}
 
       {isFeatureEnabled('isolatedPools') && (
-        <Route exact path={routes.pools.path} component={Pools} />
+        <Route exact path={routes.isolatedPools.path} component={IsolatedPools} />
       )}
 
       {isFeatureEnabled('isolatedPools') && (
-        <Route exact path={routes.pool.path} component={Pool} />
+        <Route exact path={routes.isolatedPool.path} component={IsolatedPool} />
       )}
 
-      {!isFeatureEnabled('isolatedPools') && (
-        <Route exact path={routes.markets.path} component={Pool} />
+      {isFeatureEnabled('isolatedPools') && (
+        <Route exact path={routes.isolatedPoolMarket.path} component={IsolatedPoolMarket} />
       )}
 
-      <Route exact path={routes.market.path} component={Market} />
+      <Route exact path={routes.corePool.path} component={CorePool} />
+      <Route exact path={routes.corePoolMarket.path} component={CorePoolMarket} />
 
       <Route exact path={routes.vaults.path} component={Vaults} />
 

@@ -1,13 +1,12 @@
-import { isFeatureEnabled } from 'utilities';
-
 export enum Subdirectory {
   DASHBOARD = '/',
   ACCOUNT = '/account',
   XVS = '/xvs',
-  POOLS = '/pools',
-  POOL = '/pool/:poolComptrollerAddress',
-  MARKETS = '/markets/:poolComptrollerAddress',
+  CORE_POOL = '/core-pool',
+  ISOLATED_POOL = '/pool/:poolComptrollerAddress',
+  ISOLATED_POOLS = '/isolated-pools',
   MARKET = '/market/:vTokenAddress',
+  MARKETS = '/markets/:poolComptrollerAddress',
   HISTORY = '/history',
   VAULTS = '/vaults',
   GOVERNANCE = '/governance',
@@ -23,12 +22,15 @@ const routeSubdirectories = {
   dashboard: [Subdirectory.DASHBOARD],
   account: [Subdirectory.ACCOUNT],
   xvs: [Subdirectory.XVS],
-  pools: [Subdirectory.POOLS],
-  pool: [Subdirectory.POOLS, Subdirectory.POOL],
-  markets: [Subdirectory.MARKETS],
-  market: isFeatureEnabled('isolatedPools')
-    ? [Subdirectory.POOLS, Subdirectory.POOL, Subdirectory.MARKET]
-    : [Subdirectory.MARKETS, Subdirectory.MARKET],
+  isolatedPools: [Subdirectory.ISOLATED_POOLS],
+  corePool: [Subdirectory.CORE_POOL],
+  corePoolMarket: [Subdirectory.CORE_POOL, Subdirectory.MARKET],
+  isolatedPool: [Subdirectory.ISOLATED_POOLS, Subdirectory.ISOLATED_POOL],
+  isolatedPoolMarket: [
+    Subdirectory.ISOLATED_POOLS,
+    Subdirectory.ISOLATED_POOL,
+    Subdirectory.MARKET,
+  ],
   governance: [Subdirectory.GOVERNANCE],
   governanceProposal: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL],
   governanceLeaderBoard: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD],

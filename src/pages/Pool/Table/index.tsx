@@ -10,10 +10,15 @@ export interface TableProps {
 }
 
 export const Table: React.FC<TableProps> = ({ pool }) => {
-  const getRowHref = (row: Asset) =>
-    routes.market.path
-      .replace(':poolComptrollerAddress', pool.comptrollerAddress)
-      .replace(':vTokenAddress', row.vToken.address);
+  const getRowHref = (row: Asset) => {
+    if (pool.isIsolated) {
+      return routes.isolatedPoolMarket.path
+        .replace(':poolComptrollerAddress', pool.comptrollerAddress)
+        .replace(':vTokenAddress', row.vToken.address);
+    }
+
+    return routes.corePoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+  };
 
   return (
     <MarketTable
