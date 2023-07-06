@@ -6,25 +6,25 @@ import React from 'react';
 import { TESTNET_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
-import { WalletData } from '.';
+import { SpendingLimit } from '.';
 
 export default {
-  title: 'Components/WalletData',
-  component: WalletData,
-  decorators: [withCenterStory({ width: 600 })],
-} as Meta<typeof WalletData>;
+  title: 'Components/SpendingLimit',
+  component: SpendingLimit,
+  decorators: [withCenterStory({ width: 500 })],
+} as Meta<typeof SpendingLimit>;
 
 export const Default = () => (
-  <WalletData
+  <SpendingLimit
     onRevoke={noop}
-    walletBalanceTokens={new BigNumber('100000')}
-    walletSpendingLimitTokens={new BigNumber('1000000')}
+    walletBalanceTokens={new BigNumber('1000000')}
+    walletSpendingLimitTokens={new BigNumber('100000')}
     token={TESTNET_TOKENS.xvs}
   />
 );
 
 export const CoversWalletBalance = () => (
-  <WalletData
+  <SpendingLimit
     onRevoke={noop}
     walletBalanceTokens={new BigNumber('100000')}
     walletSpendingLimitTokens={new BigNumber('100000')}
