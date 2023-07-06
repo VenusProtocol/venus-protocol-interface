@@ -438,8 +438,8 @@
     },
     "repayTabTitle": "Repay",
     "supply": {
-      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "rightMaxButtonLabel": "MAX",
@@ -979,11 +979,10 @@
   },
   "walletData": {
     "walletSpendingLimit": {
-      "label": "Spending limit: <White>{{limit}}</White>",
+      "label": "Spending limit",
       "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
     },
-    "walletSpendingLimitRevokeButtonLabel": "Revoke",
-    "walletBalance": "Wallet balance: <White>{{walletBalance}}</White>"
+    "walletSpendingLimitRevokeButtonLabel": "Revoke"
   },
   "wallets": {
     "binanceChainWallet": "Binance Chain Wallet",
