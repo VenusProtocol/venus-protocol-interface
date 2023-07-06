@@ -36,7 +36,7 @@ export interface TransactionFormUiProps {
   isTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveToken: ApproveTokenStepsProps['approveToken'];
   isApproveTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isSpendingLimitLoading: ApproveTokenStepsProps['isSpendingLimitLoading'];
   lockingPeriodMs?: number;
 }
 
@@ -54,7 +54,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   isTokenApproved,
   approveToken,
   isApproveTokenLoading,
-  isTokenApprovalStatusLoading,
+  isSpendingLimitLoading,
   lockingPeriodMs,
 }) => {
   const { t } = useTranslation();
@@ -150,7 +150,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
               isTokenApproved={isTokenApproved}
               approveToken={approveToken}
               isApproveTokenLoading={isApproveTokenLoading}
-              isTokenApprovalStatusLoading={isTokenApprovalStatusLoading}
+              isSpendingLimitLoading={isSpendingLimitLoading}
             >
               <FormikSubmitButton
                 loading={isSubmitting}
@@ -160,7 +160,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
                   isSubmitting ||
                   !isTokenApproved ||
                   isApproveTokenLoading ||
-                  isTokenApprovalStatusLoading
+                  isSpendingLimitLoading
                 }
                 fullWidth
                 enabledLabel={submitButtonLabel}
@@ -185,7 +185,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 export interface TransactionFormProps
   extends Omit<
     TransactionFormUiProps,
-    'isTokenApproved' | 'approveToken' | 'isApproveTokenLoading' | 'isTokenApprovalStatusLoading'
+    'isTokenApproved' | 'approveToken' | 'isApproveTokenLoading' | 'isSpendingLimitLoading'
   > {
   spenderAddress?: string;
 }

@@ -18,7 +18,7 @@ export interface SubmitSectionProps {
   isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveFromToken: ApproveTokenStepsProps['approveToken'];
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isFromTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isFromSpendingLimitLoading: ApproveTokenStepsProps['isSpendingLimitLoading'];
   swap?: Swap;
   formError?: FormError;
 }
@@ -33,7 +33,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFromTokenApproved,
   approveFromToken,
   isApproveFromTokenLoading,
-  isFromTokenApprovalStatusLoading,
+  isFromSpendingLimitLoading,
   swap,
   isSwapLoading,
 }) => {
@@ -87,7 +87,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       isTokenApproved={isFromTokenApproved}
       approveToken={approveFromToken}
       isApproveTokenLoading={isApproveFromTokenLoading}
-      isTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isSpendingLimitLoading={isFromSpendingLimitLoading}
     >
       <PrimaryButton
         type="submit"
@@ -97,7 +97,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           isFormSubmitting ||
           isSwapLoading ||
           isApproveFromTokenLoading ||
-          isFromTokenApprovalStatusLoading ||
+          isFromSpendingLimitLoading ||
           !isFromTokenApproved
         }
         fullWidth
@@ -105,7 +105,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
         {submitButtonLabel}
       </PrimaryButton>
 
-      {isFormValid && !isSwapLoading && !isFromTokenApprovalStatusLoading && (
+      {isFormValid && !isSwapLoading && !isFromSpendingLimitLoading && (
         <SwapSummary swap={swap} type="supply" />
       )}
     </ApproveTokenSteps>

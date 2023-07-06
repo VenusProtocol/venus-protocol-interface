@@ -16,11 +16,11 @@ interface UseTokenApprovalInput {
 
 interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined; // TODO: remove
-  isTokenApprovalStatusLoading: boolean;
   approveToken: () => Promise<ContractReceipt | undefined>;
   revokeSpendingLimit: () => Promise<ContractReceipt>;
   isApproveTokenLoading: boolean;
   isRevokeSpendingLimitLoading: boolean;
+  isSpendingLimitLoading: boolean;
   spendingLimitTokens?: BigNumber;
 }
 
@@ -31,7 +31,7 @@ const useTokenApproval = ({
   spenderAddress,
   accountAddress,
 }: UseTokenApprovalInput): UseTokenApprovalOutput => {
-  const { data: getTokenAllowanceData, isLoading: isTokenApprovalStatusLoading } = useGetAllowance(
+  const { data: getTokenAllowanceData, isLoading: isSpendingLimitLoading } = useGetAllowance(
     {
       accountAddress: accountAddress || '',
       spenderAddress: spenderAddress || '',
@@ -58,12 +58,12 @@ const useTokenApproval = ({
       return true;
     }
 
-    if (!getTokenAllowanceData) {
+    if (!spendingLimitTokens) {
       return undefined;
     }
 
-    return getTokenAllowanceData.allowanceWei.isGreaterThan(0);
-  }, [token.isNative, getTokenAllowanceData]);
+    return spendingLimitTokens.isGreaterThan(0);
+  }, [token.isNative, spendingLimitTokens]);
 
   const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken({
     token,
@@ -81,7 +81,7 @@ const useTokenApproval = ({
 
   return {
     isTokenApproved,
-    isTokenApprovalStatusLoading,
+    isSpendingLimitLoading,
     isApproveTokenLoading,
     approveToken,
     revokeSpendingLimit,

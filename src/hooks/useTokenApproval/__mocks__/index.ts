@@ -1,11 +1,11 @@
 const isTokenApproved = true;
-const isTokenApprovalStatusLoading = false;
+const isSpendingLimitLoading = false;
 const isApproveTokenLoading = false;
 const approveToken = vi.fn();
 
 export default vi.fn(() => ({
   isTokenApproved,
-  isTokenApprovalStatusLoading,
+  isSpendingLimitLoading,
   isApproveTokenLoading,
   approveToken,
 }));
