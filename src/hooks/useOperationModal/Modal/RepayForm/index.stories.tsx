@@ -30,5 +30,9 @@ export const Default = () => (
       amountTokens: '',
     }}
     setFormValues={noop}
+    isFromTokenApproved
+    approveFromToken={noop}
+    isApproveFromTokenLoading={false}
+    isFromTokenApprovalStatusLoading={false}
   />
 );

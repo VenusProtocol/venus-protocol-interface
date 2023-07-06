@@ -74,9 +74,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
         tokenSymbol: stakedToken.symbol,
       })}
       tokenNeedsToBeApproved
-      approveTokenMessage={t('stakeModal.approveTokenMessage', {
-        tokenSymbol: stakedToken.symbol,
-      })}
       spenderAddress={spenderAddress}
       availableTokensLabel={t('stakeModal.availableTokensLabel', {
         tokenSymbol: stakedToken.symbol,

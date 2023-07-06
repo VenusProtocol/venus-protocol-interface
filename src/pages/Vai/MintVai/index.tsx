@@ -1,21 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  ApproveToken,
-  ConnectWallet,
-  FormikSubmitButton,
-  LabeledInlineContent,
-  Spinner,
-} from 'components';
+import { ConnectWallet, FormikSubmitButton, LabeledInlineContent, Spinner } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import {
-  convertTokensToWei,
-  convertWeiToTokens,
-  formatPercentage,
-  getContractAddress,
-} from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, formatPercentage } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -35,8 +24,6 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
-
-const vaiControllerContractAddress = getContractAddress('vaiController');
 
 export interface MintVaiUiProps {
   disabled: boolean;
@@ -115,62 +102,56 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('vai.mintVai.connectWallet')}>
-      <ApproveToken
-        title={t('vai.mintVai.approveToken')}
-        token={TOKENS.vai}
-        spenderAddress={vaiControllerContractAddress}
-      >
-        {isInitialLoading ? (
-          <Spinner />
-        ) : (
-          <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer} maxAmount={limitTokens}>
-            {({ values }) => (
-              <>
-                <div css={styles.ctaContainer}>
-                  <FormikTokenTextFieldWithBalance
-                    disabled={disabled || isSubmitting || !hasMintableVai}
-                    maxValue={limitTokens}
-                    userBalanceWei={userBalanceWei}
-                    maxButtonLabel={t('vai.mintVai.rightMaxButtonLabel')}
-                  />
-
-                  <LabeledInlineContent
-                    css={styles.getRow({ isLast: false })}
-                    iconSrc={TOKENS.vai}
-                    label={t('vai.mintVai.vaiLimitLabel')}
-                  >
-                    {readableVaiLimit}
-                  </LabeledInlineContent>
-
-                  <LabeledInlineContent
-                    css={styles.getRow({ isLast: false })}
-                    iconSrc="fee"
-                    label={t('vai.mintVai.apy')}
-                  >
-                    {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
-                  </LabeledInlineContent>
-
-                  <LabeledInlineContent
-                    css={styles.getRow({ isLast: true })}
-                    iconSrc="fee"
-                    label={t('vai.mintVai.mintFeeLabel')}
-                  >
-                    {getReadableMintFee(values.amount)}
-                  </LabeledInlineContent>
-                </div>
-
-                <FormikSubmitButton
-                  loading={isSubmitting}
-                  disabled={disabled}
-                  fullWidth
-                  enabledLabel={t('vai.mintVai.submitButtonLabel')}
-                  disabledLabel={t('vai.mintVai.submitButtonDisabledLabel')}
+      {isInitialLoading ? (
+        <Spinner />
+      ) : (
+        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer} maxAmount={limitTokens}>
+          {({ values }) => (
+            <>
+              <div css={styles.ctaContainer}>
+                <FormikTokenTextFieldWithBalance
+                  disabled={disabled || isSubmitting || !hasMintableVai}
+                  maxValue={limitTokens}
+                  userBalanceWei={userBalanceWei}
+                  maxButtonLabel={t('vai.mintVai.rightMaxButtonLabel')}
                 />
-              </>
-            )}
-          </AmountForm>
-        )}
-      </ApproveToken>
+
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: false })}
+                  iconSrc={TOKENS.vai}
+                  label={t('vai.mintVai.vaiLimitLabel')}
+                >
+                  {readableVaiLimit}
+                </LabeledInlineContent>
+
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: false })}
+                  iconSrc="fee"
+                  label={t('vai.mintVai.apy')}
+                >
+                  {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
+                </LabeledInlineContent>
+
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: true })}
+                  iconSrc="fee"
+                  label={t('vai.mintVai.mintFeeLabel')}
+                >
+                  {getReadableMintFee(values.amount)}
+                </LabeledInlineContent>
+              </div>
+
+              <FormikSubmitButton
+                loading={isSubmitting}
+                disabled={disabled}
+                fullWidth
+                enabledLabel={t('vai.mintVai.submitButtonLabel')}
+                disabledLabel={t('vai.mintVai.submitButtonDisabledLabel')}
+              />
+            </>
+          )}
+        </AmountForm>
+      )}
     </ConnectWallet>
   );
 };

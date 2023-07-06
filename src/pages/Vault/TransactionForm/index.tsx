@@ -1,6 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
+import {
+  ApproveTokenSteps,
+  ApproveTokenStepsProps,
+  FormikSubmitButton,
+  FormikTokenTextField,
+  LabeledInlineContent,
+} from 'components';
 import { ContractReceipt } from 'ethers';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -8,14 +14,17 @@ import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { AmountForm } from 'containers/AmountForm';
+import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-export interface TransactionFormProps {
+export interface TransactionFormUiProps {
   token: Token;
+  tokenNeedsToBeApproved?: boolean;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
   successfulTransactionTitle: string;
@@ -24,11 +33,16 @@ export interface TransactionFormProps {
   isSubmitting: boolean;
   availableTokensWei: BigNumber;
   availableTokensLabel: string;
+  isTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
+  approveToken: ApproveTokenStepsProps['approveToken'];
+  isApproveTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
+  isTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
   lockingPeriodMs?: number;
 }
 
-const TransactionForm: React.FC<TransactionFormProps> = ({
+export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   token,
+  tokenNeedsToBeApproved = false,
   availableTokensWei,
   availableTokensLabel,
   submitButtonLabel,
@@ -37,6 +51,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   successfulTransactionDescription,
   onSubmit,
   isSubmitting,
+  isTokenApproved,
+  approveToken,
+  isApproveTokenLoading,
+  isTokenApprovalStatusLoading,
   lockingPeriodMs,
 }) => {
   const { t } = useTranslation();
@@ -125,16 +143,74 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             </LabeledInlineContent>
           )}
 
-          <FormikSubmitButton
-            loading={isSubmitting}
-            disabled={!isValid || !dirty || isSubmitting}
-            fullWidth
-            enabledLabel={submitButtonLabel}
-            disabledLabel={submitButtonDisabledLabel}
-          />
+          {tokenNeedsToBeApproved ? (
+            <ApproveTokenSteps
+              token={token}
+              hideTokenEnablingStep={!isValid || !dirty}
+              isTokenApproved={isTokenApproved}
+              approveToken={approveToken}
+              isApproveTokenLoading={isApproveTokenLoading}
+              isTokenApprovalStatusLoading={isTokenApprovalStatusLoading}
+            >
+              <FormikSubmitButton
+                loading={isSubmitting}
+                disabled={
+                  !isValid ||
+                  !dirty ||
+                  isSubmitting ||
+                  !isTokenApproved ||
+                  isApproveTokenLoading ||
+                  isTokenApprovalStatusLoading
+                }
+                fullWidth
+                enabledLabel={submitButtonLabel}
+                disabledLabel={submitButtonDisabledLabel}
+              />
+            </ApproveTokenSteps>
+          ) : (
+            <FormikSubmitButton
+              loading={isSubmitting}
+              disabled={!isValid || !dirty || isSubmitting}
+              fullWidth
+              enabledLabel={submitButtonLabel}
+              disabledLabel={submitButtonDisabledLabel}
+            />
+          )}
         </>
       )}
     </AmountForm>
+  );
+};
+
+export interface TransactionFormProps
+  extends Omit<
+    TransactionFormUiProps,
+    'isTokenApproved' | 'approveToken' | 'isApproveTokenLoading' | 'isTokenApprovalStatusLoading'
+  > {
+  spenderAddress?: string;
+}
+
+const TransactionForm: React.FC<TransactionFormProps> = ({
+  token,
+  tokenNeedsToBeApproved = false,
+  spenderAddress,
+  ...otherProps
+}) => {
+  const { accountAddress } = useAuth();
+
+  const tokenApprovalProps = useTokenApproval({
+    token,
+    spenderAddress,
+    accountAddress,
+  });
+
+  return (
+    <TransactionFormUi
+      token={token}
+      tokenNeedsToBeApproved={tokenNeedsToBeApproved}
+      {...tokenApprovalProps}
+      {...otherProps}
+    />
   );
 };
 

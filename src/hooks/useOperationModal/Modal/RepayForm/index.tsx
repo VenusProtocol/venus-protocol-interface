@@ -19,6 +19,7 @@ import {
   convertTokensToWei,
   convertWeiToTokens,
   formatToReadablePercentage,
+  getSwapRouterContractAddress,
   isFeatureEnabled,
 } from 'utilities';
 
@@ -27,9 +28,10 @@ import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
-import SubmitSection from './SubmitSection';
+import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -37,7 +39,14 @@ import useForm, { FormValues, UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface RepayFormUiProps {
+export interface RepayFormUiProps
+  extends Pick<
+    SubmitSectionProps,
+    | 'approveFromToken'
+    | 'isApproveFromTokenLoading'
+    | 'isFromTokenApproved'
+    | 'isFromTokenApprovalStatusLoading'
+  > {
   asset: Asset;
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
@@ -61,6 +70,10 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   setFormValues,
   formValues,
   isSwapLoading,
+  approveFromToken,
+  isApproveFromTokenLoading,
+  isFromTokenApproved,
+  isFromTokenApprovalStatusLoading,
   swap,
   swapError,
 }) => {
@@ -277,10 +290,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         swap={swap}
         isSwapLoading={isSwapLoading}
         formError={formError}
-        poolComptrollerAddress={pool.comptrollerAddress}
         toToken={asset.vToken.underlyingToken}
         fromToken={formValues.fromToken}
         fromTokenAmountTokens={formValues.amountTokens}
+        approveFromToken={approveFromToken}
+        isApproveFromTokenLoading={isApproveFromTokenLoading}
+        isFromTokenApproved={isFromTokenApproved}
+        isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
       />
     </form>
   );
@@ -299,6 +315,21 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
     fixedRepayPercentage: undefined,
+  });
+
+  const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
+    ? getSwapRouterContractAddress(pool.comptrollerAddress)
+    : asset.vToken.address;
+
+  const {
+    isTokenApproved: isFromTokenApproved,
+    approveToken: approveFromToken,
+    isApproveTokenLoading: isApproveFromTokenLoading,
+    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+  } = useTokenApproval({
+    token: formValues.fromToken,
+    spenderAddress,
+    accountAddress,
   });
 
   const { mutateAsync: onRepay, isLoading: isRepayLoading } = useRepay({
@@ -388,6 +419,10 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       swap={swapInfo.swap}
       swapError={swapInfo.error}
       isSwapLoading={swapInfo.isLoading}
+      isFromTokenApproved={isFromTokenApproved}
+      approveFromToken={approveFromToken}
+      isApproveFromTokenLoading={isApproveFromTokenLoading}
+      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
     />
   );
 };

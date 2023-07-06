@@ -3,13 +3,11 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { BscChainId } from 'types';
-import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import TEST_IDS from 'components/Spinner/testIds';
 import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import { TOKENS } from 'constants/tokens';
-import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
@@ -29,7 +27,6 @@ const baseProps: ActionModalProps = {
   availableTokensWei: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeApproved: true,
-  approveTokenMessage: 'Fake approve token message',
   spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
@@ -54,24 +51,6 @@ describe('pages/Vault/modals/ActionModal', () => {
     const { getByText } = renderComponent(<ActionModal {...baseProps} />);
 
     await waitFor(() => getByText(baseProps.connectWalletMessage));
-  });
-
-  it('prompts user who connected their wallet to approve token if they have not done so already', async () => {
-    // Mark all tokens as having not been approved
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
-      isTokenApproved: false,
-      isTokenApprovalStatusLoading: false,
-      isApproveTokenLoading: false,
-      approveToken: noop,
-    }));
-
-    const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-    });
-
-    await waitFor(() => getByText(baseProps.approveTokenMessage as string));
   });
 
   it('displays transaction form if user have connected their wallet and approved token', async () => {
