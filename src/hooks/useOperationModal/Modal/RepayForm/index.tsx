@@ -46,7 +46,7 @@ export interface RepayFormUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromTokenApprovalStatusLoading'
+    | 'isFromSpendingLimitLoading'
   > {
   asset: Asset;
   pool: Pool;
@@ -74,7 +74,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenApprovalStatusLoading,
+  isFromSpendingLimitLoading,
   swap,
   swapError,
 }) => {
@@ -304,7 +304,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         approveFromToken={approveFromToken}
         isApproveFromTokenLoading={isApproveFromTokenLoading}
         isFromTokenApproved={isFromTokenApproved}
-        isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+        isFromSpendingLimitLoading={isFromSpendingLimitLoading}
       />
     </form>
   );
@@ -333,7 +333,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+    isSpendingLimitLoading: isFromSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
@@ -430,7 +430,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isFromSpendingLimitLoading={isFromSpendingLimitLoading}
     />
   );
 };

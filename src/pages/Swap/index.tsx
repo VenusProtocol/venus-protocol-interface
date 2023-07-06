@@ -60,7 +60,7 @@ export interface SwapPageUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromTokenApprovalStatusLoading'
+    | 'isFromSpendingLimitLoading'
   > {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -81,7 +81,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenApprovalStatusLoading,
+  isFromSpendingLimitLoading,
   onSubmit,
   isSubmitting,
   tokenBalances,
@@ -393,7 +393,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
-          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+          isFromSpendingLimitLoading={isFromSpendingLimitLoading}
         />
       </ConnectWallet>
     </Paper>
@@ -417,7 +417,7 @@ const SwapPage: React.FC = () => {
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+    isSpendingLimitLoading: isFromSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress: MAIN_POOL_SWAP_ROUTER_ADDRESS,
@@ -450,7 +450,7 @@ const SwapPage: React.FC = () => {
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isFromSpendingLimitLoading={isFromSpendingLimitLoading}
     />
   );
 };

@@ -46,7 +46,7 @@ export interface SupplyFormUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromTokenApprovalStatusLoading'
+    | 'isFromSpendingLimitLoading'
   > {
   asset: Asset;
   pool: Pool;
@@ -74,7 +74,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenApprovalStatusLoading,
+  isFromSpendingLimitLoading,
   swap,
   swapError,
 }) => {
@@ -294,7 +294,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
-          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+          isFromSpendingLimitLoading={isFromSpendingLimitLoading}
         />
       </form>
 
@@ -325,7 +325,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+    isSpendingLimitLoading: isFromSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
@@ -407,7 +407,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isFromSpendingLimitLoading={isFromSpendingLimitLoading}
     />
   );
 };
