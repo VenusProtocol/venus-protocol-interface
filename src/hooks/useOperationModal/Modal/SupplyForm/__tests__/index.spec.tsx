@@ -229,11 +229,11 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    const fakeSpendingLimitTokens = new BigNumber(10);
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
 
     (useTokenApproval as Vi.Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
-      spendingLimitTokens: fakeSpendingLimitTokens,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
 
     const { getByText, getByTestId } = renderComponent(
@@ -251,7 +251,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
       getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
     ).toBeDisabled();
 
-    const incorrectValueTokens = fakeSpendingLimitTokens
+    const incorrectValueTokens = fakeWalletSpendingLimitTokens
       // Add one token too much
       .plus(1)
       .toFixed();
@@ -272,11 +272,13 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
     // Check submit button is still disabled
     await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.amountHigherThanWalletSpendingLimit),
+      getByText(
+        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
+      ),
     );
     expect(
       getByText(
-        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletSpendingLimit,
+        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
       ).closest('button'),
     ).toBeDisabled();
   });

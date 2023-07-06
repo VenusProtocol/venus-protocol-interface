@@ -17,12 +17,11 @@ export interface UseTokenApprovalInput {
 export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined; // TODO: remove
   approveToken: () => Promise<ContractReceipt | undefined>;
-  revokeSpendingLimit: () => Promise<ContractReceipt>;
+  revokeWalletSpendingLimit: () => Promise<ContractReceipt>;
   isApproveTokenLoading: boolean;
-  // TODO: rename spendingLimit to walletSpendingLimit
-  isRevokeSpendingLimitLoading: boolean;
-  isSpendingLimitLoading: boolean;
-  spendingLimitTokens?: BigNumber;
+  isRevokeWalletSpendingLimitLoading: boolean;
+  isWalletSpendingLimitLoading: boolean;
+  walletSpendingLimitTokens?: BigNumber;
 }
 
 // TODO: add tests
@@ -32,7 +31,7 @@ const useTokenApproval = ({
   spenderAddress,
   accountAddress,
 }: UseTokenApprovalInput): UseTokenApprovalOutput => {
-  const { data: getTokenAllowanceData, isLoading: isSpendingLimitLoading } = useGetAllowance(
+  const { data: getTokenAllowanceData, isLoading: isWalletSpendingLimitLoading } = useGetAllowance(
     {
       accountAddress: accountAddress || '',
       spenderAddress: spenderAddress || '',
@@ -44,10 +43,10 @@ const useTokenApproval = ({
   );
 
   // TODO: add hook to revoke allowance
-  const revokeSpendingLimit = async () => fakeContractReceipt;
-  const isRevokeSpendingLimitLoading = false;
+  const revokeWalletSpendingLimit = async () => fakeContractReceipt;
+  const isRevokeWalletSpendingLimitLoading = false;
 
-  const spendingLimitTokens = useMemo(
+  const walletSpendingLimitTokens = useMemo(
     () =>
       getTokenAllowanceData?.allowanceWei &&
       convertWeiToTokens({ valueWei: getTokenAllowanceData.allowanceWei, token }),
@@ -59,12 +58,12 @@ const useTokenApproval = ({
       return true;
     }
 
-    if (!spendingLimitTokens) {
+    if (!walletSpendingLimitTokens) {
       return undefined;
     }
 
-    return spendingLimitTokens.isGreaterThan(0);
-  }, [token.isNative, spendingLimitTokens]);
+    return walletSpendingLimitTokens.isGreaterThan(0);
+  }, [token.isNative, walletSpendingLimitTokens]);
 
   const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken({
     token,
@@ -82,12 +81,12 @@ const useTokenApproval = ({
 
   return {
     isTokenApproved,
-    isSpendingLimitLoading,
+    isWalletSpendingLimitLoading,
     isApproveTokenLoading,
     approveToken,
-    revokeSpendingLimit,
-    isRevokeSpendingLimitLoading,
-    spendingLimitTokens,
+    revokeWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading,
+    walletSpendingLimitTokens,
   };
 };
 

@@ -438,14 +438,14 @@
     },
     "repayTabTitle": "Repay",
     "supply": {
-      "amountAboveSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
-        "amountHigherThanWalletSpendingLimit": "Amount entered higher than spending limit",
+        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
         "enterValidAmount": "Enter a valid amount to supply",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
@@ -978,11 +978,11 @@
     "votes": "Votes"
   },
   "walletData": {
-    "spendingLimit": {
+    "walletSpendingLimit": {
       "label": "Spending limit: <White>{{limit}}</White>",
       "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
     },
-    "spendingLimitRevokeButtonLabel": "Revoke",
+    "walletSpendingLimitRevokeButtonLabel": "Revoke",
     "walletBalance": "Wallet balance: <White>{{walletBalance}}</White>"
   },
   "wallets": {

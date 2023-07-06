@@ -18,12 +18,12 @@ export interface WalletDataProps {
   token: Token;
   walletBalanceTokens: BigNumber;
   onRevoke: () => Promise<unknown>;
-  spendingLimitTokens?: BigNumber;
+  walletSpendingLimitTokens?: BigNumber;
   className?: string;
 }
 
 export const WalletData: React.FC<WalletDataProps> = ({
-  spendingLimitTokens,
+  walletSpendingLimitTokens,
   walletBalanceTokens,
   token,
   onRevoke,
@@ -53,17 +53,17 @@ export const WalletData: React.FC<WalletDataProps> = ({
     token,
   });
 
-  const readableSpendingLimit = useFormatTokensToReadableValue({
-    value: spendingLimitTokens,
+  const readableWalletSpendingLimit = useFormatTokensToReadableValue({
+    value: walletSpendingLimitTokens,
     token,
   });
 
   // Only display component if spending limit is smaller than user balance
-  const shouldDisplaySpendingLimit =
+  const shouldDisplayWalletSpendingLimit =
     !token.isNative &&
-    spendingLimitTokens &&
-    spendingLimitTokens.isGreaterThan(0) &&
-    spendingLimitTokens.isLessThan(walletBalanceTokens);
+    walletSpendingLimitTokens &&
+    walletSpendingLimitTokens.isGreaterThan(0) &&
+    walletSpendingLimitTokens.isLessThan(walletBalanceTokens);
 
   return (
     <div css={styles.container} {...otherContainerProps}>
@@ -79,27 +79,27 @@ export const WalletData: React.FC<WalletDataProps> = ({
         </Typography>
       </div>
 
-      {shouldDisplaySpendingLimit && (
+      {shouldDisplayWalletSpendingLimit && (
         <div css={styles.row}>
           <div css={styles.column}>
             <Typography component="span" css={styles.label} variant="body1">
               <Trans
-                i18nKey="walletData.spendingLimit.label"
+                i18nKey="walletData.walletSpendingLimit.label"
                 components={{
                   White: <span css={styles.whiteText} />,
                 }}
-                values={{ limit: readableSpendingLimit }}
+                values={{ limit: readableWalletSpendingLimit }}
               />
             </Typography>
 
-            <Tooltip css={styles.tooltip} title={t('walletData.spendingLimit.labelTooltip')}>
+            <Tooltip css={styles.tooltip} title={t('walletData.walletSpendingLimit.labelTooltip')}>
               <Icon css={styles.infoIcon} name="info" />
             </Tooltip>
           </div>
 
           <TextButton onClick={handleRevoke} css={styles.button}>
             <Icon name="circledMinus" />
-            {t('walletData.spendingLimitRevokeButtonLabel')}
+            {t('walletData.walletSpendingLimitRevokeButtonLabel')}
           </TextButton>
         </div>
       )}

@@ -46,7 +46,7 @@ export interface SupplyFormUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromSpendingLimitLoading'
+    | 'isFromWalletSpendingLimitLoading'
   > {
   asset: Asset;
   pool: Pool;
@@ -57,7 +57,7 @@ export interface SupplyFormUiProps
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isSwapLoading: boolean;
-  fromTokenSpendingLimitTokens?: BigNumber;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -75,8 +75,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromSpendingLimitLoading,
-  fromTokenSpendingLimitTokens,
+  isFromWalletSpendingLimitLoading,
+  fromTokenWalletSpendingLimitTokens,
   swap,
   swapError,
 }) => {
@@ -126,7 +126,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     fromTokenUserWalletBalanceTokens,
-    fromTokenSpendingLimitTokens,
+    fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
     swap,
     swapError,
@@ -298,7 +298,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
-          isFromSpendingLimitLoading={isFromSpendingLimitLoading}
+          isFromWalletSpendingLimitLoading={isFromWalletSpendingLimitLoading}
         />
       </form>
 
@@ -329,8 +329,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isSpendingLimitLoading: isFromSpendingLimitLoading,
-    spendingLimitTokens,
+    isWalletSpendingLimitLoading: isFromWalletSpendingLimitLoading,
+    walletSpendingLimitTokens,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
@@ -412,8 +412,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromSpendingLimitLoading={isFromSpendingLimitLoading}
-      fromTokenSpendingLimitTokens={spendingLimitTokens}
+      isFromWalletSpendingLimitLoading={isFromWalletSpendingLimitLoading}
+      fromTokenWalletSpendingLimitTokens={walletSpendingLimitTokens}
     />
   );
 };

@@ -15,7 +15,7 @@ export interface ApproveTokenStepsProps {
   token: Token;
   approveToken: () => Promise<unknown>;
   isTokenApproved: boolean | undefined;
-  isSpendingLimitLoading: boolean;
+  isWalletSpendingLimitLoading: boolean;
   isApproveTokenLoading: boolean;
   children: React.ReactNode;
   isUsingSwap?: boolean;
@@ -27,7 +27,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   token,
   approveToken,
   isTokenApproved,
-  isSpendingLimitLoading,
+  isWalletSpendingLimitLoading,
   isApproveTokenLoading,
   hideTokenEnablingStep,
   isUsingSwap = false,
@@ -38,7 +38,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   const styles = useStyles();
 
   const showApproveTokenStep =
-    !hideTokenEnablingStep && !isSpendingLimitLoading && !isTokenApproved;
+    !hideTokenEnablingStep && !isWalletSpendingLimitLoading && !isTokenApproved;
 
   const handleApproveToken = async () => {
     try {

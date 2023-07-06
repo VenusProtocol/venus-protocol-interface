@@ -43,7 +43,7 @@ export interface IRepayVaiUiProps {
   isVaiApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveVai: ApproveTokenStepsProps['approveToken'];
   isApproveVaiLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isVaiApprovalStatusLoading: ApproveTokenStepsProps['isSpendingLimitLoading'];
+  isVaiApprovalStatusLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   userBalanceWei?: BigNumber;
   repayBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
@@ -157,7 +157,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                 isTokenApproved={isVaiApproved}
                 approveToken={approveVai}
                 isApproveTokenLoading={isApproveVaiLoading}
-                isSpendingLimitLoading={isVaiApprovalStatusLoading}
+                isWalletSpendingLimitLoading={isVaiApprovalStatusLoading}
               >
                 <FormikSubmitButton
                   loading={isSubmitting}
@@ -217,7 +217,7 @@ const RepayVai: React.FC = () => {
     isTokenApproved: isVaiApproved,
     approveToken: approveVai,
     isApproveTokenLoading: isApproveVaiLoading,
-    isSpendingLimitLoading: isVaiApprovalStatusLoading,
+    isWalletSpendingLimitLoading: isVaiApprovalStatusLoading,
   } = useTokenApproval({
     token: TOKENS.vai,
     spenderAddress: VAI_CONTROLLER_ADDRESS,
