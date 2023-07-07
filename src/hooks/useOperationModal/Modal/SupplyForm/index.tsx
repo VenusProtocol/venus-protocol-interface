@@ -315,8 +315,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   });
 
   const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
-    ? getSwapRouterContractAddress(pool.comptrollerAddress)
-    : asset.vToken.address;
+    ? asset.vToken.address
+    : getSwapRouterContractAddress(pool.comptrollerAddress);
 
   const {
     isTokenApproved: isFromTokenApproved,
