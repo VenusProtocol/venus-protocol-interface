@@ -6,6 +6,8 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
+import { Spinner } from 'components/Spinner';
+import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { TextButton } from '../Button';
@@ -17,6 +19,7 @@ export interface SpendingLimitProps {
   token: Token;
   walletBalanceTokens: BigNumber;
   onRevoke: () => Promise<unknown>;
+  isRevokeLoading: boolean;
   walletSpendingLimitTokens?: BigNumber;
   className?: string;
 }
@@ -24,6 +27,7 @@ export interface SpendingLimitProps {
 export const SpendingLimit: React.FC<SpendingLimitProps> = ({
   walletSpendingLimitTokens,
   walletBalanceTokens,
+  isRevokeLoading,
   token,
   onRevoke,
   ...otherContainerProps
@@ -65,15 +69,23 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
 
   return (
     <LabeledInlineContent
-      label={t('walletData.walletSpendingLimit.label')}
-      tooltip={t('walletData.walletSpendingLimit.labelTooltip')}
+      label={t('spendingLimit.label')}
+      tooltip={t('spendingLimit.labelTooltip')}
       {...otherContainerProps}
     >
-      <div>{readableWalletSpendingLimit}</div>
+      {isRevokeLoading ? (
+        <Spinner css={styles.control} />
+      ) : (
+        <>
+          <div>{readableWalletSpendingLimit}</div>
 
-      <TextButton onClick={handleRevoke} css={styles.button}>
-        <Icon name="bin" css={styles.buttonIcon} />
-      </TextButton>
+          <TextButton onClick={handleRevoke} css={[styles.control, styles.button]}>
+            <Tooltip title={t('spendingLimit.revokeButtonTooltip')}>
+              <Icon name="bin" css={styles.buttonIcon} />
+            </Tooltip>
+          </TextButton>
+        </>
+      )}
     </LabeledInlineContent>
   );
 };
