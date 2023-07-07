@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
@@ -281,6 +281,45 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
         en.operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
       ).closest('button'),
     ).toBeDisabled();
+  });
+
+  it('displays the wallet spending limit correctly and lets user revoke it', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TESTNET_TOKENS.xvs,
+      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByTestId } = renderComponent(
+      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    // Check spending limit is correctly displayedy
+    await waitFor(() => getByTestId(TEST_IDS.spendingLimit));
+    expect(getByTestId(TEST_IDS.spendingLimit).textContent).toMatchSnapshot();
+
+    // Press on revoke button
+    const revokeSpendingLimitButton = within(getByTestId(TEST_IDS.spendingLimit)).getByRole(
+      'button',
+    );
+
+    fireEvent.click(revokeSpendingLimitButton);
+
+    await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
   it('displays collateral switch and lets user enable asset as collateral if it has a positive collateral factor', async () => {

@@ -14,7 +14,8 @@ export const useStyles = () => {
       padding: 0;
       color: ${theme.palette.interactive.error};
 
-      :hover:not(:disabled) {
+      :hover:not(:disabled),
+      :active:not(:disabled) {
         color: ${theme.palette.interactive.error50};
       }
 
