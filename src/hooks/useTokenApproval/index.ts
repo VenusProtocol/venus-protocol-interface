@@ -5,8 +5,7 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useApproveToken, useGetAllowance } from 'clients/api';
+import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
 
 export interface UseTokenApprovalInput {
   token: Token;
@@ -17,7 +16,7 @@ export interface UseTokenApprovalInput {
 export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined; // TODO: remove
   approveToken: () => Promise<ContractReceipt | undefined>;
-  revokeWalletSpendingLimit: () => Promise<ContractReceipt>;
+  revokeWalletSpendingLimit: () => Promise<ContractReceipt | undefined>;
   isApproveTokenLoading: boolean;
   isRevokeWalletSpendingLimitLoading: boolean;
   isWalletSpendingLimitLoading: boolean;
@@ -42,9 +41,16 @@ const useTokenApproval = ({
     },
   );
 
-  // TODO: add hook to revoke allowance
-  const revokeWalletSpendingLimit = async () => fakeContractReceipt;
-  const isRevokeWalletSpendingLimitLoading = false;
+  const { mutateAsync: revokeAsync, isLoading: isRevokeWalletSpendingLimitLoading } =
+    useRevokeSpendingLimit({
+      token,
+    });
+
+  const revokeWalletSpendingLimit = async () => {
+    if (spenderAddress) {
+      return revokeAsync({ spenderAddress });
+    }
+  };
 
   const walletSpendingLimitTokens = useMemo(
     () =>

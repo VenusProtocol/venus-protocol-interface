@@ -34,5 +34,7 @@ export const Default = () => (
     approveFromToken={noop}
     isApproveFromTokenLoading={false}
     isFromTokenWalletSpendingLimitLoading={false}
+    revokeFromTokenWalletSpendingLimit={noop}
+    isRevokeFromTokenWalletSpendingLimitLoading={false}
   />
 );

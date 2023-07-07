@@ -5,6 +5,7 @@ const TEST_IDS = {
   noticeError: 'notice-error',
   noticeIsolatedAsset: 'notice-isolated-asset',
   swapDetails: 'swap-details',
+  spendingLimit: 'spending-limit',
 };
 
 export default TEST_IDS;
