@@ -265,7 +265,7 @@ export const MAINNET_TOKENS = {
   } as Token,
   floki: {
     address: '0xfb5B838b6cfEEdC2873aB27866079AC55363D37E',
-    decimals: 18,
+    decimals: 9,
     symbol: 'FLOKI',
     asset: floki,
   } as Token,
