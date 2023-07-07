@@ -20,6 +20,9 @@ const Markdown: React.FC<MarkdownViewerProps> = ({ content, className }) => {
       css={styles.preview}
       {...previewOptions}
       linkTarget="_blank"
+      wrapperElement={{
+        'data-color-mode': 'dark',
+      }}
     />
   );
 };
