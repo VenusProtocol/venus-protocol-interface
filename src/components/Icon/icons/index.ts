@@ -47,3 +47,4 @@ export { default as magnifier } from './magnifier';
 export { default as vaiOutline } from './vaiOutline';
 export { default as fire } from './fire';
 export { default as lightening } from './lightening';
+export { default as fourDots } from './fourDots';

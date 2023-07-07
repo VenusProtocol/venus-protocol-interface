@@ -45,7 +45,7 @@ const useGetMenuItems = () => {
           // Translation key: do not remove this comment
           // t('layout.menuItems.isolatedPools')
           i18nKey: 'layout.menuItems.isolatedPools',
-          icon: 'market',
+          icon: 'fourDots',
         },
       );
     } else {
@@ -85,7 +85,7 @@ const useGetMenuItems = () => {
         // Translation key: do not remove this comment
         // t('layout.menuItems.governance')
         i18nKey: 'layout.menuItems.governance',
-        icon: 'vote',
+        icon: 'market',
       },
       {
         href: routes.xvs.path,
