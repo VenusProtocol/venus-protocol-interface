@@ -463,7 +463,7 @@
         "title": "Your supply was successful"
       },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+      "walletBalance": "Wallet balance"
     },
     "supplyTabTitle": "Supply",
     "swapSummary": {
@@ -521,6 +521,11 @@
   },
   "sidebar": {
     "newBadge": "NEW"
+  },
+  "spendingLimit": {
+    "label": "Spending limit",
+    "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
+    "revokeButtonTooltip": "Revoke spending limit"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
@@ -979,13 +984,6 @@
     "addresses_one": "{{count}} address",
     "addresses_other": "{{count}} addresses",
     "votes": "Votes"
-  },
-  "walletData": {
-    "walletSpendingLimit": {
-      "label": "Spending limit",
-      "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one."
-    },
-    "walletSpendingLimitRevokeButtonLabel": "Revoke"
   },
   "wallets": {
     "binanceChainWallet": "Binance Chain Wallet",
