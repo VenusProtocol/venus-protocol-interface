@@ -2,10 +2,11 @@
 import Paper from '@mui/material/Paper';
 import MuiTable from '@mui/material/Table';
 import MuiTableBody from '@mui/material/TableBody';
-import MuiTableCell, { TableCellProps as MuiTableCellProps } from '@mui/material/TableCell';
+import MuiTableCell from '@mui/material/TableCell';
 import MuiTableContainer from '@mui/material/TableContainer';
 import MuiTableRow from '@mui/material/TableRow';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Spinner } from '../Spinner';
 import Head from './Head';
@@ -76,37 +77,35 @@ export function Table<R>({
             {sortedData.map((row, rowIndex) => {
               const rowKey = rowKeyExtractor(row);
 
+              const additionalProps = getRowHref
+                ? {
+                    component: Link,
+                    to: getRowHref(row),
+                  }
+                : {};
+
               return (
                 <MuiTableRow
                   hover
                   key={rowKey}
-                  css={styles.getTableRow({ clickable: !!rowOnClick })}
+                  css={[styles.link, styles.getTableRow({ clickable: !!rowOnClick })]}
                   onClick={
                     !getRowHref && rowOnClick
                       ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
                       : undefined
                   }
+                  {...additionalProps}
                 >
                   {columns.map(column => {
                     const cellContent = column.renderCell(row, rowIndex);
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
 
-                    const additionalProps: Partial<MuiTableCellProps> = getRowHref
-                      ? {
-                          component: 'a',
-                          // @ts-expect-error href is a valid prop when cell is rendered as an
-                          // anchor tag
-                          href: getRowHref(row),
-                        }
-                      : {};
-
                     return (
                       <MuiTableCell
-                        css={[styles.link, styles.cellWrapper]}
+                        css={styles.cellWrapper}
                         key={`${rowKey}-${column.key}`}
                         title={cellTitle}
                         align={column.align}
-                        {...additionalProps}
                       >
                         {cellContent}
                       </MuiTableCell>
