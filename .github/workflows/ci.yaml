@@ -1,6 +1,6 @@
 name: Tests and Checks
 
-on: [push]
+on: [pull_request]
 
 env:
   VITE_ENVIRONMENT: 'ci'
