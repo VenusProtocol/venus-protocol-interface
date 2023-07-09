@@ -7,6 +7,7 @@ import {
   NoticeWarning,
   QuaternaryButton,
   SelectTokenTextField,
+  SpendingLimit,
   SwapDetails,
   TokenTextField,
 } from 'components';
@@ -57,6 +58,9 @@ export interface RepayFormUiProps
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isSwapLoading: boolean;
+  revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -75,10 +79,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   isApproveFromTokenLoading,
   isFromTokenApproved,
   isFromTokenWalletSpendingLimitLoading,
+  fromTokenWalletSpendingLimitTokens,
+  revokeFromTokenWalletSpendingLimit,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   swap,
   swapError,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
@@ -200,15 +207,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               onClick: handleRightMaxButtonClick,
             }}
             tokenBalances={tokenBalances}
-            description={
-              <Trans
-                i18nKey="operationModal.repay.walletBalance"
-                components={{
-                  White: <span css={sharedStyles.whiteLabel} />,
-                }}
-                values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-              />
-            }
           />
         ) : (
           <TokenTextField
@@ -230,15 +228,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             }}
             data-testid={TEST_IDS.tokenTextField}
             hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-            description={
-              <Trans
-                i18nKey="operationModal.repay.walletBalance"
-                components={{
-                  White: <span css={sharedStyles.whiteLabel} />,
-                }}
-                values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-              />
-            }
           />
         )}
       </div>
@@ -250,6 +239,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               key={`select-button-${percentage}`}
               css={styles.selectButton}
               active={percentage === formValues.fixedRepayPercentage}
+              disabled={asset.userBorrowBalanceTokens.isEqualTo(0)}
               onClick={() =>
                 setFormValues(currentFormValues => ({
                   ...currentFormValues,
@@ -262,6 +252,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
+        {/* TODO: move to Notice component */}
         {isRepayingFullLoan && (
           <NoticeWarning
             css={sharedStyles.notice}
@@ -270,18 +261,35 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         )}
       </div>
 
-      {isUsingSwap && (
-        <>
-          <SwapDetails
-            action="repay"
-            swap={swap}
-            data-testid={TEST_IDS.swapDetails}
-            css={sharedStyles.getRow({ isLast: true })}
-          />
+      <LabeledInlineContent
+        label={t('operationModal.repay.walletBalance')}
+        css={sharedStyles.getRow({ isLast: false })}
+      >
+        {readableFromTokenUserWalletBalanceTokens}
+      </LabeledInlineContent>
 
-          <Delimiter css={sharedStyles.getRow({ isLast: true })} />
-        </>
+      {fromTokenUserWalletBalanceTokens && (
+        <SpendingLimit
+          token={formValues.fromToken}
+          walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+          walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+          onRevoke={revokeFromTokenWalletSpendingLimit}
+          isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+          css={sharedStyles.getRow({ isLast: false })}
+          data-testid={TEST_IDS.spendingLimit}
+        />
       )}
+
+      {isUsingSwap && (
+        <SwapDetails
+          action="repay"
+          swap={swap}
+          data-testid={TEST_IDS.swapDetails}
+          css={sharedStyles.getRow({ isLast: true })}
+        />
+      )}
+
+      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <AccountData
         asset={asset}
@@ -305,6 +313,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         isApproveFromTokenLoading={isApproveFromTokenLoading}
         isFromTokenApproved={isFromTokenApproved}
         isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+        isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
       />
     </form>
   );
@@ -334,6 +343,9 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
     isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
@@ -431,6 +443,9 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
       isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
+      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
     />
   );
 };
