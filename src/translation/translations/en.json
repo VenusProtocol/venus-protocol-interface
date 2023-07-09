@@ -434,7 +434,7 @@
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
       },
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+      "walletBalance": "Wallet balance"
     },
     "repayTabTitle": "Repay",
     "supply": {

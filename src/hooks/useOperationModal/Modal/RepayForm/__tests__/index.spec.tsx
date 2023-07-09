@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
@@ -8,7 +8,9 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { repay } from 'clients/api';
+import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -18,6 +20,7 @@ import TEST_IDS from '../testIds';
 
 vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useTokenApproval');
 
 describe('hooks/useBorrowRepayModal/Repay', () => {
   it('renders without crashing', () => {
@@ -125,6 +128,45 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
     await waitFor(() => getByText(expectedSubmitButtonLabel));
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+  });
+
+  it('displays the wallet spending limit correctly and lets user revoke it', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TESTNET_TOKENS.xvs,
+      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByTestId } = renderComponent(
+      () => <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    // Check spending limit is correctly displayedy
+    await waitFor(() => getByTestId(TEST_IDS.spendingLimit));
+    expect(getByTestId(TEST_IDS.spendingLimit).textContent).toMatchSnapshot();
+
+    // Press on revoke button
+    const revokeSpendingLimitButton = within(getByTestId(TEST_IDS.spendingLimit)).getByRole(
+      'button',
+    );
+
+    fireEvent.click(revokeSpendingLimitButton);
+
+    await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
   it('updates input value to wallet balance when pressing on max button', async () => {
