@@ -63,7 +63,6 @@ const Notice: React.FC<NoticeProps> = ({ asset, formError }) => {
     return (
       <NoticeError
         css={styles.notice}
-        data-testid={TEST_IDS.noticeError}
         description={t('operationModal.supply.amountAboveWalletSpendingLimit')}
       />
     );

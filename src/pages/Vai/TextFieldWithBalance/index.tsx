@@ -48,7 +48,7 @@ export const FormikTokenTextFieldWithBalance: React.FC<IFormikTokenTextFieldWith
         description={
           <div css={styles.greyLabel}>
             <Trans
-              i18nKey="operationModal.repay.walletBalance"
+              i18nKey="vai.repayVai.walletBalance"
               components={{
                 White: <span css={styles.whiteLabel} />,
               }}

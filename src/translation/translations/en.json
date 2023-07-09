@@ -419,12 +419,14 @@
       "withdraw": "Withdrawing has been disabled for this token"
     },
     "repay": {
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
+        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
         "enterValidAmount": "Enter a valid amount to repay",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
@@ -786,7 +788,8 @@
       "successfulTransactionModal": {
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
-      }
+      },
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "tabMint": "Mint",
     "tabRepay": "Repay"

@@ -28,6 +28,8 @@ export interface UseFormInput {
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   fromTokenUserBorrowBalanceTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
+  isFromTokenApproved?: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -42,6 +44,8 @@ const useForm = ({
   toVToken,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenUserBorrowBalanceTokens = new BigNumber(0),
+  fromTokenWalletSpendingLimitTokens,
+  isFromTokenApproved,
   onCloseModal,
   swap,
   swapError,
@@ -59,8 +63,10 @@ const useForm = ({
     formValues,
     swap,
     swapError,
+    isFromTokenApproved,
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
   });
 
   const handleSubmit = async (e?: React.SyntheticEvent) => {
