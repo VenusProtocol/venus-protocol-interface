@@ -130,6 +130,64 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
   });
 
+  it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TESTNET_TOKENS.xvs,
+      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      () => <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
+
+    // Check submit button is disabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
+    ).toBeDisabled();
+
+    const incorrectValueTokens = fakeWalletSpendingLimitTokens
+      // Add one token too much
+      .plus(1)
+      .toFixed();
+
+    // Enter amount in input
+    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
+    fireEvent.change(tokenTextInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check error notice is displayed
+    await waitFor(() => expect(getByText(en.operationModal.repay.amountAboveWalletSpendingLimit)));
+
+    // Check submit button is still disabled
+    await waitFor(() =>
+      getByText(
+        en.operationModal.repay.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
+      ),
+    );
+    expect(
+      getByText(
+        en.operationModal.repay.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
+      ).closest('button'),
+    ).toBeDisabled();
+  });
+
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,

@@ -265,10 +265,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     });
 
     // Check error notice is displayed
-    await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
-    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction."',
-    );
+    await waitFor(() => expect(getByText(en.operationModal.supply.amountAboveWalletSpendingLimit)));
 
     // Check submit button is still disabled
     await waitFor(() =>

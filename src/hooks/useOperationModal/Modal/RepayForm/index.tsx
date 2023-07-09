@@ -4,7 +4,6 @@ import {
   AccountData,
   Delimiter,
   LabeledInlineContent,
-  NoticeWarning,
   QuaternaryButton,
   SelectTokenTextField,
   SpendingLimit,
@@ -33,6 +32,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
+import Notice from './Notice';
 import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import { useStyles } from './styles';
@@ -131,12 +131,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     toVToken: asset.vToken,
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
     swap,
     swapError,
     onCloseModal,
     onSubmit,
     formValues,
     setFormValues,
+    isFromTokenApproved,
   });
 
   const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
@@ -252,12 +254,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
-        {/* TODO: move to Notice component */}
-        {isRepayingFullLoan && (
-          <NoticeWarning
-            css={sharedStyles.notice}
-            description={t('operationModal.repay.fullRepaymentWarning')}
-          />
+        {!isSubmitting && !isSwapLoading && (
+          <Notice isRepayingFullLoan={isRepayingFullLoan} formError={formError} />
         )}
       </div>
 
