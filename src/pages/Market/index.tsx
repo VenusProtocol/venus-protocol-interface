@@ -29,7 +29,6 @@ import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useOperationModal from 'hooks/useOperationModal';
@@ -199,7 +198,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       value: formatTokensToReadableValue({
         value: distribution.dailyDistributedTokens,
         addSymbol: false,
-        token: TOKENS.xvs,
+        token: distribution.token,
       }),
     }));
 
