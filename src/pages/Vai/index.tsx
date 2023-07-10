@@ -22,11 +22,9 @@ const Vai: React.FC<VaiProps> = ({ className }) => {
   ];
 
   return (
-    <div css={[styles.container]}>
-      <Paper className={className} css={styles.tabs}>
-        <Tabs tabsContent={tabsContent} />
-      </Paper>
-    </div>
+    <Paper className={className} css={styles.container}>
+      <Tabs tabsContent={tabsContent} />
+    </Paper>
   );
 };
 
