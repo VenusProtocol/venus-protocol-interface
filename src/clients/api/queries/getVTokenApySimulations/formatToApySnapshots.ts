@@ -13,7 +13,10 @@ const formatToApySnapshots = ({
   vTokenBalanceCallResults: ContractCallResults;
 }): VTokenApySnapshot[] => {
   const apySimulations: VTokenApySnapshot[] = [];
-  const results = Object.values(vTokenBalanceCallResults.results)[0].callsReturnContext;
+  const results = Object.values(vTokenBalanceCallResults.results)[0].callsReturnContext.slice(
+    0,
+    200,
+  );
 
   let utilizationRate = 1;
 

@@ -1,9 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
+import { convertTokensToWei } from 'utilities';
 
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import interestModelAbiV2 from 'constants/contracts/abis/interestModelV2.json';
 
+import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
 import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
 
@@ -16,8 +18,10 @@ const getVTokenApySimulations = async ({
   reserveFactorMantissa,
   interestRateModelContractAddress,
   isIsolatedPoolMarket,
+  asset,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
   const calls: ContractCallContext['calls'] = [];
+  const badDebtWei = new BigNumber(0).toFixed();
 
   for (let u = 1; u <= 100; u++) {
     const utilizationRate = u / 100;
@@ -28,16 +32,15 @@ const getVTokenApySimulations = async ({
 
     const borrowsAmountWei = new BigNumber(REFERENCE_AMOUNT_WEI).toFixed();
     const reservesAmountWei = new BigNumber(0).toFixed();
-    const badDebtWei = new BigNumber(0).toFixed();
 
     const getBorrowRateParams = [cashAmountWei, borrowsAmountWei, reservesAmountWei];
-
-    if (isIsolatedPoolMarket) getBorrowRateParams.push(badDebtWei);
 
     calls.push({
       reference: 'getBorrowRate',
       methodName: 'getBorrowRate',
-      methodParameters: getBorrowRateParams,
+      methodParameters: isIsolatedPoolMarket
+        ? [...getBorrowRateParams, badDebtWei]
+        : getBorrowRateParams,
     });
 
     const getSupplyRateParams = [
@@ -47,12 +50,37 @@ const getVTokenApySimulations = async ({
       reserveFactorMantissa.toFixed(),
     ];
 
-    if (isIsolatedPoolMarket) getSupplyRateParams.push(badDebtWei);
-
     calls.push({
       reference: 'getSupplyRate',
       methodName: 'getSupplyRate',
-      methodParameters: getSupplyRateParams,
+      methodParameters: isIsolatedPoolMarket
+        ? [...getSupplyRateParams, badDebtWei]
+        : getSupplyRateParams,
+    });
+  }
+
+  if (asset) {
+    const cashWei = convertTokensToWei({
+      value: asset.cashTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed();
+    const borrowBalanceWei = convertTokensToWei({
+      value: asset.borrowBalanceTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed();
+    const reservesWei = convertTokensToWei({
+      value: asset.reserveTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed();
+
+    const utilizationRateParams = [cashWei, borrowBalanceWei, reservesWei];
+
+    calls.push({
+      reference: 'utilizationRate',
+      methodName: 'utilizationRate',
+      methodParameters: isIsolatedPoolMarket
+        ? [...utilizationRateParams, badDebtWei]
+        : utilizationRateParams,
     });
   }
 
@@ -64,9 +92,13 @@ const getVTokenApySimulations = async ({
   };
 
   const vTokenBalanceCallResults: ContractCallResults = await multicall.call(contractCallContext);
-  const apySimulations = formatToApySnapshots({ vTokenBalanceCallResults });
 
-  return { apySimulations };
+  const apySimulations = formatToApySnapshots({ vTokenBalanceCallResults });
+  const currentUtilizationRate = asset
+    ? formatCurrentUtilizationRate({ vTokenBalanceCallResults })
+    : 0;
+
+  return { apySimulations, currentUtilizationRate };
 };
 
 export default getVTokenApySimulations;
