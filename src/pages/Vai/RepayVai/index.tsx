@@ -4,7 +4,9 @@ import {
   ApproveTokenSteps,
   ApproveTokenStepsProps,
   ConnectWallet,
+  Delimiter,
   FormikSubmitButton,
+  FormikTokenTextField,
   LabeledInlineContent,
   NoticeWarning,
   Spinner,
@@ -29,8 +31,8 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 
-import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
+import TEST_IDS from '../testIds';
 import RepayFee from './RepayFee';
 
 const VAI_CONTROLLER_ADDRESS = getContractAddress('vaiController');
@@ -94,6 +96,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     token: TOKENS.vai,
   });
 
+  const readableWalletBalance = useConvertWeiToReadableTokenString({
+    valueWei: userBalanceWei,
+    token: TOKENS.vai,
+  });
+
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
@@ -121,28 +128,44 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       {isInitialLoading ? (
         <Spinner />
       ) : (
-        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {({ values, isValid, dirty }) => (
+        <AmountForm onSubmit={onSubmit}>
+          {({ values, isValid, dirty, setValues }) => (
             <>
-              <FormikTokenTextFieldWithBalance
+              <FormikTokenTextField
+                name="amount"
+                css={styles.getRow({ isLast: true })}
+                token={TOKENS.vai}
+                max={limitTokens}
                 disabled={disabled || isSubmitting || !hasRepayableVai}
-                maxValue={limitTokens}
-                userBalanceWei={userBalanceWei}
-                maxButtonLabel={t('vai.repayVai.rightMaxButtonLabel')}
+                rightMaxButton={{
+                  label: t('vai.repayVai.rightMaxButtonLabel'),
+                  onClick: () =>
+                    setValues(currentValues => ({ ...currentValues, amount: limitTokens })),
+                }}
+                data-testid={TEST_IDS.repayTextField}
               />
 
-              <div css={styles.ctaContainer}>
+              <div css={styles.getRow({ isLast: true })}>
                 <LabeledInlineContent
                   css={styles.getRow({ isLast: false })}
-                  iconSrc={TOKENS.vai}
-                  label={t('vai.repayVai.repayVaiBalance')}
-                  tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
+                  label={t('vai.repayVai.walletBalance')}
                 >
-                  {readableRepayableVai}
+                  {readableWalletBalance}
                 </LabeledInlineContent>
-
-                <RepayFee repayAmountTokens={values.amount} />
               </div>
+
+              <Delimiter css={styles.getRow({ isLast: true })} />
+
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: false })}
+                iconSrc={TOKENS.vai}
+                label={t('vai.repayVai.repayVaiBalance')}
+                tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
+              >
+                {readableRepayableVai}
+              </LabeledInlineContent>
+
+              <RepayFee repayAmountTokens={values.amount} />
 
               {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
                 <NoticeWarning
