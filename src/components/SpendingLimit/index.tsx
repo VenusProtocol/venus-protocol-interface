@@ -81,7 +81,7 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
           <div>{readableWalletSpendingLimit}</div>
 
           <TextButton onClick={handleRevoke} css={[styles.control, styles.button]}>
-            <Tooltip title={t('spendingLimit.revokeButtonTooltip')}>
+            <Tooltip title={t('spendingLimit.revokeButtonTooltip')} css={styles.buttonTooltip}>
               <Icon name="bin" css={styles.buttonIcon} />
             </Tooltip>
           </TextButton>

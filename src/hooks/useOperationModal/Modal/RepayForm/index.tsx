@@ -266,24 +266,21 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         {readableFromTokenUserWalletBalanceTokens}
       </LabeledInlineContent>
 
-      <SpendingLimit
-        token={formValues.fromToken}
-        walletBalanceTokens={fromTokenUserWalletBalanceTokens}
-        walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-        onRevoke={revokeFromTokenWalletSpendingLimit}
-        isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-        css={sharedStyles.getRow({ isLast: false })}
-        data-testid={TEST_IDS.spendingLimit}
-      />
-
-      {isUsingSwap && (
-        <SwapDetails
-          action="repay"
-          swap={swap}
-          data-testid={TEST_IDS.swapDetails}
-          css={sharedStyles.getRow({ isLast: true })}
+      <div css={sharedStyles.getRow({ isLast: true })}>
+        <SpendingLimit
+          token={formValues.fromToken}
+          walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+          walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+          onRevoke={revokeFromTokenWalletSpendingLimit}
+          isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+          css={sharedStyles.getRow({ isLast: false })}
+          data-testid={TEST_IDS.spendingLimit}
         />
-      )}
+
+        {isUsingSwap && (
+          <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
+        )}
+      </div>
 
       <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 

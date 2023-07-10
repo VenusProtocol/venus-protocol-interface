@@ -24,6 +24,9 @@ export const useStyles = () => {
         color: inherit;
       }
     `,
+    buttonTooltip: css`
+      display: inline-flex;
+    `,
     buttonIcon: css`
       width: ${theme.spacing(5)};
       height: ${theme.spacing(5)};

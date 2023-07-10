@@ -47,6 +47,14 @@ const useStakeInVaiVault = (options?: Options) => {
         ]);
 
         queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: TOKENS.vai.address,
+            accountAddress,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
             accountAddress,

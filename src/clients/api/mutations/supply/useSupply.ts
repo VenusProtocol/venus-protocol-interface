@@ -24,6 +24,13 @@ const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: vToken.underlyingToken.address,
+            accountAddress,
+          },
+        ]);
+        queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
             accountAddress,
