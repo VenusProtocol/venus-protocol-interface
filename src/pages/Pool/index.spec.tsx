@@ -4,27 +4,48 @@ import React from 'react';
 import { routes } from 'constants/routing';
 import renderComponent from 'testUtils/renderComponent';
 
-import Pool from '.';
+import { CorePool, IsolatedPool } from '.';
 
 const fakePoolId = 'fake-pool-id';
 
 describe('pages/Pool', () => {
-  it('renders without crashing', async () => {
-    const fakeHistory = createMemoryHistory();
+  describe('CorePool', () => {
+    it('renders without crashing', async () => {
+      const fakeHistory = createMemoryHistory();
 
-    renderComponent(
-      <Pool
-        history={fakeHistory}
-        location="/"
-        match={{
-          params: {
-            poolComptrollerAddress: fakePoolId,
-          },
-          isExact: true,
-          path: routes.pool.path,
-          url: '',
-        }}
-      />,
-    );
+      renderComponent(
+        <CorePool
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {},
+            isExact: true,
+            path: routes.corePool.path,
+            url: '',
+          }}
+        />,
+      );
+    });
+  });
+
+  describe('IsolatedPool', () => {
+    it('renders without crashing', async () => {
+      const fakeHistory = createMemoryHistory();
+
+      renderComponent(
+        <IsolatedPool
+          history={fakeHistory}
+          location="/"
+          match={{
+            params: {
+              poolComptrollerAddress: fakePoolId,
+            },
+            isExact: true,
+            path: routes.isolatedPool.path,
+            url: '',
+          }}
+        />,
+      );
+    });
   });
 });

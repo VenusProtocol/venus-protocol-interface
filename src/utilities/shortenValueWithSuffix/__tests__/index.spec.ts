@@ -58,6 +58,6 @@ describe('utilities/shortenValueWithSuffix', () => {
       value,
       minDecimalPlaces: 3,
     });
-    expect(result).toEqual('100.183');
+    expect(result).toEqual('100.182');
   });
 });

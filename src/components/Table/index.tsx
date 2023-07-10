@@ -77,16 +77,24 @@ export function Table<R>({
             {sortedData.map((row, rowIndex) => {
               const rowKey = rowKeyExtractor(row);
 
+              const additionalProps = getRowHref
+                ? {
+                    component: Link,
+                    to: getRowHref(row),
+                  }
+                : {};
+
               return (
                 <MuiTableRow
                   hover
                   key={rowKey}
-                  css={styles.getTableRow({ clickable: !!rowOnClick })}
+                  css={[styles.link, styles.getTableRow({ clickable: !!rowOnClick })]}
                   onClick={
                     !getRowHref && rowOnClick
                       ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
                       : undefined
                   }
+                  {...additionalProps}
                 >
                   {columns.map(column => {
                     const cellContent = column.renderCell(row, rowIndex);
@@ -94,18 +102,12 @@ export function Table<R>({
 
                     return (
                       <MuiTableCell
-                        css={styles.getCellWrapper({ containsLink: !!getRowHref })}
+                        css={styles.cellWrapper}
                         key={`${rowKey}-${column.key}`}
                         title={cellTitle}
                         align={column.align}
                       >
-                        {getRowHref ? (
-                          <Link css={styles.link} to={getRowHref(row)}>
-                            {cellContent}
-                          </Link>
-                        ) : (
-                          cellContent
-                        )}
+                        {cellContent}
                       </MuiTableCell>
                     );
                   })}

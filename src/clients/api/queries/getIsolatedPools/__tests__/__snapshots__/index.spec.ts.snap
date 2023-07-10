@@ -6,7 +6,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "1.0022356872843178",
+          "borrowApyPercentage": "1.0022356872843177",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "478980",
@@ -16,9 +16,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.6,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -27,9 +27,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               },
             },
             {
-              "borrowApyPercentage": "3.5198210561205443",
+              "borrowApyPercentage": "3.5198210561205442",
               "dailyDistributedTokens": "0.00019008",
-              "supplyApyPercentage": "3.5198210561205443",
+              "supplyApyPercentage": "3.5198210561205442",
               "token": {
                 "address": "0xa8062D2bd49D1D2C6376B444bde19402B38938d0",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -70,7 +70,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "0.2269064002775517",
+          "borrowApyPercentage": "0.2269064002775516",
           "borrowBalanceCents": "282245.5",
           "borrowBalanceTokens": "100000000000",
           "borrowCapTokens": "1000000000000000",
@@ -80,9 +80,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.7,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -97,7 +97,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "reserveFactor": 0.25,
           "reserveTokens": "0",
           "supplierCount": 10,
-          "supplyApyPercentage": "0.0015453529994932",
+          "supplyApyPercentage": "0.0015453529994931",
           "supplyBalanceCents": "3.1047005e-17",
           "supplyBalanceTokens": "1.1e-11",
           "supplyCapTokens": "1000000000000000",
@@ -105,7 +105,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "tokenPriceCents": "0.000002822455",
           "userBorrowBalanceCents": "282247.05161553962349901",
           "userBorrowBalanceTokens": "100000549739.691022",
-          "userPercentOfLimit": 14.29,
+          "userPercentOfLimit": 14.28,
           "userSupplyBalanceCents": "2822455.1057919686090253",
           "userSupplyBalanceTokens": "1000000037482.25166",
           "userWalletBalanceCents": "0",
@@ -144,9 +144,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.7,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -155,9 +155,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               },
             },
             {
-              "borrowApyPercentage": "2.1187122550748488",
+              "borrowApyPercentage": "2.1187122550748487",
               "dailyDistributedTokens": "0.0001152",
-              "supplyApyPercentage": "2.1187122550748488",
+              "supplyApyPercentage": "2.1187122550748487",
               "token": {
                 "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
                 "asset": "/src/assets/img/tokens/ankr.svg",
@@ -198,7 +198,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "1.0022356872843178",
+          "borrowApyPercentage": "1.0022356872843177",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "100000000000000",
@@ -208,9 +208,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.6,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -219,9 +219,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               },
             },
             {
-              "borrowApyPercentage": "2.1187122550748488",
+              "borrowApyPercentage": "2.1187122550748487",
               "dailyDistributedTokens": "0.0001152",
-              "supplyApyPercentage": "2.1187122550748488",
+              "supplyApyPercentage": "2.1187122550748487",
               "token": {
                 "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
                 "asset": "/src/assets/img/tokens/ankr.svg",
@@ -272,9 +272,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.7,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -326,7 +326,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "1.0022356872843178",
+          "borrowApyPercentage": "1.0022356872843177",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "24654278679",
@@ -336,9 +336,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.6,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -347,9 +347,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               },
             },
             {
-              "borrowApyPercentage": "2.3330300651382091",
+              "borrowApyPercentage": "2.333030065138209",
               "dailyDistributedTokens": "0.00012672",
-              "supplyApyPercentage": "2.3330300651382091",
+              "supplyApyPercentage": "2.333030065138209",
               "token": {
                 "address": "0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA",
                 "asset": "/src/assets/img/tokens/nft.png",
@@ -390,7 +390,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "1.0022356872843178",
+          "borrowApyPercentage": "1.0022356872843177",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "3805812642",
@@ -400,9 +400,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.6,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -455,7 +455,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "1.0022356872843178",
+          "borrowApyPercentage": "1.0022356872843177",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "324",
@@ -465,9 +465,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.6,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",
@@ -518,9 +518,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "collateralFactor": 0.7,
           "distributions": [
             {
-              "borrowApyPercentage": "2.4403571191431896",
+              "borrowApyPercentage": "2.4403571191431895",
               "dailyDistributedTokens": "0.00013248",
-              "supplyApyPercentage": "2.4403571191431896",
+              "supplyApyPercentage": "2.4403571191431895",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/assets/img/tokens/xvs.svg",

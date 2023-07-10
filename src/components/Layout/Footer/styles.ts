@@ -8,7 +8,7 @@ export const useStyles = () => {
     container: css`
       height: ${theme.shape.footerHeight};
       padding: 0 ${theme.spacing(10)};
-      background-color: var(--color-bg-main);
+      background-color: ${theme.palette.background.default};
       display: flex;
       justify-content: flex-end;
       align-items: center;

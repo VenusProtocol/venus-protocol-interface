@@ -20,7 +20,6 @@ describe('pages/ConvertVRT/Convert', () => {
           logOut: vi.fn(),
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
-          isConnected: true,
           provider: fakeProvider,
           accountAddress: fakeAccountAddress,
         }}

@@ -4,13 +4,13 @@ import React from 'react';
 import Header from './Header';
 import PoolTable from './PoolTable';
 
-const PoolsUi: React.FC = () => (
+const IsolatedPoolsUi: React.FC = () => (
   <div>
     <Header />
     <PoolTable />
   </div>
 );
 
-const Pools: React.FC = () => <PoolsUi />;
+const IsolatedPools: React.FC = () => <IsolatedPoolsUi />;
 
-export default Pools;
+export default IsolatedPools;

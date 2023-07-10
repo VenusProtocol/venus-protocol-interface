@@ -12,8 +12,6 @@ import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
-import initializeLibraries from '../initializeLibraries';
-
 const renderComponent = (
   children: React.ComponentType<any> | React.ReactElement | (() => React.ReactElement),
   {
@@ -22,8 +20,6 @@ const renderComponent = (
     authContextValue?: Partial<AuthContextValue>;
   } = {},
 ) => {
-  initializeLibraries();
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -38,7 +34,6 @@ const renderComponent = (
     logOut: vi.fn(),
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
-    isConnected: false,
     provider: getDefaultProvider(),
     accountAddress: '',
     ...authContextValue,

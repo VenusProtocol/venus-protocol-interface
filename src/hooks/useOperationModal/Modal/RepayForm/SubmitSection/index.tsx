@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { ApproveTokenSteps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, Token } from 'types';
-import { areTokensEqual, getSwapRouterContractAddress } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
 import SwapSummary from '../../SwapSummary';
 import { FormError } from '../useForm/types';
@@ -11,11 +11,14 @@ import { FormError } from '../useForm/types';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  poolComptrollerAddress: string;
   toToken: Token;
   fromToken: Token;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
+  isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
+  approveFromToken: ApproveTokenStepsProps['approveToken'];
+  isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
+  isFromTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
   swap?: Swap;
   formError?: FormError;
 }
@@ -23,15 +26,20 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  poolComptrollerAddress,
   toToken,
   fromToken,
   fromTokenAmountTokens,
   formError,
+  isFromTokenApproved,
+  approveFromToken,
+  isApproveFromTokenLoading,
+  isFromTokenApprovalStatusLoading,
   swap,
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
+
+  const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
 
   const submitButtonLabel = useMemo(() => {
     if (isSwapLoading && Number(fromTokenAmountTokens) > 0) {
@@ -70,27 +78,31 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   return (
     <ApproveTokenSteps
       token={fromToken}
-      spenderAddress={getSwapRouterContractAddress(poolComptrollerAddress)}
-      submitButtonLabel={t('operationModal.repay.submitButtonLabel.repay')}
-      hideTokenEnablingStep={!isFormValid || areTokensEqual(fromToken, toToken)}
+      isUsingSwap={isUsingSwap}
+      hideTokenEnablingStep={!isFormValid}
+      isTokenApproved={isFromTokenApproved}
+      approveToken={approveFromToken}
+      isApproveTokenLoading={isApproveFromTokenLoading}
+      isTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
     >
-      {({ isTokenApprovalStatusLoading }) => (
-        <>
-          <PrimaryButton
-            type="submit"
-            loading={isFormSubmitting}
-            disabled={
-              !isFormValid || isFormSubmitting || isSwapLoading || isTokenApprovalStatusLoading
-            }
-            fullWidth
-          >
-            {submitButtonLabel}
-          </PrimaryButton>
+      <PrimaryButton
+        type="submit"
+        loading={isFormSubmitting}
+        disabled={
+          !isFormValid ||
+          isFormSubmitting ||
+          isSwapLoading ||
+          isApproveFromTokenLoading ||
+          isFromTokenApprovalStatusLoading ||
+          !isFromTokenApproved
+        }
+        fullWidth
+      >
+        {submitButtonLabel}
+      </PrimaryButton>
 
-          {isFormValid && !isSwapLoading && !isTokenApprovalStatusLoading && (
-            <SwapSummary swap={swap} type="repay" />
-          )}
-        </>
+      {isFormValid && !isSwapLoading && !isFromTokenApprovalStatusLoading && (
+        <SwapSummary swap={swap} type="repay" />
       )}
     </ApproveTokenSteps>
   );

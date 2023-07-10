@@ -1,4 +1,3 @@
-import 'loki/configure-react';
 import { rest } from 'msw';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 

@@ -26,7 +26,6 @@ const authContext: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isConnected: true,
   accountAddress: fakeAddress,
 };
 
@@ -82,7 +81,6 @@ WithDisabledToken.args = {
   submitButtonDisabledLabel: 'Enter a valid amount to stake',
   connectWalletMessage: 'Please connect your wallet to stake',
   tokenNeedsToBeApproved: true,
-  approveTokenMessage: 'Enable VAI to proceed',
 };
 WithDisabledToken.decorators = [withAuthContext(authContext)];
 

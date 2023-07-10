@@ -4,13 +4,14 @@ import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useTranslation } from 'translation';
 import {
   ConnectorNotFoundError,
   useAccount,
   useConnect,
   useDisconnect,
+  useNetwork,
   useProvider,
   useSigner,
 } from 'wagmi';
@@ -18,6 +19,7 @@ import {
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { Connector, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
+import { logError } from 'context/ErrorLogger';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
@@ -27,7 +29,6 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   provider: Provider;
-  isConnected: boolean;
   accountAddress: string;
   signer?: Signer;
 }
@@ -37,7 +38,6 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
-  isConnected: false,
   provider: getDefaultProvider(),
   accountAddress: '',
 });
@@ -49,10 +49,15 @@ export const AuthProvider: React.FC = ({ children }) => {
   const { data: signer } = useSigner();
   const provider = useProvider();
   const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
     enabled: address !== undefined,
   });
+
+  // Set address as authorized by default
+  const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
+  const accountAddress = isConnected && !!signer && address && isAuthorizedAddress ? address : '';
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -71,6 +76,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     } catch (error) {
       if (error instanceof ConnectorNotFoundError) {
         throw new VError({ type: 'interaction', code: 'noProvider' });
+      } else {
+        logError(error);
       }
     }
   }, []);
@@ -78,6 +85,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logOut = useCallback(async () => {
     await disconnectAsync();
   }, []);
+
+  // Disconnect wallet if it's connected to the wrong network. Note: ideally
+  // we'd instead switch the network automatically, but this seems to cause
+  // issues with certain wallets such as MetaMask
+  useEffect(() => {
+    const fn = async () => {
+      if (!!accountAddress && chain && chain.id !== config.chainId) {
+        await logOut();
+      }
+    };
+
+    fn();
+  }, [chain?.id, accountAddress]);
 
   const { t } = useTranslation();
 
@@ -91,8 +111,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const accountAddress = isConnected && address && accountAuth?.authorized ? address : '';
-
   return (
     <AuthContext.Provider
       value={{
@@ -101,7 +119,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         logOut,
         openAuthModal,
         closeAuthModal,
-        isConnected,
         provider,
         signer: signer || undefined,
       }}

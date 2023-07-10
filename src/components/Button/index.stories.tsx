@@ -63,8 +63,3 @@ export const Loading = () => (
     Loading
   </PrimaryButton>
 );
-Loading.story = {
-  parameters: {
-    loki: { skip: true },
-  },
-};

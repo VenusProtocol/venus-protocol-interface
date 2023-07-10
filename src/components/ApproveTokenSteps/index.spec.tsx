@@ -1,42 +1,31 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
-import Vi from 'vitest';
 
-import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import { ApproveTokenSteps } from '.';
 
-vi.mock('clients/api');
 vi.mock('components/Toast');
 
 const fakeAsset = assetData[0];
 const fakeContent = 'Fake content';
-const fakeSubmitButtonLabel = 'Fake submit button label';
 
 describe('components/ApproveTokenSteps', () => {
   it('asks user to enable token and lets them do so if they have not already', async () => {
     const approveTokenMock = vi.fn();
 
-    // Mark all tokens as having not been approved
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
-      isTokenApproved: false,
-      isTokenApprovalStatusLoading: false,
-      isApproveTokenLoading: false,
-      approveToken: approveTokenMock,
-    }));
-
     const { getByText } = renderComponent(
       <ApproveTokenSteps
+        isTokenApproved={false}
+        isTokenApprovalStatusLoading={false}
+        isApproveTokenLoading={false}
+        approveToken={approveTokenMock}
         token={fakeAsset.vToken.underlyingToken}
-        spenderAddress={fakeAddress}
-        submitButtonLabel={fakeSubmitButtonLabel}
       >
-        {() => fakeContent}
+        {fakeContent}
       </ApproveTokenSteps>,
     );
 
@@ -53,40 +42,38 @@ describe('components/ApproveTokenSteps', () => {
     await waitFor(() => expect(approveTokenMock).toHaveBeenCalledTimes(1));
   });
 
-  it('renders content when hideTokenEnablingStep is true, even if user has not enabled token', async () => {
-    // Mark all tokens as having not been approved
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
-      isTokenApproved: false,
-      isTokenApprovalStatusLoading: false,
-      isApproveTokenLoading: false,
-      approveToken: noop,
-    }));
-
-    const { getByText } = renderComponent(
+  it('does not render steps to enable token when hideTokenEnablingStep is true', async () => {
+    const { getByText, queryByText } = renderComponent(
       <ApproveTokenSteps
+        isTokenApproved={false}
+        isTokenApprovalStatusLoading={false}
+        isApproveTokenLoading={false}
+        approveToken={noop}
         token={fakeAsset.vToken.underlyingToken}
-        spenderAddress={fakeAddress}
-        submitButtonLabel={fakeSubmitButtonLabel}
         hideTokenEnablingStep
       >
-        {() => fakeContent}
+        {fakeContent}
       </ApproveTokenSteps>,
     );
 
     await waitFor(() => expect(getByText(fakeContent)));
+    expect(queryByText(en.approveTokenSteps.step1)).toBeNull();
   });
 
-  it('renders content when token is enabled', async () => {
-    const { getByText } = renderComponent(
+  it('does not render steps to enable token when token is enabled', async () => {
+    const { getByText, queryByText } = renderComponent(
       <ApproveTokenSteps
+        isTokenApproved
+        isTokenApprovalStatusLoading={false}
+        isApproveTokenLoading={false}
+        approveToken={noop}
         token={fakeAsset.vToken.underlyingToken}
-        spenderAddress={fakeAddress}
-        submitButtonLabel={fakeSubmitButtonLabel}
       >
-        {() => fakeContent}
+        {fakeContent}
       </ApproveTokenSteps>,
     );
 
     await waitFor(() => expect(getByText(fakeContent)));
+    expect(queryByText(en.approveTokenSteps.step1)).toBeNull();
   });
 });

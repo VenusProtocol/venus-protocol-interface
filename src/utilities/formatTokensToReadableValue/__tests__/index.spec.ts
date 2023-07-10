@@ -4,31 +4,22 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 
 import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
-import shortenValueWithSuffix, { ShortenValueWithSuffix } from '../../shortenValueWithSuffix';
-
-vi.mock('../../shortenValueWithSuffix', () => ({
-  default: vi.fn(({ value }: ShortenValueWithSuffix) => value.toFixed()),
-}));
 
 describe('utilities/formatTokensToReadableValue', () => {
   test('should return PLACEHOLDER_KEY when value is undefined', () => {
-    const input: FormatTokensToReadableValueInput = {
+    const result = formatTokensToReadableValue({
       value: undefined,
       token: TOKENS.busd,
       addSymbol: false,
-    };
-
-    const result = formatTokensToReadableValue(input);
+    });
     expect(result).toEqual(PLACEHOLDER_KEY);
   });
 
   test('should return 0 values correctly', () => {
-    const input: FormatTokensToReadableValueInput = {
+    const result = formatTokensToReadableValue({
       value: new BigNumber(0),
       token: TOKENS.busd,
-    };
-
-    const result = formatTokensToReadableValue(input);
+    });
     expect(result).toEqual('0 BUSD');
   });
 
@@ -50,31 +41,33 @@ describe('utilities/formatTokensToReadableValue', () => {
   });
 
   test('should format out-of-bound values correctly', () => {
-    const input: FormatTokensToReadableValueInput = {
+    const result = formatTokensToReadableValue({
       value: new BigNumber('1000000000000000000'),
       token: TOKENS.busd,
-    };
+    });
+    expect(result).toEqual('> 100.00B BUSD');
 
-    const result = formatTokensToReadableValue(input);
-    expect(result).toEqual('> 100000000000 BUSD');
+    const negativeResult = formatTokensToReadableValue({
+      value: new BigNumber('-1000000000000000000'),
+      token: TOKENS.busd,
+    });
+    expect(negativeResult).toEqual('< -100.00B BUSD');
   });
 
   test('should return a formatted value with token symbol when addSymbol is true', () => {
-    const value = new BigNumber(1234.5678);
     const input: FormatTokensToReadableValueInput = {
-      value,
+      value: new BigNumber(1234.5678),
       token: TOKENS.busd,
       addSymbol: true,
     };
 
     const result = formatTokensToReadableValue(input);
+    expect(result).toEqual('1.23K BUSD');
 
-    expect(shortenValueWithSuffix).toHaveBeenCalledTimes(1);
-    expect(shortenValueWithSuffix).toHaveBeenCalledWith({
-      value,
-      maxDecimalPlaces: TOKENS.busd.decimals,
+    const negativeResult = formatTokensToReadableValue({
+      ...input,
+      value: new BigNumber(-1234.5678),
     });
-
-    expect(result).toEqual('1234.5678 BUSD');
+    expect(negativeResult).toEqual('-1.23K BUSD');
   });
 });

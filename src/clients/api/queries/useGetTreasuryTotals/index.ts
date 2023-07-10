@@ -3,7 +3,11 @@ import config from 'config';
 import { useMemo } from 'react';
 import { convertWeiToTokens, indexBy } from 'utilities';
 
-import { GetVTokenBalancesAllOutput, useGetPools, useGetVTokenBalancesAll } from 'clients/api';
+import {
+  GetVTokenBalancesAllOutput,
+  useGetIsolatedPools,
+  useGetVTokenBalancesAll,
+} from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
@@ -32,7 +36,7 @@ export interface UseGetTreasuryTotalsOutput {
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { accountAddress } = useAuth();
 
-  const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetPools({
+  const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetIsolatedPools({
     accountAddress,
   });
 

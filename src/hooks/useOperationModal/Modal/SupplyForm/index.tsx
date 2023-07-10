@@ -19,6 +19,7 @@ import {
   areTokensEqual,
   convertTokensToWei,
   convertWeiToTokens,
+  getSwapRouterContractAddress,
   isFeatureEnabled,
 } from 'utilities';
 
@@ -29,16 +30,24 @@ import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
-import SubmitSection from './SubmitSection';
+import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { FormValues, UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface SupplyFormUiProps {
+export interface SupplyFormUiProps
+  extends Pick<
+    SubmitSectionProps,
+    | 'approveFromToken'
+    | 'isApproveFromTokenLoading'
+    | 'isFromTokenApproved'
+    | 'isFromTokenApprovalStatusLoading'
+  > {
   asset: Asset;
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
@@ -62,6 +71,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   setFormValues,
   formValues,
   isSwapLoading,
+  approveFromToken,
+  isApproveFromTokenLoading,
+  isFromTokenApproved,
+  isFromTokenApprovalStatusLoading,
   swap,
   swapError,
 }) => {
@@ -173,7 +186,11 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               selectedToken={formValues.fromToken}
               value={formValues.amountTokens}
               hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-              disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
+              disabled={
+                isSubmitting ||
+                isApproveFromTokenLoading ||
+                formError === 'SUPPLY_CAP_ALREADY_REACHED'
+              }
               onChange={amountTokens =>
                 setFormValues(currentFormValues => ({
                   ...currentFormValues,
@@ -215,7 +232,11 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
                   fixedRepayPercentage: undefined,
                 }))
               }
-              disabled={isSubmitting || formError === 'SUPPLY_CAP_ALREADY_REACHED'}
+              disabled={
+                isSubmitting ||
+                isApproveFromTokenLoading ||
+                formError === 'SUPPLY_CAP_ALREADY_REACHED'
+              }
               rightMaxButton={{
                 label: t('operationModal.supply.rightMaxButtonLabel'),
                 onClick: handleRightMaxButtonClick,
@@ -264,10 +285,13 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           isSwapLoading={isSwapLoading}
           swap={swap}
           formError={formError}
-          poolComptrollerAddress={pool.comptrollerAddress}
           toToken={asset.vToken.underlyingToken}
           fromToken={formValues.fromToken}
           fromTokenAmountTokens={formValues.amountTokens}
+          approveFromToken={approveFromToken}
+          isApproveFromTokenLoading={isApproveFromTokenLoading}
+          isFromTokenApproved={isFromTokenApproved}
+          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
         />
       </form>
 
@@ -288,6 +312,21 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
+  });
+
+  const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
+    ? asset.vToken.address
+    : getSwapRouterContractAddress(pool.comptrollerAddress);
+
+  const {
+    isTokenApproved: isFromTokenApproved,
+    approveToken: approveFromToken,
+    isApproveTokenLoading: isApproveFromTokenLoading,
+    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+  } = useTokenApproval({
+    token: formValues.fromToken,
+    spenderAddress,
+    accountAddress,
   });
 
   const { data: tokenBalances } = useGetSwapTokenUserBalances(
@@ -362,6 +401,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       swap={swapInfo.swap}
       swapError={swapInfo.error}
       isSwapLoading={swapInfo.isLoading}
+      isFromTokenApproved={isFromTokenApproved}
+      approveFromToken={approveFromToken}
+      isApproveFromTokenLoading={isApproveFromTokenLoading}
+      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
     />
   );
 };

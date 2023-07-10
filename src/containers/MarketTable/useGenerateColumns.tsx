@@ -127,15 +127,16 @@ const useGenerateColumns = ({
           }
 
           if (column === 'pool') {
+            const to = poolAsset.pool.isIsolated
+              ? routes.isolatedPool.path.replace(
+                  ':poolComptrollerAddress',
+                  poolAsset.pool.comptrollerAddress,
+                )
+              : routes.corePool.path;
+
             return (
               <div>
-                <Link
-                  to={routes.pool.path.replace(
-                    ':poolComptrollerAddress',
-                    poolAsset.pool.comptrollerAddress,
-                  )}
-                  css={styles.marketLink}
-                >
+                <Link to={to} css={styles.marketLink}>
                   <Typography variant="small2">{poolAsset.pool.name}</Typography>
                 </Link>
               </div>

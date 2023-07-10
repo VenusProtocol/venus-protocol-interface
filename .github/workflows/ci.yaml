@@ -1,6 +1,6 @@
 name: Tests and Checks
 
-on: [push]
+on: [pull_request]
 
 env:
   VITE_ENVIRONMENT: 'ci'
@@ -22,7 +22,7 @@ jobs:
           node-version: '18.16.1'
           cache: 'yarn'
 
-      - name: Install deps
+      - name: Install dependencies
         run: yarn
 
       - name: Typecheck
@@ -50,12 +50,12 @@ jobs:
           node-version: '18.16.1'
           cache: 'yarn'
 
-      - name: Install deps
+      - name: Install dependencies
         run: yarn
 
       - name: Run tests and collect coverage
         run: yarn test --coverage
 
-      - name: 'Report Coverage'
+      - name: 'Report coverage'
         if: always() # Also generate the report even if tests are failing
         uses: davelosert/vitest-coverage-report-action@v2

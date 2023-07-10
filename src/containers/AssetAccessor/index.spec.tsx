@@ -1,13 +1,11 @@
 import { waitFor } from '@testing-library/react';
 import { TokenAnnouncement } from 'components';
-import noop from 'noop-ts';
 import React from 'react';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 import { isTokenActionEnabled } from 'utilities/isTokenActionEnabled';
@@ -25,7 +23,6 @@ const fakeProps: Omit<AssetAccessorProps, 'children'> = {
   poolComptrollerAddress: fakePool.comptrollerAddress,
   vToken: fakeAsset.vToken,
   connectWalletMessage: 'Fake connect wallet message',
-  approveTokenMessage: 'Fake enable token message',
   action: 'borrow',
 };
 
@@ -51,7 +48,6 @@ describe('containers/AssetAccessor', () => {
     await waitFor(() => expect(getByText(fakeTokenAnnouncementText)).toBeInTheDocument());
 
     expect(queryByText(fakeProps.connectWalletMessage)).toBeNull();
-    expect(queryByText(fakeProps.approveTokenMessage)).toBeNull();
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
@@ -70,7 +66,6 @@ describe('containers/AssetAccessor', () => {
     );
 
     expect(queryByText(fakeProps.connectWalletMessage)).toBeNull();
-    expect(queryByText(fakeProps.approveTokenMessage)).toBeNull();
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 
@@ -80,27 +75,6 @@ describe('containers/AssetAccessor', () => {
     ));
 
     await waitFor(() => expect(getByText(fakeProps.connectWalletMessage)).toBeInTheDocument());
-    expect(queryByText(fakeProps.approveTokenMessage)).toBeNull();
-    expect(queryByText(fakeChildrenContent)).toBeNull();
-  });
-
-  it('asks user with their wallet connected to enable token if they have not done so already', async () => {
-    // Mark all tokens as having not been approved
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
-      isTokenApproved: false,
-      isTokenApprovalStatusLoading: false,
-      isApproveTokenLoading: false,
-      approveToken: noop,
-    }));
-
-    const { getByText, queryByText } = renderComponent(
-      () => <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
-      {
-        authContextValue: { accountAddress: fakeAddress },
-      },
-    );
-
-    await waitFor(() => expect(getByText(fakeProps.approveTokenMessage)).toBeInTheDocument());
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });
 

@@ -170,16 +170,14 @@ export const useStyles = () => {
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
     `,
-    getCellWrapper: ({ containsLink }: { containsLink: boolean }) => css`
+    cellWrapper: css`
       height: 1px;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: ${containsLink ? 0 : theme.spacing(0, 4)};
+      padding: ${theme.spacing(0, 4)};
 
       a {
         color: inherit;
-        display: block;
-        padding: ${containsLink ? theme.spacing(0, 4) : 0};
       }
 
       a > * {
@@ -193,9 +191,6 @@ export const useStyles = () => {
       :last-of-type > a {
         padding-right: 0;
       }
-    `,
-    cellInner: css`
-      text-overflow: ellipsis;
     `,
   };
 };

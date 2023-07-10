@@ -1,6 +1,7 @@
 // react-testing-library renders your components to document.body,
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
+import initializeLibraries from 'initializeLibraries';
 import React from 'react';
 import Vi from 'vitest';
 // Polyfill "window.fetch"
@@ -44,6 +45,8 @@ vi.mock('wagmi/connectors/coinbaseWallet');
 vi.mock('wagmi/connectors/walletConnect');
 vi.mock('wagmi/connectors/injected');
 vi.mock('wagmi/connectors/metaMask');
+
+initializeLibraries();
 
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
