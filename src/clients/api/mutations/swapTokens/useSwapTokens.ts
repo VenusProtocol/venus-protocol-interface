@@ -46,6 +46,15 @@ const useSwapTokens = (
         ]);
 
         queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: swap.fromToken.address,
+            accountAddress,
+            spenderAddress: swapRouterContract.address,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
             accountAddress,
