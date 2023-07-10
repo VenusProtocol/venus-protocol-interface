@@ -48,5 +48,4 @@ export { default as vaiOutline } from './vaiOutline';
 export { default as fire } from './fire';
 export { default as lightening } from './lightening';
 export { default as fourDots } from './fourDots';
-export { default as circledMinus } from './circledMinus';
 export { default as bin } from './bin';
