@@ -95,7 +95,7 @@ const useForm = ({
           fromToken: asset.vToken.underlyingToken,
           amountTokens: '',
         }));
-        // onCloseModal();
+        onCloseModal();
 
         return contractReceipt;
       },

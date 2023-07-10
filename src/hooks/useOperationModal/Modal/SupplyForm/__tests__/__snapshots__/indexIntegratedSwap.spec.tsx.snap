@@ -2,7 +2,6 @@
 
 exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `
 <div
-  class="css-sdj0qa-SupplyFormUi"
   data-testid="swap-details"
 >
   <div
