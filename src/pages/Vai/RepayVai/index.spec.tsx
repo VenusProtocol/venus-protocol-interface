@@ -1,7 +1,7 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
@@ -18,6 +18,7 @@ import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/forma
 import formatToGetVaiRepayAmountWithInterestsOutput from 'clients/api/queries/getVaiRepayAmountWithInterests/formatToOutput';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -27,6 +28,7 @@ import TEST_IDS from '../testIds';
 vi.mock('clients/api');
 vi.mock('components/Toast');
 vi.mock('hooks/useSuccessfulTransactionModal');
+vi.mock('hooks/useTokenApproval');
 
 vi.useFakeTimers();
 
@@ -73,6 +75,89 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
     expect(container.textContent).toMatchSnapshot();
+  });
+
+  it('displays the wallet spending limit correctly and lets user revoke it', async () => {
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
+      balanceWei: fakeUserVaiMintedWei,
+    }));
+
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TOKENS.vai,
+      spenderAddress: getContractAddress('vaiController'),
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByTestId } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
+    });
+
+    // Check spending limit is correctly displayed
+    await waitFor(() => getByTestId(TEST_IDS.spendingLimit));
+    expect(getByTestId(TEST_IDS.spendingLimit).textContent).toMatchSnapshot();
+
+    // Press on revoke button
+    const revokeSpendingLimitButton = within(getByTestId(TEST_IDS.spendingLimit)).getByRole(
+      'button',
+    );
+
+    fireEvent.click(revokeSpendingLimitButton);
+
+    await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
+  });
+
+  it('does not let user input a value that is higher than their wallet spending limit', async () => {
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
+      balanceWei: fakeUserVaiMintedWei,
+    }));
+
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: TOKENS.vai,
+      spenderAddress: getContractAddress('vaiController'),
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByTestId, getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
+    });
+    await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
+
+    // Enter amount in input
+    const incorrectValueTokens = fakeWalletSpendingLimitTokens
+      // Add one token too much
+      .plus(1)
+      .toFixed();
+
+    const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check submit button is still disabled
+    await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
+    expect(getByText(en.vai.repayVai.submitButtonDisabledLabel).closest('button')).toBeDisabled();
   });
 
   it('lets user repay their VAI balance', async () => {

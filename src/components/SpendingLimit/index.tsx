@@ -17,9 +17,9 @@ import { useStyles } from './styles';
 
 export interface SpendingLimitProps {
   token: Token;
-  walletBalanceTokens: BigNumber;
   onRevoke: () => Promise<unknown>;
   isRevokeLoading: boolean;
+  walletBalanceTokens?: BigNumber;
   walletSpendingLimitTokens?: BigNumber;
   className?: string;
 }
@@ -61,6 +61,7 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
     !token.isNative &&
     walletSpendingLimitTokens &&
     walletSpendingLimitTokens.isGreaterThan(0) &&
+    walletBalanceTokens &&
     walletSpendingLimitTokens.isLessThan(walletBalanceTokens);
 
   if (!shouldDisplayWalletSpendingLimit) {
