@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
-import { getContractAddress, isFeatureEnabled } from 'utilities';
+import { isFeatureEnabled } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
 import { MenuItem } from '../types';
-
-const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAuth();
@@ -33,27 +31,32 @@ const useGetMenuItems = () => {
       });
     }
 
-    // Add Pools or Markets page depending on isolated pools feature flag
-    menuItems.push(
-      isFeatureEnabled('isolatedPools')
-        ? {
-            href: routes.pools.path,
-            // Translation key: do not remove this comment
-            // t('layout.menuItems.pools')
-            i18nKey: 'layout.menuItems.pools',
-            icon: 'market',
-          }
-        : {
-            href: routes.markets.path.replace(
-              ':poolComptrollerAddress',
-              MAIN_POOL_COMPTROLLER_ADDRESS,
-            ),
-            // Translation key: do not remove this comment
-            // t('layout.menuItems.markets')
-            i18nKey: 'layout.menuItems.markets',
-            icon: 'market',
-          },
-    );
+    if (isFeatureEnabled('isolatedPools')) {
+      menuItems.push(
+        {
+          href: routes.corePool.path,
+          // Translation key: do not remove this comment
+          // t('layout.menuItems.corePool')
+          i18nKey: 'layout.menuItems.corePool',
+          icon: 'venus',
+        },
+        {
+          href: routes.isolatedPools.path,
+          // Translation key: do not remove this comment
+          // t('layout.menuItems.isolatedPools')
+          i18nKey: 'layout.menuItems.isolatedPools',
+          icon: 'fourDots',
+        },
+      );
+    } else {
+      menuItems.push({
+        href: routes.corePool.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.markets')
+        i18nKey: 'layout.menuItems.markets',
+        icon: 'venus',
+      });
+    }
 
     menuItems.push(
       {
@@ -82,14 +85,14 @@ const useGetMenuItems = () => {
         // Translation key: do not remove this comment
         // t('layout.menuItems.governance')
         i18nKey: 'layout.menuItems.governance',
-        icon: 'vote',
+        icon: 'market',
       },
       {
         href: routes.xvs.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.xvs')
         i18nKey: 'layout.menuItems.xvs',
-        icon: 'xvsOutlined',
+        icon: 'circledVenus',
       },
       {
         href: routes.vai.path,
@@ -105,14 +108,6 @@ const useGetMenuItems = () => {
         // t('layout.menuItems.convertVrtTitle')
         i18nKey: 'layout.menuItems.convertVrt',
         icon: 'convert',
-      },
-
-      {
-        href: 'https://prdt.finance/Application/Pro/BSC?partnerCode=Venus',
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.predictions')
-        i18nKey: 'layout.menuItems.predictions',
-        icon: 'predictions',
       },
     );
 

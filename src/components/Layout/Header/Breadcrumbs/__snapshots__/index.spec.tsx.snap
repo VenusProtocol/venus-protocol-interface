@@ -6,6 +6,10 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /convert-vrt 1`] = `"Convert VRT"`;
 
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /core-pool 1`] = `"Core pool"`;
+
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /core-pool/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Core pool/XVS"`;
+
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance 1`] = `"Governance"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/leaderboard 1`] = `"Governance/Leaderboard"`;
@@ -16,11 +20,11 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /history 1`] = `"History"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Markets/XVS"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools 1`] = `"Isolated pools"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /pools 1`] = `"Pools"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Isolated pools/Venus"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Pools/Venus"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Isolated pools/Venus/XVS"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /swap 1`] = `"Swap"`;
 

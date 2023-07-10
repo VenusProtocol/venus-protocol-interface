@@ -40,6 +40,8 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 
+const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
+
 export interface MarketUiProps {
   isChartDataLoading: boolean;
   supplyChartData: ApyChartProps['data'];
@@ -420,22 +422,23 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   );
 };
 
-export type MarketProps = RouteComponentProps<{
+interface MarketProps {
   vTokenAddress: string;
   poolComptrollerAddress: string;
-}>;
+}
 
-const Market: React.FC<MarketProps> = ({
-  match: {
-    params: { vTokenAddress, poolComptrollerAddress },
-  },
-}) => {
+const Market: React.FC<MarketProps> = ({ vTokenAddress, poolComptrollerAddress }) => {
   const { accountAddress } = useAuth();
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to markets page if params are invalid
   if (!vToken || !poolComptrollerAddress) {
-    return <Redirect to={routes.pools.path} />;
+    const isIsolatedAsset = !areAddressesEqual(
+      poolComptrollerAddress,
+      MAIN_POOL_COMPTROLLER_ADDRESS,
+    );
+
+    return <Redirect to={isIsolatedAsset ? routes.isolatedPools.path : routes.corePool.path} />;
   }
 
   const mainPoolComptrollerAddress = getContractAddress('comptroller');
@@ -484,4 +487,25 @@ const Market: React.FC<MarketProps> = ({
   );
 };
 
-export default Market;
+export type CorePoolMarketProps = RouteComponentProps<{
+  vTokenAddress: string;
+}>;
+
+export const CorePoolMarket: React.FC<CorePoolMarketProps> = ({
+  match: {
+    params: { vTokenAddress },
+  },
+}) => (
+  <Market vTokenAddress={vTokenAddress} poolComptrollerAddress={MAIN_POOL_COMPTROLLER_ADDRESS} />
+);
+
+export type IsolatedMarketProps = RouteComponentProps<{
+  vTokenAddress: string;
+  poolComptrollerAddress: string;
+}>;
+
+export const IsolatedPoolMarket: React.FC<IsolatedMarketProps> = ({
+  match: {
+    params: { vTokenAddress, poolComptrollerAddress },
+  },
+}) => <Market vTokenAddress={vTokenAddress} poolComptrollerAddress={poolComptrollerAddress} />;

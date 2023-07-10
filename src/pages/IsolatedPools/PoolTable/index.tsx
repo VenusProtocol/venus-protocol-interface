@@ -6,7 +6,7 @@ import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { useGetPools } from 'clients/api';
+import { useGetIsolatedPools } from 'clients/api';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
@@ -123,7 +123,9 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       }}
       rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
       getRowHref={row =>
-        routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+        row.pool.isIsolated
+          ? routes.isolatedPool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+          : routes.corePool.path
       }
       breakpoint="xxl"
       css={styles.cardContentGrid}
@@ -134,7 +136,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 
 const PoolTable = () => {
   const { accountAddress } = useAuth();
-  const { data: poolData, isLoading } = useGetPools({ accountAddress });
+  const { data: poolData, isLoading } = useGetIsolatedPools({ accountAddress });
 
   return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;
 };

@@ -30,11 +30,13 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     routes.governanceProposal.path.replace(':proposalId', 'FAKE-PROPOSAL-ID'),
     routes.governanceVoter.path.replace(':address', fakeAddress),
     routes.history.path,
-    routes.pools.path,
-    routes.pool.path.replace(':poolComptrollerAddress', fakeAddress),
-    routes.market.path
+    routes.isolatedPools.path,
+    routes.isolatedPool.path.replace(':poolComptrollerAddress', fakeAddress),
+    routes.isolatedPoolMarket.path
       .replace(':poolComptrollerAddress', fakeAddress)
       .replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
+    routes.corePool.path,
+    routes.corePoolMarket.path.replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
     routes.xvs.path,
     routes.vai.path,
     routes.vaults.path,
