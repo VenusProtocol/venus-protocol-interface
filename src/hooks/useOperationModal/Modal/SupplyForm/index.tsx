@@ -258,17 +258,15 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           {readableFromTokenUserWalletBalanceTokens}
         </LabeledInlineContent>
 
-        {fromTokenUserWalletBalanceTokens && (
-          <SpendingLimit
-            token={formValues.fromToken}
-            walletBalanceTokens={fromTokenUserWalletBalanceTokens}
-            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-            onRevoke={revokeFromTokenWalletSpendingLimit}
-            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-            css={sharedStyles.getRow({ isLast: false })}
-            data-testid={TEST_IDS.spendingLimit}
-          />
-        )}
+        <SpendingLimit
+          token={formValues.fromToken}
+          walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+          walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+          onRevoke={revokeFromTokenWalletSpendingLimit}
+          isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+          css={sharedStyles.getRow({ isLast: false })}
+          data-testid={TEST_IDS.spendingLimit}
+        />
 
         {isUsingSwap && (
           <SwapDetails
