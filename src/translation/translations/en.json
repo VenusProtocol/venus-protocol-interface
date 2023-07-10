@@ -393,7 +393,7 @@
       "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "aboveLiquidityWarning": "Insufficient asset liquidity",
       "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
-      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
+      "borrowableAmount": "Borrowable amount",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
@@ -484,7 +484,7 @@
         "message": "You successfully withdrew",
         "title": "Your withdrawal was successful"
       },
-      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+      "withdrawableAmount": "Withdrawable amount"
     },
     "withdrawTabTitle": "Withdraw"
   },
