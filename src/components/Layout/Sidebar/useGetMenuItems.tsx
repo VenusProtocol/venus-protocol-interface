@@ -85,7 +85,7 @@ const useGetMenuItems = () => {
         // Translation key: do not remove this comment
         // t('layout.menuItems.governance')
         i18nKey: 'layout.menuItems.governance',
-        icon: 'market',
+        icon: 'vote',
       },
       {
         href: routes.xvs.path,
