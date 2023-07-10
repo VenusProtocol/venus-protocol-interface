@@ -117,7 +117,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
-  it('does not let user input a value that is higher than their wallet spending limit', async () => {
+  it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     (getBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fakeUserVaiMintedWei,
     }));

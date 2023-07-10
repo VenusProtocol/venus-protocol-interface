@@ -1,6 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { AccountData, IsolatedAssetWarning, TokenTextField } from 'components';
+import {
+  AccountData,
+  Delimiter,
+  IsolatedAssetWarning,
+  LabeledInlineContent,
+  TokenTextField,
+} from 'components';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
@@ -35,7 +41,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   setFormValues,
   formValues,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
@@ -141,15 +147,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             onClick: handleRightMaxButtonClick,
           }}
           hasError={!!formError && Number(formValues.amountTokens) > 0}
-          description={
-            <Trans
-              i18nKey="operationModal.borrow.borrowableAmount"
-              components={{
-                White: <span css={sharedStyles.whiteLabel} />,
-              }}
-              values={{ amount: readableLimit }}
-            />
-          }
         />
 
         {!isSubmitting && (
@@ -163,6 +160,15 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           />
         )}
       </div>
+
+      <LabeledInlineContent
+        label={t('operationModal.borrow.borrowableAmount')}
+        css={sharedStyles.getRow({ isLast: true })}
+      >
+        {readableLimit}
+      </LabeledInlineContent>
+
+      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <AccountData
         asset={asset}
