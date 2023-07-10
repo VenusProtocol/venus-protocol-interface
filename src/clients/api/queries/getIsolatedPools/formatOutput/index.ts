@@ -12,6 +12,7 @@ import {
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
+import { MAINNET_TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
@@ -68,6 +69,11 @@ const formatToPools = ({
       // Skip vToken if we couldn't fetch sufficient data or if vToken has been
       // unlisted
       if (!vTokenMetaData || !tokenPriceRecord) {
+        return acc;
+      }
+
+      // Temporary hotfix following multichain issue
+      if (areTokensEqual(vToken.underlyingToken, MAINNET_TOKENS.bifi)) {
         return acc;
       }
 
