@@ -251,28 +251,32 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           {!isSubmitting && !isSwapLoading && <Notice asset={asset} formError={formError} />}
         </div>
 
-        <LabeledInlineContent
-          label={t('operationModal.supply.walletBalance')}
-          css={sharedStyles.getRow({ isLast: false })}
-        >
-          {readableFromTokenUserWalletBalanceTokens}
-        </LabeledInlineContent>
-
         <div css={sharedStyles.getRow({ isLast: true })}>
+          <LabeledInlineContent
+            label={t('operationModal.supply.walletBalance')}
+            css={sharedStyles.getRow({ isLast: false })}
+          >
+            {readableFromTokenUserWalletBalanceTokens}
+          </LabeledInlineContent>
+
           <SpendingLimit
             token={formValues.fromToken}
             walletBalanceTokens={fromTokenUserWalletBalanceTokens}
             walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
             onRevoke={revokeFromTokenWalletSpendingLimit}
             isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-            css={sharedStyles.getRow({ isLast: false })}
             data-testid={TEST_IDS.spendingLimit}
           />
-
-          {isUsingSwap && (
-            <SwapDetails action="supply" swap={swap} data-testid={TEST_IDS.swapDetails} />
-          )}
         </div>
+
+        {isUsingSwap && (
+          <SwapDetails
+            action="supply"
+            swap={swap}
+            data-testid={TEST_IDS.swapDetails}
+            css={sharedStyles.getRow({ isLast: true })}
+          />
+        )}
 
         <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 

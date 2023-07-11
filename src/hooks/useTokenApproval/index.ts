@@ -37,7 +37,6 @@ const useTokenApproval = ({
       token,
     },
     {
-      onSuccess: () => console.log('FETCHED'),
       enabled: !!spenderAddress && !!accountAddress && !token.isNative,
     },
   );

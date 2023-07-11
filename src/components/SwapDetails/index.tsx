@@ -8,6 +8,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
 import { LabeledInlineContent } from '../LabeledInlineContent';
@@ -18,7 +19,7 @@ const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
 );
 
 export interface SwapDetailsProps {
-  action: 'repay' | 'supply';
+  action: 'repay' | 'supply' | 'swap';
   swap?: Swap;
   className?: string;
 }
@@ -26,6 +27,20 @@ export interface SwapDetailsProps {
 export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...containerProps }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const readableFromTokenAmountSold = useMemo(
+    () =>
+      swap &&
+      convertWeiToTokens({
+        valueWei:
+          swap.direction === 'exactAmountIn'
+            ? swap.fromTokenAmountSoldWei
+            : swap.maximumFromTokenAmountSoldWei,
+        token: swap.fromToken,
+        returnInReadableFormat: true,
+      }),
+    [swap],
+  );
 
   const readableToTokenAmountReceived = useMemo(
     () =>
@@ -52,16 +67,60 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     [swap?.exchangeRate, swap?.toToken],
   );
 
-  const receivedAmountLabel =
-    action === 'repay'
-      ? t('swapDetails.receivedAmount.repayLabel')
-      : t('swapDetails.receivedAmount.supplyLabel');
+  const getLastLineLabel = () => {
+    if (!swap) {
+      return PLACEHOLDER_KEY;
+    }
+
+    if (action === 'repay') {
+      return t('swapDetails.label.repay');
+    }
+
+    if (action === 'supply') {
+      return t('swapDetails.label.supply');
+    }
+
+    return swap.direction === 'exactAmountIn'
+      ? t('swapDetails.label.minimumReceived')
+      : t('swapDetails.label.maximumSold');
+  };
+
+  const getLastLineValue = () => {
+    if (!swap) {
+      return PLACEHOLDER_KEY;
+    }
+
+    if (action === 'repay') {
+      return swap.direction === 'exactAmountIn'
+        ? t('swapDetails.value.estimatedAmount', {
+            value: readableToTokenAmountReceived,
+          })
+        : t('swapDetails.value.exactAmount', {
+            value: readableToTokenAmountReceived,
+          });
+    }
+
+    if (action === 'supply') {
+      return t('swapDetails.value.estimatedAmount', {
+        value: readableToTokenAmountReceived,
+      });
+    }
+
+    if (action === 'swap' && swap) {
+      return t('swapDetails.value.exactAmount', {
+        value:
+          swap.direction === 'exactAmountIn'
+            ? readableToTokenAmountReceived
+            : readableFromTokenAmountSold,
+      });
+    }
+  };
 
   return (
     <div {...containerProps}>
       {swap && (
-        <LabeledInlineContent label={t('swapDetails.exchangeRate.label')} css={styles.row}>
-          {t('swapDetails.exchangeRate.value', {
+        <LabeledInlineContent label={t('swapDetails.label.exchangeRate')} css={styles.row}>
+          {t('swapDetails.value.exchangeRate', {
             fromTokenSymbol: swap.fromToken.symbol,
             toTokenSymbol: swap.toToken.symbol,
             rate: readableExchangeRate,
@@ -69,19 +128,13 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
         </LabeledInlineContent>
       )}
 
-      <LabeledInlineContent label={t('swapDetails.slippageTolerance.label')} css={styles.row}>
+      <LabeledInlineContent label={t('swapDetails.label.slippageTolerance')} css={styles.row}>
         {readableSlippageTolerancePercentage}
       </LabeledInlineContent>
 
       {swap && (
-        <LabeledInlineContent label={receivedAmountLabel}>
-          {swap.direction === 'exactAmountIn'
-            ? t('swapDetails.receivedAmount.estimatedValue', {
-                value: readableToTokenAmountReceived,
-              })
-            : t('swapDetails.receivedAmount.exactValue', {
-                value: readableToTokenAmountReceived,
-              })}
+        <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
+          {getLastLineValue()}
         </LabeledInlineContent>
       )}
     </div>
