@@ -24,6 +24,7 @@ import {
 } from 'utilities';
 
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -82,12 +83,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
-  const isUsingSwap = useMemo(
+  const isIntegratedSwapEnabled = useMemo(
     () =>
       isFeatureEnabled('integratedSwap') &&
-      formValues.fromToken &&
+      // Temporary fix to exclude TUSD as liquidities are low in PancakeSwap V2
+      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.tusd),
+    [asset.vToken.underlyingToken],
+  );
+
+  const isUsingSwap = useMemo(
+    () =>
+      isIntegratedSwapEnabled &&
       !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [formValues.fromToken, asset.vToken.underlyingToken],
+    [isIntegratedSwapEnabled, formValues.fromToken, asset.vToken.underlyingToken],
   );
 
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
@@ -166,7 +174,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       </LabeledInlineContent>
 
       <div css={sharedStyles.getRow({ isLast: false })}>
-        {isFeatureEnabled('integratedSwap') ? (
+        {isIntegratedSwapEnabled ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
