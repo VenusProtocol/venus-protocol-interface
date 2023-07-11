@@ -28,6 +28,7 @@ import luna from 'assets/img/tokens/luna.svg';
 import matic from 'assets/img/tokens/matic.svg';
 import nft from 'assets/img/tokens/nft.png';
 import raca from 'assets/img/tokens/raca.png';
+import sd from 'assets/img/tokens/sd.svg';
 import stkbnb from 'assets/img/tokens/stkBNB.svg';
 import sxp from 'assets/img/tokens/sxp.svg';
 import trx from 'assets/img/tokens/trx.svg';
@@ -316,5 +317,11 @@ export const MAINNET_TOKENS = {
     decimals: 18,
     symbol: 'WBNB',
     asset: wbnb,
+  } as Token,
+  sd: {
+    address: '0x3BC5AC0dFdC871B365d159f728dd1B9A0B5481E8',
+    decimals: 18,
+    symbol: 'SD',
+    asset: sd,
   } as Token,
 };
