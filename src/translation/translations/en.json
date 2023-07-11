@@ -540,6 +540,7 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
+    "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
     "errors": {
       "incorrectSwapInput": "Incorrect input provided for swap"
     }
@@ -570,13 +571,14 @@
         "insufficientLiquidity": "Insufficient liquidity for this swap",
         "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "spendingLimitTooLow": "Spending limit too low",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
       "enabledLabel": "Swap",
       "processing": "Processing"
     },
-    "successfulConvertTransactionModal": {
+    "successfulSwapTransactionModal": {
       "message": "You successfully swapped your tokens",
       "title": "Your swap was successful"
     },

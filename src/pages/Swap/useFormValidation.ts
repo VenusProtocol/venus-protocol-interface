@@ -9,7 +9,9 @@ import { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   formValues: FormValues;
+  isFromTokenApproved?: boolean;
   fromTokenUserBalanceWei?: BigNumber;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
 }
 
@@ -20,8 +22,10 @@ interface UseFormValidationOutput {
 
 const useFormValidation = ({
   swap,
+  isFromTokenApproved,
   formValues,
   fromTokenUserBalanceWei,
+  fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const fromTokenAmountErrors = useMemo(() => {
     const fromTokenAmountWei =
@@ -46,8 +50,24 @@ const useFormValidation = ({
       errorsTmp.push('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE');
     }
 
+    if (
+      isFromTokenApproved &&
+      fromTokenWalletSpendingLimitTokens &&
+      new BigNumber(formValues.fromTokenAmountTokens).isGreaterThan(
+        fromTokenWalletSpendingLimitTokens,
+      )
+    ) {
+      errorsTmp.push('FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT');
+    }
+
     return errorsTmp;
-  }, [fromTokenUserBalanceWei?.toFixed(), formValues.fromTokenAmountTokens, formValues.fromToken]);
+  }, [
+    fromTokenUserBalanceWei?.toFixed(),
+    formValues.fromTokenAmountTokens,
+    formValues.fromToken,
+    isFromTokenApproved,
+    fromTokenWalletSpendingLimitTokens,
+  ]);
 
   const wrapUnwrapErrors = useMemo(() => {
     const errorsTmp: FormError[] = [];
