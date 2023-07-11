@@ -9,6 +9,8 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
+  define:
+    typeof process !== 'undefined' && process.env.NODE_ENV === 'test' ? {} : { global: 'window' },
   test: {
     globals: true,
     environment: 'jsdom',

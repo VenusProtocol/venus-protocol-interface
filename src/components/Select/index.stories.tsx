@@ -1,52 +1,64 @@
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import React from 'react';
+import { State } from 'react-powerplug';
 
-import { withCenterStory, withOnChange } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 
-import { Select, SelectProps } from '.';
+import { Select } from '.';
 
 export default {
   title: 'Components/Select',
   component: Select,
-  decorators: [withCenterStory({ width: 200 }), withOnChange(e => e.target.value)],
-  parameters: {
-    backgrounds: {
-      default: 'White',
-    },
-  },
+  decorators: [withCenterStory({ width: 200 })],
 } as Meta<typeof Select>;
-
-const Template: StoryFn<SelectProps> = (args: SelectProps) => <Select {...args} />;
 
 const options = Array.from(Array(5).keys()).map(i => ({
   value: `value${i}`,
   label: `Value${i}`,
 }));
 
-export const Default = Template.bind({});
-Default.args = {
-  options,
-  onChange: console.log,
+const initialState: { value: string | number } = {
   value: 'value1',
-  ariaLabel: 'select',
-  label: 'Select option',
 };
 
-export const Label = Template.bind({});
-Label.args = {
-  options,
-  onChange: console.log,
-  value: 'value1',
-  ariaLabel: 'select',
-  label: 'Filter by:',
-};
+export const Default = () => (
+  <State initial={initialState}>
+    {({ state, setState }) => (
+      <Select
+        value={state.value}
+        ariaLabel="select"
+        onChange={e => setState({ value: e.target.value })}
+        options={options}
+      />
+    )}
+  </State>
+);
 
-export const LeftLabel = Template.bind({});
-LeftLabel.args = {
-  options,
-  onChange: console.log,
-  placeLabelToLeft: true,
-  value: 'value1',
-  ariaLabel: 'select',
-  label: 'Filter by:',
-};
+export const WithLabel = () => (
+  <State initial={initialState}>
+    {({ state, setState }) => (
+      <Select
+        value={state.value}
+        ariaLabel="select"
+        onChange={e => setState({ value: e.target.value })}
+        options={options}
+        label="Filter by:"
+      />
+    )}
+  </State>
+);
+
+export const WithLeftLabel = () => (
+  <State initial={initialState}>
+    {({ state, setState }) => (
+      <Select
+        value={state.value}
+        ariaLabel="select"
+        onChange={e => setState({ value: e.target.value })}
+        options={options}
+        label="Filter by:"
+        placeLabelToLeft
+      />
+    )}
+  </State>
+);

@@ -1,14 +1,14 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { withCenterStory, withOnChange } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 
 import MarkdownViewer from '.';
 
 export default {
   title: 'Components/Markdown/Viewer',
   component: MarkdownViewer,
-  decorators: [withCenterStory({ width: 250 }), withOnChange(e => e.target.checked)],
+  decorators: [withCenterStory({ width: 250 })],
 } as Meta<typeof MarkdownViewer>;
 
 export const Default = () => (
