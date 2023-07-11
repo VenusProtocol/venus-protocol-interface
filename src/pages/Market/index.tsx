@@ -49,6 +49,7 @@ export interface MarketUiProps {
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
   asset?: Asset;
+  currentUtilizationRate: number;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
@@ -59,6 +60,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   borrowChartData,
   isInterestRateChartDataLoading,
   interestRateChartData,
+  currentUtilizationRate,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -68,15 +70,8 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const { openOperationModal, OperationModal } = useOperationModal();
 
-  const { currentUtilizationRate, dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
+  const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
     () => ({
-      currentUtilizationRate:
-        asset &&
-        asset.borrowBalanceTokens
-          .div(asset.cashTokens.plus(asset.borrowBalanceTokens).minus(asset.reserveTokens))
-          .multipliedBy(100)
-          .dp(0)
-          .toNumber(),
       // Calculate daily interests for suppliers and borrowers. Note that we don't
       // use BigNumber to calculate these values, as this would slow down
       // calculation a lot while the end result doesn't need to be extremely
@@ -467,11 +462,13 @@ const Market: React.FC<MarketProps> = ({ vTokenAddress, poolComptrollerAddress }
     isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
+      currentUtilizationRate: 0,
     },
   } = useGetVTokenApySimulations({
     vToken,
     reserveFactorMantissa,
     isIsolatedPoolMarket,
+    asset: getAssetData?.asset,
   });
 
   return (
@@ -482,6 +479,7 @@ const Market: React.FC<MarketProps> = ({ vTokenAddress, poolComptrollerAddress }
       {...chartData}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
+      currentUtilizationRate={interestRateChartData.currentUtilizationRate}
     />
   );
 };

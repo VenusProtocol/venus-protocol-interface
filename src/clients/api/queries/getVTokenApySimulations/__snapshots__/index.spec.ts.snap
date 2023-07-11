@@ -504,5 +504,6 @@ exports[`api/queries/getVTokenApySimulations > returns the APY simulations in th
       "utilizationRate": 100,
     },
   ],
+  "currentUtilizationRate": 0,
 }
 `;

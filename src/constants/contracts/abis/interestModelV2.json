@@ -109,7 +109,8 @@
     "inputs": [
       { "internalType": "uint256", "name": "cash", "type": "uint256" },
       { "internalType": "uint256", "name": "borrows", "type": "uint256" },
-      { "internalType": "uint256", "name": "reserves", "type": "uint256" }
+      { "internalType": "uint256", "name": "reserves", "type": "uint256" },
+      { "internalType": "uint256", "name": "badDebt", "type": "uint256" }
     ],
     "name": "utilizationRate",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],

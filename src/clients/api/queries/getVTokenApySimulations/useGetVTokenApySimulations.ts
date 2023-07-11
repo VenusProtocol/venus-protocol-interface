@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VToken } from 'types';
+import { Asset, VToken } from 'types';
 
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
@@ -19,10 +19,16 @@ type Options = QueryObserverOptions<
 
 const useGetVTokenApySimulations = (
   {
+    asset,
     vToken,
     isIsolatedPoolMarket,
     reserveFactorMantissa,
-  }: { vToken: VToken; isIsolatedPoolMarket: boolean; reserveFactorMantissa?: BigNumber },
+  }: {
+    asset: Asset | undefined;
+    vToken: VToken;
+    isIsolatedPoolMarket: boolean;
+    reserveFactorMantissa?: BigNumber;
+  },
   options?: Options,
 ) => {
   const multicall = useMulticall();
@@ -36,6 +42,7 @@ const useGetVTokenApySimulations = (
         reserveFactorMantissa: reserveFactorMantissa || new BigNumber(0),
         interestRateModelContractAddress: interestRateModelData?.contractAddress || '',
         isIsolatedPoolMarket,
+        asset,
       }),
     {
       ...options,
