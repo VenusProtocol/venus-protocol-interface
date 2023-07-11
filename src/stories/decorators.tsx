@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import { StoryContext, StoryFn } from '@storybook/react';
-import React, { useState } from 'react';
+import { StoryFn } from '@storybook/react';
+import React from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { Token } from 'types';
@@ -112,11 +112,3 @@ export const withCenterStory: (props: {
     </Box>
   );
 };
-
-export const withOnChange: (pickValue: (event: React.ChangeEvent<any>) => unknown) => unknown =
-  pickValue => (Story: StoryFn, options: StoryContext) => {
-    const [v, onChange] = useState(options.parameters.args.value);
-    options.parameters.args.value = v;
-    options.parameters.args.onChange = (event: React.ChangeEvent) => onChange(pickValue(event));
-    return Story(options, options);
-  };
