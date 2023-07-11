@@ -10,10 +10,6 @@ export const useStyles = () => {
       align-items: center;
       justify-content: space-between;
       width: 100%;
-
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-      }
     `,
     column: css`
       display: flex;
@@ -41,6 +37,10 @@ export const useStyles = () => {
     `,
     getLabel: ({ invertTextColors }: { invertTextColors: boolean }) => css`
       color: ${invertTextColors ? theme.palette.text.primary : theme.palette.text.secondary};
+
+      ${theme.breakpoints.down('md')} {
+        font-size: ${theme.typography.small1.fontSize};
+      }
     `,
     getContent: ({
       invertTextColors,
@@ -55,6 +55,10 @@ export const useStyles = () => {
       css`
         margin-left: ${theme.spacing(7)};
       `}
+
+      ${theme.breakpoints.down('md')} {
+        font-size: ${theme.typography.small1.fontSize};
+      }
     `,
   };
 };

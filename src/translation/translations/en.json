@@ -515,8 +515,7 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
-    },
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    }
   },
   "sidebar": {
     "newBadge": "NEW"
@@ -543,38 +542,25 @@
     }
   },
   "swapDetails": {
-    "exchangeRate": {
-      "label": "Exchange rate",
-      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    "label": {
+      "exchangeRate": "Exchange rate",
+      "maximumSold": "Maximum sold",
+      "minimumReceived": "Minimum received",
+      "repay": "You will repay",
+      "slippageTolerance": "Slippage tolerance",
+      "supply": "You will supply"
     },
-    "receivedAmount": {
-      "estimatedValue": "≈ {{ value }}",
-      "exactValue": "{{ value }}",
-      "repayLabel": "You will repay",
-      "supplyLabel": "You will supply"
-    },
-    "slippageTolerance": {
-      "label": "Slippage tolerance"
+    "value": {
+      "estimatedAmount": "≈ {{ value }}",
+      "exactAmount": "{{ value }}",
+      "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
     }
   },
   "swapPage": {
     "connectWalletToSwap": "Please connect your wallet to swap tokens",
-    "exchangeRate": {
-      "label": "Exchange rate",
-      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
-    },
     "fromTokenAmountField": {
       "label": "From",
       "max": "Max"
-    },
-    "maximumSold": {
-      "label": "Maximum sold"
-    },
-    "minimumReceived": {
-      "label": "Minimum received"
-    },
-    "slippageTolerance": {
-      "label": "Slippage tolerance"
     },
     "submitButton": {
       "disabledLabels": {
@@ -593,7 +579,8 @@
     },
     "toTokenAmountField": {
       "label": "To"
-    }
+    },
+    "walletBalance": "Wallet balance"
   },
   "table": {
     "cardsSelect": {

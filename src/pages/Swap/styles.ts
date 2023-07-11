@@ -17,14 +17,10 @@ export const useStyles = () => {
       }
     `,
     selectTokenTextField: css`
-      margin-bottom: ${theme.spacing(1)};
+      margin-bottom: ${theme.spacing(4)};
     `,
-    greyLabel: css`
-      margin-bottom: ${theme.spacing(8)};
-      color: ${theme.palette.text.secondary};
-    `,
-    whiteLabel: css`
-      color: ${theme.palette.text.primary};
+    getRow: ({ isLast }: { isLast: boolean }) => css`
+      margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
     `,
     switchButton: css`
       margin: ${theme.spacing(0, 'auto', 4)};
@@ -35,14 +31,6 @@ export const useStyles = () => {
       height: ${theme.spacing(6)};
       transform: rotate(90deg);
       color: ${theme.palette.interactive.primary};
-    `,
-    swapInfoRow: css`
-      :not(:last-of-type) {
-        margin-bottom: ${theme.spacing(3)};
-      }
-    `,
-    swapDetails: css`
-      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

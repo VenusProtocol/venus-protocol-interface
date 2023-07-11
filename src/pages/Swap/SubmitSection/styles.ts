@@ -6,23 +6,11 @@ export const useStyles = () => {
 
   return {
     container: css`
-      margin-top: ${theme.spacing(8)};
-    `,
-    buttonLabelContainer: css`
-      margin-bottom: ${theme.spacing(1)};
-      display: flex;
-      align-items: center;
-    `,
-    buttonLabel: css`
-      display: block;
-      color: ${theme.palette.text.primary};
-    `,
-    approveTokenButton: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
-    approveTokenTooltip: css`
-      display: flex;
-      margin-left: ${theme.spacing(2)};
+      margin-top: ${theme.spacing(10)};
+
+      ${theme.breakpoints.down('md')} {
+        margin-top: ${theme.spacing(8)};
+      }
     `,
   };
 };

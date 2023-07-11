@@ -5,6 +5,7 @@ import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
 
 import { FormError, FormValues } from '../types';
+import { useStyles } from './styles';
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -36,6 +37,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   formErrors,
 }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const submitButtonLabel = useMemo(() => {
     if (formErrors[0] === 'WRAPPING_UNSUPPORTED') {
@@ -76,6 +78,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       approveToken={approveFromToken}
       isApproveTokenLoading={isApproveFromTokenLoading}
       isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      css={styles.container}
     >
       <PrimaryButton
         fullWidth

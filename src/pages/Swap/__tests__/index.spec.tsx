@@ -467,14 +467,14 @@ describe('pages/Swap', () => {
     [fakeExactAmountInSwap.direction, fakeExactAmountInSwap],
     [fakeExactAmountOutSwap.direction, fakeExactAmountOutSwap],
   ])('displays %s swap details correctly ', async (_swapDirection, swap) => {
-    const { queryByTestId, getByTestId } = renderComponent(<SwapPage />, {
+    const { getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
     });
 
-    // Check no swap details are being displayed on mount
-    expect(queryByTestId(TEST_IDS.swapDetails)).toBeNull();
+    // Check only slippage tolerance is displayed on mount
+    expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
 
     // Simulate a swap having been fetched
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({

@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import {
@@ -7,6 +6,7 @@ import {
   Icon,
   LabeledInlineContent,
   SelectTokenTextField,
+  SwapDetails,
   TertiaryButton,
   toast,
 } from 'components';
@@ -17,14 +17,11 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertWeiToTokens,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
   getContractAddress,
   getSwapRouterContractAddress,
 } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
@@ -41,10 +38,6 @@ import useFormValidation from './useFormValidation';
 
 const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(MAIN_POOL_COMPTROLLER_ADDRESS);
-
-const readableSlippageTolerancePercentage = formatToReadablePercentage(
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
-);
 
 const initialFormValues: FormValues = {
   fromToken: SWAP_TOKENS.bnb,
@@ -87,7 +80,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   tokenBalances,
 }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -211,21 +204,10 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const readableToToTokenUserBalance = useConvertWeiToReadableTokenString({
+  const readableToTokenUserBalance = useConvertWeiToReadableTokenString({
     valueWei: toTokenUserBalanceWei,
     token: formValues.toToken,
   });
-
-  const readableExchangeRate = useMemo(
-    () =>
-      swap &&
-      formatTokensToReadableValue({
-        value: swap.exchangeRate,
-        token: swap.toToken,
-        addSymbol: false,
-      }),
-    [swap?.exchangeRate, swap?.toToken],
-  );
 
   // Form validation
   const { isFormValid, errors: formErrors } = useFormValidation({
@@ -277,23 +259,11 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <Typography component="div" variant="small2" css={styles.greyLabel}>
-          <Trans
-            i18nKey="selectTokenTextField.walletBalance"
-            components={{
-              White: <span css={styles.whiteLabel} />,
-            }}
-            values={{
-              balance: readableFromTokenUserBalance,
-            }}
-          />
-        </Typography>
-
         <LabeledInlineContent
-          label={t('operationModal.supply.walletBalance')}
-          css={styles.getRow({ isLast: false })}
+          label={t('swapPage.walletBalance')}
+          css={styles.getRow({ isLast: true })}
         >
-          {readableFromTokenUserWalletBalanceTokens}
+          {readableFromTokenUserBalance}
         </LabeledInlineContent>
 
         <TertiaryButton
@@ -339,54 +309,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <Typography component="div" variant="small2" css={styles.greyLabel}>
-          <Trans
-            i18nKey="selectTokenTextField.walletBalance"
-            components={{
-              White: <span css={styles.whiteLabel} />,
-            }}
-            values={{
-              balance: readableToToTokenUserBalance,
-            }}
-          />
-        </Typography>
+        <LabeledInlineContent
+          label={t('swapPage.walletBalance')}
+          css={styles.getRow({ isLast: true })}
+        >
+          {readableToTokenUserBalance}
+        </LabeledInlineContent>
 
-        {swap && (
-          <div data-testid={TEST_IDS.swapDetails} css={styles.swapDetails}>
-            <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
-              {t('swapPage.exchangeRate.value', {
-                fromTokenSymbol: formValues.fromToken.symbol,
-                toTokenSymbol: formValues.toToken.symbol,
-                rate: readableExchangeRate,
-              })}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              label={t('swapPage.slippageTolerance.label')}
-              css={styles.swapInfoRow}
-            >
-              {readableSlippageTolerancePercentage}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              label={
-                swap.direction === 'exactAmountIn'
-                  ? t('swapPage.minimumReceived.label')
-                  : t('swapPage.maximumSold.label')
-              }
-              css={styles.swapInfoRow}
-            >
-              {convertWeiToTokens({
-                valueWei:
-                  swap.direction === 'exactAmountIn'
-                    ? swap.minimumToTokenAmountReceivedWei
-                    : swap.maximumFromTokenAmountSoldWei,
-                token: swap.direction === 'exactAmountIn' ? swap.toToken : swap.fromToken,
-                returnInReadableFormat: true,
-              })}
-            </LabeledInlineContent>
-          </div>
-        )}
+        <SwapDetails
+          action="swap"
+          swap={swap}
+          data-testid={TEST_IDS.swapDetails}
+          css={styles.getRow({ isLast: true })}
+        />
 
         <SubmitSection
           onSubmit={handleSubmit}
