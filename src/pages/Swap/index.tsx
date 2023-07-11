@@ -289,6 +289,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           />
         </Typography>
 
+        <LabeledInlineContent
+          label={t('operationModal.supply.walletBalance')}
+          css={styles.getRow({ isLast: false })}
+        >
+          {readableFromTokenUserWalletBalanceTokens}
+        </LabeledInlineContent>
+
         <TertiaryButton
           css={styles.switchButton}
           onClick={switchTokens}
