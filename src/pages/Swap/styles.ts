@@ -19,6 +19,10 @@ export const useStyles = () => {
     selectTokenTextField: css`
       margin-bottom: ${theme.spacing(4)};
     `,
+    notice: css`
+      margin-top: ${theme.spacing(3)};
+      padding: ${theme.spacing(4)};
+    `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
     `,

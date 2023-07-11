@@ -17,6 +17,7 @@ export interface SubmitSectionProps {
   approveFromToken: ApproveTokenStepsProps['approveToken'];
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
   isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   isSwapLoading: boolean;
   swap?: Swap;
   swapError?: SwapError;
@@ -31,6 +32,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenWalletSpendingLimitLoading,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   isSwapLoading,
   swapError,
   swap,
@@ -62,6 +64,10 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       });
     }
 
+    if (formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT') {
+      return t('swapPage.submitButton.disabledLabels.spendingLimitTooLow');
+    }
+
     if (swap) {
       return t('swapPage.submitButton.enabledLabel');
     }
@@ -88,6 +94,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
           isSwapLoading ||
           isApproveFromTokenLoading ||
           isFromTokenWalletSpendingLimitLoading ||
+          isRevokeFromTokenWalletSpendingLimitLoading ||
           !isFromTokenApproved
         }
         onClick={onSubmit}

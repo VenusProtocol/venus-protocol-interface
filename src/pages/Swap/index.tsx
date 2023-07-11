@@ -6,6 +6,7 @@ import {
   Icon,
   LabeledInlineContent,
   SelectTokenTextField,
+  SpendingLimit,
   SwapDetails,
   TertiaryButton,
   toast,
@@ -30,6 +31,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 
+import Notice from './Notice';
 import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -61,6 +63,9 @@ export interface SwapPageUiProps
   isSubmitting: boolean;
   tokenBalances: TokenBalance[];
   isSwapLoading: boolean;
+  revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -75,6 +80,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   isApproveFromTokenLoading,
   isFromTokenApproved,
   isFromTokenWalletSpendingLimitLoading,
+  fromTokenWalletSpendingLimitTokens,
+  revokeFromTokenWalletSpendingLimit,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   onSubmit,
   isSubmitting,
   tokenBalances,
@@ -146,18 +154,20 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
 
-  const maxFromInput = useMemo(() => {
-    if (!fromTokenUserBalanceWei) {
-      return new BigNumber(0).toFixed();
-    }
+  const fromTokenUserBalanceTokens = useMemo(
+    () =>
+      fromTokenUserBalanceWei &&
+      convertWeiToTokens({
+        valueWei: fromTokenUserBalanceWei,
+        token: formValues.fromToken,
+      }),
+    [fromTokenUserBalanceWei],
+  );
 
-    const maxFromInputTokens = convertWeiToTokens({
-      valueWei: fromTokenUserBalanceWei,
-      token: formValues.fromToken,
-    });
-
-    return maxFromInputTokens.toFixed();
-  }, [formValues.fromToken, fromTokenUserBalanceWei]);
+  const maxFromInput = useMemo(
+    () => new BigNumber(fromTokenUserBalanceTokens || 0).toFixed(),
+    [formValues.fromToken, fromTokenUserBalanceWei],
+  );
 
   const handleSubmit = async () => {
     if (swap) {
@@ -165,8 +175,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         const contractReceipt = await onSubmit(swap);
 
         openSuccessfulTransactionModal({
-          title: t('swapPage.successfulConvertTransactionModal.title'),
-          content: t('swapPage.successfulConvertTransactionModal.message'),
+          title: t('swapPage.successfulSwapTransactionModal.title'),
+          content: t('swapPage.successfulSwapTransactionModal.message'),
           transactionHash: contractReceipt.transactionHash,
         });
 
@@ -214,6 +224,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     swap,
     formValues,
     fromTokenUserBalanceWei,
+    fromTokenWalletSpendingLimitTokens,
+    isFromTokenApproved,
   });
 
   const onFromInputChange = (amount: string) =>
@@ -236,7 +248,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           label={t('swapPage.fromTokenAmountField.label')}
           selectedToken={formValues.fromToken}
           value={formValues.fromTokenAmountTokens}
-          hasError={formErrors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
+          hasError={
+            !isSubmitting && formErrors.length > 0 && Number(formValues.fromTokenAmountTokens) > 0
+          }
           data-testid={TEST_IDS.fromTokenSelectTokenTextField}
           disabled={isSubmitting}
           onChange={onFromInputChange}
@@ -259,12 +273,25 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <LabeledInlineContent
-          label={t('swapPage.walletBalance')}
-          css={styles.getRow({ isLast: true })}
-        >
-          {readableFromTokenUserBalance}
-        </LabeledInlineContent>
+        <Notice formErrors={formErrors} />
+
+        <div css={styles.getRow({ isLast: true })}>
+          <LabeledInlineContent
+            label={t('swapPage.walletBalance')}
+            css={styles.getRow({ isLast: false })}
+          >
+            {readableFromTokenUserBalance}
+          </LabeledInlineContent>
+
+          <SpendingLimit
+            token={formValues.fromToken}
+            walletBalanceTokens={fromTokenUserBalanceTokens}
+            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+            onRevoke={revokeFromTokenWalletSpendingLimit}
+            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+            data-testid={TEST_IDS.spendingLimit}
+          />
+        </div>
 
         <TertiaryButton
           css={styles.switchButton}
@@ -336,6 +363,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
           isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
         />
       </ConnectWallet>
     </Paper>
@@ -360,6 +388,9 @@ const SwapPage: React.FC = () => {
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
     isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress: MAIN_POOL_SWAP_ROUTER_ADDRESS,
@@ -393,6 +424,9 @@ const SwapPage: React.FC = () => {
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
       isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
+      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
     />
   );
 };
