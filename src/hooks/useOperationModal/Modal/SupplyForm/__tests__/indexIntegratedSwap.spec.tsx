@@ -48,6 +48,7 @@ const fakeSwap: Swap = {
   minimumToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
   exchangeRate: fakeMarginWithSupplyCapWei.div(fakeBusdAmountBellowWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
 };
 

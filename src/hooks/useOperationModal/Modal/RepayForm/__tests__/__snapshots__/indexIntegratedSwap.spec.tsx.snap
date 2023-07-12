@@ -50,6 +50,24 @@ exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap 
       <span
         class="MuiTypography-root MuiTypography-body1 css-16extv5-MuiTypography-root-LabeledInlineContent"
       >
+        Price impact
+      </span>
+    </div>
+    <div
+      class="MuiTypography-root MuiTypography-body1 css-1plppfi-MuiTypography-root-LabeledInlineContent"
+    >
+      0%
+    </div>
+  </div>
+  <div
+    class="css-s1vrvo-SwapDetails"
+  >
+    <div
+      class="css-wkfae5-LabeledInlineContent"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-body1 css-16extv5-MuiTypography-root-LabeledInlineContent"
+      >
         You will repay
       </span>
     </div>

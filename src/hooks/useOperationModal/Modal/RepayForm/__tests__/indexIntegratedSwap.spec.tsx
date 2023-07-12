@@ -46,6 +46,7 @@ const fakeSwap: Swap = {
   minimumToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
   exchangeRate: fakeXvsAmountBelowUserBorrowBalanceWei.div(fakeBusdAmountBellowWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
 };
 
@@ -58,6 +59,7 @@ const fakeFullRepaymentSwap: Swap = {
   toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei,
   exchangeRate: fakeXvsUserBorrowBalanceInWei.div(fakeBusdWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  priceImpactPercentage: 0.001,
   direction: 'exactAmountOut',
 };
 

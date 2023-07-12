@@ -547,6 +547,7 @@
       "exchangeRate": "Exchange rate",
       "maximumSold": "Maximum sold",
       "minimumReceived": "Minimum received",
+      "priceImpact": "Price impact",
       "repay": "You will repay",
       "slippageTolerance": "Slippage tolerance",
       "supply": "You will supply"
@@ -554,7 +555,8 @@
     "value": {
       "estimatedAmount": "≈ {{ value }}",
       "exactAmount": "{{ value }}",
-      "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+      "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+      "priceImpact": "{{ priceImpact }}"
     }
   },
   "swapPage": {

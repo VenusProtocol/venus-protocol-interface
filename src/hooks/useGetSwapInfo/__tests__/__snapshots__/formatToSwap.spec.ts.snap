@@ -13,6 +13,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   },
   "fromTokenAmountSoldWei": "10000000000000000000",
   "minimumToTokenAmountReceivedWei": "9000000000000000000",
+  "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
@@ -38,6 +39,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
     "symbol": "BUSD",
   },
   "maximumFromTokenAmountSoldWei": "11000000000000000000",
+  "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",

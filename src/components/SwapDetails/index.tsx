@@ -116,6 +116,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     }
   };
 
+  const readablePriceImpact = useMemo(
+    () => swap && formatToReadablePercentage(swap.priceImpactPercentage),
+    [swap?.priceImpactPercentage],
+  );
+
   return (
     <div {...containerProps}>
       {swap && (
@@ -133,9 +138,15 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
       </LabeledInlineContent>
 
       {swap && (
-        <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
-          {getLastLineValue()}
-        </LabeledInlineContent>
+        <>
+          <LabeledInlineContent label={t('swapDetails.label.priceImpact')} css={styles.row}>
+            {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
+          </LabeledInlineContent>
+
+          <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
+            {getLastLineValue()}
+          </LabeledInlineContent>
+        </>
       )}
     </div>
   );

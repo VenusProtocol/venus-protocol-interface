@@ -351,6 +351,7 @@ interface SwapBase {
   toToken: Token;
   exchangeRate: BigNumber;
   direction: SwapDirection;
+  priceImpactPercentage: number;
   routePath: string[]; // Token addresses
 }
 
