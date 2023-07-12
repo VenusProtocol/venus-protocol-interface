@@ -139,7 +139,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
 
       {swap && (
         <>
-          <LabeledInlineContent label={t('swapDetails.label.priceImpact')} css={styles.row}>
+          <LabeledInlineContent
+            label={t('swapDetails.label.priceImpact')}
+            css={styles.row}
+            tooltip={t('swapDetails.tooltip.priceImpact')}
+          >
             {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
           </LabeledInlineContent>
 

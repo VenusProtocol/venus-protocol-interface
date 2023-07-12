@@ -52,6 +52,44 @@ exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedS
       >
         Price impact
       </span>
+      <span
+        aria-label="Difference between the market price and estimated price due to trade size."
+        class="css-c2lpn6-LabeledInlineContent"
+        data-mui-internal-clone-element="true"
+      >
+        <svg
+          class="css-arkhxi-LabeledInlineContent"
+          color="rgba(170, 179, 202, 1)"
+          fill="none"
+          height="16"
+          id="57"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 8c0-3.864 3.136-7 7-7s7 3.136 7 7-3.136 7-7 7-7-3.136-7-7Z"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <rect
+            fill="currentColor"
+            height="5"
+            rx="1"
+            width="2"
+            x="7"
+            y="7"
+          />
+          <rect
+            fill="currentColor"
+            height="2"
+            rx="1"
+            width="2"
+            x="7"
+            y="4"
+          />
+        </svg>
+      </span>
     </div>
     <div
       class="MuiTypography-root MuiTypography-body1 css-1plppfi-MuiTypography-root-LabeledInlineContent"

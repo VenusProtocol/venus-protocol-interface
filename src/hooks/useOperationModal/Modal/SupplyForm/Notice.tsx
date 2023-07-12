@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { NoticeError } from 'components';
+import { NoticeError, NoticeWarning } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Swap } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
+
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
@@ -11,10 +13,11 @@ import { FormError } from './useForm';
 
 export interface NoticeProps {
   asset: Asset;
+  swap?: Swap;
   formError?: FormError;
 }
 
-const Notice: React.FC<NoticeProps> = ({ asset, formError }) => {
+const Notice: React.FC<NoticeProps> = ({ asset, swap, formError }) => {
   const { t } = useTranslation();
   const styles = useSharedStyles();
 
@@ -64,6 +67,18 @@ const Notice: React.FC<NoticeProps> = ({ asset, formError }) => {
       <NoticeError
         css={styles.notice}
         description={t('operationModal.supply.amountAboveWalletSpendingLimit')}
+      />
+    );
+  }
+
+  if (
+    typeof swap?.priceImpactPercentage === 'number' &&
+    swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+  ) {
+    return (
+      <NoticeWarning
+        css={styles.notice}
+        description={t('operationModal.supply.swappingWithHighPriceImpactWarning')}
       />
     );
   }

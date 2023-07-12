@@ -454,6 +454,8 @@
         "processing": "Processing",
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",
+        "swapAndSupply": "Swap and supply",
+        "swapAndSupplyWitHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -462,6 +464,7 @@
         "title": "Your supply was successful"
       },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance"
     },
     "supplyTabTitle": "Supply",
@@ -551,6 +554,9 @@
       "repay": "You will repay",
       "slippageTolerance": "Slippage tolerance",
       "supply": "You will supply"
+    },
+    "tooltip": {
+      "priceImpact": "Difference between the market price and estimated price due to trade size."
     },
     "value": {
       "estimatedAmount": "≈ {{ value }}",
