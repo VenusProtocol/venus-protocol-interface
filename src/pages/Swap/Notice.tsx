@@ -27,7 +27,7 @@ const Notice: React.FC<NoticeProps> = ({ formErrors, swap }) => {
 
   if (
     !formErrors.length &&
-    typeof swap?.priceImpactPercentage === 'number' &&
+    !!swap?.priceImpactPercentage &&
     swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE
   ) {
     // User is trying to swap and supply with a high price impact

@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { Asset, Swap, SwapError } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
+import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+
 import { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -103,6 +105,13 @@ const useFormValidation = ({
       fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
     ) {
       return 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
+    }
+
+    if (
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+    ) {
+      return 'HIGHER_THAN_MAXIMUM_PRICE_IMPACT';
     }
   }, [
     asset.vToken.underlyingToken,

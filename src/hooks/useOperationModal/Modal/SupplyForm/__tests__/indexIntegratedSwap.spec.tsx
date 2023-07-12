@@ -13,7 +13,10 @@ import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/to
 import { swapTokensAndSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -463,7 +466,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Check warning notice is displayed
     await waitFor(() => getByText(en.operationModal.supply.swappingWithHighPriceImpactWarning));
 
-    // Check submit button label is correct and enabled
+    // Check submit button has the correct label and is enabled
     await waitFor(() =>
       getByText(en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact),
     );
@@ -471,6 +474,53 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact,
     ).closest('button');
     expect(submitButton).toBeEnabled();
+  });
+
+  it('disables submit button when price impact has reached the maximum tolerated', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeSwap,
+      priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: customFakeSwap,
+      isLoading: false,
+    }));
+
+    const onCloseMock = vi.fn();
+
+    const { container, getByTestId, getByText } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: SWAP_TOKENS.busd,
+    });
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter valid amount in input
+    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
+
+    // Check submit button has the correct label and is disabled
+    await waitFor(() =>
+      getByText(en.operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated),
+    );
+    const submitButton = getByText(
+      en.operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated,
+    ).closest('button');
+    expect(submitButton).toBeDisabled();
   });
 
   it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {

@@ -48,7 +48,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
-      typeof swap?.priceImpactPercentage === 'number' &&
+      !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     [swap?.priceImpactPercentage],
   );

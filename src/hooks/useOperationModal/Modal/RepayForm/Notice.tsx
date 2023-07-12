@@ -31,7 +31,7 @@ const Notice: React.FC<NoticeProps> = ({ isRepayingFullLoan, swap, formError }) 
 
   if (
     !formError &&
-    typeof swap?.priceImpactPercentage === 'number' &&
+    !!swap?.priceImpactPercentage &&
     swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE
   ) {
     // User is trying to swap and supply with a high price impact

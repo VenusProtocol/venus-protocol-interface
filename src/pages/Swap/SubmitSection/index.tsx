@@ -45,7 +45,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
 
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
-      typeof swap?.priceImpactPercentage === 'number' &&
+      !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     [swap?.priceImpactPercentage],
   );

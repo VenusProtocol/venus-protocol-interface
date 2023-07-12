@@ -454,6 +454,7 @@
         "enterValidAmount": "Enter a valid amount to supply",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",

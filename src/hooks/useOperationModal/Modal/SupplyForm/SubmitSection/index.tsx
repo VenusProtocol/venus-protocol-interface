@@ -48,7 +48,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
-      typeof swap?.priceImpactPercentage === 'number' &&
+      !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     [swap?.priceImpactPercentage],
   );
@@ -86,6 +86,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 
     if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_SPENDING_LIMIT') {
       return t('operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit');
+    }
+
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_MAXIMUM_PRICE_IMPACT') {
+      return t('operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated');
     }
 
     if (!isFormValid) {
