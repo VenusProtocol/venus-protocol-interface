@@ -429,6 +429,8 @@
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
         "processing": "Processing",
         "repay": "Repay",
+        "swapAndRepay": "Swap and repay",
+        "swapAndRepayWitHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -436,6 +438,7 @@
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
       },
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance"
     },
     "repayTabTitle": "Repay",

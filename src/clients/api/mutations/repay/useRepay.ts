@@ -24,6 +24,7 @@ const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
         queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
