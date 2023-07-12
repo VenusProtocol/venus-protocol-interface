@@ -463,10 +463,14 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Check warning notice is displayed
     await waitFor(() => getByText(en.operationModal.supply.swappingWithHighPriceImpactWarning));
 
-    // Check submit button label is correct
+    // Check submit button label is correct and enabled
     await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.swapAndSupplyWitHighPriceImpact),
+      getByText(en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact),
     );
+    const submitButton = getByText(
+      en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact,
+    ).closest('button');
+    expect(submitButton).toBeEnabled();
   });
 
   it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {

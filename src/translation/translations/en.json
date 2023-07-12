@@ -430,7 +430,7 @@
         "processing": "Processing",
         "repay": "Repay",
         "swapAndRepay": "Swap and repay",
-        "swapAndRepayWitHighPriceImpact": "Swap and repay with high price impact",
+        "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -458,7 +458,7 @@
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",
         "swapAndSupply": "Swap and supply",
-        "swapAndSupplyWitHighPriceImpact": "Swap and supply with high price impact",
+        "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -580,6 +580,7 @@
         "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
         "spendingLimitTooLow": "Spending limit too low",
+        "swapWithHighPriceImpact": "Swap with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },

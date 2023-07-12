@@ -273,7 +273,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <Notice formErrors={formErrors} />
+        <div css={styles.getRow({ isLast: true })}>
+          <Notice formErrors={formErrors} swap={swap} />
+        </div>
 
         <div css={styles.getRow({ isLast: true })}>
           <LabeledInlineContent

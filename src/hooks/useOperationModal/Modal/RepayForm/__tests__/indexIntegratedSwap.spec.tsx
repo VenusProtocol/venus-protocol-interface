@@ -376,8 +376,12 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     // Check submit button label is correct
     await waitFor(() =>
-      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepayWitHighPriceImpact),
+      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact),
     );
+    const submitButton = getByText(
+      en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact,
+    ).closest('button');
+    expect(submitButton).toBeEnabled();
   });
 
   it('displays correct swap details', async () => {

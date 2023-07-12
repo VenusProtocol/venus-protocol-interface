@@ -1,6 +1,7 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { Swap } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
@@ -17,6 +18,7 @@ import {
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from 'components/SelectTokenTextField/testIdGetters';
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { SWAP_TOKENS, TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -596,6 +598,43 @@ describe('pages/Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+  });
+
+  it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeExactAmountInSwap,
+      priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: customFakeSwap,
+      isLoading: false,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(<SwapPage />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
+    });
+
+    // Update fromToken input value to trigger rerender
+    const fromTokenInput = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
+
+    // Check warning notice is displayed
+    await waitFor(() => getByText(en.operationModal.supply.swappingWithHighPriceImpactWarning));
+
+    // Check submit button label is correct and enabled
+    await waitFor(() => getByText(en.swapPage.submitButton.disabledLabels.swapWithHighPriceImpact));
+    const submitButton = getByText(
+      en.swapPage.submitButton.disabledLabels.swapWithHighPriceImpact,
+    ).closest('button');
+    expect(submitButton).toBeEnabled();
   });
 
   it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {

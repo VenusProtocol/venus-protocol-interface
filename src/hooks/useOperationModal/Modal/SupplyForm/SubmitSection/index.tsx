@@ -93,7 +93,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     if (isSwappingWithHighPriceImpact) {
-      return t('operationModal.supply.submitButtonLabel.swapAndSupplyWitHighPriceImpact');
+      return t('operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact');
     }
 
     if (isUsingSwap) {
