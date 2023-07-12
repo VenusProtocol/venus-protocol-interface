@@ -33,7 +33,7 @@ export const useStyles = () => {
       align-items: center;
       margin-left: auto;
 
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         display: none;
       }
     `,
