@@ -6,7 +6,7 @@ import { Asset } from 'types';
 import {
   compareBigNumbers,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
 } from 'utilities';
 
 import { TextButton } from '../../Button';
@@ -66,7 +66,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
 
             <div css={styles.cell}>
               <Typography variant="small2">
-                {formatToReadablePercentage(
+                {formatPercentageToReadableValue(
                   type === 'borrow' ? asset.borrowApyPercentage : asset.supplyApyPercentage,
                 )}
               </Typography>

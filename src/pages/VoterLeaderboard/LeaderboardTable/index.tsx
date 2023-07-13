@@ -6,7 +6,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { VoterAccount } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
@@ -65,7 +65,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         align: 'right',
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
-            {formatToReadablePercentage(voter.voteWeightPercent)}
+            {formatPercentageToReadableValue(voter.voteWeightPercent)}
           </Typography>
         ),
       },

@@ -17,7 +17,7 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertWeiToTokens,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getContractAddress,
   getSwapRouterContractAddress,
@@ -42,7 +42,7 @@ import useFormValidation from './useFormValidation';
 const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(MAIN_POOL_COMPTROLLER_ADDRESS);
 
-const readableSlippageTolerancePercentage = formatToReadablePercentage(
+const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
 

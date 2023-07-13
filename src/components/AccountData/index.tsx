@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenAction } from 'types';
-import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import useAssetInfo from 'hooks/useAssetInfo';
@@ -138,7 +138,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
             original={poolUserBorrowLimitUsedPercentage}
             update={hypotheticalPoolUserBorrowLimitUsedPercentage}
             positiveDirection="desc"
-            format={formatToReadablePercentage}
+            format={formatPercentageToReadableValue}
           />
         </LabeledInlineContent>
       )}

@@ -5,7 +5,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import formatCentsToReadableValue, { FormatCentsToReadableValueInput } from '..';
 
 describe('utilities/formatCentsToReadableValue', () => {
-  test('should return PLACEHOLDER_KEY when value is undefined', () => {
+  it('should return PLACEHOLDER_KEY when value is undefined', () => {
     const input: FormatCentsToReadableValueInput = {
       value: undefined,
     };
@@ -14,7 +14,7 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(result).toEqual(PLACEHOLDER_KEY);
   });
 
-  test('should return 0 values correctly', () => {
+  it('should return 0 values correctly', () => {
     const result = formatCentsToReadableValue({
       value: 0,
     });
@@ -27,21 +27,33 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('$0');
   });
 
-  test('should format dollar values correctly', () => {
+  it('should format dollar values correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber(1235678),
     });
 
     expect(result).toEqual('$12.35K');
 
+    const smallResult = formatCentsToReadableValue({
+      value: new BigNumber(2.789),
+    });
+
+    expect(smallResult).toEqual('$0.02');
+
     const negativeResult = formatCentsToReadableValue({
       value: new BigNumber(-1235678),
     });
 
     expect(negativeResult).toEqual('-$12.35K');
+
+    const smallNegativeResult = formatCentsToReadableValue({
+      value: new BigNumber(-2.789),
+    });
+
+    expect(smallNegativeResult).toEqual('-$0.02');
   });
 
-  test('should format insignificant dollar values correctly', () => {
+  it('should format insignificant dollar values correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber(0.001),
     });
@@ -53,7 +65,7 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('< $0.01');
   });
 
-  test('should format out-of-bound dollar values correctly', () => {
+  it('should format out-of-bound dollar values correctly', () => {
     const input: FormatCentsToReadableValueInput = {
       value: new BigNumber('1000000000000000000'),
     };
@@ -69,7 +81,7 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('< -$100.00B');
   });
 
-  test('should format token prices correctly', () => {
+  it('should format token prices correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber('712142.357623123123'),
       isTokenPrice: true,
@@ -83,7 +95,7 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('-$7,121.423576');
   });
 
-  test('should format insignificant token prices correctly', () => {
+  it('should format insignificant token prices correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber(0.00000004),
     });
