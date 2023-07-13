@@ -84,6 +84,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.repay.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit');
     }
 
+    if (!isFormSubmitting && formError === 'PRICE_IMPACT_TOO_HIGH') {
+      return t('operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated');
+    }
+
     if (!isFormValid) {
       return t('operationModal.repay.submitButtonLabel.enterValidAmount');
     }

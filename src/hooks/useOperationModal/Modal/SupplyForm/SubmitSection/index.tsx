@@ -88,7 +88,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit');
     }
 
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_MAXIMUM_PRICE_IMPACT') {
+    if (!isFormSubmitting && formError === 'PRICE_IMPACT_TOO_HIGH') {
       return t('operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated');
     }
 

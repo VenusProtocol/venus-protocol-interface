@@ -427,6 +427,7 @@
         "enterValidAmount": "Enter a valid amount to repay",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "repay": "Repay",
         "swapAndRepay": "Swap and repay",

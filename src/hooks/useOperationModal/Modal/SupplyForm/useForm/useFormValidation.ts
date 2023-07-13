@@ -111,7 +111,7 @@ const useFormValidation = ({
       !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
-      return 'HIGHER_THAN_MAXIMUM_PRICE_IMPACT';
+      return 'PRICE_IMPACT_TOO_HIGH';
     }
   }, [
     asset.vToken.underlyingToken,

@@ -13,7 +13,10 @@ import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/to
 import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -382,6 +385,53 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact,
     ).closest('button');
     expect(submitButton).toBeEnabled();
+  });
+
+  it('disables submit button when price impact has reached the maximum tolerated', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeSwap,
+      priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: customFakeSwap,
+      isLoading: false,
+    }));
+
+    const onCloseMock = vi.fn();
+
+    const { container, getByTestId, getByText } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: SWAP_TOKENS.busd,
+    });
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter valid amount in input
+    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
+
+    // Check submit button has the correct label and is disabled
+    await waitFor(() =>
+      getByText(en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated),
+    );
+    const submitButton = getByText(
+      en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated,
+    ).closest('button');
+    expect(submitButton).toBeDisabled();
   });
 
   it('displays correct swap details', async () => {
