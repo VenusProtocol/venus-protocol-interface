@@ -77,15 +77,19 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('swapPage.submitButton.disabledLabels.spendingLimitTooLow');
     }
 
-    if (swap && isSwappingWithHighPriceImpact) {
-      return t('swapPage.submitButton.disabledLabels.swapWithHighPriceImpact');
+    if (formErrors[0] === 'PRICE_IMPACT_TOO_HIGH') {
+      return t('swapPage.submitButton.disabledLabels.priceImpactHigherThanMaximumTolerated');
+    }
+
+    if (isSwappingWithHighPriceImpact) {
+      return t('swapPage.submitButton.enabledLabels.swapWithHighPriceImpact');
     }
 
     if (swap) {
-      return t('swapPage.submitButton.enabledLabel');
+      return t('swapPage.submitButton.enabledLabels.swap');
     }
 
-    return t('swapPage.submitButton.processing');
+    return t('swapPage.submitButton.disabledLabels.processing');
   }, [swap, swapError, formErrors[0], isSwappingWithHighPriceImpact]);
 
   return (

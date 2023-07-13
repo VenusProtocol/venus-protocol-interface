@@ -581,13 +581,16 @@
         "insufficientLiquidity": "Insufficient liquidity for this swap",
         "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
+        "processing": "Processing",
         "spendingLimitTooLow": "Spending limit too low",
-        "swapWithHighPriceImpact": "Swap with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "enabledLabel": "Swap",
-      "processing": "Processing"
+      "enabledLabels": {
+        "swap": "Swap",
+        "swapWithHighPriceImpact": "Swap with high price impact"
+      }
     },
     "successfulSwapTransactionModal": {
       "message": "You successfully swapped your tokens",

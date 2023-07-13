@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Swap } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
+import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { SWAP_TOKENS } from 'constants/tokens';
 
 import { FormError, FormValues } from './types';
@@ -60,6 +61,13 @@ const useFormValidation = ({
       errorsTmp.push('FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT');
     }
 
+    if (
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+    ) {
+      errorsTmp.push('PRICE_IMPACT_TOO_HIGH');
+    }
+
     return errorsTmp;
   }, [
     fromTokenUserBalanceWei?.toFixed(),
@@ -67,6 +75,7 @@ const useFormValidation = ({
     formValues.fromToken,
     isFromTokenApproved,
     fromTokenWalletSpendingLimitTokens,
+    swap,
   ]);
 
   const wrapUnwrapErrors = useMemo(() => {
