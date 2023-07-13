@@ -194,7 +194,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     fromToken: asset.vToken.underlyingToken,
   });
 
-  const { mutateAsync: supply, isLoading: isBorrowLoading } = useBorrow({
+  const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
     vToken: asset.vToken,
   });
 
@@ -206,7 +206,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
       token: fromToken,
     });
 
-    return supply({ amountWei });
+    return borrow({ amountWei });
   };
 
   return (
