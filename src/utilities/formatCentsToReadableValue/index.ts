@@ -7,11 +7,13 @@ const THRESHOLDS = {
   DOLLARS: {
     MAX_VALUE: new BigNumber(100000000000),
     MIN_VALUE: new BigNumber(0.01),
+    MIN_DECIMALS: 2,
     MAX_DECIMALS: 2,
   },
   TOKEN_PRICE: {
     MAX_VALUE: new BigNumber(100000000000),
     MIN_VALUE: new BigNumber(0.00000001),
+    MIN_DECIMALS: 2,
     MAX_DECIMALS: 6,
   },
 };
@@ -43,6 +45,7 @@ const formatCentsToReadableValue = ({
   if (absoluteValueDollars.isGreaterThan(threshold.MAX_VALUE)) {
     return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({
       value: threshold.MAX_VALUE,
+      minDecimalPlaces: threshold.MIN_DECIMALS,
       maxDecimalPlaces: threshold.MAX_DECIMALS,
     })}`;
   }
@@ -56,6 +59,7 @@ const formatCentsToReadableValue = ({
     ? absoluteValueDollars.dp(threshold.MAX_DECIMALS).toFormat()
     : shortenValueWithSuffix({
         value: absoluteValueDollars,
+        minDecimalPlaces: threshold.MIN_DECIMALS,
         maxDecimalPlaces: threshold.MAX_DECIMALS,
       });
 

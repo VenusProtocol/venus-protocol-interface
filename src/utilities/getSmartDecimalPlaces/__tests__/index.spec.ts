@@ -2,14 +2,20 @@ import BigNumber from 'bignumber.js';
 
 import getSmartDecimalPlaces from '..';
 
-describe('getSmartDecimalPlaces', () => {
-  it('should return the minimum decimal places when no decimal part in the number', () => {
+describe('utilities/getSmartDecimalPlaces', () => {
+  it('should return 0 when number does not contain decimals', () => {
+    const value = new BigNumber('100');
+    const result = getSmartDecimalPlaces({ value });
+    expect(result).toBe(0);
+  });
+
+  it('should return the minimum decimal places when number does not contain decimals', () => {
     const value = new BigNumber('100');
     const result = getSmartDecimalPlaces({ value, minDecimalPlaces: 2 });
     expect(result).toBe(2);
   });
 
-  it('should return the correct decimal places when decimal part in the number', () => {
+  it('should return the correct decimal places when number contains decimals', () => {
     const value = new BigNumber('100.1234');
     const result = getSmartDecimalPlaces({ value });
     expect(result).toBe(2);
@@ -21,7 +27,7 @@ describe('getSmartDecimalPlaces', () => {
     expect(result).toBe(5);
   });
 
-  it('should return the minDecimalPlaces when decimal places less than minDecimalPlaces', () => {
+  it('should return the minDecimalPlaces when number has less decimal places than minDecimalPlaces', () => {
     const value = new BigNumber('100.01');
     const result = getSmartDecimalPlaces({ value, minDecimalPlaces: 3 });
     expect(result).toBe(3);

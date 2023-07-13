@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 const getSmartDecimalPlaces = ({
   value,
-  minDecimalPlaces = 2,
+  minDecimalPlaces = 0,
   maxDecimalPlaces,
 }: {
   value: BigNumber;

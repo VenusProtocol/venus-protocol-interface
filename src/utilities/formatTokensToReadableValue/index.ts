@@ -7,6 +7,7 @@ import shortenValueWithSuffix from '../shortenValueWithSuffix';
 
 const MIN_VALUE = 0.000001;
 const MAX_VALUE = 100000000000;
+const MIN_DECIMALS = 2;
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
@@ -23,7 +24,7 @@ export const formatTokensToReadableValue = ({
     return PLACEHOLDER_KEY;
   }
 
-  let readableValue;
+  let readableValue: string;
   const absoluteValue = value.absoluteValue();
   const isNegative = value.isLessThan(0);
 
@@ -31,6 +32,7 @@ export const formatTokensToReadableValue = ({
     readableValue = '0';
   } else if (absoluteValue.isGreaterThan(MAX_VALUE)) {
     const formattedReadableValue = shortenValueWithSuffix({
+      minDecimalPlaces: MIN_DECIMALS,
       value: new BigNumber(MAX_VALUE),
     });
     readableValue = `${isNegative ? '< -' : '> '}${formattedReadableValue}`;
@@ -39,6 +41,7 @@ export const formatTokensToReadableValue = ({
   } else {
     const formattedReadableValue = shortenValueWithSuffix({
       value: absoluteValue,
+      minDecimalPlaces: MIN_DECIMALS,
       maxDecimalPlaces: token.decimals,
     });
 

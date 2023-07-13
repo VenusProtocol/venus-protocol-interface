@@ -8,7 +8,7 @@ describe('utilities/shortenValueWithSuffix', () => {
     const result = shortenValueWithSuffix({
       value,
     });
-    expect(result).toEqual('1.50B');
+    expect(result).toEqual('1.5B');
   });
 
   it('should return a formatted value in millions with "M" suffix when value is greater or equal to one million and less than one billion', () => {
@@ -16,7 +16,7 @@ describe('utilities/shortenValueWithSuffix', () => {
     const result = shortenValueWithSuffix({
       value,
     });
-    expect(result).toEqual('1.50M');
+    expect(result).toEqual('1.5M');
   });
 
   it('should return a formatted value in thousands with "K" suffix when value is greater or equal to one thousand and less than one million', () => {
@@ -24,7 +24,7 @@ describe('utilities/shortenValueWithSuffix', () => {
     const result = shortenValueWithSuffix({
       value,
     });
-    expect(result).toEqual('1.50K');
+    expect(result).toEqual('1.5K');
   });
 
   it('should return "0" when value is zero and outputsDollars is false', () => {
@@ -40,7 +40,7 @@ describe('utilities/shortenValueWithSuffix', () => {
     const result = shortenValueWithSuffix({
       value,
     });
-    expect(result).toEqual('500.00');
+    expect(result).toEqual('500');
   });
 
   it('should return formatted value with at least three decimal places when passing minDecimalPlaces as 3', () => {
@@ -53,11 +53,11 @@ describe('utilities/shortenValueWithSuffix', () => {
   });
 
   it('should return formatted value with maximum three decimal places when passing maxDecimalPlaces as 3', () => {
-    const value = new BigNumber('100.1827863561');
+    const value = new BigNumber('100.0012321');
     const result = shortenValueWithSuffix({
       value,
-      minDecimalPlaces: 3,
+      maxDecimalPlaces: 3,
     });
-    expect(result).toEqual('100.182');
+    expect(result).toEqual('100.001');
   });
 });

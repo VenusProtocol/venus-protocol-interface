@@ -4,7 +4,7 @@ exports[`pages/Vault/VaultItem > renders vault correctly 1`] = `"VAI"`;
 
 exports[`pages/Vault/VaultItem > renders vault correctly 2`] = `"200.00"`;
 
-exports[`pages/Vault/VaultItem > renders vault correctly 3`] = `"12665.06%"`;
+exports[`pages/Vault/VaultItem > renders vault correctly 3`] = `"> 10,000%"`;
 
 exports[`pages/Vault/VaultItem > renders vault correctly 4`] = `"144.00"`;
 
