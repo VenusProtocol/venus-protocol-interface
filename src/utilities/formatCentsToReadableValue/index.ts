@@ -4,7 +4,7 @@ import { shortenValueWithSuffix } from 'utilities';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 const THRESHOLDS = {
-  DEFAULT: {
+  DOLLARS: {
     MAX_VALUE: new BigNumber(100000000000),
     MIN_VALUE: new BigNumber(0.01),
     MAX_DECIMALS: 2,
@@ -35,7 +35,7 @@ const formatCentsToReadableValue = ({
     return '$0';
   }
 
-  const threshold = isTokenPrice ? THRESHOLDS.TOKEN_PRICE : THRESHOLDS.DEFAULT;
+  const threshold = isTokenPrice ? THRESHOLDS.TOKEN_PRICE : THRESHOLDS.DOLLARS;
   const absoluteValueDollars = wrappedValueDollars.absoluteValue();
   const isNegative = wrappedValueDollars.isLessThan(0);
 
@@ -43,6 +43,7 @@ const formatCentsToReadableValue = ({
   if (absoluteValueDollars.isGreaterThan(threshold.MAX_VALUE)) {
     return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({
       value: threshold.MAX_VALUE,
+      maxDecimalPlaces: threshold.MAX_DECIMALS,
     })}`;
   }
 

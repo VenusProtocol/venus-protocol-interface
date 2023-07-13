@@ -27,18 +27,30 @@ describe('utilities/formatCentsToReadableValue', () => {
     expect(negativeResult).toEqual('$0');
   });
 
-  test('should format dollar values correctly', () => {
+  test.only('should format dollar values correctly', () => {
     const result = formatCentsToReadableValue({
       value: new BigNumber(1235678),
     });
 
     expect(result).toEqual('$12.35K');
 
+    const smallResult = formatCentsToReadableValue({
+      value: new BigNumber(2.789),
+    });
+
+    expect(smallResult).toEqual('$0.02');
+
     const negativeResult = formatCentsToReadableValue({
       value: new BigNumber(-1235678),
     });
 
     expect(negativeResult).toEqual('-$12.35K');
+
+    const smallNegativeResult = formatCentsToReadableValue({
+      value: new BigNumber(-2.789),
+    });
+
+    expect(smallNegativeResult).toEqual('-$0.02');
   });
 
   test('should format insignificant dollar values correctly', () => {
