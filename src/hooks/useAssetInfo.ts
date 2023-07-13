@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Asset } from 'types';
-import { formatToReadablePercentage, getCombinedDistributionApys } from 'utilities';
+import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
 export interface UseAssetInfoInput {
   asset?: Asset;
@@ -20,7 +20,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
     const distributionRows = asset.distributions.map(distribution => ({
       label: t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
       iconSrc: distribution.token,
-      children: formatToReadablePercentage(
+      children: formatPercentageToReadableValue(
         type === 'borrow' ? distribution.borrowApyPercentage : distribution.supplyApyPercentage,
       ),
     }));
@@ -33,7 +33,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
       {
         label: type === 'borrow' ? t('assetInfo.borrowApy') : t('assetInfo.supplyApy'),
         iconSrc: asset.vToken.underlyingToken,
-        children: formatToReadablePercentage(
+        children: formatPercentageToReadableValue(
           type === 'borrow' ? asset.borrowApyPercentage : asset.supplyApyPercentage,
         ),
       },
@@ -44,7 +44,7 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
           type === 'borrow'
             ? t('assetInfo.totalApy.borrowApyTooltip')
             : t('assetInfo.totalApy.supplyApyTooltip'),
-        children: formatToReadablePercentage(
+        children: formatPercentageToReadableValue(
           type === 'borrow'
             ? asset.borrowApyPercentage.minus(combinedDistributionApys.borrowApyPercentage)
             : asset.supplyApyPercentage.plus(combinedDistributionApys.supplyApyPercentage),

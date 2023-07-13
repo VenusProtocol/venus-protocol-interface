@@ -12,7 +12,7 @@ import {
   YAxis,
 } from 'recharts';
 import { useTranslation } from 'translation';
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
@@ -77,7 +77,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
             dataKey="apyPercentage"
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatToReadablePercentage}
+            tickFormatter={formatPercentageToReadableValue}
             tickMargin={sharedStyles.tickMargin}
             tickCount={6}
             stroke={sharedStyles.accessoryColor}
@@ -99,7 +99,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
                         type === 'supply'
                           ? t('apyChart.tooltipItemLabels.supplyApy')
                           : t('apyChart.tooltipItemLabels.borrowApy'),
-                      value: formatToReadablePercentage(
+                      value: formatPercentageToReadableValue(
                         (payload[0].payload as ApyChartItem).apyPercentage,
                       ),
                     },

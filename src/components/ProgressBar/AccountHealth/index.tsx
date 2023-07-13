@@ -4,7 +4,7 @@ import { useTranslation } from 'translation';
 import {
   calculatePercentage,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -47,7 +47,8 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
         })
       : undefined;
 
-  const readableBorrowLimitUsedPercentage = formatToReadablePercentage(borrowLimitUsedPercentage);
+  const readableBorrowLimitUsedPercentage =
+    formatPercentageToReadableValue(borrowLimitUsedPercentage);
 
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'

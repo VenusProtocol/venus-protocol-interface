@@ -17,7 +17,7 @@ import { Asset } from 'types';
 import {
   areAddressesEqual,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getContractAddress,
   getVTokenByAddress,
@@ -110,11 +110,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             },
             {
               label: t('market.supplyInfo.stats.apy'),
-              value: formatToReadablePercentage(asset?.supplyApyPercentage),
+              value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
             },
             {
               label: t('market.supplyInfo.stats.distributionApy'),
-              value: formatToReadablePercentage(
+              value: formatPercentageToReadableValue(
                 asset.distributions.reduce(
                   (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
                   new BigNumber(0),
@@ -145,11 +145,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             },
             {
               label: t('market.borrowInfo.stats.apy'),
-              value: formatToReadablePercentage(asset.borrowApyPercentage),
+              value: formatPercentageToReadableValue(asset.borrowApyPercentage),
             },
             {
               label: t('market.borrowInfo.stats.distributionApy'),
-              value: formatToReadablePercentage(
+              value: formatPercentageToReadableValue(
                 asset.distributions.reduce(
                   (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
                   new BigNumber(0),
@@ -263,11 +263,13 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
       {
         label: t('market.marketInfo.stats.reserveFactorLabel'),
-        value: formatToReadablePercentage(asset.reserveFactor && asset.reserveFactor * 100),
+        value: formatPercentageToReadableValue(asset.reserveFactor && asset.reserveFactor * 100),
       },
       {
         label: t('market.marketInfo.stats.collateralFactorLabel'),
-        value: formatToReadablePercentage(asset.collateralFactor && asset.collateralFactor * 100),
+        value: formatPercentageToReadableValue(
+          asset.collateralFactor && asset.collateralFactor * 100,
+        ),
       },
       {
         label: t('market.marketInfo.stats.mintedTokensLabel', {

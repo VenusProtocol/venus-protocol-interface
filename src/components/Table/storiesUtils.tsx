@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { formatToReadablePercentage } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
@@ -69,7 +69,7 @@ export const columns: TableColumn<Row>[] = [
     key: 'apy',
     label: 'APY',
     renderCell: ({ apy }) => (
-      <div style={{ color: '#18df8b' }}>{formatToReadablePercentage(apy)}</div>
+      <div style={{ color: '#18df8b' }}>{formatPercentageToReadableValue(apy)}</div>
     ),
   },
   {

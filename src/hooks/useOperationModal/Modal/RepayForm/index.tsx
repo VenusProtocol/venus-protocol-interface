@@ -18,7 +18,7 @@ import {
   areTokensEqual,
   convertTokensToWei,
   convertWeiToTokens,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   getSwapRouterContractAddress,
   isFeatureEnabled,
 } from 'utilities';
@@ -257,7 +257,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
                 }))
               }
             >
-              {formatToReadablePercentage(percentage)}
+              {formatPercentageToReadableValue(percentage)}
             </QuaternaryButton>
           ))}
         </div>

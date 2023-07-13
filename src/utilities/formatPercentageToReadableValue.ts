@@ -3,7 +3,7 @@ import { formatPercentage } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {
+const formatPercentageToReadableValue = (value: number | string | BigNumber | undefined) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
@@ -11,4 +11,4 @@ const formatToReadablePercentage = (value: number | string | BigNumber | undefin
   return `${formatPercentage(value)}%`;
 };
 
-export default formatToReadablePercentage;
+export default formatPercentageToReadableValue;

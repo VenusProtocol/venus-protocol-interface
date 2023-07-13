@@ -8,7 +8,7 @@ import { Button, NoticeWarning, TokenIcon } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { areTokensEqual, convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import { areTokensEqual, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -66,7 +66,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
     () => [
       {
         title: t('vaultItem.stakingApr', { stakeTokenName: stakedToken.symbol }),
-        value: formatToReadablePercentage(stakingAprPercentage),
+        value: formatPercentageToReadableValue(stakingAprPercentage),
       },
       {
         title: t('vaultItem.dailyEmission'),

@@ -8,7 +8,7 @@ import {
   compareBigNumbers,
   compareNumbers,
   convertWeiToTokens,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
 } from 'utilities';
 
 import { routes } from 'constants/routing';
@@ -33,7 +33,7 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
       {
         key: 'apr',
         label: t('account.vaultsBreakdown.table.column.apr'),
-        renderCell: vault => formatToReadablePercentage(vault.stakingAprPercentage),
+        renderCell: vault => formatPercentageToReadableValue(vault.stakingAprPercentage),
         sortRows: (rowA, rowB, direction) =>
           compareNumbers(rowA.stakingAprPercentage, rowB.stakingAprPercentage, direction),
       },

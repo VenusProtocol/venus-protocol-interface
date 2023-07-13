@@ -4,7 +4,7 @@ import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import {
   convertWeiToTokens,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
@@ -13,7 +13,7 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';
 
-const readableSlippageTolerancePercentage = formatToReadablePercentage(
+const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
 

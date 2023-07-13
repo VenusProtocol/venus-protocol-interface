@@ -21,7 +21,7 @@ export { default as encodeParameters } from './encodeParameters';
 export { default as getArgs } from './getArgs';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
-export { default as formatToReadablePercentage } from './formatToReadablePercentage';
+export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';
 export { default as formatPercentage } from './formatPercentage';
 export { default as convertTokensToWei } from './convertTokensToWei';
 export { default as indexBy } from './indexBy';

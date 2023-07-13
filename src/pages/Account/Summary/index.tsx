@@ -5,7 +5,7 @@ import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'co
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Pool, Vault } from 'types';
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
@@ -54,7 +54,7 @@ export const Summary: React.FC<SummaryProps> = ({
   const cells: Cell[] = [
     {
       label: t('account.marketBreakdown.cellGroup.netApy'),
-      value: formatToReadablePercentage(netApyPercentage),
+      value: formatPercentageToReadableValue(netApyPercentage),
       tooltip: displayTotalVaultStake
         ? t('account.marketBreakdown.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.marketBreakdown.cellGroup.netApyTooltip'),
