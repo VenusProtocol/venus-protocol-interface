@@ -10,7 +10,7 @@ import {
   compareBooleans,
   compareStrings,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
 } from 'utilities';
@@ -70,7 +70,7 @@ const useGenerateColumns = ({
               combinedDistributionApys.borrowApyPercentage,
             );
 
-            return formatToReadablePercentage(borrowApy);
+            return formatPercentageToReadableValue(borrowApy);
           }
 
           if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
@@ -84,8 +84,8 @@ const useGenerateColumns = ({
 
             return (
               <LayeredValues
-                topValue={formatToReadablePercentage(supplyApy)}
-                bottomValue={formatToReadablePercentage(ltv)}
+                topValue={formatPercentageToReadableValue(supplyApy)}
+                bottomValue={formatPercentageToReadableValue(ltv)}
               />
             );
           }
@@ -230,7 +230,7 @@ const useGenerateColumns = ({
                 />
 
                 <Typography variant="small2" css={styles.white}>
-                  {formatToReadablePercentage(poolAsset.userPercentOfLimit)}
+                  {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
                 </Typography>
               </div>
             );

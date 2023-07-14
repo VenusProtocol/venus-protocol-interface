@@ -3,7 +3,7 @@ import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { calculatePercentage, formatToReadablePercentage, isFeatureEnabled } from 'utilities';
+import { calculatePercentage, formatPercentageToReadableValue, isFeatureEnabled } from 'utilities';
 
 import Section from '../Section';
 import Summary from '../Summary';
@@ -33,7 +33,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
           });
 
         const readableBorrowLimitUsedPercentage =
-          formatToReadablePercentage(borrowLimitUsedPercentage);
+          formatPercentageToReadableValue(borrowLimitUsedPercentage);
 
         return {
           id: pool.comptrollerAddress,

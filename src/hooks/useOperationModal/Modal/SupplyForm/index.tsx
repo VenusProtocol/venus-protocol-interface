@@ -85,7 +85,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const isIntegratedSwapEnabled = useMemo(
     () =>
       isFeatureEnabled('integratedSwap') &&
-      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.bnb),
+      // The swap router contract does not support the swap and supply flow for BNB
+      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.bnb) &&
+      // Temporary fix to exclude TUSD as liquidities are low in PancakeSwap V2
+      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.tusd),
     [asset.vToken.underlyingToken],
   );
 

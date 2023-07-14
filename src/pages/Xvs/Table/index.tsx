@@ -8,7 +8,7 @@ import {
   areTokensEqual,
   compareBigNumbers,
   convertWeiToTokens,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getContractAddress,
 } from 'utilities';
@@ -65,7 +65,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
         align: 'right',
         renderCell: ({ xvsSupplyApy }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-            {formatToReadablePercentage(xvsSupplyApy)}
+            {formatPercentageToReadableValue(xvsSupplyApy)}
           </Typography>
         ),
         sortRows: (rowA, rowB, direction) =>
@@ -77,7 +77,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
         align: 'right',
         renderCell: ({ xvsBorrowApy }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-            {formatToReadablePercentage(xvsBorrowApy)}
+            {formatPercentageToReadableValue(xvsBorrowApy)}
           </Typography>
         ),
         sortRows: (rowA, rowB, direction) =>

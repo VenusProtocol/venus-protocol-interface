@@ -63,5 +63,6 @@ export const Default = () => (
     poolComptrollerAddress={poolData[0].comptrollerAddress}
     isChartDataLoading={false}
     isInterestRateChartDataLoading={false}
+    currentUtilizationRate={0}
   />
 );

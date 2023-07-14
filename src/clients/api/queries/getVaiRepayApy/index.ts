@@ -16,7 +16,9 @@ const getVaiRepayApy = async ({
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
-  const { apyPercentage } = calculateApy(vaiRepayRatePerBlockMantissa.toString());
+  const { apyPercentage } = calculateApy({
+    ratePerBlockMantissa: vaiRepayRatePerBlockMantissa.toString(),
+  });
 
   return {
     repayApyPercentage: apyPercentage,

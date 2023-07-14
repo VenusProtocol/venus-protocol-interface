@@ -32,12 +32,18 @@ const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnCon
         const {
           apyPercentage: supplyApyPercentage,
           dailyDistributedTokens: supplyDailyDistributedTokens,
-        } = calculateApy(supplySpeedMantissa);
+        } = calculateApy({
+          ratePerBlockMantissa: supplySpeedMantissa,
+          decimals: rewardToken.decimals,
+        });
 
         const {
           apyPercentage: borrowApyPercentage,
           dailyDistributedTokens: borrowDailyDistributedTokens,
-        } = calculateApy(borrowSpeedMantissa);
+        } = calculateApy({
+          ratePerBlockMantissa: borrowSpeedMantissa,
+          decimals: rewardToken.decimals,
+        });
 
         // Initialize with an empty array if necessary
         accCopy[vTokenAddress] = accCopy[vTokenAddress] || [];

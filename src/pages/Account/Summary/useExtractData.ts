@@ -8,7 +8,7 @@ import {
   calculateYearlyInterests,
   convertWeiToTokens,
   formatCentsToReadableValue,
-  formatToReadablePercentage,
+  formatPercentageToReadableValue,
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -86,7 +86,7 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
       value: safeBorrowLimitCentsTmp,
     });
 
-    const safeBorrowLimitPercentageTmp = formatToReadablePercentage(
+    const safeBorrowLimitPercentageTmp = formatPercentageToReadableValue(
       safeBorrowLimitCentsTmp.multipliedBy(100).dividedBy(borrowLimitCents),
     );
 

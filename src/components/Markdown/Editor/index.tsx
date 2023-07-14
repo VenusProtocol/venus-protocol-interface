@@ -15,7 +15,7 @@ export interface MarkdownEditorProps {
   hasError?: boolean;
   className?: string;
   label?: string;
-  onBlur: (e: React.FocusEvent<HTMLTextAreaElement, Element>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement, Element>) => void;
 }
 const allowedCommands = [
   commands.title1,

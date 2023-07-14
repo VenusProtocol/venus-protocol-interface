@@ -11,7 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import { useTranslation } from 'translation';
-import { formatToReadablePercentage } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
@@ -47,7 +47,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
             dataKey="utilizationRate"
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatToReadablePercentage}
+            tickFormatter={formatPercentageToReadableValue}
             stroke={sharedStyles.accessoryColor}
             tickMargin={sharedStyles.tickMargin}
             tickCount={5}
@@ -57,7 +57,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
           <YAxis
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatToReadablePercentage}
+            tickFormatter={formatPercentageToReadableValue}
             tickMargin={sharedStyles.tickMargin}
             stroke={sharedStyles.accessoryColor}
             style={sharedStyles.axis}
@@ -72,19 +72,19 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                   items={[
                     {
                       label: t('interestRateChart.tooltipItemLabels.utilizationRate'),
-                      value: formatToReadablePercentage(
+                      value: formatPercentageToReadableValue(
                         (payload[0].payload as InterestRateItem).utilizationRate,
                       ),
                     },
                     {
                       label: t('interestRateChart.tooltipItemLabels.borrowApy'),
-                      value: formatToReadablePercentage(
+                      value: formatPercentageToReadableValue(
                         (payload[0].payload as InterestRateItem).borrowApyPercentage,
                       ),
                     },
                     {
                       label: t('interestRateChart.tooltipItemLabels.supplyApy'),
-                      value: formatToReadablePercentage(
+                      value: formatPercentageToReadableValue(
                         (payload[0].payload as InterestRateItem).supplyApyPercentage,
                       ),
                     },
@@ -121,7 +121,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
               // that
               label={Object.assign(localStyles.referenceLineLabel || {}, {
                 value: t('interestRateChart.currentUtilizationRateLabelValue', {
-                  percentage: formatToReadablePercentage(currentUtilizationRate),
+                  percentage: formatPercentageToReadableValue(currentUtilizationRate),
                 }),
               })}
               alwaysShow
