@@ -150,7 +150,7 @@ const XvsTable: React.FC = () => {
       });
 
       const vaiApy = venusVaiVaultDailyRateTokens
-        .times(xvsAsset.tokenPriceCents.times(100))
+        .times(xvsAsset.tokenPriceCents.div(100))
         .times(DAYS_PER_YEAR)
         .times(100)
         .div(vaultVaiStakedTokens);
