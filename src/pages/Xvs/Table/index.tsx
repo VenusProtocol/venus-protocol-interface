@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -23,7 +24,7 @@ import { useStyles } from '../styles';
 
 type TableAsset = {
   token: Token;
-  xvsPerDay: AssetDistribution['dailyDistributedTokens'] | undefined;
+  xvsPerDay: BigNumber | undefined;
   xvsSupplyApy: AssetDistribution['supplyApyPercentage'] | undefined;
   xvsBorrowApy: AssetDistribution['borrowApyPercentage'] | undefined;
 };
@@ -129,7 +130,9 @@ const XvsTable: React.FC = () => {
       // Note: assets from the main pool only yield XVS, hence why we only take
       // the first distribution token in consideration (which will always be XVS
       // here)
-      xvsPerDay: asset.distributions[0].dailyDistributedTokens,
+      xvsPerDay: asset.distributions[0].supplyDailyDistributedTokens.plus(
+        asset.distributions[0].borrowDailyDistributedTokens,
+      ),
       xvsSupplyApy: asset.distributions[0].supplyApyPercentage,
       xvsBorrowApy: asset.distributions[0].borrowApyPercentage,
     }));

@@ -51,7 +51,8 @@ const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnCon
           token: rewardToken,
           supplyApyPercentage,
           borrowApyPercentage,
-          dailyDistributedTokens: supplyDailyDistributedTokens.plus(borrowDailyDistributedTokens),
+          supplyDailyDistributedTokens,
+          borrowDailyDistributedTokens,
         });
       }
     }

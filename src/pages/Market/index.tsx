@@ -219,7 +219,9 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         tokenSymbol: distribution.token.symbol,
       }),
       value: formatTokensToReadableValue({
-        value: distribution.dailyDistributedTokens,
+        value: distribution.supplyDailyDistributedTokens.plus(
+          distribution.borrowDailyDistributedTokens,
+        ),
         addSymbol: false,
         token: distribution.token,
       }),

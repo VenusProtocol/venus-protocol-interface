@@ -175,9 +175,12 @@ const useGetMainAssets = ({
 
         const xvsDistribution: AssetDistribution = {
           token: TOKENS.xvs,
-          dailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0)
-            .plus(new BigNumber(market.borrowerDailyVenus || 0))
-            .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
+          borrowDailyDistributedTokens: new BigNumber(market.borrowerDailyVenus || 0).div(
+            new BigNumber(10).pow(TOKENS.xvs.decimals),
+          ),
+          supplyDailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0).div(
+            new BigNumber(10).pow(TOKENS.xvs.decimals),
+          ),
           supplyApyPercentage: new BigNumber(market.supplyVenusApy || 0),
           borrowApyPercentage: new BigNumber(market.borrowVenusApy || 0),
         };

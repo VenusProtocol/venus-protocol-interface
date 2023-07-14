@@ -66,7 +66,10 @@ const useAssetInfo = ({ asset, isAssetIsolated, type }: UseAssetInfoInput) => {
         label: t('assetInfo.dailyDistributedTokens', { tokenSymbol: distribution.token.symbol }),
         iconSrc: distribution.token,
         children: formatTokensToReadableValue({
-          value: distribution.dailyDistributedTokens,
+          value:
+            type === 'supply'
+              ? distribution.supplyDailyDistributedTokens
+              : distribution.borrowDailyDistributedTokens,
           token: distribution.token,
           addSymbol: false,
         }),

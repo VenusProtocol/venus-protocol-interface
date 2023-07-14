@@ -15,8 +15,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "1.351224864211795426",
-          "dailyDistributedTokens": "49.999999999999968",
+          "borrowDailyDistributedTokens": "24.999999999999984",
           "supplyApyPercentage": "0.34260730848036692",
+          "supplyDailyDistributedTokens": "24.999999999999984",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -68,8 +69,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.000002125348834693",
-          "dailyDistributedTokens": "999.9999936",
+          "borrowDailyDistributedTokens": "499.9999968",
           "supplyApyPercentage": "1.824635e-12",
+          "supplyDailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -121,8 +123,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.600882672824011072",
-          "dailyDistributedTokens": "999.9999936",
+          "borrowDailyDistributedTokens": "499.9999968",
           "supplyApyPercentage": "0",
+          "supplyDailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -174,8 +177,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.021753286763848276",
-          "dailyDistributedTokens": "999.9999936",
+          "borrowDailyDistributedTokens": "499.9999968",
           "supplyApyPercentage": "0.001730355354365121",
+          "supplyDailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -227,8 +231,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "1.141107132664179593",
-          "dailyDistributedTokens": "2999.9999808",
+          "borrowDailyDistributedTokens": "1499.9999904",
           "supplyApyPercentage": "1.185821799653397884",
+          "supplyDailyDistributedTokens": "1499.9999904",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -281,8 +286,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0",
-          "dailyDistributedTokens": "0",
+          "borrowDailyDistributedTokens": "0",
           "supplyApyPercentage": "0",
+          "supplyDailyDistributedTokens": "0",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -334,8 +340,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "4.543731091576054636",
-          "dailyDistributedTokens": "2999.9999808",
+          "borrowDailyDistributedTokens": "1499.9999904",
           "supplyApyPercentage": "1.606740170918635611",
+          "supplyDailyDistributedTokens": "1499.9999904",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -387,8 +394,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.594444965549789125",
-          "dailyDistributedTokens": "500.0000256",
+          "borrowDailyDistributedTokens": "250.0000128",
           "supplyApyPercentage": "0.363034531797658077",
+          "supplyDailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -440,8 +448,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "7.470759902626424876",
-          "dailyDistributedTokens": "500.0000256",
+          "borrowDailyDistributedTokens": "250.0000128",
           "supplyApyPercentage": "0.811613513165150039",
+          "supplyDailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -493,8 +502,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "3.503840954113091774",
-          "dailyDistributedTokens": "500.0000256",
+          "borrowDailyDistributedTokens": "250.0000128",
           "supplyApyPercentage": "0.947264218064808693",
+          "supplyDailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -546,8 +556,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.754335409204269745",
-          "dailyDistributedTokens": "174.999999999999744",
+          "borrowDailyDistributedTokens": "87.499999999999872",
           "supplyApyPercentage": "0.305120518892226646",
+          "supplyDailyDistributedTokens": "87.499999999999872",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -599,8 +610,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "1.720862854912494938",
-          "dailyDistributedTokens": "91.610000000000064",
+          "borrowDailyDistributedTokens": "45.805000000000032",
           "supplyApyPercentage": "1.522555082433944633",
+          "supplyDailyDistributedTokens": "45.805000000000032",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -652,8 +664,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0",
-          "dailyDistributedTokens": "0",
+          "borrowDailyDistributedTokens": "0",
           "supplyApyPercentage": "0",
+          "supplyDailyDistributedTokens": "0",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -705,8 +718,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "0.26982533135294494",
-          "dailyDistributedTokens": "174.999999999999744",
+          "borrowDailyDistributedTokens": "87.499999999999872",
           "supplyApyPercentage": "0.134967169585684514",
+          "supplyDailyDistributedTokens": "87.499999999999872",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -758,8 +772,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "14.754861490074778241",
-          "dailyDistributedTokens": "25.0000000000000128",
+          "borrowDailyDistributedTokens": "12.5000000000000064",
           "supplyApyPercentage": "0.10787839946684478",
+          "supplyDailyDistributedTokens": "12.5000000000000064",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -811,8 +826,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "200.564801757396621173",
-          "dailyDistributedTokens": "50.0000000000000256",
+          "borrowDailyDistributedTokens": "25.0000000000000128",
           "supplyApyPercentage": "0.009007365834885316",
+          "supplyDailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -864,8 +880,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "8102.522495213142034502",
-          "dailyDistributedTokens": "50.0000000000000256",
+          "borrowDailyDistributedTokens": "25.0000000000000128",
           "supplyApyPercentage": "0.334415260865180737",
+          "supplyDailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -917,8 +934,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "2.342286892512915770892913642930703690751510720619883895e+37",
-          "dailyDistributedTokens": "50.0000000000000256",
+          "borrowDailyDistributedTokens": "25.0000000000000128",
           "supplyApyPercentage": "83.636157517717037851",
+          "supplyDailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -970,8 +988,9 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "distributions": [
         {
           "borrowApyPercentage": "1.587706392698558375",
-          "dailyDistributedTokens": "75.0000000000000384",
+          "borrowDailyDistributedTokens": "37.5000000000000192",
           "supplyApyPercentage": "18.587706392698558375",
+          "supplyDailyDistributedTokens": "37.5000000000000192",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
