@@ -63,7 +63,10 @@ const useGenerateColumns = ({
             return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
           }
 
-          if (column === 'borrowApy' || column === 'labeledBorrowApy') {
+          if (
+            (column === 'borrowApy' || column === 'labeledBorrowApy') &&
+            !poolAsset.pool.isIsolated
+          ) {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
             const borrowApy = poolAsset.borrowApyPercentage.minus(
@@ -73,13 +76,40 @@ const useGenerateColumns = ({
             return formatPercentageToReadableValue(borrowApy);
           }
 
-          if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
+          // Hotfix: ignore distribution APYs for isolated assets
+          if (
+            (column === 'borrowApy' || column === 'labeledBorrowApy') &&
+            poolAsset.pool.isIsolated
+          ) {
+            return formatPercentageToReadableValue(poolAsset.borrowApyPercentage);
+          }
+
+          if (
+            (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') &&
+            !poolAsset.pool.isIsolated
+          ) {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
             const supplyApy = poolAsset.supplyApyPercentage.plus(
               combinedDistributionApys.supplyApyPercentage,
             );
 
+            const ltv = +poolAsset.collateralFactor * 100;
+
+            return (
+              <LayeredValues
+                topValue={formatPercentageToReadableValue(supplyApy)}
+                bottomValue={formatPercentageToReadableValue(ltv)}
+              />
+            );
+          }
+
+          // Hotfix: ignore distribution APYs for isolated assets
+          if (
+            (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') &&
+            poolAsset.pool.isIsolated
+          ) {
+            const supplyApy = poolAsset.supplyApyPercentage;
             const ltv = +poolAsset.collateralFactor * 100;
 
             return (
