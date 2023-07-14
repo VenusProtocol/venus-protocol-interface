@@ -76,7 +76,8 @@ const useGenerateColumns = ({
             return formatPercentageToReadableValue(borrowApy);
           }
 
-          // Hotfix: ignore distribution APYs for isolated assets
+          // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to
+          // calculate accurate distribution APYs for them
           if (
             (column === 'borrowApy' || column === 'labeledBorrowApy') &&
             poolAsset.pool.isIsolated
@@ -104,7 +105,8 @@ const useGenerateColumns = ({
             );
           }
 
-          // Hotfix: ignore distribution APYs for isolated assets
+          // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to
+          // calculate accurate distribution APYs for them
           if (
             (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') &&
             poolAsset.pool.isIsolated

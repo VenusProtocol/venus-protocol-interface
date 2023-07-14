@@ -98,10 +98,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset?.vToken.underlyingToken],
   );
 
-  const isIsolatedPoolAsset = !areAddressesEqual(
-    poolComptrollerAddress,
-    MAIN_POOL_COMPTROLLER_ADDRESS,
-  );
+  const isAssetIsolated = !areAddressesEqual(poolComptrollerAddress, MAIN_POOL_COMPTROLLER_ADDRESS);
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
     const stats: CardProps['stats'] = [];
@@ -123,7 +120,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
     );
 
-    if (!isIsolatedPoolAsset) {
+    if (!isAssetIsolated) {
       stats.push({
         label: t('market.supplyInfo.stats.distributionApy'),
         value: formatPercentageToReadableValue(
@@ -140,7 +137,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     asset?.supplyApyPercentage,
     asset?.supplyApyPercentage,
     asset?.distributions,
-    isIsolatedPoolAsset,
+    isAssetIsolated,
   ]);
 
   const supplyInfoLegends: CardProps['legends'] = [
@@ -170,7 +167,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
     );
 
-    if (!isIsolatedPoolAsset) {
+    if (!isAssetIsolated) {
       stats.push({
         label: t('market.borrowInfo.stats.distributionApy'),
         value: formatPercentageToReadableValue(
@@ -187,7 +184,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     asset?.borrowBalanceCents,
     asset?.borrowApyPercentage,
     asset?.distributions,
-    isIsolatedPoolAsset,
+    isAssetIsolated,
   ]);
 
   const borrowInfoLegends: CardProps['legends'] = [

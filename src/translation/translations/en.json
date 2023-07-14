@@ -68,9 +68,6 @@
       "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
-  "approveToken": {
-    "approveButtonLabel": "Approve"
-  },
   "approveTokenSteps": {
     "approveTokenButton": {
       "text": "Approve {{tokenSymbol}}",
@@ -95,6 +92,9 @@
   },
   "assetInfo": {
     "borrowApy": "Borrow APY",
+    "dailyDistributedTokens": "Daily {{tokenSymbol}} distributed",
+    "dailyDistributedTokensBorrowTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all borrowers.",
+    "dailyDistributedTokensSupplyTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all suppliers.",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {
@@ -521,7 +521,6 @@
     "newBadge": "NEW"
   },
   "stakeModal": {
-    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
