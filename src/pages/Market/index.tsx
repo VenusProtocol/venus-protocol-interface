@@ -98,33 +98,50 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset?.vToken.underlyingToken],
   );
 
-  const supplyInfoStats: CardProps['stats'] = React.useMemo(
-    () =>
-      asset
-        ? [
-            {
-              label: t('market.supplyInfo.stats.totalSupply'),
-              value: formatCentsToReadableValue({
-                value: asset.supplyBalanceCents,
-              }),
-            },
-            {
-              label: t('market.supplyInfo.stats.apy'),
-              value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
-            },
-            {
-              label: t('market.supplyInfo.stats.distributionApy'),
-              value: formatPercentageToReadableValue(
-                asset.distributions.reduce(
-                  (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
-                  new BigNumber(0),
-                ),
-              ),
-            },
-          ]
-        : [],
-    [asset?.supplyApyPercentage, asset?.supplyApyPercentage, asset?.distributions],
+  const isIsolatedPoolAsset = !areAddressesEqual(
+    poolComptrollerAddress,
+    MAIN_POOL_COMPTROLLER_ADDRESS,
   );
+
+  const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
+    const stats: CardProps['stats'] = [];
+
+    if (!asset) {
+      return stats;
+    }
+
+    stats.push(
+      {
+        label: t('market.supplyInfo.stats.totalSupply'),
+        value: formatCentsToReadableValue({
+          value: asset.supplyBalanceCents,
+        }),
+      },
+      {
+        label: t('market.supplyInfo.stats.apy'),
+        value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
+      },
+    );
+
+    if (!isIsolatedPoolAsset) {
+      stats.push({
+        label: t('market.supplyInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(
+          asset.distributions.reduce(
+            (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
+            new BigNumber(0),
+          ),
+        ),
+      });
+    }
+
+    return stats;
+  }, [
+    asset?.supplyApyPercentage,
+    asset?.supplyApyPercentage,
+    asset?.distributions,
+    isIsolatedPoolAsset,
+  ]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -133,33 +150,45 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const borrowInfoStats: CardProps['stats'] = React.useMemo(
-    () =>
-      asset
-        ? [
-            {
-              label: t('market.borrowInfo.stats.totalBorrow'),
-              value: formatCentsToReadableValue({
-                value: asset.borrowBalanceCents,
-              }),
-            },
-            {
-              label: t('market.borrowInfo.stats.apy'),
-              value: formatPercentageToReadableValue(asset.borrowApyPercentage),
-            },
-            {
-              label: t('market.borrowInfo.stats.distributionApy'),
-              value: formatPercentageToReadableValue(
-                asset.distributions.reduce(
-                  (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
-                  new BigNumber(0),
-                ),
-              ),
-            },
-          ]
-        : [],
-    [asset?.borrowBalanceCents, asset?.borrowApyPercentage, asset?.distributions],
-  );
+  const borrowInfoStats: CardProps['stats'] = React.useMemo(() => {
+    const stats: CardProps['stats'] = [];
+
+    if (!asset) {
+      return stats;
+    }
+
+    stats.push(
+      {
+        label: t('market.borrowInfo.stats.totalBorrow'),
+        value: formatCentsToReadableValue({
+          value: asset.borrowBalanceCents,
+        }),
+      },
+      {
+        label: t('market.borrowInfo.stats.apy'),
+        value: formatPercentageToReadableValue(asset.borrowApyPercentage),
+      },
+    );
+
+    if (!isIsolatedPoolAsset) {
+      stats.push({
+        label: t('market.borrowInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(
+          asset.distributions.reduce(
+            (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
+            new BigNumber(0),
+          ),
+        ),
+      });
+    }
+
+    return stats;
+  }, [
+    asset?.borrowBalanceCents,
+    asset?.borrowApyPercentage,
+    asset?.distributions,
+    isIsolatedPoolAsset,
+  ]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
