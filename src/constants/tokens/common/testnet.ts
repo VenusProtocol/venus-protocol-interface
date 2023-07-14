@@ -22,6 +22,7 @@ import luna from 'assets/img/tokens/luna.svg';
 import matic from 'assets/img/tokens/matic.svg';
 import nft from 'assets/img/tokens/nft.png';
 import raca from 'assets/img/tokens/raca.png';
+import sd from 'assets/img/tokens/sd.svg';
 import stkBNB from 'assets/img/tokens/stkBNB.svg';
 import sxp from 'assets/img/tokens/sxp.svg';
 import trx from 'assets/img/tokens/trx.svg';
@@ -292,5 +293,11 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     symbol: 'WBETH',
     asset: wbeth,
+  } as Token,
+  sd: {
+    address: '0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3',
+    decimals: 18,
+    symbol: 'SD',
+    asset: sd,
   } as Token,
 };
