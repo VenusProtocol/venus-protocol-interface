@@ -495,7 +495,7 @@
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
     },
-    "isolatedPoolWarning": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only."
+    "isolatedPoolWarning": "You are currently looking at an isolated pool. Supplying tokens to an isolated pool market will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
   },
   "pools": {
     "poolTable": {
