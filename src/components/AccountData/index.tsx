@@ -6,13 +6,13 @@ import { Asset, Pool, Swap, TokenAction } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import useAssetInfo from 'hooks/useAssetInfo';
 
 import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent } from '../LabeledInlineContent';
 import { BorrowBalanceAccountHealth } from '../ProgressBar/AccountHealth';
 import { ValueUpdate } from '../ValueUpdate';
 import { useStyles } from './styles';
+import useAssetInfo from './useAssetInfo';
 import useGetValues from './useGetValues';
 
 export interface AccountDataProps {
@@ -48,6 +48,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
   const assetInfo = useAssetInfo({
     asset,
+    isAssetIsolated: pool.isIsolated,
     type: action === 'borrow' || action === 'repay' ? 'borrow' : 'supply',
   });
 

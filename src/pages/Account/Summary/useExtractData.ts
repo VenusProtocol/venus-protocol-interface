@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Pool, Vault } from 'types';
+import { Pool, Vault } from 'types';
 import {
   areTokensEqual,
   calculateDailyEarningsCents,
@@ -60,13 +60,14 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
       { totalVaultStakeCents: new BigNumber(0), yearlyVaultEarningsCents: new BigNumber(0) },
     );
 
-    const assets = pools.reduce((acc, pool) => [...acc, ...pool.assets], [] as Asset[]);
+    const yearlyAssetEarningsCents = pools.reduce((acc, pool) => {
+      const yearlyPoolAssetsEarningsCents = calculateYearlyEarningsForAssets({
+        assets: pool.assets,
+        areAssetsIsolated: pool.isIsolated,
+      });
 
-    const yearlyAssetEarningsCents = new BigNumber(
-      calculateYearlyEarningsForAssets({
-        assets,
-      }) || 0,
-    );
+      return acc.plus(yearlyPoolAssetsEarningsCents || 0);
+    }, new BigNumber(0));
 
     const yearlyEarningsCents = yearlyAssetEarningsCents.plus(yearlyVaultEarningsCents);
     const dailyEarningsCentsTmp = calculateDailyEarningsCents(yearlyEarningsCents).toNumber();

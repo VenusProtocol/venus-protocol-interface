@@ -15,8 +15,9 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "distributions": [
           {
             "borrowApyPercentage": "4.17469243006608279",
-            "dailyDistributedTokens": "19999999",
+            "borrowDailyDistributedTokens": "9999999.5",
             "supplyApyPercentage": "0.11720675342484096",
+            "supplyDailyDistributedTokens": "9999999.5",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/assets/img/tokens/xvs.svg",
@@ -66,8 +67,9 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "distributions": [
           {
             "borrowApyPercentage": "1.670327607690572731",
-            "dailyDistributedTokens": "19999999",
+            "borrowDailyDistributedTokens": "9999999.5",
             "supplyApyPercentage": "1.353105649796123742",
+            "supplyDailyDistributedTokens": "9999999.5",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/assets/img/tokens/xvs.svg",
@@ -117,8 +119,9 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "distributions": [
           {
             "borrowApyPercentage": "0.522209972682294832",
-            "dailyDistributedTokens": "19999999",
+            "borrowDailyDistributedTokens": "9999999.5",
             "supplyApyPercentage": "0.421719501189155143",
+            "supplyDailyDistributedTokens": "9999999.5",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/assets/img/tokens/xvs.svg",
@@ -168,8 +171,9 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "distributions": [
           {
             "borrowApyPercentage": "0.852697602175970714",
-            "dailyDistributedTokens": "19999999",
+            "borrowDailyDistributedTokens": "9999999.5",
             "supplyApyPercentage": "0.678420831753642169",
+            "supplyDailyDistributedTokens": "9999999.5",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/assets/img/tokens/xvs.svg",
