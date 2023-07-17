@@ -334,8 +334,8 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
-    expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
-    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary)).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
