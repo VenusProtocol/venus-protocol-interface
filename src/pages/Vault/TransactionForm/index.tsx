@@ -123,7 +123,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   };
 
   return (
-    <AmountForm onSubmit={handleSubmit}>
+    <AmountForm onSubmit={handleSubmit} maxAmount={limitTokens.toFixed()}>
       {({ dirty, isValid, setFieldValue }) => (
         <>
           <FormikTokenTextField
