@@ -94,7 +94,11 @@ exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedS
     <div
       class="MuiTypography-root MuiTypography-body1 css-1plppfi-MuiTypography-root-LabeledInlineContent"
     >
-      0%
+      <span
+        class="css-1buqtl5-SwapDetails"
+      >
+        0%
+      </span>
     </div>
   </div>
   <div

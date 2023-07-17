@@ -9,7 +9,10 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  SLIPPAGE_TOLERANCE_PERCENTAGE,
+} from 'constants/swap';
 
 import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';
@@ -144,7 +147,13 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
             css={styles.row}
             tooltip={t('swapDetails.tooltip.priceImpact')}
           >
-            {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
+            <span
+              css={styles.getPriceImpactText({
+                isHigh: swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+              })}
+            >
+              {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
+            </span>
           </LabeledInlineContent>
 
           <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
