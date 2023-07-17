@@ -248,7 +248,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             />
           )}
 
-          {!isSubmitting && !isSwapLoading && <Notice asset={asset} formError={formError} />}
+          {!isSubmitting && !isSwapLoading && (
+            <Notice asset={asset} swap={swap} formError={formError} />
+          )}
         </div>
 
         <div css={sharedStyles.getRow({ isLast: true })}>

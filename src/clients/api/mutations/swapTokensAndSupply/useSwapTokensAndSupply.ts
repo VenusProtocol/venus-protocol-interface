@@ -68,6 +68,7 @@ const useSwapTokensAndSupply = (
           },
         ]);
 
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
         queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 

@@ -255,7 +255,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         </div>
 
         {!isSubmitting && !isSwapLoading && (
-          <Notice isRepayingFullLoan={isRepayingFullLoan} formError={formError} />
+          <Notice isRepayingFullLoan={isRepayingFullLoan} formError={formError} swap={swap} />
         )}
       </div>
 

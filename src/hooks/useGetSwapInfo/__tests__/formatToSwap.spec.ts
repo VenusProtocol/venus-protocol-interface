@@ -31,6 +31,7 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
       inputAmount: new BigNumber(10),
       outputAmount: new BigNumber(10),
       executionPrice: new BigNumber(1),
+      priceImpact: new BigNumber(0.001),
       minimumAmountOut: vi.fn(() => new BigNumber(9)),
     } as unknown as FormatToSwapInput['trade'];
 
@@ -51,6 +52,7 @@ describe('pages/Swap/useGetSwapInfo/formatToSwap', () => {
       inputAmount: new BigNumber(10),
       outputAmount: new BigNumber(10),
       executionPrice: new BigNumber(1),
+      priceImpact: new BigNumber(0.001),
       maximumAmountIn: vi.fn(() => new BigNumber(11)),
     } as unknown as FormatToSwapInput['trade'];
 

@@ -4,6 +4,8 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
 
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+
 import { FormError, FormValues } from '../types';
 import { useStyles } from './styles';
 
@@ -41,6 +43,13 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
+  const isSwappingWithHighPriceImpact = useMemo(
+    () =>
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    [swap?.priceImpactPercentage],
+  );
+
   const submitButtonLabel = useMemo(() => {
     if (formErrors[0] === 'WRAPPING_UNSUPPORTED') {
       return t('swapPage.submitButton.disabledLabels.wrappingUnsupported');
@@ -68,12 +77,20 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('swapPage.submitButton.disabledLabels.spendingLimitTooLow');
     }
 
-    if (swap) {
-      return t('swapPage.submitButton.enabledLabel');
+    if (formErrors[0] === 'PRICE_IMPACT_TOO_HIGH') {
+      return t('swapPage.submitButton.disabledLabels.priceImpactHigherThanMaximumTolerated');
     }
 
-    return t('swapPage.submitButton.processing');
-  }, [swap, swapError, formErrors[0]]);
+    if (isSwappingWithHighPriceImpact) {
+      return t('swapPage.submitButton.enabledLabels.swapWithHighPriceImpact');
+    }
+
+    if (swap) {
+      return t('swapPage.submitButton.enabledLabels.swap');
+    }
+
+    return t('swapPage.submitButton.disabledLabels.processing');
+  }, [swap, swapError, formErrors[0], isSwappingWithHighPriceImpact]);
 
   return (
     <ApproveTokenSteps
@@ -88,6 +105,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
     >
       <PrimaryButton
         fullWidth
+        css={styles.getSubmitButton({ isDangerous: isSwappingWithHighPriceImpact })}
         disabled={
           !isFormValid ||
           isSubmitting ||

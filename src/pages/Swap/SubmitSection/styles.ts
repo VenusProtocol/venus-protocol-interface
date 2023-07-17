@@ -12,5 +12,12 @@ export const useStyles = () => {
         margin-top: ${theme.spacing(8)};
       }
     `,
+    getSubmitButton: ({ isDangerous }: { isDangerous: boolean }) => css`
+      ${isDangerous &&
+      css`
+        background-color: ${theme.palette.error.main};
+        border-color: ${theme.palette.error.main};
+      `}
+    `,
   };
 };

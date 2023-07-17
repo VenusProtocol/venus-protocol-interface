@@ -10,5 +10,11 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(3)};
       }
     `,
+    getPriceImpactText: ({ isHigh }: { isHigh: boolean }) => css`
+      ${isHigh &&
+      css`
+        color: ${theme.palette.interactive.error};
+      `}
+    `,
   };
 };

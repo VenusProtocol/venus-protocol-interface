@@ -9,7 +9,10 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  SLIPPAGE_TOLERANCE_PERCENTAGE,
+} from 'constants/swap';
 
 import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';
@@ -116,6 +119,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     }
   };
 
+  const readablePriceImpact = useMemo(
+    () => swap && formatToReadablePercentage(swap.priceImpactPercentage),
+    [swap?.priceImpactPercentage],
+  );
+
   return (
     <div {...containerProps}>
       {swap && (
@@ -133,9 +141,25 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
       </LabeledInlineContent>
 
       {swap && (
-        <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
-          {getLastLineValue()}
-        </LabeledInlineContent>
+        <>
+          <LabeledInlineContent
+            label={t('swapDetails.label.priceImpact')}
+            css={styles.row}
+            tooltip={t('swapDetails.tooltip.priceImpact')}
+          >
+            <span
+              css={styles.getPriceImpactText({
+                isHigh: swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+              })}
+            >
+              {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
+            </span>
+          </LabeledInlineContent>
+
+          <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
+            {getLastLineValue()}
+          </LabeledInlineContent>
+        </>
       )}
     </div>
   );

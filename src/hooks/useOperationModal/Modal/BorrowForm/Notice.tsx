@@ -97,6 +97,7 @@ const Notice: React.FC<NoticeProps> = ({
   }
 
   if (
+    !formError &&
     new BigNumber(amount).isGreaterThan(0) &&
     new BigNumber(amount).isGreaterThanOrEqualTo(safeLimitTokens) &&
     new BigNumber(amount).isLessThanOrEqualTo(limitTokens)
@@ -104,7 +105,7 @@ const Notice: React.FC<NoticeProps> = ({
     // User is trying to borrow above their safe limit (allowed but puts them at
     // risk of liquidation)
     return (
-      <NoticeError
+      <NoticeWarning
         css={styles.notice}
         data-testid={TEST_IDS.notice}
         description={t('operationModal.borrow.aboveSafeLimitWarning')}

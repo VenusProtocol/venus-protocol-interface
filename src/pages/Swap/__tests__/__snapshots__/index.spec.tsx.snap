@@ -2,10 +2,10 @@
 
 exports[`pages/Swap > displays exactAmountIn swap details correctly  1`] = `"Slippage tolerance0.5%"`;
 
-exports[`pages/Swap > displays exactAmountIn swap details correctly  2`] = `"Exchange rate1 BNB ≈ 2.00 BUSDSlippage tolerance0.5%Minimum received400.00K BUSD"`;
+exports[`pages/Swap > displays exactAmountIn swap details correctly  2`] = `"Exchange rate1 BNB ≈ 2.00 BUSDSlippage tolerance0.5%Price impact0%Minimum received400.00K BUSD"`;
 
 exports[`pages/Swap > displays exactAmountOut swap details correctly  1`] = `"Slippage tolerance0.5%"`;
 
-exports[`pages/Swap > displays exactAmountOut swap details correctly  2`] = `"Exchange rate1 BNB ≈ 2.00 BUSDSlippage tolerance0.5%Maximum sold600.00K BNB"`;
+exports[`pages/Swap > displays exactAmountOut swap details correctly  2`] = `"Exchange rate1 BNB ≈ 2.00 BUSDSlippage tolerance0.5%Price impact0%Maximum sold600.00K BNB"`;
 
 exports[`pages/Swap > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 XVS"`;
