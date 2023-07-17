@@ -120,7 +120,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
   };
 
   const readablePriceImpact = useMemo(
-    () => swap && formatToReadablePercentage(swap.priceImpactPercentage),
+    () => swap && formatPercentageToReadableValue(swap.priceImpactPercentage),
     [swap?.priceImpactPercentage],
   );
 

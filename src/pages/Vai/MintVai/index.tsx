@@ -11,7 +11,7 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, formatPercentage } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -156,7 +156,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
                 iconSrc="fee"
                 label={t('vai.mintVai.apy')}
               >
-                {apyPercentage ? `${formatPercentage(apyPercentage)}%` : PLACEHOLDER_KEY}
+                {formatPercentageToReadableValue(apyPercentage)}
               </LabeledInlineContent>
 
               <LabeledInlineContent

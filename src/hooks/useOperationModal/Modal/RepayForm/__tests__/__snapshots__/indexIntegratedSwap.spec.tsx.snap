@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"Exchange rate1 BUSD ≈ 0.0033 XVSSlippage tolerance0.5%Price impact0%You will repay≈ 999.99 XVS"`;
+exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"Exchange rate1 BUSD ≈ 0.0033 XVSSlippage tolerance0.5%Price impact< 0.01%You will repay≈ 999.99 XVS"`;
 
 exports[`hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `"You will repay 999.99 XVS using 299.99K BUSD"`;
