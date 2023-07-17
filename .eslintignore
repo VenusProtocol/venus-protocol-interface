@@ -8,3 +8,4 @@ coverage
 src/clients/subgraph/gql
 scripts
 vite.config.ts
+commitlint.config.js
