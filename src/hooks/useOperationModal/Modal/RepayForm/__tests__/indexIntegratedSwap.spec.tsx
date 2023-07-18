@@ -13,6 +13,10 @@ import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/to
 import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -46,6 +50,7 @@ const fakeSwap: Swap = {
   minimumToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
   exchangeRate: fakeXvsAmountBelowUserBorrowBalanceWei.div(fakeBusdAmountBellowWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
 };
 
@@ -58,6 +63,7 @@ const fakeFullRepaymentSwap: Swap = {
   toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei,
   exchangeRate: fakeXvsUserBorrowBalanceInWei.div(fakeBusdWalletBalanceWei),
   routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  priceImpactPercentage: 0.001,
   direction: 'exactAmountOut',
 };
 
@@ -331,6 +337,103 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
   });
 
+  it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeSwap,
+      priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: customFakeSwap,
+      isLoading: false,
+    }));
+
+    const onCloseMock = vi.fn();
+
+    const { container, getByTestId, getByText } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: SWAP_TOKENS.busd,
+    });
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter valid amount in input
+    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
+
+    // Check warning notice is displayed
+    await waitFor(() => getByText(en.operationModal.repay.swappingWithHighPriceImpactWarning));
+
+    // Check submit button label is correct
+    await waitFor(() =>
+      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact),
+    );
+    const submitButton = getByText(
+      en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact,
+    ).closest('button');
+    expect(submitButton).toBeEnabled();
+  });
+
+  it('disables submit button when price impact has reached the maximum tolerated', async () => {
+    const customFakeSwap: Swap = {
+      ...fakeSwap,
+      priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: customFakeSwap,
+      isLoading: false,
+    }));
+
+    const onCloseMock = vi.fn();
+
+    const { container, getByTestId, getByText } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: SWAP_TOKENS.busd,
+    });
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter valid amount in input
+    fireEvent.change(selectTokenTextField, { target: { value: '1' } });
+
+    // Check submit button has the correct label and is disabled
+    await waitFor(() =>
+      getByText(en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated),
+    );
+    const submitButton = getByText(
+      en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated,
+    ).closest('button');
+    expect(submitButton).toBeDisabled();
+  });
+
   it('displays correct swap details', async () => {
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
@@ -363,8 +466,8 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
-    expect(getByTestId(TEST_IDS.swapDetails)).toMatchSnapshot();
-    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary)).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
@@ -451,7 +554,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
 
     // Check submit button is enabled
     expect(
-      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepay).closest('button'),
     ).toBeEnabled();
   });
 
@@ -588,7 +691,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: validAmountTokens } });
 
-    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.repay;
+    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.swapAndRepay;
 
     // Click on submit button
     await waitFor(() => getByText(expectedSubmitButtonLabel));
@@ -648,7 +751,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       expect(getByText(en.operationModal.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
-    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.repay;
+    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.swapAndRepay;
 
     // Click on submit button
     await waitFor(() => getByText(expectedSubmitButtonLabel));

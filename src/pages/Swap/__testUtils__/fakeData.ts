@@ -28,6 +28,7 @@ export const fakeExactAmountInSwap: ExactAmountInSwap = {
   minimumToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(1.5),
   expectedToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(2),
   direction: 'exactAmountIn',
+  priceImpactPercentage: 0.001,
   routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
   exchangeRate: new BigNumber(2),
 };
@@ -39,6 +40,7 @@ export const fakeExactAmountOutSwap: ExactAmountOutSwap = {
   toToken: SWAP_TOKENS.busd,
   toTokenAmountReceivedWei: FAKE_BUSD_BALANCE_WEI,
   direction: 'exactAmountOut',
+  priceImpactPercentage: 0.001,
   routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
   exchangeRate: new BigNumber(2),
 };

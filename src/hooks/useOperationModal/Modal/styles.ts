@@ -20,19 +20,16 @@ export const useStyles = () => {
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
-
-      ${theme.breakpoints.down('md')} {
-        span {
-          font-size: ${theme.typography.small1.fontSize};
-        }
-      }
     `,
     isolatedAssetWarning: css`
       margin-bottom: ${theme.spacing(6)};
     `,
-    submitButtonHighRisk: ({ isHighRiskBorrow }: { isHighRiskBorrow: boolean }) => css`
-      ${isHighRiskBorrow && `background-color: ${theme.palette.error.main};`}
-      ${isHighRiskBorrow && `border-color: ${theme.palette.error.main};`}
+    getSubmitButton: ({ isDangerous }: { isDangerous: boolean }) => css`
+      ${isDangerous &&
+      css`
+        background-color: ${theme.palette.error.main};
+        border-color: ${theme.palette.error.main};
+      `}
     `,
   };
 };

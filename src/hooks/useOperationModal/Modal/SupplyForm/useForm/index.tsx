@@ -22,6 +22,8 @@ export interface UseFormInput {
   onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  isFromTokenApproved?: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -36,6 +38,8 @@ interface UseFormOutput {
 const useForm = ({
   asset,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
+  fromTokenWalletSpendingLimitTokens,
+  isFromTokenApproved,
   onCloseModal,
   swap,
   swapError,
@@ -51,6 +55,8 @@ const useForm = ({
     formValues,
     swap,
     swapError,
+    isFromTokenApproved,
+    fromTokenWalletSpendingLimitTokens,
     fromTokenUserWalletBalanceTokens,
   });
 

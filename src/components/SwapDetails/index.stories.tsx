@@ -17,3 +17,5 @@ export const Default = () => <SwapDetails action="repay" />;
 export const Repay = () => <SwapDetails action="repay" swap={exactAmountInSwap} />;
 
 export const Supply = () => <SwapDetails action="supply" swap={exactAmountInSwap} />;
+
+export const Swap = () => <SwapDetails action="supply" swap={exactAmountInSwap} />;

@@ -30,9 +30,10 @@ export interface TokenBalance {
 
 export interface AssetDistribution {
   token: Token;
-  dailyDistributedTokens: BigNumber;
-  borrowApyPercentage: BigNumber;
   supplyApyPercentage: BigNumber;
+  borrowApyPercentage: BigNumber;
+  supplyDailyDistributedTokens: BigNumber;
+  borrowDailyDistributedTokens: BigNumber;
 }
 
 export interface Asset {
@@ -351,6 +352,7 @@ interface SwapBase {
   toToken: Token;
   exchangeRate: BigNumber;
   direction: SwapDirection;
+  priceImpactPercentage: number;
   routePath: string[]; // Token addresses
 }
 

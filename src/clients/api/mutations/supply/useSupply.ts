@@ -22,7 +22,14 @@ const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: vToken.underlyingToken.address,
+            accountAddress,
+          },
+        ]);
+
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,
           {
@@ -30,6 +37,8 @@ const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
             vTokenAddress: vToken.address,
           },
         ]);
+
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
         queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 

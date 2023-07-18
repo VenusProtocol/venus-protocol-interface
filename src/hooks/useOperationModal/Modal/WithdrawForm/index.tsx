@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { AccountData, TokenTextField } from 'components';
+import { AccountData, Delimiter, LabeledInlineContent, TokenTextField } from 'components';
 import { VError } from 'errors';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -35,7 +35,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   onSubmit,
   isSubmitting,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
 
   const limitTokens = React.useMemo(() => {
@@ -127,16 +127,16 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           onClick: handleRightMaxButtonClick,
         }}
         hasError={!!formError && Number(formValues.amountTokens) > 0}
-        description={
-          <Trans
-            i18nKey="operationModal.withdraw.withdrawableAmount"
-            components={{
-              White: <span css={sharedStyles.whiteLabel} />,
-            }}
-            values={{ amount: readableWithdrawableAmountTokens }}
-          />
-        }
       />
+
+      <LabeledInlineContent
+        label={t('operationModal.withdraw.withdrawableAmount')}
+        css={sharedStyles.getRow({ isLast: true })}
+      >
+        {readableWithdrawableAmountTokens}
+      </LabeledInlineContent>
+
+      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <AccountData
         amountTokens={new BigNumber(formValues.amountTokens || 0)}

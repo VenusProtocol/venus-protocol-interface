@@ -8,7 +8,7 @@ import { useAuth } from 'context/AuthContext';
 type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'signer' | 'vToken'>>;
 
 const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
-  const { signer } = useAuth();
+  const { signer, accountAddress } = useAuth();
 
   return useMutation(
     FunctionKey.REPAY,
@@ -24,6 +24,14 @@ const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
         queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: vToken.underlyingToken.address,
+            accountAddress,
+          },
+        ]);
       },
     },
   );

@@ -52,6 +52,14 @@ const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: O
         ]);
 
         queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: stakedToken.address,
+            accountAddress,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
             accountAddress,

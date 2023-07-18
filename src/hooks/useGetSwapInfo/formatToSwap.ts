@@ -19,6 +19,7 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
       toToken: input.toToken,
       direction: 'exactAmountIn',
       routePath,
+      priceImpactPercentage: +trade.priceImpact.toFixed(),
       fromTokenAmountSoldWei: convertTokensToWei({
         value: new BigNumber(trade.inputAmount.toFixed()),
         token: input.fromToken,
@@ -45,6 +46,7 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
     toToken: input.toToken,
     direction: 'exactAmountOut',
     routePath,
+    priceImpactPercentage: +trade.priceImpact.toFixed(),
     expectedFromTokenAmountSoldWei: convertTokensToWei({
       value: new BigNumber(trade.inputAmount.toFixed()),
       token: input.fromToken,

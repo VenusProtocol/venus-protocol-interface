@@ -17,16 +17,30 @@ export const calculateYearlyInterests = ({
   return balance.multipliedBy(interestPercentage).dividedBy(100);
 };
 
-export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
-  // Combine supply and borrow APYs with distribution APYs
-  const combinedDistributionApys = getCombinedDistributionApys({ asset });
+export const calculateYearlyEarningsForAsset = ({
+  asset,
+  isAssetIsolated,
+}: {
+  asset: Asset;
+  isAssetIsolated: boolean;
+}) => {
+  let totalSupplyApyPercentage = asset.supplyApyPercentage;
+  let totalBorrowApyPercentage = asset.borrowApyPercentage;
 
-  const totalSupplyApyPercentage = asset.supplyApyPercentage.plus(
-    combinedDistributionApys.supplyApyPercentage,
-  );
-  const totalBorrowApyPercentage = asset.borrowApyPercentage.minus(
-    combinedDistributionApys.borrowApyPercentage,
-  );
+  // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to calculate
+  // accurate distribution APYs for them
+  if (!isAssetIsolated) {
+    // Combine supply and borrow APYs with distribution APYs
+    const combinedDistributionApys = getCombinedDistributionApys({ asset });
+
+    totalSupplyApyPercentage = asset.supplyApyPercentage.plus(
+      combinedDistributionApys.supplyApyPercentage,
+    );
+
+    totalBorrowApyPercentage = asset.borrowApyPercentage.minus(
+      combinedDistributionApys.borrowApyPercentage,
+    );
+  }
 
   // Calculate yearly earnings
   const supplyYearlyEarningsCents = calculateYearlyInterests({
@@ -41,7 +55,13 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
   return supplyYearlyEarningsCents.minus(borrowYearlyInterestsCents).dp(0);
 };
 
-export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }) => {
+export const calculateYearlyEarningsForAssets = ({
+  assets,
+  areAssetsIsolated,
+}: {
+  assets: Asset[];
+  areAssetsIsolated: boolean;
+}) => {
   // We use the yearly earnings to calculate the daily earnings the net APY
   let yearlyEarningsCents: BigNumber | undefined;
 
@@ -52,6 +72,7 @@ export const calculateYearlyEarningsForAssets = ({ assets }: { assets: Asset[] }
 
     const assetYearlyEarningsCents = calculateYearlyEarningsForAsset({
       asset,
+      isAssetIsolated: areAssetsIsolated,
     });
 
     yearlyEarningsCents = yearlyEarningsCents.plus(assetYearlyEarningsCents);

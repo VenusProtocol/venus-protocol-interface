@@ -13,8 +13,9 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
     "distributions": [
       {
         "borrowApyPercentage": "4.17469243006608279",
-        "dailyDistributedTokens": "19999999",
+        "borrowDailyDistributedTokens": "9999999.5",
         "supplyApyPercentage": "0.11720675342484096",
+        "supplyDailyDistributedTokens": "9999999.5",
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           "asset": "/src/assets/img/tokens/xvs.svg",

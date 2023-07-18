@@ -17,6 +17,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
     },
     "fromTokenAmountSoldWei": "1000000000000000000",
     "minimumToTokenAmountReceivedWei": "496889768927577382",
+    "priceImpactPercentage": 50.06,
     "routePath": [
       "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
       "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -47,6 +48,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
       "symbol": "BNB",
     },
     "maximumFromTokenAmountSoldWei": "1007518796992481204",
+    "priceImpactPercentage": 50.13,
     "routePath": [
       "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
       "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

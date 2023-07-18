@@ -68,9 +68,6 @@
       "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
-  "approveToken": {
-    "approveButtonLabel": "Approve"
-  },
   "approveTokenSteps": {
     "approveTokenButton": {
       "text": "Approve {{tokenSymbol}}",
@@ -95,6 +92,9 @@
   },
   "assetInfo": {
     "borrowApy": "Borrow APY",
+    "dailyDistributedTokens": "Daily {{tokenSymbol}} distributed",
+    "dailyDistributedTokensBorrowTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all borrowers.",
+    "dailyDistributedTokensSupplyTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all suppliers.",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {
@@ -393,7 +393,7 @@
       "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "aboveLiquidityWarning": "Insufficient asset liquidity",
       "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
-      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
+      "borrowableAmount": "Borrowable amount",
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
@@ -419,17 +419,22 @@
       "withdraw": "Withdrawing has been disabled for this token"
     },
     "repay": {
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
+        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
         "enterValidAmount": "Enter a valid amount to repay",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "repay": "Repay",
+        "swapAndRepay": "Swap and repay",
+        "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -437,22 +442,28 @@
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
       },
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
+      "walletBalance": "Wallet balance"
     },
     "repayTabTitle": "Repay",
     "supply": {
       "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
+        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
         "enterValidAmount": "Enter a valid amount to supply",
         "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
         "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",
+        "swapAndSupply": "Swap and supply",
+        "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
@@ -461,7 +472,8 @@
         "title": "Your supply was successful"
       },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
+      "walletBalance": "Wallet balance"
     },
     "supplyTabTitle": "Supply",
     "swapSummary": {
@@ -480,7 +492,7 @@
         "message": "You successfully withdrew",
         "title": "Your withdrawal was successful"
       },
-      "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+      "withdrawableAmount": "Withdrawable amount"
     },
     "withdrawTabTitle": "Withdraw"
   },
@@ -495,7 +507,7 @@
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
     },
-    "isolatedPoolWarning": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only."
+    "isolatedPoolWarning": "You are currently looking at an isolated pool. Supplying tokens to an isolated pool market will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
   },
   "pools": {
     "poolTable": {
@@ -514,14 +526,17 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
-    },
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    }
   },
   "sidebar": {
     "newBadge": "NEW"
   },
+  "spendingLimit": {
+    "label": "Spending limit",
+    "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
+    "revokeButtonTooltip": "Revoke spending limit"
+  },
   "stakeModal": {
-    "approveTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to approve it first",
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
@@ -533,62 +548,61 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
+    "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
     "errors": {
       "incorrectSwapInput": "Incorrect input provided for swap"
     }
   },
   "swapDetails": {
-    "exchangeRate": {
-      "label": "Exchange rate",
-      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    "label": {
+      "exchangeRate": "Exchange rate",
+      "maximumSold": "Maximum sold",
+      "minimumReceived": "Minimum received",
+      "priceImpact": "Price impact",
+      "repay": "You will repay",
+      "slippageTolerance": "Slippage tolerance",
+      "supply": "You will supply"
     },
-    "receivedAmount": {
-      "estimatedValue": "≈ {{ value }}",
-      "exactValue": "{{ value }}",
-      "repayLabel": "You will repay",
-      "supplyLabel": "You will supply"
+    "tooltip": {
+      "priceImpact": "Difference between the market price and estimated price due to trade size."
     },
-    "slippageTolerance": {
-      "label": "Slippage tolerance"
+    "value": {
+      "estimatedAmount": "≈ {{ value }}",
+      "exactAmount": "{{ value }}",
+      "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+      "priceImpact": "{{ priceImpact }}"
     }
   },
   "swapPage": {
     "connectWalletToSwap": "Please connect your wallet to swap tokens",
-    "exchangeRate": {
-      "label": "Exchange rate",
-      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
-    },
     "fromTokenAmountField": {
       "label": "From",
       "max": "Max"
-    },
-    "maximumSold": {
-      "label": "Maximum sold"
-    },
-    "minimumReceived": {
-      "label": "Minimum received"
-    },
-    "slippageTolerance": {
-      "label": "Slippage tolerance"
     },
     "submitButton": {
       "disabledLabels": {
         "insufficientLiquidity": "Insufficient liquidity for this swap",
         "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
         "invalidFromTokenAmount": "Enter a valid amount to swap",
+        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
+        "processing": "Processing",
+        "spendingLimitTooLow": "Spending limit too low",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "enabledLabel": "Swap",
-      "processing": "Processing"
+      "enabledLabels": {
+        "swap": "Swap",
+        "swapWithHighPriceImpact": "Swap with high price impact"
+      }
     },
-    "successfulConvertTransactionModal": {
+    "successfulSwapTransactionModal": {
       "message": "You successfully swapped your tokens",
       "title": "Your swap was successful"
     },
     "toTokenAmountField": {
       "label": "To"
-    }
+    },
+    "walletBalance": "Wallet balance"
   },
   "table": {
     "cardsSelect": {
@@ -780,7 +794,8 @@
       "successfulTransactionModal": {
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
-      }
+      },
+      "walletBalance": "Wallet balance"
     },
     "tabMint": "Mint",
     "tabRepay": "Repay"

@@ -6,6 +6,7 @@ import {
   IsolatedAssetWarning,
   LabeledInlineContent,
   SelectTokenTextField,
+  SpendingLimit,
   SwapDetails,
   Toggle,
   TokenTextField,
@@ -46,7 +47,7 @@ export interface SupplyFormUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromTokenApprovalStatusLoading'
+    | 'isFromTokenWalletSpendingLimitLoading'
   > {
   asset: Asset;
   pool: Pool;
@@ -57,6 +58,9 @@ export interface SupplyFormUiProps
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isSwapLoading: boolean;
+  revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -74,11 +78,14 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenApprovalStatusLoading,
+  isFromTokenWalletSpendingLimitLoading,
+  fromTokenWalletSpendingLimitTokens,
+  revokeFromTokenWalletSpendingLimit,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   swap,
   swapError,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { CollateralModal, toggleCollateral } = useCollateral();
 
@@ -124,6 +131,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     fromTokenUserWalletBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
+    isFromTokenApproved,
     swap,
     swapError,
     onCloseModal,
@@ -211,15 +220,6 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
                 onClick: handleRightMaxButtonClick,
               }}
               tokenBalances={tokenBalances}
-              description={
-                <Trans
-                  i18nKey="operationModal.supply.walletBalance"
-                  components={{
-                    White: <span css={sharedStyles.whiteLabel} />,
-                  }}
-                  values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-                />
-              }
             />
           ) : (
             <TokenTextField
@@ -245,33 +245,42 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
                 onClick: handleRightMaxButtonClick,
               }}
               hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-              description={
-                <Trans
-                  i18nKey="operationModal.supply.walletBalance"
-                  components={{
-                    White: <span css={sharedStyles.whiteLabel} />,
-                  }}
-                  values={{ balance: readableFromTokenUserWalletBalanceTokens }}
-                />
-              }
             />
           )}
 
-          {!isSubmitting && !isSwapLoading && <Notice asset={asset} formError={formError} />}
+          {!isSubmitting && !isSwapLoading && (
+            <Notice asset={asset} swap={swap} formError={formError} />
+          )}
+        </div>
+
+        <div css={sharedStyles.getRow({ isLast: true })}>
+          <LabeledInlineContent
+            label={t('operationModal.supply.walletBalance')}
+            css={sharedStyles.getRow({ isLast: false })}
+          >
+            {readableFromTokenUserWalletBalanceTokens}
+          </LabeledInlineContent>
+
+          <SpendingLimit
+            token={formValues.fromToken}
+            walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+            onRevoke={revokeFromTokenWalletSpendingLimit}
+            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+            data-testid={TEST_IDS.spendingLimit}
+          />
         </div>
 
         {isUsingSwap && (
-          <>
-            <SwapDetails
-              action="supply"
-              swap={swap}
-              data-testid={TEST_IDS.swapDetails}
-              css={sharedStyles.getRow({ isLast: true })}
-            />
-
-            <Delimiter css={sharedStyles.getRow({ isLast: true })} />
-          </>
+          <SwapDetails
+            action="supply"
+            swap={swap}
+            data-testid={TEST_IDS.swapDetails}
+            css={sharedStyles.getRow({ isLast: true })}
+          />
         )}
+
+        <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
         <AccountData
           asset={asset}
@@ -294,7 +303,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
-          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+          isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
         />
       </form>
 
@@ -325,7 +335,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+    isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress,
@@ -407,7 +420,10 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
+      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
     />
   );
 };

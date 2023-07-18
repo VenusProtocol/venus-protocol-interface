@@ -20,7 +20,7 @@ describe('components/ApproveTokenSteps', () => {
     const { getByText } = renderComponent(
       <ApproveTokenSteps
         isTokenApproved={false}
-        isTokenApprovalStatusLoading={false}
+        isWalletSpendingLimitLoading={false}
         isApproveTokenLoading={false}
         approveToken={approveTokenMock}
         token={fakeAsset.vToken.underlyingToken}
@@ -46,7 +46,7 @@ describe('components/ApproveTokenSteps', () => {
     const { getByText, queryByText } = renderComponent(
       <ApproveTokenSteps
         isTokenApproved={false}
-        isTokenApprovalStatusLoading={false}
+        isWalletSpendingLimitLoading={false}
         isApproveTokenLoading={false}
         approveToken={noop}
         token={fakeAsset.vToken.underlyingToken}
@@ -64,7 +64,7 @@ describe('components/ApproveTokenSteps', () => {
     const { getByText, queryByText } = renderComponent(
       <ApproveTokenSteps
         isTokenApproved
-        isTokenApprovalStatusLoading={false}
+        isWalletSpendingLimitLoading={false}
         isApproveTokenLoading={false}
         approveToken={noop}
         token={fakeAsset.vToken.underlyingToken}

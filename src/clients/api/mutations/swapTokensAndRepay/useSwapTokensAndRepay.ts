@@ -53,12 +53,22 @@ const useSwapTokensAndRepayAndRepay = (
         ]);
 
         queryClient.invalidateQueries([
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            tokenAddress: swap.fromToken.address,
+            accountAddress,
+            spenderAddress: swapRouterContract.address,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
             accountAddress,
           },
         ]);
 
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
         queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 

@@ -98,33 +98,47 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset?.vToken.underlyingToken],
   );
 
-  const supplyInfoStats: CardProps['stats'] = React.useMemo(
-    () =>
-      asset
-        ? [
-            {
-              label: t('market.supplyInfo.stats.totalSupply'),
-              value: formatCentsToReadableValue({
-                value: asset.supplyBalanceCents,
-              }),
-            },
-            {
-              label: t('market.supplyInfo.stats.apy'),
-              value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
-            },
-            {
-              label: t('market.supplyInfo.stats.distributionApy'),
-              value: formatPercentageToReadableValue(
-                asset.distributions.reduce(
-                  (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
-                  new BigNumber(0),
-                ),
-              ),
-            },
-          ]
-        : [],
-    [asset?.supplyApyPercentage, asset?.supplyApyPercentage, asset?.distributions],
-  );
+  const isAssetIsolated = !areAddressesEqual(poolComptrollerAddress, MAIN_POOL_COMPTROLLER_ADDRESS);
+
+  const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
+    const stats: CardProps['stats'] = [];
+
+    if (!asset) {
+      return stats;
+    }
+
+    stats.push(
+      {
+        label: t('market.supplyInfo.stats.totalSupply'),
+        value: formatCentsToReadableValue({
+          value: asset.supplyBalanceCents,
+        }),
+      },
+      {
+        label: t('market.supplyInfo.stats.apy'),
+        value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
+      },
+    );
+
+    if (!isAssetIsolated) {
+      stats.push({
+        label: t('market.supplyInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(
+          asset.distributions.reduce(
+            (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
+            new BigNumber(0),
+          ),
+        ),
+      });
+    }
+
+    return stats;
+  }, [
+    asset?.supplyApyPercentage,
+    asset?.supplyApyPercentage,
+    asset?.distributions,
+    isAssetIsolated,
+  ]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -133,33 +147,45 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const borrowInfoStats: CardProps['stats'] = React.useMemo(
-    () =>
-      asset
-        ? [
-            {
-              label: t('market.borrowInfo.stats.totalBorrow'),
-              value: formatCentsToReadableValue({
-                value: asset.borrowBalanceCents,
-              }),
-            },
-            {
-              label: t('market.borrowInfo.stats.apy'),
-              value: formatPercentageToReadableValue(asset.borrowApyPercentage),
-            },
-            {
-              label: t('market.borrowInfo.stats.distributionApy'),
-              value: formatPercentageToReadableValue(
-                asset.distributions.reduce(
-                  (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
-                  new BigNumber(0),
-                ),
-              ),
-            },
-          ]
-        : [],
-    [asset?.borrowBalanceCents, asset?.borrowApyPercentage, asset?.distributions],
-  );
+  const borrowInfoStats: CardProps['stats'] = React.useMemo(() => {
+    const stats: CardProps['stats'] = [];
+
+    if (!asset) {
+      return stats;
+    }
+
+    stats.push(
+      {
+        label: t('market.borrowInfo.stats.totalBorrow'),
+        value: formatCentsToReadableValue({
+          value: asset.borrowBalanceCents,
+        }),
+      },
+      {
+        label: t('market.borrowInfo.stats.apy'),
+        value: formatPercentageToReadableValue(asset.borrowApyPercentage),
+      },
+    );
+
+    if (!isAssetIsolated) {
+      stats.push({
+        label: t('market.borrowInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(
+          asset.distributions.reduce(
+            (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
+            new BigNumber(0),
+          ),
+        ),
+      });
+    }
+
+    return stats;
+  }, [
+    asset?.borrowBalanceCents,
+    asset?.borrowApyPercentage,
+    asset?.distributions,
+    isAssetIsolated,
+  ]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
@@ -193,7 +219,9 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         tokenSymbol: distribution.token.symbol,
       }),
       value: formatTokensToReadableValue({
-        value: distribution.dailyDistributedTokens,
+        value: distribution.supplyDailyDistributedTokens.plus(
+          distribution.borrowDailyDistributedTokens,
+        ),
         addSymbol: false,
         token: distribution.token,
       }),
