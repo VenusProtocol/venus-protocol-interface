@@ -1,4 +1,3 @@
-import sample from 'lodash/sample';
 import { BscChainId, Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
@@ -29,6 +28,14 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_ENVIRONMENT
       : import.meta.env.VITE_ENVIRONMENT,
+  VITE_RPC_URL_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_URL_MAINNET
+      : import.meta.env.VITE_RPC_URL_MAINNET,
+  VITE_RPC_URL_TESTNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_URL_TESTNET
+      : import.meta.env.VITE_RPC_URL_TESTNET,
 
   // Third-parties
   VITE_SENTRY_DSN:
@@ -56,12 +63,31 @@ export const ENV_VARIABLES = {
 const environment: Environment =
   (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
+const isLocalServer =
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') &&
+  environment !== 'ci' &&
+  environment !== 'storybook';
+
 const isOnTestnet =
   environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
 const chainId: BscChainId = isOnTestnet ? 97 : 56;
 
-const rpcUrl = sample(RPC_URLS[chainId]) as string;
+let localRpcUrl = RPC_URLS[chainId];
+switch (environment) {
+  case 'mainnet':
+  case 'preview':
+    localRpcUrl = ENV_VARIABLES.VITE_RPC_URL_MAINNET;
+    break;
+  case 'testnet':
+    localRpcUrl = ENV_VARIABLES.VITE_RPC_URL_TESTNET;
+    break;
+  default:
+    localRpcUrl = RPC_URLS[chainId];
+    break;
+}
+
+const rpcUrl = isLocalServer ? localRpcUrl : RPC_URLS[chainId];
 const apiUrl = API_ENDPOINT_URLS[environment];
 const bscScanUrl = BSC_SCAN_URLS[chainId];
 const subgraphUrl = isOnTestnet ? TESTNET_SUBGRAPH_URL : MAINNET_SUBGRAPH_URL;
