@@ -33,6 +33,8 @@ export const Default = () => (
     isFromTokenApproved
     approveFromToken={noop}
     isApproveFromTokenLoading={false}
-    isFromTokenApprovalStatusLoading={false}
+    isFromTokenWalletSpendingLimitLoading={false}
+    revokeFromTokenWalletSpendingLimit={noop}
+    isRevokeFromTokenWalletSpendingLimitLoading={false}
   />
 );

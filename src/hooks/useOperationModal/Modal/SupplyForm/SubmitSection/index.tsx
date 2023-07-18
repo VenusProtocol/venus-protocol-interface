@@ -5,7 +5,10 @@ import { useTranslation } from 'translation';
 import { Swap, Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+
 import SwapSummary from '../../SwapSummary';
+import { useStyles as useSharedStyles } from '../../styles';
 import { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
@@ -18,7 +21,8 @@ export interface SubmitSectionProps {
   isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveFromToken: ApproveTokenStepsProps['approveToken'];
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isFromTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   swap?: Swap;
   formError?: FormError;
 }
@@ -33,13 +37,21 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFromTokenApproved,
   approveFromToken,
   isApproveFromTokenLoading,
-  isFromTokenApprovalStatusLoading,
+  isFromTokenWalletSpendingLimitLoading,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   swap,
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
+  const sharedStyles = useSharedStyles();
 
   const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
+  const isSwappingWithHighPriceImpact = useMemo(
+    () =>
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    [swap?.priceImpactPercentage],
+  );
 
   const submitButtonLabel = useMemo(() => {
     if (isSwapLoading && Number(fromTokenAmountTokens) > 0) {
@@ -72,12 +84,36 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       });
     }
 
+    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_SPENDING_LIMIT') {
+      return t('operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit');
+    }
+
+    if (!isFormSubmitting && formError === 'PRICE_IMPACT_TOO_HIGH') {
+      return t('operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated');
+    }
+
     if (!isFormValid) {
       return t('operationModal.supply.submitButtonLabel.enterValidAmount');
     }
 
+    if (isSwappingWithHighPriceImpact) {
+      return t('operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact');
+    }
+
+    if (isUsingSwap) {
+      return t('operationModal.supply.submitButtonLabel.swapAndSupply');
+    }
+
     return t('operationModal.supply.submitButtonLabel.supply');
-  }, [isSwapLoading, fromTokenAmountTokens, isFormValid, formError, isFormSubmitting]);
+  }, [
+    isSwapLoading,
+    fromTokenAmountTokens,
+    isFormValid,
+    formError,
+    isFormSubmitting,
+    isSwappingWithHighPriceImpact,
+    isUsingSwap,
+  ]);
 
   return (
     <ApproveTokenSteps
@@ -87,9 +123,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       isTokenApproved={isFromTokenApproved}
       approveToken={approveFromToken}
       isApproveTokenLoading={isApproveFromTokenLoading}
-      isTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
     >
       <PrimaryButton
+        css={sharedStyles.getSubmitButton({ isDangerous: isSwappingWithHighPriceImpact })}
         type="submit"
         loading={isFormSubmitting}
         disabled={
@@ -97,7 +134,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           isFormSubmitting ||
           isSwapLoading ||
           isApproveFromTokenLoading ||
-          isFromTokenApprovalStatusLoading ||
+          isFromTokenWalletSpendingLimitLoading ||
+          isRevokeFromTokenWalletSpendingLimitLoading ||
           !isFromTokenApproved
         }
         fullWidth
@@ -105,7 +143,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
         {submitButtonLabel}
       </PrimaryButton>
 
-      {isFormValid && !isSwapLoading && !isFromTokenApprovalStatusLoading && (
+      {isFormValid && !isSwapLoading && !isFromTokenWalletSpendingLimitLoading && (
         <SwapSummary swap={swap} type="supply" />
       )}
     </ApproveTokenSteps>

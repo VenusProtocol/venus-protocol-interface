@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`hooks/useBorrowRepayModal/Repay > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 XVS"`;

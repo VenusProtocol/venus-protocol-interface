@@ -4,8 +4,8 @@ import { PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 
+import { useStyles as useSharedStyles } from '../../styles';
 import { FormError } from '../useForm/types';
-import { useStyles } from './styles';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
@@ -23,9 +23,9 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   formError,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
-  const isHighRiskBorrow = useMemo(
+  const isDangerous = useMemo(
     () => new BigNumber(fromTokenAmountTokens).isGreaterThanOrEqualTo(safeLimitTokens),
     [fromTokenAmountTokens, safeLimitTokens],
   );
@@ -47,16 +47,16 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.borrow.submitButtonLabel.enterValidAmount');
     }
 
-    if (!isFormSubmitting && isHighRiskBorrow) {
+    if (!isFormSubmitting && isDangerous) {
       return t('operationModal.borrow.submitButtonLabel.borrowHighRiskAmount');
     }
 
     return t('operationModal.borrow.submitButtonLabel.borrow');
-  }, [fromTokenAmountTokens, isFormValid, formError, isHighRiskBorrow, isFormSubmitting]);
+  }, [fromTokenAmountTokens, isFormValid, formError, isDangerous, isFormSubmitting]);
 
   return (
     <PrimaryButton
-      css={styles.getSubmitButton({ isHighRiskBorrow })}
+      css={sharedStyles.getSubmitButton({ isDangerous })}
       type="submit"
       loading={isFormSubmitting}
       disabled={!isFormValid || isFormSubmitting}

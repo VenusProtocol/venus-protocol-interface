@@ -6,9 +6,10 @@ import {
   FormikSubmitButton,
   FormikTokenTextField,
   LabeledInlineContent,
+  SpendingLimit,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
@@ -36,7 +37,10 @@ export interface TransactionFormUiProps {
   isTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveToken: ApproveTokenStepsProps['approveToken'];
   isApproveTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
+  revokeWalletSpendingLimit: () => Promise<unknown>;
+  isRevokeWalletSpendingLimitLoading: boolean;
+  walletSpendingLimitTokens?: BigNumber;
   lockingPeriodMs?: number;
 }
 
@@ -54,7 +58,10 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   isTokenApproved,
   approveToken,
   isApproveTokenLoading,
-  isTokenApprovalStatusLoading,
+  isWalletSpendingLimitLoading,
+  walletSpendingLimitTokens,
+  revokeWalletSpendingLimit,
+  isRevokeWalletSpendingLimitLoading,
   lockingPeriodMs,
 }) => {
   const { t } = useTranslation();
@@ -62,14 +69,22 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
-  const stringifiedAvailableTokens = React.useMemo(
+  const availableTokens = React.useMemo(
     () =>
       convertWeiToTokens({
         valueWei: availableTokensWei,
         token,
-      }).toFixed(),
-    [availableTokensWei.toFixed()],
+      }),
+    [availableTokensWei],
   );
+
+  const limitTokens = useMemo(() => {
+    if (isTokenApproved && walletSpendingLimitTokens) {
+      return BigNumber.minimum(availableTokens, walletSpendingLimitTokens);
+    }
+
+    return availableTokens;
+  }, [availableTokens, isTokenApproved, walletSpendingLimitTokens]);
 
   const readableAvailableTokens = useConvertWeiToReadableTokenString({
     valueWei: availableTokensWei,
@@ -108,7 +123,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   };
 
   return (
-    <AmountForm onSubmit={handleSubmit} maxAmount={stringifiedAvailableTokens}>
+    <AmountForm onSubmit={handleSubmit} maxAmount={limitTokens.toFixed()}>
       {({ dirty, isValid, setFieldValue }) => (
         <>
           <FormikTokenTextField
@@ -117,31 +132,45 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
             disabled={isSubmitting}
             rightMaxButton={{
               label: t('vault.transactionForm.rightMaxButtonLabel'),
-              onClick: () => setFieldValue('amount', stringifiedAvailableTokens),
+              onClick: () => setFieldValue('amount', limitTokens.toFixed()),
             }}
-            max={stringifiedAvailableTokens}
+            max={limitTokens.toFixed()}
             data-testid={TEST_IDS.tokenTextField}
             css={styles.tokenTextField}
           />
 
-          <LabeledInlineContent
-            data-testid={TEST_IDS.availableTokens}
-            iconSrc={token}
-            label={availableTokensLabel}
-            css={styles.getRow({ isLast: !readableLockingPeriod })}
-          >
-            {readableAvailableTokens}
-          </LabeledInlineContent>
-
-          {readableLockingPeriod && (
+          <div css={styles.getRow({ isLast: true })}>
             <LabeledInlineContent
-              data-testid={TEST_IDS.lockingPeriod}
-              label={t('vault.transactionForm.lockingPeriod.label')}
-              css={styles.getRow({ isLast: true })}
+              data-testid={TEST_IDS.availableTokens}
+              iconSrc={token}
+              label={availableTokensLabel}
+              css={styles.getRow({ isLast: false })}
             >
-              {readableLockingPeriod}
+              {readableAvailableTokens}
             </LabeledInlineContent>
-          )}
+
+            {tokenNeedsToBeApproved && (
+              <SpendingLimit
+                token={token}
+                walletBalanceTokens={availableTokens}
+                walletSpendingLimitTokens={walletSpendingLimitTokens}
+                onRevoke={revokeWalletSpendingLimit}
+                isRevokeLoading={isRevokeWalletSpendingLimitLoading}
+                css={styles.getRow({ isLast: false })}
+                data-testid={TEST_IDS.spendingLimit}
+              />
+            )}
+
+            {readableLockingPeriod && (
+              <LabeledInlineContent
+                data-testid={TEST_IDS.lockingPeriod}
+                label={t('vault.transactionForm.lockingPeriod.label')}
+                css={styles.getRow({ isLast: false })}
+              >
+                {readableLockingPeriod}
+              </LabeledInlineContent>
+            )}
+          </div>
 
           {tokenNeedsToBeApproved ? (
             <ApproveTokenSteps
@@ -150,7 +179,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
               isTokenApproved={isTokenApproved}
               approveToken={approveToken}
               isApproveTokenLoading={isApproveTokenLoading}
-              isTokenApprovalStatusLoading={isTokenApprovalStatusLoading}
+              isWalletSpendingLimitLoading={isWalletSpendingLimitLoading}
             >
               <FormikSubmitButton
                 loading={isSubmitting}
@@ -160,7 +189,8 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
                   isSubmitting ||
                   !isTokenApproved ||
                   isApproveTokenLoading ||
-                  isTokenApprovalStatusLoading
+                  isWalletSpendingLimitLoading ||
+                  isRevokeWalletSpendingLimitLoading
                 }
                 fullWidth
                 enabledLabel={submitButtonLabel}
@@ -185,7 +215,13 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 export interface TransactionFormProps
   extends Omit<
     TransactionFormUiProps,
-    'isTokenApproved' | 'approveToken' | 'isApproveTokenLoading' | 'isTokenApprovalStatusLoading'
+    | 'isTokenApproved'
+    | 'approveToken'
+    | 'isApproveTokenLoading'
+    | 'isWalletSpendingLimitLoading'
+    | 'isWalletSpendingLimitLoading'
+    | 'revokeWalletSpendingLimit'
+    | 'isRevokeWalletSpendingLimitLoading'
   > {
   spenderAddress?: string;
 }

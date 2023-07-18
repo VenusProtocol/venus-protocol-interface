@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import {
@@ -7,6 +6,8 @@ import {
   Icon,
   LabeledInlineContent,
   SelectTokenTextField,
+  SpendingLimit,
+  SwapDetails,
   TertiaryButton,
   toast,
 } from 'components';
@@ -17,14 +18,11 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertWeiToTokens,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
   getContractAddress,
   getSwapRouterContractAddress,
 } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
@@ -33,6 +31,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 
+import Notice from './Notice';
 import SubmitSection, { SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -41,10 +40,6 @@ import useFormValidation from './useFormValidation';
 
 const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(MAIN_POOL_COMPTROLLER_ADDRESS);
-
-const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
-);
 
 const initialFormValues: FormValues = {
   fromToken: SWAP_TOKENS.bnb,
@@ -60,7 +55,7 @@ export interface SwapPageUiProps
     | 'approveFromToken'
     | 'isApproveFromTokenLoading'
     | 'isFromTokenApproved'
-    | 'isFromTokenApprovalStatusLoading'
+    | 'isFromTokenWalletSpendingLimitLoading'
   > {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -68,6 +63,9 @@ export interface SwapPageUiProps
   isSubmitting: boolean;
   tokenBalances: TokenBalance[];
   isSwapLoading: boolean;
+  revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -81,13 +79,16 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   approveFromToken,
   isApproveFromTokenLoading,
   isFromTokenApproved,
-  isFromTokenApprovalStatusLoading,
+  isFromTokenWalletSpendingLimitLoading,
+  fromTokenWalletSpendingLimitTokens,
+  revokeFromTokenWalletSpendingLimit,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   onSubmit,
   isSubmitting,
   tokenBalances,
 }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -153,18 +154,20 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
 
-  const maxFromInput = useMemo(() => {
-    if (!fromTokenUserBalanceWei) {
-      return new BigNumber(0).toFixed();
-    }
+  const fromTokenUserBalanceTokens = useMemo(
+    () =>
+      fromTokenUserBalanceWei &&
+      convertWeiToTokens({
+        valueWei: fromTokenUserBalanceWei,
+        token: formValues.fromToken,
+      }),
+    [fromTokenUserBalanceWei],
+  );
 
-    const maxFromInputTokens = convertWeiToTokens({
-      valueWei: fromTokenUserBalanceWei,
-      token: formValues.fromToken,
-    });
-
-    return maxFromInputTokens.toFixed();
-  }, [formValues.fromToken, fromTokenUserBalanceWei]);
+  const maxFromInput = useMemo(
+    () => new BigNumber(fromTokenUserBalanceTokens || 0).toFixed(),
+    [formValues.fromToken, fromTokenUserBalanceWei],
+  );
 
   const handleSubmit = async () => {
     if (swap) {
@@ -172,8 +175,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         const contractReceipt = await onSubmit(swap);
 
         openSuccessfulTransactionModal({
-          title: t('swapPage.successfulConvertTransactionModal.title'),
-          content: t('swapPage.successfulConvertTransactionModal.message'),
+          title: t('swapPage.successfulSwapTransactionModal.title'),
+          content: t('swapPage.successfulSwapTransactionModal.message'),
           transactionHash: contractReceipt.transactionHash,
         });
 
@@ -211,27 +214,18 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const readableToToTokenUserBalance = useConvertWeiToReadableTokenString({
+  const readableToTokenUserBalance = useConvertWeiToReadableTokenString({
     valueWei: toTokenUserBalanceWei,
     token: formValues.toToken,
   });
-
-  const readableExchangeRate = useMemo(
-    () =>
-      swap &&
-      formatTokensToReadableValue({
-        value: swap.exchangeRate,
-        token: swap.toToken,
-        addSymbol: false,
-      }),
-    [swap?.exchangeRate, swap?.toToken],
-  );
 
   // Form validation
   const { isFormValid, errors: formErrors } = useFormValidation({
     swap,
     formValues,
     fromTokenUserBalanceWei,
+    fromTokenWalletSpendingLimitTokens,
+    isFromTokenApproved,
   });
 
   const onFromInputChange = (amount: string) =>
@@ -254,7 +248,9 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           label={t('swapPage.fromTokenAmountField.label')}
           selectedToken={formValues.fromToken}
           value={formValues.fromTokenAmountTokens}
-          hasError={formErrors.includes('FROM_TOKEN_AMOUNT_HIGHER_THAN_USER_BALANCE')}
+          hasError={
+            !isSubmitting && formErrors.length > 0 && Number(formValues.fromTokenAmountTokens) > 0
+          }
           data-testid={TEST_IDS.fromTokenSelectTokenTextField}
           disabled={isSubmitting}
           onChange={onFromInputChange}
@@ -277,17 +273,27 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <Typography component="div" variant="small2" css={styles.greyLabel}>
-          <Trans
-            i18nKey="selectTokenTextField.walletBalance"
-            components={{
-              White: <span css={styles.whiteLabel} />,
-            }}
-            values={{
-              balance: readableFromTokenUserBalance,
-            }}
+        <div css={styles.getRow({ isLast: true })}>
+          <Notice formErrors={formErrors} swap={swap} />
+        </div>
+
+        <div css={styles.getRow({ isLast: true })}>
+          <LabeledInlineContent
+            label={t('swapPage.walletBalance')}
+            css={styles.getRow({ isLast: false })}
+          >
+            {readableFromTokenUserBalance}
+          </LabeledInlineContent>
+
+          <SpendingLimit
+            token={formValues.fromToken}
+            walletBalanceTokens={fromTokenUserBalanceTokens}
+            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+            onRevoke={revokeFromTokenWalletSpendingLimit}
+            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+            data-testid={TEST_IDS.spendingLimit}
           />
-        </Typography>
+        </div>
 
         <TertiaryButton
           css={styles.switchButton}
@@ -332,54 +338,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           css={styles.selectTokenTextField}
         />
 
-        <Typography component="div" variant="small2" css={styles.greyLabel}>
-          <Trans
-            i18nKey="selectTokenTextField.walletBalance"
-            components={{
-              White: <span css={styles.whiteLabel} />,
-            }}
-            values={{
-              balance: readableToToTokenUserBalance,
-            }}
-          />
-        </Typography>
+        <LabeledInlineContent
+          label={t('swapPage.walletBalance')}
+          css={styles.getRow({ isLast: true })}
+        >
+          {readableToTokenUserBalance}
+        </LabeledInlineContent>
 
-        {swap && (
-          <div data-testid={TEST_IDS.swapDetails} css={styles.swapDetails}>
-            <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
-              {t('swapPage.exchangeRate.value', {
-                fromTokenSymbol: formValues.fromToken.symbol,
-                toTokenSymbol: formValues.toToken.symbol,
-                rate: readableExchangeRate,
-              })}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              label={t('swapPage.slippageTolerance.label')}
-              css={styles.swapInfoRow}
-            >
-              {readableSlippageTolerancePercentage}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              label={
-                swap.direction === 'exactAmountIn'
-                  ? t('swapPage.minimumReceived.label')
-                  : t('swapPage.maximumSold.label')
-              }
-              css={styles.swapInfoRow}
-            >
-              {convertWeiToTokens({
-                valueWei:
-                  swap.direction === 'exactAmountIn'
-                    ? swap.minimumToTokenAmountReceivedWei
-                    : swap.maximumFromTokenAmountSoldWei,
-                token: swap.direction === 'exactAmountIn' ? swap.toToken : swap.fromToken,
-                returnInReadableFormat: true,
-              })}
-            </LabeledInlineContent>
-          </div>
-        )}
+        <SwapDetails
+          action="swap"
+          swap={swap}
+          data-testid={TEST_IDS.swapDetails}
+          css={styles.getRow({ isLast: true })}
+        />
 
         <SubmitSection
           onSubmit={handleSubmit}
@@ -393,7 +364,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}
-          isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+          isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
         />
       </ConnectWallet>
     </Paper>
@@ -417,7 +389,10 @@ const SwapPage: React.FC = () => {
     isTokenApproved: isFromTokenApproved,
     approveToken: approveFromToken,
     isApproveTokenLoading: isApproveFromTokenLoading,
-    isTokenApprovalStatusLoading: isFromTokenApprovalStatusLoading,
+    isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
     spenderAddress: MAIN_POOL_SWAP_ROUTER_ADDRESS,
@@ -450,7 +425,10 @@ const SwapPage: React.FC = () => {
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
+      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
     />
   );
 };

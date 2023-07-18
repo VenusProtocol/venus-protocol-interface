@@ -4,7 +4,10 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
 
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+
 import { FormError, FormValues } from '../types';
+import { useStyles } from './styles';
 
 export interface SubmitSectionProps {
   fromToken: FormValues['fromToken'];
@@ -15,7 +18,8 @@ export interface SubmitSectionProps {
   isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveFromToken: ApproveTokenStepsProps['approveToken'];
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
-  isFromTokenApprovalStatusLoading: ApproveTokenStepsProps['isTokenApprovalStatusLoading'];
+  isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
+  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   isSwapLoading: boolean;
   swap?: Swap;
   swapError?: SwapError;
@@ -29,13 +33,22 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFromTokenApproved,
   approveFromToken,
   isApproveFromTokenLoading,
-  isFromTokenApprovalStatusLoading,
+  isFromTokenWalletSpendingLimitLoading,
+  isRevokeFromTokenWalletSpendingLimitLoading,
   isSwapLoading,
   swapError,
   swap,
   formErrors,
 }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
+
+  const isSwappingWithHighPriceImpact = useMemo(
+    () =>
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    [swap?.priceImpactPercentage],
+  );
 
   const submitButtonLabel = useMemo(() => {
     if (formErrors[0] === 'WRAPPING_UNSUPPORTED') {
@@ -60,12 +73,24 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       });
     }
 
-    if (swap) {
-      return t('swapPage.submitButton.enabledLabel');
+    if (formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT') {
+      return t('swapPage.submitButton.disabledLabels.spendingLimitTooLow');
     }
 
-    return t('swapPage.submitButton.processing');
-  }, [swap, swapError, formErrors[0]]);
+    if (formErrors[0] === 'PRICE_IMPACT_TOO_HIGH') {
+      return t('swapPage.submitButton.disabledLabels.priceImpactHigherThanMaximumTolerated');
+    }
+
+    if (isSwappingWithHighPriceImpact) {
+      return t('swapPage.submitButton.enabledLabels.swapWithHighPriceImpact');
+    }
+
+    if (swap) {
+      return t('swapPage.submitButton.enabledLabels.swap');
+    }
+
+    return t('swapPage.submitButton.disabledLabels.processing');
+  }, [swap, swapError, formErrors[0], isSwappingWithHighPriceImpact]);
 
   return (
     <ApproveTokenSteps
@@ -75,16 +100,19 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       isTokenApproved={isFromTokenApproved}
       approveToken={approveFromToken}
       isApproveTokenLoading={isApproveFromTokenLoading}
-      isTokenApprovalStatusLoading={isFromTokenApprovalStatusLoading}
+      isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      css={styles.container}
     >
       <PrimaryButton
         fullWidth
+        css={styles.getSubmitButton({ isDangerous: isSwappingWithHighPriceImpact })}
         disabled={
           !isFormValid ||
           isSubmitting ||
           isSwapLoading ||
           isApproveFromTokenLoading ||
-          isFromTokenApprovalStatusLoading ||
+          isFromTokenWalletSpendingLimitLoading ||
+          isRevokeFromTokenWalletSpendingLimitLoading ||
           !isFromTokenApproved
         }
         onClick={onSubmit}

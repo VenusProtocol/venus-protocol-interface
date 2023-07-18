@@ -15,7 +15,7 @@ type Options = QueryObserverOptions<
   Error,
   GetMintedVaiOutput,
   GetMintedVaiOutput,
-  FunctionKey.GET_MINTED_VAI
+  [FunctionKey.GET_MINTED_VAI, { accountAddress: string }]
 >;
 
 const useGetMintedVai = (
@@ -25,7 +25,7 @@ const useGetMintedVai = (
   const comptrollerContract = useComptrollerContract(mainPoolComptrollerAddress);
 
   return useQuery(
-    FunctionKey.GET_MINTED_VAI,
+    [FunctionKey.GET_MINTED_VAI, { accountAddress }],
     () => getMintedVai({ accountAddress, comptrollerContract }),
     options,
   );

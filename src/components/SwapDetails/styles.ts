@@ -6,13 +6,15 @@ export const useStyles = () => {
 
   return {
     row: css`
-      margin-bottom: ${theme.spacing(3)};
-
-      ${theme.breakpoints.down('md')} {
-        span {
-          font-size: ${theme.typography.small1.fontSize};
-        }
+      :not(:last-of-type) {
+        margin-bottom: ${theme.spacing(3)};
       }
+    `,
+    getPriceImpactText: ({ isHigh }: { isHigh: boolean }) => css`
+      ${isHigh &&
+      css`
+        color: ${theme.palette.interactive.error};
+      `}
     `,
   };
 };

@@ -21,6 +21,10 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/approveToken/useApproveToken';
 
+export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
+export * from './mutations/revokeSpendingLimit';
+export { default as useRevokeSpendingLimit } from './mutations/revokeSpendingLimit/useRevokeSpendingLimit';
+
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
 export { default as useSupply } from './mutations/supply/useSupply';

@@ -11,6 +11,7 @@ export const exactAmountInSwap: ExactAmountInSwap = {
   expectedToTokenAmountReceivedWei: new BigNumber('30000000000000000'),
   direction: 'exactAmountIn',
   routePath: [SWAP_TOKENS.cake.address, SWAP_TOKENS.busd.address],
+  priceImpactPercentage: 0.001,
   exchangeRate: new BigNumber(2),
 };
 
@@ -22,5 +23,6 @@ export const exactAmountOutSwap: ExactAmountOutSwap = {
   toTokenAmountReceivedWei: new BigNumber('10000000000000000'),
   direction: 'exactAmountOut',
   routePath: [SWAP_TOKENS.cake.address, SWAP_TOKENS.busd.address],
+  priceImpactPercentage: 0.001,
   exchangeRate: new BigNumber(2),
 };

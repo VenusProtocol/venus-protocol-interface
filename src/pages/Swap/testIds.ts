@@ -4,6 +4,7 @@ const TEST_IDS = {
   toTokenSelectTokenTextField: 'to-token-select-token-text-field',
   switchTokensButton: 'switch-tokens-button',
   swapDetails: 'swap-details',
+  spendingLimit: 'spending-limit',
 };
 
 export default TEST_IDS;

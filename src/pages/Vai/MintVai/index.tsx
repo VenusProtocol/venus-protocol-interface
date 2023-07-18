@@ -1,6 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, FormikSubmitButton, LabeledInlineContent, Spinner } from 'components';
+import {
+  ConnectWallet,
+  Delimiter,
+  FormikSubmitButton,
+  FormikTokenTextField,
+  LabeledInlineContent,
+  Spinner,
+} from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -21,7 +28,6 @@ import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import FormikTokenTextFieldWithBalance from '../TextFieldWithBalance';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
@@ -60,6 +66,11 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   // Convert limit into VAI
   const readableVaiLimit = useConvertWeiToReadableTokenString({
     valueWei: limitWei,
+    token: TOKENS.vai,
+  });
+
+  const readableWalletBalance = useConvertWeiToReadableTokenString({
+    valueWei: userBalanceWei,
     token: TOKENS.vai,
   });
 
@@ -105,41 +116,56 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       {isInitialLoading ? (
         <Spinner />
       ) : (
-        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer} maxAmount={limitTokens}>
-          {({ values }) => (
+        <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
+          {({ values, setValues }) => (
             <>
-              <div css={styles.ctaContainer}>
-                <FormikTokenTextFieldWithBalance
-                  disabled={disabled || isSubmitting || !hasMintableVai}
-                  maxValue={limitTokens}
-                  userBalanceWei={userBalanceWei}
-                  maxButtonLabel={t('vai.mintVai.rightMaxButtonLabel')}
-                />
+              <FormikTokenTextField
+                name="amount"
+                css={styles.getRow({ isLast: true })}
+                token={TOKENS.vai}
+                max={limitTokens}
+                disabled={disabled || isSubmitting || !hasMintableVai}
+                rightMaxButton={{
+                  label: t('vai.mintVai.rightMaxButtonLabel'),
+                  onClick: () =>
+                    setValues(currentValues => ({ ...currentValues, amount: limitTokens })),
+                }}
+              />
 
+              <div css={styles.getRow({ isLast: true })}>
                 <LabeledInlineContent
                   css={styles.getRow({ isLast: false })}
-                  iconSrc={TOKENS.vai}
-                  label={t('vai.mintVai.vaiLimitLabel')}
+                  label={t('vai.repayVai.walletBalance')}
                 >
-                  {readableVaiLimit}
-                </LabeledInlineContent>
-
-                <LabeledInlineContent
-                  css={styles.getRow({ isLast: false })}
-                  iconSrc="fee"
-                  label={t('vai.mintVai.apy')}
-                >
-                  {formatPercentageToReadableValue(apyPercentage)}
-                </LabeledInlineContent>
-
-                <LabeledInlineContent
-                  css={styles.getRow({ isLast: true })}
-                  iconSrc="fee"
-                  label={t('vai.mintVai.mintFeeLabel')}
-                >
-                  {getReadableMintFee(values.amount)}
+                  {readableWalletBalance}
                 </LabeledInlineContent>
               </div>
+
+              <Delimiter css={styles.getRow({ isLast: true })} />
+
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: false })}
+                iconSrc={TOKENS.vai}
+                label={t('vai.mintVai.vaiLimitLabel')}
+              >
+                {readableVaiLimit}
+              </LabeledInlineContent>
+
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: false })}
+                iconSrc="fee"
+                label={t('vai.mintVai.apy')}
+              >
+                {formatPercentageToReadableValue(apyPercentage)}
+              </LabeledInlineContent>
+
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: true })}
+                iconSrc="fee"
+                label={t('vai.mintVai.mintFeeLabel')}
+              >
+                {getReadableMintFee(values.amount)}
+              </LabeledInlineContent>
 
               <FormikSubmitButton
                 loading={isSubmitting}

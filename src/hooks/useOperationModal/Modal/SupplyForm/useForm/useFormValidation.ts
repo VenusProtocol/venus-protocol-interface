@@ -3,12 +3,16 @@ import { useMemo } from 'react';
 import { Asset, Swap, SwapError } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
+import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+
 import { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
   formValues: FormValues;
   fromTokenUserWalletBalanceTokens?: BigNumber;
+  fromTokenWalletSpendingLimitTokens?: BigNumber;
+  isFromTokenApproved?: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -41,7 +45,9 @@ const useFormValidation = ({
   swap,
   swapError,
   formValues,
+  isFromTokenApproved,
   fromTokenUserWalletBalanceTokens,
+  fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const formError: FormError | undefined = useMemo(() => {
     const swapErrorMapping: {
@@ -92,11 +98,28 @@ const useFormValidation = ({
     ) {
       return 'HIGHER_THAN_SUPPLY_CAP';
     }
+
+    if (
+      isFromTokenApproved &&
+      fromTokenWalletSpendingLimitTokens &&
+      fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
+    ) {
+      return 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
+    }
+
+    if (
+      !!swap?.priceImpactPercentage &&
+      swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+    ) {
+      return 'PRICE_IMPACT_TOO_HIGH';
+    }
   }, [
     asset.vToken.underlyingToken,
     asset.supplyCapTokens,
     asset.supplyBalanceTokens,
     fromTokenUserWalletBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
+    isFromTokenApproved,
     formValues.amountTokens,
     formValues.fromToken,
     swap,

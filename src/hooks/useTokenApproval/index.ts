@@ -5,23 +5,22 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { useApproveToken, useGetAllowance } from 'clients/api';
+import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
 
-interface UseTokenApprovalInput {
+export interface UseTokenApprovalInput {
   token: Token;
   spenderAddress?: string;
   accountAddress?: string;
 }
 
-interface UseTokenApprovalOutput {
+export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined; // TODO: remove
-  isTokenApprovalStatusLoading: boolean;
   approveToken: () => Promise<ContractReceipt | undefined>;
-  revokeSpendingLimit: () => Promise<ContractReceipt>;
+  revokeWalletSpendingLimit: () => Promise<ContractReceipt | undefined>;
   isApproveTokenLoading: boolean;
-  isRevokeSpendingLimitLoading: boolean;
-  spendingLimitTokens?: BigNumber;
+  isRevokeWalletSpendingLimitLoading: boolean;
+  isWalletSpendingLimitLoading: boolean;
+  walletSpendingLimitTokens?: BigNumber;
 }
 
 // TODO: add tests
@@ -31,7 +30,7 @@ const useTokenApproval = ({
   spenderAddress,
   accountAddress,
 }: UseTokenApprovalInput): UseTokenApprovalOutput => {
-  const { data: getTokenAllowanceData, isLoading: isTokenApprovalStatusLoading } = useGetAllowance(
+  const { data: getTokenAllowanceData, isLoading: isWalletSpendingLimitLoading } = useGetAllowance(
     {
       accountAddress: accountAddress || '',
       spenderAddress: spenderAddress || '',
@@ -42,11 +41,18 @@ const useTokenApproval = ({
     },
   );
 
-  // TODO: add hook to revoke allowance
-  const revokeSpendingLimit = async () => fakeContractReceipt;
-  const isRevokeSpendingLimitLoading = false;
+  const { mutateAsync: revokeAsync, isLoading: isRevokeWalletSpendingLimitLoading } =
+    useRevokeSpendingLimit({
+      token,
+    });
 
-  const spendingLimitTokens = useMemo(
+  const revokeWalletSpendingLimit = async () => {
+    if (spenderAddress) {
+      return revokeAsync({ spenderAddress });
+    }
+  };
+
+  const walletSpendingLimitTokens = useMemo(
     () =>
       getTokenAllowanceData?.allowanceWei &&
       convertWeiToTokens({ valueWei: getTokenAllowanceData.allowanceWei, token }),
@@ -58,12 +64,12 @@ const useTokenApproval = ({
       return true;
     }
 
-    if (!getTokenAllowanceData) {
+    if (!walletSpendingLimitTokens) {
       return undefined;
     }
 
-    return getTokenAllowanceData.allowanceWei.isGreaterThan(0);
-  }, [token.isNative, getTokenAllowanceData]);
+    return walletSpendingLimitTokens.isGreaterThan(0);
+  }, [token.isNative, walletSpendingLimitTokens]);
 
   const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken({
     token,
@@ -81,12 +87,12 @@ const useTokenApproval = ({
 
   return {
     isTokenApproved,
-    isTokenApprovalStatusLoading,
+    isWalletSpendingLimitLoading,
     isApproveTokenLoading,
     approveToken,
-    revokeSpendingLimit,
-    isRevokeSpendingLimitLoading,
-    spendingLimitTokens,
+    revokeWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading,
+    walletSpendingLimitTokens,
   };
 };
 

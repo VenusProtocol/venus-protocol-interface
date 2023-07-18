@@ -261,6 +261,10 @@ export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.APPROVE_TOKEN, approveToken, options);
 
+export const revokeSpendingLimit = vi.fn();
+export const useRevokeSpendingLimit = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REVOKE_SPENDING_LIMIT, revokeSpendingLimit, options);
+
 export const convertVrt = vi.fn();
 export const useConvertVrt = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CONVERT_VRT, convertVrt, options);
