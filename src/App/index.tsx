@@ -1,7 +1,7 @@
 import { Layout, ResetScrollOnRouteChange } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import 'assets/styles/App.scss';
@@ -21,7 +21,7 @@ const App = () => (
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
             <DisableLunaUstWarningProvider>
-              <BrowserRouter>
+              <HashRouter>
                 <ToastContainer />
 
                 <Layout>
@@ -29,7 +29,7 @@ const App = () => (
 
                   <Switch />
                 </Layout>
-              </BrowserRouter>
+              </HashRouter>
             </DisableLunaUstWarningProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
