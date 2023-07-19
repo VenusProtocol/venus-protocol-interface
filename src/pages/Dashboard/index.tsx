@@ -1,19 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import {
-  ButtonGroup,
-  NoticeWarning,
-  Tag,
-  TagGroup,
-  TextField,
-  TokenAnnouncement,
-} from 'components';
+import { ButtonGroup, Tag, TagGroup, TextField } from 'components';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import { MAINNET_TOKENS } from 'constants/tokens';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -100,10 +92,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
-
-      <NoticeWarning css={styles.banner} description={t('dashboard.banner.borrowApyChange')} />
-
-      <TokenAnnouncement css={styles.banner} token={MAINNET_TOKENS.tusdold} />
 
       <div css={styles.header}>
         <TextField
