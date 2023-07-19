@@ -92,7 +92,7 @@ const getIsolatedPools = async ({
     };
   });
 
-  const multicallContext: ContractCallContext[] = comptrollerCallsContext;
+  const multicallContexts: ContractCallContext[] = comptrollerCallsContext;
 
   // Fetch user vToken balances
   if (accountAddress) {
@@ -109,10 +109,10 @@ const getIsolatedPools = async ({
       ],
     };
 
-    multicallContext.push(poolLensCallContext);
+    multicallContexts.unshift(poolLensCallContext);
   }
 
-  const multicallPromise = multicall.call(multicallContext);
+  const multicallPromise = multicall.call(multicallContexts);
   let multicallOutput: ContractCallResults | undefined;
   let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
   let poolLensResult: ContractCallReturnContext | undefined;
@@ -146,7 +146,7 @@ const getIsolatedPools = async ({
   // Fetch reward distributors
   const comptrollerResults = Object.values(comptrollerCallUnformattedResults);
 
-  const rewardsDistributorsCallsContext = comptrollerResults.reduce<ContractCallContext[]>(
+  const rewardsDistributorsCallsContexts = comptrollerResults.reduce<ContractCallContext[]>(
     (acc, res) => {
       const pool = poolsResults.find(
         item =>
@@ -199,7 +199,7 @@ const getIsolatedPools = async ({
     [],
   );
 
-  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContext);
+  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContexts);
   const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
 
   // Get addresses of all the tokens referenced
@@ -229,17 +229,16 @@ const getIsolatedPools = async ({
   };
 
   const resilientOracleOutput = await multicall.call(resilientOracleCallsContext);
-  const resilientOracleResults = Object.values(resilientOracleOutput.results);
+  const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
 
   const pools = formatOutput({
     poolsResults,
     poolParticipantsCountResult,
     comptrollerResults,
     rewardsDistributorsResults,
-    resilientOracleResults,
+    resilientOracleResult,
     poolLensResult,
     userWalletTokenBalances,
-    accountAddress,
   });
 
   return {

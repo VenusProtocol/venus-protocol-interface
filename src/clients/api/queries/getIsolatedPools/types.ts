@@ -12,9 +12,8 @@ export interface FormatToPoolInput {
   poolParticipantsCountResult: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
-  resilientOracleResults: ContractCallReturnContext[];
+  resilientOracleResult: ContractCallReturnContext;
   poolLensResult?: ContractCallReturnContext;
-  accountAddress?: string;
   userWalletTokenBalances?: GetTokenBalancesOutput;
 }
 

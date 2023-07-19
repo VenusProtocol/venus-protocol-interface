@@ -10,6 +10,7 @@ import getIsolatedPools from '..';
 import {
   fakeGetAllPoolsOuput,
   fakeIsolatedPoolParticipantsCount,
+  fakeMulticallResponse0,
   fakeMulticallResponse1,
   fakeMulticallResponse2,
 } from '../__testUtils__/fakeData';
@@ -27,8 +28,15 @@ describe('api/queries/getIsolatedPools', () => {
     } as unknown as PoolLens;
 
     const fakeMulticall = {
-      call: (contexts: ContractCallContext[]) =>
-        contexts[0].reference === 'poolLens' ? fakeMulticallResponse1 : fakeMulticallResponse2,
+      call: (context: ContractCallContext | ContractCallContext[]) => {
+        if (Array.isArray(context)) {
+          return context[0].reference === 'poolLens'
+            ? fakeMulticallResponse0
+            : fakeMulticallResponse1;
+        }
+
+        return fakeMulticallResponse2;
+      },
     } as unknown as Multicall;
 
     const response = await getIsolatedPools({

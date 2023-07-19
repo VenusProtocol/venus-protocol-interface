@@ -18,17 +18,20 @@ import { logError } from 'context/ErrorLogger';
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
 import formatToDistributions from './formatToDistributions';
+import formatTokenPrices from './formatTokenPrices';
 
 const formatToPools = ({
   poolsResults,
   poolParticipantsCountResult,
   comptrollerResults,
   rewardsDistributorsResults,
-  // resilientOracleResults,
+  resilientOracleResult,
   poolLensResult,
   userWalletTokenBalances,
-}: // accountAddress,
-FormatToPoolInput) => {
+}: FormatToPoolInput) => {
+  // Map token prices by address
+  const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
+
   // Map distributions by vToken address
   const vTokenDistributions = formatToDistributions(rewardsDistributorsResults);
 
@@ -63,9 +66,17 @@ FormatToPoolInput) => {
         item => item.isListed && areAddressesEqual(item.vToken, vTokenAddress),
       );
 
-      // Skip vToken if we couldn't fetch sufficient data or if vToken has been
-      // unlisted
+      // Skip vToken if we couldn't fetch sufficient data
       if (!vTokenMetaData) {
+        logError(`Metadata could not be fetched for vToken: ${vTokenAddress}`);
+        return acc;
+      }
+
+      const tokenPriceDollars = tokenPricesDollars[vToken.underlyingToken.address.toLowerCase()];
+
+      // Skip token if we couldn't fetch a dollar price for it
+      if (!tokenPriceDollars) {
+        // Do not print error, formatTokenPrices already does
         return acc;
       }
 
@@ -79,9 +90,6 @@ FormatToPoolInput) => {
         poolLensResults[poolLensResults.length - 1].returnValues.find(userBalances =>
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
-
-      // TODO: fetch actual price
-      const tokenPriceDollars = new BigNumber(1);
 
       const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 

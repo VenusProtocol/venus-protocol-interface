@@ -1,6 +1,7 @@
 import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
+import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import { BigNumber as BN } from 'ethers';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
@@ -203,7 +204,7 @@ export const fakeGetAllPoolsOuput = [
   },
 ] as unknown as PoolLens.PoolDataStructOutput[];
 
-export const fakeMulticallResponse1 = {
+export const fakeMulticallResponse0 = {
   results: {
     poolLens: {
       originalContractCallContext: {
@@ -211,23 +212,6 @@ export const fakeMulticallResponse1 = {
         contractAddress: '0x7d6A1a595dCa742B4FF4Fb8684e3F018C3c0bEC0',
         abi: poolLensAbi,
         calls: [
-          {
-            reference: 'vTokenUnderlyingPriceAll',
-            methodName: 'vTokenUnderlyingPriceAll(address[])',
-            methodParameters: [
-              [
-                '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
-                '0x3338988d0beb4419acb8fe624218754053362d06',
-                '0x74469281310195a04840daf6edf576f559a3de80',
-                '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
-                '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
-                '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
-                '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
-                '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
-                '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
-              ],
-            ],
-          },
           {
             reference: 'vTokenBalancesAll',
             methodName: 'vTokenBalancesAll',
@@ -249,90 +233,6 @@ export const fakeMulticallResponse1 = {
         ],
       },
       callsReturnContext: [
-        {
-          returnValues: [
-            [
-              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
-              {
-                type: 'BigNumber',
-                hex: '0x088ebcd2341ff400',
-              },
-            ],
-            [
-              '0x3338988d0beb4419acb8fe624218754053362d06',
-              {
-                type: 'BigNumber',
-                hex: '0x05fa0e50dcecd3770000',
-              },
-            ],
-            [
-              '0x74469281310195a04840daf6edf576f559a3de80',
-              {
-                type: 'BigNumber',
-                hex: '0x7b53eac94b0400',
-              },
-            ],
-            [
-              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
-              {
-                type: 'BigNumber',
-                hex: '0x12426999090e17fc00',
-              },
-            ],
-            [
-              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
-              {
-                type: 'BigNumber',
-                hex: '0x06cde0813520d800',
-              },
-            ],
-            [
-              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
-              {
-                type: 'BigNumber',
-                hex: '0x5acdcfbc00',
-              },
-            ],
-            [
-              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
-              {
-                type: 'BigNumber',
-                hex: '0xae4956140c00',
-              },
-            ],
-            [
-              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
-              {
-                type: 'BigNumber',
-                hex: '0x11a509e5ca08857000',
-              },
-            ],
-            [
-              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
-              {
-                type: 'BigNumber',
-                hex: '0x0dc456a89608b800',
-              },
-            ],
-          ],
-          decoded: true,
-          reference: 'vTokenUnderlyingPriceAll',
-          methodName: 'vTokenUnderlyingPriceAll(address[])',
-          methodParameters: [
-            [
-              '0x899ddf81dfbbf5889a16d075c352f2b959dd24a4',
-              '0x3338988d0beb4419acb8fe624218754053362d06',
-              '0x74469281310195a04840daf6edf576f559a3de80',
-              '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
-              '0xb7526572ffe56ab9d7489838bf2e18e3323b441a',
-              '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
-              '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
-              '0x6d6f697e34145bb95c54e77482d97cc261dc237e',
-              '0xb6e9322c49fd75a367fcb17b0fcd62c5070ebcbe',
-            ],
-          ],
-          success: true,
-        },
         {
           returnValues: [
             [
@@ -651,7 +551,7 @@ export const fakeMulticallResponse1 = {
   blockNumber: 28326007,
 };
 
-export const fakeMulticallResponse2 = {
+export const fakeMulticallResponse1 = {
   results: {
     '0x26964b3C0a897eef365b65C3390e90563cf09589': {
       originalContractCallContext: {
@@ -2227,6 +2127,337 @@ export const fakeMulticallResponse2 = {
     },
   },
   blockNumber: 28326215,
+};
+
+export const fakeMulticallResponse2 = {
+  results: {
+    resilientOracle: {
+      originalContractCallContext: {
+        reference: 'resilientOracle',
+        contractAddress: '0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823',
+        abi: resilientOracleAbi,
+        calls: [
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xe73774DfCD551BF75650772dC2cC56a2B6323453'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x5B662703775171c4212F2FBAdb7F92e64116c154'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x6923189d91fdF62dBAe623a55273F1d20306D9f2'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x167F1F9EF531b3576201aa3146b13c57dbEda514'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x327d6E6FAC0228070884e913263CFF9eFed4a2C8'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xE98344A7c691B200EF47c9b8829110087D832C64'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x2E6Af3f3F059F43D764060968658c9F3c8f9479D'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0x7D21841DC10BA1C5797951EFc62fADBBDD06704B'],
+          },
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0de4df6b80e3cc00',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xe73774DfCD551BF75650772dC2cC56a2B6323453'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0de4df6b80e3cc00',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xe73774DfCD551BF75650772dC2cC56a2B6323453'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0c9fae3b544bf0f7c519800000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0de0b6b3a7640000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x1849ea7003ce805000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x5B662703775171c4212F2FBAdb7F92e64116c154'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x025202b21243d800',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x03b3823ca998c000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x6923189d91fdF62dBAe623a55273F1d20306D9f2'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x6e8f79a1690000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xace51af8c800',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x15efe0083000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x1251ff9676d3430000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x167F1F9EF531b3576201aa3146b13c57dbEda514'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x1291249f404fe20800',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x327d6E6FAC0228070884e913263CFF9eFed4a2C8'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x11cce910462f440000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0d1b5a9a3ee0a8e800',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x6d6e2edc00',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xE98344A7c691B200EF47c9b8829110087D832C64'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x4d613b2d7000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x2E6Af3f3F059F43D764060968658c9F3c8f9479D'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x01015b3f934d4b256057000000',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0x7D21841DC10BA1C5797951EFc62fADBBDD06704B'],
+          success: true,
+        },
+        {
+          returnValues: [],
+          decoded: false,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3'],
+          success: false,
+        },
+      ],
+    },
+  },
+  blockNumber: 31688260,
 };
 
 export const fakeIsolatedPoolParticipantsCount: Awaited<
