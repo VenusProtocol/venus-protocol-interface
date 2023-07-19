@@ -12,7 +12,7 @@ export interface FormatToPoolInput {
   poolParticipantsCountResult: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
-  poolLensResult: ContractCallReturnContext;
+  poolLensResult?: ContractCallReturnContext;
   accountAddress?: string;
   userWalletTokenBalances?: GetTokenBalancesOutput;
 }

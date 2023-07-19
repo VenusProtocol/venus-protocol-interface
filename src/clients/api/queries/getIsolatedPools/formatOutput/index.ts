@@ -26,8 +26,8 @@ const formatToPools = ({
   rewardsDistributorsResults,
   poolLensResult,
   userWalletTokenBalances,
-  accountAddress,
-}: FormatToPoolInput) => {
+}: // accountAddress,
+FormatToPoolInput) => {
   // Map distributions by vToken address
   const vTokenDistributions = formatToDistributions(rewardsDistributorsResults);
 
@@ -57,18 +57,14 @@ const formatToPools = ({
         return acc;
       }
 
-      const poolLensResults = poolLensResult.callsReturnContext;
+      const poolLensResults = poolLensResult?.callsReturnContext;
       const vTokenMetaData = poolResult.vTokens.find(
         item => item.isListed && areAddressesEqual(item.vToken, vTokenAddress),
       );
 
-      const tokenPriceRecord = poolLensResults[0].returnValues.find(item =>
-        areAddressesEqual(item[0], vTokenAddress),
-      );
-
       // Skip vToken if we couldn't fetch sufficient data or if vToken has been
       // unlisted
-      if (!vTokenMetaData || !tokenPriceRecord) {
+      if (!vTokenMetaData) {
         return acc;
       }
 
@@ -78,14 +74,13 @@ const formatToPools = ({
       }
 
       const vTokenUserBalances =
-        accountAddress &&
+        poolLensResults &&
         poolLensResults[poolLensResults.length - 1].returnValues.find(userBalances =>
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
 
-      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(
-        new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
-      );
+      // TODO: fetch actual price
+      const tokenPriceDollars = new BigNumber(1);
 
       const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 

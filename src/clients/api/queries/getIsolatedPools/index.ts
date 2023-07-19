@@ -1,7 +1,11 @@
 import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
+import {
+  ContractCallContext,
+  ContractCallResults,
+  ContractCallReturnContext,
+} from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
 import { areTokensEqual, getContractAddress, getTokenByAddress } from 'utilities';
@@ -55,30 +59,6 @@ const getIsolatedPools = async ({
     [[], []],
   );
 
-  // Fetch additional vToken data
-  const poolLensCalls: ContractCallContext['calls'] = [
-    {
-      reference: 'vTokenUnderlyingPriceAll',
-      methodName: 'vTokenUnderlyingPriceAll(address[])',
-      methodParameters: [vTokenAddresses],
-    },
-  ];
-
-  if (accountAddress) {
-    poolLensCalls.push({
-      reference: 'vTokenBalancesAll',
-      methodName: 'vTokenBalancesAll',
-      methodParameters: [vTokenAddresses, accountAddress],
-    });
-  }
-
-  const poolLensCallContext: ContractCallContext = {
-    reference: 'poolLens',
-    contractAddress: poolLensContract.address,
-    abi: poolLensAbi,
-    calls: poolLensCalls,
-  };
-
   // Fetch addresses of reward distributors and user collaterals
   const comptrollerCallsContext: ContractCallContext[] = poolsResults.map(result => {
     const calls: ContractCallContext['calls'] = [
@@ -105,13 +85,40 @@ const getIsolatedPools = async ({
     };
   });
 
-  const multicallPromise = multicall.call([poolLensCallContext, ...comptrollerCallsContext]);
+  const multicallContext: ContractCallContext[] = comptrollerCallsContext;
+
+  // Fetch user vToken balances
+  if (accountAddress) {
+    const poolLensCallContext: ContractCallContext = {
+      reference: 'poolLens',
+      contractAddress: poolLensContract.address,
+      abi: poolLensAbi,
+      calls: [
+        {
+          reference: 'vTokenBalancesAll',
+          methodName: 'vTokenBalancesAll',
+          methodParameters: [vTokenAddresses, accountAddress],
+        },
+      ],
+    };
+
+    multicallContext.push(poolLensCallContext);
+  }
+
+  const multicallPromise = multicall.call(multicallContext);
   let multicallOutput: ContractCallResults | undefined;
   let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
+  let poolLensResult: ContractCallReturnContext | undefined;
+  let comptrollerCallUnformattedResults:
+    | {
+        [key: string]: ContractCallReturnContext;
+      }
+    | undefined;
 
   if (accountAddress) {
     [multicallOutput, userWalletTokenBalances] = await Promise.all([
       multicallPromise,
+      // Fetch wallet token balances
       getTokenBalances({
         multicall,
         accountAddress,
@@ -119,12 +126,15 @@ const getIsolatedPools = async ({
         provider,
       }),
     ]);
+
+    const { poolLens, ...remainingResults } = multicallOutput.results;
+
+    poolLensResult = poolLens;
+    comptrollerCallUnformattedResults = remainingResults;
   } else {
     multicallOutput = await multicallPromise;
+    comptrollerCallUnformattedResults = multicallOutput.results;
   }
-
-  const { poolLens: poolLensResult, ...comptrollerCallUnformattedResults } =
-    multicallOutput.results;
 
   // Fetch reward distributors
   const comptrollerResults = Object.values(comptrollerCallUnformattedResults);
