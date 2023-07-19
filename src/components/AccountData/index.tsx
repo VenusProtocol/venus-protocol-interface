@@ -48,7 +48,6 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
   const assetInfo = useAssetInfo({
     asset,
-    isAssetIsolated: pool.isIsolated,
     type: action === 'borrow' || action === 'repay' ? 'borrow' : 'supply',
   });
 

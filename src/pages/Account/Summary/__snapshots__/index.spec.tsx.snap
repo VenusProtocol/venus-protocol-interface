@@ -2,6 +2,6 @@
 
 exports[`pages/Account/Summary > displays account health when passing displayAccountHealth prop as true 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Your safe limit:$1.54K"`;
 
-exports[`pages/Account/Summary > displays stats correctly 1`] = `"Net APY0%Daily Earnings$0.04Total Supply$1.23MTotal Borrow$123.33"`;
+exports[`pages/Account/Summary > displays stats correctly 1`] = `"Net APY0%Daily Earnings$0.05Total Supply$1.23MTotal Borrow$123.33"`;
 
 exports[`pages/Account/Summary > displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true 1`] = `"Net APY0%Daily Earnings$0.13Total Supply$1.23MTotal Borrow$123.33Total Vault Stake$233.00"`;

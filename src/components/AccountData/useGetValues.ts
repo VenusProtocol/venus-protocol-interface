@@ -58,7 +58,6 @@ const useGetValues = ({
   return useMemo(() => {
     const poolUserYearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets: pool.assets,
-      areAssetsIsolated: pool.isIsolated,
     });
 
     const poolUserDailyEarningsCents =
@@ -178,7 +177,6 @@ const useGetValues = ({
 
     const hypotheticalUserYearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets: hypotheticalAssets,
-      areAssetsIsolated: pool.isIsolated,
     });
 
     returnValues.hypotheticalPoolUserDailyEarningsCents =
