@@ -7216,10 +7216,10 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@^1.6.13":
-  version "1.6.13"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.6.13.tgz#9083e2bee7be7f6b3f96b8381165897aca9df4fb"
-  integrity sha512-cG3grTphmgv64b01kkDM6/k4JlHslIhB3c27Cz3w4mU3W0jin8Cdv5SAVVv5W0kLI/zEZGS1+jc3LmMGvchAgg==
+"@venusprotocol/oracle@^1.7.0-dev.5":
+  version "1.7.0-dev.5"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.7.0-dev.5.tgz#012d05c34074b0bacfe4c5cdc869eeae29aa74a3"
+  integrity sha512-lO6tOHv4vil+A/N7Q+ZW3gZnpa2mQxFvC7tzRbvFshKhH/2hCYCvid8VisESJMrQv02O0v8I8T5Y2659kAxYQg==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "^2.3.4"

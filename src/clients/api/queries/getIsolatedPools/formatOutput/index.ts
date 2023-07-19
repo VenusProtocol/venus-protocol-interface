@@ -24,6 +24,7 @@ const formatToPools = ({
   poolParticipantsCountResult,
   comptrollerResults,
   rewardsDistributorsResults,
+  // resilientOracleResults,
   poolLensResult,
   userWalletTokenBalances,
 }: // accountAddress,
