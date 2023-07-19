@@ -2,11 +2,21 @@ import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { AssetDistribution } from 'types';
-import { calculateApy, getTokenByAddress } from 'utilities';
+import { calculateApy, calculateDailyDistributedTokens, getTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
 
-const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnContext[]) =>
+export interface FormatToDistributionsInput {
+  tokenPricesDollars: {
+    [tokenAddress: string]: BigNumber;
+  };
+  rewardsDistributorsResults: ContractCallReturnContext[];
+}
+
+const formatToDistributions = ({
+  rewardsDistributorsResults,
+}: // tokenPricesDollars,
+FormatToDistributionsInput) =>
   rewardsDistributorsResults.reduce<{
     [vTokenAddress: string]: AssetDistribution[];
   }>((acc, rewardsDistributorsResult) => {
@@ -29,19 +39,23 @@ const formatToDistributions = (rewardsDistributorsResults: ContractCallReturnCon
 
       // Only add distribution if one of the speeds is not 0
       if (supplySpeedMantissa.isGreaterThan(0) || borrowSpeedMantissa.isGreaterThan(0)) {
-        const {
-          apyPercentage: supplyApyPercentage,
-          dailyDistributedTokens: supplyDailyDistributedTokens,
-        } = calculateApy({
+        const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
           ratePerBlockMantissa: supplySpeedMantissa,
           decimals: rewardToken.decimals,
         });
 
-        const {
-          apyPercentage: borrowApyPercentage,
-          dailyDistributedTokens: borrowDailyDistributedTokens,
-        } = calculateApy({
+        const supplyApyPercentage = calculateApy({
+          dailyDistributedTokens: supplyDailyDistributedTokens,
+          decimals: rewardToken.decimals,
+        });
+
+        const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
           ratePerBlockMantissa: borrowSpeedMantissa,
+          decimals: rewardToken.decimals,
+        });
+
+        const borrowApyPercentage = calculateApy({
+          dailyDistributedTokens: borrowDailyDistributedTokens,
           decimals: rewardToken.decimals,
         });
 

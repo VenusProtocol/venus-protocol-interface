@@ -5,6 +5,7 @@ import {
   areAddressesEqual,
   areTokensEqual,
   calculateApy,
+  calculateDailyDistributedTokens,
   convertDollarsToCents,
   convertWeiToTokens,
   getVTokenByAddress,
@@ -33,7 +34,10 @@ const formatToPools = ({
   const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
 
   // Map distributions by vToken address
-  const vTokenDistributions = formatToDistributions(rewardsDistributorsResults);
+  const vTokenDistributions = formatToDistributions({
+    rewardsDistributorsResults,
+    tokenPricesDollars,
+  });
 
   // Get vToken addresses of user collaterals
   const userCollateralVTokenAddresses = comptrollerResults.reduce<string[]>(
@@ -138,18 +142,28 @@ const formatToPools = ({
         ),
       );
 
-      const {
-        apyPercentage: supplyApyPercentage,
-        dailyDistributedTokens: supplyDailyDistributedTokens,
-      } = calculateApy({
+      const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
         ratePerBlockMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
+        // decimals: vToken.underlyingToken.decimals,
       });
 
-      const {
-        apyPercentage: borrowApyPercentage,
-        dailyDistributedTokens: borrowDailyDistributedTokens,
-      } = calculateApy({
+      const supplyApyPercentage = calculateApy({
+        dailyDistributedTokens: supplyDailyDistributedTokens,
+        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
+        // decimals: vToken.underlyingToken.decimals,
+      });
+
+      const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
         ratePerBlockMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
+        // decimals: vToken.underlyingToken.decimals,
+      });
+
+      const borrowApyPercentage = calculateApy({
+        dailyDistributedTokens: borrowDailyDistributedTokens,
+        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
+        // decimals: vToken.underlyingToken.decimals,
       });
 
       const supplyRatePerBlockTokens = supplyDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);

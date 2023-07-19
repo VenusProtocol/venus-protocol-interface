@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { calculateApy, calculateDailyDistributedTokens } from 'utilities';
 
+import { TOKENS } from 'constants/tokens';
 import { VaiController } from 'types/contracts';
-import calculateApy from 'utilities/calculateApy';
 
 export interface GetVaiRepayApyInput {
   vaiControllerContract: VaiController;
@@ -16,8 +17,14 @@ const getVaiRepayApy = async ({
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
-  const { apyPercentage } = calculateApy({
+  const dailyVaiDistributedTokens = calculateDailyDistributedTokens({
     ratePerBlockMantissa: vaiRepayRatePerBlockMantissa.toString(),
+    decimals: TOKENS.vai.decimals,
+  });
+
+  const apyPercentage = calculateApy({
+    dailyDistributedTokens: dailyVaiDistributedTokens,
+    decimals: TOKENS.vai.decimals,
   });
 
   return {
