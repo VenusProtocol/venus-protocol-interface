@@ -6,26 +6,26 @@ import { calculateDailyDistributedTokens, getTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
 
-export interface FormatDailyDistributedTokensMappingInput {
+export interface FormatDailyDistributedRewardTokensMappingInput {
   tokenPricesDollars: {
     [tokenAddress: string]: BigNumber;
   };
   rewardsDistributorsResults: ContractCallReturnContext[];
 }
-export interface DailyDistributedTokensMapping {
+export interface DailyDistributedRewardTokensMapping {
   [vTokenAddress: string]: {
-    token: Token;
-    tokenPriceDollars: BigNumber;
-    supplyDailyDistributedTokens: BigNumber;
-    borrowDailyDistributedTokens: BigNumber;
+    rewardToken: Token;
+    rewardTokenPriceDollars: BigNumber;
+    supplyDailyDistributedRewardTokens: BigNumber;
+    borrowDailyDistributedRewardTokens: BigNumber;
   }[];
 }
 
-const formatDailyDistributedTokensMapping = ({
+const formatDailyDistributedRewardTokensMapping = ({
   rewardsDistributorsResults,
   tokenPricesDollars,
-}: FormatDailyDistributedTokensMappingInput) =>
-  rewardsDistributorsResults.reduce<DailyDistributedTokensMapping>(
+}: FormatDailyDistributedRewardTokensMappingInput) =>
+  rewardsDistributorsResults.reduce<DailyDistributedRewardTokensMapping>(
     (acc, rewardsDistributorsResult) => {
       const results = rewardsDistributorsResult.callsReturnContext;
       const rewardTokenAddress = results[0].returnValues[0].toLowerCase();
@@ -36,9 +36,9 @@ const formatDailyDistributedTokensMapping = ({
         return acc;
       }
 
-      const rewardTokenPricesDollars = tokenPricesDollars[rewardToken.address.toLowerCase()];
+      const rewardTokenPriceDollars = tokenPricesDollars[rewardToken.address.toLowerCase()];
 
-      if (!rewardTokenPricesDollars) {
+      if (!rewardTokenPriceDollars) {
         logError(
           `Price could not be fetched for reward token: ${rewardToken.symbol} (${rewardToken.address})`,
         );
@@ -57,23 +57,23 @@ const formatDailyDistributedTokensMapping = ({
         if (supplySpeedMantissa.isGreaterThan(0) || borrowSpeedMantissa.isGreaterThan(0)) {
           // TODO: check if this needs to be calculated using the decimals of the reward token
           // rather than always 18 decimals
-          const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
+          const supplyDailyDistributedRewardTokens = calculateDailyDistributedTokens({
             ratePerBlockMantissa: supplySpeedMantissa,
           });
 
           // TODO: check if this needs to be calculated using the decimals of the reward token
           // rather than always 18 decimals
-          const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
+          const borrowDailyDistributedRewardTokens = calculateDailyDistributedTokens({
             ratePerBlockMantissa: borrowSpeedMantissa,
           });
 
           // Initialize with an empty array if necessary
           accCopy[vTokenAddress] = accCopy[vTokenAddress] || [];
           accCopy[vTokenAddress].push({
-            token: rewardToken,
-            tokenPriceDollars: tokenPricesDollars[rewardToken.address.toLowerCase()],
-            supplyDailyDistributedTokens,
-            borrowDailyDistributedTokens,
+            rewardToken,
+            rewardTokenPriceDollars,
+            supplyDailyDistributedRewardTokens,
+            borrowDailyDistributedRewardTokens,
           });
         }
       }
@@ -83,4 +83,4 @@ const formatDailyDistributedTokensMapping = ({
     {},
   );
 
-export default formatDailyDistributedTokensMapping;
+export default formatDailyDistributedRewardTokensMapping;

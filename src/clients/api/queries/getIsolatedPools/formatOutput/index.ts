@@ -18,7 +18,7 @@ import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
-import formatDailyDistributedTokensMapping from './formatDailyDistributedTokensMapping';
+import formatDailyDistributedRewardTokensMapping from './formatDailyDistributedRewardTokensMapping';
 import formatDistributions from './formatDistributions';
 import formatTokenPrices from './formatTokenPrices';
 
@@ -35,7 +35,7 @@ const formatToPools = ({
   const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
 
   // Map distributions by vToken address
-  const dailyDistributedTokensMapping = formatDailyDistributedTokensMapping({
+  const dailyDistributedRewardTokensMapping = formatDailyDistributedRewardTokensMapping({
     rewardsDistributorsResults,
     tokenPricesDollars,
   });
@@ -213,9 +213,11 @@ const formatToPools = ({
       );
 
       const distributions = formatDistributions({
-        dailyDistributedTokens: dailyDistributedTokensMapping[vToken.address.toLowerCase()] || [],
+        tokenPriceDollars,
         supplyBalanceTokens,
         borrowBalanceTokens,
+        dailyDistributedRewardTokens:
+          dailyDistributedRewardTokensMapping[vToken.address.toLowerCase()] || [],
       });
 
       const asset: Asset = {

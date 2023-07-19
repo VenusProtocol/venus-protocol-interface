@@ -2,29 +2,37 @@ import BigNumber from 'bignumber.js';
 import { AssetDistribution } from 'types';
 import { calculateApy } from 'utilities';
 
-import { DailyDistributedTokensMapping } from './formatDailyDistributedTokensMapping';
+import { DailyDistributedRewardTokensMapping } from './formatDailyDistributedRewardTokensMapping';
 
 export interface FormatDistributionsInput {
-  dailyDistributedTokens: DailyDistributedTokensMapping[string];
+  tokenPriceDollars: BigNumber;
+  dailyDistributedRewardTokens: DailyDistributedRewardTokensMapping[string];
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
 }
 
 const formatDistributions = ({
-  dailyDistributedTokens,
+  tokenPriceDollars,
+  dailyDistributedRewardTokens,
   supplyBalanceTokens,
   borrowBalanceTokens,
-}: FormatDistributionsInput) =>
-  dailyDistributedTokens.map(
-    ({ token, tokenPriceDollars, borrowDailyDistributedTokens, supplyDailyDistributedTokens }) => {
-      // Convert token values to dollars
-      const supplyDailyDistributedDollars =
-        supplyDailyDistributedTokens.multipliedBy(tokenPriceDollars);
-      const borrowDailyDistributedDollars =
-        borrowDailyDistributedTokens.multipliedBy(tokenPriceDollars);
+}: FormatDistributionsInput) => {
+  // Convert balances to dollars
+  const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(tokenPriceDollars);
+  const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
 
-      const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(tokenPriceDollars);
-      const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
+  return dailyDistributedRewardTokens.map(
+    ({
+      rewardToken,
+      rewardTokenPriceDollars,
+      borrowDailyDistributedRewardTokens,
+      supplyDailyDistributedRewardTokens,
+    }) => {
+      // Convert distributions to dollars
+      const supplyDailyDistributedDollars =
+        supplyDailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
+      const borrowDailyDistributedDollars =
+        borrowDailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
 
       // Calculate APYs
       const supplyApyPercentage = calculateApy({
@@ -36,15 +44,16 @@ const formatDistributions = ({
       });
 
       const assetDistribution: AssetDistribution = {
-        token,
+        token: rewardToken,
         supplyApyPercentage,
         borrowApyPercentage,
-        supplyDailyDistributedTokens,
-        borrowDailyDistributedTokens,
+        supplyDailyDistributedTokens: supplyDailyDistributedRewardTokens,
+        borrowDailyDistributedTokens: borrowDailyDistributedRewardTokens,
       };
 
       return assetDistribution;
     },
   );
+};
 
 export default formatDistributions;
