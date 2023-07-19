@@ -17,12 +17,14 @@ const formatTokenPrices = (resilientOracleResult: ContractCallReturnContext) =>
       return acc;
     }
 
-    if (!callResult.returnValues[0]) {
-      logError(`Price could not be fetched for token: ${tokenAddress}`);
+    const priceRecord = callResult.returnValues[0];
+
+    if (!priceRecord) {
+      logError(`Price could not be fetched for token: ${token.symbol} (${tokenAddress})`);
       return acc;
     }
 
-    const tokenPriceDollars = new BigNumber(callResult.returnValues[0].hex).dividedBy(
+    const tokenPriceDollars = new BigNumber(priceRecord.hex).dividedBy(
       new BigNumber(10).pow(36 - token.decimals),
     );
 

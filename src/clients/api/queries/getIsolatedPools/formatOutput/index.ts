@@ -18,7 +18,8 @@ import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
-import formatToDistributions from './formatToDistributions';
+import formatDailyDistributedTokensMapping from './formatDailyDistributedTokensMapping';
+import formatDistributions from './formatDistributions';
 import formatTokenPrices from './formatTokenPrices';
 
 const formatToPools = ({
@@ -34,7 +35,7 @@ const formatToPools = ({
   const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
 
   // Map distributions by vToken address
-  const vTokenDistributions = formatToDistributions({
+  const dailyDistributedTokensMapping = formatDailyDistributedTokensMapping({
     rewardsDistributorsResults,
     tokenPricesDollars,
   });
@@ -80,7 +81,9 @@ const formatToPools = ({
 
       // Skip token if we couldn't fetch a dollar price for it
       if (!tokenPriceDollars) {
-        // Do not print error, formatTokenPrices already does
+        logError(
+          `Price could not be fetched for token: ${vToken.underlyingToken.symbol} (${vToken.underlyingToken.address})`,
+        );
         return acc;
       }
 
@@ -144,26 +147,18 @@ const formatToPools = ({
 
       const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
         ratePerBlockMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
-        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
-        // decimals: vToken.underlyingToken.decimals,
       });
 
       const supplyApyPercentage = calculateApy({
         dailyDistributedTokens: supplyDailyDistributedTokens,
-        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
-        // decimals: vToken.underlyingToken.decimals,
       });
 
       const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
         ratePerBlockMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
-        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
-        // decimals: vToken.underlyingToken.decimals,
       });
 
       const borrowApyPercentage = calculateApy({
         dailyDistributedTokens: borrowDailyDistributedTokens,
-        decimals: COMPOUND_DECIMALS, // TODO: check whether that's correct or if we should use this instead:
-        // decimals: vToken.underlyingToken.decimals,
       });
 
       const supplyRatePerBlockTokens = supplyDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);
@@ -217,7 +212,11 @@ const formatToPools = ({
         vTokenAddress.toLowerCase(),
       );
 
-      const distributions = vTokenDistributions[vToken.address.toLowerCase()] || [];
+      const distributions = formatDistributions({
+        dailyDistributedTokens: dailyDistributedTokensMapping[vToken.address.toLowerCase()] || [],
+        supplyBalanceTokens,
+        borrowBalanceTokens,
+      });
 
       const asset: Asset = {
         vToken,
