@@ -24,7 +24,6 @@ import {
 } from 'utilities';
 
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -90,13 +89,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 
-  const isIntegratedSwapEnabled = useMemo(
-    () =>
-      isFeatureEnabled('integratedSwap') &&
-      // Temporary fix to exclude TUSD as liquidities are low in PancakeSwap V2
-      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.tusd),
-    [asset.vToken.underlyingToken],
-  );
+  const isIntegratedSwapEnabled = isFeatureEnabled('integratedSwap');
 
   const isUsingSwap = useMemo(
     () =>
