@@ -63,29 +63,17 @@ export const ENV_VARIABLES = {
 const environment: Environment =
   (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
 
-const isLocalServer =
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') &&
-  environment !== 'ci' &&
-  environment !== 'storybook';
+const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment !== 'storybook';
 
 const isOnTestnet =
   environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
 const chainId: BscChainId = isOnTestnet ? 97 : 56;
 
-let localRpcUrl = RPC_URLS[chainId];
-switch (environment) {
-  case 'mainnet':
-  case 'preview':
-    localRpcUrl = ENV_VARIABLES.VITE_RPC_URL_MAINNET;
-    break;
-  case 'testnet':
-    localRpcUrl = ENV_VARIABLES.VITE_RPC_URL_TESTNET;
-    break;
-  default:
-    localRpcUrl = RPC_URLS[chainId];
-    break;
-}
+const localRpcUrl =
+  environment === 'mainnet' || environment === 'preview'
+    ? ENV_VARIABLES.VITE_RPC_URL_MAINNET
+    : ENV_VARIABLES.VITE_RPC_URL_TESTNET;
 
 const rpcUrl = isLocalServer ? localRpcUrl : RPC_URLS[chainId];
 const apiUrl = API_ENDPOINT_URLS[environment];
