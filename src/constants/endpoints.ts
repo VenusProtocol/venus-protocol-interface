@@ -9,12 +9,8 @@ export const API_ENDPOINT_URLS: Record<Environment, string> = {
 };
 
 export const RPC_URLS: {
-  [key: string]: string[];
+  [key: string]: string;
 } = {
-  [BscChainId.MAINNET]: [
-    'https://bsc-dataseed1.ninicoin.io',
-    'https://bsc-dataseed1.defibit.io',
-    'https://bsc-dataseed.binance.org',
-  ],
-  [BscChainId.TESTNET]: ['https://bsc-testnet.nodereal.io/v1/f9777f42cc9243f0a766937df1c6a5f3'],
+  [BscChainId.MAINNET]: 'https://bsc-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
+  [BscChainId.TESTNET]: 'https://bsc-testnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
 };
