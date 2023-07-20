@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { Token, VToken } from 'types';
 
+import { ONE_TRILLION } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import shortenValueWithSuffix from '../shortenValueWithSuffix';
 
 const MIN_VALUE = 0.000001;
-const MAX_VALUE = 100000000000;
+const MAX_VALUE = 100 * ONE_TRILLION;
 const MIN_DECIMALS = 2;
 
 export interface FormatTokensToReadableValueInput {

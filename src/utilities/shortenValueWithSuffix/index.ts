@@ -1,10 +1,7 @@
 import BigNumber from 'bignumber.js';
 
+import { ONE_BILLION, ONE_MILLION, ONE_THOUSAND, ONE_TRILLION } from 'constants/numbers';
 import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
-
-const ONE_BILLION = 1000000000;
-const ONE_MILLION = 1000000;
-const ONE_THOUSAND = 1000;
 
 export interface ShortenValueWithSuffix {
   value: BigNumber;
@@ -24,7 +21,10 @@ const shortenValueWithSuffix = ({
   let formattedValue = value;
   let suffix = '';
 
-  if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
+  if (value.isGreaterThanOrEqualTo(ONE_TRILLION)) {
+    formattedValue = formattedValue.dividedBy(ONE_TRILLION);
+    suffix = 'T';
+  } else if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
     formattedValue = formattedValue.dividedBy(ONE_BILLION);
     suffix = 'B';
   } else if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
