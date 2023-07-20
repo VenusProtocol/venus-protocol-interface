@@ -34,7 +34,9 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         pools: [
           {
             ...pool,
-            assets: pool.assets.filter(asset => asset.userSupplyBalanceTokens.isGreaterThan(0)),
+            assets: pool.assets.filter(
+              asset => asset.userSupplyBalanceTokens.isGreaterThan(0) || asset.isCollateralOfUser,
+            ),
           },
         ],
         marketType: 'supply',
