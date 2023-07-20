@@ -55,16 +55,14 @@ const formatDailyDistributedRewardTokensMapping = ({
 
         // Only add distribution if one of the speeds is not 0
         if (supplySpeedMantissa.isGreaterThan(0) || borrowSpeedMantissa.isGreaterThan(0)) {
-          // TODO: check if this needs to be calculated using the decimals of the reward token
-          // rather than always 18 decimals
           const supplyDailyDistributedRewardTokens = calculateDailyDistributedTokens({
             ratePerBlockMantissa: supplySpeedMantissa,
+            decimals: rewardToken.decimals,
           });
 
-          // TODO: check if this needs to be calculated using the decimals of the reward token
-          // rather than always 18 decimals
           const borrowDailyDistributedRewardTokens = calculateDailyDistributedTokens({
             ratePerBlockMantissa: borrowSpeedMantissa,
+            decimals: rewardToken.decimals,
           });
 
           // Initialize with an empty array if necessary

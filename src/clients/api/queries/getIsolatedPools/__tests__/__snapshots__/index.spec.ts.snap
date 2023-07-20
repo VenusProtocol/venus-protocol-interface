@@ -1026,9 +1026,9 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "distributions": [
             {
               "borrowApyPercentage": "Infinity",
-              "borrowDailyDistributedTokens": "1.3092768e-9",
-              "supplyApyPercentage": "3.69439252e-10",
-              "supplyDailyDistributedTokens": "1.3092768e-9",
+              "borrowDailyDistributedTokens": "1309.2768",
+              "supplyApyPercentage": "3847.909728133912800523",
+              "supplyDailyDistributedTokens": "1309.2768",
               "token": {
                 "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
                 "asset": "/src/assets/img/tokens/trx.svg",
