@@ -8,5 +8,5 @@ export interface TransactionResponse {
   to: string;
   transactionHash: string;
   logIndex: string;
-  tokenAddress: string;
+  tokenAddress: string | null;
 }
