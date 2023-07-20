@@ -45,13 +45,13 @@ describe('utilities/formatTokensToReadableValue', () => {
       value: new BigNumber('1000000000000000000'),
       token: TOKENS.busd,
     });
-    expect(result).toEqual('> 100.00B BUSD');
+    expect(result).toEqual('> 100.00T BUSD');
 
     const negativeResult = formatTokensToReadableValue({
       value: new BigNumber('-1000000000000000000'),
       token: TOKENS.busd,
     });
-    expect(negativeResult).toEqual('< -100.00B BUSD');
+    expect(negativeResult).toEqual('< -100.00T BUSD');
   });
 
   test('should return a formatted value with token symbol when addSymbol is true', () => {
