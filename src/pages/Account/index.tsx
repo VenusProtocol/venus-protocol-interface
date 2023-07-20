@@ -33,7 +33,8 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
     [vaults],
   );
 
-  // Filter out pools user has not supplied in or borrowed from
+  // Filter out pools user has not supplied in or borrowed from, unless they have assets enabled as
+  // collateral in that pool
   const filteredPools = useMemo(
     () =>
       pools.filter(
@@ -41,7 +42,8 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
           !!pool.assets.find(
             asset =>
               asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-              asset.userBorrowBalanceTokens.isGreaterThan(0),
+              asset.userBorrowBalanceTokens.isGreaterThan(0) ||
+              asset.isCollateralOfUser,
           ),
       ),
     [pools],
