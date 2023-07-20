@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.3.1...v2.3.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* removed NODE env vars from dockerfiles ([a79501b](https://github.com/VenusProtocol/venus-protocol-interface/commit/a79501b3af8c19a0bb56fc51eeb6435772816c72))
+
 ## [2.3.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.3.0...v2.3.1) (2023-07-20)
 
 
