@@ -3,9 +3,6 @@ FROM node:18.16.1-alpine as builder
 ARG VERSION
 ARG TAR_FILE_PREFIX
 
-ENV NODE_ENV development
-ENV NODE_PATH=src/
-
 RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
