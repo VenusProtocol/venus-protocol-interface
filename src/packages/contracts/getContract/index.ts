@@ -1,19 +1,21 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 
-import { ContractName, ContractTypeByName } from './types/contractName';
+import { ContractName, ContractTypeByName } from '../types/contractName';
 
-import * as contractInfos from './contractInfos';
+import * as contractInfos from '../contractInfos';
+
+interface VariablesBase {
+  signerOrProvider: Signer | Provider;
+}
 
 type Variables =
-  | {
-      signerOrProvider: Signer | Provider;
+  | (VariablesBase & {
       chainId: number;
-    }
-  | {
-      signerOrProvider: Signer | Provider;
+    })
+  | (VariablesBase & {
       address: string;
-    };
+    });
 
 export default function getContract<TContractName extends ContractName>(
   name: TContractName,
