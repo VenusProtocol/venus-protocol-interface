@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
-import { calculateDailyDistributedTokens, getTokenByAddress } from 'utilities';
+import { getTokenByAddress, multiplyMantissaDaily } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
 
@@ -55,12 +55,12 @@ const formatDailyDistributedRewardTokensMapping = ({
 
         // Only add distribution if one of the speeds is not 0
         if (supplySpeedMantissa.isGreaterThan(0) || borrowSpeedMantissa.isGreaterThan(0)) {
-          const supplyDailyDistributedRewardTokens = calculateDailyDistributedTokens({
+          const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
             mantissa: supplySpeedMantissa,
             decimals: rewardToken.decimals,
           });
 
-          const borrowDailyDistributedRewardTokens = calculateDailyDistributedTokens({
+          const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
             mantissa: borrowSpeedMantissa,
             decimals: rewardToken.decimals,
           });

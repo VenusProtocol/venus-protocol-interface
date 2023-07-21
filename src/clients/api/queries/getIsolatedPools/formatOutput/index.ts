@@ -5,10 +5,10 @@ import {
   areAddressesEqual,
   areTokensEqual,
   calculateApy,
-  calculateDailyDistributedTokens,
   convertDollarsToCents,
   convertWeiToTokens,
   getVTokenByAddress,
+  multiplyMantissaDaily,
 } from 'utilities';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
@@ -145,7 +145,7 @@ const formatToPools = ({
         ),
       );
 
-      const supplyDailyPercentageRate = calculateDailyDistributedTokens({
+      const supplyDailyPercentageRate = multiplyMantissaDaily({
         mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       });
 
@@ -153,7 +153,7 @@ const formatToPools = ({
         dailyDistributedTokens: supplyDailyPercentageRate,
       });
 
-      const borrowDailyPercentageRate = calculateDailyDistributedTokens({
+      const borrowDailyPercentageRate = multiplyMantissaDaily({
         mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
       });
 

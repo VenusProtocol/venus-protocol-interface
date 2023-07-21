@@ -3,18 +3,18 @@ import BigNumber from 'bignumber.js';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 
-export interface CalculateDailyDistributedTokensInput {
+export interface MultiplyMantissaDailyInput {
   mantissa: BigNumber | string | number;
   decimals?: number;
 }
 
-const calculateDailyDistributedTokens = ({
+const multiplyMantissaDaily = ({
   mantissa,
   decimals = COMPOUND_DECIMALS,
-}: CalculateDailyDistributedTokensInput) =>
+}: MultiplyMantissaDailyInput) =>
   new BigNumber(mantissa)
     .div(new BigNumber(10).pow(decimals))
     .multipliedBy(BLOCKS_PER_DAY)
     .dp(decimals);
 
-export default calculateDailyDistributedTokens;
+export default multiplyMantissaDaily;

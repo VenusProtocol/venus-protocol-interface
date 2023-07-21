@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { calculateApy, calculateDailyDistributedTokens } from 'utilities';
+import { calculateApy, multiplyMantissaDaily } from 'utilities';
 
 import { VaiController } from 'types/contracts';
 
@@ -16,7 +16,7 @@ const getVaiRepayApy = async ({
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
-  const vaiDailyPercentageRate = calculateDailyDistributedTokens({
+  const vaiDailyPercentageRate = multiplyMantissaDaily({
     mantissa: vaiRepayRatePerBlockMantissa.toString(),
   });
 
