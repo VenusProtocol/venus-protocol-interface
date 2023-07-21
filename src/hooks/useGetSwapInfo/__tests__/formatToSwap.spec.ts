@@ -1,6 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import { BscChainId } from 'types';
+import { ChainId } from 'packages/contracts';
 
 import { SWAP_TOKENS } from 'constants/tokens';
 
@@ -10,13 +10,13 @@ import { FormatToSwapInput } from '../types';
 const fakeRoute = {
   path: [
     new PSToken(
-      BscChainId.TESTNET,
+      ChainId.BSC_TESTNET,
       SWAP_TOKENS.busd.address,
       SWAP_TOKENS.busd.decimals,
       SWAP_TOKENS.busd.symbol,
     ),
     new PSToken(
-      BscChainId.TESTNET,
+      ChainId.BSC_TESTNET,
       SWAP_TOKENS.cake.address,
       SWAP_TOKENS.cake.decimals,
       SWAP_TOKENS.cake.symbol,

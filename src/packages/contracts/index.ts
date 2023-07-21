@@ -1,11 +1,14 @@
-import { ContractInfo } from './types';
+import { ChainId, ContractInfo } from './types';
+
+export * from './types';
 
 export const contracts: {
   [name: string]: ContractInfo;
 } = {
   test: {
     addresses: {
-      97: '',
+      [ChainId.BSC_TESTNET]: '',
+      [ChainId.BSC_MAINNET]: '',
     },
     abi: [],
   },
