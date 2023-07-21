@@ -165,11 +165,11 @@ const useGetMainAssets = ({
             )
           : new BigNumber(0);
 
-        const supplyRatePerBlockTokens = market.supplyRatePerBlock
+        const supplyPercentageRatePerBlock = market.supplyRatePerBlock
           ? new BigNumber(market.supplyRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
-        const borrowRatePerBlockTokens = market.borrowRatePerBlock
+        const borrowPercentageRatePerBlock = market.borrowRatePerBlock
           ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
@@ -214,8 +214,8 @@ const useGetMainAssets = ({
           borrowBalanceCents: convertDollarsToCents(
             new BigNumber(market.totalBorrowsUsd ? +market.totalBorrowsUsd : 0),
           ),
-          supplyRatePerBlockTokens,
-          borrowRatePerBlockTokens,
+          supplyPercentageRatePerBlock,
+          borrowPercentageRatePerBlock,
           isCollateralOfUser,
           userWalletBalanceTokens,
           userWalletBalanceCents,

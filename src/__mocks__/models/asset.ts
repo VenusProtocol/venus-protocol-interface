@@ -29,8 +29,8 @@ export const assetData: Asset[] = [
     supplyBalanceCents: new BigNumber(278311516),
     supplyBalanceTokens: new BigNumber('19339683254955736'),
     borrowBalanceTokens: new BigNumber('1852935.597521220541385584'),
-    supplyRatePerBlockTokens: new BigNumber('0.000001'),
-    borrowRatePerBlockTokens: new BigNumber('0.0000001'),
+    supplyPercentageRatePerBlock: new BigNumber('0.000001'),
+    borrowPercentageRatePerBlock: new BigNumber('0.0000001'),
     distributions: [
       {
         token: TOKENS.xvs,
@@ -66,8 +66,8 @@ export const assetData: Asset[] = [
     supplyBalanceCents: new BigNumber(1000183891879506),
     supplyBalanceTokens: new BigNumber('47171999131879271527200010830'),
     borrowBalanceTokens: new BigNumber('73128318.509651061457900627'),
-    supplyRatePerBlockTokens: new BigNumber('0.000002'),
-    borrowRatePerBlockTokens: new BigNumber('0.0000002'),
+    supplyPercentageRatePerBlock: new BigNumber('0.000002'),
+    borrowPercentageRatePerBlock: new BigNumber('0.0000002'),
     distributions: [
       {
         token: TOKENS.xvs,
@@ -103,8 +103,8 @@ export const assetData: Asset[] = [
     supplyBalanceCents: new BigNumber(1098041201011568),
     supplyBalanceTokens: new BigNumber('5029972090817266864401527367893625'),
     borrowBalanceTokens: new BigNumber('232511166.920938849475104194'),
-    supplyRatePerBlockTokens: new BigNumber('0.000003'),
-    borrowRatePerBlockTokens: new BigNumber('0.0000003'),
+    supplyPercentageRatePerBlock: new BigNumber('0.000003'),
+    borrowPercentageRatePerBlock: new BigNumber('0.0000003'),
     distributions: [
       {
         token: TOKENS.xvs,
@@ -140,8 +140,8 @@ export const assetData: Asset[] = [
     supplyBalanceCents: new BigNumber(1054707853878),
     supplyBalanceTokens: new BigNumber('51881081291203672464'),
     borrowBalanceTokens: new BigNumber('142662020.229587308931217432'),
-    supplyRatePerBlockTokens: new BigNumber('0.000004'),
-    borrowRatePerBlockTokens: new BigNumber('0.0000004'),
+    supplyPercentageRatePerBlock: new BigNumber('0.000004'),
+    borrowPercentageRatePerBlock: new BigNumber('0.0000004'),
     distributions: [
       {
         token: TOKENS.xvs,

@@ -78,15 +78,15 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       // precise
 
       // prettier-ignore
-      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyRatePerBlockTokens.toNumber()) ** BLOCKS_PER_DAY) - 1),
+      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
       // prettier-ignore
-      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowRatePerBlockTokens.toNumber()) ** BLOCKS_PER_DAY) - 1),
+      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
     }),
     [
-      asset?.supplyRatePerBlockTokens,
+      asset?.supplyPercentageRatePerBlock,
       asset?.supplyBalanceCents,
-      asset?.borrowRatePerBlockTokens,
-      asset?.borrowRatePerBlockTokens,
+      asset?.borrowPercentageRatePerBlock,
+      asset?.borrowPercentageRatePerBlock,
     ],
   );
 

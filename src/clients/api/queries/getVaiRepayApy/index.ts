@@ -16,12 +16,12 @@ const getVaiRepayApy = async ({
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
-  const dailyVaiDistributedTokens = calculateDailyDistributedTokens({
+  const vaiDailyPercentageRate = calculateDailyDistributedTokens({
     mantissa: vaiRepayRatePerBlockMantissa.toString(),
   });
 
   const apyPercentage = calculateApy({
-    dailyDistributedTokens: dailyVaiDistributedTokens,
+    dailyDistributedTokens: vaiDailyPercentageRate,
   });
 
   return {

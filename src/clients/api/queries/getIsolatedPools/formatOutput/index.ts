@@ -145,24 +145,24 @@ const formatToPools = ({
         ),
       );
 
-      const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
+      const supplyDailyPercentageRate = calculateDailyDistributedTokens({
         mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       });
 
       const supplyApyPercentage = calculateApy({
-        dailyDistributedTokens: supplyDailyDistributedTokens,
+        dailyDistributedTokens: supplyDailyPercentageRate,
       });
 
-      const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
+      const borrowDailyPercentageRate = calculateDailyDistributedTokens({
         mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
       });
 
       const borrowApyPercentage = calculateApy({
-        dailyDistributedTokens: borrowDailyDistributedTokens,
+        dailyDistributedTokens: borrowDailyPercentageRate,
       });
 
-      const supplyRatePerBlockTokens = supplyDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);
-      const borrowRatePerBlockTokens = borrowDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);
+      const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+      const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
 
       const supplyBalanceVTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -233,8 +233,8 @@ const formatToPools = ({
         borrowerCount,
         borrowApyPercentage,
         supplyApyPercentage,
-        supplyRatePerBlockTokens,
-        borrowRatePerBlockTokens,
+        supplyPercentageRatePerBlock,
+        borrowPercentageRatePerBlock,
         supplyBalanceTokens,
         supplyBalanceCents,
         borrowBalanceTokens,
