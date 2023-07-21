@@ -36,7 +36,7 @@ const formatDailyDistributedRewardTokensMapping = ({
         return acc;
       }
 
-      const rewardTokenPriceDollars = tokenPricesDollars[rewardToken.address.toLowerCase()];
+      const rewardTokenPriceDollars = tokenPricesDollars[rewardTokenAddress];
 
       if (!rewardTokenPriceDollars) {
         logError(
