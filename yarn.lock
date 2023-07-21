@@ -7261,13 +7261,23 @@
     module-alias "^2.2.2"
     solidity-docgen "^0.6.0-beta.29"
 
-"@venusprotocol/venus-protocol@0.7.0", "@venusprotocol/venus-protocol@^0.7.0":
+"@venusprotocol/venus-protocol@0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-0.7.0.tgz#4cc1df0483348545d73cb95bac95acba48885846"
   integrity sha512-01AOU0kxwMmY29vLUEnDi4cq29SSq5IZMLHsPTJ3qmGtKxWNeWT0fmZQKNsvlMC/SjLPxrIZKAtrP0RY+d8Pdg==
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     dotenv "^16.0.1"
+
+"@venusprotocol/venus-protocol@^3.0.0-dev.13":
+  version "3.0.0-dev.13"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-3.0.0-dev.13.tgz#cfad8eb1efa9c67278c3a507fd37227af6e8e1f2"
+  integrity sha512-OxkCg7rPi5JiGt6Yr/NMDJwWHs+Lx1b/264Dzq3px0k02dzt/eXsgmcmgv3G3fh9XHvRuN0EWGtKXM9X8SSxlQ==
+  dependencies:
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.0"
+    dotenv "^16.0.1"
+    module-alias "^2.2.2"
 
 "@vitejs/plugin-react@^3.0.1":
   version "3.1.0"

@@ -17,6 +17,9 @@ type Variables =
       address: string;
     });
 
+// TODO: handle case of swap router (need to map each swap router address to a comptroller
+// address)
+
 export default function getContract<TContractName extends ContractName>(
   name: TContractName,
   variables: Variables,
