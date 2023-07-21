@@ -83,6 +83,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.6",
     "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-provider": "^5.7.0",
     "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/client-preset": "^4.0.1",

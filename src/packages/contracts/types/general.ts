@@ -6,8 +6,8 @@ export enum ChainId {
 }
 
 export interface ContractInfo {
-  addresses: {
+  abi: JsonFragment[];
+  address?: {
     [chainId: number]: string;
   };
-  abi: JsonFragment[];
 }

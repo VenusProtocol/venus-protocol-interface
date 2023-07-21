@@ -42,7 +42,7 @@ const formatCentsToReadableValue = ({
   const absoluteValueDollars = wrappedValueDollars.absoluteValue();
   const isNegative = wrappedValueDollars.isLessThan(0);
 
-  // If the value exceeds the MAX_VALUEimum threshold
+  // If the value exceeds the maximum threshold
   if (absoluteValueDollars.isGreaterThan(threshold.MAX_VALUE)) {
     return `${isNegative ? '< -$' : '> $'}${shortenValueWithSuffix({
       value: threshold.MAX_VALUE,

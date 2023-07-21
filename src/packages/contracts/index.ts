@@ -1,15 +1,7 @@
-import { ChainId, ContractInfo } from './types';
+import * as contractInfos from './contractInfos';
 
-export * from './types';
+export * from './types/general';
+export * from './types/contractName';
 
-export const contracts: {
-  [name: string]: ContractInfo;
-} = {
-  test: {
-    addresses: {
-      [ChainId.BSC_TESTNET]: '',
-      [ChainId.BSC_MAINNET]: '',
-    },
-    abi: [],
-  },
-};
+export const contracts = contractInfos;
+export { default as getContract } from './getContract';
