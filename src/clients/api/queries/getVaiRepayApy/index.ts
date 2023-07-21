@@ -17,7 +17,7 @@ const getVaiRepayApy = async ({
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
   const dailyVaiDistributedTokens = calculateDailyDistributedTokens({
-    ratePerBlockMantissa: vaiRepayRatePerBlockMantissa.toString(),
+    mantissa: vaiRepayRatePerBlockMantissa.toString(),
   });
 
   const apyPercentage = calculateApy({

@@ -4,15 +4,15 @@ import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 
 export interface CalculateDailyDistributedTokensInput {
-  ratePerBlockMantissa: BigNumber | string | number;
+  mantissa: BigNumber | string | number;
   decimals?: number;
 }
 
 const calculateDailyDistributedTokens = ({
-  ratePerBlockMantissa,
+  mantissa,
   decimals = COMPOUND_DECIMALS,
 }: CalculateDailyDistributedTokensInput) =>
-  new BigNumber(ratePerBlockMantissa)
+  new BigNumber(mantissa)
     .div(new BigNumber(10).pow(decimals))
     .multipliedBy(BLOCKS_PER_DAY)
     .dp(decimals);

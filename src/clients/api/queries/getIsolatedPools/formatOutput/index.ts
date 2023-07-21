@@ -146,7 +146,7 @@ const formatToPools = ({
       );
 
       const supplyDailyDistributedTokens = calculateDailyDistributedTokens({
-        ratePerBlockMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       });
 
       const supplyApyPercentage = calculateApy({
@@ -154,7 +154,7 @@ const formatToPools = ({
       });
 
       const borrowDailyDistributedTokens = calculateDailyDistributedTokens({
-        ratePerBlockMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+        mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
       });
 
       const borrowApyPercentage = calculateApy({
