@@ -92,9 +92,6 @@
   },
   "assetInfo": {
     "borrowApy": "Borrow APY",
-    "dailyDistributedTokens": "Daily {{tokenSymbol}} distributed",
-    "dailyDistributedTokensBorrowTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all borrowers.",
-    "dailyDistributedTokensSupplyTooltip": "This value represents the total amount of {{tokenSymbol}} distributed every day, shared between all suppliers.",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {

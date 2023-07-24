@@ -53,8 +53,8 @@ export interface Asset {
   supplyBalanceCents: BigNumber;
   borrowBalanceTokens: BigNumber;
   borrowBalanceCents: BigNumber;
-  supplyRatePerBlockTokens: BigNumber;
-  borrowRatePerBlockTokens: BigNumber;
+  supplyPercentageRatePerBlock: BigNumber;
+  borrowPercentageRatePerBlock: BigNumber;
   distributions: AssetDistribution[];
   borrowCapTokens?: BigNumber;
   supplyCapTokens?: BigNumber;

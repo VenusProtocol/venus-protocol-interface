@@ -63,7 +63,6 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
     const yearlyAssetEarningsCents = pools.reduce((acc, pool) => {
       const yearlyPoolAssetsEarningsCents = calculateYearlyEarningsForAssets({
         assets: pool.assets,
-        areAssetsIsolated: pool.isIsolated,
       });
 
       return acc.plus(yearlyPoolAssetsEarningsCents || 0);

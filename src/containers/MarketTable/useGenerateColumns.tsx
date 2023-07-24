@@ -63,10 +63,7 @@ const useGenerateColumns = ({
             return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
           }
 
-          if (
-            (column === 'borrowApy' || column === 'labeledBorrowApy') &&
-            !poolAsset.pool.isIsolated
-          ) {
+          if (column === 'borrowApy' || column === 'labeledBorrowApy') {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
             const borrowApy = poolAsset.borrowApyPercentage.minus(
@@ -76,42 +73,13 @@ const useGenerateColumns = ({
             return formatPercentageToReadableValue(borrowApy);
           }
 
-          // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to
-          // calculate accurate distribution APYs for them
-          if (
-            (column === 'borrowApy' || column === 'labeledBorrowApy') &&
-            poolAsset.pool.isIsolated
-          ) {
-            return formatPercentageToReadableValue(poolAsset.borrowApyPercentage);
-          }
-
-          if (
-            (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') &&
-            !poolAsset.pool.isIsolated
-          ) {
+          if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
             const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
             const supplyApy = poolAsset.supplyApyPercentage.plus(
               combinedDistributionApys.supplyApyPercentage,
             );
 
-            const ltv = +poolAsset.collateralFactor * 100;
-
-            return (
-              <LayeredValues
-                topValue={formatPercentageToReadableValue(supplyApy)}
-                bottomValue={formatPercentageToReadableValue(ltv)}
-              />
-            );
-          }
-
-          // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to
-          // calculate accurate distribution APYs for them
-          if (
-            (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') &&
-            poolAsset.pool.isIsolated
-          ) {
-            const supplyApy = poolAsset.supplyApyPercentage;
             const ltv = +poolAsset.collateralFactor * 100;
 
             return (
@@ -274,16 +242,10 @@ const useGenerateColumns = ({
             : (rowA, rowB, direction) => {
                 if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                   const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                    rowA.pool.isIsolated
-                      ? // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to calculate accurate distribution APYs for them
-                        0
-                      : getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
+                    getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
                   );
                   const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                    rowB.pool.isIsolated
-                      ? // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to calculate accurate distribution APYs for them
-                        0
-                      : getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
+                    getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
                   );
 
                   return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
@@ -291,16 +253,10 @@ const useGenerateColumns = ({
 
                 if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
                   const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                    rowA.pool.isIsolated
-                      ? // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to calculate accurate distribution APYs for them
-                        0
-                      : getCombinedDistributionApys({ asset: rowA }).supplyApyPercentage,
+                    getCombinedDistributionApys({ asset: rowA }).supplyApyPercentage,
                   );
                   const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                    rowB.pool.isIsolated
-                      ? // HOTFIX: ignore distribution APYs for isolated assets until we get a solution to calculate accurate distribution APYs for them
-                        0
-                      : getCombinedDistributionApys({ asset: rowB }).supplyApyPercentage,
+                    getCombinedDistributionApys({ asset: rowB }).supplyApyPercentage,
                   );
 
                   return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);

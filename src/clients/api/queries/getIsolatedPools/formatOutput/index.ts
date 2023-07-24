@@ -8,6 +8,7 @@ import {
   convertDollarsToCents,
   convertWeiToTokens,
   getVTokenByAddress,
+  multiplyMantissaDaily,
 } from 'utilities';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
@@ -17,19 +18,27 @@ import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
-import formatToDistributions from './formatToDistributions';
+import formatDailyDistributedRewardTokensMapping from './formatDailyDistributedRewardTokensMapping';
+import formatDistributions from './formatDistributions';
+import formatTokenPrices from './formatTokenPrices';
 
 const formatToPools = ({
   poolsResults,
   poolParticipantsCountResult,
   comptrollerResults,
   rewardsDistributorsResults,
+  resilientOracleResult,
   poolLensResult,
   userWalletTokenBalances,
-  accountAddress,
 }: FormatToPoolInput) => {
+  // Map token prices by address
+  const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
+
   // Map distributions by vToken address
-  const vTokenDistributions = formatToDistributions(rewardsDistributorsResults);
+  const dailyDistributedRewardTokensMapping = formatDailyDistributedRewardTokensMapping({
+    rewardsDistributorsResults,
+    tokenPricesDollars,
+  });
 
   // Get vToken addresses of user collaterals
   const userCollateralVTokenAddresses = comptrollerResults.reduce<string[]>(
@@ -57,18 +66,24 @@ const formatToPools = ({
         return acc;
       }
 
-      const poolLensResults = poolLensResult.callsReturnContext;
+      const poolLensResults = poolLensResult?.callsReturnContext;
       const vTokenMetaData = poolResult.vTokens.find(
         item => item.isListed && areAddressesEqual(item.vToken, vTokenAddress),
       );
 
-      const tokenPriceRecord = poolLensResults[0].returnValues.find(item =>
-        areAddressesEqual(item[0], vTokenAddress),
-      );
+      // Skip vToken if we couldn't fetch sufficient data
+      if (!vTokenMetaData) {
+        logError(`Metadata could not be fetched for vToken: ${vTokenAddress}`);
+        return acc;
+      }
 
-      // Skip vToken if we couldn't fetch sufficient data or if vToken has been
-      // unlisted
-      if (!vTokenMetaData || !tokenPriceRecord) {
+      const tokenPriceDollars = tokenPricesDollars[vToken.underlyingToken.address.toLowerCase()];
+
+      // Skip token if we couldn't fetch a dollar price for it
+      if (!tokenPriceDollars) {
+        logError(
+          `Price could not be fetched for token: ${vToken.underlyingToken.symbol} (${vToken.underlyingToken.address})`,
+        );
         return acc;
       }
 
@@ -78,14 +93,10 @@ const formatToPools = ({
       }
 
       const vTokenUserBalances =
-        accountAddress &&
+        poolLensResults &&
         poolLensResults[poolLensResults.length - 1].returnValues.find(userBalances =>
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
-
-      const tokenPriceDollars = new BigNumber(tokenPriceRecord[1].hex).dividedBy(
-        new BigNumber(10).pow(36 - vToken.underlyingToken.decimals),
-      );
 
       const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
 
@@ -134,22 +145,24 @@ const formatToPools = ({
         ),
       );
 
-      const {
-        apyPercentage: supplyApyPercentage,
-        dailyDistributedTokens: supplyDailyDistributedTokens,
-      } = calculateApy({
-        ratePerBlockMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+      const supplyDailyPercentageRate = multiplyMantissaDaily({
+        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       });
 
-      const {
-        apyPercentage: borrowApyPercentage,
-        dailyDistributedTokens: borrowDailyDistributedTokens,
-      } = calculateApy({
-        ratePerBlockMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+      const supplyApyPercentage = calculateApy({
+        dailyRate: supplyDailyPercentageRate,
       });
 
-      const supplyRatePerBlockTokens = supplyDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);
-      const borrowRatePerBlockTokens = borrowDailyDistributedTokens.dividedBy(BLOCKS_PER_DAY);
+      const borrowDailyPercentageRate = multiplyMantissaDaily({
+        mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+      });
+
+      const borrowApyPercentage = calculateApy({
+        dailyRate: borrowDailyPercentageRate,
+      });
+
+      const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+      const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
 
       const supplyBalanceVTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -199,7 +212,13 @@ const formatToPools = ({
         vTokenAddress.toLowerCase(),
       );
 
-      const distributions = vTokenDistributions[vToken.address.toLowerCase()] || [];
+      const distributions = formatDistributions({
+        tokenPriceDollars,
+        supplyBalanceTokens,
+        borrowBalanceTokens,
+        dailyDistributedRewardTokens:
+          dailyDistributedRewardTokensMapping[vToken.address.toLowerCase()] || [],
+      });
 
       const asset: Asset = {
         vToken,
@@ -214,8 +233,8 @@ const formatToPools = ({
         borrowerCount,
         borrowApyPercentage,
         supplyApyPercentage,
-        supplyRatePerBlockTokens,
-        borrowRatePerBlockTokens,
+        supplyPercentageRatePerBlock,
+        borrowPercentageRatePerBlock,
         supplyBalanceTokens,
         supplyBalanceCents,
         borrowBalanceTokens,

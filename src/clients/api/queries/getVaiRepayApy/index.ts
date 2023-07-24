@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { calculateApy, multiplyMantissaDaily } from 'utilities';
 
 import { VaiController } from 'types/contracts';
-import calculateApy from 'utilities/calculateApy';
 
 export interface GetVaiRepayApyInput {
   vaiControllerContract: VaiController;
@@ -16,8 +16,12 @@ const getVaiRepayApy = async ({
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
-  const { apyPercentage } = calculateApy({
-    ratePerBlockMantissa: vaiRepayRatePerBlockMantissa.toString(),
+  const vaiDailyPercentageRate = multiplyMantissaDaily({
+    mantissa: vaiRepayRatePerBlockMantissa.toString(),
+  });
+
+  const apyPercentage = calculateApy({
+    dailyRate: vaiDailyPercentageRate,
   });
 
   return {

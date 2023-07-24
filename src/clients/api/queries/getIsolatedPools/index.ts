@@ -1,10 +1,20 @@
 import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
+import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
+import {
+  ContractCallContext,
+  ContractCallResults,
+  ContractCallReturnContext,
+} from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
-import { areTokensEqual, getContractAddress, getTokenByAddress } from 'utilities';
+import {
+  areTokensEqual,
+  getContractAddress,
+  getTokenByAddress,
+  getVTokenByAddress,
+} from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
@@ -15,7 +25,8 @@ import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
-const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry_Proxy');
+const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry_Proxy'); // TODO: get from package (see VEN-1746)
+const RESILIENT_ORACLE_ADDRESS = getContractAddress('oracle'); // TODO: get from package (see VEN-1746)
 
 const getIsolatedPools = async ({
   accountAddress,
@@ -55,30 +66,6 @@ const getIsolatedPools = async ({
     [[], []],
   );
 
-  // Fetch additional vToken data
-  const poolLensCalls: ContractCallContext['calls'] = [
-    {
-      reference: 'vTokenUnderlyingPriceAll',
-      methodName: 'vTokenUnderlyingPriceAll(address[])',
-      methodParameters: [vTokenAddresses],
-    },
-  ];
-
-  if (accountAddress) {
-    poolLensCalls.push({
-      reference: 'vTokenBalancesAll',
-      methodName: 'vTokenBalancesAll',
-      methodParameters: [vTokenAddresses, accountAddress],
-    });
-  }
-
-  const poolLensCallContext: ContractCallContext = {
-    reference: 'poolLens',
-    contractAddress: poolLensContract.address,
-    abi: poolLensAbi,
-    calls: poolLensCalls,
-  };
-
   // Fetch addresses of reward distributors and user collaterals
   const comptrollerCallsContext: ContractCallContext[] = poolsResults.map(result => {
     const calls: ContractCallContext['calls'] = [
@@ -105,13 +92,40 @@ const getIsolatedPools = async ({
     };
   });
 
-  const multicallPromise = multicall.call([poolLensCallContext, ...comptrollerCallsContext]);
+  const multicallContexts: ContractCallContext[] = comptrollerCallsContext;
+
+  // Fetch user vToken balances
+  if (accountAddress) {
+    const poolLensCallContext: ContractCallContext = {
+      reference: 'poolLens',
+      contractAddress: poolLensContract.address,
+      abi: poolLensAbi,
+      calls: [
+        {
+          reference: 'vTokenBalancesAll',
+          methodName: 'vTokenBalancesAll',
+          methodParameters: [vTokenAddresses, accountAddress],
+        },
+      ],
+    };
+
+    multicallContexts.unshift(poolLensCallContext);
+  }
+
+  const multicallPromise = multicall.call(multicallContexts);
   let multicallOutput: ContractCallResults | undefined;
   let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
+  let poolLensResult: ContractCallReturnContext | undefined;
+  let comptrollerCallUnformattedResults:
+    | {
+        [key: string]: ContractCallReturnContext;
+      }
+    | undefined;
 
   if (accountAddress) {
     [multicallOutput, userWalletTokenBalances] = await Promise.all([
       multicallPromise,
+      // Fetch wallet token balances
       getTokenBalances({
         multicall,
         accountAddress,
@@ -119,17 +133,20 @@ const getIsolatedPools = async ({
         provider,
       }),
     ]);
+
+    const { poolLens, ...remainingResults } = multicallOutput.results;
+
+    poolLensResult = poolLens;
+    comptrollerCallUnformattedResults = remainingResults;
   } else {
     multicallOutput = await multicallPromise;
+    comptrollerCallUnformattedResults = multicallOutput.results;
   }
-
-  const { poolLens: poolLensResult, ...comptrollerCallUnformattedResults } =
-    multicallOutput.results;
 
   // Fetch reward distributors
   const comptrollerResults = Object.values(comptrollerCallUnformattedResults);
 
-  const rewardsDistributorsCallsContext = comptrollerResults.reduce<ContractCallContext[]>(
+  const rewardsDistributorsCallsContexts = comptrollerResults.reduce<ContractCallContext[]>(
     (acc, res) => {
       const pool = poolsResults.find(
         item =>
@@ -182,17 +199,46 @@ const getIsolatedPools = async ({
     [],
   );
 
-  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContext);
+  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContexts);
   const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
+
+  // Get addresses of all the tokens referenced
+  const underlyingTokenAddresses = vTokenAddresses
+    .map(vTokenAddress => getVTokenByAddress(vTokenAddress)?.underlyingToken.address)
+    .filter((vTokenAddress): vTokenAddress is string => !!vTokenAddress);
+
+  const rewardTokenAddresses = rewardsDistributorsResults.map(
+    rewardsDistributorsResult => rewardsDistributorsResult.callsReturnContext[0].returnValues[0],
+  ) as string[];
+
+  const tokenAddresses = [
+    // Remove duplicates
+    ...new Set(underlyingTokenAddresses.concat(rewardTokenAddresses)),
+  ];
+
+  // Fetch token prices
+  const resilientOracleCallsContext: ContractCallContext = {
+    reference: 'resilientOracle',
+    contractAddress: RESILIENT_ORACLE_ADDRESS,
+    abi: resilientOracleAbi,
+    calls: tokenAddresses.map(tokenAddress => ({
+      reference: 'getPrice',
+      methodName: 'getPrice',
+      methodParameters: [tokenAddress],
+    })),
+  };
+
+  const resilientOracleOutput = await multicall.call(resilientOracleCallsContext);
+  const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
 
   const pools = formatOutput({
     poolsResults,
     poolParticipantsCountResult,
     comptrollerResults,
     rewardsDistributorsResults,
+    resilientOracleResult,
     poolLensResult,
     userWalletTokenBalances,
-    accountAddress,
   });
 
   return {

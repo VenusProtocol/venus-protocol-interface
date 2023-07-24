@@ -78,15 +78,15 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       // precise
 
       // prettier-ignore
-      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyRatePerBlockTokens.toNumber()) ** BLOCKS_PER_DAY) - 1),
+      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
       // prettier-ignore
-      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowRatePerBlockTokens.toNumber()) ** BLOCKS_PER_DAY) - 1),
+      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
     }),
     [
-      asset?.supplyRatePerBlockTokens,
+      asset?.supplyPercentageRatePerBlock,
       asset?.supplyBalanceCents,
-      asset?.borrowRatePerBlockTokens,
-      asset?.borrowRatePerBlockTokens,
+      asset?.borrowPercentageRatePerBlock,
+      asset?.borrowPercentageRatePerBlock,
     ],
   );
 
@@ -98,16 +98,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset?.vToken.underlyingToken],
   );
 
-  const isAssetIsolated = !areAddressesEqual(poolComptrollerAddress, MAIN_POOL_COMPTROLLER_ADDRESS);
-
   const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
-    const stats: CardProps['stats'] = [];
-
     if (!asset) {
-      return stats;
+      return [];
     }
 
-    stats.push(
+    const stats: CardProps['stats'] = [
       {
         label: t('market.supplyInfo.stats.totalSupply'),
         value: formatCentsToReadableValue({
@@ -118,10 +114,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.supplyInfo.stats.apy'),
         value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
       },
-    );
-
-    if (!isAssetIsolated) {
-      stats.push({
+      {
         label: t('market.supplyInfo.stats.distributionApy'),
         value: formatPercentageToReadableValue(
           asset.distributions.reduce(
@@ -129,16 +122,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             new BigNumber(0),
           ),
         ),
-      });
-    }
+      },
+    ];
 
     return stats;
-  }, [
-    asset?.supplyApyPercentage,
-    asset?.supplyApyPercentage,
-    asset?.distributions,
-    isAssetIsolated,
-  ]);
+  }, [asset?.supplyApyPercentage, asset?.supplyApyPercentage, asset?.distributions]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -148,13 +136,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   ];
 
   const borrowInfoStats: CardProps['stats'] = React.useMemo(() => {
-    const stats: CardProps['stats'] = [];
-
     if (!asset) {
-      return stats;
+      return [];
     }
 
-    stats.push(
+    const stats: CardProps['stats'] = [
       {
         label: t('market.borrowInfo.stats.totalBorrow'),
         value: formatCentsToReadableValue({
@@ -165,10 +151,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.borrowInfo.stats.apy'),
         value: formatPercentageToReadableValue(asset.borrowApyPercentage),
       },
-    );
-
-    if (!isAssetIsolated) {
-      stats.push({
+      {
         label: t('market.borrowInfo.stats.distributionApy'),
         value: formatPercentageToReadableValue(
           asset.distributions.reduce(
@@ -176,16 +159,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
             new BigNumber(0),
           ),
         ),
-      });
-    }
+      },
+    ];
 
     return stats;
-  }, [
-    asset?.borrowBalanceCents,
-    asset?.borrowApyPercentage,
-    asset?.distributions,
-    isAssetIsolated,
-  ]);
+  }, [asset?.borrowBalanceCents, asset?.borrowApyPercentage, asset?.distributions]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
