@@ -5,9 +5,13 @@ export enum ChainId {
   'BSC_TESTNET' = 97,
 }
 
-export interface ContractInfo {
+export interface GenericContractInfo {
   abi: JsonFragment[];
-  address?: {
-    [chainId: number]: string;
+}
+
+export interface FixedAddressContractInfo {
+  abi: JsonFragment[];
+  address: {
+    [chainId in ChainId]: string;
   };
 }

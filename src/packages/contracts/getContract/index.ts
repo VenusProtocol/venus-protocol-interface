@@ -2,37 +2,42 @@ import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 
 import { ContractName, ContractTypeByName } from '../types/contractName';
+import { ChainId } from '../types/general';
 
 import * as contractInfos from '../contractInfos';
+import getContractAddress from '../getContractAddress';
 
 interface VariablesBase {
   signerOrProvider: Signer | Provider;
 }
 
-type Variables =
-  | (VariablesBase & {
-      chainId: number;
-    })
-  | (VariablesBase & {
+type Variables<TContractName extends ContractName> = TContractName extends 'swapRouter'
+  ? VariablesBase & {
+      comptrollerAddress: string;
+    }
+  : TContractName extends 'isolatedPoolComptroller'
+  ? VariablesBase & {
       address: string;
-    });
-
-// TODO: handle case of swap router (need to map each swap router address to a comptroller
-// address)
+    }
+  : VariablesBase & {
+      chainId: ChainId;
+    };
 
 export default function getContract<TContractName extends ContractName>(
   name: TContractName,
-  variables: Variables,
+  variables: Variables<TContractName>,
 ) {
   const contractInfo = contractInfos[name];
   let address: string | undefined;
 
   if ('address' in variables) {
-    // Use address argument if it was passed
+    // Handle generic contracts
     ({ address } = variables);
-  } else if (contractInfo.address) {
-    // Otherwise retrieve address record using chainId
-    address = contractInfo.address[variables.chainId];
+  } else if ('chainId' in variables) {
+    // Handle fixed address contracts
+    address = getContractAddress(name, variables);
+
+    // TODO: Handle swap router contracts
   }
 
   // Return undefined if no address was passed or if no record could be retrieved using chainId

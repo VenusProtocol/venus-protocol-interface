@@ -14,12 +14,12 @@ import { abi as xvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/cont
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
 
-import { ChainId, ContractInfo } from '../types/general';
+import { ChainId, FixedAddressContractInfo, GenericContractInfo } from '../types/general';
 
 import maximillionAbi from './otherAbis/maximillion.json';
 import multicallAbi from './otherAbis/multicall.json';
 
-export const venusLens: ContractInfo = {
+export const venusLens: FixedAddressContractInfo = {
   abi: venusLensAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VenusLens,
@@ -27,7 +27,7 @@ export const venusLens: ContractInfo = {
   },
 };
 
-export const poolLens: ContractInfo = {
+export const poolLens: FixedAddressContractInfo = {
   abi: poolLensAbi,
   address: {
     [ChainId.BSC_TESTNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
@@ -35,7 +35,7 @@ export const poolLens: ContractInfo = {
   },
 };
 
-export const mainPoolComptroller: ContractInfo = {
+export const mainPoolComptroller: FixedAddressContractInfo = {
   abi: mainPoolComptrollerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Comptroller,
@@ -43,7 +43,7 @@ export const mainPoolComptroller: ContractInfo = {
   },
 };
 
-export const vaiUnitrollerController: ContractInfo = {
+export const vaiUnitrollerController: FixedAddressContractInfo = {
   abi: unitrollerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VaiUnitroller,
@@ -51,7 +51,7 @@ export const vaiUnitrollerController: ContractInfo = {
   },
 };
 
-export const vaiVault: ContractInfo = {
+export const vaiVault: FixedAddressContractInfo = {
   abi: vaiVaultAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VAIVaultProxy,
@@ -59,7 +59,7 @@ export const vaiVault: ContractInfo = {
   },
 };
 
-export const xvsVault: ContractInfo = {
+export const xvsVault: FixedAddressContractInfo = {
   abi: xvsVaultAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.XVSVaultProxy,
@@ -67,7 +67,7 @@ export const xvsVault: ContractInfo = {
   },
 };
 
-export const governorBravoDelegator: ContractInfo = {
+export const governorBravoDelegator: FixedAddressContractInfo = {
   abi: governorBravoDelegatorAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegator,
@@ -75,7 +75,7 @@ export const governorBravoDelegator: ContractInfo = {
   },
 };
 
-export const xvsVesting: ContractInfo = {
+export const xvsVesting: FixedAddressContractInfo = {
   abi: xvsVestingAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.XVSVestingProxy,
@@ -83,7 +83,7 @@ export const xvsVesting: ContractInfo = {
   },
 };
 
-export const vrtConverter: ContractInfo = {
+export const vrtConverter: FixedAddressContractInfo = {
   abi: vrtConverterAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VRTConverterProxy,
@@ -91,7 +91,7 @@ export const vrtConverter: ContractInfo = {
   },
 };
 
-export const maximillion: ContractInfo = {
+export const maximillion: FixedAddressContractInfo = {
   abi: maximillionAbi,
   address: {
     [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
@@ -99,7 +99,7 @@ export const maximillion: ContractInfo = {
   },
 };
 
-export const multicall: ContractInfo = {
+export const multicall: FixedAddressContractInfo = {
   abi: multicallAbi,
   address: {
     [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -107,10 +107,10 @@ export const multicall: ContractInfo = {
   },
 };
 
-export const isolatedPoolComptroller: ContractInfo = {
+export const isolatedPoolComptroller: GenericContractInfo = {
   abi: isolatedPoolComptrollerAbi,
 };
 
-export const swapRouter: ContractInfo = {
+export const swapRouter: GenericContractInfo = {
   abi: swapRouterAbi,
 };
