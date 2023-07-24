@@ -150,7 +150,7 @@ const formatToPools = ({
       });
 
       const supplyApyPercentage = calculateApy({
-        dailyDistributedTokens: supplyDailyPercentageRate,
+        dailyRate: supplyDailyPercentageRate,
       });
 
       const borrowDailyPercentageRate = multiplyMantissaDaily({
@@ -158,7 +158,7 @@ const formatToPools = ({
       });
 
       const borrowApyPercentage = calculateApy({
-        dailyDistributedTokens: borrowDailyPercentageRate,
+        dailyRate: borrowDailyPercentageRate,
       });
 
       const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);

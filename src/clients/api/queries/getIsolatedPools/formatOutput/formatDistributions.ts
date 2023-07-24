@@ -36,11 +36,11 @@ const formatDistributions = ({
 
       // Calculate APYs
       const supplyApyPercentage = calculateApy({
-        dailyDistributedTokens: supplyDailyDistributedDollars.div(supplyBalanceDollars),
+        dailyRate: supplyDailyDistributedDollars.div(supplyBalanceDollars),
       });
 
       const borrowApyPercentage = calculateApy({
-        dailyDistributedTokens: borrowDailyDistributedDollars.div(borrowBalanceDollars),
+        dailyRate: borrowDailyDistributedDollars.div(borrowBalanceDollars),
       });
 
       const assetDistribution: AssetDistribution = {

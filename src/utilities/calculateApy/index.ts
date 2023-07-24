@@ -4,11 +4,11 @@ import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 
 export interface CalculateApyInput {
-  dailyDistributedTokens: BigNumber;
+  dailyRate: BigNumber;
 }
 
-const calculateApy = ({ dailyDistributedTokens }: CalculateApyInput) =>
-  dailyDistributedTokens
+const calculateApy = ({ dailyRate }: CalculateApyInput) =>
+  dailyRate
     .plus(1)
     .pow(DAYS_PER_YEAR - 1)
     .minus(1)

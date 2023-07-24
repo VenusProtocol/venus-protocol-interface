@@ -21,7 +21,7 @@ const getVaiRepayApy = async ({
   });
 
   const apyPercentage = calculateApy({
-    dailyDistributedTokens: vaiDailyPercentageRate,
+    dailyRate: vaiDailyPercentageRate,
   });
 
   return {
