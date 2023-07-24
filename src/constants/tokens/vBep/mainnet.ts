@@ -317,4 +317,10 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vstkBNB',
     underlyingToken: MAINNET_TOKENS.stkbnb,
   } as VToken,
+  '0x53728fd51060a85ac41974c6c3eb1dae42776723': {
+    address: '0x53728FD51060a85ac41974C6C3Eb1DaE42776723',
+    decimals: 8,
+    symbol: 'vankrBNB',
+    underlyingToken: MAINNET_TOKENS.ankrbnb,
+  } as VToken,
 };

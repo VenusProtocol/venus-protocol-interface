@@ -281,4 +281,10 @@ export const TESTNET_VBEP_TOKENS = {
     symbol: 'vstkBNB',
     underlyingToken: TESTNET_TOKENS.stkbnb,
   } as VToken,
+  '0xe507b30c41e9e375bce05197c1e09fc9ee40c0f6': {
+    address: '0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6',
+    decimals: 8,
+    symbol: 'vankrBNB',
+    underlyingToken: TESTNET_TOKENS.ankrbnb,
+  } as VToken,
 };
