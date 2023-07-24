@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 
 import getContract from '..';
-import * as contractInfos from '../../contractInfos';
+import fixedAddressContractInfos from '../../contractInfos/fixedAddressContractInfos';
 
 const fakeProvider = new ethers.providers.JsonRpcProvider();
 
@@ -13,7 +13,7 @@ describe('getContract', () => {
     });
 
     expect(contract).toBeInstanceOf(ethers.Contract);
-    expect(contract!.address).toEqual(contractInfos.mainPoolComptroller.address![56]);
+    expect(contract?.address).toEqual(fixedAddressContractInfos.mainPoolComptroller.address[56]);
   });
 
   it('returns new Contract instance of generic contract', () => {
@@ -24,6 +24,6 @@ describe('getContract', () => {
     });
 
     expect(contract).toBeInstanceOf(ethers.Contract);
-    expect(contract!.address).toEqual(fakeAddress);
+    expect(contract?.address).toEqual(fakeAddress);
   });
 });

@@ -3,6 +3,11 @@ import BigNumber from 'bignumber.js';
 
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
+export enum BscChainId {
+  'MAINNET' = 56,
+  'TESTNET' = 97,
+}
+
 export interface Token {
   symbol: string;
   decimals: number;

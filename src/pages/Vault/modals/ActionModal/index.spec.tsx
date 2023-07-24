@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { ChainId } from 'packages/contracts';
 import React from 'react';
+import { BscChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import TEST_IDS from 'components/Spinner/testIds';
@@ -27,7 +27,7 @@ const baseProps: ActionModalProps = {
   availableTokensWei: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeApproved: true,
-  spenderAddress: mainContractAddresses.xvsVaultProxy[ChainId.BSC_TESTNET],
+  spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

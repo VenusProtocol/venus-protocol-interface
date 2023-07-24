@@ -1,26 +1,53 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 
-import { ContractName, ContractTypeByName } from '../types/contractName';
-import { ChainId } from '../types/general';
-
-import * as contractInfos from '../contractInfos';
+import fixedAddressContractInfos, {
+  FixedAddressContractName,
+  FixedAddressContractTypeByName,
+} from '../contractInfos/fixedAddressContractInfos';
+import genericContractInfos, {
+  GenericContractName,
+  GenericContractTypeByName,
+} from '../contractInfos/genericContractInfos';
+import swapRouter, {
+  SwapRouterContractName,
+  SwapRouterContractType,
+} from '../contractInfos/swapRouterContractInfos';
 import getContractAddress from '../getContractAddress';
+import { ChainId } from '../types';
+
+const contractInfos = {
+  ...fixedAddressContractInfos,
+  ...genericContractInfos,
+  swapRouter,
+};
+
+type ContractName = keyof typeof contractInfos;
+
+type ContractTypeByName<TContractName extends ContractName> =
+  TContractName extends FixedAddressContractName
+    ? FixedAddressContractTypeByName<TContractName>
+    : TContractName extends GenericContractName
+    ? GenericContractTypeByName<TContractName>
+    : TContractName extends SwapRouterContractName
+    ? SwapRouterContractType
+    : never;
 
 interface VariablesBase {
   signerOrProvider: Signer | Provider;
 }
 
-type Variables<TContractName extends ContractName> = TContractName extends 'swapRouter'
+type Variables<TContractName extends ContractName> = TContractName extends SwapRouterContractName
   ? VariablesBase & {
       comptrollerAddress: string;
+      chainId: ChainId;
     }
-  : TContractName extends 'isolatedPoolComptroller'
+  : TContractName extends FixedAddressContractName
   ? VariablesBase & {
-      address: string;
+      chainId: ChainId;
     }
   : VariablesBase & {
-      chainId: ChainId;
+      address: string;
     };
 
 export default function getContract<TContractName extends ContractName>(
@@ -33,11 +60,9 @@ export default function getContract<TContractName extends ContractName>(
   if ('address' in variables) {
     // Handle generic contracts
     ({ address } = variables);
-  } else if ('chainId' in variables) {
-    // Handle fixed address contracts
-    address = getContractAddress(name, variables);
-
-    // TODO: Handle swap router contracts
+  } else {
+    // Handle other contracts
+    address = getContractAddress(name as FixedAddressContractName, variables);
   }
 
   // Return undefined if no address was passed or if no record could be retrieved using chainId
