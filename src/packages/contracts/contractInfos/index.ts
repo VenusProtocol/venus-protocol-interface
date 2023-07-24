@@ -6,6 +6,7 @@ import { abi as mainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/art
 import { abi as unitrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Unitroller.sol/Unitroller.json';
 import { abi as governorBravoDelegatorAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegator.sol/GovernorBravoDelegator.json';
 import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
+import { abi as swapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
 import { abi as vrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
 import { abi as xvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVSVesting.sol/XVSVesting.json';
 import { abi as vaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Vault/VAIVault.sol/VAIVault.json';
@@ -35,15 +36,11 @@ export const poolLens: ContractInfo = {
 };
 
 export const mainPoolComptroller: ContractInfo = {
+  abi: mainPoolComptrollerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Comptroller,
     [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.Comptroller,
   },
-  abi: mainPoolComptrollerAbi,
-};
-
-export const isolatedPoolComptroller: ContractInfo = {
-  abi: isolatedPoolComptrollerAbi,
 };
 
 export const vaiUnitrollerController: ContractInfo = {
@@ -108,4 +105,12 @@ export const multicall: ContractInfo = {
     [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
     [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
   },
+};
+
+export const isolatedPoolComptroller: ContractInfo = {
+  abi: isolatedPoolComptrollerAbi,
+};
+
+export const swapRouter: ContractInfo = {
+  abi: swapRouterAbi,
 };
