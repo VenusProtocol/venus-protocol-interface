@@ -68,7 +68,7 @@ const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment
 const isOnTestnet =
   environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
-const chainId: BscChainId = isOnTestnet ? 97 : 56;
+const chainId: BscChainId = isOnTestnet ? BscChainId.TESTNET : BscChainId.MAINNET;
 
 const localRpcUrl =
   environment === 'mainnet' || environment === 'preview'
