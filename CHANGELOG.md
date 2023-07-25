@@ -1,3 +1,10 @@
+## [2.5.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.4.0...v2.5.0) (2023-07-25)
+
+
+### Features
+
+* generate contract types from packages ([#1201](https://github.com/VenusProtocol/venus-protocol-interface/issues/1201)) ([ba6b8e9](https://github.com/VenusProtocol/venus-protocol-interface/commit/ba6b8e91a9bbcbc15a2aa3d770088eba6de113e4))
+
 ## [2.4.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.3.2...v2.4.0) (2023-07-25)
 
 
