@@ -1,3 +1,10 @@
+## [2.4.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.3.2...v2.4.0) (2023-07-25)
+
+
+### Features
+
+* add vankrBNB in DeFi for mainnet and testnet ([#1202](https://github.com/VenusProtocol/venus-protocol-interface/issues/1202)) ([8df0409](https://github.com/VenusProtocol/venus-protocol-interface/commit/8df0409dda00419880b137396bb0d6e4278b037b))
+
 ## [2.3.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.3.1...v2.3.2) (2023-07-20)
 
 
