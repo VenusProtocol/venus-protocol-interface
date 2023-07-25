@@ -8,16 +8,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "67985300.36106606",
       "borrowBalanceTokens": "1008551.9121941992969102",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "4.326607537e-9",
-      "borrowerCount": 306,
-      "cashTokens": "2953394.670260493182198196",
-      "collateralFactor": 0.5,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "1.351224864211795426",
-          "borrowDailyDistributedTokens": "24.999999999999984",
-          "supplyApyPercentage": "0.34260730848036692",
-          "supplyDailyDistributedTokens": "24.999999999999984",
+          "apyPercentage": "1.351224864211795426",
+          "dailyDistributedTokens": "24.999999999999984",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -26,6 +20,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "4.326607537e-9",
+      "borrowerCount": 306,
+      "cashTokens": "2953394.670260493182198196",
+      "collateralFactor": 0.5,
       "exchangeRateVTokens": "48.86399857012667855737",
       "isCollateralOfUser": true,
       "liquidityCents": "199084867.4369169595929844",
@@ -36,6 +34,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "266794650.7810822265519879",
       "supplyBalanceTokens": "3957859.32811056858399137669",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.34260730848036692",
+          "dailyDistributedTokens": "24.999999999999984",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "9.922282e-10",
       "tokenPriceCents": "67.408826",
       "userBorrowBalanceCents": "8010.054841614495125428786136",
@@ -62,16 +72,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "858682573794807.3",
       "borrowBalanceTokens": "8586112918853.550179",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.902595684e-9",
-      "borrowerCount": 232,
-      "cashTokens": "10001000096016525033.105349",
-      "collateralFactor": 0.81,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.000002125348834693",
-          "borrowDailyDistributedTokens": "499.9999968",
-          "supplyApyPercentage": "1.824635e-12",
-          "supplyDailyDistributedTokens": "499.9999968",
+          "apyPercentage": "0.000002125348834693",
+          "dailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -80,6 +84,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.902595684e-9",
+      "borrowerCount": 232,
+      "cashTokens": "10001000096016525033.105349",
+      "collateralFactor": 0.81,
       "exchangeRateVTokens": "47.16724168018257961859",
       "isCollateralOfUser": true,
       "liquidityCents": "1.000183037904449632501359740607398e+21",
@@ -90,6 +98,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1.0001838918443319696540393346289641043e+21",
       "supplyBalanceTokens": "10001008634706466365.70417541181821061274",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "1.824635e-12",
+          "dailyDistributedTokens": "499.9999968",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.469e-15",
       "tokenPriceCents": "100.008302",
       "userBorrowBalanceCents": "100028.973616015098",
@@ -116,16 +136,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "3046289448.421817",
       "borrowBalanceTokens": "30465941.078326",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.902587519e-9",
-      "borrowerCount": 315,
-      "cashTokens": "1.009900000007157528256867649649e+24",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.600882672824011072",
-          "borrowDailyDistributedTokens": "499.9999968",
-          "supplyApyPercentage": "0",
-          "supplyDailyDistributedTokens": "499.9999968",
+          "apyPercentage": "0.600882672824011072",
+          "dailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -134,6 +148,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.902587519e-9",
+      "borrowerCount": 315,
+      "cashTokens": "1.009900000007157528256867649649e+24",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "49.8066352191466231613",
       "isCollateralOfUser": true,
       "liquidityCents": "1.0097990100071568125040419628840351e+26",
@@ -144,6 +162,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1.009799010007156842907638340455919692236935e+26",
       "supplyBalanceTokens": "1.00990000000715755866361678253762224507464372e+24",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0",
+          "dailyDistributedTokens": "499.9999968",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "0",
       "tokenPriceCents": "99.99",
       "userBorrowBalanceCents": "2722503639.96384444",
@@ -170,16 +200,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "83904467212.08831",
       "borrowBalanceTokens": "838879295.456576767818085792",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "2.659364924e-9",
-      "borrowerCount": 533,
-      "cashTokens": "9706099325.362378744807744335",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.021753286763848276",
-          "borrowDailyDistributedTokens": "499.9999968",
-          "supplyApyPercentage": "0.001730355354365121",
-          "supplyDailyDistributedTokens": "499.9999968",
+          "apyPercentage": "0.021753286763848276",
+          "dailyDistributedTokens": "499.9999968",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -188,6 +212,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "2.659364924e-9",
+      "borrowerCount": 533,
+      "cashTokens": "9706099325.362378744807744335",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "49.20026700145764253421",
       "isCollateralOfUser": true,
       "liquidityCents": "970801278578.3380684153495733",
@@ -198,6 +226,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1054705745790.4263761515589172",
       "supplyBalanceTokens": "10544978620.81895551074873612014",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.001730355354365121",
+          "dailyDistributedTokens": "499.9999968",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.1155897e-10",
       "tokenPriceCents": "100.019714",
       "userBorrowBalanceCents": "1303976571.610466592126566782066158",
@@ -224,16 +264,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "4644293442.793576",
       "borrowBalanceTokens": "163570.361869451489735025",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "6.3537978713e-8",
-      "borrowerCount": 261,
-      "cashTokens": "0.13472495639294993",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "1.141107132664179593",
-          "borrowDailyDistributedTokens": "1499.9999904",
-          "supplyApyPercentage": "1.185821799653397884",
-          "supplyDailyDistributedTokens": "1499.9999904",
+          "apyPercentage": "1.141107132664179593",
+          "dailyDistributedTokens": "1499.9999904",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -242,6 +276,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "6.3537978713e-8",
+      "borrowerCount": 261,
+      "cashTokens": "0.13472495639294993",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "30.21544099330438303214",
       "isCollateralOfUser": true,
       "liquidityCents": "3974.2992883765334217",
@@ -252,6 +290,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "4644297417.0928637733777829",
       "supplyBalanceTokens": "157437.25411513237718511429",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "1.185821799653397884",
+          "dailyDistributedTokens": "1499.9999904",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "5.9411825838e-8",
       "tokenPriceCents": "29499.354795",
       "userBorrowBalanceCents": "806475334.44376156685019064473549",
@@ -279,16 +329,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "30648883.710283635",
       "borrowBalanceTokens": "306488.837102836344256144",
       "borrowCapTokens": "270000",
-      "borrowPercentageRatePerBlock": "1.7318825939e-8",
-      "borrowerCount": 77,
-      "cashTokens": "1384009.148852251251535718",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0",
-          "borrowDailyDistributedTokens": "0",
-          "supplyApyPercentage": "0",
-          "supplyDailyDistributedTokens": "0",
+          "apyPercentage": "0",
+          "dailyDistributedTokens": "0",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -297,6 +341,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.7318825939e-8",
+      "borrowerCount": 77,
+      "cashTokens": "1384009.148852251251535718",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "49.00971793881545425588",
       "isCollateralOfUser": true,
       "liquidityCents": "138400914.8852251251535718",
@@ -307,6 +355,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "168090555.8345572668784761",
       "supplyBalanceTokens": "1680905.5583455726683867118",
       "supplyCapTokens": "800000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0",
+          "dailyDistributedTokens": "0",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.364740614e-9",
       "tokenPriceCents": "100",
       "userBorrowBalanceCents": "0",
@@ -333,16 +393,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "1232054135.6261484",
       "borrowBalanceTokens": "410.044985006090348771",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "5.314797005e-9",
-      "borrowerCount": 51,
-      "cashTokens": "734.855505167845506968",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "4.543731091576054636",
-          "borrowDailyDistributedTokens": "1499.9999904",
-          "supplyApyPercentage": "1.606740170918635611",
-          "supplyDailyDistributedTokens": "1499.9999904",
+          "apyPercentage": "4.543731091576054636",
+          "dailyDistributedTokens": "1499.9999904",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -351,6 +405,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "5.314797005e-9",
+      "borrowerCount": 51,
+      "cashTokens": "734.855505167845506968",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "47.13151629968276308865",
       "isCollateralOfUser": true,
       "liquidityCents": "2208005944.0703536158904017",
@@ -361,6 +419,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "3434747710.1218290503961459",
       "supplyBalanceTokens": "1143.13245868927505331413",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "1.606740170918635611",
+          "dailyDistributedTokens": "1499.9999904",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.715735073e-9",
       "tokenPriceCents": "3004680.414779",
       "userBorrowBalanceCents": "150530383.611000103961211082172018",
@@ -387,16 +457,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "1539590955.2987011",
       "borrowBalanceTokens": "6946.982350412691554991",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "7.71825902e-9",
-      "borrowerCount": 51,
-      "cashTokens": "4442.714417049498808402",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.594444965549789125",
-          "borrowDailyDistributedTokens": "250.0000128",
-          "supplyApyPercentage": "0.363034531797658077",
-          "supplyDailyDistributedTokens": "250.0000128",
+          "apyPercentage": "0.594444965549789125",
+          "dailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -405,6 +469,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "7.71825902e-9",
+      "borrowerCount": 51,
+      "cashTokens": "4442.714417049498808402",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "48.01910360197079419135",
       "isCollateralOfUser": true,
       "liquidityCents": "984594833.907734952053666",
@@ -415,6 +483,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "2518082368.1866852001814986",
       "supplyBalanceTokens": "11362.15675239817528520389",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.363034531797658077",
+          "dailyDistributedTokens": "250.0000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "4.246655958e-9",
       "tokenPriceCents": "221620.104621",
       "userBorrowBalanceCents": "4847623.22225738435524172885421",
@@ -441,16 +521,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "126638087.21955398",
       "borrowBalanceTokens": "16429.365902695430643694",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "2.969691931e-9",
-      "borrowerCount": 15,
-      "cashTokens": "130061.670563178365758133",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "7.470759902626424876",
-          "borrowDailyDistributedTokens": "250.0000128",
-          "supplyApyPercentage": "0.811613513165150039",
-          "supplyDailyDistributedTokens": "250.0000128",
+          "apyPercentage": "7.470759902626424876",
+          "dailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -459,6 +533,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "2.969691931e-9",
+      "borrowerCount": 15,
+      "cashTokens": "130061.670563178365758133",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "49.74845950798363261312",
       "isCollateralOfUser": true,
       "liquidityCents": "1002519590.728602356972208",
@@ -469,6 +547,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1128847517.6948646438679408",
       "supplyBalanceTokens": "146450.79788993125774574987",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.811613513165150039",
+          "dailyDistributedTokens": "250.0000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.99810042e-10",
       "tokenPriceCents": "7708.032554",
       "userBorrowBalanceCents": "3539108.45060934025575314272324",
@@ -495,16 +585,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "264952314.1081648",
       "borrowBalanceTokens": "5394143.0828219372345264",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "4.506637001e-9",
-      "borrowerCount": 31,
-      "cashTokens": "14330025.564828778936472031",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "3.503840954113091774",
-          "borrowDailyDistributedTokens": "250.0000128",
-          "supplyApyPercentage": "0.947264218064808693",
-          "supplyDailyDistributedTokens": "250.0000128",
+          "apyPercentage": "3.503840954113091774",
+          "dailyDistributedTokens": "250.0000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -513,6 +597,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "4.506637001e-9",
+      "borrowerCount": 31,
+      "cashTokens": "14330025.564828778936472031",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "48.48115246971846610428",
       "isCollateralOfUser": true,
       "liquidityCents": "703869618.6465025451091223",
@@ -523,6 +611,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "967843280.1886978194664069",
       "supplyBalanceTokens": "19704244.33792358757990297378",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.947264218064808693",
+          "dailyDistributedTokens": "250.0000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.110272727e-9",
       "tokenPriceCents": "49.118518",
       "userBorrowBalanceCents": "0",
@@ -549,16 +649,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "424976431.56555025",
       "borrowBalanceTokens": "7087754.765387647865700213",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "5.758623724e-9",
-      "borrowerCount": 19,
-      "cashTokens": "10395941.328841921560972686",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.754335409204269745",
-          "borrowDailyDistributedTokens": "87.499999999999872",
-          "supplyApyPercentage": "0.305120518892226646",
-          "supplyDailyDistributedTokens": "87.499999999999872",
+          "apyPercentage": "0.754335409204269745",
+          "dailyDistributedTokens": "87.499999999999872",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -567,6 +661,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "5.758623724e-9",
+      "borrowerCount": 19,
+      "cashTokens": "10395941.328841921560972686",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "48.85872192397092959065",
       "isCollateralOfUser": true,
       "liquidityCents": "623332803.5375996699870652",
@@ -577,6 +675,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1048309232.6563346786922442",
       "supplyBalanceTokens": "17483696.05342159703361183536",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.305120518892226646",
+          "dailyDistributedTokens": "87.499999999999872",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.33423812e-9",
       "tokenPriceCents": "59.959246",
       "userBorrowBalanceCents": "28624825.448019058469836021704598",
@@ -603,16 +713,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "97985006.66293829",
       "borrowBalanceTokens": "9675013.6298295",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.0326558846e-8",
-      "borrowerCount": 20,
-      "cashTokens": "1249474.80837593",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "1.720862854912494938",
-          "borrowDailyDistributedTokens": "45.805000000000032",
-          "supplyApyPercentage": "1.522555082433944633",
-          "supplyDailyDistributedTokens": "45.805000000000032",
+          "apyPercentage": "1.720862854912494938",
+          "dailyDistributedTokens": "45.805000000000032",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -621,6 +725,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.0326558846e-8",
+      "borrowerCount": 20,
+      "cashTokens": "1249474.80837593",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "45.90180050625225121636",
       "isCollateralOfUser": true,
       "liquidityCents": "12654224.80092636182555",
@@ -631,6 +739,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "110639231.4638646474098287",
       "supplyBalanceTokens": "10924488.43820542973851579842",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "1.522555082433944633",
+          "dailyDistributedTokens": "45.805000000000032",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "9.144455617e-9",
       "tokenPriceCents": "10.127635",
       "userBorrowBalanceCents": "24886.7326070836578",
@@ -657,16 +777,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "10194525.209929273",
       "borrowBalanceTokens": "127045.101864562779374701",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "3.11662885e-9",
-      "borrowerCount": 7,
-      "cashTokens": "1366473.497104608422125521",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0",
-          "borrowDailyDistributedTokens": "0",
-          "supplyApyPercentage": "0",
-          "supplyDailyDistributedTokens": "0",
+          "apyPercentage": "0",
+          "dailyDistributedTokens": "0",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -675,6 +789,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "3.11662885e-9",
+      "borrowerCount": 7,
+      "cashTokens": "1366473.497104608422125521",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "49.84526090130182653963",
       "isCollateralOfUser": true,
       "liquidityCents": "109650417.926256565752608",
@@ -685,6 +803,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "119815375.5117972192153777",
       "supplyBalanceTokens": "1493150.12454049583558747794",
       "supplyCapTokens": "0",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0",
+          "dailyDistributedTokens": "0",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.3864655e-10",
       "tokenPriceCents": "80.243355",
       "userBorrowBalanceCents": "10167164.50295423556036124803345",
@@ -711,16 +841,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "1185227872.1560158",
       "borrowBalanceTokens": "1116641.764130412123471042",
       "borrowCapTokens": "50000",
-      "borrowPercentageRatePerBlock": "9.044775479e-9",
-      "borrowerCount": 9,
-      "cashTokens": "1201245.300450770370010712",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "0.26982533135294494",
-          "borrowDailyDistributedTokens": "87.499999999999872",
-          "supplyApyPercentage": "0.134967169585684514",
-          "supplyDailyDistributedTokens": "87.499999999999872",
+          "apyPercentage": "0.26982533135294494",
+          "dailyDistributedTokens": "87.499999999999872",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -729,6 +853,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "9.044775479e-9",
+      "borrowerCount": 9,
+      "cashTokens": "1201245.300450770370010712",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "43.23415213861177624647",
       "isCollateralOfUser": true,
       "liquidityCents": "1275027907.0024119817464729",
@@ -739,6 +867,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "2367908342.081922550654256",
       "supplyBalanceTokens": "2230883.5376876999979576124",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.134967169585684514",
+          "dailyDistributedTokens": "87.499999999999872",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "3.395349012e-9",
       "tokenPriceCents": "1061.421765",
       "userBorrowBalanceCents": "1184917180.404415094390598341767785",
@@ -765,16 +905,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "3314470.130667992",
       "borrowBalanceTokens": "83.019490298266506222",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.49023801e-10",
-      "borrowerCount": 6,
-      "cashTokens": "10516.052559851006074971",
-      "collateralFactor": 0.55,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "14.754861490074778241",
-          "borrowDailyDistributedTokens": "12.5000000000000064",
-          "supplyApyPercentage": "0.10787839946684478",
-          "supplyDailyDistributedTokens": "12.5000000000000064",
+          "apyPercentage": "14.754861490074778241",
+          "dailyDistributedTokens": "12.5000000000000064",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -783,6 +917,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.49023801e-10",
+      "borrowerCount": 6,
+      "cashTokens": "10516.052559851006074971",
+      "collateralFactor": 0.55,
       "exchangeRateVTokens": "4997145456.36480526891693102724",
       "isCollateralOfUser": true,
       "liquidityCents": "419842882.3994915665371422",
@@ -793,6 +931,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "423157352.5296656248989134",
       "supplyBalanceTokens": "10599.07204997705918217286",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.10787839946684478",
+          "dailyDistributedTokens": "12.5000000000000064",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.167257e-12",
       "tokenPriceCents": "39924",
       "userBorrowBalanceCents": "0.019771833856838616",
@@ -819,16 +969,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "827924.3179938772",
       "borrowBalanceTokens": "8279.243179938772394707",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "3.88705e-13",
-      "borrowerCount": 5,
-      "cashTokens": "101302248.124545613039422944",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "200.564801757396621173",
-          "borrowDailyDistributedTokens": "25.0000000000000128",
-          "supplyApyPercentage": "0.009007365834885316",
-          "supplyDailyDistributedTokens": "25.0000000000000128",
+          "apyPercentage": "200.564801757396621173",
+          "dailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -837,6 +981,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "3.88705e-13",
+      "borrowerCount": 5,
+      "cashTokens": "101302248.124545613039422944",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "454545417.19421794528603629599",
       "isCollateralOfUser": true,
       "liquidityCents": "10130224812.4545613039422944",
@@ -847,6 +995,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "10131052736.4547509365152667",
       "supplyBalanceTokens": "101310527.36426410274356417399",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.009007365834885316",
+          "dailyDistributedTokens": "25.0000000000000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "2.5e-17",
       "tokenPriceCents": "100",
       "userBorrowBalanceCents": "700000.0289196950794559",
@@ -873,16 +1033,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "205808.2101085432",
       "borrowBalanceTokens": "2058.082101085432106229",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.913331935e-9",
-      "borrowerCount": 3,
-      "cashTokens": "2731134.739119160849766471",
-      "collateralFactor": 0.6,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "8102.522495213142034502",
-          "borrowDailyDistributedTokens": "25.0000000000000128",
-          "supplyApyPercentage": "0.334415260865180737",
-          "supplyDailyDistributedTokens": "25.0000000000000128",
+          "apyPercentage": "8102.522495213142034502",
+          "dailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -891,6 +1045,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.913331935e-9",
+      "borrowerCount": 3,
+      "cashTokens": "2731134.739119160849766471",
+      "collateralFactor": 0.6,
       "exchangeRateVTokens": "16.66661047629612969482",
       "isCollateralOfUser": false,
       "liquidityCents": "273113473.9119160849766471",
@@ -901,6 +1059,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "273319087.8001371190191733",
       "supplyBalanceTokens": "2733190.87800137119010764394",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "0.334415260865180737",
+          "dailyDistributedTokens": "25.0000000000000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.152543e-12",
       "tokenPriceCents": "100",
       "userBorrowBalanceCents": "0",
@@ -927,16 +1097,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "10000.793237213038",
       "borrowBalanceTokens": "100.007932372130381683",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "3.171002e-11",
-      "borrowerCount": 2,
-      "cashTokens": "14900.999999998926001055",
-      "collateralFactor": 0.8,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "2.342286892512915770892913642930703690751510720619883895e+37",
-          "borrowDailyDistributedTokens": "25.0000000000000128",
-          "supplyApyPercentage": "83.636157517717037851",
-          "supplyDailyDistributedTokens": "25.0000000000000128",
+          "apyPercentage": "2.342286892512915770892913642930703690751510720619883895e+37",
+          "dailyDistributedTokens": "25.0000000000000128",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -945,6 +1109,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "3.171002e-11",
+      "borrowerCount": 2,
+      "cashTokens": "14900.999999998926001055",
+      "collateralFactor": 0.8,
       "exchangeRateVTokens": "49.84091970453273753229",
       "isCollateralOfUser": false,
       "liquidityCents": "1490099.9999998926001055",
@@ -955,6 +1123,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "1500100.6345896630306407",
       "supplyBalanceTokens": "15001.00634589663030463368",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "83.636157517717037851",
+          "dailyDistributedTokens": "25.0000000000000128",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "1.69121e-13",
       "tokenPriceCents": "100",
       "userBorrowBalanceCents": "0",
@@ -981,16 +1161,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "borrowBalanceCents": "0",
       "borrowBalanceTokens": "0",
       "borrowCapTokens": undefined,
-      "borrowPercentageRatePerBlock": "1.902587519e-9",
-      "borrowerCount": 0,
-      "cashTokens": "1375",
-      "collateralFactor": 0.55,
-      "distributions": [
+      "borrowDistributions": [
         {
-          "borrowApyPercentage": "1.587706392698558375",
-          "borrowDailyDistributedTokens": "37.5000000000000192",
-          "supplyApyPercentage": "18.587706392698558375",
-          "supplyDailyDistributedTokens": "37.5000000000000192",
+          "apyPercentage": "1.587706392698558375",
+          "dailyDistributedTokens": "37.5000000000000192",
           "token": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/assets/img/tokens/xvs.svg",
@@ -999,6 +1173,10 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
           },
         },
       ],
+      "borrowPercentageRatePerBlock": "1.902587519e-9",
+      "borrowerCount": 0,
+      "cashTokens": "1375",
+      "collateralFactor": 0.55,
       "exchangeRateVTokens": "0.5",
       "isCollateralOfUser": false,
       "liquidityCents": "137500",
@@ -1009,6 +1187,18 @@ exports[`api/queries/useGetMainAssets > calculates totals correctly 1`] = `
       "supplyBalanceCents": "137500",
       "supplyBalanceTokens": "1375",
       "supplyCapTokens": "900000",
+      "supplyDistributions": [
+        {
+          "apyPercentage": "18.587706392698558375",
+          "dailyDistributedTokens": "37.5000000000000192",
+          "token": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/assets/img/tokens/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
       "supplyPercentageRatePerBlock": "0",
       "tokenPriceCents": "100",
       "userBorrowBalanceCents": "0",

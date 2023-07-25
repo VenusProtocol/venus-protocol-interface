@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { AssetDistribution, Token } from 'types';
+import { Token } from 'types';
 import {
   areTokensEqual,
   compareBigNumbers,
@@ -25,8 +25,8 @@ import { useStyles } from '../styles';
 type TableAsset = {
   token: Token;
   xvsPerDay: BigNumber | undefined;
-  xvsSupplyApy: AssetDistribution['supplyApyPercentage'] | undefined;
-  xvsBorrowApy: AssetDistribution['borrowApyPercentage'] | undefined;
+  xvsSupplyApy: BigNumber | undefined;
+  xvsBorrowApy: BigNumber | undefined;
 };
 
 interface XvsTableProps {
@@ -130,11 +130,11 @@ const XvsTable: React.FC = () => {
       // Note: assets from the main pool only yield XVS, hence why we only take
       // the first distribution token in consideration (which will always be XVS
       // here)
-      xvsPerDay: asset.distributions[0].supplyDailyDistributedTokens.plus(
-        asset.distributions[0].borrowDailyDistributedTokens,
+      xvsPerDay: asset.supplyDistributions[0].dailyDistributedTokens.plus(
+        asset.borrowDistributions[0].dailyDistributedTokens,
       ),
-      xvsSupplyApy: asset.distributions[0].supplyApyPercentage,
-      xvsBorrowApy: asset.distributions[0].borrowApyPercentage,
+      xvsSupplyApy: asset.supplyDistributions[0].apyPercentage,
+      xvsBorrowApy: asset.borrowDistributions[0].apyPercentage,
     }));
 
     const xvsAsset = (getMainAssetsData?.assets || []).find(asset =>

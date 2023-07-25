@@ -30,10 +30,8 @@ export interface TokenBalance {
 
 export interface AssetDistribution {
   token: Token;
-  supplyApyPercentage: BigNumber;
-  borrowApyPercentage: BigNumber;
-  supplyDailyDistributedTokens: BigNumber;
-  borrowDailyDistributedTokens: BigNumber;
+  apyPercentage: BigNumber;
+  dailyDistributedTokens: BigNumber;
 }
 
 export interface Asset {
@@ -55,7 +53,8 @@ export interface Asset {
   borrowBalanceCents: BigNumber;
   supplyPercentageRatePerBlock: BigNumber;
   borrowPercentageRatePerBlock: BigNumber;
-  distributions: AssetDistribution[];
+  supplyDistributions: AssetDistribution[];
+  borrowDistributions: AssetDistribution[];
   borrowCapTokens?: BigNumber;
   supplyCapTokens?: BigNumber;
   // User-specific props

@@ -29,12 +29,12 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
       ),
     });
 
-    const distributionRows = asset.distributions.map(distribution => ({
+    const distributionRows = (
+      type === 'borrow' ? asset.borrowDistributions : asset.supplyDistributions
+    ).map(distribution => ({
       label: t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
       iconSrc: distribution.token,
-      children: formatPercentageToReadableValue(
-        type === 'borrow' ? distribution.borrowApyPercentage : distribution.supplyApyPercentage,
-      ),
+      children: formatPercentageToReadableValue(distribution.apyPercentage),
     }));
 
     const combinedDistributionApys = getCombinedDistributionApys({
