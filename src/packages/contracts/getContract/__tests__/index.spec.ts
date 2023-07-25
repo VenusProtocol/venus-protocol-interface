@@ -13,7 +13,7 @@ describe('getContract', () => {
     });
 
     expect(contract).toBeInstanceOf(ethers.Contract);
-    expect(contract?.address).toEqual(fixedAddressContractInfos.mainPoolComptroller.address[56]);
+    expect(contract?.address).toBe(fixedAddressContractInfos.mainPoolComptroller.address[56]);
   });
 
   it('returns new Contract instance of generic contract', () => {
@@ -24,6 +24,16 @@ describe('getContract', () => {
     });
 
     expect(contract).toBeInstanceOf(ethers.Contract);
-    expect(contract?.address).toEqual(fakeAddress);
+    expect(contract?.address).toBe(fakeAddress);
+  });
+
+  it('returns undefined when no corresponding contract address could be found', () => {
+    const contract = getContract('swapRouter', {
+      signerOrProvider: fakeProvider,
+      chainId: 1,
+      comptrollerAddress: '',
+    });
+
+    expect(contract).toBe(undefined);
   });
 });
