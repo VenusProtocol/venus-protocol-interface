@@ -362,7 +362,24 @@
   "marketTable": {
     "columnKeys": {
       "asset": "Asset",
-      "borrowApy": "APY",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "Total borrow",
+      "collateral": "Collateral",
+      "labeledBorrowApy": "Borrow APY <InfoIcon />",
+      "labeledSupplyApyLtv": "Supply APY <InfoIcon /> / LTV",
+      "liquidity": "Liquidity",
+      "pool": "Pool",
+      "price": "Price",
+      "supplyApyLtv": "APY <InfoIcon /> / LTV",
+      "supplyBalance": "Total supply",
+      "userBorrowBalance": "Balance",
+      "userPercentOfLimit": "% of limit",
+      "userSupplyBalance": "Balance",
+      "userWalletBalance": "Wallet"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",
       "labeledBorrowApy": "Borrow APY",
@@ -370,12 +387,16 @@
       "liquidity": "Liquidity",
       "pool": "Pool",
       "price": "Price",
-      "supplyApyLtv": "APY / LTV",
+      "supplyApyLtv": "Supply APY / LTV",
       "supplyBalance": "Total supply",
-      "userBorrowBalance": "Balance",
+      "userBorrowBalance": "Borrow balance",
       "userPercentOfLimit": "% of limit",
-      "userSupplyBalance": "Balance",
-      "userWalletBalance": "Wallet"
+      "userSupplyBalance": "Supply balance",
+      "userWalletBalance": "Wallet balance"
+    },
+    "columnTooltips": {
+      "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
+      "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
     }
   },
   "myAccount": {

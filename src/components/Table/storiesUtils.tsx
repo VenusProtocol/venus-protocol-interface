@@ -63,11 +63,13 @@ export const columns: TableColumn<Row>[] = [
   {
     key: 'asset',
     label: 'Asset',
+    selectOptionLabel: 'Asset',
     renderCell: ({ token }) => <TokenIconWithSymbol token={token} />,
   },
   {
     key: 'apy',
     label: 'APY',
+    selectOptionLabel: 'APY',
     renderCell: ({ apy }) => (
       <div style={{ color: '#18df8b' }}>{formatPercentageToReadableValue(apy)}</div>
     ),
@@ -75,11 +77,13 @@ export const columns: TableColumn<Row>[] = [
   {
     key: 'wallet',
     label: 'Wallet',
+    selectOptionLabel: 'Wallet',
     renderCell: ({ wallet, token }) => `${wallet} ${token.symbol}`,
   },
   {
     key: 'collateral',
     label: 'Collateral',
+    selectOptionLabel: 'Collateral',
     renderCell: ({ collateral }) => <Toggle onChange={console.log} value={collateral} />,
   },
 ];

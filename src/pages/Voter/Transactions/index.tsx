@@ -31,6 +31,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
       {
         key: 'action',
         label: t('voterDetail.actions'),
+        selectOptionLabel: t('voterDetail.actions'),
         renderCell: transaction => {
           if (transaction.type === 'transfer') {
             return transaction.to.toLowerCase() === address.toLowerCase() ? (
@@ -86,12 +87,14 @@ export const Transactions: React.FC<TransactionsProps> = ({
       {
         key: 'sent',
         label: t('voterDetail.sent'),
+        selectOptionLabel: t('voterDetail.sent'),
         renderCell: transaction =>
           t('voterDetail.readableSent', { date: transaction.blockTimestamp }),
       },
       {
         key: 'amount',
         label: t('voterDetail.amount'),
+        selectOptionLabel: t('voterDetail.amount'),
         align: 'right',
         renderCell: transaction => {
           let valueWei: BigNumber | undefined;

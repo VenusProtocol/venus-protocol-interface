@@ -32,6 +32,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
       {
         key: 'rank',
         label: t('voterLeaderboard.columns.rank'),
+        selectOptionLabel: t('voterLeaderboard.columns.rank'),
         renderCell: (voter, rowIndex) => (
           <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
             {rowIndex + 1 + offset}
@@ -47,6 +48,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
       {
         key: 'votes',
         label: t('voterLeaderboard.columns.votes'),
+        selectOptionLabel: t('voterLeaderboard.columns.votes'),
         align: 'right',
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
@@ -62,6 +64,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
       {
         key: 'voteWeight',
         label: t('voterLeaderboard.columns.voteWeight'),
+        selectOptionLabel: t('voterLeaderboard.columns.voteWeight'),
         align: 'right',
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
@@ -72,6 +75,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
       {
         key: 'proposalsVoted',
         label: t('voterLeaderboard.columns.proposalsVoted'),
+        selectOptionLabel: t('voterLeaderboard.columns.proposalsVoted'),
         align: 'right',
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
