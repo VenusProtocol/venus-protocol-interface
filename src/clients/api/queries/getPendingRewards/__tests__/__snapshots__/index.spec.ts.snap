@@ -3693,7 +3693,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "reference": "getPendingRewards",
       },
     ],
-    "contractAddress": "0x559936086C5f65b92240012ae0D2F70C082Ac0b0",
+    "contractAddress": "0x6492dF28A9478230205c940A245Ffb114EaEb9d1",
     "reference": "poolLens",
   },
 ]

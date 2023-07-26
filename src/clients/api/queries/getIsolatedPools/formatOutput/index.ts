@@ -18,8 +18,8 @@ import { logError } from 'context/ErrorLogger';
 
 import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
-import formatDailyDistributedRewardTokensMapping from './formatDailyDistributedRewardTokensMapping';
 import formatDistributions from './formatDistributions';
+import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
 import formatTokenPrices from './formatTokenPrices';
 
 const formatToPools = ({
@@ -30,12 +30,13 @@ const formatToPools = ({
   resilientOracleResult,
   poolLensResult,
   userWalletTokenBalances,
+  currentBlockNumber,
 }: FormatToPoolInput) => {
   // Map token prices by address
   const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
 
   // Map distributions by vToken address
-  const dailyDistributedRewardTokensMapping = formatDailyDistributedRewardTokensMapping({
+  const rewardTokenDataMapping = formatRewardTokenDataMapping({
     rewardsDistributorsResults,
     tokenPricesDollars,
   });
@@ -212,12 +213,12 @@ const formatToPools = ({
         vTokenAddress.toLowerCase(),
       );
 
-      const distributions = formatDistributions({
+      const { supplyDistributions, borrowDistributions } = formatDistributions({
         tokenPriceDollars,
         supplyBalanceTokens,
         borrowBalanceTokens,
-        dailyDistributedRewardTokens:
-          dailyDistributedRewardTokensMapping[vToken.address.toLowerCase()] || [],
+        currentBlockNumber,
+        rewardTokenData: rewardTokenDataMapping[vToken.address.toLowerCase()] || [],
       });
 
       const asset: Asset = {
@@ -241,7 +242,8 @@ const formatToPools = ({
         borrowBalanceCents,
         borrowCapTokens,
         supplyCapTokens,
-        distributions,
+        supplyDistributions,
+        borrowDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
         userBorrowBalanceTokens,

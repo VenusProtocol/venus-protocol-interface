@@ -1382,6 +1382,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x170d3b2da05cc2124334240fB34ad1359e34C562'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x170d3b2da05cc2124334240fB34ad1359e34C562'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x170d3b2da05cc2124334240fB34ad1359e34C562'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
@@ -1389,6 +1399,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
           },
           {
@@ -1399,6 +1419,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
           },
         ],
@@ -1442,6 +1472,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x170d3b2da05cc2124334240fB34ad1359e34C562'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x170d3b2da05cc2124334240fB34ad1359e34C562'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -1461,6 +1521,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x3338988d0beb4419Acb8fE624218754053362D06'],
           success: true,
         },
@@ -1487,6 +1577,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4'],
           success: true,
         },
@@ -1514,6 +1634,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0xEF949287834Be010C1A5EDd757c385FB9b644E4A'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xEF949287834Be010C1A5EDd757c385FB9b644E4A'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0xEF949287834Be010C1A5EDd757c385FB9b644E4A'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
@@ -1521,6 +1651,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
           },
           {
@@ -1531,6 +1671,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
           },
           {
@@ -1541,6 +1691,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
           },
           {
@@ -1551,6 +1711,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
           },
           {
@@ -1561,6 +1731,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
           },
         ],
@@ -1604,6 +1784,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xEF949287834Be010C1A5EDd757c385FB9b644E4A'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0xEF949287834Be010C1A5EDd757c385FB9b644E4A'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x3b8531b88f578e',
             },
           ],
@@ -1623,6 +1833,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x5e68913fbbfb91af30366ab1B21324410b49a308'],
           success: true,
         },
@@ -1649,6 +1889,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a'],
           success: true,
         },
@@ -1675,6 +1945,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x80CC30811e362aC9aB857C3d7875CbcCc0b65750'],
           success: true,
         },
@@ -1701,6 +2001,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E'],
           success: true,
         },
@@ -1727,6 +2057,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xb677e080148368EeeE70fA3865d07E92c6500174'],
           success: true,
         },
@@ -1754,6 +2114,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
@@ -1761,6 +2131,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
           },
           {
@@ -1771,6 +2151,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
           },
           {
@@ -1781,6 +2171,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
           },
         ],
@@ -1824,6 +2224,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x0c7c21bff8e3822cb8',
             },
           ],
@@ -1843,6 +2273,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
           success: true,
         },
@@ -1869,6 +2329,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
           success: true,
         },
@@ -1895,6 +2385,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
           success: true,
         },
@@ -1922,6 +2442,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
@@ -1929,6 +2459,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
           },
           {
@@ -1939,6 +2479,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
           },
           {
@@ -1949,6 +2499,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
           },
         ],
@@ -1992,6 +2552,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x1958035231E125830bA5d17D168cEa07Bb42184a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -2011,6 +2601,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xef470AbC365F88e4582D8027172a392C473A5B53'],
           success: true,
         },
@@ -2037,6 +2657,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634'],
           success: true,
         },
@@ -2063,6 +2713,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a'],
           success: true,
         },
@@ -2090,6 +2770,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
@@ -2097,6 +2787,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           },
           {
@@ -2107,6 +2807,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
           },
           {
@@ -2117,6 +2827,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           },
           {
@@ -2127,6 +2847,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           },
           {
@@ -2137,6 +2867,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           },
         ],
@@ -2180,6 +2920,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -2199,6 +2969,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           success: true,
         },
@@ -2225,6 +3025,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
           success: true,
         },
@@ -2251,6 +3081,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           success: true,
         },
@@ -2277,6 +3137,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           success: true,
         },
@@ -2303,6 +3193,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           success: true,
         },
@@ -2330,6 +3250,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
@@ -2337,6 +3267,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           },
           {
@@ -2347,6 +3287,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
           },
           {
@@ -2357,6 +3307,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           },
           {
@@ -2367,6 +3327,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           },
           {
@@ -2377,6 +3347,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           },
         ],
@@ -2420,6 +3400,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -2439,6 +3449,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           success: true,
         },
@@ -2472,6 +3512,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -2491,6 +3561,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           success: true,
         },
@@ -2517,6 +3617,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           success: true,
         },
@@ -2543,6 +3673,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           success: true,
         },
@@ -2570,6 +3730,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
@@ -2577,6 +3747,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           },
           {
@@ -2587,6 +3767,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
           },
           {
@@ -2597,6 +3787,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           },
           {
@@ -2607,6 +3807,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           },
           {
@@ -2617,6 +3827,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           },
         ],
@@ -2660,6 +3880,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x0d287fb79cd097',
             },
           ],
@@ -2679,6 +3929,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x644A149853E5507AdF3e682218b8AC86cdD62951'],
           success: true,
         },
@@ -2705,6 +3985,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x75aa42c832a8911B77219DbeBABBB40040d16987'],
           success: true,
         },
@@ -2731,6 +4041,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x231dED0Dfc99634e52EE1a1329586bc970d773b3'],
           success: true,
         },
@@ -2757,6 +4097,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c'],
           success: true,
         },
@@ -2783,6 +4153,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD'],
           success: true,
         },
@@ -2810,6 +4210,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
@@ -2817,6 +4227,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           },
           {
@@ -2827,6 +4247,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           },
           {
@@ -2837,6 +4267,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           },
           {
@@ -2847,6 +4287,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           },
         ],
@@ -2890,6 +4340,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -2909,6 +4389,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           success: true,
         },
@@ -2935,6 +4445,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           success: true,
         },
@@ -2961,6 +4501,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           success: true,
         },
@@ -2987,6 +4557,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           success: true,
         },
@@ -3014,6 +4614,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
@@ -3021,6 +4631,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           },
           {
@@ -3031,6 +4651,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           },
           {
@@ -3041,6 +4671,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           },
           {
@@ -3051,6 +4691,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           },
         ],
@@ -3094,6 +4744,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x01583d878dcde08084',
             },
           ],
@@ -3113,6 +4793,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           success: true,
         },
@@ -3139,6 +4849,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           success: true,
         },
@@ -3165,6 +4905,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           success: true,
         },
@@ -3191,6 +4961,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           success: true,
         },
@@ -3218,6 +5018,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
@@ -3225,6 +5035,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           },
           {
@@ -3235,6 +5055,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           },
           {
@@ -3245,6 +5075,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           },
           {
@@ -3255,6 +5095,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           },
         ],
@@ -3298,6 +5148,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -3317,6 +5197,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           success: true,
         },
@@ -3343,6 +5253,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           success: true,
         },
@@ -3369,6 +5309,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           success: true,
         },
@@ -3395,6 +5365,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           success: true,
         },
@@ -3422,6 +5422,16 @@ export const fakeMulticallResponse1 = {
             methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
           },
           {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
+            methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          },
+          {
             reference: 'rewardTokenSupplySpeed',
             methodName: 'rewardTokenSupplySpeeds',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
@@ -3429,6 +5439,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           },
           {
@@ -3439,6 +5459,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           },
           {
@@ -3449,6 +5479,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           },
           {
@@ -3459,6 +5499,16 @@ export const fakeMulticallResponse1 = {
           {
             reference: 'rewardTokenBorrowSpeed',
             methodName: 'rewardTokenBorrowSpeeds',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenSupplyState',
+            methodName: 'rewardTokenSupplyState',
+            methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          },
+          {
+            reference: 'rewardTokenBorrowState',
+            methodName: 'rewardTokenBorrowState',
             methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           },
         ],
@@ -3502,6 +5552,36 @@ export const fakeMulticallResponse1 = {
           returnValues: [
             {
               type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
+          methodParameters: ['0x47793540757c6E6D84155B33cd8D9535CFdb9334'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
               hex: '0x00',
             },
           ],
@@ -3521,6 +5601,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xEe543D5de2Dbb5b07675Fc72831A2f1812428393'],
           success: true,
         },
@@ -3547,6 +5657,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x410286c43a525E1DCC7468a9B091C111C8324cd1'],
           success: true,
         },
@@ -3573,6 +5713,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0x712774CBFFCBD60e9825871CcEFF2F917442b2c3'],
           success: true,
         },
@@ -3599,6 +5769,36 @@ export const fakeMulticallResponse1 = {
           decoded: true,
           reference: 'rewardTokenBorrowSpeed',
           methodName: 'rewardTokenBorrowSpeeds',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenSupplyState',
+          methodName: 'rewardTokenSupplyState',
+          methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
+          success: true,
+        },
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0xc097ce7bc90715b34b9f100',
+            },
+            31465785,
+            0,
+          ],
+          decoded: true,
+          reference: 'rewardTokenBorrowState',
+          methodName: 'rewardTokenBorrowState',
           methodParameters: ['0xD804F74fe21290d213c46610ab171f7c2EeEBDE7'],
           success: true,
         },

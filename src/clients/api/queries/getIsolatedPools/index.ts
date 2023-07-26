@@ -19,6 +19,7 @@ import {
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
 
+import getBlockNumber from '../getBlockNumber';
 import getTokenBalances, { GetTokenBalancesOutput } from '../getTokenBalances';
 import formatOutput from './formatOutput';
 import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
@@ -34,11 +35,13 @@ const getIsolatedPools = async ({
   provider,
   multicall,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
-  const [poolsResults, poolParticipantsCountResult] = await Promise.all([
+  const [poolsResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
     // Fetch all pools
     poolLensContract.getAllPools(POOL_REGISTRY_ADDRESS),
     // Fetch borrower and supplier counts of each isolated token
     getIsolatedPoolParticipantsCount(),
+    // Fetch current block number
+    getBlockNumber({ provider }),
   ]);
 
   // Extract vToken addresses and their associated underlying tokens
@@ -161,7 +164,7 @@ const getIsolatedPools = async ({
       const poolVTokenAddresses = pool.vTokens.map(item => item.vToken);
       const rewardsDistributorAddresses = res.callsReturnContext[0].returnValues;
 
-      const speedCalls = poolVTokenAddresses.reduce<ContractCallContext['calls']>(
+      const rewardsDistributorCalls = poolVTokenAddresses.reduce<ContractCallContext['calls']>(
         (acc2, vTokenAddress) =>
           acc2.concat([
             {
@@ -172,6 +175,16 @@ const getIsolatedPools = async ({
             {
               reference: 'rewardTokenBorrowSpeed',
               methodName: 'rewardTokenBorrowSpeeds',
+              methodParameters: [vTokenAddress],
+            },
+            {
+              reference: 'rewardTokenSupplyState',
+              methodName: 'rewardTokenSupplyState',
+              methodParameters: [vTokenAddress],
+            },
+            {
+              reference: 'rewardTokenBorrowState',
+              methodName: 'rewardTokenBorrowState',
               methodParameters: [vTokenAddress],
             },
           ]),
@@ -189,7 +202,7 @@ const getIsolatedPools = async ({
               methodName: 'rewardToken',
               methodParameters: [],
             },
-            ...speedCalls,
+            ...rewardsDistributorCalls,
           ],
         }),
       );
@@ -239,6 +252,7 @@ const getIsolatedPools = async ({
     resilientOracleResult,
     poolLensResult,
     userWalletTokenBalances,
+    currentBlockNumber: currentBlockNumberResult.blockNumber,
   });
 
   return {

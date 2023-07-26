@@ -13,12 +13,13 @@ import {
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   areAddressesEqual,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  getCombinedDistributionApys,
   getContractAddress,
   getVTokenByAddress,
   isTokenActionEnabled,
@@ -98,6 +99,8 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset?.vToken.underlyingToken],
   );
 
+  const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
+
   const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
     if (!asset) {
       return [];
@@ -114,19 +117,17 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.supplyInfo.stats.apy'),
         value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
       },
-      {
-        label: t('market.supplyInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(
-          asset.distributions.reduce(
-            (acc, distribution) => acc.plus(distribution.supplyApyPercentage),
-            new BigNumber(0),
-          ),
-        ),
-      },
     ];
 
+    if (distributionApys) {
+      stats.push({
+        label: t('market.supplyInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(distributionApys.supplyApyPercentage),
+      });
+    }
+
     return stats;
-  }, [asset?.supplyApyPercentage, asset?.supplyApyPercentage, asset?.distributions]);
+  }, [asset?.supplyApyPercentage, asset?.supplyApyPercentage, distributionApys]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -151,19 +152,17 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         label: t('market.borrowInfo.stats.apy'),
         value: formatPercentageToReadableValue(asset.borrowApyPercentage),
       },
-      {
-        label: t('market.borrowInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(
-          asset.distributions.reduce(
-            (acc, distribution) => acc.plus(distribution.borrowApyPercentage),
-            new BigNumber(0),
-          ),
-        ),
-      },
     ];
 
+    if (distributionApys) {
+      stats.push({
+        label: t('market.supplyInfo.stats.distributionApy'),
+        value: formatPercentageToReadableValue(distributionApys.borrowApyPercentage),
+      });
+    }
+
     return stats;
-  }, [asset?.borrowBalanceCents, asset?.borrowApyPercentage, asset?.distributions]);
+  }, [asset?.borrowBalanceCents, asset?.borrowApyPercentage, distributionApys]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
@@ -192,18 +191,46 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       return [];
     }
 
-    const distributionRows = asset.distributions.map(distribution => ({
-      label: t('market.marketInfo.stats.dailyDistribution', {
-        tokenSymbol: distribution.token.symbol,
-      }),
-      value: formatTokensToReadableValue({
-        value: distribution.supplyDailyDistributedTokens.plus(
-          distribution.borrowDailyDistributedTokens,
+    const distributionMapping = [
+      ...asset.supplyDistributions,
+      ...asset.borrowDistributions,
+    ].reduce<{
+      [tokenSymbol: string]: {
+        rewardToken: Token;
+        dailyDistributedTokens: BigNumber;
+      };
+    }>((accDistributionMapping, distribution) => {
+      const accCopy = { ...accDistributionMapping };
+
+      if (!Object.hasOwnProperty.call(accCopy, distribution.token.address)) {
+        accCopy[distribution.token.address] = {
+          rewardToken: distribution.token,
+          dailyDistributedTokens: new BigNumber(0),
+        };
+      }
+
+      accCopy[distribution.token.address] = {
+        ...accCopy[distribution.token.address],
+        dailyDistributedTokens: accCopy[distribution.token.address].dailyDistributedTokens.plus(
+          distribution.dailyDistributedTokens,
         ),
-        addSymbol: false,
-        token: distribution.token,
+      };
+
+      return accCopy;
+    }, {});
+
+    const distributionRows = Object.values(distributionMapping).map(
+      ({ rewardToken, dailyDistributedTokens }) => ({
+        label: t('market.marketInfo.stats.dailyDistribution', {
+          tokenSymbol: rewardToken.symbol,
+        }),
+        value: formatTokensToReadableValue({
+          value: dailyDistributedTokens,
+          addSymbol: false,
+          token: rewardToken,
+        }),
       }),
-    }));
+    );
 
     return [
       {
@@ -305,7 +332,8 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     asset?.borrowerCount,
     asset?.borrowCapTokens,
     asset?.vToken,
-    asset?.distributions,
+    asset?.supplyDistributions,
+    asset?.borrowDistributions,
     asset?.reserveTokens,
     asset?.reserveFactor,
     asset?.collateralFactor,

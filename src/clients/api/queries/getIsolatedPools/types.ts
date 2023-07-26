@@ -13,6 +13,7 @@ export interface FormatToPoolInput {
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
   resilientOracleResult: ContractCallReturnContext;
+  currentBlockNumber: number;
   poolLensResult?: ContractCallReturnContext;
   userWalletTokenBalances?: GetTokenBalancesOutput;
 }

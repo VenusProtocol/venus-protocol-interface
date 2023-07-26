@@ -17,7 +17,7 @@ export const getIsAddressAuthorized = vi.fn(accountAddress => fakeAddress !== ac
 export const useGetIsAddressAuthorized = (accountAddress: string) =>
   useQuery(FunctionKey.GET_IS_ADDRESS_AUTHORIZED, () => getIsAddressAuthorized(accountAddress));
 
-export const getBlockNumber = vi.fn();
+export const getBlockNumber = vi.fn(() => 51236217);
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
 
 export const getVaiCalculateRepayAmount = vi.fn();

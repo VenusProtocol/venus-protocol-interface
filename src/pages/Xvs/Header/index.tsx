@@ -129,11 +129,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         // Note: assets from the main pool only yield XVS, hence why we only
         // take the first distribution token in consideration (which will
         // always be XVS here)
-        const xvsDistribution = asset.distributions[0];
+        const dailyXvsDistributed = asset.supplyDistributions[0].dailyDistributedTokens.plus(
+          asset.borrowDistributions[0].dailyDistributedTokens,
+        );
 
-        return acc
-          .plus(xvsDistribution.supplyDailyDistributedTokens)
-          .plus(xvsDistribution.borrowDailyDistributedTokens);
+        return acc.plus(dailyXvsDistributed);
       }, new BigNumber(0)),
     [getMainAssetsData?.assets],
   );

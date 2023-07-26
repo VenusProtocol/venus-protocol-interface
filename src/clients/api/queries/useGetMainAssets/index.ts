@@ -173,16 +173,20 @@ const useGetMainAssets = ({
           ? new BigNumber(market.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA)
           : new BigNumber(0);
 
-        const xvsDistribution: AssetDistribution = {
+        const supplyXvsDistribution: AssetDistribution = {
           token: TOKENS.xvs,
-          borrowDailyDistributedTokens: new BigNumber(market.borrowerDailyVenus || 0).div(
+          dailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0).div(
             new BigNumber(10).pow(TOKENS.xvs.decimals),
           ),
-          supplyDailyDistributedTokens: new BigNumber(market.supplierDailyVenus || 0).div(
+          apyPercentage: new BigNumber(market.supplyVenusApy || 0),
+        };
+
+        const borrowXvsDistribution: AssetDistribution = {
+          token: TOKENS.xvs,
+          dailyDistributedTokens: new BigNumber(market.borrowerDailyVenus || 0).div(
             new BigNumber(10).pow(TOKENS.xvs.decimals),
           ),
-          supplyApyPercentage: new BigNumber(market.supplyVenusApy || 0),
-          borrowApyPercentage: new BigNumber(market.borrowVenusApy || 0),
+          apyPercentage: new BigNumber(market.borrowVenusApy || 0),
         };
 
         const asset: Asset = {
@@ -224,7 +228,8 @@ const useGetMainAssets = ({
           userSupplyBalanceCents,
           userBorrowBalanceTokens,
           userBorrowBalanceCents,
-          distributions: [xvsDistribution],
+          supplyDistributions: [supplyXvsDistribution],
+          borrowDistributions: [borrowXvsDistribution],
         };
 
         acc.userTotalBorrowBalanceCents =
