@@ -1,5 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
-import { BscChainId, PSTokenCombination } from 'types';
+import { ChainId } from 'packages/contracts';
+import { PSTokenCombination } from 'types';
 
 import { SWAP_TOKENS } from 'constants/tokens';
 
@@ -17,8 +18,8 @@ const tokenCombinations: PSTokenCombination[] = [
   [SWAP_TOKENS.wbnb, SWAP_TOKENS.eth],
   [SWAP_TOKENS.wbnb, SWAP_TOKENS.xvs],
 ].map(([tokenA, tokenB]) => [
-  new PSToken(BscChainId.TESTNET, tokenA.address, tokenA.decimals, tokenA.symbol),
-  new PSToken(BscChainId.TESTNET, tokenB.address, tokenB.decimals, tokenB.symbol),
+  new PSToken(ChainId.BSC_TESTNET, tokenA.address, tokenA.decimals, tokenA.symbol),
+  new PSToken(ChainId.BSC_TESTNET, tokenB.address, tokenB.decimals, tokenB.symbol),
 ]);
 
 export default tokenCombinations;

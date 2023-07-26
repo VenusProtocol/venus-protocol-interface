@@ -1,3 +1,5 @@
+import config from 'config';
+import { UniqueContractName, getUniqueContract } from 'packages/contracts';
 import { useMemo } from 'react';
 import { Token, VToken } from 'types';
 
@@ -13,7 +15,6 @@ import {
   getVTokenContract,
   getVaiControllerContract,
   getVaiVaultContract,
-  getVenusLensContract,
   getVrtConverterProxyContract,
   getXvsVaultContract,
   getXvsVaultProxyContract,
@@ -30,6 +31,33 @@ export const useVTokenContract = (vToken: VToken) => {
   return useMemo(() => getVTokenContract(vToken, signer || undefined), [signer, vToken]);
 };
 
+type UseGetContractInput<TContractName extends UniqueContractName> = {
+  name: TContractName;
+};
+
+export function useGetUniqueContract<TContractName extends UniqueContractName>({
+  name,
+}: UseGetContractInput<TContractName>) {
+  const { signer, provider } = useAuth();
+  const signerOrProvider = signer || provider;
+  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
+  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
+  // to be considered dynamic.
+  const { chainId } = config;
+
+  return useMemo(
+    () =>
+      chainId !== undefined
+        ? getUniqueContract({
+            name,
+            signerOrProvider,
+            chainId,
+          })
+        : undefined,
+    [signerOrProvider, chainId, name],
+  );
+}
+
 export const useVaiControllerContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getVaiControllerContract(signer || undefined), [signer]);
@@ -43,11 +71,6 @@ export const useVaiVaultContract = () => {
 export const useComptrollerContract = (address: string) => {
   const { signer } = useAuth();
   return useMemo(() => getComptrollerContract(address, signer || undefined), [signer]);
-};
-
-export const useVenusLensContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getVenusLensContract(signer || undefined), [signer]);
 };
 
 export const useXvsVaultContract = () => {

@@ -1,9 +1,9 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
+import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 import { getContractAddress } from 'utilities';
 
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import { TOKENS } from 'constants/tokens';
 

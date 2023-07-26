@@ -1,9 +1,9 @@
 import { VenusLens } from 'types/contracts';
 
 export interface GetVTokenBalancesAllInput {
-  venusLensContract: VenusLens;
   account: string;
   vTokenAddresses: string[];
+  venusLensContract?: VenusLens;
 }
 
 interface Balance {
@@ -24,14 +24,14 @@ const getVTokenBalancesAll = async ({
   vTokenAddresses,
   account,
 }: GetVTokenBalancesAllInput): Promise<GetVTokenBalancesAllOutput> => {
-  const response = await venusLensContract.callStatic.vTokenBalancesAll(
+  const results = await venusLensContract?.callStatic.vTokenBalancesAll(
     vTokenAddresses,
     account?.toLowerCase(),
   );
 
   // This is original returned as an array with these properties but at some
   // point the properties are getting removed from the type
-  const balances = response.map(item => ({
+  const balances = (results || []).map(item => ({
     balanceOf: item.balanceOf.toString(),
     balanceOfUnderlying: item.balanceOfUnderlying.toString(),
     borrowBalanceCurrent: item.borrowBalanceCurrent.toString(),

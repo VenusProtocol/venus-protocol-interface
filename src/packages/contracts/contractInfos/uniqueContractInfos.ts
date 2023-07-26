@@ -30,14 +30,14 @@ import { ChainId } from '../types';
 import maximillionAbi from './externalAbis/maximillion.json';
 import multicallAbi from './externalAbis/multicall.json';
 
-export interface FixedAddressContractInfo {
+export interface UniqueContractInfo {
   abi: JsonFragment[];
   address: Partial<{
     [chainId in ChainId]: string;
   }>;
 }
 
-const venusLens: FixedAddressContractInfo = {
+const venusLens: UniqueContractInfo = {
   abi: venusLensAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VenusLens,
@@ -45,7 +45,7 @@ const venusLens: FixedAddressContractInfo = {
   },
 };
 
-const poolLens: FixedAddressContractInfo = {
+const poolLens: UniqueContractInfo = {
   abi: poolLensAbi,
   address: {
     [ChainId.BSC_TESTNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
@@ -53,7 +53,7 @@ const poolLens: FixedAddressContractInfo = {
   },
 };
 
-const mainPoolComptroller: FixedAddressContractInfo = {
+const mainPoolComptroller: UniqueContractInfo = {
   abi: mainPoolComptrollerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Comptroller,
@@ -61,7 +61,7 @@ const mainPoolComptroller: FixedAddressContractInfo = {
   },
 };
 
-const vaiUnitrollerController: FixedAddressContractInfo = {
+const vaiUnitrollerController: UniqueContractInfo = {
   abi: unitrollerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VaiUnitroller,
@@ -69,7 +69,7 @@ const vaiUnitrollerController: FixedAddressContractInfo = {
   },
 };
 
-const vaiVault: FixedAddressContractInfo = {
+const vaiVault: UniqueContractInfo = {
   abi: vaiVaultAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VAIVaultProxy,
@@ -77,7 +77,7 @@ const vaiVault: FixedAddressContractInfo = {
   },
 };
 
-const xvsVault: FixedAddressContractInfo = {
+const xvsVault: UniqueContractInfo = {
   abi: xvsVaultAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.XVSVaultProxy,
@@ -85,7 +85,7 @@ const xvsVault: FixedAddressContractInfo = {
   },
 };
 
-const governorBravoDelegator: FixedAddressContractInfo = {
+const governorBravoDelegator: UniqueContractInfo = {
   abi: governorBravoDelegatorAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegator,
@@ -93,7 +93,7 @@ const governorBravoDelegator: FixedAddressContractInfo = {
   },
 };
 
-const xvsVesting: FixedAddressContractInfo = {
+const xvsVesting: UniqueContractInfo = {
   abi: xvsVestingAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.XVSVestingProxy,
@@ -101,7 +101,7 @@ const xvsVesting: FixedAddressContractInfo = {
   },
 };
 
-const vrtConverter: FixedAddressContractInfo = {
+const vrtConverter: UniqueContractInfo = {
   abi: vrtConverterAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VRTConverterProxy,
@@ -109,7 +109,7 @@ const vrtConverter: FixedAddressContractInfo = {
   },
 };
 
-const maximillion: FixedAddressContractInfo = {
+const maximillion: UniqueContractInfo = {
   abi: maximillionAbi,
   address: {
     [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
@@ -117,7 +117,7 @@ const maximillion: FixedAddressContractInfo = {
   },
 };
 
-const multicall: FixedAddressContractInfo = {
+const multicall: UniqueContractInfo = {
   abi: multicallAbi,
   address: {
     [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -125,7 +125,7 @@ const multicall: FixedAddressContractInfo = {
   },
 };
 
-const fixedAddressContractInfos = {
+const uniqueContractInfos = {
   venusLens,
   poolLens,
   mainPoolComptroller,
@@ -139,9 +139,9 @@ const fixedAddressContractInfos = {
   multicall,
 };
 
-export type FixedAddressContractName = keyof typeof fixedAddressContractInfos;
+export type UniqueContractName = keyof typeof uniqueContractInfos;
 
-export type FixedAddressContractTypes = {
+export type UniqueContractTypes = {
   venusLens: VenusLens;
   poolLens: PoolLens;
   mainPoolComptroller: MainPoolComptroller;
@@ -155,7 +155,7 @@ export type FixedAddressContractTypes = {
   multicall: Multicall;
 };
 
-export type FixedAddressContractTypeByName<TContractName extends FixedAddressContractName> =
-  FixedAddressContractTypes[TContractName];
+export type UniqueContractTypeByName<TContractName extends UniqueContractName> =
+  UniqueContractTypes[TContractName];
 
-export default fixedAddressContractInfos;
+export default uniqueContractInfos;
