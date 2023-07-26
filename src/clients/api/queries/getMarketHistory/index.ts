@@ -29,7 +29,7 @@ const getMarketHistory = async ({
   vToken,
   type = '1 month',
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
-  const endpoint = `/market_history/graph?asset=${vToken.address}&version=v2`;
+  const endpoint = `/markets/history?asset=${vToken.address}&version=v2`;
 
   const response = await restService<GetMarketHistoryResponse>({
     endpoint,

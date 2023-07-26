@@ -1,7 +1,7 @@
 import { VotersDetails } from 'types';
 
 export interface GetVotersInput {
-  id: string | number;
+  proposalId: number;
   // 0 - "for" votes, 1 – "against" votes, 2 – "abstain" votes
   filter?: 0 | 1 | 2;
   limit?: number;

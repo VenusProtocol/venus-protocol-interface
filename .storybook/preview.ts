@@ -66,17 +66,17 @@ export const parameters = {
         rest.post('http://localhost:8545/', (req, res, ctx) => {
           return res(ctx.json({}));
         }),
-        rest.get('https://testnetapi.venus.io/api/governance/venus', (req, res, ctx) => {
+        rest.get('https://testnetapi.venus.io/api/markets/core-pool', (req, res, ctx) => {
           return res(ctx.json(GovernanceResponse));
         }),
-        rest.get('https://testnetapi.venus.io/api/proposals', (req, res, ctx) => {
+        rest.get('https://testnetapi.venus.io/api/governance/proposals', (req, res, ctx) => {
           return res(ctx.json(VotersReponse));
         }),
         rest.get('https://testnetapi.venus.io/api/transactions?page=1', (req, res, ctx) => {
           return res(ctx.json(TransactionResponse));
         }),
         rest.get(
-          'https://testnetapi.venus.io/api/market_history/graph?asset=0x74469281310195A04840Daf6EdF576F559a3dE80&type=1hr&limit=168',
+          'https://testnetapi.venus.io/api/markets/history?asset=0x74469281310195A04840Daf6EdF576F559a3dE80&type=1hr&limit=168',
           (req, res, ctx) => {
             return res(
               ctx.json({

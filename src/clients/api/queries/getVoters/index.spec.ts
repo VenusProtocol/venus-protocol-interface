@@ -15,11 +15,11 @@ describe('api/queries/getVoters', () => {
     }));
 
     const response = await getVoters({
-      id: 1,
+      proposalId: 1,
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/voters/1',
+      endpoint: '/governance/proposals/1/voters',
       method: 'GET',
       params: {
         filter: undefined,

@@ -26,7 +26,7 @@ describe('api/queries/getTransactions', () => {
     expect(transactions).toHaveLength(20);
 
     expect(restService).toBeCalledWith({
-      endpoint: '/transactions',
+      endpoint: '/activity/transactions',
       method: 'GET',
       params: {
         page: 2,
@@ -52,7 +52,7 @@ describe('api/queries/getTransactions', () => {
     expect(transactions).toHaveLength(20);
 
     expect(restService).toBeCalledWith({
-      endpoint: '/transactions',
+      endpoint: '/activity/transactions',
       method: 'GET',
       params: {
         page: 0,

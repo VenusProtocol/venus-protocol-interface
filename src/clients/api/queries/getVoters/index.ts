@@ -7,13 +7,13 @@ import { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './types';
 export * from './types';
 
 const getVoters = async ({
-  id,
+  proposalId,
   filter,
   limit,
   offset,
 }: GetVotersInput): Promise<GetVotersOutput> => {
   const response = await restService<GetVotersApiResponse>({
-    endpoint: `/voters/${id}`,
+    endpoint: `/governance/proposals/${proposalId}/voters`,
     method: 'GET',
     params: {
       filter,

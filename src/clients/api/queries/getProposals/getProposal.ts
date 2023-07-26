@@ -5,7 +5,7 @@ import { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './type
 
 const getProposal = async ({ id }: GetProposalInput): Promise<GetProposalOutput> => {
   const response = await restService<ProposalApiResponse>({
-    endpoint: `/proposals/${id}`,
+    endpoint: `/governance/proposals/${id}`,
     method: 'GET',
     params: { version: 'v2' },
   });

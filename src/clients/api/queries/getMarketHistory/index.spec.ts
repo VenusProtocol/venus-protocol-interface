@@ -45,7 +45,7 @@ describe('api/queries/getMarketHistory', () => {
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/market_history/graph?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2`,
+      endpoint: `/markets/history?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2`,
       method: 'GET',
     });
   });

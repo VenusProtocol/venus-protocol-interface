@@ -12,7 +12,7 @@ const getProposals = async ({
   const offset = page * limit;
 
   const response = await restService<ProposalsApiResponse>({
-    endpoint: '/proposals',
+    endpoint: '/governance/proposals',
     method: 'GET',
     params: { offset, limit, version: 'v2' },
   });
