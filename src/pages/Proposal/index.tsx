@@ -158,15 +158,15 @@ const Proposal = () => {
     },
   };
   const { data: againstVoters = defaultValue } = useGetVoters(
-    { id: proposalId || '', filter: 0 },
+    { proposalId: parseInt(proposalId, 10), filter: 0 },
     { enabled: !!proposalId },
   );
   const { data: forVoters = defaultValue } = useGetVoters(
-    { id: proposalId || '', filter: 1 },
+    { proposalId: parseInt(proposalId, 10), filter: 1 },
     { enabled: !!proposalId },
   );
   const { data: abstainVoters = defaultValue } = useGetVoters(
-    { id: proposalId || '', filter: 2 },
+    { proposalId: parseInt(proposalId, 10), filter: 2 },
     { enabled: !!proposalId },
   );
 

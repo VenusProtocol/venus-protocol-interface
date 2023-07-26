@@ -18,7 +18,7 @@ describe('api/queries/getVoterDetail', () => {
     const response = await getVoterDetail({ address: fakeAddress });
 
     expect(restService).toBeCalledWith({
-      endpoint: `/voters/accounts/${fakeAddress}`,
+      endpoint: `/governance/voters/${fakeAddress}/summary`,
       method: 'GET',
     });
 

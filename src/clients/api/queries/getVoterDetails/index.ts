@@ -15,7 +15,7 @@ const getVoterDetails = async ({
   address,
 }: GetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
   const response = await restService<GetVoterDetailsResponse>({
-    endpoint: `/voters/accounts/${address}`,
+    endpoint: `/governance/voters/${address}/summary`,
     method: 'GET',
   });
   const payload = response.data?.data;

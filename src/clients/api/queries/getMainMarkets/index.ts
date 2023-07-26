@@ -17,7 +17,7 @@ export interface GetMainMarketsOutput {
 
 const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
   const response = await restService<GetMainMarketsResponse>({
-    endpoint: '/governance/venus',
+    endpoint: '/markets/core-pool',
     method: 'GET',
   });
   if ('result' in response && response.result === 'error') {

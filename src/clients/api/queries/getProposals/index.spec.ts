@@ -20,7 +20,7 @@ describe('api/queries/getProposals', () => {
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/proposals',
+      endpoint: '/governance/proposals',
       method: 'GET',
       params: {
         limit: 10,
@@ -41,7 +41,7 @@ describe('api/queries/getProposals', () => {
     const response = await getProposals({});
 
     expect(restService).toBeCalledWith({
-      endpoint: '/proposals',
+      endpoint: '/governance/proposals',
       method: 'GET',
       params: {
         limit: 5,

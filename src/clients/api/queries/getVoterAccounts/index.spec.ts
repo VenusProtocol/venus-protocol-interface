@@ -21,7 +21,7 @@ describe('api/queries/getVoterAccounts', () => {
     expect(voterAccounts).toHaveLength(7);
 
     expect(restService).toBeCalledWith({
-      endpoint: '/voters/accounts',
+      endpoint: '/governance/voters',
       method: 'GET',
       params: {
         limit: 16,
@@ -44,7 +44,7 @@ describe('api/queries/getVoterAccounts', () => {
     // Expected length: 20
     // Received length: 7
     expect(restService).toBeCalledWith({
-      endpoint: '/voters/accounts',
+      endpoint: '/governance/voters',
       method: 'GET',
       params: {
         limit: 16,

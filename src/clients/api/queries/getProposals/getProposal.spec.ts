@@ -19,7 +19,7 @@ describe('api/queries/getProposal', () => {
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/proposals/1',
+      endpoint: '/governance/proposals/1',
       method: 'GET',
       params: {
         version: 'v2',

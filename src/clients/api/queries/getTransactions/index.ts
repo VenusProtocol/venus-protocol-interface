@@ -43,7 +43,7 @@ const getTransactions = async ({
   sort = 'desc',
 }: GetTransactionsInput): Promise<GetTransactionsOutput> => {
   const response = await restService<GetTransactionsResponse>({
-    endpoint: '/transactions',
+    endpoint: '/activity/transactions',
     method: 'GET',
     params: {
       page,
