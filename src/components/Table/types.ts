@@ -4,7 +4,8 @@ import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export interface TableColumn<R> {
   key: string;
-  label: string;
+  label: React.ReactNode | string;
+  selectOptionLabel: string;
   renderCell: (row: R, rowIndex: number) => React.ReactNode | string;
   sortRows?: (rowA: R, rowB: R, direction: 'asc' | 'desc') => number;
   align?: 'left' | 'center' | 'right';

@@ -43,11 +43,13 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
       {
         key: 'asset',
         label: t('xvs.columns.asset'),
+        selectOptionLabel: t('xvs.columns.asset'),
         renderCell: ({ token }) => <TokenIconWithSymbol token={token} />,
       },
       {
         key: 'xvsPerDay',
         label: t('xvs.columns.xvsPerDay'),
+        selectOptionLabel: t('xvs.columns.xvsPerDay'),
         align: 'right',
         renderCell: ({ xvsPerDay }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
@@ -63,6 +65,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
       {
         key: 'supplyXvsApy',
         label: t('xvs.columns.supplyXvsApy'),
+        selectOptionLabel: t('xvs.columns.supplyXvsApy'),
         align: 'right',
         renderCell: ({ xvsSupplyApy }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
@@ -75,6 +78,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
       {
         key: 'borrowXvsApy',
         label: t('xvs.columns.borrowXvsApy'),
+        selectOptionLabel: t('xvs.columns.borrowXvsApy'),
         align: 'right',
         renderCell: ({ xvsBorrowApy }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>

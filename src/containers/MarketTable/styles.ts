@@ -5,6 +5,15 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
+    getColumnLabelInfoIcon: ({ hasRightMargin }: { hasRightMargin: boolean }) => css`
+      vertical-align: sub;
+      margin-left: ${theme.spacing(1)};
+
+      ${hasRightMargin &&
+      css`
+        margin-right: ${theme.spacing(1)};
+      `};
+    `,
     marketLink: css`
       text-decoration: underline;
       color: ${theme.palette.text.primary};

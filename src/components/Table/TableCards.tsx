@@ -42,7 +42,7 @@ export function TableCards<R>({
 
         const option: SelectOption = {
           value: column.key,
-          label: column.label,
+          label: column.selectOptionLabel,
         };
 
         return [...acc, option];

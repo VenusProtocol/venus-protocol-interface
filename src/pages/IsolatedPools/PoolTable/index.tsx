@@ -52,6 +52,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       {
         key: 'assets',
         label: t('pools.poolTable.columns.assets'),
+        selectOptionLabel: t('pools.poolTable.columns.assets'),
         renderCell: ({ pool }) => (
           <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} limit={7} />
         ),
@@ -59,6 +60,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       {
         key: 'pool',
         label: t('pools.poolTable.columns.pool'),
+        selectOptionLabel: t('pools.poolTable.columns.pool'),
         align: 'right',
         renderCell: ({ pool }) => pool.name,
         sortRows: (rowA, rowB, direction) =>
@@ -69,6 +71,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       {
         key: 'totalSupply',
         label: t('pools.poolTable.columns.totalSupply'),
+        selectOptionLabel: t('pools.poolTable.columns.totalSupply'),
         align: 'right',
         renderCell: ({ poolTotalSupplyCents }) =>
           formatCentsToReadableValue({
@@ -82,6 +85,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       {
         key: 'totalBorrow',
         label: t('pools.poolTable.columns.totalBorrow'),
+        selectOptionLabel: t('pools.poolTable.columns.totalBorrow'),
         align: 'right',
         renderCell: ({ poolTotalBorrowCents }) =>
           formatCentsToReadableValue({
@@ -95,6 +99,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       {
         key: 'liquidity',
         label: t('pools.poolTable.columns.liquidity'),
+        selectOptionLabel: t('pools.poolTable.columns.liquidity'),
         align: 'right',
         renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
           formatCentsToReadableValue({

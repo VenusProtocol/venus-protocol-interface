@@ -50,6 +50,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'type',
         label: t('history.columns.type'),
+        selectOptionLabel: t('history.columns.type'),
         renderCell: transaction =>
           transaction.token && (
             <>
@@ -76,6 +77,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'hash',
         label: t('history.columns.hash'),
+        selectOptionLabel: t('history.columns.hash'),
         renderCell: transaction => (
           <Typography
             component="a"
@@ -92,6 +94,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'block',
         label: t('history.columns.block'),
+        selectOptionLabel: t('history.columns.block'),
         renderCell: transaction => (
           <Typography variant="small2" color="textPrimary">
             {transaction.blockNumber}
@@ -101,6 +104,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'from',
         label: t('history.columns.from'),
+        selectOptionLabel: t('history.columns.from'),
         renderCell: transaction => (
           <Typography
             component="a"
@@ -117,6 +121,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'to',
         label: t('history.columns.to'),
+        selectOptionLabel: t('history.columns.to'),
         renderCell: transaction =>
           transaction.to ? (
             <Typography
@@ -136,6 +141,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'amount',
         label: t('history.columns.amount'),
+        selectOptionLabel: t('history.columns.amount'),
         renderCell: transaction =>
           transaction.token && (
             <Typography variant="small2" css={styles.whiteText}>
@@ -152,6 +158,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
       {
         key: 'created',
         label: t('history.columns.created'),
+        selectOptionLabel: t('history.columns.created'),
         renderCell: transaction => (
           <Typography variant="small2" css={styles.whiteText}>
             {t('history.createdAt', {

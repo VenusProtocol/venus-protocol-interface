@@ -28,11 +28,13 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
       {
         key: 'asset',
         label: t('account.vaultsBreakdown.table.column.asset'),
+        selectOptionLabel: t('account.vaultsBreakdown.table.column.asset'),
         renderCell: vault => <TokenIconWithSymbol token={vault.stakedToken} />,
       },
       {
         key: 'apr',
         label: t('account.vaultsBreakdown.table.column.apr'),
+        selectOptionLabel: t('account.vaultsBreakdown.table.column.apr'),
         renderCell: vault => formatPercentageToReadableValue(vault.stakingAprPercentage),
         sortRows: (rowA, rowB, direction) =>
           compareNumbers(rowA.stakingAprPercentage, rowB.stakingAprPercentage, direction),
@@ -40,6 +42,7 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
       {
         key: 'stake',
         label: t('account.vaultsBreakdown.table.column.stake'),
+        selectOptionLabel: t('account.vaultsBreakdown.table.column.stake'),
         renderCell: vault =>
           convertWeiToTokens({
             valueWei: new BigNumber(vault.userStakedWei || 0),
