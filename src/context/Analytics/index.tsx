@@ -27,7 +27,7 @@ export const AnalyticsProvider: React.FC = ({ children }) => (
     apiKey={config.posthog.apiKey}
     options={{
       api_host: config.posthog.hostUrl,
-      persistence: 'localStorage',
+      persistence: 'memory',
       name: DAPP_VERSION,
     }}
   >

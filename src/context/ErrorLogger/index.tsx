@@ -19,18 +19,15 @@ export const ErrorLoggerProvider: React.FC = ({ children }) => {
 };
 
 export const logError = (error: string | unknown) => {
-  // Temporarily disable Sentry
-  console.error(`[Logger]: ${error}`);
+  // Only log errors in live environments
+  if (config.environment !== 'mainnet') {
+    console.error(`[Logger]: ${error}`);
+    return;
+  }
 
-  // // Only log errors in live environments
-  // if (config.environment !== 'mainnet') {
-  //   console.error(`[Logger]: ${error}`);
-  //   return;
-  // }
-
-  // if (typeof error === 'string') {
-  //   Sentry.captureMessage(error);
-  // } else {
-  //   Sentry.captureException(error);
-  // }
+  if (typeof error === 'string') {
+    Sentry.captureMessage(error);
+  } else {
+    Sentry.captureException(error);
+  }
 };
