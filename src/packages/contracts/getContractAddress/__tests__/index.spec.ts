@@ -1,5 +1,6 @@
 import { getContractAddress } from '..';
 import fixedAddressContractInfos from '../../contractInfos/fixedAddressContractInfos';
+import { ChainId } from '../../types';
 
 describe('getContractAddress', () => {
   it('returns address when contract exists on chain', () => {
@@ -12,7 +13,7 @@ describe('getContractAddress', () => {
   });
 
   it('returns undefined when contract does not exist for the chainId argument passed', () => {
-    const fakeChainId = 1;
+    const fakeChainId = 1 as ChainId;
     const address = getContractAddress('mainPoolComptroller', {
       chainId: fakeChainId,
     });
