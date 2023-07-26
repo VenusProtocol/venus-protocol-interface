@@ -1,5 +1,11 @@
 import config from 'config';
-import { UniqueContractName, getUniqueContract } from 'packages/contracts';
+import {
+  GenericContractName,
+  UniqueContractName,
+  getGenericContract,
+  getSwapRouterContract,
+  getUniqueContract,
+} from 'packages/contracts';
 import { useMemo } from 'react';
 import { Token, VToken } from 'types';
 
@@ -10,7 +16,7 @@ import {
   getGovernorBravoDelegateContract,
   getMulticallContract,
   getPoolLensContract,
-  getSwapRouterContract,
+  getSwapRouterContract as getSwapRouterContractOld,
   getTokenContract,
   getVTokenContract,
   getVaiControllerContract,
@@ -31,13 +37,13 @@ export const useVTokenContract = (vToken: VToken) => {
   return useMemo(() => getVTokenContract(vToken, signer || undefined), [signer, vToken]);
 };
 
-type UseGetContractInput<TContractName extends UniqueContractName> = {
+export interface UseGetUniqueContractInput<TContractName extends UniqueContractName> {
   name: TContractName;
-};
+}
 
 export function useGetUniqueContract<TContractName extends UniqueContractName>({
   name,
-}: UseGetContractInput<TContractName>) {
+}: UseGetUniqueContractInput<TContractName>) {
   const { signer, provider } = useAuth();
   const signerOrProvider = signer || provider;
   // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
@@ -50,11 +56,65 @@ export function useGetUniqueContract<TContractName extends UniqueContractName>({
       chainId !== undefined
         ? getUniqueContract({
             name,
-            signerOrProvider,
             chainId,
+            signerOrProvider,
           })
         : undefined,
     [signerOrProvider, chainId, name],
+  );
+}
+
+export interface UseGetGenericContractInput<TContractName extends GenericContractName> {
+  name: TContractName;
+  address: string;
+}
+
+export function useGetGenericContract<TContractName extends GenericContractName>({
+  name,
+  address,
+}: UseGetGenericContractInput<TContractName>) {
+  const { signer, provider } = useAuth();
+  const signerOrProvider = signer || provider;
+  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
+  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
+  // to be considered dynamic.
+  const { chainId } = config;
+
+  return useMemo(
+    () =>
+      chainId !== undefined // Although chainId isn't used, we don't want to fetch any data unless it exists
+        ? getGenericContract({
+            name,
+            address,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, name, address, chainId],
+  );
+}
+
+export interface UseGetSwapRouterContractInput {
+  comptrollerAddress: string;
+}
+
+export function useGetSwapRouterContract({ comptrollerAddress }: UseGetSwapRouterContractInput) {
+  const { signer, provider } = useAuth();
+  const signerOrProvider = signer || provider;
+  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
+  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
+  // to be considered dynamic.
+  const { chainId } = config;
+
+  return useMemo(
+    () =>
+      chainId !== undefined
+        ? getSwapRouterContract({
+            comptrollerAddress,
+            chainId,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, comptrollerAddress, chainId],
   );
 }
 
@@ -102,7 +162,7 @@ export const useXvsVestingProxyContract = () => {
 export const useSwapRouterContract = (poolComptrollerAddress: string) => {
   const { signer } = useAuth();
   return useMemo(
-    () => getSwapRouterContract(poolComptrollerAddress, signer || undefined),
+    () => getSwapRouterContractOld(poolComptrollerAddress, signer || undefined),
     [signer],
   );
 };
