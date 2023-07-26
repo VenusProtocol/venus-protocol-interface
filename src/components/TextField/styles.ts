@@ -85,6 +85,22 @@ export const useStyles = () => {
       width: 100%;
       height: ${theme.spacing(isSmall ? 6 : 10)};
 
+      ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: ${theme.palette.text.secondary};
+        opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: ${theme.palette.text.secondary};
+      }
+
+      ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: ${theme.palette.text.secondary};
+      }
+
       ${isSmall &&
       css`
         font-size: ${theme.typography.small2.fontSize};
