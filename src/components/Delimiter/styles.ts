@@ -8,8 +8,9 @@ export const useDelimiterStyles = () => {
     root: css`
       margin-top: 0;
       margin-bottom: 0;
-      border-color: ${theme.palette.secondary.light};
-      border-style: solid;
+      border: 0;
+      height: 1px;
+      background-color: ${theme.palette.secondary.light};
     `,
   };
 };
