@@ -1,4 +1,5 @@
-import { BscChainId, Environment } from 'types';
+import { ChainId } from 'packages/contracts';
+import { Environment } from 'types';
 
 import { BSC_SCAN_URLS } from 'constants/bsc';
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
@@ -7,7 +8,7 @@ import { MAINNET_SUBGRAPH_URL, TESTNET_SUBGRAPH_URL } from './codegen';
 
 export interface Config {
   environment: Environment;
-  chainId: BscChainId;
+  chainId: ChainId;
   isOnTestnet: boolean;
   rpcUrl: string;
   apiUrl: string;
@@ -68,7 +69,7 @@ const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment
 const isOnTestnet =
   environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
-const chainId: BscChainId = isOnTestnet ? BscChainId.TESTNET : BscChainId.MAINNET;
+const chainId = isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
 
 const localRpcUrl =
   environment === 'mainnet' || environment === 'preview'

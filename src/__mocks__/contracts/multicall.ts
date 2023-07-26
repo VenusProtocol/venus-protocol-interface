@@ -1,3 +1,4 @@
+import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { ContractCallResults } from 'ethereum-multicall';
 
 import bep20Abi from 'constants/contracts/abis/bep20.json';
@@ -5,7 +6,6 @@ import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 import poolLensAbi from 'constants/contracts/abis/poolLens.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 
 const pancakeSwapRouter: {

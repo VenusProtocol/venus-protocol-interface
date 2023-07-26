@@ -3,10 +3,10 @@ import { BigNumber as BN } from 'ethers';
 import fakeAddress from '__mocks__/models/address';
 import { VenusLens } from 'types/contracts';
 
-import getVTokenBalancesAll from '.';
+import getVTokenBalancesAll from '..';
 
 describe('api/queries/getVTokenBalancesAll', () => {
-  test('returns the APY simulations in the correct format on success', async () => {
+  it('returns the APY simulations in the correct format on success', async () => {
     const vTokenBalancesAllCallMock = vi.fn(async () => [
       {
         balanceOf: BN.from('10000'),
@@ -31,6 +31,15 @@ describe('api/queries/getVTokenBalancesAll', () => {
     });
 
     expect(vTokenBalancesAllCallMock).toHaveBeenCalledTimes(1);
+    expect(response).toMatchSnapshot();
+  });
+
+  it('returns an empty result when not passing venusLensContract parameter', async () => {
+    const response = await getVTokenBalancesAll({
+      vTokenAddresses: [''],
+      account: fakeAddress,
+    });
+
     expect(response).toMatchSnapshot();
   });
 });

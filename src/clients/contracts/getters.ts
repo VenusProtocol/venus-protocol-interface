@@ -15,7 +15,6 @@ import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
 import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
@@ -32,7 +31,6 @@ import {
   SwapRouter,
   VaiController,
   VaiVault,
-  VenusLens,
   VrtConverter,
   XvsVault,
   XvsVaultStore,
@@ -143,13 +141,6 @@ export const getComptrollerContract = (address: string, signer?: Signer) =>
     address,
     signer,
   }) as Comptroller;
-
-export const getVenusLensContract = (signer?: Signer) =>
-  getContract({
-    abi: venusLensAbi,
-    address: getContractAddress('venusLens'),
-    signer,
-  }) as VenusLens;
 
 export const getGovernorBravoDelegateContract = (signer?: Signer) =>
   getContract({

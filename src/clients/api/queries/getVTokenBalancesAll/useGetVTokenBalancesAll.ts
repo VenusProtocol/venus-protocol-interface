@@ -4,7 +4,7 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllInput,
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
-import { useVenusLensContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
@@ -20,7 +20,10 @@ const useGetVTokenBalancesAll = (
   { account, vTokenAddresses }: Omit<GetVTokenBalancesAllInput, 'venusLensContract'>,
   options?: Options,
 ) => {
-  const venusLensContract = useVenusLensContract();
+  const venusLensContract = useGetUniqueContract({
+    name: 'venusLens',
+  });
+
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { account, vTokenAddresses }],
     () => getVTokenBalancesAll({ venusLensContract, account, vTokenAddresses }),

@@ -1,7 +1,3 @@
-import fixedAddressContractInfos, {
-  FixedAddressContractName,
-  FixedAddressContractTypeByName,
-} from './fixedAddressContractInfos';
 import genericContractInfos, {
   GenericContractName,
   GenericContractTypeByName,
@@ -10,9 +6,13 @@ import swapRouter, {
   SwapRouterContractName,
   SwapRouterContractType,
 } from './swapRouterContractInfos';
+import uniqueContractInfos, {
+  UniqueContractName,
+  UniqueContractTypeByName,
+} from './uniqueContractInfos';
 
 export const contractInfos = {
-  ...fixedAddressContractInfos,
+  ...uniqueContractInfos,
   ...genericContractInfos,
   swapRouter,
 };
@@ -20,16 +20,16 @@ export const contractInfos = {
 export type ContractName = keyof typeof contractInfos;
 
 export type ContractTypeByName<TContractName extends ContractName> =
-  TContractName extends FixedAddressContractName
-    ? FixedAddressContractTypeByName<TContractName>
+  TContractName extends UniqueContractName
+    ? UniqueContractTypeByName<TContractName>
     : TContractName extends GenericContractName
     ? GenericContractTypeByName<TContractName>
     : TContractName extends SwapRouterContractName
     ? SwapRouterContractType
     : never;
 
-export { default as fixedAddressContractInfos } from './fixedAddressContractInfos';
-export * from './fixedAddressContractInfos';
+export { default as uniqueContractInfos } from './uniqueContractInfos';
+export * from './uniqueContractInfos';
 
 export { default as genericContractInfos } from './genericContractInfos';
 export * from './genericContractInfos';

@@ -24,9 +24,6 @@ export const getXvsVaultStoreContract = vi.fn();
 export const getComptrollerContract = vi.fn();
 export const useComptrollerContract = () => getComptrollerContract;
 
-export const getVenusLensContract = vi.fn();
-export const useVenusLensContract = () => getVenusLensContract;
-
 export const getGovernorBravoDelegateContract = vi.fn();
 export const useGovernorBravoDelegateContract = () => getGovernorBravoDelegateContract;
 
