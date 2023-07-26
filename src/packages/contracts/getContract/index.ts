@@ -1,58 +1,39 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 
-import fixedAddressContractInfos, {
+import {
+  ContractName,
+  ContractTypeByName,
   FixedAddressContractName,
-  FixedAddressContractTypeByName,
-} from '../contractInfos/fixedAddressContractInfos';
-import genericContractInfos, {
-  GenericContractName,
-  GenericContractTypeByName,
-} from '../contractInfos/genericContractInfos';
-import swapRouter, {
   SwapRouterContractName,
-  SwapRouterContractType,
-} from '../contractInfos/swapRouterContractInfos';
-import getContractAddress from '../getContractAddress';
+  contractInfos,
+} from '../contractInfos';
+import { getContractAddress } from '../getContractAddress';
 import { ChainId } from '../types';
 
-const contractInfos = {
-  ...fixedAddressContractInfos,
-  ...genericContractInfos,
-  swapRouter,
-};
+export type GetContractNameArg = ContractName;
 
-type ContractName = keyof typeof contractInfos;
-
-type ContractTypeByName<TContractName extends ContractName> =
-  TContractName extends FixedAddressContractName
-    ? FixedAddressContractTypeByName<TContractName>
-    : TContractName extends GenericContractName
-    ? GenericContractTypeByName<TContractName>
-    : TContractName extends SwapRouterContractName
-    ? SwapRouterContractType
-    : never;
-
-interface VariablesBase {
+interface VariablesArgBase {
   signerOrProvider: Signer | Provider;
 }
 
-type Variables<TContractName extends ContractName> = TContractName extends SwapRouterContractName
-  ? VariablesBase & {
-      comptrollerAddress: string;
-      chainId: ChainId;
-    }
-  : TContractName extends FixedAddressContractName
-  ? VariablesBase & {
-      chainId: ChainId;
-    }
-  : VariablesBase & {
-      address: string;
-    };
+export type GetContractVariablesArg<TContractName extends GetContractNameArg> =
+  TContractName extends SwapRouterContractName
+    ? VariablesArgBase & {
+        comptrollerAddress: string;
+        chainId: ChainId;
+      }
+    : TContractName extends FixedAddressContractName
+    ? VariablesArgBase & {
+        chainId: ChainId;
+      }
+    : VariablesArgBase & {
+        address: string;
+      };
 
-export default function getContract<TContractName extends ContractName>(
+export function getContract<TContractName extends GetContractNameArg>(
   name: TContractName,
-  variables: Variables<TContractName>,
+  variables: GetContractVariablesArg<TContractName>,
 ) {
   const contractInfo = contractInfos[name];
   let address: string | undefined;

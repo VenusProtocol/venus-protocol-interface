@@ -1,4 +1,4 @@
-import getContractAddress from '..';
+import { getContractAddress } from '..';
 import fixedAddressContractInfos from '../../contractInfos/fixedAddressContractInfos';
 
 describe('getContractAddress', () => {
