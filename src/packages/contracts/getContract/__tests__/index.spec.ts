@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-import getContract from '..';
+import { getContract } from '..';
 import fixedAddressContractInfos from '../../contractInfos/fixedAddressContractInfos';
 
 const fakeProvider = new ethers.providers.JsonRpcProvider();
