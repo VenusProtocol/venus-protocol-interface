@@ -6,7 +6,7 @@ import type {
 import Box from '@mui/material/Box';
 import MaterialSlider from '@mui/material/Slider';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
@@ -51,56 +51,62 @@ export const ProgressBar = ({
     progressBarColor,
   });
 
-  const renderMark = (
-    props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark'] &
-      SliderUnstyledMarkSlotProps,
-  ) => (
-    <Box
-      component="span"
-      style={props?.style}
-      className={props?.className}
-      css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
-    >
-      {markTooltip && (
-        <Tooltip placement={tooltipPlacement} title={markTooltip}>
-          <span css={styles.tooltipHelper}>.</span>
-        </Tooltip>
-      )}
-    </Box>
-  );
-
-  const renderTrack = (
-    props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track'] &
-      SliderUnstyledTrackSlotProps,
-  ) => {
-    const primaryRail = (
+  const renderMark = useCallback(
+    (
+      props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark'] &
+        SliderUnstyledMarkSlotProps,
+    ) => (
       <Box
+        component="span"
         style={props?.style}
-        css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
+        className={props?.className}
+        css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
       >
-        {trackTooltip ? (
-          <Tooltip placement={tooltipPlacement} title={trackTooltip}>
-            <Box className={props?.className} />
+        {markTooltip && (
+          <Tooltip placement={tooltipPlacement} title={markTooltip}>
+            <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
-        ) : (
-          <Box className={props?.className} />
         )}
       </Box>
-    );
+    ),
+    [markTooltip, tooltipPlacement],
+  );
 
-    return (
-      <>
-        {primaryRail}
+  const renderTrack = useCallback(
+    (
+      props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track'] &
+        SliderUnstyledTrackSlotProps,
+    ) => {
+      const primaryRail = (
+        <Box
+          style={props?.style}
+          css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
+        >
+          {trackTooltip ? (
+            <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+              <Box className={props?.className} />
+            </Tooltip>
+          ) : (
+            <Box className={props?.className} />
+          )}
+        </Box>
+      );
 
-        {secondaryValue !== undefined && (
-          <Box
-            css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
-            className={props?.className}
-          />
-        )}
-      </>
-    );
-  };
+      return (
+        <>
+          {primaryRail}
+
+          {secondaryValue !== undefined && (
+            <Box
+              css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
+              className={props?.className}
+            />
+          )}
+        </>
+      );
+    },
+    [trackTooltip, tooltipPlacement, secondaryValue, max],
+  );
 
   return (
     <MaterialSlider
