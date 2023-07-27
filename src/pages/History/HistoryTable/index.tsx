@@ -169,7 +169,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
           transaction.token && (
             <Typography variant="small2" css={styles.whiteText}>
               {convertWeiToTokens({
-                valueWei: transaction.amountWei,
+                valueWei: transaction.amountMantissa,
                 token: transaction.token,
                 returnInReadableFormat: true,
 
@@ -213,7 +213,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         orderDirection: 'desc',
       }}
       rowKeyExtractor={row =>
-        `history-table-row-${row.transactionHash}-${row.logIndex}-${row.amountWei}-${row.category}-${row.from}-${row.to}-${row.event}-${row.token.address}-${row.blockNumber}`
+        `history-table-row-${row.transactionHash}-${row.logIndex}-${row.amountMantissa}-${row.category}-${row.from}-${row.to}-${row.event}-${row.token.address}-${row.blockNumber}`
       }
       breakpoint="xl"
       css={styles.cardContentGrid}

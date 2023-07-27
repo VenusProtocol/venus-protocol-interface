@@ -6,6 +6,7 @@ interface RestServiceInput {
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   token?: string | null;
   params?: Record<string, unknown>;
+  next?: boolean;
 }
 
 const createQueryParams = (params: Record<string, unknown>) => {
@@ -23,10 +24,11 @@ export async function restService<D>({
   method,
   params,
   token = null,
+  next = false,
 }: RestServiceInput): Promise<
   | {
       status: number;
-      data: { data: D; status: boolean } | undefined;
+      data: D | undefined;
     }
   | {
       status: boolean;
@@ -39,7 +41,12 @@ export async function restService<D>({
   let path = `${config.apiUrl}${endpoint}`;
 
   set(headers, 'Accept', 'application/json');
-  set(headers, 'Content-Type', 'application/json');
+
+  if (next) {
+    set(headers, 'Accept-Version', 'next');
+  } else {
+    set(headers, 'Accept-Version', 'stable');
+  }
 
   if (token) {
     set(headers, 'Authorization', `Bearer ${token}`);
@@ -57,7 +64,7 @@ export async function restService<D>({
     const queryParams = createQueryParams(params);
     path = `${path}?${queryParams}`;
   }
-  return fetch(path)
+  return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
 
@@ -65,6 +72,10 @@ export async function restService<D>({
 
       try {
         data = await response.json();
+        const warning = response.headers.get('Warning');
+        if (warning) {
+          console.warn(warning);
+        }
       } catch (error) {
         // Do nothing
       }
