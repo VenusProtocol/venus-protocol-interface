@@ -1,37 +1,42 @@
 import BigNumber from 'bignumber.js';
-import { TransactionCategory, TransactionEvent, VToken } from 'types';
-import { convertTokensToWei, findTokenByAddress, getTokenByAddress } from 'utilities';
+import { Token, TransactionCategory, TransactionEvent, VToken } from 'types';
+import { findTokenByAddress, getTokenByAddress } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
 import { TransactionResponse } from './types';
 
 const formatTransaction = ({
-  data: { amount, category, event, tokenAddress, timestamp, ...rest },
+  data: { amountMantissa, category, event, tokenAddress, timestamp, from, ...rest },
   vTokens,
 }: {
   data: TransactionResponse;
   vTokens: VToken[];
 }) => {
-  let token = tokenAddress ? getTokenByAddress(tokenAddress) : undefined;
+  // check if the tokenAddress is from a VToken
+  const vToken = findTokenByAddress({
+    address: tokenAddress || '',
+    tokens: vTokens,
+  });
 
-  if (!token) {
-    token =
-      (tokenAddress &&
-        findTokenByAddress({
-          address: tokenAddress,
-          tokens: vTokens,
-        })?.underlyingToken) ||
-      TOKENS.xvs;
-  }
+  // if it is, use the VToken decimals and the image from the underlying token
+  const transactionToken: Token | undefined = vToken
+    ? { ...vToken.underlyingToken, decimals: vToken.decimals }
+    : // else get the token from tokenAddress
+      getTokenByAddress(tokenAddress || '');
+
+  // if neither is found, use XVS
+  const token = transactionToken || TOKENS.xvs;
 
   return {
     ...rest,
-    amountWei: convertTokensToWei({ value: new BigNumber(amount), token }),
+    amountMantissa: new BigNumber(amountMantissa),
     category: category as TransactionCategory,
     event: event as TransactionEvent,
     token,
+    from,
     timestamp: new Date(timestamp * 1000), // Convert timestamp to milliseconds
   };
 };
+
 export default formatTransaction;
