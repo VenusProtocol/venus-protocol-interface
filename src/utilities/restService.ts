@@ -5,8 +5,8 @@ import _set from 'lodash/set';
 interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
-  token?: string | null;
   next?: boolean;
+  token?: string | null;
   params?: Record<string, unknown>;
 }
 
@@ -29,7 +29,7 @@ export async function restService<D>({
 }: RestServiceInput): Promise<
   | {
       status: number;
-      data: { data: D; status: boolean } | undefined;
+      data: D | undefined;
     }
   | {
       status: boolean;
@@ -42,7 +42,12 @@ export async function restService<D>({
   let path = `${config.apiUrl}${endpoint}`;
 
   _set(headers, 'Accept', 'application/json');
-  _set(headers, 'Content-Type', 'application/json');
+
+  if (next) {
+    _set(headers, 'Accept-Version', 'next');
+  } else {
+    _set(headers, 'Accept-Version', 'stable');
+  }
 
   if (next) {
     _set(headers, 'Accept-Version', 'next');
@@ -74,6 +79,10 @@ export async function restService<D>({
 
       try {
         data = await response.json();
+        const warning = response.headers.get('Warning');
+        if (warning) {
+          console.warn(warning);
+        }
       } catch (error) {
         // Do nothing
       }

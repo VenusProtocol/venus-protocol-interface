@@ -251,7 +251,7 @@ export enum TransactionCategory {
 }
 
 export interface Transaction {
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   blockNumber: number;
   category: TransactionCategory;
   event: TransactionEvent;
@@ -259,7 +259,7 @@ export interface Transaction {
   to: string;
   timestamp: Date;
   transactionHash: string;
-  logIndex: string;
+  logIndex: number;
   token: Token;
 }
 
