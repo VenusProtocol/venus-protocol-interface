@@ -1,3 +1,13 @@
+## [2.7.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.6.1...v2.7.0) (2023-07-27)
+
+
+### Features
+
+* add useGetSwapRouterContract and useGetGeneriContract hooks ([eacece3](https://github.com/VenusProtocol/venus-protocol-interface/commit/eacece3e1e69305ed33f7af1d814ae1459a1e609))
+* remove ETH_MAINNET chain ID from ChainId type ([fcbf3d3](https://github.com/VenusProtocol/venus-protocol-interface/commit/fcbf3d3444820e74408898145b26c930179aeee5))
+* update contracts package + create useGetUniqueContract hook ([73a4df7](https://github.com/VenusProtocol/venus-protocol-interface/commit/73a4df7b374564405e6c4cc8322933be0648c6c4))
+* update exports of contracts package ([da47b1b](https://github.com/VenusProtocol/venus-protocol-interface/commit/da47b1b80ec792e75eaeccca87dc1d99a1b1daf4))
+
 ## [2.6.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.6.0...v2.6.1) (2023-07-27)
 
 
