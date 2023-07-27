@@ -1,3 +1,11 @@
+## [2.6.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.6.0...v2.6.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* add memoization in ProgressBar component to prevent unnecessary re-renders ([637975d](https://github.com/VenusProtocol/venus-protocol-interface/commit/637975d9bdee87379545f9913e62647d02932fb4))
+* memoize Trans component to prevent unnecessary re-renders ([a1d9dbe](https://github.com/VenusProtocol/venus-protocol-interface/commit/a1d9dbee0d0362116ad94845a72e7c07924ce5b9))
+
 ## [2.6.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.5.0...v2.6.0) (2023-07-26)
 
 
