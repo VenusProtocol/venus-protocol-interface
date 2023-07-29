@@ -36,7 +36,7 @@ const formatDistributions = ({
       supplyLastRewardBlockNumber,
     }) => {
       // Filter out passed supply distributions
-      if (supplyLastRewardBlockNumber === 0 || currentBlockNumber > supplyLastRewardBlockNumber) {
+      if (supplyLastRewardBlockNumber === 0 || currentBlockNumber <= supplyLastRewardBlockNumber) {
         supplyDistributions.push(
           formatDistribution({
             rewardToken,
@@ -48,7 +48,7 @@ const formatDistributions = ({
       }
 
       // Filter out passed borrow distributions
-      if (borrowLastRewardBlockNumber === 0 && currentBlockNumber > borrowLastRewardBlockNumber) {
+      if (borrowLastRewardBlockNumber === 0 || currentBlockNumber <= borrowLastRewardBlockNumber) {
         borrowDistributions.push(
           formatDistribution({
             rewardToken,
