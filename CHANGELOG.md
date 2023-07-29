@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.0...v2.7.1) (2023-07-29)
+
+
+### Bug Fixes
+
+* use the correct condition for last rewards block ([843c97c](https://github.com/VenusProtocol/venus-protocol-interface/commit/843c97c34f89362fe19432e0638ef75a9a90f2a0))
+
 ## [2.7.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.6.1...v2.7.0) (2023-07-27)
 
 
