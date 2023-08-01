@@ -9,13 +9,13 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import {
   getBalanceOf,
-  getMintedVai,
   getVaiCalculateRepayAmount,
   getVaiRepayAmountWithInterests,
   repayVai,
 } from 'clients/api';
 import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
 import formatToGetVaiRepayAmountWithInterestsOutput from 'clients/api/queries/getVaiRepayAmountWithInterests/formatToOutput';
+import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -32,20 +32,33 @@ vi.mock('hooks/useTokenApproval');
 
 vi.useFakeTimers();
 
-const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const repayInputAmountTokens = '100';
+
+const repayInputAmountWei = convertTokensToWei({
+  value: new BigNumber(repayInputAmountTokens),
+  token: TOKENS.vai,
+});
+
+const getVaiRepayAmountWithInterestsResult = formatToGetVaiRepayAmountWithInterestsOutput({
+  contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
+});
+
+const fullRepayBalanceWei = getVaiRepayAmountWithInterestsResult.vaiRepayAmountWithInterestsWei;
+
+const fullRepayBalanceTokens = convertWeiToTokens({
+  valueWei: fullRepayBalanceWei,
+  token: TOKENS.vai,
+}).toString();
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (getMintedVai as Vi.Mock).mockImplementation(() => ({
-      mintedVaiWei: fakeUserVaiMintedWei,
-    }));
-
-    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() =>
-      formatToGetVaiRepayAmountWithInterestsOutput({
-        contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
-      }),
+    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(
+      () => getVaiRepayAmountWithInterestsResult,
     );
+
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
+      balanceWei: fullRepayBalanceWei,
+    }));
 
     (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>
       formatToOutput({
@@ -78,10 +91,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: fakeUserVaiMintedWei,
-    }));
-
     const originalTokenApprovalOutput = useTokenApproval({
       token: TOKENS.vai,
       spenderAddress: getContractAddress('vaiController'),
@@ -117,11 +126,23 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
-  it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: fakeUserVaiMintedWei,
-    }));
+  it('displays the VAI repay fee correctly', async () => {
+    const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
+    });
 
+    await waitFor(() => getByText(en.vai.repayVai.repayFeeLabel));
+
+    const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
+
+    // Check user repay VAI balance displays correctly
+    await waitFor(() => getByText('0.00031 VAI (0.000317%)'));
+  });
+
+  it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TOKENS.vai,
       spenderAddress: getContractAddress('vaiController'),
@@ -160,14 +181,10 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(getByText(en.vai.repayVai.submitButtonDisabledLabel).closest('button')).toBeDisabled();
   });
 
-  it('lets user repay their VAI balance', async () => {
+  it('lets user repay some of their VAI loan', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
-
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: fakeUserVaiMintedWei,
-    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
@@ -177,16 +194,13 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
     // Input amount
-    const fakeUserVaiMinted = convertWeiToTokens({
-      valueWei: fakeUserVaiMintedWei,
-      token: TOKENS.vai,
+    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, {
+      target: { value: repayInputAmountTokens },
     });
 
-    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: fakeUserVaiMinted.toFixed() } });
-
     // Check input value updated correctly
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toFixed()));
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(repayInputAmountTokens));
 
     // Submit repayment request
     await waitFor(() => expect(getByText(en.vai.repayVai.submitButtonLabel)));
@@ -199,7 +213,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
-      amountWei: fakeUserVaiMintedWei,
+      amountWei: repayInputAmountWei,
     });
 
     // Check successful transaction modal is displayed
@@ -208,27 +222,60 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       transactionHash: fakeContractReceipt.transactionHash,
       amount: {
         token: TOKENS.vai,
-        valueWei: fakeUserVaiMintedWei,
+        valueWei: repayInputAmountWei,
       },
       content: expect.any(String),
       title: expect.any(String),
     });
   });
 
-  it('displays the VAI repay fee', async () => {
+  it('lets user repay their entire VAI loan', async () => {
+    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+
     const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
     });
+    await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
-    await waitFor(() => getByText(en.vai.repayVai.repayFeeLabel));
+    // Click on max button
+    fireEvent.click(getByText(en.vai.repayVai.rightMaxButtonLabel));
 
+    // Check input value updated correctly
     const tokenTextFieldInput = getByTestId(TEST_IDS.repayTextField) as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: repayInputAmountTokens } });
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fullRepayBalanceTokens));
 
-    // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText('0.00031 VAI (0.000317%)'));
+    // Check warning notice is displayed
+    expect(getByText(en.vai.repayVai.fullRepayWarning)).toBeInTheDocument();
+
+    // Submit repayment request
+    await waitFor(() => expect(getByText(en.vai.repayVai.submitButtonLabel)));
+
+    const submitButton = getByText(en.vai.repayVai.submitButtonLabel).closest(
+      'button',
+    ) as HTMLButtonElement;
+    fireEvent.click(submitButton);
+
+    // Check repayVai was called correctly
+    await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
+    expect(repayVai).toHaveBeenCalledWith({
+      amountWei: MAX_UINT256,
+    });
+
+    // Check successful transaction modal is displayed
+    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
+    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+      transactionHash: fakeContractReceipt.transactionHash,
+      amount: {
+        token: TOKENS.vai,
+        valueWei: fullRepayBalanceWei,
+      },
+      content: expect.any(String),
+      title: expect.any(String),
+    });
   });
 
   // TODO: add tests to cover failing scenarios (see VEN-631)

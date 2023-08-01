@@ -29,7 +29,7 @@ describe('api/queries/useGetMainAssets', () => {
       tokenAddresses: assetsInAccount,
     }));
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
-      vaiRepayAmountWithInterests: fakeUserVaiRepayAmountWithInterestsWei,
+      vaiRepayAmountWithInterestsWei: fakeUserVaiRepayAmountWithInterestsWei,
     }));
 
     (useGetVTokenBalancesAll as Vi.Mock).mockImplementation(({ account }) => {

@@ -7,5 +7,5 @@ export interface GetVaiRepayAmountWithInterestsInput {
 }
 
 export type GetVaiRepayAmountWithInterestsOutput = {
-  vaiRepayAmountWithInterests: BigNumber;
+  vaiRepayAmountWithInterestsWei: BigNumber;
 };

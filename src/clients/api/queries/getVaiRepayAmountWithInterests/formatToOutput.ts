@@ -8,13 +8,13 @@ const formatToOutput = ({
 }: {
   contractCallResults: ContractCallResults;
 }): GetVaiRepayAmountWithInterestsOutput => {
-  const [vaiRepayAmountWithInterests] =
+  const [vaiRepayAmountWithInterestsWei] =
     contractCallResults.results.getVaiRepayTotalAmount.callsReturnContext[1].returnValues.map(
       unformattedBigNumber => new BigNumber(unformattedBigNumber.hex),
     );
 
   return {
-    vaiRepayAmountWithInterests,
+    vaiRepayAmountWithInterestsWei,
   };
 };
 

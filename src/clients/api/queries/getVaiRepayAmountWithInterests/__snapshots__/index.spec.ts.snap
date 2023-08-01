@@ -1045,6 +1045,6 @@ exports[`api/queries/getVaiRepayAmountWithInterests > returns the VAI fee with i
 
 exports[`api/queries/getVaiRepayAmountWithInterests > returns the VAI fee with interests 2`] = `
 {
-  "vaiRepayAmountWithInterests": "5.669568627692799723381666e+24",
+  "vaiRepayAmountWithInterestsWei": "5.669568627692799723381666e+24",
 }
 `;
