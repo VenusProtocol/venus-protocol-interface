@@ -1,6 +1,5 @@
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { ethers } from 'ethers';
-import { getContractAddress } from 'utilities';
 
 // TODO: import ABIs from npm package (see VEN-836)
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
@@ -19,15 +18,13 @@ import { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 
 export * from './types';
 
-// TODO: get addresses from npm package (see VEN-836)
-const comptrollerAddress = getContractAddress('comptroller');
-const vaiVaultAddress = getContractAddress('vaiVault');
-const xvsVaultAddress = getContractAddress('xvsVaultProxy');
-
 const claimRewards = async ({
   multicallContract,
   accountAddress,
   claims,
+  mainPoolComptrollerContractAddress,
+  vaiVaultContractAddress,
+  xvsVaultContractAddress,
 }: ClaimRewardsInput): Promise<ClaimRewardsOutput> => {
   // Format claims into calls
   const calls: Multicall3.CallStruct[] = claims.map(claim => {
@@ -39,7 +36,7 @@ const claimRewards = async ({
       ]);
 
       return {
-        target: comptrollerAddress,
+        target: mainPoolComptrollerContractAddress,
         callData,
       };
     }
@@ -50,7 +47,7 @@ const claimRewards = async ({
       const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
 
       return {
-        target: vaiVaultAddress,
+        target: vaiVaultContractAddress,
         callData,
       };
     }
@@ -65,7 +62,7 @@ const claimRewards = async ({
       ]);
 
       return {
-        target: xvsVaultAddress,
+        target: xvsVaultContractAddress,
         callData,
       };
     }
