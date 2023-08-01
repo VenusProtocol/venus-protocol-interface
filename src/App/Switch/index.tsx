@@ -61,9 +61,12 @@ const Switch = () => {
       <Route exact path={routes.history.path} component={History} />
 
       <Route exact path={routes.governance.path} component={Vote} />
+      <RRSwitch>
+        <Route exact path={routes.governanceProposal.path} component={Proposal} />
+        <Route path={`${routes.governance.path}/:newProposalStep`} component={Vote} />
+      </RRSwitch>
       <Route exact path={routes.governanceLeaderBoard.path} component={VoterLeaderboard} />
       <Route exact path={routes.governanceVoter.path} component={Voter} />
-      <Route exact path={routes.governanceProposal.path} component={Proposal} />
 
       <Route exact path={routes.xvs.path} component={Xvs} />
 

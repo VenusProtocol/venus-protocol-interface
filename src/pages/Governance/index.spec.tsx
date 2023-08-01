@@ -1,6 +1,8 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
+import React from 'react';
+import { MemoryRouter, Route } from 'react-router-dom';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
@@ -57,7 +59,12 @@ describe('pages/Governance', () => {
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
     (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: 2 }));
-    const { getByText } = renderComponent(Governance, {
+    const GovernanceWithRouter = (
+      <MemoryRouter initialEntries={['/governance']}>
+        <Route path="/governance" component={Governance} />
+      </MemoryRouter>
+    );
+    const { getByText } = renderComponent(GovernanceWithRouter, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -66,7 +73,11 @@ describe('pages/Governance', () => {
     await waitFor(() => expect(createProposalButton).toBeEnabled());
     fireEvent.click(createProposalButton as HTMLButtonElement);
 
-    await waitFor(() => getByText(en.vote.pages.proposalInformation));
+    const createManualProposalButton = getByText(en.vote.createProposalModal.createManually).closest('button');
+    await waitFor(() => expect(createManualProposalButton).toBeEnabled());
+
+    const importProposalButton = getByText(en.vote.createProposalModal.uploadFile).closest('button');
+    await waitFor(() => expect(importProposalButton).toBeEnabled());
   });
 
   it('create proposal is disabled if pending proposal', async () => {

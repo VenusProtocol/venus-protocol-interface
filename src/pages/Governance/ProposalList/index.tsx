@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
 
@@ -18,6 +19,7 @@ import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei'
 import { useAuth } from 'context/AuthContext';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
+import { routes } from 'constants/routing';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';
@@ -45,7 +47,11 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
   isCreateProposalLoading,
   canCreateProposal,
 }) => {
-  const [showCreateProposalModal, setShowCreateProposalModal] = useState(false);
+  const history = useHistory();
+  const { newProposalStep } = useParams<{
+    newProposalStep: 'create' | 'file' | 'manual' | undefined;
+  }>();
+  const [showCreateProposalModal, setShowCreateProposalModal] = useState(!!newProposalStep);
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -56,7 +62,10 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
 
         <div css={styles.createProposal}>
           <TextButton
-            onClick={() => setShowCreateProposalModal(true)}
+            onClick={() => {
+              setShowCreateProposalModal(true);
+              history.push(routes.governanceProposalCreate.path);
+            }}
             css={styles.marginLess}
             disabled={!canCreateProposal}
           >
@@ -118,7 +127,10 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
       {showCreateProposalModal && (
         <CreateProposalModal
           isOpen={showCreateProposalModal}
-          handleClose={() => setShowCreateProposalModal(false)}
+          handleClose={() => {
+            setShowCreateProposalModal(false);
+            history.push(routes.governance.path);
+          }}
           createProposal={createProposal}
           isCreateProposalLoading={isCreateProposalLoading}
         />

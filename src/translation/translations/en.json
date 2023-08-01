@@ -201,7 +201,20 @@
     "somethingWentWrongRetrievingVoterDetails": "Something went wrong retrieving voter details",
     "somethingWentWrongRetrievingVoterHistory": "Something went wrong retrieving voter history  ",
     "undefinedAccountErrorMessage": "Account undefined",
-    "walletNotConnected": "Wallet not connected"
+    "walletNotConnected": "Wallet not connected",
+    "noMetaKey": "No metadata information is present in the file",
+    "noSignaturesKey": "There are no call signatures in the file",
+    "noTypeKey": "File does not indicate the proposal's type",
+    "noTargetsKey": "File does not contain the list of targets",
+    "noParamsKey": "File does not contain the list of params",
+    "missingTitle": "Proposal needs to have a title",
+    "missingTargetForSignature": "There is no corresponding target for the function",
+    "missingParamForSignature": "There is no corresponding param for the function",
+    "missingDescription": "There is no proposal description in the file",
+    "missingForDescription": "Proposal needs a 'for' votes description",
+    "missingAgainstDescription": "Proposal needs an 'against' votes description",
+    "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
+    "validationError": "Validation failed for imported proposal:"
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
@@ -859,6 +872,12 @@
       "signature": "Signature",
       "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
+    },
+    "createProposalModal": {
+      "createProposal": "Create Proposal",
+      "createManually": "Create manually",
+      "uploadFile": "Upload file",
+      "youCanEitherCreateManuallyOrUpload": "You can either create a proposal manually or upload a file containing its details. If you choose to upload a file, you can use this template as an example: <Link>https://github-link.com</Link>"
     },
     "createProposalPlus": "+ Create proposal",
     "delegate": "Delegate",

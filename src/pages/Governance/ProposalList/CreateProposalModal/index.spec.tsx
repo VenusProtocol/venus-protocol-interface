@@ -1,11 +1,16 @@
+import TEST_VIP from 'assets/proposals/vip-123.json';
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { MemoryRouter, Route } from 'react-router';
 
 import fakeAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
+import { toast } from 'components';
+import { routes } from 'constants/routing';
 import CreateProposalModal from '.';
+import TEST_IDS from './testIds';
 
 vi.mock('clients/api');
 
@@ -82,13 +87,24 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('can enter title and description', async () => {
     const { getByPlaceholderText, getByText } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
+
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
     ) as HTMLButtonElement;
@@ -99,13 +115,23 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Complete vote option descriptions', async () => {
     const { getByPlaceholderText, getByText } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
 
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -118,13 +144,23 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Action Acccordion adds more fields when clicking button', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
     ) as HTMLButtonElement;
@@ -163,13 +199,23 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Adding action button is disabled while actions are invalid', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
     ) as HTMLButtonElement;
@@ -213,13 +259,24 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Sets signature as accordion title', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
+
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
     ) as HTMLButtonElement;
@@ -259,13 +316,23 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Adds callData fields with correctly formatted signature', async () => {
     const { getByText, getAllByPlaceholderText, getByPlaceholderText } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
+
+    const createManuallyButton = getByText(en.vote.createProposalModal.createManually).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    await next(createManuallyButton);
 
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -301,55 +368,73 @@ describe('pages/Proposal/CreateProposalModal', () => {
     getByPlaceholderText('bool');
   });
 
-  it('Limits to 10 actions', async () => {
-    const { getAllByPlaceholderText, getByText, getByPlaceholderText } = renderComponent(
-      <CreateProposalModal
-        isOpen
-        handleClose={vi.fn()}
-        createProposal={vi.fn()}
-        isCreateProposalLoading={false}
-      />,
+  it('Imports a valid proposal file and allows the VIP creation', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <Route path={`${routes.governance.path}/:newProposalStep`}>
+          <CreateProposalModal
+            isOpen
+            handleClose={vi.fn()}
+            createProposal={vi.fn()}
+            isCreateProposalLoading={false}
+          />
+        </Route>
+      </MemoryRouter>,
     );
 
-    const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
+    const importProposalButton = getByText(en.vote.createProposalModal.uploadFile).closest(
       'button',
     ) as HTMLButtonElement;
 
-    await completeFirstStep(getByPlaceholderText);
-    await next(nextButton);
+    await next(importProposalButton);
 
-    await completeSecondStep(getByPlaceholderText);
-    await next(nextButton);
+    const fileInput = getByTestId(TEST_IDS.fileInput) as HTMLInputElement;
+    const file = new File([JSON.stringify(TEST_VIP)], 'test', { type: 'text/plain' });
+    const contents = JSON.stringify(TEST_VIP);
+    File.prototype.text = vi.fn().mockResolvedValueOnce(contents);
 
-    const addActionButton = await waitFor(
-      () =>
-        getByText(en.vote.createProposalForm.addOneMoreAction).closest(
-          'button',
-        ) as HTMLButtonElement,
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    const createButton = await waitFor(
+      () => getByText(en.vote.createProposalForm.create).closest('button') as HTMLButtonElement,
+    );
+    await waitFor(() => expect(createButton).toBeEnabled());
+  });
+
+  it('Does not allow creating a VIP from an invalid proposal file', async () => {
+    const spiedErrorToast = vi.spyOn(toast, 'error');
+    const errorMessage = `${en.errors.validationError} - {"actions":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"callData":["CALL_DATA_ARGUMENT_INVALID,"]}]}`;
+    const { getByText, getByTestId } = renderComponent(
+      <MemoryRouter initialEntries={['/governance/proposal-create']}>
+        <CreateProposalModal
+          isOpen
+          handleClose={vi.fn()}
+          createProposal={vi.fn()}
+          isCreateProposalLoading={false}
+        />
+      </MemoryRouter>,
     );
 
-    let addressInputs = await waitFor(() =>
-      getAllByPlaceholderText(en.vote.createProposalForm.address),
-    );
-    let signatureInputs = await waitFor(() =>
-      getAllByPlaceholderText(en.vote.createProposalForm.signature),
-    );
-    Array(10).forEach(async (_value, idx) => {
-      fireEvent.change(addressInputs[0], { target: { value: fakeAddress } });
-      fireEvent.change(signatureInputs[0], { target: { value: fakeSignature } });
+    const importProposalButton = getByText(en.vote.createProposalModal.uploadFile).closest(
+      'button',
+    ) as HTMLButtonElement;
 
-      fireEvent.click(addActionButton);
+    await next(importProposalButton);
 
-      addressInputs = await waitFor(() =>
-        getAllByPlaceholderText(en.vote.createProposalForm.address),
-      );
-      signatureInputs = await waitFor(() =>
-        getAllByPlaceholderText(en.vote.createProposalForm.signature),
-      );
-      expect(addressInputs.length).toBe(idx + 1);
-      expect(signatureInputs.length).toBe(idx + 1);
-    });
+    // alter a valid VIP file, introducing a param with a wrong type
+    const invalidFile: Partial<typeof TEST_VIP> = {
+      ...TEST_VIP,
+      params: [...TEST_VIP.params.slice(0, -1), [[[false]]]],
+    };
 
-    await waitFor(() => expect(addActionButton).toBeDisabled());
+    const fileInput = getByTestId(TEST_IDS.fileInput) as HTMLInputElement;
+    const file = new File([JSON.stringify(invalidFile)], 'test', { type: 'text/plain' });
+    const contents = JSON.stringify(invalidFile);
+    File.prototype.text = vi.fn().mockResolvedValueOnce(contents);
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    // validation should not work, and we should display an error toast
+    await waitFor(() => expect(spiedErrorToast).toBeCalledWith({ message: errorMessage }));
   });
 });

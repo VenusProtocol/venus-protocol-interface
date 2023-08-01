@@ -1,28 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import {
-  FormikMarkdownEditor,
-  FormikSelectField,
-  FormikSubmitButton,
-  FormikTextField,
-  Modal,
-  PrimaryButton,
-  toast,
-} from 'components';
+import { useHistory, useParams } from 'react-router-dom';
+import { Modal, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { Form, Formik } from 'formik';
-import React, { useCallback, useMemo, useState } from 'react';
+import { Form, Formik, useFormikContext } from 'formik';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
 import { CreateProposalInput } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
+import { routes } from 'constants/routing';
+import checkImportErrors from './checkImportErrors';
+import importJsonProposal from './importJsonProposal';
 
-import ActionAccordion from './ActionAccordion';
-import ProposalPreview from './ProposalPreview';
-import proposalSchema, { ErrorCode, FormValues, initialActionData } from './proposalSchema';
+import proposalSchema, { FormValues, initialActionData } from './proposalSchema';
 import { useStyles } from './styles';
+import ProposalWizard, {
+  ProposalWizardSteps,
+  getCurrentStep,
+  getPreviousStep,
+} from './ProposalWizard';
 
 interface CreateProposalProps {
   isOpen: boolean;
@@ -31,102 +30,82 @@ interface CreateProposalProps {
   isCreateProposalLoading: boolean;
 }
 
+export type ProposalFormContext = ReturnType<typeof useFormikContext<FormValues>>;
+
 export const CreateProposal: React.FC<CreateProposalProps> = ({
   isOpen,
   handleClose,
   createProposal,
   isCreateProposalLoading,
 }) => {
+  const { newProposalStep } = useParams<{ newProposalStep: ProposalWizardSteps | undefined }>();
+
+  const matchProposalInfoStep = newProposalStep === 'proposal-info';
+  const matchProposalDescriptionsStep = newProposalStep === 'proposal-descriptions';
+  const matchProposalActionsStep = newProposalStep === 'proposal-actions';
+  const matchProposalPreviewStep = newProposalStep === 'proposal-preview';
+  const currentStep = getCurrentStep({
+    matchProposalInfoStep,
+    matchProposalDescriptionsStep,
+    matchProposalActionsStep,
+    matchProposalPreviewStep,
+  });
+
+  const history = useHistory();
   const styles = useStyles();
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const [proposalMode, setProposalMode] = useState<'file' | 'manual'>('manual');
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const handleImportProposal = async (file: File | null, formikContext: ProposalFormContext) => {
+    const { setValues, validateForm } = formikContext;
+    if (file) {
+      try {
+        const values = await importJsonProposal(file);
+        setValues(values);
 
-  const steps = useMemo(
-    () => [
-      {
-        title: t('vote.pages.proposalInformation'),
-        Component: () => (
-          <>
-            <FormikSelectField
-              name="proposalType"
-              label={t('vote.createProposalForm.proposalType')}
-              ariaLabel={t('vote.createProposalForm.proposalType')}
-              css={styles.formBottomMargin}
-              options={[
-                { value: ProposalType.NORMAL, label: t('vote.proposalType.normal') },
-                { value: ProposalType.FAST_TRACK, label: t('vote.proposalType.fastTrack') },
-                { value: ProposalType.CRITICAL, label: t('vote.proposalType.critical') },
-              ]}
-            />
+        const errors = await validateForm();
+        checkImportErrors(errors);
 
-            <FormikTextField
-              name="title"
-              placeholder={t('vote.createProposalForm.name')}
-              label={t('vote.createProposalForm.proposalName')}
-              css={styles.formBottomMargin}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
-            />
+        setProposalMode('file');
+        history.push(routes.governanceProposalPreview.path);
+      } catch (error) {
+        let { message } = error as Error;
 
-            <FormikMarkdownEditor
-              name="description"
-              placeholder={t('vote.createProposalForm.addDescription')}
-              label={t('vote.createProposalForm.description')}
-              css={styles.sectionSpacing}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
-            />
-          </>
-        ),
-      },
-      {
-        title: t('vote.pages.votingOptions'),
-        Component: () => (
-          <>
-            <FormikTextField
-              name="forDescription"
-              placeholder={t('vote.createProposalForm.forOption')}
-              label={t('vote.for')}
-              css={styles.formBottomMargin}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
-            />
+        if (error instanceof VError) {
+          message = formatVErrorToReadableString(error);
+        }
+  
+        toast.error({ message });
+      }
+    }
+  }
 
-            <FormikTextField
-              name="againstDescription"
-              placeholder={t('vote.createProposalForm.againstOption')}
-              label={t('vote.against')}
-              css={styles.formBottomMargin}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
-            />
+  const titles = useMemo(() => {
+    const initialSteps: { [Key in ProposalWizardSteps]?: string } = {
+      'proposal-create': t('vote.createProposalModal.createProposal'),
+    };
 
-            <FormikTextField
-              name="abstainDescription"
-              placeholder={t('vote.createProposalForm.abstainOption')}
-              label={t('vote.abstain')}
-              css={styles.sectionSpacing}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
-            />
-          </>
-        ),
-      },
-      {
-        title: t('vote.pages.actions'),
-        Component: () => <ActionAccordion />,
-      },
-      {
-        title: t('vote.pages.confirmation'),
-        Component: () => <ProposalPreview />,
-      },
-    ],
-    [],
-  );
+    if (proposalMode === 'file') {
+      return {
+        ...initialSteps,
+        'proposal-preview': t('vote.pages.confirmation'),
+      };
+    }
 
-  const buttonText =
-    currentStep === steps.length - 2
-      ? t('vote.createProposalForm.confirm')
-      : t('vote.createProposalForm.nextStep');
+    return {
+      ...initialSteps,
+      'proposal-info': t('vote.pages.proposalInformation'),
+      'proposal-descriptions': t('vote.pages.votingOptions'),
+      'proposal-actions': t('vote.pages.actions'),
+      'proposal-preview': t('vote.pages.confirmation'),
+    };
+  }, [proposalMode]);
 
-  const CurrentFields = steps[currentStep].Component;
+  const handleBackAction = () => {
+    const previousStep = getPreviousStep(currentStep, proposalMode);
+    history.push(`${routes.governance.path}/${previousStep}`);
+  };
 
   const handleCreateProposal = async (formValues: FormValues) => {
     try {
@@ -155,8 +134,8 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     <Modal
       isOpen={isOpen}
       handleClose={handleClose}
-      handleBackAction={currentStep > 0 ? () => setCurrentStep(currentStep - 1) : undefined}
-      title={steps[currentStep].title}
+      handleBackAction={currentStep !== 'proposal-create' ? handleBackAction : undefined}
+      title={titles[currentStep]}
       css={styles.modal}
     >
       <Formik
@@ -173,51 +152,15 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         onSubmit={handleCreateProposal}
         validateOnBlur
         validateOnMount
-        isInitialValid={false}
       >
-        {({ errors }) => {
-          const getErrorsByStep = useCallback(
-            (step: number) => {
-              switch (step) {
-                case 0:
-                  return !!(errors.title || errors.description);
-                case 1:
-                  return !!(
-                    errors.forDescription ||
-                    errors.abstainDescription ||
-                    errors.againstDescription
-                  );
-                case 2:
-                  return !!errors.actions;
-                default:
-                  return true;
-              }
-            },
-            [currentStep, JSON.stringify(errors)],
-          );
-
-          return (
-            <Form>
-              <CurrentFields />
-
-              {currentStep === steps.length - 1 ? (
-                <FormikSubmitButton
-                  enabledLabel={t('vote.createProposalForm.create')}
-                  fullWidth
-                  loading={isCreateProposalLoading}
-                />
-              ) : (
-                <PrimaryButton
-                  fullWidth
-                  disabled={getErrorsByStep(currentStep)}
-                  onClick={() => setCurrentStep(currentStep + 1)}
-                >
-                  {buttonText}
-                </PrimaryButton>
-              )}
-            </Form>
-          );
-        }}
+        <Form>
+          <ProposalWizard
+            handleImportProposal={handleImportProposal}
+            setProposalMode={setProposalMode}
+            isCreateProposalLoading={isCreateProposalLoading}
+            currentStep={currentStep}
+          />
+        </Form>
       </Formik>
     </Modal>
   );
