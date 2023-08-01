@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from '@mui/material';
 import { NoticeInfo, SecondaryButton } from 'components';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'translation';
 
 import { useStyles } from './styles';
@@ -57,7 +57,10 @@ const UploadOrManualProposal: React.FC<UploadOrManualProposalProps> = ({
             components={{
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a href="#" rel="noreferrer" />
+                <a
+                  href="https://github.com/VenusProtocol/venus-protocol-interface/tree/main/src/utilities/importJsonProposal/samples/vip-123.json"
+                  rel="noreferrer"
+                />
               ),
             }}
           />

@@ -73,10 +73,14 @@ describe('pages/Governance', () => {
     await waitFor(() => expect(createProposalButton).toBeEnabled());
     fireEvent.click(createProposalButton as HTMLButtonElement);
 
-    const createManualProposalButton = getByText(en.vote.createProposalModal.createManually).closest('button');
+    const createManualProposalButton = getByText(
+      en.vote.createProposalModal.createManually,
+    ).closest('button');
     await waitFor(() => expect(createManualProposalButton).toBeEnabled());
 
-    const importProposalButton = getByText(en.vote.createProposalModal.uploadFile).closest('button');
+    const importProposalButton = getByText(en.vote.createProposalModal.uploadFile).closest(
+      'button',
+    );
     await waitFor(() => expect(importProposalButton).toBeEnabled());
   });
 

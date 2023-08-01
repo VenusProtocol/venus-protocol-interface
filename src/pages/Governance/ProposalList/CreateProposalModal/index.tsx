@@ -75,11 +75,11 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         if (error instanceof VError) {
           message = formatVErrorToReadableString(error);
         }
-  
+
         toast.error({ message });
       }
     }
-  }
+  };
 
   const titles = useMemo(() => {
     const initialSteps: { [Key in ProposalWizardSteps]?: string } = {

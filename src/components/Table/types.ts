@@ -14,7 +14,7 @@ export interface TableColumn<R> {
 export interface TableProps<R> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
-  breakpoint: keyof typeof BREAKPOINTS['values'];
+  breakpoint: keyof (typeof BREAKPOINTS)['values'];
   columns: TableColumn<R>[];
   cardColumns?: TableColumn<R>[];
   minWidth?: string;

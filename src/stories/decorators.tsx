@@ -25,12 +25,11 @@ export const withWeb3Provider = (Story: StoryFn) => (
   </Web3Wrapper>
 );
 
-export const withAuthContext = (context: AuthContextValue) => (Story: StoryFn) =>
-  (
-    <AuthContext.Provider value={context}>
-      <Story />
-    </AuthContext.Provider>
-  );
+export const withAuthContext = (context: AuthContextValue) => (Story: StoryFn) => (
+  <AuthContext.Provider value={context}>
+    <Story />
+  </AuthContext.Provider>
+);
 
 export const withThemeProvider = (Story: StoryFn) => (
   <MuiThemeProvider>

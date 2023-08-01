@@ -252,7 +252,7 @@ export const useStyles = () => {
       align-items: center;
     `,
     doublePadding: css`
-      padding: ${theme.spacing(2)} ${theme.spacing(4)}; ;
+      padding: ${theme.spacing(2)} ${theme.spacing(4)};
     `,
     actionButton: css`
       flex-shrink: 0;

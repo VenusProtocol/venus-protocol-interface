@@ -875,7 +875,7 @@
       "createProposal": "Create Proposal",
       "createManually": "Create manually",
       "uploadFile": "Upload file",
-      "youCanEitherCreateManuallyOrUpload": "You can either create a proposal manually or upload a file containing its details. If you choose to upload a file, you can use this template as an example: <Link>https://github-link.com</Link>"
+      "youCanEitherCreateManuallyOrUpload": "You can either create a proposal manually or upload a file containing its details. If you choose to upload a file, you can use this template as an example: <Link>Github</Link>"
     },
     "createProposalPlus": "+ Create proposal",
     "delegate": "Delegate",
