@@ -1,3 +1,10 @@
+## [2.7.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.1...v2.7.2) (2023-08-01)
+
+
+### Bug Fixes
+
+* re-enable hash routing ([de0429f](https://github.com/VenusProtocol/venus-protocol-interface/commit/de0429fcbafbaa5e1bc4bb641c9e369f899d5147))
+
 ## [2.7.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.0...v2.7.1) (2023-07-29)
 
 
