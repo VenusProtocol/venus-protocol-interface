@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
-import { XvsVesting } from 'types/contracts';
 
 import getXvsWithdrawableAmount from '.';
 
@@ -11,7 +12,7 @@ describe('api/queries/getXvsWithdrawableAmount', () => {
 
     const fakeContract = {
       getWithdrawableAmount: xvsWithdrawableAmountMock,
-    } as unknown as XvsVesting;
+    } as unknown as ContractTypeByName<'xvsVesting'>;
 
     const response = await getXvsWithdrawableAmount({
       xvsVestingContract: fakeContract,
@@ -21,5 +22,16 @@ describe('api/queries/getXvsWithdrawableAmount', () => {
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledTimes(1);
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledWith(fakeAccountAddress);
     expect(response).toMatchSnapshot();
+  });
+
+  test('returns undefined when not passing xvsVestingContract parameter', async () => {
+    const xvsWithdrawableAmountMock = vi.fn(async () => xvsVestingResponses.withdrawableAmount);
+
+    const response = await getXvsWithdrawableAmount({
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(xvsWithdrawableAmountMock).not.toHaveBeenCalled();
+    expect(response).toBe(undefined);
   });
 });

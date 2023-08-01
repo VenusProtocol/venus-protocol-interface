@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
-
-import { VaiController } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetMintableVaiInput {
-  vaiControllerContract: VaiController;
   accountAddress: string;
+  vaiControllerContract: ContractTypeByName<'vaiController'>;
 }
 
 export interface GetMintableVaiOutput {

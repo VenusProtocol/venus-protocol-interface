@@ -4,28 +4,34 @@ import getMintableVai, {
   GetMintableVaiInput,
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
-import { useVaiControllerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import { logError } from 'context/ErrorLogger';
 
+type HandleGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
 type Options = QueryObserverOptions<
-  GetMintableVaiOutput,
+  GetMintableVaiOutput | undefined,
   Error,
-  GetMintableVaiOutput,
-  GetMintableVaiOutput,
-  [FunctionKey.GET_MINTABLE_VAI, Omit<GetMintableVaiInput, 'vaiControllerContract'>]
+  GetMintableVaiOutput | undefined,
+  GetMintableVaiOutput | undefined,
+  [FunctionKey.GET_MINTABLE_VAI, HandleGetMintableVaiInput]
 >;
 
-const useGetMintableVai = (
-  params: Omit<GetMintableVaiInput, 'vaiControllerContract'>,
-  options?: Options,
-) => {
-  const vaiControllerContract = useVaiControllerContract();
+const useGetMintableVai = (params: HandleGetMintableVaiInput, options?: Options) => {
+  const vaiControllerContract = useGetUniqueContract({
+    name: 'vaiController',
+  });
 
-  return useQuery(
-    [FunctionKey.GET_MINTABLE_VAI, params],
-    () => getMintableVai({ vaiControllerContract, ...params }),
-    options,
-  );
+  const handleGetMintableVai = async () => {
+    if (!vaiControllerContract) {
+      logError('Contract infos missing for getMintableVai query function call');
+      return undefined;
+    }
+
+    return getMintableVai({ vaiControllerContract, ...params });
+  };
+
+  return useQuery([FunctionKey.GET_MINTABLE_VAI, params], handleGetMintableVai, options);
 };
 
 export default useGetMintableVai;

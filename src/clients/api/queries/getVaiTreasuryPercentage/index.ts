@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-
-import { VaiController } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetVaiTreasuryPercentageInput {
-  vaiControllerContract: VaiController;
+  vaiControllerContract: ContractTypeByName<'vaiController'>;
 }
 
 export type GetVaiTreasuryPercentageOutput = {

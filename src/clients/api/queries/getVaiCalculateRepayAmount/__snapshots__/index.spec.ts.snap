@@ -127,13 +127,13 @@ exports[`api/queries/getVaiCalculateRepayAmount > returns the VAI fee 1`] = `
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract ComptrollerInterface",
+          "internalType": "contract Comptroller",
           "name": "oldComptroller",
           "type": "address",
         },
         {
           "indexed": false,
-          "internalType": "contract ComptrollerInterface",
+          "internalType": "contract Comptroller",
           "name": "newComptroller",
           "type": "address",
         },
@@ -333,7 +333,7 @@ exports[`api/queries/getVaiCalculateRepayAmount > returns the VAI fee 1`] = `
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract ComptrollerInterface",
+          "internalType": "contract Comptroller",
           "name": "comptroller_",
           "type": "address",
         },
@@ -441,7 +441,7 @@ exports[`api/queries/getVaiCalculateRepayAmount > returns the VAI fee 1`] = `
       "name": "comptroller",
       "outputs": [
         {
-          "internalType": "contract ComptrollerInterface",
+          "internalType": "contract Comptroller",
           "name": "",
           "type": "address",
         },
@@ -1039,7 +1039,7 @@ exports[`api/queries/getVaiCalculateRepayAmount > returns the VAI fee 1`] = `
       "reference": "getVAICalculateRepayAmount",
     },
   ],
-  "contractAddress": "0xf70C3C6b749BbAb89C081737334E74C9aFD4BE16",
+  "contractAddress": "fake-address",
   "reference": "getVaiRepayInterests",
 }
 `;

@@ -3,9 +3,9 @@ import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/cont
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import { abi as mainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Comptroller.sol/Comptroller.json';
-import { abi as unitrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Unitroller.sol/Unitroller.json';
 import { abi as governorBravoDelegatorAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegator.sol/GovernorBravoDelegator.json';
 import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
+import { abi as vaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
 import { abi as vrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
 import { abi as xvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVSVesting.sol/XVSVesting.json';
 import { abi as vaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Vault/VAIVault.sol/VAIVault.json';
@@ -18,7 +18,7 @@ import { Maximillion, Multicall } from '../types/contracts/others';
 import {
   GovernorBravoDelegator,
   Comptroller as MainPoolComptroller,
-  Unitroller,
+  VAIController,
   VAIVault,
   VRTConverter,
   VenusLens,
@@ -56,13 +56,13 @@ const poolLens: UniqueContractInfo = {
 const mainPoolComptroller: UniqueContractInfo = {
   abi: mainPoolComptrollerAbi,
   address: {
-    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Comptroller,
-    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.Comptroller,
+    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Unitroller,
+    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.Unitroller,
   },
 };
 
-const vaiUnitrollerController: UniqueContractInfo = {
-  abi: unitrollerAbi,
+const vaiController: UniqueContractInfo = {
+  abi: vaiControllerAbi,
   address: {
     [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VaiUnitroller,
     [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.VaiUnitroller,
@@ -129,7 +129,7 @@ const uniqueContractInfos = {
   venusLens,
   poolLens,
   mainPoolComptroller,
-  vaiUnitrollerController,
+  vaiController,
   vaiVault,
   xvsVault,
   xvsVesting,
@@ -145,7 +145,7 @@ export type UniqueContractTypes = {
   venusLens: VenusLens;
   poolLens: PoolLens;
   mainPoolComptroller: MainPoolComptroller;
-  vaiUnitrollerController: Unitroller;
+  vaiController: VAIController;
   vaiVault: VAIVault;
   xvsVault: XVSVault;
   xvsVesting: XVSVesting;

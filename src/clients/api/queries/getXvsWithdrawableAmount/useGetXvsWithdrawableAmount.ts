@@ -4,15 +4,15 @@ import getXvsWithdrawableAmount, {
   GetXvsWithdrawableAmountInput,
   GetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
-import { useXvsVestingProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetXvsWithdrawableAmountOutput,
+  GetXvsWithdrawableAmountOutput | undefined,
   Error,
-  GetXvsWithdrawableAmountOutput,
-  GetXvsWithdrawableAmountOutput,
+  GetXvsWithdrawableAmountOutput | undefined,
+  GetXvsWithdrawableAmountOutput | undefined,
   FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT
 >;
 
@@ -20,7 +20,9 @@ const useGetXvsWithdrawableAmount = (
   { accountAddress }: Omit<GetXvsWithdrawableAmountInput, 'xvsVestingContract'>,
   options?: Options,
 ) => {
-  const xvsVestingContract = useXvsVestingProxyContract();
+  const xvsVestingContract = useGetUniqueContract({
+    name: 'xvsVesting',
+  });
 
   return useQuery(
     FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT,

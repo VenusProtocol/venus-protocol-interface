@@ -1,38 +1,43 @@
+import { VError } from 'errors';
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { MintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
-import { useVaiControllerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import { logError } from 'context/ErrorLogger';
 
-type Options = MutationObserverOptions<
-  MintVaiOutput,
-  Error,
-  Omit<MintVaiInput, 'vaiControllerContract'>
->;
+type HandleClaimRewardsInput = Omit<MintVaiInput, 'vaiControllerContract'>;
+type Options = MutationObserverOptions<MintVaiOutput, Error, HandleClaimRewardsInput>;
 
 const useMintVai = (options?: Options) => {
-  const vaiControllerContract = useVaiControllerContract();
+  const vaiControllerContract = useGetUniqueContract({
+    name: 'vaiController',
+  });
 
-  return useMutation(
-    FunctionKey.MINT_VAI,
-    (params: Omit<MintVaiInput, 'vaiControllerContract'>) =>
-      mintVai({
-        vaiControllerContract,
-        ...params,
-      }),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        // Invalidate queries related to fetching the user minted VAI amount
-        queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+  const handleClaimRewards = (input: HandleClaimRewardsInput) => {
+    if (!vaiControllerContract) {
+      logError('Contract infos missing for mintVai mutation function call');
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
 
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+    return mintVai({
+      vaiControllerContract,
+      ...input,
+    });
+  };
+
+  return useMutation(FunctionKey.MINT_VAI, handleClaimRewards, {
+    ...options,
+    onSuccess: (...onSuccessParams) => {
+      // Invalidate queries related to fetching the user minted VAI amount
+      queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+
+      if (options?.onSuccess) {
+        options.onSuccess(...onSuccessParams);
+      }
     },
-  );
+  });
 };
 
 export default useMintVai;

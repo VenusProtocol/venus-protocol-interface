@@ -24,9 +24,6 @@ export const useComptrollerContract = () => getComptrollerContract;
 export const getGovernorBravoDelegateContract = vi.fn();
 export const useGovernorBravoDelegateContract = () => getGovernorBravoDelegateContract;
 
-export const getXvsVestingProxyContract = vi.fn();
-export const useXvsVestingProxyContract = () => getXvsVestingProxyContract;
-
 export const getVrtConverterProxyContract = vi.fn();
 export const useVrtConverterProxyContract = () => getVrtConverterProxyContract;
 
