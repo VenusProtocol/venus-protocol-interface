@@ -4,7 +4,9 @@ import {
   UniqueContractName,
   getGenericContract,
   getSwapRouterContract,
+  getSwapRouterContractAddress,
   getUniqueContract,
+  getUniqueContractAddress,
 } from 'packages/contracts';
 import { useMemo } from 'react';
 import { Token, VToken } from 'types';
@@ -14,7 +16,6 @@ import { useAuth } from 'context/AuthContext';
 import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
-  getMulticallContract,
   getPoolLensContract,
   getSwapRouterContract as getSwapRouterContractOld,
   getTokenContract,
@@ -22,7 +23,6 @@ import {
   getVaiControllerContract,
   getVaiVaultContract,
   getVrtConverterProxyContract,
-  getXvsVaultContract,
   getXvsVaultProxyContract,
   getXvsVestingProxyContract,
 } from './getters';
@@ -61,6 +61,30 @@ export function useGetUniqueContract<TContractName extends UniqueContractName>({
           })
         : undefined,
     [signerOrProvider, chainId, name],
+  );
+}
+
+export interface UseGetUniqueContractAddress<TContractName extends UniqueContractName> {
+  name: TContractName;
+}
+
+export function useGetUniqueContractAddress<TContractName extends UniqueContractName>({
+  name,
+}: UseGetUniqueContractAddress<TContractName>) {
+  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
+  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
+  // to be considered dynamic.
+  const { chainId } = config;
+
+  return useMemo(
+    () =>
+      chainId !== undefined
+        ? getUniqueContractAddress({
+            name,
+            chainId,
+          })
+        : undefined,
+    [chainId],
   );
 }
 
@@ -118,6 +142,30 @@ export function useGetSwapRouterContract({ comptrollerAddress }: UseGetSwapRoute
   );
 }
 
+export interface UseGetSwapRouterContractAddressInput {
+  comptrollerAddress: string;
+}
+
+export function useGetSwapRouterContractAddress({
+  comptrollerAddress,
+}: UseGetSwapRouterContractAddressInput) {
+  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
+  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
+  // to be considered dynamic.
+  const { chainId } = config;
+
+  return useMemo(
+    () =>
+      chainId !== undefined
+        ? getSwapRouterContractAddress({
+            comptrollerAddress,
+            chainId,
+          })
+        : undefined,
+    [chainId],
+  );
+}
+
 export const useVaiControllerContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getVaiControllerContract(signer || undefined), [signer]);
@@ -131,11 +179,6 @@ export const useVaiVaultContract = () => {
 export const useComptrollerContract = (address: string) => {
   const { signer } = useAuth();
   return useMemo(() => getComptrollerContract(address, signer || undefined), [signer]);
-};
-
-export const useXvsVaultContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getXvsVaultContract(signer || undefined), [signer]);
 };
 
 export const useXvsVaultProxyContract = () => {
@@ -165,11 +208,6 @@ export const useSwapRouterContract = (poolComptrollerAddress: string) => {
     () => getSwapRouterContractOld(poolComptrollerAddress, signer || undefined),
     [signer],
   );
-};
-
-export const useMulticallContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getMulticallContract(signer || undefined), [signer]);
 };
 
 export const useGetPoolLensContract = () => {

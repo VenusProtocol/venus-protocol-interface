@@ -8,7 +8,6 @@ import bep20Abi from 'constants/contracts/abis/bep20.json';
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
 import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDelegate.json';
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
-import multicallAbi from 'constants/contracts/abis/multicall.json';
 import swapRouterAbi from 'constants/contracts/abis/swapRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
@@ -26,7 +25,6 @@ import {
   Comptroller,
   GovernorBravoDelegate,
   Maximillion,
-  Multicall,
   PoolLens,
   SwapRouter,
   VaiController,
@@ -114,13 +112,6 @@ export const getVaiVaultContract = (signer?: Signer) =>
     signer,
   }) as VaiVault;
 
-export const getXvsVaultContract = (signer?: Signer) =>
-  getContract({
-    abi: xvsVaultAbi,
-    address: getContractAddress('xvsVault'),
-    signer,
-  }) as XvsVault;
-
 export const getXvsVaultProxyContract = (signer?: Signer) =>
   getContract({
     abi: xvsVaultAbi,
@@ -181,14 +172,6 @@ export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: S
     signer,
   }) as SwapRouter;
 };
-
-// Multicall
-export const getMulticallContract = (signer?: Signer) =>
-  getContract({
-    abi: multicallAbi,
-    address: getContractAddress('multicall'),
-    signer,
-  }) as Multicall;
 
 export const getPoolLensContract = (signer?: Signer) =>
   getContract({

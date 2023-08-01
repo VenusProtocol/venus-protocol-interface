@@ -53,6 +53,9 @@ describe('api/mutation/claimVaiVaultReward', () => {
 
     const res = await claimRewards({
       multicallContract: fakeMulticallContract,
+      mainPoolComptrollerContractAddress: 'fake-main-pool-comptroller-address',
+      vaiVaultContractAddress: 'fake-vai-vault-address',
+      xvsVaultContractAddress: 'fake-xvs-vault-address',
       accountAddress: fakeAddress,
       claims: fakeClaims,
     });

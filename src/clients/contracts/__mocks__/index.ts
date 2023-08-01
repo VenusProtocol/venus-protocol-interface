@@ -13,9 +13,6 @@ export const useVaiControllerContract = () => getVaiControllerContract;
 export const getVaiVaultContract = vi.fn();
 export const useVaiVaultContract = () => getVaiVaultContract;
 
-export const getXvsVaultContract = vi.fn();
-export const useXvsVaultContract = () => getXvsVaultContract;
-
 export const getXvsVaultProxyContract = vi.fn();
 export const useXvsVaultProxyContract = () => getXvsVaultProxyContract;
 
