@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAddress from '__mocks__/models/address';
-import { VaiController } from 'types/contracts';
 
 import getMintableVai from '.';
 
@@ -12,7 +12,7 @@ describe('api/queries/getMintableVai', () => {
 
     const fakeContract = {
       getMintableVAI: getMintableVAIMock,
-    } as unknown as VaiController;
+    } as unknown as ContractTypeByName<'vaiController'>;
 
     const response = await getMintableVai({
       vaiControllerContract: fakeContract,

@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { VaiController } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getVaiTreasuryPercentage from '.';
 
@@ -10,7 +9,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
 
     const fakeContract = {
       treasuryPercent: treasuryPercentMock,
-    } as unknown as VaiController;
+    } as unknown as ContractTypeByName<'vaiController'>;
 
     const response = await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
 

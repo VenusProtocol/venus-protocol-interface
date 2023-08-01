@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { XvsVesting } from 'types/contracts';
 
 import withdrawXvs from '.';
 
@@ -12,7 +13,7 @@ describe('api/mutation/withdrawXvs', () => {
 
     const fakeContract = {
       withdraw: withdrawVrtMock,
-    } as unknown as XvsVesting;
+    } as unknown as ContractTypeByName<'xvsVesting'>;
 
     const response = await withdrawXvs({
       xvsVestingContract: fakeContract,

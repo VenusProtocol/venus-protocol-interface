@@ -1,3 +1,4 @@
+import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -9,7 +10,6 @@ import {
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
 } from 'errors/transactionErrors';
-import { Multicall as MulticallContract } from 'types/contracts';
 
 import claimRewards from '.';
 import { Claim } from './types';
@@ -49,7 +49,7 @@ describe('api/mutation/claimVaiVaultReward', () => {
       tryBlockAndAggregate: vi.fn(async () => ({
         wait: vi.fn(async () => fakeContractReceipt),
       })),
-    } as unknown as MulticallContract;
+    } as unknown as ContractTypeByName<'multicall'>;
 
     const res = await claimRewards({
       multicallContract: fakeMulticallContract,

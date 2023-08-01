@@ -20,6 +20,7 @@ describe('api/queries/getVaiCalculateRepayAmount', () => {
         multicall: fakeMulticall,
         accountAddress: fakeAddress,
         repayAmountWei: new BigNumber('0'),
+        vaiControllerContractAddress: 'fake-address',
       });
 
       throw new Error('getVaiCalculateRepayAmount should have thrown an error but did not');
@@ -37,6 +38,7 @@ describe('api/queries/getVaiCalculateRepayAmount', () => {
       multicall: fakeMulticall,
       accountAddress: fakeAddress,
       repayAmountWei: new BigNumber('100'),
+      vaiControllerContractAddress: 'fake-address',
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);

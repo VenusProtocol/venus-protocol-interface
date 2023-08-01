@@ -11,7 +11,6 @@ import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import swapRouterAbi from 'constants/contracts/abis/swapRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
-import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
@@ -19,7 +18,6 @@ import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
-import xvsVestingAbi from 'constants/contracts/abis/xvsVesting.json';
 import { TOKENS } from 'constants/tokens';
 import {
   Comptroller,
@@ -27,12 +25,10 @@ import {
   Maximillion,
   PoolLens,
   SwapRouter,
-  VaiController,
   VaiVault,
   VrtConverter,
   XvsVault,
   XvsVaultStore,
-  XvsVesting,
 } from 'types/contracts';
 
 import { TokenContract, VTokenContract } from './types';
@@ -98,13 +94,6 @@ export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   }) as VTokenContract;
 };
 
-export const getVaiControllerContract = (signer?: Signer) =>
-  getContract({
-    abi: vaiControllerAbi,
-    address: getContractAddress('vaiController'),
-    signer,
-  }) as VaiController;
-
 export const getVaiVaultContract = (signer?: Signer) =>
   getContract({
     abi: vaiVaultAbi,
@@ -146,14 +135,6 @@ export const getMaximillionContract = (signer?: Signer) =>
     address: getContractAddress('maximillion'),
     signer,
   }) as Maximillion;
-
-// VRT conversion
-export const getXvsVestingProxyContract = (signer?: Signer) =>
-  getContract({
-    abi: xvsVestingAbi,
-    address: getContractAddress('xvsVestingProxy'),
-    signer,
-  }) as XvsVesting;
 
 export const getVrtConverterProxyContract = (signer?: Signer) =>
   getContract({

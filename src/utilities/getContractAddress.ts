@@ -33,6 +33,9 @@ const contractAddresses = {
   ...isolatedLendingContractAddresses,
 };
 
+/**
+ * @deprecated Use methods from contracts package instead
+ */
 const getContractAddress = (contractName: keyof typeof contractAddresses) =>
   contractAddresses[contractName];
 

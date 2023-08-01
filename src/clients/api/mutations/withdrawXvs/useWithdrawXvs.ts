@@ -1,29 +1,37 @@
+import { VError } from 'errors';
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { WithdrawXvsOutput, queryClient, withdrawXvs } from 'clients/api';
-import { useXvsVestingProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import { logError } from 'context/ErrorLogger';
 
 const useWithdrawXvs = (options?: MutationObserverOptions<WithdrawXvsOutput, Error>) => {
-  const xvsVestingContract = useXvsVestingProxyContract();
+  const xvsVestingContract = useGetUniqueContract({
+    name: 'xvsVesting',
+  });
 
-  return useMutation(
-    FunctionKey.WITHDRAW_XVS,
-    () =>
-      withdrawXvs({
-        xvsVestingContract,
-      }),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
+  const handleWithdrawXvs = () => {
+    if (!xvsVestingContract) {
+      logError('Contract infos missing for withdrawXvs mutation function call');
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
 
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+    return withdrawXvs({
+      xvsVestingContract,
+    });
+  };
+
+  return useMutation(FunctionKey.WITHDRAW_XVS, handleWithdrawXvs, {
+    ...options,
+    onSuccess: (...onSuccessParams) => {
+      queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
+
+      if (options?.onSuccess) {
+        options.onSuccess(...onSuccessParams);
+      }
     },
-  );
+  });
 };
 
 export default useWithdrawXvs;

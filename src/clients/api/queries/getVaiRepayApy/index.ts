@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 import { calculateApy, multiplyMantissaDaily } from 'utilities';
 
-import { VaiController } from 'types/contracts';
-
 export interface GetVaiRepayApyInput {
-  vaiControllerContract: VaiController;
+  vaiControllerContract: ContractTypeByName<'vaiController'>;
 }
 
 export interface GetVaiRepayApyOutput {

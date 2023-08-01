@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiControllerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-
-import { VaiController } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface MintVaiInput {
-  vaiControllerContract: VaiController;
+  vaiControllerContract: ContractTypeByName<'vaiController'>;
   amountWei: BigNumber;
 }
 

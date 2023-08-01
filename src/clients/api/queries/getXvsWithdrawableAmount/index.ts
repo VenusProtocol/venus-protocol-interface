@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
-
-import { XvsVesting } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetXvsWithdrawableAmountInput {
-  xvsVestingContract: XvsVesting;
   accountAddress: string;
+  xvsVestingContract?: ContractTypeByName<'xvsVesting'>;
 }
 
 export interface GetXvsWithdrawableAmountOutput {
@@ -16,8 +15,13 @@ export interface GetXvsWithdrawableAmountOutput {
 const getXvsWithdrawableAmount = async ({
   xvsVestingContract,
   accountAddress,
-}: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput> => {
+}: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput | undefined> => {
+  if (!xvsVestingContract) {
+    return undefined;
+  }
+
   const resp = await xvsVestingContract.getWithdrawableAmount(accountAddress);
+
   return {
     totalWithdrawableAmount: new BigNumber(resp.totalWithdrawableAmount.toString()),
     totalVestedAmount: new BigNumber(resp.totalVestedAmount.toString()),

@@ -20,11 +20,9 @@ import {
   getSwapRouterContract as getSwapRouterContractOld,
   getTokenContract,
   getVTokenContract,
-  getVaiControllerContract,
   getVaiVaultContract,
   getVrtConverterProxyContract,
   getXvsVaultProxyContract,
-  getXvsVestingProxyContract,
 } from './getters';
 
 export const useTokenContract = (token: Token) => {
@@ -166,42 +164,50 @@ export function useGetSwapRouterContractAddress({
   );
 }
 
-export const useVaiControllerContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getVaiControllerContract(signer || undefined), [signer]);
-};
-
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useVaiVaultContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getVaiVaultContract(signer || undefined), [signer]);
 };
 
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useComptrollerContract = (address: string) => {
   const { signer } = useAuth();
   return useMemo(() => getComptrollerContract(address, signer || undefined), [signer]);
 };
 
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useXvsVaultProxyContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getXvsVaultProxyContract(signer || undefined), [signer]);
 };
 
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useGovernorBravoDelegateContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getGovernorBravoDelegateContract(signer || undefined), [signer]);
 };
 
 // VRT conversion
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useVrtConverterProxyContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getVrtConverterProxyContract(signer || undefined), [signer]);
 };
 
-export const useXvsVestingProxyContract = () => {
-  const { signer } = useAuth();
-  return useMemo(() => getXvsVestingProxyContract(signer || undefined), [signer]);
-};
-
+/**
+ * @deprecated Use useGetSwapRouterContract hook instead
+ */
 export const useSwapRouterContract = (poolComptrollerAddress: string) => {
   const { signer } = useAuth();
   return useMemo(
@@ -210,6 +216,9 @@ export const useSwapRouterContract = (poolComptrollerAddress: string) => {
   );
 };
 
+/**
+ * @deprecated Use useGetUniqueContract hook instead
+ */
 export const useGetPoolLensContract = () => {
   const { signer } = useAuth();
   return useMemo(() => getPoolLensContract(signer || undefined), [signer]);

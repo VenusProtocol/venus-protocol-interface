@@ -1,22 +1,19 @@
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { getContractAddress } from 'utilities';
-
-import vaiControllerAbi from 'constants/contracts/abis/vaiController.json';
+import { uniqueContractInfos } from 'packages/contracts';
 
 import formatToOutput from './formatToOutput';
 import { GetVaiRepayAmountWithInterestsInput, GetVaiRepayAmountWithInterestsOutput } from './types';
 
-const vaiControllerAddress = getContractAddress('vaiController');
-
-const getVaiCalculateRepayAmount = async ({
+const getVaiRepayAmountWithInterests = async ({
   multicall,
+  vaiControllerContractAddress,
   accountAddress,
 }: GetVaiRepayAmountWithInterestsInput): Promise<GetVaiRepayAmountWithInterestsOutput> => {
   // Generate call context
   const contractCallContext: ContractCallContext = {
     reference: 'getVaiRepayTotalAmount',
-    contractAddress: vaiControllerAddress,
-    abi: vaiControllerAbi,
+    contractAddress: vaiControllerContractAddress,
+    abi: uniqueContractInfos.vaiController.abi,
     calls: [
       // Call (statically) accrueVAIInterest to calculate past accrued interests
       // before fetching all interests
@@ -36,4 +33,4 @@ const getVaiCalculateRepayAmount = async ({
   });
 };
 
-export default getVaiCalculateRepayAmount;
+export default getVaiRepayAmountWithInterests;

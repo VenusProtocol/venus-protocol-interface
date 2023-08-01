@@ -18,6 +18,7 @@ describe('api/queries/getVaiRepayAmountWithInterests', () => {
       await getVaiRepayAmountWithInterests({
         multicall: fakeMulticall,
         accountAddress: fakeAddress,
+        vaiControllerContractAddress: 'fake-address',
       });
 
       throw new Error('getVaiRepayAmountWithInterests should have thrown an error but did not');
@@ -34,6 +35,7 @@ describe('api/queries/getVaiRepayAmountWithInterests', () => {
     const response = await getVaiRepayAmountWithInterests({
       multicall: fakeMulticall,
       accountAddress: fakeAddress,
+      vaiControllerContractAddress: 'fake-address',
     });
 
     expect(fakeMulticall.call).toHaveBeenCalledTimes(1);

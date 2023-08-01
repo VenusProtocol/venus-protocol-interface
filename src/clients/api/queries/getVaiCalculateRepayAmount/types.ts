@@ -2,9 +2,10 @@ import BigNumber from 'bignumber.js';
 import { Multicall } from 'ethereum-multicall';
 
 export interface GetVaiCalculateRepayAmountInput {
-  multicall: Multicall;
   accountAddress: string;
+  multicall: Multicall;
   repayAmountWei: BigNumber;
+  vaiControllerContractAddress: string;
 }
 
 export type GetVaiCalculateRepayAmountOutput = {

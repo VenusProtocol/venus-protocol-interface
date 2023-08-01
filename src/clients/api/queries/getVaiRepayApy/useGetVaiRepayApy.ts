@@ -1,25 +1,33 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVaiRepayApy, { GetVaiRepayApyOutput } from 'clients/api/queries/getVaiRepayApy';
-import { useVaiControllerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import { logError } from 'context/ErrorLogger';
 
 type Options = QueryObserverOptions<
-  GetVaiRepayApyOutput,
+  GetVaiRepayApyOutput | undefined,
   Error,
-  GetVaiRepayApyOutput,
-  GetVaiRepayApyOutput,
+  GetVaiRepayApyOutput | undefined,
+  GetVaiRepayApyOutput | undefined,
   FunctionKey.GET_VAI_REPAY_APY
 >;
 
 const useGetVaiRepayApy = (options?: Options) => {
-  const vaiControllerContract = useVaiControllerContract();
+  const vaiControllerContract = useGetUniqueContract({
+    name: 'vaiController',
+  });
 
-  return useQuery(
-    FunctionKey.GET_VAI_REPAY_APY,
-    () => getVaiRepayApy({ vaiControllerContract }),
-    options,
-  );
+  const handleGetVaiRepayApy = async () => {
+    if (!vaiControllerContract) {
+      logError('Contract infos missing for getVaiRepayApy query function call');
+      return undefined;
+    }
+
+    return getVaiRepayApy({ vaiControllerContract });
+  };
+
+  return useQuery(FunctionKey.GET_VAI_REPAY_APY, handleGetVaiRepayApy, options);
 };
 
 export default useGetVaiRepayApy;

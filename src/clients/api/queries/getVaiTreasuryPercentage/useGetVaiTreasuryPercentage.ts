@@ -1,25 +1,33 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from 'clients/api';
-import { useVaiControllerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import { logError } from 'context/ErrorLogger';
 
 type Options = QueryObserverOptions<
-  GetVaiTreasuryPercentageOutput,
+  GetVaiTreasuryPercentageOutput | undefined,
   Error,
-  GetVaiTreasuryPercentageOutput,
-  GetVaiTreasuryPercentageOutput,
+  GetVaiTreasuryPercentageOutput | undefined,
+  GetVaiTreasuryPercentageOutput | undefined,
   FunctionKey.GET_VAI_TREASURY_PERCENTAGE
 >;
 
 const useGetVaiTreasuryPercentage = (options?: Options) => {
-  const vaiControllerContract = useVaiControllerContract();
+  const vaiControllerContract = useGetUniqueContract({
+    name: 'vaiController',
+  });
 
-  return useQuery(
-    FunctionKey.GET_VAI_TREASURY_PERCENTAGE,
-    () => getVaiTreasuryPercentage({ vaiControllerContract }),
-    options,
-  );
+  const handleGetVaiTreasuryPercentage = async () => {
+    if (!vaiControllerContract) {
+      logError('Contract infos missing for getVaiTreasuryPercentage query function call');
+      return undefined;
+    }
+
+    return getVaiTreasuryPercentage({ vaiControllerContract });
+  };
+
+  return useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, handleGetVaiTreasuryPercentage, options);
 };
 
 export default useGetVaiTreasuryPercentage;

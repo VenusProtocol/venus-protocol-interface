@@ -1,9 +1,10 @@
+import { VError } from 'errors';
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { ClaimRewardsInput, ClaimRewardsOutput, claimRewards, queryClient } from 'clients/api';
 import { useGetUniqueContract, useGetUniqueContractAddress } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
-import { VError } from 'errors';
+import { logError } from 'context/ErrorLogger';
 
 type HandleClaimRewardsInput = Omit<
   ClaimRewardsInput,
@@ -39,6 +40,7 @@ const useClaimRewards = (options?: Options) => {
       !vaiVaultContractAddress ||
       !xvsVaultContractAddress
     ) {
+      logError('Contract infos missing for claimRewards mutation function call');
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
