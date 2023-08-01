@@ -266,9 +266,9 @@ const useGetMainAssets = ({
     let assetList = assets;
 
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
-      userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests
+      userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterestsWei
         ? convertWeiToTokens({
-            valueWei: userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests,
+            valueWei: userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterestsWei,
             token: TOKENS.vai,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
@@ -294,7 +294,7 @@ const useGetMainAssets = ({
       userTotalSupplyBalanceCents,
     };
   }, [
-    userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterests,
+    userVaiRepayAmountWithInterests?.vaiRepayAmountWithInterestsWei,
     getMainMarketsData?.markets,
     assetsInAccount,
     vTokenBalances,

@@ -13,16 +13,11 @@ import {
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 
-import {
-  useGetBalanceOf,
-  useGetMintedVai,
-  useGetVaiRepayAmountWithInterests,
-  useRepayVai,
-} from 'clients/api';
+import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
@@ -42,7 +37,13 @@ export interface IRepayVaiUiProps {
   disabled: boolean;
   isInitialLoading: boolean;
   isSubmitting: boolean;
-  repayVai: (amountWei: BigNumber) => Promise<ContractReceipt | undefined>;
+  repayVai: ({
+    amountWei,
+    isRepayingFullLoan,
+  }: {
+    amountWei: BigNumber;
+    isRepayingFullLoan: boolean;
+  }) => Promise<ContractReceipt | undefined>;
   isVaiApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveVai: ApproveTokenStepsProps['approveToken'];
   isApproveVaiLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
@@ -52,26 +53,12 @@ export interface IRepayVaiUiProps {
   vaiWalletSpendingLimitTokens?: BigNumber;
   userBalanceWei?: BigNumber;
   repayBalanceWei?: BigNumber;
-  userMintedWei?: BigNumber;
 }
-
-const isPayingFullRepayBalance = (
-  amount: string,
-  repayBalanceWei: BigNumber | undefined,
-): boolean => {
-  if (amount && repayBalanceWei) {
-    const amountWei = convertTokensToWei({ value: new BigNumber(amount), token: TOKENS.vai });
-    return amountWei.isEqualTo(repayBalanceWei);
-  }
-
-  return false;
-};
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
   repayBalanceWei,
-  userMintedWei,
   isVaiApproved,
   approveVai,
   isApproveVaiLoading,
@@ -90,8 +77,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   const limitTokens = React.useMemo(() => {
     const limitWei =
-      userBalanceWei && userMintedWei
-        ? BigNumber.minimum(userBalanceWei, userMintedWei)
+      userBalanceWei && repayBalanceWei
+        ? BigNumber.minimum(userBalanceWei, repayBalanceWei)
         : new BigNumber(0);
 
     let tmpLimitTokens = convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai });
@@ -101,7 +88,22 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     }
 
     return tmpLimitTokens.toFixed();
-  }, [userBalanceWei, userMintedWei, vaiWalletSpendingLimitTokens, isVaiApproved]);
+  }, [userBalanceWei, repayBalanceWei, vaiWalletSpendingLimitTokens, isVaiApproved]);
+
+  const isRepayingFullLoan = useCallback(
+    ({ amountTokens }: { amountTokens: string }) => {
+      if (amountTokens && repayBalanceWei) {
+        const amountWei = convertTokensToWei({
+          value: new BigNumber(amountTokens),
+          token: TOKENS.vai,
+        });
+        return amountWei.isEqualTo(repayBalanceWei);
+      }
+
+      return false;
+    },
+    [repayBalanceWei],
+  );
 
   // Convert repay balance (minted + interests) into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
@@ -119,7 +121,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     [userBalanceWei],
   );
 
-  const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
+  const hasRepayableVai = repayBalanceWei?.isGreaterThan(0) || false;
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
@@ -128,7 +130,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     });
 
     return handleTransactionMutation({
-      mutate: () => repayVai(amountWei),
+      mutate: () =>
+        repayVai({
+          amountWei,
+          isRepayingFullLoan: isRepayingFullLoan({ amountTokens }),
+        }),
       successTransactionModalProps: contractReceipt => ({
         title: t('vai.repayVai.successfulTransactionModal.title'),
         content: t('vai.repayVai.successfulTransactionModal.message'),
@@ -194,7 +200,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
               <RepayFee repayAmountTokens={values.amount} />
 
-              {isPayingFullRepayBalance(values.amount, repayBalanceWei) && (
+              {isRepayingFullLoan({ amountTokens: values.amount }) && (
                 <NoticeWarning
                   css={styles.noticeWarning}
                   description={<Trans i18nKey="vai.repayVai.fullRepayWarning" />}
@@ -234,14 +240,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
 const RepayVai: React.FC = () => {
   const { accountAddress } = useAuth();
-  const { data: mintedVaiData, isLoading: isGetMintedVaiLoading } = useGetMintedVai(
-    {
-      accountAddress,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
 
   const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
     useGetVaiRepayAmountWithInterests(
@@ -280,28 +278,23 @@ const RepayVai: React.FC = () => {
 
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
-    const isRepayingFullLoan = amountWei.eq(
-      convertTokensToWei({
-        value: repayAmountWithInterests!.vaiRepayAmountWithInterests,
-        token: TOKENS.vai,
-      }),
-    );
-
-    return contractRepayVai({
+  const repayVai = async ({
+    amountWei,
+    isRepayingFullLoan,
+  }: {
+    amountWei: BigNumber;
+    isRepayingFullLoan: boolean;
+  }) =>
+    contractRepayVai({
       amountWei: isRepayingFullLoan ? MAX_UINT256 : amountWei,
     });
-  };
 
   return (
     <RepayVaiUi
       disabled={!accountAddress}
       userBalanceWei={userVaiBalanceData?.balanceWei}
-      repayBalanceWei={repayAmountWithInterests?.vaiRepayAmountWithInterests}
-      userMintedWei={mintedVaiData?.mintedVaiWei}
-      isInitialLoading={
-        isGetMintedVaiLoading || isGetUserVaiBalance || isGetVaiRepayAmountWithInterests
-      }
+      repayBalanceWei={repayAmountWithInterests?.vaiRepayAmountWithInterestsWei}
+      isInitialLoading={isGetUserVaiBalance || isGetVaiRepayAmountWithInterests}
       isSubmitting={isSubmitting}
       repayVai={repayVai}
       isVaiApproved={isVaiApproved}
