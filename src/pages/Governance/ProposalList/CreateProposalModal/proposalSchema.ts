@@ -42,9 +42,7 @@ const proposalSchema = yup.object({
                 try {
                   const dataTypes =
                     // @ts-expect-error The yup type doesn't show this value exists but it does TODO extend type
-                    parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
-                      input => input.type,
-                    ) || [];
+                    parseFunctionSignature(this.options.from[0].value.signature)?.inputs || [];
                   encodeParameters(
                     // @ts-expect-error The yup type doesn't show this value exists but it does TODO extend type
                     [dataTypes[this.options.index]],
@@ -70,8 +68,7 @@ const proposalSchema = yup.object({
           .required(ErrorCode.VALUE_REQUIRED),
       }),
     )
-    .required(ErrorCode.VALUE_REQUIRED)
-    .max(10),
+    .required(ErrorCode.VALUE_REQUIRED),
   title: yup.string().required(ErrorCode.VALUE_REQUIRED),
   description: yup.string().required(ErrorCode.VALUE_REQUIRED),
   forDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),

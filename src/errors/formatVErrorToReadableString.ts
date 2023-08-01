@@ -1,3 +1,4 @@
+import { importProposalErrorPhrases } from 'errors/importProposalErrorPhrases';
 import { interactionErrorPhrases } from 'errors/interactionErrorPhrases';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import { unexpectedErrorPhrases } from 'errors/unexpectedErrorPhrases';
@@ -21,6 +22,10 @@ export const formatVErrorToReadableString = (error: VError<ErrorCodes>) => {
     } else {
       phrase = translationPhrase;
     }
+  } else if (error.type === 'proposal') {
+    const message = importProposalErrorPhrases[error.message as VErrorPhraseMap['proposal']];
+    const { info } = error.data ? (error.data as VErrorParamMap['proposal']) : { info: '' };
+    phrase = info ? `${message} - ${info}` : message;
   }
   return phrase || unexpectedErrorPhrases.somethingWentWrong;
 };

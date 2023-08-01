@@ -149,6 +149,20 @@ export interface Proposal {
   endDate?: Date;
 }
 
+export interface JsonProposal {
+  meta?: {
+    title?: string;
+    description?: string;
+    forDescription?: string;
+    againstDescription?: string;
+    abstainDescription?: string;
+  };
+  type?: number;
+  signatures?: string[];
+  targets?: (string | number)[];
+  params?: (string | (string | number)[])[][];
+}
+
 export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 
 export interface VotersDetails {

@@ -96,7 +96,7 @@ const ProposalPreview: React.FC = () => {
 
         {actions.map(action => (
           <ReadableActionSignature
-            key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}`}
+            key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
             action={action}
           />
         ))}

@@ -1,3 +1,4 @@
+import { importProposalErrorPhrases } from './importProposalErrorPhrases';
 import { interactionErrorPhrases } from './interactionErrorPhrases';
 import { transactionErrorPhrases } from './transactionErrorPhrases';
 import { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
@@ -9,12 +10,16 @@ export interface VErrorParamMap {
   };
   unexpected: { message: string } | undefined;
   interaction: { assetName: string };
+  proposal: {
+    info?: string;
+  };
 }
 
 export interface VErrorPhraseMap {
   transaction: keyof typeof transactionErrorPhrases;
   unexpected: keyof typeof unexpectedErrorPhrases;
   interaction: keyof typeof interactionErrorPhrases;
+  proposal: keyof typeof importProposalErrorPhrases;
 }
 
 export type ErrorCodes = keyof VErrorParamMap;
