@@ -1,3 +1,10 @@
+## [2.8.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.3...v2.8.0) (2023-08-02)
+
+
+### Features
+
+* select all claimable rewards when opening modal ([92c5b0f](https://github.com/VenusProtocol/venus-protocol-interface/commit/92c5b0f3dbf1b760aed4492715f60f3b07817b1b))
+
 ## [2.7.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.2...v2.7.3) (2023-08-02)
 
 
