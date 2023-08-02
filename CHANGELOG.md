@@ -1,3 +1,10 @@
+## [2.7.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.2...v2.7.3) (2023-08-02)
+
+
+### Bug Fixes
+
+* let users repay their entire VAI loan ([40b969c](https://github.com/VenusProtocol/venus-protocol-interface/commit/40b969c9b7b2dc842c0b609b13997a05838e6134))
+
 ## [2.7.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.1...v2.7.2) (2023-08-01)
 
 
