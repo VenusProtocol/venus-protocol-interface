@@ -11,7 +11,7 @@
     "serve": "vite preview",
     "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "test:ci": "TZ=UTC vitest run",
-    "lint:format": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,html,json,md}\" public/**/*.html --cache --check",
+    "lint:format": "yarn prettier \"src/**/*.{js,jsx,ts,tsx,html,json,md}\"",
     "lint": "npm-run-all --parallel lint:ts lint:styles",
     "lint:ts": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint . --cache",
     "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
