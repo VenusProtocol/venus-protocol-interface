@@ -138,7 +138,10 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
       return;
     }
 
-    return setIsModalOpen(true);
+    // Select all claimable rewards
+    setUncheckedGroupIds([]);
+    // Open modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => setIsModalOpen(false);
