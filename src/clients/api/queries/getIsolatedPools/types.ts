@@ -9,11 +9,11 @@ import { GetTokenBalancesOutput } from '../getTokenBalances';
 
 export interface FormatToPoolInput {
   poolsResults: PoolLens.PoolDataStructOutput[];
-  poolParticipantsCountResult: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
   resilientOracleResult: ContractCallReturnContext;
   currentBlockNumber: number;
+  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   poolLensResult?: ContractCallReturnContext;
   userWalletTokenBalances?: GetTokenBalancesOutput;
 }

@@ -17,27 +17,40 @@ import {
 
 vi.mock('clients/subgraph');
 
+const fakePoolLensContract = {
+  getAllPools: async () => fakeGetAllPoolsOuput,
+} as unknown as PoolLens;
+
+const fakeMulticall = {
+  call: (context: ContractCallContext | ContractCallContext[]) => {
+    if (Array.isArray(context)) {
+      return context[0].reference === 'poolLens' ? fakeMulticallResponse0 : fakeMulticallResponse1;
+    }
+
+    return fakeMulticallResponse2;
+  },
+} as unknown as Multicall;
+
 describe('api/queries/getIsolatedPools', () => {
-  test('returns isolated pools in the correct format', async () => {
+  it('returns isolated pools in the correct format', async () => {
     (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementationOnce(
       () => fakeIsolatedPoolParticipantsCount,
     );
 
-    const fakePoolLensContract = {
-      getAllPools: async () => fakeGetAllPoolsOuput,
-    } as unknown as PoolLens;
+    const response = await getIsolatedPools({
+      poolLensContract: fakePoolLensContract,
+      provider: fakeProvider,
+      accountAddress: fakeAddress,
+      multicall: fakeMulticall,
+    });
 
-    const fakeMulticall = {
-      call: (context: ContractCallContext | ContractCallContext[]) => {
-        if (Array.isArray(context)) {
-          return context[0].reference === 'poolLens'
-            ? fakeMulticallResponse0
-            : fakeMulticallResponse1;
-        }
+    expect(response).toMatchSnapshot();
+  });
 
-        return fakeMulticallResponse2;
-      },
-    } as unknown as Multicall;
+  it('still functions even if the request to fetch the participant counts fails', async () => {
+    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementationOnce(() => {
+      throw new Error('Fake error');
+    });
 
     const response = await getIsolatedPools({
       poolLensContract: fakePoolLensContract,

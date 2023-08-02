@@ -29,6 +29,17 @@ export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry_Proxy'); // TODO: get from package (see VEN-1746)
 const RESILIENT_ORACLE_ADDRESS = getContractAddress('oracle'); // TODO: get from package (see VEN-1746)
 
+// Since the borrower and supplier counts aren't essential information, we make the logic so the
+// dApp can still function if the subgraph is down
+const safelyGetIsolatedPoolParticipantsCount = async () => {
+  try {
+    const res = await getIsolatedPoolParticipantsCount();
+    return res;
+  } catch (error) {
+    logError(error);
+  }
+};
+
 const getIsolatedPools = async ({
   accountAddress,
   poolLensContract,
@@ -39,7 +50,7 @@ const getIsolatedPools = async ({
     // Fetch all pools
     poolLensContract.getAllPools(POOL_REGISTRY_ADDRESS),
     // Fetch borrower and supplier counts of each isolated token
-    getIsolatedPoolParticipantsCount(),
+    safelyGetIsolatedPoolParticipantsCount(),
     // Fetch current block number
     getBlockNumber({ provider }),
   ]);

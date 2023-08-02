@@ -55,7 +55,7 @@ const formatToPools = ({
   const pools: Pool[] = poolsResults.map(poolResult => {
     const vTokenAddresses: string[] = poolResult.vTokens.map(item => item.vToken);
 
-    const subgraphPool = poolParticipantsCountResult.pools.find(pool =>
+    const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
       areAddressesEqual(pool.id, poolResult.comptroller),
     );
 
