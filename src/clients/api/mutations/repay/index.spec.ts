@@ -7,7 +7,6 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
-import { VBnbToken } from 'types/contracts';
 
 import repay, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
 
@@ -88,7 +87,7 @@ describe('api/mutation/repay', () => {
 
       const fakeVTokenContract = {
         repayBorrow: repayBorrowMock,
-      } as unknown as VBnbToken;
+      } as unknown as ContractTypeByName<'vBnb'>;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 

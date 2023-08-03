@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { VBnbToken } from 'types/contracts';
-
 export interface GetVTokenBalanceOfInput {
-  vTokenContract: ContractTypeByName<'vToken'> | VBnbToken;
+  vTokenContract: ContractTypeByName<'vToken' | 'vBnb'>;
   accountAddress: string;
 }
 
