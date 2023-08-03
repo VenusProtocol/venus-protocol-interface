@@ -1,4 +1,4 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
@@ -127,10 +127,8 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
     const fakeValueTokens = '10';
 
     // Enter amount in input
-    act(() => {
-      fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
-        target: { value: fakeValueTokens },
-      });
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: fakeValueTokens },
     });
 
     // Submit form

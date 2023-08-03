@@ -2,7 +2,6 @@ import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-li
 import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -156,19 +155,17 @@ describe('pages/Proposal', () => {
     const voteButton = await waitFor(async () =>
       within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
     );
-    act(() => {
-      fireEvent.click(voteButton);
-    });
+    fireEvent.click(voteButton);
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.10');
 
     const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
-    act(() => {
-      fireEvent.click(castButton);
-    });
-    waitFor(() => expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 1 }));
+    fireEvent.click(castButton);
+    await waitFor(() =>
+      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 1 }),
+    );
   });
 
   it('allows user to vote against with reason', async () => {
@@ -188,9 +185,7 @@ describe('pages/Proposal', () => {
     const voteButton = await waitFor(async () =>
       within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
     );
-    act(() => {
-      fireEvent.click(voteButton);
-    });
+    fireEvent.click(voteButton);
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.10');
@@ -200,9 +195,7 @@ describe('pages/Proposal', () => {
 
     const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
-    act(() => {
-      fireEvent.click(castButton);
-    });
+    fireEvent.click(castButton);
 
     await waitFor(() =>
       expect(vote).toBeCalledWith({ proposalId: 97, voteReason: comment, voteType: 0 }),
@@ -225,18 +218,14 @@ describe('pages/Proposal', () => {
     const voteButton = await waitFor(async () =>
       within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
     );
-    act(() => {
-      fireEvent.click(voteButton);
-    });
+    fireEvent.click(voteButton);
 
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.10');
 
     const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
-    act(() => {
-      fireEvent.click(castButton);
-    });
+    fireEvent.click(castButton);
     await waitFor(() =>
       expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 2 }),
     );
@@ -279,9 +268,7 @@ describe('pages/Proposal', () => {
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
     );
 
-    act(() => {
-      fireEvent.click(cancelButton);
-    });
+    fireEvent.click(cancelButton);
     await waitFor(() => expect(cancelButton).toBeEnabled());
     expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
   });
@@ -314,9 +301,7 @@ describe('pages/Proposal', () => {
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
     );
 
-    act(() => {
-      fireEvent.click(cancelButton);
-    });
+    fireEvent.click(cancelButton);
 
     await waitFor(() => expect(cancelButton).toBeEnabled());
     expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
@@ -332,9 +317,7 @@ describe('pages/Proposal', () => {
     const queueButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.queueButton),
     );
-    act(() => {
-      fireEvent.click(queueButton);
-    });
+    fireEvent.click(queueButton);
     await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 95 }));
   });
 
@@ -348,9 +331,7 @@ describe('pages/Proposal', () => {
     const executeButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.executeButton),
     );
-    act(() => {
-      fireEvent.click(executeButton);
-    });
+    fireEvent.click(executeButton);
     await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 98 }));
   });
 });

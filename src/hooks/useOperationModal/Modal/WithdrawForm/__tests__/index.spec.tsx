@@ -1,4 +1,4 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
@@ -94,9 +94,8 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     const maxButton = await waitFor(() =>
       getByText(en.operationModal.withdraw.rightMaxButtonLabel.toUpperCase()),
     );
-    act(() => {
-      fireEvent.click(maxButton);
-    });
+    fireEvent.click(maxButton);
+
     const submitButton = await waitFor(
       () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
     );
