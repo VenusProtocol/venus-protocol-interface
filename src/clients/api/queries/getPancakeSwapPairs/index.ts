@@ -1,7 +1,6 @@
 import { Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-
-import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
+import { contractInfos } from 'packages/contracts';
 
 import formatToPairs from './formatToPairs';
 import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
@@ -34,7 +33,7 @@ const getPancakeSwapPairs = async ({
   const contractCallContext: ContractCallContext[] = pairAddresses.map(pairAddress => ({
     reference: pairAddress.address,
     contractAddress: pairAddress.address,
-    abi: pancakeSwapPairAbi,
+    abi: contractInfos.pancakePairV2.abi,
     calls: [{ reference: 'getReserves', methodName: 'getReserves()', methodParameters: [] }],
   }));
 

@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeAddress from '__mocks__/models/address';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 import getVoteReceipt from '.';
 
@@ -7,7 +8,7 @@ describe('api/queries/getVoteReceipt', () => {
   test('returns NOT_VOTED when no vote is returned', async () => {
     const governorBravoContract = {
       getReceipt: async () => [false, undefined],
-    } as unknown as GovernorBravoDelegate;
+    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const res = await getVoteReceipt({
       governorBravoContract,
@@ -24,7 +25,7 @@ describe('api/queries/getVoteReceipt', () => {
     async fakeSupport => {
       const governorBravoContract = {
         getReceipt: async () => [true, fakeSupport],
-      } as unknown as GovernorBravoDelegate;
+      } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
       const res = await getVoteReceipt({
         governorBravoContract,

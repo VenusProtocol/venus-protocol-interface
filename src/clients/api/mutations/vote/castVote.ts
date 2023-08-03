@@ -1,9 +1,8 @@
 import { ContractReceipt } from 'ethers';
-
-import { GovernorBravoDelegate } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface CastVoteInput {
-  governorBravoContract: GovernorBravoDelegate;
+  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
   voteType: 0 | 1 | 2;
 }

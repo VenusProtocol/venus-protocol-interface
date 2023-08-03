@@ -1,8 +1,9 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import { TOKENS } from 'constants/tokens';
-import { XvsVault } from 'types/contracts';
 
 export interface GetXvsVaultPoolCountInput {
-  xvsVaultContract: XvsVault;
+  xvsVaultContract: ContractTypeByName<'xvsVault'>;
 }
 
 export type GetXvsVaultPoolCountOutput = {

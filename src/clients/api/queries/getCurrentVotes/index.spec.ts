@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-
-import { XvsVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getCurrentVotes from '.';
 
@@ -15,7 +14,7 @@ describe('api/queries/getCurrentVotes', () => {
 
     const fakeContract = {
       getCurrentVotes: getCurrentVotesMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getCurrentVotes({
       xvsVaultContract: fakeContract,

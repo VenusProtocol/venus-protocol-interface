@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-import { XvsVault } from 'types/contracts';
 
 import getXvsVaultPoolInfo from '.';
 
@@ -14,7 +14,7 @@ describe('api/queries/getXvsVaultPoolInfo', () => {
 
     const fakeContract = {
       poolInfos: poolInfosMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultPoolInfo({
       xvsVaultContract: fakeContract,
