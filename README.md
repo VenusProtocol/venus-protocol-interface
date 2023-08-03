@@ -135,12 +135,3 @@ yarn extract-translation-keys
 The new translations will be added to the relevant translation file (e.g.:
 [src/assets/translation/en.json](src/assets/translations/en.json)) with a default text, which you'll
 need to update with the content you want.
-
-### Automatic contract types
-
-We use [TypeChain](https://github.com/dethcrypto/TypeChain) to automatically generate types for our
-contracts, using their ABIs located at `src/constants/contracts/abis`.
-
-Note that the types aren't committed to the repo, since they are rebuilt every time TypeChain
-generates them. Instead, they are automatically generated upon installing dependencies. You will
-find them at `src/types/contracts`.

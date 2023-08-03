@@ -4,14 +4,7 @@ import { Token, VToken } from 'types';
 import { areTokensEqual, getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
-// TODO: add these to contracts package
-import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
-import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
-import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
-import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
-import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import { TOKENS } from 'constants/tokens';
-import { XvsVaultStore } from 'types/contracts';
 
 import { TokenContract, VTokenContract } from './types';
 
@@ -31,7 +24,7 @@ export const getContract = ({
 export const getTokenContract = (token: Token, signer?: Signer) => {
   if (areTokensEqual(token, TOKENS.xvs)) {
     return getContract({
-      abi: xvsTokenAbi,
+      abi: contractInfos.xvs.abi,
       address: token.address,
       signer,
     }) as TokenContract<'xvs'>;
@@ -39,7 +32,7 @@ export const getTokenContract = (token: Token, signer?: Signer) => {
 
   if (areTokensEqual(token, TOKENS.vai)) {
     return getContract({
-      abi: vaiTokenAbi,
+      abi: contractInfos.vai.abi,
       address: token.address,
       signer,
     }) as TokenContract<'vai'>;
@@ -47,7 +40,7 @@ export const getTokenContract = (token: Token, signer?: Signer) => {
 
   if (areTokensEqual(token, TOKENS.vrt)) {
     return getContract({
-      abi: vrtTokenAbi,
+      abi: contractInfos.vrt.abi,
       address: token.address,
       signer,
     }) as TokenContract<'vrt'>;
@@ -63,7 +56,7 @@ export const getTokenContract = (token: Token, signer?: Signer) => {
 export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   if (vToken.symbol === 'vBNB') {
     return getContract({
-      abi: vBnbTokenAbi,
+      abi: contractInfos.vBnb.abi,
       address: vToken.address,
       signer,
     }) as VTokenContract<'bnb'>;
@@ -92,10 +85,10 @@ export const getXvsVaultProxyContract = (signer?: Signer) =>
 
 export const getXvsVaultStoreContract = (signer?: Signer) =>
   getContract({
-    abi: xvsVaultStoreAbi,
+    abi: contractInfos.xvsStore.abi,
     address: getContractAddress('xvsVaultStore'),
     signer,
-  }) as XvsVaultStore; // TODO: get type from package
+  }) as ContractTypeByName<'xvsStore'>;
 
 export const getComptrollerContract = (address: string, signer?: Signer) =>
   getContract({
