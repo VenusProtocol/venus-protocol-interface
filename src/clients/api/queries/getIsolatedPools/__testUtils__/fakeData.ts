@@ -1,9 +1,5 @@
-import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
-import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
-import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
-import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { ContractTypeByName, contractInfos } from 'packages/contracts';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 
@@ -528,7 +524,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: 'poolLens',
         contractAddress: '0x559936086C5f65b92240012ae0D2F70C082Ac0b0',
-        abi: poolLensAbi,
+        abi: contractInfos.poolLens.abi,
         calls: [
           {
             reference: 'vTokenBalancesAll',
@@ -1161,7 +1157,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: '0x10b57706AD2345e590c2eA4DC02faef0d9f5b08B',
         contractAddress: '0x10b57706AD2345e590c2eA4DC02faef0d9f5b08B',
-        abi: comptrollerAbi,
+        abi: contractInfos.isolatedPoolComptroller.abi,
         calls: [
           {
             reference: 'getRewardDistributors',
@@ -1198,7 +1194,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: '0x23a73971A6B9f6580c048B9CB188869B2A2aA2aD',
         contractAddress: '0x23a73971A6B9f6580c048B9CB188869B2A2aA2aD',
-        abi: comptrollerAbi,
+        abi: contractInfos.isolatedPoolComptroller.abi,
         calls: [
           {
             reference: 'getRewardDistributors',
@@ -1235,7 +1231,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: '0x1F4f0989C51f12DAcacD4025018176711f3Bf289',
         contractAddress: '0x1F4f0989C51f12DAcacD4025018176711f3Bf289',
-        abi: comptrollerAbi,
+        abi: contractInfos.isolatedPoolComptroller.abi,
         calls: [
           {
             reference: 'getRewardDistributors',
@@ -1275,7 +1271,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: '0x596B11acAACF03217287939f88d63b51d3771704',
         contractAddress: '0x596B11acAACF03217287939f88d63b51d3771704',
-        abi: comptrollerAbi,
+        abi: contractInfos.isolatedPoolComptroller.abi,
         calls: [
           {
             reference: 'getRewardDistributors',
@@ -1316,7 +1312,7 @@ export const fakeMulticallResponse0 = {
       originalContractCallContext: {
         reference: '0x11537D023f489E4EF0C7157cc729C7B69CbE0c97',
         contractAddress: '0x11537D023f489E4EF0C7157cc729C7B69CbE0c97',
-        abi: comptrollerAbi,
+        abi: contractInfos.isolatedPoolComptroller.abi,
         calls: [
           {
             reference: 'getRewardDistributors',
@@ -1364,7 +1360,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b',
         contractAddress: '0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -1616,7 +1612,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9',
         contractAddress: '0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -2096,7 +2092,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0',
         contractAddress: '0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -2424,7 +2420,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x66E213a4b8ba1c8D62cAa4649C7177E29321E262',
         contractAddress: '0x66E213a4b8ba1c8D62cAa4649C7177E29321E262',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -2752,7 +2748,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x7df11563c6b6b8027aE619FD9644A647dED5893B',
         contractAddress: '0x7df11563c6b6b8027aE619FD9644A647dED5893B',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -3232,7 +3228,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c',
         contractAddress: '0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -3712,7 +3708,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85',
         contractAddress: '0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -4192,7 +4188,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x095902273F06eEAC825c3F52dEF44f67a86B31cD',
         contractAddress: '0x095902273F06eEAC825c3F52dEF44f67a86B31cD',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -4596,7 +4592,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A',
         contractAddress: '0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -5000,7 +4996,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x507401883C2a874D919e78a73dD0cB56f2e7eaD7',
         contractAddress: '0x507401883C2a874D919e78a73dD0cB56f2e7eaD7',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -5404,7 +5400,7 @@ export const fakeMulticallResponse1 = {
       originalContractCallContext: {
         reference: '0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b',
         contractAddress: '0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b',
-        abi: rewardsDistributorAbi,
+        abi: contractInfos.rewardsDistributor.abi,
         calls: [
           {
             reference: 'rewardToken',
@@ -5814,7 +5810,7 @@ export const fakeMulticallResponse2 = {
       originalContractCallContext: {
         reference: 'resilientOracle',
         contractAddress: '0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823',
-        abi: resilientOracleAbi,
+        abi: contractInfos.resilientOracle.abi,
         calls: [
           {
             reference: 'getPrice',
