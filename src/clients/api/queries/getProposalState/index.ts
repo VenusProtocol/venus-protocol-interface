@@ -1,7 +1,7 @@
-import { GovernorBravoDelegate } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetProposalStateInput {
-  governorBravoContract: GovernorBravoDelegate;
+  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: string;
 }
 

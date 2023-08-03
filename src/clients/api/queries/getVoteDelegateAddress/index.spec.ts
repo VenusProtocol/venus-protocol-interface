@@ -1,6 +1,7 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeAddress from '__mocks__/models/address';
 import { NULL_ADDRESS } from 'constants/address';
-import { XvsVault } from 'types/contracts';
 
 import getVoteDelegateAddress from '.';
 
@@ -8,7 +9,7 @@ describe('api/queries/getVoteDelegateAddress', () => {
   test('returns undefined when address is null', async () => {
     const xvsVaultContract = {
       delegates: async () => NULL_ADDRESS,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const res = await getVoteDelegateAddress({
       xvsVaultContract,
@@ -23,7 +24,7 @@ describe('api/queries/getVoteDelegateAddress', () => {
   test('returns address when not null address is returned', async () => {
     const xvsVaultContract = {
       delegates: async () => fakeAddress,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const res = await getVoteDelegateAddress({
       xvsVaultContract,

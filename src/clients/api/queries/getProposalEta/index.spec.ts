@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import governorBravoDelegateResponses from '__mocks__/contracts/governanceBravoDelegate';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 import getProposalEta from '.';
 
@@ -11,7 +12,7 @@ describe('api/queries/getProposalEta', () => {
 
     const fakeContract = {
       proposals: proposalsMock,
-    } as unknown as GovernorBravoDelegate;
+    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await getProposalEta({
       governorBravoContract: fakeContract,

@@ -869,25 +869,6 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           {
             "indexed": true,
             "internalType": "address",
-            "name": "oldAdmin",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newAdmin",
-            "type": "address",
-          },
-        ],
-        "name": "AdminTransfered",
-        "type": "event",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
             "name": "user",
             "type": "address",
           },
@@ -899,6 +880,51 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           },
         ],
         "name": "Deposit",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldAccessControlManager",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newAccessControlManager",
+            "type": "address",
+          },
+        ],
+        "name": "NewAccessControlManager",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "admin",
+            "type": "address",
+          },
+        ],
+        "name": "VaultPaused",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "admin",
+            "type": "address",
+          },
+        ],
+        "name": "VaultResumed",
         "type": "event",
       },
       {
@@ -924,7 +950,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "constant": false,
         "inputs": [
           {
-            "internalType": "contract VAIVaultProxy",
+            "internalType": "contract IVAIVaultProxy",
             "name": "vaiVaultProxy",
             "type": "address",
           },
@@ -953,6 +979,21 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
       {
         "constant": true,
         "inputs": [],
+        "name": "accessControlManager",
+        "outputs": [
+          {
+            "internalType": "contract IAccessControlManagerV5",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
         "name": "admin",
         "outputs": [
           {
@@ -963,15 +1004,6 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "burnAdmin",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1014,18 +1046,12 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
-        "constant": true,
+        "constant": false,
         "inputs": [],
-        "name": "getAdmin",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
+        "name": "pause",
+        "outputs": [],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1096,14 +1122,23 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
       },
       {
         "constant": false,
+        "inputs": [],
+        "name": "resume",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
         "inputs": [
           {
             "internalType": "address",
-            "name": "newAdmin",
+            "name": "newAccessControlAddress",
             "type": "address",
           },
         ],
-        "name": "setNewAdmin",
+        "name": "setAccessControl",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -1195,6 +1230,21 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
+        "constant": true,
+        "inputs": [],
+        "name": "vaultPaused",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
         "constant": false,
         "inputs": [
           {
@@ -1259,25 +1309,6 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "oldAdmin",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newAdmin",
-            "type": "address",
-          },
-        ],
-        "name": "AdminTransferred",
-        "type": "event",
       },
       {
         "anonymous": false,
@@ -1420,6 +1451,25 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           },
         ],
         "name": "ExecutedWithdrawal",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldAccessControlManager",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newAccessControlManager",
+            "type": "address",
+          },
+        ],
+        "name": "NewAccessControlManager",
         "type": "event",
       },
       {
@@ -1594,6 +1644,63 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           },
           {
             "indexed": true,
+            "internalType": "address",
+            "name": "userAddress",
+            "type": "address",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "oldOwedAmount",
+            "type": "uint256",
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newOwedAmount",
+            "type": "uint256",
+          },
+        ],
+        "name": "VaultDebtUpdated",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "admin",
+            "type": "address",
+          },
+        ],
+        "name": "VaultPaused",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "admin",
+            "type": "address",
+          },
+        ],
+        "name": "VaultResumed",
+        "type": "event",
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "rewardToken",
+            "type": "address",
+          },
+          {
+            "indexed": true,
             "internalType": "uint256",
             "name": "pid",
             "type": "uint256",
@@ -1645,10 +1752,25 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
+        "constant": true,
+        "inputs": [],
+        "name": "MAX_LOCK_PERIOD",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
         "constant": false,
         "inputs": [
           {
-            "internalType": "contract XVSVaultProxy",
+            "internalType": "contract IXVSVaultProxy",
             "name": "xvsVaultProxy",
             "type": "address",
           },
@@ -1657,6 +1779,21 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "accessControlManager",
+        "outputs": [
+          {
+            "internalType": "contract IAccessControlManagerV5",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
         "type": "function",
       },
       {
@@ -1707,15 +1844,6 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "burnAdmin",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1893,21 +2021,6 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "getAdmin",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
         "type": "function",
       },
       {
@@ -2124,18 +2237,24 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
-        "constant": false,
+        "constant": true,
         "inputs": [
           {
             "internalType": "address",
-            "name": "_rewardToken",
+            "name": "",
             "type": "address",
           },
         ],
-        "name": "massUpdatePools",
-        "outputs": [],
+        "name": "isStakedToken",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function",
       },
       {
@@ -2181,6 +2300,15 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
+        "constant": false,
+        "inputs": [],
+        "name": "pause",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
         "constant": true,
         "inputs": [],
         "name": "pendingAdmin",
@@ -2215,6 +2343,32 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           },
         ],
         "name": "pendingReward",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address",
+          },
+        ],
+        "name": "pendingRewardTransfers",
         "outputs": [
           {
             "internalType": "uint256",
@@ -2365,6 +2519,15 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "type": "function",
       },
       {
+        "constant": false,
+        "inputs": [],
+        "name": "resume",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
         "constant": true,
         "inputs": [
           {
@@ -2405,6 +2568,21 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           },
         ],
         "name": "set",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newAccessControlAddress",
+            "type": "address",
+          },
+        ],
+        "name": "setAccessControl",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -2514,6 +2692,21 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
+        "type": "function",
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "vaultPaused",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool",
+          },
+        ],
+        "payable": false,
+        "stateMutability": "view",
         "type": "function",
       },
       {

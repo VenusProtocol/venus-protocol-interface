@@ -1,15 +1,13 @@
-import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
-import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
+import { contractInfos } from 'packages/contracts';
 import { getContractAddress } from 'utilities';
 
-import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import { TOKENS } from 'constants/tokens';
 
 import formatOutput from './formatOutput';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
 
+// TODO: get addresses from contracts package
 const venusLensAddress = getContractAddress('venusLens');
 const poolLensAddress = getContractAddress('PoolLens');
 const vaiVaultAddress = getContractAddress('vaiVault');
@@ -28,7 +26,7 @@ const getPendingRewardGroups = async ({
     {
       reference: 'venusLens',
       contractAddress: venusLensAddress,
-      abi: venusLensAbi,
+      abi: contractInfos.venusLens.abi,
       calls: [
         {
           reference: 'pendingRewards',
@@ -41,7 +39,7 @@ const getPendingRewardGroups = async ({
     {
       reference: 'vaiVault',
       contractAddress: vaiVaultAddress,
-      abi: vaiVaultAbi,
+      abi: contractInfos.vaiVault.abi,
       calls: [
         {
           reference: 'pendingXVS',
@@ -53,7 +51,7 @@ const getPendingRewardGroups = async ({
     {
       reference: 'xvsVestingVaults',
       contractAddress: xvsVaultAddress,
-      abi: xvsVaultAbi,
+      abi: contractInfos.xvsVault.abi,
       calls: new Array(xvsVestingVaultPoolCount).fill(undefined).reduce(
         (acc, _item, poolIndex) =>
           acc.concat([
@@ -83,7 +81,7 @@ const getPendingRewardGroups = async ({
     contractCallContext.push({
       reference: 'poolLens',
       contractAddress: poolLensAddress,
-      abi: poolLensAbi,
+      abi: contractInfos.poolLens.abi,
       calls: isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress => ({
         reference: 'getPendingRewards',
         methodName: 'getPendingRewards',
