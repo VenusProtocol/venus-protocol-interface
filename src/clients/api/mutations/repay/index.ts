@@ -6,7 +6,6 @@ import { VToken } from 'types';
 
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import MAX_UINT256 from 'constants/maxUint256';
-import { VBnbToken } from 'types/contracts';
 
 export interface RepayInput {
   signer?: Signer;
@@ -57,7 +56,7 @@ const repay = async ({
   }
 
   // Handle repaying partial BNB loan
-  const vBnbContract = getVTokenContract(vToken, signer) as VBnbToken;
+  const vBnbContract = getVTokenContract(vToken, signer) as ContractTypeByName<'vBnb'>;
   const transaction = await vBnbContract.repayBorrow({
     value: amountWei.toFixed(),
   });
