@@ -2,6 +2,9 @@ import type { JsonFragment } from '@ethersproject/abi';
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
+import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
+import resilientOracleMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet/ResilientOracle.json';
+import resilientOracleTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet/ResilientOracle.json';
 import { abi as mainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Comptroller.sol/Comptroller.json';
 import { abi as governorBravoDelegateAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
@@ -14,6 +17,7 @@ import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/netwo
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
 
 import { PoolLens } from '../types/contracts/isolatedPools';
+import { ResilientOracle } from '../types/contracts/oracle';
 import { Maximillion, Multicall } from '../types/contracts/others';
 import {
   GovernorBravoDelegate,
@@ -125,6 +129,14 @@ const multicall: UniqueContractInfo = {
   },
 };
 
+const resilientOracle: UniqueContractInfo = {
+  abi: resilientOracleAbi,
+  address: {
+    [ChainId.BSC_TESTNET]: resilientOracleTestnetDeployments.address,
+    [ChainId.BSC_MAINNET]: resilientOracleMainnetDeployments.address,
+  },
+};
+
 const uniqueContractInfos = {
   venusLens,
   poolLens,
@@ -137,6 +149,7 @@ const uniqueContractInfos = {
   vrtConverter,
   maximillion,
   multicall,
+  resilientOracle,
 };
 
 export type UniqueContractName = keyof typeof uniqueContractInfos;
@@ -153,6 +166,7 @@ export type UniqueContractTypes = {
   vrtConverter: VRTConverter;
   maximillion: Maximillion;
   multicall: Multicall;
+  resilientOracle: ResilientOracle;
 };
 
 export type UniqueContractTypeByName<TContractName extends UniqueContractName> =

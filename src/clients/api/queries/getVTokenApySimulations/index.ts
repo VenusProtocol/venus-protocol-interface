@@ -1,9 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
+import { contractInfos } from 'packages/contracts';
 import { convertTokensToWei } from 'utilities';
-
-import interestModelAbi from 'constants/contracts/abis/interestModel.json';
-import interestModelAbiV2 from 'constants/contracts/abis/interestModelV2.json';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
@@ -87,7 +85,7 @@ const getVTokenApySimulations = async ({
   const contractCallContext: ContractCallContext = {
     reference: 'getVTokenRates',
     contractAddress: interestRateModelContractAddress,
-    abi: isIsolatedPoolMarket ? interestModelAbiV2 : interestModelAbi,
+    abi: isIsolatedPoolMarket ? contractInfos.jumpRateModelV2.abi : contractInfos.jumpRateModel.abi,
     calls,
   };
 

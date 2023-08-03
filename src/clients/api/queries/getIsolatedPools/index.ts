@@ -1,13 +1,10 @@
-import { abi as comptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
-import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
-import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
-import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import {
   ContractCallContext,
   ContractCallResults,
   ContractCallReturnContext,
 } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
+import { contractInfos } from 'packages/contracts';
 import { Token } from 'types';
 import {
   areTokensEqual,
@@ -101,7 +98,7 @@ const getIsolatedPools = async ({
     return {
       reference: result.comptroller,
       contractAddress: result.comptroller,
-      abi: comptrollerAbi,
+      abi: contractInfos.isolatedPoolComptroller.abi,
       calls,
     };
   });
@@ -113,7 +110,7 @@ const getIsolatedPools = async ({
     const poolLensCallContext: ContractCallContext = {
       reference: 'poolLens',
       contractAddress: poolLensContract.address,
-      abi: poolLensAbi,
+      abi: contractInfos.poolLens.abi,
       calls: [
         {
           reference: 'vTokenBalancesAll',
@@ -206,7 +203,7 @@ const getIsolatedPools = async ({
         rewardsDistributorAddress => ({
           reference: rewardsDistributorAddress,
           contractAddress: rewardsDistributorAddress,
-          abi: rewardsDistributorAbi,
+          abi: contractInfos.rewardsDistributor.abi,
           calls: [
             {
               reference: 'rewardToken',
@@ -244,7 +241,7 @@ const getIsolatedPools = async ({
   const resilientOracleCallsContext: ContractCallContext = {
     reference: 'resilientOracle',
     contractAddress: RESILIENT_ORACLE_ADDRESS,
-    abi: resilientOracleAbi,
+    abi: contractInfos.resilientOracle.abi,
     calls: tokenAddresses.map(tokenAddress => ({
       reference: 'getPrice',
       methodName: 'getPrice',
