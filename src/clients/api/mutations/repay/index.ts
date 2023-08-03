@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { VError, checkForTokenTransactionError } from 'errors';
 import { ContractReceipt, Signer } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 import { VToken } from 'types';
 
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import MAX_UINT256 from 'constants/maxUint256';
-import { VBep20, VBnbToken } from 'types/contracts';
+import { VBnbToken } from 'types/contracts';
 
 export interface RepayInput {
   signer?: Signer;
@@ -26,7 +27,7 @@ const repay = async ({
 }: RepayInput): Promise<RepayOutput> => {
   // Handle repaying tokens other than BNB
   if (!vToken.underlyingToken.isNative) {
-    const vTokenContract = getVTokenContract(vToken, signer) as VBep20;
+    const vTokenContract = getVTokenContract(vToken, signer) as ContractTypeByName<'vToken'>;
 
     const transaction = await vTokenContract.repayBorrow(
       isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed(),

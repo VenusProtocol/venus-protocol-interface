@@ -1,4 +1,6 @@
-import { Bep20, VBep20, VBnbToken, VaiToken, VrtToken, XvsToken } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
+
+import { VBnbToken, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export type TokenContract<T extends string = ''> = T extends 'xvs'
   ? XvsToken
@@ -6,8 +8,8 @@ export type TokenContract<T extends string = ''> = T extends 'xvs'
   ? VaiToken
   : T extends 'vrt'
   ? VrtToken
-  : Bep20;
+  : ContractTypeByName<'bep20'>;
 
 export type VTokenContract<T extends string | undefined = undefined> = T extends 'bnb'
   ? VBnbToken
-  : VBep20;
+  : ContractTypeByName<'vToken'>;

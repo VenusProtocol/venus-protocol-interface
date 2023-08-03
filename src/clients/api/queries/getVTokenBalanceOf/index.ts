@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 
-import { VBep20, VBnbToken } from 'types/contracts';
+import { VBnbToken } from 'types/contracts';
 
 export interface GetVTokenBalanceOfInput {
-  vTokenContract: VBep20 | VBnbToken;
+  vTokenContract: ContractTypeByName<'vToken'> | VBnbToken;
   accountAddress: string;
 }
 

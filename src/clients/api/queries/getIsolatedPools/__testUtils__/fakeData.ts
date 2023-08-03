@@ -3,9 +3,9 @@ import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/cont
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import { BigNumber as BN } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { PoolLens } from 'types/contracts';
 
 export const fakeGetAllPoolsOuput = [
   {
@@ -520,7 +520,7 @@ export const fakeGetAllPoolsOuput = [
       },
     ],
   },
-] as unknown as PoolLens.PoolDataStructOutput[];
+] as unknown as Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
 
 export const fakeMulticallResponse0 = {
   results: {
