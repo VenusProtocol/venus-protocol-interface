@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 
-import { VBep20, VBnbToken } from 'types/contracts';
+import { VBnbToken } from 'types/contracts';
 
 export interface BorrowInput {
-  vTokenContract: VBep20 | VBnbToken;
+  vTokenContract: ContractTypeByName<'vToken'> | VBnbToken;
   amountWei: BigNumber;
 }
 

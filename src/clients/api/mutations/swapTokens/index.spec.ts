@@ -1,3 +1,4 @@
+import { ContractTypeByName } from 'packages/contracts';
 import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -8,7 +9,6 @@ import {
   exactAmountOutSwap as fakeExactAmountOutSwap,
 } from '__mocks__/models/swaps';
 import { SWAP_TOKENS } from 'constants/tokens';
-import { SwapRouter } from 'types/contracts';
 
 import swapTokens from '.';
 
@@ -22,7 +22,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapExactTokensForTokens: swapExactTokensForTokensMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -56,7 +56,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapExactBNBForTokens: swapExactBNBForTokensMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -92,7 +92,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapExactTokensForBNB: swapExactTokensForBNBMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -120,7 +120,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapTokensForExactTokens: swapTokensForExactTokensMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -154,7 +154,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapBNBForExactTokens: swapBNBForExactTokensMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -190,7 +190,7 @@ describe('api/mutation/swapTokens', () => {
     const fakeContract = {
       swapTokensForExactBNB: swapTokensForExactBNBMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
