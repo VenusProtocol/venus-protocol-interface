@@ -1,13 +1,14 @@
 import { BigNumber as BN } from 'ethers';
-
-import { Comptroller } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 const comptrollerResponses: {
-  venusVAIVaultRate: Awaited<ReturnType<Comptroller['venusVAIVaultRate']>>;
-  getHypotheticalAccountLiquidity: Awaited<
-    ReturnType<Comptroller['getHypotheticalAccountLiquidity']>
+  venusVAIVaultRate: Awaited<
+    ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusVAIVaultRate']>
   >;
-  mintedVAIs: Awaited<ReturnType<Comptroller['mintedVAIs']>>;
+  getHypotheticalAccountLiquidity: Awaited<
+    ReturnType<ContractTypeByName<'mainPoolComptroller'>['getHypotheticalAccountLiquidity']>
+  >;
+  mintedVAIs: Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['mintedVAIs']>>;
 } = {
   venusVAIVaultRate: BN.from('5000000000'),
   getHypotheticalAccountLiquidity: [

@@ -1,9 +1,9 @@
-import { VenusLens } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetVTokenBalancesAllInput {
   account: string;
   vTokenAddresses: string[];
-  venusLensContract?: VenusLens;
+  venusLensContract?: ContractTypeByName<'venusLens'>;
 }
 
 interface Balance {

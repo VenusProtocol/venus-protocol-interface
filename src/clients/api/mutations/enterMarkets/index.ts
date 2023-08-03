@@ -1,10 +1,9 @@
 import { checkForComptrollerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-
-import { Comptroller } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface EnterMarketsInput {
-  comptrollerContract: Comptroller;
+  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
   vTokenAddresses: string[];
 }
 

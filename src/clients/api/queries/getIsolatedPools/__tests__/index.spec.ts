@@ -1,10 +1,10 @@
 import { ContractCallContext, Multicall } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { PoolLens } from 'types/contracts';
 
 import getIsolatedPools from '..';
 import {
@@ -19,7 +19,7 @@ vi.mock('clients/subgraph');
 
 const fakePoolLensContract = {
   getAllPools: async () => fakeGetAllPoolsOuput,
-} as unknown as PoolLens;
+} as unknown as ContractTypeByName<'poolLens'>;
 
 const fakeMulticall = {
   call: (context: ContractCallContext | ContractCallContext[]) => {

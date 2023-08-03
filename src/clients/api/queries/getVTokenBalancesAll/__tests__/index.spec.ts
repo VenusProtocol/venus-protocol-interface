@@ -1,7 +1,7 @@
 import { BigNumber as BN } from 'ethers';
 
 import fakeAddress from '__mocks__/models/address';
-import { VenusLens } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getVTokenBalancesAll from '..';
 
@@ -22,7 +22,7 @@ describe('api/queries/getVTokenBalancesAll', () => {
       callStatic: {
         vTokenBalancesAll: vTokenBalancesAllCallMock,
       },
-    } as unknown as VenusLens;
+    } as unknown as ContractTypeByName<'venusLens'>;
 
     const response = await getVTokenBalancesAll({
       venusLensContract: fakeContract,

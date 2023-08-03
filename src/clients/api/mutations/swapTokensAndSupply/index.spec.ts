@@ -1,3 +1,4 @@
+import { ContractTypeByName } from 'packages/contracts';
 import { ExactAmountInSwap } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
@@ -5,7 +6,6 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
 import { exactAmountInSwap as fakeExactAmountInSwap } from '__mocks__/models/swaps';
 import { SWAP_TOKENS } from 'constants/tokens';
-import { SwapRouter } from 'types/contracts';
 
 import swapTokens from '.';
 
@@ -21,7 +21,7 @@ describe('api/mutation/swapTokensAndSupply', () => {
     const fakeContract = {
       swapExactTokensForTokensAndSupply: swapExactTokensForTokensAndSupplyMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,
@@ -56,7 +56,7 @@ describe('api/mutation/swapTokensAndSupply', () => {
     const fakeContract = {
       swapExactBNBForTokensAndSupply: swapExactBNBForTokensAndSupplyMock,
       signer: fakeSigner,
-    } as unknown as SwapRouter;
+    } as unknown as ContractTypeByName<'swapRouter'>;
 
     await swapTokens({
       swapRouterContract: fakeContract,

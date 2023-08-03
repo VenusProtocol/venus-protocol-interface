@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
 import { getVTokenContract } from 'clients/contracts';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
-import { VBep20, VBnbToken } from 'types/contracts';
+import { VBnbToken } from 'types/contracts';
 
 import supply from '.';
 
@@ -23,7 +24,7 @@ describe('api/mutation/supply', () => {
 
       const fakeVTokenContract = {
         mint: mintMock,
-      } as unknown as VBep20;
+      } as unknown as ContractTypeByName<'vToken'>;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 

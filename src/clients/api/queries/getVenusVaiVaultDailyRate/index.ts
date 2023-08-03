@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { Comptroller } from 'types/contracts';
 
 export interface GetVenusVaiVaultDailyRateInput {
-  comptrollerContract: Comptroller;
+  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
 }
 
 export type GetVenusVaiVaultDailyRateOutput = {
