@@ -1,14 +1,14 @@
 import type { Provider } from '@wagmi/core';
 import { ContractCallReturnContext, Multicall } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import { Pool } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { PoolLens } from 'types/contracts';
 
 import { GetTokenBalancesOutput } from '../getTokenBalances';
 
 export interface FormatToPoolInput {
-  poolsResults: PoolLens.PoolDataStructOutput[];
+  poolsResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
   resilientOracleResult: ContractCallReturnContext;
@@ -22,7 +22,7 @@ export type FormatToPoolsOutput = Pool[];
 
 export interface GetIsolatedPoolsInput {
   multicall: Multicall;
-  poolLensContract: PoolLens;
+  poolLensContract: ContractTypeByName<'poolLens'>;
   provider: Provider;
   accountAddress?: string;
 }

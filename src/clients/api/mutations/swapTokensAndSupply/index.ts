@@ -1,12 +1,11 @@
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 import { Swap, VToken } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 
-import { SwapRouter } from 'types/contracts';
-
 export interface SwapTokensAndSupplyInput {
-  swapRouterContract: SwapRouter;
+  swapRouterContract: ContractTypeByName<'swapRouter'>;
   swap: Swap;
   vToken: VToken;
 }
