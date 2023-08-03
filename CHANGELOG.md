@@ -1,3 +1,15 @@
+## [2.9.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.8.1...v2.9.0) (2023-08-03)
+
+
+### Features
+
+* make the dApp resilient to the subgraph being down ([7956b20](https://github.com/VenusProtocol/venus-protocol-interface/commit/7956b204f582740fe395b6a039512c7b6fe6599f))
+
+
+### Bug Fixes
+
+* invalidate correct queries after repaying VAI loan ([2238ff3](https://github.com/VenusProtocol/venus-protocol-interface/commit/2238ff3480ff7eed7cb8316ea52742d24fd2cdd9))
+
 ## [2.8.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.8.0...v2.8.1) (2023-08-03)
 
 ## [2.8.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.7.3...v2.8.0) (2023-08-02)
