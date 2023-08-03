@@ -1,9 +1,8 @@
 import { BigNumber as BN } from 'ethers';
-
-import { GovernorBravoDelegate } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 const governorBravoDelegateResponses: {
-  proposals: Awaited<ReturnType<GovernorBravoDelegate['proposals']>>;
+  proposals: Awaited<ReturnType<ContractTypeByName<'governorBravoDelegate'>['proposals']>>;
 } = {
   proposals: {
     abstainVotes: BN.from('100000000000000000000000'),
@@ -17,7 +16,7 @@ const governorBravoDelegateResponses: {
     proposer: '0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D',
     startBlock: BN.from('20881594'),
     proposalType: 0,
-  } as Awaited<ReturnType<GovernorBravoDelegate['proposals']>>,
+  } as Awaited<ReturnType<ContractTypeByName<'governorBravoDelegate'>['proposals']>>,
 };
 
 export default governorBravoDelegateResponses;

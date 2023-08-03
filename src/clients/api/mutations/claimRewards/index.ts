@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ContractTypeByName, genericContractInfos, uniqueContractInfos } from 'packages/contracts';
+import { ContractTypeByName, contractInfos } from 'packages/contracts';
 
 import {
   checkForComptrollerTransactionError,
@@ -26,7 +26,7 @@ const claimRewards = async ({
     claim => {
       if (claim.contract === 'mainPoolComptroller') {
         const executingInterface = new ethers.utils.Interface(
-          JSON.stringify(uniqueContractInfos.mainPoolComptroller.abi),
+          JSON.stringify(contractInfos.mainPoolComptroller.abi),
         );
         const callData = executingInterface.encodeFunctionData('claimVenus(address,address[])', [
           accountAddress,
@@ -41,7 +41,7 @@ const claimRewards = async ({
 
       if (claim.contract === 'vaiVault') {
         const executingInterface = new ethers.utils.Interface(
-          JSON.stringify(uniqueContractInfos.vaiVault.abi),
+          JSON.stringify(contractInfos.vaiVault.abi),
         );
 
         const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
@@ -54,7 +54,7 @@ const claimRewards = async ({
 
       if (claim.contract === 'xvsVestingVault') {
         const executingInterface = new ethers.utils.Interface(
-          JSON.stringify(uniqueContractInfos.xvsVault.abi),
+          JSON.stringify(contractInfos.xvsVault.abi),
         );
 
         const callData = executingInterface.encodeFunctionData('claim(address,address,uint256)', [
@@ -71,7 +71,7 @@ const claimRewards = async ({
 
       // rewardsDistributor
       const executingInterface = new ethers.utils.Interface(
-        JSON.stringify(genericContractInfos.rewardsDistributor.abi),
+        JSON.stringify(contractInfos.rewardsDistributor.abi),
       );
 
       const callData = executingInterface.encodeFunctionData(

@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
 
-import { XvsVault } from 'types/contracts';
-
 export interface StakeInXvsVaultInput {
-  xvsVaultContract: XvsVault;
+  xvsVaultContract: ContractTypeByName<'xvsVault'>;
   rewardToken: Token;
   amountWei: BigNumber;
   poolIndex: number;

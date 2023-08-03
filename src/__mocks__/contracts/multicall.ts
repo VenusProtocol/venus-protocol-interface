@@ -1,12 +1,5 @@
-import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { ContractCallResults } from 'ethereum-multicall';
-
-import bep20Abi from 'constants/contracts/abis/bep20.json';
-import interestModelAbi from 'constants/contracts/abis/interestModel.json';
-import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
-import poolLensAbi from 'constants/contracts/abis/poolLens.json';
-import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
+import { contractInfos } from 'packages/contracts';
 
 const pancakeSwapRouter: {
   [key: string]: ContractCallResults;
@@ -17,7 +10,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503',
           contractAddress: '0xd7F82e3BBeBdba3A7524a05B3fBd65aAC03D8503',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -51,7 +44,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
           contractAddress: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -85,7 +78,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0x99BD785146aed59e179E839b01e57e7031f48a01',
           contractAddress: '0x99BD785146aed59e179E839b01e57e7031f48a01',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -119,7 +112,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07',
           contractAddress: '0xc01e65D6aB40c7d9fFD6be7829A479379D9ABB07',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -153,7 +146,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0x547C884cA56fb9e442ea05fEE73e6f21caEa933A',
           contractAddress: '0x547C884cA56fb9e442ea05fEE73e6f21caEa933A',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -187,7 +180,7 @@ const pancakeSwapRouter: {
         originalContractCallContext: {
           reference: '0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c',
           contractAddress: '0x2da36ed63C8DBC76Fb12B6BdF71D399A07586f1c',
-          abi: pancakeSwapPairAbi,
+          abi: contractInfos.pancakePairV2.abi,
           calls: [
             {
               reference: 'getReserves',
@@ -231,7 +224,7 @@ const interestRateModel: {
         originalContractCallContext: {
           reference: 'getVTokenRates',
           contractAddress: '0xa166Ca91a570747708a318A771F0C9AB84DD984b',
-          abi: interestModelAbi,
+          abi: contractInfos.interestRateModel.abi,
           calls: [
             {
               reference: 'getBorrowRate',
@@ -3852,7 +3845,7 @@ const bep20: {
         originalContractCallContext: {
           reference: '0xFa60D973F7642B748046464e165A65B7323b0DEE',
           contractAddress: '0xFa60D973F7642B748046464e165A65B7323b0DEE',
-          abi: bep20Abi,
+          abi: contractInfos.bep20.abi,
           calls: [
             {
               reference: 'balanceOf',
@@ -3881,7 +3874,7 @@ const bep20: {
         originalContractCallContext: {
           reference: '0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814',
           contractAddress: '0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814',
-          abi: bep20Abi,
+          abi: contractInfos.bep20.abi,
           calls: [
             {
               reference: 'balanceOf',
@@ -3910,7 +3903,7 @@ const bep20: {
         originalContractCallContext: {
           reference: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
           contractAddress: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
-          abi: bep20Abi,
+          abi: contractInfos.bep20.abi,
           calls: [
             {
               reference: 'balanceOf',
@@ -3949,7 +3942,7 @@ export const lenses: {
         originalContractCallContext: {
           reference: 'venusLens',
           contractAddress: '0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3',
-          abi: venusLensAbi,
+          abi: contractInfos.venusLens.abi,
           calls: [
             {
               reference: 'pendingRewards',
@@ -4128,7 +4121,7 @@ export const lenses: {
         originalContractCallContext: {
           reference: 'vaiVault',
           contractAddress: '0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118',
-          abi: vaiVaultAbi,
+          abi: contractInfos.vaiVault.abi,
           calls: [
             {
               reference: 'pendingXVS',
@@ -4157,7 +4150,7 @@ export const lenses: {
         originalContractCallContext: {
           reference: 'xvsVestingVaults',
           contractAddress: '0x9aB56bAD2D7631B2A857ccf36d998232A8b82280',
-          abi: xvsVaultAbi,
+          abi: contractInfos.xvsVault.abi,
           calls: [
             {
               reference: 'vault-0-poolInfos',
@@ -4334,7 +4327,7 @@ export const lenses: {
         originalContractCallContext: {
           reference: 'poolLens',
           contractAddress: '0x90fAa4B139bb5Cba016d9d1D343981541A0C5251',
-          abi: poolLensAbi,
+          abi: contractInfos.poolLens.abi,
           calls: [
             {
               reference: 'getPendingRewards',

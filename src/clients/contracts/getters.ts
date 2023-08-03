@@ -1,35 +1,17 @@
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
+import { ContractTypeByName, contractInfos } from 'packages/contracts';
 import { Token, VToken } from 'types';
 import { areTokensEqual, getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
-import bep20Abi from 'constants/contracts/abis/bep20.json';
-import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
-import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDelegate.json';
-import maximillionAbi from 'constants/contracts/abis/maximillion.json';
-import swapRouterAbi from 'constants/contracts/abis/swapRouter.json';
-import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
-import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
-import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
 import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
-import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import { TOKENS } from 'constants/tokens';
-import {
-  Comptroller,
-  GovernorBravoDelegate,
-  Maximillion,
-  PoolLens,
-  SwapRouter,
-  VaiVault,
-  VrtConverter,
-  XvsVault,
-  XvsVaultStore,
-} from 'types/contracts';
+import { XvsVaultStore } from 'types/contracts';
 
 import { TokenContract, VTokenContract } from './types';
 
@@ -72,10 +54,10 @@ export const getTokenContract = (token: Token, signer?: Signer) => {
   }
 
   return getContract({
-    abi: bep20Abi,
+    abi: contractInfos.bep20.abi,
     address: token.address,
     signer,
-  }) as TokenContract;
+  }) as ContractTypeByName<'bep20'>;
 };
 
 export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
@@ -88,7 +70,7 @@ export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   }
 
   return getContract({
-    abi: vBep20Abi,
+    abi: contractInfos.vToken.abi,
     address: vToken.address,
     signer,
   }) as VTokenContract;
@@ -96,62 +78,62 @@ export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
 
 export const getVaiVaultContract = (signer?: Signer) =>
   getContract({
-    abi: vaiVaultAbi,
+    abi: contractInfos.vaiVault.abi,
     address: getContractAddress('vaiVault'),
     signer,
-  }) as VaiVault;
+  }) as ContractTypeByName<'vaiVault'>;
 
 export const getXvsVaultProxyContract = (signer?: Signer) =>
   getContract({
-    abi: xvsVaultAbi,
+    abi: contractInfos.xvsVault.abi,
     address: getContractAddress('xvsVaultProxy'),
     signer,
-  }) as XvsVault;
+  }) as ContractTypeByName<'xvsVault'>;
 
 export const getXvsVaultStoreContract = (signer?: Signer) =>
   getContract({
     abi: xvsVaultStoreAbi,
     address: getContractAddress('xvsVaultStore'),
     signer,
-  }) as XvsVaultStore;
+  }) as XvsVaultStore; // TODO: get type from package
 
 export const getComptrollerContract = (address: string, signer?: Signer) =>
   getContract({
-    abi: comptrollerAbi,
+    abi: contractInfos.mainPoolComptroller.abi,
     address,
     signer,
-  }) as Comptroller;
+  }) as ContractTypeByName<'mainPoolComptroller'>;
 
 export const getGovernorBravoDelegateContract = (signer?: Signer) =>
   getContract({
-    abi: governorBravoDelegateAbi,
-    address: getContractAddress('governorBravoDelegator'),
+    abi: contractInfos.governorBravoDelegate.abi,
+    address: getContractAddress('governorBravoDelegate'),
     signer,
-  }) as GovernorBravoDelegate;
+  }) as ContractTypeByName<'governorBravoDelegate'>;
 
 export const getMaximillionContract = (signer?: Signer) =>
   getContract({
-    abi: maximillionAbi,
+    abi: contractInfos.maximillion.abi,
     address: getContractAddress('maximillion'),
     signer,
-  }) as Maximillion;
+  }) as ContractTypeByName<'maximillion'>;
 
 export const getVrtConverterProxyContract = (signer?: Signer) =>
   getContract({
-    abi: vrtConverterAbi,
+    abi: contractInfos.vrtConverter.abi,
     address: getContractAddress('vrtConverterProxy'),
     signer,
-  }) as VrtConverter;
+  }) as ContractTypeByName<'vrtConverter'>;
 
 // Swap router
 export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: Signer) => {
   const swapRouterAddress = getSwapRouterContractAddress(poolComptrollerAddress);
 
   return getContract({
-    abi: swapRouterAbi,
+    abi: contractInfos.swapRouter.abi,
     address: swapRouterAddress,
     signer,
-  }) as SwapRouter;
+  }) as ContractTypeByName<'swapRouter'>;
 };
 
 export const getPoolLensContract = (signer?: Signer) =>
@@ -159,4 +141,4 @@ export const getPoolLensContract = (signer?: Signer) =>
     abi: poolLensAbi,
     address: getContractAddress('PoolLens'),
     signer,
-  }) as PoolLens;
+  }) as ContractTypeByName<'poolLens'>;
