@@ -75,3 +75,31 @@ export const getMaximillionContract = (signer?: Signer) =>
     address: getContractAddress('maximillion'),
     signer,
   }) as ContractTypeByName<'maximillion'>;
+<<<<<<< HEAD
+=======
+
+export const getVrtConverterProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.vrtConverter.abi,
+    address: getContractAddress('vrtConverterProxy'),
+    signer,
+  }) as ContractTypeByName<'vrtConverter'>;
+
+// Swap router
+export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: Signer) => {
+  const swapRouterAddress = getSwapRouterContractAddress(poolComptrollerAddress);
+
+  return getContract({
+    abi: contractInfos.swapRouter.abi,
+    address: swapRouterAddress,
+    signer,
+  }) as ContractTypeByName<'swapRouter'>;
+};
+
+export const getPoolLensContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.poolLens.abi,
+    address: getContractAddress('PoolLens'),
+    signer,
+  }) as ContractTypeByName<'poolLens'>;
+>>>>>>> d56f71952 (refactor: remove unused ABIs + add contracts)
