@@ -2,10 +2,9 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
-import { VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export interface ApproveTokenInput {
-  tokenContract: ContractTypeByName<'bep20'> | VaiToken | VrtToken | XvsToken;
+  tokenContract: ContractTypeByName<'vai' | 'bep20' | 'vrt' | 'xvs'>;
   spenderAddress: string;
   allowance?: string;
 }

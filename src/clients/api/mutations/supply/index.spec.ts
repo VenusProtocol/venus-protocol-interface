@@ -6,7 +6,6 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
 import { getVTokenContract } from 'clients/contracts';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
-import { VBnbToken } from 'types/contracts';
 
 import supply from '.';
 
@@ -54,7 +53,7 @@ describe('api/mutation/supply', () => {
 
       const fakeVTokenContract = {
         mint: mintMock,
-      } as unknown as VBnbToken;
+      } as unknown as ContractTypeByName<'vBnb'>;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 

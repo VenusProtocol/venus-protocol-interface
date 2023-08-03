@@ -3,10 +3,8 @@ import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { VBnbToken } from 'types/contracts';
-
 export interface RedeemUnderlyingInput {
-  vTokenContract: ContractTypeByName<'vToken'> | VBnbToken;
+  vTokenContract: ContractTypeByName<'vToken' | 'vBnb'>;
   amountWei: BigNumber;
 }
 

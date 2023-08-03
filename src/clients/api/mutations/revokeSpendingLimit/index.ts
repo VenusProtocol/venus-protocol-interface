@@ -1,10 +1,8 @@
 import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { VaiToken, VrtToken, XvsToken } from 'types/contracts';
-
 export interface RevokeSpendingLimitInput {
-  tokenContract: ContractTypeByName<'bep20'> | VaiToken | VrtToken | XvsToken;
+  tokenContract: ContractTypeByName<'vai' | 'bep20' | 'vrt' | 'xvs'>;
   spenderAddress: string;
 }
 

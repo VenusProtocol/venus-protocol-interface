@@ -5,12 +5,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
   {
     "abi": [
       {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor",
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -41,25 +35,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
           {
             "indexed": true,
             "internalType": "address",
-            "name": "previousOwner",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
             "name": "from",
             "type": "address",
           },
@@ -81,55 +56,10 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       },
       {
         "constant": true,
-        "inputs": [],
-        "name": "_decimals",
-        "outputs": [
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_name",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_symbol",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
         "inputs": [
           {
             "internalType": "address",
-            "name": "owner",
+            "name": "_owner",
             "type": "address",
           },
           {
@@ -198,27 +128,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "burn",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "decimals",
@@ -231,32 +140,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "subtractedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -275,53 +158,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "addedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "increaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "mint",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "name",
@@ -334,30 +170,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -443,21 +255,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
             "type": "bool",
           },
         ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
@@ -478,12 +275,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
   {
     "abi": [
       {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor",
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -514,25 +305,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
           {
             "indexed": true,
             "internalType": "address",
-            "name": "previousOwner",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
             "name": "from",
             "type": "address",
           },
@@ -554,55 +326,10 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       },
       {
         "constant": true,
-        "inputs": [],
-        "name": "_decimals",
-        "outputs": [
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_name",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_symbol",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
         "inputs": [
           {
             "internalType": "address",
-            "name": "owner",
+            "name": "_owner",
             "type": "address",
           },
           {
@@ -671,27 +398,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "burn",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "decimals",
@@ -704,32 +410,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "subtractedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -748,53 +428,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "addedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "increaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "mint",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "name",
@@ -807,30 +440,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -916,21 +525,6 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
             "type": "bool",
           },
         ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
@@ -962,12 +556,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
   {
     "abi": [
       {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor",
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -998,25 +586,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
           {
             "indexed": true,
             "internalType": "address",
-            "name": "previousOwner",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
             "name": "from",
             "type": "address",
           },
@@ -1038,55 +607,10 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       },
       {
         "constant": true,
-        "inputs": [],
-        "name": "_decimals",
-        "outputs": [
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_name",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_symbol",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
         "inputs": [
           {
             "internalType": "address",
-            "name": "owner",
+            "name": "_owner",
             "type": "address",
           },
           {
@@ -1155,27 +679,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "burn",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "decimals",
@@ -1188,32 +691,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "subtractedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1232,53 +709,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "addedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "increaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "mint",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "name",
@@ -1291,30 +721,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1400,21 +806,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
             "type": "bool",
           },
         ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
@@ -1435,12 +826,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
   {
     "abi": [
       {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor",
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -1471,25 +856,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
           {
             "indexed": true,
             "internalType": "address",
-            "name": "previousOwner",
-            "type": "address",
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event",
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
             "name": "from",
             "type": "address",
           },
@@ -1511,55 +877,10 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       },
       {
         "constant": true,
-        "inputs": [],
-        "name": "_decimals",
-        "outputs": [
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_name",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "_symbol",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
         "inputs": [
           {
             "internalType": "address",
-            "name": "owner",
+            "name": "_owner",
             "type": "address",
           },
           {
@@ -1628,27 +949,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "burn",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "decimals",
@@ -1661,32 +961,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "subtractedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1705,53 +979,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         "type": "function",
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address",
-          },
-          {
-            "internalType": "uint256",
-            "name": "addedValue",
-            "type": "uint256",
-          },
-        ],
-        "name": "increaseAllowance",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256",
-          },
-        ],
-        "name": "mint",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
         "constant": true,
         "inputs": [],
         "name": "name",
@@ -1764,30 +991,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address",
-          },
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function",
       },
       {
@@ -1873,21 +1076,6 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
             "type": "bool",
           },
         ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address",
-          },
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",

@@ -12,6 +12,7 @@ import { abi as vaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts
 import { abi as vrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
 import { abi as xvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVSVesting.sol/XVSVesting.json';
 import { abi as vaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Vault/VAIVault.sol/VAIVault.json';
+import { abi as xvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
 import { abi as xvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
@@ -26,6 +27,7 @@ import {
   VAIVault,
   VRTConverter,
   VenusLens,
+  XVSStore,
   XVSVault,
 } from '../types/contracts/venusProtocol';
 import { XVSVesting } from '../types/contracts/xvsVesting';
@@ -89,6 +91,14 @@ const xvsVault: UniqueContractInfo = {
   },
 };
 
+const xvsStore: UniqueContractInfo = {
+  abi: xvsStoreAbi,
+  address: {
+    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.XVSStore,
+    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.XVSStore,
+  },
+};
+
 const governorBravoDelegate: UniqueContractInfo = {
   abi: governorBravoDelegateAbi,
   address: {
@@ -144,6 +154,7 @@ const uniqueContractInfos = {
   vaiController,
   vaiVault,
   xvsVault,
+  xvsStore,
   xvsVesting,
   governorBravoDelegate,
   vrtConverter,
@@ -161,6 +172,7 @@ export type UniqueContractTypes = {
   vaiController: VAIController;
   vaiVault: VAIVault;
   xvsVault: XVSVault;
+  xvsStore: XVSStore;
   xvsVesting: XVSVesting;
   governorBravoDelegate: GovernorBravoDelegate;
   vrtConverter: VRTConverter;
