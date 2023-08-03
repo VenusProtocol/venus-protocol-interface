@@ -69,6 +69,44 @@ export const getVTokenContract = (vToken: VToken, signer?: Signer) => {
   }) as VTokenContract;
 };
 
+<<<<<<< HEAD
+=======
+export const getVaiVaultContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.vaiVault.abi,
+    address: getContractAddress('vaiVault'),
+    signer,
+  }) as ContractTypeByName<'vaiVault'>;
+
+export const getXvsVaultProxyContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.xvsVault.abi,
+    address: getContractAddress('xvsVaultProxy'),
+    signer,
+  }) as ContractTypeByName<'xvsVault'>;
+
+export const getXvsVaultStoreContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.xvsStore.abi,
+    address: getContractAddress('xvsVaultStore'),
+    signer,
+  }) as ContractTypeByName<'xvsStore'>;
+
+export const getComptrollerContract = (address: string, signer?: Signer) =>
+  getContract({
+    abi: contractInfos.mainPoolComptroller.abi,
+    address,
+    signer,
+  }) as ContractTypeByName<'mainPoolComptroller'>;
+
+export const getGovernorBravoDelegateContract = (signer?: Signer) =>
+  getContract({
+    abi: contractInfos.governorBravoDelegate.abi,
+    address: getContractAddress('governorBravoDelegate'),
+    signer,
+  }) as ContractTypeByName<'governorBravoDelegate'>;
+
+>>>>>>> bc4f3dc0d (refactor: remove ABIs in constants in favor of using contracts package)
 export const getMaximillionContract = (signer?: Signer) =>
   getContract({
     abi: contractInfos.maximillion.abi,
