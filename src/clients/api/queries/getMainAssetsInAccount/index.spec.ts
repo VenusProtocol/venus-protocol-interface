@@ -1,6 +1,7 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
-import { Comptroller } from 'types/contracts';
 
 import getMainAssetsInAccount from '.';
 
@@ -12,7 +13,7 @@ describe('api/queries/getMainAssetsInAccount', () => {
 
     const fakeContract = {
       getAssetsIn: getAssetsInMock,
-    } as unknown as Comptroller;
+    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
 
     const response = await getMainAssetsInAccount({
       comptrollerContract: fakeContract,

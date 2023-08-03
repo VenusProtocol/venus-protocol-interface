@@ -1,3 +1,4 @@
+import { ContractTypeByName } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 
@@ -5,7 +6,6 @@ import { queryClient } from 'clients/api';
 import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import { VBep20 } from 'types/contracts';
 
 const useRedeem = (
   { vToken }: { vToken: VToken },
@@ -21,7 +21,7 @@ const useRedeem = (
     FunctionKey.REDEEM,
     params =>
       redeem({
-        tokenContract: tokenContract as VBep20,
+        tokenContract: tokenContract as ContractTypeByName<'vToken'>,
         ...params,
       }),
     {

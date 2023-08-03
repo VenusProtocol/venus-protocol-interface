@@ -1,6 +1,7 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { Bep20 } from 'types/contracts';
 
 import approveToken from '.';
 
@@ -13,7 +14,7 @@ describe('api/mutations/revokeSpendingLimit', () => {
 
     const fakeContract = {
       approve: approveTokenMock,
-    } as unknown as Bep20;
+    } as unknown as ContractTypeByName<'bep20'>;
 
     const response = await approveToken({
       tokenContract: fakeContract,

@@ -5,6 +5,7 @@ import { Token, VToken } from 'types';
 import { areTokensEqual, getContractAddress, getSwapRouterContractAddress } from 'utilities';
 
 import { chain, provider } from 'clients/web3';
+// TODO: add these to contracts package
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
 import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
