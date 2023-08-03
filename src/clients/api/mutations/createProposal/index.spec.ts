@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 import createProposal from '.';
 
@@ -18,7 +19,7 @@ describe('api/mutation/createProposal', () => {
 
     const fakeContract = {
       propose: createProposalMock,
-    } as unknown as GovernorBravoDelegate;
+    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await createProposal({
       governorBravoContract: fakeContract,

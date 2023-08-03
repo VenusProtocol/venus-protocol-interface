@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-
-import { VrtConverter } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface VrtConversionRatioInput {
-  vrtConverterContract: VrtConverter;
+  vrtConverterContract: ContractTypeByName<'vrtConverter'>;
 }
 
 export type GetVrtConversionRatioOutput = {

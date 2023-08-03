@@ -1,7 +1,7 @@
 import { BigNumber as BN } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 
 import { TOKENS } from 'constants/tokens';
-import { XvsVault } from 'types/contracts';
 
 import getXvsVaultPoolCount from '.';
 
@@ -15,7 +15,7 @@ describe('api/queries/getXvsVaultPoolCount', () => {
 
     const fakeContract = {
       poolLength: poolLengthMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultPoolCount({
       xvsVaultContract: fakeContract,

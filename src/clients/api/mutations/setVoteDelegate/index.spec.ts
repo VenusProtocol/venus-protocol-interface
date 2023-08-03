@@ -1,8 +1,8 @@
 import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { XvsVault } from 'types/contracts';
 
 import setVoteDelegate from '.';
 
@@ -17,7 +17,7 @@ describe('api/mutation/setVoteDelegate', () => {
 
     const fakeContract = {
       delegate: delegateMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await setVoteDelegate({
       xvsVaultContract: fakeContract,

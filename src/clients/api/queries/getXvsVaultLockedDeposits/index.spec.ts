@@ -1,7 +1,8 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
-import { XvsVault } from 'types/contracts';
 
 import getXvsVaultLockedDeposits from '.';
 
@@ -14,7 +15,7 @@ describe('api/queries/getXvsVaultLockedDeposits', () => {
 
     const fakeContract = {
       getWithdrawalRequests: getWithdrawalRequestsMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultLockedDeposits({
       xvsVaultContract: fakeContract,

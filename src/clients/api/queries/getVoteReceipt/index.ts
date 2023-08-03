@@ -1,10 +1,10 @@
+import { ContractTypeByName } from 'packages/contracts';
 import { VoteSupport } from 'types';
 
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface GetVoteReceiptInput {
-  governorBravoContract: GovernorBravoDelegate;
+  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
   accountAddress: string;
 }

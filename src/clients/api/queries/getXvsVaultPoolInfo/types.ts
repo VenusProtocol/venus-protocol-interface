@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-
-import { XvsVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetXvsVaultPoolInfoInput {
-  xvsVaultContract: XvsVault;
+  xvsVaultContract: ContractTypeByName<'xvsVault'>;
   rewardTokenAddress: string;
   poolIndex: number;
 }

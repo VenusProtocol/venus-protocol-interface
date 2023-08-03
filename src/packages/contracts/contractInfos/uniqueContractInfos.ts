@@ -3,7 +3,7 @@ import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/cont
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import { abi as mainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Comptroller.sol/Comptroller.json';
-import { abi as governorBravoDelegatorAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegator.sol/GovernorBravoDelegator.json';
+import { abi as governorBravoDelegateAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { abi as vaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
 import { abi as vrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
@@ -16,7 +16,7 @@ import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/netwo
 import { PoolLens } from '../types/contracts/isolatedPools';
 import { Maximillion, Multicall } from '../types/contracts/others';
 import {
-  GovernorBravoDelegator,
+  GovernorBravoDelegate,
   Comptroller as MainPoolComptroller,
   VAIController,
   VAIVault,
@@ -85,11 +85,11 @@ const xvsVault: UniqueContractInfo = {
   },
 };
 
-const governorBravoDelegator: UniqueContractInfo = {
-  abi: governorBravoDelegatorAbi,
+const governorBravoDelegate: UniqueContractInfo = {
+  abi: governorBravoDelegateAbi,
   address: {
-    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegator,
-    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.GovernorBravoDelegator,
+    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegate,
+    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.GovernorBravoDelegate,
   },
 };
 
@@ -133,7 +133,7 @@ const uniqueContractInfos = {
   vaiVault,
   xvsVault,
   xvsVesting,
-  governorBravoDelegator,
+  governorBravoDelegate,
   vrtConverter,
   maximillion,
   multicall,
@@ -149,7 +149,7 @@ export type UniqueContractTypes = {
   vaiVault: VAIVault;
   xvsVault: XVSVault;
   xvsVesting: XVSVesting;
-  governorBravoDelegator: GovernorBravoDelegator;
+  governorBravoDelegate: GovernorBravoDelegate;
   vrtConverter: VRTConverter;
   maximillion: Maximillion;
   multicall: Multicall;

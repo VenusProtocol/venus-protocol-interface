@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { VrtConverter } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getVrtConversionEndTime from '.';
 
@@ -11,7 +10,7 @@ describe('api/queries/getVrtConversionEndTime', () => {
 
     const fakeContract = {
       conversionEndTime: vrtConversionEndtimeMock,
-    } as unknown as VrtConverter;
+    } as unknown as ContractTypeByName<'vrtConverter'>;
 
     const response = await getVrtConversionEndTime({
       vrtConverterContract: fakeContract,

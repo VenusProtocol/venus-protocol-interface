@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { checkForXvsVaultProxyTransactionError } from 'errors';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { XvsVault } from 'types/contracts';
 
 import requestWithdrawalFromXvsVault from '.';
 
@@ -21,7 +21,7 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
 
     const fakeContract = {
       requestWithdrawal: requestWithdrawalMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await requestWithdrawalFromXvsVault({
       xvsVaultContract: fakeContract,

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-import { XvsVault } from 'types/contracts';
 
 import getXvsVaultPendingWithdrawalsFromBeforeUpgrade from '.';
 
@@ -15,7 +15,7 @@ describe('api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade', () => {
 
     const fakeContract = {
       pendingWithdrawalsBeforeUpgrade: pendingWithdrawalsBeforeUpgradeMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultPendingWithdrawalsFromBeforeUpgrade({
       xvsVaultContract: fakeContract,
