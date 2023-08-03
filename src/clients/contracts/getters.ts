@@ -1,4 +1,3 @@
-import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { Contract, ContractInterface, Signer } from 'ethers';
 import { ContractTypeByName, contractInfos } from 'packages/contracts';
 import { Token, VToken } from 'types';
@@ -139,7 +138,7 @@ export const getSwapRouterContract = (poolComptrollerAddress: string, signer?: S
 
 export const getPoolLensContract = (signer?: Signer) =>
   getContract({
-    abi: poolLensAbi,
+    abi: contractInfos.poolLens.abi,
     address: getContractAddress('PoolLens'),
     signer,
   }) as ContractTypeByName<'poolLens'>;
