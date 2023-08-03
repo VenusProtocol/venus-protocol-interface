@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 import castVoteWithReason from './castVoteWithReason';
 
@@ -12,7 +13,7 @@ describe('api/mutation/castVoteWithReason', () => {
 
     const fakeContract = {
       castVoteWithReason: castVoteWithReasonMock,
-    } as unknown as GovernorBravoDelegate;
+    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await castVoteWithReason({
       governorBravoContract: fakeContract,

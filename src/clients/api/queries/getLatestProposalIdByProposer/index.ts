@@ -1,7 +1,7 @@
-import { GovernorBravoDelegate } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetLatestProposalIdByProposerInput {
-  governorBravoContract: GovernorBravoDelegate;
+  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
   accountAddress: string;
 }
 

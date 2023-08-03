@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-
-import { VaiVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetVaiVaultUserInfoInput {
-  vaiVaultContract: VaiVault;
+  vaiVaultContract: ContractTypeByName<'vaiVault'>;
   accountAddress: string;
 }
 

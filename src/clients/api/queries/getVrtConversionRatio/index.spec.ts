@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-
-import { VrtConverter } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getVrtConversionRatio from '.';
 
@@ -13,7 +12,7 @@ describe('api/queries/getVrtConversionRatio', () => {
 
     const fakeContract = {
       conversionRatio: vrtConversionRatioMock,
-    } as unknown as VrtConverter;
+    } as unknown as ContractTypeByName<'vrtConverter'>;
 
     const response = await getVrtConversionRatio({
       vrtConverterContract: fakeContract,

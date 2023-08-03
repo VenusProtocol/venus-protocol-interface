@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-
-import { VaiVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface StakeInVaiVaultInput {
-  vaiVaultContract: VaiVault;
+  vaiVaultContract: ContractTypeByName<'vaiVault'>;
   amountWei: BigNumber;
 }
 

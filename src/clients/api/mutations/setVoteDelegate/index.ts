@@ -1,10 +1,9 @@
 import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-
-import { XvsVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 export interface SetVoteDelegateInput {
-  xvsVaultContract: XvsVault;
+  xvsVaultContract: ContractTypeByName<'xvsVault'>;
   delegateAddress: string;
 }
 

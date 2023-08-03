@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { XvsVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import getXvsVaultTotalAllocationPoints from '.';
 
@@ -14,7 +13,7 @@ describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
 
     const fakeContract = {
       totalAllocPoints: totalAllocPointsMock,
-    } as unknown as XvsVault;
+    } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultTotalAllocationPoints({
       xvsVaultContract: fakeContract,

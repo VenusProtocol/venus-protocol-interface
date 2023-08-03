@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { VaiVault } from 'types/contracts';
 
 import stakeInVaiVault from '.';
 
@@ -19,7 +19,7 @@ describe('api/mutation/stakeInVaiVault', () => {
 
     const fakeContract = {
       deposit: depositMock,
-    } as unknown as VaiVault;
+    } as unknown as ContractTypeByName<'vaiVault'>;
 
     const response = await stakeInVaiVault({
       vaiVaultContract: fakeContract,

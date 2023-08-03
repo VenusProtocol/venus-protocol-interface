@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-
-import { XvsVault } from 'types/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 
 import { GetXvsVaultUserInfoOutput } from './types';
 
@@ -8,7 +7,9 @@ const formatToUserInfo = ({
   amount,
   pendingWithdrawals,
   rewardDebt,
-}: Awaited<ReturnType<XvsVault['getUserInfo']>>): GetXvsVaultUserInfoOutput => ({
+}: Awaited<
+  ReturnType<ContractTypeByName<'xvsVault'>['getUserInfo']>
+>): GetXvsVaultUserInfoOutput => ({
   stakedAmountWei: new BigNumber(amount.toString()),
   pendingWithdrawalsTotalAmountWei: new BigNumber(pendingWithdrawals.toString()),
   rewardDebtAmountWei: new BigNumber(rewardDebt.toString()),

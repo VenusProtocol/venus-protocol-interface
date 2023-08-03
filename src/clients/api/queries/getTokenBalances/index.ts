@@ -1,9 +1,9 @@
 import type { Provider } from '@wagmi/core';
 import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallReturnContext, Multicall } from 'ethereum-multicall';
+import { contractInfos } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 
-import bep20Abi from 'constants/contracts/abis/bep20.json';
 import { TOKENS } from 'constants/tokens';
 
 import getBalanceOf from '../getBalanceOf';
@@ -39,7 +39,7 @@ const getTokenBalances = async ({
     const contractCallContext: ContractCallContext = {
       reference: token.address,
       contractAddress: token.address,
-      abi: bep20Abi,
+      abi: contractInfos.bep20.abi,
       calls: [
         {
           reference: 'balanceOf',

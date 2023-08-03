@@ -1,5 +1,6 @@
+import { ContractTypeByName } from 'packages/contracts';
+
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { GovernorBravoDelegate } from 'types/contracts';
 
 import cancelProposal from '.';
 
@@ -12,7 +13,7 @@ describe('api/mutation/cancelProposal', () => {
 
     const fakeContract = {
       cancel: cancelProposalMock,
-    } as unknown as GovernorBravoDelegate;
+    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const fakeProposalId = 3816;
 
