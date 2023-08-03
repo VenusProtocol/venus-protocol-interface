@@ -224,7 +224,7 @@ const interestRateModel: {
         originalContractCallContext: {
           reference: 'getVTokenRates',
           contractAddress: '0xa166Ca91a570747708a318A771F0C9AB84DD984b',
-          abi: contractInfos.interestRateModel.abi,
+          abi: contractInfos.jumpRateModel.abi,
           calls: [
             {
               reference: 'getBorrowRate',
