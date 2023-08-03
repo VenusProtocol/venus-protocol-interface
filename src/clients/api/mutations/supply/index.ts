@@ -4,7 +4,6 @@ import { ContractTypeByName } from 'packages/contracts';
 import { VToken } from 'types';
 
 import { getVTokenContract } from 'clients/contracts';
-import { VBnbToken } from 'types/contracts';
 
 export interface SupplyInput {
   vToken: VToken;
@@ -17,7 +16,7 @@ export type SupplyOutput = ContractReceipt;
 const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<SupplyOutput> => {
   // Handle supplying BNB
   if (vToken.underlyingToken.isNative) {
-    const tokenContract = getVTokenContract(vToken, signer) as VBnbToken;
+    const tokenContract = getVTokenContract(vToken, signer) as ContractTypeByName<'vBnb'>;
 
     const transaction = await tokenContract.mint({
       value: amountWei.toFixed(),

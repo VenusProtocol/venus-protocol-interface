@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { VaiToken, VrtToken, XvsToken } from 'types/contracts';
-
 export interface GetAllowanceInput {
-  tokenContract: VrtToken | XvsToken | ContractTypeByName<'bep20'> | VaiToken;
+  tokenContract: ContractTypeByName<'vai' | 'bep20' | 'vrt' | 'xvs'>;
   accountAddress: string;
   spenderAddress: string;
 }

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeSigner from '__mocks__/models/signer';
-import { VrtToken } from 'types/contracts';
 
 import getAllowance from '.';
 
@@ -18,7 +18,7 @@ describe('api/queries/getAllowance', () => {
     const fakeContract = {
       allowance: vrtAllowanceMock,
       signer: fakeSigner,
-    } as unknown as VrtToken;
+    } as unknown as ContractTypeByName<'vrt'>;
 
     const response = await getAllowance({
       tokenContract: fakeContract,

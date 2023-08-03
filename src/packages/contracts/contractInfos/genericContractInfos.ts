@@ -4,6 +4,10 @@ import { abi as jumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifac
 import { abi as rewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { abi as vTokenAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
 import { abi as jumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
+import { abi as bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
+import { abi as vaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
+import { abi as vrtAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRT.sol/VRT.json';
+import { abi as xvsAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVS.sol/XVS.json';
 
 import {
   Comptroller as IsolatedPoolComptroller,
@@ -11,11 +15,11 @@ import {
   RewardsDistributor,
   VToken,
 } from '../types/contracts/isolatedPools';
-import { Bep20, PancakePairV2 } from '../types/contracts/others';
-import { JumpRateModel } from '../types/contracts/venusProtocol';
+import { PancakePairV2, VBnb } from '../types/contracts/others';
+import { BEP20, JumpRateModel, VAI, VRT, XVS } from '../types/contracts/venusProtocol';
 
-import bep20Abi from './externalAbis/bep20.json';
 import pancakePairV2Abi from './externalAbis/pancakePairV2.json';
+import vBnbAbi from './externalAbis/vBnb.json';
 
 export interface GenericContractInfo {
   abi: JsonFragment[];
@@ -41,8 +45,24 @@ const vToken: GenericContractInfo = {
   abi: vTokenAbi,
 };
 
+const vBnb: GenericContractInfo = {
+  abi: vBnbAbi,
+};
+
 const bep20: GenericContractInfo = {
   abi: bep20Abi,
+};
+
+const xvs: GenericContractInfo = {
+  abi: xvsAbi,
+};
+
+const vai: GenericContractInfo = {
+  abi: vaiAbi,
+};
+
+const vrt: GenericContractInfo = {
+  abi: vrtAbi,
 };
 
 const pancakePairV2: GenericContractInfo = {
@@ -56,6 +76,10 @@ const genericContractInfos = {
   rewardsDistributor,
   vToken,
   bep20,
+  vBnb,
+  xvs,
+  vai,
+  vrt,
   pancakePairV2,
 };
 
@@ -67,7 +91,11 @@ export type GenericContractTypes = {
   jumpRateModelV2: JumpRateModelV2;
   rewardsDistributor: RewardsDistributor;
   vToken: VToken;
-  bep20: Bep20;
+  bep20: BEP20;
+  vBnb: VBnb;
+  xvs: XVS;
+  vai: VAI;
+  vrt: VRT;
   pancakePairV2: PancakePairV2;
 };
 

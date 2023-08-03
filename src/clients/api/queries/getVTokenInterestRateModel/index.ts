@@ -1,9 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
 
-import { VBnbToken } from 'types/contracts';
-
 export interface GetVTokenInterestRateModelInput {
-  vTokenContract: ContractTypeByName<'vToken'> | VBnbToken;
+  vTokenContract: ContractTypeByName<'vToken' | 'vBnb'>;
 }
 
 export type GetVTokenInterestRateModelOutput = {
