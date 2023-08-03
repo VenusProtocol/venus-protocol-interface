@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -54,9 +53,8 @@ describe('pages/ConvertVRT/Withdraw', () => {
       'button',
     ) as HTMLButtonElement;
     expect(submitButton).toBeEnabled();
-    await act(async () => {
-      await waitFor(() => fireEvent.click(submitButton));
-    });
+    fireEvent.click(submitButton);
+
     await waitFor(() => expect(withdrawXvs).toHaveBeenCalledTimes(1));
     // Show modal
     getByText(en.convertVrt.successfulConvertTransactionModal.title);
