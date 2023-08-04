@@ -79,7 +79,7 @@
     "react-uid": "^2.3.1",
     "recharts": "2.1.9",
     "rehype-sanitize": "^5.0.1",
-    "sass": "^1.49.7",
+    "sass": "^1.64.2",
     "wagmi": "^0.12.19",
     "yup": "^1.0.2"
   },
