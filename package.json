@@ -151,7 +151,7 @@
     "prettier": "^2.5.1",
     "prettier-airbnb-config": "^1.0.0",
     "prop-types": "^15.8.1",
-    "react-error-overlay": "6.0.9",
+    "react-error-overlay": "6.0.11",
     "react-powerplug": "^1.0.0",
     "reg-keygen-git-hash-plugin": "^0.11.1",
     "reg-notify-github-plugin": "^0.11.1",
@@ -187,7 +187,7 @@
   },
   "resolutions": {
     "//": "See https://github.com/facebook/create-react-app/issues/11773",
-    "react-error-overlay": "6.0.9",
+    "react-error-overlay": "6.0.11",
     "babel-loader": "8.1.0",
     "**/@emotion/styled": "^11.0.0",
     "@types/react": "^17.0.1",
