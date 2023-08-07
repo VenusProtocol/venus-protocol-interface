@@ -104,7 +104,7 @@
     "@storybook/blocks": "^7.0.20",
     "@storybook/react": "^7.0.20",
     "@storybook/react-vite": "^7.0.20",
-    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/testing-library": "^0.2.0",
     "@stylelint/postcss-css-in-js": "0.37.2",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.3",
