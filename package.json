@@ -142,7 +142,7 @@
     "jsdom": "^22.1.0",
     "lint-staged": "^12.3.3",
     "msw": "^0.36.8",
-    "msw-storybook-addon": "^1.6.0",
+    "msw-storybook-addon": "^1.8.0",
     "node-fetch": "^3.3.1",
     "npm": "^9.6.5",
     "npm-run-all2": "^6.0.5",
