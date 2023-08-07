@@ -154,7 +154,7 @@
     "react-error-overlay": "6.0.11",
     "react-powerplug": "^1.0.0",
     "reg-keygen-git-hash-plugin": "^0.11.1",
-    "reg-notify-github-plugin": "^0.11.1",
+    "reg-notify-github-plugin": "^0.12.2",
     "reg-publish-s3-plugin": "^0.11.0",
     "reg-suit": "^0.11.1",
     "rimraf": "^4.1.2",
