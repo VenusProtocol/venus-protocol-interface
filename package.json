@@ -131,7 +131,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-storybook": "^0.6.12",
     "fs": "^0.0.1-security",
