@@ -10,4 +10,5 @@ export enum Connector {
   OkxWallet = 'OkxWallet',
   OperaWallet = 'OperaWallet',
   BitKeep = 'BitKeep',
+  RabbyWallet = 'RabbyWallet',
 }

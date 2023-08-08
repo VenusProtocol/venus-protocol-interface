@@ -9,6 +9,7 @@ import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg'
 import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
 import { ReactComponent as OkxWalletLogo } from 'assets/img/wallets/okxLogo.svg';
 import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
+import { ReactComponent as RabbyWalletLogo } from 'assets/img/wallets/rabbyWallet.svg';
 import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalWalletLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
@@ -16,8 +17,6 @@ import { Connector } from 'clients/web3/types';
 import { isRunningInOperaBrowser } from 'utilities/walletDetection';
 
 import { BaseWallet, IntegratedWallet, Wallet } from './types';
-
-export const VENUS_TERMS_OF_SERVICE_URL = 'https://www.swipe.io/terms';
 
 export const WALLETS: Wallet[] = [
   {
@@ -71,6 +70,12 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.bitKeep'),
     Logo: BitKeepLogo,
     connector: Connector.BitKeep,
+    mainnetOnly: true,
+  },
+  {
+    name: t('wallets.rabbyWallet'),
+    Logo: RabbyWalletLogo,
+    connector: Connector.RabbyWallet,
     mainnetOnly: true,
   },
 ];
