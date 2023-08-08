@@ -114,7 +114,7 @@
     "@typechain/ethers-v5": "^11.1.0",
     "@types/lodash": "^4.14.178",
     "@types/react": "^17.0.01",
-    "@types/react-dom": "^17.0.11",
+    "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.23",
     "@types/redux-actions": "^2.6.2",
