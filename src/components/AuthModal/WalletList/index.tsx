@@ -8,12 +8,7 @@ import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3/types';
 
 import { toast } from '../../Toast';
-import {
-  INTEGRATED_WALLETS,
-  UPCOMING_WALLETS,
-  VENUS_TERMS_OF_SERVICE_URL,
-  WALLETS,
-} from '../constants';
+import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';
 
 export interface WalletListProps {
@@ -22,7 +17,7 @@ export interface WalletListProps {
 
 export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const handleLogin = async (connector: Connector) => {
     try {
@@ -85,23 +80,6 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
             </Typography>
           </div>
         ))}
-      </div>
-
-      <div css={styles.footer}>
-        <Typography variant="small2">
-          <Trans
-            i18nKey="authModal.walletList.termsOfServiceLink"
-            components={{
-              Anchor: (
-                <a // eslint-disable-line jsx-a11y/anchor-has-content
-                  href={VENUS_TERMS_OF_SERVICE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                />
-              ),
-            }}
-          />
-        </Typography>
       </div>
     </div>
   );

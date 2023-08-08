@@ -14,7 +14,6 @@ export const useStyles = () => {
       }
     `,
     walletList: css`
-      margin-bottom: ${theme.spacing(8)};
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-gap: ${theme.spacing(4)};
@@ -57,10 +56,6 @@ export const useStyles = () => {
     `,
     comingSoonText: css`
       color: ${theme.palette.text.secondary};
-    `,
-    footer: css`
-      text-align: center;
-      padding: ${theme.spacing(0, 4)};
     `,
   };
 };

@@ -299,7 +299,6 @@
     "borrowInfo": {
       "stats": {
         "apy": "APY",
-        "distributionApy": "Distribution APY",
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"
@@ -1024,6 +1023,7 @@
     "metamask": "MetaMask",
     "okxWallet": "OKX Wallet",
     "opera": "Opera Wallet",
+    "rabbyWallet": "Rabby Wallet",
     "safePal": "SafePal",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"

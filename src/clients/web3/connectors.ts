@@ -9,6 +9,7 @@ export const connectorIdByName = {
   [Connector.BitKeep]: 'injected',
   [Connector.InfinityWallet]: 'injected',
   [Connector.SafePal]: 'injected',
+  [Connector.RabbyWallet]: 'injected',
   [Connector.CoinbaseWallet]: 'coinbaseWallet',
   [Connector.BinanceChainWallet]: 'bsc',
   [Connector.WalletConnect]: 'walletConnect',
