@@ -21,6 +21,11 @@ export const VENUS_TERMS_OF_SERVICE_URL = 'https://www.swipe.io/terms';
 
 export const WALLETS: Wallet[] = [
   {
+    name: t('wallets.trustWallet'),
+    Logo: TrustWalletLogo,
+    connector: Connector.TrustWallet,
+  },
+  {
     name: t('wallets.metamask'),
     Logo: MetaMaskLogo,
     connector: Connector.MetaMask,
@@ -30,11 +35,6 @@ export const WALLETS: Wallet[] = [
     Logo: CoinbaseWalletLogo,
     connector: Connector.CoinbaseWallet,
     mainnetOnly: true,
-  },
-  {
-    name: t('wallets.trustWallet'),
-    Logo: TrustWalletLogo,
-    connector: Connector.TrustWallet,
   },
   {
     name: t('wallets.walletConnect'),
