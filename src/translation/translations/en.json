@@ -76,6 +76,9 @@
     "step1": "Step 1",
     "step2": "Step 2"
   },
+  "appVersionChecker": {
+    "newVersionMessage": "A new version of Venus is available. Reload the page to use it now."
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -299,7 +302,6 @@
     "borrowInfo": {
       "stats": {
         "apy": "APY",
-        "distributionApy": "Distribution APY",
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"

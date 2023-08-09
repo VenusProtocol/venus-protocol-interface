@@ -3,7 +3,7 @@ import noop from 'noop-ts';
 import { PostHog, PostHogProvider, usePostHog } from 'posthog-js/react';
 import React, { useEffect } from 'react';
 
-import { version as DAPP_VERSION } from 'constants/version';
+import { version as APP_VERSION } from 'constants/version';
 import { useAuth } from 'context/AuthContext';
 
 const UserIdentifier: React.FC = () => {
@@ -28,7 +28,7 @@ export const AnalyticsProvider: React.FC = ({ children }) => (
     options={{
       api_host: config.posthog.hostUrl,
       persistence: 'memory',
-      name: DAPP_VERSION,
+      name: APP_VERSION,
     }}
   >
     <UserIdentifier />

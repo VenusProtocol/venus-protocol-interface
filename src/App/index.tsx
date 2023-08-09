@@ -1,4 +1,4 @@
-import { Layout, ResetScrollOnRouteChange } from 'components';
+import { AppVersionChecker, Layout, ResetScrollOnRouteChange } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
@@ -30,6 +30,7 @@ const App = () => (
 
                     <Layout>
                       <ResetScrollOnRouteChange />
+                      <AppVersionChecker />
 
                       <Switch />
                     </Layout>

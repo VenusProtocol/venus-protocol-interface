@@ -59,6 +59,7 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 
 beforeEach(() => {
   vi.restoreAllMocks();
+  global.fetch = vi.fn();
 });
 
 afterEach(() => {
