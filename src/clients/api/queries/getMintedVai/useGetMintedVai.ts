@@ -5,8 +5,8 @@ import getMintedVai, {
   GetMintedVaiInput,
   GetMintedVaiOutput,
 } from 'clients/api/queries/getMintedVai';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'mainPoolComptrollerContract'>;
 type Options = QueryObserverOptions<

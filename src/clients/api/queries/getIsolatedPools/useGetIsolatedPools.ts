@@ -5,11 +5,11 @@ import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
-import { useGetUniqueContract } from 'clients/contracts';
 import { useMulticall } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedInput = Omit<GetIsolatedPoolsInput, 'multicall' | 'provider' | 'poolLensContract'>;
 

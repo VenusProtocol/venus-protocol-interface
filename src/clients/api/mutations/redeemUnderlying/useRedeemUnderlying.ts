@@ -1,35 +1,37 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import redeemUnderlying, {
   RedeemUnderlyingInput,
   RedeemUnderlyingOutput,
 } from 'clients/api/mutations/redeemUnderlying';
-import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
-const useRedeemUnderlying = (
-  { vToken }: { vToken: VToken },
-  options?: MutationObserverOptions<
-    RedeemUnderlyingOutput,
-    Error,
-    Omit<RedeemUnderlyingInput, 'vTokenContract' | 'accountAddress'>
-  >,
-) => {
-  const vTokenContract = useVTokenContract(vToken);
+type TrimmedRedeemUnderlyingInput = Omit<
+  RedeemUnderlyingInput,
+  'vTokenContract' | 'accountAddress'
+>;
+type Options = MutationObserverOptions<RedeemUnderlyingOutput, Error, TrimmedRedeemUnderlyingInput>;
+
+const useRedeemUnderlying = ({ vToken }: { vToken: VToken }, options?: Options) => {
+  const vTokenContract = useGetVTokenContract(vToken);
 
   return useMutation(
     FunctionKey.REDEEM_UNDERLYING,
-    params =>
-      redeemUnderlying({
-        vTokenContract,
-        ...params,
-      }),
+    (input: TrimmedRedeemUnderlyingInput) =>
+      callOrThrow({ vTokenContract }, params =>
+        redeemUnderlying({
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const accountAddress = await vTokenContract.signer.getAddress();
+        const accountAddress = await vTokenContract?.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,

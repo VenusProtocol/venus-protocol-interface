@@ -1,32 +1,31 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from 'clients/api';
-import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetTokenContract from 'hooks/useGetTokenContract';
 
-const useApproveToken = (
-  { token }: { token: Token },
-  options?: MutationObserverOptions<
-    ApproveTokenOutput,
-    Error,
-    Omit<ApproveTokenInput, 'tokenContract'>
-  >,
-) => {
-  const tokenContract = useTokenContract(token);
+type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
+type Options = MutationObserverOptions<ApproveTokenOutput, Error, TrimmedApproveTokenInput>;
+
+const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
+  const tokenContract = useGetTokenContract(token);
 
   return useMutation(
     [FunctionKey.APPROVE_TOKEN, { token }],
-    params =>
-      approveToken({
-        tokenContract,
-        ...params,
-      }),
+    (input: TrimmedApproveTokenInput) =>
+      callOrThrow({ tokenContract }, params =>
+        approveToken({
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { spenderAddress } = onSuccessParams[1];
-        const accountAddress = await tokenContract.signer.getAddress();
+        const accountAddress = await tokenContract?.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_ALLOWANCE,

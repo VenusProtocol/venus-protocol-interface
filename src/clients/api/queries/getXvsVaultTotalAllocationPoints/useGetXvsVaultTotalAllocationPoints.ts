@@ -5,8 +5,8 @@ import getXvsVaultTotalAllocationPoints, {
   GetXvsVaultTotalAllocPointsInput,
   GetXvsVaultTotalAllocPointsOutput,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultTotalAllocPointsInput = Omit<
   GetXvsVaultTotalAllocPointsInput,

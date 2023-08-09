@@ -5,9 +5,9 @@ import getLatestProposalIdByProposer, {
   GetLatestProposalIdByProposerInput,
   GetLatestProposalIdByProposerOutput,
 } from 'clients/api/queries/getLatestProposalIdByProposer';
-import { useGetUniqueContract } from 'clients/contracts';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,

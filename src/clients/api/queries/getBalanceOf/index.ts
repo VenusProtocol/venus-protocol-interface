@@ -1,8 +1,7 @@
 import type { Provider } from '@wagmi/core';
 import BigNumber from 'bignumber.js';
 import { Token } from 'types';
-
-import { getTokenContract } from 'clients/contracts';
+import { getTokenContract } from 'utilities';
 
 export interface GetBalanceOfInput {
   accountAddress: string;
@@ -25,7 +24,7 @@ const getBalanceOf = async ({
     const resp = await provider.getBalance(accountAddress);
     balanceWei = new BigNumber(resp.toString());
   } else {
-    const tokenContract = getTokenContract(token);
+    const tokenContract = getTokenContract({ token, signerOrProvider: provider });
     const resp = await tokenContract.balanceOf(accountAddress);
     balanceWei = new BigNumber(resp.toString());
   }

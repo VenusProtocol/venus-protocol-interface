@@ -1,24 +1,28 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
-type Options = MutationObserverOptions<SupplyOutput, Error, Omit<SupplyInput, 'vToken' | 'signer'>>;
+type TrimmedSupplyInput = Omit<SupplyInput, 'vToken' | 'signer'>;
+type Options = MutationObserverOptions<SupplyOutput, Error, TrimmedSupplyInput>;
 
 const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
   const { signer, accountAddress } = useAuth();
 
   return useMutation(
     FunctionKey.SUPPLY,
-    params =>
-      supply({
-        vToken,
-        signer,
-        ...params,
-      }),
+    (input: TrimmedSupplyInput) =>
+      callOrThrow({ signer }, params =>
+        supply({
+          vToken,
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {

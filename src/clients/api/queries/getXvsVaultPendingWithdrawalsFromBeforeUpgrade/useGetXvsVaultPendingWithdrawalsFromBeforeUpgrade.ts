@@ -5,8 +5,8 @@ import getXvsVaultPendingWithdrawalsFromBeforeUpgrade, {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from 'clients/api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput = Omit<
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,

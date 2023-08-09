@@ -7,8 +7,8 @@ import {
   queryClient,
   setVoteDelegate,
 } from 'clients/api';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedSetVoteDelegateInput = Omit<SetVoteDelegateInput, 'xvsVaultContract'>;
 type Options = MutationObserverOptions<SetVoteDelegateOutput, Error, TrimmedSetVoteDelegateInput>;

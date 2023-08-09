@@ -1,17 +1,17 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
+import { getVTokenContract } from 'utilities';
 import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
-import { getVTokenContract } from 'clients/contracts';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 import supply from '.';
 
 const fakeAmountWei = new BigNumber('10000000000000000');
 
-vi.mock('clients/contracts');
+vi.mock('utilities/getVTokenContract');
 
 describe('api/mutation/supply', () => {
   describe('supply BNB', () => {
