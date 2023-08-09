@@ -219,7 +219,7 @@ const useGenerateColumns = ({
             }
 
             if (column === 'userSupplyBalance') {
-              return poolAsset.userSupplyBalanceTokens.isGreaterThan(0) ? (
+              return (
                 <LayeredValues
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userSupplyBalanceTokens,
@@ -229,13 +229,11 @@ const useGenerateColumns = ({
                     value: poolAsset.userSupplyBalanceCents,
                   })}
                 />
-              ) : (
-                PLACEHOLDER_KEY
               );
             }
 
             if (column === 'userBorrowBalance') {
-              return poolAsset.userBorrowBalanceTokens.isGreaterThan(0) ? (
+              return (
                 <LayeredValues
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userBorrowBalanceTokens,
@@ -245,8 +243,6 @@ const useGenerateColumns = ({
                     value: poolAsset.userBorrowBalanceCents,
                   })}
                 />
-              ) : (
-                PLACEHOLDER_KEY
               );
             }
 

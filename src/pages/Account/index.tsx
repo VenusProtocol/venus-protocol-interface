@@ -39,7 +39,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
     () =>
       pools.filter(
         pool =>
-          !!pool.assets.find(
+          pool.assets.some(
             asset =>
               asset.userSupplyBalanceTokens.isGreaterThan(0) ||
               asset.userBorrowBalanceTokens.isGreaterThan(0) ||
