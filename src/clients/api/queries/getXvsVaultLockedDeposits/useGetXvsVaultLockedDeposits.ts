@@ -5,8 +5,8 @@ import getXvsVaultLockedDeposits, {
   GetXvsVaultLockedDepositsInput,
   GetXvsVaultLockedDepositsOutput,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultLockedDepositsInput = Omit<
   GetXvsVaultLockedDepositsInput,

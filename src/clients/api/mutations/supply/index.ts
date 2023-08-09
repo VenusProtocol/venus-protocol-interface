@@ -2,13 +2,12 @@ import BigNumber from 'bignumber.js';
 import { ContractReceipt, Signer } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 import { VToken } from 'types';
-
-import { getVTokenContract } from 'clients/contracts';
+import { getVTokenContract } from 'utilities';
 
 export interface SupplyInput {
   vToken: VToken;
   amountWei: BigNumber;
-  signer?: Signer;
+  signer: Signer;
 }
 
 export type SupplyOutput = ContractReceipt;
@@ -16,7 +15,10 @@ export type SupplyOutput = ContractReceipt;
 const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<SupplyOutput> => {
   // Handle supplying BNB
   if (vToken.underlyingToken.isNative) {
-    const tokenContract = getVTokenContract(vToken, signer) as ContractTypeByName<'vBnb'>;
+    const tokenContract = getVTokenContract({
+      vToken,
+      signerOrProvider: signer,
+    }) as ContractTypeByName<'vBnb'>;
 
     const transaction = await tokenContract.mint({
       value: amountWei.toFixed(),
@@ -25,7 +27,7 @@ const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<Suppl
   }
 
   // Handle supplying tokens other that BNB
-  const tokenContract = getVTokenContract(vToken, signer) as ContractTypeByName<'vToken'>;
+  const tokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
   const transaction = await tokenContract.mint(amountWei.toFixed());
   return transaction.wait(1);
 };

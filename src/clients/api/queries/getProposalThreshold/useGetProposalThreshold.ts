@@ -4,8 +4,8 @@ import { callOrThrow } from 'utilities';
 import getProposalThreshold, {
   GetProposalThresholdOutput,
 } from 'clients/api/queries/getProposalThreshold';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetProposalThresholdOutput,

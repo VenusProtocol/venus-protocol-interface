@@ -44,3 +44,5 @@ export { default as generateTransactionDeadline } from './generateTransactionDea
 export { default as getSmartDecimalPlaces } from './getSmartDecimalPlaces';
 export { default as multiplyMantissaDaily } from './multiplyMantissaDaily';
 export { default as callOrThrow } from './callOrThrow';
+export { default as getTokenContract } from './getTokenContract';
+export { default as getVTokenContract } from './getVTokenContract';

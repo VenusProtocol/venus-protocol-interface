@@ -19,12 +19,13 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
-import { useGetSwapRouterContractAddress, useGetUniqueContractAddress } from 'clients/contracts';
 import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 

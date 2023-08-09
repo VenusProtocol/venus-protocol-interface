@@ -8,8 +8,8 @@ import {
   queryClient,
   swapTokensAndSupply,
 } from 'clients/api';
-import { useGetSwapRouterContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensAndSupplyInput = Omit<
   SwapTokensAndSupplyInput,

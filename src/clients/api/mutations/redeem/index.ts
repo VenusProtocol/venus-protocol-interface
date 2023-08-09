@@ -4,7 +4,7 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface RedeemInput {
-  tokenContract: ContractTypeByName<'vToken'>;
+  tokenContract: ContractTypeByName<'vToken' | 'vBnb'>;
   amountWei: BigNumber;
 }
 

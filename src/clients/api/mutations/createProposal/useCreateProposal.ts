@@ -7,8 +7,8 @@ import {
   createProposal,
   queryClient,
 } from 'clients/api';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = MutationObserverOptions<CreateProposalOutput, Error, CreateProposalInput>;
 

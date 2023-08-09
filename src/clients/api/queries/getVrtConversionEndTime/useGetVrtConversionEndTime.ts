@@ -4,8 +4,8 @@ import { callOrThrow } from 'utilities';
 import getVrtConversionEndTime, {
   GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetVrtConversionEndTimeOutput,

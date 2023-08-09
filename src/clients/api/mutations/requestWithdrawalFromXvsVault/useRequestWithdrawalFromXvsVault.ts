@@ -7,9 +7,9 @@ import {
   queryClient,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
   RequestWithdrawalFromXvsVaultInput,

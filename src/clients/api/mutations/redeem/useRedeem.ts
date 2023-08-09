@@ -1,33 +1,31 @@
-import { ContractTypeByName } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
-import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
-const useRedeem = (
-  { vToken }: { vToken: VToken },
-  options?: MutationObserverOptions<
-    RedeemOutput,
-    Error,
-    Omit<RedeemInput, 'tokenContract' | 'accountAddress'>
-  >,
-) => {
-  const tokenContract = useVTokenContract(vToken);
+type TrimmedRedeemInput = Omit<RedeemInput, 'tokenContract' | 'accountAddress'>;
+type Options = MutationObserverOptions<RedeemOutput, Error, TrimmedRedeemInput>;
+
+const useRedeem = ({ vToken }: { vToken: VToken }, options?: Options) => {
+  const tokenContract = useGetVTokenContract(vToken);
 
   return useMutation(
     FunctionKey.REDEEM,
-    params =>
-      redeem({
-        tokenContract: tokenContract as ContractTypeByName<'vToken'>,
-        ...params,
-      }),
+    (input: TrimmedRedeemInput) =>
+      callOrThrow({ tokenContract }, params =>
+        redeem({
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const accountAddress = await tokenContract.signer.getAddress();
+        const accountAddress = await tokenContract?.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_V_TOKEN_BALANCE,

@@ -2,8 +2,9 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { ClaimRewardsInput, ClaimRewardsOutput, claimRewards, queryClient } from 'clients/api';
-import { useGetUniqueContract, useGetUniqueContractAddress } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 type TrimmedClaimRewardsInput = Omit<
   ClaimRewardsInput,
