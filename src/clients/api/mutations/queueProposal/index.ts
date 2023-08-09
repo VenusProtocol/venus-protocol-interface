@@ -2,17 +2,17 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface QueueProposalInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
 }
 
 export type QueueProposalOutput = ContractReceipt;
 
 const queueProposal = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   proposalId,
 }: QueueProposalInput): Promise<QueueProposalOutput> => {
-  const transaction = await governorBravoContract.queue(proposalId);
+  const transaction = await governorBravoDelegateContract.queue(proposalId);
   return transaction.wait(1);
 };
 

@@ -1,12 +1,17 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getXvsVaultPendingWithdrawalsFromBeforeUpgrade, {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from 'clients/api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput = Omit<
+  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
+  'xvsVaultContract'
+>;
 type Options = QueryObserverOptions<
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   Error,
@@ -14,19 +19,24 @@ type Options = QueryObserverOptions<
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   [
     FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
-    Omit<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput, 'xvsVaultContract'>,
+    TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   ]
 >;
 
 const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = (
-  params: Omit<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput, 'xvsVaultContract'>,
+  input: TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useGetUniqueContract({
+    name: 'xvsVault',
+  });
 
   return useQuery(
-    [FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE, params],
-    () => getXvsVaultPendingWithdrawalsFromBeforeUpgrade({ xvsVaultContract, ...params }),
+    [FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE, input],
+    () =>
+      callOrThrow({ xvsVaultContract }, params =>
+        getXvsVaultPendingWithdrawalsFromBeforeUpgrade({ ...params, ...input }),
+      ),
     options,
   );
 };

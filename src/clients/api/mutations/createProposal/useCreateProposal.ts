@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import {
   CreateProposalInput,
@@ -6,21 +7,25 @@ import {
   createProposal,
   queryClient,
 } from 'clients/api';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-const useCreateProposal = (
-  options?: MutationObserverOptions<CreateProposalOutput, Error, CreateProposalInput>,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+type Options = MutationObserverOptions<CreateProposalOutput, Error, CreateProposalInput>;
+
+const useCreateProposal = (options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
 
   return useMutation(
     FunctionKey.CREATE_PROPOSAL,
-    params =>
-      createProposal({
-        governorBravoContract,
-        ...params,
-      }),
+    (input: CreateProposalInput) =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        createProposal({
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {

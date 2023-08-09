@@ -23,15 +23,4 @@ describe('api/queries/getXvsWithdrawableAmount', () => {
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledWith(fakeAccountAddress);
     expect(response).toMatchSnapshot();
   });
-
-  test('returns undefined when not passing xvsVestingContract parameter', async () => {
-    const xvsWithdrawableAmountMock = vi.fn(async () => xvsVestingResponses.withdrawableAmount);
-
-    const response = await getXvsWithdrawableAmount({
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect(xvsWithdrawableAmountMock).not.toHaveBeenCalled();
-    expect(response).toBe(undefined);
-  });
 });

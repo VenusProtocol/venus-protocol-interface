@@ -1,9 +1,10 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getVrtConversionEndTime, {
   GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
-import { useVrtConverterProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -15,11 +16,13 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVrtConversionEndTimeIndex = (options?: Options) => {
-  const vrtConverterContract = useVrtConverterProxyContract();
+  const vrtConverterContract = useGetUniqueContract({
+    name: 'vrtConverter',
+  });
 
   return useQuery(
     FunctionKey.GET_VRT_CONVERSION_END_TIME,
-    () => getVrtConversionEndTime({ vrtConverterContract }),
+    () => callOrThrow({ vrtConverterContract }, getVrtConversionEndTime),
     options,
   );
 };

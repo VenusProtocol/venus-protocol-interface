@@ -16,7 +16,7 @@ describe('api/mutation/castVoteWithReason', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await castVoteWithReason({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: 1,
       voteType: 1,
       voteReason: 'yes!',

@@ -1,25 +1,27 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import { ExecuteProposalInput, ExecuteProposalOutput, executeProposal } from 'clients/api';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-const useExecuteProposal = (
-  options?: MutationObserverOptions<
-    ExecuteProposalOutput,
-    Error,
-    Omit<ExecuteProposalInput, 'governorBravoContract'>
-  >,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+type TrimmedExecuteProposalInput = Omit<ExecuteProposalInput, 'governorBravoDelegateContract'>;
+type Options = MutationObserverOptions<ExecuteProposalOutput, Error, TrimmedExecuteProposalInput>;
+
+const useExecuteProposal = (options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
 
   return useMutation(
     FunctionKey.EXECUTE_PROPOSAL,
-    params =>
-      executeProposal({
-        governorBravoContract,
-        ...params,
-      }),
+    (input: TrimmedExecuteProposalInput) =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        executeProposal({
+          ...input,
+          ...params,
+        }),
+      ),
     options,
   );
 };

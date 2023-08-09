@@ -4,7 +4,7 @@ import { ContractTypeByName } from 'packages/contracts';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 
 export interface GetVenusVaiVaultDailyRateInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
 }
 
 export type GetVenusVaiVaultDailyRateOutput = {
@@ -12,9 +12,9 @@ export type GetVenusVaiVaultDailyRateOutput = {
 };
 
 const getVenusVaiVaultDailyRate = async ({
-  comptrollerContract,
+  mainPoolComptrollerContract,
 }: GetVenusVaiVaultDailyRateInput): Promise<GetVenusVaiVaultDailyRateOutput> => {
-  const resp = await comptrollerContract.venusVAIVaultRate();
+  const resp = await mainPoolComptrollerContract.venusVAIVaultRate();
 
   return {
     dailyRateWei: new BigNumber(resp.toString()).times(BLOCKS_PER_DAY),

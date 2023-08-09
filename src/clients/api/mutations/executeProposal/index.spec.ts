@@ -18,7 +18,7 @@ describe('api/mutation/executeProposal', () => {
     const fakeProposalId = 3816;
 
     const response = await executeProposal({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 

@@ -18,7 +18,7 @@ describe('api/mutation/cancelProposal', () => {
     const fakeProposalId = 3816;
 
     const response = await cancelProposal({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 

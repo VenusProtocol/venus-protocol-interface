@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import {
   CancelProposalInput,
@@ -6,25 +7,26 @@ import {
   cancelProposal,
   queryClient,
 } from 'clients/api';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-const useCancelProposal = (
-  options?: MutationObserverOptions<
-    CancelProposalOutput,
-    Error,
-    Omit<CancelProposalInput, 'governorBravoContract'>
-  >,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+type TrimmedCancelProposalInput = Omit<CancelProposalInput, 'governorBravoDelegateContract'>;
+type Options = MutationObserverOptions<CancelProposalOutput, Error, TrimmedCancelProposalInput>;
+
+const useCancelProposal = (options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
 
   return useMutation(
     FunctionKey.CANCEL_PROPOSAL,
-    params =>
-      cancelProposal({
-        governorBravoContract,
-        ...params,
-      }),
+    (input: TrimmedCancelProposalInput) =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        cancelProposal({
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {

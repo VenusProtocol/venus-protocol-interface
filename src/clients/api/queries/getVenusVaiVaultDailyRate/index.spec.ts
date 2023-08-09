@@ -17,7 +17,7 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
     } as unknown as ContractTypeByName<'mainPoolComptroller'>;
 
     const response = await getVenusVaiVaultDailyRate({
-      comptrollerContract: fakeContract,
+      mainPoolComptrollerContract: fakeContract,
     });
 
     expect(venusVaiVaultRateMock).toHaveBeenCalledTimes(1);

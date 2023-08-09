@@ -6,12 +6,12 @@ import getVoteReceipt from '.';
 
 describe('api/queries/getVoteReceipt', () => {
   test('returns NOT_VOTED when no vote is returned', async () => {
-    const governorBravoContract = {
+    const governorBravoDelegateContract = {
       getReceipt: async () => [false, undefined],
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const res = await getVoteReceipt({
-      governorBravoContract,
+      governorBravoDelegateContract,
       proposalId: 1234,
       accountAddress: fakeAddress,
     });
@@ -23,12 +23,12 @@ describe('api/queries/getVoteReceipt', () => {
   test.each([0, 1, 2])(
     'returns the correct string depending on what the contract call returns',
     async fakeSupport => {
-      const governorBravoContract = {
+      const governorBravoDelegateContract = {
         getReceipt: async () => [true, fakeSupport],
       } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
       const res = await getVoteReceipt({
-        governorBravoContract,
+        governorBravoDelegateContract,
         proposalId: 1234,
         accountAddress: fakeAddress,
       });

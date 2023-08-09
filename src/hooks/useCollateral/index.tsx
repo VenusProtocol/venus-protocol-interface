@@ -1,7 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
+import { getGenericContract } from 'packages/contracts';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -9,7 +11,7 @@ import {
   useEnterMarkets,
   useExitMarket,
 } from 'clients/api';
-import { getComptrollerContract, getVTokenContract } from 'clients/contracts';
+import { getVTokenContract, useGetUniqueContract } from 'clients/contracts';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -24,6 +26,10 @@ const useCollateral = () => {
   const { mutateAsync: enterMarkets } = useEnterMarkets();
   const { mutateAsync: exitMarket } = useExitMarket();
 
+  const mainPoolComptrollerContract = useGetUniqueContract({
+    name: 'mainPoolComptroller',
+  });
+
   const contractToggleCollateral = async ({
     asset,
     comptrollerAddress,
@@ -31,7 +37,24 @@ const useCollateral = () => {
     asset: Asset;
     comptrollerAddress: string;
   }) => {
-    const comptrollerContract = getComptrollerContract(comptrollerAddress, signer);
+    if (!signer) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    const comptrollerContract = areAddressesEqual(
+      comptrollerAddress,
+      mainPoolComptrollerContract?.address || '',
+    )
+      ? mainPoolComptrollerContract
+      : getGenericContract({
+          name: 'isolatedPoolComptroller',
+          address: comptrollerAddress,
+          signerOrProvider: signer,
+        });
+
+    if (!comptrollerContract) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
 
     if (asset.isCollateralOfUser) {
       const vTokenContract = getVTokenContract(asset.vToken, signer);

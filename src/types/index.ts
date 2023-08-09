@@ -1,6 +1,10 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
+export type NonNullableFields<T> = Required<{
+  [P in keyof T]: NonNullable<T[P]>;
+}>;
+
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
 export interface Token {

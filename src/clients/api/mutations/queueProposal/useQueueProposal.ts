@@ -1,24 +1,27 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import { QueueProposalInput, QueueProposalOutput, queryClient, queueProposal } from 'clients/api';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-const useQueueProposal = (
-  options?: MutationObserverOptions<
-    QueueProposalOutput,
-    Error,
-    Omit<QueueProposalInput, 'governorBravoContract'>
-  >,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+type TrimmedQueueProposalInput = Omit<QueueProposalInput, 'governorBravoDelegateContract'>;
+type Options = MutationObserverOptions<QueueProposalOutput, Error, TrimmedQueueProposalInput>;
+
+const useQueueProposal = (options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
+
   return useMutation(
     FunctionKey.QUEUE_PROPOSAL,
-    params =>
-      queueProposal({
-        governorBravoContract,
-        ...params,
-      }),
+    (input: TrimmedQueueProposalInput) =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        queueProposal({
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
