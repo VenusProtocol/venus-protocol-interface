@@ -1,3 +1,10 @@
+## [2.10.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.9.8...v2.10.0) (2023-08-09)
+
+
+### Features
+
+* update API endpoints ([8920c0e](https://github.com/VenusProtocol/venus-protocol-interface/commit/8920c0e301ca3232c1124161701c59a7e27ab441))
+
 ## [2.9.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.9.7...v2.9.8) (2023-08-09)
 
 ## [2.9.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.9.6...v2.9.7) (2023-08-09)
