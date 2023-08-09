@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { getContractAddress } from 'utilities';
+import { callOrThrow, getContractAddress } from 'utilities';
 
 import {
   StakeInVaiVaultInput,
@@ -7,32 +7,37 @@ import {
   queryClient,
   stakeInVaiVault,
 } from 'clients/api';
-import { useVaiVaultContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
-type Options = MutationObserverOptions<
-  StakeInVaiVaultOutput,
-  Error,
-  Omit<StakeInVaiVaultInput, 'vaiVaultContract'>
->;
+type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
+type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStakeInVaiVaultInput>;
 
 const useStakeInVaiVault = (options?: Options) => {
-  const vaiVaultContract = useVaiVaultContract();
+  const vaiVaultContract = useGetUniqueContract({
+    name: 'vaiVault',
+  });
 
   return useMutation(
     FunctionKey.STAKE_IN_VAI_VAULT,
-    (params: Omit<StakeInVaiVaultInput, 'vaiVaultContract'>) =>
-      stakeInVaiVault({
-        vaiVaultContract,
-        ...params,
-      }),
+    (input: TrimmedStakeInVaiVaultInput) =>
+      callOrThrow(
+        {
+          vaiVaultContract,
+        },
+        params =>
+          stakeInVaiVault({
+            ...params,
+            ...input,
+          }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const accountAddress = await vaiVaultContract.signer.getAddress();
+        const accountAddress = await vaiVaultContract?.signer.getAddress();
 
         // Invalidate cached user info, including pending reward
         queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);

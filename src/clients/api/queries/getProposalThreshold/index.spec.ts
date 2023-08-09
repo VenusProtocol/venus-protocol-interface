@@ -15,7 +15,7 @@ describe('api/queries/getProposalThreshold', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await getProposalThreshold({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
     });
 
     expect(proposalThresholdMock).toHaveBeenCalledTimes(1);

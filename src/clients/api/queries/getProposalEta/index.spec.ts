@@ -15,7 +15,7 @@ describe('api/queries/getProposalEta', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await getProposalEta({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 

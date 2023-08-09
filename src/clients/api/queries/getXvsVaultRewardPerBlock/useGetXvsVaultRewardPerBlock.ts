@@ -1,29 +1,39 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getXvsVaultRewardPerBlock, {
   GetXvsVaultRewardPerBlockInput,
   GetXvsVaultRewardPerBlockOutput,
 } from 'clients/api/queries/getXvsVaultRewardPerBlock';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedGetXvsVaultRewardPerBlockInput = Omit<
+  GetXvsVaultRewardPerBlockInput,
+  'xvsVaultContract'
+>;
 type Options = QueryObserverOptions<
   GetXvsVaultRewardPerBlockOutput,
   Error,
   GetXvsVaultRewardPerBlockOutput,
   GetXvsVaultRewardPerBlockOutput,
-  [FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, string]
+  [FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, TrimmedGetXvsVaultRewardPerBlockInput]
 >;
 
 const useGetXvsVaultRewardPerBlock = (
-  { tokenAddress }: Omit<GetXvsVaultRewardPerBlockInput, 'xvsVaultContract'>,
+  input: TrimmedGetXvsVaultRewardPerBlockInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useGetUniqueContract({
+    name: 'xvsVault',
+  });
 
   return useQuery(
-    [FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, tokenAddress],
-    () => getXvsVaultRewardPerBlock({ tokenAddress, xvsVaultContract }),
+    [FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, input],
+    () =>
+      callOrThrow({ xvsVaultContract }, params =>
+        getXvsVaultRewardPerBlock({ ...params, ...input }),
+      ),
     options,
   );
 };

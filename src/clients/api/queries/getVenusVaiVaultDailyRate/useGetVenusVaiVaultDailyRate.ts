@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { getContractAddress } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import { GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from 'clients/api';
-import { useComptrollerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -13,14 +13,14 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE
 >;
 
-const mainPoolComptrollerAddress = getContractAddress('comptroller');
-
 const useGetVenusVaiVaultDailyRate = (options?: Options) => {
-  const comptrollerContract = useComptrollerContract(mainPoolComptrollerAddress);
+  const mainPoolComptrollerContract = useGetUniqueContract({
+    name: 'mainPoolComptroller',
+  });
 
   return useQuery(
     FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE,
-    () => getVenusVaiVaultDailyRate({ comptrollerContract }),
+    () => callOrThrow({ mainPoolComptrollerContract }, getVenusVaiVaultDailyRate),
     options,
   );
 };

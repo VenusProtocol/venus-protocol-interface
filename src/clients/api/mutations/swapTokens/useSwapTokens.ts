@@ -1,33 +1,39 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clients/api';
-import { useSwapRouterContract } from 'clients/contracts/hooks';
+import { useGetSwapRouterContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-type Options = MutationObserverOptions<
-  SwapTokensOutput,
-  Error,
-  Omit<SwapTokensInput, 'swapRouterContract'>
->;
+type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
+type Options = MutationObserverOptions<SwapTokensOutput, Error, TrimmedSwapTokensInput>;
 
 const useSwapTokens = (
   { poolComptrollerAddress }: { poolComptrollerAddress: string },
   options?: Options,
 ) => {
-  const swapRouterContract = useSwapRouterContract(poolComptrollerAddress);
+  const swapRouterContract = useGetSwapRouterContract({
+    comptrollerAddress: poolComptrollerAddress,
+  });
 
   return useMutation(
     FunctionKey.SWAP_TOKENS,
-    (params: Omit<SwapTokensInput, 'swapRouterContract'>) =>
-      swapTokens({
-        swapRouterContract,
-        ...params,
-      }),
+    (input: TrimmedSwapTokensInput) =>
+      callOrThrow(
+        {
+          swapRouterContract,
+        },
+        params =>
+          swapTokens({
+            ...params,
+            ...input,
+          }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { swap } = onSuccessParams[1];
-        const accountAddress = await swapRouterContract.signer.getAddress();
+        const accountAddress = await swapRouterContract?.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
@@ -50,7 +56,7 @@ const useSwapTokens = (
           {
             tokenAddress: swap.fromToken.address,
             accountAddress,
-            spenderAddress: swapRouterContract.address,
+            spenderAddress: swapRouterContract?.address,
           },
         ]);
 
