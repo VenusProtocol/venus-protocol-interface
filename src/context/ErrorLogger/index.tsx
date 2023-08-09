@@ -3,7 +3,7 @@ import { BrowserTracing } from '@sentry/tracing';
 import config from 'config';
 import React, { useEffect } from 'react';
 
-import { version as DAPP_VERSION } from 'constants/version';
+import { version as APP_VERSION } from 'constants/version';
 
 export const ErrorLoggerProvider: React.FC = ({ children }) => {
   useEffect(() => {
@@ -11,7 +11,7 @@ export const ErrorLoggerProvider: React.FC = ({ children }) => {
       dsn: config.sentryDsn,
       integrations: [new BrowserTracing()],
       environment: config.environment,
-      release: DAPP_VERSION,
+      release: APP_VERSION,
     });
   }, []);
 

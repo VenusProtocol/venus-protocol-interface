@@ -54,3 +54,4 @@ export * from './AccountData';
 export * from './SwapDetails';
 export * from './TagGroup';
 export * from './SpendingLimit';
+export * from './AppVersionChecker';
