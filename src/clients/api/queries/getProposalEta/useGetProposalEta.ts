@@ -5,8 +5,8 @@ import getProposalEta, {
   GetProposalEtaInput,
   GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'governorBravoDelegateContract'>;
 

@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import getVoteReceipt, { GetVoteReceiptInput, GetVoteReceiptOutput } from '.';
 

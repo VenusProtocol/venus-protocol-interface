@@ -1,23 +1,32 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
-type Options = MutationObserverOptions<RepayOutput, Error, Omit<RepayInput, 'signer' | 'vToken'>>;
+type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;
+type Options = MutationObserverOptions<RepayOutput, Error, TrimmedRepayInput>;
 
 const useRepay = ({ vToken }: { vToken: VToken }, options?: Options) => {
   const { signer, accountAddress } = useAuth();
+  const maximillionContract = useGetUniqueContract({
+    name: 'maximillion',
+  });
 
   return useMutation(
     FunctionKey.REPAY,
-    params =>
-      repay({
-        signer,
-        vToken,
-        ...params,
-      }),
+    (input: TrimmedRepayInput) =>
+      callOrThrow({ signer }, params =>
+        repay({
+          ...params,
+          ...input,
+          vToken,
+          maximillionContract,
+        }),
+      ),
     {
       ...options,
       onSuccess: () => {

@@ -5,8 +5,8 @@ import getXvsVaultPoolInfo, {
   GetXvsVaultPoolInfoInput,
   GetXvsVaultPoolInfoOutput,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultPoolInfoInput = Omit<GetXvsVaultPoolInfoInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<

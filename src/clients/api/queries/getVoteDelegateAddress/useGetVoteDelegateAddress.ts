@@ -6,8 +6,8 @@ import {
   GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
 } from 'clients/api';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<

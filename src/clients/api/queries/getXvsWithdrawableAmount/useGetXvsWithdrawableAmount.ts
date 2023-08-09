@@ -5,9 +5,9 @@ import getXvsWithdrawableAmount, {
   GetXvsWithdrawableAmountInput,
   GetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
-import { useGetUniqueContract } from 'clients/contracts';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsWithdrawableAmountInput = Omit<
   GetXvsWithdrawableAmountInput,

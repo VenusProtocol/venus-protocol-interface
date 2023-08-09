@@ -5,8 +5,8 @@ import getMainAssetsInAccount, {
   GetMainAssetsInAccountInput,
   GetMainAssetsInAccountOutput,
 } from 'clients/api/queries/getMainAssetsInAccount';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMainAssetsInAccountOutput = Omit<
   GetMainAssetsInAccountInput,

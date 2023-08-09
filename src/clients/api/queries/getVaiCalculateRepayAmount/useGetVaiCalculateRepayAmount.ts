@@ -2,9 +2,9 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { getVaiCalculateRepayAmount } from 'clients/api';
-import { useGetUniqueContractAddress } from 'clients/contracts';
 import { useMulticall } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
 

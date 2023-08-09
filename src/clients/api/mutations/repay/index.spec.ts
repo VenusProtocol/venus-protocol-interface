@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractTypeByName } from 'packages/contracts';
+import { getVTokenContract } from 'utilities';
 import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
-import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 
 import repay, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
@@ -14,7 +14,7 @@ const fakeAmountWei = new BigNumber(10000000000000000);
 
 const vBnb = TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'];
 
-vi.mock('clients/contracts');
+vi.mock('utilities/getVTokenContract');
 vi.mock('errors/transactionErrors');
 
 describe('api/mutation/repay', () => {
@@ -57,14 +57,13 @@ describe('api/mutation/repay', () => {
 
       const fakeMaximillionContract = {
         repayBehalfExplicit: repayBehalfExplicitMock,
-      } as unknown as ContractTypeByName<'vToken'>;
-
-      (getMaximillionContract as Vi.Mock).mockImplementationOnce(() => fakeMaximillionContract);
+      } as unknown as ContractTypeByName<'maximillion'>;
 
       const response = await repay({
         signer: fakeSigner,
         vToken: vBnb,
         amountWei: fakeAmountWei,
+        maximillionContract: fakeMaximillionContract,
         isRepayingFullLoan: true,
       });
 

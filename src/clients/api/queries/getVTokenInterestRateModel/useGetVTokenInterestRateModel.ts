@@ -1,11 +1,12 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
-import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
 type Options = QueryObserverOptions<
   GetVTokenInterestRateModelOutput,
@@ -16,11 +17,11 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenInterestRateModel = ({ vToken }: { vToken: VToken }, options?: Options) => {
-  const vTokenContract = useVTokenContract(vToken);
+  const vTokenContract = useGetVTokenContract(vToken);
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, { vTokenAddress: vToken.address }],
-    () => getVTokenInterestRateModel({ vTokenContract }),
+    () => callOrThrow({ vTokenContract }, getVTokenInterestRateModel),
     options,
   );
 };

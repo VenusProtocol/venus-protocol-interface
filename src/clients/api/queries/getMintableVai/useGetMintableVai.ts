@@ -5,8 +5,8 @@ import getMintableVai, {
   GetMintableVaiInput,
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
 type Options = QueryObserverOptions<

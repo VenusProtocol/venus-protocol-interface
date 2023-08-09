@@ -5,9 +5,9 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllInput,
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
-import { useGetUniqueContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetVTokenBalancesAllInput = Omit<GetVTokenBalancesAllInput, 'venusLensContract'>;
 type Options = QueryObserverOptions<
