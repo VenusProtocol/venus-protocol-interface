@@ -15,7 +15,7 @@ describe('api/queries/getMintedVai', () => {
     } as unknown as ContractTypeByName<'mainPoolComptroller'>;
 
     const response = await getMintedVai({
-      comptrollerContract: fakeContract,
+      mainPoolComptrollerContract: fakeContract,
       accountAddress: address,
     });
 

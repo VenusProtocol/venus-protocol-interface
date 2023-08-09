@@ -11,7 +11,7 @@ describe('api/queries/getProposalState', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await getProposalState({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: '1',
     });
     expect(response).toEqual({

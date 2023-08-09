@@ -22,7 +22,7 @@ describe('api/mutation/createProposal', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await createProposal({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       targets: fakeTargets,
       signatures: fakeSignatures,
       callDatas: fakeCallDatas,

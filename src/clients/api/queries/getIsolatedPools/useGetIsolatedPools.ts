@@ -1,10 +1,11 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
-import { useGetPoolLensContract } from 'clients/contracts';
+import { useGetUniqueContract } from 'clients/contracts';
 import { useMulticall } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
@@ -21,19 +22,24 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
-  const multicall = useMulticall();
-  const poolLensContract = useGetPoolLensContract();
   const { provider } = useAuth();
+  const multicall = useMulticall();
+
+  const poolLensContract = useGetUniqueContract({
+    name: 'poolLens',
+  });
 
   return useQuery(
     [FunctionKey.GET_ISOLATED_POOLS, input],
     () =>
-      getIsolatedPools({
-        ...input,
-        multicall,
-        poolLensContract,
-        provider,
-      }),
+      callOrThrow({ poolLensContract }, params =>
+        getIsolatedPools({
+          multicall,
+          provider,
+          ...input,
+          ...params,
+        }),
+      ),
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       ...options,

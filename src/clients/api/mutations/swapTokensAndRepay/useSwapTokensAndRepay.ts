@@ -1,5 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import {
   SwapTokensAndRepayInput,
@@ -7,34 +8,42 @@ import {
   queryClient,
   swapTokensAndRepay,
 } from 'clients/api';
-import { useSwapRouterContract } from 'clients/contracts/hooks';
+import { useGetSwapRouterContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedSwapTokensAndRepayInput = Omit<
+  SwapTokensAndRepayInput,
+  'swapRouterContract' | 'vToken'
+>;
 type Options = MutationObserverOptions<
   SwapTokensAndRepayOutput,
   Error,
-  Omit<SwapTokensAndRepayInput, 'swapRouterContract' | 'vToken'>
+  TrimmedSwapTokensAndRepayInput
 >;
 
 const useSwapTokensAndRepayAndRepay = (
   { vToken, poolComptrollerAddress }: { vToken: VToken; poolComptrollerAddress: string },
   options?: Options,
 ) => {
-  const swapRouterContract = useSwapRouterContract(poolComptrollerAddress);
+  const swapRouterContract = useGetSwapRouterContract({
+    comptrollerAddress: poolComptrollerAddress,
+  });
 
   return useMutation(
     FunctionKey.SWAP_TOKENS_AND_REPAY,
-    params =>
-      swapTokensAndRepay({
-        swapRouterContract,
-        vToken,
-        ...params,
-      }),
+    (input: TrimmedSwapTokensAndRepayInput) =>
+      callOrThrow({ swapRouterContract }, params =>
+        swapTokensAndRepay({
+          vToken,
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { swap } = onSuccessParams[1];
-        const accountAddress = await swapRouterContract.signer.getAddress();
+        const accountAddress = await swapRouterContract?.signer.getAddress();
 
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
@@ -57,7 +66,7 @@ const useSwapTokensAndRepayAndRepay = (
           {
             tokenAddress: swap.fromToken.address,
             accountAddress,
-            spenderAddress: swapRouterContract.address,
+            spenderAddress: swapRouterContract?.address,
           },
         ]);
 

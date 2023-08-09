@@ -18,7 +18,7 @@ describe('api/mutation/queueProposal', () => {
     const fakeProposalId = 3816;
 
     const response = await queueProposal({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 

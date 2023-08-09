@@ -16,7 +16,7 @@ describe('api/queries/getMainAssetsInAccount', () => {
     } as unknown as ContractTypeByName<'mainPoolComptroller'>;
 
     const response = await getMainAssetsInAccount({
-      comptrollerContract: fakeContract,
+      mainPoolComptrollerContract: fakeContract,
       accountAddress: fakeAddress,
     });
 

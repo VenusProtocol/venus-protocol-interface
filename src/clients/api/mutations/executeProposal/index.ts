@@ -2,17 +2,17 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface ExecuteProposalInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
 }
 
 export type ExecuteProposalOutput = ContractReceipt;
 
 const executeProposal = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   proposalId,
 }: ExecuteProposalInput): Promise<ExecuteProposalOutput> => {
-  const transaction = await governorBravoContract.execute(proposalId);
+  const transaction = await governorBravoDelegateContract.execute(proposalId);
   return transaction.wait(1);
 };
 

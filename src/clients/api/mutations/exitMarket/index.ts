@@ -3,7 +3,7 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface ExitMarketInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  comptrollerContract: ContractTypeByName<'mainPoolComptroller' | 'isolatedPoolComptroller'>;
   vTokenAddress: string;
 }
 

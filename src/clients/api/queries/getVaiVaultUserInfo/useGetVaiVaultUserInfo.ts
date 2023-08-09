@@ -1,30 +1,31 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import {
   GetVaiVaultUserInfoInput,
   GetVaiVaultUserInfoOutput,
   getVaiVaultUserInfo,
 } from 'clients/api';
-import { useVaiVaultContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedGetVaiVaultUserInfoInput = Omit<GetVaiVaultUserInfoInput, 'vaiVaultContract'>;
 type Options = QueryObserverOptions<
   GetVaiVaultUserInfoOutput,
   Error,
   GetVaiVaultUserInfoOutput,
   GetVaiVaultUserInfoOutput,
-  [FunctionKey.GET_VAI_VAULT_USER_INFO, string]
+  [FunctionKey.GET_VAI_VAULT_USER_INFO, TrimmedGetVaiVaultUserInfoInput]
 >;
 
-const useGetVaiVaultUserInfo = (
-  { accountAddress }: Omit<GetVaiVaultUserInfoInput, 'vaiVaultContract'>,
-  options?: Options,
-) => {
-  const vaiVaultContract = useVaiVaultContract();
+const useGetVaiVaultUserInfo = (input: TrimmedGetVaiVaultUserInfoInput, options?: Options) => {
+  const vaiVaultContract = useGetUniqueContract({
+    name: 'vaiVault',
+  });
 
   return useQuery(
-    [FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress],
-    () => getVaiVaultUserInfo({ vaiVaultContract, accountAddress }),
+    [FunctionKey.GET_VAI_VAULT_USER_INFO, input],
+    () => callOrThrow({ vaiVaultContract }, params => getVaiVaultUserInfo({ ...params, ...input })),
     options,
   );
 };

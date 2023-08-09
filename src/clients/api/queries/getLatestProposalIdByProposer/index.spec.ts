@@ -12,7 +12,7 @@ describe('api/queries/getLatestProposalIdByProposer', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await getLatestProposalIdByProposer({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       accountAddress: fakeAddress,
     });
     expect(response).toStrictEqual({

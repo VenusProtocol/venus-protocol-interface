@@ -16,7 +16,7 @@ describe('api/mutation/castVote', () => {
     } as unknown as ContractTypeByName<'governorBravoDelegate'>;
 
     const response = await castVote({
-      governorBravoContract: fakeContract,
+      governorBravoDelegateContract: fakeContract,
       proposalId: 1,
       voteType: 1,
     });

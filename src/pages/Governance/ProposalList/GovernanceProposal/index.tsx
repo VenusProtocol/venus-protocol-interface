@@ -237,7 +237,7 @@ const GovernanceProposal: React.FC<
   const { accountAddress } = useAuth();
 
   const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId, accountAddress },
+    { proposalId, accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
 

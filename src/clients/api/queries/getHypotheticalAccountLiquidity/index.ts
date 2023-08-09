@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetHypotheticalAccountLiquidityInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  comptrollerContract: ContractTypeByName<'mainPoolComptroller' | 'isolatedPoolComptroller'>;
   accountAddress: string;
   vTokenAddress: string;
   vTokenBalanceOfWei: BigNumber;
