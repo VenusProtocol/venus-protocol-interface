@@ -1,7 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
 import castVoteWithReason, {
@@ -9,20 +10,22 @@ import castVoteWithReason, {
   CastVoteWithReasonOutput,
 } from './castVoteWithReason';
 
-export type CastVoteWithReasonParams = CastVoteWithReasonInput;
+type Options = MutationObserverOptions<CastVoteWithReasonOutput, Error, CastVoteWithReasonInput>;
 
-const useCastVoteWithReason = (
-  options?: MutationObserverOptions<CastVoteWithReasonOutput, Error, CastVoteWithReasonParams>,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+const useCastVoteWithReason = (options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
 
   return useMutation(
     FunctionKey.CAST_VOTE,
-    params =>
-      castVoteWithReason({
-        governorBravoContract,
-        ...params,
-      }),
+    (input: CastVoteWithReasonInput) =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        castVoteWithReason({
+          ...input,
+          ...params,
+        }),
+      ),
     {
       ...options,
       onSuccess: (...onSuccessParams) => {

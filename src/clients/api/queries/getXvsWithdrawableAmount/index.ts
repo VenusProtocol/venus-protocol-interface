@@ -3,7 +3,7 @@ import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetXvsWithdrawableAmountInput {
   accountAddress: string;
-  xvsVestingContract?: ContractTypeByName<'xvsVesting'>;
+  xvsVestingContract: ContractTypeByName<'xvsVesting'>;
 }
 
 export interface GetXvsWithdrawableAmountOutput {
@@ -16,10 +16,6 @@ const getXvsWithdrawableAmount = async ({
   xvsVestingContract,
   accountAddress,
 }: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput | undefined> => {
-  if (!xvsVestingContract) {
-    return undefined;
-  }
-
   const resp = await xvsVestingContract.getWithdrawableAmount(accountAddress);
 
   return {

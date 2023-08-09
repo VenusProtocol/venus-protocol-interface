@@ -54,8 +54,8 @@ const venusLens: UniqueContractInfo = {
 const poolLens: UniqueContractInfo = {
   abi: poolLensAbi,
   address: {
-    [ChainId.BSC_TESTNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
-    [ChainId.BSC_MAINNET]: isolatedPoolsTestnetDeployments.contracts.PoolLens.address,
+    [ChainId.BSC_TESTNET]: isolatedPoolsTestnetDeployments.contracts.PoolLens.address,
+    [ChainId.BSC_MAINNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
   },
 };
 

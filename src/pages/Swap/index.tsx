@@ -11,18 +11,15 @@ import {
   TertiaryButton,
   toast,
 } from 'components';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
-import {
-  areTokensEqual,
-  convertWeiToTokens,
-  getContractAddress,
-  getSwapRouterContractAddress,
-} from 'utilities';
+import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
+import { useGetSwapRouterContractAddress, useGetUniqueContractAddress } from 'clients/contracts';
 import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
@@ -37,9 +34,6 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
-
-const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
-const MAIN_POOL_SWAP_ROUTER_ADDRESS = getSwapRouterContractAddress(MAIN_POOL_COMPTROLLER_ADDRESS);
 
 const initialFormValues: FormValues = {
   fromToken: SWAP_TOKENS.bnb,
@@ -186,8 +180,16 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           fromTokenAmountTokens: initialFormValues.fromTokenAmountTokens,
           toTokenAmountTokens: initialFormValues.toTokenAmountTokens,
         }));
-      } catch (err) {
-        toast.error({ message: (err as Error).message });
+      } catch (error) {
+        let { message } = error as Error;
+
+        if (error instanceof VError) {
+          message = formatVErrorToReadableString(error);
+        }
+
+        toast.error({
+          message,
+        });
       }
     }
   };
@@ -375,6 +377,14 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAuth();
 
+  const mainPoolComptrollerAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
+  });
+
+  const swapRouterContractAddress = useGetSwapRouterContractAddress({
+    comptrollerAddress: mainPoolComptrollerAddress || '',
+  });
+
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   const swapInfo = useGetSwapInfo({
@@ -395,7 +405,7 @@ const SwapPage: React.FC = () => {
     isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
-    spenderAddress: MAIN_POOL_SWAP_ROUTER_ADDRESS,
+    spenderAddress: swapRouterContractAddress,
     accountAddress,
   });
 
@@ -404,7 +414,7 @@ const SwapPage: React.FC = () => {
   });
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: MAIN_POOL_COMPTROLLER_ADDRESS,
+    poolComptrollerAddress: mainPoolComptrollerAddress || '',
   });
 
   const onSwap = async (swap: Swap) =>

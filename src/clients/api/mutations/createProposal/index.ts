@@ -12,16 +12,16 @@ export interface CreateProposalInput {
 export type CreateProposalOutput = ContractReceipt;
 
 const createProposal = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   targets,
   signatures,
   callDatas,
   description,
   proposalType,
 }: CreateProposalInput & {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
 }): Promise<CreateProposalOutput> => {
-  const transaction = await governorBravoContract.propose(
+  const transaction = await governorBravoDelegateContract.propose(
     targets,
     Array(signatures.length).fill(0),
     signatures,

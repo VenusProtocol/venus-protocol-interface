@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import {
   RequestWithdrawalFromXvsVaultInput,
@@ -6,31 +7,39 @@ import {
   queryClient,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
+type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
+  RequestWithdrawalFromXvsVaultInput,
+  'xvsVaultContract'
+>;
 type Options = MutationObserverOptions<
   RequestWithdrawalFromXvsVaultOutput,
   Error,
-  Omit<RequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
+  TrimmedRequestWithdrawalFromXvsVaultInput
 >;
 
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useGetUniqueContract({
+    name: 'xvsVault',
+  });
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
-    (params: Omit<RequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
-      requestWithdrawalFromXvsVault({
-        xvsVaultContract,
-        ...params,
-      }),
+    (input: TrimmedRequestWithdrawalFromXvsVaultInput) =>
+      callOrThrow({ xvsVaultContract }, params =>
+        requestWithdrawalFromXvsVault({
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { poolIndex } = onSuccessParams[1];
-        const accountAddress = await xvsVaultContract.signer.getAddress();
+        const accountAddress = await xvsVaultContract?.signer.getAddress();
 
         // Invalidate cached user info
         queryClient.invalidateQueries([

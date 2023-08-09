@@ -1,9 +1,10 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getProposalThreshold, {
   GetProposalThresholdOutput,
 } from 'clients/api/queries/getProposalThreshold';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -15,10 +16,13 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalThreshold = (options?: Options) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
+
   return useQuery(
     FunctionKey.GET_PROPOSAL_THRESHOLD,
-    () => getProposalThreshold({ governorBravoContract }),
+    () => callOrThrow({ governorBravoDelegateContract }, getProposalThreshold),
     options,
   );
 };

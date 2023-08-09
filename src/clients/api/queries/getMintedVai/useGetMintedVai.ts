@@ -1,32 +1,36 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { getContractAddress } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import getMintedVai, {
   GetMintedVaiInput,
   GetMintedVaiOutput,
 } from 'clients/api/queries/getMintedVai';
-import { useComptrollerContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
-const mainPoolComptrollerAddress = getContractAddress('comptroller');
-
+type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'mainPoolComptrollerContract'>;
 type Options = QueryObserverOptions<
   GetMintedVaiOutput,
   Error,
   GetMintedVaiOutput,
   GetMintedVaiOutput,
-  [FunctionKey.GET_MINTED_VAI, { accountAddress: string }]
+  [FunctionKey.GET_MINTED_VAI, TrimmedGetMintedVaiOutput]
 >;
 
-const useGetMintedVai = (
-  { accountAddress }: Omit<GetMintedVaiInput, 'comptrollerContract'>,
-  options?: Options,
-) => {
-  const comptrollerContract = useComptrollerContract(mainPoolComptrollerAddress);
+const useGetMintedVai = (input: TrimmedGetMintedVaiOutput, options?: Options) => {
+  const mainPoolComptrollerContract = useGetUniqueContract({
+    name: 'mainPoolComptroller',
+  });
 
   return useQuery(
-    [FunctionKey.GET_MINTED_VAI, { accountAddress }],
-    () => getMintedVai({ accountAddress, comptrollerContract }),
+    [FunctionKey.GET_MINTED_VAI, input],
+    () =>
+      callOrThrow({ mainPoolComptrollerContract }, params =>
+        getMintedVai({
+          ...params,
+          ...input,
+        }),
+      ),
     options,
   );
 };

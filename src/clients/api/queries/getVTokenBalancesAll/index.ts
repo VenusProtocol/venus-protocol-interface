@@ -3,7 +3,7 @@ import { ContractTypeByName } from 'packages/contracts';
 export interface GetVTokenBalancesAllInput {
   account: string;
   vTokenAddresses: string[];
-  venusLensContract?: ContractTypeByName<'venusLens'>;
+  venusLensContract: ContractTypeByName<'venusLens'>;
 }
 
 interface Balance {
@@ -24,7 +24,7 @@ const getVTokenBalancesAll = async ({
   vTokenAddresses,
   account,
 }: GetVTokenBalancesAllInput): Promise<GetVTokenBalancesAllOutput> => {
-  const results = await venusLensContract?.callStatic.vTokenBalancesAll(
+  const results = await venusLensContract.callStatic.vTokenBalancesAll(
     vTokenAddresses,
     account?.toLowerCase(),
   );

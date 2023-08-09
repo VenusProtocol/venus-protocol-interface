@@ -1,7 +1,7 @@
 import { BigNumber as BN } from 'ethers';
+import { ContractTypeByName } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-import { ContractTypeByName } from 'packages/contracts';
 
 import getVTokenBalancesAll from '..';
 
@@ -31,15 +31,6 @@ describe('api/queries/getVTokenBalancesAll', () => {
     });
 
     expect(vTokenBalancesAllCallMock).toHaveBeenCalledTimes(1);
-    expect(response).toMatchSnapshot();
-  });
-
-  it('returns an empty result when not passing venusLensContract parameter', async () => {
-    const response = await getVTokenBalancesAll({
-      vTokenAddresses: [''],
-      account: fakeAddress,
-    });
-
     expect(response).toMatchSnapshot();
   });
 });
