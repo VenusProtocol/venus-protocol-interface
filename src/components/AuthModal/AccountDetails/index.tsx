@@ -3,6 +3,8 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
+
 import { BscLink } from '../../BscLink';
 import { SecondaryButton } from '../../Button';
 import { EllipseAddress } from '../../EllipseAddress';
@@ -11,17 +13,13 @@ import { useStyles } from './styles';
 
 export interface AccountDetailsProps {
   onLogOut: () => void;
-  onCopyAccountAddress: (accountAddress: string) => void;
   accountAddress: string;
 }
 
-export const AccountDetails: React.FC<AccountDetailsProps> = ({
-  onLogOut,
-  onCopyAccountAddress,
-  accountAddress,
-}) => {
+export const AccountDetails: React.FC<AccountDetailsProps> = ({ onLogOut, accountAddress }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   return (
     <div css={styles.container}>
@@ -33,7 +31,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
             </Typography>
 
             <button
-              onClick={() => onCopyAccountAddress(accountAddress)}
+              onClick={() => copyToClipboard(accountAddress)}
               type="button"
               css={styles.copyButton}
             >

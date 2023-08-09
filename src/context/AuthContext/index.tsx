@@ -5,7 +5,6 @@ import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useEffect } from 'react';
-import { useTranslation } from 'translation';
 import {
   ConnectorNotFoundError,
   useAccount,
@@ -20,7 +19,6 @@ import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorize
 import { Connector, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { logError } from 'context/ErrorLogger';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
 export interface AuthContextValue {
@@ -99,10 +97,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     fn();
   }, [chain?.id, accountAddress]);
 
-  const { t } = useTranslation();
-
-  const copyWalletAddress = useCopyToClipboard(t('interactive.copy.walletAddress'));
-
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
 
@@ -129,7 +123,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         accountAddress={accountAddress}
         onLogOut={logOut}
         onLogin={handleLogin}
-        onCopyAccountAddress={copyWalletAddress}
       />
 
       {children}
