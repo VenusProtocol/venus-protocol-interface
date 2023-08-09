@@ -1,7 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetProposalEtaInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
 }
 
@@ -10,10 +10,10 @@ export type GetProposalEtaOutput = {
 };
 
 const getProposalEta = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   proposalId,
 }: GetProposalEtaInput): Promise<GetProposalEtaOutput> => {
-  const resp = await governorBravoContract.proposals(proposalId);
+  const resp = await governorBravoDelegateContract.proposals(proposalId);
 
   // Convert ETA expressed in seconds to milliseconds
   const eta = new Date(+resp.eta * 1000);

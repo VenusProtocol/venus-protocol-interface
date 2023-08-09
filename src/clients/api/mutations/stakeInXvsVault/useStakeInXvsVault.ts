@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
-import { getContractAddress } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import {
   StakeInXvsVaultInput,
@@ -8,33 +8,32 @@ import {
   queryClient,
   stakeInXvsVault,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
-const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
-
-type Options = MutationObserverOptions<
-  StakeInXvsVaultOutput,
-  Error,
-  Omit<StakeInXvsVaultInput, 'xvsVaultContract'>
->;
+type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
+type Options = MutationObserverOptions<StakeInXvsVaultOutput, Error, TrimmedStakeInXvsVaultInput>;
 
 const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: Options) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useGetUniqueContract({
+    name: 'xvsVault',
+  });
 
   return useMutation(
     FunctionKey.STAKE_IN_XVS_VAULT,
-    (params: Omit<StakeInXvsVaultInput, 'xvsVaultContract'>) =>
-      stakeInXvsVault({
-        xvsVaultContract,
-        ...params,
-      }),
+    (input: TrimmedStakeInXvsVaultInput) =>
+      callOrThrow({ xvsVaultContract }, params =>
+        stakeInXvsVault({
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { poolIndex } = onSuccessParams[1];
-        const accountAddress = await xvsVaultContract.signer.getAddress();
+        const accountAddress = await xvsVaultContract?.signer.getAddress();
 
         // Invalidate cached user info
         queryClient.invalidateQueries([
@@ -70,7 +69,7 @@ const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: O
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            accountAddress: xvsVaultContract?.address,
             tokenAddress: stakedToken.address,
           },
         ]);

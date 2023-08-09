@@ -1,7 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetProposalStateInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: string;
 }
 
@@ -10,10 +10,10 @@ export type GetProposalStateOutput = {
 };
 
 const getProposalState = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   proposalId,
 }: GetProposalStateInput): Promise<GetProposalStateOutput> => {
-  const state = await governorBravoContract.state(proposalId);
+  const state = await governorBravoDelegateContract.state(proposalId);
 
   return { state };
 };

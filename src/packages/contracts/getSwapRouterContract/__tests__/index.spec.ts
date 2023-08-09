@@ -5,7 +5,7 @@ import swapRouterContractInfos from '../../contractInfos/swapRouterContractInfos
 import { ChainId } from '../../types';
 
 const fakeProvider = new ethers.providers.JsonRpcProvider();
-const COMPTROLLER_ADDRESS = '0xb3BEf8955E047B734EBBe6903eD2e3C467cBC0bb';
+const COMPTROLLER_ADDRESS = '0xfD36E2c2a6789Db23113685031d7F16329158384';
 
 describe('getSwapRouterContract', () => {
   it('returns Contract instance if contract exists', () => {

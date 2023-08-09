@@ -23,8 +23,8 @@ const swapRouter: SwapRouterContractInfo = {
   address: {
     [ChainId.BSC_TESTNET]: {
       // Main pool
-      [venusProtocolMainnetDeployments.Comptroller.Comptroller.address.toLowerCase()]:
-        venusProtocolMainnetDeployments.Contracts.SwapRouterCorePool,
+      [venusProtocolTestnetDeployments.Unitroller.address.toLowerCase()]:
+        venusProtocolTestnetDeployments.Contracts.SwapRouterCorePool,
       // Isolated pools
       [isolatedPoolsTestnetDeployments.contracts.Comptroller_StableCoins.address.toLowerCase()]:
         isolatedPoolsTestnetDeployments.contracts.SwapRouter_StableCoins.address,
@@ -39,8 +39,8 @@ const swapRouter: SwapRouterContractInfo = {
     },
     [ChainId.BSC_MAINNET]: {
       // Main pool
-      [venusProtocolTestnetDeployments.Comptroller.Comptroller.address.toLowerCase()]:
-        venusProtocolTestnetDeployments.Contracts.SwapRouterCorePool,
+      [venusProtocolMainnetDeployments.Unitroller.address.toLowerCase()]:
+        venusProtocolMainnetDeployments.Contracts.SwapRouterCorePool,
       // Isolated Pools
       [isolatedPoolsMainnetDeployments.contracts.Comptroller_Stablecoins.address.toLowerCase()]:
         isolatedPoolsMainnetDeployments.contracts.SwapRouter_Stablecoins.address,

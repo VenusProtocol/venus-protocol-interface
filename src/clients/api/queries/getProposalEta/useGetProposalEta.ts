@@ -1,29 +1,37 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getProposalEta, {
   GetProposalEtaInput,
   GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
-import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+
+type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'governorBravoDelegateContract'>;
 
 type Options = QueryObserverOptions<
   GetProposalEtaOutput,
   Error,
   GetProposalEtaOutput,
   GetProposalEtaOutput,
-  [FunctionKey.GET_PROPOSAL_ETA, Omit<GetProposalEtaInput, 'governorBravoContract'>]
+  [FunctionKey.GET_PROPOSAL_ETA, TrimmedGetProposalEtaInput]
 >;
 
-const useGetProposalEta = (
-  params: Omit<GetProposalEtaInput, 'governorBravoContract'>,
-  options?: Options,
-) => {
-  const governorBravoContract = useGovernorBravoDelegateContract();
+const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Options) => {
+  const governorBravoDelegateContract = useGetUniqueContract({
+    name: 'governorBravoDelegate',
+  });
 
   return useQuery(
-    [FunctionKey.GET_PROPOSAL_ETA, params],
-    () => getProposalEta({ governorBravoContract, ...params }),
+    [FunctionKey.GET_PROPOSAL_ETA, input],
+    () =>
+      callOrThrow({ governorBravoDelegateContract }, params =>
+        getProposalEta({
+          ...input,
+          ...params,
+        }),
+      ),
     options,
   );
 };

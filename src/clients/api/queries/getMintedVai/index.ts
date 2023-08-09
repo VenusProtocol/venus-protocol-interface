@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetMintedVaiInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
   accountAddress: string;
 }
 
@@ -11,10 +11,10 @@ export type GetMintedVaiOutput = {
 };
 
 const getMintedVai = async ({
-  comptrollerContract,
+  mainPoolComptrollerContract,
   accountAddress,
 }: GetMintedVaiInput): Promise<GetMintedVaiOutput> => {
-  const res = await comptrollerContract.mintedVAIs(accountAddress);
+  const res = await mainPoolComptrollerContract.mintedVAIs(accountAddress);
 
   return {
     mintedVaiWei: new BigNumber(res.toString()),

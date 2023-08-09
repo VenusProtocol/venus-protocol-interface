@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import getVTokenBalancesAll, {
   GetVTokenBalancesAllInput,
@@ -8,25 +9,24 @@ import { useGetUniqueContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedGetVTokenBalancesAllInput = Omit<GetVTokenBalancesAllInput, 'venusLensContract'>;
 type Options = QueryObserverOptions<
   GetVTokenBalancesAllOutput,
   Error,
   GetVTokenBalancesAllOutput,
   GetVTokenBalancesAllOutput,
-  [FunctionKey.GET_V_TOKEN_BALANCES_ALL, Omit<GetVTokenBalancesAllInput, 'venusLensContract'>]
+  [FunctionKey.GET_V_TOKEN_BALANCES_ALL, TrimmedGetVTokenBalancesAllInput]
 >;
 
-const useGetVTokenBalancesAll = (
-  { account, vTokenAddresses }: Omit<GetVTokenBalancesAllInput, 'venusLensContract'>,
-  options?: Options,
-) => {
+const useGetVTokenBalancesAll = (input: TrimmedGetVTokenBalancesAllInput, options?: Options) => {
   const venusLensContract = useGetUniqueContract({
     name: 'venusLens',
   });
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { account, vTokenAddresses }],
-    () => getVTokenBalancesAll({ venusLensContract, account, vTokenAddresses }),
+    [FunctionKey.GET_V_TOKEN_BALANCES_ALL, input],
+    () =>
+      callOrThrow({ venusLensContract }, params => getVTokenBalancesAll({ ...params, ...input })),
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       ...options,

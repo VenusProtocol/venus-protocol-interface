@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetProposalThresholdInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
 }
 
 export type GetProposalThresholdOutput = {
@@ -10,9 +10,9 @@ export type GetProposalThresholdOutput = {
 };
 
 const getProposalThreshold = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
 }: GetProposalThresholdInput): Promise<GetProposalThresholdOutput> => {
-  const resp = await governorBravoContract.proposalThreshold();
+  const resp = await governorBravoDelegateContract.proposalThreshold();
 
   return {
     thresholdWei: new BigNumber(resp.toString()),

@@ -2,7 +2,7 @@ import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface CastVoteInput {
-  governorBravoContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
   proposalId: number;
   voteType: 0 | 1 | 2;
 }
@@ -10,11 +10,11 @@ export interface CastVoteInput {
 export type CastVoteOutput = ContractReceipt;
 
 const castVote = async ({
-  governorBravoContract,
+  governorBravoDelegateContract,
   proposalId,
   voteType,
 }: CastVoteInput): Promise<CastVoteOutput> => {
-  const transaction = await governorBravoContract.castVote(proposalId, voteType);
+  const transaction = await governorBravoDelegateContract.castVote(proposalId, voteType);
   return transaction.wait(1);
 };
 

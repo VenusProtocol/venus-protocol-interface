@@ -1,7 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface GetMainAssetsInAccountInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
   accountAddress: string;
 }
 
@@ -10,10 +10,10 @@ export type GetMainAssetsInAccountOutput = {
 };
 
 const getMainAssetsInAccount = async ({
-  comptrollerContract,
+  mainPoolComptrollerContract,
   accountAddress,
 }: GetMainAssetsInAccountInput): Promise<GetMainAssetsInAccountOutput> => {
-  const tokenAddresses = await comptrollerContract.getAssetsIn(accountAddress);
+  const tokenAddresses = await mainPoolComptrollerContract.getAssetsIn(accountAddress);
 
   return {
     tokenAddresses,

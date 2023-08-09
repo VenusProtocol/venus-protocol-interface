@@ -1,30 +1,35 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { callOrThrow } from 'utilities';
 
 import {
   GetVoteDelegateAddressInput,
   GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
 } from 'clients/api';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
 
+type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<
   GetVoteDelegateAddressOutput,
   Error,
   GetVoteDelegateAddressOutput,
   GetVoteDelegateAddressOutput,
-  [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>]
+  [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, TrimmedGetVoteDelegateAddressInput]
 >;
 
 const useGetVoteDelegateAddress = (
-  { accountAddress }: Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>,
+  input: TrimmedGetVoteDelegateAddressInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useGetUniqueContract({
+    name: 'xvsVault',
+  });
 
   return useQuery(
-    [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, { accountAddress }],
-    () => getVoteDelegateAddress({ xvsVaultContract, accountAddress }),
+    [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],
+    () =>
+      callOrThrow({ xvsVaultContract }, params => getVoteDelegateAddress({ ...params, ...input })),
     options,
   );
 };

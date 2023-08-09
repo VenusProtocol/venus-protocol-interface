@@ -1,6 +1,9 @@
 import { SWAP_ROUTERS } from 'constants/contracts/swapRouters';
 import { logError } from 'context/ErrorLogger';
 
+/**
+ * @deprecated Use contracts package instead
+ */
 const getSwapRouterContractAddress = (poolComptrollerAddress: string) => {
   const formattedPoolComptrollerAddress = poolComptrollerAddress.toLowerCase();
 
