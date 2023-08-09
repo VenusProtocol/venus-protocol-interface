@@ -1,3 +1,17 @@
+## [2.11.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.10.0...v2.11.0) (2023-08-09)
+
+
+### Features
+
+* add Rabby Wallet + remove terms of service link ([aef722d](https://github.com/VenusProtocol/venus-protocol-interface/commit/aef722de228cd32c0ec7b7e29b88308ef594e06f))
+* display 0 balances on MarketTable ([64b0819](https://github.com/VenusProtocol/venus-protocol-interface/commit/64b08194808723f07ffa7886f5cf0f896cb4df88))
+* update position fo Trust Wallet in wallet list ([d9105a2](https://github.com/VenusProtocol/venus-protocol-interface/commit/d9105a2c38c3b079e944de5e258c8c16c1d8ab27))
+
+
+### Bug Fixes
+
+* remove onCopyAccountAddress method from AuthContext ([15c9920](https://github.com/VenusProtocol/venus-protocol-interface/commit/15c99206b56a173eaf9e057e8df7a4c5bf2ac69d))
+
 ## [2.10.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.9.8...v2.10.0) (2023-08-09)
 
 
