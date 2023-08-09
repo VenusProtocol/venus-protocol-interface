@@ -10,7 +10,6 @@ export interface AuthModalProps {
   onClose: ModalProps['handleClose'];
   onLogin: WalletListProps['onLogin'];
   onLogOut: AccountDetailsProps['onLogOut'];
-  onCopyAccountAddress: AccountDetailsProps['onCopyAccountAddress'];
   accountAddress?: string;
 }
 
@@ -19,7 +18,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   onLogin,
   onLogOut,
-  onCopyAccountAddress,
   accountAddress,
 }) => {
   const { t } = useTranslation();
@@ -44,11 +42,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       {!accountAddress ? (
         <WalletList onLogin={handleLogin} />
       ) : (
-        <AccountDetails
-          accountAddress={accountAddress}
-          onCopyAccountAddress={onCopyAccountAddress}
-          onLogOut={onLogOut}
-        />
+        <AccountDetails accountAddress={accountAddress} onLogOut={onLogOut} />
       )}
     </Modal>
   );

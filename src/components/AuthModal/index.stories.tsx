@@ -12,9 +12,7 @@ export default {
   decorators: [withCenterStory({ width: 800 })],
 } as Meta<typeof AuthModal>;
 
-export const Default = () => (
-  <AuthModal isOpen onClose={noop} onLogOut={noop} onLogin={noop} onCopyAccountAddress={noop} />
-);
+export const Default = () => <AuthModal isOpen onClose={noop} onLogOut={noop} onLogin={noop} />;
 
 export const WithAccount = () => (
   <AuthModal
@@ -22,7 +20,6 @@ export const WithAccount = () => (
     onClose={noop}
     onLogOut={noop}
     onLogin={noop}
-    onCopyAccountAddress={noop}
     accountAddress="0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706"
   />
 );
