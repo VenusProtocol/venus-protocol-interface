@@ -127,7 +127,7 @@
     "commitlint": "^17.6.6",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "17.1.1",
-    "eslint-config-airbnb-typescript": "^16.1.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.2.3",
