@@ -5,8 +5,8 @@ import getXvsVaultRewardPerBlock, {
   GetXvsVaultRewardPerBlockInput,
   GetXvsVaultRewardPerBlockOutput,
 } from 'clients/api/queries/getXvsVaultRewardPerBlock';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultRewardPerBlockInput = Omit<
   GetXvsVaultRewardPerBlockInput,

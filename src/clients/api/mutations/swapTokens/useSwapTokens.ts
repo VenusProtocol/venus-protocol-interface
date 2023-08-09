@@ -2,8 +2,8 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clients/api';
-import { useGetSwapRouterContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
 type Options = MutationObserverOptions<SwapTokensOutput, Error, TrimmedSwapTokensInput>;

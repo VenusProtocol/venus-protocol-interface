@@ -1,26 +1,30 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 import { BorrowInput, BorrowOutput, borrow, queryClient } from 'clients/api';
-import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
-type Options = MutationObserverOptions<BorrowOutput, Error, Omit<BorrowInput, 'vTokenContract'>>;
+type TrimmedBorrowInput = Omit<BorrowInput, 'vTokenContract'>;
+type Options = MutationObserverOptions<BorrowOutput, Error, TrimmedBorrowInput>;
 
 const useBorrow = ({ vToken }: { vToken: VToken }, options?: Options) => {
-  const vTokenContract = useVTokenContract(vToken);
+  const vTokenContract = useGetVTokenContract(vToken);
 
   return useMutation(
-    FunctionKey.BORROW,
-    params =>
-      borrow({
-        vTokenContract,
-        ...params,
-      }),
+    [FunctionKey.BORROW, { vToken }],
+    (input: TrimmedBorrowInput) =>
+      callOrThrow({ vTokenContract }, params =>
+        borrow({
+          ...params,
+          ...input,
+        }),
+      ),
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const accountAddress = await vTokenContract.signer.getAddress();
+        const accountAddress = await vTokenContract?.signer.getAddress();
 
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         queryClient.invalidateQueries([

@@ -3,7 +3,7 @@ import { VError } from 'errors';
 import { getGenericContract } from 'packages/contracts';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual, getVTokenContract } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -11,10 +11,10 @@ import {
   useEnterMarkets,
   useExitMarket,
 } from 'clients/api';
-import { getVTokenContract, useGetUniqueContract } from 'clients/contracts';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
@@ -57,7 +57,7 @@ const useCollateral = () => {
     }
 
     if (asset.isCollateralOfUser) {
-      const vTokenContract = getVTokenContract(asset.vToken, signer);
+      const vTokenContract = getVTokenContract({ vToken: asset.vToken, signerOrProvider: signer });
 
       try {
         const vTokenBalanceOf = await getVTokenBalanceOf({

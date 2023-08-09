@@ -1,12 +1,13 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 import getAllowance, {
   GetAllowanceInput,
   GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
-import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+import useGetTokenContract from 'hooks/useGetTokenContract';
 
 export type UseGetAllowanceQueryKey = [
   FunctionKey.GET_TOKEN_ALLOWANCE,
@@ -25,31 +26,32 @@ type Options = QueryObserverOptions<
   UseGetAllowanceQueryKey
 >;
 
+type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
+
 const useGetAllowance = (
-  {
-    token,
-    spenderAddress,
-    accountAddress,
-  }: Omit<GetAllowanceInput, 'tokenContract'> & { token: Token },
+  { token, spenderAddress, accountAddress }: TrimmedGetAllowanceInput,
   options?: Options,
 ) => {
-  const tokenContract = useTokenContract(token);
+  const tokenContract = useGetTokenContract(token);
+  const queryKey: UseGetAllowanceQueryKey = [
+    FunctionKey.GET_TOKEN_ALLOWANCE,
+    {
+      tokenAddress: token.address,
+      spenderAddress,
+      accountAddress,
+    },
+  ];
 
   return useQuery(
-    [
-      FunctionKey.GET_TOKEN_ALLOWANCE,
-      {
-        tokenAddress: token.address,
-        spenderAddress,
-        accountAddress,
-      },
-    ],
+    queryKey,
     () =>
-      getAllowance({
-        tokenContract,
-        spenderAddress,
-        accountAddress,
-      }),
+      callOrThrow({ tokenContract }, params =>
+        getAllowance({
+          spenderAddress,
+          accountAddress,
+          ...params,
+        }),
+      ),
     options,
   );
 };

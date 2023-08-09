@@ -4,8 +4,8 @@ import { callOrThrow } from 'utilities';
 import getVrtConversionRatio, {
   GetVrtConversionRatioOutput,
 } from 'clients/api/queries/getVrtConversionRatio';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetVrtConversionRatioOutput,

@@ -4,8 +4,8 @@ import { callOrThrow } from 'utilities';
 import getXvsVaultPoolCount, {
   GetXvsVaultPoolCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolCount';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetXvsVaultPoolCountOutput,

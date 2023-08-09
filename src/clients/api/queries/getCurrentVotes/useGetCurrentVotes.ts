@@ -5,8 +5,8 @@ import getCurrentVotes, {
   GetCurrentVotesInput,
   GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetCurrentVotesInput = Omit<GetCurrentVotesInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<

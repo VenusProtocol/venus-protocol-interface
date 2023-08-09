@@ -2,8 +2,8 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { WithdrawXvsOutput, queryClient, withdrawXvs } from 'clients/api';
-import { useGetUniqueContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 const useWithdrawXvs = (options?: MutationObserverOptions<WithdrawXvsOutput, Error>) => {
   const xvsVestingContract = useGetUniqueContract({
