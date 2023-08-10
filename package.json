@@ -144,7 +144,7 @@
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.8.0",
     "node-fetch": "^3.3.1",
-    "npm": "^9.6.5",
+    "npm": "^9.8.1",
     "npm-run-all2": "^6.0.5",
     "path": "^0.12.7",
     "postcss-syntax": "^0.36.2",
