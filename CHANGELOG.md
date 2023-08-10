@@ -1,3 +1,10 @@
+## [2.12.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.11.3...v2.12.0) (2023-08-10)
+
+
+### Features
+
+* add version app checker ([a46d236](https://github.com/VenusProtocol/venus-protocol-interface/commit/a46d2367ddb4a88cc1708f8685b5446377c4a54b))
+
 ## [2.11.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.11.2...v2.11.3) (2023-08-10)
 
 ## [2.11.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.11.1...v2.11.2) (2023-08-10)
