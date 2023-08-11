@@ -143,7 +143,7 @@
     "lint-staged": "^12.3.3",
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.8.0",
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^3.3.2",
     "npm": "^9.6.5",
     "npm-run-all2": "^6.0.5",
     "path": "^0.12.7",
