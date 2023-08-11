@@ -57,7 +57,7 @@
     "buffer": "^6.0.3",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.30.0",
-    "ethereum-multicall": "2.15.0",
+    "ethereum-multicall": "2.19.0",
     "ethers": "^5.7.2",
     "formik": "^2.2.9",
     "graphql": "16.7.1",
