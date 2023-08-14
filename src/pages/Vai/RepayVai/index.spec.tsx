@@ -1,7 +1,8 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { uniqueContractInfos } from 'packages/contracts';
 import React from 'react';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
@@ -24,6 +25,8 @@ import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
 import TEST_IDS from '../testIds';
+
+const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
 
 vi.mock('clients/api');
 vi.mock('components/Toast');
@@ -93,7 +96,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TOKENS.vai,
-      spenderAddress: getContractAddress('vaiController'),
+      spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
 
@@ -145,7 +148,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TOKENS.vai,
-      spenderAddress: getContractAddress('vaiController'),
+      spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
 

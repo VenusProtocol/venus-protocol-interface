@@ -1,18 +1,20 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { getContractAddress } from 'utilities';
 
 import { Claim, useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { Group } from './types';
-
-const mainPoolComptrollerAddress = getContractAddress('comptroller');
 
 const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
+
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
+  });
 
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
@@ -35,12 +37,16 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
   const { data: getPendingRewardsData } = useGetPendingRewards(
     {
       accountAddress: accountAddress || '',
-      mainPoolComptrollerAddress,
+      mainPoolComptrollerContractAddress: mainPoolComptrollerContractAddress || '',
       isolatedPoolComptrollerAddresses,
       xvsVestingVaultPoolCount: getXvsVaultPoolCountData?.poolCount || 0,
     },
     {
-      enabled: !!accountAddress && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
+      enabled:
+        !!accountAddress &&
+        !!mainPoolComptrollerContractAddress &&
+        !isGetPoolsLoading &&
+        !isGetXvsVaultPoolCountLoading,
     },
   );
 

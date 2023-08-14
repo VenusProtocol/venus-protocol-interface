@@ -3,10 +3,10 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { getContractAddress } from 'utilities';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -25,13 +25,18 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
-  const spenderAddress = React.useMemo(() => {
-    if (typeof poolIndex === 'number') {
-      return getContractAddress('xvsVaultProxy');
-    }
+  const xvsVaultContractAddress = useGetUniqueContractAddress({
+    name: 'xvsVault',
+  });
 
-    return getContractAddress('vaiVault');
-  }, [stakedToken, poolIndex]);
+  const vaiVaultContractAddress = useGetUniqueContractAddress({
+    name: 'vaiVault',
+  });
+
+  const spenderAddress = React.useMemo(
+    () => (typeof poolIndex === 'number' ? xvsVaultContractAddress : vaiVaultContractAddress),
+    [stakedToken, poolIndex, xvsVaultContractAddress, vaiVaultContractAddress],
+  );
 
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {

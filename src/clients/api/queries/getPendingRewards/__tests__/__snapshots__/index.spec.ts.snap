@@ -852,7 +852,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "reference": "pendingRewards",
       },
     ],
-    "contractAddress": "0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3",
+    "contractAddress": "0x14d1820b2D1c7c7452A163983Dc888CEC546b7897",
     "reference": "venusLens",
   },
   {
@@ -1299,7 +1299,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "reference": "pendingXVS",
       },
     ],
-    "contractAddress": "0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118",
+    "contractAddress": "0x34d1820b2D1c7c7452A163983Dc888CEC546b7897",
     "reference": "vaiVault",
   },
   {
@@ -2794,7 +2794,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "reference": "vault-1-pendingWithdrawalsBeforeUpgrade",
       },
     ],
-    "contractAddress": "0x9aB56bAD2D7631B2A857ccf36d998232A8b82280",
+    "contractAddress": "0x44d1820b2D1c7c7452A163983Dc888CEC546b7897",
     "reference": "xvsVestingVaults",
   },
   {
@@ -3886,7 +3886,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "reference": "getPendingRewards",
       },
     ],
-    "contractAddress": "0x6492dF28A9478230205c940A245Ffb114EaEb9d1",
+    "contractAddress": "0x24d1820b2D1c7c7452A163983Dc888CEC546b7897",
     "reference": "poolLens",
   },
 ]
