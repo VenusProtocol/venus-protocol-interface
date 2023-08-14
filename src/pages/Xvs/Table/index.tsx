@@ -11,7 +11,6 @@ import {
   convertWeiToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
-  getContractAddress,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetMainAssets, useGetVenusVaiVaultDailyRate } from 'clients/api';
@@ -19,6 +18,7 @@ import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { useStyles } from '../styles';
 
@@ -118,13 +118,18 @@ const XvsTable: React.FC = () => {
 
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
+  const vaiVaultContractAddress = useGetUniqueContractAddress({
+    name: 'vaiVault',
+  });
+
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
       token: TOKENS.vai,
-      accountAddress: getContractAddress('vaiVault'),
+      accountAddress: vaiVaultContractAddress || '',
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      enabled: !!vaiVaultContractAddress,
     },
   );
 

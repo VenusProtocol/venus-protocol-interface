@@ -378,12 +378,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAuth();
 
-  const mainPoolComptrollerAddress = useGetUniqueContractAddress({
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
     name: 'mainPoolComptroller',
   });
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerAddress: mainPoolComptrollerAddress || '',
+    comptrollerAddress: mainPoolComptrollerContractAddress || '',
   });
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -415,7 +415,7 @@ const SwapPage: React.FC = () => {
   });
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: mainPoolComptrollerAddress || '',
+    poolComptrollerAddress: mainPoolComptrollerContractAddress || '',
   });
 
   const onSwap = async (swap: Swap) =>

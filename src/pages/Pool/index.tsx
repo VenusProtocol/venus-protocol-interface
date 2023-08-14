@@ -5,17 +5,16 @@ import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { formatCentsToReadableValue, getContractAddress } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import Table from './Table';
 import { useStyles } from './styles';
-
-const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 
 export interface PoolUiProps {
   pool?: Pool;
@@ -104,9 +103,17 @@ const PoolPage: React.FC<PoolPageProps> = ({ poolComptrollerAddress }) => {
 
 export type CorePoolPageProps = RouteComponentProps;
 
-export const CorePool: React.FC<CorePoolPageProps> = () => (
-  <PoolPage poolComptrollerAddress={MAIN_POOL_COMPTROLLER_ADDRESS} />
-);
+export const CorePool: React.FC<CorePoolPageProps> = () => {
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
+  });
+
+  if (!mainPoolComptrollerContractAddress) {
+    return <Redirect to={routes.dashboard.path} />;
+  }
+
+  return <PoolPage poolComptrollerAddress={mainPoolComptrollerContractAddress} />;
+};
 
 export type IsolatedPoolPageProps = RouteComponentProps<{ poolComptrollerAddress: string }>;
 

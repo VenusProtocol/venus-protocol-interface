@@ -1,5 +1,6 @@
 import type { JsonFragment } from '@ethersproject/abi';
 import { abi as poolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
+import { abi as poolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import { abi as resilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
@@ -17,7 +18,7 @@ import { abi as xvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/cont
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
 
-import { PoolLens } from '../types/contracts/isolatedPools';
+import { PoolLens, PoolRegistry } from '../types/contracts/isolatedPools';
 import { ResilientOracle } from '../types/contracts/oracle';
 import { Maximillion, Multicall } from '../types/contracts/others';
 import {
@@ -56,6 +57,14 @@ const poolLens: UniqueContractInfo = {
   address: {
     [ChainId.BSC_TESTNET]: isolatedPoolsTestnetDeployments.contracts.PoolLens.address,
     [ChainId.BSC_MAINNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
+  },
+};
+
+const poolRegistry: UniqueContractInfo = {
+  abi: poolRegistryAbi,
+  address: {
+    [ChainId.BSC_TESTNET]: isolatedPoolsTestnetDeployments.contracts.PoolRegistry_Proxy.address,
+    [ChainId.BSC_MAINNET]: isolatedPoolsMainnetDeployments.contracts.PoolRegistry_Proxy.address,
   },
 };
 
@@ -150,6 +159,7 @@ const resilientOracle: UniqueContractInfo = {
 const uniqueContractInfos = {
   venusLens,
   poolLens,
+  poolRegistry,
   mainPoolComptroller,
   vaiController,
   vaiVault,
@@ -168,6 +178,7 @@ export type UniqueContractName = keyof typeof uniqueContractInfos;
 export type UniqueContractTypes = {
   venusLens: VenusLens;
   poolLens: PoolLens;
+  poolRegistry: PoolRegistry;
   mainPoolComptroller: MainPoolComptroller;
   vaiController: VAIController;
   vaiVault: VAIVault;

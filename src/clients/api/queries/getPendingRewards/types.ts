@@ -3,11 +3,15 @@ import { Multicall } from 'ethereum-multicall';
 import { Token } from 'types';
 
 export interface GetPendingRewardGroupsInput {
-  mainPoolComptrollerAddress: string;
+  mainPoolComptrollerContractAddress: string;
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
   multicall: Multicall;
   accountAddress: string;
+  venusLensContractAddress: string;
+  poolLensContractAddress: string;
+  vaiVaultContractAddress: string;
+  xvsVaultContractAddress: string;
 }
 
 export type GetPendingRewardGroupsOutput = {

@@ -6,12 +6,7 @@ import {
 import _cloneDeep from 'lodash/cloneDeep';
 import { contractInfos } from 'packages/contracts';
 import { Token } from 'types';
-import {
-  areTokensEqual,
-  getContractAddress,
-  getTokenByAddress,
-  getVTokenByAddress,
-} from 'utilities';
+import { areTokensEqual, getTokenByAddress, getVTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
@@ -22,9 +17,6 @@ import formatOutput from './formatOutput';
 import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
-
-const POOL_REGISTRY_ADDRESS = getContractAddress('PoolRegistry_Proxy'); // TODO: get from package (see VEN-1746)
-const RESILIENT_ORACLE_ADDRESS = getContractAddress('oracle'); // TODO: get from package (see VEN-1746)
 
 // Since the borrower and supplier counts aren't essential information, we make the logic so the
 // dApp can still function if the subgraph is down
@@ -40,12 +32,14 @@ const safelyGetIsolatedPoolParticipantsCount = async () => {
 const getIsolatedPools = async ({
   accountAddress,
   poolLensContract,
+  poolRegistryContractAddress,
+  resilientOracleContractAddress,
   provider,
   multicall,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [poolsResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
     // Fetch all pools
-    poolLensContract.getAllPools(POOL_REGISTRY_ADDRESS),
+    poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
     safelyGetIsolatedPoolParticipantsCount(),
     // Fetch current block number
@@ -240,7 +234,7 @@ const getIsolatedPools = async ({
   // Fetch token prices
   const resilientOracleCallsContext: ContractCallContext = {
     reference: 'resilientOracle',
-    contractAddress: RESILIENT_ORACLE_ADDRESS,
+    contractAddress: resilientOracleContractAddress,
     abi: contractInfos.resilientOracle.abi,
     calls: tokenAddresses.map(tokenAddress => ({
       reference: 'getPrice',

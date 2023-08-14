@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
+import { uniqueContractInfos } from 'packages/contracts';
 import React from 'react';
-import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -11,6 +11,8 @@ import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
 import ActionModal, { ActionModalProps } from '.';
+
+const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
 
 export default {
   title: 'Pages/Vault/modals/ActionModal',
@@ -48,7 +50,7 @@ Default.decorators = [
   withApprovedToken({
     token: TOKENS.vai,
     accountAddress: fakeAddress,
-    spenderAddress: getContractAddress('vaiController'),
+    spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),
 ];
 
@@ -103,6 +105,6 @@ WithIsInitialLoading.decorators = [
   withApprovedToken({
     token: TOKENS.vai,
     accountAddress: fakeAddress,
-    spenderAddress: getContractAddress('vaiController'),
+    spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),
 ];

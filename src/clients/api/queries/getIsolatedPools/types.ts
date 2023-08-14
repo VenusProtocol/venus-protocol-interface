@@ -23,6 +23,8 @@ export type FormatToPoolsOutput = Pool[];
 export interface GetIsolatedPoolsInput {
   multicall: Multicall;
   poolLensContract: ContractTypeByName<'poolLens'>;
+  poolRegistryContractAddress: string;
+  resilientOracleContractAddress: string;
   provider: Provider;
   accountAddress?: string;
 }

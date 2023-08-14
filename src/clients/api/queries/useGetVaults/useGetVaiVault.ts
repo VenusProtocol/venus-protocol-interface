@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Vault } from 'types';
-import { areTokensEqual, convertWeiToTokens, getContractAddress } from 'utilities';
+import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -12,8 +12,7 @@ import {
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
-
-const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -21,13 +20,18 @@ export interface UseGetVaiVaultOutput {
 }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
+  const vaiVaultContractAddress = useGetUniqueContractAddress({
+    name: 'vaiVault',
+  });
+
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
     {
-      accountAddress: VAI_VAULT_ADDRESS,
+      accountAddress: vaiVaultContractAddress || '',
       token: TOKENS.vai,
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      enabled: !!vaiVaultContractAddress,
     },
   );
 

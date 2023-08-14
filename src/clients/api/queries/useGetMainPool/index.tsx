@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { getContractAddress } from 'utilities';
 
 import { useGetMainAssets } from 'clients/api';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 export interface UseGetMainPoolInput {
   accountAddress?: string;
@@ -16,28 +16,32 @@ export interface UseGetMainPoolOutput {
   };
 }
 
-const mainPoolComptrollerAddress = getContractAddress('comptroller');
-
 const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPoolOutput => {
   const { data: getMainAssetsData, isLoading: isGetMainAssetsDataLoading } = useGetMainAssets({
     accountAddress,
+  });
+
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
   });
 
   const { t } = useTranslation();
 
   const pool: Pool | undefined = useMemo(
     () =>
-      getMainAssetsData?.assets && {
-        comptrollerAddress: mainPoolComptrollerAddress,
-        name: t('mainPool.name'),
-        description: t('mainPool.description'),
-        isIsolated: false,
-        assets: getMainAssetsData.assets,
-        userSupplyBalanceCents: getMainAssetsData.userTotalSupplyBalanceCents,
-        userBorrowBalanceCents: getMainAssetsData.userTotalBorrowBalanceCents,
-        userBorrowLimitCents: getMainAssetsData.userTotalBorrowLimitCents,
-      },
-    [getMainAssetsData?.assets],
+      getMainAssetsData?.assets && mainPoolComptrollerContractAddress
+        ? {
+            comptrollerAddress: mainPoolComptrollerContractAddress,
+            name: t('mainPool.name'),
+            description: t('mainPool.description'),
+            isIsolated: false,
+            assets: getMainAssetsData.assets,
+            userSupplyBalanceCents: getMainAssetsData.userTotalSupplyBalanceCents,
+            userBorrowBalanceCents: getMainAssetsData.userTotalBorrowBalanceCents,
+            userBorrowLimitCents: getMainAssetsData.userTotalBorrowLimitCents,
+          }
+        : undefined,
+    [getMainAssetsData?.assets, mainPoolComptrollerContractAddress],
   );
 
   return { isLoading: isGetMainAssetsDataLoading, data: pool && { pool } };

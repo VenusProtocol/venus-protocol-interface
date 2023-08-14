@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { callOrThrow, getContractAddress } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import {
   StakeInVaiVaultInput,
@@ -10,8 +10,6 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
-
-const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStakeInVaiVaultInput>;
@@ -70,7 +68,7 @@ const useStakeInVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: VAI_VAULT_ADDRESS,
+            accountAddress: vaiVaultContract?.address,
             tokenAddress: TOKENS.vai.address,
           },
         ]);
