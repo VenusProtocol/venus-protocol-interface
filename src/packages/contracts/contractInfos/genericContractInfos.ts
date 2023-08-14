@@ -8,16 +8,13 @@ import { abi as bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contrac
 import { abi as vaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
 import { abi as vrtAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRT.sol/VRT.json';
 import { abi as xvsAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVS.sol/XVS.json';
+
 import {
   Comptroller as IsolatedPoolComptroller,
   JumpRateModelV2,
   RewardsDistributor,
   VToken,
 } from '../types/contracts/isolatedPools';
-import { PancakePairV2, VBnb } from '../types/contracts/others';
-import { BEP20, JumpRateModel, VAI, VRT, XVS } from '../types/contracts/venusProtocol';
-import { Bep20, PancakePairV2 } from '../types/contracts/others';
-import { JumpRateModel } from '../types/contracts/venusProtocol';
 import { PancakePairV2, VBnb } from '../types/contracts/others';
 import { BEP20, JumpRateModel, VAI, VRT, XVS } from '../types/contracts/venusProtocol';
 
