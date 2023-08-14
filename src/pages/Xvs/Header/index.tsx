@@ -4,12 +4,7 @@ import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import {
-  convertWeiToTokens,
-  formatTokensToReadableValue,
-  generateBscScanUrl,
-  getContractAddress,
-} from 'utilities';
+import { convertWeiToTokens, formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -20,6 +15,7 @@ import {
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { MINTED_XVS_WEI } from '../constants';
 import { useStyles } from '../styles';
@@ -119,6 +115,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const { accountAddress } = useAuth();
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
+
   const { data: getMainAssetsData } = useGetMainAssets({
     accountAddress,
   });
@@ -140,10 +137,19 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const { data: mainPoolTotalXvsDistributedData } = useGetMainPoolTotalXvsDistributed();
 
-  const { data: xvsRemainingDistributionData } = useGetBalanceOf({
-    token: TOKENS.xvs,
-    accountAddress: getContractAddress('comptroller'),
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
   });
+
+  const { data: xvsRemainingDistributionData } = useGetBalanceOf(
+    {
+      token: TOKENS.xvs,
+      accountAddress: mainPoolComptrollerContractAddress || '',
+    },
+    {
+      enabled: !!mainPoolComptrollerContractAddress,
+    },
+  );
 
   return (
     <HeaderUi

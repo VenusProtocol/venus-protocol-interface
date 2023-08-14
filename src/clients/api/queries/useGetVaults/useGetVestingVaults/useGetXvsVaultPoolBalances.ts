@@ -1,12 +1,11 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
-import { getContractAddress, getTokenByAddress } from 'utilities';
+import { getTokenByAddress } from 'utilities';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
-
-const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {
   stakedTokenAddresses: (string | undefined)[];
@@ -19,6 +18,10 @@ const useGetXvsVaultPoolBalances = ({
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
   const { provider } = useAuth();
 
+  const xvsVaultContractAddress = useGetUniqueContractAddress({
+    name: 'xvsVault',
+  });
+
   // Fetch total amount of tokens staked in each pool
   const queries: UseQueryOptions<GetBalanceOfOutput>[] = stakedTokenAddresses.map(
     stakedTokenAddress => {
@@ -30,16 +33,16 @@ const useGetXvsVaultPoolBalances = ({
             provider,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             token: stakedToken!,
-            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            accountAddress: xvsVaultContractAddress || '',
           }),
         queryKey: [
           FunctionKey.GET_BALANCE_OF,
           {
-            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            accountAddress: xvsVaultContractAddress,
             tokenAddress: stakedToken?.address,
           },
         ],
-        enabled: !!stakedToken,
+        enabled: !!stakedToken && !!xvsVaultContractAddress,
         refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       };
     },

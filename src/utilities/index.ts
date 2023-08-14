@@ -2,7 +2,6 @@ export { promisify } from './promisify';
 export { restService } from './restService';
 export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
-export { default as getContractAddress } from './getContractAddress';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,

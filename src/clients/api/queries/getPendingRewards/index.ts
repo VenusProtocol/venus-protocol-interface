@@ -1,44 +1,41 @@
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 import { contractInfos } from 'packages/contracts';
-import { getContractAddress } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
 import formatOutput from './formatOutput';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
 
-// TODO: get addresses from contracts package
-const venusLensAddress = getContractAddress('venusLens');
-const poolLensAddress = getContractAddress('PoolLens');
-const vaiVaultAddress = getContractAddress('vaiVault');
-const xvsVaultAddress = getContractAddress('xvsVaultProxy');
-
 const getPendingRewardGroups = async ({
-  mainPoolComptrollerAddress,
+  mainPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
   multicall,
   accountAddress,
+  venusLensContractAddress,
+  poolLensContractAddress,
+  vaiVaultContractAddress,
+  xvsVaultContractAddress,
 }: GetPendingRewardGroupsInput): Promise<GetPendingRewardGroupsOutput> => {
   // Generate call context
   const contractCallContext: ContractCallContext[] = [
     // Pending rewards from main pool
     {
       reference: 'venusLens',
-      contractAddress: venusLensAddress,
+      contractAddress: venusLensContractAddress,
       abi: contractInfos.venusLens.abi,
       calls: [
         {
           reference: 'pendingRewards',
           methodName: 'pendingRewards',
-          methodParameters: [accountAddress, mainPoolComptrollerAddress],
+          methodParameters: [accountAddress, mainPoolComptrollerContractAddress],
         },
       ],
     },
     // Pending rewards from vaults
     {
       reference: 'vaiVault',
-      contractAddress: vaiVaultAddress,
+      contractAddress: vaiVaultContractAddress,
       abi: contractInfos.vaiVault.abi,
       calls: [
         {
@@ -50,7 +47,7 @@ const getPendingRewardGroups = async ({
     },
     {
       reference: 'xvsVestingVaults',
-      contractAddress: xvsVaultAddress,
+      contractAddress: xvsVaultContractAddress,
       abi: contractInfos.xvsVault.abi,
       calls: new Array(xvsVestingVaultPoolCount).fill(undefined).reduce(
         (acc, _item, poolIndex) =>
@@ -80,7 +77,7 @@ const getPendingRewardGroups = async ({
     // Pending rewards from isolated pools
     contractCallContext.push({
       reference: 'poolLens',
-      contractAddress: poolLensAddress,
+      contractAddress: poolLensContractAddress,
       abi: contractInfos.poolLens.abi,
       calls: isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress => ({
         reference: 'getPendingRewards',

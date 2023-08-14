@@ -15,7 +15,7 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -24,14 +24,13 @@ import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from '../styles';
 import TEST_IDS from '../testIds';
 import RepayFee from './RepayFee';
-
-const VAI_CONTROLLER_ADDRESS = getContractAddress('vaiController');
 
 export interface IRepayVaiUiProps {
   disabled: boolean;
@@ -241,6 +240,10 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { accountAddress } = useAuth();
 
+  const vaiControllerContractAddress = useGetUniqueContractAddress({
+    name: 'vaiController',
+  });
+
   const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
     useGetVaiRepayAmountWithInterests(
       {
@@ -272,7 +275,7 @@ const RepayVai: React.FC = () => {
     isRevokeWalletSpendingLimitLoading: isRevokeVaiWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: TOKENS.vai,
-    spenderAddress: VAI_CONTROLLER_ADDRESS,
+    spenderAddress: vaiControllerContractAddress,
     accountAddress,
   });
 

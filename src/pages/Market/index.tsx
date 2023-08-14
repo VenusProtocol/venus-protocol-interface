@@ -13,14 +13,12 @@ import {
 import React, { useMemo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Asset, Token } from 'types';
+import { Asset, Token, VToken } from 'types';
 import {
-  areAddressesEqual,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
-  getContractAddress,
   getVTokenByAddress,
   isTokenActionEnabled,
 } from 'utilities';
@@ -32,6 +30,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
+import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useOperationModal from 'hooks/useOperationModal';
 
 import Card, { CardProps } from './Card';
@@ -39,8 +38,6 @@ import MarketInfo, { MarketInfoProps } from './MarketInfo';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
-
-const MAIN_POOL_COMPTROLLER_ADDRESS = getContractAddress('comptroller');
 
 export interface MarketUiProps {
   isChartDataLoading: boolean;
@@ -453,45 +450,31 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 };
 
 interface MarketProps {
-  vTokenAddress: string;
+  vToken: VToken;
+  isIsolatedPoolMarket: boolean;
   poolComptrollerAddress: string;
 }
 
-const Market: React.FC<MarketProps> = ({ vTokenAddress, poolComptrollerAddress }) => {
+const Market: React.FC<MarketProps> = ({
+  vToken,
+  isIsolatedPoolMarket,
+  poolComptrollerAddress,
+}) => {
   const { accountAddress } = useAuth();
-  const vToken = getVTokenByAddress(vTokenAddress);
-
-  // Redirect to markets page if params are invalid
-  if (!vToken || !poolComptrollerAddress) {
-    const isIsolatedAsset = !areAddressesEqual(
-      poolComptrollerAddress,
-      MAIN_POOL_COMPTROLLER_ADDRESS,
-    );
-
-    return <Redirect to={isIsolatedAsset ? routes.isolatedPools.path : routes.corePool.path} />;
-  }
-
-  const mainPoolComptrollerAddress = getContractAddress('comptroller');
-
-  const isIsolatedPoolMarket = !areAddressesEqual(
-    mainPoolComptrollerAddress,
-    poolComptrollerAddress,
-  );
 
   const { data: getAssetData } = useGetAsset({
     vToken,
     accountAddress,
   });
+  const asset = getAssetData?.asset;
 
   const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken,
   });
 
   const reserveFactorMantissa = useMemo(
-    () =>
-      getAssetData?.asset &&
-      new BigNumber(getAssetData.asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
-    [getAssetData?.asset?.reserveFactor],
+    () => asset && new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
+    [asset?.reserveFactor],
   );
 
   const {
@@ -502,14 +485,14 @@ const Market: React.FC<MarketProps> = ({ vTokenAddress, poolComptrollerAddress }
     },
   } = useGetVTokenApySimulations({
     vToken,
-    reserveFactorMantissa,
     isIsolatedPoolMarket,
-    asset: getAssetData?.asset,
+    reserveFactorMantissa,
+    asset,
   });
 
   return (
     <MarketUi
-      asset={getAssetData?.asset}
+      asset={asset}
       poolComptrollerAddress={poolComptrollerAddress}
       isChartDataLoading={isChartDataLoading}
       {...chartData}
@@ -528,9 +511,26 @@ export const CorePoolMarket: React.FC<CorePoolMarketProps> = ({
   match: {
     params: { vTokenAddress },
   },
-}) => (
-  <Market vTokenAddress={vTokenAddress} poolComptrollerAddress={MAIN_POOL_COMPTROLLER_ADDRESS} />
-);
+}) => {
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
+  });
+
+  const vToken = getVTokenByAddress(vTokenAddress);
+
+  // Redirect to dashboard page if params are invalid
+  if (!vToken || !mainPoolComptrollerContractAddress) {
+    return <Redirect to={routes.dashboard.path} />;
+  }
+
+  return (
+    <Market
+      vToken={vToken}
+      isIsolatedPoolMarket={false}
+      poolComptrollerAddress={mainPoolComptrollerContractAddress}
+    />
+  );
+};
 
 export type IsolatedMarketProps = RouteComponentProps<{
   vTokenAddress: string;
@@ -541,4 +541,15 @@ export const IsolatedPoolMarket: React.FC<IsolatedMarketProps> = ({
   match: {
     params: { vTokenAddress, poolComptrollerAddress },
   },
-}) => <Market vTokenAddress={vTokenAddress} poolComptrollerAddress={poolComptrollerAddress} />;
+}) => {
+  const vToken = getVTokenByAddress(vTokenAddress);
+
+  // Redirect to dashboard page if params are invalid
+  if (!vToken || !poolComptrollerAddress) {
+    return <Redirect to={routes.dashboard.path} />;
+  }
+
+  return (
+    <Market vToken={vToken} isIsolatedPoolMarket poolComptrollerAddress={poolComptrollerAddress} />
+  );
+};
