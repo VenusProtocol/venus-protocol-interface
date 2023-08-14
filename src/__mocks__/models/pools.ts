@@ -2,13 +2,10 @@ import BigNumber from 'bignumber.js';
 import { Pool } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
-import { TESTNET_SWAP_ROUTERS } from 'constants/contracts/swapRouters';
-
-const COMPTROLLER_ADDRESSES = Object.keys(TESTNET_SWAP_ROUTERS);
 
 export const poolData: Pool[] = [
   {
-    comptrollerAddress: COMPTROLLER_ADDRESSES[0],
+    comptrollerAddress: '0x94d1820b2d1c7c7452a163983dc888cec546b77d',
     assets: assetData,
     name: 'Venus',
     description: 'Fake description 1',
@@ -18,7 +15,7 @@ export const poolData: Pool[] = [
     userBorrowLimitCents: new BigNumber(192673),
   },
   {
-    comptrollerAddress: COMPTROLLER_ADDRESSES[1],
+    comptrollerAddress: '0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b',
     assets: assetData,
     name: 'Metaverse',
     description: 'Fake description 2',
