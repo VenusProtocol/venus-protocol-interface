@@ -1,40 +1,54 @@
 import config from 'config';
-import { ethers } from 'ethers';
+import { swapRouter, uniqueContractInfos } from 'packages/contracts';
+import { getTokenByAddress, getVTokenByAddress } from 'utilities';
 
-import contractAddresses from 'constants/contracts/addresses/main.json';
-// TODO: refactor to remove vBepTokens.json and tokens.json files
-import tokenAddresses from 'constants/contracts/addresses/tokens.json';
-import vBepTokensAddresses from 'constants/contracts/addresses/vBepTokens.json';
+// Map contract names by address
+const contractAddressMapping: {
+  [address: string]: string;
+} = {};
 
-const checkAndFormatContractName = (
-  target: string,
-  addressJson: typeof contractAddresses | typeof tokenAddresses | typeof vBepTokensAddresses,
-) => {
-  const found = Object.entries(addressJson).find(
-    entry => entry[1][config.chainId].toLowerCase() === target.toLowerCase(),
-  );
+// TODO: get from auth context
+const { chainId } = config;
 
-  if (found) {
-    const name = found[0];
-    return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
+Object.entries(uniqueContractInfos).forEach(([contractName, contractInfo]) => {
+  const contractAddress = contractInfo.address[chainId];
+
+  if (contractAddress) {
+    contractAddressMapping[contractAddress.toLowerCase()] = `${contractName
+      .charAt(0)
+      .toUpperCase()}${contractName.slice(1)}`;
   }
-};
+});
 
-const getContractName = (target: string) => {
+// Swap router contracts
+const swapRouterAddresses = swapRouter.address[chainId];
+
+if (swapRouterAddresses) {
+  Object.values(swapRouterAddresses).forEach(swapRouterAddress => {
+    contractAddressMapping[swapRouterAddress.toLowerCase()] = 'SwapRouter';
+  });
+}
+
+export interface GetContractNameInput {
+  target: string;
+}
+
+const getContractName = ({ target }: GetContractNameInput) => {
   let contractName;
 
-  if (ethers.utils.isAddress(target)) {
-    // Check main contracts
-    contractName = checkAndFormatContractName(target, contractAddresses);
-    // check token contracts
-    if (!contractName) {
-      contractName = checkAndFormatContractName(target, tokenAddresses);
-    }
+  const knownContractName = contractAddressMapping[target.toLowerCase()];
+  if (knownContractName) {
+    return knownContractName;
+  }
 
-    if (!contractName) {
-      // check v contracts
-      contractName = checkAndFormatContractName(target, vBepTokensAddresses);
-    }
+  const token = getTokenByAddress(target);
+  if (token) {
+    return token.symbol;
+  }
+
+  const vToken = getVTokenByAddress(target);
+  if (vToken) {
+    return vToken.symbol;
   }
 
   return contractName || target;

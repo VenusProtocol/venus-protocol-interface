@@ -15,6 +15,9 @@ import {
   fakeMulticallResponse2,
 } from '../__testUtils__/fakeData';
 
+const fakePoolRegistryContractAddress = '0x14d1820b2D1c7c7452A163983Dc888CEC546b7897';
+const fakeResilientOracleContractAddress = '0x23d1820b2D1c7c7452A163983Dc888CEC546b7897';
+
 vi.mock('clients/subgraph');
 
 const fakePoolLensContract = {
@@ -42,6 +45,8 @@ describe('api/queries/getIsolatedPools', () => {
       provider: fakeProvider,
       accountAddress: fakeAddress,
       multicall: fakeMulticall,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      resilientOracleContractAddress: fakeResilientOracleContractAddress,
     });
 
     expect(response).toMatchSnapshot();
@@ -57,6 +62,8 @@ describe('api/queries/getIsolatedPools', () => {
       provider: fakeProvider,
       accountAddress: fakeAddress,
       multicall: fakeMulticall,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      resilientOracleContractAddress: fakeResilientOracleContractAddress,
     });
 
     expect(response).toMatchSnapshot();
