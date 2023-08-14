@@ -30,7 +30,7 @@ export const FormikTextField = ({
   return (
     <TextField
       name={name}
-      value={value || ''}
+      value={value !== undefined || value !== null ? value : ''}
       onChange={onChange}
       onBlur={handleBlur}
       hasError={!!(error && displayableErrorCodes.includes(error) && touched)}
