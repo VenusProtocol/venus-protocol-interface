@@ -49,7 +49,7 @@ const formatSignature = (action: FormValues['actions'][number] | ProposalAction)
           const res = action.callData[idx];
           return i.baseType === 'string' || i.baseType === 'address' ? `"${res}"` : res;
         })
-        .filter((item): item is string => !!item);
+        .filter((item): item is string => item !== undefined || item !== null);
     } else {
       const unformattedArgs = ethers.utils.defaultAbiCoder.decode(
         fragment.inputs.map(formatParamType),
