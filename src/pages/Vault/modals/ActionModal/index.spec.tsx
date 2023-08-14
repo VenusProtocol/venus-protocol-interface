@@ -1,16 +1,16 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { ChainId } from 'packages/contracts';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import TEST_IDS from 'components/Spinner/testIds';
-import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
+
+const fakeXvsVaultAddress = '0x2258a693A403b7e98fd05EE9e1558C760308cFC7';
 
 vi.mock('clients/api');
 
@@ -27,7 +27,7 @@ const baseProps: ActionModalProps = {
   availableTokensWei: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeApproved: true,
-  spenderAddress: mainContractAddresses.xvsVaultProxy[ChainId.BSC_TESTNET],
+  spenderAddress: fakeXvsVaultAddress,
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

@@ -20,6 +20,9 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   className,
 }) => {
   const styles = useStyles();
+  const contractName = getContractName({
+    target: action.target,
+  });
 
   return (
     <Typography css={styles.signature} className={className}>
@@ -29,7 +32,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
         target="_blank"
         rel="noreferrer"
       >
-        {getContractName(action.target)}
+        {contractName}
       </Typography>
 
       {formatSignature(action)}
