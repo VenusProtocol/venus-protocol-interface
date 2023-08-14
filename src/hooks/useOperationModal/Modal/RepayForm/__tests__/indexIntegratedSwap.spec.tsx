@@ -71,6 +71,7 @@ vi.mock('clients/api');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapInfo');
+vi.mock('hooks/useGetSwapRouterContractAddress');
 
 describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
