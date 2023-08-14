@@ -19,7 +19,6 @@ import {
   convertTokensToWei,
   convertWeiToTokens,
   formatPercentageToReadableValue,
-  getSwapRouterContractAddress,
   isFeatureEnabled,
 } from 'utilities';
 
@@ -27,6 +26,7 @@ import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -324,9 +324,13 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     fixedRepayPercentage: undefined,
   });
 
+  const swapRouterContractAddress = useGetSwapRouterContractAddress({
+    comptrollerAddress: pool.comptrollerAddress,
+  });
+
   const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
     ? asset.vToken.address
-    : getSwapRouterContractAddress(pool.comptrollerAddress);
+    : swapRouterContractAddress;
 
   const {
     isTokenApproved: isFromTokenApproved,

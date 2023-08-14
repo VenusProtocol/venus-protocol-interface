@@ -20,7 +20,6 @@ import {
   areTokensEqual,
   convertTokensToWei,
   convertWeiToTokens,
-  getSwapRouterContractAddress,
   isFeatureEnabled,
 } from 'utilities';
 
@@ -30,6 +29,7 @@ import { useAuth } from 'context/AuthContext';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -325,9 +325,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     fromToken: asset.vToken.underlyingToken,
   });
 
+  const swapRouterContractAddress = useGetSwapRouterContractAddress({
+    comptrollerAddress: pool.comptrollerAddress,
+  });
+
   const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
     ? asset.vToken.address
-    : getSwapRouterContractAddress(pool.comptrollerAddress);
+    : swapRouterContractAddress;
 
   const {
     isTokenApproved: isFromTokenApproved,
