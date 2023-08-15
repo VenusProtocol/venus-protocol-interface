@@ -157,7 +157,7 @@
     "reg-notify-github-plugin": "^0.12.2",
     "reg-publish-s3-plugin": "^0.11.0",
     "reg-suit": "^0.11.1",
-    "rimraf": "^4.1.2",
+    "rimraf": "^5.0.1",
     "semantic-release": "^21.0.7",
     "storybook": "^7.2.1",
     "stylelint": "^15.10.2",
