@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractReceipt } from 'ethers';
 
+import { VError, VErrorPhraseMap } from './VError';
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
@@ -12,9 +13,7 @@ import {
   VaiVaultErrorReporterInfo,
   XvsVaultProxyErrorReporterError,
   XvsVaultProxyErrorReporterInfo,
-} from 'constants/contracts/errorReporter';
-
-import { VError, VErrorPhraseMap } from './VError';
+} from './contractErrors';
 
 // Some contracts don't revert when failing but instead return a Failure event.
 // These functions are used to detect such cases and throw an error when a

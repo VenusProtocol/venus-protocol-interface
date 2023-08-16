@@ -7,7 +7,7 @@ import {
   TokenErrorReporterFailureInfo,
   VaiControllerErrorReporterError,
   VaiControllerErrorReporterFailureInfo,
-} from 'constants/contracts/errorReporter';
+} from './contractErrors';
 
 export const transactionErrorPhrases: Record<
   | keyof typeof ComptrollerErrorReporterError
