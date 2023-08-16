@@ -22,58 +22,58 @@ export default {
 const votes = [
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2976',
-    voteWeightWei: new BigNumber('1000'),
+    votesWei: new BigNumber('1000'),
     reason: 'comment text from storybook',
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297s',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297q',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74b2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dea391b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23d1b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23a1b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b7qc2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2v91b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dn2391b74c2977',
-    voteWeightWei: new BigNumber('1271'),
+    votesWei: new BigNumber('1271'),
     support: 'FOR' as const,
   },
 ];

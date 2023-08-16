@@ -8,7 +8,7 @@ import { GetVotersApiResponse } from './types';
 const formatToVoter = (payload: GetVotersApiResponse): VotersDetails => ({
   result: payload.result.map(({ address, reason, votes, support, hasVoted }) => ({
     address,
-    voteWeightWei: new BigNumber(votes),
+    votesWei: new BigNumber(votes),
     reason: reason ?? undefined,
     support: hasVoted ? indexedVotingSupportNames[support] : 'NOT_VOTED',
   })),

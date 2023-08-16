@@ -80,7 +80,7 @@ const VoteSummary = ({
       </div>
 
       <ul css={styles.votesWrapper}>
-        {voters.map(({ address, voteWeightWei, reason }) => (
+        {voters.map(({ address, votesWei, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
               <Link
@@ -99,9 +99,8 @@ const VoteSummary = ({
 
             <Typography color="text.primary">
               {convertWeiToTokens({
-                valueWei: voteWeightWei,
+                valueWei: votesWei,
                 token: TOKENS.xvs,
-
                 addSymbol: false,
                 returnInReadableFormat: true,
               })}
