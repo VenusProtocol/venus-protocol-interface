@@ -154,7 +154,7 @@ export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 export interface VotersDetails {
   result: {
     address: string;
-    voteWeightWei: BigNumber;
+    votesWei: BigNumber;
     reason?: string;
     support: VoteSupport;
   }[];
