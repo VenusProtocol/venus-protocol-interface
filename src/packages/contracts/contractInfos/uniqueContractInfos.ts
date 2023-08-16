@@ -111,8 +111,8 @@ const xvsStore: UniqueContractInfo = {
 const governorBravoDelegate: UniqueContractInfo = {
   abi: governorBravoDelegateAbi,
   address: {
-    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegate,
-    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.GovernorBravoDelegate,
+    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.GovernorBravoDelegator,
+    [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.GovernorBravoDelegator,
   },
 };
 
