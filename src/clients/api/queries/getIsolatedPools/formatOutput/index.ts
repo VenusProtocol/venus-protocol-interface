@@ -7,6 +7,7 @@ import {
   calculateApy,
   convertDollarsToCents,
   convertWeiToTokens,
+  formatTokenPrices,
   getVTokenByAddress,
   multiplyMantissaDaily,
 } from 'utilities';
@@ -20,7 +21,6 @@ import { FormatToPoolInput } from '../types';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
 import formatDistributions from './formatDistributions';
 import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
-import formatTokenPrices from './formatTokenPrices';
 
 const formatToPools = ({
   poolsResults,

@@ -37,14 +37,13 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
   // collateral in that pool
   const filteredPools = useMemo(
     () =>
-      pools.filter(
-        pool =>
-          pool.assets.some(
-            asset =>
-              asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-              asset.userBorrowBalanceTokens.isGreaterThan(0) ||
-              asset.isCollateralOfUser,
-          ),
+      pools.filter(pool =>
+        pool.assets.some(
+          asset =>
+            asset.userSupplyBalanceTokens.isGreaterThan(0) ||
+            asset.userBorrowBalanceTokens.isGreaterThan(0) ||
+            asset.isCollateralOfUser,
+        ),
       ),
     [pools],
   );

@@ -1,10 +1,12 @@
 import { ContractCallReturnContext } from 'ethereum-multicall';
+import { formatTokenPrices } from 'utilities';
 
 import { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToPoolPendingRewardGroup(
   callsReturnContext: ContractCallReturnContext['callsReturnContext'][number],
+  rewardTokenPrices: ReturnType<typeof formatTokenPrices>,
 ) {
   const { returnValues, methodParameters } = callsReturnContext;
 
@@ -13,7 +15,7 @@ function formatToPoolPendingRewardGroup(
   }
 
   const pendingRewards: IsolatedPoolPendingReward[] = returnValues
-    .map(formatRewardSummaryData)
+    .map(rewardSummary => formatRewardSummaryData({ rewardSummary, rewardTokenPrices }))
     .filter((pendingReward): pendingReward is IsolatedPoolPendingReward => !!pendingReward);
 
   if (pendingRewards.length === 0) {

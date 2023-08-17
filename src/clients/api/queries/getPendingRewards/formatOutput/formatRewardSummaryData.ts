@@ -1,11 +1,17 @@
 import BigNumber from 'bignumber.js';
 import { Token } from 'types';
-import { getTokenByAddress } from 'utilities';
+import {
+  convertDollarsToCents,
+  convertWeiToTokens,
+  formatTokenPrices,
+  getTokenByAddress,
+} from 'utilities';
 
 type FormatRewardSummaryDataOutput =
   | {
       rewardToken: Token;
       rewardAmountWei: BigNumber;
+      rewardAmountCents: BigNumber | undefined;
       vTokenAddressesWithPendingReward: string[];
       rewardsDistributorAddress: string;
     }
@@ -21,7 +27,13 @@ export type RewardSummary = [
   ][],
 ];
 
-function formatRewardSummaryData(rewardSummary: RewardSummary): FormatRewardSummaryDataOutput {
+function formatRewardSummaryData({
+  rewardSummary,
+  rewardTokenPrices,
+}: {
+  rewardSummary: RewardSummary;
+  rewardTokenPrices: ReturnType<typeof formatTokenPrices>;
+}): FormatRewardSummaryDataOutput {
   const rewardToken = getTokenByAddress(rewardSummary[1]);
 
   // Filter out result if no corresponding token is found
@@ -52,9 +64,25 @@ function formatRewardSummaryData(rewardSummary: RewardSummary): FormatRewardSumm
     return;
   }
 
+  const rewardTokenPrice = rewardTokenPrices[rewardToken.address.toLowerCase()];
+  const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPrice);
+
+  // return if there is no available reward token price
+  if (!rewardTokenPrice) {
+    return undefined;
+  }
+
+  const rewardAmountTokens = convertWeiToTokens({
+    valueWei: rewardAmountWei,
+    token: rewardToken,
+  });
+
+  const rewardAmountCents = rewardAmountTokens.multipliedBy(rewardTokenPriceCents);
+
   return {
     rewardToken,
     rewardAmountWei,
+    rewardAmountCents,
     vTokenAddressesWithPendingReward,
     rewardsDistributorAddress: rewardSummary[0],
   };

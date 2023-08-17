@@ -16,6 +16,10 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
     name: 'mainPoolComptroller',
   });
 
+  const resilientOracleContractAddress = useGetUniqueContractAddress({
+    name: 'resilientOracle',
+  });
+
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
     useGetXvsVaultPoolCount();
@@ -39,6 +43,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
       accountAddress: accountAddress || '',
       mainPoolComptrollerContractAddress: mainPoolComptrollerContractAddress || '',
       isolatedPoolComptrollerAddresses,
+      resilientOracleContractAddress: resilientOracleContractAddress || '',
       xvsVestingVaultPoolCount: getXvsVaultPoolCountData?.poolCount || 0,
     },
     {
@@ -93,6 +98,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
                   rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                  rewardAmountCents: pendingRewardGroup.rewardAmountCents,
                 },
               ],
               claims: [claim],
@@ -131,6 +137,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
                   rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                  rewardAmountCents: pendingRewardGroup.rewardAmountCents,
                 },
               ],
               claims: [
@@ -155,6 +162,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             pendingRewards: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               rewardToken: pendingReward.rewardToken,
               rewardAmountWei: pendingReward.rewardAmountWei,
+              rewardAmountCents: pendingReward.rewardAmountCents,
             })),
             claims: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               contract: 'rewardsDistributor',

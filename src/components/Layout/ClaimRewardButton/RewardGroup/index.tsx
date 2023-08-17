@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React from 'react';
-import { convertWeiToTokens } from 'utilities';
+import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
 
 import { Checkbox, CheckboxProps } from '../../../Checkbox';
+import LayeredValues from '../../../LayeredValues';
 import { TokenIcon } from '../../../TokenIcon';
 import { Group } from '../types';
 import { useStyles } from './styles';
@@ -34,15 +35,24 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
           css={styles.groupItem}
           key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
         >
-          <TokenIcon token={pendingReward.rewardToken} css={styles.rewardTokenIcon} />
+          <div css={styles.rewardToken}>
+            <TokenIcon token={pendingReward.rewardToken} css={styles.rewardTokenIcon} />
+            <Typography css={styles.rewardTokenSymbol}>
+              {pendingReward.rewardToken.symbol}
+            </Typography>
+          </div>
 
-          <Typography css={styles.rewardAmount}>
-            {convertWeiToTokens({
+          <LayeredValues
+            css={styles.layeredValues}
+            topValue={formatCentsToReadableValue({
+              value: pendingReward.rewardAmountCents,
+            })}
+            bottomValue={convertWeiToTokens({
               valueWei: pendingReward.rewardAmountWei,
               token: pendingReward.rewardToken,
               returnInReadableFormat: true,
             })}
-          </Typography>
+          />
         </div>
       ))}
     </div>

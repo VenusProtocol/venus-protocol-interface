@@ -44,3 +44,4 @@ export { default as multiplyMantissaDaily } from './multiplyMantissaDaily';
 export { default as callOrThrow } from './callOrThrow';
 export { default as getTokenContract } from './getTokenContract';
 export { default as getVTokenContract } from './getVTokenContract';
+export { default as formatTokenPrices } from './formatTokenPrices';

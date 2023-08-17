@@ -6,6 +6,7 @@ import { Claim } from 'clients/api';
 export interface PendingReward {
   rewardToken: Token;
   rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
 }
 
 export interface Group {

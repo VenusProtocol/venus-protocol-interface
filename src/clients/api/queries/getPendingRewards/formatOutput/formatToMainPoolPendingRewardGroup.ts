@@ -1,29 +1,41 @@
+import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 
 import { MainPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData, { RewardSummary } from './formatRewardSummaryData';
 
-function formatToMainPoolPendingRewardGroup(
-  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number],
-) {
+function formatToMainPoolPendingRewardGroup({
+  callsReturnContext,
+  rewardTokenPrices,
+}: {
+  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number];
+  rewardTokenPrices: Record<string, BigNumber>;
+}) {
   const { returnValues, methodParameters } = callsReturnContext;
 
   if (returnValues.length === 0) {
     return;
   }
 
-  const rewardSummaryData = formatRewardSummaryData(returnValues as RewardSummary);
+  const rewardSummaryData = formatRewardSummaryData({
+    rewardSummary: returnValues as RewardSummary,
+    rewardTokenPrices,
+  });
 
   if (!rewardSummaryData) {
     return;
   }
 
+  const { rewardToken, rewardAmountWei, rewardAmountCents, vTokenAddressesWithPendingReward } =
+    rewardSummaryData;
+
   const pendingRewardGroup: MainPoolPendingRewardGroup = {
     type: 'mainPool',
     comptrollerAddress: methodParameters[1],
-    rewardToken: rewardSummaryData.rewardToken,
-    rewardAmountWei: rewardSummaryData.rewardAmountWei,
-    vTokenAddressesWithPendingReward: rewardSummaryData.vTokenAddressesWithPendingReward,
+    rewardToken,
+    rewardAmountCents,
+    rewardAmountWei,
+    vTokenAddressesWithPendingReward,
   };
 
   return pendingRewardGroup;
