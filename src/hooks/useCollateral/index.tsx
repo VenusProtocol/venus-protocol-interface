@@ -8,7 +8,7 @@ import { areAddressesEqual, getVTokenContract } from 'utilities';
 import {
   getHypotheticalAccountLiquidity,
   getVTokenBalanceOf,
-  useEnterMarkets,
+  useEnterMarket,
   useExitMarket,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -23,7 +23,7 @@ const useCollateral = () => {
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const { hasLunaOrUstCollateralEnabled } = useContext(DisableLunaUstWarningContext);
 
-  const { mutateAsync: enterMarkets } = useEnterMarkets();
+  const { mutateAsync: enterMarket } = useEnterMarket();
   const { mutateAsync: exitMarket } = useExitMarket();
 
   const mainPoolComptrollerContract = useGetUniqueContract({
@@ -33,9 +33,11 @@ const useCollateral = () => {
   const contractToggleCollateral = async ({
     asset,
     comptrollerAddress,
+    poolName,
   }: {
     asset: Asset;
     comptrollerAddress: string;
+    poolName: string;
   }) => {
     if (!signer) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
@@ -82,7 +84,12 @@ const useCollateral = () => {
           });
         }
 
-        await exitMarket({ vTokenAddress: asset.vToken.address, comptrollerContract });
+        await exitMarket({
+          vToken: asset.vToken,
+          poolName,
+          comptrollerContract,
+          userSupplyBalanceTokens: asset.supplyBalanceTokens,
+        });
       } catch (error) {
         if (error instanceof VError) {
           throw error;
@@ -98,9 +105,11 @@ const useCollateral = () => {
       }
     } else {
       try {
-        await enterMarkets({
-          vTokenAddresses: [asset.vToken.address],
+        await enterMarket({
+          vToken: asset.vToken,
+          poolName,
           comptrollerContract,
+          userSupplyBalanceTokens: asset.supplyBalanceTokens,
         });
       } catch (error) {
         if (error instanceof VError) {
@@ -121,9 +130,11 @@ const useCollateral = () => {
   const toggleCollateral = async ({
     asset,
     comptrollerAddress,
+    poolName,
   }: {
     asset: Asset;
     comptrollerAddress: string;
+    poolName: string;
   }) => {
     // Prevent action if user has UST or LUNA enabled as collateral while trying
     // to enable/disable a different token
@@ -155,6 +166,7 @@ const useCollateral = () => {
       await contractToggleCollateral({
         asset,
         comptrollerAddress,
+        poolName,
       });
     } finally {
       setSelectedAsset(undefined);

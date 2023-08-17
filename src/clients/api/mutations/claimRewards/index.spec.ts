@@ -3,6 +3,7 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { TESTNET_TOKENS } from 'constants/tokens';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -22,7 +23,7 @@ const fakeClaims: Claim[] = [
   },
   {
     contract: 'xvsVestingVault',
-    rewardTokenAddress: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+    rewardToken: TESTNET_TOKENS.xvs,
     poolIndex: 0,
   },
   {
@@ -36,6 +37,7 @@ const fakeClaims: Claim[] = [
   {
     contract: 'rewardsDistributor',
     contractAddress: '0xc0ffee254729296a45a3885639AC7E10F9d54979',
+    comptrollerContractAddress: '0x19Hfee254729296a45a3885639AC7E10F9d54979',
     vTokenAddressesWithPendingReward: [
       '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
       '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',

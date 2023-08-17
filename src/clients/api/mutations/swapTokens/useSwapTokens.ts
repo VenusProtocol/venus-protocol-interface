@@ -1,8 +1,10 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { useAnalytics } from 'context/Analytics';
 import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
@@ -15,6 +17,7 @@ const useSwapTokens = (
   const swapRouterContract = useGetSwapRouterContract({
     comptrollerAddress: poolComptrollerAddress,
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.SWAP_TOKENS,
@@ -33,6 +36,30 @@ const useSwapTokens = (
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { swap } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens swapped', {
+          fromTokenSymbol: swap.fromToken.symbol,
+          fromTokenAmountTokens: convertWeiToTokens({
+            token: swap.fromToken,
+            valueWei:
+              swap.direction === 'exactAmountIn'
+                ? swap.fromTokenAmountSoldWei
+                : swap.expectedFromTokenAmountSoldWei,
+          }).toNumber(),
+          toTokenSymbol: swap.toToken.symbol,
+          toTokenAmountTokens: convertWeiToTokens({
+            token: swap.toToken,
+            valueWei:
+              swap.direction === 'exactAmountIn'
+                ? swap.expectedToTokenAmountReceivedWei
+                : swap.toTokenAmountReceivedWei,
+          }).toNumber(),
+          priceImpactPercentage: swap.priceImpactPercentage,
+          slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
+          exchangeRate: swap.exchangeRate.toNumber(),
+          routePath: swap.routePath,
+        });
+
         const accountAddress = await swapRouterContract?.signer.getAddress();
 
         queryClient.invalidateQueries([

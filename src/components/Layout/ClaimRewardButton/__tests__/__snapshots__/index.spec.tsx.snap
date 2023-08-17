@@ -5,6 +5,7 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
     {
+      "comptrollerContractAddress": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
       "contract": "rewardsDistributor",
       "contractAddress": "0xa14c236372228b6e8182748f3ebbfb4bfeea3574",
       "vTokenAddressesWithPendingReward": [
@@ -13,6 +14,7 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
       ],
     },
     {
+      "comptrollerContractAddress": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
       "contract": "rewardsDistributor",
       "contractAddress": "0xadbed07126b7b70cbc5e07bf73599d55be571b9c",
       "vTokenAddressesWithPendingReward": [
@@ -25,7 +27,12 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
     {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
-      "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/assets/img/tokens/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
     },
   ],
 }
@@ -44,6 +51,7 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
       ],
     },
     {
+      "comptrollerContractAddress": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
       "contract": "rewardsDistributor",
       "contractAddress": "0xa14c236372228b6e8182748f3ebbfb4bfeea3574",
       "vTokenAddressesWithPendingReward": [
@@ -52,6 +60,7 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
       ],
     },
     {
+      "comptrollerContractAddress": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
       "contract": "rewardsDistributor",
       "contractAddress": "0xadbed07126b7b70cbc5e07bf73599d55be571b9c",
       "vTokenAddressesWithPendingReward": [
@@ -67,7 +76,12 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
     {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
-      "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/assets/img/tokens/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
     },
   ],
 }

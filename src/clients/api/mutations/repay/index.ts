@@ -11,8 +11,8 @@ export interface RepayInput {
   signer: Signer;
   vToken: VToken;
   amountWei: BigNumber;
+  isRepayingFullLoan: boolean;
   maximillionContract?: ContractTypeByName<'maximillion'>;
-  isRepayingFullLoan?: boolean;
 }
 
 export type RepayOutput = ContractReceipt;

@@ -9,9 +9,9 @@ export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
 export { default as useRepayVai } from './mutations/repayVai/useRepayVai';
 
-export { default as enterMarkets } from './mutations/enterMarkets';
-export * from './mutations/enterMarkets';
-export { default as useEnterMarkets } from './mutations/enterMarkets/useEnterMarkets';
+export { default as enterMarket } from './mutations/enterMarket';
+export * from './mutations/enterMarket';
+export { default as useEnterMarket } from './mutations/enterMarket/useEnterMarket';
 
 export { default as exitMarket } from './mutations/exitMarket';
 export * from './mutations/exitMarket';

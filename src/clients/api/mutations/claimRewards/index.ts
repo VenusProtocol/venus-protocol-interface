@@ -59,7 +59,7 @@ const claimRewards = async ({
 
         const callData = executingInterface.encodeFunctionData('claim(address,address,uint256)', [
           accountAddress,
-          claim.rewardTokenAddress,
+          claim.rewardToken.address,
           claim.poolIndex,
         ]);
 

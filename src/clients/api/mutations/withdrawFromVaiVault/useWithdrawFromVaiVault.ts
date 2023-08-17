@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
   WithdrawFromVaiVaultInput,
@@ -9,6 +9,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
+import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedWithdrawFromVaiVaultInput = Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>;
@@ -22,6 +23,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.WITHDRAW_FROM_VAI_VAULT,
@@ -35,6 +37,15 @@ const useWithdrawFromVaiVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
+        const { amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens withdrawn from VAI vault', {
+          tokenAmountTokens: convertWeiToTokens({
+            token: TOKENS.vai,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
+
         const accountAddress = await vaiVaultContract?.signer.getAddress();
 
         // Invalidate cached user info, including staked amount

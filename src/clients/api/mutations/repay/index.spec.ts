@@ -35,6 +35,7 @@ describe('api/mutation/repay', () => {
         signer: fakeSigner,
         vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
         amountWei: fakeAmountWei,
+        isRepayingFullLoan: false,
       });
 
       expect(response).toBe(fakeContractReceipt);
@@ -94,6 +95,7 @@ describe('api/mutation/repay', () => {
         signer: fakeSigner,
         vToken: vBnb,
         amountWei: fakeAmountWei,
+        isRepayingFullLoan: false,
       });
 
       expect(response).toBe(fakeContractReceipt);

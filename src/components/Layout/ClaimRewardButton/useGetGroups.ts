@@ -81,7 +81,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                   }
                 : {
                     contract: 'xvsVestingVault',
-                    rewardTokenAddress: pendingRewardGroup.rewardToken.address,
+                    rewardToken: pendingRewardGroup.rewardToken,
                     poolIndex: pendingRewardGroup.poolIndex,
                   };
 
@@ -159,6 +159,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             claims: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               contract: 'rewardsDistributor',
               contractAddress: pendingReward.rewardsDistributorAddress,
+              comptrollerContractAddress: pendingRewardGroup.comptrollerAddress,
               vTokenAddressesWithPendingReward: pendingReward.vTokenAddressesWithPendingReward,
             })),
           };

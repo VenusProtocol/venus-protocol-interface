@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
   SwapTokensAndRepayInput,
@@ -9,6 +9,8 @@ import {
   swapTokensAndRepay,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { useAnalytics } from 'context/Analytics';
 import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensAndRepayInput = Omit<
@@ -22,12 +24,17 @@ type Options = MutationObserverOptions<
 >;
 
 const useSwapTokensAndRepayAndRepay = (
-  { vToken, poolComptrollerAddress }: { vToken: VToken; poolComptrollerAddress: string },
+  {
+    vToken,
+    poolComptrollerAddress,
+    poolName,
+  }: { vToken: VToken; poolComptrollerAddress: string; poolName: string },
   options?: Options,
 ) => {
   const swapRouterContract = useGetSwapRouterContract({
     comptrollerAddress: poolComptrollerAddress,
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.SWAP_TOKENS_AND_REPAY,
@@ -42,7 +49,33 @@ const useSwapTokensAndRepayAndRepay = (
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { swap } = onSuccessParams[1];
+        const { swap, isRepayingFullLoan } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens swapped and repaid', {
+          poolName,
+          fromTokenSymbol: swap.fromToken.symbol,
+          fromTokenAmountTokens: convertWeiToTokens({
+            token: swap.fromToken,
+            valueWei:
+              swap.direction === 'exactAmountIn'
+                ? swap.fromTokenAmountSoldWei
+                : swap.expectedFromTokenAmountSoldWei,
+          }).toNumber(),
+          toTokenSymbol: swap.toToken.symbol,
+          toTokenAmountTokens: convertWeiToTokens({
+            token: swap.toToken,
+            valueWei:
+              swap.direction === 'exactAmountIn'
+                ? swap.expectedToTokenAmountReceivedWei
+                : swap.toTokenAmountReceivedWei,
+          }).toNumber(),
+          priceImpactPercentage: swap.priceImpactPercentage,
+          slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
+          exchangeRate: swap.exchangeRate.toNumber(),
+          routePath: swap.routePath,
+          repaidFullLoan: isRepayingFullLoan,
+        });
+
         const accountAddress = await swapRouterContract?.signer.getAddress();
 
         queryClient.invalidateQueries([

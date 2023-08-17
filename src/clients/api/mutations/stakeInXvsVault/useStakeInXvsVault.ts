@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
   StakeInXvsVaultInput,
@@ -9,16 +9,20 @@ import {
   stakeInXvsVault,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
+import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
 type Options = MutationObserverOptions<StakeInXvsVaultOutput, Error, TrimmedStakeInXvsVaultInput>;
 
-const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: Options) => {
+const useStakeInXvsVault = (
+  { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
+  options?: Options,
+) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.STAKE_IN_XVS_VAULT,
@@ -32,13 +36,23 @@ const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: O
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { poolIndex } = onSuccessParams[1];
+        const { poolIndex, amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens staked in XVS vault', {
+          poolIndex,
+          rewardTokenSymbol: rewardToken.symbol,
+          tokenAmountTokens: convertWeiToTokens({
+            token: stakedToken,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
+
         const accountAddress = await xvsVaultContract?.signer.getAddress();
 
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+          { accountAddress, rewardTokenAddress: rewardToken.address, poolIndex },
         ]);
 
         // Invalidate cached user balance
@@ -76,7 +90,7 @@ const useStakeInXvsVault = ({ stakedToken }: { stakedToken: Token }, options?: O
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          { rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+          { rewardTokenAddress: rewardToken.address, poolIndex },
         ]);
 
         if (options?.onSuccess) {

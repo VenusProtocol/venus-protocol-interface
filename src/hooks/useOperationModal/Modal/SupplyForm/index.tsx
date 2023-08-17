@@ -148,6 +148,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     try {
       await toggleCollateral({
         asset,
+        poolName: pool.name,
         comptrollerAddress: pool.comptrollerAddress,
       });
     } catch (e) {
@@ -357,11 +358,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   );
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
+    poolName: pool.name,
     vToken: asset.vToken,
   });
 
   const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
+      poolName: pool.name,
       poolComptrollerAddress: pool.comptrollerAddress,
       vToken: asset.vToken,
     });
