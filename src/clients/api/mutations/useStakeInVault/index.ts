@@ -19,6 +19,7 @@ interface StakeInput {
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
     stakedToken,
+    rewardToken,
   });
 
   const { mutateAsync: stakeInVaiVault, isLoading: isStakeInVaiVaultLoading } =

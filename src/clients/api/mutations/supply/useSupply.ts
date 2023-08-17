@@ -1,17 +1,22 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
+import { useAnalytics } from 'context/Analytics';
 import { useAuth } from 'context/AuthContext';
 
 type TrimmedSupplyInput = Omit<SupplyInput, 'vToken' | 'signer'>;
 type Options = MutationObserverOptions<SupplyOutput, Error, TrimmedSupplyInput>;
 
-const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
+const useSupply = (
+  { vToken, poolName }: { vToken: VToken; poolName: string },
+  options?: Options,
+) => {
   const { signer, accountAddress } = useAuth();
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.SUPPLY,
@@ -26,6 +31,17 @@ const useSupply = ({ vToken }: { vToken: VToken }, options?: Options) => {
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
+        const { amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens supplied', {
+          poolName,
+          tokenSymbol: vToken.underlyingToken.symbol,
+          tokenAmountTokens: convertWeiToTokens({
+            token: vToken.underlyingToken,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
+
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {

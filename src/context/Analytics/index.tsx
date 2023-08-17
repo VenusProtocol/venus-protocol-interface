@@ -36,4 +36,5 @@ export const AnalyticsProvider: React.FC = ({ children }) => (
   </PostHogProvider>
 );
 
+export * from './useAnalytics';
 export { default as useAnalytics } from './useAnalytics';

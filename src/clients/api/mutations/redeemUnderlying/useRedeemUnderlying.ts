@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import redeemUnderlying, {
@@ -8,6 +8,7 @@ import redeemUnderlying, {
   RedeemUnderlyingOutput,
 } from 'clients/api/mutations/redeemUnderlying';
 import FunctionKey from 'constants/functionKey';
+import { useAnalytics } from 'context/Analytics';
 import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
 type TrimmedRedeemUnderlyingInput = Omit<
@@ -16,8 +17,12 @@ type TrimmedRedeemUnderlyingInput = Omit<
 >;
 type Options = MutationObserverOptions<RedeemUnderlyingOutput, Error, TrimmedRedeemUnderlyingInput>;
 
-const useRedeemUnderlying = ({ vToken }: { vToken: VToken }, options?: Options) => {
+const useRedeemUnderlying = (
+  { vToken, poolName }: { vToken: VToken; poolName: string },
+  options?: Options,
+) => {
   const vTokenContract = useGetVTokenContract(vToken);
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.REDEEM_UNDERLYING,
@@ -31,6 +36,18 @@ const useRedeemUnderlying = ({ vToken }: { vToken: VToken }, options?: Options) 
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
+        const { amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens withdrawn', {
+          poolName,
+          tokenSymbol: vToken.underlyingToken.symbol,
+          tokenAmountTokens: convertWeiToTokens({
+            token: vToken.underlyingToken,
+            valueWei: amountWei,
+          }).toNumber(),
+          withdrewFullSupply: true,
+        });
+
         const accountAddress = await vTokenContract?.signer.getAddress();
 
         queryClient.invalidateQueries([

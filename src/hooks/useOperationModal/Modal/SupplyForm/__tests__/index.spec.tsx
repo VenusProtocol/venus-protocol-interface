@@ -346,6 +346,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     await waitFor(() => expect(toggleCollateral).toHaveBeenCalledTimes(1));
     expect(toggleCollateral).toHaveBeenCalledWith({
       asset: customFakeAsset,
+      poolName: fakePool.name,
       comptrollerAddress: fakePool.comptrollerAddress,
     });
   });

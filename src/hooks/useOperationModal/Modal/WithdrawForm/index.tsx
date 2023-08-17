@@ -181,11 +181,13 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const vTokenBalanceWei = getVTokenBalanceData?.balanceWei;
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
+    poolName: pool.name,
     vToken: asset.vToken,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
+      poolName: pool.name,
       vToken: asset.vToken,
     });
 

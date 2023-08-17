@@ -1,5 +1,6 @@
 import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
+import { Token } from 'types';
 
 export interface VaiVaultClaim {
   contract: 'vaiVault';
@@ -7,7 +8,7 @@ export interface VaiVaultClaim {
 
 export interface XvsVestingVaultClaim {
   contract: 'xvsVestingVault';
-  rewardTokenAddress: string;
+  rewardToken: Token;
   poolIndex: number;
 }
 
@@ -19,6 +20,7 @@ export interface MainPoolComptrollerClaim {
 export interface RewardsDistributorClaim {
   contract: 'rewardsDistributor';
   contractAddress: string;
+  comptrollerContractAddress: string;
   vTokenAddressesWithPendingReward: string[];
 }
 

@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
   StakeInVaiVaultInput,
@@ -9,6 +9,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
+import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
@@ -18,6 +19,7 @@ const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.STAKE_IN_VAI_VAULT,
@@ -35,6 +37,15 @@ const useStakeInVaiVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
+        const { amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Tokens staked in VAI vault', {
+          tokenAmountTokens: convertWeiToTokens({
+            token: TOKENS.vai,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
+
         const accountAddress = await vaiVaultContract?.signer.getAddress();
 
         // Invalidate cached user info, including pending reward

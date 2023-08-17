@@ -3,6 +3,8 @@ import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import castVote, { CastVoteInput, CastVoteOutput } from './castVote';
@@ -14,6 +16,7 @@ const useCastVote = (options?: Options) => {
   const governorBravoDelegateContract = useGetUniqueContract({
     name: 'governorBravoDelegate',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.CAST_VOTE,
@@ -28,6 +31,11 @@ const useCastVote = (options?: Options) => {
       ...options,
       onSuccess: (...onSuccessParams) => {
         const { proposalId, voteType } = onSuccessParams[1];
+
+        captureAnalyticEvent('Vote casted', {
+          proposalId,
+          voteType: indexedVotingSupportNames[voteType],
+        });
 
         // Invalidate query to fetch voters
         queryClient.invalidateQueries([

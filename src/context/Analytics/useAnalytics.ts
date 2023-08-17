@@ -1,9 +1,10 @@
 import config from 'config';
 import { usePostHog } from 'posthog-js/react';
+import { VoteSupport } from 'types';
 
 import { logError } from 'context/ErrorLogger';
 
-type EventName =
+export type AnalyticEventName =
   | 'Tokens supplied'
   | 'Tokens swapped and supplied'
   | 'Tokens collateralized'
@@ -23,121 +24,115 @@ type EventName =
   | 'XVS vesting vault reward claimed'
   | 'Vote casted';
 
-type EventProps<TEventName extends EventName> = TEventName extends 'Tokens supplied'
-  ? { poolName: string; tokenSymbol: string; tokenAmountTokens: number }
-  : TEventName extends 'Tokens swapped and supplied'
-  ? {
-      poolName: string;
-      fromTokenSymbol: string;
-      fromTokenAmountTokens: number;
-      toTokenSymbol: string;
-      toTokenAmountTokens: number;
-      priceImpactPercentage: number;
-      slippagePercentage: number;
-      exchangeRate: number;
-      routePath: string[];
-    }
-  : TEventName extends 'Tokens collateralized'
-  ? {
-      poolName: string;
-      tokenSymbol: string;
-      userSupplyBalanceTokens: number;
-    }
-  : TEventName extends 'Tokens decollateralized'
-  ? {
-      poolName: string;
-      tokenSymbol: string;
-      userSupplyBalanceTokens: number;
-    }
-  : TEventName extends 'Tokens withdrawn'
-  ? {
-      poolName: string;
-      tokenSymbol: string;
-      tokenAmountTokens: number;
-      withdrewFullSupply: boolean;
-    }
-  : TEventName extends 'Tokens borrowed'
-  ? {
-      poolName: string;
-      tokenSymbol: string;
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Tokens repaid'
-  ? {
-      poolName: string;
-      tokenSymbol: string;
-      tokenAmountTokens: number;
-      repaidFullLoan: boolean;
-    }
-  : TEventName extends 'Tokens swapped and repaid'
-  ? {
-      poolName: string;
-      fromTokenSymbol: string;
-      fromTokenAmountTokens: number;
-      toTokenSymbol: string;
-      toTokenAmountTokens: number;
-      priceImpactPercentage: number;
-      slippagePercentage: number;
-      exchangeRate: number;
-      routePath: string[];
-      repaidFullLoan: boolean;
-    }
-  : TEventName extends 'Tokens swapped'
-  ? {
-      fromTokenSymbol: string;
-      fromTokenAmountTokens: number;
-      toTokenSymbol: string;
-      toTokenAmountTokens: number;
-      priceImpactPercentage: number;
-      slippagePercentage: number;
-      exchangeRate: number;
-      routePath: string[];
-    }
-  : TEventName extends 'Tokens staked in XVS vault'
-  ? {
-      poolIndex: number;
-      rewardTokenSymbol: string;
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Token withdrawal requested from XVS vault'
-  ? {
-      poolIndex: number;
-      rewardTokenSymbol: string;
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Token withdrawal executed from XVS vault'
-  ? {
-      poolIndex: number;
-      rewardTokenSymbol: string;
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Tokens staked in VAI vault'
-  ? {
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Tokens withdrawn from VAI vault'
-  ? {
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Pool reward claimed'
-  ? {
-      poolName: string;
-      vTokenAddressesWithPendingReward: string[];
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'VAI vault reward claimed'
-  ? {
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'XVS vesting vault reward claimed'
-  ? {
-      rewardTokenSymbol: string;
-      poolIndex: number;
-      tokenAmountTokens: number;
-    }
-  : TEventName extends 'Vote casted'
-  ? { proposalId: number; voteType: 'for' | 'against' | 'abstain'; voteWeightTokens: number }
-  : undefined;
+export type AnalyticEventProps<TEventName extends AnalyticEventName> =
+  TEventName extends 'Tokens supplied'
+    ? { poolName: string; tokenSymbol: string; tokenAmountTokens: number }
+    : TEventName extends 'Tokens swapped and supplied'
+    ? {
+        poolName: string;
+        fromTokenSymbol: string;
+        fromTokenAmountTokens: number;
+        toTokenSymbol: string;
+        toTokenAmountTokens: number;
+        priceImpactPercentage: number;
+        slippageTolerancePercentage: number;
+        exchangeRate: number;
+        routePath: string[];
+      }
+    : TEventName extends 'Tokens collateralized'
+    ? {
+        poolName: string;
+        tokenSymbol: string;
+        userSupplyBalanceTokens: number;
+      }
+    : TEventName extends 'Tokens decollateralized'
+    ? {
+        poolName: string;
+        tokenSymbol: string;
+        userSupplyBalanceTokens: number;
+      }
+    : TEventName extends 'Tokens withdrawn'
+    ? {
+        poolName: string;
+        tokenSymbol: string;
+        tokenAmountTokens: number;
+        withdrewFullSupply: boolean;
+      }
+    : TEventName extends 'Tokens borrowed'
+    ? {
+        poolName: string;
+        tokenSymbol: string;
+        tokenAmountTokens: number;
+      }
+    : TEventName extends 'Tokens repaid'
+    ? {
+        poolName: string;
+        tokenSymbol: string;
+        tokenAmountTokens: number;
+        repaidFullLoan: boolean;
+      }
+    : TEventName extends 'Tokens swapped and repaid'
+    ? {
+        poolName: string;
+        fromTokenSymbol: string;
+        fromTokenAmountTokens: number;
+        toTokenSymbol: string;
+        toTokenAmountTokens: number;
+        priceImpactPercentage: number;
+        slippageTolerancePercentage: number;
+        exchangeRate: number;
+        routePath: string[];
+        repaidFullLoan: boolean;
+      }
+    : TEventName extends 'Tokens swapped'
+    ? {
+        fromTokenSymbol: string;
+        fromTokenAmountTokens: number;
+        toTokenSymbol: string;
+        toTokenAmountTokens: number;
+        priceImpactPercentage: number;
+        slippageTolerancePercentage: number;
+        exchangeRate: number;
+        routePath: string[];
+      }
+    : TEventName extends 'Tokens staked in XVS vault'
+    ? {
+        poolIndex: number;
+        rewardTokenSymbol: string;
+        tokenAmountTokens: number;
+      }
+    : TEventName extends 'Token withdrawal requested from XVS vault'
+    ? {
+        poolIndex: number;
+        rewardTokenSymbol: string;
+        tokenAmountTokens: number;
+      }
+    : TEventName extends 'Token withdrawals executed from XVS vault'
+    ? {
+        poolIndex: number;
+        rewardTokenSymbol: string;
+      }
+    : TEventName extends 'Tokens staked in VAI vault'
+    ? {
+        tokenAmountTokens: number;
+      }
+    : TEventName extends 'Tokens withdrawn from VAI vault'
+    ? {
+        tokenAmountTokens: number;
+      }
+    : TEventName extends 'Pool reward claimed'
+    ? {
+        comptrollerAddress: string;
+        vTokenAddressesWithPendingReward: string[];
+      }
+    : TEventName extends 'XVS vesting vault reward claimed'
+    ? {
+        poolIndex: number;
+        rewardTokenSymbol: string;
+      }
+    : TEventName extends 'Vote casted'
+    ? { proposalId: number; voteType: VoteSupport }
+    : undefined;
 
 const useAnalytics = () => {
   const posthog = usePostHog();
@@ -145,9 +140,9 @@ const useAnalytics = () => {
   // TODO: get from auth context
   const { chainId } = config;
 
-  function captureEvent<TEventName extends EventName>(
-    eventName: EventName,
-    eventProps: EventProps<TEventName>,
+  function captureAnalyticEvent<TEventName extends AnalyticEventName>(
+    eventName: TEventName,
+    eventProps: AnalyticEventProps<TEventName>,
   ) {
     if (!posthog) {
       logError('Attempted to send analytic event but posthog object was undefined');
@@ -163,7 +158,7 @@ const useAnalytics = () => {
   }
 
   return {
-    captureEvent,
+    captureAnalyticEvent,
   };
 };
 

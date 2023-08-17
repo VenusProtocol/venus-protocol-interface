@@ -281,9 +281,9 @@ export const repayVai = vi.fn();
 export const useRepayVai = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.REPAY_VAI, repayVai, options);
 
-export const enterMarkets = vi.fn();
-export const useEnterMarkets = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.ENTER_MARKETS, enterMarkets, options);
+export const enterMarket = vi.fn();
+export const useEnterMarket = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.ENTER_MARKET, enterMarket, options);
 
 export const exitMarket = vi.fn();
 export const useExitMarket = (options?: MutationObserverOptions) =>

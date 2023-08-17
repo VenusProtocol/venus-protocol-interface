@@ -348,9 +348,11 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   const { mutateAsync: onRepay, isLoading: isRepayLoading } = useRepay({
     vToken: asset.vToken,
+    poolName: pool.name,
   });
 
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
+    poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });

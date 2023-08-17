@@ -51,6 +51,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     try {
       await toggleCollateral({
         asset: poolAssetToUpdate,
+        poolName: poolAssetToUpdate.pool.name,
         comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
       });
     } catch (e) {

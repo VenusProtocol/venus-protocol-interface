@@ -1,19 +1,20 @@
 import { checkForComptrollerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
+import { VToken } from 'types';
 
 export interface ExitMarketInput {
   comptrollerContract: ContractTypeByName<'mainPoolComptroller' | 'isolatedPoolComptroller'>;
-  vTokenAddress: string;
+  vToken: VToken;
 }
 
 export type ExitMarketOutput = ContractReceipt;
 
 const exitMarket = async ({
   comptrollerContract,
-  vTokenAddress,
+  vToken,
 }: ExitMarketInput): Promise<ExitMarketOutput> => {
-  const transaction = await comptrollerContract.exitMarket(vTokenAddress);
+  const transaction = await comptrollerContract.exitMarket(vToken.address);
   const receipt = await transaction.wait(1);
   return checkForComptrollerTransactionError(receipt);
 };

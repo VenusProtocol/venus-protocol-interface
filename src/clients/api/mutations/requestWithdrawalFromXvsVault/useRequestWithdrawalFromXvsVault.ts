@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
   RequestWithdrawalFromXvsVaultInput,
@@ -9,6 +9,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
+import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
@@ -25,6 +26,7 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
   });
+  const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
@@ -38,7 +40,17 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        const { poolIndex } = onSuccessParams[1];
+        const { poolIndex, amountWei } = onSuccessParams[1];
+
+        captureAnalyticEvent('Token withdrawal requested from XVS vault', {
+          poolIndex,
+          rewardTokenSymbol: TOKENS.xvs.symbol,
+          tokenAmountTokens: convertWeiToTokens({
+            token: TOKENS.vai,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
+
         const accountAddress = await xvsVaultContract?.signer.getAddress();
 
         // Invalidate cached user info
