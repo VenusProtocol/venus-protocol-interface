@@ -1,6 +1,5 @@
 import config from 'config';
-import noop from 'noop-ts';
-import { PostHog, PostHogProvider, usePostHog } from 'posthog-js/react';
+import { PostHogProvider, usePostHog } from 'posthog-js/react';
 import React, { useEffect } from 'react';
 
 import { version as APP_VERSION } from 'constants/version';
@@ -37,13 +36,4 @@ export const AnalyticsProvider: React.FC = ({ children }) => (
   </PostHogProvider>
 );
 
-export const useAnalytics = () => {
-  const posthog = usePostHog();
-
-  const captureEvent: PostHog['capture'] =
-    config.environment === 'mainnet' && posthog ? posthog.capture : noop;
-
-  return {
-    captureEvent,
-  };
-};
+export { default as useAnalytics } from './useAnalytics';
