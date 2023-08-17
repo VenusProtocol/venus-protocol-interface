@@ -3897,6 +3897,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
   "pendingRewardGroups": [
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+      "rewardAmountCents": "3719787.117264644506358767386491",
       "rewardAmountWei": "3.7154375659692912361873e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -3926,6 +3927,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
       "comptrollerAddress": "0x6ced7215ebf7b421ebda06feb64f1fd24118b0c9",
       "pendingRewards": [
         {
+          "rewardAmountCents": "29630830.074118599513486747080522",
           "rewardAmountWei": "2.95961827109044250302366e+23",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

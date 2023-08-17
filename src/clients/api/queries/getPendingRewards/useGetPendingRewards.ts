@@ -51,6 +51,10 @@ const useGetPendingRewards = (
     name: 'xvsVault',
   });
 
+  const resilientOracleContractAddress = useGetUniqueContractAddress({
+    name: 'resilientOracle',
+  });
+
   // Sort addresses to output the same data when providing them in a different
   // order. This prevents unnecessary queries
   const sortedIsolatedPoolComptrollerAddresses = [...isolatedPoolComptrollerAddresses].sort();
@@ -67,6 +71,7 @@ const useGetPendingRewards = (
       callOrThrow(
         {
           venusLensContractAddress,
+          resilientOracleContractAddress,
           poolLensContractAddress,
           vaiVaultContractAddress,
           xvsVaultContractAddress,

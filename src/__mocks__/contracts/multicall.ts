@@ -6016,4 +6016,47 @@ const priceOracle: {
   },
 };
 
-export default { pancakeSwapRouter, interestRateModel, bep20, lenses, vaiController, priceOracle };
+export const resilientOracle = {
+  results: {
+    resilientOracle: {
+      originalContractCallContext: {
+        reference: 'resilientOracle',
+        contractAddress: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+        abi: contractInfos.resilientOracle.abi,
+        calls: [
+          {
+            reference: 'getPrice',
+            methodName: 'getPrice',
+            methodParameters: ['0xB9e0E753630434d7863528cc73CB7AC638a7c8ff'],
+          },
+        ],
+      },
+      callsReturnContext: [
+        {
+          returnValues: [
+            {
+              type: 'BigNumber',
+              hex: '0x0de4df6b80e3cc00',
+            },
+          ],
+          decoded: true,
+          reference: 'getPrice',
+          methodName: 'getPrice',
+          methodParameters: ['0xB9e0E753630434d7863528cc73CB7AC638a7c8ff'],
+          success: true,
+        },
+      ],
+    },
+  },
+  blockNumber: 31688260,
+};
+
+export default {
+  pancakeSwapRouter,
+  interestRateModel,
+  bep20,
+  lenses,
+  vaiController,
+  priceOracle,
+  resilientOracle,
+};

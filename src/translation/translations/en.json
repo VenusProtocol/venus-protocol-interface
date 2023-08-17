@@ -150,7 +150,7 @@
       "title": "Claim reward"
     },
     "openModalButton": {
-      "label": "Claim rewards"
+      "label": "Claim {{rewardAmount}}"
     },
     "successfulTransactionModal": {
       "message": "You successfully claimed your reward",

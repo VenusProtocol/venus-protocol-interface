@@ -1,6 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallResults } from 'ethereum-multicall';
-import { getTokenByAddress } from 'utilities';
+import {
+  convertDollarsToCents,
+  convertWeiToTokens,
+  formatTokenPrices,
+  getTokenByAddress,
+} from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
@@ -14,15 +19,18 @@ import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardG
 
 const formatOutput = ({
   contractCallResults,
+  rewardTokenPrices,
 }: {
   contractCallResults: ContractCallResults;
+  rewardTokenPrices: ReturnType<typeof formatTokenPrices>;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
   // Extract pending rewards from main pool
-  const mainPoolPendingRewardGroup = formatToMainPoolPendingRewardGroup(
-    contractCallResults.results.venusLens.callsReturnContext[0],
-  );
+  const mainPoolPendingRewardGroup = formatToMainPoolPendingRewardGroup({
+    callsReturnContext: contractCallResults.results.venusLens.callsReturnContext[0],
+    rewardTokenPrices,
+  });
 
   if (mainPoolPendingRewardGroup) {
     pendingRewardGroups.push(mainPoolPendingRewardGroup);
@@ -32,8 +40,10 @@ const formatOutput = ({
   const isolatedPoolPendingRewardGroups = (
     contractCallResults.results.poolLens?.callsReturnContext || []
   ).reduce<PendingRewardGroup[]>((acc, callsReturnContext) => {
-    const isolatedPoolPendingRewardGroup =
-      formatToIsolatedPoolPendingRewardGroup(callsReturnContext);
+    const isolatedPoolPendingRewardGroup = formatToIsolatedPoolPendingRewardGroup(
+      callsReturnContext,
+      rewardTokenPrices,
+    );
 
     return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
   }, []);
@@ -44,12 +54,24 @@ const formatOutput = ({
     contractCallResults.results.vaiVault.callsReturnContext[0].returnValues[0].hex,
   );
 
+  const xvsTokenPriceDollars = rewardTokenPrices[TOKENS.xvs.address.toLowerCase()];
+  const xvsTokenPriceCents = convertDollarsToCents(xvsTokenPriceDollars);
+
+  const vaiVaultPendingRewardTokens = convertWeiToTokens({
+    valueWei: vaiVaultPendingRewardWei,
+    token: TOKENS.xvs,
+  });
+
+  const vaiVaultPendingRewardAmountCents =
+    vaiVaultPendingRewardTokens.multipliedBy(xvsTokenPriceCents);
+
   if (vaiVaultPendingRewardWei.isGreaterThan(0)) {
     const vaiVaultRewardGroup: VaultPendingRewardGroup = {
       type: 'vault',
       stakedToken: TOKENS.vai,
       rewardToken: TOKENS.xvs,
       rewardAmountWei: vaiVaultPendingRewardWei,
+      rewardAmountCents: vaiVaultPendingRewardAmountCents,
     };
 
     pendingRewardGroups.push(vaiVaultRewardGroup);
@@ -76,11 +98,19 @@ const formatOutput = ({
       stakedToken &&
       pendingRewardWei.isGreaterThan(0)
     ) {
+      const pendingRewardTokens = convertWeiToTokens({
+        valueWei: pendingRewardWei,
+        token: TOKENS.xvs,
+      });
+      const xvsVestingVaultPendingRewardCents =
+        pendingRewardTokens.multipliedBy(xvsTokenPriceCents);
+
       xvsVestingVaultPendingRewardGroups.push({
         type: 'xvsVestingVault',
         poolIndex,
         rewardToken: TOKENS.xvs,
         rewardAmountWei: pendingRewardWei,
+        rewardAmountCents: xvsVestingVaultPendingRewardCents,
       });
     }
   }

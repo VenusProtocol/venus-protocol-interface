@@ -9,6 +9,7 @@ export interface GetPendingRewardGroupsInput {
   multicall: Multicall;
   accountAddress: string;
   venusLensContractAddress: string;
+  resilientOracleContractAddress: string;
   poolLensContractAddress: string;
   vaiVaultContractAddress: string;
   xvsVaultContractAddress: string;
@@ -21,6 +22,7 @@ export type GetPendingRewardGroupsOutput = {
 export interface IsolatedPoolPendingReward {
   rewardToken: Token;
   rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
   rewardsDistributorAddress: string;
 }
@@ -36,6 +38,7 @@ export interface MainPoolPendingRewardGroup {
   comptrollerAddress: string;
   rewardToken: Token;
   rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
 }
 
@@ -44,6 +47,7 @@ export interface VaultPendingRewardGroup {
   stakedToken: Token;
   rewardToken: Token;
   rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
 }
 
 export interface XvsVestingVaultPendingRewardGroup {
@@ -51,6 +55,7 @@ export interface XvsVestingVaultPendingRewardGroup {
   poolIndex: number;
   rewardToken: Token;
   rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
 }
 
 export type PendingRewardGroup =

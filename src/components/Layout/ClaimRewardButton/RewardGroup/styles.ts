@@ -21,11 +21,22 @@ export const useStyles = () => {
     `,
     groupItem: css`
       display: flex;
+      justify-content: space-between;
       align-items: center;
 
       :not(:last-child) {
         margin-bottom: ${theme.spacing(4)};
       }
+    `,
+    layeredValues: css`
+      text-align: end;
+    `,
+    rewardToken: css`
+      display: flex;
+      flex-direction: row;
+    `,
+    rewardTokenSymbol: css`
+      color: ${theme.palette.text.primary};
     `,
     rewardTokenIcon: css`
       margin-right: ${theme.spacing(2)};

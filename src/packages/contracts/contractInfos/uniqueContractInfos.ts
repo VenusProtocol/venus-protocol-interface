@@ -47,7 +47,7 @@ export interface UniqueContractInfo {
 const venusLens: UniqueContractInfo = {
   abi: venusLensAbi,
   address: {
-    [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VenusLens,
+    [ChainId.BSC_TESTNET]: '0x11c8dC3DcA87E8205ec01e6d79Be9442d31701d3',
     [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.VenusLens,
   },
 };

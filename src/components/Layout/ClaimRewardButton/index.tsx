@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
+import BigNumber from 'bignumber.js';
 import { ContractReceipt } from 'ethers';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { Claim, useClaimRewards } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -38,6 +40,22 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   const { t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
 
+  const totalRewardsCents = useMemo(
+    () =>
+      groups &&
+      groups.reduce<BigNumber>(
+        (groupsAcc, g) =>
+          groupsAcc.plus(
+            g.pendingRewards.reduce<BigNumber>(
+              (acc, r) => acc.plus(r.rewardAmountCents || new BigNumber(0)),
+              new BigNumber(0),
+            ),
+          ),
+        new BigNumber(0),
+      ),
+    [groups],
+  );
+
   const handleClaimReward = () =>
     handleTransactionMutation({
       mutate: async () => {
@@ -65,7 +83,11 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
         onClick={onOpenModal}
         {...otherButtonProps}
       >
-        {t('claimReward.openModalButton.label')}
+        {t('claimReward.openModalButton.label', {
+          rewardAmount: formatCentsToReadableValue({
+            value: totalRewardsCents,
+          }),
+        })}
       </PrimaryButton>
 
       <Modal

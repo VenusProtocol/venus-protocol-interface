@@ -20,7 +20,7 @@ const formatTokenPrices = (resilientOracleResult: ContractCallReturnContext) =>
     const priceRecord = callResult.returnValues[0];
 
     if (!priceRecord) {
-      logError(`Price could not be fetched for token: ${token.symbol} (${tokenAddress})`);
+      logError(`Price could not be fetched for token: ${token.symbol} ${tokenAddress}`);
       return acc;
     }
 
