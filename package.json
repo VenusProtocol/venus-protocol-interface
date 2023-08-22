@@ -44,7 +44,7 @@
     "@mui/utils": "^5.4.4",
     "@pancakeswap/sdk": "^3.1.0",
     "@sentry/react": "^7.43.0",
-    "@sentry/tracing": "^7.43.0",
+    "@sentry/tracing": "^7.64.0",
     "@uiw/react-markdown-preview": "^4.1.13",
     "@uiw/react-md-editor": "^3.14.3",
     "@venusprotocol/governance-contracts": "^1.0.0",
