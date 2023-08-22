@@ -27,7 +27,7 @@ describe('pages/History', () => {
       routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
     });
     expect(useGetTransactions).toBeCalledTimes(1);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 0 });
+    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 0 });
   });
 
   it('renders spinner when fetching', async () => {
@@ -51,7 +51,7 @@ describe('pages/History', () => {
       },
     });
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: 'Mint', page: 0 });
+    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: 'Mint', page: 0 });
   });
 
   it('rerequests when toggling addressFilter', async () => {
@@ -62,7 +62,7 @@ describe('pages/History', () => {
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: fakeAddress, event: undefined, page: 0 });
+    expect(useGetTransactions).toBeCalledWith({ from: fakeAddress, event: undefined, page: 0 });
   });
 
   it('address filter is hidden with no wallet connected', async () => {
@@ -81,6 +81,6 @@ describe('pages/History', () => {
     const pageTwoButton = getByText('2');
     fireEvent.click(pageTwoButton);
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 1 });
+    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 1 });
   });
 });

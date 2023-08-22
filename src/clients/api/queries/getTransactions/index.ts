@@ -9,7 +9,7 @@ export interface GetTransactionsInput {
   vTokens: VToken[];
   page?: number;
   event?: TransactionEvent;
-  address?: string;
+  from?: string;
   sort?: '+';
   order?:
     | 'id'
@@ -40,19 +40,19 @@ const getTransactions = async ({
   vTokens,
   page = 0,
   event,
-  address,
+  from,
   order,
   sort,
 }: GetTransactionsInput): Promise<GetTransactionsOutput> => {
   const orderWithSort = sort && order ? sort + order : order;
-  const response = await restService<GetTransactionsResponse>({
+  const response = await restService<GetTransactionsResponse, 'v2'>({
     endpoint: '/activity/transactions',
     method: 'GET',
     next: true,
     params: {
       page,
       event,
-      address,
+      from,
       order: orderWithSort,
     },
   });
@@ -70,7 +70,7 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.map(data => formatTransaction({ data, vTokens}));
+  const transactions = payload.result.map(data => formatTransaction({ data, vTokens }));
 
   return { limit, page: payloadPage, total, transactions };
 };

@@ -21,7 +21,7 @@ const getVoterHistory = async ({
   page = 0,
   address,
 }: GetVoterHistoryInput): Promise<GetVoterHistoryOutput> => {
-  const response = await restService<GetVoterHistoryResponse>({
+  const response = await restService<GetVoterHistoryResponse, 'v1'>({
     endpoint: `/governance/voters/${address}/history`,
     method: 'GET',
     params: {
