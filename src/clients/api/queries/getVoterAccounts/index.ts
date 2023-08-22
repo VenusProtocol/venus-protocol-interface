@@ -19,7 +19,7 @@ export interface GetVoterAccountsOutput {
 const getVoterAccounts = async ({
   page = 0,
 }: GetVoterAccountsInput): Promise<GetVoterAccountsOutput> => {
-  const response = await restService<GetVoterAccountsResponse>({
+  const response = await restService<GetVoterAccountsResponse, 'v1'>({
     endpoint: '/governance/voters',
     method: 'GET',
     params: {

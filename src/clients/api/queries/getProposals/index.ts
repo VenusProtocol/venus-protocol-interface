@@ -11,7 +11,7 @@ const getProposals = async ({
 }: GetProposalsInput): Promise<GetProposalsOutput> => {
   const offset = page * limit;
 
-  const response = await restService<ProposalsApiResponse>({
+  const response = await restService<ProposalsApiResponse, 'v1'>({
     endpoint: '/governance/proposals',
     method: 'GET',
     params: { offset, limit, version: 'v2' },

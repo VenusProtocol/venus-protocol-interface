@@ -21,7 +21,7 @@ describe('api/queries/getTransactions', () => {
       page: 2,
       event: 'Withdraw',
       order: 'event',
-      address: fakeAddress,
+      from: fakeAddress,
       sort: '+',
       vTokens,
       tokens,
@@ -36,7 +36,7 @@ describe('api/queries/getTransactions', () => {
         page: 2,
         event: 'Withdraw',
         order: '+event',
-        address: fakeAddress,
+        from: fakeAddress,
       },
     });
 

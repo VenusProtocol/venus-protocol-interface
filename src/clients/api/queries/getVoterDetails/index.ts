@@ -14,7 +14,7 @@ export type GetVoterDetailsOutput = Voter;
 const getVoterDetails = async ({
   address,
 }: GetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
-  const response = await restService<GetVoterDetailsResponse>({
+  const response = await restService<GetVoterDetailsResponse, 'v1'>({
     endpoint: `/governance/voters/${address}/summary`,
     method: 'GET',
   });

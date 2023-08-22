@@ -11,7 +11,7 @@ export interface GetTransactionsInput {
   defaultToken: Token;
   page?: number;
   event?: TransactionEvent;
-  address?: string;
+  from?: string;
   sort?: '+';
   order?:
     | 'id'
@@ -44,19 +44,19 @@ const getTransactions = async ({
   defaultToken,
   page = 0,
   event,
-  address,
+  from,
   order,
   sort,
 }: GetTransactionsInput): Promise<GetTransactionsOutput> => {
   const orderWithSort = sort && order ? sort + order : order;
-  const response = await restService<GetTransactionsResponse>({
+  const response = await restService<GetTransactionsResponse, 'v2'>({
     endpoint: '/activity/transactions',
     method: 'GET',
     next: true,
     params: {
       page,
       event,
-      address,
+      from,
       order: orderWithSort,
     },
   });

@@ -2,6 +2,8 @@ import config from 'config';
 import _isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
 
+import { logError } from 'context/ErrorLogger';
+
 interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
@@ -9,6 +11,29 @@ interface RestServiceInput {
   token?: string | null;
   params?: Record<string, unknown>;
 }
+
+interface ApiErrorResponse {
+  status: boolean;
+  data: undefined;
+  result: 'error';
+  message: string;
+}
+
+type ApiResponseV1<D> =
+  | {
+      status: number;
+      data: { data: D; status: boolean } | undefined;
+    }
+  | ApiErrorResponse;
+
+type ApiResponseV2<D> =
+  | {
+      status: number;
+      data: D | undefined;
+    }
+  | ApiErrorResponse;
+
+type ApiResponseSignature = 'v1' | 'v2';
 
 const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {
@@ -20,24 +45,13 @@ const createQueryParams = (params: Record<string, unknown>) => {
   return paramArray.filter(p => p).join('&');
 };
 
-export async function restService<D>({
+export async function restService<D, N extends ApiResponseSignature>({
   endpoint,
   method,
   params,
   token = null,
   next = false,
-}: RestServiceInput): Promise<
-  | {
-      status: number;
-      data: D | undefined;
-    }
-  | {
-      status: boolean;
-      data: undefined;
-      result: 'error';
-      message: string;
-    }
-> {
+}: RestServiceInput): Promise<N extends 'v2' ? ApiResponseV2<D> : ApiResponseV1<D>> {
   const headers = {};
   let path = `${config.apiUrl}${endpoint}`;
 
@@ -81,7 +95,7 @@ export async function restService<D>({
         data = await response.json();
         const warning = response.headers.get('Warning');
         if (warning) {
-          console.warn(warning);
+          logError(warning);
         }
       } catch (error) {
         // Do nothing
