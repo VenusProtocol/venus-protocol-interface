@@ -48,7 +48,7 @@ exports[`api/queries/getTransactions > Gets called with correct default argument
     "token": {
       "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
       "asset": "/src/packages/tokens/img/usdt.svg",
-      "decimals": 6,
+      "decimals": 8,
       "symbol": "USDT",
     },
     "transactionHash": "0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7",
@@ -393,7 +393,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "token": {
       "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
       "asset": "/src/packages/tokens/img/usdt.svg",
-      "decimals": 6,
+      "decimals": 8,
       "symbol": "USDT",
     },
     "transactionHash": "0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7",
