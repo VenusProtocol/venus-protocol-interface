@@ -156,7 +156,7 @@
     "reg-publish-s3-plugin": "^0.11.0",
     "reg-suit": "^0.11.1",
     "rimraf": "^5.0.1",
-    "semantic-release": "^21.0.7",
+    "semantic-release": "^21.0.9",
     "storybook": "^7.2.1",
     "stylelint": "^15.10.2",
     "stylelint-config-prettier": "^9.0.3",
