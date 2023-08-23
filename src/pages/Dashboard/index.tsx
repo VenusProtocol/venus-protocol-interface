@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ButtonGroup, Tag, TagGroup, TextField } from 'components';
+import { ButtonGroup, NoticeWarning, Tag, TagGroup, TextField } from 'components';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -28,7 +28,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   searchValue,
   onSearchInputChange,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
@@ -92,6 +92,24 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
+
+      <NoticeWarning
+        css={styles.banner}
+        description={
+          <Trans
+            i18nKey="dashboard.banner.busdDelisting"
+            components={{
+              Link: (
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                <a
+                  href="https://community.venus.io/t/chaos-labs-risk-parameter-updates-08-21-2023/3707"
+                  rel="noreferrer"
+                />
+              ),
+            }}
+          />
+        }
+      />
 
       <div css={styles.header}>
         <TextField
