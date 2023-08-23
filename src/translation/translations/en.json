@@ -112,8 +112,7 @@
       "yourAccount": "Your account"
     },
     "walletList": {
-      "comingSoon": "Coming soon...",
-      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>"
+      "comingSoon": "Coming soon..."
     }
   },
   "breadcrumbs": {
@@ -177,6 +176,9 @@
   },
   "dashboard": {
     "allTag": "All",
+    "banner": {
+      "busdDelisting": "Borrowing and supplying have been paused for the BUSD token. For more information see the <Link>Chaos Labs recommendations</Link>."
+    },
     "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
@@ -195,26 +197,26 @@
     "supplyTabTitle": "Supply"
   },
   "errors": {
+    "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
+    "missingAgainstDescription": "Proposal needs an 'against' votes description",
+    "missingDescription": "There is no proposal description in the file",
+    "missingForDescription": "Proposal needs a 'for' votes description",
+    "missingParamForSignature": "There is no corresponding param for the function",
+    "missingTargetForSignature": "There is no corresponding target for the function",
+    "missingTitle": "Proposal needs to have a title",
+    "noMetaKey": "No metadata information is present in the file",
+    "noParamsKey": "File does not contain the list of params",
+    "noSignaturesKey": "There are no call signatures in the file",
+    "noTargetsKey": "File does not contain the list of targets",
+    "noTypeKey": "File does not indicate the proposal's type",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
     "somethingWentWrongRetrievingVoterDetails": "Something went wrong retrieving voter details",
     "somethingWentWrongRetrievingVoterHistory": "Something went wrong retrieving voter history  ",
     "undefinedAccountErrorMessage": "Account undefined",
-    "walletNotConnected": "Wallet not connected",
-    "noMetaKey": "No metadata information is present in the file",
-    "noSignaturesKey": "There are no call signatures in the file",
-    "noTypeKey": "File does not indicate the proposal's type",
-    "noTargetsKey": "File does not contain the list of targets",
-    "noParamsKey": "File does not contain the list of params",
-    "missingTitle": "Proposal needs to have a title",
-    "missingTargetForSignature": "There is no corresponding target for the function",
-    "missingParamForSignature": "There is no corresponding param for the function",
-    "missingDescription": "There is no proposal description in the file",
-    "missingForDescription": "Proposal needs a 'for' votes description",
-    "missingAgainstDescription": "Proposal needs an 'against' votes description",
-    "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
-    "validationError": "Validation failed for imported proposal:"
+    "validationError": "Validation failed for imported proposal:",
+    "walletNotConnected": "Wallet not connected"
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
@@ -874,8 +876,8 @@
       "votingOptions": "Voting options"
     },
     "createProposalModal": {
-      "createProposal": "Create Proposal",
       "createManually": "Create manually",
+      "createProposal": "Create Proposal",
       "uploadFile": "Upload file",
       "youCanEitherCreateManuallyOrUpload": "You can either create a proposal manually or upload a file containing its details. If you choose to upload a file, you can use this template as an example: <Link>Github</Link>"
     },

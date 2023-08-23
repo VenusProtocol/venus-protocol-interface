@@ -10,6 +10,10 @@ interface DisabledToken {
 
 export const DISABLED_TOKENS_TESTNET: DisabledToken[] = [
   {
+    token: TESTNET_TOKENS.busd,
+    disabledActions: ['borrow', 'supply'],
+  },
+  {
     token: TESTNET_TOKENS.ust,
     disabledActions: ['borrow', 'supply'],
   },
@@ -32,6 +36,10 @@ export const DISABLED_TOKENS_TESTNET: DisabledToken[] = [
 ];
 
 export const DISABLED_TOKENS_MAINNET: DisabledToken[] = [
+  {
+    token: MAINNET_TOKENS.busd,
+    disabledActions: ['borrow', 'supply'],
+  },
   {
     token: MAINNET_TOKENS.ust,
     disabledActions: ['borrow', 'supply'],
