@@ -146,7 +146,7 @@
     "npm-run-all2": "^6.0.5",
     "path": "^0.12.7",
     "postcss-syntax": "^0.36.2",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.2",
     "prettier-airbnb-config": "^1.0.0",
     "prop-types": "^15.8.1",
     "react-error-overlay": "6.0.11",
