@@ -14,8 +14,6 @@ import en from 'translation/translations/en.json';
 import Withdraw from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 const fakePoolIndex = 6;
 const fakeStakedToken = TOKENS.vai;
 

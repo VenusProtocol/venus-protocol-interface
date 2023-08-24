@@ -10,8 +10,6 @@ import en from 'translation/translations/en.json';
 import Dashboard from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 describe('pages/Dashboard', () => {
   beforeEach(() => {
     (useGetPools as Vi.Mock).mockImplementation(() => ({

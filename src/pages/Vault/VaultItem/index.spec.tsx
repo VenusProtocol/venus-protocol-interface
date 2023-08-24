@@ -10,7 +10,6 @@ import en from 'translation/translations/en.json';
 import VaultItem, { VaultItemProps } from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeVault = fakeVaults[0];

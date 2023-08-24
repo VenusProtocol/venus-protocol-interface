@@ -28,7 +28,6 @@ import TEST_IDS from '../testIds';
 
 const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
 
-vi.mock('clients/api');
 vi.mock('components/Toast');
 vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');

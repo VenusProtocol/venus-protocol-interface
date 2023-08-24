@@ -9,8 +9,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainPoolTotalXvsDistributed, { UseGetMainPoolTotalXvsDistributedOutput } from '.';
 
-vi.mock('clients/api');
-
 describe('api/queries/useGetMainPoolTotalXvsDistributed', () => {
   beforeEach(() => {
     (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));

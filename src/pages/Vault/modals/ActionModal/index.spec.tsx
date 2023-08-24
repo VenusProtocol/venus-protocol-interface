@@ -12,8 +12,6 @@ import ActionModal, { ActionModalProps } from '.';
 
 const fakeXvsVaultAddress = '0x2258a693A403b7e98fd05EE9e1558C760308cFC7';
 
-vi.mock('clients/api');
-
 const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,

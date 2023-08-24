@@ -17,7 +17,6 @@ import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useBorrowRepayModal/BorrowForm', () => {

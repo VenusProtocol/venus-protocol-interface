@@ -8,8 +8,6 @@ import renderComponent from 'testUtils/renderComponent';
 import Summary from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 describe('pages/Account/Summary', () => {
   it('renders without crashing', () => {
     renderComponent(<Summary pools={poolData} />);

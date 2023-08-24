@@ -5,8 +5,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import VaultsBreakdown from '.';
 
-vi.mock('clients/api');
-
 describe('pages/Account/VaultsBreakdown', () => {
   it('renders without crashing', () => {
     renderComponent(<VaultsBreakdown vaults={vaults} />);

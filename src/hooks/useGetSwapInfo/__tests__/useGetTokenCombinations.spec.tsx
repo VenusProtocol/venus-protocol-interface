@@ -7,6 +7,27 @@ import renderComponent from 'testUtils/renderComponent';
 import useGetTokenCombinations from '../useGetTokenCombinations';
 
 describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
+  it('returns an empty array if chain ID is undefined', () => {
+    let tokenCombinations: PSTokenCombination[] = [];
+
+    const TestComponent = () => {
+      tokenCombinations = useGetTokenCombinations({
+        fromToken: SWAP_TOKENS.busd,
+        toToken: SWAP_TOKENS.cake,
+      });
+
+      return <></>;
+    };
+
+    renderComponent(TestComponent, {
+      authContextValue: {
+        chainId: undefined,
+      },
+    });
+
+    expect(tokenCombinations).toEqual([]);
+  });
+
   it('returns all possible combinations between the tokens provided and the base trade ones', () => {
     let tokenCombinations: PSTokenCombination[] = [];
 

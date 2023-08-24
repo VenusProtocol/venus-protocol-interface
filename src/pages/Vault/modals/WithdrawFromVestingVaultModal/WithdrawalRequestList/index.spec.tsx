@@ -12,8 +12,6 @@ import en from 'translation/translations/en.json';
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList', () => {

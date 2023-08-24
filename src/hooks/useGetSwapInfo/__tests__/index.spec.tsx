@@ -10,8 +10,6 @@ import renderComponent from 'testUtils/renderComponent';
 import useGetSwapInfo from '..';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';
 
-vi.mock('clients/api');
-
 describe('pages/Swap/useGetSwapInfo', () => {
   it('returns default state when fromToken and toToken reference the same token', async () => {
     const input: UseGetSwapInfoInput = {
@@ -80,6 +78,33 @@ describe('pages/Swap/useGetSwapInfo', () => {
     expect(result).toEqual({
       swap: undefined,
       error: 'UNWRAPPING_UNSUPPORTED',
+      isLoading: expect.any(Boolean),
+    });
+  });
+
+  it('returns empty result when chain ID is undefined', async () => {
+    const input: UseGetSwapInfoInput = {
+      fromToken: SWAP_TOKENS.xvs,
+      toToken: SWAP_TOKENS.bnb,
+      direction: 'exactAmountIn',
+    };
+
+    let result: UseGetSwapInfoOutput | undefined;
+
+    const TestComponent: React.FC = () => {
+      result = useGetSwapInfo(input);
+      return <></>;
+    };
+
+    renderComponent(<TestComponent />, {
+      authContextValue: {
+        chainId: undefined,
+      },
+    });
+
+    expect(result).toEqual({
+      swap: undefined,
+      error: undefined,
       isLoading: expect.any(Boolean),
     });
   });

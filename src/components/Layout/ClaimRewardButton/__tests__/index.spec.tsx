@@ -13,7 +13,6 @@ import ClaimRewardButton from '..';
 import TEST_IDS from '../../testIds';
 import { fakePendingRewardGroups } from '../__testUtils__/fakeData';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('components/Layout/ClaimRewardButton', () => {

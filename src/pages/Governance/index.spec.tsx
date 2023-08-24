@@ -28,7 +28,6 @@ import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';
 import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_WEI;

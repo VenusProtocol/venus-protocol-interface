@@ -7,8 +7,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Xvs from '.';
 
-vi.mock('clients/api');
-
 describe('pages/Xvs', () => {
   beforeEach(() => {
     (useGetMainAssets as Vi.Mock).mockImplementation(() => ({

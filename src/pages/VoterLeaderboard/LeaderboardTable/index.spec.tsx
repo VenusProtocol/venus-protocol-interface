@@ -6,9 +6,7 @@ import renderComponent from 'testUtils/renderComponent';
 import Table from '.';
 
 describe('pages/VoterLeaderboard/Table', () => {
-  beforeAll(() => {
-    vi.mock('clients/api');
-  });
+  beforeAll(() => {});
 
   it('renders without crashing', async () => {
     renderComponent(

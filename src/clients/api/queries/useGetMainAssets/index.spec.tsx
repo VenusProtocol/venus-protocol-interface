@@ -18,8 +18,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainAssets, { UseGetMainAssetsOutput } from '.';
 
-vi.mock('clients/api');
-
 const fakeUserVaiRepayAmountWithInterestsWei = new BigNumber('10000000000000000');
 
 describe('api/queries/useGetMainAssets', () => {

@@ -12,8 +12,6 @@ import { routes } from 'constants/routing';
 import CreateProposalModal from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 const fakeName = 'Proposal';
 const fakeDescription = 'Interesting idea';
 const fakeSignature = '_setAbc(string, bool)';

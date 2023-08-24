@@ -15,8 +15,6 @@ import en from 'translation/translations/en.json';
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
-vi.mock('clients/api');
-
 const fakeVaiVaultUserInfo = formatToUserInfo(vaiVaultResponses.userInfo);
 
 const baseProps: WithdrawFromVaiVaultModalProps = {

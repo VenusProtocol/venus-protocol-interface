@@ -8,8 +8,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import ConvertVrt from '.';
 
-vi.mock('clients/api');
-
 describe('pages/ConvertVRT', () => {
   beforeEach(() => {
     (useGetMainAssets as Vi.Mock).mockImplementation(() => ({

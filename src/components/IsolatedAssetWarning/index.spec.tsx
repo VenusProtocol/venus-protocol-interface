@@ -10,8 +10,6 @@ import TEST_IDS from './AssetTable/testIds';
 
 const fakePool = poolData[0];
 
-vi.mock('clients/api');
-
 describe('components/IsolatedAssetWarning', () => {
   it('renders without crashing', () => {
     renderComponent(

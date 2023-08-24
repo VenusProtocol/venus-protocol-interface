@@ -12,6 +12,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 
 vi.mock('utilities/isFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
+vi.mock('clients/api');
 
 // Mock Lottie
 vi.mock('@lottiefiles/react-lottie-player', () => ({

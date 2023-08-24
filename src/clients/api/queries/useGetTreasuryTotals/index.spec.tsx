@@ -8,8 +8,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetTreasuryTotals, { UseGetTreasuryTotalsOutput } from '.';
 
-vi.mock('clients/api');
-
 describe('api/queries/useGetTreasuryTotals', () => {
   beforeEach(() => {
     (useGetPools as Vi.Mock).mockImplementation(() => ({

@@ -9,8 +9,6 @@ import en from 'translation/translations/en.json';
 
 import WithdrawFromVestingVaultModal from '.';
 
-vi.mock('clients/api');
-
 const fakePoolIndex = 6;
 const fakeStokedToken = TOKENS.vai;
 

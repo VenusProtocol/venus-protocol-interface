@@ -9,8 +9,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import History from '.';
 
-vi.mock('clients/api');
-
 describe('pages/History', () => {
   beforeEach(() => {
     (useGetTransactions as Vi.Mock).mockImplementation(() => ({
