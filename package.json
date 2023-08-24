@@ -48,7 +48,7 @@
     "@uiw/react-markdown-preview": "^4.1.13",
     "@uiw/react-md-editor": "^3.14.3",
     "@venusprotocol/governance-contracts": "^1.0.0",
-    "@venusprotocol/isolated-pools": "^1.3.0-dev.3",
+    "@venusprotocol/isolated-pools": "^2.0.0-dev.7",
     "@venusprotocol/oracle": "^1.7.2",
     "@venusprotocol/venus-protocol": "^3.0.0-dev.14",
     "bignumber.js": "^9.1.1",

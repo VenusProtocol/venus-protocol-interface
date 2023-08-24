@@ -7208,10 +7208,10 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.0.0.tgz#264966365b75bb05219ce42de21c0af022d462a8"
   integrity sha512-SHF8In2HPM3zbWWvPSQrD7omKRfwInecFrDldMir9yqPdKrJBXDlmjAOZLyGLK9wiH+GQPBHpVEZoxiBLmwKVw==
 
-"@venusprotocol/isolated-pools@^1.3.0-dev.3":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-1.3.0.tgz#1a52bff72facf7c127a2e1922f32906c70ade969"
-  integrity sha512-w395lfpuZkRHKlL6eFrlFlCTzz9cTvcvLMDj4d+7Jk1KGcEEy2ByEMVtlnFks2srERyQnpMAXxih1yHuO49eHg==
+"@venusprotocol/isolated-pools@^2.0.0-dev.7":
+  version "2.0.0-dev.7"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.0.0-dev.7.tgz#4e0c710a45d43420bc4dac13be975a487d5b0af2"
+  integrity sha512-9m+DN8J4XOlnhjzNZuSmZQlm40124STLe2BsPg17I7yXLp6W4jBqPHK1wB5eRuNy9jX8z9Ksj/hbLS4pQbvKtw==
   dependencies:
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.3"
