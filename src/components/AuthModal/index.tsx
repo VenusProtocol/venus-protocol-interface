@@ -1,3 +1,4 @@
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { useTranslation } from 'translation';
 
@@ -11,6 +12,7 @@ export interface AuthModalProps {
   onLogin: WalletListProps['onLogin'];
   onLogOut: AccountDetailsProps['onLogOut'];
   accountAddress?: string;
+  chainId?: ChainId;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
@@ -19,6 +21,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onLogin,
   onLogOut,
   accountAddress,
+  chainId,
 }) => {
   const { t } = useTranslation();
 
@@ -42,7 +45,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       {!accountAddress ? (
         <WalletList onLogin={handleLogin} />
       ) : (
-        <AccountDetails accountAddress={accountAddress} onLogOut={onLogOut} />
+        <AccountDetails accountAddress={accountAddress} onLogOut={onLogOut} chainId={chainId} />
       )}
     </Modal>
   );

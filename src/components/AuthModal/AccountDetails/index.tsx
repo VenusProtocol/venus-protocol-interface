@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { useTranslation } from 'translation';
 
@@ -14,9 +15,14 @@ import { useStyles } from './styles';
 export interface AccountDetailsProps {
   onLogOut: () => void;
   accountAddress: string;
+  chainId?: ChainId;
 }
 
-export const AccountDetails: React.FC<AccountDetailsProps> = ({ onLogOut, accountAddress }) => {
+export const AccountDetails: React.FC<AccountDetailsProps> = ({
+  onLogOut,
+  accountAddress,
+  chainId,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
@@ -41,7 +47,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({ onLogOut, accoun
         </div>
       </div>
 
-      <BscLink css={styles.bscScanLinkContainer} hash={accountAddress} />
+      <BscLink css={styles.bscScanLinkContainer} hash={accountAddress} chainId={chainId} />
 
       <SecondaryButton onClick={onLogOut} fullWidth>
         {t('authModal.accountDetails.logOutButtonLabel')}

@@ -10,8 +10,17 @@ export const API_ENDPOINT_URLS: Record<Environment, string> = {
 };
 
 export const RPC_URLS: {
-  [key: string]: string;
+  [chainId in ChainId]: {
+    http: string;
+    webSocket?: string;
+  };
 } = {
-  [ChainId.BSC_MAINNET]: 'https://bsc-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
-  [ChainId.BSC_TESTNET]: 'https://bsc-testnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
+  [ChainId.BSC_MAINNET]: {
+    http: 'https://bsc-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
+    webSocket: 'wss://bsc-mainnet.nodereal.io/ws/v1/7fab7575d1c34150a9ee582167ffac6f',
+  },
+  [ChainId.BSC_TESTNET]: {
+    http: 'https://bsc-testnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
+    webSocket: 'wss://bsc-testnet.nodereal.io/ws/v1/7fab7575d1c34150a9ee582167ffac6f',
+  },
 };

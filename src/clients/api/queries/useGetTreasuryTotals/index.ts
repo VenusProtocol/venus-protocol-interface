@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import config from 'config';
 import { useMemo } from 'react';
 import { convertWeiToTokens, indexBy } from 'utilities';
 
@@ -19,8 +18,6 @@ const TREASURY_ADDRESSES = {
   97: '0x0000000000000000000000000000000000000000',
 };
 
-export const treasuryAddress = TREASURY_ADDRESSES[config.chainId];
-
 export interface Data {
   treasurySupplyBalanceCents: BigNumber;
   treasuryBorrowBalanceCents: BigNumber;
@@ -34,7 +31,8 @@ export interface UseGetTreasuryTotalsOutput {
 }
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
-  const { accountAddress } = useAuth();
+  const { accountAddress, chainId } = useAuth();
+  const treasuryAddress = chainId && TREASURY_ADDRESSES[chainId];
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetIsolatedPools({
     accountAddress,
@@ -54,11 +52,12 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     isLoading: isGetVTokenBalancesTreasuryLoading,
   } = useGetVTokenBalancesAll(
     {
-      account: treasuryAddress,
+      account: treasuryAddress || '',
       vTokenAddresses,
     },
     {
       placeholderData: { balances: [] },
+      enabled: !!treasuryAddress,
     },
   );
 

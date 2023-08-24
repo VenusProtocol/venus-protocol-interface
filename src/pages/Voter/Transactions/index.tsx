@@ -9,6 +9,7 @@ import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
+import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -25,6 +26,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { chainId } = useAuth();
 
   const columns: TableColumn<VoteDetailTransaction>[] = useMemo(
     () => [
@@ -139,7 +141,14 @@ export const Transactions: React.FC<TransactionsProps> = ({
       <AnchorButton
         css={[styles.horizontalPadding, styles.anchorButton]}
         variant="secondary"
-        href={generateBscScanUrl(address, 'address')}
+        href={
+          chainId &&
+          generateBscScanUrl({
+            hash: address,
+            urlType: 'address',
+            chainId,
+          })
+        }
       >
         {t('voterDetail.viewAll')}
       </AnchorButton>

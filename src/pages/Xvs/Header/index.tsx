@@ -40,6 +40,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { chainId } = useAuth();
 
   const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
   const copyAddress = () => copy(TOKENS.xvs.address);
@@ -79,7 +80,14 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         <TokenIcon token={TOKENS.xvs} />
 
         <Typography
-          href={generateBscScanUrl(TOKENS.xvs.address, 'token')}
+          href={
+            chainId &&
+            generateBscScanUrl({
+              hash: TOKENS.xvs.address,
+              urlType: 'token',
+              chainId,
+            })
+          }
           target="_blank"
           rel="noreferrer"
           variant="small2"
