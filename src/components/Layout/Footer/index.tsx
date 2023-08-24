@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
+import { EXPLORER_URLS } from 'constants/bsc';
 import { TOKENS } from 'constants/tokens';
+import { useAuth } from 'context/AuthContext';
 
 import {
   VENUS_DISCORD_URL,
@@ -24,6 +25,8 @@ export interface FooterUiProps {
 export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { chainId } = useAuth();
+  const explorerUrl = chainId && EXPLORER_URLS[chainId];
 
   return (
     <div css={styles.container}>
@@ -32,7 +35,7 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
           component="a"
           variant="small2"
           css={styles.blockInfo}
-          href={config.bscScanUrl}
+          href={explorerUrl}
           target="_blank"
           rel="noreferrer"
         >
@@ -45,7 +48,14 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
       <div css={styles.links}>
         <a
           css={styles.link}
-          href={generateBscScanUrl(TOKENS.xvs.address, 'token')}
+          href={
+            chainId &&
+            generateBscScanUrl({
+              hash: TOKENS.xvs.address,
+              urlType: 'token',
+              chainId,
+            })
+          }
           target="_blank"
           rel="noreferrer"
         >

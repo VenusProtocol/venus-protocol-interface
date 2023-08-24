@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useAuth } from 'context/AuthContext';
 import React from 'react';
 import { ProposalAction } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
+import { useAuth } from 'context/AuthContext';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 
 import formatSignature from './formatSignature';
@@ -32,7 +32,14 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
     <Typography css={styles.signature} className={className}>
       <Typography
         component="a"
-        href={generateBscScanUrl(action.target, 'address')}
+        href={
+          chainId &&
+          generateBscScanUrl({
+            hash: action.target,
+            urlType: 'address',
+            chainId,
+          })
+        }
         target="_blank"
         rel="noreferrer"
       >

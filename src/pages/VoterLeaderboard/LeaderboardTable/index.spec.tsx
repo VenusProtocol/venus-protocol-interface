@@ -6,8 +6,6 @@ import renderComponent from 'testUtils/renderComponent';
 import Table from '.';
 
 describe('pages/VoterLeaderboard/Table', () => {
-  beforeAll(() => {});
-
   it('renders without crashing', async () => {
     renderComponent(
       <Table

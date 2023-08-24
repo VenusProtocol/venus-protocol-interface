@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { UrlType, generateBscScanUrl } from 'utilities';
@@ -10,6 +11,7 @@ import { useStyles } from './styles';
 
 export interface BscLinkProps {
   hash: string;
+  chainId?: ChainId;
   ellipseBreakpoint?: Breakpoint;
   urlType?: UrlType;
   className?: string;
@@ -18,6 +20,7 @@ export interface BscLinkProps {
 
 export const BscLink: React.FC<BscLinkProps> = ({
   hash,
+  chainId,
   className,
   urlType,
   text,
@@ -42,7 +45,7 @@ export const BscLink: React.FC<BscLinkProps> = ({
     <div css={styles.container} className={className}>
       <Typography
         component="a"
-        href={generateBscScanUrl(hash, urlType)}
+        href={chainId && generateBscScanUrl({ hash, urlType, chainId })}
         target="_blank"
         rel="noreferrer"
         variant="small1"

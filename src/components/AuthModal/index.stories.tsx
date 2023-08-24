@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -21,5 +22,6 @@ export const WithAccount = () => (
     onLogOut={noop}
     onLogin={noop}
     accountAddress="0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706"
+    chainId={ChainId.BSC_TESTNET}
   />
 );

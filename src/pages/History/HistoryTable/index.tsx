@@ -7,6 +7,7 @@ import { Transaction } from 'types';
 import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
@@ -19,6 +20,7 @@ export interface HistoryTableProps {
 export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { chainId } = useAuth();
 
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
@@ -81,7 +83,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         renderCell: transaction => (
           <Typography
             component="a"
-            href={generateBscScanUrl(transaction.transactionHash, 'tx')}
+            href={
+              chainId &&
+              generateBscScanUrl({
+                hash: transaction.transactionHash,
+                urlType: 'tx',
+                chainId,
+              })
+            }
             target="_blank"
             rel="noreferrer"
             variant="small2"
@@ -108,7 +117,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         renderCell: transaction => (
           <Typography
             component="a"
-            href={generateBscScanUrl(transaction.from, 'address')}
+            href={
+              chainId &&
+              generateBscScanUrl({
+                hash: transaction.from,
+                urlType: 'address',
+                chainId,
+              })
+            }
             target="_blank"
             rel="noreferrer"
             variant="small2"
@@ -126,7 +142,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
           transaction.to ? (
             <Typography
               component="a"
-              href={generateBscScanUrl(transaction.to, 'address')}
+              href={
+                chainId &&
+                generateBscScanUrl({
+                  hash: transaction.to,
+                  urlType: 'address',
+                  chainId,
+                })
+              }
               target="_blank"
               rel="noreferrer"
               variant="small2"
