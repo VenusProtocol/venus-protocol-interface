@@ -12,7 +12,6 @@ import { isTokenActionEnabled } from 'utilities/isTokenActionEnabled';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 
-vi.mock('clients/api');
 vi.mock('components/TokenAnnouncement');
 vi.mock('utilities/isTokenActionEnabled');
 

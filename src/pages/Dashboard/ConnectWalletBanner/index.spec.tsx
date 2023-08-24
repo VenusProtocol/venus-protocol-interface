@@ -7,8 +7,6 @@ import en from 'translation/translations/en.json';
 
 import ConnectWalletBanner, { ConnectWalletBannerUi } from '.';
 
-vi.mock('clients/api');
-
 describe('pages/Dashboard/ConnectWalletBanner', () => {
   it('renders without crashing', () => {
     renderComponent(<ConnectWalletBanner />);

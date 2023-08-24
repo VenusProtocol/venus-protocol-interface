@@ -13,8 +13,6 @@ import en from 'translation/translations/en.json';
 import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
-vi.mock('clients/api');
-
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
 const baseProps: StakeModalProps = {

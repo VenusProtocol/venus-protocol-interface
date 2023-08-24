@@ -14,8 +14,6 @@ import en from 'translation/translations/en.json';
 
 import Vai from '.';
 
-vi.mock('clients/api');
-
 describe('pages/Dashboard/Vai', () => {
   beforeEach(() => {
     (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>

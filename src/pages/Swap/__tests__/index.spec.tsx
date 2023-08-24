@@ -34,7 +34,6 @@ import SwapPage from '..';
 import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');

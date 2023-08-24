@@ -10,8 +10,6 @@ import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-vi.mock('clients/api');
-
 describe('context/DisableLunaUstWarning', () => {
   it.each([
     TESTNET_VBEP_TOKENS['0xf206af85bc2761c4f876d27bd474681cfb335efa'],

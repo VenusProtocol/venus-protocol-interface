@@ -8,8 +8,6 @@ import renderComponent from 'testUtils/renderComponent';
 import Vault from '.';
 import TEST_IDS from './VaultItem/testIds';
 
-vi.mock('clients/api');
-
 describe('pages/Vault', () => {
   beforeEach(() => {
     (useGetVaults as Vi.Mock).mockImplementation(() => ({

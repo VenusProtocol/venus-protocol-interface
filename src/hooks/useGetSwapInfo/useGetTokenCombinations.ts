@@ -3,6 +3,7 @@ import config from 'config';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { PSTokenCombination, Token } from 'types';
+import { useAuth } from 'context/AuthContext';
 
 import { MAINNET_SWAP_TOKENS, TESTNET_SWAP_TOKENS } from 'constants/tokens';
 
@@ -34,20 +35,26 @@ const BASE_TRADE_TOKENS = config.isOnTestnet
 const useGetTokenCombinations = ({
   fromToken,
   toToken,
-}: UseGetTokenCombinationsInput): PSTokenCombination[] =>
-  useMemo(() => {
+}: UseGetTokenCombinationsInput): PSTokenCombination[] => {
+  const { chainId } = useAuth();
+
+  return useMemo(() => {
+    if (!chainId) {
+      return [];
+    }
+
     const wrappedFromToken = wrapToken(fromToken);
     const wrappedToToken = wrapToken(toToken);
 
     const psFromToken = new PSToken(
-      config.chainId,
+      chainId,
       wrappedFromToken.address,
       wrappedFromToken.decimals,
       wrappedFromToken.symbol,
     );
 
     const psToToken = new PSToken(
-      config.chainId,
+      chainId,
       wrappedToToken.address,
       wrappedToToken.decimals,
       wrappedToToken.symbol,
@@ -56,7 +63,7 @@ const useGetTokenCombinations = ({
     // Convert tokens to PancakeSwap token instances
     const baseTradeTokens = [
       ...BASE_TRADE_TOKENS.map(
-        token => new PSToken(config.chainId, token.address, token.decimals, token.symbol),
+        token => new PSToken(chainId, token.address, token.decimals, token.symbol),
       ),
       // Add input tokens
       psFromToken,
@@ -101,6 +108,7 @@ const useGetTokenCombinations = ({
       );
 
     return allCombinations;
-  }, [fromToken, toToken]);
+  }, [fromToken, toToken, chainId]);
+};
 
 export default useGetTokenCombinations;

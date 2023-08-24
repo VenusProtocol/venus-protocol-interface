@@ -10,8 +10,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Breadcrumbs from '.';
 
-vi.mock('clients/api');
-
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
     (useGetPool as Vi.Mock).mockImplementation(() => ({

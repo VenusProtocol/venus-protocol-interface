@@ -14,8 +14,6 @@ import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 
-vi.mock('clients/api');
-
 describe('pages/ConvertVRT/Withdraw', () => {
   beforeEach(() => {
     (useGetMainAssets as Vi.Mock).mockImplementation(() => ({

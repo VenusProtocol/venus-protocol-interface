@@ -11,8 +11,6 @@ import BorrowRepay from '.';
 const fakePool: Pool = poolData[0];
 const fakeAsset = fakePool.assets[0];
 
-vi.mock('clients/api');
-
 describe('hooks/useBorrowRepayModal', () => {
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(

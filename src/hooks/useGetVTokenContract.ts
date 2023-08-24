@@ -1,4 +1,3 @@
-import config from 'config';
 import { useMemo } from 'react';
 import { VToken } from 'types';
 import { getVTokenContract } from 'utilities';
@@ -6,12 +5,8 @@ import { getVTokenContract } from 'utilities';
 import { useAuth } from 'context/AuthContext';
 
 const useGetVTokenContract = (vToken: VToken) => {
-  const { signer, provider } = useAuth();
+  const { signer, provider, chainId } = useAuth();
   const signerOrProvider = signer || provider;
-  // TODO: get from auth context. Right now the config defines the chain ID and so the dApp only
-  // needs to support one chain, but since our goal is to become multichain then the chain ID needs
-  // to be considered dynamic.
-  const { chainId } = config;
 
   return useMemo(
     () =>

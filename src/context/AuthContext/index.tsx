@@ -1,6 +1,5 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
 import type { Provider } from '@wagmi/core';
-import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
@@ -16,10 +15,12 @@ import {
 } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
-import { Connector, connectorIdByName } from 'clients/web3';
+import { Connector, connectorIdByName, chains } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { logError } from 'context/ErrorLogger';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
+import config from 'config';
+import { ChainId } from 'packages/contracts';
 
 export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;
@@ -29,6 +30,7 @@ export interface AuthContextValue {
   provider: Provider;
   accountAddress: string;
   signer?: Signer;
+  chainId?: ChainId;
 }
 
 export const AuthContext = React.createContext<AuthContextValue>({
@@ -49,6 +51,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
 
+  // TODO: get from chain instead of config
+  const { chainId } = config;
+
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
     enabled: address !== undefined,
   });
@@ -61,7 +66,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     // If user is attempting to connect their Infinity wallet but the dApp
     // isn't currently running in the Infinity Wallet app, open it
     if (connectorId === Connector.InfinityWallet && !isRunningInInfinityWalletApp()) {
-      openInfinityWallet(window.location.href, config.chainId);
+      openInfinityWallet(window.location.href, chainId);
       return;
     }
 
@@ -70,7 +75,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     try {
       // Log user in
-      await connectAsync({ connector, chainId: config.chainId });
+      await connectAsync({ connector, chainId });
     } catch (error) {
       if (error instanceof ConnectorNotFoundError) {
         throw new VError({ type: 'interaction', code: 'noProvider' });
@@ -84,12 +89,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     await disconnectAsync();
   }, []);
 
-  // Disconnect wallet if it's connected to the wrong network. Note: ideally
-  // we'd instead switch the network automatically, but this seems to cause
-  // issues with certain wallets such as MetaMask
+  // Disconnect wallet if it's connected to an unsupported network
   useEffect(() => {
     const fn = async () => {
-      if (!!accountAddress && chain && chain.id !== config.chainId) {
+      if (
+        !!accountAddress &&
+        chain &&
+        chains.every(supportedChain => supportedChain.id !== chain.id)
+      ) {
         await logOut();
       }
     };
@@ -115,6 +122,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         closeAuthModal,
         provider,
         signer: signer || undefined,
+        chainId,
       }}
     >
       <AuthModal

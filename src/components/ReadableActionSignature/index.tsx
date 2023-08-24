@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { useAuth } from 'context/AuthContext';
 import React from 'react';
 import { ProposalAction } from 'types';
 import { generateBscScanUrl } from 'utilities';
@@ -20,8 +21,11 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   className,
 }) => {
   const styles = useStyles();
+  const { chainId } = useAuth();
+
   const contractName = getContractName({
     target: action.target,
+    chainId,
   });
 
   return (

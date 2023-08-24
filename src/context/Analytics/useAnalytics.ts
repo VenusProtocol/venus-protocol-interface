@@ -3,6 +3,7 @@ import { usePostHog } from 'posthog-js/react';
 import { VoteSupport } from 'types';
 
 import { logError } from 'context/ErrorLogger';
+import { useAuth } from 'context/AuthContext';
 
 export type AnalyticEventName =
   | 'Tokens supplied'
@@ -136,9 +137,7 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
 
 const useAnalytics = () => {
   const posthog = usePostHog();
-
-  // TODO: get from auth context
-  const { chainId } = config;
+  const { chainId } = useAuth();
 
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
     eventName: TEventName,

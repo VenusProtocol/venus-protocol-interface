@@ -7,8 +7,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import Pools from '.';
 
-vi.mock('clients/api');
-
 describe('pages/Pools', () => {
   beforeEach(() => {
     (useGetTreasuryTotals as Vi.Mock).mockImplementation(() => ({

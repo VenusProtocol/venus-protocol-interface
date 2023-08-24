@@ -27,8 +27,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
-vi.mock('clients/api');
-
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
     (getXvsVaultPoolCount as Vi.Mock).mockImplementation(() => ({

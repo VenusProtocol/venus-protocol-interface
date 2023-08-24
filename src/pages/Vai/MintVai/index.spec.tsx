@@ -15,7 +15,6 @@ import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
 
-vi.mock('clients/api');
 vi.mock('components/Toast');
 vi.mock('hooks/useSuccessfulTransactionModal');
 

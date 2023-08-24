@@ -10,8 +10,6 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useGetMainPool, { UseGetMainPoolOutput } from '.';
 
-vi.mock('clients/api');
-
 describe('api/queries/useGetMainPool', () => {
   beforeEach(() => {
     (useGetMainAssets as Vi.Mock).mockImplementation(() => ({

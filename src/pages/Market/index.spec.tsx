@@ -15,8 +15,6 @@ import renderComponent from 'testUtils/renderComponent';
 import { CorePoolMarket, IsolatedPoolMarket } from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 describe('pages/Market', () => {
   beforeEach(() => {
     (useGetAsset as Vi.Mock).mockImplementation(() => ({

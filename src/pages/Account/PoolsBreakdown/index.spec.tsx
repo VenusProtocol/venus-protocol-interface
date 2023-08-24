@@ -10,8 +10,6 @@ import PoolsBreakdown, { PoolsBreakdownProps } from '.';
 import SUMMARY_TEST_IDS from '../Summary/testIds';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
-
 const baseProps: PoolsBreakdownProps = {
   pools: poolData,
 };

@@ -14,7 +14,6 @@ import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceWei } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Withdraw', () => {

@@ -27,7 +27,6 @@ import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';
 import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
 import TEST_IDS from './testIds';
 
-vi.mock('clients/api');
 vi.mock('hooks/useVote');
 
 const incorrectAction = proposals[0];
