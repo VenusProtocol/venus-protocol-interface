@@ -13,8 +13,6 @@ interface AddressProps {
   className?: string;
 }
 
-// TODO: add story
-
 export const EllipseAddress: React.FC<AddressProps> = ({
   className,
   address,
