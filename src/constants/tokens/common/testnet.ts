@@ -8,7 +8,6 @@ import ankrBNB from 'assets/img/tokens/ankrBNB.svg';
 import bifi from 'assets/img/tokens/bifi.png';
 import bnb from 'assets/img/tokens/bnb.svg';
 import bnbx from 'assets/img/tokens/bnbx.png';
-import bnx from 'assets/img/tokens/bnx.png';
 import bsw from 'assets/img/tokens/bsw.svg';
 import btcb from 'assets/img/tokens/btcb.svg';
 import btt from 'assets/img/tokens/btt.svg';
@@ -21,7 +20,6 @@ import hay from 'assets/img/tokens/hay.png';
 import ltc from 'assets/img/tokens/ltc.svg';
 import luna from 'assets/img/tokens/luna.svg';
 import matic from 'assets/img/tokens/matic.svg';
-import mobx from 'assets/img/tokens/mobx.svg';
 import nft from 'assets/img/tokens/nft.png';
 import raca from 'assets/img/tokens/raca.png';
 import sd from 'assets/img/tokens/sd.svg';
@@ -184,12 +182,6 @@ export const TESTNET_TOKENS = {
     symbol: 'VRT',
     asset: vrt,
   } as Token,
-  bnx: {
-    address: '0xa8062D2bd49D1D2C6376B444bde19402B38938d0',
-    decimals: 18,
-    symbol: 'BNX',
-    asset: bnx,
-  } as Token,
   alpaca: {
     address: '0x6923189d91fdF62dBAe623a55273F1d20306D9f2',
     decimals: 18,
@@ -243,12 +235,6 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     symbol: 'HAY',
     asset: hay,
-  } as Token,
-  mobx: {
-    address: '0x523027fFdf9B18Aa652dBcd6B92f885009153dA3',
-    decimals: 18,
-    symbol: 'MOBX',
-    asset: mobx,
   } as Token,
   nft: {
     address: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
