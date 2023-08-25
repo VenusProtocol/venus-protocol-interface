@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Icon } from '../Icon';
@@ -37,18 +37,25 @@ export function ValueUpdate<T>({
 
   const styles = useStyles({ isImprovement });
 
+  const formattedValues = useMemo(
+    () => ({
+      original: format(original),
+      updated: format(update),
+    }),
+    [original, update],
+  );
+
   return (
     <div className={className} css={styles.container}>
       <Typography component="span" variant="body1">
-        {format(original as never)}
+        {formattedValues.original}
       </Typography>
 
-      {/* TODO: hide if updated value is the same as the original */}
-      {update !== undefined && (
+      {update !== undefined && formattedValues.original !== formattedValues.updated && (
         <>
           <Icon name="arrowShaft" css={styles.icon} />
           <Typography component="span" variant="body1">
-            {format(update as never)}
+            {formattedValues.updated}
           </Typography>
         </>
       )}
