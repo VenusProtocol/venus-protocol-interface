@@ -25,8 +25,10 @@ import raca from 'assets/img/tokens/raca.png';
 import sd from 'assets/img/tokens/sd.svg';
 import stkBNB from 'assets/img/tokens/stkBNB.svg';
 import sxp from 'assets/img/tokens/sxp.svg';
+import the from 'assets/img/tokens/the.svg';
 import trx from 'assets/img/tokens/trx.svg';
 import tusd from 'assets/img/tokens/tusd.svg';
+import twt from 'assets/img/tokens/twt.svg';
 import usdc from 'assets/img/tokens/usdc.svg';
 import usdd from 'assets/img/tokens/usdd.svg';
 import usdt from 'assets/img/tokens/usdt.svg';
@@ -299,5 +301,17 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     symbol: 'SD',
     asset: sd,
+  } as Token,
+  twt: {
+    address: '0xb99C6B26Fdf3678c6e2aff8466E3625a0e7182f8',
+    decimals: 18,
+    symbol: 'TWT',
+    asset: twt,
+  } as Token,
+  the: {
+    address: '0xB1cbD28Cb101c87b5F94a14A8EF081EA7F985593',
+    decimals: 18,
+    symbol: 'THE',
+    asset: the,
   } as Token,
 };
