@@ -315,7 +315,7 @@ describe('pages/Swap', () => {
 
     fireEvent.change(fromTokenInput, { target: { value: incorrectValueTokens } });
 
-    // TODO: Check error notice is displayed
+    // Check error notice is displayed
     await waitFor(() => expect(getByText(en.swap.amountAboveWalletSpendingLimit)));
 
     // Check submit button is still disabled
