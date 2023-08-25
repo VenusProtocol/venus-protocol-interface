@@ -13,6 +13,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 vi.mock('utilities/isFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
+vi.mock('clients/web3/Web3Wrapper');
 
 // Mock Lottie
 vi.mock('@lottiefiles/react-lottie-player', () => ({
@@ -40,12 +41,6 @@ vi.mock('@uiw/react-markdown-preview', () => ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   default: ({ content, ...otherProps }: any) => <p {...otherProps}>content</p>,
 }));
-
-// Mock connectors to prevent any request from being made to providers
-vi.mock('wagmi/connectors/coinbaseWallet');
-vi.mock('wagmi/connectors/walletConnect');
-vi.mock('wagmi/connectors/injected');
-vi.mock('wagmi/connectors/metaMask');
 
 initializeLibraries();
 

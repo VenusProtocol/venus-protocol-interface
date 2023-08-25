@@ -15,19 +15,17 @@ import { BinanceWalletConnector } from './binanceWalletConnector';
 
 export const chains: Chain[] = config.isOnTestnet ? [bscTestnet] : [bsc];
 
-export const { provider, webSocketProvider } = configureChains(
-  [bscTestnet],
-  [
-    jsonRpcProvider({
-      rpc: chain => config.rpcUrls[chain.id as ChainId],
-    }),
-    publicProvider(),
-  ],
-);
+const { provider, webSocketProvider } = configureChains(chains, [
+  jsonRpcProvider({
+    rpc: chain => config.rpcUrls[chain.id as ChainId],
+  }),
+  publicProvider(),
+]);
 
 const client = createClient({
   autoConnect: true,
   provider,
+  webSocketProvider,
   connectors: [
     new InjectedConnector({ chains }),
     new MetaMaskConnector({ chains }),
@@ -48,7 +46,6 @@ const client = createClient({
       chains,
     }),
   ],
-  webSocketProvider,
 });
 
 export default client;

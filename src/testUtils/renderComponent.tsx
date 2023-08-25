@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
 import { getDefaultProvider } from 'ethers';
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { ChainId } from 'packages/contracts';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
