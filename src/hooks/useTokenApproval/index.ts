@@ -14,7 +14,7 @@ export interface UseTokenApprovalInput {
 }
 
 export interface UseTokenApprovalOutput {
-  isTokenApproved: boolean | undefined; // TODO: remove
+  isTokenApproved: boolean | undefined;
   approveToken: () => Promise<ContractReceipt | undefined>;
   revokeWalletSpendingLimit: () => Promise<ContractReceipt | undefined>;
   isApproveTokenLoading: boolean;
