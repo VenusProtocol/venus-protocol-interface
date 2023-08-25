@@ -323,4 +323,16 @@ export const MAINNET_VBEP_TOKENS = {
     symbol: 'vankrBNB',
     underlyingToken: MAINNET_TOKENS.ankrbnb,
   } as VToken,
+  '0x241375752e06fe76ba41d2f4b03c4331fddb239b': {
+    address: '0x241375752e06fe76Ba41d2f4B03C4331fDdB239B',
+    decimals: 8,
+    symbol: 'vTHE',
+    underlyingToken: MAINNET_TOKENS.the,
+  } as VToken,
+  '0x736bf1d21a28b5dc19a1ac8ca71fc2856c23c03f': {
+    address: '0x736bf1D21A28b5DC19A1aC8cA71Fc2856C23c03F',
+    decimals: 8,
+    symbol: 'vTWT',
+    underlyingToken: MAINNET_TOKENS.twt,
+  } as VToken,
 };
