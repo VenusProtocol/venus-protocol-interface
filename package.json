@@ -105,7 +105,7 @@
     "@storybook/testing-library": "^0.2.0",
     "@stylelint/postcss-css-in-js": "0.37.2",
     "@testing-library/dom": "^8.13.0",
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^8.0.1",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
