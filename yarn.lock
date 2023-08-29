@@ -7973,12 +7973,7 @@ ansi-styles@^5.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
-ansi-styles@^6.0.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.1.0.tgz#87313c102b8118abd57371afab34618bf7350ed3"
-  integrity sha512-VbqNsoz55SYGczauuup0MFUyXNQviSpFTj1RQtFzmQLk18qbVSpTFFGMT293rmDaQuKCT6InmbuEyUne4mTuxQ==
-
-ansi-styles@^6.1.0:
+ansi-styles@^6.0.0, ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
@@ -17096,17 +17091,17 @@ npm-registry-fetch@^14.0.5:
     npm-package-arg "^10.0.0"
     proc-log "^3.0.0"
 
-npm-run-all2@^6.0.5:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.5.tgz#decbcea351d14d9a7863facdece351281e3c8c1c"
-  integrity sha512-YfYsybLmMLeHK00shmIrArZbbqSov/0o692j8PAJTqZGpWy2bJMnMO00Xrex8S0ziePJUZy14CueF7rVMYAg/w==
+npm-run-all2@^6.0.6:
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-6.0.6.tgz#39abbeb59e622c6072957a2911e11b1f67f8e01f"
+  integrity sha512-Ba31DnJj3aqJ5freRdVIoBuRdGjHDt0Sfc7tduR2wYDbtcxsFlga6Sw2pE5Tn3+kdVttVwqzFlmozcT540wDxw==
   dependencies:
-    ansi-styles "^5.0.0"
+    ansi-styles "^6.2.1"
     cross-spawn "^7.0.3"
     memorystream "^0.3.1"
-    minimatch "^8.0.2"
+    minimatch "^9.0.0"
     pidtree "^0.6.0"
-    read-pkg "^5.2.0"
+    read-pkg "^8.0.0"
     shell-quote "^1.7.3"
 
 npm-run-path@^2.0.0:
