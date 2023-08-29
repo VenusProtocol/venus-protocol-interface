@@ -60,7 +60,7 @@
     "ethers": "^5.7.2",
     "formik": "^2.2.9",
     "graphql": "16.7.1",
-    "graphql-request": "^5.0.0",
+    "graphql-request": "^6.1.0",
     "graphql-tag": "2.12.6",
     "i18next": "^21.6.15",
     "lodash": "^4.17.21",
