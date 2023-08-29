@@ -76,9 +76,9 @@ const Switch = () => {
       <RRSwitch>
         <Route exact path={routes.governanceProposal.path} component={Proposal} />
         <Route path={`${routes.governance.path}/:newProposalStep`} component={Vote} />
-      </RRSwitch>
 
-      <Redirect to={routes.dashboard.path} />
+        <Redirect to={routes.dashboard.path} />
+      </RRSwitch>
     </RRSwitch>
   );
 };
