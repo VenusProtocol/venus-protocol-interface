@@ -1,4 +1,4 @@
-export const isRunningInOperaBrowser = () => window.ethereum?.isOpera;
+export const isRunningInOperaBrowser = () => (window.ethereum as WindowEthereum)?.isOpera;
 
 export const isRunningInInfinityWalletApp = () =>
-  window.ethereum && 'isInfinityWallet' in window.ethereum;
+  (window.ethereum as WindowEthereum)?.isInfinityWallet;

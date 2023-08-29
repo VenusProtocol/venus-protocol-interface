@@ -1,4 +1,3 @@
-export { promisify } from './promisify';
 export { restService } from './restService';
 export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
@@ -16,7 +15,6 @@ export { default as convertPercentageFromSmartContract } from './convertPercenta
 export * from './formatTokensToReadableValue';
 export * from './convertWeiToTokens';
 export { default as encodeParameters } from './encodeParameters';
-export { default as getArgs } from './getArgs';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';

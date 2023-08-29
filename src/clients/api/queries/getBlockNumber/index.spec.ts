@@ -1,4 +1,4 @@
-import type { Provider } from '@wagmi/core';
+import { type Provider } from 'clients/web3';
 
 import getBlockNumber from '.';
 

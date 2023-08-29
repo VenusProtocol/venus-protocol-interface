@@ -1,26 +1,20 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
-import type { Provider } from '@wagmi/core';
 import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import { ChainId } from 'packages/contracts';
 import React, { useCallback, useContext, useEffect } from 'react';
-import {
-  ConnectorNotFoundError,
-  useAccount,
-  useConnect,
-  useDisconnect,
-  useNetwork,
-  useProvider,
-  useSigner,
-} from 'wagmi';
+import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
-import { Connector, chains, connectorIdByName } from 'clients/web3';
+import { Connector, Provider, chains, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { logError } from 'context/ErrorLogger';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
+
+import useProvider from './useProvider';
+import useSigner from './useSigner';
 
 export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;
@@ -46,13 +40,14 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
-  const { data: signer } = useSigner();
-  const provider = useProvider();
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
 
   // TODO: get from chain instead of config
   const chainId = config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
+
+  const signer = useSigner({ chainId });
+  const provider = useProvider({ chainId });
 
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
     enabled: address !== undefined,
