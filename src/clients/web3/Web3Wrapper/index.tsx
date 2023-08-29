@@ -1,12 +1,13 @@
 import React from 'react';
 import { WagmiConfig } from 'wagmi';
 
-import client from './client';
+import config from './config';
 
-export * from './client';
+export * from './config';
+export { default as config } from './config';
 
 const Web3Wrapper: React.FC = ({ children }) => (
-  <WagmiConfig client={client}>{children}</WagmiConfig>
+  <WagmiConfig config={config}>{children}</WagmiConfig>
 );
 
 export default Web3Wrapper;

@@ -1,34 +1,20 @@
-// Copied from https://github.com/pancakeswap/pancake-frontend
-import { hexValue } from '@ethersproject/bytes';
-import type { Ethereum } from '@wagmi/core';
 import {
-  Chain,
-  ConnectorNotFoundError,
-  ResourceUnavailableError,
-  RpcError,
-  SwitchChainNotSupportedError,
+  ProviderRpcError,
+  ResourceUnavailableRpcError,
   UserRejectedRequestError,
-} from 'wagmi';
+  toHex,
+} from 'viem';
+import { Chain, ConnectorNotFoundError, SwitchChainNotSupportedError } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
-declare global {
-  interface Window {
-    BinanceChain?: {
-      bnbSign?: (
-        address: string,
-        message: string,
-      ) => Promise<{ publicKey: string; signature: string }>;
-      switchNetwork?: (networkId: string) => Promise<string>;
-    } & Ethereum;
-  }
-}
-
 const mappingNetwork: Record<number, string> = {
+  1: 'eth-mainnet',
   56: 'bsc-mainnet',
   97: 'bsc-testnet',
 };
 
-const binanceChainListener = async () =>
+// eslint-disable-next-line
+const _binanceChainListener = async () =>
   new Promise<void>(resolve =>
     Object.defineProperty(window, 'BinanceChain', {
       get() {
@@ -69,6 +55,7 @@ export class BinanceWalletConnector extends InjectedConnector {
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
       const provider = await this.getProvider();
+
       if (!provider) {
         throw new ConnectorNotFoundError();
       }
@@ -85,20 +72,22 @@ export class BinanceWalletConnector extends InjectedConnector {
       // Switch to chain if provided
       let id = await this.getChainId();
       let unsupported = this.isChainUnsupported(id);
+
       if (chainId && id !== chainId) {
         const chain = await this.switchChain(chainId);
-        ({ id } = chain);
+        // eslint-disable-next-line prefer-destructuring
+        id = chain.id;
         unsupported = this.isChainUnsupported(id);
       }
 
       return { account, chain: { id, unsupported }, provider };
     } catch (error) {
       if (this.isUserRejectedRequestError(error)) {
-        throw new UserRejectedRequestError(error);
+        throw new UserRejectedRequestError(error as Error);
       }
 
-      if ((error as RpcError).code === -32002) {
-        throw new ResourceUnavailableError(error);
+      if ((error as ProviderRpcError).code === -32002) {
+        throw new ResourceUnavailableRpcError(error as ProviderRpcError);
       }
 
       throw error;
@@ -106,24 +95,26 @@ export class BinanceWalletConnector extends InjectedConnector {
   }
 
   async getProvider() {
-    if (typeof window !== 'undefined') {
-      // TODO: Fallback to `ethereum#initialized` event for async injection
-      // https://github.com/MetaMask/detect-provider#synchronous-and-asynchronous-injection=
-      if (window.BinanceChain) {
-        this.provider = window.BinanceChain;
-      } else {
-        await binanceChainListener();
-        this.provider = window.BinanceChain;
-      }
+    if (typeof window === 'undefined') {
+      return this.provider;
     }
-    return this.provider;
+
+    if (window.BinanceChain) {
+      this.provider = window.BinanceChain;
+    } else {
+      await _binanceChainListener();
+      this.provider = window.BinanceChain;
+    }
   }
 
   async switchChain(chainId: number): Promise<Chain> {
     const provider = await this.getProvider();
-    if (!provider) throw new ConnectorNotFoundError();
 
-    const id = hexValue(chainId);
+    if (!provider) {
+      throw new ConnectorNotFoundError();
+    }
+
+    const id = toHex(chainId);
 
     if (mappingNetwork[chainId]) {
       try {
@@ -135,22 +126,16 @@ export class BinanceWalletConnector extends InjectedConnector {
             name: `Chain ${id}`,
             network: `${id}`,
             nativeCurrency: { decimals: 18, name: 'BNB', symbol: 'BNB' },
-            rpcUrls: {
-              default: {
-                http: [''],
-              },
-              public: {
-                http: [''],
-              },
-            },
+            rpcUrls: { default: { http: [''] }, public: { http: [''] } },
           }
         );
       } catch (error) {
         if ((error as any).error === 'user rejected') {
-          throw new UserRejectedRequestError(error);
+          throw new UserRejectedRequestError(error as Error);
         }
       }
     }
+
     throw new SwitchChainNotSupportedError({ connector: this });
   }
 }

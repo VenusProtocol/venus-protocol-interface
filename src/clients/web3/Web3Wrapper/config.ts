@@ -1,6 +1,6 @@
-import config from 'config';
+import localConfig from 'config';
 import { ChainId } from 'packages/contracts';
-import { Chain, configureChains, createClient } from 'wagmi';
+import { Chain, configureChains, createConfig } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -13,19 +13,19 @@ import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 
 import { BinanceWalletConnector } from './binanceWalletConnector';
 
-export const chains: Chain[] = config.isOnTestnet ? [bscTestnet] : [bsc];
+export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet] : [bsc];
 
-const { provider, webSocketProvider } = configureChains(chains, [
+const { publicClient, webSocketPublicClient } = configureChains(chains, [
   jsonRpcProvider({
-    rpc: chain => config.rpcUrls[chain.id as ChainId],
+    rpc: chain => localConfig.rpcUrls[chain.id as ChainId],
   }),
   publicProvider(),
 ]);
 
-const client = createClient({
+const config = createConfig({
   autoConnect: true,
-  provider,
-  webSocketProvider,
+  publicClient,
+  webSocketPublicClient,
   connectors: [
     new InjectedConnector({ chains }),
     new MetaMaskConnector({ chains }),
@@ -48,4 +48,4 @@ const client = createClient({
   ],
 });
 
-export default client;
+export default config;

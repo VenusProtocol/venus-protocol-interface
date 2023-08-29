@@ -1,9 +1,9 @@
-import type { Provider } from '@wagmi/core';
 import BigNumber from 'bignumber.js';
 import { ContractCallContext, ContractCallReturnContext, Multicall } from 'ethereum-multicall';
 import { contractInfos } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 
+import { type Provider } from 'clients/web3';
 import { TOKENS } from 'constants/tokens';
 
 import getBalanceOf from '../getBalanceOf';

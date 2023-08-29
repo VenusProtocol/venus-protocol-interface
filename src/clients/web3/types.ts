@@ -1,3 +1,5 @@
+import { BaseProvider, FallbackProvider, JsonRpcProvider } from '@ethersproject/providers';
+
 export enum Connector {
   MetaMask = 'MetaMask',
   TrustWallet = 'TrustWallet',
@@ -12,3 +14,5 @@ export enum Connector {
   BitKeep = 'BitKeep',
   RabbyWallet = 'RabbyWallet',
 }
+
+export type Provider = JsonRpcProvider | FallbackProvider | BaseProvider;

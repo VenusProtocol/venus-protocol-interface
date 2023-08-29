@@ -2,16 +2,14 @@ import { Token } from 'types';
 
 export const canRegisterToken = () =>
   typeof window !== 'undefined' &&
-  (window?.ethereum?.isMetaMask || window?.ethereum?.isTrust || window?.ethereum?.isCoinbaseWallet);
+  ((window?.ethereum as WindowEthereum)?.isMetaMask ||
+    (window?.ethereum as WindowEthereum)?.isTrust ||
+    (window?.ethereum as WindowEthereum)?.isCoinbaseWallet);
 
 const addTokenToWallet = async (token: Token) =>
-  window.ethereum?.request({
-    // @ts-expect-error Wagmi's type for request method is incorrect in the
-    // current version
+  (window?.ethereum as WindowEthereum)?.request({
     method: 'wallet_watchAsset',
     params: {
-      // @ts-expect-error Wagmi's type for request method 1is incorrect in the
-      // current version
       type: 'ERC20',
       options: {
         address: token.address,
