@@ -160,7 +160,7 @@
     "rimraf": "^5.0.1",
     "semantic-release": "^21.0.9",
     "storybook": "^7.2.1",
-    "stylelint": "^15.10.2",
+    "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^5.1.0",
