@@ -22,9 +22,14 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
   });
 
   // DEV ONLY
-  useGetMainPoolAlt({
-    accountAddress,
-  });
+  useGetMainPoolAlt(
+    {
+      accountAddress,
+    },
+    {
+      retry: false,
+    },
+  );
   // END DEV ONLY
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =

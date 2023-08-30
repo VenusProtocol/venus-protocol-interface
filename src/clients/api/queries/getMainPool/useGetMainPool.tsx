@@ -27,6 +27,10 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
     name: 'mainPoolComptroller',
   });
 
+  const venusLensContract = useGetUniqueContract({
+    name: 'venusLens',
+  });
+
   const resilientOracleContract = useGetUniqueContract({
     name: 'resilientOracle',
   });
@@ -39,7 +43,12 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
     [FunctionKey.GET_MAIN_POOL, input],
     () =>
       callOrThrow(
-        { mainPoolComptrollerContract, resilientOracleContract, vaiControllerContract },
+        {
+          mainPoolComptrollerContract,
+          venusLensContract,
+          resilientOracleContract,
+          vaiControllerContract,
+        },
         params =>
           getMainPool({
             provider,
