@@ -58,7 +58,7 @@ const UploadOrManualProposal: React.FC<UploadOrManualProposalProps> = ({
               Link: (
                 // eslint-disable-next-line jsx-a11y/anchor-has-content
                 <a
-                  href="https://github.com/VenusProtocol/venus-protocol-interface/tree/main/src/utilities/importJsonProposal/samples/vip-123.json"
+                  href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/src/assets/proposals/vip-123.json"
                   rel="noreferrer"
                 />
               ),
