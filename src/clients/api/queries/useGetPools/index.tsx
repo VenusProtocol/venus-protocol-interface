@@ -3,6 +3,7 @@ import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
 
 import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
+import useGetMainPoolAlt from 'clients/api/queries/getMainPool/useGetMainPool';
 
 export interface UseGetPoolsInput {
   accountAddress?: string;
@@ -19,6 +20,12 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
   const { data: getMainPoolData, isLoading: isGetMainPoolDataLoading } = useGetMainPool({
     accountAddress,
   });
+
+  // DEV ONLY
+  useGetMainPoolAlt({
+    accountAddress,
+  });
+  // END DEV ONLY
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
     useGetIsolatedPools(
