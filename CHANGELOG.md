@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.13.0...v2.13.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* remove app version checker to prevent infinite alerts ([0250c90](https://github.com/VenusProtocol/venus-protocol-interface/commit/0250c90a422369091b94529ac48e263ba2e0553d))
+
 ## [2.13.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.12.7...v2.13.0) (2023-08-31)
 
 
