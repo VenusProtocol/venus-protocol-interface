@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { ContractCallReturnContext } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import { Asset, Pool } from 'types';
 import {
   addUserPropsToPool,
@@ -12,15 +14,27 @@ import {
   multiplyMantissaDaily,
 } from 'utilities';
 
+import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { MAINNET_TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
-import { FormatToPoolInput } from '../types';
+import { GetTokenBalancesOutput } from '../../getTokenBalances';
 import convertFactorFromSmartContract from './convertFactorFromSmartContract';
 import formatDistributions from './formatDistributions';
 import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
+
+export interface FormatToPoolsInput {
+  poolsResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
+  comptrollerResults: ContractCallReturnContext[];
+  rewardsDistributorsResults: ContractCallReturnContext[];
+  resilientOracleResult: ContractCallReturnContext;
+  currentBlockNumber: number;
+  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
+  poolLensResult?: ContractCallReturnContext;
+  userWalletTokenBalances?: GetTokenBalancesOutput;
+}
 
 const formatToPools = ({
   poolsResults,
@@ -31,7 +45,7 @@ const formatToPools = ({
   poolLensResult,
   userWalletTokenBalances,
   currentBlockNumber,
-}: FormatToPoolInput) => {
+}: FormatToPoolsInput) => {
   // Map token prices by address
   const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
 
