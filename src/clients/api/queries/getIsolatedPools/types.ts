@@ -1,24 +1,8 @@
-import { ContractCallReturnContext, Multicall as Multicall3 } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
 import { Pool } from 'types';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { type Provider } from 'clients/web3';
-
-import { GetTokenBalancesOutput } from '../getTokenBalances';
-
-export interface FormatToPoolInput {
-  poolsResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
-  comptrollerResults: ContractCallReturnContext[];
-  rewardsDistributorsResults: ContractCallReturnContext[];
-  resilientOracleResult: ContractCallReturnContext;
-  currentBlockNumber: number;
-  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
-  poolLensResult?: ContractCallReturnContext;
-  userWalletTokenBalances?: GetTokenBalancesOutput;
-}
-
-export type FormatToPoolsOutput = Pool[];
 
 export interface GetIsolatedPoolsInput {
   multicall3: Multicall3;

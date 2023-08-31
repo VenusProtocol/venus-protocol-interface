@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { useTranslation } from 'translation';
 import { callOrThrow } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
@@ -9,7 +10,13 @@ import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
-  'provider' | 'mainPoolComptrollerContract' | 'resilientOracleContract' | 'vaiControllerContract'
+  | 'provider'
+  | 'name'
+  | 'description'
+  | 'venusLensContract'
+  | 'mainPoolComptrollerContract'
+  | 'resilientOracleContract'
+  | 'vaiControllerContract'
 >;
 
 type Options = QueryObserverOptions<
@@ -22,6 +29,7 @@ type Options = QueryObserverOptions<
 
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
+  const { t } = useTranslation();
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',
@@ -52,6 +60,8 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
         params =>
           getMainPool({
             provider,
+            name: t('mainPool.name'),
+            description: t('mainPool.description'),
             ...input,
             ...params,
           }),
