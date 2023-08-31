@@ -62,9 +62,9 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     if (file) {
       try {
         const values = await importJsonProposal(file);
-        setValues(values);
+        await setValues(values);
 
-        const errors = await validateForm();
+        const errors = await validateForm(values);
         checkImportErrors(errors);
 
         setProposalMode('file');
