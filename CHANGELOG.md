@@ -1,3 +1,33 @@
+## [2.13.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.12.7...v2.13.0) (2023-08-31)
+
+
+### Features
+
+* add analytic event types ([1496914](https://github.com/VenusProtocol/venus-protocol-interface/commit/14969146023a613ccb325917dd5f6d6f4824cede))
+* add correct icon for certain testnet tokens ([96d4964](https://github.com/VenusProtocol/venus-protocol-interface/commit/96d496492f371ea356bb54ff15fe9f740b25fc0a))
+* add TWT and THE on testnet and mainnet + vTWT and vTHE on testnet ([4b6ab67](https://github.com/VenusProtocol/venus-protocol-interface/commit/4b6ab67487b0ba692b3a89bcb109a0118e9dabc7))
+* add vTHE and VTWT mainnet records ([a439bc5](https://github.com/VenusProtocol/venus-protocol-interface/commit/a439bc5211daccbbd3ffcb774e20545d60c27e36))
+* capture analytic events ([fa71323](https://github.com/VenusProtocol/venus-protocol-interface/commit/fa71323615cc5682336adda919cfb1beeab39463))
+* disable BUSD ([64d4837](https://github.com/VenusProtocol/venus-protocol-interface/commit/64d4837d853c7ed2f4fd90e5b190f69bd38028a7))
+* display the USD amount of claimable rewards ([5409ddf](https://github.com/VenusProtocol/venus-protocol-interface/commit/5409ddf62f82b971003926d1fd4dc3e16bb26cee))
+* import new proposals using JSON ([51cf852](https://github.com/VenusProtocol/venus-protocol-interface/commit/51cf852a6246545b53d506821db64c65c6438e2f))
+* only display value changes on ValueUpdate component ([801bab3](https://github.com/VenusProtocol/venus-protocol-interface/commit/801bab396ba011ca46f8d51042520b2cf8b4a7df))
+* remove chainId from config ([40ab51e](https://github.com/VenusProtocol/venus-protocol-interface/commit/40ab51e54cff1d44f9317aaea08475338dea5ebd))
+* start using chainId from context ([6da592f](https://github.com/VenusProtocol/venus-protocol-interface/commit/6da592f3bbd2da8c835d3f55edc91ed6601ccf72))
+* update @venusprotocol/venus-protocol + fix testnet VenusLens contract address ([9d8f4b4](https://github.com/VenusProtocol/venus-protocol-interface/commit/9d8f4b4dc92e4ae7fa733bab13759810c9be1643))
+* update chains ([6cef749](https://github.com/VenusProtocol/venus-protocol-interface/commit/6cef74925694ae2fd1668b69bb359f26e3139daf))
+
+
+### Bug Fixes
+
+* await setValues when importing a VIP file ([b57ea1c](https://github.com/VenusProtocol/venus-protocol-interface/commit/b57ea1c5b5be7c230f5dbaaed86b56d5cf6243b1))
+* correct VIP sample file link ([5640173](https://github.com/VenusProtocol/venus-protocol-interface/commit/5640173ed9f45531676d484a094a73764cbda28a))
+* fallback to dashboard if the nested switch does not match any routes ([029835b](https://github.com/VenusProtocol/venus-protocol-interface/commit/029835bfe1ed3febf79e3c9872935e05ea6320e5))
+* fix chains used by wagmi + mock Web3Wrapper during tests ([27dfc72](https://github.com/VenusProtocol/venus-protocol-interface/commit/27dfc72f0363fdddddd5d071477fa7e1c257ec07))
+* render 0 values by checking if not null nor undefined ([1ee93ab](https://github.com/VenusProtocol/venus-protocol-interface/commit/1ee93ab8796ea93df6f132b9ed799aaaea912a80))
+* temporary hotfix of the nested root Switch ([022793a](https://github.com/VenusProtocol/venus-protocol-interface/commit/022793ad5b93dff14524f24aa888ab34c8b4b784))
+* update incorrectly passed icon size value ([b9e7c98](https://github.com/VenusProtocol/venus-protocol-interface/commit/b9e7c98c952ad0357ea4454d9a25db1edebc8765))
+
 ## [2.12.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.12.6...v2.12.7) (2023-08-16)
 
 ## [2.12.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.12.5...v2.12.6) (2023-08-16)
