@@ -326,7 +326,3 @@ export { default as useGetVaiRepayApy } from './queries/getVaiRepayApy/useGetVai
 export { default as getXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 export { default as useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
-
-export { default as getLatestAppVersion } from './queries/getLatestAppVersion';
-export * from './queries/getLatestAppVersion';
-export { default as useGetLatestAppVersion } from './queries/getLatestAppVersion/useGetLatestAppVersion';
