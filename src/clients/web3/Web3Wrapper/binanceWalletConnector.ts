@@ -13,8 +13,7 @@ const mappingNetwork: Record<number, string> = {
   97: 'bsc-testnet',
 };
 
-// eslint-disable-next-line
-const _binanceChainListener = async () =>
+const binanceChainListener = async () =>
   new Promise<void>(resolve =>
     Object.defineProperty(window, 'BinanceChain', {
       get() {
@@ -95,16 +94,17 @@ export class BinanceWalletConnector extends InjectedConnector {
   }
 
   async getProvider() {
-    if (typeof window === 'undefined') {
-      return this.provider;
+    if (typeof window !== 'undefined') {
+      // TODO: Fallback to `ethereum#initialized` event for async injection
+      // https://github.com/MetaMask/detect-provider#synchronous-and-asynchronous-injection=
+      if (window.BinanceChain) {
+        this.provider = window.BinanceChain;
+      } else {
+        await binanceChainListener();
+        this.provider = window.BinanceChain;
+      }
     }
-
-    if (window.BinanceChain) {
-      this.provider = window.BinanceChain;
-    } else {
-      await _binanceChainListener();
-      this.provider = window.BinanceChain;
-    }
+    return this.provider;
   }
 
   async switchChain(chainId: number): Promise<Chain> {
