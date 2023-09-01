@@ -20,7 +20,7 @@ import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/netwo
 
 import { PoolLens, PoolRegistry } from '../types/contracts/isolatedPools';
 import { ResilientOracle } from '../types/contracts/oracle';
-import { Maximillion, Multicall3 } from '../types/contracts/others';
+import { Maximillion, Multicall3, XsequenceMulticall } from '../types/contracts/others';
 import {
   GovernorBravoDelegate,
   Comptroller as MainPoolComptroller,
@@ -140,6 +140,14 @@ const maximillion: UniqueContractInfo = {
   },
 };
 
+const xsequenceMulticall: UniqueContractInfo = {
+  abi: [],
+  address: {
+    [ChainId.BSC_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+    [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+  },
+};
+
 const multicall3: UniqueContractInfo = {
   abi: multicall3Abi,
   address: {
@@ -169,6 +177,7 @@ const uniqueContractInfos = {
   governorBravoDelegate,
   vrtConverter,
   maximillion,
+  xsequenceMulticall,
   multicall3,
   resilientOracle,
 };
@@ -188,6 +197,7 @@ export type UniqueContractTypes = {
   governorBravoDelegate: GovernorBravoDelegate;
   vrtConverter: VRTConverter;
   maximillion: Maximillion;
+  xsequenceMulticall: XsequenceMulticall;
   multicall3: Multicall3;
   resilientOracle: ResilientOracle;
 };
