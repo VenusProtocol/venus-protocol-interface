@@ -9,6 +9,7 @@ import { ENV_VARIABLES } from './envVariables';
 export interface Config {
   environment: Environment;
   isOnTestnet: boolean;
+  isLocalServer: boolean;
   apiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: {
@@ -50,6 +51,7 @@ const subgraphUrl = isOnTestnet ? TESTNET_SUBGRAPH_URL : MAINNET_SUBGRAPH_URL;
 const config: Config = {
   environment,
   isOnTestnet,
+  isLocalServer,
   apiUrl,
   rpcUrls,
   subgraphUrl,

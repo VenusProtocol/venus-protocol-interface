@@ -49,7 +49,7 @@ import xvs from 'assets/img/tokens/xvs.svg';
 
 export const MAINNET_TOKENS = {
   bnb: {
-    address: '',
+    address: '0x0000000000000000000000000000000000000000',
     decimals: 18,
     symbol: 'BNB',
     asset: bnb,
