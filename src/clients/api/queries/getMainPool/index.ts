@@ -29,11 +29,9 @@ const getMainPool = async ({
   venusLensContract,
   vaiControllerContract,
   resilientOracleContract,
-  provider,
 }: GetMainPoolInput): Promise<GetMainPoolOutput> => {
   const [
     marketsResult,
-    currentBlockNumberResult,
     mainParticipantsCountResult,
     xvsPriceMantissaResult,
     assetsInResult,
@@ -43,8 +41,6 @@ const getMainPool = async ({
   ] = await Promise.allSettled([
     // Fetch all markets
     mainPoolComptrollerContract.getAllMarkets(),
-    // Fetch current block number
-    provider.getBlockNumber(),
     // Fetch borrower and supplier counts of each asset
     safelyGetMainPoolParticipantsCount(),
     // Fetch XVS price
@@ -62,10 +58,6 @@ const getMainPool = async ({
     throw new Error(marketsResult.reason);
   }
 
-  if (currentBlockNumberResult.status === 'rejected') {
-    throw new Error(currentBlockNumberResult.reason);
-  }
-
   if (xvsPriceMantissaResult.status === 'rejected') {
     throw new Error(xvsPriceMantissaResult.reason);
   }
@@ -77,14 +69,36 @@ const getMainPool = async ({
     vTokenAddresses.map(vTokenAddress => resilientOracleContract.getUnderlyingPrice(vTokenAddress)),
   );
 
-  // Fetch vToken borrow caps
+  // Fetch vToken borrow and supply caps
   const borrowCapsPromises = Promise.allSettled(
     vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.borrowCaps(vTokenAddress)),
   );
-
-  // Fetch vToken supply caps
   const supplyCapsPromises = Promise.allSettled(
     vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.supplyCaps(vTokenAddress)),
+  );
+
+  // Fetch vToken borrow and supply speeds
+  const xvsBorrowSpeedPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      mainPoolComptrollerContract.venusBorrowSpeeds(vTokenAddress),
+    ),
+  );
+  const xvsSupplySpeedPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      mainPoolComptrollerContract.venusSupplySpeeds(vTokenAddress),
+    ),
+  );
+
+  // Fetch vToken borrow and supply states
+  const xvsBorrowStatePromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      mainPoolComptrollerContract.venusBorrowState(vTokenAddress),
+    ),
+  );
+  const xvsSupplyStatePromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      mainPoolComptrollerContract.venusSupplyState(vTokenAddress),
+    ),
   );
 
   // Fetch vToken meta data and user balance
@@ -100,6 +114,10 @@ const getMainPool = async ({
   const underlyingTokenPriceResults = await underlyingTokenPricePromises;
   const borrowCapsResults = await borrowCapsPromises;
   const supplyCapsResults = await supplyCapsPromises;
+  const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
+  const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
+  const xvsBorrowStateResults = await xvsBorrowStatePromises;
+  const xvsSupplyStateResults = await xvsSupplyStatePromises;
   const [vTokenMetadataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
 
   if (vTokenMetadataResults.status === 'rejected') {
@@ -114,7 +132,10 @@ const getMainPool = async ({
     underlyingTokenPriceResults,
     borrowCapsResults,
     supplyCapsResults,
-    currentBlockNumber: currentBlockNumberResult.value,
+    xvsBorrowSpeedResults,
+    xvsSupplySpeedResults,
+    xvsBorrowStateResults,
+    xvsSupplyStateResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     assetsInResult: assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
     userVTokenBalancesResults:

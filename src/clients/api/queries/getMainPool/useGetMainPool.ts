@@ -5,7 +5,6 @@ import { callOrThrow } from 'utilities';
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedInput = Omit<
@@ -28,7 +27,6 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
-  const { provider } = useAuth();
   const { t } = useTranslation();
 
   const mainPoolComptrollerContract = useGetUniqueContract({
@@ -59,7 +57,6 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
         },
         params =>
           getMainPool({
-            provider,
             name: t('mainPool.name'),
             description: t('mainPool.description'),
             ...input,

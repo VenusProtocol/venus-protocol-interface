@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { AssetDistribution } from 'types';
+import { formatDistribution } from 'utilities';
 
 import { RewardTokenDataMapping } from '../formatRewardTokenDataMapping';
-import formatDistribution from './formatDistribution';
 
 export interface FormatDistributionsInput {
   tokenPriceDollars: BigNumber;
