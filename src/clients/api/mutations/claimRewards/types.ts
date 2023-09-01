@@ -31,7 +31,7 @@ export type Claim =
   | RewardsDistributorClaim;
 
 export interface ClaimRewardsInput {
-  multicallContract: ContractTypeByName<'multicall'>;
+  multicallContract: ContractTypeByName<'multicall3'>;
   mainPoolComptrollerContractAddress: string;
   vaiVaultContractAddress: string;
   xvsVaultContractAddress: string;

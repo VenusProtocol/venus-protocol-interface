@@ -35,7 +35,7 @@ const getIsolatedPools = async ({
   poolRegistryContractAddress,
   resilientOracleContractAddress,
   provider,
-  multicall,
+  multicall3,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [poolsResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
     // Fetch all pools
@@ -117,7 +117,7 @@ const getIsolatedPools = async ({
     multicallContexts.unshift(poolLensCallContext);
   }
 
-  const multicallPromise = multicall.call(multicallContexts);
+  const multicallPromise = multicall3.call(multicallContexts);
   let multicallOutput: ContractCallResults | undefined;
   let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
   let poolLensResult: ContractCallReturnContext | undefined;
@@ -132,7 +132,7 @@ const getIsolatedPools = async ({
       multicallPromise,
       // Fetch wallet token balances
       getTokenBalances({
-        multicall,
+        multicall3,
         accountAddress,
         tokens: underlyingTokens,
         provider,
@@ -214,7 +214,7 @@ const getIsolatedPools = async ({
     [],
   );
 
-  const rewardsDistributorsOutput = await multicall.call(rewardsDistributorsCallsContexts);
+  const rewardsDistributorsOutput = await multicall3.call(rewardsDistributorsCallsContexts);
   const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
 
   // Get addresses of all the tokens referenced
@@ -243,7 +243,7 @@ const getIsolatedPools = async ({
     })),
   };
 
-  const resilientOracleOutput = await multicall.call(resilientOracleCallsContext);
+  const resilientOracleOutput = await multicall3.call(resilientOracleCallsContext);
   const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
 
   const pools = formatOutput({

@@ -51,7 +51,7 @@ describe('api/mutation/claimVaiVaultReward', () => {
       tryBlockAndAggregate: vi.fn(async () => ({
         wait: vi.fn(async () => fakeContractReceipt),
       })),
-    } as unknown as ContractTypeByName<'multicall'>;
+    } as unknown as ContractTypeByName<'multicall3'>;
 
     const res = await claimRewards({
       multicallContract: fakeMulticallContract,

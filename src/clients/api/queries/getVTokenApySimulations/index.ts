@@ -12,7 +12,7 @@ export * from './types';
 const REFERENCE_AMOUNT_WEI = 1e4;
 
 const getVTokenApySimulations = async ({
-  multicall,
+  multicall3,
   reserveFactorMantissa,
   interestRateModelContractAddress,
   isIsolatedPoolMarket,
@@ -89,7 +89,7 @@ const getVTokenApySimulations = async ({
     calls,
   };
 
-  const vTokenBalanceCallResults: ContractCallResults = await multicall.call(contractCallContext);
+  const vTokenBalanceCallResults: ContractCallResults = await multicall3.call(contractCallContext);
 
   const apySimulations = formatToApySnapshots({ vTokenBalanceCallResults });
   const currentUtilizationRate = asset

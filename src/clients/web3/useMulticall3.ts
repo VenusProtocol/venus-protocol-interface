@@ -1,13 +1,13 @@
-import { Multicall } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import { useMemo } from 'react';
 
 import { useAuth } from 'context/AuthContext';
 
-const useMulticall = () => {
+const useMulticall3 = () => {
   const { provider } = useAuth();
   return useMemo(
     () =>
-      new Multicall({
+      new Multicall3({
         ethersProvider: provider,
         tryAggregate: true,
       }),
@@ -15,4 +15,4 @@ const useMulticall = () => {
   );
 };
 
-export default useMulticall;
+export default useMulticall3;

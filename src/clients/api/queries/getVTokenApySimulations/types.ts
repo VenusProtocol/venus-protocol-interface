@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { Multicall } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import { Asset } from 'types';
 
 export interface GetVTokenInterestRatesInput {
-  multicall: Multicall;
+  multicall3: Multicall3;
   reserveFactorMantissa: BigNumber;
   interestRateModelContractAddress: string;
   isIsolatedPoolMarket: boolean;

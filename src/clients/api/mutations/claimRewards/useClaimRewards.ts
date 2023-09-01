@@ -19,7 +19,7 @@ type Options = MutationObserverOptions<ClaimRewardsOutput, Error, TrimmedClaimRe
 
 const useClaimRewards = (options?: Options) => {
   const multicallContract = useGetUniqueContract({
-    name: 'multicall',
+    name: 'multicall3',
     passSigner: true,
   });
 

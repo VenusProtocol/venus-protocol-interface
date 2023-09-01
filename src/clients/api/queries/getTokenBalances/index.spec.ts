@@ -1,4 +1,4 @@
-import { Multicall } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
@@ -13,37 +13,37 @@ const tokensWithBnB = [...tokens, SWAP_TOKENS.bnb];
 
 describe('api/queries/getTokenBalances', () => {
   test('returns token balances in the right format on success', async () => {
-    const fakeMulticall = {
+    const fakeMulticall3 = {
       call: vi.fn(async () => fakeMulticallResponses.bep20.balanceOfTokens),
-    } as unknown as Multicall;
+    } as unknown as Multicall3;
 
     const res = await getTokenBalances({
       provider: fakeProvider,
-      multicall: fakeMulticall,
+      multicall3: fakeMulticall3,
       accountAddress: fakeAccountAddress,
       tokens,
     });
 
-    expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect(fakeMulticall3.call).toHaveBeenCalledTimes(1);
+    expect((fakeMulticall3.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });
 
   test('returns token balances, including BNB, in the right format on success', async () => {
-    const fakeMulticall = {
+    const fakeMulticall3 = {
       call: vi.fn(async () => fakeMulticallResponses.bep20.balanceOfTokens),
-    } as unknown as Multicall;
+    } as unknown as Multicall3;
 
     const res = await getTokenBalances({
       provider: fakeProvider,
-      multicall: fakeMulticall,
+      multicall3: fakeMulticall3,
       accountAddress: fakeAccountAddress,
       tokens: tokensWithBnB,
     });
 
-    expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect(fakeMulticall3.call).toHaveBeenCalledTimes(1);
+    expect((fakeMulticall3.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

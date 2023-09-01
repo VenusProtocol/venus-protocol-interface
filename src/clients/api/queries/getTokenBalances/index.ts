@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallContext, ContractCallReturnContext, Multicall } from 'ethereum-multicall';
+import {
+  ContractCallContext,
+  ContractCallReturnContext,
+  Multicall as Multicall3,
+} from 'ethereum-multicall';
 import { contractInfos } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 
@@ -9,7 +13,7 @@ import { TOKENS } from 'constants/tokens';
 import getBalanceOf from '../getBalanceOf';
 
 export interface GetTokenBalancesInput {
-  multicall: Multicall;
+  multicall3: Multicall3;
   provider: Provider;
   accountAddress: string;
   tokens: Token[];
@@ -22,7 +26,7 @@ export type GetTokenBalancesOutput = {
 };
 
 const getTokenBalances = async ({
-  multicall,
+  multicall3,
   provider,
   accountAddress,
   tokens,
@@ -54,7 +58,7 @@ const getTokenBalances = async ({
 
   // Handle fetching non-native token balances
   const getBep20Balances: GetTokenBalancesPromise = async () => {
-    const unformattedResults = await multicall.call(contractCallContexts);
+    const unformattedResults = await multicall3.call(contractCallContexts);
     const results: ContractCallReturnContext[] = Object.values(unformattedResults.results);
 
     return results.reduce((acc, result) => {

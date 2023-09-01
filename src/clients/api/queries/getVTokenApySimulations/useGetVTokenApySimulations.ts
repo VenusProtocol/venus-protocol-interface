@@ -6,7 +6,7 @@ import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
-import { useMulticall } from 'clients/web3';
+import { useMulticall3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -31,14 +31,14 @@ const useGetVTokenApySimulations = (
   },
   options?: Options,
 ) => {
-  const multicall = useMulticall();
+  const multicall3 = useMulticall3();
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address }],
     () =>
       getVTokenApySimulations({
-        multicall,
+        multicall3,
         reserveFactorMantissa: reserveFactorMantissa || new BigNumber(0),
         interestRateModelContractAddress: interestRateModelData?.contractAddress || '',
         isIsolatedPoolMarket,
