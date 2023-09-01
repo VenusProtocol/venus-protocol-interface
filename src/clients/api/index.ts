@@ -195,7 +195,8 @@ export { default as useGetAsset } from './queries/useGetAsset';
 
 export { default as useGetMainPoolTotalXvsDistributed } from './queries/useGetMainPoolTotalXvsDistributed';
 
-export { default as useGetMainPool } from './queries/useGetMainPool';
+export * from './queries/getMainPool';
+export { default as useGetMainPool } from './queries/getMainPool/useGetMainPool';
 
 export { default as useGetPools } from './queries/useGetPools';
 

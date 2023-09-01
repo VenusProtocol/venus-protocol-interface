@@ -13,11 +13,11 @@ import FunctionKey from 'constants/functionKey';
 import { GetBalanceOfInput } from '../queries/getBalanceOf';
 
 // Queries
-export const getIsAddressAuthorized = vi.fn(accountAddress => fakeAddress !== accountAddress);
+export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);
 export const useGetIsAddressAuthorized = (accountAddress: string) =>
   useQuery(FunctionKey.GET_IS_ADDRESS_AUTHORIZED, () => getIsAddressAuthorized(accountAddress));
 
-export const getBlockNumber = vi.fn(() => 51236217);
+export const getBlockNumber = vi.fn(async () => 51236217);
 export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
 
 export const getVaiCalculateRepayAmount = vi.fn();
@@ -137,12 +137,10 @@ export const useGetIsolatedPools = vi.fn(() => ({
   },
 }));
 
-export const useGetMainPool = vi.fn(() => ({
-  isLoading: false,
-  data: {
-    pool: poolData[0],
-  },
+export const getMainPool = vi.fn(async () => ({
+  pool: poolData[0],
 }));
+export const useGetMainPool = vi.fn(() => useQuery(FunctionKey.GET_MAIN_POOL, getMainPool));
 
 export const useGetPool = vi.fn(() => ({
   isLoading: false,
@@ -197,16 +195,16 @@ export const getXvsVaultUserInfo = vi.fn();
 export const useGetXvsVaultUserInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
 
-export const getCurrentVotes = vi.fn(() => new BigNumber(100000000000000000));
+export const getCurrentVotes = vi.fn(async () => new BigNumber(100000000000000000));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
 
 export const getProposals = vi.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
-export const getProposal = vi.fn(() => proposals[0]);
+export const getProposal = vi.fn(async () => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
 
-export const getVoters = vi.fn(() => voters);
+export const getVoters = vi.fn(async () => voters);
 export const useGetVoters = vi.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));
 
 export const getVoterHistory = vi.fn();
@@ -239,7 +237,7 @@ export const useGetActiveProposal = vi.fn();
 export const getVoterAccounts = vi.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
 
-export const getProposalThreshold = vi.fn(() => new BigNumber('10000000000000000000000'));
+export const getProposalThreshold = vi.fn(async () => new BigNumber('10000000000000000000000'));
 export const useGetProposalThreshold = () =>
   useQuery(FunctionKey.GET_PROPOSAL_THRESHOLD, getProposalThreshold);
 
