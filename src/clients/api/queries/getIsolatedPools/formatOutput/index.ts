@@ -169,7 +169,7 @@ const formatToPools = ({
         valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
         token: vToken,
       });
-      const supplyBalanceTokens = supplyBalanceVTokens.multipliedBy(exchangeRateVTokens);
+      const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertWeiToTokens({
