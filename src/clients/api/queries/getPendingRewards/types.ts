@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
-import { Multicall } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import { Token } from 'types';
 
 export interface GetPendingRewardGroupsInput {
   mainPoolComptrollerContractAddress: string;
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
-  multicall: Multicall;
+  multicall3: Multicall3;
   accountAddress: string;
   venusLensContractAddress: string;
   resilientOracleContractAddress: string;

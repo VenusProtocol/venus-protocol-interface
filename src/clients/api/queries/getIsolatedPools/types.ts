@@ -1,4 +1,4 @@
-import { ContractCallReturnContext, Multicall } from 'ethereum-multicall';
+import { ContractCallReturnContext, Multicall as Multicall3 } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
 import { Pool } from 'types';
 
@@ -21,7 +21,7 @@ export interface FormatToPoolInput {
 export type FormatToPoolsOutput = Pool[];
 
 export interface GetIsolatedPoolsInput {
-  multicall: Multicall;
+  multicall3: Multicall3;
   poolLensContract: ContractTypeByName<'poolLens'>;
   poolRegistryContractAddress: string;
   resilientOracleContractAddress: string;

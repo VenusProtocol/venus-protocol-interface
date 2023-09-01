@@ -12,7 +12,7 @@ const getPendingRewardGroups = async ({
   mainPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
-  multicall,
+  multicall3,
   accountAddress,
   venusLensContractAddress,
   resilientOracleContractAddress,
@@ -90,7 +90,7 @@ const getPendingRewardGroups = async ({
     });
   }
 
-  const contractCallResults: ContractCallResults = await multicall.call(contractCallContext);
+  const contractCallResults: ContractCallResults = await multicall3.call(contractCallContext);
 
   // fetch USD prices for reward tokens
   const mainPoolRewards = contractCallResults.results.venusLens.callsReturnContext[0]
@@ -124,7 +124,7 @@ const getPendingRewardGroups = async ({
     })),
   };
 
-  const resilientOracleOutput = await multicall.call(resilientOracleCallsContext);
+  const resilientOracleOutput = await multicall3.call(resilientOracleCallsContext);
   const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
 
   const rewardTokenPrices = formatTokenPrices(resilientOracleResult);

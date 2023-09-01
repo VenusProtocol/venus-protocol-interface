@@ -8,7 +8,7 @@ import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from
 export * from './types';
 
 const getPancakeSwapPairs = async ({
-  multicall,
+  multicall3,
   tokenCombinations,
 }: GetPancakeSwapPairsInput): Promise<GetPancakeSwapPairsOutput> => {
   // Generate pair addresses from token combinations
@@ -37,7 +37,7 @@ const getPancakeSwapPairs = async ({
     calls: [{ reference: 'getReserves', methodName: 'getReserves()', methodParameters: [] }],
   }));
 
-  const reserveCallResults: ContractCallResults = await multicall.call(contractCallContext);
+  const reserveCallResults: ContractCallResults = await multicall3.call(contractCallContext);
 
   const pairs = formatToPairs({
     pairAddresses,

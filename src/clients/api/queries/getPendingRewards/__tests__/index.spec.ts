@@ -1,4 +1,4 @@
-import { ContractCallContext, Multicall } from 'ethereum-multicall';
+import { ContractCallContext, Multicall as Multicall3 } from 'ethereum-multicall';
 import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
@@ -16,19 +16,19 @@ const fakeResilientOracleContractAddress = '0x23d1820b2D1c7c7452A163983Dc888CEC5
 
 describe('api/queries/getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
-    const multicall = {
+    const multicall3 = {
       call: vi.fn(async (context: ContractCallContext) =>
         context?.reference === 'resilientOracle'
           ? fakeMulticallResponses.resilientOracle
           : fakeMulticallResponses.lenses.getPendingRewardGroups,
       ),
-    } as unknown as Multicall;
+    } as unknown as Multicall3;
 
     const res = await getPendingRewardGroups({
       mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       xvsVestingVaultPoolCount: 2,
-      multicall,
+      multicall3,
       accountAddress: fakeAddress,
       venusLensContractAddress: fakeVenusLensContractAddress,
       resilientOracleContractAddress: fakeResilientOracleContractAddress,
@@ -37,8 +37,8 @@ describe('api/queries/getPendingRewardGroups', () => {
       xvsVaultContractAddress: fakeXvsVaultContractAddress,
     });
 
-    expect(multicall.call).toHaveBeenCalledTimes(2);
-    expect((multicall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect(multicall3.call).toHaveBeenCalledTimes(2);
+    expect((multicall3.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(res).toMatchSnapshot();
   });

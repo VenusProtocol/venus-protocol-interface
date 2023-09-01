@@ -5,7 +5,7 @@ import formatToOutput from './formatToOutput';
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
 
 const getVaiCalculateRepayAmount = async ({
-  multicall,
+  multicall3,
   vaiControllerContractAddress,
   accountAddress,
   repayAmountWei,
@@ -27,7 +27,7 @@ const getVaiCalculateRepayAmount = async ({
     ],
   };
 
-  const contractCallResults: ContractCallResults = await multicall.call(contractCallContext);
+  const contractCallResults: ContractCallResults = await multicall3.call(contractCallContext);
 
   return formatToOutput({
     repayAmountWei,

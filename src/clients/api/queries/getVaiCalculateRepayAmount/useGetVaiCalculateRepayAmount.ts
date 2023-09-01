@@ -2,7 +2,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { getVaiCalculateRepayAmount } from 'clients/api';
-import { useMulticall } from 'clients/web3';
+import { useMulticall3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
@@ -26,10 +26,10 @@ const useGetVaiCalculateRepayAmount = (
   {
     accountAddress,
     repayAmountWei,
-  }: Omit<GetVaiCalculateRepayAmountInput, 'multicall' | 'vaiControllerContractAddress'>,
+  }: Omit<GetVaiCalculateRepayAmountInput, 'multicall3' | 'vaiControllerContractAddress'>,
   options?: Options,
 ) => {
-  const multicall = useMulticall();
+  const multicall3 = useMulticall3();
   const vaiControllerContractAddress = useGetUniqueContractAddress({
     name: 'vaiController',
   });
@@ -45,7 +45,7 @@ const useGetVaiCalculateRepayAmount = (
     () =>
       callOrThrow({ vaiControllerContractAddress }, params =>
         getVaiCalculateRepayAmount({
-          multicall,
+          multicall3,
           accountAddress,
           repayAmountWei,
           ...params,

@@ -22,7 +22,7 @@ const claimRewards = async ({
   xvsVaultContractAddress,
 }: ClaimRewardsInput): Promise<ClaimRewardsOutput> => {
   // Format claims into calls
-  const calls: Parameters<ContractTypeByName<'multicall'>['tryBlockAndAggregate']>[1] = claims.map(
+  const calls: Parameters<ContractTypeByName<'multicall3'>['tryBlockAndAggregate']>[1] = claims.map(
     claim => {
       if (claim.contract === 'mainPoolComptroller') {
         const executingInterface = new ethers.utils.Interface(

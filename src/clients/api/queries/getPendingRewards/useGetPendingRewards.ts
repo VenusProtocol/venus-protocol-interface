@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { useMulticall } from 'clients/web3';
+import { useMulticall3 } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
@@ -25,7 +25,7 @@ const useGetPendingRewards = (
     xvsVestingVaultPoolCount,
   }: Omit<
     GetPendingRewardGroupsInput,
-    | 'multicall'
+    | 'multicall3'
     | 'venusLensContractAddress'
     | 'poolLensContractAddress'
     | 'vaiVaultContractAddress'
@@ -33,7 +33,7 @@ const useGetPendingRewards = (
   >,
   options?: Options,
 ) => {
-  const multicall = useMulticall();
+  const multicall3 = useMulticall3();
 
   const venusLensContractAddress = useGetUniqueContractAddress({
     name: 'venusLens',
@@ -81,7 +81,7 @@ const useGetPendingRewards = (
             mainPoolComptrollerContractAddress,
             isolatedPoolComptrollerAddresses,
             xvsVestingVaultPoolCount,
-            multicall,
+            multicall3,
             accountAddress,
             ...params,
           }),

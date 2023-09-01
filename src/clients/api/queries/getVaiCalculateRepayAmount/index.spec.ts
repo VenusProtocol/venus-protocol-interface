@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Multicall } from 'ethereum-multicall';
+import { Multicall as Multicall3 } from 'ethereum-multicall';
 import Vi from 'vitest';
 
 import fakeMulticallResponses from '__mocks__/contracts/multicall';
@@ -9,15 +9,15 @@ import getVaiCalculateRepayAmount from '.';
 
 describe('api/queries/getVaiCalculateRepayAmount', () => {
   test('throws an error when request fails', async () => {
-    const fakeMulticall = {
+    const fakeMulticall3 = {
       call: async () => {
         throw new Error('Fake error message');
       },
-    } as unknown as Multicall;
+    } as unknown as Multicall3;
 
     try {
       await getVaiCalculateRepayAmount({
-        multicall: fakeMulticall,
+        multicall3: fakeMulticall3,
         accountAddress: fakeAddress,
         repayAmountWei: new BigNumber('0'),
         vaiControllerContractAddress: 'fake-address',
@@ -30,19 +30,19 @@ describe('api/queries/getVaiCalculateRepayAmount', () => {
   });
 
   test('returns the VAI fee', async () => {
-    const fakeMulticall = {
+    const fakeMulticall3 = {
       call: vi.fn(async () => fakeMulticallResponses.vaiController.getVaiRepayInterests),
-    } as unknown as Multicall;
+    } as unknown as Multicall3;
 
     const response = await getVaiCalculateRepayAmount({
-      multicall: fakeMulticall,
+      multicall3: fakeMulticall3,
       accountAddress: fakeAddress,
       repayAmountWei: new BigNumber('100'),
       vaiControllerContractAddress: 'fake-address',
     });
 
-    expect(fakeMulticall.call).toHaveBeenCalledTimes(1);
-    expect((fakeMulticall.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect(fakeMulticall3.call).toHaveBeenCalledTimes(1);
+    expect((fakeMulticall3.call as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
 
     expect(response).toMatchSnapshot();
   });

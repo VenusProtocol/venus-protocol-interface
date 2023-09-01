@@ -22,7 +22,9 @@ const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
       : new ethersProviders.JsonRpcProvider(transport.url, network);
 
   // Wrap with multicall provider
-  return new providers.MulticallProvider(ethersProvider);
+  return new providers.MulticallProvider(ethersProvider, {
+    // contract: '',
+  });
 };
 
 export default getProvider;

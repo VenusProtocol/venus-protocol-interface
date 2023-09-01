@@ -1,4 +1,4 @@
-import { ContractCallContext, Multicall } from 'ethereum-multicall';
+import { ContractCallContext, Multicall as Multicall3 } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
@@ -24,7 +24,7 @@ const fakePoolLensContract = {
   getAllPools: async () => fakeGetAllPoolsOuput,
 } as unknown as ContractTypeByName<'poolLens'>;
 
-const fakeMulticall = {
+const fakeMulticall3 = {
   call: (context: ContractCallContext | ContractCallContext[]) => {
     if (Array.isArray(context)) {
       return context[0].reference === 'poolLens' ? fakeMulticallResponse0 : fakeMulticallResponse1;
@@ -32,7 +32,7 @@ const fakeMulticall = {
 
     return fakeMulticallResponse2;
   },
-} as unknown as Multicall;
+} as unknown as Multicall3;
 
 describe('api/queries/getIsolatedPools', () => {
   it('returns isolated pools in the correct format', async () => {
@@ -44,7 +44,7 @@ describe('api/queries/getIsolatedPools', () => {
       poolLensContract: fakePoolLensContract,
       provider: fakeProvider,
       accountAddress: fakeAddress,
-      multicall: fakeMulticall,
+      multicall3: fakeMulticall3,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       resilientOracleContractAddress: fakeResilientOracleContractAddress,
     });
@@ -61,7 +61,7 @@ describe('api/queries/getIsolatedPools', () => {
       poolLensContract: fakePoolLensContract,
       provider: fakeProvider,
       accountAddress: fakeAddress,
-      multicall: fakeMulticall,
+      multicall3: fakeMulticall3,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       resilientOracleContractAddress: fakeResilientOracleContractAddress,
     });
