@@ -1,3 +1,12 @@
+## [2.14.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.13.3...v2.14.0) (2023-09-01)
+
+
+### Features
+
+* remove chainid from getProvider and getSigner ([9c390bf](https://github.com/VenusProtocol/venus-protocol-interface/commit/9c390bf9fc1deb2f01b2487163375a913e2aec92))
+* replace wagmi multicall with 0sequence Multicall contract ([4b34be6](https://github.com/VenusProtocol/venus-protocol-interface/commit/4b34be649ed00f1852c017b11276fac817154bdd))
+* wrap provider with multicall provider + add passSigner parameter to contrat hooks ([5ec35c0](https://github.com/VenusProtocol/venus-protocol-interface/commit/5ec35c0bbefd51ef689c316630117eb6c91c1574))
+
 ## [2.13.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.13.2...v2.13.3) (2023-09-01)
 
 ## [2.13.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.13.1...v2.13.2) (2023-09-01)
