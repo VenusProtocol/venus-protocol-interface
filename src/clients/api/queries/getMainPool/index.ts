@@ -9,6 +9,8 @@ import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
 
+// TODO: add tests
+
 // Since the borrower and supplier counts aren't essential information, we make the logic so the
 // dApp can still function if the subgraph is down
 const safelyGetMainPoolParticipantsCount = async () => {
@@ -137,12 +139,13 @@ const getMainPool = async ({
     xvsBorrowStateResults,
     xvsSupplyStateResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
-    assetsInResult: assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
-    userVTokenBalancesResults:
+    userCollateralizedVTokenAddresses:
+      assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
+    userVTokenBalances:
       userVTokenBalancesResults.status === 'fulfilled'
         ? userVTokenBalancesResults.value
         : undefined,
-    vaiRepayAmountResult:
+    userVaiBorrowBalanceWei:
       vaiRepayAmountResult.status === 'fulfilled' && vaiRepayAmountResult.value
         ? new BigNumber(vaiRepayAmountResult.value.toString())
         : undefined,

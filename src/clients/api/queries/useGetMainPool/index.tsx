@@ -15,7 +15,9 @@ export interface UseGetMainPoolOutput {
     pool: Pool;
   };
 }
-
+/**
+ * @deprecated Use new useGetMainPool hook instead to fetch main pool from contracts
+ */
 const useGetMainPool = ({ accountAddress }: UseGetMainPoolInput): UseGetMainPoolOutput => {
   const { data: getMainAssetsData, isLoading: isGetMainAssetsDataLoading } = useGetMainAssets({
     accountAddress,

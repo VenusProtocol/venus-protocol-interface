@@ -1,8 +1,6 @@
 import { ContractTypeByName } from 'packages/contracts';
 import { Pool } from 'types';
 
-import { type Provider } from 'clients/web3';
-
 export interface GetMainPoolInput {
   name: string;
   description: string;

@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Asset, Pool, VToken } from 'types';
 import {
+  addUserPropsToPool,
   areAddressesEqual,
   calculateApy,
   convertDollarsToCents,
@@ -51,11 +52,11 @@ export interface FormatToPoolInput {
     Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplyState']>>
   >[];
   xvsPriceMantissa: BigNumber;
-  assetsInResult?: string[];
-  userVTokenBalancesResults?: Awaited<
+  userCollateralizedVTokenAddresses?: string[];
+  userVTokenBalances?: Awaited<
     ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenBalancesAll']>
   >;
-  vaiRepayAmountResult?: BigNumber;
+  userVaiBorrowBalanceWei?: BigNumber;
   mainParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
 }
 
@@ -72,10 +73,9 @@ const formatToPool = ({
   xvsBorrowStateResults,
   xvsSupplyStateResults,
   xvsPriceMantissa,
-  assetsInResult,
-  userVTokenBalancesResults,
-  vaiRepayAmountResult,
-  mainParticipantsCountResult,
+  userCollateralizedVTokenAddresses,
+  userVTokenBalances,
+  userVaiBorrowBalanceWei, // mainParticipantsCountResult,
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
@@ -187,7 +187,7 @@ const formatToPool = ({
       return;
     }
 
-    const userVTokenBalancesResult = userVTokenBalancesResults?.[index];
+    const userVTokenBalancesResult = userVTokenBalances?.[index];
 
     const xvsPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: xvsPriceMantissa,
@@ -311,7 +311,9 @@ const formatToPool = ({
       balanceDollars: supplyBalanceDollars,
     });
 
-    const isCollateralOfUser = (assetsInResult || []).includes(vTokenMetaData.vToken);
+    const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
+      vTokenMetaData.vToken,
+    );
     const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
       ? convertWeiToTokens({
           valueWei: new BigNumber(userVTokenBalancesResult.balanceOfUnderlying.toString()),
@@ -327,7 +329,7 @@ const formatToPool = ({
       : new BigNumber(0);
 
     const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
-    const userBorrowBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+    const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
 
     const userWalletBalanceTokens = userVTokenBalancesResult?.tokenBalance
       ? convertWeiToTokens({
@@ -367,22 +369,50 @@ const formatToPool = ({
       userBorrowBalanceCents,
       userWalletBalanceTokens,
       userWalletBalanceCents,
-      userPercentOfLimit: 0, // TODO: define afterwards
+      // This will be calculated after all assets have been formatted
+      userPercentOfLimit: 0,
       isCollateralOfUser,
     };
 
     assets.push(asset);
   });
 
-  const pool: Pool = {
-    comptrollerAddress: comptrollerContractAddress,
+  const pool: Pool = addUserPropsToPool({
     name,
     description,
+    comptrollerAddress: comptrollerContractAddress,
     isIsolated: false,
     assets,
-  };
+  });
 
-  return pool;
+  // Add user VAI loan to user borrow balance
+  if (pool.userBorrowBalanceCents && userVaiBorrowBalanceWei) {
+    const userVaiBorrowBalanceCents = convertWeiToTokens({
+      valueWei: userVaiBorrowBalanceWei,
+      token: TOKENS.vai,
+    }) // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
+      .times(100);
+
+    pool.userBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
+  }
+
+  // Calculate userPercentOfLimit for each asset
+  const formattedAssets: Asset[] = assets.map(asset => ({
+    ...asset,
+    userPercentOfLimit:
+      asset.userBorrowBalanceCents?.isGreaterThan(0) && pool.userBorrowLimitCents?.isGreaterThan(0)
+        ? new BigNumber(asset.userBorrowBalanceCents)
+            .times(100)
+            .div(pool.userBorrowLimitCents)
+            .dp(2)
+            .toNumber()
+        : 0,
+  }));
+
+  return {
+    ...pool,
+    assets: formattedAssets,
+  };
 };
 
 export default formatToPool;
