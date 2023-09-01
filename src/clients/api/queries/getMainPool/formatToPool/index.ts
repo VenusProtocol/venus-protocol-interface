@@ -3,16 +3,21 @@ import { ContractTypeByName } from 'packages/contracts';
 import { Asset, Pool, VToken } from 'types';
 import {
   areAddressesEqual,
+  calculateApy,
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertPriceMantissaToDollars,
   convertWeiToTokens,
+  formatDistribution,
   getTokenByAddress,
+  multiplyMantissaDaily,
 } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
 const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
@@ -24,7 +29,6 @@ export interface FormatToPoolInput {
   vTokenMetadataResults: Awaited<
     ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenMetadataAll']>
   >;
-  currentBlockNumber: number;
   underlyingTokenPriceResults: PromiseSettledResult<
     Awaited<ReturnType<ContractTypeByName<'resilientOracle'>['getPrice']>>
   >[];
@@ -33,6 +37,18 @@ export interface FormatToPoolInput {
   >[];
   supplyCapsResults: PromiseSettledResult<
     Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['supplyCaps']>>
+  >[];
+  xvsBorrowSpeedResults: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusBorrowSpeeds']>>
+  >[];
+  xvsSupplySpeedResults: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplySpeeds']>>
+  >[];
+  xvsBorrowStateResults: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusBorrowState']>>
+  >[];
+  xvsSupplyStateResults: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplyState']>>
   >[];
   xvsPriceMantissa: BigNumber;
   assetsInResult?: string[];
@@ -51,8 +67,11 @@ const formatToPool = ({
   underlyingTokenPriceResults,
   borrowCapsResults,
   supplyCapsResults,
+  xvsBorrowSpeedResults,
+  xvsSupplySpeedResults,
+  xvsBorrowStateResults,
+  xvsSupplyStateResults,
   xvsPriceMantissa,
-  currentBlockNumber,
   assetsInResult,
   userVTokenBalancesResults,
   vaiRepayAmountResult,
@@ -82,7 +101,6 @@ const formatToPool = ({
     };
 
     const underlyingTokenPriceResult = underlyingTokenPriceResults[index];
-
     const underlyingTokenPriceMantissa =
       underlyingTokenPriceResult.status === 'fulfilled'
         ? new BigNumber(underlyingTokenPriceResult.value.toString())
@@ -116,6 +134,65 @@ const formatToPool = ({
       logError(`Supply cap could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`);
       return;
     }
+
+    const xvsBorrowSpeedResult = xvsBorrowSpeedResults[index];
+    const xvsBorrowSpeedMantissa =
+      xvsBorrowSpeedResult.status === 'fulfilled'
+        ? new BigNumber(xvsBorrowSpeedResult.value.toString())
+        : undefined;
+
+    if (!xvsBorrowSpeedMantissa) {
+      logError(
+        `XVS Borrow speed could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
+      );
+      return;
+    }
+
+    const xvsSupplySpeedResult = xvsSupplySpeedResults[index];
+    const xvsSupplySpeedMantissa =
+      xvsSupplySpeedResult.status === 'fulfilled'
+        ? new BigNumber(xvsSupplySpeedResult.value.toString())
+        : undefined;
+
+    if (!xvsSupplySpeedMantissa) {
+      logError(
+        `XVS Supply speed could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
+      );
+      return;
+    }
+
+    const xvsBorrowStateResult = xvsBorrowStateResults[index];
+    const xvsBorrowStateMantissa =
+      xvsBorrowStateResult.status === 'fulfilled'
+        ? new BigNumber(xvsBorrowStateResult.value.toString())
+        : undefined;
+
+    if (!xvsBorrowStateMantissa) {
+      logError(
+        `XVS Borrow state could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
+      );
+      return;
+    }
+
+    const xvsSupplyStateResult = xvsSupplyStateResults[index];
+    const xvsSupplyStateMantissa =
+      xvsSupplyStateResult.status === 'fulfilled'
+        ? new BigNumber(xvsSupplyStateResult.value.toString())
+        : undefined;
+
+    if (!xvsSupplyStateMantissa) {
+      logError(
+        `XVS Supply state could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
+      );
+      return;
+    }
+
+    const userVTokenBalancesResult = userVTokenBalancesResults?.[index];
+
+    const xvsPriceDollars = convertPriceMantissaToDollars({
+      priceMantissa: xvsPriceMantissa,
+      token: TOKENS.xvs,
+    });
 
     const tokenPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: underlyingTokenPriceMantissa,
@@ -164,6 +241,102 @@ const formatToPool = ({
       token: vToken.underlyingToken,
     });
 
+    const exchangeRateMantissa = new BigNumber(vTokenMetaData.exchangeRateCurrent.toString());
+
+    const exchangeRateVTokens = exchangeRateMantissa.isEqualTo(0)
+      ? new BigNumber(0)
+      : new BigNumber(1).div(
+          exchangeRateMantissa.div(
+            new BigNumber(10).pow(
+              COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals,
+            ),
+          ),
+        );
+
+    const supplyDailyPercentageRate = multiplyMantissaDaily({
+      mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+    });
+
+    const supplyApyPercentage = calculateApy({
+      dailyRate: supplyDailyPercentageRate,
+    });
+
+    const borrowDailyPercentageRate = multiplyMantissaDaily({
+      mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+    });
+
+    const borrowApyPercentage = calculateApy({
+      dailyRate: borrowDailyPercentageRate,
+    });
+
+    const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+    const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+
+    const supplyBalanceVTokens = convertWeiToTokens({
+      valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
+      token: vToken,
+    });
+    const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
+    const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(tokenPriceDollars);
+    const supplyBalanceCents = convertDollarsToCents(supplyBalanceDollars);
+
+    const borrowBalanceTokens = convertWeiToTokens({
+      valueWei: new BigNumber(vTokenMetaData.totalBorrows.toString()),
+      token: vToken.underlyingToken,
+    });
+    const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
+    const borrowBalanceCents = convertDollarsToCents(borrowBalanceDollars);
+
+    const borrowDailyDistributedXvs = multiplyMantissaDaily({
+      mantissa: xvsBorrowSpeedMantissa,
+      decimals: TOKENS.xvs.decimals,
+    });
+
+    const borrowXvsDistribution = formatDistribution({
+      rewardToken: TOKENS.xvs,
+      rewardTokenPriceDollars: xvsPriceDollars,
+      dailyDistributedRewardTokens: borrowDailyDistributedXvs,
+      balanceDollars: borrowBalanceDollars,
+    });
+
+    const supplyDailyDistributedXvs = multiplyMantissaDaily({
+      mantissa: xvsSupplySpeedMantissa,
+      decimals: TOKENS.xvs.decimals,
+    });
+
+    const supplyXvsDistribution = formatDistribution({
+      rewardToken: TOKENS.xvs,
+      rewardTokenPriceDollars: xvsPriceDollars,
+      dailyDistributedRewardTokens: supplyDailyDistributedXvs,
+      balanceDollars: supplyBalanceDollars,
+    });
+
+    const isCollateralOfUser = (assetsInResult || []).includes(vTokenMetaData.vToken);
+    const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
+      ? convertWeiToTokens({
+          valueWei: new BigNumber(userVTokenBalancesResult.balanceOfUnderlying.toString()),
+          token: vToken.underlyingToken,
+        })
+      : new BigNumber(0);
+
+    const userBorrowBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
+      ? convertWeiToTokens({
+          valueWei: new BigNumber(userVTokenBalancesResult.borrowBalanceCurrent.toString()),
+          token: vToken.underlyingToken,
+        })
+      : new BigNumber(0);
+
+    const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+    const userBorrowBalanceCents = userSupplyBalanceTokens.multipliedBy(tokenPriceCents);
+
+    const userWalletBalanceTokens = userVTokenBalancesResult?.tokenBalance
+      ? convertWeiToTokens({
+          valueWei: new BigNumber(userVTokenBalancesResult.tokenBalance.toString()),
+          token: vToken.underlyingToken,
+        })
+      : new BigNumber(0);
+    const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
+
     const asset: Asset = {
       vToken,
       tokenPriceCents,
@@ -174,29 +347,28 @@ const formatToPool = ({
       cashTokens,
       borrowCapTokens,
       supplyCapTokens,
-
-      exchangeRateVTokens: new BigNumber(0),
-      supplierCount: 0,
-      borrowerCount: 0,
-      borrowApyPercentage: new BigNumber(0),
-      supplyApyPercentage: new BigNumber(0),
-      supplyBalanceTokens: new BigNumber(0),
-      supplyBalanceCents: new BigNumber(0),
-      borrowBalanceTokens: new BigNumber(0),
-      borrowBalanceCents: new BigNumber(0),
-      supplyPercentageRatePerBlock: new BigNumber(0),
-      borrowPercentageRatePerBlock: new BigNumber(0),
-      supplyDistributions: [],
-      borrowDistributions: [],
+      exchangeRateVTokens,
+      borrowApyPercentage,
+      supplyApyPercentage,
+      supplyPercentageRatePerBlock,
+      borrowPercentageRatePerBlock,
+      supplyBalanceTokens,
+      supplyBalanceCents,
+      borrowBalanceTokens,
+      borrowBalanceCents,
+      supplyDistributions: [supplyXvsDistribution],
+      borrowDistributions: [borrowXvsDistribution],
+      supplierCount: 0, // TODO: fetch
+      borrowerCount: 0, // TODO: fetch
       // User-specific props
-      userSupplyBalanceTokens: new BigNumber(0),
-      userSupplyBalanceCents: new BigNumber(0),
-      userBorrowBalanceTokens: new BigNumber(0),
-      userBorrowBalanceCents: new BigNumber(0),
-      userWalletBalanceTokens: new BigNumber(0),
-      userWalletBalanceCents: new BigNumber(0),
-      userPercentOfLimit: 0,
-      isCollateralOfUser: false,
+      userSupplyBalanceTokens,
+      userSupplyBalanceCents,
+      userBorrowBalanceTokens,
+      userBorrowBalanceCents,
+      userWalletBalanceTokens,
+      userWalletBalanceCents,
+      userPercentOfLimit: 0, // TODO: define afterwards
+      isCollateralOfUser,
     };
 
     assets.push(asset);

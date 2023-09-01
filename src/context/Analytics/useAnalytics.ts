@@ -143,13 +143,13 @@ const useAnalytics = () => {
     eventName: TEventName,
     eventProps: AnalyticEventProps<TEventName>,
   ) {
-    if (!posthog) {
-      logError('Attempted to send analytic event but posthog object was undefined');
+    // Only send analytic events on mainnet
+    if (config.environment !== 'mainnet') {
       return;
     }
 
-    // Only send analytic events on mainnet
-    if (config.environment !== 'mainnet') {
+    if (!posthog) {
+      logError('Attempted to send analytic event but posthog object was undefined');
       return;
     }
 

@@ -10,7 +10,6 @@ export interface GetMainPoolInput {
   venusLensContract: ContractTypeByName<'venusLens'>;
   resilientOracleContract: ContractTypeByName<'resilientOracle'>;
   vaiControllerContract: ContractTypeByName<'vaiController'>;
-  provider: Provider;
   accountAddress?: string;
 }
 
