@@ -16,6 +16,7 @@ type Options = MutationObserverOptions<SetVoteDelegateOutput, Error, TrimmedSetV
 const useSetVoteDelegate = (options?: Options) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
+    passSigner: true,
   });
 
   return useMutation(

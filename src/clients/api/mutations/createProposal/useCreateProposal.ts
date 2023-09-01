@@ -15,6 +15,7 @@ type Options = MutationObserverOptions<CreateProposalOutput, Error, CreatePropos
 const useCreateProposal = (options?: Options) => {
   const governorBravoDelegateContract = useGetUniqueContract({
     name: 'governorBravoDelegate',
+    passSigner: true,
   });
 
   return useMutation(

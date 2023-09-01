@@ -25,7 +25,7 @@ const useGetVTokenBalanceOf = (
   { accountAddress, vToken }: TrimmedGetVTokenBalanceOfInput,
   options?: Options,
 ) => {
-  const vTokenContract = useGetVTokenContract(vToken);
+  const vTokenContract = useGetVTokenContract({ vToken });
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenAddress: vToken.address }],

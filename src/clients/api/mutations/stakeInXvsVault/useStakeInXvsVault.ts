@@ -21,6 +21,7 @@ const useStakeInXvsVault = (
 ) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

@@ -19,6 +19,7 @@ const useRepay = (
   const { captureAnalyticEvent } = useAnalytics();
   const maximillionContract = useGetUniqueContract({
     name: 'maximillion',
+    passSigner: true,
   });
 
   return useMutation(

@@ -11,6 +11,7 @@ type Options = MutationObserverOptions<QueueProposalOutput, Error, TrimmedQueueP
 const useQueueProposal = (options?: Options) => {
   const governorBravoDelegateContract = useGetUniqueContract({
     name: 'governorBravoDelegate',
+    passSigner: true,
   });
 
   return useMutation(

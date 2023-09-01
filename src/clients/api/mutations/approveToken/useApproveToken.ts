@@ -10,7 +10,7 @@ type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
 type Options = MutationObserverOptions<ApproveTokenOutput, Error, TrimmedApproveTokenInput>;
 
 const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
-  const tokenContract = useGetTokenContract(token);
+  const tokenContract = useGetTokenContract({ token, passSigner: true });
 
   return useMutation(
     [FunctionKey.APPROVE_TOKEN, { token }],

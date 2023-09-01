@@ -25,6 +25,7 @@ type Options = MutationObserverOptions<
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

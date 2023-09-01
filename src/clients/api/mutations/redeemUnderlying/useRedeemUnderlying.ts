@@ -21,7 +21,8 @@ const useRedeemUnderlying = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
-  const vTokenContract = useGetVTokenContract(vToken);
+  const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(

@@ -12,6 +12,7 @@ type Options = MutationObserverOptions<IRepayVaiOutput, Error, TrimmedRepayVai>;
 const useRepayVai = (options?: Options) => {
   const vaiControllerContract = useGetUniqueContract({
     name: 'vaiController',
+    passSigner: true,
   });
 
   return useMutation(

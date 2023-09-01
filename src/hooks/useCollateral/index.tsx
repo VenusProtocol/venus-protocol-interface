@@ -28,6 +28,7 @@ const useCollateral = () => {
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',
+    passSigner: true,
   });
 
   const contractToggleCollateral = async ({

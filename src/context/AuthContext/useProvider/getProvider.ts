@@ -1,10 +1,10 @@
-import { getPublicClient } from '@wagmi/core';
-import { providers } from 'ethers';
+import { providers } from '@0xsequence/multicall';
+import { PublicClient } from '@wagmi/core';
+import { providers as ethersProviders } from 'ethers';
 import { type HttpTransport } from 'viem';
 
 // Convert a viem Public Client to an ethers.js Provider
-const getProvider = ({ chainId }: { chainId?: number } = {}) => {
-  const publicClient = getPublicClient({ chainId });
+const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
   const { chain, transport } = publicClient;
   const network = {
     chainId: chain.id,
@@ -12,15 +12,17 @@ const getProvider = ({ chainId }: { chainId?: number } = {}) => {
     ensAddress: chain.contracts?.ensRegistry?.address,
   };
 
-  if (transport.type === 'fallback') {
-    return new providers.FallbackProvider(
-      (transport.transports as ReturnType<HttpTransport>[]).map(
-        ({ value }) => new providers.JsonRpcProvider(value?.url, network),
-      ),
-    );
-  }
+  const ethersProvider =
+    transport.type === 'fallback'
+      ? new ethersProviders.FallbackProvider(
+          (transport.transports as ReturnType<HttpTransport>[]).map(
+            ({ value }) => new ethersProviders.JsonRpcProvider(value?.url, network),
+          ),
+        )
+      : new ethersProviders.JsonRpcProvider(transport.url, network);
 
-  return new providers.JsonRpcProvider(transport.url, network);
+  // Wrap with multicall provider
+  return new providers.MulticallProvider(ethersProvider);
 };
 
 export default getProvider;

@@ -5,15 +5,19 @@ import { useAuth } from 'context/AuthContext';
 
 export interface UseGetSwapRouterContractInput {
   comptrollerAddress: string;
+  passSigner?: boolean;
 }
 
-function useGetSwapRouterContract({ comptrollerAddress }: UseGetSwapRouterContractInput) {
+function useGetSwapRouterContract({
+  comptrollerAddress,
+  passSigner = false,
+}: UseGetSwapRouterContractInput) {
   const { signer, provider, chainId } = useAuth();
-  const signerOrProvider = signer || provider;
+  const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
     () =>
-      chainId !== undefined
+      chainId !== undefined && !!signerOrProvider
         ? getSwapRouterContract({
             comptrollerAddress,
             chainId,

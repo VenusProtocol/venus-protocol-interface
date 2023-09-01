@@ -4,13 +4,19 @@ import { getTokenContract } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
-const useGetTokenContract = (token: Token) => {
+export interface UseGetTokenContractInput {
+  token: Token;
+  passSigner?: boolean;
+}
+
+const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractInput) => {
   const { signer, provider, chainId } = useAuth();
-  const signerOrProvider = signer || provider;
+  const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
     () =>
-      chainId !== undefined // Although chainId isn't used, we don't want to fetch any data unless it exists
+      chainId !== undefined && // Although chainId isn't used, we don't want to fetch any data unless it exists
+      !!signerOrProvider
         ? getTokenContract({ token, signerOrProvider })
         : undefined,
     [signerOrProvider, chainId, token],
