@@ -1,7 +1,10 @@
 import { providers } from '@0xsequence/multicall';
 import { PublicClient } from '@wagmi/core';
 import { providers as ethersProviders } from 'ethers';
+import { getUniqueContractAddress } from 'packages/contracts';
 import { type HttpTransport } from 'viem';
+
+import { logError } from 'context/ErrorLogger';
 
 // Convert a viem Public Client to an ethers.js Provider
 const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
@@ -21,9 +24,19 @@ const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
         )
       : new ethersProviders.JsonRpcProvider(transport.url, network);
 
+  const xsequenceMulticallAddress = getUniqueContractAddress({
+    name: 'xsequenceMulticall',
+    chainId: chain.id,
+  });
+
+  if (!xsequenceMulticallAddress) {
+    logError(`0xsequence multicall contract address missing on chain with ID ${chain.id}`);
+    return ethersProvider;
+  }
+
   // Wrap with multicall provider
   return new providers.MulticallProvider(ethersProvider, {
-    // contract: '',
+    contract: xsequenceMulticallAddress,
   });
 };
 

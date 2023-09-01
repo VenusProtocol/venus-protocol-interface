@@ -15,12 +15,20 @@ import { BinanceWalletConnector } from './binanceWalletConnector';
 
 export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet] : [bsc];
 
-const { publicClient, webSocketPublicClient } = configureChains(chains, [
-  jsonRpcProvider({
-    rpc: chain => localConfig.rpcUrls[chain.id as ChainId],
-  }),
-  publicProvider(),
-]);
+const { publicClient, webSocketPublicClient } = configureChains(
+  chains,
+  [
+    jsonRpcProvider({
+      rpc: chain => localConfig.rpcUrls[chain.id as ChainId],
+    }),
+    publicProvider(),
+  ],
+  {
+    batch: {
+      multicall: false, // Disable wagmi's multicall feature as we wrap the provider with a 0xsequence multicall provider instead
+    },
+  },
+);
 
 const config = createConfig({
   autoConnect: true,
