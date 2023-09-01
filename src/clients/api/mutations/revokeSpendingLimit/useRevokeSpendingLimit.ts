@@ -19,7 +19,10 @@ type Options = MutationObserverOptions<
 >;
 
 const useRevokeSpendingLimit = ({ token }: { token: Token }, options?: Options) => {
-  const tokenContract = useGetTokenContract(token);
+  const tokenContract = useGetTokenContract({
+    token,
+    passSigner: true,
+  });
 
   return useMutation(
     [FunctionKey.REVOKE_SPENDING_LIMIT, { token }],

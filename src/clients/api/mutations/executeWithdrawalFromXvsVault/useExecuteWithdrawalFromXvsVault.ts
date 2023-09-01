@@ -29,7 +29,9 @@ const useExecuteWithdrawalFromXvsVault = (
 ) => {
   const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
+    passSigner: true,
   });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(

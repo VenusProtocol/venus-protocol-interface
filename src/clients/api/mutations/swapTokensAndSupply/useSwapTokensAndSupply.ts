@@ -33,6 +33,7 @@ const useSwapTokensAndSupply = (
 ) => {
   const swapRouterContract = useGetSwapRouterContract({
     comptrollerAddress: poolComptrollerAddress,
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

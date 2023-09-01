@@ -15,6 +15,7 @@ type Options = MutationObserverOptions<CastVoteOutput, Error, TrimmedCastVoteInp
 const useCastVote = (options?: Options) => {
   const governorBravoDelegateContract = useGetUniqueContract({
     name: 'governorBravoDelegate',
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

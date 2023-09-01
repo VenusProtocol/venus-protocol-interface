@@ -22,6 +22,7 @@ type Options = MutationObserverOptions<
 const useWithdrawFromVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

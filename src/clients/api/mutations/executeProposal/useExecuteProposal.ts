@@ -11,6 +11,7 @@ type Options = MutationObserverOptions<ExecuteProposalOutput, Error, TrimmedExec
 const useExecuteProposal = (options?: Options) => {
   const governorBravoDelegateContract = useGetUniqueContract({
     name: 'governorBravoDelegate',
+    passSigner: true,
   });
 
   return useMutation(

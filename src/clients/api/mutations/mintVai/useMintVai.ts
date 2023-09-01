@@ -11,6 +11,7 @@ type Options = MutationObserverOptions<MintVaiOutput, Error, TrimmedClaimRewards
 const useMintVai = (options?: Options) => {
   const vaiControllerContract = useGetUniqueContract({
     name: 'vaiController',
+    passSigner: true,
   });
 
   return useMutation(

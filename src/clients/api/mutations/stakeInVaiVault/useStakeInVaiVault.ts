@@ -18,6 +18,7 @@ type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStak
 const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',
+    passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 

@@ -8,6 +8,7 @@ import useGetUniqueContract from 'hooks/useGetUniqueContract';
 const useWithdrawXvs = (options?: MutationObserverOptions<WithdrawXvsOutput, Error>) => {
   const xvsVestingContract = useGetUniqueContract({
     name: 'xvsVesting',
+    passSigner: true,
   });
 
   return useMutation(

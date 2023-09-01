@@ -32,7 +32,7 @@ const useGetAllowance = (
   { token, spenderAddress, accountAddress }: TrimmedGetAllowanceInput,
   options?: Options,
 ) => {
-  const tokenContract = useGetTokenContract(token);
+  const tokenContract = useGetTokenContract({ token });
   const queryKey: UseGetAllowanceQueryKey = [
     FunctionKey.GET_TOKEN_ALLOWANCE,
     {
