@@ -8,6 +8,7 @@ import {
   areTokensEqual,
   calculateApy,
   convertDollarsToCents,
+  convertFactorFromSmartContract,
   convertWeiToTokens,
   formatTokenPrices,
   getVTokenByAddress,
@@ -21,7 +22,6 @@ import { MAINNET_TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
 import { GetTokenBalancesOutput } from '../../getTokenBalances';
-import convertFactorFromSmartContract from './convertFactorFromSmartContract';
 import formatDistributions from './formatDistributions';
 import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
 
@@ -113,7 +113,7 @@ const formatToPools = ({
           areAddressesEqual(userBalances[0], vTokenAddress),
         );
 
-      const tokenPriceCents = new BigNumber(convertDollarsToCents(tokenPriceDollars));
+      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
-import { getTokenByAddress } from 'utilities';
+import { convertPriceMantissaToDollars, getTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
 
@@ -24,9 +24,10 @@ const formatTokenPrices = (resilientOracleResult: ContractCallReturnContext) =>
       return acc;
     }
 
-    const tokenPriceDollars = new BigNumber(priceRecord.hex).dividedBy(
-      new BigNumber(10).pow(36 - token.decimals),
-    );
+    const tokenPriceDollars = convertPriceMantissaToDollars({
+      priceMantissa: new BigNumber(priceRecord.hex),
+      token,
+    });
 
     return {
       ...acc,

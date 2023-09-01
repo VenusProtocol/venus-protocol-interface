@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
+import { TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
 import formatToPool from './formatToPool';
-import { GetMainPoolInput, GetMainPoolOutput, UnderlyingTokenPriceMantissas } from './types';
+import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
 
@@ -30,31 +31,32 @@ const getMainPool = async ({
   resilientOracleContract,
   provider,
 }: GetMainPoolInput): Promise<GetMainPoolOutput> => {
-  const promises = [
+  const [
+    marketsResult,
+    currentBlockNumberResult,
+    mainParticipantsCountResult,
+    xvsPriceMantissaResult,
+    assetsInResult,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _accrueVaiInterestResult,
+    vaiRepayAmountResult,
+  ] = await Promise.allSettled([
     // Fetch all markets
     mainPoolComptrollerContract.getAllMarkets(),
     // Fetch current block number
     provider.getBlockNumber(),
     // Fetch borrower and supplier counts of each asset
     safelyGetMainPoolParticipantsCount(),
+    // Fetch XVS price
+    resilientOracleContract.getPrice(TOKENS.xvs.address),
     // Account related calls
     accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
-    // interests. Since wagmi will batch these requests, the call to accrueVAIInterest and
+    // interests. Since multicall will batch these requests, the call to accrueVAIInterest and
     // getVAIRepayAmount will happen in the same request (thus making the accrual possible)
     accountAddress ? vaiControllerContract.callStatic.accrueVAIInterest() : undefined,
     accountAddress ? vaiControllerContract.getVAIRepayAmount(accountAddress) : undefined,
-  ] as const;
-
-  const [
-    marketsResult,
-    currentBlockNumberResult,
-    mainParticipantsCountResult,
-    assetsInResult,
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    _accrueVaiInterestResult,
-    vaiRepayAmountResult,
-  ] = await Promise.allSettled(promises);
+  ]);
 
   if (marketsResult.status === 'rejected') {
     throw new Error(marketsResult.reason);
@@ -64,46 +66,56 @@ const getMainPool = async ({
     throw new Error(currentBlockNumberResult.reason);
   }
 
+  if (xvsPriceMantissaResult.status === 'rejected') {
+    throw new Error(xvsPriceMantissaResult.reason);
+  }
+
   const vTokenAddresses = marketsResult.value;
 
-  const [vTokenMetadataResults, userVTokenBalancesResults, ...underlyingTokenPricesResults] =
-    await Promise.allSettled([
-      // Fetch vToken data
-      venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses),
-      // Fetch use vToken balances
-      accountAddress
-        ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
-        : undefined,
-      // Fetch underlying token prices
-      ...vTokenAddresses.map(vTokenAddress =>
-        resilientOracleContract.getUnderlyingPrice(vTokenAddress),
-      ),
-    ]);
+  // Fetch underlying token prices
+  const underlyingTokenPricePromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => resilientOracleContract.getUnderlyingPrice(vTokenAddress)),
+  );
+
+  // Fetch vToken borrow caps
+  const borrowCapsPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.borrowCaps(vTokenAddress)),
+  );
+
+  // Fetch vToken supply caps
+  const supplyCapsPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.supplyCaps(vTokenAddress)),
+  );
+
+  // Fetch vToken meta data and user balance
+  const vTokenMetaDataPromises = Promise.allSettled([
+    // Fetch vToken data
+    venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses),
+    // Fetch use vToken balances
+    accountAddress
+      ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
+      : undefined,
+  ]);
+
+  const underlyingTokenPriceResults = await underlyingTokenPricePromises;
+  const borrowCapsResults = await borrowCapsPromises;
+  const supplyCapsResults = await supplyCapsPromises;
+  const [vTokenMetadataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
 
   if (vTokenMetadataResults.status === 'rejected') {
     throw new Error(vTokenMetadataResults.reason);
   }
 
-  const underlyingTokenPriceMantissas =
-    underlyingTokenPricesResults.reduce<UnderlyingTokenPriceMantissas>(
-      (underlyingTokenPriceMantissasAcc, underlyingTokenPricesResult, index) => ({
-        ...underlyingTokenPriceMantissasAcc,
-        [vTokenAddresses[index]]:
-          underlyingTokenPricesResult.status === 'fulfilled'
-            ? new BigNumber(underlyingTokenPricesResult.value.toString())
-            : undefined,
-      }),
-      {},
-    );
-
   const pool = formatToPool({
     name,
     description,
     comptrollerContractAddress: mainPoolComptrollerContract.address,
-    vTokenAddresses,
     vTokenMetadataResults: vTokenMetadataResults.value,
+    underlyingTokenPriceResults,
+    borrowCapsResults,
+    supplyCapsResults,
     currentBlockNumber: currentBlockNumberResult.value,
-    underlyingTokenPriceMantissas,
+    xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     assetsInResult: assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
     userVTokenBalancesResults:
       userVTokenBalancesResults.status === 'fulfilled'

@@ -14,6 +14,8 @@ export * from './swap/testnet';
 export * from './vBep/testnet';
 export * from './vBep/mainnet';
 
+export const NATIVE_TOKEN = config.isOnTestnet ? TESTNET_TOKENS.bnb : MAINNET_TOKENS.bnb;
+
 export const TOKENS = config.isOnTestnet ? TESTNET_TOKENS : MAINNET_TOKENS;
 
 export const VBEP_TOKENS = config.isOnTestnet ? TESTNET_VBEP_TOKENS : MAINNET_VBEP_TOKENS;
