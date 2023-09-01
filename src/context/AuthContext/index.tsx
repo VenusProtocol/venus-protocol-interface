@@ -46,8 +46,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   // TODO: get from chain instead of config
   const chainId = config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
 
-  const signer = useSigner({ chainId });
-  const provider = useProvider({ chainId });
+  const signer = useSigner();
+  const provider = useProvider();
 
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
     enabled: address !== undefined,

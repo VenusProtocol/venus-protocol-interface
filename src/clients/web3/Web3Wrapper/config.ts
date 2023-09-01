@@ -13,7 +13,7 @@ import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 
 import { BinanceWalletConnector } from './binanceWalletConnector';
 
-export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet] : [bsc];
+export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet, bsc] : [bsc, bscTestnet];
 
 const { publicClient, webSocketPublicClient } = configureChains(
   chains,
