@@ -1,3 +1,10 @@
+## [2.14.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.14.0...v2.14.1) (2023-09-01)
+
+
+### Bug Fixes
+
+* calculation of supply balances of isolated tokens ([2cbb3b9](https://github.com/VenusProtocol/venus-protocol-interface/commit/2cbb3b91efb83227858e36ac6a465cf677139eb2))
+
 ## [2.14.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.13.3...v2.14.0) (2023-09-01)
 
 
