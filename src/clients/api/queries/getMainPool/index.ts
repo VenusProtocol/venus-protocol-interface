@@ -91,23 +91,11 @@ const getMainPool = async ({
     ),
   );
 
-  // Fetch vToken borrow and supply states
-  const xvsBorrowStatePromises = Promise.allSettled(
-    vTokenAddresses.map(vTokenAddress =>
-      mainPoolComptrollerContract.venusBorrowState(vTokenAddress),
-    ),
-  );
-  const xvsSupplyStatePromises = Promise.allSettled(
-    vTokenAddresses.map(vTokenAddress =>
-      mainPoolComptrollerContract.venusSupplyState(vTokenAddress),
-    ),
-  );
-
   // Fetch vToken meta data and user balance
   const vTokenMetaDataPromises = Promise.allSettled([
     // Fetch vToken data
     venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses),
-    // Fetch use vToken balances
+    // Fetch user vToken balances
     accountAddress
       ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
       : undefined,
@@ -118,26 +106,22 @@ const getMainPool = async ({
   const supplyCapsResults = await supplyCapsPromises;
   const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
   const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
-  const xvsBorrowStateResults = await xvsBorrowStatePromises;
-  const xvsSupplyStateResults = await xvsSupplyStatePromises;
-  const [vTokenMetadataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
+  const [vTokenMetaDataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
 
-  if (vTokenMetadataResults.status === 'rejected') {
-    throw new Error(vTokenMetadataResults.reason);
+  if (vTokenMetaDataResults.status === 'rejected') {
+    throw new Error(vTokenMetaDataResults.reason);
   }
 
   const pool = formatToPool({
     name,
     description,
     comptrollerContractAddress: mainPoolComptrollerContract.address,
-    vTokenMetadataResults: vTokenMetadataResults.value,
+    vTokenMetaDataResults: vTokenMetaDataResults.value,
     underlyingTokenPriceResults,
     borrowCapsResults,
     supplyCapsResults,
     xvsBorrowSpeedResults,
     xvsSupplySpeedResults,
-    xvsBorrowStateResults,
-    xvsSupplyStateResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     userCollateralizedVTokenAddresses:
       assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,

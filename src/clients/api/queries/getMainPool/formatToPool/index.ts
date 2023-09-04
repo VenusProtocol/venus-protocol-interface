@@ -27,7 +27,7 @@ export interface FormatToPoolInput {
   name: string;
   description: string;
   comptrollerContractAddress: string;
-  vTokenMetadataResults: Awaited<
+  vTokenMetaDataResults: Awaited<
     ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenMetadataAll']>
   >;
   underlyingTokenPriceResults: PromiseSettledResult<
@@ -45,12 +45,6 @@ export interface FormatToPoolInput {
   xvsSupplySpeedResults: PromiseSettledResult<
     Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplySpeeds']>>
   >[];
-  xvsBorrowStateResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusBorrowState']>>
-  >[];
-  xvsSupplyStateResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplyState']>>
-  >[];
   xvsPriceMantissa: BigNumber;
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<
@@ -64,14 +58,12 @@ const formatToPool = ({
   name,
   description,
   comptrollerContractAddress,
-  vTokenMetadataResults,
+  vTokenMetaDataResults,
   underlyingTokenPriceResults,
   borrowCapsResults,
   supplyCapsResults,
   xvsBorrowSpeedResults,
   xvsSupplySpeedResults,
-  xvsBorrowStateResults,
-  xvsSupplyStateResults,
   xvsPriceMantissa,
   userCollateralizedVTokenAddresses,
   userVTokenBalances,
@@ -79,7 +71,7 @@ const formatToPool = ({
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
-  vTokenMetadataResults.forEach((vTokenMetaData, index) => {
+  vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
     // Temporary workaround to filter out vCAN
     if (areAddressesEqual(vTokenMetaData.vToken, BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS)) {
       // TODO: remove once a more generic solution has been integrated on the contract side
@@ -157,32 +149,6 @@ const formatToPool = ({
     if (!xvsSupplySpeedMantissa) {
       logError(
         `XVS Supply speed could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
-      );
-      return;
-    }
-
-    const xvsBorrowStateResult = xvsBorrowStateResults[index];
-    const xvsBorrowStateMantissa =
-      xvsBorrowStateResult.status === 'fulfilled'
-        ? new BigNumber(xvsBorrowStateResult.value.toString())
-        : undefined;
-
-    if (!xvsBorrowStateMantissa) {
-      logError(
-        `XVS Borrow state could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
-      );
-      return;
-    }
-
-    const xvsSupplyStateResult = xvsSupplyStateResults[index];
-    const xvsSupplyStateMantissa =
-      xvsSupplyStateResult.status === 'fulfilled'
-        ? new BigNumber(xvsSupplyStateResult.value.toString())
-        : undefined;
-
-    if (!xvsSupplyStateMantissa) {
-      logError(
-        `XVS Supply state could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
       );
       return;
     }
