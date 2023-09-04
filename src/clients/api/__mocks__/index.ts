@@ -156,13 +156,6 @@ export const useGetPools = vi.fn(() => ({
   },
 }));
 
-export const useGetMainAssets = vi.fn(() => ({
-  isLoading: false,
-  data: {
-    assets: assetData,
-  },
-}));
-
 export const useGetAsset = vi.fn(() => ({
   isLoading: false,
   data: {

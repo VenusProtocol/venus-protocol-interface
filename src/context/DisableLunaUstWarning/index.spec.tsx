@@ -1,11 +1,10 @@
 import { waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Asset } from 'types';
+import { Pool } from 'types';
 import Vi from 'vitest';
 
-import { assetData } from '__mocks__/models/asset';
-import { useGetMainAssets } from 'clients/api';
+import { poolData } from '__mocks__/models/pools';
+import { useGetMainPool } from 'clients/api';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -15,21 +14,20 @@ describe('context/DisableLunaUstWarning', () => {
     TESTNET_VBEP_TOKENS['0xf206af85bc2761c4f876d27bd474681cfb335efa'],
     TESTNET_VBEP_TOKENS['0x9c3015191d39cf1930f92eb7e7bcbd020bca286a'],
   ])('displays warning modal if %s is enabled as collateral', async vToken => {
-    const customAssets: Asset[] = [
-      ...assetData,
-      {
-        ...assetData[0],
-        vToken,
-        isCollateralOfUser: true,
-      },
-    ];
+    const customPool: Pool = {
+      ...poolData[0],
+      assets: [
+        {
+          ...poolData[0].assets[0],
+          vToken,
+          isCollateralOfUser: true,
+        },
+      ],
+    };
 
-    (useGetMainAssets as Vi.Mock).mockImplementation(() => ({
+    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
       data: {
-        assets: customAssets,
-        userTotalBorrowLimitCents: new BigNumber('111'),
-        userTotalBorrowBalanceCents: new BigNumber('91'),
-        userTotalSupplyBalanceCents: new BigNumber('910'),
+        pool: customPool,
       },
       isLoading: false,
     }));

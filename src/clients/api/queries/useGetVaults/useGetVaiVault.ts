@@ -5,7 +5,7 @@ import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
   useGetBalanceOf,
-  useGetMainAssets,
+  useGetMainPool,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
@@ -48,15 +48,15 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateWeiLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
+  const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
     accountAddress,
   });
   const xvsPriceDollars: BigNumber | undefined = useMemo(
     () =>
-      (getMainAssetsData?.assets || [])
+      (getMainPoolData?.pool.assets || [])
         .find(asset => areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs))
         ?.tokenPriceCents.dividedBy(100),
-    [getMainAssetsData?.assets],
+    [getMainPoolData?.pool.assets],
   );
 
   const data: Vault | undefined = useMemo(() => {
@@ -97,7 +97,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||
     isGetVaiVaultDailyRateWeiLoading ||
-    isGetMainAssetsLoading ||
+    isGetMainPoolLoading ||
     isGetVaiVaultUserInfoLoading;
 
   return {

@@ -12,6 +12,8 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
   };
 }
 
+// TODO: get from subgraph
+
 const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
   const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 

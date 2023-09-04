@@ -8,7 +8,7 @@ import { convertWeiToTokens, formatTokensToReadableValue, generateBscScanUrl } f
 
 import {
   useGetBalanceOf,
-  useGetMainAssets,
+  useGetMainPool,
   useGetMainPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
@@ -124,13 +124,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const { accountAddress } = useAuth();
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getMainPoolData } = useGetMainPool({
     accountAddress,
   });
 
   const dailyXvsDistributedTokens = useMemo(
     () =>
-      (getMainAssetsData?.assets || []).reduce((acc, asset) => {
+      (getMainPoolData?.pool.assets || []).reduce((acc, asset) => {
         // Note: assets from the main pool only yield XVS, hence why we only
         // take the first distribution token in consideration (which will
         // always be XVS here)
@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         return acc.plus(dailyXvsDistributed);
       }, new BigNumber(0)),
-    [getMainAssetsData?.assets],
+    [getMainPoolData?.pool.assets],
   );
 
   const { data: mainPoolTotalXvsDistributedData } = useGetMainPoolTotalXvsDistributed();

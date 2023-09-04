@@ -13,7 +13,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { useGetBalanceOf, useGetMainAssets, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
@@ -112,7 +112,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
 
 const XvsTable: React.FC = () => {
   const { accountAddress } = useAuth();
-  const { data: getMainAssetsData, isLoading: isGetMainAssetsLoading } = useGetMainAssets({
+  const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
     accountAddress,
   });
 
@@ -134,7 +134,7 @@ const XvsTable: React.FC = () => {
   );
 
   const assetsWithVai = useMemo(() => {
-    const allAssets: TableAsset[] = (getMainAssetsData?.assets || []).map(asset => ({
+    const allAssets: TableAsset[] = (getMainPoolData?.pool.assets || []).map(asset => ({
       token: asset.vToken.underlyingToken,
       // Note: assets from the main pool only yield XVS, hence why we only take
       // the first distribution token in consideration (which will always be XVS
@@ -146,7 +146,7 @@ const XvsTable: React.FC = () => {
       xvsBorrowApy: asset.borrowDistributions[0].apyPercentage,
     }));
 
-    const xvsAsset = (getMainAssetsData?.assets || []).find(asset =>
+    const xvsAsset = (getMainPoolData?.pool.assets || []).find(asset =>
       areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs),
     );
 
@@ -177,12 +177,12 @@ const XvsTable: React.FC = () => {
 
     return allAssets;
   }, [
-    getMainAssetsData?.assets,
+    getMainPoolData?.pool.assets,
     venusVaiVaultDailyRateData?.dailyRateWei,
     vaultVaiStakedData?.balanceWei,
   ]);
 
-  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainAssetsLoading} />;
+  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainPoolLoading} />;
 };
 
 export default XvsTable;

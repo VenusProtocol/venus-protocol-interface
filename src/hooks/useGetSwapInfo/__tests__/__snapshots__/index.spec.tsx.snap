@@ -9,7 +9,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
     "exchangeRate": "0.499374217772215269",
     "expectedToTokenAmountReceivedWei": "499374217772215269",
     "fromToken": {
-      "address": "0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb",
+      "address": "0x0000000000000000000000000000000000000000",
       "asset": "/src/assets/img/tokens/bnb.svg",
       "decimals": 18,
       "isNative": true,
@@ -41,7 +41,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
     "exchangeRate": "0.49875",
     "expectedFromTokenAmountSoldWei": "1002506265664160402",
     "fromToken": {
-      "address": "0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb",
+      "address": "0x0000000000000000000000000000000000000000",
       "asset": "/src/assets/img/tokens/bnb.svg",
       "decimals": 18,
       "isNative": true,
