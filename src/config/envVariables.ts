@@ -10,14 +10,14 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_MAINNET
       : import.meta.env.VITE_RPC_HTTP_URL_BSC_MAINNET,
-  VITE_RPC_WEBSOCKET_URL_BSC_MAINNET:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
   VITE_RPC_HTTP_URL_BSC_TESTNET:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_TESTNET
       : import.meta.env.VITE_RPC_HTTP_URL_BSC_TESTNET,
+  VITE_RPC_WEBSOCKET_URL_BSC_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
   VITE_RPC_WEBSOCKET_URL_BSC_TESTNET:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET

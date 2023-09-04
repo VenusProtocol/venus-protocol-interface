@@ -44,7 +44,7 @@ import xvs from 'assets/img/tokens/xvs.svg';
 
 export const TESTNET_TOKENS = {
   bnb: {
-    address: '0x12eb9ef44de5fbea1b2f5ff7a9a375cae9bfb2eb',
+    address: '0x0000000000000000000000000000000000000000',
     decimals: 18,
     symbol: 'BNB',
     asset: bnb,
