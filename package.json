@@ -44,7 +44,7 @@
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.4",
     "@pancakeswap/sdk": "^3.1.0",
-    "@sentry/react": "^7.43.0",
+    "@sentry/react": "^7.66.0",
     "@sentry/tracing": "^7.43.0",
     "@uiw/react-markdown-preview": "^4.1.15",
     "@uiw/react-md-editor": "^3.14.3",
