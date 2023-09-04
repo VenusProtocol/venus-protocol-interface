@@ -1,25 +1,12 @@
 import BigNumber from 'bignumber.js';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { TOKENS } from 'constants/tokens';
-import { logError } from 'context/ErrorLogger';
 
+import getMainMarkets from '../getMainMarkets';
 import formatToPool from './formatToPool';
 import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
-
-// Since the borrower and supplier counts aren't essential information, we make the logic so the
-// dApp can still function if the subgraph is down
-const safelyGetMainPoolParticipantsCount = async () => {
-  try {
-    // TODO: query main pool subgraph
-    const res = await getIsolatedPoolParticipantsCount();
-    return res;
-  } catch (error) {
-    logError(error);
-  }
-};
 
 const getMainPool = async ({
   name,
@@ -32,7 +19,7 @@ const getMainPool = async ({
 }: GetMainPoolInput): Promise<GetMainPoolOutput> => {
   const [
     marketsResult,
-    mainParticipantsCountResult,
+    mainMarkets,
     xvsPriceMantissaResult,
     assetsInResult,
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -41,8 +28,9 @@ const getMainPool = async ({
   ] = await Promise.allSettled([
     // Fetch all markets
     mainPoolComptrollerContract.getAllMarkets(),
-    // Fetch borrower and supplier counts of each asset
-    safelyGetMainPoolParticipantsCount(),
+    // Fetch main markets to get the supplier and borrower counts
+    // TODO: fetch borrower and supplier counts from subgraph once available
+    getMainMarkets(),
     // Fetch XVS price
     resilientOracleContract.getPrice(TOKENS.xvs.address),
     // Account related calls
@@ -131,10 +119,7 @@ const getMainPool = async ({
       vaiRepayAmountResult.status === 'fulfilled' && vaiRepayAmountResult.value
         ? new BigNumber(vaiRepayAmountResult.value.toString())
         : undefined,
-    mainParticipantsCountResult:
-      mainParticipantsCountResult.status === 'fulfilled'
-        ? mainParticipantsCountResult.value
-        : undefined,
+    mainMarkets: mainMarkets.status === 'fulfilled' ? mainMarkets.value.markets : undefined,
   });
 
   return {
