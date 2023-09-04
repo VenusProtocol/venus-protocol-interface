@@ -9,8 +9,6 @@ import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
 
-// TODO: add tests
-
 // Since the borrower and supplier counts aren't essential information, we make the logic so the
 // dApp can still function if the subgraph is down
 const safelyGetMainPoolParticipantsCount = async () => {
