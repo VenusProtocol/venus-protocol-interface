@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
-import { Asset, Pool, VToken } from 'types';
+import { Asset, Market, Pool, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -14,7 +14,6 @@ import {
   multiplyMantissaDaily,
 } from 'utilities';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -51,7 +50,7 @@ export interface FormatToPoolInput {
     ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenBalancesAll']>
   >;
   userVaiBorrowBalanceWei?: BigNumber;
-  mainParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
+  mainMarkets?: Market[];
 }
 
 const formatToPool = ({
@@ -67,7 +66,8 @@ const formatToPool = ({
   xvsPriceMantissa,
   userCollateralizedVTokenAddresses,
   userVTokenBalances,
-  userVaiBorrowBalanceWei, // mainParticipantsCountResult,
+  userVaiBorrowBalanceWei,
+  mainMarkets,
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
@@ -305,6 +305,10 @@ const formatToPool = ({
       : new BigNumber(0);
     const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
+    const market = (mainMarkets || []).find(mainMarket =>
+      areAddressesEqual(mainMarket.address, vToken.address),
+    );
+
     const asset: Asset = {
       vToken,
       tokenPriceCents,
@@ -326,8 +330,8 @@ const formatToPool = ({
       borrowBalanceCents,
       supplyDistributions: [supplyXvsDistribution],
       borrowDistributions: [borrowXvsDistribution],
-      supplierCount: 0, // TODO: fetch
-      borrowerCount: 0, // TODO: fetch
+      supplierCount: market?.supplierCount || 0,
+      borrowerCount: market?.borrowerCount || 0,
       // User-specific props
       userSupplyBalanceTokens,
       userSupplyBalanceCents,

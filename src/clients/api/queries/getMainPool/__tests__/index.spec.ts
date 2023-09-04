@@ -1,8 +1,11 @@
 import { ContractTypeByName } from 'packages/contracts';
+import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
+import { markets } from '__mocks__/models/markets';
 
 import getMainPool from '..';
+import getMainMarkets from '../../getMainMarkets';
 import {
   fakeBorrowCapsOutputs,
   fakeGetAllMarketsOutput,
@@ -18,6 +21,7 @@ import {
 } from '../__testUtils__/fakeData';
 
 vi.mock('clients/subgraph');
+vi.mock('../../getMainMarkets');
 
 const fakeMainPoolComptrollerContract = {
   address: altAddress,
@@ -54,6 +58,10 @@ const fakeVenusLensContract = {
 } as unknown as ContractTypeByName<'venusLens'>;
 
 describe('api/queries/getMainPool', () => {
+  beforeEach(() => {
+    (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
+  });
+
   it('returns main pool in the correct format', async () => {
     const response = await getMainPool({
       name: 'Fake pool name',
