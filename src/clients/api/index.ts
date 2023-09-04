@@ -189,8 +189,6 @@ export * from './queries/getXvsWithdrawableAmount';
 
 export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
 
-export { default as useGetMainAssets } from './queries/useGetMainAssets';
-
 export { default as useGetAsset } from './queries/useGetAsset';
 
 export { default as useGetMainPoolTotalXvsDistributed } from './queries/useGetMainPoolTotalXvsDistributed';

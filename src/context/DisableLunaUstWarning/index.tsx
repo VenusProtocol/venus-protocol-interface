@@ -2,7 +2,7 @@ import noop from 'noop-ts';
 import React, { useEffect, useMemo, useState } from 'react';
 import { areTokensEqual } from 'utilities';
 
-import { useGetMainAssets } from 'clients/api';
+import { useGetMainPool } from 'clients/api';
 import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
@@ -23,7 +23,7 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
 
 export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
   const { accountAddress } = useAuth();
-  const { data: getMainAssetsData } = useGetMainAssets({
+  const { data: getMainPoolData } = useGetMainPool({
     accountAddress,
   });
 
@@ -31,14 +31,14 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
 
   const hasLunaOrUstCollateralEnabled = useMemo(
     () =>
-      !!getMainAssetsData &&
-      getMainAssetsData?.assets.some(
+      !!getMainPoolData &&
+      getMainPoolData?.pool.assets.some(
         asset =>
           (areTokensEqual(asset.vToken.underlyingToken, TOKENS.luna) ||
             areTokensEqual(asset.vToken.underlyingToken, TOKENS.ust)) &&
           asset.isCollateralOfUser,
       ),
-    [getMainAssetsData?.assets],
+    [getMainPoolData?.pool.assets],
   );
 
   useEffect(() => {
