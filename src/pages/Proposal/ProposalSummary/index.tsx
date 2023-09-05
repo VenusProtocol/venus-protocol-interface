@@ -61,6 +61,7 @@ export const ProposalSummaryUi: React.FC<
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
+  const { chainId } = useAuth();
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const {
@@ -239,6 +240,7 @@ export const ProposalSummaryUi: React.FC<
                 hash={transactionHash}
                 css={styles.transactionLink}
                 ellipseBreakpoint="xxl"
+                chainId={chainId}
               />
             )}
           </div>
