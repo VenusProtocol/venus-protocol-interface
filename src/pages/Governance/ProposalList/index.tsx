@@ -16,10 +16,10 @@ import {
   useGetProposals,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
+import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
-import { routes } from 'constants/routing';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';

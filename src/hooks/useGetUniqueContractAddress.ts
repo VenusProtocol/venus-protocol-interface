@@ -1,6 +1,7 @@
-import { useAuth } from 'context/AuthContext';
 import { UniqueContractName, getUniqueContractAddress } from 'packages/contracts';
 import { useMemo } from 'react';
+
+import { useAuth } from 'context/AuthContext';
 
 export interface UseGetUniqueContractAddress<TContractName extends UniqueContractName> {
   name: TContractName;

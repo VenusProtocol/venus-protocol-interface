@@ -1,5 +1,6 @@
-import { FormikErrors } from 'formik';
 import { VError } from 'errors';
+import { FormikErrors } from 'formik';
+
 import { FormValues } from '../proposalSchema';
 
 const checkImportErrors = (errors: FormikErrors<FormValues>) => {

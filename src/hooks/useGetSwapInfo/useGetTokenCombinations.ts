@@ -3,9 +3,9 @@ import config from 'config';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { PSTokenCombination, Token } from 'types';
-import { useAuth } from 'context/AuthContext';
 
 import { MAINNET_SWAP_TOKENS, TESTNET_SWAP_TOKENS } from 'constants/tokens';
+import { useAuth } from 'context/AuthContext';
 
 import wrapToken from './wrapToken';
 

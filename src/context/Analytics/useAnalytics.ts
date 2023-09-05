@@ -2,8 +2,8 @@ import config from 'config';
 import { usePostHog } from 'posthog-js/react';
 import { VoteSupport } from 'types';
 
-import { logError } from 'context/ErrorLogger';
 import { useAuth } from 'context/AuthContext';
+import { logError } from 'context/ErrorLogger';
 
 export type AnalyticEventName =
   | 'Tokens supplied'
