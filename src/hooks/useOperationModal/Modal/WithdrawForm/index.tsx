@@ -12,6 +12,7 @@ import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { useStyles as useSharedStyles } from '../styles';
+import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { FormValues, UseFormInput } from './useForm';
@@ -39,9 +40,15 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   const sharedStyles = useSharedStyles();
 
   const limitTokens = React.useMemo(() => {
-    // If asset isn't used as collateral user can withdraw the entire supply
-    // balance without affecting their borrow limit
-    let maxTokensBeforeLiquidation = new BigNumber(asset.userSupplyBalanceTokens);
+    const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
+      asset.tokenPriceCents,
+    );
+    // If asset isn't used as collateral user can withdraw the entire supply balance without
+    // affecting their borrow limit, if there's enough liquidity
+    let maxTokensBeforeLiquidation = BigNumber.minimum(
+      asset.userSupplyBalanceTokens,
+      assetLiquidityTokens,
+    );
 
     if (
       !asset ||
@@ -73,6 +80,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     maxTokensBeforeLiquidation = BigNumber.minimum(
       maxTokensBeforeLiquidation,
       asset.userSupplyBalanceTokens,
+      assetLiquidityTokens,
     );
 
     maxTokensBeforeLiquidation = maxTokensBeforeLiquidation.isLessThanOrEqualTo(0)
@@ -88,6 +96,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
+    limitTokens,
     onCloseModal,
     onSubmit,
     formValues,
@@ -109,25 +118,30 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <TokenTextField
-        data-testid={TEST_IDS.valueInput}
-        name="amountTokens"
-        css={sharedStyles.getRow({ isLast: true })}
-        token={asset.vToken.underlyingToken}
-        value={formValues.amountTokens}
-        onChange={amountTokens =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            amountTokens,
-          }))
-        }
-        disabled={isSubmitting || formError === 'HIGHER_THAN_WITHDRAWABLE_AMOUNT'}
-        rightMaxButton={{
-          label: t('operationModal.withdraw.rightMaxButtonLabel'),
-          onClick: handleRightMaxButtonClick,
-        }}
-        hasError={!!formError && Number(formValues.amountTokens) > 0}
-      />
+      <div css={[sharedStyles.getRow({ isLast: true })]}>
+        <TokenTextField
+          data-testid={TEST_IDS.valueInput}
+          name="amountTokens"
+          token={asset.vToken.underlyingToken}
+          value={formValues.amountTokens}
+          onChange={amountTokens =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              amountTokens,
+            }))
+          }
+          disabled={isSubmitting}
+          rightMaxButton={{
+            label: t('operationModal.withdraw.rightMaxButtonLabel'),
+            onClick: handleRightMaxButtonClick,
+          }}
+          hasError={!!formError && Number(formValues.amountTokens) > 0}
+        />
+
+        {!isSubmitting && (
+          <Notice amount={formValues.amountTokens} formError={formError} asset={asset} />
+        )}
+      </div>
 
       <LabeledInlineContent
         label={t('operationModal.withdraw.withdrawableAmount')}

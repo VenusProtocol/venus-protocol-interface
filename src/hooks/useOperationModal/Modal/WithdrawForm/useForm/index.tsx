@@ -13,6 +13,7 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
+  limitTokens: BigNumber;
   onSubmit: (input: {
     fromToken: Token;
     fromTokenAmountTokens: string;
@@ -31,6 +32,7 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
+  limitTokens,
   onCloseModal,
   formValues,
   setFormValues,
@@ -40,7 +42,7 @@ const useForm = ({
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const { isFormValid, formError } = useFormValidation({
-    asset,
+    limitTokens,
     formValues,
   });
 
