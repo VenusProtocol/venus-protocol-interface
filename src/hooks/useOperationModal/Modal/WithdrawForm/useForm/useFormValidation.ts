@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset } from 'types';
 
 import { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
-  asset: Asset;
+  limitTokens: BigNumber;
   formValues: FormValues;
 }
 
@@ -15,7 +14,7 @@ interface UseFormValidationOutput {
 }
 
 const useFormValidation = ({
-  asset,
+  limitTokens,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const formError: FormError | undefined = useMemo(() => {
@@ -27,10 +26,10 @@ const useFormValidation = ({
       return 'INVALID_TOKEN_AMOUNT';
     }
 
-    if (fromTokenAmountTokens.isGreaterThan(asset.userSupplyBalanceTokens)) {
+    if (fromTokenAmountTokens.isGreaterThan(limitTokens)) {
       return 'HIGHER_THAN_WITHDRAWABLE_AMOUNT';
     }
-  }, [asset.userSupplyBalanceTokens, formValues.amountTokens]);
+  }, [limitTokens, formValues.amountTokens]);
 
   return {
     isFormValid: !formError,

@@ -5,4 +5,7 @@ export interface FormValues {
   amountTokens: string;
 }
 
-export type FormError = 'INVALID_TOKEN_AMOUNT' | 'HIGHER_THAN_WITHDRAWABLE_AMOUNT';
+export type FormError =
+  | 'INVALID_TOKEN_AMOUNT'
+  | 'HIGHER_THAN_WITHDRAWABLE_AMOUNT'
+  | 'HIGHER_THAN_LIQUIDITY';
