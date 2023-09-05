@@ -16434,12 +16434,10 @@ nofilter@^3.1.0:
   resolved "https://registry.yarnpkg.com/nofilter/-/nofilter-3.1.0.tgz#c757ba68801d41ff930ba2ec55bab52ca184aa66"
   integrity sha512-l2NNj07e9afPnhAhvgVrCD/oy2Ai1yfLpuo3EpiO1jFTsB4sFz6oIfAfSZyQzVpkZQ9xS8ZS5g1jCBgq4Hwo0g==
 
-noop-ts@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/noop-ts/-/noop-ts-1.0.3.tgz#ded86bff3f291206881b54230f3a5338aeb7181d"
-  integrity sha512-R3DfoyuFCbaVoYfaE6yS+qON0GGqBcc3FeANDvMe4Z1Dd7fuqzMJrnjJx9if9hCP72+UlTxZ/DSP4BuP6/+p8A==
-  dependencies:
-    typescript "^3.4.3"
+noop-ts@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/noop-ts/-/noop-ts-1.0.6.tgz#47449be0413658115ce43e013d37c48ec5360ebf"
+  integrity sha512-ArJQsZKragEmngDsEdyOWaFznESgpwGFleM+oHUnbJPQA/rQkEBfeAE3qx+BE/+kA262xPC1ESL//vGVMZknOQ==
 
 nopt@^6.0.0:
   version "6.0.0"
@@ -20970,11 +20968,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
-
-typescript@^3.4.3:
-  version "3.9.10"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
-  integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
 
 "typescript@^4.6.4 || ^5.0.0", typescript@^5.0.4, typescript@^5.1.6:
   version "5.1.6"
