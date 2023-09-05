@@ -1,3 +1,10 @@
+## [2.14.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.14.3...v2.14.4) (2023-09-05)
+
+
+### Bug Fixes
+
+* pass chainId to BscLink instances ([4602d6e](https://github.com/VenusProtocol/venus-protocol-interface/commit/4602d6ef6ec78e852b4dff20ad536c4262ae7912))
+
 ## [2.14.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.14.2...v2.14.3) (2023-09-05)
 
 ## [2.14.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.14.1...v2.14.2) (2023-09-03)
