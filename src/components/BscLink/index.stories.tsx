@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import { ChainId } from 'packages/contracts';
 import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -12,5 +13,8 @@ export default {
 } as Meta<typeof BscLink>;
 
 export const Default = () => (
-  <BscLink hash="0x6b8a5663cd46f7b719391c518c60e2f45427b95a082e3e47739b011faccbfc96" />
+  <BscLink
+    hash="0x6b8a5663cd46f7b719391c518c60e2f45427b95a082e3e47739b011faccbfc96"
+    chainId={ChainId.BSC_TESTNET}
+  />
 );

@@ -5,6 +5,8 @@ import React from 'react';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
+import { useAuth } from 'context/AuthContext';
+
 import { BscLink } from '../BscLink';
 import { Icon } from '../Icon';
 import { Modal, ModalProps } from '../Modal';
@@ -31,6 +33,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
   isOpen,
   handleClose,
 }) => {
+  const { chainId } = useAuth();
   const styles = useStyles();
 
   return (
@@ -61,7 +64,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
           )}
         </div>
 
-        <BscLink hash={transactionHash} urlType="tx" />
+        <BscLink hash={transactionHash} urlType="tx" chainId={chainId} />
       </div>
     </Modal>
   );
