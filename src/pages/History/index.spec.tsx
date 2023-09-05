@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import React from 'react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -18,11 +19,13 @@ describe('pages/History', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(History);
+    renderComponent(<History />);
   });
 
   it('fetches transaction on mount', async () => {
-    renderComponent(History);
+    renderComponent(<History />, {
+      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
+    });
     expect(useGetTransactions).toBeCalledTimes(1);
     expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 0 });
   });
@@ -33,12 +36,14 @@ describe('pages/History', () => {
       isFetching: true,
       isPreviousData: true,
     }));
-    const { getByTestId } = renderComponent(History);
+    const { getByTestId } = renderComponent(<History />);
     getByTestId(TEST_IDS.spinner);
   });
 
   it('rerequests when toggling event filter', async () => {
-    const { container } = renderComponent(History);
+    const { container } = renderComponent(<History />, {
+      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
+    });
     // Firing the change event on the input for select
     fireEvent.change(container.querySelector('input') as HTMLInputElement, {
       target: {
@@ -50,8 +55,9 @@ describe('pages/History', () => {
   });
 
   it('rerequests when toggling addressFilter', async () => {
-    const { getByRole } = renderComponent(History, {
+    const { getByRole } = renderComponent(<History />, {
       authContextValue: { accountAddress: fakeAddress },
+      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
     });
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);
@@ -60,13 +66,18 @@ describe('pages/History', () => {
   });
 
   it('address filter is hidden with no wallet connected', async () => {
-    const { queryByRole } = renderComponent(History);
+    const { queryByRole } = renderComponent(<History />);
     const myAddressCheckbox = queryByRole('checkbox');
     expect(myAddressCheckbox).toBe(null);
   });
 
   it('rerequests when paginating', async () => {
-    const { getByText } = renderComponent(History);
+    const { getByText } = renderComponent(<History />, {
+      routerOpts: {
+        routerInitialEntries: ['/?page=1'],
+        routePath: '/',
+      },
+    });
     const pageTwoButton = getByText('2');
     fireEvent.click(pageTwoButton);
     expect(useGetTransactions).toBeCalledTimes(2);

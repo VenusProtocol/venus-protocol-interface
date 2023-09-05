@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { VoterAccount } from 'types';
 
 import { useGetVoterAccounts } from 'clients/api';
@@ -47,10 +46,8 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
   );
 };
 
-export type VoterLeaderboardPageProps = RouteComponentProps;
-
-const VoterLeaderboard: React.FC<VoterLeaderboardPageProps> = ({ history, location }) => {
-  const { currentPage, setCurrentPage } = useUrlPagination({ history, location });
+const VoterLeaderboard: React.FC = () => {
+  const { currentPage, setCurrentPage } = useUrlPagination();
 
   const {
     data: { voterAccounts, offset, total, limit } = {

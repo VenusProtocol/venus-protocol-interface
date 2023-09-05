@@ -4,7 +4,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik, useFormikContext } from 'formik';
 import React, { useMemo, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
@@ -38,7 +38,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
   createProposal,
   isCreateProposalLoading,
 }) => {
-  const { newProposalStep } = useParams<{ newProposalStep: ProposalWizardSteps | undefined }>();
+  const newProposalStep = useParams()['*'];
 
   const matchProposalInfoStep = newProposalStep === 'proposal-info';
   const matchProposalDescriptionsStep = newProposalStep === 'proposal-descriptions';
@@ -51,7 +51,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     matchProposalPreviewStep,
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const styles = useStyles();
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -68,7 +68,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         checkImportErrors(errors);
 
         setProposalMode('file');
-        history.push(routes.governanceProposalPreview.path);
+        navigate(routes.governanceProposalPreview.path);
       } catch (error) {
         let { message } = error as Error;
 
@@ -104,7 +104,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
 
   const handleBackAction = () => {
     const previousStep = getPreviousStep(currentStep, proposalMode);
-    history.push(`${routes.governance.path}/${previousStep}`);
+    navigate(`${routes.governance.path}/${previousStep}`);
   };
 
   const handleCreateProposal = async (formValues: FormValues) => {

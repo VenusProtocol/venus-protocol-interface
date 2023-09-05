@@ -47,7 +47,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   });
 
   it('renders claim button if user has pending rewards to claim', async () => {
-    const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -57,7 +57,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   });
 
   it('renders correct reward breakdown in modal', async () => {
-    const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -73,7 +73,7 @@ describe('components/Layout/ClaimRewardButton', () => {
   });
 
   it('it disables submit button if user unchecks all groups', async () => {
-    const { getByTestId, queryAllByRole } = renderComponent(() => <ClaimRewardButton />, {
+    const { getByTestId, queryAllByRole } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -100,7 +100,7 @@ describe('components/Layout/ClaimRewardButton', () => {
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    const { getByTestId } = renderComponent(() => <ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -130,7 +130,7 @@ describe('components/Layout/ClaimRewardButton', () => {
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    const { getByTestId, queryAllByRole } = renderComponent(() => <ClaimRewardButton />, {
+    const { getByTestId, queryAllByRole } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },

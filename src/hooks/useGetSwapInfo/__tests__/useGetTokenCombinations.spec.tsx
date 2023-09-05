@@ -19,7 +19,7 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
       return <></>;
     };
 
-    renderComponent(TestComponent, {
+    renderComponent(<TestComponent />, {
       authContextValue: {
         chainId: undefined,
       },
@@ -40,7 +40,7 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
       return <></>;
     };
 
-    renderComponent(TestComponent);
+    renderComponent(<TestComponent />);
 
     // Test there's no duplicates
     let hasDuplicate = false;
@@ -74,7 +74,7 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
       return <></>;
     };
 
-    renderComponent(TestComponent);
+    renderComponent(<TestComponent />);
 
     expect(tokenCombinations).toMatchSnapshot();
   });

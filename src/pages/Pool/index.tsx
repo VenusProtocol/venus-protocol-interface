@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
 import React, { useMemo } from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
@@ -95,30 +95,26 @@ const PoolPage: React.FC<PoolPageProps> = ({ poolComptrollerAddress }) => {
 
   // Redirect to Dashboard page if pool Comptroller address is incorrect
   if (!isGetPoolLoading && !getPoolData?.pool) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Navigate to={routes.dashboard.path} />;
   }
 
   return <PoolUi pool={getPoolData?.pool} />;
 };
 
-export type CorePoolPageProps = RouteComponentProps;
-
-export const CorePool: React.FC<CorePoolPageProps> = () => {
+export const CorePool: React.FC = () => {
   const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
     name: 'mainPoolComptroller',
   });
 
   if (!mainPoolComptrollerContractAddress) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Navigate to={routes.dashboard.path} />;
   }
 
   return <PoolPage poolComptrollerAddress={mainPoolComptrollerContractAddress} />;
 };
 
-export type IsolatedPoolPageProps = RouteComponentProps<{ poolComptrollerAddress: string }>;
+export const IsolatedPool: React.FC = () => {
+  const { poolComptrollerAddress = '' } = useParams();
 
-export const IsolatedPool: React.FC<IsolatedPoolPageProps> = ({
-  match: {
-    params: { poolComptrollerAddress },
-  },
-}) => <PoolPage poolComptrollerAddress={poolComptrollerAddress} />;
+  return <PoolPage poolComptrollerAddress={poolComptrollerAddress} />;
+};

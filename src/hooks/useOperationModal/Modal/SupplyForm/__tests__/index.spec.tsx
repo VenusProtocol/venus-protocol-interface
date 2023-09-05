@@ -27,7 +27,7 @@ vi.mock('hooks/useTokenApproval');
 describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('displays correct token wallet balance', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -40,7 +40,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
   it('displays correct token supply balance', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -74,7 +74,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -101,7 +101,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -145,7 +145,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -176,7 +176,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -236,7 +236,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -296,7 +296,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     }));
 
     const { getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -328,7 +328,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     const { toggleCollateral } = useCollateral();
 
     const { getByRole } = renderComponent(
-      () => <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -362,7 +362,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -411,7 +411,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByTestId } = renderComponent(
-      () => <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,

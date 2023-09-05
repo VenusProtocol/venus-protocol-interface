@@ -28,7 +28,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(() => <RepayVai />, {
+    renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -40,7 +40,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
       percentage: fakeVaiTreasuryPercentage,
     }));
 
-    const { getByText } = renderComponent(() => <RepayVai />, {
+    const { getByText } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -56,7 +56,7 @@ describe('pages/Dashboard/vai/MintVai', () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
+    const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },

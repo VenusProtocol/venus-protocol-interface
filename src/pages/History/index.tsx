@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
@@ -48,13 +47,8 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
   </div>
 );
 
-export type HistoryPageProps = RouteComponentProps;
-
-const History: React.FC<RouteComponentProps> = ({ history, location }) => {
-  const { currentPage, setCurrentPage } = useUrlPagination({
-    history,
-    location,
-  });
+const History: React.FC = () => {
+  const { currentPage, setCurrentPage } = useUrlPagination();
 
   const { accountAddress } = useAuth();
 

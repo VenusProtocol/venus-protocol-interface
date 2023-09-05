@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
 
@@ -47,7 +47,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
   isCreateProposalLoading,
   canCreateProposal,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { newProposalStep } = useParams<{
     newProposalStep: 'create' | 'file' | 'manual' | undefined;
   }>();
@@ -64,7 +64,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
           <TextButton
             onClick={() => {
               setShowCreateProposalModal(true);
-              history.push(routes.governanceProposalCreate.path);
+              navigate(routes.governanceProposalCreate.path);
             }}
             css={styles.marginLess}
             disabled={!canCreateProposal}
@@ -129,7 +129,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
           isOpen={showCreateProposalModal}
           handleClose={() => {
             setShowCreateProposalModal(false);
-            history.push(routes.governance.path);
+            navigate(routes.governance.path);
           }}
           createProposal={createProposal}
           isCreateProposalLoading={isCreateProposalLoading}

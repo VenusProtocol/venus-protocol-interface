@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 
 import useUrlPagination, { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
@@ -22,10 +21,8 @@ export const GovernanceUi: React.FC<GovernancePageUiProps> = ({ currentPage, set
   );
 };
 
-export type GovernancePageProps = RouteComponentProps;
-
-const Governance: React.FC<GovernancePageProps> = ({ history, location }) => {
-  const useUrlPaginationProps = useUrlPagination({ history, location });
+const Governance: React.FC = () => {
+  const useUrlPaginationProps = useUrlPagination();
 
   return <GovernanceUi {...useUrlPaginationProps} />;
 };

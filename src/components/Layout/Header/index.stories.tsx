@@ -15,7 +15,7 @@ export default {
 export const HeaderDefault = () => (
   <div style={{ minHeight: 100 }}>
     <MemoryRouter initialEntries={['/dashboard']}>
-      <Route component={Header} path="/dashboard" />
+      <Route element={<Header />} path="/dashboard" />
     </MemoryRouter>
   </div>
 );

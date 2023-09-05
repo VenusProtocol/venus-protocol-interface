@@ -59,7 +59,7 @@ describe('pages/Vault/TransactionForm', () => {
     }));
 
     const { getByTestId } = renderComponent(
-      () => <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
+      <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -98,7 +98,7 @@ describe('pages/Vault/TransactionForm', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(
-      () => <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
+      <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,

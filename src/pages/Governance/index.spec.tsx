@@ -2,7 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
 import React from 'react';
-import { MemoryRouter, Route } from 'react-router-dom';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
@@ -53,19 +52,18 @@ describe('pages/Governance', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(Governance);
+    renderComponent(<Governance />);
   });
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
     (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: 2 }));
-    const GovernanceWithRouter = (
-      <MemoryRouter initialEntries={['/governance']}>
-        <Route path="/governance" component={Governance} />
-      </MemoryRouter>
-    );
-    const { getByText } = renderComponent(GovernanceWithRouter, {
+    const { getByText } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
+      },
+      routerOpts: {
+        routerInitialEntries: ['/governance/proposal-create', '/governance'],
+        routePath: '/governance/*',
       },
     });
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
@@ -85,7 +83,7 @@ describe('pages/Governance', () => {
 
   it('create proposal is disabled if pending proposal', async () => {
     (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: '0' }));
-    const { getByText } = renderComponent(Governance);
+    const { getByText } = renderComponent(<Governance />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
     expect(createProposalButton).toBeDisabled();
@@ -93,14 +91,14 @@ describe('pages/Governance', () => {
 
   it('create proposal is disabled if active proposal', async () => {
     (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: '1' }));
-    const { getByText } = renderComponent(Governance);
+    const { getByText } = renderComponent(<Governance />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
     expect(createProposalButton).toBeDisabled();
   });
 
   it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {
-    const { getByText, getAllByText, getByTestId } = renderComponent(Governance);
+    const { getByText, getAllByText, getByTestId } = renderComponent(<Governance />);
     const delegateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     fireEvent.click(delegateVoteText);
@@ -110,7 +108,7 @@ describe('pages/Governance', () => {
   });
 
   it('opens delegate modal when clicking text with delegate button when authenticated', async () => {
-    const { getByText, getByTestId } = renderComponent(Governance, {
+    const { getByText, getByTestId } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -124,7 +122,7 @@ describe('pages/Governance', () => {
   });
 
   it('can navigate to vault when clicking deposit tokens', async () => {
-    const { getByTestId } = renderComponent(Governance);
+    const { getByTestId } = renderComponent(<Governance />);
     const deposityYourTokensText = getByTestId(VOTING_WALLET_TEST_IDS.depositYourTokens);
 
     expect(deposityYourTokensText).toHaveAttribute('href', routes.vaults.path);
@@ -133,7 +131,7 @@ describe('pages/Governance', () => {
   it('prompts user to connect Wallet', async () => {
     (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
 
-    const { getByText } = renderComponent(Governance);
+    const { getByText } = renderComponent(<Governance />);
     getByText(en.connectWallet.connectButton);
   });
 
@@ -146,7 +144,7 @@ describe('pages/Governance', () => {
       isLoading: false,
     }));
 
-    const { getByText, getByTestId } = renderComponent(Governance, {
+    const { getByText, getByTestId } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -167,7 +165,7 @@ describe('pages/Governance', () => {
     }));
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const { getByText, getByTestId, getByPlaceholderText } = renderComponent(Governance, {
+    const { getByText, getByTestId, getByPlaceholderText } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -222,7 +220,7 @@ describe('pages/Governance', () => {
     }));
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    const { getByText, getByTestId } = renderComponent(Governance, {
+    const { getByText, getByTestId } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -259,7 +257,7 @@ describe('pages/Governance', () => {
   });
 
   it('proposals navigate to details', async () => {
-    const { getAllByTestId } = renderComponent(Governance);
+    const { getAllByTestId } = renderComponent(<Governance />);
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
       getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal('98')),
