@@ -1,27 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import { useHistory, useParams } from 'react-router-dom';
 import { Modal, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik, useFormikContext } from 'formik';
 import React, { useMemo, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
 import { CreateProposalInput } from 'clients/api';
+import { routes } from 'constants/routing';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
-import { routes } from 'constants/routing';
-import checkImportErrors from './checkImportErrors';
-import importJsonProposal from './importJsonProposal';
 
-import proposalSchema, { FormValues, initialActionData } from './proposalSchema';
-import { useStyles } from './styles';
 import ProposalWizard, {
   ProposalWizardSteps,
   getCurrentStep,
   getPreviousStep,
 } from './ProposalWizard';
+import checkImportErrors from './checkImportErrors';
+import importJsonProposal from './importJsonProposal';
+import proposalSchema, { FormValues, initialActionData } from './proposalSchema';
+import { useStyles } from './styles';
 
 interface CreateProposalProps {
   isOpen: boolean;

@@ -1,6 +1,7 @@
-import { useAuth } from 'context/AuthContext';
 import { getSwapRouterContractAddress } from 'packages/contracts';
 import { useMemo } from 'react';
+
+import { useAuth } from 'context/AuthContext';
 
 export interface UseGetSwapRouterContractAddressInput {
   comptrollerAddress: string;

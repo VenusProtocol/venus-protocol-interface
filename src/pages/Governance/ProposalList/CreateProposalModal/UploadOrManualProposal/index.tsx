@@ -4,8 +4,8 @@ import { NoticeInfo, SecondaryButton } from 'components';
 import React, { useRef } from 'react';
 import { useTranslation } from 'translation';
 
-import { useStyles } from './styles';
 import TEST_IDS from '../testIds';
+import { useStyles } from './styles';
 
 interface UploadOrManualProposalProps {
   onClickUploadFile: (file: File | null) => void;

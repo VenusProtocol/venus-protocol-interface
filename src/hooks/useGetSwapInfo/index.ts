@@ -9,9 +9,9 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { SwapError } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
-import { useAuth } from 'context/AuthContext';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
+import { useAuth } from 'context/AuthContext';
 
 import formatToSwap from './formatToSwap';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';

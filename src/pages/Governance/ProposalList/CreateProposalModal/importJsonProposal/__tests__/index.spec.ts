@@ -1,4 +1,5 @@
 import TEST_VIP from 'assets/proposals/vip-123.json';
+
 import importJsonProposal from '..';
 
 describe('utilities/importJsonProposal', () => {

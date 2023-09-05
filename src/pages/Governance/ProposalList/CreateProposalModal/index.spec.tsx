@@ -1,14 +1,14 @@
-import TEST_VIP from 'assets/proposals/vip-123.json';
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
+import { toast } from 'components';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
 import fakeAddress from '__mocks__/models/address';
+import TEST_VIP from 'assets/proposals/vip-123.json';
+import { routes } from 'constants/routing';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import { toast } from 'components';
-import { routes } from 'constants/routing';
 import CreateProposalModal from '.';
 import TEST_IDS from './testIds';
 
