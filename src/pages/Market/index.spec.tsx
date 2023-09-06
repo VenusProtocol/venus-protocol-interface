@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -8,7 +7,6 @@ import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
-import { routes } from 'constants/routing';
 import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
@@ -35,41 +33,25 @@ describe('pages/Market', () => {
 
   describe('CorePoolMarket', () => {
     it('renders without crashing', () => {
-      const fakeHistory = createMemoryHistory();
-      renderComponent(
-        <CorePoolMarket
-          history={fakeHistory}
-          location="/"
-          match={{
-            params: {
-              vTokenAddress:
-                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-            },
-            isExact: true,
-            path: routes.corePoolMarket.path,
-            url: '',
-          }}
-        />,
-      );
+      renderComponent(<CorePoolMarket />, {
+        routerOpts: {
+          routerInitialEntries: [
+            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}`,
+          ],
+          routePath: '/:vTokenAddress',
+        },
+      });
     });
 
     it('fetches market details and displays them correctly', async () => {
-      const fakeHistory = createMemoryHistory();
-      const { getByTestId } = renderComponent(
-        <CorePoolMarket
-          history={fakeHistory}
-          location="/"
-          match={{
-            params: {
-              vTokenAddress:
-                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-            },
-            isExact: true,
-            path: routes.corePoolMarket.path,
-            url: '',
-          }}
-        />,
-      );
+      const { getByTestId } = renderComponent(<CorePoolMarket />, {
+        routerOpts: {
+          routerInitialEntries: [
+            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}`,
+          ],
+          routePath: '/:vTokenAddress',
+        },
+      });
 
       // Check supply info displays correctly
       await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
@@ -84,43 +66,25 @@ describe('pages/Market', () => {
 
   describe('IsolatedPoolMarket', () => {
     it('renders without crashing', () => {
-      const fakeHistory = createMemoryHistory();
-      renderComponent(
-        <IsolatedPoolMarket
-          history={fakeHistory}
-          location="/"
-          match={{
-            params: {
-              vTokenAddress:
-                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-              poolComptrollerAddress: poolData[0].comptrollerAddress,
-            },
-            isExact: true,
-            path: routes.isolatedPoolMarket.path,
-            url: '',
-          }}
-        />,
-      );
+      renderComponent(<IsolatedPoolMarket />, {
+        routerOpts: {
+          routerInitialEntries: [
+            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}/${poolData[0].comptrollerAddress}`,
+          ],
+          routePath: '/:vTokenAddress/:poolComptrollerAddress',
+        },
+      });
     });
 
     it('fetches market details and displays them correctly', async () => {
-      const fakeHistory = createMemoryHistory();
-      const { getByTestId } = renderComponent(
-        <IsolatedPoolMarket
-          history={fakeHistory}
-          location="/"
-          match={{
-            params: {
-              vTokenAddress:
-                TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address,
-              poolComptrollerAddress: poolData[0].comptrollerAddress,
-            },
-            isExact: true,
-            path: routes.isolatedPoolMarket.path,
-            url: '',
-          }}
-        />,
-      );
+      const { getByTestId } = renderComponent(<IsolatedPoolMarket />, {
+        routerOpts: {
+          routerInitialEntries: [
+            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}/${poolData[0].comptrollerAddress}`,
+          ],
+          routePath: '/:vTokenAddress/:poolComptrollerAddress',
+        },
+      });
 
       // Check supply info displays correctly
       await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());

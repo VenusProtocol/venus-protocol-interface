@@ -2,9 +2,9 @@
 import { render } from '@testing-library/react';
 import { getDefaultProvider } from 'ethers';
 import { ChainId } from 'packages/contracts';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { Web3Wrapper } from 'clients/web3';
@@ -14,11 +14,19 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const renderComponent = (
-  children: React.ComponentType<any> | React.ReactElement | (() => React.ReactElement),
+  children: ReactElement,
   {
     authContextValue = {},
+    routerOpts = {
+      routerInitialEntries: ['/'],
+      routePath: '/',
+    },
   }: {
     authContextValue?: Partial<AuthContextValue>;
+    routerOpts?: {
+      routerInitialEntries: string[];
+      routePath: string;
+    };
   } = {},
 ) => {
   const queryClient = new QueryClient({
@@ -39,6 +47,7 @@ const renderComponent = (
     accountAddress: '',
     chainId: ChainId.BSC_TESTNET,
     ...authContextValue,
+    ...routerOpts,
   };
 
   const renderRes = render(
@@ -48,16 +57,13 @@ const renderComponent = (
           <AuthContext.Provider value={defaultAuthContextValues}>
             <SuccessfulTransactionModalProvider>
               <DisableLunaUstWarningProvider>
-                <BrowserRouter>
+                <MemoryRouter initialEntries={routerOpts.routerInitialEntries}>
                   <ToastContainer />
 
-                  <Switch>
-                    <Route
-                      path="/"
-                      component={typeof children === 'function' ? children : () => children}
-                    />
-                  </Switch>
-                </BrowserRouter>
+                  <Routes>
+                    <Route path={routerOpts.routePath} element={children} />
+                  </Routes>
+                </MemoryRouter>
               </DisableLunaUstWarningProvider>
             </SuccessfulTransactionModalProvider>
           </AuthContext.Provider>

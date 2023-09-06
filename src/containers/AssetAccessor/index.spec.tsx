@@ -31,7 +31,7 @@ const TestComponent = () => <>{fakeChildrenContent}</>;
 
 describe('containers/AssetAccessor', () => {
   it('renders without crashing', async () => {
-    renderComponent(() => <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>);
+    renderComponent(<AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>);
   });
 
   it('renders token announcement if action has been disabled and an announcement exists for that token', async () => {
@@ -40,9 +40,9 @@ describe('containers/AssetAccessor', () => {
     const fakeTokenAnnouncementText = 'Fake token announcement';
     (TokenAnnouncement as Vi.Mock).mockImplementation(() => fakeTokenAnnouncementText);
 
-    const { getByText, queryByText } = renderComponent(() => (
-      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>
-    ));
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
 
     await waitFor(() => expect(getByText(fakeTokenAnnouncementText)).toBeInTheDocument());
 
@@ -54,9 +54,9 @@ describe('containers/AssetAccessor', () => {
     (isTokenActionEnabled as Vi.Mock).mockImplementation(() => false);
     (TokenAnnouncement as Vi.Mock).mockImplementation(() => null);
 
-    const { getByText, queryByText } = renderComponent(() => (
-      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>
-    ));
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
 
     await waitFor(() =>
       expect(
@@ -69,9 +69,9 @@ describe('containers/AssetAccessor', () => {
   });
 
   it('asks user to connect their wallet if they have not done so already', async () => {
-    const { getByText, queryByText } = renderComponent(() => (
-      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>
-    ));
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
 
     await waitFor(() => expect(getByText(fakeProps.connectWalletMessage)).toBeInTheDocument());
     expect(queryByText(fakeChildrenContent)).toBeNull();
@@ -82,16 +82,14 @@ describe('containers/AssetAccessor', () => {
     let fetchedAsset: Asset | undefined;
 
     renderComponent(
-      () => (
-        <AssetAccessor {...fakeProps}>
-          {({ asset, pool }) => {
-            fetchedPool = pool;
-            fetchedAsset = asset;
+      <AssetAccessor {...fakeProps}>
+        {({ asset, pool }) => {
+          fetchedPool = pool;
+          fetchedAsset = asset;
 
-            return <TestComponent />;
-          }}
-        </AssetAccessor>
-      ),
+          return <TestComponent />;
+        }}
+      </AssetAccessor>,
       {
         authContextValue: { accountAddress: fakeAddress },
       },
@@ -103,7 +101,7 @@ describe('containers/AssetAccessor', () => {
 
   it('renders children if user has connected their wallet and enabled token', async () => {
     const { getByText } = renderComponent(
-      () => <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
       {
         authContextValue: { accountAddress: fakeAddress },
       },

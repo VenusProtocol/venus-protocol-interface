@@ -11,7 +11,7 @@ import {
   Spinner,
 } from 'components';
 import React, { useMemo } from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset, Token, VToken } from 'types';
 import {
@@ -503,15 +503,8 @@ const Market: React.FC<MarketProps> = ({
   );
 };
 
-export type CorePoolMarketProps = RouteComponentProps<{
-  vTokenAddress: string;
-}>;
-
-export const CorePoolMarket: React.FC<CorePoolMarketProps> = ({
-  match: {
-    params: { vTokenAddress },
-  },
-}) => {
+export const CorePoolMarket: React.FC = () => {
+  const { vTokenAddress } = useParams();
   const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
     name: 'mainPoolComptroller',
   });
@@ -520,7 +513,7 @@ export const CorePoolMarket: React.FC<CorePoolMarketProps> = ({
 
   // Redirect to dashboard page if params are invalid
   if (!vToken || !mainPoolComptrollerContractAddress) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Navigate to={routes.dashboard.path} />;
   }
 
   return (
@@ -532,21 +525,13 @@ export const CorePoolMarket: React.FC<CorePoolMarketProps> = ({
   );
 };
 
-export type IsolatedMarketProps = RouteComponentProps<{
-  vTokenAddress: string;
-  poolComptrollerAddress: string;
-}>;
-
-export const IsolatedPoolMarket: React.FC<IsolatedMarketProps> = ({
-  match: {
-    params: { vTokenAddress, poolComptrollerAddress },
-  },
-}) => {
+export const IsolatedPoolMarket: React.FC = () => {
+  const { vTokenAddress, poolComptrollerAddress } = useParams();
   const vToken = getVTokenByAddress(vTokenAddress);
 
   // Redirect to dashboard page if params are invalid
   if (!vToken || !poolComptrollerAddress) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Navigate to={routes.dashboard.path} />;
   }
 
   return (

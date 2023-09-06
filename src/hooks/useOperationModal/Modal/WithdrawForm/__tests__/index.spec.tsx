@@ -19,7 +19,7 @@ vi.mock('hooks/useSuccessfulTransactionModal');
 
 describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
   it('submit button is disabled with no amount', async () => {
-    renderComponent(() => <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />, {
+    renderComponent(<Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -49,7 +49,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     };
 
     const { getByTestId } = renderComponent(
-      () => <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
+      <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -79,7 +79,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
 
   it('displays correct token withdrawable amount', async () => {
     const { getByText } = renderComponent(
-      () => <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
+      <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -100,7 +100,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
     }));
 
     const { getByText } = renderComponent(
-      () => <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
+      <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -127,7 +127,7 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
 
   it('redeemUnderlying is called when partial amount is withdrawn', async () => {
     const { getByTestId } = renderComponent(
-      () => <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
+      <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React, { useMemo } from 'react';
-import { Link, matchPath, useLocation } from 'react-router-dom';
+import { Link, Params, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { getVTokenByAddress } from 'utilities';
 
@@ -30,12 +30,9 @@ const Breadcrumbs: React.FC = () => {
 
   const pathNodes = useMemo(() => {
     // Get active route
-    let params: Record<string, string> = {};
+    let params: Params<string> = {};
     const activeRouteKey = Object.keys(routes).find(key => {
-      const routeMatch = matchPath(pathname, {
-        path: routes[key as keyof typeof routes].path,
-        exact: true,
-      });
+      const routeMatch = matchPath(routes[key as keyof typeof routes].path, pathname);
 
       if (routeMatch) {
         const { params: routeParams } = routeMatch;
@@ -67,7 +64,7 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.MARKETS:
           hrefFragment = Subdirectory.MARKETS.replace(
             ':poolComptrollerAddress',
-            params.poolComptrollerAddress,
+            params.poolComptrollerAddress || '',
           );
 
           dom = t('breadcrumbs.markets');
@@ -78,16 +75,16 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.ISOLATED_POOL:
           hrefFragment = Subdirectory.ISOLATED_POOL.replace(
             ':poolComptrollerAddress',
-            params.poolComptrollerAddress,
+            params.poolComptrollerAddress || '',
           );
 
-          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress} />;
+          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || ''} />;
           break;
         case Subdirectory.CORE_POOL:
           dom = t('breadcrumbs.corePool');
           break;
         case Subdirectory.MARKET: {
-          hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress);
+          hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress || '');
 
           const vToken = getVTokenByAddress(params.vTokenAddress);
 
@@ -119,18 +116,18 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.leaderboard');
           break;
         case Subdirectory.VOTER:
-          hrefFragment = Subdirectory.VOTER.replace(':address', params.address);
+          hrefFragment = Subdirectory.VOTER.replace(':address', params.address || '');
 
           dom = (
             <div css={styles.address}>
               <Typography variant="h3" color="textPrimary">
-                <EllipseAddress address={params.address} />
+                <EllipseAddress address={params.address || ''} />
               </Typography>
 
               <Icon
                 name="copy"
                 css={styles.copyIcon}
-                onClick={() => copyToClipboard(params.address)}
+                onClick={() => params.address && copyToClipboard(params.address)}
               />
             </div>
           );

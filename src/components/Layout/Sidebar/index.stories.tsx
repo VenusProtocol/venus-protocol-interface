@@ -32,6 +32,6 @@ export default {
 
 export const SidebarDefault = () => (
   <MemoryRouter initialEntries={['/dashboard']}>
-    <Route component={SidebarUi} path="/dashboard" />
+    <Route element={<SidebarUi />} path="/dashboard" />
   </MemoryRouter>
 );

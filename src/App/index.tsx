@@ -14,7 +14,7 @@ import { ErrorLoggerProvider } from 'context/ErrorLogger';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
-import Switch from './Switch';
+import Router from './Router';
 
 const App = () => (
   <ErrorLoggerProvider>
@@ -31,7 +31,7 @@ const App = () => (
                     <Layout>
                       <ResetScrollOnRouteChange />
 
-                      <Switch />
+                      <Router />
                     </Layout>
                   </HashRouter>
                 </DisableLunaUstWarningProvider>

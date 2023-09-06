@@ -1,7 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-
-export type UseUrlPaginationInput = Pick<RouteComponentProps, 'location' | 'history'>;
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export type UseUrlPaginationOutput = {
   currentPage: number;
@@ -10,11 +8,14 @@ export type UseUrlPaginationOutput = {
 
 export const PAGE_PARAM_NAME = 'page';
 
-const useUrlPagination = ({ location, history }: UseUrlPaginationInput): UseUrlPaginationOutput => {
+const useUrlPagination = (): UseUrlPaginationOutput => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { search } = location;
 
   useEffect(() => {
-    // Add page param to URl if none has been set
+    // Add page param to URL if none has been set
     const searchParams = new URLSearchParams(search);
 
     if (!searchParams.get(PAGE_PARAM_NAME)) {
@@ -22,7 +23,7 @@ const useUrlPagination = ({ location, history }: UseUrlPaginationInput): UseUrlP
       // URL to make it more user-friendly. This is something we need to account for
       // when updating the page search param
       searchParams.set(PAGE_PARAM_NAME, '1');
-      history.replace(`${location.pathname}?${searchParams.toString()}`);
+      navigate(`${location.pathname}?${searchParams.toString()}`);
     }
 
     // Scroll to the top of the page on search change
@@ -41,7 +42,7 @@ const useUrlPagination = ({ location, history }: UseUrlPaginationInput): UseUrlP
 
     // Update page param in URL search
     searchParams.set(PAGE_PARAM_NAME, `${newPageIndex + 1}`);
-    history.push(`${location.pathname}?${searchParams.toString()}`);
+    navigate(`${location.pathname}?${searchParams.toString()}`);
   };
 
   return { currentPage, setCurrentPage };

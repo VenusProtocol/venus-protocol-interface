@@ -144,7 +144,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      () => <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,
@@ -204,7 +204,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     }));
 
     const { getByTestId } = renderComponent(
-      () => <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
+      <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,

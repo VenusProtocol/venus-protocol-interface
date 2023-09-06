@@ -281,7 +281,7 @@ describe('pages/Swap', () => {
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
 
-    const { getByText, getByTestId, container } = renderComponent(() => <SwapPage />, {
+    const { getByText, getByTestId, container } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -340,7 +340,7 @@ describe('pages/Swap', () => {
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
 
-    const { getByTestId, container } = renderComponent(() => <SwapPage />, {
+    const { getByTestId, container } = renderComponent(<SwapPage />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },

@@ -2,11 +2,10 @@
 import { FormikSubmitButton, PrimaryButton } from 'components';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
-import { routes } from 'constants/routing';
-
+import { Subdirectory, routes } from 'constants/routing';
 import ActionAccordion from '../ActionAccordion';
 import ProposalInfo from '../ProposalInfo';
 import ProposalPreview from '../ProposalPreview';
@@ -90,7 +89,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
   isCreateProposalLoading,
   currentStep,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const formikContext = useFormikContext<FormValues>();
@@ -123,7 +122,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
 
   const handleClickCreateManually = () => {
     setProposalMode('manual');
-    history.push(routes.governanceProposalInfo.path);
+    navigate(routes.governanceProposalInfo.path);
   };
 
   const handleClickUploadFile = async (file: File | null) => {
@@ -132,26 +131,21 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
 
   return (
     <>
-      <Switch>
-        <Route path={routes.governanceProposalCreate.path}>
-          <UploadOrManualProposal
-            onClickCreateManually={handleClickCreateManually}
-            onClickUploadFile={handleClickUploadFile}
-          />
-        </Route>
-        <Route path={routes.governanceProposalInfo.path}>
-          <ProposalInfo />
-        </Route>
-        <Route path={routes.governanceProposalDescriptions.path}>
-          <VotingDescriptions />
-        </Route>
-        <Route path={routes.governanceProposalActions.path}>
-          <ActionAccordion />
-        </Route>
-        <Route path={routes.governanceProposalPreview.path}>
-          <ProposalPreview />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route
+          path={Subdirectory.PROPOSAL_CREATE}
+          element={
+            <UploadOrManualProposal
+              onClickCreateManually={handleClickCreateManually}
+              onClickUploadFile={handleClickUploadFile}
+            />
+          }
+        />
+        <Route path={Subdirectory.PROPOSAL_INFO} element={<ProposalInfo />} />
+        <Route path={Subdirectory.PROPOSAL_DESCRIPTIONS} element={<VotingDescriptions />} />
+        <Route path={Subdirectory.PROPOSAL_ACTIONS} element={<ActionAccordion />} />
+        <Route path={Subdirectory.PROPOSAL_PREVIEW} element={<ProposalPreview />} />
+      </Routes>
 
       {currentStep !== 'proposal-create' && currentStep !== 'proposal-preview' && (
         <PrimaryButton
@@ -159,7 +153,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
           disabled={getErrorsByStep(currentStep)}
           onClick={() => {
             const nextStep = getNextStep(currentStep);
-            history.push(`${routes.governance.path}/${nextStep}`);
+            navigate(`${routes.governance.path}/${nextStep}`);
           }}
         >
           {buttonText}

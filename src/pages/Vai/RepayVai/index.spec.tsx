@@ -74,7 +74,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(() => <RepayVai />, {
+    renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -82,7 +82,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the correct repay VAI balance and APY', async () => {
-    const { getByText, container } = renderComponent(() => <RepayVai />, {
+    const { getByText, container } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -108,7 +108,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
 
-    const { getByTestId } = renderComponent(() => <RepayVai />, {
+    const { getByTestId } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -129,7 +129,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the VAI repay fee correctly', async () => {
-    const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
+    const { getByText, getByTestId } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -160,7 +160,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
 
-    const { getByTestId, getByText } = renderComponent(() => <RepayVai />, {
+    const { getByTestId, getByText } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -188,7 +188,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
+    const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },
@@ -236,7 +236,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
-    const { getByText, getByTestId } = renderComponent(() => <RepayVai />, {
+    const { getByText, getByTestId } = renderComponent(<RepayVai />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
       },

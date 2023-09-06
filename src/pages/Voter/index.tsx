@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { RouteComponentProps, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { VoteDetailTransaction, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
@@ -70,12 +70,10 @@ export const VoterUi: React.FC<VoterUiProps> = ({
   );
 };
 
-export type VoterDetailsPageProps = RouteComponentProps;
+const Voter: React.FC = () => {
+  const { currentPage, setCurrentPage } = useUrlPagination();
 
-const Voter: React.FC<VoterDetailsPageProps> = ({ history, location }) => {
-  const { currentPage, setCurrentPage } = useUrlPagination({ history, location });
-
-  const { address } = useParams<{ address: string }>();
+  const { address = '' } = useParams<{ address: string }>();
   const { data: voterDetails } = useGetVoterDetails({ address });
   const {
     data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
