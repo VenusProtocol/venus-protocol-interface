@@ -1,3 +1,11 @@
+## [2.17.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.16.0...v2.17.0) (2023-09-06)
+
+
+### Features
+
+* fetch borrower and supplier counts ([a058d50](https://github.com/VenusProtocol/venus-protocol-interface/commit/a058d501de4a3ef4a2127856dd7bc717501035ed))
+* start formatting data into main pool (2) ([f65f069](https://github.com/VenusProtocol/venus-protocol-interface/commit/f65f0699117cc6d37d48b4e504d799650fc881c3))
+
 ## [2.16.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.15.3...v2.16.0) (2023-09-06)
 
 
