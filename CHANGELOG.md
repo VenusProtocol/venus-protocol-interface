@@ -1,3 +1,10 @@
+## [2.16.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.15.3...v2.16.0) (2023-09-06)
+
+
+### Features
+
+* migrate to react router v6 ([040fc3a](https://github.com/VenusProtocol/venus-protocol-interface/commit/040fc3a6ed0450a94b81bcbb9aa85623720e3f4b))
+
 ## [2.15.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.15.2...v2.15.3) (2023-09-06)
 
 ## [2.15.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.15.1...v2.15.2) (2023-09-06)
