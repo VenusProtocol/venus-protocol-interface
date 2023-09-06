@@ -3,6 +3,6 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
-    update_strategy: 'widen'
+    versioning-strategy: 'widen'
     schedule:
       interval: 'daily'
