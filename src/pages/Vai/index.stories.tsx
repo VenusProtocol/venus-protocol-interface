@@ -2,6 +2,7 @@ import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 import { uniqueContractInfos } from 'packages/contracts';
 import React from 'react';
+import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -32,6 +33,7 @@ const context: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
+  chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,
 };
 

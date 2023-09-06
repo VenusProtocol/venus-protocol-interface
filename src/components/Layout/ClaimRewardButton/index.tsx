@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -141,6 +142,10 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const { mutateAsync: claimRewards, isLoading: isClaimingRewards } = useClaimRewards();
 
   const handleClaimReward = async () => {
+    if (!accountAddress) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
     // Extract all claims from checked groups
     const claims = groups.reduce<Claim[]>(
       (allClaims, group) => (group.isChecked ? allClaims.concat(group.claims) : allClaims),

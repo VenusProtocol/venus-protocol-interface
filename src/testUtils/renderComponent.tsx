@@ -44,7 +44,6 @@ const renderComponent = (
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
     provider: getDefaultProvider(),
-    accountAddress: '',
     chainId: ChainId.BSC_TESTNET,
     ...authContextValue,
     ...routerOpts,

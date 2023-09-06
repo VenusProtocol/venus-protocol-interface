@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import React from 'react';
+import { ChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -19,6 +20,7 @@ describe('pages/ConvertVRT/Convert', () => {
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
           provider: fakeProvider,
+          chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,
         }}
       >

@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -39,6 +40,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
           provider: fakeProvider,
+          chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,
         }}
       >

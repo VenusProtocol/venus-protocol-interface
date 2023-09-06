@@ -96,7 +96,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
-      accountAddress,
+      accountAddress: accountAddress || '',
     },
     {
       placeholderData: {

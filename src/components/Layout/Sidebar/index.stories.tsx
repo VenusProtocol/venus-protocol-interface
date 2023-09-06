@@ -2,6 +2,7 @@ import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
+import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -16,6 +17,7 @@ const context: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
+  chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,
 };
 

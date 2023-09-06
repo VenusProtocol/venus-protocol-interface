@@ -187,7 +187,7 @@ const MintVai: React.FC = () => {
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
-      accountAddress,
+      accountAddress: accountAddress || '',
     },
     {
       enabled: !!accountAddress,
