@@ -121,7 +121,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
-      accountAddress,
+      accountAddress: accountAddress || '',
     },
     {
       placeholderData: {
@@ -136,7 +136,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       {
         poolIndex,
         rewardTokenAddress: TOKENS.xvs.address,
-        accountAddress,
+        accountAddress: accountAddress || '',
       },
       {
         enabled: !!accountAddress,

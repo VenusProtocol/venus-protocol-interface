@@ -1,6 +1,7 @@
+import { ChainId } from 'types';
+
 import { getSwapRouterContractAddress } from '..';
 import { swapRouter } from '../../contractInfos';
-import { ChainId } from '../../types';
 
 const COMPTROLLER_ADDRESS = '0xb3BEf8955E047B734EBBe6903eD2e3C467cBC0bb';
 

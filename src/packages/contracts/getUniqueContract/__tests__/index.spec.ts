@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
+import { ChainId } from 'types';
 
 import { getUniqueContract } from '..';
 import uniqueContractInfos from '../../contractInfos/uniqueContractInfos';
-import { ChainId } from '../../types';
 
 const fakeProvider = new ethers.providers.JsonRpcProvider();
 

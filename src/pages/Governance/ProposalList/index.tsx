@@ -158,12 +158,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
   const { data: currentVotesData } = useGetCurrentVotes(
-    { accountAddress },
+    { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
 
   const { data: latestProposalData } = useGetLatestProposalIdByProposer(
-    { accountAddress },
+    { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
 

@@ -40,7 +40,7 @@ const useCollateral = () => {
     comptrollerAddress: string;
     poolName: string;
   }) => {
-    if (!signer) {
+    if (!signer || !accountAddress) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 

@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
+import { ChainId } from 'types';
 
 import { getSwapRouterContract } from '..';
 import swapRouterContractInfos from '../../contractInfos/swapRouterContractInfos';
-import { ChainId } from '../../types';
 
 const fakeProvider = new ethers.providers.JsonRpcProvider();
 const COMPTROLLER_ADDRESS = '0xfD36E2c2a6789Db23113685031d7F16329158384';

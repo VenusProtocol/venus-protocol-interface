@@ -247,7 +247,7 @@ const RepayVai: React.FC = () => {
   const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
     useGetVaiRepayAmountWithInterests(
       {
-        accountAddress,
+        accountAddress: accountAddress || '',
       },
       {
         enabled: !!accountAddress,

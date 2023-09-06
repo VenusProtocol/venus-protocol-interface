@@ -1,5 +1,6 @@
+import { ChainId } from 'types';
+
 import { swapRouter } from '../contractInfos';
-import { ChainId } from '../types';
 
 export type GetSwapRouterContractAddressInput = {
   comptrollerAddress: string;

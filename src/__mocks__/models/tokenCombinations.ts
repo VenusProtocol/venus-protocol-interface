@@ -1,6 +1,5 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
-import { ChainId } from 'packages/contracts';
-import { PSTokenCombination } from 'types';
+import { ChainId, PSTokenCombination } from 'types';
 
 import { SWAP_TOKENS } from 'constants/tokens';
 

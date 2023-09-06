@@ -18,7 +18,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
       {
-        accountAddress,
+        accountAddress: accountAddress || '',
       },
       {
         enabled: !!accountAddress,

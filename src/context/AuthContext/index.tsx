@@ -3,8 +3,8 @@ import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import { ChainId } from 'packages/contracts';
 import React, { useCallback, useContext, useEffect } from 'react';
+import { ChainId } from 'types';
 import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
@@ -22,9 +22,9 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   provider: Provider;
-  accountAddress: string;
+  chainId: ChainId;
+  accountAddress?: string;
   signer?: Signer;
-  chainId?: ChainId;
 }
 
 export const AuthContext = React.createContext<AuthContextValue>({
@@ -33,7 +33,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: getDefaultProvider(),
-  accountAddress: '',
+  chainId: ChainId.BSC_MAINNET,
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -55,7 +55,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   // Set address as authorized by default
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
-  const accountAddress = isConnected && !!signer && address && isAuthorizedAddress ? address : '';
+  const accountAddress =
+    isConnected && !!signer && address && isAuthorizedAddress ? address : undefined;
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -116,7 +117,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         openAuthModal,
         closeAuthModal,
         provider,
-        signer: signer || undefined,
+        signer,
         chainId,
       }}
     >

@@ -1,5 +1,5 @@
 import localConfig from 'config';
-import { ChainId } from 'packages/contracts';
+import { ChainId } from 'types';
 import { Chain, configureChains, createConfig } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';

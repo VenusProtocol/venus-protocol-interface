@@ -1,5 +1,6 @@
+import { ChainId } from 'types';
+
 import { UniqueContractName, uniqueContractInfos } from '../contractInfos';
-import { ChainId } from '../types';
 
 export type GetUniqueContractAddressInput = {
   name: UniqueContractName;

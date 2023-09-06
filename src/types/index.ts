@@ -7,6 +7,11 @@ export type NonNullableFields<T> = Required<{
 
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
+export enum ChainId {
+  'BSC_MAINNET' = 56,
+  'BSC_TESTNET' = 97,
+}
+
 export interface Token {
   symbol: string;
   decimals: number;
