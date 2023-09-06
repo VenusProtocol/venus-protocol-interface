@@ -3,8 +3,8 @@ import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import { ChainId } from 'packages/contracts';
 import React, { useCallback, useContext, useEffect } from 'react';
+import { ChainId } from 'types';
 import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';

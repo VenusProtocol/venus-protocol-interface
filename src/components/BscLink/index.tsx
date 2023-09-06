@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { ChainId } from 'types';
 import { UrlType, generateBscScanUrl } from 'utilities';
 
 import { Breakpoint, EllipseAddress } from '../EllipseAddress';

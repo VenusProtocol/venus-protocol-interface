@@ -1,5 +1,6 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { ChainId } from 'types';
 
 import {
   UniqueContractName,
@@ -7,7 +8,6 @@ import {
   uniqueContractInfos,
 } from '../contractInfos';
 import { getUniqueContractAddress } from '../getUniqueContractAddress';
-import { ChainId } from '../types';
 
 export interface GetUniqueContractInput<TContractName extends UniqueContractName> {
   name: TContractName;

@@ -1,6 +1,6 @@
-import { ChainId } from 'packages/contracts';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { ChainId } from 'types';
 
 import { Modal, ModalProps } from '../Modal';
 import { AccountDetails, AccountDetailsProps } from './AccountDetails';

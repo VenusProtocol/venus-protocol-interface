@@ -1,6 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import { ChainId } from 'packages/contracts';
+import { ChainId } from 'types';
 
 import { SWAP_TOKENS } from 'constants/tokens';
 

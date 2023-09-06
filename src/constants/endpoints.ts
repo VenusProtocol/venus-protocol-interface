@@ -1,5 +1,4 @@
-import { ChainId } from 'packages/contracts';
-import { Environment } from 'types';
+import { ChainId, Environment } from 'types';
 
 export const API_ENDPOINT_URLS: Record<Environment, string> = {
   mainnet: 'https://api.venus.io',

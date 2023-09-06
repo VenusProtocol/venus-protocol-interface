@@ -1,5 +1,4 @@
-import { ChainId } from 'packages/contracts';
-import { Environment } from 'types';
+import { ChainId, Environment } from 'types';
 
 import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
 

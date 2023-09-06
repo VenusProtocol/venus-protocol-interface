@@ -17,6 +17,7 @@ import { abi as xvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/cont
 import { abi as xvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
+import { ChainId } from 'types';
 
 import { PoolLens, PoolRegistry } from '../types/contracts/isolatedPools';
 import { ResilientOracle } from '../types/contracts/oracle';
@@ -33,7 +34,6 @@ import {
 } from '../types/contracts/venusProtocol';
 import { XVSVesting } from '../types/contracts/xvsVesting';
 
-import { ChainId } from '../types';
 import maximillionAbi from './externalAbis/maximillion.json';
 import multicall3Abi from './externalAbis/multicall3.json';
 

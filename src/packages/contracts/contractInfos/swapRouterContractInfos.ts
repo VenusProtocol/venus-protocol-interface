@@ -4,10 +4,9 @@ import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deplo
 import { abi as swapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
+import { ChainId } from 'types';
 
 import { SwapRouter } from '../types/contracts/venusProtocol';
-
-import { ChainId } from '../types';
 
 export interface SwapRouterContractInfo {
   abi: JsonFragment[];

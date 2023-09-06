@@ -1,4 +1,4 @@
-import { ChainId } from 'packages/contracts';
+import { ChainId } from 'types';
 
 import { EXPLORER_URLS } from 'constants/bsc';
 

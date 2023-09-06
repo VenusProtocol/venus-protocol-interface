@@ -1,6 +1,7 @@
+import { ChainId } from 'types';
+
 import { getUniqueContractAddress } from '..';
 import uniqueContractInfos from '../../contractInfos/uniqueContractInfos';
-import { ChainId } from '../../types';
 
 describe('getUniqueContractAddress', () => {
   it('returns address when contract exists on chain', () => {

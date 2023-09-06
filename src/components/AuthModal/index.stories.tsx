@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
-import { ChainId } from 'packages/contracts';
 import React from 'react';
+import { ChainId } from 'types';
 
 import { withCenterStory } from 'stories/decorators';
 
