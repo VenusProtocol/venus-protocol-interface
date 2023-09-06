@@ -1,6 +1,8 @@
 import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
+import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
+import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
 
@@ -8,14 +10,12 @@ import getMainPool from '..';
 import getMainMarkets from '../../getMainMarkets';
 import {
   fakeBorrowCapsOutputs,
-  fakeGetAllMarketsOutput,
   fakeGetAssetsInOutput,
   fakeGetUnderlyingPriceOutputs,
   fakeGetVaiRepayAmountOutput,
   fakeGetXvsPriceOutput,
   fakeSupplyCapsOutputs,
   fakeVTokenBalancesAllOutput,
-  fakeVTokenMetaDataAllOutput,
   fakeXvsBorrowSpeedOutputs,
   fakeXvsSupplySpeedOutputs,
 } from '../__testUtils__/fakeData';
@@ -25,7 +25,7 @@ vi.mock('../../getMainMarkets');
 
 const fakeMainPoolComptrollerContract = {
   address: altAddress,
-  getAllMarkets: async () => fakeGetAllMarketsOutput,
+  getAllMarkets: async () => fakeMainPoolComptrollerContractResponses.getAllMarkets,
   getAssetsIn: async () => fakeGetAssetsInOutput,
   borrowCaps: async (vTokenAddress: keyof typeof fakeBorrowCapsOutputs) =>
     fakeBorrowCapsOutputs[vTokenAddress],
@@ -52,7 +52,7 @@ const fakeVaiControllerContract = {
 
 const fakeVenusLensContract = {
   callStatic: {
-    vTokenMetadataAll: async () => fakeVTokenMetaDataAllOutput,
+    vTokenMetadataAll: async () => fakeVenusLensContractResponses.vTokenMetadataAll,
     vTokenBalancesAll: async () => fakeVTokenBalancesAllOutput,
   },
 } as unknown as ContractTypeByName<'venusLens'>;

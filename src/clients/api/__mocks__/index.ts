@@ -247,6 +247,9 @@ export const useGetPancakeSwapPairs = () =>
 export const getVaiRepayApy = vi.fn();
 export const useGetVaiRepayApy = () => useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy);
 
+export const getVTokens = vi.fn(async () => []);
+export const useGetVTokens = () => useQuery(FunctionKey.GET_VTOKENS, getVTokens);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

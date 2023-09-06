@@ -6,8 +6,8 @@ import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
+import { vXvs } from '__mocks__/models/vTokens';
 import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import { CorePoolMarket, IsolatedPoolMarket } from '.';
@@ -35,9 +35,7 @@ describe('pages/Market', () => {
     it('renders without crashing', () => {
       renderComponent(<CorePoolMarket />, {
         routerOpts: {
-          routerInitialEntries: [
-            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}`,
-          ],
+          routerInitialEntries: [`/${vXvs.address}`],
           routePath: '/:vTokenAddress',
         },
       });
@@ -46,9 +44,7 @@ describe('pages/Market', () => {
     it('fetches market details and displays them correctly', async () => {
       const { getByTestId } = renderComponent(<CorePoolMarket />, {
         routerOpts: {
-          routerInitialEntries: [
-            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}`,
-          ],
+          routerInitialEntries: [`/${vXvs.address}`],
           routePath: '/:vTokenAddress',
         },
       });
@@ -68,9 +64,7 @@ describe('pages/Market', () => {
     it('renders without crashing', () => {
       renderComponent(<IsolatedPoolMarket />, {
         routerOpts: {
-          routerInitialEntries: [
-            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}/${poolData[0].comptrollerAddress}`,
-          ],
+          routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
           routePath: '/:vTokenAddress/:poolComptrollerAddress',
         },
       });
@@ -79,9 +73,7 @@ describe('pages/Market', () => {
     it('fetches market details and displays them correctly', async () => {
       const { getByTestId } = renderComponent(<IsolatedPoolMarket />, {
         routerOpts: {
-          routerInitialEntries: [
-            `/${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}/${poolData[0].comptrollerAddress}`,
-          ],
+          routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
           routePath: '/:vTokenAddress/:poolComptrollerAddress',
         },
       });

@@ -11,6 +11,7 @@ import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
 } from '__mocks__/models/tokenBalances';
+import { vXvs } from '__mocks__/models/vTokens';
 import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import {
@@ -22,7 +23,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { SWAP_TOKENS, TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -270,7 +271,7 @@ describe('pages/Swap', () => {
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 
@@ -327,7 +328,7 @@ describe('pages/Swap', () => {
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 

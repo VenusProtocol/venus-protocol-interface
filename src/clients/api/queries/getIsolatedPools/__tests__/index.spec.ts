@@ -2,13 +2,13 @@ import { ContractCallContext, Multicall as Multicall3 } from 'ethereum-multicall
 import { ContractTypeByName } from 'packages/contracts';
 import Vi from 'vitest';
 
+import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 
 import getIsolatedPools from '..';
 import {
-  fakeGetAllPoolsOuput,
   fakeIsolatedPoolParticipantsCount,
   fakeMulticallResponse0,
   fakeMulticallResponse1,
@@ -21,7 +21,7 @@ const fakeResilientOracleContractAddress = '0x23d1820b2D1c7c7452A163983Dc888CEC5
 vi.mock('clients/subgraph');
 
 const fakePoolLensContract = {
-  getAllPools: async () => fakeGetAllPoolsOuput,
+  getAllPools: async () => fakePoolLensContractResponses.getAllPools,
 } as unknown as ContractTypeByName<'poolLens'>;
 
 const fakeMulticall3 = {

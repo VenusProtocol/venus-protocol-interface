@@ -1,17 +1,15 @@
 import { restService } from 'utilities';
 import Vi from 'vitest';
 
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { vBusd } from '__mocks__/models/vTokens';
 
 import getMainMarkets from '.';
 
 vi.mock('utilities/restService');
 
-const fakeVToken = TESTNET_VBEP_TOKENS['0x08e0a5575de71037ae36abfafb516595fe68e5e4'];
-
 const supportedMarket = {
-  address: fakeVToken.address,
-  symbol: fakeVToken.symbol,
+  address: vBusd.address,
+  symbol: vBusd.symbol,
   borrowApy: -2.0144969858718893,
   borrowCaps: '0',
   borrowRatePerBlock: '1902595671',
