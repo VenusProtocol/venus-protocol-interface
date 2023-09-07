@@ -24,6 +24,7 @@ const { publicClient, webSocketPublicClient } = configureChains(
     publicProvider(),
   ],
   {
+    stallTimeout: 3000, // Time after which a request is dimmed stalled and another provider is used
     batch: {
       multicall: false, // Disable wagmi's multicall feature as we wrap the provider with a 0xsequence multicall provider instead
     },
