@@ -21,7 +21,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
     const totalXvsDistributedTokens =
       getMainMarketsData?.markets &&
       getMainMarketsData.markets.reduce(
-        (acc, market) => acc.plus(market.totalDistributed),
+        (acc, market) => acc.plus(market.totalXvsDistributedTokens),
         new BigNumber(0),
       );
 

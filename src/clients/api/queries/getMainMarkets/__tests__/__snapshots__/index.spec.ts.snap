@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getMainMarkets > returns formatted markets on success 1`] = `
+[
+  {
+    "address": undefined,
+    "borrowerCount": undefined,
+    "supplierCount": undefined,
+    "totalXvsDistributedTokens": "NaN",
+  },
+]
+`;
