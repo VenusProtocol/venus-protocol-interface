@@ -23,8 +23,6 @@ type Options = QueryObserverOptions<
   UseGetVTokensQueryKey
 >;
 
-// TODO: refactor to use useGetPools (?)
-
 const useGetVTokens = (options?: Options) => {
   const { chainId } = useAuth();
 
