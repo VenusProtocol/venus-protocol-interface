@@ -2,14 +2,16 @@ import BigNumber from 'bignumber.js';
 import { Market } from 'types';
 import { restService } from 'utilities';
 
+export interface ApiMarket {
+  address: string;
+  totalDistributed: string;
+  borrowerCount: number;
+  supplierCount: number;
+}
+
 export interface GetMainMarketsResponse {
   dailyVenus: number;
-  markets: {
-    address: string;
-    totalDistributed: string;
-    borrowerCount: number;
-    supplierCount: number;
-  }[];
+  markets: ApiMarket[];
   request: { addresses: string[] };
   venusRate: string;
 }
