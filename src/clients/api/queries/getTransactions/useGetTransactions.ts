@@ -4,8 +4,11 @@ import getTransactions, {
   GetTransactionsInput,
   GetTransactionsOutput,
 } from 'clients/api/queries/getTransactions';
+import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+
+type TrimmedGetTransactionsInput = Omit<GetTransactionsInput, 'vTokens'>;
 
 type Options = QueryObserverOptions<
   GetTransactionsOutput,
@@ -15,12 +18,20 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_TRANSACTIONS, GetTransactionsInput]
 >;
 
-const useGetTransactions = (params: GetTransactionsInput, options?: Options) =>
-  useQuery([FunctionKey.GET_TRANSACTIONS, params], () => getTransactions(params), {
-    keepPreviousData: true,
-    placeholderData: { limit: 0, page: 0, total: 0, transactions: [] },
-    refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-    ...options,
-  });
+const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Options) => {
+  const { data: getVTokenData } = useGetVTokens();
+  const vTokens = getVTokenData?.vTokens || [];
+
+  return useQuery(
+    [FunctionKey.GET_TRANSACTIONS, { ...params, vTokens }],
+    () => getTransactions({ ...params, vTokens }),
+    {
+      keepPreviousData: true,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      ...options,
+      enabled: vTokens.length > 0 && (!options || options.enabled),
+    },
+  );
+};
 
 export default useGetTransactions;

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
-import compTrollerResponses from '__mocks__/contracts/comptroller';
+import compTrollerResponses from '__mocks__/contracts/mainPoolComptroller';
 
 import getHypotheticalAccountLiquidity from '.';
 

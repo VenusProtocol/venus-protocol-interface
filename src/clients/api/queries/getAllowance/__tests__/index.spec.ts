@@ -5,7 +5,7 @@ import { ContractTypeByName } from 'packages/contracts';
 import fakeAddress from '__mocks__/models/address';
 import fakeSigner from '__mocks__/models/signer';
 
-import getAllowance from '.';
+import getAllowance from '..';
 
 const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
 

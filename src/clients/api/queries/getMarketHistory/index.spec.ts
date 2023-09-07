@@ -2,7 +2,7 @@ import { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 import Vi from 'vitest';
 
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { vBusd } from '__mocks__/models/vTokens';
 
 import getMarketHistory from '.';
 
@@ -25,7 +25,7 @@ describe('api/queries/getMarketHistory', () => {
     }));
 
     const response = await getMarketHistory({
-      vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
+      vToken: vBusd,
     });
 
     expect(response).toEqual({
@@ -40,12 +40,12 @@ describe('api/queries/getMarketHistory', () => {
     }));
 
     await getMarketHistory({
-      vToken: TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'],
+      vToken: vBusd,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/markets/history?asset=${TESTNET_VBEP_TOKENS['0x714db6c38a17883964b68a07d56ce331501d9eb6'].address}&version=v2`,
+      endpoint: `/markets/history?asset=${vBusd.address}&version=v2`,
       method: 'GET',
     });
   });

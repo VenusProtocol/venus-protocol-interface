@@ -6,7 +6,7 @@ import { ChainId } from 'types';
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeProvider from '__mocks__/models/provider';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { vXvs } from '__mocks__/models/vTokens';
 import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
@@ -37,14 +37,14 @@ const context: AuthContextValue = {
 
 export const Disconnected = Template.bind({});
 Disconnected.args = {
-  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  vToken: vXvs,
   onClose: noop,
 };
 
 export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 Disabled.args = {
-  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  vToken: vXvs,
   onClose: noop,
 };
 
@@ -58,6 +58,6 @@ Default.decorators = [
   }),
 ];
 Default.args = {
-  vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+  vToken: vXvs,
   onClose: noop,
 };

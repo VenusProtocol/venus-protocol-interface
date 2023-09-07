@@ -25,7 +25,7 @@ describe('api/queries/useGetAsset', () => {
     const CallMarketContext = () => {
       ({ data } = useGetAsset({
         accountAddress: fakeAddress,
-        vToken: poolData[0].assets[0].vToken,
+        vTokenAddress: poolData[0].assets[0].vToken.address,
       }));
       return <div />;
     };
@@ -42,10 +42,7 @@ describe('api/queries/useGetAsset', () => {
     const CallMarketContext = () => {
       ({ data } = useGetAsset({
         accountAddress: fakeAddress,
-        vToken: {
-          ...poolData[0].assets[0].vToken,
-          address: 'fake-v-token-address',
-        },
+        vTokenAddress: 'fake-v-token-address',
       }));
       return <div />;
     };

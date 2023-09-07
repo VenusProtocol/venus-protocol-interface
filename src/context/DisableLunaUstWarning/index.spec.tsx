@@ -4,16 +4,13 @@ import { Pool } from 'types';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
+import { vLuna, vUst } from '__mocks__/models/vTokens';
 import { useGetMainPool } from 'clients/api';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 describe('context/DisableLunaUstWarning', () => {
-  it.each([
-    TESTNET_VBEP_TOKENS['0xf206af85bc2761c4f876d27bd474681cfb335efa'],
-    TESTNET_VBEP_TOKENS['0x9c3015191d39cf1930f92eb7e7bcbd020bca286a'],
-  ])('displays warning modal if %s is enabled as collateral', async vToken => {
+  it.each([vUst, vLuna])('displays warning modal if %s is enabled as collateral', async vToken => {
     const customPool: Pool = {
       ...poolData[0],
       assets: [

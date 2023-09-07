@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 import Vi from 'vitest';
 
-import compTrollerResponses from '__mocks__/contracts/comptroller';
+import compTrollerResponses from '__mocks__/contracts/mainPoolComptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';

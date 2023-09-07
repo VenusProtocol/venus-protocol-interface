@@ -8,8 +8,9 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { supply } from 'clients/api';
-import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_TOKENS } from 'constants/tokens';
 import useCollateral from 'hooks/useCollateral';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -224,7 +225,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 
@@ -282,7 +283,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 
@@ -353,7 +354,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
   it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      vToken: TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'], // vBNB
+      vToken: vBnb,
     };
 
     const onCloseModalMock = vi.fn();

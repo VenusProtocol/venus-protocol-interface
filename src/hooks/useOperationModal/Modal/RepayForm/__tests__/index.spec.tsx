@@ -7,8 +7,9 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { vXvs } from '__mocks__/models/vTokens';
 import { repay } from 'clients/api';
-import { TESTNET_TOKENS, TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { TESTNET_TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
@@ -132,7 +133,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 
@@ -190,7 +191,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: TESTNET_TOKENS.xvs,
-      spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+      spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
 

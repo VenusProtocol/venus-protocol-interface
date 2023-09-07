@@ -3,17 +3,15 @@ import { Typography } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Link, Params, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { getVTokenByAddress } from 'utilities';
 
-import addTokenToWallet, { canRegisterToken } from 'clients/web3/addTokenToWallet';
 import { Subdirectory, routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-import { TertiaryButton } from '../../../Button';
 import { EllipseAddress } from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
 import PoolName from './PoolName';
+import VTokenSymbol from './VTokenSymbol';
 import { useStyles } from './styles';
 
 export interface PathNode {
@@ -86,24 +84,7 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.MARKET: {
           hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress || '');
 
-          const vToken = getVTokenByAddress(params.vTokenAddress);
-
-          if (vToken) {
-            dom = (
-              <div css={styles.tokenSymbol}>
-                <span>{vToken.underlyingToken.symbol}</span>
-
-                {!!accountAddress && canRegisterToken() && (
-                  <TertiaryButton
-                    css={styles.addTokenButton}
-                    onClick={() => addTokenToWallet(vToken.underlyingToken)}
-                  >
-                    <Icon name="wallet" css={styles.walletIcon} />
-                  </TertiaryButton>
-                )}
-              </div>
-            );
-          }
+          dom = <VTokenSymbol vTokenAddress={params.vTokenAddress} />;
           break;
         }
         case Subdirectory.GOVERNANCE:

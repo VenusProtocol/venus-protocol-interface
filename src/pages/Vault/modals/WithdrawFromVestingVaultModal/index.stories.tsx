@@ -5,7 +5,7 @@ import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { vXvs } from '__mocks__/models/vTokens';
 import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
@@ -34,13 +34,13 @@ const authContext: AuthContextValue = {
 export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
-  stakedToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
+  stakedToken: vXvs.underlyingToken,
 };
 Default.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].underlyingToken,
+    token: vXvs.underlyingToken,
     accountAddress: fakeAddress,
-    spenderAddress: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'].address,
+    spenderAddress: vXvs.address,
   }),
 ];

@@ -5,7 +5,7 @@ import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
-import { TESTNET_VBEP_TOKENS } from 'constants/tokens';
+import { vBnb, vXvs } from '__mocks__/models/vTokens';
 
 import supply from '.';
 
@@ -29,7 +29,7 @@ describe('api/mutation/supply', () => {
 
       const response = await supply({
         signer: fakeSigner,
-        vToken: TESTNET_VBEP_TOKENS['0x2e7222e51c0f6e98610a1543aa3836e092cde62c'],
+        vToken: vBnb,
         amountWei: fakeAmountWei,
       });
 
@@ -59,7 +59,7 @@ describe('api/mutation/supply', () => {
 
       const response = await supply({
         signer: fakeSigner,
-        vToken: TESTNET_VBEP_TOKENS['0x6d6f697e34145bb95c54e77482d97cc261dc237e'],
+        vToken: vXvs,
         amountWei: fakeAmountWei,
       });
 

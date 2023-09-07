@@ -1,5 +1,4 @@
 export { restService } from './restService';
-export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
@@ -46,3 +45,4 @@ export { default as formatTokenPrices } from './formatTokenPrices';
 export { default as convertPriceMantissaToDollars } from './convertPriceMantissaToDollars';
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
 export { default as formatDistribution } from './formatDistribution';
+export { default as findTokenByAddress } from './findTokenByAddress';

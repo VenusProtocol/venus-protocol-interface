@@ -325,3 +325,7 @@ export { default as useGetVaiRepayApy } from './queries/getVaiRepayApy/useGetVai
 export { default as getXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 export { default as useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+
+export { default as getVTokens } from './queries/getVTokens';
+export * from './queries/getVTokens';
+export { default as useGetVTokens } from './queries/getVTokens/useGetVTokens';

@@ -190,50 +190,10 @@ export interface VotersDetails {
 }
 
 export interface Market {
-  id: string;
   address: string;
-  borrowApy: BigNumber;
-  borrowCaps: string;
-  borrowRatePerBlock: string;
-  borrowVenusApy: BigNumber;
-  borrowVenusApr: BigNumber;
   borrowerCount: number;
-  borrowerDailyVenus: string;
-  cash: string;
-  collateralFactor: string;
-  exchangeRate: string;
-  lastCalculatedBlockNumber: number;
-  liquidity: BigNumber;
-  name: string;
-  reserveFactor: string;
   supplierCount: number;
-  supplierDailyVenus: string;
-  supplyCaps: string;
-  supplyApy: BigNumber;
-  supplyRatePerBlock: string;
-  supplyVenusApy: BigNumber;
-  supplyVenusApr: BigNumber;
-  symbol: string;
-  tokenPrice: BigNumber;
-  totalBorrows: string;
-  totalBorrows2: string;
-  totalBorrowsUsd: string;
-  totalDistributed: string;
-  totalDistributed2: string;
-  totalReserves: string;
-  totalSupply: string;
-  totalSupply2: string;
-  totalSupplyUsd: string;
-  underlyingAddress: string;
-  underlyingDecimal: number;
-  underlyingName: string;
-  underlyingPrice: string;
-  underlyingSymbol: string;
-  venusBorrowIndex: string;
-  venusSpeeds: string;
-  venusSupplyIndex: string;
-  borrowBalanceCents: BigNumber;
-  supplyBalanceCents: BigNumber;
+  totalXvsDistributedTokens: BigNumber;
 }
 
 export interface MarketSnapshot {

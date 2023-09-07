@@ -6,7 +6,7 @@ import {
 import _cloneDeep from 'lodash/cloneDeep';
 import { contractInfos } from 'packages/contracts';
 import { Token } from 'types';
-import { areTokensEqual, getTokenByAddress, getVTokenByAddress } from 'utilities';
+import { areTokensEqual, getTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
@@ -46,29 +46,47 @@ const getIsolatedPools = async ({
     getBlockNumber({ provider }),
   ]);
 
-  // Extract vToken addresses and their associated underlying tokens
-  const [vTokenAddresses, underlyingTokens] = poolsResults.reduce<[string[], Token[]]>(
+  // Extract token records and addresses
+  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolsResults.reduce<
+    [string[], Token[], string[]]
+  >(
     (acc, poolResult) => {
       const newVTokenAddresses: string[] = [];
       const newUnderlyingTokens: Token[] = [];
+      const newUnderlyingTokenAddresses: string[] = [];
 
-      poolResult.vTokens.forEach(vToken => {
-        if (!newVTokenAddresses.includes(vToken.vToken)) {
-          newVTokenAddresses.push(vToken.vToken);
-        }
-
-        const underlyingToken = getTokenByAddress(vToken.underlyingAssetAddress);
+      poolResult.vTokens.forEach(vTokenMetaData => {
+        const underlyingToken = getTokenByAddress(vTokenMetaData.underlyingAssetAddress);
 
         if (!underlyingToken) {
-          logError(`Record missing for underlying token: ${vToken.underlyingAssetAddress}`);
-        } else if (!newUnderlyingTokens.some(token => areTokensEqual(token, underlyingToken))) {
+          logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
+          return;
+        }
+
+        if (!newVTokenAddresses.includes(vTokenMetaData.vToken)) {
+          newVTokenAddresses.push(vTokenMetaData.vToken);
+        }
+
+        if (
+          !newUnderlyingTokens.some(listedUnderlyingToken =>
+            areTokensEqual(listedUnderlyingToken, underlyingToken),
+          )
+        ) {
           newUnderlyingTokens.push(underlyingToken);
+        }
+
+        if (!newUnderlyingTokenAddresses.includes(underlyingToken.address)) {
+          newUnderlyingTokenAddresses.push(underlyingToken.address);
         }
       });
 
-      return [acc[0].concat(newVTokenAddresses), acc[1].concat(newUnderlyingTokens)];
+      return [
+        acc[0].concat(newVTokenAddresses),
+        acc[1].concat(newUnderlyingTokens),
+        acc[2].concat(newUnderlyingTokenAddresses),
+      ];
     },
-    [[], []],
+    [[], [], []],
   );
 
   // Fetch addresses of reward distributors and user collaterals
@@ -216,11 +234,6 @@ const getIsolatedPools = async ({
 
   const rewardsDistributorsOutput = await multicall3.call(rewardsDistributorsCallsContexts);
   const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
-
-  // Get addresses of all the tokens referenced
-  const underlyingTokenAddresses = vTokenAddresses
-    .map(vTokenAddress => getVTokenByAddress(vTokenAddress)?.underlyingToken.address)
-    .filter((vTokenAddress): vTokenAddress is string => !!vTokenAddress);
 
   const rewardTokenAddresses = rewardsDistributorsResults.map(
     rewardsDistributorsResult => rewardsDistributorsResult.callsReturnContext[0].returnValues[0],

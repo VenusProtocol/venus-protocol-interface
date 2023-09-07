@@ -58,7 +58,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x170d3b2da05cc2124334240fb34ad1359e34c562",
+            "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
             "symbol": "vHAY",
             "underlyingToken": {
@@ -100,7 +100,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x3338988d0beb4419acb8fe624218754053362d06",
+            "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
@@ -142,7 +142,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x899ddf81dfbbf5889a16d075c352f2b959dd24a4",
+            "address": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
             "decimals": 8,
             "symbol": "vUSDD",
             "underlyingToken": {
@@ -1348,7 +1348,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x170d3b2da05cc2124334240fb34ad1359e34c562",
+            "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
             "symbol": "vHAY",
             "underlyingToken": {
@@ -1390,7 +1390,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x3338988d0beb4419acb8fe624218754053362d06",
+            "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
@@ -1432,7 +1432,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x899ddf81dfbbf5889a16d075c352f2b959dd24a4",
+            "address": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
             "decimals": 8,
             "symbol": "vUSDD",
             "underlyingToken": {
