@@ -1,13 +1,14 @@
 import { swapRouter, uniqueContractInfos } from 'packages/contracts';
-import { ChainId } from 'types';
-import { areAddressesEqual, getTokenByAddress, getVTokenByAddress } from 'utilities';
+import { ChainId, VToken } from 'types';
+import { areAddressesEqual, findTokenByAddress, getTokenByAddress } from 'utilities';
 
 export interface GetContractNameInput {
   target: string;
+  vTokens: VToken[];
   chainId?: ChainId;
 }
 
-const getContractName = ({ target, chainId }: GetContractNameInput) => {
+const getContractName = ({ target, vTokens, chainId }: GetContractNameInput) => {
   // Search within tokens
   const token = getTokenByAddress(target);
   if (token) {
@@ -15,7 +16,11 @@ const getContractName = ({ target, chainId }: GetContractNameInput) => {
   }
 
   // Search within vTokens
-  const vToken = getVTokenByAddress(target);
+  const vToken = findTokenByAddress({
+    address: target,
+    tokens: vTokens,
+  });
+
   if (vToken) {
     return vToken.symbol;
   }
