@@ -1,3 +1,10 @@
+## [2.18.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.17.1...v2.18.0) (2023-09-07)
+
+
+### Features
+
+* fetch vTokens from contracts ([#1389](https://github.com/VenusProtocol/venus-protocol-interface/issues/1389)) ([59736c6](https://github.com/VenusProtocol/venus-protocol-interface/commit/59736c6e847afea27b9518a1a98023a299b843e0))
+
 ## [2.17.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.17.0...v2.17.1) (2023-09-06)
 
 ## [2.17.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.16.0...v2.17.0) (2023-09-06)
