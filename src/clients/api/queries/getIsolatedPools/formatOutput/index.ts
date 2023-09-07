@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
-import { Asset, Pool } from 'types';
+import { Asset, Pool, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -11,7 +11,7 @@ import {
   convertFactorFromSmartContract,
   convertWeiToTokens,
   formatTokenPrices,
-  getVTokenByAddress,
+  getTokenByAddress,
   multiplyMantissaDaily,
 } from 'utilities';
 
@@ -67,30 +67,26 @@ const formatToPools = ({
   );
 
   const pools: Pool[] = poolsResults.map(poolResult => {
-    const vTokenAddresses: string[] = poolResult.vTokens.map(item => item.vToken);
-
     const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
       areAddressesEqual(pool.id, poolResult.comptroller),
     );
 
-    const assets = vTokenAddresses.reduce<Asset[]>((acc, vTokenAddress) => {
-      const vToken = getVTokenByAddress(vTokenAddress);
+    const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
+      // Retrieve token record
+      const underlyingToken = getTokenByAddress(vTokenMetaData.underlyingAssetAddress);
 
-      if (!vToken) {
-        logError(`Record missing for vToken: ${vTokenAddress}`);
+      if (!underlyingToken) {
+        logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
         return acc;
       }
 
-      const poolLensResults = poolLensResult?.callsReturnContext;
-      const vTokenMetaData = poolResult.vTokens.find(
-        item => item.isListed && areAddressesEqual(item.vToken, vTokenAddress),
-      );
-
-      // Skip vToken if we couldn't fetch sufficient data
-      if (!vTokenMetaData) {
-        logError(`Metadata could not be fetched for vToken: ${vTokenAddress}`);
-        return acc;
-      }
+      // Shape vToken
+      const vToken: VToken = {
+        address: vTokenMetaData.vToken,
+        decimals: 8,
+        symbol: `v${underlyingToken.symbol}`,
+        underlyingToken,
+      };
 
       const tokenPriceDollars = tokenPricesDollars[vToken.underlyingToken.address.toLowerCase()];
 
@@ -107,17 +103,19 @@ const formatToPools = ({
         return acc;
       }
 
+      const poolLensResults = poolLensResult?.callsReturnContext;
+
       const vTokenUserBalances =
         poolLensResults &&
         poolLensResults[poolLensResults.length - 1].returnValues.find(userBalances =>
-          areAddressesEqual(userBalances[0], vTokenAddress),
+          areAddressesEqual(userBalances[0], vToken.address),
         );
 
       const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>
-        areAddressesEqual(market.id, vTokenAddress),
+        areAddressesEqual(market.id, vToken.address),
       );
       const supplierCount = +(subgraphPoolMarket?.supplierCount || 0);
       const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
@@ -224,7 +222,7 @@ const formatToPools = ({
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
       const isCollateralOfUser = userCollateralVTokenAddresses.includes(
-        vTokenAddress.toLowerCase(),
+        vToken.address.toLowerCase(),
       );
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
