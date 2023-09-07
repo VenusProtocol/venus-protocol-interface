@@ -52,13 +52,12 @@ const useGetVTokens = (options?: Options) => {
       },
     ],
     () =>
-      callOrThrow(
-        { mainPoolComptrollerContract, poolLensContract, poolRegistryContractAddress },
-        params =>
-          getVTokens({
-            venusLensContract,
-            ...params,
-          }),
+      callOrThrow({ poolLensContract, poolRegistryContractAddress }, params =>
+        getVTokens({
+          mainPoolComptrollerContract,
+          venusLensContract,
+          ...params,
+        }),
       ),
     options,
   );

@@ -3,7 +3,8 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPool } from 'clients/api';
+import vTokens from '__mocks__/models/vTokens';
+import { useGetPool, useGetVTokens } from 'clients/api';
 import { routes } from 'constants/routing';
 import renderComponent from 'testUtils/renderComponent';
 
@@ -11,6 +12,13 @@ import Breadcrumbs from '.';
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
+    (useGetVTokens as Vi.Mock).mockImplementation(() => ({
+      data: {
+        vTokens,
+      },
+      isLoading: false,
+    }));
+
     (useGetPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],

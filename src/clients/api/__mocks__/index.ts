@@ -6,6 +6,7 @@ import { assetData } from '__mocks__/models/asset';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { poolData } from '__mocks__/models/pools';
 import proposals from '__mocks__/models/proposals';
+import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
@@ -247,8 +248,10 @@ export const useGetPancakeSwapPairs = () =>
 export const getVaiRepayApy = vi.fn();
 export const useGetVaiRepayApy = () => useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy);
 
-export const getVTokens = vi.fn(async () => []);
-export const useGetVTokens = () => useQuery(FunctionKey.GET_VTOKENS, getVTokens);
+export const getVTokens = vi.fn(async () => ({
+  vTokens,
+}));
+export const useGetVTokens = vi.fn(() => useQuery(FunctionKey.GET_VTOKENS, getVTokens));
 
 // Mutations
 export const approveToken = vi.fn();
