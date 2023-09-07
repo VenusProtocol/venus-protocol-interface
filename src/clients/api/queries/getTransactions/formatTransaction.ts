@@ -1,23 +1,26 @@
 import BigNumber from 'bignumber.js';
-import { TransactionCategory, TransactionEvent } from 'types';
-import { convertTokensToWei, getTokenByAddress, getVTokenByAddress } from 'utilities';
+import { TransactionCategory, TransactionEvent, VToken } from 'types';
+import { areAddressesEqual, convertTokensToWei, getTokenByAddress } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
 import { TransactionResponse } from './types';
 
 const formatTransaction = ({
-  amount,
-  category,
-  event,
-  tokenAddress,
-  timestamp,
-  ...rest
-}: TransactionResponse) => {
-  const token =
-    getTokenByAddress(tokenAddress) ||
-    getVTokenByAddress(tokenAddress)?.underlyingToken ||
-    TOKENS.xvs;
+  data: { amount, category, event, tokenAddress, timestamp, ...rest },
+  vTokens,
+}: {
+  data: TransactionResponse;
+  vTokens: VToken[];
+}) => {
+  let token = getTokenByAddress(tokenAddress);
+
+  if (!token) {
+    token =
+      (tokenAddress &&
+        vTokens.find(vToken => areAddressesEqual(vToken.address, tokenAddress))?.underlyingToken) ||
+      TOKENS.xvs;
+  }
 
   return {
     ...rest,

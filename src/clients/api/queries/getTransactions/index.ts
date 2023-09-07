@@ -1,11 +1,12 @@
 import { VError } from 'errors';
-import { Transaction, TransactionEvent } from 'types';
+import { Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
 
 import formatTransaction from './formatTransaction';
 import { TransactionResponse } from './types';
 
 export interface GetTransactionsInput {
+  vTokens: VToken[];
   page?: number;
   event?: TransactionEvent;
   address?: string;
@@ -36,6 +37,7 @@ export interface GetTransactionsOutput {
 }
 
 const getTransactions = async ({
+  vTokens,
   page = 0,
   event,
   address,
@@ -69,7 +71,7 @@ const getTransactions = async ({
   }
   const { limit, page: payloadPage, total } = payload;
   const transactions = payload.result.reduce((acc, data) => {
-    const transaction = formatTransaction(data);
+    const transaction = formatTransaction({ data, vTokens });
     return [...acc, transaction];
   }, [] as Transaction[]);
 
