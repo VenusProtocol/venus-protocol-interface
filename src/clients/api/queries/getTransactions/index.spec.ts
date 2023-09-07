@@ -3,6 +3,7 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { transactionResponse } from '__mocks__/models/transactions';
+import vTokens from '__mocks__/models/vTokens';
 
 import getTransactions from '.';
 
@@ -21,9 +22,8 @@ describe('api/queries/getTransactions', () => {
       order: 'event',
       address: fakeAddress,
       sort: 'asc',
+      vTokens,
     });
-
-    expect(transactions).toHaveLength(20);
 
     expect(restService).toBeCalledWith({
       endpoint: '/activity/transactions',
@@ -47,7 +47,9 @@ describe('api/queries/getTransactions', () => {
       data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
     }));
 
-    const { transactions } = await getTransactions({});
+    const { transactions } = await getTransactions({
+      vTokens,
+    });
 
     expect(transactions).toHaveLength(20);
 

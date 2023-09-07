@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { TransactionCategory, TransactionEvent, VToken } from 'types';
-import { areAddressesEqual, convertTokensToWei, getTokenByAddress } from 'utilities';
+import { convertTokensToWei, findTokenByAddress, getTokenByAddress } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
@@ -18,7 +18,10 @@ const formatTransaction = ({
   if (!token) {
     token =
       (tokenAddress &&
-        vTokens.find(vToken => areAddressesEqual(vToken.address, tokenAddress))?.underlyingToken) ||
+        findTokenByAddress({
+          address: tokenAddress,
+          tokens: vTokens,
+        })?.underlyingToken) ||
       TOKENS.xvs;
   }
 

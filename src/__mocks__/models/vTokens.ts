@@ -50,3 +50,5 @@ export const vLuna: VToken = {
   symbol: 'vLUNA',
   underlyingToken: TESTNET_TOKENS.luna,
 };
+
+export default [vXvs, vBnb, vUsdc, vUsdt, vBusd, vUst, vLuna];

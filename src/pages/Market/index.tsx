@@ -11,30 +11,28 @@ import {
   Spinner,
 } from 'components';
 import React, { useMemo } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Asset, Token, VToken } from 'types';
+import { Asset, Token } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
-  getVTokenByAddress,
   isTokenActionEnabled,
 } from 'utilities';
 
-import { useGetAsset, useGetVTokenApySimulations } from 'clients/api';
+import { useGetVTokenApySimulations } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useOperationModal from 'hooks/useOperationModal';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
+import MarketLoader from './MarketLoader';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
@@ -46,8 +44,8 @@ export interface MarketUiProps {
   interestRateChartData: InterestRateChartProps['data'];
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
-  asset?: Asset;
   currentUtilizationRate: number;
+  asset: Asset;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
@@ -340,10 +338,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     dailyBorrowInterestsCents,
   ]);
 
-  if (!asset) {
-    return <Spinner />;
-  }
-
   const buttonsDom = (
     <>
       {isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'supply' }) && (
@@ -450,26 +444,18 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 };
 
 interface MarketProps {
-  vToken: VToken;
-  isIsolatedPoolMarket: boolean;
   poolComptrollerAddress: string;
+  asset: Asset;
+  isIsolatedPoolMarket: boolean;
 }
 
 const Market: React.FC<MarketProps> = ({
-  vToken,
-  isIsolatedPoolMarket,
   poolComptrollerAddress,
+  asset,
+  isIsolatedPoolMarket = false,
 }) => {
-  const { accountAddress } = useAuth();
-
-  const { data: getAssetData } = useGetAsset({
-    vToken,
-    accountAddress,
-  });
-  const asset = getAssetData?.asset;
-
   const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
-    vToken,
+    vToken: asset.vToken,
   });
 
   const reserveFactorMantissa = useMemo(
@@ -484,7 +470,7 @@ const Market: React.FC<MarketProps> = ({
       currentUtilizationRate: 0,
     },
   } = useGetVTokenApySimulations({
-    vToken,
+    vToken: asset.vToken,
     isIsolatedPoolMarket,
     reserveFactorMantissa,
     asset,
@@ -509,32 +495,26 @@ export const CorePoolMarket: React.FC = () => {
     name: 'mainPoolComptroller',
   });
 
-  const vToken = getVTokenByAddress(vTokenAddress);
-
-  // Redirect to dashboard page if params are invalid
-  if (!vToken || !mainPoolComptrollerContractAddress) {
-    return <Navigate to={routes.dashboard.path} />;
-  }
-
   return (
-    <Market
-      vToken={vToken}
-      isIsolatedPoolMarket={false}
+    <MarketLoader
       poolComptrollerAddress={mainPoolComptrollerContractAddress}
-    />
+      vTokenAddress={vTokenAddress}
+    >
+      {marketProps => <Market {...marketProps} />}
+    </MarketLoader>
   );
 };
 
 export const IsolatedPoolMarket: React.FC = () => {
   const { vTokenAddress, poolComptrollerAddress } = useParams();
-  const vToken = getVTokenByAddress(vTokenAddress);
-
-  // Redirect to dashboard page if params are invalid
-  if (!vToken || !poolComptrollerAddress) {
-    return <Navigate to={routes.dashboard.path} />;
-  }
 
   return (
-    <Market vToken={vToken} isIsolatedPoolMarket poolComptrollerAddress={poolComptrollerAddress} />
+    <MarketLoader
+      poolComptrollerAddress={poolComptrollerAddress}
+      vTokenAddress={vTokenAddress}
+      isIsolatedPoolMarket
+    >
+      {marketProps => <Market {...marketProps} />}
+    </MarketLoader>
   );
 };

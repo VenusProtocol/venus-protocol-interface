@@ -1,5 +1,6 @@
 import { Transaction } from 'types';
 
+import vTokens, { vUsdt } from '__mocks__/models/vTokens';
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
 import { TransactionResponse } from 'clients/api/queries/getTransactions/types';
 import { TOKENS } from 'constants/tokens';
@@ -27,7 +28,7 @@ export const transactionResponse: TransactionResponse[] = [
     to: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
     transactionHash: '0xb1739f27bf65398459df3228c0c74d955e8438e831fbde17506490368b264bf4',
     logIndex: '2',
-    tokenAddress: TOKENS.xvs.address,
+    tokenAddress: TOKENS.busd.address,
   },
   {
     amount: 1.4696e-10,
@@ -39,7 +40,7 @@ export const transactionResponse: TransactionResponse[] = [
     to: '0x8eE02B3FeCcae787992c4790bc31b350E7d1F382',
     transactionHash: '0x883ef64e9c1b043325834e1a9109bb5a31af4af67cac0b8c9d82b777c0c6efb7',
     logIndex: '3',
-    tokenAddress: TOKENS.xvs.address,
+    tokenAddress: vUsdt.address,
   },
   {
     amount: 1719.1,
@@ -248,7 +249,7 @@ export const transactionResponse: TransactionResponse[] = [
 ];
 
 const transactions = transactionResponse.reduce((acc, data) => {
-  const transaction = formatTransaction(data);
+  const transaction = formatTransaction({ data, vTokens });
   return transaction ? [...acc, transaction] : acc;
 }, [] as Transaction[]);
 
