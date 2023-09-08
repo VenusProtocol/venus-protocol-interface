@@ -17,7 +17,7 @@ function useGetSwapRouterContract({
 
   return useMemo(
     () =>
-      chainId !== undefined && !!signerOrProvider
+      signerOrProvider
         ? getSwapRouterContract({
             comptrollerAddress,
             chainId,

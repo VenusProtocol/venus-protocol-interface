@@ -14,12 +14,10 @@ function useGetUniqueContractAddress<TContractName extends UniqueContractName>({
 
   return useMemo(
     () =>
-      chainId !== undefined
-        ? getUniqueContractAddress({
-            name,
-            chainId,
-          })
-        : undefined,
+      getUniqueContractAddress({
+        name,
+        chainId,
+      }),
     [chainId],
   );
 }

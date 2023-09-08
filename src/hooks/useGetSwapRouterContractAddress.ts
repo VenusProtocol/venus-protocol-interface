@@ -14,12 +14,10 @@ function useGetSwapRouterContractAddress({
 
   return useMemo(
     () =>
-      chainId !== undefined
-        ? getSwapRouterContractAddress({
-            comptrollerAddress,
-            chainId,
-          })
-        : undefined,
+      getSwapRouterContractAddress({
+        comptrollerAddress,
+        chainId,
+      }),
     [chainId],
   );
 }

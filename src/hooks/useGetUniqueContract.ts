@@ -17,7 +17,7 @@ function useGetUniqueContract<TContractName extends UniqueContractName>({
 
   return useMemo(
     () =>
-      chainId !== undefined && !!signerOrProvider
+      signerOrProvider
         ? getUniqueContract({
             name,
             chainId,
