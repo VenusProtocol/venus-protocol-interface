@@ -1,7 +1,6 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetTokenBalancesInput, GetTokenBalancesOutput, getTokenBalances } from 'clients/api';
-import { useMulticall3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
@@ -23,7 +22,6 @@ const useGetTokenBalances = (
   { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'multicall3' | 'provider'>,
   options?: Options,
 ) => {
-  const multicall3 = useMulticall3();
   const { provider } = useAuth();
 
   // Sort addresses alphabetically to prevent unnecessary re-renders
@@ -37,7 +35,7 @@ const useGetTokenBalances = (
       },
       ...sortedTokenAddresses,
     ],
-    () => getTokenBalances({ multicall3, accountAddress, tokens, provider }),
+    () => getTokenBalances({ accountAddress, tokens, provider }),
     options,
   );
 };

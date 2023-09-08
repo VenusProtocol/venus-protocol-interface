@@ -1,116 +1,67 @@
 import BigNumber from 'bignumber.js';
-import {
-  ContractCallContext,
-  ContractCallReturnContext,
-  Multicall as Multicall3,
-} from 'ethereum-multicall';
-import { contractInfos } from 'packages/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
+import { getTokenContract } from 'utilities';
 
 import { type Provider } from 'clients/web3';
 
-import getBalanceOf from '../getBalanceOf';
-
 export interface GetTokenBalancesInput {
-  multicall3: Multicall3;
   provider: Provider;
   accountAddress: string;
   tokens: Token[];
 }
 
-type GetTokenBalancesPromise = () => Promise<TokenBalance[]>;
-
 export type GetTokenBalancesOutput = {
   tokenBalances: TokenBalance[];
 };
 
+Array<
+  | Awaited<ReturnType<ContractTypeByName<'bep20'>['balanceOf']>>
+  | Awaited<ReturnType<Provider['getBalance']>>
+>;
+
 const getTokenBalances = async ({
-  multicall3,
   provider,
   accountAddress,
   tokens,
 }: GetTokenBalancesInput): Promise<GetTokenBalancesOutput> => {
-  let nativeTokenToRequest: Token | undefined;
+  const tokenBalanceResults = await Promise.allSettled(
+    tokens.map(token => {
+      if (token.isNative) {
+        return provider.getBalance(accountAddress);
+      }
 
-  // Generate call context
-  const contractCallContexts = tokens.reduce((acc, token) => {
-    if (token.isNative) {
-      nativeTokenToRequest = token;
-      return acc;
-    }
+      const tokenContract = getTokenContract({
+        token,
+        signerOrProvider: provider,
+      });
 
-    const contractCallContext: ContractCallContext = {
-      reference: token.address,
-      contractAddress: token.address,
-      abi: contractInfos.bep20.abi,
-      calls: [
-        {
-          reference: 'balanceOf',
-          methodName: 'balanceOf',
-          methodParameters: [accountAddress],
-        },
-      ],
-    };
+      return tokenContract.balanceOf(accountAddress);
+    }, []),
+  );
 
-    return [...acc, contractCallContext];
-  }, [] as ContractCallContext[]);
+  const tokenBalances = tokenBalanceResults.reduce<TokenBalance[]>(
+    (acc, tokenBalanceResult, index) => {
+      const balanceWei =
+        tokenBalanceResult.status === 'fulfilled'
+          ? new BigNumber(tokenBalanceResult.value.toString())
+          : undefined;
 
-  // Handle fetching non-native token balances
-  const getBep20Balances: GetTokenBalancesPromise = async () => {
-    const unformattedResults = await multicall3.call(contractCallContexts);
-    const results: ContractCallReturnContext[] = Object.values(unformattedResults.results);
-
-    return results.reduce((acc, result) => {
-      const token = tokens.find(
-        inputToken => result.originalContractCallContext.reference === inputToken.address,
-      );
-
-      const returnContext = result.callsReturnContext[0];
-
-      // Remove results for which a token could not be find in the input and for
-      // which the requests was unsuccessful
-      if (!token || !returnContext.success) {
+      if (!balanceWei) {
         return acc;
       }
 
       const tokenBalance: TokenBalance = {
-        token,
-        balanceWei: new BigNumber(returnContext.returnValues[0].hex),
+        token: tokens[index],
+        balanceWei,
       };
 
       return [...acc, tokenBalance];
-    }, [] as TokenBalance[]);
-  };
+    },
+    [],
+  );
 
-  const promises: Promise<TokenBalance[]>[] = [getBep20Balances()];
-
-  // Handle fetching BNB balance if it was requested
-  if (nativeTokenToRequest) {
-    const getNativeBalance: GetTokenBalancesPromise = async () => {
-      const { balanceWei } = await getBalanceOf({
-        provider,
-        accountAddress,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        token: nativeTokenToRequest!,
-      });
-
-      return [
-        {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          token: nativeTokenToRequest!,
-          balanceWei,
-        },
-      ];
-    };
-
-    promises.push(getNativeBalance());
-  }
-
-  const res = await Promise.all(promises);
-
-  return {
-    tokenBalances: res.flat(),
-  };
+  return { tokenBalances };
 };
 
 export default getTokenBalances;
