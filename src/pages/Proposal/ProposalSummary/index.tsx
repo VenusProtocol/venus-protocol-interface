@@ -12,7 +12,8 @@ import isAfter from 'date-fns/isAfter';
 import { ContractReceipt } from 'ethers';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Proposal, ProposalType } from 'types';
+import { Proposal, ProposalState, ProposalType } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 import {
   useCancelProposal,
@@ -66,19 +67,17 @@ export const ProposalSummaryUi: React.FC<
 
   const {
     state,
-    id,
+    proposalId,
     description: { title },
     createdDate,
     createdTxHash,
     startDate,
-    startTxHash,
     cancelDate,
     cancelTxHash,
     queuedDate,
     queuedTxHash,
     executedDate,
     executedTxHash,
-    endTxHash,
     endDate,
     proposalType,
   } = proposal;
@@ -117,11 +116,11 @@ export const ProposalSummaryUi: React.FC<
   };
 
   let updateProposalButton;
-  let transactionHash = startTxHash;
+  let transactionHash = createdTxHash;
   const isExecuteEtaInFuture = !!proposalEta && isAfter(proposalEta, new Date());
 
   switch (state) {
-    case 'Active':
+    case ProposalState.Active:
       updateProposalButton = (
         <SecondaryButton
           onClick={handleCancelProposal}
@@ -135,10 +134,10 @@ export const ProposalSummaryUi: React.FC<
       );
       transactionHash = createdTxHash;
       break;
-    case 'Canceled':
+    case ProposalState.Canceled:
       transactionHash = cancelTxHash;
       break;
-    case 'Succeeded':
+    case ProposalState.Succeeded:
       updateProposalButton = (
         <PrimaryButton
           onClick={handleQueueProposal}
@@ -149,9 +148,8 @@ export const ProposalSummaryUi: React.FC<
           {t('voteProposalUi.queue')}
         </PrimaryButton>
       );
-      transactionHash = endTxHash;
       break;
-    case 'Queued':
+    case ProposalState.Queued:
       if (!isExecuteEtaInFuture) {
         updateProposalButton = (
           <PrimaryButton
@@ -167,17 +165,14 @@ export const ProposalSummaryUi: React.FC<
 
       transactionHash = queuedTxHash;
       break;
-    case 'Defeated':
-      transactionHash = endTxHash;
-      break;
-    case 'Executed':
+    case ProposalState.Executed:
       transactionHash = executedTxHash;
       break;
     // no default
   }
 
   const countdownData = useMemo(() => {
-    if (state === 'Active' && endDate) {
+    if (state === ProposalState.Active && endDate) {
       return {
         date: endDate,
         // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
@@ -186,7 +181,7 @@ export const ProposalSummaryUi: React.FC<
       };
     }
 
-    if (state === 'Queued' && isExecuteEtaInFuture) {
+    if (state === ProposalState.Queued && isExecuteEtaInFuture) {
       return {
         date: proposalEta,
         // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
@@ -201,7 +196,7 @@ export const ProposalSummaryUi: React.FC<
       <div css={styles.leftSection}>
         <div css={styles.topRow}>
           <div css={styles.topRowLeftColumn}>
-            <Chip text={`#${id}`} css={styles.chipSpace} />
+            <Chip text={`#${proposalId}`} css={styles.chipSpace} />
 
             {proposalType !== ProposalType.NORMAL && (
               <ProposalTypeChip proposalType={proposalType} />
@@ -268,20 +263,21 @@ export const ProposalSummaryUi: React.FC<
 
 const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
   const { accountAddress } = useAuth();
+  const { proposalId } = proposal;
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
     useExecuteProposal();
   const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
 
-  const handleCancelProposal = () => cancelProposal({ proposalId: proposal.id });
-  const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id });
-  const handleQueueProposal = () => queueProposal({ proposalId: proposal.id });
+  const handleCancelProposal = () => cancelProposal({ proposalId });
+  const handleExecuteProposal = () => executeProposal({ proposalId });
+  const handleQueueProposal = () => queueProposal({ proposalId });
 
   const { data: proposalThresholdData } = useGetProposalThreshold();
 
   const { data: getProposalEtaData } = useGetProposalEta({
-    proposalId: proposal.id,
+    proposalId,
   });
 
   const { data: proposerVotesData } = useGetCurrentVotes(
@@ -290,7 +286,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   );
 
   const canCancelProposal =
-    proposal.proposer === accountAddress ||
+    areAddressesEqual(proposal.proposer, accountAddress || '') ||
     (proposalThresholdData?.thresholdWei &&
       proposerVotesData?.votesWei.isLessThan(proposalThresholdData.thresholdWei));
 

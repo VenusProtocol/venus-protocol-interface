@@ -10,8 +10,8 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 import useGetToken from 'hooks/useGetToken';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,

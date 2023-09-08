@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVoteSummary > returns summary of votes 1`] = `
+{
+  "abstain": "0",
+  "against": "0",
+  "for": "6.05461e+23",
+  "total": "6.05461e+23",
+}
+`;

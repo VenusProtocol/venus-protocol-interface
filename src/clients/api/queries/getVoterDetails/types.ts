@@ -3,31 +3,16 @@ export interface GetVoterDetailsResponse {
   delegateCount: number;
   delegates: string;
   votes: string;
-  txs: (
-    | {
-        amount: string;
-        blockNumber: number;
-        blockTimestamp: number;
-        createdAt: string;
-        from: string;
-        to: string;
-        transactionHash: string;
-        transactionIndex: number;
-        type: 'transfer';
-        updatedAt: string;
-      }
-    | {
-        amount: string;
-        blockNumber: number;
-        blockTimestamp: number;
-        createdAt: string;
-        from: string;
-        to: string;
-        transactionHash: string;
-        transactionIndex: number;
-        type: 'vote';
-        updatedAt: string;
-        support: 0 | 1 | 2;
-      }
-  )[];
+  txs: {
+    category: string;
+    event: string;
+    transactionHash: string;
+    logIndex: number;
+    from: string;
+    to: string;
+    tokenAddress: string;
+    amountMantissa: string;
+    blockNumber: number;
+    timestamp: number;
+  }[];
 }

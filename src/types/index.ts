@@ -108,17 +108,19 @@ export interface Pool {
   userBorrowLimitCents?: BigNumber;
 }
 
-export type ProposalState =
-  | 'Pending'
-  | 'Active'
-  | 'Canceled'
-  | 'Defeated'
-  | 'Succeeded'
-  | 'Queued'
-  | 'Expired'
-  | 'Executed';
+export enum ProposalState {
+  Pending,
+  Active,
+  Canceled,
+  Defeated,
+  Succeeded,
+  Queued,
+  Expired,
+  Executed,
+}
 
 export interface ProposalAction {
+  actionIndex: number;
   callData: string;
   signature: string;
   target: string;
@@ -149,16 +151,44 @@ export enum ProposalType {
   CRITICAL,
 }
 
+export enum VoteSupport {
+  Against,
+  For,
+  Abstain,
+}
+
+export type ProposalVoter = {
+  proposalId: number;
+  address: string;
+  blockNumber: number;
+  reason: string | undefined;
+  support: VoteSupport;
+  votesMantissa: BigNumber;
+  blockTimestamp: Date;
+};
+
+export type ForVoter = Omit<ProposalVoter, 'support'> & {
+  support: VoteSupport.For;
+};
+
+export type AgainstVoter = Omit<ProposalVoter, 'support'> & {
+  support: VoteSupport.Against;
+};
+
+export type AbstainVoter = Omit<ProposalVoter, 'support'> & {
+  support: VoteSupport.Abstain;
+};
+
 export interface Proposal {
-  abstainedVotesWei: BigNumber;
-  againstVotesWei: BigNumber;
+  abstainedVotesMantissa: BigNumber;
+  againstVotesMantissa: BigNumber;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
   proposalType: ProposalType;
   endBlock: number;
   executedDate: Date | undefined;
-  forVotesWei: BigNumber;
-  id: number;
+  forVotesMantissa: BigNumber;
+  proposalId: number;
   proposer: string;
   queuedDate: Date | undefined;
   startDate: Date | undefined;
@@ -166,14 +196,16 @@ export interface Proposal {
   cancelDate: Date | undefined;
   createdTxHash: string | undefined;
   cancelTxHash: string | undefined;
-  endTxHash: string | undefined;
   executedTxHash: string | undefined;
   queuedTxHash: string | undefined;
-  startTxHash: string | undefined;
-  totalVotesWei: BigNumber;
-  actions: ProposalAction[];
+  totalVotesMantissa: BigNumber;
   blockNumber?: number;
   endDate?: Date;
+  proposalActions: ProposalAction[];
+  forVotes: ForVoter[];
+  againstVotes: AgainstVoter[];
+  abstainVotes: AbstainVoter[];
+  userHasVoted: boolean;
 }
 
 export interface JsonProposal {
@@ -190,21 +222,15 @@ export interface JsonProposal {
   params?: (string | (string | number)[])[][];
 }
 
-export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
-
 export interface VotersDetails {
   result: {
     address: string;
-    votesWei: BigNumber;
+    votesMantissa: BigNumber;
     reason?: string;
     support: VoteSupport;
+    blockNumber: number;
+    blockTimestamp: Date;
   }[];
-  sumVotes: {
-    abstain: BigNumber;
-    against: BigNumber;
-    for: BigNumber;
-    total: BigNumber;
-  };
 }
 
 export interface Market {
@@ -276,12 +302,11 @@ export interface Vault {
 
 export interface VoterAccount {
   address: string;
-  createdAt: Date;
-  id: string;
+  delegate: string;
   proposalsVoted: number;
-  updatedAt: Date;
-  voteWeightPercent: number;
-  votesWei: BigNumber;
+  stakedVotesMantissa: BigNumber;
+  voteWeightPercent: string;
+  votesMantissa: BigNumber;
 }
 
 export interface LockedDeposit {
@@ -289,56 +314,39 @@ export interface LockedDeposit {
   unlockedAt: Date;
 }
 
-export type VoteDetailTransactionTransfer = {
-  amountWei: BigNumber;
+export type VoteDetail = {
+  votesMantissa: BigNumber;
   blockNumber: number;
   blockTimestamp: Date;
-  createdAt: Date;
-  from: string;
-  to: string;
-  transactionHash: string;
-  transactionIndex: number;
-  type: 'transfer';
-  updatedAt: Date;
-};
-
-export type VoteDetailTransactionVote = {
-  votesWei: BigNumber;
-  blockNumber: number;
-  blockTimestamp: Date;
-  createdAt: Date;
-  from: string;
-  to: string;
-  transactionHash: string;
-  transactionIndex: number;
-  type: 'vote';
-  updatedAt: Date;
   support: VoteSupport;
 };
 
-export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
+export type VoterTransaction = {
+  category: string;
+  event: string;
+  transactionHash: string;
+  logIndex: number;
+  from: string;
+  to: string;
+  tokenAddress: string;
+  amountMantissa: BigNumber;
+  blockNumber: number;
+  timestamp: Date;
+};
 
 export interface Voter {
-  balanceWei: BigNumber;
+  balanceMantissa: BigNumber;
   delegateCount: number;
   delegateAddress: string;
   delegating: boolean;
-  votesWei: BigNumber;
-  voterTransactions: VoteDetailTransaction[];
+  votesMantissa: BigNumber;
+  txs: VoterTransaction[];
 }
 
-export interface VoterHistory {
-  address: string;
-  blockNumber: number;
-  blockTimestamp: number;
-  createdAt: Date;
-  id: string;
-  proposal: Proposal;
-  reason: string | undefined;
+export type VoterHistory = Proposal & {
   support: VoteSupport;
-  updatedAt: Date;
-  votesWei: BigNumber;
-}
+  reason: string | undefined;
+};
 
 export type SwapDirection = 'exactAmountIn' | 'exactAmountOut';
 

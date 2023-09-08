@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
+import { ProposalAction } from 'types';
 
 import tokens from '__mocks__/models/tokens';
 import { withCenterStory, withRouter } from 'stories/decorators';
@@ -34,14 +35,16 @@ const descriptionV2 = {
   abstainDescription: 'Maybe!',
 };
 
-const actions = [
+const actions: ProposalAction[] = [
   {
+    actionIndex: 1,
     callData: '',
     signature: '',
     target: '',
     value: '',
   },
   {
+    actionIndex: 2,
     callData: '',
     signature: '',
     target: '',

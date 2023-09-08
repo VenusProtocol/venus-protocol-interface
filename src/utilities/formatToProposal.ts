@@ -1,43 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { Proposal, ProposalType } from 'types';
+import { AbstainVoter, AgainstVoter, ForVoter, Proposal, ProposalType, VoteSupport } from 'types';
 
-interface FormatToProposalInput {
-  abstainedVotes: string;
-  againstVotes: string;
-  cancelTimestamp: number | null;
-  createdTimestamp: number | null;
-  description: string;
-  endBlock: number;
-  endTimestamp: number;
-  executedTimestamp: number | null;
-  forVotes: string;
-  id: number;
-  proposer: string;
-  queuedTimestamp: number | null;
-  startTimestamp: number;
-  state:
-    | 'Pending'
-    | 'Active'
-    | 'Canceled'
-    | 'Defeated'
-    | 'Succeeded'
-    | 'Queued'
-    | 'Expired'
-    | 'Executed';
-  createdTxHash: string | null;
-  cancelTxHash: string | null;
-  endTxHash: string | null;
-  executedTxHash: string | null;
-  queuedTxHash: string | null;
-  startTxHash: string | null;
-  actions?: {
-    callData: string;
-    signature: string;
-    target: string;
-    value: string;
-  }[];
-  proposalType?: ProposalType;
-}
+import type { ProposalApiResponse } from 'clients/api';
+
+import areAddressesEqual from './areAddressesEqual';
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
   const inMilliseconds = timestampInSeconds * 1000;
@@ -45,29 +11,26 @@ const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
 };
 
 const formatToProposal = ({
-  abstainedVotes,
-  againstVotes,
   cancelTimestamp,
   createdTimestamp,
   description,
   endBlock,
   endTimestamp,
   executedTimestamp,
-  forVotes,
-  id,
   proposer,
   queuedTimestamp,
   startTimestamp,
   state,
   createdTxHash,
   cancelTxHash,
-  endTxHash,
   executedTxHash,
   queuedTxHash,
-  startTxHash,
-  actions,
   proposalType,
-}: FormatToProposalInput): Proposal => {
+  proposalId,
+  proposalActions,
+  votes,
+  accountAddress,
+}: ProposalApiResponse & { accountAddress: string }): Proposal => {
   const endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
   let descriptionObj: Proposal['description'] = {
@@ -94,34 +57,78 @@ const formatToProposal = ({
     descriptionObj = { version: 'v1', title: plainTitle, description: descriptionText };
   }
 
-  const abstainedVotesWei = new BigNumber(abstainedVotes || 0);
-  const againstVotesWei = new BigNumber(againstVotes || 0);
-  const forVotesWei = new BigNumber(forVotes || 0);
+  const allVotes = votes || [];
+  const forVotes: ForVoter[] = [];
+  const againstVotes: AgainstVoter[] = [];
+  const abstainVotes: AbstainVoter[] = [];
+
+  allVotes?.forEach(vote => {
+    const enrichedVote = {
+      ...vote,
+      blockTimestamp: new Date(vote.blockTimestamp),
+      votesMantissa: new BigNumber(vote.votesMantissa),
+    };
+
+    if (vote.support === VoteSupport.For) {
+      forVotes.push(enrichedVote as ForVoter);
+    } else if (vote.support === VoteSupport.Against) {
+      againstVotes.push(enrichedVote as AgainstVoter);
+    } else if (vote.support === VoteSupport.Abstain) {
+      abstainVotes.push(enrichedVote as AbstainVoter);
+    }
+  });
+
+  const abstainVotesValue = abstainVotes.reduce(
+    (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+    new BigNumber(0),
+  );
+  const againstVotesValue = againstVotes.reduce(
+    (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+    new BigNumber(0),
+  );
+  const forVotesValue = forVotes.reduce(
+    (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+    new BigNumber(0),
+  );
+
+  const totalVotesMantissa = abstainVotesValue.plus(againstVotesValue).plus(forVotesValue);
+
+  const userHasVoted = !!votes?.find(v => areAddressesEqual(v.address, accountAddress));
+
+  const formattedActions = (proposalActions || [])
+    .map(({ calldata, value, ...action }) => ({
+      ...action,
+      value: value || '',
+      callData: calldata,
+    }))
+    .sort((a, b) => a.actionIndex - b.actionIndex);
 
   const proposal: Proposal = {
-    abstainedVotesWei,
-    againstVotesWei,
+    abstainedVotesMantissa: abstainVotesValue,
+    againstVotesMantissa: againstVotesValue,
     cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
     createdDate: createdTimestamp ? createDateFromSecondsTimestamp(createdTimestamp) : undefined,
     description: descriptionObj,
     endBlock,
     endDate,
     executedDate: executedTimestamp ? createDateFromSecondsTimestamp(executedTimestamp) : undefined,
-    forVotesWei,
-    id,
+    forVotesMantissa: forVotesValue,
+    proposalId,
     proposer,
     queuedDate: queuedTimestamp ? createDateFromSecondsTimestamp(queuedTimestamp) : undefined,
     startDate: createDateFromSecondsTimestamp(startTimestamp),
     state,
     createdTxHash: createdTxHash ?? undefined,
     cancelTxHash: cancelTxHash ?? undefined,
-    endTxHash: endTxHash ?? undefined,
     executedTxHash: executedTxHash ?? undefined,
     queuedTxHash: queuedTxHash ?? undefined,
-    startTxHash: startTxHash ?? undefined,
-    totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
-    actions: actions || [],
+    totalVotesMantissa,
+    proposalActions: formattedActions,
+    forVotes,
+    againstVotes,
+    abstainVotes,
     proposalType: proposalType ?? ProposalType.NORMAL,
+    userHasVoted,
   };
 
   return proposal;

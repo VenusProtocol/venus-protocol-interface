@@ -1,9 +1,9 @@
-import { VotersDetails } from 'types';
+import { VoteSupport, VotersDetails } from 'types';
 
 export interface GetVotersInput {
-  proposalId: number;
-  // 0 - "for" votes, 1 – "against" votes, 2 – "abstain" votes
-  filter?: 0 | 1 | 2;
+  proposalId?: number;
+  address?: string;
+  support?: VoteSupport;
   limit?: number;
   offset?: number;
 }
@@ -12,21 +12,15 @@ export interface VoterResult {
   address: string;
   blockNumber: number;
   blockTimestamp: number;
-  createdAt: string;
-  hasVoted: boolean;
-  id: string;
   proposalId: number;
   reason: string | null;
-  support: 0 | 1 | 2;
-  updatedAt: string;
-  votes: string;
-  votes2: string;
+  support: VoteSupport;
+  votesMantissa: string;
 }
 
 export interface GetVotersApiResponse {
   limit: number;
   result: VoterResult[];
-  sumVotes: { for: string; against: string; abstain: string; total: string };
   total: number;
 }
 

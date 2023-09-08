@@ -1,80 +1,63 @@
 {
-  "data": {
-    "limit": 100,
-    "offset": 0,
-    "result": [
-      {
-        "address": "0xfea1c651a47fe29db9b1bf3cc1f224d8d9cff68c",
-        "createdAt": "2021-12-30T07:03:00.000Z",
-        "id": "23b9e102-fc8f-45e0-8a9a-041a10309147",
-        "proposalsVoted": 22,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0.589888,
-        "votes": "1021378937600000000000012",
-        "votes2": "000000000000000000000001021378937600000000000012"
-      },
-      {
-        "address": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
-        "createdAt": "2021-12-30T07:03:00.000Z",
-        "id": "a246feff-c65a-4fe6-a732-5ec43172bb7b",
-        "proposalsVoted": 42,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0.410112,
-        "votes": "710101000000000000000000",
-        "votes2": "000000000000000000000000710101000000000000000000"
-      },
-      {
-        "address": "0x6eace20e1f89d0b24e5b295af1802dfbc730b37d",
-        "createdAt": "2022-04-25T17:47:01.000Z",
-        "id": "47c7162f-f95d-4129-9687-8bb7aa4f0c50",
-        "proposalsVoted": 4,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0,
-        "votes": "0",
-        "votes2": "000000000000000000000000000000000000000000000000"
-      },
-      {
-        "address": "0xfedd302cfafc03a7d4dfc99342fe20e0521c265a",
-        "createdAt": "2022-06-23T19:16:01.000Z",
-        "id": "a6e71ee5-0917-4a15-a907-7420291c619c",
-        "proposalsVoted": 1,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0,
-        "votes": "0",
-        "votes2": "000000000000000000000000000000000000000000000000"
-      },
-      {
-        "address": "0xd2e106a978d766bc9f6fda296c7ec1c23839067c",
-        "createdAt": "2022-06-06T17:52:01.000Z",
-        "id": "c5f13a38-fbfe-40a7-b141-a2a18b219436",
-        "proposalsVoted": 4,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0,
-        "votes": "0",
-        "votes2": "000000000000000000000000000000000000000000000000"
-      },
-      {
-        "address": "0xac01afa9f45dd61f234a401f4650fff5a3971117",
-        "createdAt": "2022-01-14T13:14:00.000Z",
-        "id": "d6c99cab-d467-4a57-a22d-54e39f9a6bc8",
-        "proposalsVoted": 1,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0,
-        "votes": "0",
-        "votes2": "000000000000000000000000000000000000000000000000"
-      },
-      {
-        "address": "0x92f66fcbcb5ec844ee8505b1861d084e12f54505",
-        "createdAt": "2021-12-30T07:03:00.000Z",
-        "id": "e067b683-fc68-4a79-8059-0cafb408d2f2",
-        "proposalsVoted": 5,
-        "updatedAt": "2022-06-24T13:29:01.000Z",
-        "voteWeight": 0,
-        "votes": "0",
-        "votes2": "000000000000000000000000000000000000000000000000"
-      }
-    ],
-    "total": 7
-  },
-  "status": true
+  "limit": 100,
+  "page": 0,
+  "result": [
+    {
+      "address": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
+      "voteWeight": "0.3948365670826356053",
+      "proposalsVoted": 405,
+      "votesMantissa": "6.05461e+23",
+      "stakedVotesMantissa": "6.05561e+23",
+      "delegate": "0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706"
+    },
+    {
+      "address": "0xD4a9F68DEbed2F8D7cE0115d415cc992AB0BFbcc",
+      "voteWeight": "0.00003260627580328342",
+      "proposalsVoted": 0,
+      "votesMantissa": "50000000000000000000",
+      "stakedVotesMantissa": "55000000000000000000",
+      "delegate": "0xD4a9F68DEbed2F8D7cE0115d415cc992AB0BFbcc"
+    },
+    {
+      "address": "0xFEdD302cFAFC03A7d4DFC99342fe20E0521C265A",
+      "voteWeight": "0.26227211824242645333",
+      "proposalsVoted": 16,
+      "votesMantissa": "4.02180426591398612445922e+23",
+      "stakedVotesMantissa": "1.00000054991398612445922e+23",
+      "delegate": "0xFEdD302cFAFC03A7d4DFC99342fe20E0521C265A"
+    },
+    {
+      "address": "0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D",
+      "voteWeight": "0.19125097865572056809",
+      "proposalsVoted": 31,
+      "votesMantissa": "3.020803716e+23",
+      "stakedVotesMantissa": "3.020803716e+23",
+      "delegate": "0x6eACe20E1F89D0B24e5B295Af1802dfBc730B37D"
+    },
+    {
+      "address": "0xD2e106A978D766Bc9F6FdA296C7EC1c23839067C",
+      "voteWeight": "0.19564012962507825585",
+      "proposalsVoted": 25,
+      "votesMantissa": "3.000037949832e+23",
+      "stakedVotesMantissa": "3.000037949832e+23",
+      "delegate": "0xD2e106A978D766Bc9F6FdA296C7EC1c23839067C"
+    },
+    {
+      "address": "0x2EF706339560Ffd848c04bcD1b611edE0a0b79b7",
+      "voteWeight": "0.00000652125516065668",
+      "proposalsVoted": 0,
+      "votesMantissa": "10000000000000000000",
+      "stakedVotesMantissa": "10000000000000000000",
+      "delegate": "0x2EF706339560Ffd848c04bcD1b611edE0a0b79b7"
+    },
+    {
+      "address": "0x54950126D02532F852920A04f46359E617F48f3D",
+      "voteWeight": "0",
+      "proposalsVoted": 0,
+      "votesMantissa": "0",
+      "stakedVotesMantissa": "310413900000000000000",
+      "delegate": null
+    }
+  ],
+  "total": 7
 }

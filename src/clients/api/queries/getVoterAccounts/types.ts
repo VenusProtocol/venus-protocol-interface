@@ -1,15 +1,12 @@
 export interface GetVoterAccountsResponse {
   limit: number;
-  offset: number;
+  page: number;
   total: number;
   result: {
     address: string;
-    createdAt: string;
-    id: string;
+    delegate: string | null;
     proposalsVoted: number;
-    updatedAt: string;
-    voteWeight: number;
-    votes: string;
-    votes2: string;
+    stakedVotesMantissa: string;
+    votesMantissa: string;
   }[];
 }

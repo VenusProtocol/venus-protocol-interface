@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { restService } from 'utilities';
 import Vi from 'vitest';
 
@@ -16,6 +17,10 @@ describe('api/queries/getVoterAccounts', () => {
 
     const { voterAccounts } = await getVoterAccounts({
       page: 2,
+      totalStakedXvs: voterAccountsResponse.result.reduce(
+        (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+        new BigNumber(0),
+      ),
     });
 
     expect(voterAccounts).toHaveLength(7);
@@ -23,9 +28,10 @@ describe('api/queries/getVoterAccounts', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/voters',
       method: 'GET',
+      next: true,
       params: {
         limit: 16,
-        offset: 32,
+        page: 2,
       },
     });
 
@@ -38,17 +44,22 @@ describe('api/queries/getVoterAccounts', () => {
       data: voterAccountsResponse,
     }));
 
-    const { voterAccounts } = await getVoterAccounts({});
+    const { voterAccounts } = await getVoterAccounts({
+      totalStakedXvs: voterAccountsResponse.result.reduce(
+        (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+        new BigNumber(0),
+      ),
+    });
 
     expect(voterAccounts).toHaveLength(7);
-    // Expected length: 20
-    // Received length: 7
+
     expect(restService).toBeCalledWith({
       endpoint: '/governance/voters',
       method: 'GET',
+      next: true,
       params: {
         limit: 16,
-        offset: 0,
+        page: 0,
       },
     });
 

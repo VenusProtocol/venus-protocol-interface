@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -19,7 +20,13 @@ export default {
   },
 } as Meta<typeof VoterLeaderboardUi>;
 
-const getVoterAccountsOutput = formatVoterAccountResponse(voterAccountsResponse.data);
+const getVoterAccountsOutput = formatVoterAccountResponse({
+  data: voterAccountsResponse,
+  totalStakedXvs: voterAccountsResponse.result.reduce(
+    (acc, v) => acc.plus(new BigNumber(v.votesMantissa)),
+    new BigNumber(0),
+  ),
+});
 
 export const Default = () => (
   <VoterLeaderboardUi {...getVoterAccountsOutput} isFetching={false} setCurrentPage={noop} />

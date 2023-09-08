@@ -35,7 +35,7 @@ const useCastVoteWithReason = (options?: Options) => {
       onSuccess: (...onSuccessParams) => {
         const { proposalId, voteType } = onSuccessParams[1];
 
-        captureAnalyticEvent('Vote casted', {
+        captureAnalyticEvent('Vote cast', {
           proposalId,
           voteType: indexedVotingSupportNames[voteType],
         });

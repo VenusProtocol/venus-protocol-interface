@@ -14,11 +14,12 @@ export type GetVoterDetailsOutput = Voter;
 const getVoterDetails = async ({
   address,
 }: GetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
-  const response = await restService<GetVoterDetailsResponse, 'v1'>({
+  const response = await restService<GetVoterDetailsResponse, 'v2'>({
     endpoint: `/governance/voters/${address}/summary`,
     method: 'GET',
+    next: true,
   });
-  const payload = response.data?.data;
+  const payload = response.data;
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
     throw new VError({
