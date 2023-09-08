@@ -16,7 +16,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "53.5714285714285536",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/assets/img/tokens/hay.png",
+                "asset": "/src/packages/tokens/img/hay.png",
                 "decimals": 18,
                 "symbol": "HAY",
               },
@@ -42,7 +42,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "53.5714285714285536",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/assets/img/tokens/hay.png",
+                "asset": "/src/packages/tokens/img/hay.png",
                 "decimals": 18,
                 "symbol": "HAY",
               },
@@ -63,7 +63,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vHAY",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/assets/img/tokens/hay.png",
+              "asset": "/src/packages/tokens/img/hay.png",
               "decimals": 18,
               "symbol": "HAY",
             },
@@ -105,7 +105,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -147,7 +147,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -200,7 +200,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vBIFI",
             "underlyingToken": {
               "address": "0x5B662703775171c4212F2FBAdb7F92e64116c154",
-              "asset": "/src/assets/img/tokens/bifi.png",
+              "asset": "/src/packages/tokens/img/bifi.png",
               "decimals": 18,
               "symbol": "BIFI",
             },
@@ -217,7 +217,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "482.4999999999999936",
               "token": {
                 "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-                "asset": "/src/assets/img/tokens/bsw.svg",
+                "asset": "/src/packages/tokens/img/bsw.svg",
                 "decimals": 18,
                 "symbol": "BSW",
               },
@@ -243,7 +243,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "482.4999999999999936",
               "token": {
                 "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-                "asset": "/src/assets/img/tokens/bsw.svg",
+                "asset": "/src/packages/tokens/img/bsw.svg",
                 "decimals": 18,
                 "symbol": "BSW",
               },
@@ -264,7 +264,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vBSW",
             "underlyingToken": {
               "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-              "asset": "/src/assets/img/tokens/bsw.svg",
+              "asset": "/src/packages/tokens/img/bsw.svg",
               "decimals": 18,
               "symbol": "BSW",
             },
@@ -306,7 +306,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vALPACA",
             "underlyingToken": {
               "address": "0x6923189d91fdF62dBAe623a55273F1d20306D9f2",
-              "asset": "/src/assets/img/tokens/alpaca.svg",
+              "asset": "/src/packages/tokens/img/alpaca.svg",
               "decimals": 18,
               "symbol": "ALPACA",
             },
@@ -348,7 +348,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -390,7 +390,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -432,7 +432,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vANKR",
             "underlyingToken": {
               "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
-              "asset": "/src/assets/img/tokens/ankr.svg",
+              "asset": "/src/packages/tokens/img/ankr.svg",
               "decimals": 18,
               "symbol": "ANKR",
             },
@@ -460,7 +460,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "174999.9999999999999744",
               "token": {
                 "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-                "asset": "/src/assets/img/tokens/raca.png",
+                "asset": "/src/packages/tokens/img/raca.png",
                 "decimals": 18,
                 "symbol": "RACA",
               },
@@ -486,7 +486,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "174999.9999999999999744",
               "token": {
                 "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-                "asset": "/src/assets/img/tokens/raca.png",
+                "asset": "/src/packages/tokens/img/raca.png",
                 "decimals": 18,
                 "symbol": "RACA",
               },
@@ -507,7 +507,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vRACA",
             "underlyingToken": {
               "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-              "asset": "/src/assets/img/tokens/raca.png",
+              "asset": "/src/packages/tokens/img/raca.png",
               "decimals": 18,
               "symbol": "RACA",
             },
@@ -524,7 +524,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "6632800.4244999999999744",
               "token": {
                 "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-                "asset": "/src/assets/img/tokens/floki.svg",
+                "asset": "/src/packages/tokens/img/floki.svg",
                 "decimals": 18,
                 "symbol": "FLOKI",
               },
@@ -550,7 +550,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "6632800.4244999999999744",
               "token": {
                 "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-                "asset": "/src/assets/img/tokens/floki.svg",
+                "asset": "/src/packages/tokens/img/floki.svg",
                 "decimals": 18,
                 "symbol": "FLOKI",
               },
@@ -571,7 +571,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vFLOKI",
             "underlyingToken": {
               "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-              "asset": "/src/assets/img/tokens/floki.svg",
+              "asset": "/src/packages/tokens/img/floki.svg",
               "decimals": 18,
               "symbol": "FLOKI",
             },
@@ -613,7 +613,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -655,7 +655,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -683,7 +683,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "0.766666666666656",
               "token": {
                 "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-                "asset": "/src/assets/img/tokens/ankrBNB.svg",
+                "asset": "/src/packages/tokens/img/ankrBNB.svg",
                 "decimals": 18,
                 "symbol": "ankrBNB",
               },
@@ -709,7 +709,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "0.766666666666656",
               "token": {
                 "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-                "asset": "/src/assets/img/tokens/ankrBNB.svg",
+                "asset": "/src/packages/tokens/img/ankrBNB.svg",
                 "decimals": 18,
                 "symbol": "ankrBNB",
               },
@@ -730,7 +730,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vankrBNB",
             "underlyingToken": {
               "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-              "asset": "/src/assets/img/tokens/ankrBNB.svg",
+              "asset": "/src/packages/tokens/img/ankrBNB.svg",
               "decimals": 18,
               "symbol": "ankrBNB",
             },
@@ -772,7 +772,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vBNBx",
             "underlyingToken": {
               "address": "0x327d6E6FAC0228070884e913263CFF9eFed4a2C8",
-              "asset": "/src/assets/img/tokens/bnbx.png",
+              "asset": "/src/packages/tokens/img/bnbx.png",
               "decimals": 18,
               "symbol": "BNBx",
             },
@@ -789,7 +789,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "0.0433333333333152",
               "token": {
                 "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-                "asset": "/src/assets/img/tokens/stkBNB.svg",
+                "asset": "/src/packages/tokens/img/stkBNB.svg",
                 "decimals": 18,
                 "symbol": "stkBNB",
               },
@@ -815,7 +815,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "0.1333333333333152",
               "token": {
                 "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-                "asset": "/src/assets/img/tokens/stkBNB.svg",
+                "asset": "/src/packages/tokens/img/stkBNB.svg",
                 "decimals": 18,
                 "symbol": "stkBNB",
               },
@@ -836,7 +836,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vstkBNB",
             "underlyingToken": {
               "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-              "asset": "/src/assets/img/tokens/stkBNB.svg",
+              "asset": "/src/packages/tokens/img/stkBNB.svg",
               "decimals": 18,
               "symbol": "stkBNB",
             },
@@ -878,7 +878,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/assets/img/tokens/wbnb.svg",
+              "asset": "/src/packages/tokens/img/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -920,7 +920,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -962,7 +962,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -990,7 +990,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "575109270.766666666666656",
               "token": {
                 "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-                "asset": "/src/assets/img/tokens/btt.svg",
+                "asset": "/src/packages/tokens/img/btt.svg",
                 "decimals": 18,
                 "symbol": "BTT",
               },
@@ -1016,7 +1016,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "575109270.766666666666656",
               "token": {
                 "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-                "asset": "/src/assets/img/tokens/btt.svg",
+                "asset": "/src/packages/tokens/img/btt.svg",
                 "decimals": 18,
                 "symbol": "BTT",
               },
@@ -1037,7 +1037,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vBTT",
             "underlyingToken": {
               "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-              "asset": "/src/assets/img/tokens/btt.svg",
+              "asset": "/src/packages/tokens/img/btt.svg",
               "decimals": 18,
               "symbol": "BTT",
             },
@@ -1054,7 +1054,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "714387.783333333333312",
               "token": {
                 "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-                "asset": "/src/assets/img/tokens/win.svg",
+                "asset": "/src/packages/tokens/img/win.svg",
                 "decimals": 18,
                 "symbol": "WIN",
               },
@@ -1080,7 +1080,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "714387.783333333333312",
               "token": {
                 "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-                "asset": "/src/assets/img/tokens/win.svg",
+                "asset": "/src/packages/tokens/img/win.svg",
                 "decimals": 18,
                 "symbol": "WIN",
               },
@@ -1101,7 +1101,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vWIN",
             "underlyingToken": {
               "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-              "asset": "/src/assets/img/tokens/win.svg",
+              "asset": "/src/packages/tokens/img/win.svg",
               "decimals": 18,
               "symbol": "WIN",
             },
@@ -1118,7 +1118,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "1309.2768",
               "token": {
                 "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-                "asset": "/src/assets/img/tokens/trx.svg",
+                "asset": "/src/packages/tokens/img/trx.svg",
                 "decimals": 6,
                 "symbol": "TRX",
               },
@@ -1144,7 +1144,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "1309.2768",
               "token": {
                 "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-                "asset": "/src/assets/img/tokens/trx.svg",
+                "asset": "/src/packages/tokens/img/trx.svg",
                 "decimals": 6,
                 "symbol": "TRX",
               },
@@ -1165,7 +1165,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vTRX",
             "underlyingToken": {
               "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-              "asset": "/src/assets/img/tokens/trx.svg",
+              "asset": "/src/packages/tokens/img/trx.svg",
               "decimals": 6,
               "symbol": "TRX",
             },
@@ -1207,7 +1207,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1224,7 +1224,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "416.6666666666666496",
               "token": {
                 "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-                "asset": "/src/assets/img/tokens/usdd.svg",
+                "asset": "/src/packages/tokens/img/usdd.svg",
                 "decimals": 18,
                 "symbol": "USDD",
               },
@@ -1250,7 +1250,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "dailyDistributedTokens": "416.6666666666666496",
               "token": {
                 "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-                "asset": "/src/assets/img/tokens/usdd.svg",
+                "asset": "/src/packages/tokens/img/usdd.svg",
                 "decimals": 18,
                 "symbol": "USDD",
               },
@@ -1271,7 +1271,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -1306,7 +1306,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "53.5714285714285536",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/assets/img/tokens/hay.png",
+                "asset": "/src/packages/tokens/img/hay.png",
                 "decimals": 18,
                 "symbol": "HAY",
               },
@@ -1332,7 +1332,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "53.5714285714285536",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/assets/img/tokens/hay.png",
+                "asset": "/src/packages/tokens/img/hay.png",
                 "decimals": 18,
                 "symbol": "HAY",
               },
@@ -1353,7 +1353,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vHAY",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/assets/img/tokens/hay.png",
+              "asset": "/src/packages/tokens/img/hay.png",
               "decimals": 18,
               "symbol": "HAY",
             },
@@ -1395,7 +1395,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1437,7 +1437,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -1490,7 +1490,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vBIFI",
             "underlyingToken": {
               "address": "0x5B662703775171c4212F2FBAdb7F92e64116c154",
-              "asset": "/src/assets/img/tokens/bifi.png",
+              "asset": "/src/packages/tokens/img/bifi.png",
               "decimals": 18,
               "symbol": "BIFI",
             },
@@ -1507,7 +1507,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "482.4999999999999936",
               "token": {
                 "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-                "asset": "/src/assets/img/tokens/bsw.svg",
+                "asset": "/src/packages/tokens/img/bsw.svg",
                 "decimals": 18,
                 "symbol": "BSW",
               },
@@ -1533,7 +1533,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "482.4999999999999936",
               "token": {
                 "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-                "asset": "/src/assets/img/tokens/bsw.svg",
+                "asset": "/src/packages/tokens/img/bsw.svg",
                 "decimals": 18,
                 "symbol": "BSW",
               },
@@ -1554,7 +1554,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vBSW",
             "underlyingToken": {
               "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
-              "asset": "/src/assets/img/tokens/bsw.svg",
+              "asset": "/src/packages/tokens/img/bsw.svg",
               "decimals": 18,
               "symbol": "BSW",
             },
@@ -1596,7 +1596,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vALPACA",
             "underlyingToken": {
               "address": "0x6923189d91fdF62dBAe623a55273F1d20306D9f2",
-              "asset": "/src/assets/img/tokens/alpaca.svg",
+              "asset": "/src/packages/tokens/img/alpaca.svg",
               "decimals": 18,
               "symbol": "ALPACA",
             },
@@ -1638,7 +1638,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1680,7 +1680,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -1722,7 +1722,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vANKR",
             "underlyingToken": {
               "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
-              "asset": "/src/assets/img/tokens/ankr.svg",
+              "asset": "/src/packages/tokens/img/ankr.svg",
               "decimals": 18,
               "symbol": "ANKR",
             },
@@ -1750,7 +1750,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "174999.9999999999999744",
               "token": {
                 "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-                "asset": "/src/assets/img/tokens/raca.png",
+                "asset": "/src/packages/tokens/img/raca.png",
                 "decimals": 18,
                 "symbol": "RACA",
               },
@@ -1776,7 +1776,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "174999.9999999999999744",
               "token": {
                 "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-                "asset": "/src/assets/img/tokens/raca.png",
+                "asset": "/src/packages/tokens/img/raca.png",
                 "decimals": 18,
                 "symbol": "RACA",
               },
@@ -1797,7 +1797,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vRACA",
             "underlyingToken": {
               "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
-              "asset": "/src/assets/img/tokens/raca.png",
+              "asset": "/src/packages/tokens/img/raca.png",
               "decimals": 18,
               "symbol": "RACA",
             },
@@ -1814,7 +1814,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "6632800.4244999999999744",
               "token": {
                 "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-                "asset": "/src/assets/img/tokens/floki.svg",
+                "asset": "/src/packages/tokens/img/floki.svg",
                 "decimals": 18,
                 "symbol": "FLOKI",
               },
@@ -1840,7 +1840,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "6632800.4244999999999744",
               "token": {
                 "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-                "asset": "/src/assets/img/tokens/floki.svg",
+                "asset": "/src/packages/tokens/img/floki.svg",
                 "decimals": 18,
                 "symbol": "FLOKI",
               },
@@ -1861,7 +1861,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vFLOKI",
             "underlyingToken": {
               "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
-              "asset": "/src/assets/img/tokens/floki.svg",
+              "asset": "/src/packages/tokens/img/floki.svg",
               "decimals": 18,
               "symbol": "FLOKI",
             },
@@ -1903,7 +1903,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1945,7 +1945,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -1973,7 +1973,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "0.766666666666656",
               "token": {
                 "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-                "asset": "/src/assets/img/tokens/ankrBNB.svg",
+                "asset": "/src/packages/tokens/img/ankrBNB.svg",
                 "decimals": 18,
                 "symbol": "ankrBNB",
               },
@@ -1999,7 +1999,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "0.766666666666656",
               "token": {
                 "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-                "asset": "/src/assets/img/tokens/ankrBNB.svg",
+                "asset": "/src/packages/tokens/img/ankrBNB.svg",
                 "decimals": 18,
                 "symbol": "ankrBNB",
               },
@@ -2020,7 +2020,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vankrBNB",
             "underlyingToken": {
               "address": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
-              "asset": "/src/assets/img/tokens/ankrBNB.svg",
+              "asset": "/src/packages/tokens/img/ankrBNB.svg",
               "decimals": 18,
               "symbol": "ankrBNB",
             },
@@ -2062,7 +2062,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vBNBx",
             "underlyingToken": {
               "address": "0x327d6E6FAC0228070884e913263CFF9eFed4a2C8",
-              "asset": "/src/assets/img/tokens/bnbx.png",
+              "asset": "/src/packages/tokens/img/bnbx.png",
               "decimals": 18,
               "symbol": "BNBx",
             },
@@ -2079,7 +2079,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "0.0433333333333152",
               "token": {
                 "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-                "asset": "/src/assets/img/tokens/stkBNB.svg",
+                "asset": "/src/packages/tokens/img/stkBNB.svg",
                 "decimals": 18,
                 "symbol": "stkBNB",
               },
@@ -2105,7 +2105,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "0.1333333333333152",
               "token": {
                 "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-                "asset": "/src/assets/img/tokens/stkBNB.svg",
+                "asset": "/src/packages/tokens/img/stkBNB.svg",
                 "decimals": 18,
                 "symbol": "stkBNB",
               },
@@ -2126,7 +2126,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vstkBNB",
             "underlyingToken": {
               "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
-              "asset": "/src/assets/img/tokens/stkBNB.svg",
+              "asset": "/src/packages/tokens/img/stkBNB.svg",
               "decimals": 18,
               "symbol": "stkBNB",
             },
@@ -2168,7 +2168,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/assets/img/tokens/wbnb.svg",
+              "asset": "/src/packages/tokens/img/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -2210,7 +2210,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2252,7 +2252,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },
@@ -2280,7 +2280,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "575109270.766666666666656",
               "token": {
                 "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-                "asset": "/src/assets/img/tokens/btt.svg",
+                "asset": "/src/packages/tokens/img/btt.svg",
                 "decimals": 18,
                 "symbol": "BTT",
               },
@@ -2306,7 +2306,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "575109270.766666666666656",
               "token": {
                 "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-                "asset": "/src/assets/img/tokens/btt.svg",
+                "asset": "/src/packages/tokens/img/btt.svg",
                 "decimals": 18,
                 "symbol": "BTT",
               },
@@ -2327,7 +2327,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vBTT",
             "underlyingToken": {
               "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
-              "asset": "/src/assets/img/tokens/btt.svg",
+              "asset": "/src/packages/tokens/img/btt.svg",
               "decimals": 18,
               "symbol": "BTT",
             },
@@ -2344,7 +2344,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "714387.783333333333312",
               "token": {
                 "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-                "asset": "/src/assets/img/tokens/win.svg",
+                "asset": "/src/packages/tokens/img/win.svg",
                 "decimals": 18,
                 "symbol": "WIN",
               },
@@ -2370,7 +2370,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "714387.783333333333312",
               "token": {
                 "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-                "asset": "/src/assets/img/tokens/win.svg",
+                "asset": "/src/packages/tokens/img/win.svg",
                 "decimals": 18,
                 "symbol": "WIN",
               },
@@ -2391,7 +2391,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vWIN",
             "underlyingToken": {
               "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
-              "asset": "/src/assets/img/tokens/win.svg",
+              "asset": "/src/packages/tokens/img/win.svg",
               "decimals": 18,
               "symbol": "WIN",
             },
@@ -2408,7 +2408,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "1309.2768",
               "token": {
                 "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-                "asset": "/src/assets/img/tokens/trx.svg",
+                "asset": "/src/packages/tokens/img/trx.svg",
                 "decimals": 6,
                 "symbol": "TRX",
               },
@@ -2434,7 +2434,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "1309.2768",
               "token": {
                 "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-                "asset": "/src/assets/img/tokens/trx.svg",
+                "asset": "/src/packages/tokens/img/trx.svg",
                 "decimals": 6,
                 "symbol": "TRX",
               },
@@ -2455,7 +2455,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vTRX",
             "underlyingToken": {
               "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-              "asset": "/src/assets/img/tokens/trx.svg",
+              "asset": "/src/packages/tokens/img/trx.svg",
               "decimals": 6,
               "symbol": "TRX",
             },
@@ -2497,7 +2497,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/assets/img/tokens/usdt.svg",
+              "asset": "/src/packages/tokens/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2514,7 +2514,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "416.6666666666666496",
               "token": {
                 "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-                "asset": "/src/assets/img/tokens/usdd.svg",
+                "asset": "/src/packages/tokens/img/usdd.svg",
                 "decimals": 18,
                 "symbol": "USDD",
               },
@@ -2540,7 +2540,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
               "dailyDistributedTokens": "416.6666666666666496",
               "token": {
                 "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-                "asset": "/src/assets/img/tokens/usdd.svg",
+                "asset": "/src/packages/tokens/img/usdd.svg",
                 "decimals": 18,
                 "symbol": "USDD",
               },
@@ -2561,7 +2561,7 @@ exports[`api/queries/getIsolatedPools > still functions even if the request to f
             "symbol": "vUSDD",
             "underlyingToken": {
               "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
-              "asset": "/src/assets/img/tokens/usdd.svg",
+              "asset": "/src/packages/tokens/img/usdd.svg",
               "decimals": 18,
               "symbol": "USDD",
             },

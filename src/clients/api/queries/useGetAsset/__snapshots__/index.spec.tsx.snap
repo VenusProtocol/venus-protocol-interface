@@ -12,7 +12,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
         "dailyDistributedTokens": "9999999.5",
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "/src/assets/img/tokens/xvs.svg",
+          "asset": "/src/packages/tokens/img/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
@@ -37,7 +37,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
         "dailyDistributedTokens": "9999999.5",
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "/src/assets/img/tokens/xvs.svg",
+          "asset": "/src/packages/tokens/img/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
@@ -58,7 +58,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/assets/img/tokens/xvs.svg",
+        "asset": "/src/packages/tokens/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },

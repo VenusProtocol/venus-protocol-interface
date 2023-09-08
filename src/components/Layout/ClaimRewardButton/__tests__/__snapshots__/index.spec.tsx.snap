@@ -29,7 +29,7 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
       "poolIndex": 0,
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/assets/img/tokens/xvs.svg",
+        "asset": "/src/packages/tokens/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
@@ -78,7 +78,7 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
       "poolIndex": 0,
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/assets/img/tokens/xvs.svg",
+        "asset": "/src/packages/tokens/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
