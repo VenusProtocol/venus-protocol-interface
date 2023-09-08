@@ -4374,14 +4374,26 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/sdk@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.4.1.tgz#ca741b1d9e12dd61eed5dee36af3588dd1bdf8b2"
+  integrity sha512-lPVZOrHWOKSYKGlu1hcPKhOVnp7O8JcszhBWxb5rN/dWpuYYaRTZ+3xmZtk+oXvbaWoTmMHFlmaJhzJRFADkRg==
+  dependencies:
+    "@pancakeswap/swap-sdk-core" "1.0.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "^1.2.9"
+
+"@pancakeswap/swap-sdk-core@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.0.0.tgz#30ab333943ecca5484cd10cbc493841fb553728d"
+  integrity sha512-MZBF8FHpCX/ffY8/gd2zz6TpiftwqRouVPr1kB88wm7desYh+E2y4kWPcZX1roWR38UkjBv4/DoXVSDeSTBgRg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
@@ -14276,11 +14288,6 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
-
 jscodeshift@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.14.0.tgz#7542e6715d6d2e8bde0b4e883f0ccea358b46881"
@@ -21535,10 +21542,10 @@ vfile@^5.0.0:
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
 
-viem@^1.0.0, viem@^1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.3.tgz#e558ec568f961a5472ba6999528cb4eb7ae31c6f"
-  integrity sha512-7L35k0JmxTa7xIx1s8lCsTLGrTEUXTYnLppZ56EVBjtvE2OKSfDjL8No0Fnedu6Ye0zi/VX2BQC3arhpKOVIlw==
+viem@^1.0.0, viem@^1.10.3, viem@^1.2.9:
+  version "1.10.8"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.8.tgz#1c6aaaf25cb25484bbe69dc93870a70907b2bd2e"
+  integrity sha512-/kVDjc9j1OVoDsxV0E1iw1ehPuWPXv5x/9Yc1H0wKky6ACWRoKsURDeLi0Xwtli7vmFcJne+MMPhA96zVu5iIg==
   dependencies:
     "@adraffy/ens-normalize" "1.9.4"
     "@noble/curves" "1.2.0"
