@@ -15,7 +15,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetVoterAccounts = (params: GetVoterAccountsInput = {}, options?: Options) =>
+const useGetVoterAccounts = (params: GetVoterAccountsInput, options?: Options) =>
   // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
   useQuery([FunctionKey.GET_VOTER_ACCOUNTS, params], () => getVoterAccounts(params), {
     keepPreviousData: true,

@@ -1,5 +1,6 @@
 import { ContractReceipt } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
+import { VoteSupport } from 'types';
 
 export interface HookParams {
   governorBravoDelegateContract: GovernorBravoDelegate;
@@ -7,7 +8,7 @@ export interface HookParams {
 
 export interface CastVoteWithReasonInput {
   proposalId: number;
-  voteType: 0 | 1 | 2;
+  voteType: VoteSupport;
   voteReason: string;
 }
 

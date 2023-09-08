@@ -81,31 +81,31 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
       <div>
         {proposals.map(
           ({
-            id,
+            proposalId,
             description,
             state,
             endDate,
             cancelDate,
             queuedDate,
-            forVotesWei,
-            abstainedVotesWei,
-            againstVotesWei,
+            forVotesMantissa,
+            abstainedVotesMantissa,
+            againstVotesMantissa,
             executedDate,
             proposalType,
           }) => (
             <GovernanceProposal
-              key={id}
+              key={proposalId}
               css={styles.bottomSpace}
-              proposalId={id}
+              proposalId={proposalId}
               proposalTitle={description.title}
               proposalState={state}
               endDate={endDate}
               executedDate={executedDate}
               cancelDate={cancelDate}
               queuedDate={queuedDate}
-              forVotesWei={forVotesWei}
-              againstVotesWei={againstVotesWei}
-              abstainedVotesWei={abstainedVotesWei}
+              forVotesMantissa={forVotesMantissa}
+              againstVotesMantissa={againstVotesMantissa}
+              abstainedVotesMantissa={abstainedVotesMantissa}
               proposalType={proposalType}
             />
           ),
@@ -151,6 +151,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
   } = useGetProposals({
     page: currentPage,
     limit: 10,
+    accountAddress,
   });
 
   const isFetchingProposals =

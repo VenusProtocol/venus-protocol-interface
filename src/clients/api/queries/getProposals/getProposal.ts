@@ -1,16 +1,19 @@
 import { VError } from 'errors';
 import { formatToProposal, restService } from 'utilities';
 
-import { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
+import type { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
 
-const getProposal = async ({ id }: GetProposalInput): Promise<GetProposalOutput> => {
-  const response = await restService<ProposalApiResponse, 'v1'>({
-    endpoint: `/governance/proposals/${id}`,
+const getProposal = async ({
+  proposalId,
+  accountAddress = '',
+}: GetProposalInput): Promise<GetProposalOutput> => {
+  const response = await restService<ProposalApiResponse, 'v2'>({
+    endpoint: `/governance/proposals/${proposalId}`,
     method: 'GET',
-    params: { version: 'v2' },
+    next: true,
   });
 
-  const payload = response.data?.data;
+  const payload = response.data;
 
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
@@ -25,7 +28,7 @@ const getProposal = async ({ id }: GetProposalInput): Promise<GetProposalOutput>
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return formatToProposal(payload);
+  return formatToProposal({ ...payload, accountAddress });
 };
 
 export default getProposal;

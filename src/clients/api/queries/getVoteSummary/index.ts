@@ -1,29 +1,18 @@
 import { VError } from 'errors';
 import { restService } from 'utilities';
 
-import formatToVoters from './formatToVoters';
-import { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './types';
+import formatToVoteSummary from './formatToVoteSummary';
+import { GetVoteSummaryApiResponse, GetVoteSummaryInput, GetVoteSummaryOutput } from './types';
 
 export * from './types';
 
-const getVoters = async ({
+const getVoteSummary = async ({
   proposalId,
-  address,
-  support,
-  limit = 50,
-  offset,
-}: GetVotersInput): Promise<GetVotersOutput> => {
-  const response = await restService<GetVotersApiResponse, 'v2'>({
-    endpoint: '/governance/proposals/votes',
+}: GetVoteSummaryInput): Promise<GetVoteSummaryOutput> => {
+  const response = await restService<GetVoteSummaryApiResponse, 'v2'>({
+    endpoint: `/governance/proposals/${proposalId}/voteSummary`,
     method: 'GET',
     next: true,
-    params: {
-      support,
-      address,
-      limit,
-      offset,
-      proposalId,
-    },
   });
 
   const payload = response.data;
@@ -41,7 +30,7 @@ const getVoters = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return formatToVoters({ payload });
+  return formatToVoteSummary({ payload });
 };
 
-export default getVoters;
+export default getVoteSummary;

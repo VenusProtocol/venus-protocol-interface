@@ -1,8 +1,6 @@
 import { GovernorBravoDelegate } from 'packages/contracts';
 import { VoteSupport } from 'types';
 
-import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
-
 export interface GetVoteReceiptInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
   proposalId: number;
@@ -10,7 +8,7 @@ export interface GetVoteReceiptInput {
 }
 
 export type GetVoteReceiptOutput = {
-  voteSupport: VoteSupport;
+  voteSupport: VoteSupport | undefined;
 };
 
 const getVoteReceipt = async ({
@@ -22,7 +20,7 @@ const getVoteReceipt = async ({
     proposalId,
     accountAddress,
   );
-  const voteSupport = hasVotes ? indexedVotingSupportNames[support] : 'NOT_VOTED';
+  const voteSupport = hasVotes ? support : undefined;
 
   return {
     voteSupport,

@@ -8,7 +8,7 @@ import getVoters from '.';
 vi.mock('utilities/restService');
 
 describe('api/queries/getVoters', () => {
-  test('returns proposal', async () => {
+  test('returns votes', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: votersResponse,
@@ -19,12 +19,14 @@ describe('api/queries/getVoters', () => {
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/governance/proposals/1/voters',
+      endpoint: '/governance/proposals/votes',
       method: 'GET',
+      next: true,
       params: {
-        filter: undefined,
-        limit: undefined,
+        support: undefined,
+        limit: 50,
         offset: undefined,
+        proposalId: 1,
       },
     });
 

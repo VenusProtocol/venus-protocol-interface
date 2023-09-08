@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import BigNumber from 'bignumber.js';
 import { Pagination } from 'components';
 import React from 'react';
 import { VoterAccount } from 'types';
 
-import { useGetVoterAccounts } from 'clients/api';
+import { useGetVestingVaults, useGetVoterAccounts } from 'clients/api';
 import useUrlPagination from 'hooks/useUrlPagination';
 
 import LeaderboardTable from './LeaderboardTable';
@@ -49,6 +50,12 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
 const VoterLeaderboard: React.FC = () => {
   const { currentPage, setCurrentPage } = useUrlPagination();
 
+  const { data: vestingVaults } = useGetVestingVaults({ accountAddress: '' });
+
+  const totalStakedXvs = vestingVaults
+    .filter(v => v.stakedToken.symbol === 'XVS')
+    .reduce((acc, v) => acc.plus(v.totalStakedWei), new BigNumber(0));
+
   const {
     data: { voterAccounts, offset, total, limit } = {
       voterAccounts: [],
@@ -58,7 +65,7 @@ const VoterLeaderboard: React.FC = () => {
     },
     isFetching: isGetVoterAccountsFetching,
     isPreviousData: isGetVoterAccountsPreviousData,
-  } = useGetVoterAccounts({ page: currentPage });
+  } = useGetVoterAccounts({ page: currentPage, totalStakedXvs });
 
   const isFetching =
     isGetVoterAccountsFetching && (isGetVoterAccountsPreviousData || voterAccounts.length === 0);

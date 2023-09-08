@@ -1,56 +1,64 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoters > returns proposal 1`] = `
+exports[`api/queries/getVoters > returns votes 1`] = `
 {
   "result": [
     {
       "address": "0x60277add339d936c4ab907376afee4f7ac17d760",
+      "blockNumber": 18266280,
+      "blockTimestamp": 2022-05-31T00:22:57.000Z,
       "reason": undefined,
-      "support": "FOR",
-      "votesWei": "6.222586268e+23",
+      "support": 0,
+      "votesMantissa": "6.222586268e+23",
     },
     {
       "address": "0xc444949e0054a23c44fc45789738bdf64aed2391",
+      "blockNumber": 18260633,
+      "blockTimestamp": 2022-05-30T19:40:00.000Z,
       "reason": "Finally more income for the protocol and XVS holders! ;)",
-      "support": "FOR",
-      "votesWei": "2.4543029897767607315925e+22",
+      "support": 1,
+      "votesMantissa": "2.4543029897767607315925e+22",
     },
     {
       "address": "0xb98fa0292e2927018c03ad5110673b7daa1424a7",
+      "blockNumber": 18278834,
+      "blockTimestamp": 2022-05-31T10:54:07.000Z,
       "reason": "This is the best feature for XVS Holders",
-      "support": "FOR",
-      "votesWei": "1.55214637e+22",
+      "support": 1,
+      "votesMantissa": "1.55214637e+22",
     },
     {
       "address": "0x73da76e9283a259c687713b6670c5ba5866bb338",
+      "blockNumber": 18275805,
+      "blockTimestamp": 2022-05-31T08:22:18.000Z,
       "reason": "We keep building through the downturns and on the next BTC Bull Run we will Shine.",
-      "support": "FOR",
-      "votesWei": "9.2862418e+21",
+      "support": 1,
+      "votesMantissa": "9.2862418e+21",
     },
     {
       "address": "0xb6e0928537289164cb0d11969cf7b9fcd2c9982a",
+      "blockNumber": 18264409,
+      "blockTimestamp": 2022-05-30T22:49:09.000Z,
       "reason": "Should share revenue with token holder.",
-      "support": "FOR",
-      "votesWei": "9.2543427e+21",
+      "support": 1,
+      "votesMantissa": "9.2543427e+21",
     },
     {
       "address": "0xc6b0fe3bf997453806d8d94ca6828e793e42df8f",
+      "blockNumber": 18272516,
+      "blockTimestamp": 2022-05-31T05:36:13.000Z,
       "reason": "ok",
-      "support": "FOR",
-      "votesWei": "5.6811531e+21",
+      "support": 1,
+      "votesMantissa": "5.6811531e+21",
     },
     {
       "address": "0xa205358b29bb5466c8d0ad25f84d2aa118e967e5",
+      "blockNumber": 18269295,
+      "blockTimestamp": 2022-05-31T02:54:21.000Z,
       "reason": "Income for xvs vault",
-      "support": "FOR",
-      "votesWei": "1.6639618e+21",
+      "support": 1,
+      "votesMantissa": "1.6639618e+21",
     },
   ],
-  "sumVotes": {
-    "abstain": "0",
-    "against": "0",
-    "for": "6.93308509013115329138466e+23",
-    "total": "6.93308509013115329138466e+23",
-  },
 }
 `;

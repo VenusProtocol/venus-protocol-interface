@@ -15,12 +15,15 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSALS, GetProposalsInput]
 >;
 
-const useGetProposals = (params: GetProposalsInput = {}, options?: Options) =>
+const useGetProposals = (
+  params: GetProposalsInput = { accountAddress: undefined },
+  options?: Options,
+) =>
   // This endpoint is paginated so we keep the previous responses by default to
   // create a more seamless paginating experience
   useQuery([FunctionKey.GET_PROPOSALS, params], () => getProposals(params), {
     keepPreviousData: true,
-    placeholderData: { limit: 0, total: 0, offset: 0, proposals: [] },
+    placeholderData: { limit: 0, total: 0, page: 0, proposals: [] },
     refetchInterval: params.page === 0 ? BLOCK_TIME_MS * 5 : undefined,
     ...options,
   });

@@ -16,7 +16,7 @@ describe('api/queries/getVoteReceipt', () => {
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual({
-      voteSupport: 'NOT_VOTED',
+      voteSupport: undefined,
     });
   });
 

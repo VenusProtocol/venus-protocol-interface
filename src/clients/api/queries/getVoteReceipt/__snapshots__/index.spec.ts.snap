@@ -2,18 +2,18 @@
 
 exports[`api/queries/getVoteReceipt > returns the correct string depending on what the contract call returns 1`] = `
 {
-  "voteSupport": "AGAINST",
+  "voteSupport": 0,
 }
 `;
 
 exports[`api/queries/getVoteReceipt > returns the correct string depending on what the contract call returns 2`] = `
 {
-  "voteSupport": "FOR",
+  "voteSupport": 1,
 }
 `;
 
 exports[`api/queries/getVoteReceipt > returns the correct string depending on what the contract call returns 3`] = `
 {
-  "voteSupport": "ABSTAIN",
+  "voteSupport": 2,
 }
 `;
