@@ -13,7 +13,7 @@ const formatTransaction = ({
   data: TransactionResponse;
   vTokens: VToken[];
 }) => {
-  let token = getTokenByAddress(tokenAddress);
+  let token = tokenAddress ? getTokenByAddress(tokenAddress) : undefined;
 
   if (!token) {
     token =
