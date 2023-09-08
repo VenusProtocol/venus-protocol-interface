@@ -4,9 +4,9 @@ import getPancakeSwapPairs, {
   GetPancakeSwapPairsInput,
   GetPancakeSwapPairsOutput,
 } from 'clients/api/queries/getPancakeSwapPairs';
-import { useMulticall3 } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';
 
@@ -19,17 +19,17 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetPancakeSwapPairs = (
-  input: Omit<GetPancakeSwapPairsInput, 'multicall3'>,
+  input: Omit<GetPancakeSwapPairsInput, 'provider' | 'chainId'>,
   options?: Options,
 ) => {
-  const multicall3 = useMulticall3();
+  const { provider } = useAuth();
 
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
 
   return useQuery(
     [FunctionKey.GET_PANCAKE_SWAP_PAIRS, ...tokenCombinationIds],
-    () => getPancakeSwapPairs({ multicall3, ...input }),
+    () => getPancakeSwapPairs({ ...input, provider }),
     {
       // Refresh request on every new block
       refetchInterval: BLOCK_TIME_MS,

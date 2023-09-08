@@ -1,6 +1,5 @@
 import { Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { contractInfos } from 'packages/contracts';
+import { getGenericContract } from 'packages/contracts';
 
 import formatToPairs from './formatToPairs';
 import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
@@ -8,8 +7,8 @@ import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from
 export * from './types';
 
 const getPancakeSwapPairs = async ({
-  multicall3,
   tokenCombinations,
+  provider,
 }: GetPancakeSwapPairsInput): Promise<GetPancakeSwapPairsOutput> => {
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
@@ -29,19 +28,22 @@ const getPancakeSwapPairs = async ({
     }
   }, [] as PairAddress[]);
 
-  // Generate call context
-  const contractCallContext: ContractCallContext[] = pairAddresses.map(pairAddress => ({
-    reference: pairAddress.address,
-    contractAddress: pairAddress.address,
-    abi: contractInfos.pancakePairV2.abi,
-    calls: [{ reference: 'getReserves', methodName: 'getReserves()', methodParameters: [] }],
-  }));
+  // Fetch each token combination reserves
+  const reservesResults = await Promise.allSettled(
+    pairAddresses.map(pairAddress => {
+      const pancakePairContract = getGenericContract({
+        name: 'pancakePairV2',
+        address: pairAddress.address,
+        signerOrProvider: provider,
+      });
 
-  const reserveCallResults: ContractCallResults = await multicall3.call(contractCallContext);
+      return pancakePairContract.getReserves();
+    }),
+  );
 
   const pairs = formatToPairs({
     pairAddresses,
-    reserveCallResults,
+    reservesResults,
   });
 
   return { pairs };

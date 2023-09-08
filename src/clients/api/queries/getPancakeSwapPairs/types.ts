@@ -1,10 +1,11 @@
 import { Pair as PSPair, Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import { Multicall as Multicall3 } from 'ethereum-multicall';
 import { PSTokenCombination } from 'types';
 
+import { type Provider } from 'clients/web3';
+
 export interface GetPancakeSwapPairsInput {
-  multicall3: Multicall3;
+  provider: Provider;
   tokenCombinations: PSTokenCombination[];
 }
 
