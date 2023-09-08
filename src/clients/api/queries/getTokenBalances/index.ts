@@ -90,6 +90,7 @@ const getTokenBalances = async ({
       const { balanceWei } = await getBalanceOf({
         provider,
         accountAddress,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         token: nativeTokenToRequest!,
       });
 

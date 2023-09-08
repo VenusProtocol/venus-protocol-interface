@@ -33,7 +33,7 @@ const generatePancakeSwapTokenRecords = async () => {
   // Generate file
   const outputFilePath = path.join(
     process.cwd(),
-    './src/packages/tokens/tokenInfos/swap/bscMainnet.ts',
+    './src/packages/tokens/tokenInfos/pancakeSwap/bscMainnet.ts',
   );
   fs.writeFileSync(outputFilePath, output, 'utf8');
   return outputFilePath;

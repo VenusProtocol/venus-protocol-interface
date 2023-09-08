@@ -18,7 +18,6 @@ import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { useStyles } from '../styles';
@@ -38,9 +37,6 @@ interface XvsTableProps {
 const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const xvsToken = useGetToken({
-    symbol: 'XVS',
-  });
 
   const columns: TableColumn<TableAsset>[] = useMemo(
     () => [
