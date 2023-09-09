@@ -57,24 +57,24 @@ export const useStyles = () => {
     illustration: css`
       position: absolute;
       height: ${theme.spacing(125)};
-      top: ${theme.spacing(-17)};
-      right: ${theme.spacing(-12)};
+      top: ${theme.spacing(-15)};
+      right: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('xl')} {
-        right: ${theme.spacing(-24)};
+        right: ${theme.spacing(-6)};
       }
 
       ${theme.breakpoints.down('lg')} {
-        right: ${theme.spacing(-68)};
+        right: ${theme.spacing(-50)};
       }
 
       ${theme.breakpoints.down('sm')} {
         height: auto;
-        width: ${theme.spacing(102)};
-        top: ${theme.spacing(-8)};
+        width: ${theme.spacing(84)};
+        top: ${theme.spacing(-7)};
         left: auto;
         right: 50%;
-        margin-right: ${theme.spacing(-57)};
+        margin-right: ${theme.spacing(-46)};
       }
     `,
   };

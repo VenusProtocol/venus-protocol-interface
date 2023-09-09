@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { ApyChartProps } from 'components';
 import React from 'react';
 import { VToken } from 'types';
 
 import { useGetMarketHistory } from 'clients/api';
+import { type ApyChartProps } from 'components/charts/ApyChart';
 
 const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   const {

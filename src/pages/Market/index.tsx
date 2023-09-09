@@ -1,15 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import {
-  ApyChart,
-  ApyChartProps,
-  Button,
-  InterestRateChart,
-  InterestRateChartProps,
-  SecondaryButton,
-  Spinner,
-} from 'components';
+import { Button, SecondaryButton, Spinner } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
@@ -22,6 +14,8 @@ import {
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
+import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
+import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
