@@ -159,6 +159,7 @@
     "reg-publish-s3-plugin": "^0.12.2",
     "reg-suit": "^0.12.2",
     "rimraf": "^5.0.1",
+    "rollup-plugin-visualizer": "^5.9.2",
     "semantic-release": "^21.1.1",
     "storybook": "7.2.1",
     "stylelint": "^15.10.3",
