@@ -5,7 +5,6 @@ import React from 'react';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
-import fakeMulticallResponses from '__mocks__/contracts/multicall';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import {
@@ -14,7 +13,6 @@ import {
   getVaiRepayAmountWithInterests,
   repayVai,
 } from 'clients/api';
-import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -22,8 +20,8 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import RepayVai from '.';
-import TEST_IDS from '../testIds';
+import RepayVai from '..';
+import TEST_IDS from '../../testIds';
 
 const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
 
@@ -57,15 +55,13 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       balanceWei: fullRepayBalanceWei,
     }));
 
-    (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() =>
-      formatToOutput({
-        repayAmountWei: convertTokensToWei({
-          value: new BigNumber(repayInputAmountTokens),
-          token: TOKENS.vai,
-        }),
-        contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayInterests,
-      }),
-    );
+    (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() => ({
+      vaiRepayAmountAfterFeeWei: new BigNumber('99999682649407787691'),
+      vaiCurrentInterestWei: new BigNumber('317350590885224'),
+      vaiPastInterestWei: new BigNumber('0'),
+      vaiTotalInterestWei: new BigNumber('317350590885224'),
+      feePercentage: 0.000317350590885224,
+    }));
   });
 
   it('renders without crashing', () => {
