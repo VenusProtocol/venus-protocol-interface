@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVaiRepayAmountWithInterests > returns the VAI fee with interests 1`] = `
+{
+  "vaiRepayAmountWithInterestsWei": "10000000000",
+}
+`;

@@ -15,7 +15,6 @@ import {
   repayVai,
 } from 'clients/api';
 import formatToOutput from 'clients/api/queries/getVaiCalculateRepayAmount/formatToOutput';
-import formatToGetVaiRepayAmountWithInterestsOutput from 'clients/api/queries/getVaiRepayAmountWithInterests/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
 import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -41,11 +40,7 @@ const repayInputAmountWei = convertTokensToWei({
   token: TOKENS.vai,
 });
 
-const getVaiRepayAmountWithInterestsResult = formatToGetVaiRepayAmountWithInterestsOutput({
-  contractCallResults: fakeMulticallResponses.vaiController.getVaiRepayTotalAmount,
-});
-
-const fullRepayBalanceWei = getVaiRepayAmountWithInterestsResult.vaiRepayAmountWithInterestsWei;
+const fullRepayBalanceWei = new BigNumber('5669568627692799723381666');
 
 const fullRepayBalanceTokens = convertWeiToTokens({
   valueWei: fullRepayBalanceWei,
@@ -54,9 +49,9 @@ const fullRepayBalanceTokens = convertWeiToTokens({
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(
-      () => getVaiRepayAmountWithInterestsResult,
-    );
+    (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
+      vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,
+    }));
 
     (getBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceWei: fullRepayBalanceWei,
