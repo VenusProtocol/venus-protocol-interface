@@ -1,25 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { isFeatureEnabled } from 'utilities';
 
 import 'assets/styles/App.scss';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
-import Account from 'pages/Account';
-import ConvertVrt from 'pages/ConvertVrt';
-import Dashboard from 'pages/Dashboard';
-import Vote from 'pages/Governance';
-import History from 'pages/History';
-import IsolatedPools from 'pages/IsolatedPools';
-import { CorePoolMarket, IsolatedPoolMarket } from 'pages/Market';
-import { CorePool, IsolatedPool } from 'pages/Pool';
-import Proposal from 'pages/Proposal';
-import Swap from 'pages/Swap';
-import Vai from 'pages/Vai';
-import Vaults from 'pages/Vault';
-import Voter from 'pages/Voter';
-import VoterLeaderboard from 'pages/VoterLeaderboard';
-import Xvs from 'pages/Xvs';
+
+import PageSuspense from './PageSuspense';
+
+const Dashboard = lazy(() => import('pages/Dashboard'));
+const Account = lazy(() => import('pages/Account'));
+const CorePoolMarket = lazy(() => import('pages/Market/CorePoolMarket'));
+const IsolatedPoolMarket = lazy(() => import('pages/Market/IsolatedPoolMarket'));
+const CorePool = lazy(() => import('pages/Pool/CorePool'));
+const IsolatedPool = lazy(() => import('pages/Pool/IsolatedPool'));
+const ConvertVrt = lazy(() => import('pages/ConvertVrt'));
+const Governance = lazy(() => import('pages/Governance'));
+const History = lazy(() => import('pages/History'));
+const IsolatedPools = lazy(() => import('pages/IsolatedPools'));
+const Proposal = lazy(() => import('pages/Proposal'));
+const Swap = lazy(() => import('pages/Swap'));
+const Vai = lazy(() => import('pages/Vai'));
+const Vaults = lazy(() => import('pages/Vault'));
+const Voter = lazy(() => import('pages/Voter'));
+const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
+const Xvs = lazy(() => import('pages/Xvs'));
 
 const Router = () => {
   const { accountAddress } = useAuth();
@@ -41,46 +46,174 @@ const Router = () => {
 
   return (
     <Routes>
-      <Route path={routes.dashboard.path} element={<Dashboard />} />
+      <Route
+        path={routes.dashboard.path}
+        element={
+          <PageSuspense>
+            <Dashboard />
+          </PageSuspense>
+        }
+      />
 
-      {!!accountAddress && <Route path={routes.account.path} element={<Account />} />}
-
-      {isFeatureEnabled('isolatedPools') && (
-        <Route path={routes.isolatedPools.path} element={<IsolatedPools />} />
+      {!!accountAddress && (
+        <Route
+          path={routes.account.path}
+          element={
+            <PageSuspense>
+              <Account />
+            </PageSuspense>
+          }
+        />
       )}
 
       {isFeatureEnabled('isolatedPools') && (
-        <Route path={routes.isolatedPool.path} element={<IsolatedPool />} />
+        <Route
+          path={routes.isolatedPools.path}
+          element={
+            <PageSuspense>
+              <IsolatedPools />
+            </PageSuspense>
+          }
+        />
       )}
 
       {isFeatureEnabled('isolatedPools') && (
-        <Route path={routes.isolatedPoolMarket.path} element={<IsolatedPoolMarket />} />
+        <Route
+          path={routes.isolatedPool.path}
+          element={
+            <PageSuspense>
+              <IsolatedPool />
+            </PageSuspense>
+          }
+        />
       )}
 
-      <Route path={routes.corePool.path} element={<CorePool />} />
-      <Route path={routes.corePoolMarket.path} element={<CorePoolMarket />} />
+      {isFeatureEnabled('isolatedPools') && (
+        <Route
+          path={routes.isolatedPoolMarket.path}
+          element={
+            <PageSuspense>
+              <IsolatedPoolMarket />
+            </PageSuspense>
+          }
+        />
+      )}
 
-      <Route path={routes.vaults.path} element={<Vaults />} />
+      <Route
+        path={routes.corePool.path}
+        element={
+          <PageSuspense>
+            <CorePool />
+          </PageSuspense>
+        }
+      />
+      <Route
+        path={routes.corePoolMarket.path}
+        element={
+          <PageSuspense>
+            <CorePoolMarket />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.history.path} element={<History />} />
+      <Route
+        path={routes.vaults.path}
+        element={
+          <PageSuspense>
+            <Vaults />
+          </PageSuspense>
+        }
+      />
+
+      <Route
+        path={routes.history.path}
+        element={
+          <PageSuspense>
+            <History />
+          </PageSuspense>
+        }
+      />
 
       {/* suffix with a /* to make it accept nested routes */}
-      <Route path={`${routes.governance.path}/*`} element={<Vote />} />
+      <Route
+        path={`${routes.governance.path}/*`}
+        element={
+          <PageSuspense>
+            <Governance />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.governanceLeaderBoard.path} element={<VoterLeaderboard />} />
-      <Route path={routes.governanceVoter.path} element={<Voter />} />
-      <Route path={routes.governanceProposal.path} element={<Proposal />} />
+      <Route
+        path={routes.governanceLeaderBoard.path}
+        element={
+          <PageSuspense>
+            <VoterLeaderboard />
+          </PageSuspense>
+        }
+      />
+      <Route
+        path={routes.governanceVoter.path}
+        element={
+          <PageSuspense>
+            <Voter />
+          </PageSuspense>
+        }
+      />
+      <Route
+        path={routes.governanceProposal.path}
+        element={
+          <PageSuspense>
+            <Proposal />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.xvs.path} element={<Xvs />} />
+      <Route
+        path={routes.xvs.path}
+        element={
+          <PageSuspense>
+            <Xvs />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.convertVrt.path} element={<ConvertVrt />} />
+      <Route
+        path={routes.convertVrt.path}
+        element={
+          <PageSuspense>
+            <ConvertVrt />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.swap.path} element={<Swap />} />
+      <Route
+        path={routes.swap.path}
+        element={
+          <PageSuspense>
+            <Swap />
+          </PageSuspense>
+        }
+      />
 
-      <Route path={routes.vai.path} element={<Vai />} />
+      <Route
+        path={routes.vai.path}
+        element={
+          <PageSuspense>
+            <Vai />
+          </PageSuspense>
+        }
+      />
 
       {/* redirect to the dashboard if no route matches */}
-      <Route path="*" element={<Dashboard />} />
+      <Route
+        path="*"
+        element={
+          <PageSuspense>
+            <Dashboard />
+          </PageSuspense>
+        }
+      />
     </Routes>
   );
 };

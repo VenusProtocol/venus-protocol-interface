@@ -1,17 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import {
-  ApyChart,
-  ApyChartProps,
-  Button,
-  InterestRateChart,
-  InterestRateChartProps,
-  SecondaryButton,
-  Spinner,
-} from 'components';
+import { Button, SecondaryButton, Spinner } from 'components';
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
 import {
@@ -23,16 +14,16 @@ import {
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
+import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
+import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useOperationModal from 'hooks/useOperationModal';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
-import MarketLoader from './MarketLoader';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
@@ -489,32 +480,4 @@ const Market: React.FC<MarketProps> = ({
   );
 };
 
-export const CorePoolMarket: React.FC = () => {
-  const { vTokenAddress } = useParams();
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
-
-  return (
-    <MarketLoader
-      poolComptrollerAddress={mainPoolComptrollerContractAddress}
-      vTokenAddress={vTokenAddress}
-    >
-      {marketProps => <Market {...marketProps} />}
-    </MarketLoader>
-  );
-};
-
-export const IsolatedPoolMarket: React.FC = () => {
-  const { vTokenAddress, poolComptrollerAddress } = useParams();
-
-  return (
-    <MarketLoader
-      poolComptrollerAddress={poolComptrollerAddress}
-      vTokenAddress={vTokenAddress}
-      isIsolatedPoolMarket
-    >
-      {marketProps => <Market {...marketProps} />}
-    </MarketLoader>
-  );
-};
+export default Market;

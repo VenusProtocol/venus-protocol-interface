@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import { ContractReceipt } from 'ethers';
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
 

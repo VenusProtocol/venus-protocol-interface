@@ -1,6 +1,6 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { cloneDeep } from 'lodash';
+import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -232,7 +232,7 @@ describe('pages/Proposal', () => {
 
   it('lists votes cast', async () => {
     (useGetVoters as Vi.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
-      const votersCopy = cloneDeep(voters);
+      const votersCopy = _cloneDeep(voters);
       votersCopy.result = [votersCopy.result[filter]];
       return { data: votersCopy, isLoading: false };
     });

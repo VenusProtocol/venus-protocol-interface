@@ -3,8 +3,6 @@ export * from './ActiveVotingProgress';
 export * from './TokenAnnouncement';
 export * from './ButtonGroup';
 export * from './ReadableActionSignature';
-export * from './charts/ApyChart';
-export * from './charts/InterestRateChart';
 export * from './AuthModal';
 export * from './Button';
 export * from './BscLink';

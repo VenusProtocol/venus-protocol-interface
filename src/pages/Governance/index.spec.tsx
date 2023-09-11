@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { cloneDeep } from 'lodash';
+import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -136,7 +136,7 @@ describe('pages/Governance', () => {
   });
 
   it('prompts user to deposit XVS', async () => {
-    const vaultsCopy = cloneDeep(vaults);
+    const vaultsCopy = _cloneDeep(vaults);
     vaultsCopy[1].userStakedWei = new BigNumber(0);
     (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
     (useGetVestingVaults as Vi.Mock).mockImplementationOnce(() => ({

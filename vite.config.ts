@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import inject from '@rollup/plugin-inject';
 import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import svgrPlugin from 'vite-plugin-svgr';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
@@ -10,7 +11,12 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'build',
     rollupOptions: {
-      plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
+      plugins: [
+        inject({ Buffer: ['buffer', 'Buffer'] }),
+        visualizer({
+          filename: 'bundleStats.html',
+        }),
+      ],
     },
   },
   test: {
