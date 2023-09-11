@@ -4,8 +4,6 @@ import _set from 'lodash/set';
 
 import { logError } from 'context/ErrorLogger';
 
-import { logError } from 'context/ErrorLogger';
-
 interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
