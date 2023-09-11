@@ -1,23 +1,24 @@
 import BigNumber from 'bignumber.js';
-import { Multicall as Multicall3 } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
 
 export interface GetPendingRewardGroupsInput {
-  mainPoolComptrollerContractAddress: string;
+  tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
-  multicall3: Multicall3;
   accountAddress: string;
-  venusLensContractAddress: string;
-  resilientOracleContractAddress: string;
-  poolLensContractAddress: string;
-  vaiVaultContractAddress: string;
-  xvsVaultContractAddress: string;
+  xvsTokenAddress: string;
+  resilientOracleContract: ContractTypeByName<'resilientOracle'>;
+  poolLensContract: ContractTypeByName<'poolLens'>;
+  vaiVaultContract: ContractTypeByName<'vaiVault'>;
+  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  venusLensContract?: ContractTypeByName<'venusLens'>;
+  mainPoolComptrollerContractAddress?: string;
 }
 
-export type GetPendingRewardGroupsOutput = {
+export interface GetPendingRewardGroupsOutput {
   pendingRewardGroups: PendingRewardGroup[];
-};
+}
 
 export interface IsolatedPoolPendingReward {
   rewardToken: Token;

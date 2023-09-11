@@ -1,94 +1,118 @@
+import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { useMulticall3 } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetTokens from 'hooks/useGetTokens';
+import useGetUniqueContract from 'hooks/useGetUniqueContract';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import getPendingRewardGroups from '.';
+import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
+import useGetPools from '../useGetPools';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
+
+type TrimmedGetPendingRewardGroupsInput = Omit<
+  GetPendingRewardGroupsInput,
+  | 'venusLensContract'
+  | 'poolLensContract'
+  | 'vaiVaultContract'
+  | 'xvsVaultContract'
+  | 'resilientOracleContract'
+  | 'mainPoolComptrollerContractAddress'
+  | 'isolatedPoolComptrollerAddresses'
+  | 'xvsVestingVaultPoolCount'
+  | 'xvsTokenAddress'
+  | 'tokens'
+>;
 
 type Options = QueryObserverOptions<
   GetPendingRewardGroupsOutput,
   Error,
   GetPendingRewardGroupsOutput,
   GetPendingRewardGroupsOutput,
-  [FunctionKey.GET_PENDING_REWARDS, string, number, ...string[]]
+  [FunctionKey.GET_PENDING_REWARDS, TrimmedGetPendingRewardGroupsInput]
 >;
 
-const useGetPendingRewards = (
-  {
-    accountAddress,
-    mainPoolComptrollerContractAddress,
-    isolatedPoolComptrollerAddresses,
-    xvsVestingVaultPoolCount,
-  }: Omit<
-    GetPendingRewardGroupsInput,
-    | 'multicall3'
-    | 'venusLensContractAddress'
-    | 'poolLensContractAddress'
-    | 'vaiVaultContractAddress'
-    | 'xvsVaultContractAddress'
-  >,
-  options?: Options,
-) => {
-  const multicall3 = useMulticall3();
+const useGetPendingRewards = (input: TrimmedGetPendingRewardGroupsInput, options?: Options) => {
+  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
+    name: 'mainPoolComptroller',
+  });
 
-  const venusLensContractAddress = useGetUniqueContractAddress({
+  const resilientOracleContract = useGetUniqueContract({
+    name: 'resilientOracle',
+  });
+
+  const venusLensContract = useGetUniqueContract({
     name: 'venusLens',
   });
 
-  const poolLensContractAddress = useGetUniqueContractAddress({
+  const poolLensContract = useGetUniqueContract({
     name: 'poolLens',
   });
 
-  const vaiVaultContractAddress = useGetUniqueContractAddress({
+  const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',
   });
 
-  const xvsVaultContractAddress = useGetUniqueContractAddress({
+  const xvsVaultContract = useGetUniqueContract({
     name: 'xvsVault',
   });
 
-  const resilientOracleContractAddress = useGetUniqueContractAddress({
-    name: 'resilientOracle',
+  const tokens = useGetTokens();
+  const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
+
+  // Get Comptroller addresses of isolated pools
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+    accountAddress: input.accountAddress,
   });
+
+  const isolatedPoolComptrollerAddresses = useMemo(
+    () =>
+      (getPoolsData?.pools || []).reduce<string[]>(
+        (acc, pool) => (pool.isIsolated ? [...acc, pool.comptrollerAddress] : acc),
+        [],
+      ),
+    [getPoolsData?.pools],
+  );
+
+  // Get XVS vesting vault pool count
+  const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
+    useGetXvsVaultPoolCount();
+  const xvsVestingVaultPoolCount = getXvsVaultPoolCountData?.poolCount || 0;
 
   // Sort addresses to output the same data when providing them in a different
   // order. This prevents unnecessary queries
   const sortedIsolatedPoolComptrollerAddresses = [...isolatedPoolComptrollerAddresses].sort();
 
   return useQuery(
-    [
-      FunctionKey.GET_PENDING_REWARDS,
-      accountAddress,
-      xvsVestingVaultPoolCount,
-      mainPoolComptrollerContractAddress,
-      ...sortedIsolatedPoolComptrollerAddresses,
-    ],
+    [FunctionKey.GET_PENDING_REWARDS, input],
     () =>
       callOrThrow(
         {
-          venusLensContractAddress,
-          resilientOracleContractAddress,
-          poolLensContractAddress,
-          vaiVaultContractAddress,
-          xvsVaultContractAddress,
+          resilientOracleContract,
+          poolLensContract,
+          vaiVaultContract,
+          xvsVaultContract,
+          xvsTokenAddress,
         },
         params =>
           getPendingRewardGroups({
             mainPoolComptrollerContractAddress,
-            isolatedPoolComptrollerAddresses,
+            venusLensContract,
+            isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
             xvsVestingVaultPoolCount,
-            multicall3,
-            accountAddress,
+            tokens,
+            ...input,
             ...params,
           }),
       ),
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       ...options,
+      enabled:
+        (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
     },
   );
 };

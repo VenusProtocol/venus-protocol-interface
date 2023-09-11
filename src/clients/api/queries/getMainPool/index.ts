@@ -1,12 +1,24 @@
 import BigNumber from 'bignumber.js';
 
 import { TOKENS } from 'constants/tokens';
+import { logError } from 'context/ErrorLogger';
 
 import getMainMarkets from '../getMainMarkets';
 import formatToPool from './formatToPool';
 import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
+
+// Since the borrower and supplier counts aren't essential information, we make the logic so the
+// dApp can still function if the API is down
+const safelyGetMainMarkets = async () => {
+  try {
+    const res = await getMainMarkets();
+    return res;
+  } catch (error) {
+    logError(error);
+  }
+};
 
 const getMainPool = async ({
   name,
@@ -30,7 +42,7 @@ const getMainPool = async ({
     mainPoolComptrollerContract.getAllMarkets(),
     // Fetch main markets to get the supplier and borrower counts
     // TODO: fetch borrower and supplier counts from subgraph once available
-    getMainMarkets(),
+    safelyGetMainMarkets(),
     // Fetch XVS price
     resilientOracleContract.getPrice(TOKENS.xvs.address),
     // Account related calls
@@ -119,7 +131,7 @@ const getMainPool = async ({
       vaiRepayAmountResult.status === 'fulfilled' && vaiRepayAmountResult.value
         ? new BigNumber(vaiRepayAmountResult.value.toString())
         : undefined,
-    mainMarkets: mainMarkets.status === 'fulfilled' ? mainMarkets.value.markets : undefined,
+    mainMarkets: mainMarkets.status === 'fulfilled' ? mainMarkets.value?.markets : undefined,
   });
 
   return {
