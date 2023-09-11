@@ -150,7 +150,6 @@ const getIsolatedPools = async ({
       multicallPromise,
       // Fetch wallet token balances
       getTokenBalances({
-        multicall3,
         accountAddress,
         tokens: underlyingTokens,
         provider,

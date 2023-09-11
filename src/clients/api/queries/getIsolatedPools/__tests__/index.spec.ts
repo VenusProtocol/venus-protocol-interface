@@ -19,6 +19,11 @@ const fakePoolRegistryContractAddress = '0x14d1820b2D1c7c7452A163983Dc888CEC546b
 const fakeResilientOracleContractAddress = '0x23d1820b2D1c7c7452A163983Dc888CEC546b7897';
 
 vi.mock('clients/subgraph');
+vi.mock('../../getTokenBalances', () => ({
+  default: async () => ({
+    tokenBalances: [],
+  }),
+}));
 
 const fakePoolLensContract = {
   getAllPools: async () => fakePoolLensContractResponses.getAllPools,

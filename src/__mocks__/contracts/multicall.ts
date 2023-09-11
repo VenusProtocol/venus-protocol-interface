@@ -3622,103 +3622,6 @@ const interestRateModel: {
   },
 };
 
-const bep20: {
-  [key: string]: ContractCallResults;
-} = {
-  balanceOfTokens: {
-    results: {
-      '0xFa60D973F7642B748046464e165A65B7323b0DEE': {
-        originalContractCallContext: {
-          reference: '0xFa60D973F7642B748046464e165A65B7323b0DEE',
-          contractAddress: '0xFa60D973F7642B748046464e165A65B7323b0DEE',
-          abi: contractInfos.bep20.abi,
-          calls: [
-            {
-              reference: 'balanceOf',
-              methodName: 'balanceOf',
-              methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            },
-          ],
-        },
-        callsReturnContext: [
-          {
-            returnValues: [
-              {
-                type: 'BigNumber',
-                hex: '0x00',
-              },
-            ],
-            decoded: true,
-            reference: 'balanceOf',
-            methodName: 'balanceOf',
-            methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            success: true,
-          },
-        ],
-      },
-      '0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814': {
-        originalContractCallContext: {
-          reference: '0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814',
-          contractAddress: '0xaB1a4d4f1D656d2450692D237fdD6C7f9146e814',
-          abi: contractInfos.bep20.abi,
-          calls: [
-            {
-              reference: 'balanceOf',
-              methodName: 'balanceOf',
-              methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            },
-          ],
-        },
-        callsReturnContext: [
-          {
-            returnValues: [
-              {
-                type: 'BigNumber',
-                hex: '0x022a5ffbf4a937fb',
-              },
-            ],
-            decoded: true,
-            reference: 'balanceOf',
-            methodName: 'balanceOf',
-            methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            success: true,
-          },
-        ],
-      },
-      '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd': {
-        originalContractCallContext: {
-          reference: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
-          contractAddress: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
-          abi: contractInfos.bep20.abi,
-          calls: [
-            {
-              reference: 'balanceOf',
-              methodName: 'balanceOf',
-              methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            },
-          ],
-        },
-        callsReturnContext: [
-          {
-            returnValues: [
-              {
-                type: 'BigNumber',
-                hex: '0x00',
-              },
-            ],
-            decoded: true,
-            reference: 'balanceOf',
-            methodName: 'balanceOf',
-            methodParameters: ['0xa258a693A403b7e98fd05EE9e1558C760308cFC7'],
-            success: true,
-          },
-        ],
-      },
-    },
-    blockNumber: 25252574,
-  },
-};
-
 export const lenses: {
   [key: string]: ContractCallResults;
 } = {
@@ -5839,7 +5742,6 @@ export const resilientOracle = {
 
 export default {
   interestRateModel,
-  bep20,
   lenses,
   vaiController,
   priceOracle,
