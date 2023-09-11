@@ -8,7 +8,6 @@ import { contractInfos } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 
 import { type Provider } from 'clients/web3';
-import { TOKENS } from 'constants/tokens';
 
 import getBalanceOf from '../getBalanceOf';
 
@@ -88,7 +87,12 @@ const getTokenBalances = async ({
   // Handle fetching BNB balance if it was requested
   if (nativeTokenToRequest) {
     const getNativeBalance: GetTokenBalancesPromise = async () => {
-      const { balanceWei } = await getBalanceOf({ provider, accountAddress, token: TOKENS.bnb });
+      const { balanceWei } = await getBalanceOf({
+        provider,
+        accountAddress,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        token: nativeTokenToRequest!,
+      });
 
       return [
         {

@@ -1,304 +1,304 @@
-import aave from 'packages/tokens/img/aave.svg';
-import ada from 'packages/tokens/img/ada.svg';
-import alpaca from 'packages/tokens/img/alpaca.svg';
-import ankr from 'packages/tokens/img/ankr.svg';
-import ankrBNB from 'packages/tokens/img/ankrBNB.svg';
-import bifi from 'packages/tokens/img/bifi.png';
-import bnb from 'packages/tokens/img/bnb.svg';
-import bnbx from 'packages/tokens/img/bnbx.png';
-import bsw from 'packages/tokens/img/bsw.svg';
-import btcb from 'packages/tokens/img/btcb.svg';
-import btt from 'packages/tokens/img/btt.svg';
-import busd from 'packages/tokens/img/busd.svg';
-import cake from 'packages/tokens/img/cake.svg';
-import doge from 'packages/tokens/img/doge.svg';
-import eth from 'packages/tokens/img/eth.svg';
-import floki from 'packages/tokens/img/floki.svg';
-import hay from 'packages/tokens/img/hay.png';
-import ltc from 'packages/tokens/img/ltc.svg';
-import luna from 'packages/tokens/img/luna.svg';
-import matic from 'packages/tokens/img/matic.svg';
-import nft from 'packages/tokens/img/nft.png';
-import raca from 'packages/tokens/img/raca.png';
-import sd from 'packages/tokens/img/sd.svg';
-import stkBNB from 'packages/tokens/img/stkBNB.svg';
-import sxp from 'packages/tokens/img/sxp.svg';
-import the from 'packages/tokens/img/the.svg';
-import trx from 'packages/tokens/img/trx.svg';
-import tusd from 'packages/tokens/img/tusd.svg';
-import twt from 'packages/tokens/img/twt.svg';
-import usdc from 'packages/tokens/img/usdc.svg';
-import usdd from 'packages/tokens/img/usdd.svg';
-import usdt from 'packages/tokens/img/usdt.svg';
-import ust from 'packages/tokens/img/ust.svg';
-import vai from 'packages/tokens/img/vai.svg';
-import vrt from 'packages/tokens/img/vrt.svg';
-import wbeth from 'packages/tokens/img/wbeth.svg';
-import wbnb from 'packages/tokens/img/wbnb.svg';
-import win from 'packages/tokens/img/win.svg';
-import woo from 'packages/tokens/img/woo.svg';
-import xrp from 'packages/tokens/img/xrp.svg';
-import xvs from 'packages/tokens/img/xvs.svg';
+import aaveLogo from 'packages/tokens/img/aave.svg';
+import adaLogo from 'packages/tokens/img/ada.svg';
+import alpacaLogo from 'packages/tokens/img/alpaca.svg';
+import ankrLogo from 'packages/tokens/img/ankr.svg';
+import ankrBNBLogo from 'packages/tokens/img/ankrBNB.svg';
+import bifiLogo from 'packages/tokens/img/bifi.png';
+import bnbLogo from 'packages/tokens/img/bnb.svg';
+import bnbxLogo from 'packages/tokens/img/bnbx.png';
+import bswLogo from 'packages/tokens/img/bsw.svg';
+import btcbLogo from 'packages/tokens/img/btcb.svg';
+import bttLogo from 'packages/tokens/img/btt.svg';
+import busdLogo from 'packages/tokens/img/busd.svg';
+import cakeLogo from 'packages/tokens/img/cake.svg';
+import dogeLogo from 'packages/tokens/img/doge.svg';
+import ethLogo from 'packages/tokens/img/eth.svg';
+import flokiLogo from 'packages/tokens/img/floki.svg';
+import hayLogo from 'packages/tokens/img/hay.png';
+import ltcLogo from 'packages/tokens/img/ltc.svg';
+import lunaLogo from 'packages/tokens/img/luna.svg';
+import maticLogo from 'packages/tokens/img/matic.svg';
+import nftLogo from 'packages/tokens/img/nft.png';
+import racaLogo from 'packages/tokens/img/raca.png';
+import sdLogo from 'packages/tokens/img/sd.svg';
+import stkBNBLogo from 'packages/tokens/img/stkBNB.svg';
+import sxpLogo from 'packages/tokens/img/sxp.svg';
+import theLogo from 'packages/tokens/img/the.svg';
+import trxLogo from 'packages/tokens/img/trx.svg';
+import tusdLogo from 'packages/tokens/img/tusd.svg';
+import twtLogo from 'packages/tokens/img/twt.svg';
+import usdcLogo from 'packages/tokens/img/usdc.svg';
+import usddLogo from 'packages/tokens/img/usdd.svg';
+import usdtLogo from 'packages/tokens/img/usdt.svg';
+import ustLogo from 'packages/tokens/img/ust.svg';
+import vaiLogo from 'packages/tokens/img/vai.svg';
+import vrtLogo from 'packages/tokens/img/vrt.svg';
+import wbethLogo from 'packages/tokens/img/wbeth.svg';
+import wbnbLogo from 'packages/tokens/img/wbnb.svg';
+import winLogo from 'packages/tokens/img/win.svg';
+import wooLogo from 'packages/tokens/img/woo.svg';
+import xrpLogo from 'packages/tokens/img/xrp.svg';
+import xvsLogo from 'packages/tokens/img/xvs.svg';
 import { Token } from 'types';
 
-export const TESTNET_TOKENS = {
-  bnb: {
+export const tokens: Token[] = [
+  {
     address: '0x0000000000000000000000000000000000000000',
     decimals: 18,
     symbol: 'BNB',
-    asset: bnb,
+    asset: bnbLogo,
     isNative: true,
-  } as Token,
-  sxp: {
+  },
+  {
     address: '0x75107940Cf1121232C0559c747A986DEfbc69DA9',
     decimals: 18,
     symbol: 'SXP',
-    asset: sxp,
-  } as Token,
-  usdc: {
+    asset: sxpLogo,
+  },
+  {
     address: '0x16227D60f7a0e586C66B005219dfc887D13C9531',
     decimals: 6,
     symbol: 'USDC',
-    asset: usdc,
-  } as Token,
-  usdt: {
+    asset: usdcLogo,
+  },
+  {
     address: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
     decimals: 6,
     symbol: 'USDT',
-    asset: usdt,
-  } as Token,
-  busd: {
+    asset: usdtLogo,
+  },
+  {
     address: '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47',
     decimals: 18,
     symbol: 'BUSD',
-    asset: busd,
-  } as Token,
-  xvs: {
+    asset: busdLogo,
+  },
+  {
     address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
     decimals: 18,
     symbol: 'XVS',
-    asset: xvs,
-  } as Token,
-  btcb: {
+    asset: xvsLogo,
+  },
+  {
     address: '0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4',
     decimals: 18,
     symbol: 'BTCB',
-    asset: btcb,
-  } as Token,
-  eth: {
+    asset: btcbLogo,
+  },
+  {
     address: '0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7',
     decimals: 18,
     symbol: 'ETH',
-    asset: eth,
-  } as Token,
-  ltc: {
+    asset: ethLogo,
+  },
+  {
     address: '0x969F147B6b8D81f86175de33206A4FD43dF17913',
     decimals: 18,
     symbol: 'LTC',
-    asset: ltc,
-  } as Token,
-  xrp: {
+    asset: ltcLogo,
+  },
+  {
     address: '0x3022A32fdAdB4f02281E8Fab33e0A6811237aab0',
     decimals: 18,
     symbol: 'XRP',
-    asset: xrp,
-  } as Token,
-  ada: {
+    asset: xrpLogo,
+  },
+  {
     address: '0xcD34BC54106bd45A04Ed99EBcC2A6a3e70d7210F',
     decimals: 18,
     symbol: 'ADA',
-    asset: ada,
-  } as Token,
-  doge: {
+    asset: adaLogo,
+  },
+  {
     address: '0x67D262CE2b8b846d9B94060BC04DC40a83F0e25B',
     decimals: 8,
     symbol: 'DOGE',
-    asset: doge,
-  } as Token,
-  matic: {
+    asset: dogeLogo,
+  },
+  {
     address: '0xcfeb0103d4BEfa041EA4c2dACce7B3E83E1aE7E3',
     decimals: 18,
     symbol: 'MATIC',
-    asset: matic,
-  } as Token,
-  cake: {
+    asset: maticLogo,
+  },
+  {
     address: '0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF',
     decimals: 18,
     symbol: 'CAKE',
-    asset: cake,
-  } as Token,
-  aave: {
+    asset: cakeLogo,
+  },
+  {
     address: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
     decimals: 18,
     symbol: 'AAVE',
-    asset: aave,
-  } as Token,
-  tusd: {
+    asset: aaveLogo,
+  },
+  {
     address: '0xB32171ecD878607FFc4F8FC0bCcE6852BB3149E0',
     decimals: 18,
     symbol: 'TUSD',
-    asset: tusd,
-  } as Token,
-  tusdold: {
+    asset: tusdLogo,
+  },
+  {
     address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
     decimals: 18,
     symbol: 'TUSDOLD',
-    asset: tusd,
-  } as Token,
-  trx: {
+    asset: tusdLogo,
+  },
+  {
     address: '0x7D21841DC10BA1C5797951EFc62fADBBDD06704B',
     decimals: 6,
     symbol: 'TRX',
-    asset: trx,
-  } as Token,
-  trxold: {
+    asset: trxLogo,
+  },
+  {
     address: '0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F',
     decimals: 18,
     symbol: 'TRXOLD',
-    asset: trx,
-  } as Token,
-  ust: {
+    asset: trxLogo,
+  },
+  {
     address: '0x5A79efD958432E72211ee73D5DDFa9bc8f248b5F',
     decimals: 18,
     symbol: 'UST',
-    asset: ust,
-  } as Token,
-  luna: {
+    asset: ustLogo,
+  },
+  {
     address: '0xf36160EC62E3B191EA375dadfe465E8Fa1F8CabB',
     decimals: 6,
     symbol: 'LUNA',
-    asset: luna,
-  } as Token,
-  vai: {
+    asset: lunaLogo,
+  },
+  {
     address: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
     decimals: 18,
     symbol: 'VAI',
-    asset: vai,
-  } as Token,
-  vrt: {
+    asset: vaiLogo,
+  },
+  {
     address: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
     decimals: 18,
     symbol: 'VRT',
-    asset: vrt,
-  } as Token,
-  alpaca: {
+    asset: vrtLogo,
+  },
+  {
     address: '0x6923189d91fdF62dBAe623a55273F1d20306D9f2',
     decimals: 18,
     symbol: 'ALPACA',
-    asset: alpaca,
-  } as Token,
-  ankr: {
+    asset: alpacaLogo,
+  },
+  {
     address: '0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B',
     decimals: 18,
     symbol: 'ANKR',
-    asset: ankr,
-  } as Token,
-  ankrbnb: {
+    asset: ankrLogo,
+  },
+  {
     address: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
     decimals: 18,
     symbol: 'ankrBNB',
-    asset: ankrBNB,
-  } as Token,
-  bifi: {
+    asset: ankrBNBLogo,
+  },
+  {
     address: '0x5B662703775171c4212F2FBAdb7F92e64116c154',
     decimals: 18,
     symbol: 'BIFI',
-    asset: bifi,
-  } as Token,
-  bnbx: {
+    asset: bifiLogo,
+  },
+  {
     address: '0x327d6E6FAC0228070884e913263CFF9eFed4a2C8',
     decimals: 18,
     symbol: 'BNBx',
-    asset: bnbx,
-  } as Token,
-  bsw: {
+    asset: bnbxLogo,
+  },
+  {
     address: '0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE',
     decimals: 18,
     symbol: 'BSW',
-    asset: bsw,
-  } as Token,
-  btt: {
+    asset: bswLogo,
+  },
+  {
     address: '0xE98344A7c691B200EF47c9b8829110087D832C64',
     decimals: 18,
     symbol: 'BTT',
-    asset: btt,
-  } as Token,
-  floki: {
+    asset: bttLogo,
+  },
+  {
     address: '0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88',
     decimals: 18,
     symbol: 'FLOKI',
-    asset: floki,
-  } as Token,
-  hay: {
+    asset: flokiLogo,
+  },
+  {
     address: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
     decimals: 18,
     symbol: 'HAY',
-    asset: hay,
-  } as Token,
-  nft: {
+    asset: hayLogo,
+  },
+  {
     address: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
     decimals: 18,
     symbol: 'NFT',
-    asset: nft,
-  } as Token,
-  raca: {
+    asset: nftLogo,
+  },
+  {
     address: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
     decimals: 18,
     symbol: 'RACA',
-    asset: raca,
-  } as Token,
-  stkbnb: {
+    asset: racaLogo,
+  },
+  {
     address: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
     decimals: 18,
     symbol: 'stkBNB',
-    asset: stkBNB,
-  } as Token,
-  usdd: {
+    asset: stkBNBLogo,
+  },
+  {
     address: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
     decimals: 18,
     symbol: 'USDD',
-    asset: usdd,
-  } as Token,
-  wbnb: {
+    asset: usddLogo,
+  },
+  {
     symbol: 'WBNB',
     decimals: 18,
     address: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
-    asset: wbnb,
-  } as Token,
-  win: {
+    asset: wbnbLogo,
+  },
+  {
     address: '0x2E6Af3f3F059F43D764060968658c9F3c8f9479D',
     decimals: 18,
     symbol: 'WIN',
-    asset: win,
-  } as Token,
-  woo: {
+    asset: winLogo,
+  },
+  {
     address: '0x65B849A4Fc306AF413E341D44dF8482F963fBB91',
     decimals: 18,
     symbol: 'WOO',
-    asset: woo,
-  } as Token,
-  wbeth: {
+    asset: wooLogo,
+  },
+  {
     address: '0xf9F98365566F4D55234f24b99caA1AfBE6428D44',
     decimals: 18,
     symbol: 'WBETH',
-    asset: wbeth,
-  } as Token,
-  sd: {
+    asset: wbethLogo,
+  },
+  {
     address: '0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3',
     decimals: 18,
     symbol: 'SD',
-    asset: sd,
-  } as Token,
-  twt: {
+    asset: sdLogo,
+  },
+  {
     address: '0xb99C6B26Fdf3678c6e2aff8466E3625a0e7182f8',
     decimals: 18,
     symbol: 'TWT',
-    asset: twt,
-  } as Token,
-  the: {
+    asset: twtLogo,
+  },
+  {
     address: '0xB1cbD28Cb101c87b5F94a14A8EF081EA7F985593',
     decimals: 18,
     symbol: 'THE',
-    asset: the,
-  } as Token,
-};
+    asset: theLogo,
+  },
+];

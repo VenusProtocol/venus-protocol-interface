@@ -3901,7 +3901,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
       "rewardAmountWei": "3.7154375659692912361873e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/assets/img/tokens/xvs.svg",
+        "asset": "/src/packages/tokens/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
@@ -3931,7 +3931,7 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
           "rewardAmountWei": "2.95961827109044250302366e+23",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "/src/assets/img/tokens/xvs.svg",
+            "asset": "/src/packages/tokens/img/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },

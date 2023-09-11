@@ -1103,7 +1103,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       "balanceWei": "1000000000000000000",
       "token": {
         "address": "0x0000000000000000000000000000000000000000",
-        "asset": "/src/assets/img/tokens/bnb.svg",
+        "asset": "/src/packages/tokens/img/bnb.svg",
         "decimals": 18,
         "isNative": true,
         "symbol": "BNB",

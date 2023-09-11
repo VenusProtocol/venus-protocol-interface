@@ -15,7 +15,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "499.9999968",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -41,7 +41,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "499.9999968",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -62,7 +62,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vUSDC",
           "underlyingToken": {
             "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-            "asset": "/src/assets/img/tokens/usdc.svg",
+            "asset": "/src/packages/tokens/img/usdc.svg",
             "decimals": 6,
             "symbol": "USDC",
           },
@@ -79,7 +79,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "499.9999968",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -105,7 +105,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "499.9999968",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -126,7 +126,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vUSDT",
           "underlyingToken": {
             "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-            "asset": "/src/assets/img/tokens/usdt.svg",
+            "asset": "/src/packages/tokens/img/usdt.svg",
             "decimals": 6,
             "symbol": "USDT",
           },
@@ -143,7 +143,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -169,7 +169,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -190,7 +190,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vBUSD",
           "underlyingToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-            "asset": "/src/assets/img/tokens/busd.svg",
+            "asset": "/src/packages/tokens/img/busd.svg",
             "decimals": 18,
             "symbol": "BUSD",
           },
@@ -207,7 +207,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "24.999999999999984",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -233,7 +233,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "24.999999999999984",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -254,7 +254,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vSXP",
           "underlyingToken": {
             "address": "0x75107940Cf1121232C0559c747A986DEfbc69DA9",
-            "asset": "/src/assets/img/tokens/sxp.svg",
+            "asset": "/src/packages/tokens/img/sxp.svg",
             "decimals": 18,
             "symbol": "SXP",
           },
@@ -271,7 +271,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "1499.9999904",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -297,7 +297,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "1499.9999904",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -318,7 +318,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vBNB",
           "underlyingToken": {
             "address": "0x0000000000000000000000000000000000000000",
-            "asset": "/src/assets/img/tokens/bnb.svg",
+            "asset": "/src/packages/tokens/img/bnb.svg",
             "decimals": 18,
             "isNative": true,
             "symbol": "BNB",
@@ -336,7 +336,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -362,7 +362,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -383,7 +383,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vXVS",
           "underlyingToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "/src/assets/img/tokens/xvs.svg",
+            "asset": "/src/packages/tokens/img/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },
@@ -400,7 +400,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -426,7 +426,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -447,7 +447,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vETH",
           "underlyingToken": {
             "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-            "asset": "/src/assets/img/tokens/eth.svg",
+            "asset": "/src/packages/tokens/img/eth.svg",
             "decimals": 18,
             "symbol": "ETH",
           },
@@ -464,7 +464,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -490,7 +490,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -511,7 +511,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vLTC",
           "underlyingToken": {
             "address": "0x969F147B6b8D81f86175de33206A4FD43dF17913",
-            "asset": "/src/assets/img/tokens/ltc.svg",
+            "asset": "/src/packages/tokens/img/ltc.svg",
             "decimals": 18,
             "symbol": "LTC",
           },
@@ -528,7 +528,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -554,7 +554,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "250.0000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -575,7 +575,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vXRP",
           "underlyingToken": {
             "address": "0x3022A32fdAdB4f02281E8Fab33e0A6811237aab0",
-            "asset": "/src/assets/img/tokens/xrp.svg",
+            "asset": "/src/packages/tokens/img/xrp.svg",
             "decimals": 18,
             "symbol": "XRP",
           },
@@ -592,7 +592,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "1499.9999904",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -618,7 +618,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "1499.9999904",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -639,7 +639,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vBTCB",
           "underlyingToken": {
             "address": "0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4",
-            "asset": "/src/assets/img/tokens/btcb.svg",
+            "asset": "/src/packages/tokens/img/btcb.svg",
             "decimals": 18,
             "symbol": "BTCB",
           },
@@ -656,7 +656,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "87.499999999999872",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -682,7 +682,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "87.499999999999872",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -703,7 +703,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vADA",
           "underlyingToken": {
             "address": "0xcD34BC54106bd45A04Ed99EBcC2A6a3e70d7210F",
-            "asset": "/src/assets/img/tokens/ada.svg",
+            "asset": "/src/packages/tokens/img/ada.svg",
             "decimals": 18,
             "symbol": "ADA",
           },
@@ -720,7 +720,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "45.805000000000032",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -746,7 +746,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "45.805000000000032",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -767,7 +767,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vDOGE",
           "underlyingToken": {
             "address": "0x67D262CE2b8b846d9B94060BC04DC40a83F0e25B",
-            "asset": "/src/assets/img/tokens/doge.svg",
+            "asset": "/src/packages/tokens/img/doge.svg",
             "decimals": 8,
             "symbol": "DOGE",
           },
@@ -784,7 +784,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "87.499999999999872",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -810,7 +810,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "87.499999999999872",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -831,7 +831,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vCAKE",
           "underlyingToken": {
             "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-            "asset": "/src/assets/img/tokens/cake.svg",
+            "asset": "/src/packages/tokens/img/cake.svg",
             "decimals": 18,
             "symbol": "CAKE",
           },
@@ -848,7 +848,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -874,7 +874,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -895,7 +895,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vMATIC",
           "underlyingToken": {
             "address": "0xcfeb0103d4BEfa041EA4c2dACce7B3E83E1aE7E3",
-            "asset": "/src/assets/img/tokens/matic.svg",
+            "asset": "/src/packages/tokens/img/matic.svg",
             "decimals": 18,
             "symbol": "MATIC",
           },
@@ -912,7 +912,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "12.5000000000000064",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -938,7 +938,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "12.5000000000000064",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -959,7 +959,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vAAVE",
           "underlyingToken": {
             "address": "0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144",
-            "asset": "/src/assets/img/tokens/aave.svg",
+            "asset": "/src/packages/tokens/img/aave.svg",
             "decimals": 18,
             "symbol": "AAVE",
           },
@@ -976,7 +976,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1002,7 +1002,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "0",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1023,7 +1023,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vTUSDOLD",
           "underlyingToken": {
             "address": "0xFeC3A63401Eb9C1476200d7C32c4009Be0154169",
-            "asset": "/src/assets/img/tokens/tusd.svg",
+            "asset": "/src/packages/tokens/img/tusd.svg",
             "decimals": 18,
             "symbol": "TUSDOLD",
           },
@@ -1040,7 +1040,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1066,7 +1066,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1087,7 +1087,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vTRXOLD",
           "underlyingToken": {
             "address": "0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F",
-            "asset": "/src/assets/img/tokens/trx.svg",
+            "asset": "/src/packages/tokens/img/trx.svg",
             "decimals": 18,
             "symbol": "TRXOLD",
           },
@@ -1104,7 +1104,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1130,7 +1130,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1151,7 +1151,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vUST",
           "underlyingToken": {
             "address": "0x5A79efD958432E72211ee73D5DDFa9bc8f248b5F",
-            "asset": "/src/assets/img/tokens/ust.svg",
+            "asset": "/src/packages/tokens/img/ust.svg",
             "decimals": 18,
             "symbol": "UST",
           },
@@ -1168,7 +1168,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1194,7 +1194,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1215,7 +1215,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vLUNA",
           "underlyingToken": {
             "address": "0xf36160EC62E3B191EA375dadfe465E8Fa1F8CabB",
-            "asset": "/src/assets/img/tokens/luna.svg",
+            "asset": "/src/packages/tokens/img/luna.svg",
             "decimals": 6,
             "symbol": "LUNA",
           },
@@ -1232,7 +1232,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "24.999999999999984",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1258,7 +1258,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "24.999999999999984",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1279,7 +1279,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vTRX",
           "underlyingToken": {
             "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
-            "asset": "/src/assets/img/tokens/trx.svg",
+            "asset": "/src/packages/tokens/img/trx.svg",
             "decimals": 6,
             "symbol": "TRX",
           },
@@ -1296,7 +1296,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "17.177499999999936",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1322,7 +1322,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "17.177499999999936",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1343,7 +1343,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vWBETH",
           "underlyingToken": {
             "address": "0xf9F98365566F4D55234f24b99caA1AfBE6428D44",
-            "asset": "/src/assets/img/tokens/wbeth.svg",
+            "asset": "/src/packages/tokens/img/wbeth.svg",
             "decimals": 18,
             "symbol": "WBETH",
           },
@@ -1360,7 +1360,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "6.2500000000000032",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1386,7 +1386,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
             "dailyDistributedTokens": "6.2500000000000032",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/assets/img/tokens/xvs.svg",
+              "asset": "/src/packages/tokens/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1407,7 +1407,7 @@ exports[`api/queries/getMainPool > returns main pool in the correct format 1`] =
           "symbol": "vTUSD",
           "underlyingToken": {
             "address": "0xB32171ecD878607FFc4F8FC0bCcE6852BB3149E0",
-            "asset": "/src/assets/img/tokens/tusd.svg",
+            "asset": "/src/packages/tokens/img/tusd.svg",
             "decimals": 18,
             "symbol": "TUSD",
           },

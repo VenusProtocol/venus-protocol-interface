@@ -7,7 +7,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "expectedToTokenAmountReceivedWei": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "asset": "/src/assets/img/tokens/busd.svg",
+    "asset": "/src/packages/tokens/img/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
@@ -20,7 +20,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   ],
   "toToken": {
     "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "/src/assets/img/tokens/cake.svg",
+    "asset": "/src/packages/tokens/img/cake.svg",
     "decimals": 18,
     "symbol": "CAKE",
   },
@@ -34,7 +34,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "expectedFromTokenAmountSoldWei": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "asset": "/src/assets/img/tokens/busd.svg",
+    "asset": "/src/packages/tokens/img/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
@@ -46,7 +46,7 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   ],
   "toToken": {
     "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "/src/assets/img/tokens/cake.svg",
+    "asset": "/src/packages/tokens/img/cake.svg",
     "decimals": 18,
     "symbol": "CAKE",
   },

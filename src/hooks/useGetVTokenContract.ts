@@ -10,16 +10,12 @@ export interface UseGetVTokenContractInput {
 }
 
 const useGetVTokenContract = ({ vToken, passSigner = false }: UseGetVTokenContractInput) => {
-  const { signer, provider, chainId } = useAuth();
+  const { signer, provider } = useAuth();
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
-    () =>
-      chainId !== undefined && // Although chainId isn't used, we don't want to fetch any data unless it exists
-      !!signerOrProvider
-        ? getVTokenContract({ vToken, signerOrProvider })
-        : undefined,
-    [signerOrProvider, chainId, vToken],
+    () => (signerOrProvider ? getVTokenContract({ vToken, signerOrProvider }) : undefined),
+    [signerOrProvider, vToken],
   );
 };
 

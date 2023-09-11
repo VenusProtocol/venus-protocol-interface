@@ -10,16 +10,12 @@ export interface UseGetTokenContractInput {
 }
 
 const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractInput) => {
-  const { signer, provider, chainId } = useAuth();
+  const { signer, provider } = useAuth();
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
-    () =>
-      chainId !== undefined && // Although chainId isn't used, we don't want to fetch any data unless it exists
-      !!signerOrProvider
-        ? getTokenContract({ token, signerOrProvider })
-        : undefined,
-    [signerOrProvider, chainId, token],
+    () => (signerOrProvider ? getTokenContract({ token, signerOrProvider }) : undefined),
+    [signerOrProvider, token],
   );
 };
 
