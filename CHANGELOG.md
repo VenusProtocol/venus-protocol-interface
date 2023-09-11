@@ -1,3 +1,11 @@
+## [2.19.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.18.1...v2.19.0) (2023-09-11)
+
+
+### Features
+
+* create tokens package ([#1397](https://github.com/VenusProtocol/venus-protocol-interface/issues/1397)) ([c859180](https://github.com/VenusProtocol/venus-protocol-interface/commit/c85918078b4553a34b010a832dec2ef23314b233))
+* optimize bundle size and loading ([#1406](https://github.com/VenusProtocol/venus-protocol-interface/issues/1406)) ([3a777eb](https://github.com/VenusProtocol/venus-protocol-interface/commit/3a777eb0fd5b2acedaa7644c2038ea324dacec89))
+
 ## [2.18.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.18.0...v2.18.1) (2023-09-08)
 
 ## [2.18.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.17.1...v2.18.0) (2023-09-07)
