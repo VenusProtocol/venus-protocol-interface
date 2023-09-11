@@ -1,23 +1,25 @@
 import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
-import BigNumber from 'bignumber.js';
-import { ContractCallResults } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import { areAddressesEqual } from 'utilities';
 
 import { PairAddress } from './types';
 
 const formatToPairs = ({
   pairAddresses,
-  reserveCallResults,
+  reservesResults,
 }: {
   pairAddresses: PairAddress[];
-  reserveCallResults: ContractCallResults;
+  reservesResults: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'pancakePairV2'>['getReserves']>>
+  >[];
 }): PSPair[] =>
-  pairAddresses.reduce((acc, pairAddress) => {
-    const reserveCallResult =
-      reserveCallResults.results[pairAddress.address].callsReturnContext[0].returnValues;
+  pairAddresses.reduce((acc, pairAddress, index) => {
+    const pairReservesCallResult = reservesResults[index];
+    const pairReserves =
+      pairReservesCallResult.status === 'rejected' ? undefined : pairReservesCallResult.value;
 
-    // Exclude pair if results don't include it
-    if (!reserveCallResult?.length) {
+    // Exclude pair if reserves could not be fetched
+    if (!pairReserves) {
       return acc;
     }
 
@@ -31,8 +33,8 @@ const formatToPairs = ({
       : [pairAddress.tokenCombination[1], pairAddress.tokenCombination[0]];
 
     const pair = new PSPair(
-      PSCurrencyAmount.fromRawAmount(token0, new BigNumber(reserveCallResult[0].hex).toFixed()),
-      PSCurrencyAmount.fromRawAmount(token1, new BigNumber(reserveCallResult[1].hex).toFixed()),
+      PSCurrencyAmount.fromRawAmount(token0, pairReserves.reserve0.toString()),
+      PSCurrencyAmount.fromRawAmount(token1, pairReserves.reserve1.toString()),
     );
 
     // Exclude pair if it already exists
