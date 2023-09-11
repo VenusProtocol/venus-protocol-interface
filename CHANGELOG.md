@@ -1,3 +1,10 @@
+## [2.19.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.1...v2.19.2) (2023-09-11)
+
+
+### Bug Fixes
+
+* include minted VAI balance to total user borrow balance ([#1408](https://github.com/VenusProtocol/venus-protocol-interface/issues/1408)) ([41cd371](https://github.com/VenusProtocol/venus-protocol-interface/commit/41cd371b39b11ee2abafbf2fcdc112aad98edd54))
+
 ## [2.19.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.0...v2.19.1) (2023-09-11)
 
 ## [2.19.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.18.1...v2.19.0) (2023-09-11)
