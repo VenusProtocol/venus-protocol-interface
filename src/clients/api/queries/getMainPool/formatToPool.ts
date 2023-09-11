@@ -363,7 +363,7 @@ const formatToPool = ({
     }) // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
       .times(100);
 
-    pool.userBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
+    pool.userBorrowBalanceCents = pool.userBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
   }
 
   // Calculate userPercentOfLimit for each asset
