@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
-import {
-  convertDollarsToCents,
-  convertWeiToTokens,
-  formatTokenPrices,
-  getTokenByAddress,
-} from 'utilities';
+import { convertDollarsToCents, convertWeiToTokens } from 'utilities';
+
+import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 type FormatRewardSummaryDataOutput =
   | {
@@ -17,36 +16,32 @@ type FormatRewardSummaryDataOutput =
     }
   | undefined;
 
-export type RewardSummary = [
-  string, // Rewards distributor address
-  string, // Reward token address
-  { hex: string }, // Total pending reward
-  [
-    string, // vToken address
-    { hex: string }, // Pending reward
-  ][],
-];
-
 function formatRewardSummaryData({
+  tokens,
   rewardSummary,
-  rewardTokenPrices,
+  rewardTokenPriceMapping,
 }: {
-  rewardSummary: RewardSummary;
-  rewardTokenPrices: ReturnType<typeof formatTokenPrices>;
+  tokens: Token[];
+  rewardSummary: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
+  rewardTokenPriceMapping: Record<string, BigNumber>;
 }): FormatRewardSummaryDataOutput {
-  const rewardToken = getTokenByAddress(rewardSummary[1]);
+  const rewardToken = findTokenByAddress({
+    address: rewardSummary.rewardTokenAddress,
+    tokens,
+  });
 
   // Filter out result if no corresponding token is found
   if (!rewardToken) {
+    logError(`Record missing for reward token: ${rewardSummary.rewardTokenAddress}`);
     return;
   }
 
   const vTokenAddressesWithPendingReward: string[] = [];
-  const distributedRewardsWei = new BigNumber(rewardSummary[2].hex);
+  const distributedRewardsWei = new BigNumber(rewardSummary.totalRewards.toString());
 
   // Go through markets to aggregate rewards
-  const rewardAmountWei = rewardSummary[3].reduce((acc, market) => {
-    const vTokenPendingReward = new BigNumber(market[1].hex);
+  const rewardAmountWei = rewardSummary.pendingRewards.reduce((acc, market) => {
+    const vTokenPendingReward = new BigNumber(market.amount.toString());
     // Filter out vToken if it doesn't have any pending reward to collect
     if (vTokenPendingReward.isEqualTo(0)) {
       return acc;
@@ -54,7 +49,7 @@ function formatRewardSummaryData({
 
     // Add vToken address to the list of addresses that rewards need to be
     // collected from
-    vTokenAddressesWithPendingReward.push(market[0]);
+    vTokenAddressesWithPendingReward.push(market.vTokenAddress);
 
     return acc.plus(vTokenPendingReward);
   }, distributedRewardsWei);
@@ -64,7 +59,7 @@ function formatRewardSummaryData({
     return;
   }
 
-  const rewardTokenPrice = rewardTokenPrices[rewardToken.address.toLowerCase()];
+  const rewardTokenPrice = rewardTokenPriceMapping[rewardToken.address];
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPrice);
 
   // return if there is no available reward token price
@@ -84,7 +79,7 @@ function formatRewardSummaryData({
     rewardAmountWei,
     rewardAmountCents,
     vTokenAddressesWithPendingReward,
-    rewardsDistributorAddress: rewardSummary[0],
+    rewardsDistributorAddress: rewardSummary.distributorAddress,
   };
 }
 

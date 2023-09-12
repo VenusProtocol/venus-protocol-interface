@@ -1,11 +1,10 @@
-// import findTokenByAddress from 'utilities/findTokenByAddress';
-// import formatOutput from './formatOutput';
 import BigNumber from 'bignumber.js';
 
 import { logError } from 'context/ErrorLogger';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
+import formatOutput from './formatOutput';
 import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
 
 const getPendingRewardGroups = async ({
@@ -91,7 +90,7 @@ const getPendingRewardGroups = async ({
     ),
   );
 
-  const rewardTokenPrices = rewardTokenPricesResults.reduce<{
+  const rewardTokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
     [address: string]: BigNumber;
   }>((acc, rewardTokenPricesResult, index) => {
     const rewardTokenAddress = rewardTokenAddresses[index];
@@ -120,8 +119,20 @@ const getPendingRewardGroups = async ({
     };
   }, {});
 
+  const pendingRewardGroups = formatOutput({
+    tokens,
+    mainPoolComptrollerContractAddress,
+    vaiVaultPendingXvsResult,
+    venusLensPendingRewardsResult,
+    isolatedPoolsPendingRewardsResults,
+    xvsVestingVaultPoolInfosResults,
+    xvsVestingVaultPendingRewardResults,
+    xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults,
+    rewardTokenPriceMapping,
+  });
+
   return {
-    pendingRewardGroups: [],
+    pendingRewardGroups,
   };
 };
 

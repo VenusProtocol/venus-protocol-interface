@@ -1,25 +1,31 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallReturnContext } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
+import { Token } from 'types';
 
 import { MainPoolPendingRewardGroup } from '../types';
-import formatRewardSummaryData, { RewardSummary } from './formatRewardSummaryData';
+import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToMainPoolPendingRewardGroup({
-  callsReturnContext,
-  rewardTokenPrices,
+  comptrollerContractAddress,
+  venusLensPendingRewardsResult,
+  rewardTokenPriceMapping,
+  tokens,
 }: {
-  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number];
-  rewardTokenPrices: Record<string, BigNumber>;
+  comptrollerContractAddress: string;
+  venusLensPendingRewardsResult: PromiseSettledResult<
+    Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']> | undefined>
+  >;
+  rewardTokenPriceMapping: Record<string, BigNumber>;
+  tokens: Token[];
 }) {
-  const { returnValues, methodParameters } = callsReturnContext;
-
-  if (returnValues.length === 0) {
+  if (venusLensPendingRewardsResult.status === 'rejected' || !venusLensPendingRewardsResult.value) {
     return;
   }
 
   const rewardSummaryData = formatRewardSummaryData({
-    rewardSummary: returnValues as RewardSummary,
-    rewardTokenPrices,
+    rewardSummary: venusLensPendingRewardsResult.value,
+    rewardTokenPriceMapping,
+    tokens,
   });
 
   if (!rewardSummaryData) {
@@ -31,7 +37,7 @@ function formatToMainPoolPendingRewardGroup({
 
   const pendingRewardGroup: MainPoolPendingRewardGroup = {
     type: 'mainPool',
-    comptrollerAddress: methodParameters[1],
+    comptrollerAddress: comptrollerContractAddress,
     rewardToken,
     rewardAmountCents,
     rewardAmountWei,
