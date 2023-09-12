@@ -8,7 +8,8 @@ import getMainMarkets, { ApiMarket } from '..';
 const apiMarkets: ApiMarket[] = [
   {
     address: fakeAddress,
-    totalDistributed: '100',
+    underlyingDecimal: 18,
+    totalDistributedMantissa: '959736453684596858981282',
     borrowerCount: 1,
     supplierCount: 2,
   },
@@ -20,7 +21,7 @@ describe('api/queries/getMainMarkets', () => {
   test('returns formatted markets on success', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: { markets: apiMarkets } },
+      data: { result: apiMarkets },
     }));
 
     const { markets } = await getMainMarkets();
