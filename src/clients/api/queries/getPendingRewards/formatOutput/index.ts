@@ -2,14 +2,11 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
 
-import {
-  PendingRewardGroup,
-  VaultPendingRewardGroup,
-  XvsVestingVaultPendingRewardGroup,
-} from '../types';
+import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
 import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
 import formatToVaultPendingRewardGroup from './formatToVaultPendingRewardGroup';
+import formatToVestingVaultPendingRewardGroup from './formatToVestingVaultPendingRewardGroup';
 
 const formatOutput = ({
   tokens,
@@ -18,7 +15,7 @@ const formatOutput = ({
   vaiVaultPendingXvs,
   isolatedPoolsPendingRewards,
   xvsVestingVaultPoolInfos,
-  xvsVestingVaultPendingReward,
+  xvsVestingVaultPendingRewards,
   xvsVestingVaultPendingWithdrawalsBeforeUpgrade,
   tokenPriceMapping,
   venusLensPendingRewards,
@@ -96,47 +93,42 @@ const formatOutput = ({
     pendingRewardGroups.push(vaiVaultPendingRewardGroup);
   }
 
-  // // Extract pending rewards from vesting vaults
-  // const xvsVestingVaultPendingRewardGroups: XvsVestingVaultPendingRewardGroup[] = [];
-  // const xvsVestingVaultResults = contractCallResults.results.xvsVestingVaults.callsReturnContext;
+  // Extract pending rewards from XVS vesting vaults
+  const xvsVestingVaultPendingRewardGroups = xvsVestingVaultPendingRewards
+    .map((xvsVestingVaultPendingReward, index) => {
+      if (!xvsVestingVaultPendingReward) {
+        return;
+      }
 
-  // for (let v = 0; v < xvsVestingVaultResults.length - 1; v += 3) {
-  //   const stakedTokenAddress = xvsVestingVaultResults[v].returnValues[0];
-  //   const stakedToken = getTokenByAddress(stakedTokenAddress);
+      const vaultPoolInfo = xvsVestingVaultPoolInfos[index];
+      const userPendingRewardsAmountMantissa =
+        xvsVestingVaultPendingReward && new BigNumber(xvsVestingVaultPendingReward.toString());
+      const unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa =
+        xvsVestingVaultPendingWithdrawalsBeforeUpgrade[index];
+      const userPendingWithdrawalsBeforeUpgradeAmountMantissa =
+        unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa &&
+        new BigNumber(unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa.toString());
 
-  //   const poolIndex = xvsVestingVaultResults[v].methodParameters[1];
+      if (
+        !vaultPoolInfo ||
+        !userPendingRewardsAmountMantissa ||
+        !userPendingWithdrawalsBeforeUpgradeAmountMantissa
+      ) {
+        return;
+      }
 
-  //   const pendingRewardWei = new BigNumber(xvsVestingVaultResults[v + 1].returnValues[0].hex);
+      return formatToVestingVaultPendingRewardGroup({
+        poolIndex: index,
+        userPendingRewardsAmountMantissa,
+        userPendingWithdrawalsBeforeUpgradeAmountMantissa,
+        tokenPriceMapping,
+        tokens,
+        stakedTokenAddress: vaultPoolInfo.token,
+      });
+    })
+    .filter((group): group is XvsVestingVaultPendingRewardGroup => !!group);
 
-  //   const hasPendingWithdrawalsFromBeforeUpgrade =
-  //     !!xvsVestingVaultResults[v + 2].returnValues[0] &&
-  //     new BigNumber(xvsVestingVaultResults[v + 2].returnValues[0].hex).isGreaterThan(0);
-
-  //   if (
-  //     !hasPendingWithdrawalsFromBeforeUpgrade &&
-  //     stakedToken &&
-  //     pendingRewardWei.isGreaterThan(0)
-  //   ) {
-  //     const pendingRewardTokens = convertWeiToTokens({
-  //       valueWei: pendingRewardWei,
-  //       token: TOKENS.xvs,
-  //     });
-  //     const xvsVestingVaultPendingRewardCents =
-  //       pendingRewardTokens.multipliedBy(xvsTokenPriceCents);
-
-  //     xvsVestingVaultPendingRewardGroups.push({
-  //       type: 'xvsVestingVault',
-  //       poolIndex,
-  //       rewardToken: TOKENS.xvs,
-  //       rewardAmountWei: pendingRewardWei,
-  //       rewardAmountCents: xvsVestingVaultPendingRewardCents,
-  //     });
-  //   }
-  // }
-
-  // if (xvsVestingVaultPendingRewardGroups.length > 0) {
-  //   pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
-  // }
+  pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
 
   return pendingRewardGroups;
 };

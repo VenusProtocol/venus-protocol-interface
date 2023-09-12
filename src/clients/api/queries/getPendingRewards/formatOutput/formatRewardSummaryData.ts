@@ -59,13 +59,15 @@ function formatRewardSummaryData({
     return;
   }
 
-  const rewardTokenPrice = tokenPriceMapping[rewardToken.address.toLowerCase()];
-  const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPrice);
+  const rewardTokenPriceDollars = tokenPriceMapping[rewardToken.address.toLowerCase()];
 
-  // return if there is no available reward token price
-  if (!rewardTokenPrice) {
-    return undefined;
+  // Return if there is no available reward token price
+  if (!rewardTokenPriceDollars) {
+    logError(`Could not fetch price for token: ${rewardToken.address}`);
+    return;
   }
+
+  const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
   const rewardAmountTokens = convertWeiToTokens({
     valueWei: rewardAmountWei,

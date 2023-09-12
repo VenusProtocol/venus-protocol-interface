@@ -2,12 +2,11 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
 
-export interface GetPendingRewardGroupsInput {
+export interface GetPendingRewardsInput {
   tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
   accountAddress: string;
-  xvsTokenAddress: string;
   resilientOracleContract: ContractTypeByName<'resilientOracle'>;
   poolLensContract: ContractTypeByName<'poolLens'>;
   vaiVaultContract: ContractTypeByName<'vaiVault'>;
@@ -16,7 +15,7 @@ export interface GetPendingRewardGroupsInput {
   mainPoolComptrollerContractAddress?: string;
 }
 
-export interface GetPendingRewardGroupsOutput {
+export interface GetPendingRewardsOutput {
   pendingRewardGroups: PendingRewardGroup[];
 }
 
@@ -54,6 +53,7 @@ export interface VaultPendingRewardGroup {
 export interface XvsVestingVaultPendingRewardGroup {
   type: 'xvsVestingVault';
   poolIndex: number;
+  stakedToken: Token;
   rewardToken: Token;
   rewardAmountWei: BigNumber;
   rewardAmountCents: BigNumber | undefined;

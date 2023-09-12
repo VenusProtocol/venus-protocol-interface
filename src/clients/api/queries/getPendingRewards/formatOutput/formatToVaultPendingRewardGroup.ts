@@ -35,14 +35,14 @@ const formatToVaultPendingRewardGroup = ({
   }
 
   const rewardTokenPriceDollars = tokenPriceMapping[rewardToken.address.toLowerCase()];
-  const xvsTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
+  const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
   const pendingRewardAmountTokens = convertWeiToTokens({
     valueWei: pendingRewardAmountMantissa,
     token: stakedToken,
   });
 
-  const pendingRewardAmountCents = pendingRewardAmountTokens.multipliedBy(xvsTokenPriceCents);
+  const pendingRewardAmountCents = pendingRewardAmountTokens.multipliedBy(rewardTokenPriceCents);
 
   if (pendingRewardAmountTokens.isEqualTo(0)) {
     return;

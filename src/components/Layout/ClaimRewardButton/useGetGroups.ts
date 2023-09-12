@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 import { Group } from './types';
@@ -45,7 +44,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                     stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   })
                 : t('layout.claimRewardModal.vestingVaultGroup', {
-                    stakedTokenSymbol: TOKENS.xvs.symbol,
+                    stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   });
 
             const claim: Claim =

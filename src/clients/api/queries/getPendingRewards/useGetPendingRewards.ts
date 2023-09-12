@@ -11,10 +11,10 @@ import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import getPendingRewardGroups from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import useGetPools from '../useGetPools';
-import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
+import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
-type TrimmedGetPendingRewardGroupsInput = Omit<
-  GetPendingRewardGroupsInput,
+type TrimmedGetPendingRewardsInput = Omit<
+  GetPendingRewardsInput,
   | 'venusLensContract'
   | 'poolLensContract'
   | 'vaiVaultContract'
@@ -28,14 +28,14 @@ type TrimmedGetPendingRewardGroupsInput = Omit<
 >;
 
 type Options = QueryObserverOptions<
-  GetPendingRewardGroupsOutput,
+  GetPendingRewardsOutput,
   Error,
-  GetPendingRewardGroupsOutput,
-  GetPendingRewardGroupsOutput,
-  [FunctionKey.GET_PENDING_REWARDS, TrimmedGetPendingRewardGroupsInput]
+  GetPendingRewardsOutput,
+  GetPendingRewardsOutput,
+  [FunctionKey.GET_PENDING_REWARDS, TrimmedGetPendingRewardsInput]
 >;
 
-const useGetPendingRewards = (input: TrimmedGetPendingRewardGroupsInput, options?: Options) => {
+const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
   const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
     name: 'mainPoolComptroller',
   });
@@ -61,7 +61,6 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardGroupsInput, options
   });
 
   const tokens = useGetTokens();
-  const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
 
   // Get Comptroller addresses of isolated pools
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
@@ -95,7 +94,6 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardGroupsInput, options
           poolLensContract,
           vaiVaultContract,
           xvsVaultContract,
-          xvsTokenAddress,
         },
         params =>
           getPendingRewardGroups({

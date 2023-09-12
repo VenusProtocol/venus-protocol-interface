@@ -1,16 +1,16 @@
 import BigNumber from 'bignumber.js';
 
 import { logError } from 'context/ErrorLogger';
+import { VError } from 'errors/VError';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import formatOutput from './formatOutput';
-import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
+import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
-const getPendingRewardGroups = async ({
+const getPendingRewards = async ({
   tokens,
-  xvsTokenAddress,
   mainPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
@@ -20,7 +20,16 @@ const getPendingRewardGroups = async ({
   poolLensContract,
   vaiVaultContract,
   xvsVaultContract,
-}: GetPendingRewardGroupsInput): Promise<GetPendingRewardGroupsOutput> => {
+}: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
+  const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
+
+  if (!xvsTokenAddress) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+    });
+  }
+
   const vaiVaultVenusLensPromises = Promise.allSettled([
     vaiVaultContract.pendingXVS(accountAddress),
     venusLensContract && !!mainPoolComptrollerContractAddress
@@ -141,4 +150,4 @@ const getPendingRewardGroups = async ({
   };
 };
 
-export default getPendingRewardGroups;
+export default getPendingRewards;
