@@ -1,21 +1,25 @@
-import { ContractCallReturnContext } from 'ethereum-multicall';
-import { formatTokenPrices } from 'utilities';
+import BigNumber from 'bignumber.js';
+import { ContractTypeByName } from 'packages/contracts';
+import { Token } from 'types';
 
 import { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
-function formatToPoolPendingRewardGroup(
-  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number],
-  rewardTokenPrices: ReturnType<typeof formatTokenPrices>,
-) {
-  const { returnValues, methodParameters } = callsReturnContext;
-
-  if (returnValues.length === 0) {
-    return;
-  }
-
-  const pendingRewards: IsolatedPoolPendingReward[] = returnValues
-    .map(rewardSummary => formatRewardSummaryData({ rewardSummary, rewardTokenPrices }))
+function formatToPoolPendingRewardGroup({
+  comptrollerContractAddress,
+  rewardSummaries,
+  rewardTokenPriceMapping,
+  tokens,
+}: {
+  comptrollerContractAddress: string;
+  rewardSummaries: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getPendingRewards']>>;
+  rewardTokenPriceMapping: Record<string, BigNumber>;
+  tokens: Token[];
+}) {
+  const pendingRewards: IsolatedPoolPendingReward[] = rewardSummaries
+    .map(rewardSummary =>
+      formatRewardSummaryData({ rewardSummary, rewardTokenPriceMapping, tokens }),
+    )
     .filter((pendingReward): pendingReward is IsolatedPoolPendingReward => !!pendingReward);
 
   if (pendingRewards.length === 0) {
@@ -24,7 +28,7 @@ function formatToPoolPendingRewardGroup(
 
   const pendingRewardGroup: IsolatedPoolPendingRewardGroup = {
     type: 'isolatedPool',
-    comptrollerAddress: methodParameters[1],
+    comptrollerAddress: comptrollerContractAddress,
     pendingRewards,
   };
 

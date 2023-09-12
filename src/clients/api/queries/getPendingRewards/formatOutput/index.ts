@@ -13,34 +13,33 @@ import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardG
 const formatOutput = ({
   tokens,
   mainPoolComptrollerContractAddress,
-  vaiVaultPendingXvsResult,
-  isolatedPoolsPendingRewardsResults,
-  xvsVestingVaultPoolInfosResults,
-  xvsVestingVaultPendingRewardResults,
-  xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults,
+  isolatedPoolComptrollerAddresses,
+  vaiVaultPendingXvs,
+  isolatedPoolsPendingRewards,
+  xvsVestingVaultPoolInfos,
+  xvsVestingVaultPendingReward,
+  xvsVestingVaultPendingWithdrawalsBeforeUpgrade,
   rewardTokenPriceMapping,
-  venusLensPendingRewardsResult,
+  venusLensPendingRewards,
 }: {
   tokens: Token[];
-  vaiVaultPendingXvsResult: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'vaiVault'>['pendingXVS']>>
+  vaiVaultPendingXvs?: Awaited<ReturnType<ContractTypeByName<'vaiVault'>['pendingXVS']>>;
+  isolatedPoolsPendingRewards: Array<
+    Awaited<ReturnType<ContractTypeByName<'poolLens'>['getPendingRewards']>> | undefined
   >;
-  isolatedPoolsPendingRewardsResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'poolLens'>['getPendingRewards']>>
-  >[];
-  xvsVestingVaultPoolInfosResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['poolInfos']>>
-  >[];
-  xvsVestingVaultPendingRewardResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingReward']>>
-  >[];
-  xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingWithdrawalsBeforeUpgrade']>>
-  >[];
+  xvsVestingVaultPoolInfos: Array<
+    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['poolInfos']>> | undefined
+  >;
+  xvsVestingVaultPendingRewards: Array<
+    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingReward']>> | undefined
+  >;
+  xvsVestingVaultPendingWithdrawalsBeforeUpgrade: Array<
+    | Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingWithdrawalsBeforeUpgrade']>>
+    | undefined
+  >;
   rewardTokenPriceMapping: Record<string, BigNumber>;
-  venusLensPendingRewardsResult: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>> | undefined
-  >;
+  isolatedPoolComptrollerAddresses: string[];
+  venusLensPendingRewards?: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
@@ -48,7 +47,7 @@ const formatOutput = ({
   // Extract pending rewards from main pool
   const mainPoolPendingRewardGroup = mainPoolComptrollerContractAddress
     ? formatToMainPoolPendingRewardGroup({
-        venusLensPendingRewardsResult,
+        venusLensPendingRewards,
         rewardTokenPriceMapping,
         comptrollerContractAddress: mainPoolComptrollerContractAddress,
         tokens,
@@ -59,18 +58,23 @@ const formatOutput = ({
     pendingRewardGroups.push(mainPoolPendingRewardGroup);
   }
 
-  // // Extract pending rewards from isolated pools
-  // const isolatedPoolPendingRewardGroups = (
-  //   contractCallResults.results.poolLens?.callsReturnContext || []
-  // ).reduce<PendingRewardGroup[]>((acc, callsReturnContext) => {
-  //   const isolatedPoolPendingRewardGroup = formatToIsolatedPoolPendingRewardGroup(
-  //     callsReturnContext,
-  //     rewardTokenPrices,
-  //   );
+  // Extract pending rewards from isolated pools
+  const isolatedPoolPendingRewardGroups = isolatedPoolsPendingRewards.reduce<PendingRewardGroup[]>(
+    (acc, rewardSummaries, index) => {
+      const isolatedPoolPendingRewardGroup =
+        rewardSummaries &&
+        formatToIsolatedPoolPendingRewardGroup({
+          comptrollerContractAddress: isolatedPoolComptrollerAddresses[index],
+          rewardSummaries,
+          rewardTokenPriceMapping,
+          tokens,
+        });
 
-  //   return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
-  // }, []);
-  // pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
+      return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
+    },
+    [],
+  );
+  pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
   // // Extract pending rewards from VAI vault
   // const vaiVaultPendingRewardWei = new BigNumber(

@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { logError } from 'context/ErrorLogger';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import formatOutput from './formatOutput';
@@ -122,12 +123,16 @@ const getPendingRewardGroups = async ({
   const pendingRewardGroups = formatOutput({
     tokens,
     mainPoolComptrollerContractAddress,
-    vaiVaultPendingXvsResult,
-    venusLensPendingRewardsResult,
-    isolatedPoolsPendingRewardsResults,
-    xvsVestingVaultPoolInfosResults,
-    xvsVestingVaultPendingRewardResults,
-    xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults,
+    isolatedPoolComptrollerAddresses,
+    vaiVaultPendingXvs: extractSettledPromiseValue(vaiVaultPendingXvsResult),
+    venusLensPendingRewards: extractSettledPromiseValue(venusLensPendingRewardsResult),
+    isolatedPoolsPendingRewards: isolatedPoolsPendingRewardsResults.map(extractSettledPromiseValue),
+    xvsVestingVaultPoolInfos: xvsVestingVaultPoolInfosResults.map(extractSettledPromiseValue),
+    xvsVestingVaultPendingRewards: xvsVestingVaultPendingRewardResults.map(
+      extractSettledPromiseValue,
+    ),
+    xvsVestingVaultPendingWithdrawalsBeforeUpgrade:
+      xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     rewardTokenPriceMapping,
   });
 

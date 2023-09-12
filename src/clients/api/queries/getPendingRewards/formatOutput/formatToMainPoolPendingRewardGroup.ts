@@ -7,23 +7,21 @@ import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToMainPoolPendingRewardGroup({
   comptrollerContractAddress,
-  venusLensPendingRewardsResult,
+  venusLensPendingRewards,
   rewardTokenPriceMapping,
   tokens,
 }: {
   comptrollerContractAddress: string;
-  venusLensPendingRewardsResult: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']> | undefined>
-  >;
   rewardTokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
+  venusLensPendingRewards?: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
 }) {
-  if (venusLensPendingRewardsResult.status === 'rejected' || !venusLensPendingRewardsResult.value) {
+  if (!venusLensPendingRewards) {
     return;
   }
 
   const rewardSummaryData = formatRewardSummaryData({
-    rewardSummary: venusLensPendingRewardsResult.value,
+    rewardSummary: venusLensPendingRewards,
     rewardTokenPriceMapping,
     tokens,
   });
