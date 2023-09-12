@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 import getMainMarkets from '../getMainMarkets';
 import formatToPool from './formatToPool';
@@ -110,6 +111,8 @@ const getMainPool = async ({
     throw new Error(vTokenMetaDataResults.reason);
   }
 
+  const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
+
   const pool = formatToPool({
     name,
     description,
@@ -121,17 +124,12 @@ const getMainPool = async ({
     xvsBorrowSpeedResults,
     xvsSupplySpeedResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
-    userCollateralizedVTokenAddresses:
-      assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
-    userVTokenBalances:
-      userVTokenBalancesResults.status === 'fulfilled'
-        ? userVTokenBalancesResults.value
-        : undefined,
-    userVaiBorrowBalanceWei:
-      vaiRepayAmountResult.status === 'fulfilled' && vaiRepayAmountResult.value
-        ? new BigNumber(vaiRepayAmountResult.value.toString())
-        : undefined,
-    mainMarkets: mainMarkets.status === 'fulfilled' ? mainMarkets.value?.markets : undefined,
+    userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
+    userVTokenBalances: extractSettledPromiseValue(userVTokenBalancesResults),
+    userVaiBorrowBalanceWei: vaiRepayAmountMantissa
+      ? new BigNumber(vaiRepayAmountMantissa.toString())
+      : undefined,
+    mainMarkets: extractSettledPromiseValue(mainMarkets)?.markets,
   });
 
   return {
