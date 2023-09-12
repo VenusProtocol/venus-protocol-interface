@@ -8,18 +8,16 @@ import formatRewardSummaryData from './formatRewardSummaryData';
 function formatToPoolPendingRewardGroup({
   comptrollerContractAddress,
   rewardSummaries,
-  rewardTokenPriceMapping,
+  tokenPriceMapping,
   tokens,
 }: {
   comptrollerContractAddress: string;
   rewardSummaries: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getPendingRewards']>>;
-  rewardTokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
 }) {
   const pendingRewards: IsolatedPoolPendingReward[] = rewardSummaries
-    .map(rewardSummary =>
-      formatRewardSummaryData({ rewardSummary, rewardTokenPriceMapping, tokens }),
-    )
+    .map(rewardSummary => formatRewardSummaryData({ rewardSummary, tokenPriceMapping, tokens }))
     .filter((pendingReward): pendingReward is IsolatedPoolPendingReward => !!pendingReward);
 
   if (pendingRewards.length === 0) {

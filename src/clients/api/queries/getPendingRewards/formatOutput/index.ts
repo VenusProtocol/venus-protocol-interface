@@ -9,6 +9,7 @@ import {
 } from '../types';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
 import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
+import formatToVaultPendingRewardGroup from './formatToVaultPendingRewardGroup';
 
 const formatOutput = ({
   tokens,
@@ -19,7 +20,7 @@ const formatOutput = ({
   xvsVestingVaultPoolInfos,
   xvsVestingVaultPendingReward,
   xvsVestingVaultPendingWithdrawalsBeforeUpgrade,
-  rewardTokenPriceMapping,
+  tokenPriceMapping,
   venusLensPendingRewards,
 }: {
   tokens: Token[];
@@ -37,7 +38,7 @@ const formatOutput = ({
     | Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingWithdrawalsBeforeUpgrade']>>
     | undefined
   >;
-  rewardTokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
   venusLensPendingRewards?: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
@@ -45,14 +46,15 @@ const formatOutput = ({
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
   // Extract pending rewards from main pool
-  const mainPoolPendingRewardGroup = mainPoolComptrollerContractAddress
-    ? formatToMainPoolPendingRewardGroup({
-        venusLensPendingRewards,
-        rewardTokenPriceMapping,
-        comptrollerContractAddress: mainPoolComptrollerContractAddress,
-        tokens,
-      })
-    : undefined;
+  const mainPoolPendingRewardGroup =
+    venusLensPendingRewards && mainPoolComptrollerContractAddress
+      ? formatToMainPoolPendingRewardGroup({
+          venusLensPendingRewards,
+          tokenPriceMapping,
+          comptrollerContractAddress: mainPoolComptrollerContractAddress,
+          tokens,
+        })
+      : undefined;
 
   if (mainPoolPendingRewardGroup) {
     pendingRewardGroups.push(mainPoolPendingRewardGroup);
@@ -66,7 +68,7 @@ const formatOutput = ({
         formatToIsolatedPoolPendingRewardGroup({
           comptrollerContractAddress: isolatedPoolComptrollerAddresses[index],
           rewardSummaries,
-          rewardTokenPriceMapping,
+          tokenPriceMapping,
           tokens,
         });
 
@@ -76,33 +78,23 @@ const formatOutput = ({
   );
   pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
-  // // Extract pending rewards from VAI vault
-  // const vaiVaultPendingRewardWei = new BigNumber(
-  //   contractCallResults.results.vaiVault.callsReturnContext[0].returnValues[0].hex,
-  // );
+  // Extract pending rewards from VAI vault
+  const vaiVaultPendingRewardAmountMantissa =
+    vaiVaultPendingXvs && new BigNumber(vaiVaultPendingXvs.toString());
 
-  // const xvsTokenPriceDollars = rewardTokenPrices[TOKENS.xvs.address.toLowerCase()];
-  // const xvsTokenPriceCents = convertDollarsToCents(xvsTokenPriceDollars);
+  const vaiVaultPendingRewardGroup =
+    vaiVaultPendingRewardAmountMantissa &&
+    formatToVaultPendingRewardGroup({
+      pendingRewardAmountMantissa: vaiVaultPendingRewardAmountMantissa,
+      tokenPriceMapping,
+      stakedTokenSymbol: 'VAI',
+      rewardTokenSymbol: 'XVS',
+      tokens,
+    });
 
-  // const vaiVaultPendingRewardTokens = convertWeiToTokens({
-  //   valueWei: vaiVaultPendingRewardWei,
-  //   token: TOKENS.xvs,
-  // });
-
-  // const vaiVaultPendingRewardAmountCents =
-  //   vaiVaultPendingRewardTokens.multipliedBy(xvsTokenPriceCents);
-
-  // if (vaiVaultPendingRewardWei.isGreaterThan(0)) {
-  //   const vaiVaultRewardGroup: VaultPendingRewardGroup = {
-  //     type: 'vault',
-  //     stakedToken: TOKENS.vai,
-  //     rewardToken: TOKENS.xvs,
-  //     rewardAmountWei: vaiVaultPendingRewardWei,
-  //     rewardAmountCents: vaiVaultPendingRewardAmountCents,
-  //   };
-
-  //   pendingRewardGroups.push(vaiVaultRewardGroup);
-  // }
+  if (vaiVaultPendingRewardGroup) {
+    pendingRewardGroups.push(vaiVaultPendingRewardGroup);
+  }
 
   // // Extract pending rewards from vesting vaults
   // const xvsVestingVaultPendingRewardGroups: XvsVestingVaultPendingRewardGroup[] = [];

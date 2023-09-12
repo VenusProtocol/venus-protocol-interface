@@ -91,7 +91,7 @@ const getPendingRewardGroups = async ({
     ),
   );
 
-  const rewardTokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
+  const tokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
     [address: string]: BigNumber;
   }>((acc, rewardTokenPricesResult, index) => {
     const rewardTokenAddress = rewardTokenAddresses[index];
@@ -116,7 +116,7 @@ const getPendingRewardGroups = async ({
 
     return {
       ...acc,
-      [rewardTokenAddress]: rewardTokenPriceDollars,
+      [rewardTokenAddress.toLowerCase()]: rewardTokenPriceDollars,
     };
   }, {});
 
@@ -133,7 +133,7 @@ const getPendingRewardGroups = async ({
     ),
     xvsVestingVaultPendingWithdrawalsBeforeUpgrade:
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
-    rewardTokenPriceMapping,
+    tokenPriceMapping,
   });
 
   return {

@@ -19,11 +19,11 @@ type FormatRewardSummaryDataOutput =
 function formatRewardSummaryData({
   tokens,
   rewardSummary,
-  rewardTokenPriceMapping,
+  tokenPriceMapping,
 }: {
   tokens: Token[];
   rewardSummary: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
-  rewardTokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<string, BigNumber>;
 }): FormatRewardSummaryDataOutput {
   const rewardToken = findTokenByAddress({
     address: rewardSummary.rewardTokenAddress,
@@ -59,7 +59,7 @@ function formatRewardSummaryData({
     return;
   }
 
-  const rewardTokenPrice = rewardTokenPriceMapping[rewardToken.address];
+  const rewardTokenPrice = tokenPriceMapping[rewardToken.address.toLowerCase()];
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPrice);
 
   // return if there is no available reward token price
