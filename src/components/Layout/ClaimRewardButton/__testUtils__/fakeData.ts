@@ -56,6 +56,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'xvsVestingVault',
+    stakedToken: TESTNET_TOKENS.xvs,
     rewardToken: TESTNET_TOKENS.xvs,
     rewardAmountWei: new BigNumber('4000000000000000000000000000'),
     rewardAmountCents: new BigNumber('165'),

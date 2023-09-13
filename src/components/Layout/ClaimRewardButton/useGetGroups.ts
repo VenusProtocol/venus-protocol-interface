@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 
-import { Claim, useGetPendingRewards, useGetPools, useGetXvsVaultPoolCount } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { Group } from './types';
 
@@ -12,46 +10,16 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
-
-  const resilientOracleContractAddress = useGetUniqueContractAddress({
-    name: 'resilientOracle',
-  });
-
-  // Get XVS vesting vault pool count
-  const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
-    useGetXvsVaultPoolCount();
-
-  // Get Comptroller addresses of isolated pools
-  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+  const { data: getPoolsData } = useGetPools({
     accountAddress,
   });
-
-  const isolatedPoolComptrollerAddresses = useMemo(
-    () =>
-      (getPoolsData?.pools || []).reduce<string[]>(
-        (acc, pool) => (pool.isIsolated ? [...acc, pool.comptrollerAddress] : acc),
-        [],
-      ),
-    [getPoolsData?.pools],
-  );
 
   const { data: getPendingRewardsData } = useGetPendingRewards(
     {
       accountAddress: accountAddress || '',
-      mainPoolComptrollerContractAddress: mainPoolComptrollerContractAddress || '',
-      isolatedPoolComptrollerAddresses,
-      resilientOracleContractAddress: resilientOracleContractAddress || '',
-      xvsVestingVaultPoolCount: getXvsVaultPoolCountData?.poolCount || 0,
     },
     {
-      enabled:
-        !!accountAddress &&
-        !!mainPoolComptrollerContractAddress &&
-        !isGetPoolsLoading &&
-        !isGetXvsVaultPoolCountLoading,
+      enabled: !!accountAddress,
     },
   );
 
@@ -76,7 +44,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                     stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   })
                 : t('layout.claimRewardModal.vestingVaultGroup', {
-                    stakedTokenSymbol: TOKENS.xvs.symbol,
+                    stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   });
 
             const claim: Claim =

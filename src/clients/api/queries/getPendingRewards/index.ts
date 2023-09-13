@@ -1,137 +1,148 @@
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { contractInfos } from 'packages/contracts';
-import { formatTokenPrices } from 'utilities';
+import BigNumber from 'bignumber.js';
 
-import { TOKENS } from 'constants/tokens';
+import { logError } from 'context/ErrorLogger';
+import { VError } from 'errors/VError';
+import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import formatOutput from './formatOutput';
-import { RewardSummary } from './formatOutput/formatRewardSummaryData';
-import { GetPendingRewardGroupsInput, GetPendingRewardGroupsOutput } from './types';
+import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
-const getPendingRewardGroups = async ({
+const getPendingRewards = async ({
+  tokens,
   mainPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
-  multicall3,
   accountAddress,
-  venusLensContractAddress,
-  resilientOracleContractAddress,
-  poolLensContractAddress,
-  vaiVaultContractAddress,
-  xvsVaultContractAddress,
-}: GetPendingRewardGroupsInput): Promise<GetPendingRewardGroupsOutput> => {
-  // Generate call context
-  const contractCallContext: ContractCallContext[] = [
-    // Pending rewards from main pool
-    {
-      reference: 'venusLens',
-      contractAddress: venusLensContractAddress,
-      abi: contractInfos.venusLens.abi,
-      calls: [
-        {
-          reference: 'pendingRewards',
-          methodName: 'pendingRewards',
-          methodParameters: [accountAddress, mainPoolComptrollerContractAddress],
-        },
-      ],
-    },
-    // Pending rewards from vaults
-    {
-      reference: 'vaiVault',
-      contractAddress: vaiVaultContractAddress,
-      abi: contractInfos.vaiVault.abi,
-      calls: [
-        {
-          reference: 'pendingXVS',
-          methodName: 'pendingXVS',
-          methodParameters: [accountAddress],
-        },
-      ],
-    },
-    {
-      reference: 'xvsVestingVaults',
-      contractAddress: xvsVaultContractAddress,
-      abi: contractInfos.xvsVault.abi,
-      calls: new Array(xvsVestingVaultPoolCount).fill(undefined).reduce(
-        (acc, _item, poolIndex) =>
-          acc.concat([
-            {
-              reference: `vault-${poolIndex}-poolInfos`,
-              methodName: 'poolInfos',
-              methodParameters: [TOKENS.xvs.address, poolIndex],
-            },
-            {
-              reference: `vault-${poolIndex}-pendingReward`,
-              methodName: 'pendingReward',
-              methodParameters: [TOKENS.xvs.address, poolIndex, accountAddress],
-            },
-            {
-              reference: `vault-${poolIndex}-pendingWithdrawalsBeforeUpgrade`,
-              methodName: 'pendingWithdrawalsBeforeUpgrade',
-              methodParameters: [TOKENS.xvs.address, poolIndex, accountAddress],
-            },
-          ]),
-        [],
-      ),
-    },
-  ];
+  venusLensContract,
+  resilientOracleContract,
+  poolLensContract,
+  vaiVaultContract,
+  xvsVaultContract,
+}: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
+  const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
 
-  if (isolatedPoolComptrollerAddresses.length > 0) {
-    // Pending rewards from isolated pools
-    contractCallContext.push({
-      reference: 'poolLens',
-      contractAddress: poolLensContractAddress,
-      abi: contractInfos.poolLens.abi,
-      calls: isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress => ({
-        reference: 'getPendingRewards',
-        methodName: 'getPendingRewards',
-        methodParameters: [accountAddress, isolatedPoolComptrollerAddress],
-      })),
+  if (!xvsTokenAddress) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
     });
   }
 
-  const contractCallResults: ContractCallResults = await multicall3.call(contractCallContext);
+  const vaiVaultVenusLensPromises = Promise.allSettled([
+    vaiVaultContract.pendingXVS(accountAddress),
+    venusLensContract && !!mainPoolComptrollerContractAddress
+      ? venusLensContract.pendingRewards(accountAddress, mainPoolComptrollerContractAddress)
+      : undefined,
+  ]);
 
-  // fetch USD prices for reward tokens
-  const mainPoolRewards = contractCallResults.results.venusLens.callsReturnContext[0]
-    .returnValues as RewardSummary;
-  const mainPoolRewardTokenAddress = mainPoolRewards[1];
+  const isolatedPoolsPendingRewardsPromises = Promise.allSettled(
+    isolatedPoolComptrollerAddresses.map(isolatedPoolComptrollerAddress =>
+      poolLensContract.getPendingRewards(accountAddress, isolatedPoolComptrollerAddress),
+    ),
+  );
 
-  const vaultRewardTokenAddresses = [TOKENS.xvs.address];
+  const xvsVestingVaultPoolInfosPromises: ReturnType<(typeof xvsVaultContract)['poolInfos']>[] = [];
+  const xvsVestingVaultPendingRewardPromises: ReturnType<
+    (typeof xvsVaultContract)['pendingReward']
+  >[] = [];
+  const xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises: ReturnType<
+    (typeof xvsVaultContract)['pendingWithdrawalsBeforeUpgrade']
+  >[] = [];
 
-  const isolatedPoolRewards = contractCallResults.results.poolLens?.callsReturnContext || [];
-  // flattening all isolated pool reward token addresses into a single array of addresses
-  const isolatedPoolRewardAddresses = isolatedPoolRewards
-    .map(reward => reward.returnValues.map(r => r[1]).flat())
-    .flat();
+  for (let poolIndex = 0; poolIndex < xvsVestingVaultPoolCount; poolIndex++) {
+    xvsVestingVaultPoolInfosPromises.push(xvsVaultContract.poolInfos(xvsTokenAddress, poolIndex));
+    xvsVestingVaultPendingRewardPromises.push(
+      xvsVaultContract.pendingReward(xvsTokenAddress, poolIndex, accountAddress),
+    );
+    xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises.push(
+      xvsVaultContract.pendingWithdrawalsBeforeUpgrade(xvsTokenAddress, poolIndex, accountAddress),
+    );
+  }
 
-  const rewardTokenAddresses = [
-    ...new Set([
-      mainPoolRewardTokenAddress,
-      ...vaultRewardTokenAddresses,
-      ...isolatedPoolRewardAddresses,
-    ]),
-  ];
+  const xvsVestingVaultPoolInfosSettledPromises = Promise.allSettled(
+    xvsVestingVaultPoolInfosPromises,
+  );
+  const xvsVestingVaultPendingRewardSettledPromises = Promise.allSettled(
+    xvsVestingVaultPendingRewardPromises,
+  );
+  const xvsVestingVaultPendingWithdrawalsBeforeUpgradeSettledPromises = Promise.allSettled(
+    xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises,
+  );
 
-  const resilientOracleCallsContext: ContractCallContext = {
-    reference: 'resilientOracle',
-    contractAddress: resilientOracleContractAddress,
-    abi: contractInfos.resilientOracle.abi,
-    calls: rewardTokenAddresses.map(tokenAddress => ({
-      reference: 'getPrice',
-      methodName: 'getPrice',
-      methodParameters: [tokenAddress],
-    })),
-  };
+  const [vaiVaultPendingXvsResult, venusLensPendingRewardsResult] = await vaiVaultVenusLensPromises;
+  const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
+  const xvsVestingVaultPoolInfosResults = await xvsVestingVaultPoolInfosSettledPromises;
+  const xvsVestingVaultPendingRewardResults = await xvsVestingVaultPendingRewardSettledPromises;
+  const xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults =
+    await xvsVestingVaultPendingWithdrawalsBeforeUpgradeSettledPromises;
 
-  const resilientOracleOutput = await multicall3.call(resilientOracleCallsContext);
-  const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
+  const isolatedPoolRewardTokenAddresses = isolatedPoolsPendingRewardsResults.reduce<string[]>(
+    (acc, isolatedPoolsPendingRewardsResult) => {
+      if (isolatedPoolsPendingRewardsResult.status === 'rejected') {
+        return acc;
+      }
 
-  const rewardTokenPrices = formatTokenPrices(resilientOracleResult);
+      const rewardTokenAddresses = isolatedPoolsPendingRewardsResult.value.map(
+        rewardSummary => rewardSummary.rewardTokenAddress,
+      );
+
+      return [...acc, ...rewardTokenAddresses];
+    },
+    [],
+  );
+
+  const rewardTokenAddresses = [...new Set([xvsTokenAddress, ...isolatedPoolRewardTokenAddresses])];
+  const rewardTokenPricesResults = await Promise.allSettled(
+    rewardTokenAddresses.map(rewardTokenAddress =>
+      resilientOracleContract.getPrice(rewardTokenAddress),
+    ),
+  );
+
+  const tokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
+    [address: string]: BigNumber;
+  }>((acc, rewardTokenPricesResult, index) => {
+    const rewardTokenAddress = rewardTokenAddresses[index];
+    const rewardToken = findTokenByAddress({
+      tokens,
+      address: rewardTokenAddress,
+    });
+
+    if (!rewardToken) {
+      logError(`Record missing for reward token: ${rewardTokenAddress}`);
+      return acc;
+    }
+
+    if (rewardTokenPricesResult.status === 'rejected') {
+      return acc;
+    }
+
+    const rewardTokenPriceDollars = convertPriceMantissaToDollars({
+      priceMantissa: new BigNumber(rewardTokenPricesResult.value.toString()),
+      token: rewardToken,
+    });
+
+    return {
+      ...acc,
+      [rewardTokenAddress.toLowerCase()]: rewardTokenPriceDollars,
+    };
+  }, {});
 
   const pendingRewardGroups = formatOutput({
-    contractCallResults,
-    rewardTokenPrices,
+    tokens,
+    mainPoolComptrollerContractAddress,
+    isolatedPoolComptrollerAddresses,
+    vaiVaultPendingXvs: extractSettledPromiseValue(vaiVaultPendingXvsResult),
+    venusLensPendingRewards: extractSettledPromiseValue(venusLensPendingRewardsResult),
+    isolatedPoolsPendingRewards: isolatedPoolsPendingRewardsResults.map(extractSettledPromiseValue),
+    xvsVestingVaultPoolInfos: xvsVestingVaultPoolInfosResults.map(extractSettledPromiseValue),
+    xvsVestingVaultPendingRewards: xvsVestingVaultPendingRewardResults.map(
+      extractSettledPromiseValue,
+    ),
+    xvsVestingVaultPendingWithdrawalsBeforeUpgrade:
+      xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
+    tokenPriceMapping,
   });
 
   return {
@@ -139,4 +150,4 @@ const getPendingRewardGroups = async ({
   };
 };
 
-export default getPendingRewardGroups;
+export default getPendingRewards;
