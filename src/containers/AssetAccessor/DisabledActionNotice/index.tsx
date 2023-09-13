@@ -4,6 +4,8 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenAction } from 'types';
 
+import { useAuth } from 'context/AuthContext';
+
 export interface DisabledActionNoticeProps {
   token: Token;
   action: TokenAction;
@@ -11,6 +13,7 @@ export interface DisabledActionNoticeProps {
 
 const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, action }) => {
   const { t } = useTranslation();
+  const { chainId } = useAuth();
 
   const getDescription = () => {
     if (action === 'supply') {
@@ -30,6 +33,7 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
 
   const tokenAnnouncementDom = TokenAnnouncement({
     token,
+    chainId,
   });
 
   return tokenAnnouncementDom || <NoticeWarning description={getDescription()} />;

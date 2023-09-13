@@ -1,5 +1,5 @@
 import { getTokens } from '..';
-import { tokens } from '../../tokenInfos/common';
+import { tokens } from '../../tokenInfos/commonTokens';
 
 describe('getTokens', () => {
   it('returns all the tokens relevant to the passed chain ID', () => {

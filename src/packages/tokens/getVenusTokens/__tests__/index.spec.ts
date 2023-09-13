@@ -1,5 +1,5 @@
 import { getVenusTokens } from '..';
-import { venusTokens } from '../../tokenInfos/common';
+import { venusTokens } from '../../tokenInfos/commonTokens';
 
 describe('getVenusTokens', () => {
   it('returns all the tokens relevant to the passed chain ID', () => {

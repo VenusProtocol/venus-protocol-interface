@@ -1,2 +1,2 @@
-export * from './common';
-export * from './pancakeSwap';
+export * from './commonTokens';
+export * from './pancakeSwapTokens';

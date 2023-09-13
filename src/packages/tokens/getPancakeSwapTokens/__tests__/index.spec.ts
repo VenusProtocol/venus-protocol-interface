@@ -1,5 +1,5 @@
 import { getPancakeSwapTokens } from '..';
-import pancakeSwapTokens from '../../tokenInfos/pancakeSwap';
+import pancakeSwapTokens from '../../tokenInfos/pancakeSwapTokens';
 
 describe('getPancakeSwapTokens', () => {
   it('returns all the tokens relevant to the passed chain ID', () => {

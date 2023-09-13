@@ -1,6 +1,6 @@
 import { ChainId } from 'types';
 
-import { venusTokens } from '../tokenInfos/common';
+import { venusTokens } from '../tokenInfos/commonTokens';
 
 export interface GetVenusTokensInput {
   chainId: ChainId;
