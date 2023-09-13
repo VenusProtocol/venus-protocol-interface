@@ -6,7 +6,11 @@ import config from './config';
 export * from './config';
 export { default as config } from './config';
 
-const Web3Wrapper: React.FC = ({ children }) => (
+export interface Web3WrapperProps {
+  children?: React.ReactNode;
+}
+
+const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
   <WagmiConfig config={config}>{children}</WagmiConfig>
 );
 

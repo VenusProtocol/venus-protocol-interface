@@ -16,6 +16,7 @@ export interface CardProps {
   legends?: Legend[];
   stats?: Stat[];
   className?: string;
+  children?: React.ReactNode;
   testId?: string;
 }
 

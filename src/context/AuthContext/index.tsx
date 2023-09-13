@@ -36,7 +36,11 @@ export const AuthContext = React.createContext<AuthContextValue>({
   chainId: ChainId.BSC_MAINNET,
 });
 
-export const AuthProvider: React.FC = ({ children }) => {
+export interface AuthProviderProps {
+  children?: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();

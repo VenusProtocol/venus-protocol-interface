@@ -22,7 +22,13 @@ export const SuccessfulTransactionModalContext =
     closeSuccessfulTransactionModal: noop,
   });
 
-export const SuccessfulTransactionModalProvider: React.FC = ({ children }) => {
+export interface SuccessfulTransactionModalProviderProps {
+  children?: React.ReactNode;
+}
+
+export const SuccessfulTransactionModalProvider: React.FC<
+  SuccessfulTransactionModalProviderProps
+> = ({ children }) => {
   const [isOpen, setIsOpened] = React.useState(false);
   const [modalProps, setModalProps] = React.useState<
     OpenSuccessfulTransactionModalInput | undefined

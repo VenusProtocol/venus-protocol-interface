@@ -11,8 +11,9 @@ import { useStyles } from './styles';
 export interface PromptProps {
   message: string;
   openAuthModal: () => void;
-  className?: string;
   connected: boolean;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 export const Prompt: React.FC<PromptProps> = ({

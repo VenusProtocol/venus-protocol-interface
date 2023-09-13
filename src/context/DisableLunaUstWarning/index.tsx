@@ -21,7 +21,13 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
   closeLunaUstWarningModal: noop,
 });
 
-export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
+export interface DisableLunaUstWarningProviderProps {
+  children?: React.ReactNode;
+}
+
+export const DisableLunaUstWarningProvider: React.FC<DisableLunaUstWarningProviderProps> = ({
+  children,
+}) => {
   const { accountAddress } = useAuth();
   const { data: getMainPoolData } = useGetMainPool({
     accountAddress,

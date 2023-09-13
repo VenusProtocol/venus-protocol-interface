@@ -5,7 +5,11 @@ import React, { useEffect } from 'react';
 
 import { version as APP_VERSION } from 'constants/version';
 
-export const ErrorLoggerProvider: React.FC = ({ children }) => {
+export interface ErrorLoggerProviderProps {
+  children?: React.ReactNode;
+}
+
+export const ErrorLoggerProvider: React.FC<ErrorLoggerProviderProps> = ({ children }) => {
   useEffect(() => {
     Sentry.init({
       dsn: config.sentryDsn,
