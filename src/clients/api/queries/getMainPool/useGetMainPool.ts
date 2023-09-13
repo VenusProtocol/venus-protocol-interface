@@ -1,10 +1,12 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
+import { VenusTokenSymbol } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedInput = Omit<
@@ -29,6 +31,9 @@ type Options = QueryObserverOptions<
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { t } = useTranslation();
 
+  const xvs = useGetToken({ symbol: VenusTokenSymbol.XVS });
+  const vai = useGetToken({ symbol: VenusTokenSymbol.VAI });
+
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',
   });
@@ -50,6 +55,8 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
     () =>
       callOrThrow(
         {
+          xvs,
+          vai,
           mainPoolComptrollerContract,
           venusLensContract,
           resilientOracleContract,

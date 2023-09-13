@@ -1,9 +1,10 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { VenusTokenSymbol } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRepayVai = Omit<RepayVaiInput, 'vaiControllerContract'>;
@@ -13,6 +14,10 @@ const useRepayVai = (options?: Options) => {
   const vaiControllerContract = useGetUniqueContract({
     name: 'vaiController',
     passSigner: true,
+  });
+
+  const vai = useGetToken({
+    symbol: VenusTokenSymbol.VAI,
   });
 
   return useMutation(
@@ -38,14 +43,16 @@ const useRepayVai = (options?: Options) => {
         queryClient.invalidateQueries(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS);
         queryClient.invalidateQueries(FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            tokenAddress: TOKENS.vai,
-            accountAddress,
-            spenderAddress: vaiControllerContract?.address,
-          },
-        ]);
+        if (vai) {
+          queryClient.invalidateQueries([
+            FunctionKey.GET_TOKEN_ALLOWANCE,
+            {
+              tokenAddress: vai,
+              accountAddress,
+              spenderAddress: vaiControllerContract?.address,
+            },
+          ]);
+        }
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
