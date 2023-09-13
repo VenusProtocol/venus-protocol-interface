@@ -2,18 +2,20 @@
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
 import initializeLibraries from 'initializeLibraries';
+import { getPancakeSwapTokens, getTokens } from 'packages/tokens';
 import React from 'react';
 import Vi from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
 
-import { xvs } from '__mocks__/models/tokens';
+import tokens, { xvs } from '__mocks__/models/tokens';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 vi.mock('utilities/isFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
 vi.mock('clients/web3/Web3Wrapper');
+vi.mock('packages/tokens');
 
 // Mock Lottie
 vi.mock('@lottiefiles/react-lottie-player', () => ({
@@ -56,6 +58,9 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 beforeEach(() => {
   vi.restoreAllMocks();
   global.fetch = vi.fn();
+
+  (getTokens as Vi.Mock).mockImplementation(() => tokens);
+  (getPancakeSwapTokens as Vi.Mock).mockImplementation(() => tokens);
 });
 
 afterEach(() => {
