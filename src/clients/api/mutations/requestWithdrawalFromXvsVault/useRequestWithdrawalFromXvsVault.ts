@@ -1,4 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { VenusTokenSymbol } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
@@ -8,8 +9,8 @@ import {
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
 import { useAnalytics } from 'context/Analytics';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
@@ -27,6 +28,11 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
     name: 'xvsVault',
     passSigner: true,
   });
+
+  const xvs = useGetToken({
+    symbol: VenusTokenSymbol.XVS,
+  });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
@@ -43,28 +49,30 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
       onSuccess: async (...onSuccessParams) => {
         const { poolIndex, amountWei } = onSuccessParams[1];
 
-        captureAnalyticEvent('Token withdrawal requested from XVS vault', {
-          poolIndex,
-          rewardTokenSymbol: TOKENS.xvs.symbol,
-          tokenAmountTokens: convertWeiToTokens({
-            token: TOKENS.vai,
-            valueWei: amountWei,
-          }).toNumber(),
-        });
+        if (xvs) {
+          captureAnalyticEvent('Token withdrawal requested from XVS vault', {
+            poolIndex,
+            rewardTokenSymbol: xvs.symbol,
+            tokenAmountTokens: convertWeiToTokens({
+              token: xvs,
+              valueWei: amountWei,
+            }).toNumber(),
+          });
 
-        const accountAddress = await xvsVaultContract?.signer.getAddress();
+          const accountAddress = await xvsVaultContract?.signer.getAddress();
 
-        // Invalidate cached user info
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
-        ]);
+          // Invalidate cached user info
+          queryClient.invalidateQueries([
+            FunctionKey.GET_XVS_VAULT_USER_INFO,
+            { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          ]);
 
-        // Invalidate cached user withdrawal requests
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
-        ]);
+          // Invalidate cached user withdrawal requests
+          queryClient.invalidateQueries([
+            FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+            { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          ]);
+        }
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

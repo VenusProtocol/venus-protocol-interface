@@ -39,7 +39,7 @@ import winLogo from 'packages/tokens/img/win.svg';
 import wooLogo from 'packages/tokens/img/woo.svg';
 import xrpLogo from 'packages/tokens/img/xrp.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
-import { Token } from 'types';
+import { Token, VenusTokenSymbol } from 'types';
 
 export const tokens: Token[] = [
   {
@@ -48,6 +48,24 @@ export const tokens: Token[] = [
     symbol: 'BNB',
     asset: bnbLogo,
     isNative: true,
+  },
+  {
+    address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+    decimals: 18,
+    symbol: VenusTokenSymbol.XVS,
+    asset: xvsLogo,
+  },
+  {
+    address: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
+    decimals: 18,
+    symbol: VenusTokenSymbol.VAI,
+    asset: vaiLogo,
+  },
+  {
+    address: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
+    decimals: 18,
+    symbol: VenusTokenSymbol.VRT,
+    asset: vrtLogo,
   },
   {
     address: '0x75107940Cf1121232C0559c747A986DEfbc69DA9',
@@ -73,12 +91,7 @@ export const tokens: Token[] = [
     symbol: 'BUSD',
     asset: busdLogo,
   },
-  {
-    address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
-    decimals: 18,
-    symbol: 'XVS',
-    asset: xvsLogo,
-  },
+
   {
     address: '0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4',
     decimals: 18,
@@ -169,18 +182,7 @@ export const tokens: Token[] = [
     symbol: 'LUNA',
     asset: lunaLogo,
   },
-  {
-    address: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
-    decimals: 18,
-    symbol: 'VAI',
-    asset: vaiLogo,
-  },
-  {
-    address: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
-    decimals: 18,
-    symbol: 'VRT',
-    asset: vrtLogo,
-  },
+
   {
     address: '0x6923189d91fdF62dBAe623a55273F1d20306D9f2',
     decimals: 18,
