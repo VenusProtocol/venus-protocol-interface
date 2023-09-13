@@ -11,14 +11,17 @@ import FunctionKey from 'constants/functionKey';
 import useGetTokens from 'hooks/useGetTokens';
 import useGetVenusToken from 'hooks/useGetVenusToken';
 
-type TrimmedGetTransactionsInput = Omit<GetTransactionsInput, 'vTokens'>;
+type TrimmedGetTransactionsInput = Omit<
+  GetTransactionsInput,
+  'vTokens' | 'tokens' | 'defaultToken'
+>;
 
 type Options = QueryObserverOptions<
   GetTransactionsOutput,
   Error,
   GetTransactionsOutput,
   GetTransactionsOutput,
-  [FunctionKey.GET_TRANSACTIONS, GetTransactionsInput]
+  [FunctionKey.GET_TRANSACTIONS, TrimmedGetTransactionsInput]
 >;
 
 const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Options) => {
@@ -31,7 +34,7 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Optio
   });
 
   return useQuery(
-    [FunctionKey.GET_TRANSACTIONS, { ...params, vTokens }],
+    [FunctionKey.GET_TRANSACTIONS, params],
     () => getTransactions({ ...params, vTokens, tokens, defaultToken: xvs || tokens[0] }),
     {
       keepPreviousData: true,

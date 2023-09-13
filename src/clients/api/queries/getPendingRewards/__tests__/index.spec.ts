@@ -1,8 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
-import { getTokens } from 'packages/tokens';
-import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
+import tokens from '__mocks__/models/tokens';
 
 import getPendingRewardGroups from '..';
 import {
@@ -15,9 +14,6 @@ import {
   fakeGetXvsVaultPoolInfosOutput,
 } from '../__testUtils__/fakeData';
 
-const tokens = getTokens({
-  chainId: ChainId.BSC_TESTNET,
-});
 const fakeMainPoolComptrollerAddress = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC546b78k';
 

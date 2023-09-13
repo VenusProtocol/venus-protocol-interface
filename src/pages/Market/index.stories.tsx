@@ -64,5 +64,7 @@ export const Default = () => (
     isChartDataLoading={false}
     isInterestRateChartDataLoading={false}
     currentUtilizationRate={0}
+    isBorrowActionEnabled
+    isSupplyActionEnabled
   />
 );
