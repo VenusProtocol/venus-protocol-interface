@@ -1,14 +1,14 @@
 import { BigNumber } from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
+import { vai, vrt, xvs } from '__mocks__/models/tokens';
 import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
-import { TESTNET_TOKENS } from 'constants/tokens';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
     type: 'mainPool',
     comptrollerAddress: poolData[0].comptrollerAddress,
-    rewardToken: TESTNET_TOKENS.xvs,
+    rewardToken: xvs,
     rewardAmountWei: new BigNumber('1000000000000000000000000000'),
     rewardAmountCents: new BigNumber('40000000'),
     vTokenAddressesWithPendingReward: [
@@ -22,7 +22,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     comptrollerAddress: poolData[1].comptrollerAddress,
     pendingRewards: [
       {
-        rewardToken: TESTNET_TOKENS.vai,
+        rewardToken: vai,
         rewardAmountWei: new BigNumber('2000000000000000000000000000'),
         rewardAmountCents: new BigNumber('300'),
         rewardsDistributorAddress: '0xa14c236372228b6e8182748f3ebbfb4bfeea3574',
@@ -32,7 +32,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
         ],
       },
       {
-        rewardToken: TESTNET_TOKENS.xvs,
+        rewardToken: xvs,
         rewardAmountWei: new BigNumber('3000000000000000000000000000'),
         rewardAmountCents: new BigNumber('112'),
         rewardsDistributorAddress: '0xadbed07126b7b70cbc5e07bf73599d55be571b9c',
@@ -42,22 +42,26 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'vault',
-    stakedToken: TESTNET_TOKENS.vrt,
-    rewardToken: TESTNET_TOKENS.vrt,
+    stakedToken: vrt,
+    rewardToken: vrt,
     rewardAmountWei: new BigNumber('2000000000000000000000000000'),
     rewardAmountCents: new BigNumber('2'),
   },
   {
     type: 'vault',
-    stakedToken: TESTNET_TOKENS.vai,
-    rewardToken: TESTNET_TOKENS.xvs,
+    stakedToken: vai,
+    rewardToken: xvs,
     rewardAmountWei: new BigNumber('3000000000000000000000000000'),
     rewardAmountCents: new BigNumber('1200'),
   },
   {
     type: 'xvsVestingVault',
+<<<<<<< HEAD
     stakedToken: TESTNET_TOKENS.xvs,
     rewardToken: TESTNET_TOKENS.xvs,
+=======
+    rewardToken: xvs,
+>>>>>>> ac8be7b40 (refactor: continue tokens package migration)
     rewardAmountWei: new BigNumber('4000000000000000000000000000'),
     rewardAmountCents: new BigNumber('165'),
     poolIndex: 0,

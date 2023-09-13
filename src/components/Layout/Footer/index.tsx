@@ -2,13 +2,14 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { VenusTokenSymbol } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
 import { EXPLORER_URLS } from 'constants/bsc';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 import {
   VENUS_DISCORD_URL,
@@ -26,6 +27,10 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { chainId } = useAuth();
+  const xvs = useGetVenusToken({
+    symbol: VenusTokenSymbol.XVS,
+  });
+
   const explorerUrl = chainId && EXPLORER_URLS[chainId];
 
   return (
@@ -50,8 +55,9 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
           css={styles.link}
           href={
             chainId &&
+            xvs &&
             generateBscScanUrl({
-              hash: TOKENS.xvs.address,
+              hash: xvs.address,
               urlType: 'token',
               chainId,
             })

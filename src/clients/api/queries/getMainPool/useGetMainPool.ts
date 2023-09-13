@@ -6,8 +6,8 @@ import { callOrThrow } from 'utilities';
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
-import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
@@ -18,6 +18,8 @@ type TrimmedInput = Omit<
   | 'mainPoolComptrollerContract'
   | 'resilientOracleContract'
   | 'vaiControllerContract'
+  | 'vai'
+  | 'xvs'
 >;
 
 type Options = QueryObserverOptions<
@@ -31,8 +33,8 @@ type Options = QueryObserverOptions<
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { t } = useTranslation();
 
-  const xvs = useGetToken({ symbol: VenusTokenSymbol.XVS });
-  const vai = useGetToken({ symbol: VenusTokenSymbol.VAI });
+  const xvs = useGetVenusToken({ symbol: VenusTokenSymbol.XVS });
+  const vai = useGetVenusToken({ symbol: VenusTokenSymbol.VAI });
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',

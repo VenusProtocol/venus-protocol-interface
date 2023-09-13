@@ -4,7 +4,7 @@ import { Token, VenusTokenSymbol } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
-import useGetToken from 'hooks/useGetToken';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 export interface UseStakeInVaultInput {
   stakedToken: Token;
@@ -17,7 +17,7 @@ interface StakeInput {
 }
 
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
-  const vai = useGetToken({
+  const vai = useGetVenusToken({
     symbol: VenusTokenSymbol.VAI,
   });
 

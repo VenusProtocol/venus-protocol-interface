@@ -1,6 +1,5 @@
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Vault } from 'types';
+import { Vault, VenusTokenSymbol } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
@@ -11,8 +10,8 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import { TOKENS } from 'constants/tokens';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -24,14 +23,22 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     name: 'vaiVault',
   });
 
+  const xvs = useGetVenusToken({
+    symbol: VenusTokenSymbol.XVS,
+  });
+
+  const vai = useGetVenusToken({
+    symbol: VenusTokenSymbol.VAI,
+  });
+
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: vaiVaultContractAddress || '',
-      token: TOKENS.vai,
+      token: vai!, // We ensure vai exists through the enabled option
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-      enabled: !!vaiVaultContractAddress,
+      enabled: !!vaiVaultContractAddress && !!vai,
     },
   );
 
@@ -51,37 +58,39 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
     accountAddress,
   });
-  const xvsPriceDollars: BigNumber | undefined = useMemo(
-    () =>
-      (getMainPoolData?.pool.assets || [])
-        .find(asset => areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs))
-        ?.tokenPriceCents.dividedBy(100),
-    [getMainPoolData?.pool.assets],
-  );
+  const xvsPriceDollars = useMemo(() => {
+    if (!xvs || !getMainPoolData?.pool.assets) {
+      return undefined;
+    }
+
+    return getMainPoolData.pool.assets
+      .find(asset => areTokensEqual(asset.vToken.underlyingToken, xvs))
+      ?.tokenPriceCents.dividedBy(100);
+  }, [getMainPoolData?.pool.assets, xvs]);
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars || !xvs || !vai) {
       return undefined;
     }
 
     const stakingAprPercentage = convertWeiToTokens({
       valueWei: vaiVaultDailyRateData.dailyRateWei,
-      token: TOKENS.xvs,
+      token: xvs,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
         convertWeiToTokens({
           valueWei: totalVaiStakedData.balanceWei,
-          token: TOKENS.vai,
+          token: vai,
         }),
       )
       .multipliedBy(100)
       .toNumber();
 
     return {
-      rewardToken: TOKENS.xvs,
-      stakedToken: TOKENS.vai,
+      rewardToken: xvs,
+      stakedToken: vai,
       dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
@@ -92,6 +101,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     vaiVaultDailyRateData?.dailyRateWei.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
+    xvs,
+    vai,
   ]);
 
   const isLoading =

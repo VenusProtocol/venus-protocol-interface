@@ -4,8 +4,8 @@ import { callOrThrow } from 'utilities';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 type TrimmedRepayVai = Omit<RepayVaiInput, 'vaiControllerContract'>;
 type Options = MutationObserverOptions<IRepayVaiOutput, Error, TrimmedRepayVai>;
@@ -16,7 +16,7 @@ const useRepayVai = (options?: Options) => {
     passSigner: true,
   });
 
-  const vai = useGetToken({
+  const vai = useGetVenusToken({
     symbol: VenusTokenSymbol.VAI,
   });
 

@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+import { VenusTokenSymbol } from 'types';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 export interface UseGetMainPoolTotalXvsDistributedOutput {
   isLoading: boolean;
@@ -17,6 +18,10 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
 const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
   const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 
+  const xvs = useGetVenusToken({
+    symbol: VenusTokenSymbol.XVS,
+  });
+
   const totalXvsDistributedWei = useMemo(() => {
     const totalXvsDistributedTokens =
       getMainMarketsData?.markets &&
@@ -27,12 +32,13 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
 
     return (
       totalXvsDistributedTokens &&
+      xvs &&
       convertTokensToWei({
         value: totalXvsDistributedTokens,
-        token: TOKENS.xvs,
+        token: xvs,
       })
     );
-  }, [getMainMarketsData?.markets]);
+  }, [getMainMarketsData?.markets, xvs]);
 
   return {
     isLoading: isGetMainAssetsLoading,
