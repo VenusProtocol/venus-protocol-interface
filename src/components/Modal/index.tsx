@@ -54,7 +54,7 @@ export const Modal: React.FC<ModalProps> = ({
               <Icon name="close" size={`${s.closeIconSize}`} />
             </Button>
           </div>
-          <div css={s.contentWrapper}>{children}</div>
+          <div css={s.contentWrapper}>{children as React.ReactNode}</div>
         </div>
       </Fade>
     </MUIModal>

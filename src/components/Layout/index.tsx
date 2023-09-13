@@ -7,7 +7,11 @@ import { PageContainer } from './PageContainer';
 import Sidebar from './Sidebar';
 import { useStyles } from './styles';
 
-export const Layout: React.FC = ({ children }) => {
+export interface LayoutProps {
+  children?: React.ReactNode;
+}
+
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const styles = useStyles();
 
   return (
