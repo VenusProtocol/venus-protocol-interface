@@ -2,6 +2,7 @@ import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
+import tokens, { xvs } from '__mocks__/models/tokens';
 import { transactionResponse } from '__mocks__/models/transactions';
 import vTokens from '__mocks__/models/vTokens';
 
@@ -10,7 +11,7 @@ import getTransactions from '.';
 vi.mock('utilities/restService');
 
 describe('api/queries/getTransactions', () => {
-  test('returns transaction models', async () => {
+  it('returns transaction models', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
@@ -23,6 +24,8 @@ describe('api/queries/getTransactions', () => {
       address: fakeAddress,
       sort: 'asc',
       vTokens,
+      tokens,
+      defaultToken: xvs,
     });
 
     expect(restService).toBeCalledWith({
@@ -41,7 +44,7 @@ describe('api/queries/getTransactions', () => {
     expect(transactions).toMatchSnapshot();
   });
 
-  test('Gets called with correct default arguments', async () => {
+  it('gets called with correct default arguments', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
@@ -49,6 +52,8 @@ describe('api/queries/getTransactions', () => {
 
     const { transactions } = await getTransactions({
       vTokens,
+      tokens,
+      defaultToken: xvs,
     });
 
     expect(transactions).toHaveLength(20);

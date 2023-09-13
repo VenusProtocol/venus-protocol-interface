@@ -1,11 +1,9 @@
 import { BigNumber as BN } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 
 import getXvsVaultPoolCount from '.';
-
-const xvsTokenAddress = TOKENS.xvs.address;
 
 describe('api/queries/getXvsVaultPoolCount', () => {
   test('returns the XVS vault pool length on success', async () => {
@@ -18,11 +16,12 @@ describe('api/queries/getXvsVaultPoolCount', () => {
     } as unknown as ContractTypeByName<'xvsVault'>;
 
     const response = await getXvsVaultPoolCount({
+      xvsTokenAddress: xvs.address,
       xvsVaultContract: fakeContract,
     });
 
     expect(poolLengthMock).toHaveBeenCalledTimes(1);
-    expect(poolLengthMock).toHaveBeenCalledWith(xvsTokenAddress);
+    expect(poolLengthMock).toHaveBeenCalledWith(xvs.address);
     expect(response).toEqual({
       poolCount: fakeOutput.toNumber(),
     });

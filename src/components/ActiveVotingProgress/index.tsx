@@ -2,9 +2,10 @@
 import { BigNumber } from 'bignumber.js';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token, VenusTokenSymbol } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
@@ -17,15 +18,14 @@ interface ActiveVotingProgressProps {
   votedTotalWei?: BigNumber;
 }
 
-const getValueString = (valueWei?: BigNumber) => {
-  // if !valueWei the progress row will not be rendered
-  if (!valueWei) return undefined;
-  return convertWeiToTokens({
-    valueWei,
-    token: TOKENS.xvs,
+const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs?: Token }) =>
+  valueMantissa &&
+  xvs &&
+  convertWeiToTokens({
+    valueWei: valueMantissa,
+    token: xvs,
     returnInReadableFormat: true,
   });
-};
 
 export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   votedForWei,
@@ -35,6 +35,9 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const xvs = useGetVenusToken({
+    symbol: VenusTokenSymbol.XVS,
+  });
 
   const defaultProgressbarProps = {
     step: 1,
@@ -47,7 +50,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'for',
         label: t('vote.for'),
-        value: getValueString(votedForWei),
+        value: getValueString({ valueMantissa: votedForWei, xvs }),
         progressBarProps: {
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
           value:
@@ -60,7 +63,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'against',
         label: t('vote.against'),
-        value: getValueString(votedAgainstWei),
+        value: getValueString({ valueMantissa: votedAgainstWei, xvs }),
         progressBarProps: {
           successColor: PALETTE.interactive.error50,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
@@ -74,7 +77,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'abstain',
         label: t('vote.abstain'),
-        value: getValueString(abstainedWei),
+        value: getValueString({ valueMantissa: abstainedWei, xvs }),
         progressBarProps: {
           successColor: PALETTE.text.secondary,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
@@ -86,7 +89,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         },
       },
     ],
-    [votedForWei, votedAgainstWei, abstainedWei],
+    [votedForWei, votedAgainstWei, abstainedWei, xvs],
   );
 
   return (
@@ -95,6 +98,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         if (!value) {
           return null;
         }
+
         return (
           <div key={id} css={styles.bar}>
             <LabeledProgressBar

@@ -4,7 +4,7 @@ import vTokens, { vUsdt } from '__mocks__/models/vTokens';
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
 import { TransactionResponse } from 'clients/api/queries/getTransactions/types';
 
-import { busd, xvs } from './tokens';
+import tokens, { busd, xvs } from './tokens';
 
 export const transactionResponse: TransactionResponse[] = [
   {
@@ -250,7 +250,7 @@ export const transactionResponse: TransactionResponse[] = [
 ];
 
 const transactions = transactionResponse.reduce((acc, data) => {
-  const transaction = formatTransaction({ data, vTokens });
+  const transaction = formatTransaction({ data, vTokens, tokens, defaultToken: xvs });
   return transaction ? [...acc, transaction] : acc;
 }, [] as Transaction[]);
 

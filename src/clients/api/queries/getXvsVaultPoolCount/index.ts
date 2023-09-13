@@ -1,8 +1,7 @@
 import { ContractTypeByName } from 'packages/contracts';
 
-import { TOKENS } from 'constants/tokens';
-
 export interface GetXvsVaultPoolCountInput {
+  xvsTokenAddress: string;
   xvsVaultContract: ContractTypeByName<'xvsVault'>;
 }
 
@@ -11,9 +10,9 @@ export type GetXvsVaultPoolCountOutput = {
 };
 
 const getXvsVaultPoolCount = async ({
+  xvsTokenAddress,
   xvsVaultContract,
 }: GetXvsVaultPoolCountInput): Promise<GetXvsVaultPoolCountOutput> => {
-  const xvsTokenAddress = TOKENS.xvs.address;
   const xvsVaultPoolLength = await xvsVaultContract.poolLength(xvsTokenAddress);
 
   return {

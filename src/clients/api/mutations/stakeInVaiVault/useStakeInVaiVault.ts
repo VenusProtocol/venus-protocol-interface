@@ -10,8 +10,8 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStakeInVaiVaultInput>;
@@ -22,7 +22,7 @@ const useStakeInVaiVault = (options?: Options) => {
     passSigner: true,
   });
 
-  const vai = useGetToken({
+  const vai = useGetVenusToken({
     symbol: VenusTokenSymbol.VAI,
   });
 
