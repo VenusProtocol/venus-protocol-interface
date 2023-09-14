@@ -3,6 +3,9 @@ import { areAddressesEqual } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
+/**
+ * @deprecated Use useGetToken instead
+ */
 const getTokenByAddress = (address: string) => {
   let token: Token | undefined;
 

@@ -46,7 +46,7 @@ import xrpLogo from 'packages/tokens/img/xrp.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
 import { Token } from 'types';
 
-export const venusTokens: Token[] = [
+export const tokens: Token[] = [
   {
     address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
     decimals: 18,
@@ -65,10 +65,6 @@ export const venusTokens: Token[] = [
     symbol: 'VRT',
     asset: vrtLogo,
   },
-];
-
-export const tokens: Token[] = [
-  ...venusTokens,
   {
     address: '0x0000000000000000000000000000000000000000',
     decimals: 18,

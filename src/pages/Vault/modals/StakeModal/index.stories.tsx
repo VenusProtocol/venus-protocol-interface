@@ -6,7 +6,7 @@ import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { TOKENS } from 'constants/tokens';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
@@ -34,14 +34,14 @@ const authContext: AuthContextValue = {
 
 export const Default = Template.bind({});
 Default.args = {
-  stakedToken: TOKENS.vai,
-  rewardToken: TOKENS.xvs,
+  stakedToken: vai,
+  rewardToken: xvs,
   handleClose: noop,
 };
 Default.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TOKENS.vai,
+    token: vai,
     accountAddress: fakeAddress,
     spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),
@@ -49,29 +49,29 @@ Default.decorators = [
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
-  stakedToken: TOKENS.vai,
-  rewardToken: TOKENS.xvs,
+  stakedToken: vai,
+  rewardToken: xvs,
   handleClose: noop,
 };
 
 export const WithDisabledToken = Template.bind({});
 WithDisabledToken.args = {
-  stakedToken: TOKENS.vai,
-  rewardToken: TOKENS.xvs,
+  stakedToken: vai,
+  rewardToken: xvs,
   handleClose: noop,
 };
 WithDisabledToken.decorators = [withAuthContext(authContext)];
 
 export const WithIsInitialLoading = Template.bind({});
 WithIsInitialLoading.args = {
-  stakedToken: TOKENS.vai,
-  rewardToken: TOKENS.xvs,
+  stakedToken: vai,
+  rewardToken: xvs,
   handleClose: noop,
 };
 WithIsInitialLoading.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TOKENS.vai,
+    token: vai,
     accountAddress: fakeAddress,
     spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),

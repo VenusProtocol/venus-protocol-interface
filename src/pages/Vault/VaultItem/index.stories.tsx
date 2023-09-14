@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { VaultItemUi } from '.';
@@ -21,8 +21,8 @@ export default {
 
 export const Default = () => (
   <VaultItemUi
-    stakedToken={TOKENS.vai}
-    rewardToken={TOKENS.xvs}
+    stakedToken={vai}
+    rewardToken={xvs}
     userStakedWei={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}
     dailyEmissionWei={new BigNumber('2120000000000000000')}

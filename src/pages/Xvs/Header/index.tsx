@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertWeiToTokens, formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
 
 import {
@@ -12,9 +13,9 @@ import {
   useGetMainPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { MINTED_XVS_WEI } from '../constants';
@@ -29,6 +30,7 @@ interface HeaderContainerProps {
   dailyXvsDistributedTokens: BigNumber;
   venusVaiVaultDailyRateWei: BigNumber;
   totalXvsDistributedWei: BigNumber;
+  xvs: Token;
 }
 
 export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
@@ -37,25 +39,26 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   dailyXvsDistributedTokens,
   venusVaiVaultDailyRateWei,
   totalXvsDistributedWei,
+  xvs,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { chainId } = useAuth();
 
   const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
-  const copyAddress = () => copy(TOKENS.xvs.address);
+  const copyAddress = () => copy(xvs.address);
 
   const readableDailyDistribution = useMemo(() => {
     const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
-      token: TOKENS.xvs,
+      token: xvs,
     });
 
     const dailyDistribution = dailyXvsDistributedTokens.plus(venusVaiVaultDailyRateTokens);
 
     return formatTokensToReadableValue({
       value: dailyDistribution,
-      token: TOKENS.xvs,
+      token: xvs,
     });
   }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei]);
 
@@ -63,7 +66,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: remainingDistributionWei,
-        token: TOKENS.xvs,
+        token: xvs,
         returnInReadableFormat: true,
       }),
     [remainingDistributionWei],
@@ -77,13 +80,13 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   return (
     <Paper className={className} css={styles.headerRoot}>
       <div css={styles.addressContainer}>
-        <TokenIcon token={TOKENS.xvs} />
+        <TokenIcon token={xvs} />
 
         <Typography
           href={
             chainId &&
             generateBscScanUrl({
-              hash: TOKENS.xvs.address,
+              hash: xvs.address,
               urlType: 'token',
               chainId,
             })
@@ -94,7 +97,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
           component="a"
           css={[styles.whiteText, styles.addressText]}
         >
-          <EllipseAddress address={TOKENS.xvs.address} ellipseBreakpoint="xl" />
+          <EllipseAddress address={xvs.address} ellipseBreakpoint="xl" />
         </Typography>
 
         <div css={styles.copyIconContainer}>
@@ -122,6 +125,10 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const { accountAddress } = useAuth();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
   const { data: getMainPoolData } = useGetMainPool({
@@ -151,7 +158,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const { data: xvsRemainingDistributionData } = useGetBalanceOf(
     {
-      token: TOKENS.xvs,
+      token: xvs!,
       accountAddress: mainPoolComptrollerContractAddress || '',
     },
     {
@@ -168,6 +175,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       totalXvsDistributedWei={
         mainPoolTotalXvsDistributedData?.totalXvsDistributedWei || new BigNumber(0)
       }
+      xvs={xvs!}
     />
   );
 };

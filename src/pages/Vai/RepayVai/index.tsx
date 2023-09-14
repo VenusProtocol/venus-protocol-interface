@@ -15,15 +15,16 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -49,6 +50,7 @@ export interface IRepayVaiUiProps {
   isVaiApprovalStatusLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   isRevokeVaiWalletSpendingLimitLoading: boolean;
   revokeVaiWalletSpendingLimit: () => Promise<unknown>;
+  vai: Token;
   vaiWalletSpendingLimitTokens?: BigNumber;
   userBalanceWei?: BigNumber;
   repayBalanceWei?: BigNumber;
@@ -68,6 +70,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   revokeVaiWalletSpendingLimit,
   vaiWalletSpendingLimitTokens,
   repayVai,
+  vai,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -80,7 +83,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, repayBalanceWei)
         : new BigNumber(0);
 
-    let tmpLimitTokens = convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai });
+    let tmpLimitTokens = convertWeiToTokens({ valueWei: limitWei, token: vai });
 
     if (isVaiApproved && vaiWalletSpendingLimitTokens) {
       tmpLimitTokens = BigNumber.minimum(tmpLimitTokens, vaiWalletSpendingLimitTokens);
@@ -94,7 +97,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       if (amountTokens && repayBalanceWei) {
         const amountWei = convertTokensToWei({
           value: new BigNumber(amountTokens),
-          token: TOKENS.vai,
+          token: vai,
         });
         return amountWei.isEqualTo(repayBalanceWei);
       }
@@ -107,16 +110,16 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   // Convert repay balance (minted + interests) into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
     valueWei: repayBalanceWei,
-    token: TOKENS.vai,
+    token: vai,
   });
 
   const readableWalletBalance = useConvertWeiToReadableTokenString({
     valueWei: userBalanceWei,
-    token: TOKENS.vai,
+    token: vai,
   });
 
   const walletBalanceTokens = useMemo(
-    () => userBalanceWei && convertTokensToWei({ value: userBalanceWei, token: TOKENS.vai }),
+    () => userBalanceWei && convertTokensToWei({ value: userBalanceWei, token: vai }),
     [userBalanceWei],
   );
 
@@ -125,7 +128,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
-      token: TOKENS.vai,
+      token: vai,
     });
 
     return handleTransactionMutation({
@@ -139,7 +142,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         content: t('vai.repayVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          token: TOKENS.vai,
+          token: vai,
         },
         transactionHash: contractReceipt.transactionHash,
       }),
@@ -157,7 +160,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               <FormikTokenTextField
                 name="amount"
                 css={styles.getRow({ isLast: true })}
-                token={TOKENS.vai}
+                token={vai}
                 max={limitTokens}
                 disabled={disabled || isSubmitting || !hasRepayableVai}
                 rightMaxButton={{
@@ -177,7 +180,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                 </LabeledInlineContent>
 
                 <SpendingLimit
-                  token={TOKENS.vai}
+                  token={vai}
                   walletBalanceTokens={walletBalanceTokens}
                   walletSpendingLimitTokens={vaiWalletSpendingLimitTokens}
                   onRevoke={revokeVaiWalletSpendingLimit}
@@ -190,7 +193,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
               <LabeledInlineContent
                 css={styles.getRow({ isLast: false })}
-                iconSrc={TOKENS.vai}
+                iconSrc={vai}
                 label={t('vai.repayVai.repayVaiBalance')}
                 tooltip={t('vai.repayVai.repayVaiBalanceTooltip')}
               >
@@ -207,7 +210,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               )}
 
               <ApproveTokenSteps
-                token={TOKENS.vai}
+                token={vai}
                 hideTokenEnablingStep={!isValid || !dirty}
                 isTokenApproved={isVaiApproved}
                 approveToken={approveVai}
@@ -239,6 +242,9 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
 const RepayVai: React.FC = () => {
   const { accountAddress } = useAuth();
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
 
   const vaiControllerContractAddress = useGetUniqueContractAddress({
     name: 'vaiController',
@@ -257,7 +263,7 @@ const RepayVai: React.FC = () => {
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
-      token: TOKENS.vai,
+      token: vai!,
     },
     {
       enabled: !!accountAddress,
@@ -274,7 +280,7 @@ const RepayVai: React.FC = () => {
     revokeWalletSpendingLimit: revokeVaiWalletSpendingLimit,
     isRevokeWalletSpendingLimitLoading: isRevokeVaiWalletSpendingLimitLoading,
   } = useTokenApproval({
-    token: TOKENS.vai,
+    token: vai!,
     spenderAddress: vaiControllerContractAddress,
     accountAddress,
   });
@@ -307,6 +313,7 @@ const RepayVai: React.FC = () => {
       vaiWalletSpendingLimitTokens={vaiWalletSpendingLimitTokens}
       isRevokeVaiWalletSpendingLimitLoading={isRevokeVaiWalletSpendingLimitLoading}
       revokeVaiWalletSpendingLimit={revokeVaiWalletSpendingLimit}
+      vai={vai!}
     />
   );
 };

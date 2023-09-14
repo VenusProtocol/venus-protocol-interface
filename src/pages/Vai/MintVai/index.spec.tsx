@@ -6,9 +6,9 @@ import Vi from 'vitest';
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { vai } from '__mocks__/models/tokens';
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -72,7 +72,7 @@ describe('pages/Vai/MintVai', () => {
     // Check input value updated to max amount of mintable VAI
     const fakeMintableVai = convertWeiToTokens({
       valueWei: fakeGetMintableVaiOutput.mintableVaiWei,
-      token: TOKENS.vai,
+      token: vai,
     });
 
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
@@ -97,7 +97,7 @@ describe('pages/Vai/MintVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeContractReceipt.transactionHash,
       amount: {
-        token: TOKENS.vai,
+        token: vai,
         valueWei: fakeGetMintableVaiOutput.mintableVaiWei,
       },
       content: expect.any(String),

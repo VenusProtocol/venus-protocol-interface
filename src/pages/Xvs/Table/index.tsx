@@ -16,8 +16,8 @@ import {
 import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { useStyles } from '../styles';
@@ -32,9 +32,10 @@ type TableAsset = {
 interface XvsTableProps {
   assets: TableAsset[];
   isFetchingAssets: boolean;
+  xvs: Token;
 }
 
-const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
+const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -55,7 +56,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
             {formatTokensToReadableValue({
               value: xvsPerDay,
-              token: TOKENS.xvs,
+              token: xvs,
             })}
           </Typography>
         ),
@@ -112,6 +113,14 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets }) => {
 
 const XvsTable: React.FC = () => {
   const { accountAddress } = useAuth();
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
     accountAddress,
   });
@@ -124,12 +133,12 @@ const XvsTable: React.FC = () => {
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
-      token: TOKENS.vai,
+      token: vai!,
       accountAddress: vaiVaultContractAddress || '',
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-      enabled: !!vaiVaultContractAddress,
+      enabled: !!vaiVaultContractAddress && !!vai,
     },
   );
 
@@ -147,18 +156,18 @@ const XvsTable: React.FC = () => {
     }));
 
     const xvsAsset = (getMainPoolData?.pool.assets || []).find(asset =>
-      areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs),
+      areTokensEqual(asset.vToken.underlyingToken, xvs!),
     );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
-        token: TOKENS.xvs,
+        token: xvs,
       });
 
       const vaultVaiStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedData.balanceWei,
-        token: TOKENS.vai,
+        token: vai,
       });
 
       const vaiApy = venusVaiVaultDailyRateTokens
@@ -168,7 +177,7 @@ const XvsTable: React.FC = () => {
         .div(vaultVaiStakedTokens);
 
       allAssets.unshift({
-        token: TOKENS.vai,
+        token: vai!,
         xvsPerDay: venusVaiVaultDailyRateTokens,
         xvsSupplyApy: vaiApy,
         xvsBorrowApy: undefined,
@@ -180,9 +189,11 @@ const XvsTable: React.FC = () => {
     getMainPoolData?.pool.assets,
     venusVaiVaultDailyRateData?.dailyRateWei,
     vaultVaiStakedData?.balanceWei,
+    vai,
+    xvs,
   ]);
 
-  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainPoolLoading} />;
+  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainPoolLoading} xvs={xvs!} />;
 };
 
 export default XvsTable;

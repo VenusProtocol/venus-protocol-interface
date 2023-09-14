@@ -6,7 +6,7 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { TOKENS } from 'constants/tokens';
+import { vai, xvs } from '__mocks__/models/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
@@ -18,7 +18,7 @@ vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
 const baseProps: TransactionFormProps = {
-  token: TOKENS.xvs,
+  token: xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'Fake submit button disabled label',
   onSubmit: noop,
@@ -44,7 +44,7 @@ describe('pages/Vault/TransactionForm', () => {
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TOKENS.vai,
+      token: vai,
       spenderAddress: '',
       accountAddress: fakeAccountAddress,
     });
@@ -83,7 +83,7 @@ describe('pages/Vault/TransactionForm', () => {
 
   it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TOKENS.vai,
+      token: vai,
       spenderAddress: '',
       accountAddress: fakeAccountAddress,
     });
