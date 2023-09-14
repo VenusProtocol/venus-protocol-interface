@@ -1,3 +1,10 @@
+## [2.19.9](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.8...v2.19.9) (2023-09-14)
+
+
+### Bug Fixes
+
+* move logic to scroll to top of page into Router ([#1429](https://github.com/VenusProtocol/venus-protocol-interface/issues/1429)) ([b722103](https://github.com/VenusProtocol/venus-protocol-interface/commit/b722103bbb7c14040b93a228a0c6c16de3783175))
+
 ## [2.19.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.7...v2.19.8) (2023-09-14)
 
 ## [2.19.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.6...v2.19.7) (2023-09-13)
