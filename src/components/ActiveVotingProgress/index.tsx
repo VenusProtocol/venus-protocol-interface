@@ -5,7 +5,7 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
@@ -35,7 +35,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

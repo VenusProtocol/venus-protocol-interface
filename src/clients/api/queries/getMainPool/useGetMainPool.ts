@@ -5,8 +5,8 @@ import { callOrThrow } from 'utilities';
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetVenusToken from 'hooks/useGetVenusToken';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
@@ -32,8 +32,8 @@ type Options = QueryObserverOptions<
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { t } = useTranslation();
 
-  const xvs = useGetVenusToken({ symbol: 'XVS' });
-  const vai = useGetVenusToken({ symbol: 'VAI' });
+  const xvs = useGetToken({ symbol: 'XVS' });
+  const vai = useGetToken({ symbol: 'VAI' });
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',

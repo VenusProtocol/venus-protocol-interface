@@ -10,8 +10,8 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetVenusToken from 'hooks/useGetVenusToken';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -32,7 +32,7 @@ const useGetXvsVaultPools = ({
     name: 'xvsVault',
   });
 
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

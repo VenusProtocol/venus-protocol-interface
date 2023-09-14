@@ -45,7 +45,7 @@ const fullRepayBalanceTokens = convertWeiToTokens({
   token: TOKENS.vai,
 }).toString();
 
-describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
+describe('pages/Vai/RepayVai', () => {
   beforeEach(() => {
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,

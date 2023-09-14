@@ -3,7 +3,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
-import { TESTNET_TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { BorrowFormUi } from '.';
@@ -25,7 +25,7 @@ export const Default = () => (
     onCloseModal={noop}
     isSubmitting={false}
     formValues={{
-      fromToken: TESTNET_TOKENS.xvs,
+      fromToken: xvs,
       amountTokens: '',
     }}
     setFormValues={noop}

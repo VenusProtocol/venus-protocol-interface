@@ -11,6 +11,7 @@ import {
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import {
@@ -26,6 +27,7 @@ import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
@@ -40,6 +42,7 @@ export interface MintVaiUiProps {
   apyPercentage?: BigNumber;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
+  vai?: Token;
 }
 
 export const MintVaiUi: React.FC<MintVaiUiProps> = ({
@@ -50,6 +53,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   userBalanceWei,
   apyPercentage,
   isSubmitting,
+  vai,
   mintVai,
 }) => {
   const styles = useStyles();
@@ -78,17 +82,18 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
   const getReadableMintFee = useCallback(
     (valueWei: string) => {
-      if (!mintFeePercentage) {
+      if (!mintFeePercentage || !vai) {
         return PLACEHOLDER_KEY;
       }
 
       const readableFeeVai = getReadableFeeVai({
         valueWei: new BigNumber(valueWei || 0),
         mintFeePercentage,
+        vai,
       });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
-    [mintFeePercentage],
+    [mintFeePercentage, vai],
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = amountTokens => {
@@ -185,6 +190,10 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 const MintVai: React.FC = () => {
   const { accountAddress } = useAuth();
 
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
       accountAddress: accountAddress || '',
@@ -227,6 +236,7 @@ const MintVai: React.FC = () => {
       isSubmitting={isSubmitting}
       apyPercentage={getVaiRepayApyData?.repayApyPercentage}
       mintVai={mintVai}
+      vai={vai}
     />
   );
 };

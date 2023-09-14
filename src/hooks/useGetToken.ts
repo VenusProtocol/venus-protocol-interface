@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 
-import useGetVenusTokens from './useGetTokens';
+import useGetTokens from './useGetTokens';
 
 export interface UseGetTokenInput {
   symbol: string;
 }
 
 function useGetToken({ symbol }: UseGetTokenInput) {
-  const venusTokens = useGetVenusTokens();
-  return useMemo(() => venusTokens.find(venusToken => venusToken.symbol === symbol), [venusTokens]);
+  const tokens = useGetTokens();
+  return useMemo(() => tokens.find(token => token.symbol === symbol), [tokens]);
 }
 
 export default useGetToken;

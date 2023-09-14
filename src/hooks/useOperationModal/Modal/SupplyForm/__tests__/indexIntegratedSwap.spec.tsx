@@ -10,6 +10,7 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
+import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { swapTokensAndSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
@@ -17,7 +18,6 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -31,7 +31,7 @@ import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
-  new BigNumber(10).pow(SWAP_TOKENS.busd.decimals),
+  new BigNumber(10).pow(busd.decimals),
 );
 
 const fakeBusdAmountBellowWalletBalanceWei = fakeBusdWalletBalanceWei.minus(100);
@@ -41,17 +41,17 @@ const fakeMarginWithSupplyCapTokens = fakeAsset.supplyCapTokens.minus(
 );
 
 const fakeMarginWithSupplyCapWei = fakeMarginWithSupplyCapTokens.multipliedBy(
-  new BigNumber(10).pow(TESTNET_TOKENS.xvs.decimals),
+  new BigNumber(10).pow(xvs.decimals),
 );
 
 const fakeSwap: Swap = {
-  fromToken: SWAP_TOKENS.busd,
+  fromToken: busd,
   fromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
-  toToken: TESTNET_TOKENS.xvs,
+  toToken: xvs,
   expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
   minimumToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
   exchangeRate: fakeMarginWithSupplyCapWei.div(fakeBusdAmountBellowWalletBalanceWei),
-  routePath: [SWAP_TOKENS.busd.address, TESTNET_TOKENS.xvs.address],
+  routePath: [busd.address, xvs.address],
   priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
 };
@@ -92,7 +92,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       ...fakeAsset,
       vToken: {
         ...fakeAsset.vToken,
-        underlyingToken: SWAP_TOKENS.bnb,
+        underlyingToken: bnb,
       },
     };
 
@@ -121,7 +121,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     await waitFor(() => getByText('300.00K BUSD'));
@@ -154,7 +154,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       ...fakeAsset,
       vToken: {
         ...fakeAsset.vToken,
-        underlyingToken: SWAP_TOKENS.wbnb,
+        underlyingToken: wbnb,
       },
     };
 
@@ -170,7 +170,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.bnb,
+      token: bnb,
     });
 
     const selectTokenTextField = getByTestId(
@@ -236,7 +236,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -252,7 +252,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const expectedSubmitButtonLabel =
       en.operationModal.supply.submitButtonLabel.insufficientWalletBalance.replace(
         '{{tokenSymbol}}',
-        SWAP_TOKENS.busd.symbol,
+        busd.symbol,
       );
 
     await waitFor(() => getByText(expectedSubmitButtonLabel));
@@ -283,7 +283,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -321,7 +321,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -342,7 +342,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceWei:
-        tokenBalance.token.address.toLowerCase() === SWAP_TOKENS.busd.address.toLowerCase()
+        tokenBalance.token.address.toLowerCase() === busd.address.toLowerCase()
           ? new BigNumber(0)
           : tokenBalance.balanceWei,
     }));
@@ -365,7 +365,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     // Check input is empty
@@ -403,7 +403,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     // Check input is empty
@@ -451,7 +451,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -501,7 +501,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(
@@ -544,7 +544,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
-      token: SWAP_TOKENS.busd,
+      token: busd,
     });
 
     const selectTokenTextField = getByTestId(

@@ -22,7 +22,7 @@ const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiControllerResponse
 
 const fakeVaiTreasuryPercentage = 7.19;
 
-describe('pages/Dashboard/vai/MintVai', () => {
+describe('pages/Vai/MintVai', () => {
   beforeEach(() => {
     (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
   });

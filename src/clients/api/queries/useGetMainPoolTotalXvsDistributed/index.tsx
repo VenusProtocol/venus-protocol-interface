@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 export interface UseGetMainPoolTotalXvsDistributedOutput {
   isLoading: boolean;
@@ -17,7 +17,7 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
 const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
   const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

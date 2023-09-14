@@ -7,8 +7,8 @@ import getTransactions, {
 import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetVenusToken from 'hooks/useGetVenusToken';
 
 type TrimmedGetTransactionsInput = Omit<
   GetTransactionsInput,
@@ -28,7 +28,7 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Optio
   const vTokens = getVTokenData?.vTokens || [];
 
   const tokens = useGetTokens();
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

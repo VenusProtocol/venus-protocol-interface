@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';
@@ -31,6 +31,9 @@ const VoteModal: React.FC<VoteModalProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const handleTransactionMutation = useHandleTransactionMutation();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   let title: string;
   let successModalTitle: string;
@@ -79,7 +82,7 @@ const VoteModal: React.FC<VoteModalProps> = ({
               label={t('vote.votingPower')}
               name="votingPower"
               id="votingPower"
-              leftIconSrc={TOKENS.xvs}
+              leftIconSrc={xvs}
               disabled
               value={readableVoteWeight}
               css={styles.votingPower}

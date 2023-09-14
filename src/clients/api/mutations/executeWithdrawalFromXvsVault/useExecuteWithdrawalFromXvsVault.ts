@@ -11,7 +11,7 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,
@@ -32,7 +32,7 @@ const useExecuteWithdrawalFromXvsVault = (
     passSigner: true,
   });
 
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

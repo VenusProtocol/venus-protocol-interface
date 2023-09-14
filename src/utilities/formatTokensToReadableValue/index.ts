@@ -12,7 +12,7 @@ const MIN_DECIMALS = 2;
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
-  token: Token | VToken;
+  token: Token | VToken | undefined;
   addSymbol?: boolean;
 }
 
@@ -21,7 +21,7 @@ export const formatTokensToReadableValue = ({
   token,
   addSymbol = true,
 }: FormatTokensToReadableValueInput) => {
-  if (value === undefined) {
+  if (!token || !value) {
     return PLACEHOLDER_KEY;
   }
 

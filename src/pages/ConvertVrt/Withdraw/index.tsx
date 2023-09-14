@@ -6,9 +6,9 @@ import { ContractReceipt } from 'ethers';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 
-import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
@@ -26,6 +26,9 @@ const Withdraw: React.FC<WithdrawProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
@@ -33,7 +36,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
 
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
-    token: TOKENS.xvs,
+    token: xvs,
   });
 
   const handleTransactionMutation = useHandleTransactionMutation();
@@ -52,7 +55,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
         transactionHash: contractReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />
+            {xvs && <TokenIcon token={xvs} css={styles.successModalToken} />}
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {readableXvsAvailable}
             </Typography>

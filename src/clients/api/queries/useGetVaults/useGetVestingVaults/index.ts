@@ -13,7 +13,7 @@ import {
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
@@ -28,7 +28,7 @@ const useGetVestingVaults = ({
 }: {
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

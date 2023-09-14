@@ -8,7 +8,7 @@ import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
 import { EXPLORER_URLS } from 'constants/bsc';
 import { useAuth } from 'context/AuthContext';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 import {
   VENUS_DISCORD_URL,
@@ -26,7 +26,7 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { chainId } = useAuth();
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

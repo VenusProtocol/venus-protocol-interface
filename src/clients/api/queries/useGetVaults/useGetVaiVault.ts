@@ -10,8 +10,8 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
-import useGetVenusToken from 'hooks/useGetVenusToken';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -23,11 +23,11 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     name: 'vaiVault',
   });
 
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 
-  const vai = useGetVenusToken({
+  const vai = useGetToken({
     symbol: 'VAI',
   });
 

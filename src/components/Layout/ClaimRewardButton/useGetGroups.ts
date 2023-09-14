@@ -3,7 +3,7 @@ import { useTranslation } from 'translation';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 import { Group } from './types';
 
@@ -15,7 +15,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
     accountAddress,
   });
 
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 

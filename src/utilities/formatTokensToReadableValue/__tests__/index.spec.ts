@@ -6,10 +6,19 @@ import { TOKENS } from 'constants/tokens';
 import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
 
 describe('utilities/formatTokensToReadableValue', () => {
-  test('should return PLACEHOLDER_KEY when value is undefined', () => {
+  test('should return placeholder when value is undefined', () => {
     const result = formatTokensToReadableValue({
       value: undefined,
       token: TOKENS.busd,
+      addSymbol: false,
+    });
+    expect(result).toEqual(PLACEHOLDER_KEY);
+  });
+
+  test('should return placeholder when token is undefined', () => {
+    const result = formatTokensToReadableValue({
+      value: new BigNumber(1000),
+      token: undefined,
       addSymbol: false,
     });
     expect(result).toEqual(PLACEHOLDER_KEY);

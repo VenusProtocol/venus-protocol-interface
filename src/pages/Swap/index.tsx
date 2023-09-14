@@ -19,12 +19,13 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
-import { SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useGetToken from 'hooks/useGetToken';
+import useGetTokens from 'hooks/useGetTokens';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -35,14 +36,6 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import { FormValues } from './types';
 import useFormValidation from './useFormValidation';
-
-const initialFormValues: FormValues = {
-  fromToken: SWAP_TOKENS.bnb,
-  fromTokenAmountTokens: '',
-  toToken: SWAP_TOKENS.xvs,
-  toTokenAmountTokens: '',
-  direction: 'exactAmountIn',
-};
 
 export interface SwapPageUiProps
   extends Pick<
@@ -60,6 +53,7 @@ export interface SwapPageUiProps
   isSwapLoading: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  initialFormValues: FormValues;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -81,6 +75,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   onSubmit,
   isSubmitting,
   tokenBalances,
+  initialFormValues,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -386,6 +381,22 @@ const SwapPage: React.FC = () => {
     comptrollerAddress: mainPoolComptrollerContractAddress || '',
   });
 
+  const tokens = useGetTokens();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+  const bnb = useGetToken({
+    symbol: 'BNB',
+  });
+
+  const initialFormValues: FormValues = {
+    fromToken: bnb || tokens[0],
+    fromTokenAmountTokens: '',
+    toToken: xvs || tokens[1],
+    toTokenAmountTokens: '',
+    direction: 'exactAmountIn',
+  };
+
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   const swapInfo = useGetSwapInfo({
@@ -440,6 +451,7 @@ const SwapPage: React.FC = () => {
       fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
       revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
       isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+      initialFormValues={initialFormValues}
     />
   );
 };

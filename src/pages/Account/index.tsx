@@ -7,7 +7,7 @@ import { areTokensEqual } from 'utilities';
 
 import { useGetPools, useGetVaults } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetVenusToken from 'hooks/useGetVenusToken';
+import useGetToken from 'hooks/useGetToken';
 
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
@@ -26,7 +26,7 @@ const VAI_PRICE_CENTS = new BigNumber(100);
 
 export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools }) => {
   const styles = useStyles();
-  const xvs = useGetVenusToken({
+  const xvs = useGetToken({
     symbol: 'XVS',
   });
 
