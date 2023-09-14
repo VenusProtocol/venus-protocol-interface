@@ -4381,14 +4381,32 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/chains@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/chains/-/chains-0.0.1.tgz#1730d15ce7d6fc52c09de67310cb40fcc37b3db6"
+  integrity sha512-zMfcJEu141UeqmgSDS95r/4lH06IdKd1pHe/ET66ZQPBEnE8CT+cAFCodk1fYD4sHTggjh+fNQj5GTCctRfF0Q==
+
+"@pancakeswap/sdk@^5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.4.2.tgz#823c1b3be78d5b1eea2f1a0c85076c19ad7f6f1b"
+  integrity sha512-OhCuEJT9lNFc2tjeRhFNUh6Z6O4VA0F2DR8O3P0fE4rvj0dR+5CSmZP3VV6hdij3OGBYtH3a5eH4DBwAFrIQSg==
+  dependencies:
+    "@pancakeswap/chains" "^0.0.1"
+    "@pancakeswap/swap-sdk-core" "1.0.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "^1.10.9"
+
+"@pancakeswap/swap-sdk-core@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.0.0.tgz#30ab333943ecca5484cd10cbc493841fb553728d"
+  integrity sha512-MZBF8FHpCX/ffY8/gd2zz6TpiftwqRouVPr1kB88wm7desYh+E2y4kWPcZX1roWR38UkjBv4/DoXVSDeSTBgRg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
@@ -14260,11 +14278,6 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
-
 jscodeshift@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.14.0.tgz#7542e6715d6d2e8bde0b4e883f0ccea358b46881"
@@ -21543,10 +21556,10 @@ vfile@^5.0.0:
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
 
-viem@^1.0.0, viem@^1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.3.tgz#e558ec568f961a5472ba6999528cb4eb7ae31c6f"
-  integrity sha512-7L35k0JmxTa7xIx1s8lCsTLGrTEUXTYnLppZ56EVBjtvE2OKSfDjL8No0Fnedu6Ye0zi/VX2BQC3arhpKOVIlw==
+viem@^1.0.0, viem@^1.10.3, viem@^1.10.9:
+  version "1.10.13"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.13.tgz#688068fd438224b82902c00dca5b30c4cb68897f"
+  integrity sha512-gu2V7ObWTfbiZBwHERPbTgYgWXnraNOSAP2a//rdjZV55seie/5oMAlIa1OHUn7iGZNlDFTbqzOq4MY3RHWWYA==
   dependencies:
     "@adraffy/ens-normalize" "1.9.4"
     "@noble/curves" "1.2.0"
