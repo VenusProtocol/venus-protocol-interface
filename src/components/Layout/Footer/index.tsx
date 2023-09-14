@@ -2,7 +2,6 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { VenusTokenSymbol } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
@@ -28,7 +27,7 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const { t } = useTranslation();
   const { chainId } = useAuth();
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const explorerUrl = chainId && EXPLORER_URLS[chainId];

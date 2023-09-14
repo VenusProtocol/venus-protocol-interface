@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VenusTokenSymbol } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
@@ -17,7 +16,7 @@ const useRepayVai = (options?: Options) => {
   });
 
   const vai = useGetVenusToken({
-    symbol: VenusTokenSymbol.VAI,
+    symbol: 'VAI',
   });
 
   return useMutation(

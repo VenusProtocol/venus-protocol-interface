@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VenusTokenSymbol } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import {
@@ -23,7 +22,7 @@ const useStakeInVaiVault = (options?: Options) => {
   });
 
   const vai = useGetVenusToken({
-    symbol: VenusTokenSymbol.VAI,
+    symbol: 'VAI',
   });
 
   const { captureAnalyticEvent } = useAnalytics();

@@ -12,12 +12,6 @@ export enum ChainId {
   'BSC_TESTNET' = 97,
 }
 
-export enum VenusTokenSymbol {
-  XVS = 'XVS',
-  VAI = 'VAI',
-  VRT = 'VRT',
-}
-
 export interface Token {
   symbol: string;
   decimals: number;

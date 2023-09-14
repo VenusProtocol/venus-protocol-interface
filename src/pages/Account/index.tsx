@@ -6,8 +6,8 @@ import { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useGetPools, useGetVaults } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetVenusToken from 'hooks/useGetVenusToken';
 
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
@@ -26,6 +26,9 @@ const VAI_PRICE_CENTS = new BigNumber(100);
 
 export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools }) => {
   const styles = useStyles();
+  const xvs = useGetVenusToken({
+    symbol: 'XVS',
+  });
 
   // Filter out vaults user has not staked in
   const filteredVaults = useMemo(
@@ -53,7 +56,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 
     pools.forEach(pool =>
       pool.assets.every(asset => {
-        if (areTokensEqual(asset.vToken.underlyingToken, TOKENS.xvs)) {
+        if (xvs && areTokensEqual(asset.vToken.underlyingToken, xvs)) {
           priceCents = asset.tokenPriceCents;
           return false;
         }
@@ -63,7 +66,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
     );
 
     return priceCents;
-  }, [pools]);
+  }, [pools, xvs]);
 
   if (isFetching) {
     return <Spinner />;

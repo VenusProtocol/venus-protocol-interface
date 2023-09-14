@@ -1,6 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
-import { VenusTokenSymbol } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
@@ -33,8 +32,8 @@ type Options = QueryObserverOptions<
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { t } = useTranslation();
 
-  const xvs = useGetVenusToken({ symbol: VenusTokenSymbol.XVS });
-  const vai = useGetVenusToken({ symbol: VenusTokenSymbol.VAI });
+  const xvs = useGetVenusToken({ symbol: 'XVS' });
+  const vai = useGetVenusToken({ symbol: 'VAI' });
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',

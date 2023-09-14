@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VenusTokenSymbol } from 'types';
 
 import getTransactions, {
   GetTransactionsInput,
@@ -30,7 +29,7 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Optio
 
   const tokens = useGetTokens();
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   return useQuery(

@@ -4,7 +4,6 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { Pool } from 'types';
 
-import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useCollateral from 'hooks/useCollateral';
 import useOperationModal from 'hooks/useOperationModal';
@@ -102,8 +101,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     // collateral and is attempting to open the supply modal of other assets
     if (
       hasLunaOrUstCollateralEnabled &&
-      row.vToken.underlyingToken.address !== TOKENS.luna.address &&
-      row.vToken.underlyingToken.address !== TOKENS.ust.address
+      row.vToken.underlyingToken.symbol !== 'LUNA' &&
+      row.vToken.underlyingToken.symbol !== 'UST'
     ) {
       e.preventDefault();
       e.stopPropagation();

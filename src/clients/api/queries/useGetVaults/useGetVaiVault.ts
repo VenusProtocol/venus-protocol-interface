@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Vault, VenusTokenSymbol } from 'types';
+import { Vault } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
@@ -24,11 +24,11 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   });
 
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const vai = useGetVenusToken({
-    symbol: VenusTokenSymbol.VAI,
+    symbol: 'VAI',
   });
 
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(

@@ -2,7 +2,7 @@
 import { BigNumber } from 'bignumber.js';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import useGetVenusToken from 'hooks/useGetVenusToken';
@@ -36,7 +36,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const defaultProgressbarProps = {

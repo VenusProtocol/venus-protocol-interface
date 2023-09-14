@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { VenusTokenSymbol } from 'types';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -17,7 +16,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
   });
 
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const { data: getPendingRewardsData } = useGetPendingRewards(

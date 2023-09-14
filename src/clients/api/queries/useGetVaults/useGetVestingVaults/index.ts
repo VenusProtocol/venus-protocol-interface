@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
-import { Vault, VenusTokenSymbol } from 'types';
+import { Vault } from 'types';
 import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
@@ -29,7 +29,7 @@ const useGetVestingVaults = ({
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const {

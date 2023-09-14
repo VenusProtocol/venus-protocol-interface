@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { VenusTokenSymbol } from 'types';
 
 import useGetVenusTokens from './useGetTokens';
 
 export interface UseGetVenusTokenInput {
-  symbol: VenusTokenSymbol;
+  symbol: 'XVS' | 'VAI' | 'VRT';
 }
 
 function useGetVenusToken({ symbol }: UseGetVenusTokenInput) {

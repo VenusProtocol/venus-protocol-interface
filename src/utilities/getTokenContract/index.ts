@@ -1,7 +1,7 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
 import { getGenericContract } from 'packages/contracts';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 
 const getTokenContract = ({
   token,
@@ -12,11 +12,11 @@ const getTokenContract = ({
 }) => {
   let name: 'bep20' | 'xvs' | 'vai' | 'vrt' = 'bep20';
 
-  if (token.symbol === VenusTokenSymbol.XVS) {
+  if (token.symbol === 'XVS') {
     name = 'xvs';
-  } else if (token.symbol === VenusTokenSymbol.VAI) {
+  } else if (token.symbol === 'VAI') {
     name = 'vai';
-  } else if (token.symbol === VenusTokenSymbol.VRT) {
+  } else if (token.symbol === 'VRT') {
     name = 'vrt';
   }
 

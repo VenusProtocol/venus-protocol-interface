@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 import {
@@ -33,7 +33,7 @@ const useExecuteWithdrawalFromXvsVault = (
   });
 
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const { captureAnalyticEvent } = useAnalytics();

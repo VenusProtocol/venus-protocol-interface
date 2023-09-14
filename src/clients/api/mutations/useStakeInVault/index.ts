@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
@@ -18,7 +18,7 @@ interface StakeInput {
 
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
   const vai = useGetVenusToken({
-    symbol: VenusTokenSymbol.VAI,
+    symbol: 'VAI',
   });
 
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({

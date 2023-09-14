@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VenusTokenSymbol } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getXvsVaultPoolCount, {
@@ -23,7 +22,7 @@ const useGetXvsVaultPoolCount = (options?: Options) => {
   });
 
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   return useQuery(

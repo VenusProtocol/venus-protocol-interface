@@ -10,12 +10,12 @@ import vaiLogo from 'packages/tokens/img/vai.svg';
 import vrtLogo from 'packages/tokens/img/vrt.svg';
 import wbnbLogo from 'packages/tokens/img/wbnb.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 
 export const xvs: Token = {
   address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
   decimals: 18,
-  symbol: VenusTokenSymbol.XVS,
+  symbol: 'XVS',
   asset: xvsLogo,
 };
 

@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token, TokenBalance, VenusTokenSymbol } from 'types';
+import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import useGetTokens from 'hooks/useGetTokens';
@@ -20,7 +20,7 @@ export interface TokenListProps {
   'data-testid'?: string;
 }
 
-const commonTokenSymbols = [VenusTokenSymbol.XVS, 'BNB', 'USDT', 'BTCB'];
+const commonTokenSymbols = ['XVS', 'BNB', 'USDT', 'BTCB'];
 
 export const TokenList: React.FC<TokenListProps> = ({
   tokenBalances,

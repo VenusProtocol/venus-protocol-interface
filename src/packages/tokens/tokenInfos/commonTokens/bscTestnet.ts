@@ -39,25 +39,25 @@ import winLogo from 'packages/tokens/img/win.svg';
 import wooLogo from 'packages/tokens/img/woo.svg';
 import xrpLogo from 'packages/tokens/img/xrp.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
-import { Token, VenusTokenSymbol } from 'types';
+import { Token } from 'types';
 
 export const venusTokens: Token[] = [
   {
     address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
     decimals: 18,
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
     asset: xvsLogo,
   },
   {
     address: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
     decimals: 18,
-    symbol: VenusTokenSymbol.VAI,
+    symbol: 'VAI',
     asset: vaiLogo,
   },
   {
     address: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
     decimals: 18,
-    symbol: VenusTokenSymbol.VRT,
+    symbol: 'VRT',
     asset: vrtLogo,
   },
 ];

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { VenusTokenSymbol } from 'types';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
@@ -19,7 +18,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
   const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 
   const xvs = useGetVenusToken({
-    symbol: VenusTokenSymbol.XVS,
+    symbol: 'XVS',
   });
 
   const totalXvsDistributedWei = useMemo(() => {
