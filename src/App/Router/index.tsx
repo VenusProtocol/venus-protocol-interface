@@ -31,6 +31,11 @@ const Router = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Scroll to the top of the page on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   // Redirect to account page if user has already connected their wallet and is
   // visiting the dashboard. If they refresh the page while being on the
   // dashboard, the redirection will not happen
