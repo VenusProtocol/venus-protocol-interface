@@ -5,7 +5,7 @@ import { assetData } from '__mocks__/models/asset';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeSigner from '__mocks__/models/signer';
 import { exactAmountInSwap as fakeExactAmountInSwap } from '__mocks__/models/swaps';
-import { SWAP_TOKENS } from 'constants/tokens';
+import { bnb, busd } from '__mocks__/models/tokens';
 
 import swapTokens from '.';
 
@@ -44,8 +44,8 @@ describe('api/mutation/swapTokensAndSupply', () => {
   it('calls the right contract method when selling an exact amount of native tokens to supply as many non-native tokens as possible', async () => {
     const customFakeExactAmountInSwap: ExactAmountInSwap = {
       ...fakeExactAmountInSwap,
-      fromToken: SWAP_TOKENS.bnb,
-      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
+      fromToken: bnb,
+      routePath: [bnb.address, busd.address],
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);

@@ -45,4 +45,3 @@ export { default as convertPriceMantissaToDollars } from './convertPriceMantissa
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
 export { default as formatDistribution } from './formatDistribution';
 export { default as findTokenByAddress } from './findTokenByAddress';
-export { default as findTokenBySymbol } from './findTokenBySymbol';

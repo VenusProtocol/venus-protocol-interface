@@ -13,7 +13,9 @@ export default {
   decorators: [withCenterStory({ width: 800 })],
 } as Meta<typeof AuthModal>;
 
-export const Default = () => <AuthModal isOpen onClose={noop} onLogOut={noop} onLogin={noop} />;
+export const Default = () => (
+  <AuthModal isOpen onClose={noop} onLogOut={noop} onLogin={noop} chainId={ChainId.BSC_TESTNET} />
+);
 
 export const WithAccount = () => (
   <AuthModal

@@ -1,13 +1,13 @@
 import { ContractTypeByName } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-import { TOKENS } from 'constants/tokens';
+import { bnb, xvs } from '__mocks__/models/tokens';
 
 import getMainAssetsInAccount from '.';
 
 describe('api/queries/getMainAssetsInAccount', () => {
   test('returns addresses of assets in account on success', async () => {
-    const fakeTokenAddresses = [TOKENS.aave.address, TOKENS.ada.address];
+    const fakeTokenAddresses = [bnb.address, xvs.address];
 
     const getAssetsInMock = vi.fn(async () => fakeTokenAddresses);
 

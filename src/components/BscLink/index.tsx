@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 
 export interface BscLinkProps {
   hash: string;
-  chainId?: ChainId;
+  chainId: ChainId;
   ellipseBreakpoint?: Breakpoint;
   urlType?: UrlType;
   className?: string;

@@ -5,7 +5,7 @@ import { areAddressesEqual, findTokenByAddress, getTokenByAddress } from 'utilit
 export interface GetContractNameInput {
   target: string;
   vTokens: VToken[];
-  chainId?: ChainId;
+  chainId: ChainId;
 }
 
 const getContractName = ({ target, vTokens, chainId }: GetContractNameInput) => {
@@ -23,10 +23,6 @@ const getContractName = ({ target, vTokens, chainId }: GetContractNameInput) => 
 
   if (vToken) {
     return vToken.symbol;
-  }
-
-  if (!chainId) {
-    return target;
   }
 
   // Search within unique contracts

@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TokenIconWithSymbol } from '.';
@@ -12,4 +12,4 @@ export default {
   decorators: [withCenterStory({ width: '100px' })],
 } as Meta<typeof TokenIconWithSymbol>;
 
-export const Default = () => <TokenIconWithSymbol token={TOKENS.xvs} />;
+export const Default = () => <TokenIconWithSymbol token={xvs} />;

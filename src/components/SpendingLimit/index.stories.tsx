@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import { TESTNET_TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { SpendingLimit } from '.';
@@ -20,7 +20,7 @@ export const Default = () => (
     walletBalanceTokens={new BigNumber('1000000')}
     walletSpendingLimitTokens={new BigNumber('100000')}
     isRevokeLoading={false}
-    token={TESTNET_TOKENS.xvs}
+    token={xvs}
   />
 );
 
@@ -30,7 +30,7 @@ export const Loading = () => (
     walletBalanceTokens={new BigNumber('1000000')}
     walletSpendingLimitTokens={new BigNumber('100000')}
     isRevokeLoading
-    token={TESTNET_TOKENS.xvs}
+    token={xvs}
   />
 );
 
@@ -40,6 +40,6 @@ export const CoversWalletBalance = () => (
     walletBalanceTokens={new BigNumber('100000')}
     walletSpendingLimitTokens={new BigNumber('100000')}
     isRevokeLoading={false}
-    token={TESTNET_TOKENS.xvs}
+    token={xvs}
   />
 );

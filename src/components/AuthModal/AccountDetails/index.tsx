@@ -15,7 +15,7 @@ import { useStyles } from './styles';
 export interface AccountDetailsProps {
   onLogOut: () => void;
   accountAddress: string;
-  chainId?: ChainId;
+  chainId: ChainId;
 }
 
 export const AccountDetails: React.FC<AccountDetailsProps> = ({

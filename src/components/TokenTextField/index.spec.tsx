@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import { TokenTextField } from '.';
@@ -13,19 +13,19 @@ const testId = 'token-text-field-input';
 
 describe('components/TokenTextField', () => {
   it('renders without crashing', async () => {
-    renderComponent(<TokenTextField token={TOKENS.xvs} onChange={noop} value="" />);
+    renderComponent(<TokenTextField token={xvs} onChange={noop} value="" />);
   });
 
   it('does not let user enter value with more decimal places than token associated to tokenSymbol provided has', async () => {
     const onChangeMock = vi.fn();
     const { getByTestId } = renderComponent(
-      <TokenTextField token={TOKENS.xvs} onChange={onChangeMock} value="" data-testid={testId} />,
+      <TokenTextField token={xvs} onChange={onChangeMock} value="" data-testid={testId} />,
     );
 
     const input = getByTestId(testId) as HTMLInputElement;
 
     const oneWeiInXvs = new BigNumber(ONE_XVS)
-      .dividedBy(new BigNumber(10).pow(TOKENS.xvs.decimals))
+      .dividedBy(new BigNumber(10).pow(xvs.decimals))
       .toFixed();
 
     // Update input value
@@ -37,7 +37,7 @@ describe('components/TokenTextField', () => {
 
     // Update input value
     const invalidValue = new BigNumber(ONE_XVS)
-      .dividedBy(new BigNumber(10).pow(TOKENS.xvs.decimals + 1))
+      .dividedBy(new BigNumber(10).pow(xvs.decimals + 1))
       .toFixed();
     fireEvent.change(input, { target: { value: invalidValue } });
 
@@ -51,7 +51,7 @@ describe('components/TokenTextField', () => {
     const onChangeMock = vi.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField
-        token={TOKENS.xvs}
+        token={xvs}
         onChange={onChangeMock}
         value=""
         data-testid={testId}
@@ -74,7 +74,7 @@ describe('components/TokenTextField', () => {
 
     const { getByText } = renderComponent(
       <TokenTextField
-        token={TOKENS.xvs}
+        token={xvs}
         onChange={noop}
         value=""
         data-testid={testId}

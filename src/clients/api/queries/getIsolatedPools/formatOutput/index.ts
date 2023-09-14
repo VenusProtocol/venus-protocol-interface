@@ -18,7 +18,6 @@ import {
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { MAINNET_TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 
 import { GetTokenBalancesOutput } from '../../getTokenBalances';
@@ -95,11 +94,6 @@ const formatToPools = ({
         logError(
           `Price could not be fetched for token: ${vToken.underlyingToken.symbol} (${vToken.underlyingToken.address})`,
         );
-        return acc;
-      }
-
-      // Temporary hotfix following multichain issue
-      if (areTokensEqual(vToken.underlyingToken, MAINNET_TOKENS.bifi)) {
         return acc;
       }
 

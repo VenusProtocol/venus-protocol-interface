@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material';
 import React from 'react';
 import { formatPercentageToReadableValue } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
+import { bnb, hay, usdc, usdt, xvs } from '__mocks__/models/tokens';
 
 import { Toggle } from '../Toggle';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
@@ -46,15 +46,15 @@ export const useTableStyles = () => {
 
 export const data = [
   {
-    token: TOKENS.sxp,
+    token: hay,
     apy: 0.18,
     wallet: 0,
     collateral: true,
   },
-  { token: TOKENS.usdc, apy: 12.05, wallet: 90, collateral: false },
-  { token: TOKENS.usdt, apy: 0.8, wallet: 160, collateral: true },
-  { token: TOKENS.bnb, apy: 1.18, wallet: 37, collateral: false },
-  { token: TOKENS.xvs, apy: 0.15, wallet: 160, collateral: true },
+  { token: usdc, apy: 12.05, wallet: 90, collateral: false },
+  { token: usdt, apy: 0.8, wallet: 160, collateral: true },
+  { token: bnb, apy: 1.18, wallet: 37, collateral: false },
+  { token: xvs, apy: 0.15, wallet: 160, collateral: true },
 ];
 
 type Row = (typeof data)[number];

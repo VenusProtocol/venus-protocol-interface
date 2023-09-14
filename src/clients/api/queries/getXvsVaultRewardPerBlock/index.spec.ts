@@ -2,11 +2,11 @@ import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 
 import getXvsVaultRewardPerBlock from '.';
 
-const xvsTokenAddress = TOKENS.xvs.address;
+const xvsTokenAddress = xvs.address;
 
 describe('api/queries/getXvsVaultRewardPerBlock', () => {
   test('returns the reward per block in wei on success', async () => {

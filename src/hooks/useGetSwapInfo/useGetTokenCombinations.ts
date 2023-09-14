@@ -1,11 +1,11 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
-import config from 'config';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
-import { PSTokenCombination, Token } from 'types';
+import { ChainId, PSTokenCombination, Token } from 'types';
 
-import { MAINNET_SWAP_TOKENS, TESTNET_SWAP_TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetPancakeSwapTokens from 'hooks/useGetPancakeSwapTokens';
+import useGetToken from 'hooks/useGetToken';
 
 import wrapToken from './wrapToken';
 
@@ -15,36 +15,33 @@ export interface UseGetTokenCombinationsInput {
 }
 
 // List tokens to check trades against
-const BASE_TRADE_TOKENS = config.isOnTestnet
-  ? [
-      TESTNET_SWAP_TOKENS.busd,
-      TESTNET_SWAP_TOKENS.eth,
-      TESTNET_SWAP_TOKENS.xvs,
-      TESTNET_SWAP_TOKENS.wbnb,
-    ]
-  : [
-      MAINNET_SWAP_TOKENS.wbnb,
-      MAINNET_SWAP_TOKENS.cake,
-      MAINNET_SWAP_TOKENS.busd,
-      MAINNET_SWAP_TOKENS.usdt,
-      MAINNET_SWAP_TOKENS.btcb,
-      MAINNET_SWAP_TOKENS.eth,
-      MAINNET_SWAP_TOKENS.usdc,
-    ];
+const baseTradeTokenSymbols = {
+  [ChainId.BSC_MAINNET]: ['BUSD', 'ETH', 'XVS', 'WBNB'],
+  [ChainId.BSC_TESTNET]: ['WBNB', 'CAKE', 'BUSD', 'USDT', 'BTCB', 'ETH', 'USDC'],
+};
 
 const useGetTokenCombinations = ({
   fromToken,
   toToken,
 }: UseGetTokenCombinationsInput): PSTokenCombination[] => {
   const { chainId } = useAuth();
+  const pancakeSwapTokens = useGetPancakeSwapTokens();
+  const wbnb = useGetToken({
+    symbol: 'WBNB',
+  });
+
+  const baseTradeTokens = useMemo(
+    () => pancakeSwapTokens.filter(token => baseTradeTokenSymbols[chainId].includes(token.symbol)),
+    [pancakeSwapTokens, chainId],
+  );
 
   return useMemo(() => {
-    if (!chainId) {
+    if (!wbnb) {
       return [];
     }
 
-    const wrappedFromToken = wrapToken(fromToken);
-    const wrappedToToken = wrapToken(toToken);
+    const wrappedFromToken = wrapToken({ token: fromToken, wbnb });
+    const wrappedToToken = wrapToken({ token: toToken, wbnb });
 
     const psFromToken = new PSToken(
       chainId,
@@ -61,8 +58,8 @@ const useGetTokenCombinations = ({
     );
 
     // Convert tokens to PancakeSwap token instances
-    const baseTradeTokens = [
-      ...BASE_TRADE_TOKENS.map(
+    const psBaseTradeTokens = [
+      ...baseTradeTokens.map(
         token => new PSToken(chainId, token.address, token.decimals, token.symbol),
       ),
       // Add input tokens
@@ -71,17 +68,17 @@ const useGetTokenCombinations = ({
     ];
 
     const baseCombinations: PSTokenCombination[] = flatMap(
-      baseTradeTokens,
-      (base): PSTokenCombination[] => baseTradeTokens.map(otherBase => [base, otherBase]),
+      psBaseTradeTokens,
+      (base): PSTokenCombination[] => psBaseTradeTokens.map(otherBase => [base, otherBase]),
     );
 
     const allCombinations = [
       // The direct combination
       [psFromToken, psToToken],
       // fromToken against all bases
-      ...baseTradeTokens.map((token): PSTokenCombination => [psFromToken, token]),
+      ...psBaseTradeTokens.map((token): PSTokenCombination => [psFromToken, token]),
       // toToken against all bases
-      ...baseTradeTokens.map((token): PSTokenCombination => [psToToken, token]),
+      ...psBaseTradeTokens.map((token): PSTokenCombination => [psToToken, token]),
       // Each base against all bases
       ...baseCombinations,
     ]
@@ -108,7 +105,7 @@ const useGetTokenCombinations = ({
       );
 
     return allCombinations;
-  }, [fromToken, toToken, chainId]);
+  }, [fromToken, toToken, chainId, baseTradeTokens, wbnb]);
 };
 
 export default useGetTokenCombinations;
