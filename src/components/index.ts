@@ -28,7 +28,6 @@ export * from './ProposalCard';
 export * from './ProgressBar/AccountHealth';
 export * from './ProgressBar/PercentageRepresentation';
 export * from './ProgressBar/LabeledProgressBar';
-export * from './ResetScrollOnRouteChange';
 export * from './Select';
 export * from './Spinner';
 export * from './SuccessfulTransactionModal';
