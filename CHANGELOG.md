@@ -1,3 +1,10 @@
+## [2.20.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.10...v2.20.0) (2023-09-15)
+
+
+### Features
+
+* position Table loader below header ([#1436](https://github.com/VenusProtocol/venus-protocol-interface/issues/1436)) ([0358a4d](https://github.com/VenusProtocol/venus-protocol-interface/commit/0358a4d458c2d5ccfd58e12a628ee506fd6f6d4c))
+
 ## [2.19.10](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.9...v2.19.10) (2023-09-15)
 
 ## [2.19.9](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.8...v2.19.9) (2023-09-14)
