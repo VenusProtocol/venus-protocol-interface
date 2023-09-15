@@ -110,7 +110,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     loader: css`
-      margin-bottom: ${theme.spacing(6)};
+      margin-bottom: ${theme.spacing(5)};
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
