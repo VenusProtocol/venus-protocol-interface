@@ -1,13 +1,12 @@
-import BigNumber from 'bignumber.js';
-import { Multicall as Multicall3 } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 import { Asset } from 'types';
 
 export interface GetVTokenInterestRatesInput {
-  multicall3: Multicall3;
-  reserveFactorMantissa: BigNumber;
-  interestRateModelContractAddress: string;
+  interestRateModelContract:
+    | ContractTypeByName<'jumpRateModel'>
+    | ContractTypeByName<'jumpRateModelV2'>;
   isIsolatedPoolMarket: boolean;
-  asset: Asset | undefined;
+  asset: Asset;
 }
 
 export interface VTokenApySnapshot {

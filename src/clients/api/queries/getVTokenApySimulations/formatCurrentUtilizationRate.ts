@@ -1,18 +1,20 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallResults } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
 
-const formatCurrentUtilizationRate = ({
-  vTokenBalanceCallResults,
-}: {
-  vTokenBalanceCallResults: ContractCallResults;
-}): number => {
-  const result = Object.values(vTokenBalanceCallResults.results)[0].callsReturnContext[200];
+export interface FormatCurrentUtilizationRateInput {
+  utilizationRate: Awaited<
+    ReturnType<
+      (
+        | ContractTypeByName<'jumpRateModel'>
+        | ContractTypeByName<'jumpRateModelV2'>
+      )['utilizationRate']
+    >
+  >;
+}
 
-  const utilizationRate = new BigNumber(result.returnValues[0].hex).dividedToIntegerBy(
-    new BigNumber(10).pow(16),
-  );
-
-  return utilizationRate.toNumber();
-};
+const formatCurrentUtilizationRate = ({ utilizationRate }: FormatCurrentUtilizationRateInput) =>
+  new BigNumber(utilizationRate.toString())
+    .dividedToIntegerBy(new BigNumber(10).pow(16))
+    .toNumber();
 
 export default formatCurrentUtilizationRate;

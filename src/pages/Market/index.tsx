@@ -16,7 +16,6 @@ import { useGetVTokenApySimulations } from 'clients/api';
 import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
@@ -447,11 +446,6 @@ const Market: React.FC<MarketProps> = ({
     vToken: asset.vToken,
   });
 
-  const reserveFactorMantissa = useMemo(
-    () => asset && new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
-    [asset.reserveFactor],
-  );
-
   const {
     isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
@@ -461,7 +455,6 @@ const Market: React.FC<MarketProps> = ({
   } = useGetVTokenApySimulations({
     vToken: asset.vToken,
     isIsolatedPoolMarket,
-    reserveFactorMantissa,
     asset,
   });
 

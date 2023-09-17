@@ -1,0 +1,1017 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVTokenApySimulations > returns the APY simulations in the correct format on success 1`] = `
+{
+  "apySimulations": [
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 1,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 2,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 3,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 4,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 5,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 6,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 7,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 8,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 9,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 10,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 11,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 12,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 13,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 14,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 15,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 16,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 17,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 18,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 19,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 20,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 21,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 22,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 23,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 24,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 25,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 26,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 27,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 28,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 29,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 30,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 31,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 32,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 33,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 34,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 35,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 36,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 37,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 38,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 39,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 40,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 41,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 42,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 43,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 44,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 45,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 46,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 47,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 48,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 49,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 50,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 51,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 52,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 53,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 54,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 55,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 56,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 57,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 58,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 59,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 60,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 61,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 62,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 63,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 64,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 65,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 66,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 67,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 68,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 69,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 70,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 71,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 72,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 73,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 74,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 75,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 76,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 77,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 78,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 79,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 80,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 81,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 82,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 83,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 84,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 85,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 86,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 87,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 88,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 89,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 90,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 91,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 92,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 93,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 94,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 95,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 96,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 97,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 98,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 99,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 100,
+    },
+  ],
+  "currentUtilizationRate": 10,
+}
+`;
+
+exports[`api/queries/getVTokenApySimulations > returns the APY simulations of an isolated asset in the correct format on success 1`] = `
+{
+  "apySimulations": [
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 1,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 2,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 3,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 4,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 5,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 6,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 7,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 8,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 9,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 10,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 11,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 12,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 13,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 14,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 15,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 16,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 17,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 18,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 19,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 20,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 21,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 22,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 23,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 24,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 25,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 26,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 27,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 28,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 29,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 30,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 31,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 32,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 33,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 34,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 35,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 36,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 37,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 38,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 39,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 40,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 41,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 42,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 43,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 44,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 45,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 46,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 47,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 48,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 49,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 50,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 51,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 52,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 53,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 54,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 55,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 56,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 57,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 58,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 59,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 60,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 61,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 62,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 63,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 64,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 65,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 66,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 67,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 68,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 69,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 70,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 71,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 72,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 73,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 74,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 75,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 76,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 77,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 78,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 79,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 80,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 81,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 82,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 83,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 84,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 85,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 86,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 87,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 88,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 89,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 90,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 91,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 92,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 93,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 94,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 95,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 96,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 97,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 98,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 99,
+    },
+    {
+      "borrowApyPercentage": 1.0483200000054798e-9,
+      "supplyApyPercentage": 2.096640000021919e-9,
+      "utilizationRate": 100,
+    },
+  ],
+  "currentUtilizationRate": 10,
+}
+`;
