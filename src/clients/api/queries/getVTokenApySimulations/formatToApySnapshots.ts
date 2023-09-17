@@ -21,7 +21,7 @@ export interface FormatToApySnapshotsInput {
 }
 
 const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshotsInput) => {
-  let utilizationRate = 0;
+  let utilizationRatePercentage = 0;
 
   const apySimulations: VTokenApySnapshot[] = supplyRates.map((supplyRate, index) => {
     const supplyBase = new BigNumber(supplyRate.toString())
@@ -44,10 +44,10 @@ const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshots
       .times(100)
       .toNumber();
 
-    utilizationRate += 1;
+    utilizationRatePercentage += 1;
 
     return {
-      utilizationRate,
+      utilizationRatePercentage,
       borrowApyPercentage,
       supplyApyPercentage,
     };

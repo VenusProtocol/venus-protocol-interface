@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 
 export interface FormatCurrentUtilizationRateInput {
-  utilizationRate: Awaited<
+  utilizationRatePercentage: Awaited<
     ReturnType<
       (
         | ContractTypeByName<'jumpRateModel'>
@@ -12,8 +12,10 @@ export interface FormatCurrentUtilizationRateInput {
   >;
 }
 
-const formatCurrentUtilizationRate = ({ utilizationRate }: FormatCurrentUtilizationRateInput) =>
-  new BigNumber(utilizationRate.toString())
+const formatCurrentUtilizationRate = ({
+  utilizationRatePercentage,
+}: FormatCurrentUtilizationRateInput) =>
+  new BigNumber(utilizationRatePercentage.toString())
     .dividedToIntegerBy(new BigNumber(10).pow(16))
     .toNumber();
 

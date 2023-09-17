@@ -34,7 +34,7 @@ export interface MarketUiProps {
   interestRateChartData: InterestRateChartProps['data'];
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
-  currentUtilizationRate: number;
+  currentUtilizationRatePercentage: number;
   asset: Asset;
   isBorrowActionEnabled: boolean;
   isSupplyActionEnabled: boolean;
@@ -48,7 +48,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   borrowChartData,
   isInterestRateChartDataLoading,
   interestRateChartData,
-  currentUtilizationRate,
+  currentUtilizationRatePercentage,
   isBorrowActionEnabled,
   isSupplyActionEnabled,
 }) => {
@@ -410,7 +410,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               <div css={styles.apyChart}>
                 <InterestRateChart
                   data={interestRateChartData}
-                  currentUtilizationRate={currentUtilizationRate}
+                  currentUtilizationRatePercentage={currentUtilizationRatePercentage}
                 />
               </div>
             )}
@@ -450,7 +450,7 @@ const Market: React.FC<MarketProps> = ({
     isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
-      currentUtilizationRate: 0,
+      currentUtilizationRatePercentage: 0,
     },
   } = useGetVTokenApySimulations({
     vToken: asset.vToken,
@@ -476,7 +476,7 @@ const Market: React.FC<MarketProps> = ({
       {...chartData}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
-      currentUtilizationRate={interestRateChartData.currentUtilizationRate}
+      currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}
       isBorrowActionEnabled={isBorrowActionEnabled}
       isSupplyActionEnabled={isSupplyActionEnabled}
     />

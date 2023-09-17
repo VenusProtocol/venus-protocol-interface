@@ -10,12 +10,12 @@ export interface GetVTokenInterestRatesInput {
 }
 
 export interface VTokenApySnapshot {
-  utilizationRate: number;
+  utilizationRatePercentage: number;
   borrowApyPercentage: number;
   supplyApyPercentage: number;
 }
 
 export type GetVTokenApySimulationsOutput = {
   apySimulations: VTokenApySnapshot[];
-  currentUtilizationRate: number;
+  currentUtilizationRatePercentage: number;
 };

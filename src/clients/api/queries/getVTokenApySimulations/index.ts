@@ -26,30 +26,30 @@ const getVTokenApySimulations = async ({
     [];
 
   for (let u = 1; u <= 100; u++) {
-    const utilizationRate = u / 100;
-    const cashAmountWei = new BigNumber(1 / utilizationRate - 1)
+    const utilizationRatePercentage = u / 100;
+    const cashAmountMantissa = new BigNumber(1 / utilizationRatePercentage - 1)
       .times(REFERENCE_AMOUNT_MANTISSA)
       .dp(0)
       .toFixed();
 
-    const borrowsAmountWei = new BigNumber(REFERENCE_AMOUNT_MANTISSA).toFixed();
-    const reservesAmountWei = new BigNumber(0).toFixed();
+    const borrowsAmountMantissa = new BigNumber(REFERENCE_AMOUNT_MANTISSA).toFixed();
+    const reservesAmountMantissa = new BigNumber(0).toFixed();
 
     if (isIsolatedPoolMarket) {
       getBorrowRatePromises.push(
         (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getBorrowRate(
-          cashAmountWei,
-          borrowsAmountWei,
-          reservesAmountWei,
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
           BAD_DEBT_MANTISSA,
         ),
       );
 
       getSupplyRatePromises.push(
         (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getSupplyRate(
-          cashAmountWei,
-          borrowsAmountWei,
-          reservesAmountWei,
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
           reserveFactorMantissa.toFixed(),
           BAD_DEBT_MANTISSA,
         ),
@@ -57,32 +57,32 @@ const getVTokenApySimulations = async ({
     } else {
       getBorrowRatePromises.push(
         (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getBorrowRate(
-          cashAmountWei,
-          borrowsAmountWei,
-          reservesAmountWei,
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
         ),
       );
 
       getSupplyRatePromises.push(
         (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getSupplyRate(
-          cashAmountWei,
-          borrowsAmountWei,
-          reservesAmountWei,
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
           reserveFactorMantissa.toFixed(),
         ),
       );
     }
   }
 
-  const cashWei = convertTokensToWei({
+  const cashMantissa = convertTokensToWei({
     value: asset.cashTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const borrowBalanceWei = convertTokensToWei({
+  const borrowBalanceMantissa = convertTokensToWei({
     value: asset.borrowBalanceTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const reservesWei = convertTokensToWei({
+  const reservesMantissa = convertTokensToWei({
     value: asset.reserveTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
@@ -91,30 +91,30 @@ const getVTokenApySimulations = async ({
   const groupedGetSupplyRatePromises = Promise.all(getSupplyRatePromises);
   const utilizationRatePromise = isIsolatedPoolMarket
     ? (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).utilizationRate(
-        cashWei,
-        borrowBalanceWei,
-        reservesWei,
+        cashMantissa,
+        borrowBalanceMantissa,
+        reservesMantissa,
         BAD_DEBT_MANTISSA,
       )
     : (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).utilizationRate(
-        cashWei,
-        borrowBalanceWei,
-        reservesWei,
+        cashMantissa,
+        borrowBalanceMantissa,
+        reservesMantissa,
       );
 
   const borrowRates = await groupedGetBorrowRatePromises;
   const supplyRates = await groupedGetSupplyRatePromises;
-  const utilizationRate = await utilizationRatePromise;
+  const utilizationRatePercentage = await utilizationRatePromise;
 
   const apySimulations = formatToApySnapshots({
     borrowRates,
     supplyRates,
   });
-  const currentUtilizationRate = formatCurrentUtilizationRate({
-    utilizationRate,
+  const currentUtilizationRatePercentage = formatCurrentUtilizationRate({
+    utilizationRatePercentage,
   });
 
-  return { apySimulations, currentUtilizationRate };
+  return { apySimulations, currentUtilizationRatePercentage };
 };
 
 export default getVTokenApySimulations;
