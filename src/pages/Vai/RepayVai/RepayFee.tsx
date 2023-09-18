@@ -6,9 +6,9 @@ import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useGetVaiCalculateRepayAmount } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useDebounceValue from 'hooks/useDebounceValue';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from '../styles';
 
@@ -22,6 +22,9 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { accountAddress } = useContext(AuthContext);
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
 
   const debouncedAmountTokens = useDebounceValue(repayAmountTokens, DEBOUNCE_DELAY);
 
@@ -30,7 +33,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
       accountAddress: accountAddress || '',
       repayAmountWei: convertTokensToWei({
         value: new BigNumber(debouncedAmountTokens || 0),
-        token: TOKENS.vai,
+        token: vai!,
       }),
     },
     {
@@ -46,7 +49,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
 
     const fee = convertWeiToTokens({
       valueWei: repayFeeWei,
-      token: TOKENS.vai,
+      token: vai!,
 
       returnInReadableFormat: true,
     });

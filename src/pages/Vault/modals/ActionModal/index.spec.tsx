@@ -4,8 +4,8 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { xvs } from '__mocks__/models/tokens';
 import TEST_IDS from 'components/Spinner/testIds';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { ActionModalProps } from '.';
@@ -16,7 +16,7 @@ const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,
   connectWalletMessage: 'Fake connect wallet message',
-  token: TOKENS.xvs,
+  token: xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'fake submit button disabled label',
   handleClose: noop,

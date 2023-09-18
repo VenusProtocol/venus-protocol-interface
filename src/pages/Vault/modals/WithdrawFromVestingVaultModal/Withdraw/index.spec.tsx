@@ -5,9 +5,9 @@ import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -15,7 +15,7 @@ import Withdraw from '.';
 import TEST_IDS from './testIds';
 
 const fakePoolIndex = 6;
-const fakeStakedToken = TOKENS.vai;
+const fakeStakedToken = vai;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
@@ -95,7 +95,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     await waitFor(() => expect(executeWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
     expect(executeWithdrawalFromXvsVault).toHaveBeenCalledWith({
       poolIndex: fakePoolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs.address,
     });
 
     await waitFor(() => expect(handleCloseMock).toHaveBeenCalledTimes(1));

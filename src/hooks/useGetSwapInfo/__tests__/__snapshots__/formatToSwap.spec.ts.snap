@@ -16,13 +16,13 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
+    "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
   ],
   "toToken": {
-    "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "/src/packages/tokens/img/cake.svg",
+    "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "asset": "/src/packages/tokens/img/xvs.svg",
     "decimals": 18,
-    "symbol": "CAKE",
+    "symbol": "XVS",
   },
 }
 `;
@@ -42,13 +42,13 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
   "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-    "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
+    "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
   ],
   "toToken": {
-    "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-    "asset": "/src/packages/tokens/img/cake.svg",
+    "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "asset": "/src/packages/tokens/img/xvs.svg",
     "decimals": 18,
-    "symbol": "CAKE",
+    "symbol": "XVS",
   },
   "toTokenAmountReceivedWei": "10000000000000000000",
 }

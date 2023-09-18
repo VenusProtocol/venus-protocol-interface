@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
@@ -24,6 +23,8 @@ const safelyGetMainMarkets = async () => {
 const getMainPool = async ({
   name,
   description,
+  xvs,
+  vai,
   accountAddress,
   mainPoolComptrollerContract,
   venusLensContract,
@@ -45,7 +46,7 @@ const getMainPool = async ({
     // TODO: fetch borrower and supplier counts from subgraph once available
     safelyGetMainMarkets(),
     // Fetch XVS price
-    resilientOracleContract.getPrice(TOKENS.xvs.address),
+    resilientOracleContract.getPrice(xvs.address),
     // Account related calls
     accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
@@ -115,6 +116,8 @@ const getMainPool = async ({
 
   const pool = formatToPool({
     name,
+    xvs,
+    vai,
     description,
     comptrollerContractAddress: mainPoolComptrollerContract.address,
     vTokenMetaDataResults: vTokenMetaDataResults.value,

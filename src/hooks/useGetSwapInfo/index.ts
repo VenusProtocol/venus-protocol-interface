@@ -12,6 +12,7 @@ import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 
 import formatToSwap from './formatToSwap';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
@@ -22,6 +23,9 @@ export * from './types';
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   const { chainId } = useAuth();
+  const wbnb = useGetToken({
+    symbol: 'WBNB',
+  });
 
   // Determine all possible token combinations based on input and base trade
   // tokens
@@ -40,15 +44,15 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
     let error: SwapError | undefined;
 
-    if (areTokensEqual(input.fromToken, input.toToken)) {
+    if (areTokensEqual(input.fromToken, input.toToken) || !wbnb) {
       return {
         swap: undefined,
         error: undefined,
       };
     }
 
-    const wrappedFromToken = wrapToken(input.fromToken);
-    const wrappedToToken = wrapToken(input.toToken);
+    const wrappedFromToken = wrapToken({ token: input.fromToken, wbnb });
+    const wrappedToToken = wrapToken({ token: input.toToken, wbnb });
 
     // Return no trade if user is trying to wrap BNB to wBNB
     if (areTokensEqual(wrappedFromToken, wrappedToToken) && input.fromToken.isNative) {
@@ -63,13 +67,6 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
       return {
         swap: undefined,
         error: 'UNWRAPPING_UNSUPPORTED',
-      };
-    }
-
-    if (!chainId) {
-      return {
-        swap: undefined,
-        error: undefined,
       };
     }
 
@@ -179,6 +176,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     input.toToken,
     input.fromTokenAmountTokens,
     input.toTokenAmountTokens,
+    wbnb,
   ]);
 
   // Because the swap pairs are fetched on every new block (and they do change

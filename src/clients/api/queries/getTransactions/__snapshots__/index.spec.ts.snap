@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getTransactions > Gets called with correct default arguments 1`] = `
+exports[`api/queries/getTransactions > gets called with correct default arguments 1`] = `
 [
   {
     "amountWei": "0",

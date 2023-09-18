@@ -1,23 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
-import { areTokensEqual } from 'utilities';
-
-import { MAINNET_TOKENS } from 'constants/tokens';
+import { ChainId, Token } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 import { NoticeInfo, NoticeWarning } from '../Notice';
 
 export interface TokenAnnouncementProps {
   token: Token;
+  chainId: ChainId;
   className?: string;
 }
 
-export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, className }) => {
+export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
+  token,
+  chainId,
+  className,
+}) => {
   const { Trans, t } = useTranslation();
 
   // TUSD migration
-  if (areTokensEqual(token, MAINNET_TOKENS.tusdold)) {
+  if (
+    chainId === ChainId.BSC_MAINNET &&
+    areAddressesEqual(token.address, '0x14016e85a25aeb13065688cafb43044c2ef86784')
+  ) {
     return (
       <NoticeInfo
         css={className}
@@ -41,7 +47,10 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, cla
   }
 
   // TRX migration
-  if (areTokensEqual(token, MAINNET_TOKENS.trxold)) {
+  if (
+    chainId === ChainId.BSC_MAINNET &&
+    areAddressesEqual(token.address, '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B')
+  ) {
     return (
       <NoticeWarning
         css={className}
@@ -64,14 +73,20 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, cla
   }
 
   // SXP disabling
-  if (areTokensEqual(token, MAINNET_TOKENS.sxp)) {
+  if (
+    chainId === ChainId.BSC_MAINNET &&
+    areAddressesEqual(token.address, '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A')
+  ) {
     return (
       <NoticeWarning css={className} description={t('announcements.sxpDisabling.description')} />
     );
   }
 
   // BETH update
-  if (areTokensEqual(token, MAINNET_TOKENS.beth)) {
+  if (
+    chainId === ChainId.BSC_MAINNET &&
+    areAddressesEqual(token.address, '0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B')
+  ) {
     return (
       <NoticeWarning
         css={className}

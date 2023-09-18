@@ -3,6 +3,7 @@ import { useTranslation } from 'translation';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 
 import { Group } from './types';
 
@@ -12,6 +13,10 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
   const { data: getPoolsData } = useGetPools({
     accountAddress,
+  });
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
   });
 
   const { data: getPendingRewardsData } = useGetPendingRewards(
@@ -44,7 +49,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
                     stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   })
                 : t('layout.claimRewardModal.vestingVaultGroup', {
-                    stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
+                    stakedTokenSymbol: xvs?.symbol,
                   });
 
             const claim: Claim =
@@ -144,7 +149,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
         },
         [],
       ),
-    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds, getPoolsData?.pools],
+    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds, getPoolsData?.pools, xvs],
   );
 };
 

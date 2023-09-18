@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import { Button } from 'components';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TextField } from '.';
@@ -24,7 +24,7 @@ export const WithDescription = () => (
 export const WithIsSmall = () => <TextField placeholder="0.0" type="number" min={0} isSmall />;
 
 export const WithLeftIcon = () => (
-  <TextField leftIconSrc={TOKENS.xvs} placeholder="0.0" type="number" min={0} />
+  <TextField leftIconSrc={xvs} placeholder="0.0" type="number" min={0} />
 );
 
 export const WithRightAdornment = () => (

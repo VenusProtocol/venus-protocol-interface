@@ -11,6 +11,7 @@ import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
 } from '__mocks__/models/tokenBalances';
+import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
@@ -23,7 +24,6 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
-import { SWAP_TOKENS, TESTNET_TOKENS } from 'constants/tokens';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -82,7 +82,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: SWAP_TOKENS.xvs,
+      token: xvs,
     });
 
     // Check toToken was updated to fromToken
@@ -92,7 +92,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.bnb.symbol);
+    ).toBe(bnb.symbol);
 
     expect(
       getByTestId(
@@ -100,13 +100,13 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.xvs.symbol);
+    ).toBe(xvs.symbol);
 
     // Revert toToken back to XVS
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: SWAP_TOKENS.xvs,
+      token: xvs,
     });
 
     // Check fromToken was updated to toToken
@@ -116,7 +116,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.bnb.symbol);
+    ).toBe(bnb.symbol);
 
     expect(
       getByTestId(
@@ -124,7 +124,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.xvs.symbol);
+    ).toBe(xvs.symbol);
   });
 
   it('switches form values when pressing on switch tokens button', () => {
@@ -171,7 +171,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.xvs.symbol);
+    ).toBe(xvs.symbol);
 
     expect(
       getByTestId(
@@ -179,7 +179,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.bnb.symbol);
+    ).toBe(bnb.symbol);
 
     // Check swap direction was updated correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountOut');
@@ -198,7 +198,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.fromTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.bnb.symbol);
+    ).toBe(bnb.symbol);
 
     expect(
       getByTestId(
@@ -206,7 +206,7 @@ describe('pages/Swap', () => {
           parentTestId: TEST_IDS.toTokenSelectTokenTextField,
         }),
       ).textContent,
-    ).toBe(SWAP_TOKENS.xvs.symbol);
+    ).toBe(xvs.symbol);
 
     // Check swap direction was updated back correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountIn');
@@ -270,7 +270,7 @@ describe('pages/Swap', () => {
 
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TESTNET_TOKENS.xvs,
+      token: xvs,
       spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
@@ -298,7 +298,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: SWAP_TOKENS.xvs,
+      token: xvs,
     });
 
     const fromTokenInput = getByTestId(
@@ -327,7 +327,7 @@ describe('pages/Swap', () => {
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TESTNET_TOKENS.xvs,
+      token: xvs,
       spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
@@ -351,7 +351,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: SWAP_TOKENS.xvs,
+      token: xvs,
     });
 
     // Check spending limit is correctly displayedy
@@ -408,7 +408,7 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: SWAP_TOKENS.wbnb,
+      token: wbnb,
     });
 
     const submitButtonText = getByText(en.swapPage.submitButton.disabledLabels.wrappingUnsupported);
@@ -427,14 +427,14 @@ describe('pages/Swap', () => {
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.fromTokenSelectTokenTextField,
-      token: SWAP_TOKENS.wbnb,
+      token: wbnb,
     });
 
     // Change toToken to BNB
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.toTokenSelectTokenTextField,
-      token: SWAP_TOKENS.bnb,
+      token: bnb,
     });
 
     const submitButtonText = getByText(

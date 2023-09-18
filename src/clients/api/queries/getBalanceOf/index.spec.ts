@@ -4,7 +4,7 @@ import { getTokenContract } from 'utilities';
 import Vi from 'vitest';
 
 import fakeProvider, { balance as fakeBalanceWei } from '__mocks__/models/provider';
-import { TOKENS } from 'constants/tokens';
+import { bnb, xvs } from '__mocks__/models/tokens';
 
 import getBalanceOf from '.';
 
@@ -26,7 +26,7 @@ describe('api/queries/getBalanceOf', () => {
       const response = await getBalanceOf({
         provider: fakeProvider,
         accountAddress: fakeAccountAddress,
-        token: TOKENS.xvs,
+        token: xvs,
       });
 
       expect(balanceOfMock).toHaveBeenCalledTimes(1);
@@ -42,7 +42,7 @@ describe('api/queries/getBalanceOf', () => {
       const response = await getBalanceOf({
         provider: fakeProvider,
         accountAddress: fakeAccountAddress,
-        token: TOKENS.bnb,
+        token: bnb,
       });
 
       expect(fakeProvider.getBalance).toHaveBeenCalledTimes(1);

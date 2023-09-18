@@ -9,8 +9,8 @@ import { Proposal as ProposalType, VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -130,6 +130,9 @@ const Proposal = () => {
   const { accountAddress } = useAuth();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const {
     data: votingWeightData = {
@@ -141,11 +144,11 @@ const Proposal = () => {
     () =>
       convertWeiToTokens({
         valueWei: votingWeightData.votesWei,
-        token: TOKENS.xvs,
+        token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightData?.votesWei.toFixed()],
+    [votingWeightData?.votesWei.toFixed(), xvs],
   );
 
   const defaultValue = {

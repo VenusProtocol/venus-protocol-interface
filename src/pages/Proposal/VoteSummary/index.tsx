@@ -10,7 +10,7 @@ import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { routes } from 'constants/routing';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 
@@ -39,13 +39,15 @@ const VoteSummary = ({
 }: VoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const getVoteWeight = useCallback(
     (voteWeightWei: BigNumber) =>
       convertWeiToTokens({
         valueWei: voteWeightWei,
-        token: TOKENS.xvs,
-
+        token: xvs,
         addSymbol: false,
         returnInReadableFormat: true,
       }),
@@ -100,7 +102,7 @@ const VoteSummary = ({
             <Typography color="text.primary">
               {convertWeiToTokens({
                 valueWei: votesWei,
-                token: TOKENS.xvs,
+                token: xvs,
                 addSymbol: false,
                 returnInReadableFormat: true,
               })}

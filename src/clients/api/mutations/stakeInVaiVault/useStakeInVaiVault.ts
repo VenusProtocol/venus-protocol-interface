@@ -8,8 +8,8 @@ import {
   stakeInVaiVault,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
 import { useAnalytics } from 'context/Analytics';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
@@ -20,6 +20,11 @@ const useStakeInVaiVault = (options?: Options) => {
     name: 'vaiVault',
     passSigner: true,
   });
+
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
@@ -39,49 +44,50 @@ const useStakeInVaiVault = (options?: Options) => {
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { amountWei } = onSuccessParams[1];
-
-        captureAnalyticEvent('Tokens staked in VAI vault', {
-          tokenAmountTokens: convertWeiToTokens({
-            token: TOKENS.vai,
-            valueWei: amountWei,
-          }).toNumber(),
-        });
-
         const accountAddress = await vaiVaultContract?.signer.getAddress();
+
+        if (vai) {
+          captureAnalyticEvent('Tokens staked in VAI vault', {
+            tokenAmountTokens: convertWeiToTokens({
+              token: vai,
+              valueWei: amountWei,
+            }).toNumber(),
+          });
+
+          // Invalidate cached user balance
+          queryClient.invalidateQueries([
+            FunctionKey.GET_BALANCE_OF,
+            {
+              accountAddress,
+              tokenAddress: vai.address,
+            },
+          ]);
+
+          queryClient.invalidateQueries([
+            FunctionKey.GET_TOKEN_ALLOWANCE,
+            {
+              tokenAddress: vai.address,
+              accountAddress,
+            },
+          ]);
+
+          // Invalidate cached vault data
+          queryClient.invalidateQueries([
+            FunctionKey.GET_BALANCE_OF,
+            {
+              accountAddress: vaiVaultContract?.address,
+              tokenAddress: vai.address,
+            },
+          ]);
+        }
 
         // Invalidate cached user info, including pending reward
         queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
-
-        // Invalidate cached user balance
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            accountAddress,
-            tokenAddress: TOKENS.vai.address,
-          },
-        ]);
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            tokenAddress: TOKENS.vai.address,
-            accountAddress,
-          },
-        ]);
 
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_BALANCES,
           {
             accountAddress,
-          },
-        ]);
-
-        // Invalidate cached vault data
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            accountAddress: vaiVaultContract?.address,
-            tokenAddress: TOKENS.vai.address,
           },
         ]);
 

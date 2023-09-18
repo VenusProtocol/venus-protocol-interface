@@ -11,7 +11,6 @@ import {
   useEnterMarket,
   useExitMarket,
 } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
@@ -141,8 +140,8 @@ const useCollateral = () => {
     // to enable/disable a different token
     if (
       hasLunaOrUstCollateralEnabled &&
-      asset.vToken.underlyingToken.address !== TOKENS.ust.address &&
-      asset.vToken.underlyingToken.address !== TOKENS.luna.address
+      asset.vToken.underlyingToken.symbol !== 'UST' &&
+      asset.vToken.underlyingToken.symbol !== 'LUNA'
     ) {
       return;
     }

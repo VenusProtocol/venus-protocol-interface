@@ -8,8 +8,8 @@ import { VoteDetailTransaction } from 'types';
 import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 
@@ -27,6 +27,9 @@ export const Transactions: React.FC<TransactionsProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
   const { chainId } = useAuth();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const columns: TableColumn<VoteDetailTransaction>[] = useMemo(
     () => [
@@ -110,7 +113,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           return valueWei
             ? convertWeiToTokens({
                 valueWei,
-                token: TOKENS.xvs,
+                token: xvs,
 
                 returnInReadableFormat: true,
               })

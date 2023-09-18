@@ -15,10 +15,10 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
     {
       "balanceWei": "10000",
       "token": {
-        "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-        "asset": "/src/packages/tokens/img/cake.svg",
+        "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+        "asset": "/src/packages/tokens/img/hay.png",
         "decimals": 18,
-        "symbol": "CAKE",
+        "symbol": "HAY",
       },
     },
   ],
@@ -40,10 +40,10 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
     {
       "balanceWei": "10000",
       "token": {
-        "address": "0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF",
-        "asset": "/src/packages/tokens/img/cake.svg",
+        "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+        "asset": "/src/packages/tokens/img/hay.png",
         "decimals": 18,
-        "symbol": "CAKE",
+        "symbol": "HAY",
       },
     },
     {

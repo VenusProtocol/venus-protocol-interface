@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 
 export interface UseGetMainPoolTotalXvsDistributedOutput {
   isLoading: boolean;
@@ -17,6 +17,10 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
 const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
   const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const totalXvsDistributedWei = useMemo(() => {
     const totalXvsDistributedTokens =
       getMainMarketsData?.markets &&
@@ -27,12 +31,13 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
 
     return (
       totalXvsDistributedTokens &&
+      xvs &&
       convertTokensToWei({
         value: totalXvsDistributedTokens,
-        token: TOKENS.xvs,
+        token: xvs,
       })
     );
-  }, [getMainMarketsData?.markets]);
+  }, [getMainMarketsData?.markets, xvs]);
 
   return {
     isLoading: isGetMainAssetsLoading,

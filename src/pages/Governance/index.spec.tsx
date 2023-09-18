@@ -7,6 +7,7 @@ import Vi from 'vitest';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import proposals from '__mocks__/models/proposals';
+import { xvs } from '__mocks__/models/tokens';
 import { vaults } from '__mocks__/models/vaults';
 import {
   getCurrentVotes,
@@ -18,7 +19,6 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { routes } from 'constants/routing';
-import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -206,7 +206,7 @@ describe('pages/Governance', () => {
         content: en.vote.successfulDelegationModal.message,
         amount: {
           valueWei: vaults[1].userStakedWei,
-          token: TOKENS.xvs,
+          token: xvs,
         },
         transactionHash: fakeContractReceipt.transactionHash,
       }),
@@ -249,7 +249,7 @@ describe('pages/Governance', () => {
         content: en.vote.successfulDelegationModal.message,
         amount: {
           valueWei: vaults[1].userStakedWei,
-          token: TOKENS.xvs,
+          token: xvs,
         },
         transactionHash: fakeContractReceipt.transactionHash,
       }),

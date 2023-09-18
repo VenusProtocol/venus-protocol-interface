@@ -3,7 +3,7 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import { TESTNET_TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -23,7 +23,7 @@ const fakeClaims: Claim[] = [
   },
   {
     contract: 'xvsVestingVault',
-    rewardToken: TESTNET_TOKENS.xvs,
+    rewardToken: xvs,
     poolIndex: 0,
   },
   {

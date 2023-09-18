@@ -8,9 +8,9 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { supply } from 'clients/api';
-import { TESTNET_TOKENS } from 'constants/tokens';
 import useCollateral from 'hooks/useCollateral';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -224,7 +224,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TESTNET_TOKENS.xvs,
+      token: xvs,
       spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });
@@ -282,7 +282,7 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TESTNET_TOKENS.xvs,
+      token: xvs,
       spenderAddress: vXvs.address,
       accountAddress: fakeAccountAddress,
     });

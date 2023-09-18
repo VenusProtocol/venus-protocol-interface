@@ -6,7 +6,7 @@ import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { TOKENS } from 'constants/tokens';
+import { vai } from '__mocks__/models/tokens';
 import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
 
@@ -41,7 +41,7 @@ Default.args = {
 Default.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TOKENS.vai,
+    token: vai,
     accountAddress: fakeAddress,
     spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),
@@ -65,7 +65,7 @@ WithIsInitialLoading.args = {
 WithIsInitialLoading.decorators = [
   withAuthContext(authContext),
   withApprovedToken({
-    token: TOKENS.vai,
+    token: vai,
     accountAddress: fakeAddress,
     spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
   }),

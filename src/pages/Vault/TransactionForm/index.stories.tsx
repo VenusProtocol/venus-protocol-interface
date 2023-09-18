@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import TransactionForm, { TransactionFormProps } from '.';
@@ -17,7 +17,7 @@ const Template: StoryFn<TransactionFormProps> = args => <TransactionForm {...arg
 
 export const Default = Template.bind({});
 Default.args = {
-  token: TOKENS.vai,
+  token: vai,
   availableTokensWei: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available VAI',
   submitButtonLabel: 'Stake',
@@ -26,7 +26,7 @@ Default.args = {
 
 export const WithLockingPeriod = Template.bind({});
 WithLockingPeriod.args = {
-  token: TOKENS.xvs,
+  token: xvs,
   availableTokensWei: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available reward',
   submitButtonLabel: 'Make a request',

@@ -7,6 +7,7 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import { vai } from '__mocks__/models/tokens';
 import {
   getBalanceOf,
   getVaiCalculateRepayAmount,
@@ -14,7 +15,6 @@ import {
   repayVai,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
@@ -35,17 +35,17 @@ const repayInputAmountTokens = '100';
 
 const repayInputAmountWei = convertTokensToWei({
   value: new BigNumber(repayInputAmountTokens),
-  token: TOKENS.vai,
+  token: vai,
 });
 
 const fullRepayBalanceWei = new BigNumber('5669568627692799723381666');
 
 const fullRepayBalanceTokens = convertWeiToTokens({
   valueWei: fullRepayBalanceWei,
-  token: TOKENS.vai,
+  token: vai,
 }).toString();
 
-describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
+describe('pages/Vai/RepayVai', () => {
   beforeEach(() => {
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,
@@ -85,7 +85,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TOKENS.vai,
+      token: vai,
       spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
@@ -137,7 +137,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
   it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: TOKENS.vai,
+      token: vai,
       spenderAddress: VAI_CONTROLLER_CONTRACT_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
@@ -214,7 +214,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeContractReceipt.transactionHash,
       amount: {
-        token: TOKENS.vai,
+        token: vai,
         valueWei: repayInputAmountWei,
       },
       content: expect.any(String),
@@ -263,7 +263,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeContractReceipt.transactionHash,
       amount: {
-        token: TOKENS.vai,
+        token: vai,
         valueWei: fullRepayBalanceWei,
       },
       content: expect.any(String),

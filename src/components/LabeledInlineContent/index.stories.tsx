@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { LabeledInlineContent } from '.';
@@ -23,7 +23,7 @@ export const WithIcon = () => (
 );
 
 export const WithTokenIcon = () => (
-  <LabeledInlineContent label="Available VAI LIMIT" iconSrc={TOKENS.xvs}>
+  <LabeledInlineContent label="Available VAI LIMIT" iconSrc={xvs}>
     2000 VAI
   </LabeledInlineContent>
 );

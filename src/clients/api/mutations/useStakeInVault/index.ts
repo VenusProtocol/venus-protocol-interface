@@ -4,7 +4,7 @@ import { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 
 export interface UseStakeInVaultInput {
   stakedToken: Token;
@@ -17,6 +17,10 @@ interface StakeInput {
 }
 
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
     stakedToken,
     rewardToken,
@@ -36,7 +40,7 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
       });
     }
 
-    if (areTokensEqual(stakedToken, TOKENS.vai)) {
+    if (vai && areTokensEqual(stakedToken, vai)) {
       return stakeInVaiVault({
         amountWei,
       });

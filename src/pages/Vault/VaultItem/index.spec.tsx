@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
+import { vrt } from '__mocks__/models/tokens';
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -42,7 +42,7 @@ describe('pages/Vault/VaultItem', () => {
   it('hides withdraw button userStakedWei is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedToken: TOKENS.vrt,
+      stakedToken: vrt,
       userStakedWei: new BigNumber(0),
     };
 

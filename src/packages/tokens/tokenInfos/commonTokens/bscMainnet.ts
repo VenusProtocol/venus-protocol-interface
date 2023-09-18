@@ -48,6 +48,24 @@ import { Token } from 'types';
 
 export const tokens: Token[] = [
   {
+    address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
+    decimals: 18,
+    symbol: 'XVS',
+    asset: xvsLogo,
+  },
+  {
+    address: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
+    decimals: 18,
+    symbol: 'VAI',
+    asset: vaiLogo,
+  },
+  {
+    address: '0x5f84ce30dc3cf7909101c69086c50de191895883',
+    decimals: 18,
+    symbol: 'VRT',
+    asset: vrtLogo,
+  },
+  {
     address: '0x0000000000000000000000000000000000000000',
     decimals: 18,
     symbol: 'BNB',
@@ -91,12 +109,7 @@ export const tokens: Token[] = [
     symbol: 'BUSD',
     asset: busdLogo,
   },
-  {
-    address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
-    decimals: 18,
-    symbol: 'XVS',
-    asset: xvsLogo,
-  },
+
   {
     address: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
     decimals: 18,
@@ -211,18 +224,7 @@ export const tokens: Token[] = [
     symbol: 'TRXOLD',
     asset: trxLogo,
   },
-  {
-    address: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
-    decimals: 18,
-    symbol: 'VAI',
-    asset: vaiLogo,
-  },
-  {
-    address: '0x5f84ce30dc3cf7909101c69086c50de191895883',
-    decimals: 18,
-    symbol: 'VRT',
-    asset: vrtLogo,
-  },
+
   {
     address: '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a',
     decimals: 6,
