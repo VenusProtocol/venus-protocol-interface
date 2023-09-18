@@ -9,6 +9,7 @@ import { useMulticall3 } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import useGetTokens from 'hooks/useGetTokens';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
@@ -19,6 +20,7 @@ type TrimmedInput = Omit<
   | 'poolLensContract'
   | 'poolRegistryContractAddress'
   | 'resilientOracleContractAddress'
+  | 'tokens'
 >;
 
 type Options = QueryObserverOptions<
@@ -32,6 +34,7 @@ type Options = QueryObserverOptions<
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
   const multicall3 = useMulticall3();
+  const tokens = useGetTokens();
 
   const poolLensContract = useGetUniqueContract({
     name: 'poolLens',
@@ -54,6 +57,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
           getIsolatedPools({
             multicall3,
             provider,
+            tokens,
             ...input,
             ...params,
           }),

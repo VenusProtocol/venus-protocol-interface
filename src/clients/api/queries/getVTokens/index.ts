@@ -1,10 +1,11 @@
 import { ContractTypeByName } from 'packages/contracts';
-import { VToken } from 'types';
-import { getTokenByAddress } from 'utilities';
+import { Token, VToken } from 'types';
 
 import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
+  tokens: Token[];
   poolLensContract: ContractTypeByName<'poolLens'>;
   poolRegistryContractAddress: string;
   // The VenusLens and main pool Comptroller contract only exists on the BSC network
@@ -17,6 +18,7 @@ export type GetVTokensOutput = {
 };
 
 const getVTokens = async ({
+  tokens,
   poolLensContract,
   poolRegistryContractAddress,
   venusLensContract,
@@ -45,7 +47,10 @@ const getVTokens = async ({
 
   // Shape meta data into vToken
   const vTokens = vTokenMetaData.reduce<VToken[]>((acc, metaData) => {
-    const underlyingToken = getTokenByAddress(metaData.underlyingAssetAddress);
+    const underlyingToken = findTokenByAddress({
+      tokens,
+      address: metaData.underlyingAssetAddress,
+    });
 
     if (!underlyingToken) {
       logError(`Record missing for token: ${metaData.underlyingAssetAddress}`);

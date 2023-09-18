@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 import { Vault } from 'types';
-import { getTokenByAddress, indexBy } from 'utilities';
+import { indexBy } from 'utilities';
 
 import {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
@@ -14,6 +14,8 @@ import {
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import useGetToken from 'hooks/useGetToken';
+import useGetTokens from 'hooks/useGetTokens';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
@@ -31,6 +33,7 @@ const useGetVestingVaults = ({
   const xvs = useGetToken({
     symbol: 'XVS',
   });
+  const tokens = useGetTokens();
 
   const {
     data: xvsVaultPoolCountData = { poolCount: 0 },
@@ -154,7 +157,10 @@ const useGetVestingVaults = ({
 
           const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
-            getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress);
+            findTokenByAddress({
+              tokens,
+              address: poolData[poolIndex]?.poolInfos.stakedTokenAddress,
+            });
 
           const poolRewardWeiPerBlock =
             xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
@@ -210,6 +216,7 @@ const useGetVestingVaults = ({
       xvsVaultRewardWeiPerBlock?.rewardPerBlockWei.toFixed(),
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       xvs,
+      tokens,
     ],
   );
 

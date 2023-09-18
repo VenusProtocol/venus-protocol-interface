@@ -1,16 +1,27 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
-import { convertPriceMantissaToDollars, getTokenByAddress } from 'utilities';
+import { Token } from 'types';
 
 import { logError } from 'context/ErrorLogger';
+import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
-const formatTokenPrices = (resilientOracleResult: ContractCallReturnContext) =>
+const formatTokenPrices = ({
+  resilientOracleResult,
+  tokens,
+}: {
+  tokens: Token[];
+  resilientOracleResult: ContractCallReturnContext;
+}) =>
   resilientOracleResult.callsReturnContext.reduce<{
     [tokenAddress: string]: BigNumber;
   }>((acc, callResult) => {
     const tokenAddress = (callResult.methodParameters[0] as string).toLowerCase();
-    const token = getTokenByAddress(tokenAddress);
+    const token = findTokenByAddress({
+      tokens,
+      address: tokenAddress,
+    });
 
     if (!token) {
       logError(`Record missing for token: ${tokenAddress}`);

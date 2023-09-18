@@ -5,6 +5,7 @@ import Vi from 'vitest';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
+import tokens from '__mocks__/models/tokens';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 
 import getIsolatedPools from '..';
@@ -46,6 +47,7 @@ describe('api/queries/getIsolatedPools', () => {
     );
 
     const response = await getIsolatedPools({
+      tokens,
       poolLensContract: fakePoolLensContract,
       provider: fakeProvider,
       accountAddress: fakeAddress,
@@ -63,6 +65,7 @@ describe('api/queries/getIsolatedPools', () => {
     });
 
     const response = await getIsolatedPools({
+      tokens,
       poolLensContract: fakePoolLensContract,
       provider: fakeProvider,
       accountAddress: fakeAddress,

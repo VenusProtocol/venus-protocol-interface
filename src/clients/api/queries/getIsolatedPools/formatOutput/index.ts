@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
-import { Asset, Pool, VToken } from 'types';
+import { Asset, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -11,7 +11,6 @@ import {
   convertFactorFromSmartContract,
   convertWeiToTokens,
   formatTokenPrices,
-  getTokenByAddress,
   multiplyMantissaDaily,
 } from 'utilities';
 
@@ -19,12 +18,14 @@ import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import { GetTokenBalancesOutput } from '../../getTokenBalances';
 import formatDistributions from './formatDistributions';
 import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
 
 export interface FormatToPoolsInput {
+  tokens: Token[];
   poolsResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
   comptrollerResults: ContractCallReturnContext[];
   rewardsDistributorsResults: ContractCallReturnContext[];
@@ -36,6 +37,7 @@ export interface FormatToPoolsInput {
 }
 
 const formatToPools = ({
+  tokens,
   poolsResults,
   poolParticipantsCountResult,
   comptrollerResults,
@@ -46,12 +48,13 @@ const formatToPools = ({
   currentBlockNumber,
 }: FormatToPoolsInput) => {
   // Map token prices by address
-  const tokenPricesDollars = formatTokenPrices(resilientOracleResult);
+  const tokenPricesDollars = formatTokenPrices({ resilientOracleResult, tokens });
 
   // Map distributions by vToken address
   const rewardTokenDataMapping = formatRewardTokenDataMapping({
     rewardsDistributorsResults,
     tokenPricesDollars,
+    tokens,
   });
 
   // Get vToken addresses of user collaterals
@@ -72,7 +75,10 @@ const formatToPools = ({
 
     const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
       // Retrieve token record
-      const underlyingToken = getTokenByAddress(vTokenMetaData.underlyingAssetAddress);
+      const underlyingToken = findTokenByAddress({
+        tokens,
+        address: vTokenMetaData.underlyingAssetAddress,
+      });
 
       if (!underlyingToken) {
         logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);

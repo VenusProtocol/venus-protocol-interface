@@ -2,11 +2,13 @@ import BigNumber from 'bignumber.js';
 import { ContractCallReturnContext } from 'ethereum-multicall';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
-import { getTokenByAddress, multiplyMantissaDaily } from 'utilities';
+import { multiplyMantissaDaily } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface FormatRewardTokenDataMappingInput {
+  tokens: Token[];
   tokenPricesDollars: {
     [tokenAddress: string]: BigNumber;
   };
@@ -26,11 +28,15 @@ export interface RewardTokenDataMapping {
 const formatRewardTokenDataMapping = ({
   rewardsDistributorsResults,
   tokenPricesDollars,
+  tokens,
 }: FormatRewardTokenDataMappingInput) =>
   rewardsDistributorsResults.reduce<RewardTokenDataMapping>((acc, rewardsDistributorsResult) => {
     const results = rewardsDistributorsResult.callsReturnContext;
     const rewardTokenAddress = results[0].returnValues[0].toLowerCase();
-    const rewardToken = getTokenByAddress(rewardTokenAddress);
+    const rewardToken = findTokenByAddress({
+      tokens,
+      address: rewardTokenAddress,
+    });
 
     if (!rewardToken) {
       logError(`Record missing for reward token: ${rewardTokenAddress}`);
