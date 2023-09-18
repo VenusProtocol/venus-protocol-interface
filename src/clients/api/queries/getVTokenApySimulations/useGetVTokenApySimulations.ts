@@ -1,4 +1,5 @@
-import BigNumber from 'bignumber.js';
+import { getGenericContract } from 'packages/contracts';
+import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Asset, VToken } from 'types';
 
@@ -6,8 +7,8 @@ import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
-import { useMulticall3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 type Options = QueryObserverOptions<
   GetVTokenApySimulationsOutput,
@@ -22,34 +23,42 @@ const useGetVTokenApySimulations = (
     asset,
     vToken,
     isIsolatedPoolMarket,
-    reserveFactorMantissa,
   }: {
     asset: Asset | undefined;
     vToken: VToken;
     isIsolatedPoolMarket: boolean;
-    reserveFactorMantissa?: BigNumber;
   },
   options?: Options,
 ) => {
-  const multicall3 = useMulticall3();
+  const { provider } = useAuth();
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
+
+  const interestRateModelContract = useMemo(() => {
+    if (!interestRateModelData?.contractAddress) {
+      return undefined;
+    }
+
+    return getGenericContract({
+      name: isIsolatedPoolMarket ? 'jumpRateModelV2' : 'jumpRateModel',
+      address: interestRateModelData.contractAddress,
+      signerOrProvider: provider,
+    });
+  }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address }],
     () =>
       getVTokenApySimulations({
-        multicall3,
-        reserveFactorMantissa: reserveFactorMantissa || new BigNumber(0),
-        interestRateModelContractAddress: interestRateModelData?.contractAddress || '',
+        interestRateModelContract: interestRateModelContract!, // Checked through enabled option
+        asset: asset!, // Checked through enabled option
         isIsolatedPoolMarket,
-        asset,
       }),
     {
       ...options,
       enabled:
         (options?.enabled === undefined || options?.enabled) &&
-        interestRateModelData?.contractAddress !== undefined &&
-        reserveFactorMantissa !== undefined,
+        !!interestRateModelContract &&
+        !!asset,
     },
   );
 };

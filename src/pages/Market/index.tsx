@@ -16,7 +16,6 @@ import { useGetVTokenApySimulations } from 'clients/api';
 import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
@@ -35,7 +34,7 @@ export interface MarketUiProps {
   interestRateChartData: InterestRateChartProps['data'];
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
-  currentUtilizationRate: number;
+  currentUtilizationRatePercentage: number;
   asset: Asset;
   isBorrowActionEnabled: boolean;
   isSupplyActionEnabled: boolean;
@@ -49,7 +48,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   borrowChartData,
   isInterestRateChartDataLoading,
   interestRateChartData,
-  currentUtilizationRate,
+  currentUtilizationRatePercentage,
   isBorrowActionEnabled,
   isSupplyActionEnabled,
 }) => {
@@ -411,7 +410,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               <div css={styles.apyChart}>
                 <InterestRateChart
                   data={interestRateChartData}
-                  currentUtilizationRate={currentUtilizationRate}
+                  currentUtilizationRatePercentage={currentUtilizationRatePercentage}
                 />
               </div>
             )}
@@ -447,21 +446,15 @@ const Market: React.FC<MarketProps> = ({
     vToken: asset.vToken,
   });
 
-  const reserveFactorMantissa = useMemo(
-    () => asset && new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
-    [asset.reserveFactor],
-  );
-
   const {
     isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
-      currentUtilizationRate: 0,
+      currentUtilizationRatePercentage: 0,
     },
   } = useGetVTokenApySimulations({
     vToken: asset.vToken,
     isIsolatedPoolMarket,
-    reserveFactorMantissa,
     asset,
   });
 
@@ -483,7 +476,7 @@ const Market: React.FC<MarketProps> = ({
       {...chartData}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
-      currentUtilizationRate={interestRateChartData.currentUtilizationRate}
+      currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}
       isBorrowActionEnabled={isBorrowActionEnabled}
       isSupplyActionEnabled={isSupplyActionEnabled}
     />

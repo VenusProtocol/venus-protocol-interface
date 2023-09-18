@@ -18,20 +18,20 @@ import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface InterestRateItem {
-  utilizationRate: number;
+  utilizationRatePercentage: number;
   borrowApyPercentage: number;
   supplyApyPercentage: number;
 }
 
 export interface InterestRateChartProps {
   data: InterestRateItem[];
-  currentUtilizationRate?: number;
+  currentUtilizationRatePercentage?: number;
   className?: string;
 }
 
 export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   className,
-  currentUtilizationRate,
+  currentUtilizationRatePercentage,
   data,
 }) => {
   const sharedStyles = useSharedStyles();
@@ -44,7 +44,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
       <ResponsiveContainer>
         <LineChart data={data} margin={sharedStyles.chartMargin}>
           <XAxis
-            dataKey="utilizationRate"
+            dataKey="utilizationRatePercentage"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatPercentageToReadableValue}
@@ -73,7 +73,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                     {
                       label: t('interestRateChart.tooltipItemLabels.utilizationRate'),
                       value: formatPercentageToReadableValue(
-                        (payload[0].payload as InterestRateItem).utilizationRate,
+                        (payload[0].payload as InterestRateItem).utilizationRatePercentage,
                       ),
                     },
                     {
@@ -112,16 +112,16 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
             isAnimationActive={false}
             dot={false}
           />
-          {typeof currentUtilizationRate === 'number' && (
+          {typeof currentUtilizationRatePercentage === 'number' && (
             <ReferenceLine
-              x={currentUtilizationRate}
+              x={currentUtilizationRatePercentage}
               stroke={localStyles.referenceLineColor}
               // Note: we can not use the spread operator to extend
               // styles.referenceLineLabel because its type is not accepted for
               // that
               label={Object.assign(localStyles.referenceLineLabel || {}, {
                 value: t('interestRateChart.currentUtilizationRateLabelValue', {
-                  percentage: formatPercentageToReadableValue(currentUtilizationRate),
+                  percentage: formatPercentageToReadableValue(currentUtilizationRatePercentage),
                 }),
               })}
               alwaysShow
