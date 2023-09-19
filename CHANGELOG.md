@@ -1,3 +1,5 @@
+## [2.20.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.6...v2.20.7) (2023-09-19)
+
 ## [2.20.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.5...v2.20.6) (2023-09-19)
 
 ## [2.20.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.4...v2.20.5) (2023-09-19)
