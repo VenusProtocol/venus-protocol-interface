@@ -33,7 +33,7 @@ import { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.supplyApyLtv')
 // t('marketTable.columnKeys.labeledSupplyApyLtv')
 // t('marketTable.columnKeys.borrowApy')
-// t('marketTable.columnKeys.labeledBorrowApy')yar
+// t('marketTable.columnKeys.labeledBorrowApy')
 // t('marketTable.columnKeys.pool')
 // t('marketTable.columnKeys.collateral')
 // t('marketTable.columnKeys.supplyBalance')
@@ -49,10 +49,10 @@ import { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnSelectOptionLabel.supplyApyLtv')
 // t('marketTable.columnSelectOptionLabel.labeledSupplyApyLtv')
 // t('marketTable.columnSelectOptionLabel.borrowApy')
-// t('marketTable.columnSelectOptionLabel.labeledBorrowApy')yar
+// t('marketTable.columnSelectOptionLabel.labeledBorrowApy')
 // t('marketTable.columnSelectOptionLabel.pool')
 // t('marketTable.columnSelectOptionLabel.collateral')
-// t('marketTable.columnSelectOptionLabel.supplyBalance')en.js
+// t('marketTable.columnSelectOptionLabel.supplyBalance')
 // t('marketTable.columnSelectOptionLabel.borrowBalance')
 // t('marketTable.columnSelectOptionLabel.userBorrowBalance')
 // t('marketTable.columnSelectOptionLabel.userSupplyBalance')
