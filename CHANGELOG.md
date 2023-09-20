@@ -1,3 +1,10 @@
+## [2.21.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.8...v2.21.0) (2023-09-20)
+
+
+### Features
+
+* add "prime" feature flag ([#1454](https://github.com/VenusProtocol/venus-protocol-interface/issues/1454)) ([ed9ffc4](https://github.com/VenusProtocol/venus-protocol-interface/commit/ed9ffc47f6fe1a269689d0269509055e18696c6d))
+
 ## [2.20.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.7...v2.20.8) (2023-09-20)
 
 ## [2.20.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.6...v2.20.7) (2023-09-19)
