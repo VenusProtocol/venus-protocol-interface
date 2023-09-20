@@ -5,8 +5,6 @@ import * as path from 'path';
 const PANCAKE_SWAP_TOKEN_LIST_URL =
   'https://raw.githubusercontent.com/pancakeswap/token-list/main/lists/pancakeswap-extended.json';
 
-const formatSymbol = symbol => symbol.toLowerCase();
-
 const generatePancakeSwapTokenRecords = async () => {
   const data = await fetch(PANCAKE_SWAP_TOKEN_LIST_URL);
   const pancakeSwapTokenList = await data.json();

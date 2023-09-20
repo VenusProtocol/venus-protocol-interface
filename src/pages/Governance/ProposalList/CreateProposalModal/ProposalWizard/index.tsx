@@ -2,10 +2,11 @@
 import { FormikSubmitButton, PrimaryButton } from 'components';
 import { useFormikContext } from 'formik';
 import React, { useCallback } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
 import { Subdirectory, routes } from 'constants/routing';
+
 import ActionAccordion from '../ActionAccordion';
 import ProposalInfo from '../ProposalInfo';
 import ProposalPreview from '../ProposalPreview';

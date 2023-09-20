@@ -51,8 +51,6 @@ storybook-static
 /src/clients/subgraph/gql/mainnet.ts
 /src/clients/subgraph/gql/testnet.ts
 
-# PancakeSwap token list, automatically generated
-/src/constants/tokens/swap/mainnetPancakeSwapTokens.ts
 
 # Version in package.json exposed to the dApp
 /src/constants/version.ts

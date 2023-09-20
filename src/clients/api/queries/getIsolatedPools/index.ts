@@ -6,10 +6,11 @@ import {
 import _cloneDeep from 'lodash/cloneDeep';
 import { contractInfos } from 'packages/contracts';
 import { Token } from 'types';
-import { areTokensEqual, getTokenByAddress } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import getBlockNumber from '../getBlockNumber';
 import getTokenBalances, { GetTokenBalancesOutput } from '../getTokenBalances';
@@ -35,6 +36,7 @@ const getIsolatedPools = async ({
   poolRegistryContractAddress,
   resilientOracleContractAddress,
   provider,
+  tokens,
   multicall3,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [poolsResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
@@ -56,7 +58,10 @@ const getIsolatedPools = async ({
       const newUnderlyingTokenAddresses: string[] = [];
 
       poolResult.vTokens.forEach(vTokenMetaData => {
-        const underlyingToken = getTokenByAddress(vTokenMetaData.underlyingAssetAddress);
+        const underlyingToken = findTokenByAddress({
+          address: vTokenMetaData.underlyingAssetAddress,
+          tokens,
+        });
 
         if (!underlyingToken) {
           logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
@@ -259,6 +264,7 @@ const getIsolatedPools = async ({
   const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
 
   const pools = formatOutput({
+    tokens,
     poolsResults,
     poolParticipantsCountResult,
     comptrollerResults,

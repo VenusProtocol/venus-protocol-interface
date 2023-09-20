@@ -1,5 +1,4 @@
 export { restService } from './restService';
-export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,

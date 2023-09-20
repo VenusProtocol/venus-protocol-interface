@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
+import tokens from '__mocks__/models/tokens';
 import { withCenterStory, withRouter } from 'stories/decorators';
 
 import { Description } from '.';
@@ -48,6 +49,10 @@ const actions = [
   },
 ];
 
-export const DescriptionV1 = () => <Description description={descriptionV1} actions={actions} />;
+export const DescriptionV1 = () => (
+  <Description description={descriptionV1} actions={actions} tokens={tokens} />
+);
 
-export const DescriptionV2 = () => <Description description={descriptionV2} actions={actions} />;
+export const DescriptionV2 = () => (
+  <Description description={descriptionV2} actions={actions} tokens={tokens} />
+);

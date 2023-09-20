@@ -6,6 +6,7 @@ export interface GetMainPoolInput {
   description: string;
   xvs: Token;
   vai: Token;
+  tokens: Token[];
   mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
   venusLensContract: ContractTypeByName<'venusLens'>;
   resilientOracleContract: ContractTypeByName<'resilientOracle'>;
