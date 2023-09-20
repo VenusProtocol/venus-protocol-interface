@@ -183,6 +183,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         dailyDistributedTokens: BigNumber;
       };
     }>((accDistributionMapping, distribution) => {
+      // Filter out distributions that do not indicate the amount of tokens distributed to everyone
+      // per day
+      if (!('dailyDistributedTokens' in distribution)) {
+        return accDistributionMapping;
+      }
+
       const accCopy = { ...accDistributionMapping };
 
       if (!Object.hasOwnProperty.call(accCopy, distribution.token.address)) {

@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
   compareBigNumbers,
@@ -143,17 +143,22 @@ const XvsTable: React.FC = () => {
   );
 
   const assetsWithVai = useMemo(() => {
-    const allAssets: TableAsset[] = (getMainPoolData?.pool.assets || []).map(asset => ({
-      token: asset.vToken.underlyingToken,
+    const allAssets: TableAsset[] = (getMainPoolData?.pool.assets || []).map(asset => {
       // Note: assets from the main pool only yield XVS, hence why we only take
       // the first distribution token in consideration (which will always be XVS
       // here)
-      xvsPerDay: asset.supplyDistributions[0].dailyDistributedTokens.plus(
-        asset.borrowDistributions[0].dailyDistributedTokens,
-      ),
-      xvsSupplyApy: asset.supplyDistributions[0].apyPercentage,
-      xvsBorrowApy: asset.borrowDistributions[0].apyPercentage,
-    }));
+      const supplyXvsDistribution = asset.supplyDistributions[0] as RewardDistributorDistribution;
+      const borrowXvsDistribution = asset.borrowDistributions[0] as RewardDistributorDistribution;
+
+      return {
+        token: asset.vToken.underlyingToken,
+        xvsPerDay: supplyXvsDistribution.dailyDistributedTokens.plus(
+          borrowXvsDistribution.dailyDistributedTokens,
+        ),
+        xvsSupplyApy: asset.supplyDistributions[0].apyPercentage,
+        xvsBorrowApy: asset.borrowDistributions[0].apyPercentage,
+      };
+    });
 
     const xvsAsset = (getMainPoolData?.pool.assets || []).find(asset =>
       areTokensEqual(asset.vToken.underlyingToken, xvs!),

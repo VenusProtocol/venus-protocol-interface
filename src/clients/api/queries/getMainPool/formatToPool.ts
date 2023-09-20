@@ -267,6 +267,7 @@ const formatToPool = ({
     });
 
     const borrowXvsDistribution = formatDistribution({
+      type: 'rewardDistributor',
       rewardToken: xvs,
       rewardTokenPriceDollars: xvsPriceDollars,
       dailyDistributedRewardTokens: borrowDailyDistributedXvs,
@@ -279,6 +280,7 @@ const formatToPool = ({
     });
 
     const supplyXvsDistribution = formatDistribution({
+      type: 'rewardDistributor',
       rewardToken: xvs,
       rewardTokenPriceDollars: xvsPriceDollars,
       dailyDistributedRewardTokens: supplyDailyDistributedXvs,

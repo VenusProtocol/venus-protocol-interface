@@ -39,6 +39,7 @@ const formatDistributions = ({
       if (supplyLastRewardBlockNumber === 0 || currentBlockNumber <= supplyLastRewardBlockNumber) {
         supplyDistributions.push(
           formatDistribution({
+            type: 'rewardDistributor',
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens: supplyDailyDistributedRewardTokens,
@@ -51,6 +52,7 @@ const formatDistributions = ({
       if (borrowLastRewardBlockNumber === 0 || currentBlockNumber <= borrowLastRewardBlockNumber) {
         borrowDistributions.push(
           formatDistribution({
+            type: 'rewardDistributor',
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens: borrowDailyDistributedRewardTokens,

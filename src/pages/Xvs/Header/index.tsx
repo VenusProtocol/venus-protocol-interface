@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { RewardDistributorDistribution, Token } from 'types';
 import { convertWeiToTokens, formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
 
 import {
@@ -141,8 +141,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         // Note: assets from the main pool only yield XVS, hence why we only
         // take the first distribution token in consideration (which will
         // always be XVS here)
-        const dailyXvsDistributed = asset.supplyDistributions[0].dailyDistributedTokens.plus(
-          asset.borrowDistributions[0].dailyDistributedTokens,
+        const supplyXvsDistribution = asset.supplyDistributions[0] as RewardDistributorDistribution;
+        const borrowXvsDistribution = asset.borrowDistributions[0] as RewardDistributorDistribution;
+
+        const dailyXvsDistributed = supplyXvsDistribution.dailyDistributedTokens.plus(
+          borrowXvsDistribution.dailyDistributedTokens,
         );
 
         return acc.plus(dailyXvsDistributed);
