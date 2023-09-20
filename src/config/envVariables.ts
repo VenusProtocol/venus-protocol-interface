@@ -44,4 +44,6 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_FF_INTEGRATED_SWAP
       : import.meta.env.VITE_FF_INTEGRATED_SWAP,
+  VITE_FF_PRIME:
+    typeof process !== 'undefined' ? process.env.VITE_FF_PRIME : import.meta.env.VITE_FF_PRIME,
 };
