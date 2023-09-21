@@ -1,6 +1,6 @@
 import { ENV_VARIABLES } from 'config';
 
-export type FeatureFlag = 'isolatedPools' | 'integratedSwap';
+export type FeatureFlag = keyof typeof featureFlags;
 
 const featureFlags = {
   isolatedPools: ENV_VARIABLES.VITE_FF_ISOLATED_POOLS === 'true',

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { isFeatureEnabled } from 'utilities';
 
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 
@@ -11,7 +12,7 @@ const Account: React.FC = () => {
 
   return (
     <>
-      <PrimeStatusBanner css={styles.section} />
+      {isFeatureEnabled('prime') && <PrimeStatusBanner css={styles.section} />}
 
       <AccountBreakdown />
     </>
