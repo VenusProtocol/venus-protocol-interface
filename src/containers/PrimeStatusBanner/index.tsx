@@ -42,7 +42,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
-  haveAllPrimeTokensBeenClaimed,
+  haveAllPrimeTokensBeenClaimed = false,
   onRedirectToXvsVaultPage,
 }) => {
   const styles = useStyles();
@@ -85,6 +85,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   });
 
   const shouldDisplayTitle = !!highestHypotheticalPrimeApyBoostPercentage;
+  const shouldDisplayWarning = haveAllPrimeTokensBeenClaimed;
 
   if (isLoading || isUserPrime) {
     return null;
@@ -92,7 +93,9 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   return (
     <Paper css={styles.container} className={className}>
-      <div css={[styles.column, styles.contentColumn]}>
+      <div
+        css={[styles.column, styles.getContentColumn({ isWarningDisplayed: shouldDisplayWarning })]}
+      >
         <div css={styles.header}>
           <div css={styles.primeLogo}>
             <PrimeLogo />
@@ -164,7 +167,15 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         )}
       </div>
 
-      <div css={styles.column}>
+      <div
+        css={[
+          styles.column,
+          styles.getCtaColumn({
+            isWarningDisplayed: shouldDisplayWarning,
+            isTitleDisplayed: shouldDisplayTitle,
+          }),
+        ]}
+      >
         {haveAllPrimeTokensBeenClaimed ? (
           <div css={styles.noPrimeTokenWarning}>
             <Typography variant="small2" component="label" css={styles.warningText}>
@@ -209,18 +220,59 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const haveAllPrimeTokensBeenClaimed = true;
 
   return (
-    <PrimeStatusBannerUi
-      isLoading={isLoading}
-      isUserPrime={isUserPrime}
-      primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-      xvs={xvs!}
-      onRedirectToXvsVaultPage={redirectToXvsPage}
-      userStakedXvsTokens={userStakedXvsTokens}
-      minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-      highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
-      haveAllPrimeTokensBeenClaimed={haveAllPrimeTokensBeenClaimed}
-      {...props}
-    />
+    <>
+      <PrimeStatusBannerUi
+        isLoading={isLoading}
+        isUserPrime={isUserPrime}
+        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+        xvs={xvs!}
+        onRedirectToXvsVaultPage={redirectToXvsPage}
+        userStakedXvsTokens={userStakedXvsTokens}
+        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
+        highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
+        haveAllPrimeTokensBeenClaimed={haveAllPrimeTokensBeenClaimed}
+        {...props}
+      />
+
+      {/* DEV ONLY */}
+      <PrimeStatusBannerUi
+        isLoading={isLoading}
+        isUserPrime={isUserPrime}
+        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+        xvs={xvs!}
+        onRedirectToXvsVaultPage={redirectToXvsPage}
+        userStakedXvsTokens={userStakedXvsTokens}
+        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
+        highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
+        haveAllPrimeTokensBeenClaimed={false}
+        {...props}
+      />
+
+      <PrimeStatusBannerUi
+        isLoading={isLoading}
+        isUserPrime={isUserPrime}
+        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+        xvs={xvs!}
+        onRedirectToXvsVaultPage={redirectToXvsPage}
+        userStakedXvsTokens={userStakedXvsTokens}
+        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
+        haveAllPrimeTokensBeenClaimed
+        {...props}
+      />
+
+      <PrimeStatusBannerUi
+        isLoading={isLoading}
+        isUserPrime={isUserPrime}
+        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+        xvs={xvs!}
+        onRedirectToXvsVaultPage={redirectToXvsPage}
+        userStakedXvsTokens={userStakedXvsTokens}
+        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
+        haveAllPrimeTokensBeenClaimed={false}
+        {...props}
+      />
+      {/* END DEV ONLY */}
+    </>
   );
 };
 

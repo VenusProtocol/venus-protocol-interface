@@ -8,14 +8,45 @@ export const useStyles = () => {
     container: css`
       display: flex;
       justify-content: space-between;
+
+      ${theme.breakpoints.down('md')} {
+        flex-direction: column;
+      }
     `,
     column: css`
       :not(:last-child) {
         margin-right: ${theme.spacing(6)};
       }
     `,
-    contentColumn: css`
-      max-width: ${theme.spacing(175)};
+    getContentColumn: ({ isWarningDisplayed }: { isWarningDisplayed: boolean }) => css`
+      ${theme.breakpoints.down('md')} {
+        ${isWarningDisplayed
+          ? css`
+              order: 2;
+            `
+          : css`
+              margin-bottom: ${theme.spacing(6)};
+            `}
+      }
+    `,
+    getCtaColumn: ({
+      isWarningDisplayed,
+      isTitleDisplayed,
+    }: {
+      isWarningDisplayed: boolean;
+      isTitleDisplayed: boolean;
+    }) => css`
+      ${theme.breakpoints.down('md')} {
+        ${isWarningDisplayed &&
+        css`
+          order: 1;
+        `}
+        ${!isWarningDisplayed &&
+        isTitleDisplayed &&
+        css`
+          padding-left: ${theme.spacing(14)};
+        `}
+      }
     `,
     header: css`
       display: flex;
@@ -40,11 +71,14 @@ export const useStyles = () => {
       white-space: nowrap;
     `,
     getProgress: ({ addLeftPadding }: { addLeftPadding: boolean }) => css`
-      max-width: ${theme.spacing(125)};
-
       ${addLeftPadding &&
       css`
+        max-width: ${theme.spacing(125)};
         padding-left: ${theme.spacing(14)};
+
+        ${theme.breakpoints.down('md')} {
+          max-width: none;
+        }
       `}
     `,
     progressBar: css`
@@ -54,6 +88,12 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       margin-top: ${theme.spacing(2)};
+      text-align: right;
+
+      ${theme.breakpoints.down('md')} {
+        margin-top: 0;
+        margin-bottom: ${theme.spacing(4)};
+      }
     `,
     warningText: css`
       color: ${theme.palette.interactive.warning};
