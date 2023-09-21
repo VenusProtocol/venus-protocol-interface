@@ -1,15 +1,6 @@
 {
   "account": {
     "marketBreakdown": {
-      "cellGroup": {
-        "dailyEarnings": "Daily Earnings",
-        "netApy": "Net APY",
-        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
-        "totalBorrow": "Total Borrow",
-        "totalSupply": "Total Supply",
-        "totalVaultStake": "Total Vault Stake"
-      },
       "tables": {
         "borrowTableTitle": "Borrowed assets",
         "supplyTableTitle": "Supplied assets",
@@ -21,6 +12,18 @@
     "poolsBreakdown": {
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "Daily Earnings",
+        "netApy": "Net APY",
+        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+        "totalBorrow": "Total Borrow",
+        "totalSupply": "Total Supply",
+        "totalVaultStake": "Total Vault Stake"
+      },
+      "title": "Summary"
     },
     "vaultsBreakdown": {
       "table": {
