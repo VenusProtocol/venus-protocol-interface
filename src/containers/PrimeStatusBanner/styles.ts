@@ -5,20 +5,30 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
+    getContainer: ({ isProgressDisplayed }: { isProgressDisplayed: boolean }) => css`
       display: flex;
       justify-content: space-between;
 
+      ${!isProgressDisplayed &&
+      css`
+        align-items: center;
+      `}
+
       ${theme.breakpoints.down('md')} {
         flex-direction: column;
-      }
-    `,
-    column: css`
-      :not(:last-child) {
-        margin-right: ${theme.spacing(6)};
+        padding: ${theme.spacing(4)};
+
+        ${!isProgressDisplayed &&
+        css`
+          align-items: flex-start;
+        `}
       }
     `,
     getContentColumn: ({ isWarningDisplayed }: { isWarningDisplayed: boolean }) => css`
+      :not(:last-child) {
+        margin-right: ${theme.spacing(6)};
+      }
+
       ${theme.breakpoints.down('md')} {
         ${isWarningDisplayed
           ? css`
@@ -27,6 +37,14 @@ export const useStyles = () => {
           : css`
               margin-bottom: ${theme.spacing(6)};
             `}
+
+        :not(:last-child) {
+          margin-right: 0;
+        }
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
       }
     `,
     getCtaColumn: ({
@@ -47,19 +65,52 @@ export const useStyles = () => {
           padding-left: ${theme.spacing(14)};
         `}
       }
+
+      ${theme.breakpoints.down('sm')} {
+        padding-left: 0;
+        width: 100%;
+      }
     `,
-    header: css`
+    getHeader: ({ isProgressDisplayed }: { isProgressDisplayed: boolean }) => css`
       display: flex;
-      margin-bottom: ${theme.spacing(6)};
+
+      ${isProgressDisplayed
+        ? css`
+            margin-bottom: ${theme.spacing(6)};
+          `
+        : css`
+            align-items: center;
+          `};
+
+      ${theme.breakpoints.down('sm')} {
+        flex-direction: column;
+
+        ${!isProgressDisplayed &&
+        css`
+          align-items: flex-start;
+        `}
+      }
     `,
-    primeLogo: css`
-      display: block;
+    getPrimeLogo: ({ isProgressDisplayed }: { isProgressDisplayed: boolean }) => css`
+      display: inline-flex;
       width: ${theme.spacing(10)};
-      margin-top: ${theme.spacing(1)};
       margin-right: ${theme.spacing(4)};
+
+      ${!isProgressDisplayed &&
+      css`
+        margin-top: ${theme.spacing(1)};
+      `};
+
+      ${theme.breakpoints.down('sm')} {
+        margin-top: ${theme.spacing(0)};
+        margin-bottom: ${theme.spacing(4)};
+      }
     `,
-    title: css`
-      margin-bottom: ${theme.spacing(2)};
+    getTitle: ({ isDescriptionDisplayed }: { isDescriptionDisplayed: boolean }) => css`
+      ${isDescriptionDisplayed &&
+      css`
+        margin-bottom: ${theme.spacing(2)};
+      `};
     `,
     greenText: css`
       color: ${theme.palette.interactive.success};
@@ -67,8 +118,12 @@ export const useStyles = () => {
     whiteText: css`
       color: ${theme.palette.text.primary};
     `,
-    stakeButton: css`
+    button: css`
       white-space: nowrap;
+
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
+      }
     `,
     getProgress: ({ addLeftPadding }: { addLeftPadding: boolean }) => css`
       ${addLeftPadding &&
@@ -79,16 +134,24 @@ export const useStyles = () => {
         ${theme.breakpoints.down('md')} {
           max-width: none;
         }
+
+        ${theme.breakpoints.down('sm')} {
+          padding-left: 0;
+        }
       `}
     `,
     progressBar: css`
       margin-bottom: ${theme.spacing(2)};
     `,
-    noPrimeTokenWarning: css`
+    getNoPrimeTokenWarning: ({ isProgressDisplayed }: { isProgressDisplayed: boolean }) => css`
       display: flex;
       align-items: center;
-      margin-top: ${theme.spacing(2)};
       text-align: right;
+
+      ${isProgressDisplayed &&
+      css`
+        margin-top: ${theme.spacing(2)};
+      `};
 
       ${theme.breakpoints.down('md')} {
         margin-top: 0;

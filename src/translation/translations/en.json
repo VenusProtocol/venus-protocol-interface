@@ -550,6 +550,8 @@
     }
   },
   "primeStatusBanner": {
+    "becomePrimeTitle": "You can now become a Primer user",
+    "claimButtonLabel": "Claim Prime token",
     "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>",
     "noPrimeTokenWarning": {
       "text": "All Prime tokens have been claimed",
@@ -559,8 +561,9 @@
       "ariaLabel": "Your current Prime progression",
       "label": "Staked: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
+    "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
-    "title": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>"
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
   "select": {
     "defaultLabel": "Select"

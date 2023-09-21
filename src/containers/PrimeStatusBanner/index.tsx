@@ -3,11 +3,13 @@ import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import { ContractReceipt } from 'ethers';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import { PrimaryButton } from 'components/Button';
 import { Icon } from 'components/Icon';
@@ -21,32 +23,45 @@ import useGetToken from 'hooks/useGetToken';
 import { useStyles } from './styles';
 
 export interface PrimeStatusBannerUiProps {
-  isUserPrime: boolean;
   xvs: Token;
-  isLoading: boolean;
+  isClaimPrimeTokenLoading: boolean;
+  onClaimPrimeToken: () => Promise<ContractReceipt>;
   onRedirectToXvsVaultPage: () => void;
-  userStakedXvsTokens?: BigNumber;
-  minXvsToStakeForPrimeTokens?: BigNumber;
-  highestHypotheticalPrimeApyBoostPercentage?: BigNumber;
-  haveAllPrimeTokensBeenClaimed?: boolean;
-  primeClaimWaitingPeriodSeconds?: number;
+  userStakedXvsTokens: BigNumber;
+  minXvsToStakeForPrimeTokens: BigNumber;
+  highestHypotheticalPrimeApyBoostPercentage: BigNumber;
+  haveAllPrimeTokensBeenClaimed: boolean;
+  primeClaimWaitingPeriodSeconds: number;
+  hidePromotionalTitle?: boolean;
   className?: string;
 }
 
 export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   className,
-  isUserPrime,
-  isLoading,
   xvs,
+  isClaimPrimeTokenLoading,
   highestHypotheticalPrimeApyBoostPercentage,
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
   haveAllPrimeTokensBeenClaimed = false,
+  hidePromotionalTitle = false,
+  onClaimPrimeToken,
   onRedirectToXvsVaultPage,
 }) => {
   const styles = useStyles();
   const { Trans, t } = useTranslation();
+
+  const stakeDeltaTokens = useMemo(
+    () => minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens),
+    [minXvsToStakeForPrimeTokens, userStakedXvsTokens],
+  );
+  const isUserXvsStakeHighEnoughForPrime = !!stakeDeltaTokens?.isEqualTo(0);
+
+  const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
+    value: stakeDeltaTokens,
+    token: xvs,
+  });
 
   const readableApyBoostPercentage = useFormatPercentageToReadableValue({
     value: highestHypotheticalPrimeApyBoostPercentage,
@@ -54,20 +69,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const readableClaimWaitingPeriod = useMemo(
     () =>
-      primeClaimWaitingPeriodSeconds
-        ? formatDistanceStrict(
-            new Date(),
-            new Date().getTime() + primeClaimWaitingPeriodSeconds * 1000,
-            { unit: 'day' },
-          )
-        : undefined,
+      formatDistanceStrict(
+        new Date(),
+        new Date().getTime() + primeClaimWaitingPeriodSeconds * 1000,
+      ),
     [primeClaimWaitingPeriodSeconds],
   );
-
-  const stakeDeltaTokens =
-    minXvsToStakeForPrimeTokens &&
-    userStakedXvsTokens &&
-    minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens);
 
   const readableMinXvsToStakeForPrimeTokens = useConvertWeiToReadableTokenString({
     value: minXvsToStakeForPrimeTokens,
@@ -79,69 +86,110 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     token: xvs,
   });
 
-  const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
-    value: stakeDeltaTokens,
-    token: xvs,
-  });
+  // TODO: handle loading state + useHandleTransactionMutation hook
+  const handleClaimPrimeToken = async () => onClaimPrimeToken();
 
-  const shouldDisplayTitle = !!highestHypotheticalPrimeApyBoostPercentage;
-  const shouldDisplayWarning = haveAllPrimeTokensBeenClaimed;
+  const title = useMemo(() => {
+    if (isUserXvsStakeHighEnoughForPrime && primeClaimWaitingPeriodSeconds > 0) {
+      return t('primeStatusBanner.waitForPrimeTitle', {
+        claimWaitingPeriod: readableClaimWaitingPeriod,
+      });
+    }
 
-  if (isLoading || isUserPrime) {
-    return null;
-  }
+    if (isUserXvsStakeHighEnoughForPrime && primeClaimWaitingPeriodSeconds === 0) {
+      return t('primeStatusBanner.becomePrimeTitle');
+    }
+
+    if (!hidePromotionalTitle) {
+      return (
+        <Trans
+          i18nKey="primeStatusBanner.promotionalTitle"
+          components={{
+            GreenText: <span css={styles.greenText} />,
+          }}
+          values={{
+            percentage: readableApyBoostPercentage,
+          }}
+        />
+      );
+    }
+  }, [hidePromotionalTitle, readableApyBoostPercentage, isUserXvsStakeHighEnoughForPrime]);
+
+  const ctaButton = useMemo(() => {
+    if (haveAllPrimeTokensBeenClaimed) {
+      return undefined;
+    }
+
+    if (isUserXvsStakeHighEnoughForPrime) {
+      return (
+        <PrimaryButton
+          onClick={handleClaimPrimeToken}
+          css={styles.button}
+          loading={isClaimPrimeTokenLoading}
+        >
+          {t('primeStatusBanner.claimButtonLabel')}
+        </PrimaryButton>
+      );
+    }
+
+    return (
+      <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.button}>
+        {t('primeStatusBanner.stakeButtonLabel')}
+      </PrimaryButton>
+    );
+  }, [isUserXvsStakeHighEnoughForPrime, haveAllPrimeTokensBeenClaimed]);
 
   return (
-    <Paper css={styles.container} className={className}>
-      <div
-        css={[styles.column, styles.getContentColumn({ isWarningDisplayed: shouldDisplayWarning })]}
-      >
-        <div css={styles.header}>
-          <div css={styles.primeLogo}>
+    <Paper
+      css={styles.getContainer({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}
+      className={className}
+    >
+      <div css={styles.getContentColumn({ isWarningDisplayed: haveAllPrimeTokensBeenClaimed })}>
+        <div css={styles.getHeader({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}>
+          <div
+            css={styles.getPrimeLogo({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}
+          >
             <PrimeLogo />
           </div>
 
           <div>
-            {shouldDisplayTitle && (
-              <Typography variant="h3" css={styles.title}>
+            {!!title && (
+              <Typography
+                variant="h3"
+                css={styles.getTitle({ isDescriptionDisplayed: !isUserXvsStakeHighEnoughForPrime })}
+              >
+                {title}
+              </Typography>
+            )}
+
+            {!isUserXvsStakeHighEnoughForPrime && (
+              <Typography>
                 <Trans
-                  i18nKey="primeStatusBanner.title"
+                  i18nKey="primeStatusBanner.description"
                   components={{
-                    GreenText: <span css={styles.greenText} />,
+                    WhiteText: <span css={styles.whiteText} />,
+                    Link: (
+                      // eslint-disable-next-line jsx-a11y/anchor-has-content
+                      <a
+                        // TODO: add correct link
+                        href="https://google.com"
+                        rel="noreferrer"
+                        target="_blank"
+                      />
+                    ),
                   }}
                   values={{
-                    percentage: readableApyBoostPercentage,
+                    stakeDelta: readableStakeDeltaTokens,
+                    claimWaitingPeriod: readableClaimWaitingPeriod,
                   }}
                 />
               </Typography>
             )}
-
-            <Typography>
-              <Trans
-                i18nKey="primeStatusBanner.description"
-                components={{
-                  WhiteText: <span css={styles.whiteText} />,
-                  Link: (
-                    // eslint-disable-next-line jsx-a11y/anchor-has-content
-                    <a
-                      // TODO: add correct link
-                      href="https://google.com"
-                      rel="noreferrer"
-                      target="_blank"
-                    />
-                  ),
-                }}
-                values={{
-                  stakeDelta: readableStakeDeltaTokens,
-                  claimWaitingPeriod: readableClaimWaitingPeriod,
-                }}
-              />
-            </Typography>
           </div>
         </div>
 
-        {minXvsToStakeForPrimeTokens && userStakedXvsTokens && (
-          <div css={styles.getProgress({ addLeftPadding: shouldDisplayTitle })}>
+        {!isUserXvsStakeHighEnoughForPrime && (
+          <div css={styles.getProgress({ addLeftPadding: !!title })}>
             <ProgressBar
               css={styles.progressBar}
               value={+userStakedXvsTokens.toFixed(0)}
@@ -168,16 +216,17 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
       </div>
 
       <div
-        css={[
-          styles.column,
-          styles.getCtaColumn({
-            isWarningDisplayed: shouldDisplayWarning,
-            isTitleDisplayed: shouldDisplayTitle,
-          }),
-        ]}
+        css={styles.getCtaColumn({
+          isWarningDisplayed: haveAllPrimeTokensBeenClaimed,
+          isTitleDisplayed: !!title,
+        })}
       >
         {haveAllPrimeTokensBeenClaimed ? (
-          <div css={styles.noPrimeTokenWarning}>
+          <div
+            css={styles.getNoPrimeTokenWarning({
+              isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime,
+            })}
+          >
             <Typography variant="small2" component="label" css={styles.warningText}>
               {t('primeStatusBanner.noPrimeTokenWarning.text')}
             </Typography>
@@ -191,16 +240,17 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             </Tooltip>
           </div>
         ) : (
-          <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.stakeButton}>
-            {t('primeStatusBanner.stakeButtonLabel')}
-          </PrimaryButton>
+          ctaButton
         )}
       </div>
     </Paper>
   );
 };
 
-export type PrimeStatusBannerProps = Pick<PrimeStatusBannerUiProps, 'className'>;
+export type PrimeStatusBannerProps = Pick<
+  PrimeStatusBannerUiProps,
+  'className' | 'hidePromotionalTitle'
+>;
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const navigate = useNavigate();
@@ -210,69 +260,37 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     symbol: 'XVS',
   });
 
-  // TODO: fetch these values
+  // TODO: wire up
   const isLoading = false;
   const isUserPrime = false;
   const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 9 days in seconds
   const userStakedXvsTokens = new BigNumber('100');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
   const highestHypotheticalPrimeApyBoostPercentage = new BigNumber('3.14');
-  const haveAllPrimeTokensBeenClaimed = true;
+  const haveAllPrimeTokensBeenClaimed = false;
+
+  const claimPrimeToken = async () => fakeContractReceipt;
+  const isClaimPrimeTokenLoading = false;
+
+  if (isLoading || isUserPrime) {
+    return null;
+  }
 
   return (
-    <>
-      <PrimeStatusBannerUi
-        isLoading={isLoading}
-        isUserPrime={isUserPrime}
-        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-        xvs={xvs!}
-        onRedirectToXvsVaultPage={redirectToXvsPage}
-        userStakedXvsTokens={userStakedXvsTokens}
-        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-        highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
-        haveAllPrimeTokensBeenClaimed={haveAllPrimeTokensBeenClaimed}
-        {...props}
-      />
-
-      {/* DEV ONLY */}
-      <PrimeStatusBannerUi
-        isLoading={isLoading}
-        isUserPrime={isUserPrime}
-        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-        xvs={xvs!}
-        onRedirectToXvsVaultPage={redirectToXvsPage}
-        userStakedXvsTokens={userStakedXvsTokens}
-        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-        highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
-        haveAllPrimeTokensBeenClaimed={false}
-        {...props}
-      />
-
-      <PrimeStatusBannerUi
-        isLoading={isLoading}
-        isUserPrime={isUserPrime}
-        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-        xvs={xvs!}
-        onRedirectToXvsVaultPage={redirectToXvsPage}
-        userStakedXvsTokens={userStakedXvsTokens}
-        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-        haveAllPrimeTokensBeenClaimed
-        {...props}
-      />
-
-      <PrimeStatusBannerUi
-        isLoading={isLoading}
-        isUserPrime={isUserPrime}
-        primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-        xvs={xvs!}
-        onRedirectToXvsVaultPage={redirectToXvsPage}
-        userStakedXvsTokens={userStakedXvsTokens}
-        minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-        haveAllPrimeTokensBeenClaimed={false}
-        {...props}
-      />
-      {/* END DEV ONLY */}
-    </>
+    <PrimeStatusBannerUi
+      // primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+      // userStakedXvsTokens={userStakedXvsTokens}
+      userStakedXvsTokens={minXvsToStakeForPrimeTokens}
+      primeClaimWaitingPeriodSeconds={0}
+      xvs={xvs!}
+      onRedirectToXvsVaultPage={redirectToXvsPage}
+      onClaimPrimeToken={claimPrimeToken}
+      minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
+      highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
+      haveAllPrimeTokensBeenClaimed={haveAllPrimeTokensBeenClaimed}
+      isClaimPrimeTokenLoading={isClaimPrimeTokenLoading}
+      {...props}
+    />
   );
 };
 
