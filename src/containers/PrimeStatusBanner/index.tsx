@@ -19,6 +19,7 @@ import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useGetToken from 'hooks/useGetToken';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';
 
@@ -51,6 +52,17 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 }) => {
   const styles = useStyles();
   const { Trans, t } = useTranslation();
+  const handleTransactionMutation = useHandleTransactionMutation();
+
+  const handleClaimPrimeToken = () =>
+    handleTransactionMutation({
+      mutate: onClaimPrimeToken,
+      successTransactionModalProps: contractReceipt => ({
+        title: t('primeStatusBanner.successfulTransactionModal.title'),
+        content: t('primeStatusBanner.successfulTransactionModal.message'),
+        transactionHash: contractReceipt.transactionHash,
+      }),
+    });
 
   const stakeDeltaTokens = useMemo(
     () => minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens),
@@ -85,9 +97,6 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     value: userStakedXvsTokens,
     token: xvs,
   });
-
-  // TODO: handle loading state + useHandleTransactionMutation hook
-  const handleClaimPrimeToken = async () => onClaimPrimeToken();
 
   const title = useMemo(() => {
     if (isUserXvsStakeHighEnoughForPrime && primeClaimWaitingPeriodSeconds > 0) {
@@ -278,11 +287,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
 
   return (
     <PrimeStatusBannerUi
-      // primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
-      // userStakedXvsTokens={userStakedXvsTokens}
-      userStakedXvsTokens={minXvsToStakeForPrimeTokens}
-      primeClaimWaitingPeriodSeconds={0}
       xvs={xvs!}
+      primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
+      userStakedXvsTokens={userStakedXvsTokens}
       onRedirectToXvsVaultPage={redirectToXvsPage}
       onClaimPrimeToken={claimPrimeToken}
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}

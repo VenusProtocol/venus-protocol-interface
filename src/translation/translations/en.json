@@ -563,6 +563,10 @@
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
+    "successfulTransactionModal": {
+      "message": "You are now a Prime user. Visit the dashboard or the account page to see your earning boosts.",
+      "title": "Prime token claimed"
+    },
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
   "select": {
