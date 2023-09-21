@@ -40,7 +40,6 @@
     "@ethersproject/providers": "^5.7.2",
     "@ethersproject/web": "^5.7.1",
     "@infinitywallet/infinity-connector": "^1.0.5",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.2",
     "@pancakeswap/sdk": "^3.1.0",
