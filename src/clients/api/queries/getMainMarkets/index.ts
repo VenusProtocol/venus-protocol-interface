@@ -13,7 +13,6 @@ export interface GetMainMarketsResponse {
   dailyVenus: number;
   markets: ApiMarket[];
   request: { addresses: string[] };
-  venusRate: string;
 }
 
 export interface GetMainMarketsOutput {
