@@ -10,7 +10,9 @@ import { Token } from 'types';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import { PrimaryButton } from 'components/Button';
+import { Icon } from 'components/Icon';
 import { ProgressBar } from 'components/ProgressBar';
+import { Tooltip } from 'components/Tooltip';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
@@ -40,6 +42,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
+  haveAllPrimeTokensBeenClaimed,
   onRedirectToXvsVaultPage,
 }) => {
   const styles = useStyles();
@@ -94,17 +97,19 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
           </div>
 
           <div>
-            <Typography variant="h3" css={styles.title}>
-              <Trans
-                i18nKey="primeStatusBanner.title"
-                components={{
-                  GreenText: <span css={styles.greenText} />,
-                }}
-                values={{
-                  percentage: readableApyBoostPercentage,
-                }}
-              />
-            </Typography>
+            {highestHypotheticalPrimeApyBoostPercentage && (
+              <Typography variant="h3" css={styles.title}>
+                <Trans
+                  i18nKey="primeStatusBanner.title"
+                  components={{
+                    GreenText: <span css={styles.greenText} />,
+                  }}
+                  values={{
+                    percentage: readableApyBoostPercentage,
+                  }}
+                />
+              </Typography>
+            )}
 
             <Typography>
               <Trans
@@ -158,9 +163,25 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
       </div>
 
       <div css={styles.column}>
-        <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.stakeButton}>
-          {t('primeStatusBanner.stakeButtonLabel')}
-        </PrimaryButton>
+        {haveAllPrimeTokensBeenClaimed ? (
+          <div css={styles.noPrimeTokenWarning}>
+            <Typography variant="small2" component="label" css={styles.warningText}>
+              {t('primeStatusBanner.noPrimeTokenWarning.text')}
+            </Typography>
+
+            <Tooltip
+              // TODO: add correct tooltip text
+              title={t('primeStatusBanner.noPrimeTokenWarning.tooltip')}
+              css={styles.tooltip}
+            >
+              <Icon name="info" css={styles.tooltipIcon} />
+            </Tooltip>
+          </div>
+        ) : (
+          <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.stakeButton}>
+            {t('primeStatusBanner.stakeButtonLabel')}
+          </PrimaryButton>
+        )}
       </div>
     </Paper>
   );
@@ -183,7 +204,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const userStakedXvsTokens = new BigNumber('100');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
   const highestHypotheticalPrimeApyBoostPercentage = new BigNumber('3.14');
-  const haveAllPrimeTokensBeenClaimed = false;
+  const haveAllPrimeTokensBeenClaimed = true;
 
   return (
     <PrimeStatusBannerUi

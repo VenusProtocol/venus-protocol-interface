@@ -24,6 +24,7 @@ export const useStyles = () => {
     primeLogo: css`
       display: block;
       width: ${theme.spacing(10)};
+      margin-top: ${theme.spacing(1)};
       margin-right: ${theme.spacing(4)};
     `,
     title: css`
@@ -39,11 +40,26 @@ export const useStyles = () => {
       white-space: nowrap;
     `,
     progress: css`
-      width: ${theme.spacing(125)};
+      max-width: ${theme.spacing(125)};
       padding-left: ${theme.spacing(14)};
     `,
     progressBar: css`
       margin-bottom: ${theme.spacing(2)};
+    `,
+    noPrimeTokenWarning: css`
+      display: flex;
+      align-items: center;
+      margin-top: ${theme.spacing(2)};
+    `,
+    warningText: css`
+      color: ${theme.palette.interactive.warning};
+      margin-right: ${theme.spacing(2)};
+    `,
+    tooltip: css`
+      display: inline-flex;
+    `,
+    tooltipIcon: css`
+      color: ${theme.palette.interactive.warning};
     `,
   };
 };
