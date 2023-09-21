@@ -16,11 +16,6 @@ vi.mock('clients/api');
 vi.mock('clients/web3/Web3Wrapper');
 vi.mock('packages/tokens');
 
-// Mock Lottie
-vi.mock('@lottiefiles/react-lottie-player', () => ({
-  Player: () => <></>,
-}));
-
 // Mock React Markdown library
 vi.mock('@uiw/react-md-editor', () => ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
