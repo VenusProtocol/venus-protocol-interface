@@ -39,9 +39,13 @@ export const useStyles = () => {
     stakeButton: css`
       white-space: nowrap;
     `,
-    progress: css`
+    getProgress: ({ addLeftPadding }: { addLeftPadding: boolean }) => css`
       max-width: ${theme.spacing(125)};
-      padding-left: ${theme.spacing(14)};
+
+      ${addLeftPadding &&
+      css`
+        padding-left: ${theme.spacing(14)};
+      `}
     `,
     progressBar: css`
       margin-bottom: ${theme.spacing(2)};

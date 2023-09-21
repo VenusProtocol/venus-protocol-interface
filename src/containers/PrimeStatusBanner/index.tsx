@@ -84,6 +84,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     token: xvs,
   });
 
+  const shouldDisplayTitle = !!highestHypotheticalPrimeApyBoostPercentage;
+
   if (isLoading || isUserPrime) {
     return null;
   }
@@ -97,7 +99,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
           </div>
 
           <div>
-            {highestHypotheticalPrimeApyBoostPercentage && (
+            {shouldDisplayTitle && (
               <Typography variant="h3" css={styles.title}>
                 <Trans
                   i18nKey="primeStatusBanner.title"
@@ -136,7 +138,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         </div>
 
         {minXvsToStakeForPrimeTokens && userStakedXvsTokens && (
-          <div css={styles.progress}>
+          <div css={styles.getProgress({ addLeftPadding: shouldDisplayTitle })}>
             <ProgressBar
               css={styles.progressBar}
               value={+userStakedXvsTokens.toFixed(0)}
