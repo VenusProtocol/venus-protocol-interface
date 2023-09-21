@@ -4,6 +4,8 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
+import { Spinner } from 'components/Spinner';
+
 import { Delimiter } from '../Delimiter';
 import { Select, SelectOption, SelectProps } from '../Select';
 import { useStyles } from './styles';
@@ -12,7 +14,13 @@ import { Order, TableProps } from './types';
 interface TableCardProps<R>
   extends Pick<
     TableProps<R>,
-    'data' | 'rowKeyExtractor' | 'rowOnClick' | 'getRowHref' | 'breakpoint' | 'columns'
+    | 'data'
+    | 'rowKeyExtractor'
+    | 'rowOnClick'
+    | 'getRowHref'
+    | 'breakpoint'
+    | 'columns'
+    | 'isFetching'
   > {
   order: Order<R> | undefined;
   onOrderChange: (newOrder: Order<R>) => void;
@@ -20,6 +28,7 @@ interface TableCardProps<R>
 
 export function TableCards<R>({
   data,
+  isFetching,
   rowKeyExtractor,
   rowOnClick,
   getRowHref,
@@ -83,6 +92,8 @@ export function TableCards<R>({
           css={styles.cardsSelect}
         />
       )}
+
+      {isFetching && <Spinner css={styles.loader} />}
 
       <div>
         {data.map((row, rowIndex) => {
