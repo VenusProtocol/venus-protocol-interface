@@ -14,8 +14,12 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(6)};
       }
     `,
+    contentColumn: css`
+      max-width: ${theme.spacing(175)};
+    `,
     header: css`
       display: flex;
+      margin-bottom: ${theme.spacing(6)};
     `,
     primeLogo: css`
       display: block;
@@ -30,6 +34,16 @@ export const useStyles = () => {
     `,
     whiteText: css`
       color: ${theme.palette.text.primary};
+    `,
+    stakeButton: css`
+      white-space: nowrap;
+    `,
+    progress: css`
+      width: ${theme.spacing(125)};
+      padding-left: ${theme.spacing(14)};
+    `,
+    progressBar: css`
+      margin-bottom: ${theme.spacing(2)};
     `,
   };
 };

@@ -4,10 +4,14 @@ import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
+import { PrimaryButton } from 'components/Button';
+import { ProgressBar } from 'components/ProgressBar';
+import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useGetToken from 'hooks/useGetToken';
@@ -18,6 +22,7 @@ export interface PrimeStatusBannerUiProps {
   isUserPrime: boolean;
   xvs: Token;
   isLoading: boolean;
+  onRedirectToXvsVaultPage: () => void;
   userStakedXvsTokens?: BigNumber;
   minXvsToStakeForPrimeTokens?: BigNumber;
   highestHypotheticalPrimeApyBoostPercentage?: BigNumber;
@@ -35,9 +40,10 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
+  onRedirectToXvsVaultPage,
 }) => {
   const styles = useStyles();
-  const { Trans } = useTranslation();
+  const { Trans, t } = useTranslation();
 
   const readableApyBoostPercentage = useFormatPercentageToReadableValue({
     value: highestHypotheticalPrimeApyBoostPercentage,
@@ -60,6 +66,16 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     userStakedXvsTokens &&
     minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens);
 
+  const readableMinXvsToStakeForPrimeTokens = useConvertWeiToReadableTokenString({
+    value: minXvsToStakeForPrimeTokens,
+    token: xvs,
+  });
+
+  const readableUserStakedXvsTokens = useConvertWeiToReadableTokenString({
+    value: userStakedXvsTokens,
+    token: xvs,
+  });
+
   const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
     value: stakeDeltaTokens,
     token: xvs,
@@ -71,9 +87,11 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   return (
     <Paper css={styles.container} className={className}>
-      <div css={styles.column}>
+      <div css={[styles.column, styles.contentColumn]}>
         <div css={styles.header}>
-          <PrimeLogo css={styles.primeLogo} />
+          <div css={styles.primeLogo}>
+            <PrimeLogo />
+          </div>
 
           <div>
             <Typography variant="h3" css={styles.title}>
@@ -99,6 +117,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                       // TODO: add correct link
                       href="https://google.com"
                       rel="noreferrer"
+                      target="_blank"
                     />
                   ),
                 }}
@@ -110,6 +129,38 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             </Typography>
           </div>
         </div>
+
+        {minXvsToStakeForPrimeTokens && userStakedXvsTokens && (
+          <div css={styles.progress}>
+            <ProgressBar
+              css={styles.progressBar}
+              value={+userStakedXvsTokens.toFixed(0)}
+              step={1}
+              ariaLabel={t('primeStatusBanner.progressBar.ariaLabel')}
+              min={0}
+              max={+minXvsToStakeForPrimeTokens.toFixed(0)}
+            />
+
+            <Typography variant="small2">
+              <Trans
+                i18nKey="primeStatusBanner.progressBar.label"
+                components={{
+                  WhiteText: <span css={styles.whiteText} />,
+                }}
+                values={{
+                  minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,
+                  userStakedXvsTokens: readableUserStakedXvsTokens,
+                }}
+              />
+            </Typography>
+          </div>
+        )}
+      </div>
+
+      <div css={styles.column}>
+        <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.stakeButton}>
+          {t('primeStatusBanner.stakeButtonLabel')}
+        </PrimaryButton>
       </div>
     </Paper>
   );
@@ -118,6 +169,9 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 export type PrimeStatusBannerProps = Pick<PrimeStatusBannerUiProps, 'className'>;
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
+  const navigate = useNavigate();
+  const redirectToXvsPage = () => navigate(routes.vaults.path);
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -137,6 +191,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       isUserPrime={isUserPrime}
       primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
       xvs={xvs!}
+      onRedirectToXvsVaultPage={redirectToXvsPage}
       userStakedXvsTokens={userStakedXvsTokens}
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
       highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}

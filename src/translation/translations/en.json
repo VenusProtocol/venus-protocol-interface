@@ -551,6 +551,11 @@
   },
   "primeStatusBanner": {
     "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>",
+    "progressBar": {
+      "ariaLabel": "Your current Prime progression",
+      "label": "Staked: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "stakeButtonLabel": "Stake XVS",
     "title": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>"
   },
   "select": {

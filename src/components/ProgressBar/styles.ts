@@ -29,7 +29,8 @@ export const useStyles = ({
       }
       .MuiSlider-rail {
         height: ${theme.spacing(2)};
-        color: ${theme.palette.background.default};
+        color: ${theme.palette.secondary.light};
+        opacity: 1;
       }
     `,
     trackWrapper: css`
