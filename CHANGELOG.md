@@ -1,3 +1,10 @@
+## [2.22.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.4...v2.22.0) (2023-09-22)
+
+
+### Features
+
+* add Prime distribution types ([#1455](https://github.com/VenusProtocol/venus-protocol-interface/issues/1455)) ([5c338e2](https://github.com/VenusProtocol/venus-protocol-interface/commit/5c338e2fa27139239b4a8a0fe73491414fb2efa1))
+
 ## [2.21.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.3...v2.21.4) (2023-09-22)
 
 ## [2.21.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.2...v2.21.3) (2023-09-21)
