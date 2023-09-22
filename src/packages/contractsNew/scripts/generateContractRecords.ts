@@ -31,22 +31,33 @@ const generateContractRecords = async () => {
     fs.writeFileSync(abiOutputFilePath, abiOutput, 'utf8');
 
     // Add address to list
-    if (contractConfig.name === 'SwapRouter') {
-      // TODO: add logic
+    if (!('address' in contractConfig)) {
       return;
     }
 
-    if ('address' in contractConfig) {
-      addressesOutput += `${contractConfig.name}: {
-        ${Object.entries(contractConfig.address)
-          .map(
-            ([chainId, address]) => `
-          ${chainId}: '${address}'`,
-          )
-          .join(',')}
-      },
-      `;
-    }
+    addressesOutput += `${contractConfig.name}: {
+      ${Object.entries(contractConfig.address)
+        .map(([chainId, address]) => {
+          let formattedAddressOutput = '';
+
+          if (typeof address === 'string') {
+            // Handle string addresses (e.g.: VenusLens contract)
+            formattedAddressOutput = `'${address}'`;
+          } else {
+            // Handle object addresses (e.g.: SwapRouter contract)
+            formattedAddressOutput = `{${Object.entries(address)
+              .map(
+                ([comptrollerContractAddress, swapRouterContractAddress]) =>
+                  `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
+              )
+              .join('')}}`;
+          }
+
+          return `${chainId}: ${formattedAddressOutput},`;
+        })
+        .join('')}
+    },
+    `;
   });
 
   // Close addresses output
