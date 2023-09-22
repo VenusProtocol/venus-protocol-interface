@@ -555,7 +555,7 @@
     "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>",
     "noPrimeTokenWarning": {
       "text": "All Prime tokens have been claimed",
-      "tooltip": "TRANSLATION NEEDED"
+      "tooltip": "All {{primeTokenLimit}} Prime tokens are currently claimed. Some may become available if owners no longer meet the eligibility criteria or if we add more."
     },
     "progressBar": {
       "ariaLabel": "Your current Prime progression",

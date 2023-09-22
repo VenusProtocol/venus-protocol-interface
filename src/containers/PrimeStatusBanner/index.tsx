@@ -25,13 +25,14 @@ import { useStyles } from './styles';
 
 export interface PrimeStatusBannerUiProps {
   xvs: Token;
+  claimedPrimeTokenCount: number;
+  primeTokenLimit: number;
   isClaimPrimeTokenLoading: boolean;
   onClaimPrimeToken: () => Promise<ContractReceipt>;
   onRedirectToXvsVaultPage: () => void;
   userStakedXvsTokens: BigNumber;
   minXvsToStakeForPrimeTokens: BigNumber;
   highestHypotheticalPrimeApyBoostPercentage: BigNumber;
-  haveAllPrimeTokensBeenClaimed: boolean;
   primeClaimWaitingPeriodSeconds: number;
   hidePromotionalTitle?: boolean;
   className?: string;
@@ -40,12 +41,13 @@ export interface PrimeStatusBannerUiProps {
 export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   className,
   xvs,
+  claimedPrimeTokenCount,
+  primeTokenLimit,
   isClaimPrimeTokenLoading,
   highestHypotheticalPrimeApyBoostPercentage,
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
-  haveAllPrimeTokensBeenClaimed = false,
   hidePromotionalTitle = false,
   onClaimPrimeToken,
   onRedirectToXvsVaultPage,
@@ -69,6 +71,11 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     [minXvsToStakeForPrimeTokens, userStakedXvsTokens],
   );
   const isUserXvsStakeHighEnoughForPrime = !!stakeDeltaTokens?.isEqualTo(0);
+
+  const haveAllPrimeTokensBeenClaimed = useMemo(
+    () => claimedPrimeTokenCount >= primeTokenLimit,
+    [primeTokenLimit, claimedPrimeTokenCount],
+  );
 
   const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
     value: stakeDeltaTokens,
@@ -241,8 +248,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             </Typography>
 
             <Tooltip
-              // TODO: add correct tooltip text
-              title={t('primeStatusBanner.noPrimeTokenWarning.tooltip')}
+              title={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}
               css={styles.tooltip}
             >
               <Icon name="info" css={styles.tooltipIcon} />
@@ -276,11 +282,13 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const userStakedXvsTokens = new BigNumber('100');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
   const highestHypotheticalPrimeApyBoostPercentage = new BigNumber('3.14');
-  const haveAllPrimeTokensBeenClaimed = false;
+  const claimedPrimeTokenCount = 1000;
+  const primeTokenLimit = 1000;
 
   const claimPrimeToken = async () => fakeContractReceipt;
   const isClaimPrimeTokenLoading = false;
 
+  // Hide component while loading or if user is Prime already
   if (isLoading || isUserPrime) {
     return null;
   }
@@ -288,13 +296,14 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   return (
     <PrimeStatusBannerUi
       xvs={xvs!}
+      claimedPrimeTokenCount={claimedPrimeTokenCount}
+      primeTokenLimit={primeTokenLimit}
       primeClaimWaitingPeriodSeconds={primeClaimWaitingPeriodSeconds}
       userStakedXvsTokens={userStakedXvsTokens}
       onRedirectToXvsVaultPage={redirectToXvsPage}
       onClaimPrimeToken={claimPrimeToken}
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
       highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
-      haveAllPrimeTokensBeenClaimed={haveAllPrimeTokensBeenClaimed}
       isClaimPrimeTokenLoading={isClaimPrimeTokenLoading}
       {...props}
     />
