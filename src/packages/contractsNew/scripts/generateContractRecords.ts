@@ -1,30 +1,32 @@
 #!/usr/bin/env tsx
 import * as fs from 'fs';
 import * as path from 'path';
+import { glob, runTypeChain } from 'typechain';
 
 import { contracts } from './config';
 
 const CONTRACTS_PACKAGE_PATH = './src/packages/contractsNew/generated';
+const ADDRESSES_FILE_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/addresses.ts`;
+const ABIS_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/abis`;
+const TYPES_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/types`;
 
 const generateContractRecords = async () => {
   console.log('Extracting contract infos...');
 
   // Open addresses output
-  let addressesOutput = `
-    export default {
-  `;
+  let addressesOutput = 'export default {';
 
   // Create directories
-  await fs.promises.mkdir(`${CONTRACTS_PACKAGE_PATH}/contractInfos/abis`, { recursive: true });
+  await fs.promises.mkdir(ABIS_DIRECTORY_PATH, { recursive: true });
+  await fs.promises.mkdir(TYPES_DIRECTORY_PATH, { recursive: true });
 
   // Go through config and extract ABIs and contract addresses
   contracts.forEach(contractConfig => {
-    // Extract ABI into a separate file
-    const abiOutput = `export default ${JSON.stringify(contractConfig.abi)};`;
-
+    // Write ABI into a separate file
+    const abiOutput = JSON.stringify(contractConfig.abi);
     const abiOutputFilePath = path.join(
       process.cwd(),
-      `${CONTRACTS_PACKAGE_PATH}/contractInfos/abis/${contractConfig.name}.ts`,
+      `${ABIS_DIRECTORY_PATH}/${contractConfig.name}.json`,
     );
     fs.writeFileSync(abiOutputFilePath, abiOutput, 'utf8');
 
@@ -48,19 +50,30 @@ const generateContractRecords = async () => {
   });
 
   // Close addresses output
-  addressesOutput += `
-    };
-  `;
+  addressesOutput += '};';
 
-  const addressesOutputFilePath = path.join(
-    process.cwd(),
-    `${CONTRACTS_PACKAGE_PATH}/contractInfos/addresses.ts`,
-  );
+  // Write addresses file
+  const addressesOutputFilePath = path.join(process.cwd(), ADDRESSES_FILE_PATH);
   fs.writeFileSync(addressesOutputFilePath, addressesOutput, 'utf8');
 
-  console.log('Finished extracting contracts infos');
+  console.log('Finished extracting contract infos');
 
-  // TODO: generate contract types
+  // Generate contract types
+  console.log('Generating contract types...');
+
+  const cwd = process.cwd();
+  // find all files matching the glob
+  const allFiles = glob(cwd, [`${ABIS_DIRECTORY_PATH}/**/+([a-zA-Z0-9_]).json`]);
+
+  await runTypeChain({
+    cwd,
+    filesToProcess: allFiles,
+    allFiles,
+    outDir: TYPES_DIRECTORY_PATH,
+    target: 'ethers-v5',
+  });
+
+  console.log('Finished generating contract types');
 
   // TODO: generate contract functions
 
