@@ -128,6 +128,7 @@ export function Table<R>({
 
       <TableCards
         data={sortedData}
+        isFetching={isFetching}
         rowKeyExtractor={rowKeyExtractor}
         rowOnClick={rowOnClick}
         getRowHref={getRowHref}

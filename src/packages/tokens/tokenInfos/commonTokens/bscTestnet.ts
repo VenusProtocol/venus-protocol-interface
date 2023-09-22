@@ -1,6 +1,6 @@
 import aaveLogo from 'packages/tokens/img/aave.svg';
 import adaLogo from 'packages/tokens/img/ada.svg';
-import alpacaLogo from 'packages/tokens/img/alpaca.svg';
+import alpacaLogo from 'packages/tokens/img/alpaca.png';
 import ankrLogo from 'packages/tokens/img/ankr.svg';
 import ankrBNBLogo from 'packages/tokens/img/ankrBNB.svg';
 import bifiLogo from 'packages/tokens/img/bifi.png';
