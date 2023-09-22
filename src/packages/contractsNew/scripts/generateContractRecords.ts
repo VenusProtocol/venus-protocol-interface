@@ -11,7 +11,7 @@ const ABIS_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/abis`;
 const TYPES_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/types`;
 
 const generateContractRecords = async () => {
-  console.log('Extracting contract infos...');
+  console.log('Generating contract ABIs, addresses and functions...');
 
   // Open addresses output
   let addressesOutput = 'export default {';
@@ -30,6 +30,8 @@ const generateContractRecords = async () => {
     );
     fs.writeFileSync(abiOutputFilePath, abiOutput, 'utf8');
 
+    // Write functions
+
     // Add address to list
     if (!('address' in contractConfig)) {
       return;
@@ -38,22 +40,16 @@ const generateContractRecords = async () => {
     addressesOutput += `${contractConfig.name}: {
       ${Object.entries(contractConfig.address)
         .map(([chainId, address]) => {
-          let formattedAddressOutput = '';
+          // TODO: handle SwapRouter contract
+          // // Handle object addresses (e.g.: SwapRouter contract)
+          // formattedAddressOutput = `{${Object.entries(address)
+          //   .map(
+          //     ([comptrollerContractAddress, swapRouterContractAddress]) =>
+          //       `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
+          //   )
+          //   .join('')}}`;
 
-          if (typeof address === 'string') {
-            // Handle string addresses (e.g.: VenusLens contract)
-            formattedAddressOutput = `'${address}'`;
-          } else {
-            // Handle object addresses (e.g.: SwapRouter contract)
-            formattedAddressOutput = `{${Object.entries(address)
-              .map(
-                ([comptrollerContractAddress, swapRouterContractAddress]) =>
-                  `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
-              )
-              .join('')}}`;
-          }
-
-          return `${chainId}: ${formattedAddressOutput},`;
+          return `${chainId}: '${address}',`;
         })
         .join('')}
     },
@@ -67,28 +63,23 @@ const generateContractRecords = async () => {
   const addressesOutputFilePath = path.join(process.cwd(), ADDRESSES_FILE_PATH);
   fs.writeFileSync(addressesOutputFilePath, addressesOutput, 'utf8');
 
-  console.log('Finished extracting contract infos');
+  console.log('Finished generating contract ABIs, addresses and functions');
 
   // Generate contract types
   console.log('Generating contract types...');
 
   const cwd = process.cwd();
-  // find all files matching the glob
-  const allFiles = glob(cwd, [`${ABIS_DIRECTORY_PATH}/**/+([a-zA-Z0-9_]).json`]);
+  const abiFiles = glob(cwd, [`${ABIS_DIRECTORY_PATH}/**/+([a-zA-Z0-9_]).json`]);
 
   await runTypeChain({
     cwd,
-    filesToProcess: allFiles,
-    allFiles,
+    filesToProcess: abiFiles,
+    allFiles: abiFiles,
     outDir: TYPES_DIRECTORY_PATH,
     target: 'ethers-v5',
   });
 
   console.log('Finished generating contract types');
-
-  // TODO: generate contract functions
-
-  // TODO: prettify generated files
 };
 
 console.log('Generating contracts...');
