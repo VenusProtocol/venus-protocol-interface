@@ -1,4 +1,4 @@
-import addresses from 'packages/contractsNew/generated/contractInfos/addresses';
+import addresses from 'packages/contractsNew/infos/addresses';
 import { ChainId } from 'types';
 
 export type UniqueContractName = keyof typeof addresses;

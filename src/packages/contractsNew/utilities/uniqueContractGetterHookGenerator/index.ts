@@ -15,9 +15,9 @@ export interface UniqueContractGetterHookInput {
 
 const uniqueContractGetterHookGenerator =
   <TContract extends Contract>({ getter }: UniqueContractGetterHookGeneratorInput<TContract>) =>
-  ({ passSigner }: UniqueContractGetterHookInput) => {
+  (input?: UniqueContractGetterHookInput) => {
     const { signer, provider, chainId } = useAuth();
-    const signerOrProvider = passSigner ? signer : provider;
+    const signerOrProvider = input?.passSigner ? signer : provider;
 
     return useMemo(
       () =>

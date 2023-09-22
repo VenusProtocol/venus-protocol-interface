@@ -1,14 +1,24 @@
 #!/usr/bin/env tsx
-import * as fs from 'fs';
-import * as path from 'path';
 import { glob, runTypeChain } from 'typechain';
 
-import { contracts } from './config';
+import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
+import writeFile from 'utilities/writeFile';
 
-const CONTRACTS_PACKAGE_PATH = './src/packages/contractsNew/generated';
-const ADDRESSES_FILE_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/addresses.ts`;
-const ABIS_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/abis`;
-const TYPES_DIRECTORY_PATH = `${CONTRACTS_PACKAGE_PATH}/contractInfos/types`;
+import { contracts } from '../../config';
+import generateContractGetters from './generateContractGetters';
+
+const GETTERS_DIRECTORY_PATH = getAbsolutePath({
+  relativePath: 'getters',
+});
+const ABIS_DIRECTORY_PATH = getAbsolutePath({
+  relativePath: 'infos/abis',
+});
+const TYPES_DIRECTORY_PATH = getAbsolutePath({
+  relativePath: 'infos/types',
+});
+const ADDRESSES_FILE_PATH = getAbsolutePath({
+  relativePath: 'infos/addresses.ts',
+});
 
 const generateContractRecords = async () => {
   console.log('Generating contract ABIs, addresses and functions...');
@@ -16,26 +26,24 @@ const generateContractRecords = async () => {
   // Open addresses output
   let addressesOutput = 'export default {';
 
-  // Create directories
-  await fs.promises.mkdir(ABIS_DIRECTORY_PATH, { recursive: true });
-  await fs.promises.mkdir(TYPES_DIRECTORY_PATH, { recursive: true });
-
   // Go through config and extract ABIs and contract addresses
   contracts.forEach(contractConfig => {
     // Write ABI into a separate file
-    const abiOutput = JSON.stringify(contractConfig.abi);
-    const abiOutputFilePath = path.join(
-      process.cwd(),
-      `${ABIS_DIRECTORY_PATH}/${contractConfig.name}.json`,
-    );
-    fs.writeFileSync(abiOutputFilePath, abiOutput, 'utf8');
-
-    // Write functions
+    writeFile({
+      outputPath: `${ABIS_DIRECTORY_PATH}/${contractConfig.name}.json`,
+      content: JSON.stringify(contractConfig.abi),
+    });
 
     // Add address to list
     if (!('address' in contractConfig)) {
       return;
     }
+
+    // Generate getter functions
+    generateContractGetters({
+      contractConfig,
+      directoryPath: GETTERS_DIRECTORY_PATH,
+    });
 
     addressesOutput += `${contractConfig.name}: {
       ${Object.entries(contractConfig.address)
@@ -59,9 +67,11 @@ const generateContractRecords = async () => {
   // Close addresses output
   addressesOutput += '};';
 
-  // Write addresses file
-  const addressesOutputFilePath = path.join(process.cwd(), ADDRESSES_FILE_PATH);
-  fs.writeFileSync(addressesOutputFilePath, addressesOutput, 'utf8');
+  // Generate addresses file
+  writeFile({
+    outputPath: ADDRESSES_FILE_PATH,
+    content: addressesOutput,
+  });
 
   console.log('Finished generating contract ABIs, addresses and functions');
 
@@ -85,5 +95,5 @@ const generateContractRecords = async () => {
 console.log('Generating contracts...');
 
 generateContractRecords()
-  .then(() => console.log(`Finished generating contracts at: ${CONTRACTS_PACKAGE_PATH}`))
+  .then(() => console.log('Finished generating contracts'))
   .catch(console.error);
