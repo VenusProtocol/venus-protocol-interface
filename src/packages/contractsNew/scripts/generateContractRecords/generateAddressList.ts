@@ -16,7 +16,7 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
 
   // Go through config and extract ABIs and contract addresses
   contractConfigs.forEach(contractConfig => {
-    // Add address to list
+    // Ignore generic contracts
     if (!('address' in contractConfig)) {
       return;
     }
