@@ -1,6 +1,18 @@
+import * as fs from 'fs';
+import { compile } from 'handlebars';
 import { ContractConfig } from 'packages/contractsNew/config';
 
+import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
 import writeFile from 'utilities/writeFile';
+
+const TEMPLATES_DIRECTORY = getAbsolutePath({
+  relativePath: 'scripts/generateContractRecords/templates',
+});
+
+const uniqueContractGettersTemplateBuffer = fs.readFileSync(
+  `${TEMPLATES_DIRECTORY}/uniqueContractGettersTemplate.hbs`,
+);
+const uniqueContractGettersTemplate = compile(uniqueContractGettersTemplateBuffer.toString());
 
 export interface GenerateContractGettersInput {
   directoryPath: string;
@@ -11,23 +23,7 @@ const generateContractGetters = ({
   directoryPath,
   contractConfig,
 }: GenerateContractGettersInput) => {
-  const functionOutput = `
-    import abi from 'packages/contractsNew/infos/abis/${contractConfig.name}.json';
-    import { ${contractConfig.name} } from 'packages/contractsNew/infos/types';
-
-    import uniqueContractGetterGenerator from 'packages/contractsNew/utilities/uniqueContractGetterGenerator';
-    import uniqueContractGetterHookGenerator from 'packages/contractsNew/utilities/uniqueContractGetterHookGenerator';
-
-    export const get${contractConfig.name}Contract = uniqueContractGetterGenerator<${contractConfig.name}>({
-      name: '${contractConfig.name}',
-      abi,
-    });
-
-    export const useGet${contractConfig.name}Contract = uniqueContractGetterHookGenerator({
-      getter: get${contractConfig.name}Contract,
-    });
-  `;
-
+  const functionOutput = uniqueContractGettersTemplate({ contractName: contractConfig.name });
   const functionOutputFileName = `${contractConfig.name[0].toLowerCase()}${contractConfig.name.substring(
     1,
   )}`;

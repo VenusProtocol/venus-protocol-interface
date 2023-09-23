@@ -136,6 +136,7 @@
     "eslint-plugin-storybook": "^0.6.13",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
+    "handlebars": "^4.7.8",
     "history": "^5.3.0",
     "husky": "^8.0.3",
     "i18next-parser": "^8.4.0",
