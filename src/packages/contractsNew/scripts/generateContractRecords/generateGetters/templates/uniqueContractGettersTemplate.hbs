@@ -2,13 +2,13 @@ import abi from 'packages/contractsNew/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'packages/contractsNew/infos/types';
 
 import uniqueContractGetterGenerator from 'packages/contractsNew/utilities/uniqueContractGetterGenerator';
-import uniqueContractGetterHookGenerator from 'packages/contractsNew/utilities/uniqueContractGetterHookGenerator';
+import contractGetterHookGenerator from 'packages/contractsNew/utilities/contractGetterHookGenerator';
 
 export const get{{contractName}}Contract = uniqueContractGetterGenerator<{{contractName}}>({
   name: '{{contractName}}',
   abi,
 });
 
-export const useGet{{contractName}}Contract = uniqueContractGetterHookGenerator({
+export const useGet{{contractName}}Contract = contractGetterHookGenerator({
   getter: get{{contractName}}Contract,
 });

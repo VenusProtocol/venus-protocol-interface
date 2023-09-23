@@ -5,17 +5,17 @@ import { useAuth } from 'context/AuthContext';
 
 import { UniqueContractGetter } from '../uniqueContractGetterGenerator';
 
-export interface UniqueContractGetterHookGeneratorInput<TContract extends Contract> {
+export interface ContractGetterHookGeneratorInput<TContract extends Contract> {
   getter: UniqueContractGetter<TContract>;
 }
 
-export interface UniqueContractGetterHookInput {
+export interface ContractGetterHookInput {
   passSigner: boolean;
 }
 
-const uniqueContractGetterHookGenerator =
-  <TContract extends Contract>({ getter }: UniqueContractGetterHookGeneratorInput<TContract>) =>
-  (input?: UniqueContractGetterHookInput) => {
+const contractGetterHookGenerator =
+  <TContract extends Contract>({ getter }: ContractGetterHookGeneratorInput<TContract>) =>
+  (input?: ContractGetterHookInput) => {
     const { signer, provider, chainId } = useAuth();
     const signerOrProvider = input?.passSigner ? signer : provider;
 
@@ -31,4 +31,4 @@ const uniqueContractGetterHookGenerator =
     );
   };
 
-export default uniqueContractGetterHookGenerator;
+export default contractGetterHookGenerator;

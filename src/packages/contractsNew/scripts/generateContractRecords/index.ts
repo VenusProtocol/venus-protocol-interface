@@ -5,7 +5,10 @@ import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
 import writeFile from 'utilities/writeFile';
 
 import { contracts } from '../../config';
-import generateContractGetters from './generateContractGetters';
+import generateAbis from './generateAbis';
+import generateAddressList from './generateAddressList';
+import generateGetters from './generateGetters';
+import generateTypes from './generateTypes';
 
 const GETTERS_DIRECTORY_PATH = getAbsolutePath({
   relativePath: 'getters',
@@ -20,80 +23,34 @@ const ADDRESSES_FILE_PATH = getAbsolutePath({
   relativePath: 'infos/addresses.ts',
 });
 
-const generateContractRecords = async () => {
-  console.log('Generating contract ABIs, addresses and functions...');
-
-  // Open addresses output
-  let addressesOutput = 'export default {';
-
-  // Go through config and extract ABIs and contract addresses
-  contracts.forEach(contractConfig => {
-    // Write ABI into a separate file
-    writeFile({
-      outputPath: `${ABIS_DIRECTORY_PATH}/${contractConfig.name}.json`,
-      content: JSON.stringify(contractConfig.abi),
-    });
-
-    // Add address to list
-    if (!('address' in contractConfig)) {
-      return;
-    }
-
-    // Generate getter functions
-    generateContractGetters({
-      contractConfig,
-      directoryPath: GETTERS_DIRECTORY_PATH,
-    });
-
-    addressesOutput += `${contractConfig.name}: {
-      ${Object.entries(contractConfig.address)
-        .map(([chainId, address]) => {
-          // TODO: handle SwapRouter contract
-          // // Handle object addresses (e.g.: SwapRouter contract)
-          // formattedAddressOutput = `{${Object.entries(address)
-          //   .map(
-          //     ([comptrollerContractAddress, swapRouterContractAddress]) =>
-          //       `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
-          //   )
-          //   .join('')}}`;
-
-          return `${chainId}: '${address}',`;
-        })
-        .join('')}
-    },
-    `;
+const generateContracts = async () => {
+  // Generate address list
+  generateAddressList({
+    contractConfigs: contracts,
+    outputFilePath: ADDRESSES_FILE_PATH,
   });
 
-  // Close addresses output
-  addressesOutput += '};';
-
-  // Generate addresses file
-  writeFile({
-    outputPath: ADDRESSES_FILE_PATH,
-    content: addressesOutput,
+  // Generate ABIs
+  generateAbis({
+    contractConfigs: contracts,
+    outputDirectoryPath: ABIS_DIRECTORY_PATH,
   });
-
-  console.log('Finished generating contract ABIs, addresses and functions');
 
   // Generate contract types
-  console.log('Generating contract types...');
-
-  const cwd = process.cwd();
-  const abiFiles = glob(cwd, [`${ABIS_DIRECTORY_PATH}/**/+([a-zA-Z0-9_]).json`]);
-
-  await runTypeChain({
-    cwd,
-    filesToProcess: abiFiles,
-    allFiles: abiFiles,
-    outDir: TYPES_DIRECTORY_PATH,
-    target: 'ethers-v5',
+  await generateTypes({
+    abiDirectoryPath: ABIS_DIRECTORY_PATH,
+    outputDirectoryPath: TYPES_DIRECTORY_PATH,
   });
 
-  console.log('Finished generating contract types');
+  // Generate getter functions
+  generateGetters({
+    contractConfigs: contracts,
+    outputDirectoryPath: GETTERS_DIRECTORY_PATH,
+  });
 };
 
 console.log('Generating contracts...');
 
-generateContractRecords()
+generateContracts()
   .then(() => console.log('Finished generating contracts'))
   .catch(console.error);
