@@ -1,8 +1,8 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, ContractInterface, Signer } from 'ethers';
+import getUniqueContractAddress from 'packages/contractsNew/getUniqueContractAddress';
+import { UniqueContractName } from 'packages/contractsNew/infos/types';
 import { ChainId } from 'types';
-
-import getUniqueContractAddress, { UniqueContractName } from '../../getUniqueContractAddress';
 
 export interface UniqueContractGetterGeneratorInput {
   name: UniqueContractName;

@@ -1,5 +1,6 @@
 import { ContractConfig } from 'packages/contractsNew/config';
 
+import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {
@@ -23,15 +24,17 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
     addressesOutput += `${contractConfig.name}: {
       ${Object.entries(contractConfig.address)
         .map(([chainId, address]) => {
-          // TODO: handle SwapRouter contract
-          // // Handle object addresses (e.g.: SwapRouter contract)
-          // formattedAddressOutput = `{${Object.entries(address)
-          //   .map(
-          //     ([comptrollerContractAddress, swapRouterContractAddress]) =>
-          //       `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
-          //   )
-          //   .join('')}}`;
+          if (isSwapRouterContractConfig(contractConfig)) {
+            // Handle SwapRouter contract
+            return `${chainId}: {${Object.entries(address)
+              .map(
+                ([comptrollerContractAddress, swapRouterContractAddress]) =>
+                  `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
+              )
+              .join('')}},`;
+          }
 
+          // Handle other contracts
           return `${chainId}: '${address}',`;
         })
         .join('')}

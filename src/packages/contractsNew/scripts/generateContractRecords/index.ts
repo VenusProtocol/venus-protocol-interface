@@ -1,8 +1,5 @@
 #!/usr/bin/env tsx
-import { glob, runTypeChain } from 'typechain';
-
 import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
-import writeFile from 'utilities/writeFile';
 
 import { contracts } from '../../config';
 import generateAbis from './generateAbis';
@@ -10,16 +7,19 @@ import generateAddressList from './generateAddressList';
 import generateGetters from './generateGetters';
 import generateTypes from './generateTypes';
 
-const GETTERS_DIRECTORY_PATH = getAbsolutePath({
+const GETTERS_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
   relativePath: 'getters',
 });
-const ABIS_DIRECTORY_PATH = getAbsolutePath({
+const ABIS_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
   relativePath: 'infos/abis',
 });
-const TYPES_DIRECTORY_PATH = getAbsolutePath({
-  relativePath: 'infos/types',
+const CONTRACT_TYPES_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
+  relativePath: 'infos/contractTypes',
 });
-const ADDRESSES_FILE_PATH = getAbsolutePath({
+const TYPES_OUTPUT_FILE_PATH = getAbsolutePath({
+  relativePath: 'infos/types.ts',
+});
+const ADDRESSES_OUTPUT_FILE_PATH = getAbsolutePath({
   relativePath: 'infos/addresses.ts',
 });
 
@@ -27,25 +27,27 @@ const generateContracts = async () => {
   // Generate address list
   generateAddressList({
     contractConfigs: contracts,
-    outputFilePath: ADDRESSES_FILE_PATH,
+    outputFilePath: ADDRESSES_OUTPUT_FILE_PATH,
   });
 
   // Generate ABIs
   generateAbis({
     contractConfigs: contracts,
-    outputDirectoryPath: ABIS_DIRECTORY_PATH,
+    outputDirectoryPath: ABIS_OUTPUT_DIRECTORY_PATH,
   });
 
   // Generate contract types
   await generateTypes({
-    abiDirectoryPath: ABIS_DIRECTORY_PATH,
-    outputDirectoryPath: TYPES_DIRECTORY_PATH,
+    contractConfigs: contracts,
+    abiDirectoryPath: ABIS_OUTPUT_DIRECTORY_PATH,
+    typesOutputDirectoryPath: TYPES_OUTPUT_FILE_PATH,
+    contractTypesOutputDirectoryPath: CONTRACT_TYPES_OUTPUT_DIRECTORY_PATH,
   });
 
   // Generate getter functions
   generateGetters({
     contractConfigs: contracts,
-    outputDirectoryPath: GETTERS_DIRECTORY_PATH,
+    outputDirectoryPath: GETTERS_OUTPUT_DIRECTORY_PATH,
   });
 };
 
