@@ -5,6 +5,7 @@ import { glob, runTypeChain } from 'typechain';
 
 import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
+import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 
 const TYPES_TEMPLATE_FILE_PATH = getAbsolutePath({
@@ -30,7 +31,7 @@ const generateTypes = async ({
   console.log('Generating contract types...');
 
   // Generate individual contract types
-  const cwd = process.cwd();
+  const cwd = processCwd();
   const abiFiles = glob(cwd, [`${abiDirectoryPath}/**/+([a-zA-Z0-9_]).json`]);
 
   await runTypeChain({
