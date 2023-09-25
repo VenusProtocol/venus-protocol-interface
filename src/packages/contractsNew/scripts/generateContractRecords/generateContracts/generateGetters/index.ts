@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import { compile } from 'handlebars';
+import { readFileSync } from 'node:fs';
 import { ContractConfig } from 'packages/contractsNew/config';
 
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
@@ -7,17 +7,17 @@ import writeFile from 'utilities/writeFile';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
 
-const uniqueContractGettersTemplateBuffer = fs.readFileSync(
+const uniqueContractGettersTemplateBuffer = readFileSync(
   `${TEMPLATES_DIRECTORY}/uniqueContractGettersTemplate.hbs`,
 );
 const uniqueContractGettersTemplate = compile(uniqueContractGettersTemplateBuffer.toString());
 
-const genericContractGettersTemplateBuffer = fs.readFileSync(
+const genericContractGettersTemplateBuffer = readFileSync(
   `${TEMPLATES_DIRECTORY}/genericContractGettersTemplate.hbs`,
 );
 const genericContractGettersTemplate = compile(genericContractGettersTemplateBuffer.toString());
 
-const swapRouterContractGettersTemplateBuffer = fs.readFileSync(
+const swapRouterContractGettersTemplateBuffer = readFileSync(
   `${TEMPLATES_DIRECTORY}/swapRouterContractGettersTemplate.hbs`,
 );
 const swapRouterContractGettersTemplate = compile(

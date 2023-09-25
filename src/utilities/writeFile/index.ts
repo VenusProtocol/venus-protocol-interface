@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 
 import { AUTOMATICALLY_GENERATED_FILE_WARNING_MESSAGE } from 'constants/automaticallyGeneratedFileWarningMessage';
 
@@ -24,10 +24,10 @@ const writeFile = ({ outputPath, content }: WriteFileInput) => {
   const directoryPathElements = outputPath.split('/');
   directoryPathElements.pop();
   const directoryPath = directoryPathElements.join('/');
-  fs.mkdirSync(directoryPath, { recursive: true });
+  mkdirSync(directoryPath, { recursive: true });
 
   // Write file
-  fs.writeFileSync(outputPath, formattedContent, 'utf8');
+  writeFileSync(outputPath, formattedContent, 'utf8');
 };
 
 export default writeFile;

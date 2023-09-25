@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import { compile } from 'handlebars';
+import { readFileSync } from 'node:fs';
 import { ContractConfig } from 'packages/contractsNew/config';
 import { glob, runTypeChain } from 'typechain';
 
@@ -9,7 +9,7 @@ import writeFile from 'utilities/writeFile';
 
 const TYPES_TEMPLATE_FILE_PATH = `${__dirname}/typesTemplate.hbs`;
 
-const typesTemplateBuffer = fs.readFileSync(TYPES_TEMPLATE_FILE_PATH);
+const typesTemplateBuffer = readFileSync(TYPES_TEMPLATE_FILE_PATH);
 const typesTemplate = compile(typesTemplateBuffer.toString());
 
 export interface GenerateTypesInput {
