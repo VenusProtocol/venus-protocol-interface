@@ -4,7 +4,7 @@ import genericContractGetterGenerator from '..';
 
 const fakeProvider = new providers.JsonRpcProvider();
 
-describe('packages/contracts/utilities/genericContractGetterGenerator', () => {
+describe('genericContractGetterGenerator', () => {
   it('returns Contract instance', () => {
     const fakeAddress = 'fake-address';
     const fakeAbi: ContractInterface = [];

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`packages/contracts/scripts/generateContractRecords/generateGetters > calls writeFile with the right arguments 1`] = `
+exports[`generateGetters > calls writeFile with the right arguments 1`] = `
 [
   {
     "content": "import abi from 'packages/contractsNew/infos/abis/PoolLens.json';
@@ -23,7 +23,7 @@ export const useGetPoolLensContract = uniqueContractGetterHookGenerator({
 ]
 `;
 
-exports[`packages/contracts/scripts/generateContractRecords/generateGetters > calls writeFile with the right arguments 2`] = `
+exports[`generateGetters > calls writeFile with the right arguments 2`] = `
 [
   {
     "content": "import abi from 'packages/contractsNew/infos/abis/IsolatedPoolComptroller.json';
@@ -45,7 +45,7 @@ export const useGetIsolatedPoolComptrollerContract = genericContractGetterHookGe
 ]
 `;
 
-exports[`packages/contracts/scripts/generateContractRecords/generateGetters > calls writeFile with the right arguments 3`] = `
+exports[`generateGetters > calls writeFile with the right arguments 3`] = `
 [
   {
     "content": "import abi from 'packages/contractsNew/infos/abis/SwapRouter.json';

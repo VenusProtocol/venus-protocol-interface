@@ -2,7 +2,7 @@ import { ContractConfig } from 'packages/contractsNew/config';
 
 import isSwapRouterContractConfig from '..';
 
-describe('packages/contracts/utilities/isSwapRouterContractConfig', () => {
+describe('isSwapRouterContractConfig', () => {
   it('returns true when contract config is of type SwapRouterContractConfig', () => {
     const fakeContractConfig: ContractConfig = {
       name: 'SwapRouter',

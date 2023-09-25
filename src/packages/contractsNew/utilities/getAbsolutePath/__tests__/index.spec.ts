@@ -6,7 +6,7 @@ import getAbsolutePath from '..';
 
 vi.mock('utilities/cwd');
 
-describe('packages/contracts/utilities/getAbsolutePath', () => {
+describe('getAbsolutePath', () => {
   beforeEach(() => {
     (cwd as Vi.Mock).mockImplementation(() => './fake/cwd');
   });

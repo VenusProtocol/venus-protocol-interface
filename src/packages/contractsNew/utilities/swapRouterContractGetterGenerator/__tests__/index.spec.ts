@@ -13,7 +13,7 @@ vi.mock('packages/contractsNew/getSwapRouterContractAddress');
 
 const fakeProvider = new providers.JsonRpcProvider();
 
-describe('packages/contracts/utilities/swapRouterContractGetterGenerator', () => {
+describe('swapRouterContractGetterGenerator', () => {
   it('returns Contract instance when contract exists', () => {
     (getSwapRouterContractAddress as Vi.Mock).mockImplementation(
       () => fakeSwapRouterContractAddress,

@@ -24,7 +24,7 @@ const fakeContractConfigs: ContractConfig[] = [
   },
 ];
 
-describe('packages/contracts/scripts/generateContractRecords/generateGetters', () => {
+describe('generateGetters', () => {
   it('calls writeFile with the right arguments', () => {
     generateGetters({
       outputDirectoryPath: 'fake/output/director/path',

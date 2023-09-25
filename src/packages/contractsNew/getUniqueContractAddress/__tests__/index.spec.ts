@@ -6,7 +6,7 @@ import getUniqueContractAddress from '..';
 
 const existingContractName = Object.keys(addresses)[0] as UniqueContractName;
 
-describe('packages/contracts/config/getUniqueContractAddress', () => {
+describe('getUniqueContractAddress', () => {
   it('returns contract address if it exists', () => {
     const existingContractChainId = +Object.keys(addresses[existingContractName])[0] as ChainId;
 

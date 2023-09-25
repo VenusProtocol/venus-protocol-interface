@@ -8,7 +8,7 @@ const existingSwapRouterComptrollerAddress = Object.keys(
   addresses.SwapRouter[existingSwapRouterChainId],
 )[0];
 
-describe('packages/contracts/config/getSwapRouterContractAddress', () => {
+describe('getSwapRouterContractAddress', () => {
   it('returns contract address if it exists', () => {
     const result = getSwapRouterContractAddress({
       comptrollerAddress: existingSwapRouterComptrollerAddress,

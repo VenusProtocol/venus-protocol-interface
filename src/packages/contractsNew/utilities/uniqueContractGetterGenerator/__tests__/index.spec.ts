@@ -11,7 +11,7 @@ vi.mock('packages/contractsNew/getUniqueContractAddress');
 
 const fakeProvider = new providers.JsonRpcProvider();
 
-describe('packages/contracts/utilities/uniqueContractGetterGenerator', () => {
+describe('uniqueContractGetterGenerator', () => {
   it('returns Contract instance when contract exists', () => {
     (getUniqueContractAddress as Vi.Mock).mockImplementation(() => fakeSwapRouterContractAddress);
 
