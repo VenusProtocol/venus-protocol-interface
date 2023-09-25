@@ -1,4 +1,3 @@
-import { useGetIsolatedPoolComptrollerContract } from 'packages/contractsNew/getters/isolatedPoolComptroller';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

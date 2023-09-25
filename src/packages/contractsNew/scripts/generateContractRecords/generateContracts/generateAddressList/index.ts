@@ -12,7 +12,7 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
   // Open addresses output
   let addressesOutput = 'export default {';
 
-  // Go through config and extract ABIs and contract addresses
+  // Go through config and extract contract addresses
   contractConfigs.forEach(contractConfig => {
     // Ignore generic contracts
     if (!('address' in contractConfig)) {

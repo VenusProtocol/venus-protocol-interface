@@ -2,7 +2,7 @@
 
 exports[`generateTypes > calls runTypeChain and writeFile with the right arguments 1`] = `
 [
-  "/Users/emjy/Code/venus/interface",
+  "fake/cwd/path",
   [
     "fake/abi/directory/path/**/+([a-zA-Z0-9_]).json",
   ],
@@ -19,7 +19,7 @@ exports[`generateTypes > calls runTypeChain and writeFile with the right argumen
       "fake/abis/directory/JumpRateModel.json",
       "fake/abis/directory/JumpRateModelV2.json",
     ],
-    "cwd": "/Users/emjy/Code/venus/interface",
+    "cwd": "fake/cwd/path",
     "filesToProcess": [
       "fake/abis/directory/Bep20.json",
       "fake/abis/directory/GovernorBravoDelegate.json",

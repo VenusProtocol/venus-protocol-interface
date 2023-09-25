@@ -2,12 +2,14 @@ import fakeContractConfigs from 'packages/contractsNew/__testUtils__/fakeConfig'
 import { glob, runTypeChain } from 'typechain';
 import Vi from 'vitest';
 
+import cwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 
 import generateTypes from '..';
 
 vi.mock('typechain');
 vi.mock('utilities/writeFile');
+vi.mock('utilities/cwd');
 
 describe('generateTypes', () => {
   beforeEach(() => {
@@ -18,6 +20,8 @@ describe('generateTypes', () => {
       'fake/abis/directory/JumpRateModel.json',
       'fake/abis/directory/JumpRateModelV2.json',
     ]);
+
+    (cwd as Vi.Mock).mockImplementation(() => 'fake/cwd/path');
   });
 
   it('calls runTypeChain and writeFile with the right arguments', async () => {

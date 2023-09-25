@@ -30,10 +30,10 @@ import { type ContractInterface } from 'ethers';
 import { ChainId } from 'types';
 
 import MaximillionAbi from './externalAbis/Maximillion.json';
+import multicall3Abi from './externalAbis/Multicall3.json';
+import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import vBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
-import multicall3Abi from './externalAbis/multicall3.json';
-import pancakePairV2Abi from './externalAbis/pancakePairV2.json';
-import vBnbAbi from './externalAbis/vBnb.json';
 
 export interface UniqueContractConfig {
   name: string;
