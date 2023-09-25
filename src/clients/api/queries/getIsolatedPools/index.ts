@@ -1,20 +1,17 @@
-import {
-  ContractCallContext,
-  ContractCallResults,
-  ContractCallReturnContext,
-} from 'ethereum-multicall';
-import _cloneDeep from 'lodash/cloneDeep';
-import { contractInfos } from 'packages/contracts';
+import { ContractTypeByName, getGenericContract } from 'packages/contracts';
 import { Token } from 'types';
-import { areTokensEqual } from 'utilities';
+import { areTokensEqual, findTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
-import findTokenByAddress from 'utilities/findTokenByAddress';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
+import removeDuplicates from 'utilities/removeDuplicates';
 
 import getBlockNumber from '../getBlockNumber';
-import getTokenBalances, { GetTokenBalancesOutput } from '../getTokenBalances';
+import getTokenBalances from '../getTokenBalances';
 import formatOutput from './formatOutput';
+import getRewardsDistributorSettingsMapping from './getRewardsDistributorSettingsMapping';
+import getTokenPriceDollarsMapping from './getTokenPriceDollarsMapping';
 import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
@@ -34,12 +31,11 @@ const getIsolatedPools = async ({
   accountAddress,
   poolLensContract,
   poolRegistryContractAddress,
-  resilientOracleContractAddress,
+  resilientOracleContract,
   provider,
   tokens,
-  multicall3,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
-  const [poolsResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
+  const [poolResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
     // Fetch all pools
     poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
@@ -49,7 +45,7 @@ const getIsolatedPools = async ({
   ]);
 
   // Extract token records and addresses
-  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolsResults.reduce<
+  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolResults.reduce<
     [string[], Token[], string[]]
   >(
     (acc, poolResult) => {
@@ -69,7 +65,7 @@ const getIsolatedPools = async ({
         }
 
         if (!newVTokenAddresses.includes(vTokenMetaData.vToken)) {
-          newVTokenAddresses.push(vTokenMetaData.vToken);
+          newVTokenAddresses.push(vTokenMetaData.vToken.toLowerCase());
         }
 
         if (
@@ -80,8 +76,8 @@ const getIsolatedPools = async ({
           newUnderlyingTokens.push(underlyingToken);
         }
 
-        if (!newUnderlyingTokenAddresses.includes(underlyingToken.address)) {
-          newUnderlyingTokenAddresses.push(underlyingToken.address);
+        if (!newUnderlyingTokenAddresses.includes(underlyingToken.address.toLowerCase())) {
+          newUnderlyingTokenAddresses.push(underlyingToken.address.toLowerCase());
         }
       });
 
@@ -94,189 +90,88 @@ const getIsolatedPools = async ({
     [[], [], []],
   );
 
-  // Fetch addresses of reward distributors and user collaterals
-  const comptrollerCallsContext: ContractCallContext[] = poolsResults.map(result => {
-    const calls: ContractCallContext['calls'] = [
-      {
-        reference: 'getRewardDistributors',
-        methodName: 'getRewardDistributors',
-        methodParameters: [],
-      },
-    ];
+  // Fetch reward distributors and addresses of user collaterals
+  const getRewardDistributorsPromises: ReturnType<
+    ContractTypeByName<'isolatedPoolComptroller'>['getRewardDistributors']
+  >[] = [];
+  const getAssetsInPromises: ReturnType<
+    ContractTypeByName<'isolatedPoolComptroller'>['getAssetsIn']
+  >[] = [];
+
+  poolResults.forEach(poolResult => {
+    const comptrollerContract = getGenericContract({
+      name: 'isolatedPoolComptroller',
+      signerOrProvider: provider,
+      address: poolResult.comptroller,
+    });
+
+    getRewardDistributorsPromises.push(comptrollerContract.getRewardDistributors());
 
     if (accountAddress) {
-      calls.push({
-        reference: 'getAssetsIn',
-        methodName: 'getAssetsIn(address)',
-        methodParameters: [accountAddress],
-      });
+      getAssetsInPromises.push(comptrollerContract.getAssetsIn(accountAddress));
     }
-
-    return {
-      reference: result.comptroller,
-      contractAddress: result.comptroller,
-      abi: contractInfos.isolatedPoolComptroller.abi,
-      calls,
-    };
   });
 
-  const multicallContexts: ContractCallContext[] = comptrollerCallsContext;
+  const settledGetRewardDistributorsPromises = Promise.allSettled(getRewardDistributorsPromises);
+  const settledGetAssetsInPromises = Promise.allSettled(getAssetsInPromises);
+  const settledUserPromises = Promise.allSettled([
+    accountAddress
+      ? poolLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
+      : undefined,
+    accountAddress
+      ? getTokenBalances({
+          accountAddress,
+          tokens: underlyingTokens,
+          provider,
+        })
+      : undefined,
+  ]);
 
-  // Fetch user vToken balances
-  if (accountAddress) {
-    const poolLensCallContext: ContractCallContext = {
-      reference: 'poolLens',
-      contractAddress: poolLensContract.address,
-      abi: contractInfos.poolLens.abi,
-      calls: [
-        {
-          reference: 'vTokenBalancesAll',
-          methodName: 'vTokenBalancesAll',
-          methodParameters: [vTokenAddresses, accountAddress],
-        },
-      ],
-    };
+  const getRewardDistributorsResults = await settledGetRewardDistributorsPromises;
+  const [userVTokenBalancesAllResult, userTokenBalancesResult] = await settledUserPromises;
+  const userAssetsInResults = await settledGetAssetsInPromises;
 
-    multicallContexts.unshift(poolLensCallContext);
-  }
+  // Get addresses of user collaterals
+  const userCollateralizedVTokenAddresses = removeDuplicates(
+    userAssetsInResults.reduce<string[]>((acc, userAssetsInResult) => {
+      const result = extractSettledPromiseValue(userAssetsInResult);
 
-  const multicallPromise = multicall3.call(multicallContexts);
-  let multicallOutput: ContractCallResults | undefined;
-  let userWalletTokenBalances: GetTokenBalancesOutput | undefined;
-  let poolLensResult: ContractCallReturnContext | undefined;
-  let comptrollerCallUnformattedResults:
-    | {
-        [key: string]: ContractCallReturnContext;
-      }
-    | undefined;
-
-  if (accountAddress) {
-    [multicallOutput, userWalletTokenBalances] = await Promise.all([
-      multicallPromise,
-      // Fetch wallet token balances
-      getTokenBalances({
-        accountAddress,
-        tokens: underlyingTokens,
-        provider,
-      }),
-    ]);
-
-    const { poolLens, ...remainingResults } = multicallOutput.results;
-
-    poolLensResult = poolLens;
-    comptrollerCallUnformattedResults = remainingResults;
-  } else {
-    multicallOutput = await multicallPromise;
-    comptrollerCallUnformattedResults = multicallOutput.results;
-  }
-
-  // Fetch reward distributors
-  const comptrollerResults = Object.values(comptrollerCallUnformattedResults);
-
-  const rewardsDistributorsCallsContexts = comptrollerResults.reduce<ContractCallContext[]>(
-    (acc, res) => {
-      const pool = poolsResults.find(
-        item =>
-          item.comptroller.toLowerCase() ===
-          res.originalContractCallContext.contractAddress.toLowerCase(),
-      );
-
-      if (!pool) {
+      if (!result) {
+        logError(`Could not fetch addresses of collaterals of user: ${accountAddress}`);
         return acc;
       }
 
-      const poolVTokenAddresses = pool.vTokens.map(item => item.vToken);
-      const rewardsDistributorAddresses = res.callsReturnContext[0].returnValues;
-
-      const rewardsDistributorCalls = poolVTokenAddresses.reduce<ContractCallContext['calls']>(
-        (acc2, vTokenAddress) =>
-          acc2.concat([
-            {
-              reference: 'rewardTokenSupplySpeed',
-              methodName: 'rewardTokenSupplySpeeds',
-              methodParameters: [vTokenAddress],
-            },
-            {
-              reference: 'rewardTokenBorrowSpeed',
-              methodName: 'rewardTokenBorrowSpeeds',
-              methodParameters: [vTokenAddress],
-            },
-            {
-              reference: 'rewardTokenSupplyState',
-              methodName: 'rewardTokenSupplyState',
-              methodParameters: [vTokenAddress],
-            },
-            {
-              reference: 'rewardTokenBorrowState',
-              methodName: 'rewardTokenBorrowState',
-              methodParameters: [vTokenAddress],
-            },
-          ]),
-        [],
-      );
-
-      const calls: ContractCallContext[] = rewardsDistributorAddresses.map(
-        rewardsDistributorAddress => ({
-          reference: rewardsDistributorAddress,
-          contractAddress: rewardsDistributorAddress,
-          abi: contractInfos.rewardsDistributor.abi,
-          calls: [
-            {
-              reference: 'rewardToken',
-              methodName: 'rewardToken',
-              methodParameters: [],
-            },
-            ...rewardsDistributorCalls,
-          ],
-        }),
-      );
-
-      return acc.concat(calls);
-    },
-    [],
+      return acc.concat(result);
+    }, []),
   );
 
-  const rewardsDistributorsOutput = await multicall3.call(rewardsDistributorsCallsContexts);
-  const rewardsDistributorsResults = Object.values(rewardsDistributorsOutput.results);
-
-  const rewardTokenAddresses = rewardsDistributorsResults.map(
-    rewardsDistributorsResult => rewardsDistributorsResult.callsReturnContext[0].returnValues[0],
-  ) as string[];
-
-  const tokenAddresses = [
-    // Remove duplicates
-    ...new Set(underlyingTokenAddresses.concat(rewardTokenAddresses)),
-  ];
+  // Fetch reward settings
+  const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
+    provider,
+    poolResults,
+    getRewardDistributorsResults,
+  });
 
   // Fetch token prices
-  const resilientOracleCallsContext: ContractCallContext = {
-    reference: 'resilientOracle',
-    contractAddress: resilientOracleContractAddress,
-    abi: contractInfos.resilientOracle.abi,
-    calls: tokenAddresses.map(tokenAddress => ({
-      reference: 'getPrice',
-      methodName: 'getPrice',
-      methodParameters: [tokenAddress],
-    })),
-  };
-
-  const resilientOracleOutput = await multicall3.call(resilientOracleCallsContext);
-  const resilientOracleResult = resilientOracleOutput.results.resilientOracle;
-
-  const pools = formatOutput({
+  const tokenPriceDollarsMapping = await getTokenPriceDollarsMapping({
     tokens,
-    poolsResults,
-    poolParticipantsCountResult,
-    comptrollerResults,
-    rewardsDistributorsResults,
-    resilientOracleResult,
-    poolLensResult,
-    userWalletTokenBalances,
-    currentBlockNumber: currentBlockNumberResult.blockNumber,
+    underlyingTokenAddresses,
+    rewardsDistributorSettingsMapping,
+    resilientOracleContract,
   });
 
   return {
-    pools,
+    pools: formatOutput({
+      tokens,
+      currentBlockNumber: currentBlockNumberResult.blockNumber,
+      poolResults,
+      poolParticipantsCountResult,
+      rewardsDistributorSettingsMapping,
+      tokenPriceDollarsMapping,
+      userCollateralizedVTokenAddresses,
+      userVTokenBalancesAll: extractSettledPromiseValue(userVTokenBalancesAllResult),
+      userTokenBalancesAll: extractSettledPromiseValue(userTokenBalancesResult),
+    }),
   };
 };
 

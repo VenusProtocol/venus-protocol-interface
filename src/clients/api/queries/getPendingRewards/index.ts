@@ -5,6 +5,7 @@ import { VError } from 'errors/VError';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import removeDuplicates from 'utilities/removeDuplicates';
 
 import formatOutput from './formatOutput';
 import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
@@ -93,7 +94,10 @@ const getPendingRewards = async ({
     [],
   );
 
-  const rewardTokenAddresses = [...new Set([xvsTokenAddress, ...isolatedPoolRewardTokenAddresses])];
+  const rewardTokenAddresses = removeDuplicates([
+    xvsTokenAddress,
+    ...isolatedPoolRewardTokenAddresses,
+  ]);
   const rewardTokenPricesResults = await Promise.allSettled(
     rewardTokenAddresses.map(rewardTokenAddress =>
       resilientOracleContract.getPrice(rewardTokenAddress),

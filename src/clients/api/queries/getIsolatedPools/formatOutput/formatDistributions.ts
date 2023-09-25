@@ -1,20 +1,29 @@
 import BigNumber from 'bignumber.js';
-import { AssetDistribution } from 'types';
-import { formatDistribution } from 'utilities';
+import { AssetDistribution, Token } from 'types';
 
-import { RewardTokenDataMapping } from './formatRewardTokenDataMapping';
+import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
+import formatDistribution from 'utilities/formatDistribution';
+import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
+
+import { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
+import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 
 export interface FormatDistributionsInput {
-  tokenPriceDollars: BigNumber;
-  rewardTokenData: RewardTokenDataMapping[string];
+  underlyingTokenPriceDollars: BigNumber;
+  tokens: Token[];
+  tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
+  rewardsDistributorSettings: RewardsDistributorSettingsResult[];
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
 }
 
 const formatDistributions = ({
-  tokenPriceDollars,
-  rewardTokenData,
+  underlyingTokenPriceDollars,
+  tokens,
+  tokenPriceDollarsMapping,
+  rewardsDistributorSettings,
   currentBlockNumber,
   supplyBalanceTokens,
   borrowBalanceTokens,
@@ -23,20 +32,44 @@ const formatDistributions = ({
   const borrowDistributions: AssetDistribution[] = [];
 
   // Convert balances to dollars
-  const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(tokenPriceDollars);
-  const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
+  const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
+  const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
 
-  rewardTokenData.forEach(
+  rewardsDistributorSettings.forEach(
     ({
-      rewardToken,
-      rewardTokenPriceDollars,
-      borrowDailyDistributedRewardTokens,
-      supplyDailyDistributedRewardTokens,
-      borrowLastRewardBlockNumber,
-      supplyLastRewardBlockNumber,
+      rewardTokenAddress,
+      rewardTokenSupplyState,
+      rewardTokenBorrowState,
+      rewardTokenSupplySpeeds,
+      rewardTokenBorrowSpeeds,
     }) => {
+      const rewardToken = findTokenByAddress({
+        tokens,
+        address: rewardTokenAddress,
+      });
+
+      if (!rewardToken) {
+        logError(`Record missing for reward token: ${rewardTokenAddress}`);
+        return;
+      }
+
+      const rewardTokenPriceDollars = tokenPriceDollarsMapping[rewardToken.address.toLowerCase()];
+
+      if (!rewardTokenPriceDollars) {
+        logError(`Could not fetch price of reward token: ${rewardTokenAddress}`);
+        return;
+      }
+
       // Filter out passed supply distributions
-      if (supplyLastRewardBlockNumber === 0 || currentBlockNumber <= supplyLastRewardBlockNumber) {
+      if (
+        rewardTokenSupplyState.lastRewardingBlock === 0 ||
+        currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock
+      ) {
+        const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
+          mantissa: rewardTokenSupplySpeeds.toString(),
+          decimals: rewardToken.decimals,
+        });
+
         supplyDistributions.push(
           formatDistribution({
             type: 'rewardDistributor',
@@ -49,7 +82,15 @@ const formatDistributions = ({
       }
 
       // Filter out passed borrow distributions
-      if (borrowLastRewardBlockNumber === 0 || currentBlockNumber <= borrowLastRewardBlockNumber) {
+      if (
+        rewardTokenBorrowState.lastRewardingBlock === 0 ||
+        currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock
+      ) {
+        const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
+          mantissa: rewardTokenBorrowSpeeds.toString(),
+          decimals: rewardToken.decimals,
+        });
+
         borrowDistributions.push(
           formatDistribution({
             type: 'rewardDistributor',

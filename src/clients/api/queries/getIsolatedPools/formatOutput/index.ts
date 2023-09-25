@@ -1,80 +1,58 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallReturnContext } from 'ethereum-multicall';
 import { ContractTypeByName } from 'packages/contracts';
 import { Asset, Pool, Token, VToken } from 'types';
-import {
-  addUserPropsToPool,
-  areAddressesEqual,
-  areTokensEqual,
-  calculateApy,
-  convertDollarsToCents,
-  convertFactorFromSmartContract,
-  convertWeiToTokens,
-  formatTokenPrices,
-  multiplyMantissaDaily,
-} from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { logError } from 'context/ErrorLogger';
+import addUserPropsToPool from 'utilities/addUserPropsToPool';
+import areAddressesEqual from 'utilities/areAddressesEqual';
+import areTokensEqual from 'utilities/areTokensEqual';
+import calculateApy from 'utilities/calculateApy';
+import convertDollarsToCents from 'utilities/convertDollarsToCents';
+import convertFactorFromSmartContract from 'utilities/convertFactorFromSmartContract';
+import convertWeiToTokens from 'utilities/convertWeiToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import { GetTokenBalancesOutput } from '../../getTokenBalances';
+import { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
+import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 import formatDistributions from './formatDistributions';
-import formatRewardTokenDataMapping from './formatRewardTokenDataMapping';
 
 export interface FormatToPoolsInput {
   tokens: Token[];
-  poolsResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
-  comptrollerResults: ContractCallReturnContext[];
-  rewardsDistributorsResults: ContractCallReturnContext[];
-  resilientOracleResult: ContractCallReturnContext;
   currentBlockNumber: number;
+  poolResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
+  rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
+  tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
   poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
-  poolLensResult?: ContractCallReturnContext;
-  userWalletTokenBalances?: GetTokenBalancesOutput;
+  userCollateralizedVTokenAddresses: string[];
+  userVTokenBalancesAll?: Awaited<
+    ReturnType<ContractTypeByName<'poolLens'>['callStatic']['vTokenBalancesAll']>
+  >;
+  userTokenBalancesAll?: GetTokenBalancesOutput;
 }
 
 const formatToPools = ({
   tokens,
-  poolsResults,
-  poolParticipantsCountResult,
-  comptrollerResults,
-  rewardsDistributorsResults,
-  resilientOracleResult,
-  poolLensResult,
-  userWalletTokenBalances,
   currentBlockNumber,
+  poolResults,
+  rewardsDistributorSettingsMapping,
+  tokenPriceDollarsMapping,
+  poolParticipantsCountResult,
+  userCollateralizedVTokenAddresses,
+  userVTokenBalancesAll,
+  userTokenBalancesAll,
 }: FormatToPoolsInput) => {
-  // Map token prices by address
-  const tokenPricesDollars = formatTokenPrices({ resilientOracleResult, tokens });
-
-  // Map distributions by vToken address
-  const rewardTokenDataMapping = formatRewardTokenDataMapping({
-    rewardsDistributorsResults,
-    tokenPricesDollars,
-    tokens,
-  });
-
-  // Get vToken addresses of user collaterals
-  const userCollateralVTokenAddresses = comptrollerResults.reduce<string[]>(
-    (acc, res) =>
-      acc.concat(
-        res.callsReturnContext[1]
-          ? res.callsReturnContext[1].returnValues.map(item => item.toLowerCase())
-          : [],
-      ),
-    [],
-  );
-
-  const pools: Pool[] = poolsResults.map(poolResult => {
+  const pools: Pool[] = poolResults.map(poolResult => {
     const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
       areAddressesEqual(pool.id, poolResult.comptroller),
     );
 
     const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
-      // Retrieve token record
+      // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
         tokens,
         address: vTokenMetaData.underlyingAssetAddress,
@@ -82,6 +60,13 @@ const formatToPools = ({
 
       if (!underlyingToken) {
         logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
+        return acc;
+      }
+
+      const tokenPriceDollars = tokenPriceDollarsMapping[underlyingToken.address.toLowerCase()];
+
+      if (!tokenPriceDollars) {
+        logError(`Could not fetch price for token: ${underlyingToken.address}`);
         return acc;
       }
 
@@ -93,25 +78,11 @@ const formatToPools = ({
         underlyingToken,
       };
 
-      const tokenPriceDollars = tokenPricesDollars[vToken.underlyingToken.address.toLowerCase()];
-
-      // Skip token if we couldn't fetch a dollar price for it
-      if (!tokenPriceDollars) {
-        logError(
-          `Price could not be fetched for token: ${vToken.underlyingToken.symbol} (${vToken.underlyingToken.address})`,
+      const userVTokenBalances =
+        userVTokenBalancesAll &&
+        userVTokenBalancesAll.find(userBalances =>
+          areAddressesEqual(userBalances.vToken, vToken.address),
         );
-        return acc;
-      }
-
-      const poolLensResults = poolLensResult?.callsReturnContext;
-
-      const vTokenUserBalances =
-        poolLensResults &&
-        poolLensResults[poolLensResults.length - 1].returnValues.find(userBalances =>
-          areAddressesEqual(userBalances[0], vToken.address),
-        );
-
-      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>
@@ -143,6 +114,7 @@ const formatToPools = ({
         token: vToken.underlyingToken,
       });
 
+      const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertWeiToTokens({
@@ -192,21 +164,21 @@ const formatToPools = ({
       const borrowBalanceCents = borrowBalanceTokens.multipliedBy(tokenPriceCents);
 
       // User-specific props
-      const userBorrowBalanceTokens = vTokenUserBalances
+      const userBorrowBalanceTokens = userVTokenBalances
         ? convertWeiToTokens({
-            valueWei: new BigNumber(vTokenUserBalances[2].hex),
+            valueWei: new BigNumber(userVTokenBalances.borrowBalanceCurrent.toString()),
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
 
-      const userSupplyBalanceTokens = vTokenUserBalances
+      const userSupplyBalanceTokens = userVTokenBalances
         ? convertWeiToTokens({
-            valueWei: new BigNumber(vTokenUserBalances[3].hex),
+            valueWei: new BigNumber(userVTokenBalances.balanceOfUnderlying.toString()),
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
 
-      const tokenBalanceRes = userWalletTokenBalances?.tokenBalances.find(tokenBalance =>
+      const tokenBalanceRes = userTokenBalancesAll?.tokenBalances.find(tokenBalance =>
         areTokensEqual(tokenBalance.token, vToken.underlyingToken),
       );
 
@@ -221,16 +193,19 @@ const formatToPools = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const isCollateralOfUser = userCollateralVTokenAddresses.includes(
+      const isCollateralOfUser = userCollateralizedVTokenAddresses.includes(
         vToken.address.toLowerCase(),
       );
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
-        tokenPriceDollars,
+        underlyingTokenPriceDollars: tokenPriceDollars,
+        tokens,
+        tokenPriceDollarsMapping,
         supplyBalanceTokens,
         borrowBalanceTokens,
         currentBlockNumber,
-        rewardTokenData: rewardTokenDataMapping[vToken.address.toLowerCase()] || [],
+        rewardsDistributorSettings:
+          rewardsDistributorSettingsMapping[vToken.address.toLowerCase()] || [],
       });
 
       const asset: Asset = {

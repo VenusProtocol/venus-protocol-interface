@@ -6,6 +6,8 @@ import { type HttpTransport } from 'viem';
 
 import { logError } from 'context/ErrorLogger';
 
+const MULTICALL_BATCH_SIZE = 100;
+
 // Convert a viem Public Client to an ethers.js Provider
 const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
   const { chain, transport } = publicClient;
@@ -37,6 +39,7 @@ const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
   // Wrap with multicall provider
   return new providers.MulticallProvider(ethersProvider, {
     contract: xsequenceMulticallAddress,
+    batchSize: MULTICALL_BATCH_SIZE,
   });
 };
 
