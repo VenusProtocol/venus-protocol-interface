@@ -14,10 +14,10 @@ describe('generateGetters', () => {
       contractConfigs: fakeContractConfigs,
     });
 
-    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length);
+    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length + 1);
 
-    fakeContractConfigs.forEach((_fakeContractConfig, index) =>
-      expect((writeFile as Vi.Mock).mock.calls[index]).toMatchSnapshot(),
-    );
+    for (let s = 0; s < fakeContractConfigs.length + 1; s++) {
+      expect((writeFile as Vi.Mock).mock.calls[s]).toMatchSnapshot();
+    }
   });
 });

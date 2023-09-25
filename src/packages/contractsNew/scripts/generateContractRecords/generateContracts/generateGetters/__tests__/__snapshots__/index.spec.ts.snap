@@ -66,3 +66,15 @@ export const useGetSwapRouterContract = swapRouterContractHookGenerator({
   },
 ]
 `;
+
+exports[`generateGetters > calls writeFile with the right arguments 4`] = `
+[
+  {
+    "content": "export * from './poolLens';
+export * from './isolatedPoolComptroller';
+export * from './swapRouter';
+",
+    "outputPath": "fake/output/director/path/index.ts",
+  },
+]
+`;

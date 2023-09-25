@@ -24,6 +24,9 @@ const swapRouterContractGettersTemplate = compile(
   swapRouterContractGettersTemplateBuffer.toString(),
 );
 
+const indexTemplateBuffer = readFileSync(`${TEMPLATES_DIRECTORY}/index.hbs`);
+const indexTemplate = compile(indexTemplateBuffer.toString());
+
 const getContent = ({ contractConfig }: { contractConfig: ContractConfig }) => {
   // Handle SwapRouter contract
   if (isSwapRouterContractConfig(contractConfig)) {
@@ -52,7 +55,7 @@ const generateGetters = ({
   outputDirectoryPath,
   contractConfigs,
 }: GenerateContractGettersInput) => {
-  contractConfigs.forEach(contractConfig => {
+  const fileNames = contractConfigs.map(contractConfig => {
     const content = getContent({ contractConfig });
     const fileName = `${contractConfig.name[0].toLowerCase()}${contractConfig.name.substring(1)}`;
     const outputPath = `${outputDirectoryPath}/${fileName}.ts`;
@@ -61,6 +64,16 @@ const generateGetters = ({
       outputPath,
       content,
     });
+
+    return fileName;
+  });
+
+  // Write index file exporting all getters
+  const indexOutputPath = `${outputDirectoryPath}/index.ts`;
+
+  writeFile({
+    outputPath: indexOutputPath,
+    content: indexTemplate({ fileNames }),
   });
 };
 
