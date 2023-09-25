@@ -3,14 +3,11 @@ import { compile } from 'handlebars';
 import { ContractConfig } from 'packages/contractsNew/config';
 import { glob, runTypeChain } from 'typechain';
 
-import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 
-const TYPES_TEMPLATE_FILE_PATH = getAbsolutePath({
-  relativePath: 'scripts/generateContractRecords/generateTypes/typesTemplate.hbs',
-});
+const TYPES_TEMPLATE_FILE_PATH = `${__dirname}/typesTemplate.hbs`;
 
 const typesTemplateBuffer = fs.readFileSync(TYPES_TEMPLATE_FILE_PATH);
 const typesTemplate = compile(typesTemplateBuffer.toString());

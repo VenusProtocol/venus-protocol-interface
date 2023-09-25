@@ -2,13 +2,10 @@ import * as fs from 'fs';
 import { compile } from 'handlebars';
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 
-const TEMPLATES_DIRECTORY = getAbsolutePath({
-  relativePath: 'scripts/generateContractRecords/generateGetters/templates',
-});
+const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
 
 const uniqueContractGettersTemplateBuffer = fs.readFileSync(
   `${TEMPLATES_DIRECTORY}/uniqueContractGettersTemplate.hbs`,
