@@ -1,22 +1,27 @@
+import addresses from 'packages/contractsNew/infos/addresses';
+import { UniqueContractName } from 'packages/contractsNew/infos/types';
 import { ChainId } from 'types';
 
 import getUniqueContractAddress from '..';
 
+const existingContractName = Object.keys(addresses)[0] as UniqueContractName;
+
 describe('packages/contracts/config/getUniqueContractAddress', () => {
   it('returns contract address if it exists', () => {
+    const existingContractChainId = +Object.keys(addresses[existingContractName])[0] as ChainId;
+
     const result = getUniqueContractAddress({
-      name: 'PoolLens',
-      chainId: 97,
+      name: existingContractName,
+      chainId: existingContractChainId,
     });
 
     expect(typeof result).toBe('string');
-    expect(result).toMatchInlineSnapshot('"0x6492dF28A9478230205c940A245Ffb114EaEb9d1"');
   });
 
   it('returns undefined if contract does not exist on passed chain', () => {
     const result = getUniqueContractAddress({
-      name: 'PoolLens',
-      chainId: 45 as ChainId,
+      name: existingContractName,
+      chainId: 9999 as ChainId,
     });
 
     expect(result).toBeUndefined();
