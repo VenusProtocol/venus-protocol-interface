@@ -9,7 +9,7 @@ export interface SwapRouterContractGetterGeneratorInput {
 
 export interface SwapRouterContractGetterInput {
   chainId: ChainId;
-  comptrollerAddress: string;
+  comptrollerContractAddress: string;
   signerOrProvider: Signer | Provider;
 }
 
@@ -23,9 +23,9 @@ export const swapRouterContractGetterGenerator = <TContract extends Contract>({
   const getter: SwapRouterContractGetter<TContract> = ({
     chainId,
     signerOrProvider,
-    comptrollerAddress,
+    comptrollerContractAddress,
   }) => {
-    const address = getSwapRouterContractAddress({ chainId, comptrollerAddress });
+    const address = getSwapRouterContractAddress({ chainId, comptrollerContractAddress });
     return address ? (new Contract(address, abi, signerOrProvider) as TContract) : undefined;
   };
 

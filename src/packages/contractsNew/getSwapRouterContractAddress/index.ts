@@ -2,17 +2,17 @@ import addresses from 'packages/contractsNew/infos/addresses';
 import { ChainId } from 'types';
 
 export type GetSwapRouterContractAddressInput = {
-  comptrollerAddress: string;
+  comptrollerContractAddress: string;
   chainId: ChainId;
 };
 
 const getSwapRouterContractAddress = ({
-  comptrollerAddress,
+  comptrollerContractAddress,
   chainId,
 }: GetSwapRouterContractAddressInput) => {
   const swapRouterContractAddresses = addresses.SwapRouter[chainId];
   const sanitizedComptrollerAddress =
-    comptrollerAddress.toLowerCase() as keyof typeof swapRouterContractAddresses;
+    comptrollerContractAddress.toLowerCase() as keyof typeof swapRouterContractAddresses;
 
   return swapRouterContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
 };

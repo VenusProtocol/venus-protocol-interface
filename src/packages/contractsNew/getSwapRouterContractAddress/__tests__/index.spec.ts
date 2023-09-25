@@ -11,7 +11,7 @@ const existingSwapRouterComptrollerAddress = Object.keys(
 describe('getSwapRouterContractAddress', () => {
   it('returns contract address if it exists', () => {
     const result = getSwapRouterContractAddress({
-      comptrollerAddress: existingSwapRouterComptrollerAddress,
+      comptrollerContractAddress: existingSwapRouterComptrollerAddress,
       chainId: existingSwapRouterChainId,
     });
 
@@ -20,7 +20,7 @@ describe('getSwapRouterContractAddress', () => {
 
   it('returns undefined if contract does not exist on passed chain', () => {
     const result = getSwapRouterContractAddress({
-      comptrollerAddress: existingSwapRouterComptrollerAddress,
+      comptrollerContractAddress: existingSwapRouterComptrollerAddress,
       chainId: 9999 as ChainId,
     });
 
@@ -29,7 +29,7 @@ describe('getSwapRouterContractAddress', () => {
 
   it('returns undefined if contract does not exist for passed Comptroller contract address', () => {
     const result = getSwapRouterContractAddress({
-      comptrollerAddress: 'fake-comptroller-address',
+      comptrollerContractAddress: 'fake-comptroller-address',
       chainId: existingSwapRouterChainId,
     });
 

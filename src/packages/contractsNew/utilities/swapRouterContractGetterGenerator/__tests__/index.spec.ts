@@ -27,7 +27,7 @@ describe('swapRouterContractGetterGenerator', () => {
 
     const contract = getContract({
       chainId: ChainId.BSC_TESTNET,
-      comptrollerAddress: fakeComptrollerContractAddress,
+      comptrollerContractAddress: fakeComptrollerContractAddress,
       signerOrProvider: fakeProvider,
     });
 
@@ -47,7 +47,7 @@ describe('swapRouterContractGetterGenerator', () => {
 
     const contract = getContract({
       chainId: ChainId.BSC_TESTNET,
-      comptrollerAddress: fakeComptrollerContractAddress,
+      comptrollerContractAddress: fakeComptrollerContractAddress,
       signerOrProvider: fakeProvider,
     });
 
