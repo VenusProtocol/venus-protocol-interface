@@ -3,13 +3,13 @@ import Vi from 'vitest';
 
 import writeFile from 'utilities/writeFile';
 
-import generateGetters from '..';
+import generateAbis from '..';
 
 vi.mock('utilities/writeFile');
 
-describe('generateGetters', () => {
+describe('generateAbis', () => {
   it('calls writeFile with the right arguments', () => {
-    generateGetters({
+    generateAbis({
       outputDirectoryPath: 'fake/output/director/path',
       contractConfigs: fakeContractConfigs,
     });

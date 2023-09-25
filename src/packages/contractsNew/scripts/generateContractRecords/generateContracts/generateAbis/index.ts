@@ -1,5 +1,4 @@
 import { ContractConfig } from 'packages/contractsNew/config';
-import { glob, runTypeChain } from 'typechain';
 
 import writeFile from 'utilities/writeFile';
 
