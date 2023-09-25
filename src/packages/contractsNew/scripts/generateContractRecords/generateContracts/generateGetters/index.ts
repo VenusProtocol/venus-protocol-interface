@@ -52,8 +52,6 @@ const generateGetters = ({
   outputDirectoryPath,
   contractConfigs,
 }: GenerateContractGettersInput) => {
-  console.log('Generating contract types...');
-
   contractConfigs.forEach(contractConfig => {
     const content = getContent({ contractConfig });
     const fileName = `${contractConfig.name[0].toLowerCase()}${contractConfig.name.substring(1)}`;
@@ -64,8 +62,6 @@ const generateGetters = ({
       content,
     });
   });
-
-  console.log('Finished generating contract types');
 };
 
 export default generateGetters;

@@ -35,6 +35,7 @@ export default defineConfig(({ mode }) => ({
         '**/*/__testUtils__/',
         'src/packages/contracts/types/contracts',
         'src/config/codegen.ts',
+        'packages/contractsNew/infos',
       ],
     },
   },

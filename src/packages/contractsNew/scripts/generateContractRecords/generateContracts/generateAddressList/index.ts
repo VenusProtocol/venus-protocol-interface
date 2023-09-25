@@ -9,8 +9,6 @@ export interface GenerateAddressListInput {
 }
 
 const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddressListInput) => {
-  console.log('Start generating contract address list...');
-
   // Open addresses output
   let addressesOutput = 'export default {';
 
@@ -50,8 +48,6 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
     outputPath: outputFilePath,
     content: addressesOutput,
   });
-
-  console.log('Finished generating contract address list');
 };
 
 export default generateAddressList;

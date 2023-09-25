@@ -25,8 +25,6 @@ const generateTypes = async ({
   contractTypesOutputDirectoryPath,
   typesOutputDirectoryPath,
 }: GenerateTypesInput) => {
-  console.log('Generating contract types...');
-
   // Generate individual contract types
   const cwd = processCwd();
   const abiFiles = glob(cwd, [`${abiDirectoryPath}/**/+([a-zA-Z0-9_]).json`]);
@@ -66,8 +64,6 @@ const generateTypes = async ({
     outputPath: typesOutputDirectoryPath,
     content: typesOutput,
   });
-
-  console.log('Finished generating contract types');
 };
 
 export default generateTypes;
