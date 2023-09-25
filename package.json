@@ -26,7 +26,7 @@
     "generate-pancake-swap-tokens": "node ./src/packages/tokens/scripts/generatePancakeSwapTokenRecords.mjs && yarn prettier --write src/packages/tokens/tokenInfos/pancakeSwapTokens/bscMainnet.ts",
     "generate-version-file": "genversion --es6 --semi src/constants/version.ts",
     "husky:install": "husky install",
-    "postinstall": "npm-run-all --parallel husky:install generate-contract-types generate-subgraph-types generate-version-file && yarn generate-pancake-swap-tokens",
+    "postinstall": "npm-run-all --parallel husky:install generate-contracts generate-contract-types generate-subgraph-types generate-version-file && yarn generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "regression": "reg-suit run"
