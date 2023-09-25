@@ -4,17 +4,23 @@ import Typography from '@mui/material/Typography';
 import { MarkdownViewer, ReadableActionSignature } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { DescriptionV1, DescriptionV2, ProposalAction } from 'types';
+import { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
 
 import { useStyles } from './styles';
 
 interface DescriptionSummary {
-  className?: string;
   description: DescriptionV1 | DescriptionV2;
   actions: ProposalAction[];
+  tokens: Token[];
+  className?: string;
 }
 
-export const Description: React.FC<DescriptionSummary> = ({ className, description, actions }) => {
+export const Description: React.FC<DescriptionSummary> = ({
+  className,
+  description,
+  actions,
+  tokens,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -56,6 +62,7 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
           <ReadableActionSignature
             key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
             action={action}
+            tokens={tokens}
           />
         ))}
       </div>

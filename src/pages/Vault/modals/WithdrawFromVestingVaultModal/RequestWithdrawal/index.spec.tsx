@@ -6,6 +6,7 @@ import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
+import { vai, xvs } from '__mocks__/models/tokens';
 import {
   getXvsVaultLockedDeposits,
   getXvsVaultPoolInfo,
@@ -15,14 +16,13 @@ import {
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import RequestWithdrawal from '.';
 import TEST_IDS from '../../../TransactionForm/testIds';
 
-const fakeStakedToken = TOKENS.vai;
+const fakeStakedToken = vai;
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {
@@ -148,7 +148,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
     expect(requestWithdrawalFromXvsVault).toHaveBeenCalledWith({
       amountWei: fakeWeiSubmitted,
       poolIndex: fakePoolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs.address,
     });
 
     await waitFor(() => expect(handleCloseMock).toHaveBeenCalledTimes(1));

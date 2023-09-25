@@ -1,8 +1,7 @@
 import { Token } from 'types';
 
-import { SWAP_TOKENS } from 'constants/tokens';
-
 // PancakeSwap only trades with wrapped tokens, so BNB is replaced with wBNB
-const wrapToken = (token: Token) => (token.isNative ? SWAP_TOKENS.wbnb : token);
+const wrapToken = ({ token, wbnb }: { token: Token; wbnb: Token }) =>
+  token.isNative ? wbnb : token;
 
 export default wrapToken;

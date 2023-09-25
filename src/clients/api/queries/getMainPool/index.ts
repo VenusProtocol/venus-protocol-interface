@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { TOKENS } from 'constants/tokens';
+import { logError } from 'context/ErrorLogger';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 import getMainMarkets from '../getMainMarkets';
 import formatToPool from './formatToPool';
@@ -8,9 +9,23 @@ import { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
 
+// Since the borrower and supplier counts aren't essential information, we make the logic so the
+// dApp can still function if the API is down
+const safelyGetMainMarkets = async () => {
+  try {
+    const res = await getMainMarkets();
+    return res;
+  } catch (error) {
+    logError(error);
+  }
+};
+
 const getMainPool = async ({
   name,
   description,
+  xvs,
+  vai,
+  tokens,
   accountAddress,
   mainPoolComptrollerContract,
   venusLensContract,
@@ -30,9 +45,9 @@ const getMainPool = async ({
     mainPoolComptrollerContract.getAllMarkets(),
     // Fetch main markets to get the supplier and borrower counts
     // TODO: fetch borrower and supplier counts from subgraph once available
-    getMainMarkets(),
+    safelyGetMainMarkets(),
     // Fetch XVS price
-    resilientOracleContract.getPrice(TOKENS.xvs.address),
+    resilientOracleContract.getPrice(xvs.address),
     // Account related calls
     accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
@@ -98,8 +113,13 @@ const getMainPool = async ({
     throw new Error(vTokenMetaDataResults.reason);
   }
 
+  const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
+
   const pool = formatToPool({
     name,
+    xvs,
+    vai,
+    tokens,
     description,
     comptrollerContractAddress: mainPoolComptrollerContract.address,
     vTokenMetaDataResults: vTokenMetaDataResults.value,
@@ -109,17 +129,12 @@ const getMainPool = async ({
     xvsBorrowSpeedResults,
     xvsSupplySpeedResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
-    userCollateralizedVTokenAddresses:
-      assetsInResult.status === 'fulfilled' ? assetsInResult.value : undefined,
-    userVTokenBalances:
-      userVTokenBalancesResults.status === 'fulfilled'
-        ? userVTokenBalancesResults.value
-        : undefined,
-    userVaiBorrowBalanceWei:
-      vaiRepayAmountResult.status === 'fulfilled' && vaiRepayAmountResult.value
-        ? new BigNumber(vaiRepayAmountResult.value.toString())
-        : undefined,
-    mainMarkets: mainMarkets.status === 'fulfilled' ? mainMarkets.value.markets : undefined,
+    userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
+    userVTokenBalances: extractSettledPromiseValue(userVTokenBalancesResults),
+    userVaiBorrowBalanceWei: vaiRepayAmountMantissa
+      ? new BigNumber(vaiRepayAmountMantissa.toString())
+      : undefined,
+    mainMarkets: extractSettledPromiseValue(mainMarkets)?.markets,
   });
 
   return {

@@ -6,12 +6,15 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
+import useGetTokens from 'hooks/useGetTokens';
+
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
 
 const ProposalPreview: React.FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const tokens = useGetTokens();
 
   const {
     values: {
@@ -96,6 +99,7 @@ const ProposalPreview: React.FC = () => {
 
         {actions.map(action => (
           <ReadableActionSignature
+            tokens={tokens}
             key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
             action={action}
           />

@@ -10,7 +10,7 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 export interface UseGetXvsVaultPoolsInput {
@@ -32,6 +32,10 @@ const useGetXvsVaultPools = ({
     name: 'xvsVault',
   });
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const poolQueries: UseQueryOptions<
     | GetXvsVaultPoolInfoOutput
     | GetXvsVaultUserInfoOutput
@@ -43,49 +47,49 @@ const useGetXvsVaultPools = ({
   for (let poolIndex = 0; poolIndex < poolsCount; poolIndex++) {
     poolQueries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract }, params =>
+        callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultPoolInfo({
             ...params,
-            rewardTokenAddress: TOKENS.xvs.address,
+            rewardTokenAddress: params.xvs.address,
             poolIndex,
           }),
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-        { rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+        { rewardTokenAddress: xvs?.address, poolIndex },
       ],
     });
 
     poolQueries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract }, params =>
+        callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultUserInfo({
             ...params,
-            rewardTokenAddress: TOKENS.xvs.address,
+            rewardTokenAddress: params.xvs.address,
             poolIndex,
             accountAddress: accountAddress || '',
           }),
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_USER_INFO,
-        { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+        { accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
       ],
       enabled: !!accountAddress,
     });
 
     poolQueries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract }, params =>
+        callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultPendingWithdrawalsFromBeforeUpgrade({
             ...params,
-            rewardTokenAddress: TOKENS.xvs.address,
+            rewardTokenAddress: params.xvs.address,
             poolIndex,
             accountAddress: accountAddress || '',
           }),
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
-        { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
+        { accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
       ],
       enabled: !!accountAddress,
     });

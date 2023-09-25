@@ -1,17 +1,19 @@
 import BigNumber from 'bignumber.js';
 import { Token, TransactionCategory, TransactionEvent, VToken } from 'types';
-import { findTokenByAddress, getTokenByAddress } from 'utilities';
-
-import { TOKENS } from 'constants/tokens';
+import { findTokenByAddress } from 'utilities';
 
 import { TransactionResponse } from './types';
 
 const formatTransaction = ({
   data: { amountMantissa, category, event, tokenAddress, timestamp, from, ...rest },
   vTokens,
+  tokens,
+  defaultToken,
 }: {
   data: TransactionResponse;
   vTokens: VToken[];
+  tokens: Token[];
+  defaultToken: Token;
 }) => {
   // check if the tokenAddress is from a VToken
   const vToken = findTokenByAddress({
@@ -23,10 +25,10 @@ const formatTransaction = ({
   const transactionToken: Token | undefined = vToken
     ? { ...vToken.underlyingToken, decimals: vToken.decimals }
     : // else get the token from tokenAddress
-      getTokenByAddress(tokenAddress || '');
+      findTokenByAddress({ address: tokenAddress || '', tokens });
 
   // if neither is found, use XVS
-  const token = transactionToken || TOKENS.xvs;
+  const token = transactionToken || defaultToken;
 
   return {
     ...rest,

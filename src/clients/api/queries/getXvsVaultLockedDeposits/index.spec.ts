@@ -2,11 +2,11 @@ import { ContractTypeByName } from 'packages/contracts';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAccountAddress from '__mocks__/models/address';
-import { TOKENS } from 'constants/tokens';
+import { xvs } from '__mocks__/models/tokens';
 
 import getXvsVaultLockedDeposits from '.';
 
-const xvsTokenAddress = TOKENS.xvs.address;
+const xvsTokenAddress = xvs.address;
 const fakePid = 1;
 
 describe('api/queries/getXvsVaultLockedDeposits', () => {

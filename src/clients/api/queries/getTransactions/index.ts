@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { Transaction, TransactionEvent, VToken } from 'types';
+import { Token, Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
 
 import formatTransaction from './formatTransaction';
@@ -7,6 +7,8 @@ import { TransactionResponse } from './types';
 
 export interface GetTransactionsInput {
   vTokens: VToken[];
+  tokens: Token[];
+  defaultToken: Token;
   page?: number;
   event?: TransactionEvent;
   from?: string;
@@ -38,6 +40,8 @@ export interface GetTransactionsOutput {
 
 const getTransactions = async ({
   vTokens,
+  tokens,
+  defaultToken,
   page = 0,
   event,
   from,
@@ -70,7 +74,7 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.map(data => formatTransaction({ data, vTokens }));
+  const transactions = payload.result.map(data => formatTransaction({ data, vTokens, defaultToken, tokens }));
 
   return { limit, page: payloadPage, total, transactions };
 };

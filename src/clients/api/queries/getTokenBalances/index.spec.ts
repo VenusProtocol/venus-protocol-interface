@@ -4,14 +4,14 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
-import { SWAP_TOKENS } from 'constants/tokens';
+import { bnb, busd, hay } from '__mocks__/models/tokens';
 
 import getTokenBalances from '.';
 
 vi.mock('utilities/getTokenContract');
 
-const tokens = [SWAP_TOKENS.busd, SWAP_TOKENS.cake];
-const tokensWithBnB = [...tokens, SWAP_TOKENS.bnb];
+const tokens = [busd, hay];
+const tokensWithBnB = [...tokens, bnb];
 
 describe('api/queries/getTokenBalances', () => {
   beforeEach(() => {

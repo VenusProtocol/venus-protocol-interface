@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React from 'react';
-import { ChainId, ProposalAction, VToken } from 'types';
+import { ChainId, ProposalAction, Token, VToken } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import useGetTokens from 'hooks/useGetTokens';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 
 import formatSignature from './formatSignature';
@@ -15,6 +16,7 @@ import { useStyles } from './styles';
 interface ReadableActionSignatureUiProps {
   action: FormValues['actions'][number] | ProposalAction;
   vTokens: VToken[];
+  tokens: Token[];
   chainId: ChainId;
   className?: string;
 }
@@ -22,6 +24,7 @@ interface ReadableActionSignatureUiProps {
 export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps> = ({
   action,
   vTokens,
+  tokens,
   chainId,
   className,
 }) => {
@@ -30,6 +33,7 @@ export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps>
   const contractName = getContractName({
     target: action.target,
     vTokens,
+    tokens,
     chainId,
   });
 
@@ -64,7 +68,10 @@ export type ReadableActionSignatureProps = Omit<
 export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = props => {
   const { chainId } = useAuth();
   const { data: getVTokensData } = useGetVTokens();
+  const tokens = useGetTokens();
   const vTokens = getVTokensData?.vTokens || [];
 
-  return <ReadableActionSignatureUi {...props} chainId={chainId} vTokens={vTokens} />;
+  return (
+    <ReadableActionSignatureUi {...props} chainId={chainId} vTokens={vTokens} tokens={tokens} />
+  );
 };

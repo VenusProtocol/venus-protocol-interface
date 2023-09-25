@@ -1,12 +1,1 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_8_2942)">
-<circle cx="12" cy="12" r="12" fill="#2F5EF5"/>
-<path d="M4.80005 5.03992H9.66374C9.66374 7.72606 7.48619 9.90361 4.80005 9.90361V5.03992Z" fill="white"/>
-<path d="M19.0261 9.90361V5.03992H14.3534C11.6673 5.03992 9.48975 7.21747 9.48975 9.90361V19.4399H14.3534V9.90361H19.0261Z" fill="white"/>
-</g>
-<defs>
-<clipPath id="clip0_8_2942">
-<rect width="24" height="24" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" xmlns:v="https://vecta.io/nano"><g clip-path="url(#A)"><circle cx="12" cy="12" r="12" fill="#2f5ef5"/><g fill="#fff"><path d="M4.8 5.04h4.864c0 2.686-2.178 4.864-4.864 4.864V5.04zm14.226 4.864V5.04h-4.673c-2.686 0-4.864 2.178-4.864 4.864v9.536h4.864V9.904h4.673z"/></g></g><defs><clipPath id="A"><path fill="#fff" d="M0 0h24v24H0z"/></clipPath></defs></svg>

@@ -5,20 +5,20 @@ import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
-import { useMulticall3 } from 'clients/web3';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import useGetTokens from 'hooks/useGetTokens';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,
-  | 'multicall3'
   | 'provider'
   | 'poolLensContract'
   | 'poolRegistryContractAddress'
-  | 'resilientOracleContractAddress'
+  | 'resilientOracleContract'
+  | 'tokens'
 >;
 
 type Options = QueryObserverOptions<
@@ -31,29 +31,29 @@ type Options = QueryObserverOptions<
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
-  const multicall3 = useMulticall3();
+  const tokens = useGetTokens();
 
   const poolLensContract = useGetUniqueContract({
     name: 'poolLens',
+  });
+
+  const resilientOracleContract = useGetUniqueContract({
+    name: 'resilientOracle',
   });
 
   const poolRegistryContractAddress = useGetUniqueContractAddress({
     name: 'poolRegistry',
   });
 
-  const resilientOracleContractAddress = useGetUniqueContractAddress({
-    name: 'resilientOracle',
-  });
-
   return useQuery(
     [FunctionKey.GET_ISOLATED_POOLS, input],
     () =>
       callOrThrow(
-        { poolLensContract, poolRegistryContractAddress, resilientOracleContractAddress },
+        { poolLensContract, poolRegistryContractAddress, resilientOracleContract },
         params =>
           getIsolatedPools({
-            multicall3,
             provider,
+            tokens,
             ...input,
             ...params,
           }),

@@ -8,9 +8,8 @@ import { Button, NoticeWarning, TokenIcon } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { areTokensEqual, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
+import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
@@ -184,11 +183,9 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         />
       )}
 
-      {activeModal === 'withdraw' &&
-        poolIndex === undefined &&
-        areTokensEqual(stakedToken, TOKENS.vai) && (
-          <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
-        )}
+      {activeModal === 'withdraw' && poolIndex === undefined && stakedToken.symbol === 'VAI' && (
+        <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+      )}
 
       {activeModal === 'withdraw' && poolIndex !== undefined && (
         <WithdrawFromVestingVaultModal
@@ -252,7 +249,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
       // Hide withdraw button of non-vesting VRT vault when user doesn't have
       // any tokens staked in it
       canWithdraw={
-        stakedToken.address !== TOKENS.vrt.address ||
+        stakedToken.symbol !== 'VRT' ||
         typeof poolIndex === 'number' ||
         !vaultItemUiProps.userStakedWei ||
         vaultItemUiProps.userStakedWei.isGreaterThan(0)

@@ -7,9 +7,9 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -87,6 +87,10 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const {
     data: xvsVaultUserLockedDepositsData = {
       lockedDeposits: [],
@@ -95,7 +99,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   } = useGetXvsVaultLockedDeposits(
     {
       poolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs!.address,
       accountAddress: accountAddress || '',
     },
     {
@@ -128,7 +132,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
   const handleSubmit = () =>
     executeWithdrawalFromXvsVault({
       poolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs!.address,
     });
 
   return (

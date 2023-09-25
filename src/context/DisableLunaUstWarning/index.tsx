@@ -1,10 +1,8 @@
 import noop from 'noop-ts';
 import React, { useEffect, useMemo, useState } from 'react';
-import { areTokensEqual } from 'utilities';
 
 import { useGetMainPool } from 'clients/api';
 import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 
 export interface DisableLunaUstWarningContextValue {
@@ -21,7 +19,13 @@ export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWa
   closeLunaUstWarningModal: noop,
 });
 
-export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
+export interface DisableLunaUstWarningProviderProps {
+  children?: React.ReactNode;
+}
+
+export const DisableLunaUstWarningProvider: React.FC<DisableLunaUstWarningProviderProps> = ({
+  children,
+}) => {
   const { accountAddress } = useAuth();
   const { data: getMainPoolData } = useGetMainPool({
     accountAddress,
@@ -34,8 +38,8 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
       !!getMainPoolData &&
       getMainPoolData?.pool.assets.some(
         asset =>
-          (areTokensEqual(asset.vToken.underlyingToken, TOKENS.luna) ||
-            areTokensEqual(asset.vToken.underlyingToken, TOKENS.ust)) &&
+          (asset.vToken.underlyingToken.symbol === 'LUNA' ||
+            asset.vToken.underlyingToken.symbol === 'UST') &&
           asset.isCollateralOfUser,
       ),
     [getMainPoolData?.pool.assets],

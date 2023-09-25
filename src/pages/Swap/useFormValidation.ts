@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Swap } from 'types';
-import { areTokensEqual, convertTokensToWei } from 'utilities';
+import { convertTokensToWei } from 'utilities';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import { SWAP_TOKENS } from 'constants/tokens';
 
 import { FormError, FormValues } from './types';
 
@@ -81,11 +80,11 @@ const useFormValidation = ({
   const wrapUnwrapErrors = useMemo(() => {
     const errorsTmp: FormError[] = [];
 
-    if (formValues.fromToken.isNative && areTokensEqual(formValues.toToken, SWAP_TOKENS.wbnb)) {
+    if (formValues.fromToken.isNative && formValues.toToken.symbol === 'WBNB') {
       errorsTmp.push('WRAPPING_UNSUPPORTED');
     }
 
-    if (formValues.toToken.isNative && areTokensEqual(formValues.fromToken, SWAP_TOKENS.wbnb)) {
+    if (formValues.toToken.isNative && formValues.fromToken.symbol === 'WBNB') {
       errorsTmp.push('UNWRAPPING_UNSUPPORTED');
     }
 

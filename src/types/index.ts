@@ -32,11 +32,29 @@ export interface TokenBalance {
   balanceWei: BigNumber;
 }
 
-export interface AssetDistribution {
+export interface RewardDistributorDistribution {
+  type: 'rewardDistributor';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
 }
+
+export interface PrimeDistribution {
+  type: 'prime';
+  token: Token;
+  apyPercentage: BigNumber;
+}
+
+export interface HypotheticalPrimeDistribution {
+  type: 'hypotheticalPrime';
+  token: Token;
+  apyPercentage: BigNumber;
+}
+
+export type AssetDistribution =
+  | RewardDistributorDistribution
+  | PrimeDistribution
+  | HypotheticalPrimeDistribution;
 
 export interface Asset {
   vToken: VToken;

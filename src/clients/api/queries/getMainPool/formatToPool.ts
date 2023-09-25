@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
-import { Asset, Market, Pool, VToken } from 'types';
+import { Asset, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -10,20 +10,22 @@ import {
   convertPriceMantissaToDollars,
   convertWeiToTokens,
   formatDistribution,
-  getTokenByAddress,
   multiplyMantissaDaily,
 } from 'utilities';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
-import { TOKENS } from 'constants/tokens';
 import { logError } from 'context/ErrorLogger';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
 
 export interface FormatToPoolInput {
   name: string;
+  xvs: Token;
+  vai: Token;
+  tokens: Token[];
   description: string;
   comptrollerContractAddress: string;
   vTokenMetaDataResults: Awaited<
@@ -55,6 +57,9 @@ export interface FormatToPoolInput {
 
 const formatToPool = ({
   name,
+  xvs,
+  vai,
+  tokens,
   description,
   comptrollerContractAddress,
   vTokenMetaDataResults,
@@ -78,7 +83,10 @@ const formatToPool = ({
       return;
     }
 
-    const underlyingToken = getTokenByAddress(vTokenMetaData.underlyingAssetAddress);
+    const underlyingToken = findTokenByAddress({
+      tokens,
+      address: vTokenMetaData.underlyingAssetAddress,
+    });
 
     if (!underlyingToken) {
       logError(`Record missing for token: ${vTokenMetaData.underlyingAssetAddress}`);
@@ -157,7 +165,7 @@ const formatToPool = ({
 
     const xvsPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: xvsPriceMantissa,
-      token: TOKENS.xvs,
+      token: xvs,
     });
 
     const tokenPriceDollars = convertPriceMantissaToDollars({
@@ -255,11 +263,12 @@ const formatToPool = ({
 
     const borrowDailyDistributedXvs = multiplyMantissaDaily({
       mantissa: xvsBorrowSpeedMantissa,
-      decimals: TOKENS.xvs.decimals,
+      decimals: xvs.decimals,
     });
 
     const borrowXvsDistribution = formatDistribution({
-      rewardToken: TOKENS.xvs,
+      type: 'rewardDistributor',
+      rewardToken: xvs,
       rewardTokenPriceDollars: xvsPriceDollars,
       dailyDistributedRewardTokens: borrowDailyDistributedXvs,
       balanceDollars: borrowBalanceDollars,
@@ -267,11 +276,12 @@ const formatToPool = ({
 
     const supplyDailyDistributedXvs = multiplyMantissaDaily({
       mantissa: xvsSupplySpeedMantissa,
-      decimals: TOKENS.xvs.decimals,
+      decimals: xvs.decimals,
     });
 
     const supplyXvsDistribution = formatDistribution({
-      rewardToken: TOKENS.xvs,
+      type: 'rewardDistributor',
+      rewardToken: xvs,
       rewardTokenPriceDollars: xvsPriceDollars,
       dailyDistributedRewardTokens: supplyDailyDistributedXvs,
       balanceDollars: supplyBalanceDollars,
@@ -359,7 +369,7 @@ const formatToPool = ({
   if (pool.userBorrowBalanceCents && userVaiBorrowBalanceWei) {
     const userVaiBorrowBalanceCents = convertWeiToTokens({
       valueWei: userVaiBorrowBalanceWei,
-      token: TOKENS.vai,
+      token: vai,
     }) // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
       .times(100);
 

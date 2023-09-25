@@ -12,7 +12,7 @@ export interface AuthModalProps {
   onLogin: WalletListProps['onLogin'];
   onLogOut: AccountDetailsProps['onLogOut'];
   accountAddress?: string;
-  chainId?: ChainId;
+  chainId: ChainId;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({

@@ -5,8 +5,8 @@ import React from 'react';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { getBalanceOf, useStakeInVault } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -16,8 +16,8 @@ import TEST_IDS from '../../TransactionForm/testIds';
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
 const baseProps: StakeModalProps = {
-  stakedToken: TOKENS.vai,
-  rewardToken: TOKENS.xvs,
+  stakedToken: vai,
+  rewardToken: xvs,
   poolIndex: 6,
   handleClose: noop,
 };

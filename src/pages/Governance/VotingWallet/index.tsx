@@ -14,6 +14,7 @@ import { ContractReceipt } from 'ethers';
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import {
@@ -23,9 +24,9 @@ import {
   useSetVoteDelegate,
 } from 'clients/api';
 import { routes } from 'constants/routing';
-import { TOKENS } from 'constants/tokens';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from './DelegateModal';
@@ -43,9 +44,11 @@ interface VotingWalletUiProps {
   isVoteDelegationLoading: boolean;
   delegateModelIsOpen: boolean;
   setDelegateModelIsOpen: (open: boolean) => void;
+  xvs?: Token;
 }
 
 export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
+  xvs,
   votingWeightWei,
   userStakedWei,
   connectedWallet,
@@ -64,22 +67,22 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: userStakedWei,
-        token: TOKENS.xvs,
+        token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [userStakedWei],
+    [userStakedWei, xvs],
   );
 
   const readableVoteWeight = useMemo(
     () =>
       convertWeiToTokens({
         valueWei: votingWeightWei,
-        token: TOKENS.xvs,
+        token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightWei],
+    [votingWeightWei, xvs],
   );
 
   const previouslyDelegated = !!delegate;
@@ -116,7 +119,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </div>
 
           <div css={styles.totalLockedValue}>
-            <TokenIcon token={TOKENS.xvs} css={styles.tokenIcon} />
+            {xvs && <TokenIcon token={xvs} css={styles.tokenIcon} />}
 
             <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.totalLockedValue}>
               {readableXvsLocked}
@@ -209,6 +212,9 @@ const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
   const { t } = useTranslation();
   const { accountAddress, openAuthModal } = useAuth();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },
@@ -221,7 +227,7 @@ const VotingWallet: React.FC = () => {
 
   const { data: vaults } = useGetVestingVaults({ accountAddress });
 
-  const xvsVault = vaults.find(v => areTokensEqual(v.stakedToken, TOKENS.xvs));
+  const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -229,15 +235,18 @@ const VotingWallet: React.FC = () => {
     {
       onSuccess: data => {
         setDelegateModelIsOpen(false);
-        openSuccessfulTransactionModal({
-          title: t('vote.successfulDelegationModal.title'),
-          content: t('vote.successfulDelegationModal.message'),
-          amount: {
-            valueWei: userStakedWei,
-            token: TOKENS.xvs,
-          },
-          transactionHash: data.transactionHash,
-        });
+
+        if (xvs) {
+          openSuccessfulTransactionModal({
+            title: t('vote.successfulDelegationModal.title'),
+            content: t('vote.successfulDelegationModal.message'),
+            amount: {
+              valueWei: userStakedWei,
+              token: xvs,
+            },
+            transactionHash: data.transactionHash,
+          });
+        }
       },
     },
   );
@@ -254,6 +263,7 @@ const VotingWallet: React.FC = () => {
       isVoteDelegationLoading={isVoteDelegationLoading}
       delegateModelIsOpen={delegateModelIsOpen}
       setDelegateModelIsOpen={setDelegateModelIsOpen}
+      xvs={xvs}
     />
   );
 };

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 import { Vault } from 'types';
-import { getTokenByAddress, indexBy } from 'utilities';
+import { indexBy } from 'utilities';
 
 import {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
@@ -13,7 +13,9 @@ import {
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
+import useGetTokens from 'hooks/useGetTokens';
+import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
@@ -28,6 +30,11 @@ const useGetVestingVaults = ({
 }: {
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+  const tokens = useGetTokens();
+
   const {
     data: xvsVaultPoolCountData = { poolCount: 0 },
     isLoading: isGetXvsVaultPoolCountLoading,
@@ -35,16 +42,26 @@ const useGetVestingVaults = ({
 
   // Fetch data generic to all XVS pools
   const { data: xvsVaultRewardWeiPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
-    useGetXvsVaultRewardPerBlock({
-      tokenAddress: TOKENS.xvs.address,
-    });
+    useGetXvsVaultRewardPerBlock(
+      {
+        tokenAddress: xvs!.address, // We ensure vai exists through the enabled option
+      },
+      {
+        enabled: !!xvs,
+      },
+    );
 
   const {
     data: xvsVaultTotalAllocationPointsData,
     isLoading: isGetXvsVaultTotalAllocationPointsLoading,
-  } = useGetXvsVaultTotalAllocationPoints({
-    tokenAddress: TOKENS.xvs.address,
-  });
+  } = useGetXvsVaultTotalAllocationPoints(
+    {
+      tokenAddress: xvs!.address, // We ensure vai exists through the enabled option
+    },
+    {
+      enabled: !!xvs,
+    },
+  );
 
   // Fetch pools
   const poolQueryResults = useGetXvsVaultPools({
@@ -140,7 +157,10 @@ const useGetVestingVaults = ({
 
           const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
-            getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress);
+            findTokenByAddress({
+              tokens,
+              address: poolData[poolIndex]?.poolInfos.stakedTokenAddress,
+            });
 
           const poolRewardWeiPerBlock =
             xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
@@ -167,10 +187,11 @@ const useGetVestingVaults = ({
             lockingPeriodMs &&
             dailyEmissionWei &&
             totalStakedWeiData &&
-            stakingAprPercentage
+            stakingAprPercentage &&
+            xvs
           ) {
             const vault: Vault = {
-              rewardToken: TOKENS.xvs,
+              rewardToken: xvs,
               stakedToken,
               lockingPeriodMs,
               dailyEmissionWei,
@@ -194,6 +215,8 @@ const useGetVestingVaults = ({
       JSON.stringify(poolBalances),
       xvsVaultRewardWeiPerBlock?.rewardPerBlockWei.toFixed(),
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
+      xvs,
+      tokens,
     ],
   );
 

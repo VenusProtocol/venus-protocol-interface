@@ -2,10 +2,11 @@
 import { ConnectWallet, Spinner } from 'components';
 import React from 'react';
 import { Asset, Pool, TokenAction, VToken } from 'types';
-import { areTokensEqual, isTokenActionEnabled } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
 import { useGetPool } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 
 import DisabledActionNotice from './DisabledActionNotice';
 
@@ -25,6 +26,10 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   action,
 }) => {
   const { accountAddress } = useAuth();
+  const isTokenActionEnabled = useIsTokenActionEnabled({
+    action,
+    tokenAddress: vToken.underlyingToken.address,
+  });
 
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,
@@ -33,12 +38,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   const pool = getPoolData?.pool;
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
-  if (
-    !isTokenActionEnabled({
-      token: vToken.underlyingToken,
-      action,
-    })
-  ) {
+  if (!isTokenActionEnabled) {
     return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
   }
 

@@ -9,9 +9,9 @@ import {
   queryClient,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { TOKENS } from 'constants/tokens';
 import { useAnalytics } from 'context/Analytics';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
+import useGetToken from 'hooks/useGetToken';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,
@@ -32,6 +32,10 @@ const useExecuteWithdrawalFromXvsVault = (
     passSigner: true,
   });
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const { captureAnalyticEvent } = useAnalytics();
 
   return useMutation(
@@ -47,29 +51,35 @@ const useExecuteWithdrawalFromXvsVault = (
       ...options,
       onSuccess: async (...onSuccessParams) => {
         const { poolIndex } = onSuccessParams[1];
-
-        captureAnalyticEvent('Token withdrawals executed from XVS vault', {
-          poolIndex,
-          rewardTokenSymbol: TOKENS.xvs.symbol,
-        });
-
         const accountAddress = await xvsVaultContract?.signer.getAddress();
 
-        // Invalidate cached user info
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
-        ]);
-
-        // Invalidate cached user withdrawal requests
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          {
-            rewardTokenAddress: TOKENS.xvs.address,
+        if (xvs) {
+          captureAnalyticEvent('Token withdrawals executed from XVS vault', {
             poolIndex,
-            accountAddress,
-          },
-        ]);
+            rewardTokenSymbol: xvs.symbol,
+          });
+
+          // Invalidate cached user info
+          queryClient.invalidateQueries([
+            FunctionKey.GET_XVS_VAULT_USER_INFO,
+            { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          ]);
+
+          // Invalidate cached user withdrawal requests
+          queryClient.invalidateQueries([
+            FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+            {
+              rewardTokenAddress: xvs.address,
+              poolIndex,
+              accountAddress,
+            },
+          ]);
+
+          queryClient.invalidateQueries([
+            FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+            { rewardTokenAddress: xvs.address, poolIndex },
+          ]);
+        }
 
         // Invalidate cached user balance
         queryClient.invalidateQueries([
@@ -94,11 +104,6 @@ const useExecuteWithdrawalFromXvsVault = (
             accountAddress: xvsVaultContract?.address,
             tokenAddress: stakedToken.address,
           },
-        ]);
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          { rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
         if (options?.onSuccess) {

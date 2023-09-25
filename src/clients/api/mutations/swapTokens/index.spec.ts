@@ -8,7 +8,7 @@ import {
   exactAmountInSwap as fakeExactAmountInSwap,
   exactAmountOutSwap as fakeExactAmountOutSwap,
 } from '__mocks__/models/swaps';
-import { SWAP_TOKENS } from 'constants/tokens';
+import { bnb, busd } from '__mocks__/models/tokens';
 
 import swapTokens from '.';
 
@@ -44,8 +44,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when selling an exact amount of native tokens for as many non-native tokens as possible', async () => {
     const customFakeExactAmountInSwap: ExactAmountInSwap = {
       ...fakeExactAmountInSwap,
-      fromToken: SWAP_TOKENS.bnb,
-      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
+      fromToken: bnb,
+      routePath: [bnb.address, busd.address],
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);
@@ -80,8 +80,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens for as many native tokens as possible', async () => {
     const customFakeExactAmountInSwap: ExactAmountInSwap = {
       ...fakeExactAmountInSwap,
-      toToken: SWAP_TOKENS.bnb,
-      routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
+      toToken: bnb,
+      routePath: [busd.address, bnb.address],
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);
@@ -142,8 +142,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when buying an exact amount of non-native tokens for as few native tokens as possible', async () => {
     const customFakeExactAmountOutSwap: ExactAmountOutSwap = {
       ...fakeExactAmountOutSwap,
-      fromToken: SWAP_TOKENS.bnb,
-      routePath: [SWAP_TOKENS.bnb.address, SWAP_TOKENS.busd.address],
+      fromToken: bnb,
+      routePath: [bnb.address, busd.address],
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);
@@ -178,8 +178,8 @@ describe('api/mutation/swapTokens', () => {
   it('calls the right contract method when buying an exact amount of native tokens for as few non-native tokens as possible', async () => {
     const customFakeExactAmountOutSwap: ExactAmountOutSwap = {
       ...fakeExactAmountOutSwap,
-      toToken: SWAP_TOKENS.bnb,
-      routePath: [SWAP_TOKENS.busd.address, SWAP_TOKENS.bnb.address],
+      toToken: bnb,
+      routePath: [busd.address, bnb.address],
     };
 
     const waitMock = vi.fn(async () => fakeContractReceipt);

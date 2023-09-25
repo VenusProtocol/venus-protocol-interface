@@ -2,8 +2,8 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
+import { vai, xvs } from '__mocks__/models/tokens';
 import { stakeInVaiVault, stakeInXvsVault } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import useStakeInVault from '.';
@@ -17,8 +17,8 @@ describe('api/mutation/useStakeInVault', () => {
 
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedToken: TOKENS.vai,
-        rewardToken: TOKENS.xvs,
+        stakedToken: vai,
+        rewardToken: xvs,
         poolIndex: fakePoolIndex,
       });
 
@@ -47,15 +47,15 @@ describe('api/mutation/useStakeInVault', () => {
     expect(stakeInXvsVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
       poolIndex: fakePoolIndex,
-      rewardToken: TOKENS.xvs,
+      rewardToken: xvs,
     });
   });
 
   it('calls stakeInVaiVault with correct parameters when calling stake without a poolIndex and stakedToken is equal VAI', async () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedToken: TOKENS.vai,
-        rewardToken: TOKENS.xvs,
+        stakedToken: vai,
+        rewardToken: xvs,
       });
 
       return (

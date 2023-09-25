@@ -15,6 +15,7 @@ export interface AccordionProps {
   id: number;
   title: string;
   rightAdornment?: React.ReactElement;
+  children?: React.ReactNode;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({

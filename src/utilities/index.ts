@@ -1,5 +1,4 @@
 export { restService } from './restService';
-export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,
@@ -8,7 +7,6 @@ export {
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';
-export * from './isTokenActionEnabled';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 
 export * from './formatTokensToReadableValue';
@@ -41,9 +39,7 @@ export { default as multiplyMantissaDaily } from './multiplyMantissaDaily';
 export { default as callOrThrow } from './callOrThrow';
 export { default as getTokenContract } from './getTokenContract';
 export { default as getVTokenContract } from './getVTokenContract';
-export { default as formatTokenPrices } from './formatTokenPrices';
 export { default as convertPriceMantissaToDollars } from './convertPriceMantissaToDollars';
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
 export { default as formatDistribution } from './formatDistribution';
 export { default as findTokenByAddress } from './findTokenByAddress';
-export { default as findTokenBySymbol } from './findTokenBySymbol';

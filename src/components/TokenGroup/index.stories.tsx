@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react';
 import React from 'react';
 import { Token } from 'types';
 
-import { TESTNET_TOKENS } from 'constants/tokens';
+import { bnb, eth, hay, usdc, usdt, xvs } from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TokenGroup } from '.';
@@ -13,14 +13,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof TokenGroup>;
 
-const tokens: Token[] = [
-  TESTNET_TOKENS.usdt,
-  TESTNET_TOKENS.eth,
-  TESTNET_TOKENS.usdc,
-  TESTNET_TOKENS.xrp,
-  TESTNET_TOKENS.bnb,
-  TESTNET_TOKENS.aave,
-];
+const tokens: Token[] = [usdt, eth, usdc, xvs, bnb, hay];
 
 export const Default = () => <TokenGroup tokens={tokens} />;
 

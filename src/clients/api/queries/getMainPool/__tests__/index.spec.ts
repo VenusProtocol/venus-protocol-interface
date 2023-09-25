@@ -5,6 +5,7 @@ import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPo
 import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
+import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
 import getMainPool from '..';
 import getMainMarkets from '../../getMainMarkets';
@@ -66,6 +67,9 @@ describe('api/queries/getMainPool', () => {
     const response = await getMainPool({
       name: 'Fake pool name',
       description: 'Fake pool description',
+      xvs,
+      vai,
+      tokens,
       accountAddress: fakeAccountAddress,
       mainPoolComptrollerContract: fakeMainPoolComptrollerContract,
       venusLensContract: fakeVenusLensContract,

@@ -8,9 +8,11 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
+import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import {
@@ -22,10 +24,10 @@ import {
 } from 'clients/api';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
@@ -40,6 +42,7 @@ export interface MintVaiUiProps {
   apyPercentage?: BigNumber;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
+  vai: Token;
 }
 
 export const MintVaiUi: React.FC<MintVaiUiProps> = ({
@@ -50,6 +53,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   userBalanceWei,
   apyPercentage,
   isSubmitting,
+  vai,
   mintVai,
 }) => {
   const styles = useStyles();
@@ -58,20 +62,19 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = useMemo(
-    () =>
-      limitWei ? convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai }).toFixed() : '0',
+    () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, token: vai }).toFixed() : '0'),
     [limitWei?.toFixed()],
   );
 
   // Convert limit into VAI
   const readableVaiLimit = useConvertWeiToReadableTokenString({
     valueWei: limitWei,
-    token: TOKENS.vai,
+    token: vai,
   });
 
   const readableWalletBalance = useConvertWeiToReadableTokenString({
     valueWei: userBalanceWei,
-    token: TOKENS.vai,
+    token: vai,
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
@@ -85,6 +88,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       const readableFeeVai = getReadableFeeVai({
         valueWei: new BigNumber(valueWei || 0),
         mintFeePercentage,
+        vai,
       });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
@@ -92,9 +96,16 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   );
 
   const onSubmit: AmountFormProps['onSubmit'] = amountTokens => {
+    if (!vai) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
+
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
-      token: TOKENS.vai,
+      token: vai,
     });
 
     return handleTransactionMutation({
@@ -104,7 +115,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
         content: t('vai.mintVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          token: TOKENS.vai,
+          token: vai,
         },
         transactionHash: contractReceipt.transactionHash,
       }),
@@ -122,7 +133,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
               <FormikTokenTextField
                 name="amount"
                 css={styles.getRow({ isLast: true })}
-                token={TOKENS.vai}
+                token={vai}
                 max={limitTokens}
                 disabled={disabled || isSubmitting || !hasMintableVai}
                 rightMaxButton={{
@@ -145,7 +156,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
               <LabeledInlineContent
                 css={styles.getRow({ isLast: false })}
-                iconSrc={TOKENS.vai}
+                iconSrc={vai}
                 label={t('vai.mintVai.vaiLimitLabel')}
               >
                 {readableVaiLimit}
@@ -184,6 +195,9 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
 const MintVai: React.FC = () => {
   const { accountAddress } = useAuth();
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
@@ -197,7 +211,7 @@ const MintVai: React.FC = () => {
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
-      token: TOKENS.vai,
+      token: vai!,
     },
     {
       enabled: !!accountAddress,
@@ -227,6 +241,7 @@ const MintVai: React.FC = () => {
       isSubmitting={isSubmitting}
       apyPercentage={getVaiRepayApyData?.repayApyPercentage}
       mintVai={mintVai}
+      vai={vai!}
     />
   );
 };

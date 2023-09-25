@@ -9,7 +9,7 @@ import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { routes } from 'constants/routing';
-import { TOKENS } from 'constants/tokens';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 
@@ -26,6 +26,9 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const columns: TableColumn<VoterAccount>[] = useMemo(
     () => [
@@ -54,7 +57,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
           <Typography color="textPrimary" variant="small2">
             {convertWeiToTokens({
               valueWei: voter.votesWei,
-              token: TOKENS.xvs,
+              token: xvs,
               returnInReadableFormat: true,
               addSymbol: false,
             })}

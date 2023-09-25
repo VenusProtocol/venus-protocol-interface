@@ -6,6 +6,6 @@ exports[`api/queries/getXvsVaultPoolInfo > returns the pool infos on success 1`]
   "allocationPoint": 10,
   "lastRewardBlock": 100000,
   "lockingPeriodMs": 200000,
-  "stakedTokenAddress": "0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144",
+  "stakedTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
 }
 `;

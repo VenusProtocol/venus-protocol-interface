@@ -1,40 +1,19 @@
 import React from 'react';
 import { PSTokenCombination } from 'types';
 
-import { SWAP_TOKENS } from 'constants/tokens';
+import { bnb, busd, xvs } from '__mocks__/models/tokens';
 import renderComponent from 'testUtils/renderComponent';
 
 import useGetTokenCombinations from '../useGetTokenCombinations';
 
 describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
-  it('returns an empty array if chain ID is undefined', () => {
-    let tokenCombinations: PSTokenCombination[] = [];
-
-    const TestComponent = () => {
-      tokenCombinations = useGetTokenCombinations({
-        fromToken: SWAP_TOKENS.busd,
-        toToken: SWAP_TOKENS.cake,
-      });
-
-      return <></>;
-    };
-
-    renderComponent(<TestComponent />, {
-      authContextValue: {
-        chainId: undefined,
-      },
-    });
-
-    expect(tokenCombinations).toEqual([]);
-  });
-
   it('returns all possible combinations between the tokens provided and the base trade ones', () => {
     let tokenCombinations: PSTokenCombination[] = [];
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
-        fromToken: SWAP_TOKENS.busd,
-        toToken: SWAP_TOKENS.cake,
+        fromToken: busd,
+        toToken: xvs,
       });
 
       return <></>;
@@ -67,8 +46,8 @@ describe('pages/Swap/useGetSwapInfo/useGetTokenCombinations', () => {
 
     const TestComponent = () => {
       tokenCombinations = useGetTokenCombinations({
-        fromToken: SWAP_TOKENS.bnb,
-        toToken: SWAP_TOKENS.cake,
+        fromToken: bnb,
+        toToken: xvs,
       });
 
       return <></>;

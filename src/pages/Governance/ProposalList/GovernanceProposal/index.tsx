@@ -15,10 +15,10 @@ import { useTranslation } from 'translation';
 import { ProposalState, ProposalType, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
-import { GreenPulse } from 'components/LottieAnimation';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
+import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
@@ -208,7 +208,11 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
             <Typography variant="small2">
               {proposalState === 'Active' && (
                 <div css={styles.greenPulseContainer}>
-                  <GreenPulse css={styles.greenPulse} />
+                  <img
+                    src={greenPulseAnimation}
+                    css={styles.greenPulse}
+                    alt={t('voteProposalUi.greenPulseAnimation.altText')}
+                  />
                 </div>
               )}
               <Trans

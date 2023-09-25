@@ -5,7 +5,7 @@ import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
 export interface ConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;
-  token: Token | VToken;
+  token?: Token | VToken;
   returnInReadableFormat?: T;
   addSymbol?: boolean;
 }
@@ -18,9 +18,9 @@ export function convertWeiToTokens<T extends boolean | undefined = false>({
   returnInReadableFormat = false,
   addSymbol = true,
 }: ConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
-  const valueTokens = valueWei
-    .dividedBy(new BigNumber(10).pow(token.decimals))
-    .decimalPlaces(token.decimals);
+  const valueTokens =
+    token &&
+    valueWei.dividedBy(new BigNumber(10).pow(token.decimals)).decimalPlaces(token.decimals);
 
   return (
     returnInReadableFormat

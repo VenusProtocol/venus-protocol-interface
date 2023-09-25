@@ -1,15 +1,24 @@
 import BigNumber from 'bignumber.js';
 
+import { busd } from '__mocks__/models/tokens';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 
 import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
 
 describe('utilities/formatTokensToReadableValue', () => {
-  test('should return PLACEHOLDER_KEY when value is undefined', () => {
+  test('should return placeholder when value is undefined', () => {
     const result = formatTokensToReadableValue({
       value: undefined,
-      token: TOKENS.busd,
+      token: busd,
+      addSymbol: false,
+    });
+    expect(result).toEqual(PLACEHOLDER_KEY);
+  });
+
+  test('should return placeholder when token is undefined', () => {
+    const result = formatTokensToReadableValue({
+      value: new BigNumber(1000),
+      token: undefined,
       addSymbol: false,
     });
     expect(result).toEqual(PLACEHOLDER_KEY);
@@ -18,7 +27,7 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('should return 0 values correctly', () => {
     const result = formatTokensToReadableValue({
       value: new BigNumber(0),
-      token: TOKENS.busd,
+      token: busd,
     });
     expect(result).toEqual('0 BUSD');
   });
@@ -26,7 +35,7 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('should format insignificant values correctly', () => {
     const input: FormatTokensToReadableValueInput = {
       value: new BigNumber(0.0000001),
-      token: TOKENS.busd,
+      token: busd,
       addSymbol: false,
     };
 
@@ -43,13 +52,13 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('should format out-of-bound values correctly', () => {
     const result = formatTokensToReadableValue({
       value: new BigNumber('1000000000000000000'),
-      token: TOKENS.busd,
+      token: busd,
     });
     expect(result).toEqual('> 100.00T BUSD');
 
     const negativeResult = formatTokensToReadableValue({
       value: new BigNumber('-1000000000000000000'),
-      token: TOKENS.busd,
+      token: busd,
     });
     expect(negativeResult).toEqual('< -100.00T BUSD');
   });
@@ -57,7 +66,7 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('should return a formatted value with token symbol when addSymbol is true', () => {
     const input: FormatTokensToReadableValueInput = {
       value: new BigNumber(1234.5678),
-      token: TOKENS.busd,
+      token: busd,
       addSymbol: true,
     };
 

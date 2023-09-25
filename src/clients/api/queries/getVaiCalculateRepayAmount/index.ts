@@ -1,38 +1,37 @@
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { contractInfos } from 'packages/contracts';
+import BigNumber from 'bignumber.js';
 
-import formatToOutput from './formatToOutput';
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
 
 const getVaiCalculateRepayAmount = async ({
-  multicall3,
-  vaiControllerContractAddress,
+  vaiControllerContract,
   accountAddress,
   repayAmountWei,
 }: GetVaiCalculateRepayAmountInput): Promise<GetVaiCalculateRepayAmountOutput> => {
-  // Generate call context
-  const contractCallContext: ContractCallContext = {
-    reference: 'getVaiRepayInterests',
-    contractAddress: vaiControllerContractAddress,
-    abi: contractInfos.vaiController.abi,
-    calls: [
-      // Call (statically) accrueVAIInterest to calculate past accrued interests
-      // before fetching all interests
-      { reference: 'accrueVAIInterest', methodName: 'accrueVAIInterest', methodParameters: [] },
-      {
-        reference: 'getVAICalculateRepayAmount',
-        methodName: 'getVAICalculateRepayAmount',
-        methodParameters: [accountAddress, repayAmountWei.toFixed()],
-      },
-    ],
+  const [
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _accrueVaiInterestResult,
+    [vaiRepayAmountAfterFeeWeiResult, vaiCurrentInterestWeiResult, vaiPastInterestWeiResult],
+  ] = await Promise.all([
+    // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
+    // interests
+    vaiControllerContract.callStatic.accrueVAIInterest(),
+    vaiControllerContract.getVAICalculateRepayAmount(accountAddress, repayAmountWei.toFixed()),
+  ]);
+
+  const vaiTotalInterestWei = new BigNumber(vaiCurrentInterestWeiResult.toString()).plus(
+    vaiPastInterestWeiResult.toString(),
+  );
+  const feePercentage = repayAmountWei.isGreaterThan(0)
+    ? new BigNumber(vaiTotalInterestWei).times(100).dividedBy(repayAmountWei).toNumber()
+    : 0;
+
+  return {
+    vaiRepayAmountAfterFeeWei: new BigNumber(vaiRepayAmountAfterFeeWeiResult.toString()),
+    vaiCurrentInterestWei: new BigNumber(vaiCurrentInterestWeiResult.toString()),
+    vaiPastInterestWei: new BigNumber(vaiPastInterestWeiResult.toString()),
+    vaiTotalInterestWei,
+    feePercentage,
   };
-
-  const contractCallResults: ContractCallResults = await multicall3.call(contractCallContext);
-
-  return formatToOutput({
-    repayAmountWei,
-    contractCallResults,
-  });
 };
 
 export default getVaiCalculateRepayAmount;

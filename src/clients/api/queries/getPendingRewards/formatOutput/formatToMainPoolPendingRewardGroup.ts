@@ -1,25 +1,25 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallReturnContext } from 'ethereum-multicall';
+import { ContractTypeByName } from 'packages/contracts';
+import { Token } from 'types';
 
 import { MainPoolPendingRewardGroup } from '../types';
-import formatRewardSummaryData, { RewardSummary } from './formatRewardSummaryData';
+import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToMainPoolPendingRewardGroup({
-  callsReturnContext,
-  rewardTokenPrices,
+  comptrollerContractAddress,
+  venusLensPendingRewards,
+  tokenPriceMapping,
+  tokens,
 }: {
-  callsReturnContext: ContractCallReturnContext['callsReturnContext'][number];
-  rewardTokenPrices: Record<string, BigNumber>;
+  comptrollerContractAddress: string;
+  tokenPriceMapping: Record<string, BigNumber>;
+  tokens: Token[];
+  venusLensPendingRewards: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
 }) {
-  const { returnValues, methodParameters } = callsReturnContext;
-
-  if (returnValues.length === 0) {
-    return;
-  }
-
   const rewardSummaryData = formatRewardSummaryData({
-    rewardSummary: returnValues as RewardSummary,
-    rewardTokenPrices,
+    rewardSummary: venusLensPendingRewards,
+    tokenPriceMapping,
+    tokens,
   });
 
   if (!rewardSummaryData) {
@@ -31,7 +31,7 @@ function formatToMainPoolPendingRewardGroup({
 
   const pendingRewardGroup: MainPoolPendingRewardGroup = {
     type: 'mainPool',
-    comptrollerAddress: methodParameters[1],
+    comptrollerAddress: comptrollerContractAddress,
     rewardToken,
     rewardAmountCents,
     rewardAmountWei,

@@ -1,3 +1,73 @@
+## [2.22.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.1...v2.22.2) (2023-09-25)
+
+## [2.22.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.0...v2.22.1) (2023-09-23)
+
+## [2.22.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.4...v2.22.0) (2023-09-22)
+
+
+### Features
+
+* add Prime distribution types ([#1455](https://github.com/VenusProtocol/venus-protocol-interface/issues/1455)) ([5c338e2](https://github.com/VenusProtocol/venus-protocol-interface/commit/5c338e2fa27139239b4a8a0fe73491414fb2efa1))
+
+## [2.21.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.3...v2.21.4) (2023-09-22)
+
+## [2.21.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.2...v2.21.3) (2023-09-21)
+
+## [2.21.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.1...v2.21.2) (2023-09-21)
+
+## [2.21.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.21.0...v2.21.1) (2023-09-21)
+
+## [2.21.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.8...v2.21.0) (2023-09-20)
+
+
+### Features
+
+* add "prime" feature flag ([#1454](https://github.com/VenusProtocol/venus-protocol-interface/issues/1454)) ([ed9ffc4](https://github.com/VenusProtocol/venus-protocol-interface/commit/ed9ffc47f6fe1a269689d0269509055e18696c6d))
+
+## [2.20.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.7...v2.20.8) (2023-09-20)
+
+## [2.20.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.6...v2.20.7) (2023-09-19)
+
+## [2.20.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.5...v2.20.6) (2023-09-19)
+
+## [2.20.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.4...v2.20.5) (2023-09-19)
+
+## [2.20.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.3...v2.20.4) (2023-09-18)
+
+## [2.20.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.2...v2.20.3) (2023-09-18)
+
+## [2.20.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.1...v2.20.2) (2023-09-18)
+
+## [2.20.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.20.0...v2.20.1) (2023-09-17)
+
+## [2.20.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.10...v2.20.0) (2023-09-15)
+
+
+### Features
+
+* position Table loader below header ([#1436](https://github.com/VenusProtocol/venus-protocol-interface/issues/1436)) ([0358a4d](https://github.com/VenusProtocol/venus-protocol-interface/commit/0358a4d458c2d5ccfd58e12a628ee506fd6f6d4c))
+
+## [2.19.10](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.9...v2.19.10) (2023-09-15)
+
+## [2.19.9](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.8...v2.19.9) (2023-09-14)
+
+
+### Bug Fixes
+
+* move logic to scroll to top of page into Router ([#1429](https://github.com/VenusProtocol/venus-protocol-interface/issues/1429)) ([b722103](https://github.com/VenusProtocol/venus-protocol-interface/commit/b722103bbb7c14040b93a228a0c6c16de3783175))
+
+## [2.19.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.7...v2.19.8) (2023-09-14)
+
+## [2.19.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.6...v2.19.7) (2023-09-13)
+
+## [2.19.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.5...v2.19.6) (2023-09-13)
+
+## [2.19.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.4...v2.19.5) (2023-09-13)
+
+## [2.19.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.3...v2.19.4) (2023-09-12)
+
+## [2.19.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.2...v2.19.3) (2023-09-12)
+
 ## [2.19.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.19.1...v2.19.2) (2023-09-11)
 
 

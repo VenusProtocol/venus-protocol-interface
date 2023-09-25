@@ -5,7 +5,7 @@ import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import { TOKENS } from 'constants/tokens';
+import useGetTokens from 'hooks/useGetTokens';
 
 import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';
@@ -20,7 +20,7 @@ export interface TokenListProps {
   'data-testid'?: string;
 }
 
-const COMMON_TOKENS = [TOKENS.xvs, TOKENS.bnb, TOKENS.usdt, TOKENS.btcb];
+const commonTokenSymbols = ['XVS', 'BNB', 'USDT', 'BTCB'];
 
 export const TokenList: React.FC<TokenListProps> = ({
   tokenBalances,
@@ -30,6 +30,11 @@ export const TokenList: React.FC<TokenListProps> = ({
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
+  const tokens = useGetTokens();
+  const commonTokens = useMemo(
+    () => tokens.filter(token => commonTokenSymbols.includes(token.symbol)),
+    [tokens],
+  );
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -90,7 +95,7 @@ export const TokenList: React.FC<TokenListProps> = ({
         />
 
         <div css={styles.commonTokenList}>
-          {COMMON_TOKENS.map(commonToken => (
+          {commonTokens.map(commonToken => (
             <SenaryButton
               onClick={() => onTokenClick(commonToken)}
               css={styles.commonTokenButton}

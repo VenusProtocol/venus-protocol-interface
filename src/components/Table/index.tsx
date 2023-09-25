@@ -62,8 +62,6 @@ export function Table<R>({
     <Paper css={styles.getRoot({ breakpoint })} className={className}>
       {title && <h4 css={styles.getTitle({ breakpoint })}>{title}</h4>}
 
-      {isFetching && <Spinner css={styles.loader} />}
-
       <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
         <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
@@ -72,6 +70,16 @@ export function Table<R>({
             orderDirection={order?.orderDirection}
             onRequestOrder={onRequestOrder}
           />
+
+          {isFetching && (
+            <tbody>
+              <tr>
+                <td colSpan={columns.length}>
+                  <Spinner css={styles.loader} />
+                </td>
+              </tr>
+            </tbody>
+          )}
 
           <MuiTableBody>
             {sortedData.map((row, rowIndex) => {
@@ -120,6 +128,7 @@ export function Table<R>({
 
       <TableCards
         data={sortedData}
+        isFetching={isFetching}
         rowKeyExtractor={rowKeyExtractor}
         rowOnClick={rowOnClick}
         getRowHref={getRowHref}

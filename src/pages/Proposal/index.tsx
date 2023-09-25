@@ -5,12 +5,13 @@ import { ContractReceipt } from 'ethers';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Proposal as ProposalType, VotersDetails } from 'types';
+import { Proposal as ProposalType, Token, VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
+import useGetTokens from 'hooks/useGetTokens';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -21,6 +22,7 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
+  tokens: Token[];
   proposal: ProposalType | undefined;
   forVoters: VotersDetails;
   againstVoters: VotersDetails;
@@ -32,6 +34,7 @@ interface ProposalUiProps {
 }
 
 export const ProposalUi: React.FC<ProposalUiProps> = ({
+  tokens,
   proposal,
   forVoters,
   againstVoters,
@@ -109,7 +112,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       </div>
 
-      <Description description={proposal.description} actions={proposal.actions} />
+      <Description description={proposal.description} actions={proposal.actions} tokens={tokens} />
 
       {voteModalType !== undefined && (
         <VoteModal
@@ -130,6 +133,10 @@ const Proposal = () => {
   const { accountAddress } = useAuth();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+  const tokens = useGetTokens();
 
   const {
     data: votingWeightData = {
@@ -141,11 +148,11 @@ const Proposal = () => {
     () =>
       convertWeiToTokens({
         valueWei: votingWeightData.votesWei,
-        token: TOKENS.xvs,
+        token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightData?.votesWei.toFixed()],
+    [votingWeightData?.votesWei.toFixed(), xvs],
   );
 
   const defaultValue = {
@@ -184,6 +191,7 @@ const Proposal = () => {
 
   return (
     <ProposalUi
+      tokens={tokens}
       proposal={proposal}
       forVoters={forVoters}
       againstVoters={againstVoters}

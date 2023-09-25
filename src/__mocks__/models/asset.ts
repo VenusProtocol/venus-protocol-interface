@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
+import { xvs } from '__mocks__/models/tokens';
 import { vBusd, vUsdc, vUsdt, vXvs } from '__mocks__/models/vTokens';
-import { TESTNET_TOKENS } from 'constants/tokens';
 
 export const assetData: Asset[] = [
   {
@@ -34,14 +34,16 @@ export const assetData: Asset[] = [
     borrowPercentageRatePerBlock: new BigNumber('0.0000001'),
     supplyDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('0.11720675342484096'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
     ],
     borrowDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('4.17469243006608279'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
@@ -76,14 +78,16 @@ export const assetData: Asset[] = [
     borrowPercentageRatePerBlock: new BigNumber('0.0000002'),
     supplyDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('1.353105649796123742'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
     ],
     borrowDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('1.670327607690572731'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
@@ -118,14 +122,16 @@ export const assetData: Asset[] = [
     borrowPercentageRatePerBlock: new BigNumber('0.0000003'),
     supplyDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('0.421719501189155143'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
     ],
     borrowDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('0.522209972682294832'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
@@ -160,14 +166,16 @@ export const assetData: Asset[] = [
     borrowPercentageRatePerBlock: new BigNumber('0.0000004'),
     supplyDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('0.678420831753642169'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
     ],
     borrowDistributions: [
       {
-        token: TESTNET_TOKENS.xvs,
+        type: 'rewardDistributor',
+        token: xvs,
         apyPercentage: new BigNumber('0.852697602175970714'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },

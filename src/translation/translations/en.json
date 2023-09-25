@@ -76,9 +76,6 @@
     "step1": "Step 1",
     "step2": "Step 2"
   },
-  "appVersionChecker": {
-    "newVersionMessage": "A new version of Venus is available. Reload the page to use it now."
-  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -568,6 +565,9 @@
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
     "revokeButtonTooltip": "Revoke spending limit"
   },
+  "spinner": {
+    "altText": "Spinning animation"
+  },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
@@ -948,6 +948,9 @@
     "description": "Description",
     "execute": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "Green pulse animation"
+    },
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {

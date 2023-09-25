@@ -5,6 +5,7 @@ import getXvsVaultPoolCount, {
   GetXvsVaultPoolCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolCount';
 import FunctionKey from 'constants/functionKey';
+import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
@@ -20,9 +21,13 @@ const useGetXvsVaultPoolCount = (options?: Options) => {
     name: 'xvsVault',
   });
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   return useQuery(
     FunctionKey.GET_XVS_VAULT_POOLS_COUNT,
-    () => callOrThrow({ xvsVaultContract }, getXvsVaultPoolCount),
+    () => callOrThrow({ xvsVaultContract, xvsTokenAddress: xvs?.address }, getXvsVaultPoolCount),
     options,
   );
 };

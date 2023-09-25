@@ -8,6 +8,7 @@ export interface LinkProps {
   href: MenuItem['href'];
   onClick?: () => void;
   isMobile?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Link: React.FC<LinkProps> = ({ children, onClick, href, isMobile = false }) => {

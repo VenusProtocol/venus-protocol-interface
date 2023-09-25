@@ -1,4 +1,4 @@
-import { Layout, ResetScrollOnRouteChange } from 'components';
+import { Layout } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
@@ -29,8 +29,6 @@ const App = () => (
                     <ToastContainer />
 
                     <Layout>
-                      <ResetScrollOnRouteChange />
-
                       <Router />
                     </Layout>
                   </HashRouter>

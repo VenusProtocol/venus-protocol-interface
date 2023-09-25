@@ -11,8 +11,8 @@ import {
   useGetXvsVaultUserInfo,
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles as useSharedStyles } from '../styles';
@@ -106,6 +106,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
 }) => {
   const { accountAddress } = useAuth();
   const { t } = useTranslation();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const {
     mutateAsync: requestWithdrawalFromXvsVault,
@@ -120,7 +123,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   } = useGetXvsVaultLockedDeposits(
     {
       poolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs!.address,
       accountAddress: accountAddress || '',
     },
     {
@@ -135,7 +138,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     useGetXvsVaultUserInfo(
       {
         poolIndex,
-        rewardTokenAddress: TOKENS.xvs.address,
+        rewardTokenAddress: xvs!.address,
         accountAddress: accountAddress || '',
       },
       {
@@ -164,7 +167,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     useGetXvsVaultPoolInfo(
       {
         poolIndex,
-        rewardTokenAddress: TOKENS.xvs.address,
+        rewardTokenAddress: xvs!.address,
       },
       {
         enabled: !!accountAddress,
@@ -179,7 +182,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
     requestWithdrawalFromXvsVault({
       poolIndex,
-      rewardTokenAddress: TOKENS.xvs.address,
+      rewardTokenAddress: xvs!.address,
       amountWei,
     });
 

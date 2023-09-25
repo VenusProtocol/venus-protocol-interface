@@ -11,8 +11,8 @@ import {
   useGetXvsWithdrawableAmount,
   useWithdrawXvs,
 } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
+import useGetToken from 'hooks/useGetToken';
 
 import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
@@ -58,6 +58,9 @@ const ConvertVrt = () => {
   const { accountAddress } = useAuth();
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
     useGetXvsWithdrawableAmount(
@@ -68,10 +71,10 @@ const ConvertVrt = () => {
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
 
   const conversionRatio = useMemo(() => {
-    if (vrtConversionRatioData?.conversionRatio) {
+    if (xvs && vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
         valueWei: vrtConversionRatioData.conversionRatio,
-        token: TOKENS.xvs,
+        token: xvs,
       });
     }
 

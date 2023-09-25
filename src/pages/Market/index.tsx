@@ -10,16 +10,15 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
-  isTokenActionEnabled,
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
 import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
+import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 
 import Card, { CardProps } from './Card';
@@ -35,8 +34,10 @@ export interface MarketUiProps {
   interestRateChartData: InterestRateChartProps['data'];
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
-  currentUtilizationRate: number;
+  currentUtilizationRatePercentage: number;
   asset: Asset;
+  isBorrowActionEnabled: boolean;
+  isSupplyActionEnabled: boolean;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
@@ -47,7 +48,9 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   borrowChartData,
   isInterestRateChartDataLoading,
   interestRateChartData,
-  currentUtilizationRate,
+  currentUtilizationRatePercentage,
+  isBorrowActionEnabled,
+  isSupplyActionEnabled,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -70,20 +73,14 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
     }),
     [
-      asset?.supplyPercentageRatePerBlock,
-      asset?.supplyBalanceCents,
-      asset?.borrowPercentageRatePerBlock,
-      asset?.borrowPercentageRatePerBlock,
+      asset.supplyPercentageRatePerBlock,
+      asset.supplyBalanceCents,
+      asset.borrowPercentageRatePerBlock,
+      asset.borrowPercentageRatePerBlock,
     ],
   );
 
-  const isSupplyOrBorrowEnabled = React.useMemo(
-    () =>
-      asset &&
-      (isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'supply' }) ||
-        isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'borrow' })),
-    [asset?.vToken.underlyingToken],
-  );
+  const isSupplyOrBorrowEnabled = isSupplyActionEnabled || isBorrowActionEnabled;
 
   const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
 
@@ -101,7 +98,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
       {
         label: t('market.supplyInfo.stats.apy'),
-        value: formatPercentageToReadableValue(asset?.supplyApyPercentage),
+        value: formatPercentageToReadableValue(asset.supplyApyPercentage),
       },
     ];
 
@@ -113,7 +110,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     }
 
     return stats;
-  }, [asset?.supplyApyPercentage, asset?.supplyApyPercentage, distributionApys]);
+  }, [asset.supplyApyPercentage, asset.supplyApyPercentage, distributionApys]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -148,7 +145,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     }
 
     return stats;
-  }, [asset?.borrowBalanceCents, asset?.borrowApyPercentage, distributionApys]);
+  }, [asset.borrowBalanceCents, asset.borrowApyPercentage, distributionApys]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
@@ -186,6 +183,12 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         dailyDistributedTokens: BigNumber;
       };
     }>((accDistributionMapping, distribution) => {
+      // Filter out distributions that do not indicate the amount of tokens distributed to everyone
+      // per day
+      if (!('dailyDistributedTokens' in distribution)) {
+        return accDistributionMapping;
+      }
+
       const accCopy = { ...accDistributionMapping };
 
       if (!Object.hasOwnProperty.call(accCopy, distribution.token.address)) {
@@ -312,26 +315,26 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       },
     ];
   }, [
-    asset?.tokenPriceCents,
-    asset?.liquidityCents,
-    asset?.supplierCount,
-    asset?.borrowerCount,
-    asset?.borrowCapTokens,
-    asset?.vToken,
-    asset?.supplyDistributions,
-    asset?.borrowDistributions,
-    asset?.reserveTokens,
-    asset?.reserveFactor,
-    asset?.collateralFactor,
-    asset?.supplyBalanceTokens,
-    asset?.exchangeRateVTokens,
+    asset.tokenPriceCents,
+    asset.liquidityCents,
+    asset.supplierCount,
+    asset.borrowerCount,
+    asset.borrowCapTokens,
+    asset.vToken,
+    asset.supplyDistributions,
+    asset.borrowDistributions,
+    asset.reserveTokens,
+    asset.reserveFactor,
+    asset.collateralFactor,
+    asset.supplyBalanceTokens,
+    asset.exchangeRateVTokens,
     dailySupplyInterestsCents,
     dailyBorrowInterestsCents,
   ]);
 
   const buttonsDom = (
     <>
-      {isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'supply' }) && (
+      {isSupplyActionEnabled && (
         <Button
           fullWidth
           css={styles.statsColumnButton}
@@ -346,7 +349,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           {t('market.supplyButtonLabel')}
         </Button>
       )}
-      {isTokenActionEnabled({ token: asset.vToken.underlyingToken, action: 'borrow' }) && (
+      {isBorrowActionEnabled && (
         <SecondaryButton
           fullWidth
           css={styles.statsColumnButton}
@@ -413,7 +416,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
               <div css={styles.apyChart}>
                 <InterestRateChart
                   data={interestRateChartData}
-                  currentUtilizationRate={currentUtilizationRate}
+                  currentUtilizationRatePercentage={currentUtilizationRatePercentage}
                 />
               </div>
             )}
@@ -449,22 +452,26 @@ const Market: React.FC<MarketProps> = ({
     vToken: asset.vToken,
   });
 
-  const reserveFactorMantissa = useMemo(
-    () => asset && new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA),
-    [asset?.reserveFactor],
-  );
-
   const {
     isLoading: isInterestRateChartDataLoading,
     data: interestRateChartData = {
       apySimulations: [],
-      currentUtilizationRate: 0,
+      currentUtilizationRatePercentage: 0,
     },
   } = useGetVTokenApySimulations({
     vToken: asset.vToken,
     isIsolatedPoolMarket,
-    reserveFactorMantissa,
     asset,
+  });
+
+  const isBorrowActionEnabled = useIsTokenActionEnabled({
+    tokenAddress: asset.vToken.underlyingToken.address,
+    action: 'borrow',
+  });
+
+  const isSupplyActionEnabled = useIsTokenActionEnabled({
+    tokenAddress: asset.vToken.underlyingToken.address,
+    action: 'supply',
   });
 
   return (
@@ -475,7 +482,9 @@ const Market: React.FC<MarketProps> = ({
       {...chartData}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
-      currentUtilizationRate={interestRateChartData.currentUtilizationRate}
+      currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}
+      isBorrowActionEnabled={isBorrowActionEnabled}
+      isSupplyActionEnabled={isSupplyActionEnabled}
     />
   );
 };

@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { TOKENS } from 'constants/tokens';
+import tokens from '__mocks__/models/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TokenIcon } from '.';
@@ -14,7 +14,7 @@ export default {
 
 export const Default = () => (
   <>
-    <h2 style={{ marginBottom: '12px' }}>Common tokens (testnet)</h2>
+    <h2 style={{ marginBottom: '12px' }}>Common token examples</h2>
 
     <div
       style={{
@@ -24,7 +24,7 @@ export const Default = () => (
         marginBottom: '32px',
       }}
     >
-      {Object.values(TOKENS).map(token => (
+      {tokens.map(token => (
         <div
           style={{
             display: 'flex',

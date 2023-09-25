@@ -1,6 +1,8 @@
 import { BigNumber as BN } from 'ethers';
 import { ContractTypeByName } from 'packages/contracts';
 
+import { xvs } from '../models/tokens';
+
 const xvsVaultResponses: {
   userInfo: Awaited<ReturnType<ContractTypeByName<'xvsVault'>['getUserInfo']>>;
   poolInfo: Awaited<ReturnType<ContractTypeByName<'xvsVault'>['poolInfos']>>;
@@ -20,7 +22,7 @@ const xvsVaultResponses: {
     amount: BN.from('30000000000000000000'),
   } as Awaited<ReturnType<ContractTypeByName<'xvsVault'>['getUserInfo']>>,
   poolInfo: {
-    token: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
+    token: xvs.address,
     allocPoint: BN.from('10'),
     lastRewardBlock: BN.from('100000'),
     accRewardPerShare: BN.from('123871680'),

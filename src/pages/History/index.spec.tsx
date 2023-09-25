@@ -5,7 +5,6 @@ import Vi from 'vitest';
 import fakeAddress from '__mocks__/models/address';
 import transactions from '__mocks__/models/transactions';
 import { useGetTransactions } from 'clients/api';
-import TEST_IDS from 'components/Spinner/testIds';
 import renderComponent from 'testUtils/renderComponent';
 
 import History from '.';
@@ -28,16 +27,6 @@ describe('pages/History', () => {
     });
     expect(useGetTransactions).toBeCalledTimes(1);
     expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 0 });
-  });
-
-  it('renders spinner when fetching', async () => {
-    (useGetTransactions as Vi.Mock).mockImplementation(() => ({
-      data: undefined,
-      isFetching: true,
-      isPreviousData: true,
-    }));
-    const { getByTestId } = renderComponent(<History />);
-    getByTestId(TEST_IDS.spinner);
   });
 
   it('rerequests when toggling event filter', async () => {

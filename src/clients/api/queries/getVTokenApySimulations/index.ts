@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
-import { contractInfos } from 'packages/contracts';
+import { ContractTypeByName } from 'packages/contracts';
 import { convertTokensToWei } from 'utilities';
+
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
@@ -9,94 +10,111 @@ import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './ty
 
 export * from './types';
 
-const REFERENCE_AMOUNT_WEI = 1e4;
+const REFERENCE_AMOUNT_MANTISSA = 1e4;
+const BAD_DEBT_MANTISSA = '0';
 
 const getVTokenApySimulations = async ({
-  multicall3,
-  reserveFactorMantissa,
-  interestRateModelContractAddress,
+  interestRateModelContract,
   isIsolatedPoolMarket,
   asset,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
-  const calls: ContractCallContext['calls'] = [];
-  const badDebtWei = new BigNumber(0).toFixed();
+  const reserveFactorMantissa = new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA);
+
+  const getBorrowRatePromises: ReturnType<(typeof interestRateModelContract)['getBorrowRate']>[] =
+    [];
+  const getSupplyRatePromises: ReturnType<(typeof interestRateModelContract)['getSupplyRate']>[] =
+    [];
 
   for (let u = 1; u <= 100; u++) {
-    const utilizationRate = u / 100;
-    const cashAmountWei = new BigNumber(1 / utilizationRate - 1)
-      .times(REFERENCE_AMOUNT_WEI)
+    const utilizationRatePercentage = u / 100;
+    const cashAmountMantissa = new BigNumber(1 / utilizationRatePercentage - 1)
+      .times(REFERENCE_AMOUNT_MANTISSA)
       .dp(0)
       .toFixed();
 
-    const borrowsAmountWei = new BigNumber(REFERENCE_AMOUNT_WEI).toFixed();
-    const reservesAmountWei = new BigNumber(0).toFixed();
+    const borrowsAmountMantissa = new BigNumber(REFERENCE_AMOUNT_MANTISSA).toFixed();
+    const reservesAmountMantissa = new BigNumber(0).toFixed();
 
-    const getBorrowRateParams = [cashAmountWei, borrowsAmountWei, reservesAmountWei];
+    if (isIsolatedPoolMarket) {
+      getBorrowRatePromises.push(
+        (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getBorrowRate(
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
+          BAD_DEBT_MANTISSA,
+        ),
+      );
 
-    calls.push({
-      reference: 'getBorrowRate',
-      methodName: 'getBorrowRate',
-      methodParameters: isIsolatedPoolMarket
-        ? [...getBorrowRateParams, badDebtWei]
-        : getBorrowRateParams,
-    });
+      getSupplyRatePromises.push(
+        (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getSupplyRate(
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
+          reserveFactorMantissa.toFixed(),
+          BAD_DEBT_MANTISSA,
+        ),
+      );
+    } else {
+      getBorrowRatePromises.push(
+        (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getBorrowRate(
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
+        ),
+      );
 
-    const getSupplyRateParams = [
-      cashAmountWei,
-      borrowsAmountWei,
-      reservesAmountWei,
-      reserveFactorMantissa.toFixed(),
-    ];
-
-    calls.push({
-      reference: 'getSupplyRate',
-      methodName: 'getSupplyRate',
-      methodParameters: isIsolatedPoolMarket
-        ? [...getSupplyRateParams, badDebtWei]
-        : getSupplyRateParams,
-    });
+      getSupplyRatePromises.push(
+        (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getSupplyRate(
+          cashAmountMantissa,
+          borrowsAmountMantissa,
+          reservesAmountMantissa,
+          reserveFactorMantissa.toFixed(),
+        ),
+      );
+    }
   }
 
-  if (asset) {
-    const cashWei = convertTokensToWei({
-      value: asset.cashTokens,
-      token: asset.vToken.underlyingToken,
-    }).toFixed();
-    const borrowBalanceWei = convertTokensToWei({
-      value: asset.borrowBalanceTokens,
-      token: asset.vToken.underlyingToken,
-    }).toFixed();
-    const reservesWei = convertTokensToWei({
-      value: asset.reserveTokens,
-      token: asset.vToken.underlyingToken,
-    }).toFixed();
+  const cashMantissa = convertTokensToWei({
+    value: asset.cashTokens,
+    token: asset.vToken.underlyingToken,
+  }).toFixed();
+  const borrowBalanceMantissa = convertTokensToWei({
+    value: asset.borrowBalanceTokens,
+    token: asset.vToken.underlyingToken,
+  }).toFixed();
+  const reservesMantissa = convertTokensToWei({
+    value: asset.reserveTokens,
+    token: asset.vToken.underlyingToken,
+  }).toFixed();
 
-    const utilizationRateParams = [cashWei, borrowBalanceWei, reservesWei];
+  const groupedGetBorrowRatePromises = Promise.all(getBorrowRatePromises);
+  const groupedGetSupplyRatePromises = Promise.all(getSupplyRatePromises);
+  const utilizationRatePromise = isIsolatedPoolMarket
+    ? (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).utilizationRate(
+        cashMantissa,
+        borrowBalanceMantissa,
+        reservesMantissa,
+        BAD_DEBT_MANTISSA,
+      )
+    : (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).utilizationRate(
+        cashMantissa,
+        borrowBalanceMantissa,
+        reservesMantissa,
+      );
 
-    calls.push({
-      reference: 'utilizationRate',
-      methodName: 'utilizationRate',
-      methodParameters: isIsolatedPoolMarket
-        ? [...utilizationRateParams, badDebtWei]
-        : utilizationRateParams,
-    });
-  }
+  const borrowRates = await groupedGetBorrowRatePromises;
+  const supplyRates = await groupedGetSupplyRatePromises;
+  const utilizationRatePercentage = await utilizationRatePromise;
 
-  const contractCallContext: ContractCallContext = {
-    reference: 'getVTokenRates',
-    contractAddress: interestRateModelContractAddress,
-    abi: isIsolatedPoolMarket ? contractInfos.jumpRateModelV2.abi : contractInfos.jumpRateModel.abi,
-    calls,
-  };
+  const apySimulations = formatToApySnapshots({
+    borrowRates,
+    supplyRates,
+  });
+  const currentUtilizationRatePercentage = formatCurrentUtilizationRate({
+    utilizationRatePercentage,
+  });
 
-  const vTokenBalanceCallResults: ContractCallResults = await multicall3.call(contractCallContext);
-
-  const apySimulations = formatToApySnapshots({ vTokenBalanceCallResults });
-  const currentUtilizationRate = asset
-    ? formatCurrentUtilizationRate({ vTokenBalanceCallResults })
-    : 0;
-
-  return { apySimulations, currentUtilizationRate };
+  return { apySimulations, currentUtilizationRatePercentage };
 };
 
 export default getVTokenApySimulations;

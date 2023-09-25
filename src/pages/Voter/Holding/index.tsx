@@ -6,8 +6,8 @@ import React from 'react';
 import { useTranslation } from 'translation';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 
@@ -28,16 +28,19 @@ export const Holding: React.FC<HoldingProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
 
   const readableVenusBalance = useConvertWeiToReadableTokenString({
     valueWei: balanceWei,
-    token: TOKENS.xvs,
+    token: xvs,
     addSymbol: false,
   });
 
   const readableVotes = useConvertWeiToReadableTokenString({
     valueWei: votesWei,
-    token: TOKENS.xvs,
+    token: xvs,
     addSymbol: false,
   });
 

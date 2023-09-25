@@ -24,7 +24,6 @@ import {
 } from 'utilities';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { useAuth } from 'context/AuthContext';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -93,7 +92,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     () =>
       isFeatureEnabled('integratedSwap') &&
       // The swap router contract does not support the swap and supply flow for BNB
-      !areTokensEqual(asset.vToken.underlyingToken, TOKENS.bnb),
+      asset.vToken.underlyingToken.symbol !== 'BNB',
     [asset.vToken.underlyingToken],
   );
 

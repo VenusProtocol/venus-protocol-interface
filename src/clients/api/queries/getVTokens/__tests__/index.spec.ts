@@ -4,6 +4,7 @@ import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPo
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakePoolRegistryContractAddress from '__mocks__/models/address';
+import tokens from '__mocks__/models/tokens';
 
 import getVTokens from '..';
 
@@ -24,6 +25,7 @@ const fakeMainPoolComptrollerContract = {
 describe('api/queries/getVTokens', () => {
   it('returns the vTokens on success', async () => {
     const response = await getVTokens({
+      tokens,
       venusLensContract: fakeVenusLensContract,
       mainPoolComptrollerContract: fakeMainPoolComptrollerContract,
       poolLensContract: fakePoolLensContract,
@@ -35,6 +37,7 @@ describe('api/queries/getVTokens', () => {
 
   it('still functions without passing venusLensContract or mainPoolComptrollerContract', async () => {
     const response = await getVTokens({
+      tokens,
       poolLensContract: fakePoolLensContract,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
     });

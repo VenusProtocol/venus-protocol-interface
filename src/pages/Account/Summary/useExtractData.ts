@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Pool, Vault } from 'types';
 import {
-  areTokensEqual,
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
@@ -12,7 +11,6 @@ import {
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { TOKENS } from 'constants/tokens';
 
 import calculateNetApy from './calculateNetApy';
 
@@ -43,9 +41,7 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
         const vaultStakeCents = convertWeiToTokens({
           valueWei: new BigNumber(vault.userStakedWei || 0),
           token: vault.stakedToken,
-        }).multipliedBy(
-          areTokensEqual(vault.stakedToken, TOKENS.xvs) ? xvsPriceCents : vaiPriceCents,
-        );
+        }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
 
         return {
           totalVaultStakeCents: accTotalVaultStakeCents.totalVaultStakeCents.plus(vaultStakeCents),
