@@ -19,7 +19,7 @@ const useIsTokenActionEnabled = ({ tokenAddress, action }: UseIsTokenActionEnabl
         chainId,
         action,
       }),
-    [chainId],
+    [chainId, tokenAddress, action],
   );
 };
 

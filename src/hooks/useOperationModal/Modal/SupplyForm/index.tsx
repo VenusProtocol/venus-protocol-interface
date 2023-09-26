@@ -13,9 +13,10 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { isTokenActionEnabled } from 'packages/tokens';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertTokensToWei,
@@ -59,6 +60,7 @@ export interface SupplyFormUiProps
   isSwapLoading: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  chainId: ChainId;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -81,6 +83,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   fromTokenWalletSpendingLimitTokens,
   revokeFromTokenWalletSpendingLimit,
   isRevokeFromTokenWalletSpendingLimitLoading,
+  chainId,
   swap,
   swapError,
 }) => {
@@ -91,8 +94,18 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const isIntegratedSwapEnabled = useMemo(
     () =>
       isFeatureEnabled('integratedSwap') &&
-      // The swap router contract does not support the swap and supply flow for BNB
-      asset.vToken.underlyingToken.symbol !== 'BNB',
+      // Check swap and supply action is enabled for underlying token
+      isTokenActionEnabled({
+        tokenAddress: asset.vToken.underlyingToken.address,
+        action: 'swapAndSupply',
+        chainId,
+      }) &&
+      // Check swap and supply action is enabled for vToken
+      isTokenActionEnabled({
+        tokenAddress: asset.vToken.address,
+        action: 'swapAndSupply',
+        chainId,
+      }),
     [asset.vToken.underlyingToken],
   );
 
@@ -318,7 +331,7 @@ export interface SupplyFormProps {
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress, chainId } = useAuth();
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
@@ -412,6 +425,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     <SupplyFormUi
       asset={asset}
       pool={pool}
+      chainId={chainId}
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}
