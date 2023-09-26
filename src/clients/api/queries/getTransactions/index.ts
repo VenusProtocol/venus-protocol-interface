@@ -74,7 +74,9 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.map(data => formatTransaction({ data, vTokens, defaultToken, tokens }));
+  const transactions = payload.result.map(data =>
+    formatTransaction({ data, vTokens, defaultToken, tokens }),
+  );
 
   return { limit, page: payloadPage, total, transactions };
 };

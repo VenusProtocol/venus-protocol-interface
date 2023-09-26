@@ -12,7 +12,7 @@ export type MarketHistoryType = '1 day' | '1 week' | '1 month' | '1 year';
 
 export interface GetMarketHistoryResponse {
   asset: string;
-  data: MarketSnapshot[];
+  result: MarketSnapshot[];
   updatedAt: string;
 }
 
@@ -29,11 +29,12 @@ const getMarketHistory = async ({
   vToken,
   type = '1 month',
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
-  const endpoint = `/markets/history?asset=${vToken.address}&version=v2`;
+  const endpoint = `/markets/history?asset=${vToken.address}`;
 
-  const response = await restService<GetMarketHistoryResponse, 'v1'>({
+  const response = await restService<GetMarketHistoryResponse, 'v2'>({
     endpoint,
     method: 'GET',
+    next: true,
   });
 
   // @todo Add specific api error handling
@@ -45,7 +46,7 @@ const getMarketHistory = async ({
     });
   }
 
-  let sampleSize = response.data?.data.data.length || 0;
+  let sampleSize = response.data?.result.length || 0;
 
   switch (type) {
     case '1 year':
@@ -62,7 +63,7 @@ const getMarketHistory = async ({
       break;
   }
 
-  const marketSnapshots = response.data?.data?.data?.slice(-sampleSize) || [];
+  const marketSnapshots = response.data?.result?.slice(-sampleSize) || [];
 
   return {
     marketSnapshots,
