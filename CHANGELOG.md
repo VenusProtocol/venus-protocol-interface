@@ -1,3 +1,10 @@
+## [2.23.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.4...v2.23.0) (2023-09-26)
+
+
+### Features
+
+* add Prime status banner ([#1464](https://github.com/VenusProtocol/venus-protocol-interface/issues/1464)) ([fe44c45](https://github.com/VenusProtocol/venus-protocol-interface/commit/fe44c45991d1a1de47ac81e0ee5e7fa511b1ea83))
+
 ## [2.22.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.3...v2.22.4) (2023-09-26)
 
 
