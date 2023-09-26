@@ -4,15 +4,17 @@ import areAddressesEqual from 'utilities/areAddressesEqual';
 
 import disabledTokenActions from '../tokenInfos/disabledTokenActions';
 
+export interface IsTokenActionEnabledInput {
+  tokenAddress: string;
+  chainId: ChainId;
+  action: TokenAction;
+}
+
 export const isTokenActionEnabled = ({
   tokenAddress,
   chainId,
   action,
-}: {
-  tokenAddress: string;
-  chainId: ChainId;
-  action: TokenAction;
-}) => {
+}: IsTokenActionEnabledInput) => {
   const disabledToken = disabledTokenActions[chainId].find(item =>
     areAddressesEqual(item.address, tokenAddress),
   );
