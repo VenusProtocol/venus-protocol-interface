@@ -1,9 +1,9 @@
 import noop from 'noop-ts';
 import { ContractTypeByName } from 'packages/contracts';
 
-import callOrThrow from '..';
+import { callOrThrow } from '..';
 
-describe('utilities/callOrThrow', () => {
+describe('callOrThrow', () => {
   it('throws when a required parameter is undefined', () => {
     try {
       callOrThrow(

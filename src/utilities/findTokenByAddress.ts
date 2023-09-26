@@ -1,7 +1,8 @@
 import { Token, VToken } from 'types';
-import { areAddressesEqual } from 'utilities';
 
-function findTokenByAddress<TToken extends Token | VToken>({
+import { areAddressesEqual } from './areAddressesEqual';
+
+export function findTokenByAddress<TToken extends Token | VToken>({
   address,
   tokens,
 }: {
@@ -10,5 +11,3 @@ function findTokenByAddress<TToken extends Token | VToken>({
 }) {
   return tokens.find(token => areAddressesEqual(token.address, address));
 }
-
-export default findTokenByAddress;

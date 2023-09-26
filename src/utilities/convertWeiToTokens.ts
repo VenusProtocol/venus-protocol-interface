@@ -32,5 +32,3 @@ export function convertWeiToTokens<T extends boolean | undefined = false>({
       : valueTokens
   ) as ConvertWeiToTokensOutput<T>;
 }
-
-export default convertWeiToTokens;

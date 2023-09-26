@@ -19,5 +19,3 @@ export const generateBscScanUrl = <T extends UrlType = 'address'>({
   const explorerUrl = EXPLORER_URLS[chainId];
   return `${explorerUrl}/${safeUrlType}/${hash}`;
 };
-
-export default generateBscScanUrl;

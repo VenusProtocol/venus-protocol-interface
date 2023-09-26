@@ -4,9 +4,9 @@ import { HypotheticalPrimeDistribution } from 'types';
 import { assetData as assets } from '__mocks__/models/asset';
 import { xvs } from '__mocks__/models/tokens';
 
-import getCombinedDistributionApys from '..';
+import { getCombinedDistributionApys } from '..';
 
-describe('utilities/getCombinedDistributionApys', () => {
+describe('getCombinedDistributionApys', () => {
   it('calculates combined distribution APYS correctly', () => {
     const distributionApys = getCombinedDistributionApys({
       asset: assets[0],

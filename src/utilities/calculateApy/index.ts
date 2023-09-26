@@ -7,7 +7,7 @@ export interface CalculateApyInput {
   dailyRate: BigNumber;
 }
 
-const calculateApy = ({ dailyRate }: CalculateApyInput) =>
+export const calculateApy = ({ dailyRate }: CalculateApyInput) =>
   dailyRate
     .plus(1)
     .pow(DAYS_PER_YEAR - 1)
@@ -15,5 +15,3 @@ const calculateApy = ({ dailyRate }: CalculateApyInput) =>
     // Convert to percentage
     .multipliedBy(100)
     .dp(COMPOUND_DECIMALS);
-
-export default calculateApy;

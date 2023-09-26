@@ -1,11 +1,11 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
+import { findTokenByAddress } from 'utilities';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
-import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {
   stakedTokenAddresses: (string | undefined)[];

@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
-
-import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
-import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
-import findTokenByAddress from 'utilities/findTokenByAddress';
-import removeDuplicates from 'utilities/removeDuplicates';
+import {
+  convertPriceMantissaToDollars,
+  extractSettledPromiseValue,
+  findTokenByAddress,
+  removeDuplicates,
+} from 'utilities';
 
 import { GetRewardsDistributorSettingsMappingOutput } from './getRewardsDistributorSettingsMapping';
 

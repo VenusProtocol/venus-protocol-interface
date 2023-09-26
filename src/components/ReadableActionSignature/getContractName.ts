@@ -1,8 +1,6 @@
 import { swapRouter, uniqueContractInfos } from 'packages/contracts';
 import { ChainId, Token, VToken } from 'types';
-
-import areAddressesEqual from 'utilities/areAddressesEqual';
-import findTokenByAddress from 'utilities/findTokenByAddress';
+import { areAddressesEqual, findTokenByAddress } from 'utilities';
 
 export interface GetContractNameInput {
   target: string;

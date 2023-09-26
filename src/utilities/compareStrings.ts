@@ -1,4 +1,4 @@
-const compareStrings = (
+export const compareStrings = (
   valueA: string | undefined,
   valueB: string | undefined,
   direction: 'asc' | 'desc',
@@ -9,5 +9,3 @@ const compareStrings = (
 
   return direction === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
 };
-
-export default compareStrings;

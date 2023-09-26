@@ -8,7 +8,7 @@ export interface MultiplyMantissaDailyInput {
   decimals?: number;
 }
 
-const multiplyMantissaDaily = ({
+export const multiplyMantissaDaily = ({
   mantissa,
   decimals = COMPOUND_DECIMALS,
 }: MultiplyMantissaDailyInput) =>
@@ -16,5 +16,3 @@ const multiplyMantissaDaily = ({
     .div(new BigNumber(10).pow(decimals))
     .multipliedBy(BLOCKS_PER_DAY)
     .dp(decimals);
-
-export default multiplyMantissaDaily;

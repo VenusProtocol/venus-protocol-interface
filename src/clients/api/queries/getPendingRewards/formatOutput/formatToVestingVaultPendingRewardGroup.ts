@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { Token } from 'types';
+import { convertDollarsToCents, convertWeiToTokens, findTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
-import convertDollarsToCents from 'utilities/convertDollarsToCents';
-import convertWeiToTokens from 'utilities/convertWeiToTokens';
-import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import { XvsVestingVaultPendingRewardGroup } from '../types';
 

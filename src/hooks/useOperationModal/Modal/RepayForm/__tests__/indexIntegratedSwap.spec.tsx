@@ -23,7 +23,7 @@ import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
-import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
+import { isFeatureEnabled as originalIsFeatureEnabledMock } from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';

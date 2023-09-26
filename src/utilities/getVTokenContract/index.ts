@@ -3,7 +3,7 @@ import { Signer } from 'ethers';
 import { getGenericContract } from 'packages/contracts';
 import { VToken } from 'types';
 
-const getVTokenContract = ({
+export const getVTokenContract = ({
   vToken,
   signerOrProvider,
 }: {
@@ -22,5 +22,3 @@ const getVTokenContract = ({
     signerOrProvider,
   });
 };
-
-export default getVTokenContract;

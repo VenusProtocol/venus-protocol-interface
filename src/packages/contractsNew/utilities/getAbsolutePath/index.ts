@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import cwd from 'utilities/cwd';
+import { cwd } from 'utilities/cwd';
 
 export const CONTRACTS_PACKAGE_PATH = './src/packages/contractsNew';
 

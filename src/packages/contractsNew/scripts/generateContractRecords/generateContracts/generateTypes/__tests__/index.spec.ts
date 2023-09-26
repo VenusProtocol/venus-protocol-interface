@@ -1,9 +1,9 @@
 import fakeContractConfigs from 'packages/contractsNew/__testUtils__/fakeConfig';
 import { glob, runTypeChain } from 'typechain';
+import { cwd } from 'utilities';
 import Vi from 'vitest';
 
-import cwd from 'utilities/cwd';
-import writeFile from 'utilities/writeFile';
+import { writeFile } from 'utilities/writeFile';
 
 import generateTypes from '..';
 

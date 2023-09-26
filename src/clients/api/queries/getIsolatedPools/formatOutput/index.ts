@@ -1,20 +1,22 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Asset, Pool, Token, VToken } from 'types';
+import {
+  addUserPropsToPool,
+  areAddressesEqual,
+  areTokensEqual,
+  calculateApy,
+  convertDollarsToCents,
+  convertFactorFromSmartContract,
+  convertWeiToTokens,
+  findTokenByAddress,
+  multiplyMantissaDaily,
+} from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { logError } from 'context/ErrorLogger';
-import addUserPropsToPool from 'utilities/addUserPropsToPool';
-import areAddressesEqual from 'utilities/areAddressesEqual';
-import areTokensEqual from 'utilities/areTokensEqual';
-import calculateApy from 'utilities/calculateApy';
-import convertDollarsToCents from 'utilities/convertDollarsToCents';
-import convertFactorFromSmartContract from 'utilities/convertFactorFromSmartContract';
-import convertWeiToTokens from 'utilities/convertWeiToTokens';
-import findTokenByAddress from 'utilities/findTokenByAddress';
-import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import { GetTokenBalancesOutput } from '../../getTokenBalances';
 import { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';

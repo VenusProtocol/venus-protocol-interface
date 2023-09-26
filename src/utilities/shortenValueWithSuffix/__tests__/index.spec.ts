@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import shortenValueWithSuffix from '..';
+import { shortenValueWithSuffix } from '..';
 
-describe('utilities/shortenValueWithSuffix', () => {
+describe('shortenValueWithSuffix', () => {
   it('should return a formatted value in billions with "T" suffix when value is greater or equal to one trillion', () => {
     const value = new BigNumber(1500000000000);
     const result = shortenValueWithSuffix({

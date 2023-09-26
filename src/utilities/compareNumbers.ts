@@ -1,4 +1,4 @@
-const compareNumbers = (
+export const compareNumbers = (
   valueA: number | undefined,
   valueB: number | undefined,
   direction: 'asc' | 'desc',
@@ -17,5 +17,3 @@ const compareNumbers = (
 
   return 0;
 };
-
-export default compareNumbers;

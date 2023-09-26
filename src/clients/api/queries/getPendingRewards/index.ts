@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import {
+  convertPriceMantissaToDollars,
+  extractSettledPromiseValue,
+  findTokenByAddress,
+  removeDuplicates,
+} from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
 import { VError } from 'errors/VError';
-import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
-import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
-import findTokenByAddress from 'utilities/findTokenByAddress';
-import removeDuplicates from 'utilities/removeDuplicates';
 
 import formatOutput from './formatOutput';
 import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';

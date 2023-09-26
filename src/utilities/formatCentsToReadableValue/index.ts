@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { shortenValueWithSuffix } from 'utilities';
 
 import { ONE_TRILLION } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+
+import { shortenValueWithSuffix } from '../shortenValueWithSuffix';
 
 const THRESHOLDS = {
   DOLLARS: {
@@ -24,7 +25,7 @@ export interface FormatCentsToReadableValueInput {
   isTokenPrice?: boolean;
 }
 
-const formatCentsToReadableValue = ({
+export const formatCentsToReadableValue = ({
   value,
   isTokenPrice = false,
 }: FormatCentsToReadableValueInput) => {
@@ -66,5 +67,3 @@ const formatCentsToReadableValue = ({
 
   return `${isNegative ? '-' : ''}$${formattedValueDollars}`;
 };
-
-export default formatCentsToReadableValue;

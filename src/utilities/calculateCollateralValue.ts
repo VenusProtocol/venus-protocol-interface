@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { Asset, Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
 
-const calculateCollateralValue = ({
+import { convertWeiToTokens } from './convertWeiToTokens';
+
+export const calculateCollateralValue = ({
   token,
   tokenPriceCents,
   collateralFactor,
@@ -18,5 +19,3 @@ const calculateCollateralValue = ({
     .times(collateralFactor);
   return collateralValue;
 };
-
-export default calculateCollateralValue;

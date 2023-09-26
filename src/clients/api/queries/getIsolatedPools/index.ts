@@ -1,11 +1,14 @@
 import { ContractTypeByName, getGenericContract } from 'packages/contracts';
 import { Token } from 'types';
-import { areTokensEqual, findTokenByAddress } from 'utilities';
+import {
+  areTokensEqual,
+  extractSettledPromiseValue,
+  findTokenByAddress,
+  removeDuplicates,
+} from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { logError } from 'context/ErrorLogger';
-import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
-import removeDuplicates from 'utilities/removeDuplicates';
 
 import getBlockNumber from '../getBlockNumber';
 import getTokenBalances from '../getTokenBalances';

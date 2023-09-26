@@ -3,11 +3,11 @@ import { getGenericContract } from 'packages/contracts';
 
 import { vBnb, vBusd } from '__mocks__/models/vTokens';
 
-import getVTokenContract from '..';
+import { getVTokenContract } from '..';
 
 vi.mock('packages/contracts');
 
-describe('utilities/getVTokenContract', () => {
+describe('getVTokenContract', () => {
   it('should use vToken as default contract name', () => {
     const signerOrProvider: Signer = {} as Signer;
 

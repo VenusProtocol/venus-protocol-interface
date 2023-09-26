@@ -4,8 +4,8 @@ import { ContractConfig } from 'packages/contractsNew/config';
 import { glob, runTypeChain } from 'typechain';
 
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
-import processCwd from 'utilities/cwd';
-import writeFile from 'utilities/writeFile';
+import { cwd as processCwd } from 'utilities/cwd';
+import { writeFile } from 'utilities/writeFile';
 
 const TYPES_TEMPLATE_FILE_PATH = `${__dirname}/typesTemplate.hbs`;
 

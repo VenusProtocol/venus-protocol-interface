@@ -1,7 +1,7 @@
 import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { extractSettledPromiseValue } from 'utilities';
 
 import { Provider } from 'clients/web3';
-import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 export interface RewardsDistributorSettingsPromise {
   vTokenAddress: string;

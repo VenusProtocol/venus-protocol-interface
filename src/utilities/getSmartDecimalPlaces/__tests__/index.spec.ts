@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import getSmartDecimalPlaces from '..';
+import { getSmartDecimalPlaces } from '..';
 
-describe('utilities/getSmartDecimalPlaces', () => {
+describe('getSmartDecimalPlaces', () => {
   it('should return 0 when number does not contain decimals', () => {
     const value = new BigNumber('100');
     const result = getSmartDecimalPlaces({ value });

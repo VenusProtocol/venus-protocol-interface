@@ -1,8 +1,8 @@
 import { ContractTypeByName } from 'packages/contracts';
 import { Token, VToken } from 'types';
+import { findTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
-import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
   tokens: Token[];

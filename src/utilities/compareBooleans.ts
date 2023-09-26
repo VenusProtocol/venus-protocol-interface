@@ -1,4 +1,8 @@
-const compareBooleans = (valueA: boolean, valueB: boolean, direction: 'asc' | 'desc'): number => {
+export const compareBooleans = (
+  valueA: boolean,
+  valueB: boolean,
+  direction: 'asc' | 'desc',
+): number => {
   if (valueA === true && valueB === false) {
     return direction === 'asc' ? 1 : -1;
   }
@@ -9,5 +13,3 @@ const compareBooleans = (valueA: boolean, valueB: boolean, direction: 'asc' | 'd
 
   return 0;
 };
-
-export default compareBooleans;

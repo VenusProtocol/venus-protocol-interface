@@ -4,7 +4,7 @@ import { Token, VToken } from 'types';
 import { ONE_TRILLION } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import shortenValueWithSuffix from '../shortenValueWithSuffix';
+import { shortenValueWithSuffix } from '../shortenValueWithSuffix';
 
 const MIN_VALUE = 0.000001;
 const MAX_VALUE = 100 * ONE_TRILLION;
@@ -55,5 +55,3 @@ export const formatTokensToReadableValue = ({
 
   return readableValue;
 };
-
-export default formatTokensToReadableValue;

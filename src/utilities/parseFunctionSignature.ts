@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-const parseFunctionSignature = (value: string | undefined) => {
+export const parseFunctionSignature = (value: string | undefined) => {
   try {
     // Throws error if invalid
     const fragment = ethers.utils.FunctionFragment.from(value || '');
@@ -10,5 +10,3 @@ const parseFunctionSignature = (value: string | undefined) => {
     return undefined;
   }
 };
-
-export default parseFunctionSignature;

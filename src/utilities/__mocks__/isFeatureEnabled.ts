@@ -1,3 +1,1 @@
-const isFeatureEnabled = vi.fn(() => false);
-
-export default isFeatureEnabled;
+export const isFeatureEnabled = vi.fn(() => false);

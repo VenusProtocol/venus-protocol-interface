@@ -1,4 +1,2 @@
-const extractSettledPromiseValue = <T>(settledPromise: PromiseSettledResult<T>) =>
+export const extractSettledPromiseValue = <T>(settledPromise: PromiseSettledResult<T>) =>
   settledPromise.status === 'fulfilled' ? settledPromise.value : undefined;
-
-export default extractSettledPromiseValue;

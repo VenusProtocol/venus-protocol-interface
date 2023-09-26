@@ -3,7 +3,7 @@ import { NonNullableFields } from 'types';
 
 import { logError } from 'context/ErrorLogger';
 
-function callOrThrow<TParams extends Record<string, unknown>, TReturn>(
+export function callOrThrow<TParams extends Record<string, unknown>, TReturn>(
   params: TParams,
   callback: (sanitizedParams: NonNullableFields<TParams>) => TReturn,
 ): TReturn {
@@ -17,5 +17,3 @@ function callOrThrow<TParams extends Record<string, unknown>, TReturn>(
 
   return callback(params as NonNullableFields<TParams>);
 }
-
-export default callOrThrow;

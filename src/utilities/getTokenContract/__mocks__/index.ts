@@ -1,2 +1,1 @@
-const getTokenContract = vi.fn();
-export default getTokenContract;
+export const getTokenContract = vi.fn();

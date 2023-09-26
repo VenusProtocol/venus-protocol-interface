@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { AssetDistribution, Token } from 'types';
+import { findTokenByAddress, formatDistribution, multiplyMantissaDaily } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
-import findTokenByAddress from 'utilities/findTokenByAddress';
-import formatDistribution from 'utilities/formatDistribution';
-import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
 import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';

@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { ContractConfig } from 'packages/contractsNew/config';
 
 import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
-import writeFile from 'utilities/writeFile';
+import { writeFile } from 'utilities/writeFile';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
 

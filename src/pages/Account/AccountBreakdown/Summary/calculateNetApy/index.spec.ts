@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import calculateNetApy from '.';
 
-describe('utilities/calculateNetApy', () => {
+describe('calculateNetApy', () => {
   test('calculates apy from balance and yearly earnings', () => {
     const apy = calculateNetApy({
       yearlyEarningsCents: new BigNumber('1924.21991227022443813375'),

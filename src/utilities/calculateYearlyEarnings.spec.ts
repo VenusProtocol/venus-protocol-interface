@@ -5,7 +5,7 @@ import {
   calculateYearlyEarningsForAssets,
 } from './calculateYearlyEarnings';
 
-describe('utilities/calculateYearlyEarnings', () => {
+describe('calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for single asset', () => {
     const earnings = calculateYearlyEarningsForAsset({
       asset: assets[0],

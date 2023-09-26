@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
  * @param values - Array of values associated with types by order
  * @returns - encoded values for sending as part of a contract call
  */
-const encodeParameters = (
+export const encodeParameters = (
   types: (string | ethers.utils.ParamType)[],
   values: (string | number | string[])[],
 ) => {
@@ -14,5 +14,3 @@ const encodeParameters = (
   // values type on abi.encode is any
   return abi.encode(types, values as any);
 };
-
-export default encodeParameters;

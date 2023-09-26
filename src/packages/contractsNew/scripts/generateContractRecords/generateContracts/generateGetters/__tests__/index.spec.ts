@@ -1,7 +1,7 @@
 import fakeContractConfigs from 'packages/contractsNew/__testUtils__/fakeConfig';
 import Vi from 'vitest';
 
-import writeFile from 'utilities/writeFile';
+import { writeFile } from 'utilities/writeFile';
 
 import generateGetters from '..';
 

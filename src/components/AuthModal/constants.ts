@@ -1,4 +1,5 @@
 import { t } from 'translation';
+import { isRunningInOperaBrowser } from 'utilities';
 
 import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/wallets/binanceChainWalletLogo.svg';
 import { ReactComponent as BitKeepLogo } from 'assets/img/wallets/bitKeepLogo.svg';
@@ -14,7 +15,6 @@ import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalWalletL
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
 import { Connector } from 'clients/web3/types';
-import { isRunningInOperaBrowser } from 'utilities/walletDetection';
 
 import { BaseWallet, IntegratedWallet, Wallet } from './types';
 

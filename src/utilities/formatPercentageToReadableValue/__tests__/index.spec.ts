@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import formatPercentageToReadableValue from '..';
+import { formatPercentageToReadableValue } from '..';
 
-describe('utilities/formatPercentageToReadableValue', () => {
+describe('formatPercentageToReadableValue', () => {
   it('should return PLACEHOLDER_KEY when value is undefined', () => {
     const result = formatPercentageToReadableValue(undefined);
     expect(result).toBe(PLACEHOLDER_KEY);

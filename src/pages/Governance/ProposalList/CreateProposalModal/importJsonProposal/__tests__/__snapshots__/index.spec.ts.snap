@@ -1,25 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`utilities/importJsonProposal > should throw an error if there are no call signatures 1`] = `"noSignaturesKey"`;
+exports[`importJsonProposal > should throw an error if there are no call signatures 1`] = `"noSignaturesKey"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there are no params 1`] = `"noParamsKey"`;
+exports[`importJsonProposal > should throw an error if there are no params 1`] = `"noParamsKey"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there are no targets 1`] = `"noTargetsKey"`;
+exports[`importJsonProposal > should throw an error if there are no targets 1`] = `"noTargetsKey"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is a missing param entry for a signature 1`] = `"missingParamsForSignature"`;
+exports[`importJsonProposal > should throw an error if there is a missing param entry for a signature 1`] = `"missingParamsForSignature"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is a missing target entry for a signature 1`] = `"missingTargetForSignature"`;
+exports[`importJsonProposal > should throw an error if there is a missing target entry for a signature 1`] = `"missingTargetForSignature"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no abstain description in the metadata 1`] = `"missingAbstainDescription"`;
+exports[`importJsonProposal > should throw an error if there is no abstain description in the metadata 1`] = `"missingAbstainDescription"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no against description in the metadata 1`] = `"missingAgainstDescription"`;
+exports[`importJsonProposal > should throw an error if there is no against description in the metadata 1`] = `"missingAgainstDescription"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no description in the metadata 1`] = `"missingDescription"`;
+exports[`importJsonProposal > should throw an error if there is no description in the metadata 1`] = `"missingDescription"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no for description in the metadata 1`] = `"missingForDescription"`;
+exports[`importJsonProposal > should throw an error if there is no for description in the metadata 1`] = `"missingForDescription"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no meta key in the file 1`] = `"noMetaKey"`;
+exports[`importJsonProposal > should throw an error if there is no meta key in the file 1`] = `"noMetaKey"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no proposal type 1`] = `"noTypeKey"`;
+exports[`importJsonProposal > should throw an error if there is no proposal type 1`] = `"noTypeKey"`;
 
-exports[`utilities/importJsonProposal > should throw an error if there is no title in the metadata 1`] = `"missingTitle"`;
+exports[`importJsonProposal > should throw an error if there is no title in the metadata 1`] = `"missingTitle"`;

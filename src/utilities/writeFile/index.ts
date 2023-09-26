@@ -7,7 +7,7 @@ export interface WriteFileInput {
   content: string;
 }
 
-const writeFile = async ({ outputPath, content }: WriteFileInput) => {
+export const writeFile = async ({ outputPath, content }: WriteFileInput) => {
   const fileExtensionElements = outputPath.split('.');
   const fileExtension = fileExtensionElements[fileExtensionElements.length - 1];
 
@@ -29,5 +29,3 @@ const writeFile = async ({ outputPath, content }: WriteFileInput) => {
   // Write file
   await promises.writeFile(outputPath, formattedContent, 'utf8');
 };
-
-export default writeFile;

@@ -4,7 +4,7 @@ import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
-import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
+import { isFeatureEnabled as originalIsFeatureEnabledMock } from 'utilities/__mocks__/isFeatureEnabled';
 
 import PoolsBreakdown, { PoolsBreakdownProps } from '.';
 import SUMMARY_TEST_IDS from '../Summary/testIds';

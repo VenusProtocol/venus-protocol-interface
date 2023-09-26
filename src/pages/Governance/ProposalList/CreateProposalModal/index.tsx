@@ -4,7 +4,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik, useFormikContext } from 'formik';
 import React, { useMemo, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 

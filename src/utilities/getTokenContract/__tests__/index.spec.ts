@@ -3,11 +3,11 @@ import { getGenericContract } from 'packages/contracts';
 
 import { hay, vai, vrt, xvs } from '__mocks__/models/tokens';
 
-import getTokenContract from '..';
+import { getTokenContract } from '..';
 
 vi.mock('packages/contracts');
 
-describe('utilities/getTokenContract', () => {
+describe('getTokenContract', () => {
   it('should use bep20 as default contract name', () => {
     const signerOrProvider: Signer = {} as Signer;
 

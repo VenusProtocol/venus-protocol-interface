@@ -44,7 +44,7 @@ const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
   return new Date(inMilliseconds);
 };
 
-const formatToProposal = ({
+export const formatToProposal = ({
   abstainedVotes,
   againstVotes,
   cancelTimestamp,
@@ -126,5 +126,3 @@ const formatToProposal = ({
 
   return proposal;
 };
-
-export default formatToProposal;

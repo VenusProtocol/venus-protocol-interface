@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import calculateApy from '..';
+import { calculateApy } from '..';
 
-describe('utilities/calculateApy', () => {
+describe('calculateApy', () => {
   it('should calculate APY for given daily distributed tokens and decimals', () => {
     const dailyRate = new BigNumber(1.05);
 

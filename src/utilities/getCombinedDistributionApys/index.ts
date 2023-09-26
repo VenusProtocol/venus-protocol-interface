@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-const getCombinedDistributionApys = ({ asset }: { asset: Asset }) => ({
+export const getCombinedDistributionApys = ({ asset }: { asset: Asset }) => ({
   supplyApyPercentage: asset.supplyDistributions.reduce(
     (acc, distribution) =>
       // Filter out hypothetical prime APY as this is actual earnings the user receives
@@ -15,5 +15,3 @@ const getCombinedDistributionApys = ({ asset }: { asset: Asset }) => ({
     new BigNumber(0),
   ),
 });
-
-export default getCombinedDistributionApys;

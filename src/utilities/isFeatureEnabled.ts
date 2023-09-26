@@ -8,6 +8,4 @@ const featureFlags = {
   prime: ENV_VARIABLES.VITE_FF_PRIME === 'true',
 };
 
-const isFeatureEnabled = (featureFlag: FeatureFlag) => featureFlags[featureFlag];
-
-export default isFeatureEnabled;
+export const isFeatureEnabled = (featureFlag: FeatureFlag) => featureFlags[featureFlag];

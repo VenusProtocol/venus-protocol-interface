@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-const getSmartDecimalPlaces = ({
+export const getSmartDecimalPlaces = ({
   value,
   minDecimalPlaces = 0,
   maxDecimalPlaces,
@@ -35,5 +35,3 @@ const getSmartDecimalPlaces = ({
   // Floor decimal places to minDecimalPlaces value
   return !!minDecimalPlaces && decimalPlaces < minDecimalPlaces ? minDecimalPlaces : decimalPlaces;
 };
-
-export default getSmartDecimalPlaces;

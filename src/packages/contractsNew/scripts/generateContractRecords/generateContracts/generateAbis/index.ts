@@ -1,6 +1,6 @@
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import writeFile from 'utilities/writeFile';
+import { writeFile } from 'utilities/writeFile';
 
 export interface GenerateTypesInput {
   contractConfigs: ContractConfig[];

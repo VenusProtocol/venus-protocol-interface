@@ -2,7 +2,7 @@ import TEST_VIP from 'assets/proposals/vip-123.json';
 
 import importJsonProposal from '..';
 
-describe('utilities/importJsonProposal', () => {
+describe('importJsonProposal', () => {
   it('should import a valid VIP file', async () => {
     const contents = JSON.stringify(TEST_VIP);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });

@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 
 import { ONE_BILLION, ONE_MILLION, ONE_THOUSAND, ONE_TRILLION } from 'constants/numbers';
-import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
+
+import { getSmartDecimalPlaces } from '../getSmartDecimalPlaces';
 
 export interface ShortenValueWithSuffix {
   value: BigNumber;
@@ -9,7 +10,7 @@ export interface ShortenValueWithSuffix {
   maxDecimalPlaces?: number;
 }
 
-const shortenValueWithSuffix = ({
+export const shortenValueWithSuffix = ({
   value,
   minDecimalPlaces,
   maxDecimalPlaces,
@@ -46,5 +47,3 @@ const shortenValueWithSuffix = ({
 
   return `${new BigNumber(formattedValue).toFormat(decimalPlaces)}${suffix}`;
 };
-
-export default shortenValueWithSuffix;

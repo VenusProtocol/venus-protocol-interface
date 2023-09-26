@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { ContractTypeByName } from 'packages/contracts';
 import { Token } from 'types';
-import { convertDollarsToCents, convertWeiToTokens } from 'utilities';
+import { convertDollarsToCents, convertWeiToTokens, findTokenByAddress } from 'utilities';
 
 import { logError } from 'context/ErrorLogger';
-import findTokenByAddress from 'utilities/findTokenByAddress';
 
 type FormatRewardSummaryDataOutput =
   | {

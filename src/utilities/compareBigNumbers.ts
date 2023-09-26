@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-const compareBigNumbers = (
+export const compareBigNumbers = (
   valueA: BigNumber | undefined,
   valueB: BigNumber | undefined,
   direction: 'asc' | 'desc',
@@ -19,5 +19,3 @@ const compareBigNumbers = (
 
   return 0;
 };
-
-export default compareBigNumbers;

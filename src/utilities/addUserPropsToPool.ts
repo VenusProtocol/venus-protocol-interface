@@ -6,7 +6,7 @@ export type AddUserPropsToPoolInput = Omit<
   'userSupplyBalanceCents' | 'userBorrowBalanceCents' | 'userBorrowLimitCents'
 >;
 
-const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
+export const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
   const userSpecificProps = input.assets.reduce(
     (acc, asset) => {
       let assetUserSupplyBalanceCents: BigNumber | undefined;
@@ -63,5 +63,3 @@ const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
     ...userSpecificProps,
   };
 };
-
-export default addUserPropsToPool;

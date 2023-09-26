@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { AssetDistribution, Token } from 'types';
-import { calculateApy } from 'utilities';
+
+import { calculateApy } from './calculateApy';
 
 export interface FormatDistributionInput {
   type: AssetDistribution['type'];
@@ -10,7 +11,7 @@ export interface FormatDistributionInput {
   balanceDollars: BigNumber;
 }
 
-const formatDistribution = ({
+export const formatDistribution = ({
   type,
   rewardToken,
   rewardTokenPriceDollars,
@@ -44,5 +45,3 @@ const formatDistribution = ({
     apyPercentage,
   };
 };
-
-export default formatDistribution;

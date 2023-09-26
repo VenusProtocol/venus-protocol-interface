@@ -66,7 +66,9 @@ describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
 
     // Check warning is displayed
     await waitFor(() => getByTestId(TEST_IDS.notice));
-    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot('"Insufficient asset liquidity"');
+    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+      '"Insufficient asset liquidity"',
+    );
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
