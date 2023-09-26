@@ -7088,7 +7088,7 @@
   resolved "https://registry.yarnpkg.com/@uiw/copy-to-clipboard/-/copy-to-clipboard-1.0.12.tgz#46f563bd6f3007895f95855e5b4bb692c7251933"
   integrity sha512-3tt7FVSbjtBCNBhffy7k26rpnEmk8GQj9QkTGZBIfpHU7mG3Buryt69u6xooYM7/gmv7GIqD4QxxIauIp2HHKg==
 
-"@uiw/react-markdown-preview@^4.0.10", "@uiw/react-markdown-preview@^4.1.15":
+"@uiw/react-markdown-preview@^4.1.14", "@uiw/react-markdown-preview@^4.1.15":
   version "4.1.16"
   resolved "https://registry.yarnpkg.com/@uiw/react-markdown-preview/-/react-markdown-preview-4.1.16.tgz#86f39e6cb7887c72dc40d6d64e634fc512500108"
   integrity sha512-O8WS/xECPLsZqneg4IoaGA/L8ycWtMvNhK9iJtTsqcvc6l5Oq+maAyae8toMz3HIcpIP46Ml6vU/VsTnYkk63w==
@@ -7107,13 +7107,14 @@
     unist-util-visit "^4.1.0"
 
 "@uiw/react-md-editor@^3.14.3":
-  version "3.14.4"
-  resolved "https://registry.yarnpkg.com/@uiw/react-md-editor/-/react-md-editor-3.14.4.tgz#cf6e56b2200b796bc3478dfced90f58ac7b2243e"
-  integrity sha512-Gxki+/vpikLUYVuoX4Jp9PDoxMlTfzmEm6K3GMUIm3KLZYQTPT3cz6RxoSodSPBRbxrQjf4PXVPxQeG4Es6jpw==
+  version "3.23.6"
+  resolved "https://registry.yarnpkg.com/@uiw/react-md-editor/-/react-md-editor-3.23.6.tgz#d67d0745316443a81acbce4642b566e1525f4be9"
+  integrity sha512-jv5JtfbcWuTDRRvlKNJHI5maqyABP2+l8gUVDPUa6k+gYXKBdr0ijIggMrFsQamV4bYrmqEQXAMXPcYAzVHJCQ==
   dependencies:
     "@babel/runtime" "^7.14.6"
-    "@uiw/react-markdown-preview" "^4.0.10"
+    "@uiw/react-markdown-preview" "^4.1.14"
     rehype "~12.0.1"
+    rehype-prism-plus "~1.6.1"
 
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
@@ -18666,7 +18667,7 @@ rehype-parse@^8.0.0, rehype-parse@^8.0.2:
     parse5 "^6.0.0"
     unified "^10.0.0"
 
-rehype-prism-plus@1.6.3:
+rehype-prism-plus@1.6.3, rehype-prism-plus@~1.6.1:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/rehype-prism-plus/-/rehype-prism-plus-1.6.3.tgz#8bf23a4cfc3419349770bb9064a91bdab04fae86"
   integrity sha512-F6tn376zimnvy+xW0bSnryul+rvVL7NhDIkavc9kAuzDx5zIZW04A6jdXPkcFBhojcqZB8b6pHt6CLqiUx+Tbw==
