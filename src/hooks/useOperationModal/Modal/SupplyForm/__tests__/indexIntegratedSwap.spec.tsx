@@ -2,6 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
+import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
 import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
 import { isFeatureEnabled } from 'utilities';
@@ -56,6 +57,7 @@ const fakeSwap: Swap = {
   direction: 'exactAmountIn',
 };
 
+vi.mock('packages/tokens');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapInfo');
@@ -87,17 +89,32 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
-  it('disables swap feature when underlying token of asset is BNB', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      vToken: {
-        ...fakeAsset.vToken,
-        underlyingToken: bnb,
-      },
-    };
+  it('disables swap feature when swapAndSupply action of underlying token is disabled', async () => {
+    (isTokenActionEnabled as Vi.Mock).mockImplementation(
+      ({ tokenAddress, action }: IsTokenActionEnabledInput) =>
+        action !== 'swapAndSupply' || tokenAddress !== fakeAsset.vToken.underlyingToken.address,
+    );
 
     const { queryByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        authContextValue: {
+          accountAddress: fakeAccountAddress,
+        },
+      },
+    );
+
+    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
+  });
+
+  it('disables swap feature when swapAndSupply action of vToken is disabled', async () => {
+    (isTokenActionEnabled as Vi.Mock).mockImplementation(
+      ({ tokenAddress, action }: IsTokenActionEnabledInput) =>
+        action !== 'swapAndSupply' || tokenAddress !== fakeAsset.vToken.address,
+    );
+
+    const { queryByTestId } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         authContextValue: {
           accountAddress: fakeAccountAddress,

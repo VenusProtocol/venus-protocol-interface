@@ -31,4 +31,9 @@ export const disabledTokenActions: DisabledTokenAction[] = [
     address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
     disabledActions: ['borrow', 'supply'],
   },
+  // BNB
+  {
+    address: '0x0000000000000000000000000000000000000000',
+    disabledActions: ['swapAndSupply'],
+  },
 ];

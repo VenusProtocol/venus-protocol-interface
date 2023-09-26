@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { NoticeWarning, TokenAnnouncement } from 'components';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenAction } from 'types';
 
@@ -15,7 +15,7 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
   const { t } = useTranslation();
   const { chainId } = useAuth();
 
-  const getDescription = () => {
+  const description: string | undefined = useMemo(() => {
     if (action === 'supply') {
       return t('operationModal.disabledActionNotice.supply');
     }
@@ -28,15 +28,17 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
       return t('operationModal.disabledActionNotice.borrow');
     }
 
-    return t('operationModal.disabledActionNotice.repay');
-  };
+    if (action === 'repay') {
+      return t('operationModal.disabledActionNotice.repay');
+    }
+  }, [action]);
 
   const tokenAnnouncementDom = TokenAnnouncement({
     token,
     chainId,
   });
 
-  return tokenAnnouncementDom || <NoticeWarning description={getDescription()} />;
+  return tokenAnnouncementDom || (!!description && <NoticeWarning description={description} />);
 };
 
 export default DisabledActionNotice;
