@@ -24,8 +24,18 @@ export default defineConfig(({ mode }) => ({
     environment: 'jsdom',
     setupFiles: './src/setupTests.tsx',
     coverage: {
+      all: true,
       reporter: ['text', 'html', 'json-summary', 'json'],
-      exclude: ['node_modules/', 'src/setupTests.tsx'],
+      include: ['src/'],
+      exclude: [
+        'src/setupTests.tsx',
+        '**/*.stories.tsx',
+        'src/stories/',
+        '**/*/__mocks__/',
+        '**/*/__testUtils__/',
+        'src/packages/contracts/types/contracts',
+        'src/config/codegen.ts',
+      ],
     },
   },
 }));
