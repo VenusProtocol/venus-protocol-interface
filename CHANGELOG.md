@@ -1,3 +1,10 @@
+## [2.22.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.3...v2.22.4) (2023-09-26)
+
+
+### Bug Fixes
+
+* disable swap and supply for tokens that do not support it ([#1483](https://github.com/VenusProtocol/venus-protocol-interface/issues/1483)) ([b1c0199](https://github.com/VenusProtocol/venus-protocol-interface/commit/b1c019968c7812371724a2ef18a1932190446c0a))
+
 ## [2.22.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.2...v2.22.3) (2023-09-26)
 
 ## [2.22.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.1...v2.22.2) (2023-09-25)
