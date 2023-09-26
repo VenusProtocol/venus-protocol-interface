@@ -13,7 +13,12 @@ import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { convertTokensToWei, convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatPercentageToReadableValue,
+  generatePseudoRandomRefetchInterval,
+} from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -22,7 +27,6 @@ import {
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
@@ -44,6 +48,8 @@ export interface MintVaiUiProps {
   mintFeePercentage?: number;
   vai: Token;
 }
+
+const userVaiRefetchInterval = generatePseudoRandomRefetchInterval();
 
 export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   disabled,
@@ -215,7 +221,7 @@ const MintVai: React.FC = () => {
     },
     {
       enabled: !!accountAddress,
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval: userVaiRefetchInterval,
     },
   );
 

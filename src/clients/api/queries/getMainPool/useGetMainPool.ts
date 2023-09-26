@@ -1,9 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
@@ -30,6 +29,8 @@ type Options = QueryObserverOptions<
   GetMainPoolOutput,
   [FunctionKey.GET_MAIN_POOL, TrimmedInput]
 >;
+
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
           }),
       ),
     {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval,
       ...options,
     },
   );

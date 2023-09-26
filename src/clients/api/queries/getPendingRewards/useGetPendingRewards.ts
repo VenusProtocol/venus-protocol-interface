@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetTokens from 'hooks/useGetTokens';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
@@ -34,6 +33,8 @@ type Options = QueryObserverOptions<
   GetPendingRewardsOutput,
   [FunctionKey.GET_PENDING_REWARDS, TrimmedGetPendingRewardsInput]
 >;
+
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
   const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
@@ -107,7 +108,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
           }),
       ),
     {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval,
       ...options,
       enabled:
         (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,

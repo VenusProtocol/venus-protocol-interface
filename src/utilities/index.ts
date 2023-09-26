@@ -11,6 +11,7 @@ export { default as convertPercentageFromSmartContract } from './convertPercenta
 
 export * from './formatTokensToReadableValue';
 export * from './convertWeiToTokens';
+export * from './generatePseudoRandomRefetchInterval';
 export { default as encodeParameters } from './encodeParameters';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';

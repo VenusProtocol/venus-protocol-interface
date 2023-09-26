@@ -31,6 +31,7 @@ const isOnTestnet =
   environment === 'testnet' || environment === 'storybook' || environment === 'ci';
 
 const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment !== 'storybook';
+
 const rpcUrls = isLocalServer
   ? {
       [ChainId.BSC_MAINNET]: {

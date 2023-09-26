@@ -5,7 +5,6 @@ import getXvsWithdrawableAmount, {
   GetXvsWithdrawableAmountInput,
   GetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
@@ -36,10 +35,7 @@ const useGetXvsWithdrawableAmount = (
       callOrThrow({ xvsVestingContract }, params =>
         getXvsWithdrawableAmount({ ...params, ...input }),
       ),
-    {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-      ...options,
-    },
+    options,
   );
 };
 

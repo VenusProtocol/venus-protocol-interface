@@ -15,7 +15,6 @@ import {
 
 import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { useAuth } from 'context/AuthContext';
 import useGetToken from 'hooks/useGetToken';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
@@ -137,7 +136,6 @@ const XvsTable: React.FC = () => {
       accountAddress: vaiVaultContractAddress || '',
     },
     {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       enabled: !!vaiVaultContractAddress && !!vai,
     },
   );

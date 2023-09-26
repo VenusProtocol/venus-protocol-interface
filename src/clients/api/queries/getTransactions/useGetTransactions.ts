@@ -1,11 +1,11 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getTransactions, {
   GetTransactionsInput,
   GetTransactionsOutput,
 } from 'clients/api/queries/getTransactions';
 import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
@@ -23,6 +23,8 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_TRANSACTIONS, TrimmedGetTransactionsInput]
 >;
 
+const refetchInterval = generatePseudoRandomRefetchInterval();
+
 const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Options) => {
   const { data: getVTokenData } = useGetVTokens();
   const vTokens = getVTokenData?.vTokens || [];
@@ -37,7 +39,7 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Optio
     () => getTransactions({ ...params, vTokens, tokens, defaultToken: xvs || tokens[0] }),
     {
       keepPreviousData: true,
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval,
       ...options,
       enabled: vTokens.length > 0 && (!options || options.enabled),
     },

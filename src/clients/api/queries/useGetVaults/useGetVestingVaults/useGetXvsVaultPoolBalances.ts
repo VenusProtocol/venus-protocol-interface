@@ -1,7 +1,6 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
@@ -47,7 +46,6 @@ const useGetXvsVaultPoolBalances = ({
           },
         ],
         enabled: !!stakedToken && !!xvsVaultContractAddress,
-        refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       };
     },
   );

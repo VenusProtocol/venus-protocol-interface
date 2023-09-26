@@ -1,11 +1,10 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
@@ -28,6 +27,8 @@ type Options = QueryObserverOptions<
   GetIsolatedPoolsOutput,
   [FunctionKey.GET_ISOLATED_POOLS, TrimmedInput]
 >;
+
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
@@ -59,7 +60,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
           }),
       ),
     {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval,
       ...options,
     },
   );
