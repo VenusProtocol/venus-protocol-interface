@@ -60,6 +60,7 @@ const UploadOrManualProposal: React.FC<UploadOrManualProposalProps> = ({
                 <a
                   href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/src/assets/proposals/vip-123.json"
                   rel="noreferrer"
+                  target="_blank"
                 />
               ),
             }}

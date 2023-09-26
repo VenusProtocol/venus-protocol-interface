@@ -1,15 +1,6 @@
 {
   "account": {
     "marketBreakdown": {
-      "cellGroup": {
-        "dailyEarnings": "Daily Earnings",
-        "netApy": "Net APY",
-        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
-        "totalBorrow": "Total Borrow",
-        "totalSupply": "Total Supply",
-        "totalVaultStake": "Total Vault Stake"
-      },
       "tables": {
         "borrowTableTitle": "Borrowed assets",
         "supplyTableTitle": "Supplied assets",
@@ -21,6 +12,18 @@
     "poolsBreakdown": {
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "Daily Earnings",
+        "netApy": "Net APY",
+        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
+        "totalBorrow": "Total Borrow",
+        "totalSupply": "Total Supply",
+        "totalVaultStake": "Total Vault Stake"
+      },
+      "title": "Summary"
     },
     "vaultsBreakdown": {
       "table": {
@@ -545,6 +548,26 @@
         "totalSupply": "Total supply"
       }
     }
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "You can now become a Primer user",
+    "claimButtonLabel": "Claim Prime token",
+    "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>",
+    "noPrimeTokenWarning": {
+      "text": "All Prime tokens have been claimed",
+      "tooltip": "All {{primeTokenLimit}} Prime tokens are currently claimed. Some may become available if owners no longer meet the eligibility criteria or if we add more."
+    },
+    "progressBar": {
+      "ariaLabel": "Your current Prime progression",
+      "label": "Staked: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
+    "stakeButtonLabel": "Stake XVS",
+    "successfulTransactionModal": {
+      "message": "You are now a Prime user. Visit the dashboard or the account page to see your earning boosts.",
+      "title": "Prime token claimed"
+    },
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
   "select": {
     "defaultLabel": "Select"
