@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Common styles */
-  --color-black: #000;
-  --color-blue: rgba(58, 120, 255, 1);
-
-  /* Background colors */
-  --color-bg-main: rgba(18, 22, 32, 1);
-  --color-bg-primary: rgba(22, 27, 39, 1);
-  --color-bg-active: rgba(32, 39, 56, 1);
-
-  /* Typography colors */
-  --color-text-main: rgba(255, 255, 255, 1);
-  --color-text-secondary: rgba(169, 171, 199, 1);
-  --color-text-inactive: rgba(161, 161, 161, 1);
-  --color-text-red: rgba(233, 61, 102, 1);
-}
-
 @font-face {
   font-family: 'ProximaNova';
   src:
@@ -85,57 +68,24 @@
   font-display: swap;
 }
 
+:root {
+  /* Background colors */
+  --color-bg-main: rgba(24, 29, 39, 1);
+
+  /* Typography colors */
+  --color-text-main: rgba(255, 255, 255, 1);
+  --color-text-secondary: rgba(170, 179, 202, 1);
+}
+
 body {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   font-family: 'ProximaNova', sans-serif;
-  font-stretch: normal;
-  font-style: normal;
   background-color: var(--color-bg-main);
   color: var(--color-text-main);
 }
 
-a,
-span,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 0;
-}
-
-i {
-  font-style: normal;
-}
-
-* {
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    border-radius: 4px;
-    background-color: var(--color-bg-main);
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-text-secondary);
-    border-radius: 4px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-text-primary);
-  }
-}
-
 input {
   color: inherit;
+
   &::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
     padding-right: 22px;
@@ -167,46 +117,30 @@ input {
   }
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: inherit;
-}
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 
-// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
-// margin for easier control within type scales as it avoids margin collapsing.
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-}
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: var(--color-bg-main);
+  }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-}
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-text-secondary);
+    border-radius: 4px;
+  }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-text-primary);
+  }
 }
 
 p {
-  color: var(--color-text-secondary);
-  margin-top: 0;
-  margin-bottom: 1em;
+  // TODO: remove
+  // color: var(--color-text-secondary);
 }

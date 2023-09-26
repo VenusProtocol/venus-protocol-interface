@@ -1,6 +1,8 @@
 /* https://mui.com/customization/theming/ */
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 
+// TODO: import theme settings instead
+
 const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
 
 export const FONTS = {
@@ -14,11 +16,6 @@ export const PALETTE = {
     default: 'rgba(24, 29, 39, 1)',
     paper: 'rgba(30, 36, 49, 1)',
     black: '#1F2028',
-  },
-  primary: {
-    light: '#EBBF6E',
-    main: '#EBBF6E',
-    dark: 'var(--color-blue-hover)',
   },
   secondary: {
     light: 'rgba(45, 53, 73, 1)',
