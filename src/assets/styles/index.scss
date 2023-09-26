@@ -1,1 +1,212 @@
-@import './App.scss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Common styles */
+  --color-black: #000;
+  --color-blue: rgba(58, 120, 255, 1);
+
+  /* Background colors */
+  --color-bg-main: rgba(18, 22, 32, 1);
+  --color-bg-primary: rgba(22, 27, 39, 1);
+  --color-bg-active: rgba(32, 39, 56, 1);
+
+  /* Typography colors */
+  --color-text-main: rgba(255, 255, 255, 1);
+  --color-text-secondary: rgba(169, 171, 199, 1);
+  --color-text-inactive: rgba(161, 161, 161, 1);
+  --color-text-red: rgba(233, 61, 102, 1);
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaRegular.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegular.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaSemibold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemibold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaBold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-family: 'ProximaNova', sans-serif;
+  font-stretch: normal;
+  font-style: normal;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+}
+
+a,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+i {
+  font-style: normal;
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: var(--color-bg-main);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-text-secondary);
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-text-primary);
+  }
+}
+
+input {
+  color: inherit;
+  &::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    padding-right: 22px;
+  }
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    padding-right: 22px;
+  }
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    padding-right: 22px;
+  }
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    padding-right: 22px;
+  }
+
+  /* Hide arrows from input number */
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: inherit;
+}
+
+// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+// margin for easier control within type scales as it avoids margin collapsing.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: 1em;
+}
