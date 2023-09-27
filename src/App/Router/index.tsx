@@ -1,5 +1,5 @@
 import React, { lazy, useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { isFeatureEnabled } from 'utilities';
 
 import 'assets/styles/App.scss';
@@ -211,14 +211,7 @@ const Router = () => {
       />
 
       {/* redirect to the dashboard if no route matches */}
-      <Route
-        path="*"
-        element={
-          <PageSuspense>
-            <Dashboard />
-          </PageSuspense>
-        }
-      />
+      <Route path="*" element={<Navigate to={routes.dashboard.path} />} />
     </Routes>
   );
 };
