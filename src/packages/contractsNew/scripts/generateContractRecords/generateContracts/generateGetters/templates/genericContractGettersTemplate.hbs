@@ -1,0 +1,13 @@
+import abi from 'packages/contractsNew/infos/abis/{{contractName}}.json';
+import { {{contractName}} } from 'packages/contractsNew/infos/contractTypes';
+
+import genericContractGetterGenerator from 'packages/contractsNew/utilities/genericContractGetterGenerator';
+import genericContractGetterHookGenerator from 'packages/contractsNew/utilities/genericContractGetterHookGenerator';
+
+export const get{{contractName}}Contract = genericContractGetterGenerator<{{contractName}}>({
+  abi,
+});
+
+export const useGet{{contractName}}Contract = genericContractGetterHookGenerator({
+  getter: get{{contractName}}Contract,
+});

@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import fetch from 'node-fetch';
+import { writeFileSync } from 'node:fs';
 import * as path from 'path';
 
 const PANCAKE_SWAP_TOKEN_LIST_URL =
@@ -33,7 +33,7 @@ const generatePancakeSwapTokenRecords = async () => {
     process.cwd(),
     './src/packages/tokens/tokenInfos/pancakeSwapTokens/bscMainnet.ts',
   );
-  fs.writeFileSync(outputFilePath, output, 'utf8');
+  writeFileSync(outputFilePath, output, 'utf8');
   return outputFilePath;
 };
 

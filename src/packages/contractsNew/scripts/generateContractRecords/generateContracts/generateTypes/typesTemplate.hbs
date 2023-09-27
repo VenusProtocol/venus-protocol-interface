@@ -1,0 +1,7 @@
+export type UniqueContractName = {{#each uniques}}| '{{this}}'{{/each}};
+
+export type GenericContractName = {{#each generics}}| '{{this}}'{{/each}};
+
+export type SwapRouterContractName = '{{swapRouter}}';
+
+export type ContractName = UniqueContractName | GenericContractName | SwapRouterContractName;

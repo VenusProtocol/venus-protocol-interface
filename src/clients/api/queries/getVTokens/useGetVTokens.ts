@@ -1,3 +1,4 @@
+import { useGetVenusLensContract } from 'packages/contractsNew/getters/venusLens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -28,9 +29,7 @@ const useGetVTokens = (options?: Options) => {
   const { chainId } = useAuth();
   const tokens = useGetTokens();
 
-  const venusLensContract = useGetUniqueContract({
-    name: 'venusLens',
-  });
+  const venusLensContract = useGetVenusLensContract();
 
   const mainPoolComptrollerContract = useGetUniqueContract({
     name: 'mainPoolComptroller',
