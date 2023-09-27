@@ -1,9 +1,9 @@
 /* https://mui.com/customization/theming/ */
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 
-// TODO: import theme settings instead
+import { theme } from '..';
 
-const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
+const fontFamily = theme.fontFamily.sans.join(',');
 
 export const FONTS = {
   primary: fontFamily,
@@ -13,35 +13,35 @@ export const FONTS = {
 export const PALETTE = {
   mode: 'dark',
   background: {
-    default: 'rgba(24, 29, 39, 1)',
-    paper: 'rgba(30, 36, 49, 1)',
+    default: theme.colors.background,
+    paper: theme.colors.cards,
     black: '#1F2028',
   },
   secondary: {
-    light: 'rgba(45, 53, 73, 1)',
-    main: 'rgba(24, 29, 42, 1)',
+    light: theme.colors.lightGrey,
+    main: theme.colors.background,
     dark: 'rgba(18, 22, 32, 1)',
   },
   text: {
-    primary: 'rgba(255, 255, 255, 1)',
-    secondary: 'rgba(170, 179, 202, 1)',
+    primary: theme.colors.offWhite,
+    secondary: theme.colors.greyText,
     disabled: 'rgba(161, 161, 161, 1)',
   },
   button: {
-    main: 'rgba(58, 120, 255, 1)',
-    medium: 'rgba(38, 90, 204, 1)',
-    dark: 'rgba(27, 67, 152, 1)',
+    main: theme.colors.blue,
+    medium: theme.colors.mediumBlue,
+    dark: theme.colors.darkBlue,
   },
   interactive: {
-    primary: 'rgba(58, 120, 255, 1)',
-    success: 'rgba(0, 195, 142, 1)',
+    primary: theme.colors.blue,
+    success: theme.colors.green,
     success10: 'rgba(24, 223, 139, 0.1)',
     success50: 'rgba(24, 223, 139, 0.5)',
-    error: 'rgba(233, 61, 102, 1)',
+    error: theme.colors.red,
     error50: 'rgba(233, 61, 68, 0.5)',
     tan: 'rgba(255, 231, 206, 1)',
     delimiter: 'rgba(33, 41, 58, 1)',
-    warning: 'rgba(245, 120, 66, 1)',
+    warning: theme.colors.orange,
     hover: 'rgba(32, 39, 56, 1)',
   },
 };
