@@ -193,8 +193,8 @@ const formatToPools = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const isCollateralOfUser = userCollateralizedVTokenAddresses.includes(
-        vToken.address.toLowerCase(),
+      const isCollateralOfUser = !!userCollateralizedVTokenAddresses.some(address =>
+        areAddressesEqual(address, vToken.address),
       );
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
