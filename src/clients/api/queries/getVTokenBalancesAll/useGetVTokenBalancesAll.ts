@@ -5,7 +5,6 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllInput,
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
@@ -27,10 +26,7 @@ const useGetVTokenBalancesAll = (input: TrimmedGetVTokenBalancesAllInput, option
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, input],
     () =>
       callOrThrow({ venusLensContract }, params => getVTokenBalancesAll({ ...params, ...input })),
-    {
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-      ...options,
-    },
+    options,
   );
 };
 

@@ -17,14 +17,16 @@ type Options = QueryObserverOptions<
 
 const refetchStates = ['Pending', 'Active', 'Succeeded', 'Queued'];
 
-// refetchInterval is set automatically with onSucess so it is excluded from being set manually
+// refetchInterval is set automatically with onSuccess so it is excluded from being set manually
 const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refetchInterval'>) =>
   useQuery([FunctionKey.GET_PROPOSAL, params], () => getProposal(params), {
     onSuccess: (data: Proposal) => {
-      const refetchInterval = refetchStates.includes(data.state) ? BLOCK_TIME_MS : 0;
-      queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
-        refetchInterval,
-      });
+      if (refetchStates.includes(data.state)) {
+        queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
+          refetchInterval: BLOCK_TIME_MS,
+        });
+      }
+
       if (options?.onSuccess) {
         options.onSuccess(data);
       }

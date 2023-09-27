@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { chain } = useNetwork();
 
   // TODO: get from chain instead of config
@@ -59,8 +59,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Set address as authorized by default
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
-  const accountAddress =
-    isConnected && !!signer && address && isAuthorizedAddress ? address : undefined;
+  const accountAddress = !!address && isAuthorizedAddress ? address : undefined;
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp

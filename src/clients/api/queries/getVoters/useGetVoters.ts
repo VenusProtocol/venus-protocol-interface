@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getVoters, { GetVotersInput, GetVotersOutput } from 'clients/api/queries/getVoters';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -12,11 +12,13 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTERS, GetVotersInput]
 >;
 
+const refetchInterval = generatePseudoRandomRefetchInterval();
+
 const useGetVoters = (params: GetVotersInput, options?: Options) =>
   // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
   useQuery([FunctionKey.GET_VOTERS, params], () => getVoters(params), {
     keepPreviousData: true,
-    refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    refetchInterval,
     ...options,
   });
 

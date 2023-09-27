@@ -16,10 +16,13 @@ import { ContractReceipt } from 'ethers';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  generatePseudoRandomRefetchInterval,
+} from 'utilities';
 
 import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
@@ -55,6 +58,8 @@ export interface IRepayVaiUiProps {
   userBalanceWei?: BigNumber;
   repayBalanceWei?: BigNumber;
 }
+
+const userVaiRefetchInterval = generatePseudoRandomRefetchInterval();
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
@@ -267,7 +272,7 @@ const RepayVai: React.FC = () => {
     },
     {
       enabled: !!accountAddress,
-      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+      refetchInterval: userVaiRefetchInterval,
     },
   );
 
