@@ -1,3 +1,10 @@
+## [2.23.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.3...v2.23.4) (2023-09-27)
+
+
+### Bug Fixes
+
+* 404 redirection ([#1485](https://github.com/VenusProtocol/venus-protocol-interface/issues/1485)) ([49934ef](https://github.com/VenusProtocol/venus-protocol-interface/commit/49934ef456a34cfd23e1bf9c5625edaba96533c9))
+
 ## [2.23.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.2...v2.23.3) (2023-09-27)
 
 ## [2.23.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.1...v2.23.2) (2023-09-27)
