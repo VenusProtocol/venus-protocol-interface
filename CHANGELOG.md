@@ -1,3 +1,10 @@
+## [2.23.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.1...v2.23.2) (2023-09-27)
+
+
+### Bug Fixes
+
+* fix how collaterals of users are listed for isolated markets ([#1493](https://github.com/VenusProtocol/venus-protocol-interface/issues/1493)) ([7860caf](https://github.com/VenusProtocol/venus-protocol-interface/commit/7860caf84efaa31d301b93765aa61f105afa45f4))
+
 ## [2.23.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.0...v2.23.1) (2023-09-27)
 
 ## [2.23.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.22.4...v2.23.0) (2023-09-26)
