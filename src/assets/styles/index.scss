@@ -68,19 +68,10 @@
   font-display: swap;
 }
 
-:root {
-  /* Background colors */
-  --color-bg-main: rgba(24, 29, 39, 1);
-
-  /* Typography colors */
-  --color-text-main: rgba(255, 255, 255, 1);
-  --color-text-secondary: rgba(170, 179, 202, 1);
-}
-
 body {
   font-family: 'ProximaNova', sans-serif;
-  background-color: var(--color-bg-main);
-  color: var(--color-text-main);
+  background-color: theme('colors.background');
+  color: theme('colors.offWhite');
 }
 
 input {
@@ -125,22 +116,17 @@ input {
   /* Track */
   &::-webkit-scrollbar-track {
     border-radius: 4px;
-    background-color: var(--color-bg-main);
+    background-color: theme('colors.background');
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-text-secondary);
+    background-color: theme('colors.grey');
     border-radius: 4px;
   }
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-text-primary);
+    background-color: theme('colors.offWhite');
   }
-}
-
-p {
-  // TODO: remove
-  // color: var(--color-text-secondary);
 }

@@ -24,7 +24,7 @@ export const PALETTE = {
   },
   text: {
     primary: theme.colors.offWhite,
-    secondary: theme.colors.greyText,
+    secondary: theme.colors.grey,
     disabled: 'rgba(161, 161, 161, 1)',
   },
   button: {

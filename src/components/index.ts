@@ -25,6 +25,7 @@ export * from './Pagination';
 export * from './ProgressBar';
 export * from './ProgressCircle';
 export * from './ProposalCard';
+export * from './Card';
 export * from './ProgressBar/AccountHealth';
 export * from './ProgressBar/PercentageRepresentation';
 export * from './ProgressBar/LabeledProgressBar';

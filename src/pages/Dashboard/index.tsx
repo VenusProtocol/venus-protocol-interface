@@ -10,7 +10,7 @@ import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
-import ConnectWalletBanner from './ConnectWalletBanner';
+import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
