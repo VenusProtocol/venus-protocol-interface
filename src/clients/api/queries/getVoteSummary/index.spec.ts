@@ -1,26 +1,25 @@
 import { restService } from 'utilities';
 import Vi from 'vitest';
 
-import proposalResponse from '__mocks__/api/proposals.json';
+import voteSummaryResponse from '__mocks__/api/voteSummary.json';
 
-import getProposal from './getProposal';
+import getVoteSummary from '.';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getProposal', () => {
-  test('returns proposal', async () => {
+describe('api/queries/getVoteSummary', () => {
+  test('returns summary of votes', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: proposalResponse.result[0],
+      data: voteSummaryResponse,
     }));
 
-    const response = await getProposal({
+    const response = await getVoteSummary({
       proposalId: 1,
-      accountAddress: undefined,
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/governance/proposals/1',
+      endpoint: '/governance/proposals/1/voteSummary',
       method: 'GET',
       next: true,
     });

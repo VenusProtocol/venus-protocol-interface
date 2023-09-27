@@ -1,6 +1,5 @@
 import config from 'config';
 import { usePostHog } from 'posthog-js/react';
-import { VoteSupport } from 'types';
 
 import { useAuth } from 'context/AuthContext';
 import { logError } from 'context/ErrorLogger';
@@ -23,7 +22,7 @@ export type AnalyticEventName =
   | 'Pool reward claimed'
   | 'VAI vault reward claimed'
   | 'XVS vesting vault reward claimed'
-  | 'Vote casted';
+  | 'Vote cast';
 
 export type AnalyticEventProps<TEventName extends AnalyticEventName> =
   TEventName extends 'Tokens supplied'
@@ -131,8 +130,8 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
         poolIndex: number;
         rewardTokenSymbol: string;
       }
-    : TEventName extends 'Vote casted'
-    ? { proposalId: number; voteType: VoteSupport }
+    : TEventName extends 'Vote cast'
+    ? { proposalId: number; voteType: string }
     : undefined;
 
 const useAnalytics = () => {

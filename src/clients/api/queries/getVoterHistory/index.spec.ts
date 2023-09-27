@@ -23,10 +23,10 @@ describe('api/queries/getVoterHistory', () => {
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/history`,
       method: 'GET',
+      next: true,
       params: {
         limit: 6,
-        offset: 12,
-        version: 'v2',
+        page: 2,
       },
     });
 
@@ -41,15 +41,15 @@ describe('api/queries/getVoterHistory', () => {
 
     const payload = await getVoterHistory({ address: fakeAddress });
 
-    expect(payload.voterHistory).toHaveLength(5);
+    expect(payload.voterHistory).toHaveLength(6);
 
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/history`,
       method: 'GET',
+      next: true,
       params: {
         limit: 6,
-        offset: 0,
-        version: 'v2',
+        page: 0,
       },
     });
 

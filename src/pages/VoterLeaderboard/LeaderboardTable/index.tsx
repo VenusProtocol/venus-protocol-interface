@@ -56,7 +56,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
             {convertWeiToTokens({
-              valueWei: voter.votesWei,
+              valueWei: voter.votesMantissa,
               token: xvs,
               returnInReadableFormat: true,
               addSymbol: false,
@@ -87,7 +87,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         ),
       },
     ],
-    [],
+    [offset],
   );
 
   const cardColumns = useMemo(() => {
@@ -108,7 +108,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         orderBy: columns[0],
         orderDirection: 'asc',
       }}
-      rowKeyExtractor={row => `voter-leaderboard-table-row-${row.id}`}
+      rowKeyExtractor={row => `voter-leaderboard-table-row-${row.address}`}
       breakpoint="xl"
       css={styles.cardContentGrid}
     />

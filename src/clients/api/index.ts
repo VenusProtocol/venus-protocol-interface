@@ -272,6 +272,10 @@ export { default as getVoterDetails } from './queries/getVoterDetails';
 export * from './queries/getVoterDetails';
 export { default as useGetVoterDetails } from './queries/getVoterDetails/useGetVoterDetails';
 
+export { default as getVoteSummary } from './queries/getVoteSummary';
+export * from './queries/getVoteSummary';
+export { default as useGetVoteSummary } from './queries/getVoteSummary/useGetVoteSummary';
+
 export { default as getVoterHistory } from './queries/getVoterHistory';
 export * from './queries/getVoterHistory';
 export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';

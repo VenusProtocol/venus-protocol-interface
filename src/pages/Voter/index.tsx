@@ -2,9 +2,9 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { VoteDetailTransaction, VoterHistory } from 'types';
+import { VoteDetail, VoterHistory } from 'types';
 
-import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
+import { useGetVoterDetails, useGetVoterHistory, useGetVoters } from 'clients/api';
 import useUrlPagination from 'hooks/useUrlPagination';
 
 import History from './History';
@@ -13,12 +13,12 @@ import Transactions from './Transactions';
 import { useStyles } from './styles';
 
 interface VoterUiProps {
-  balanceWei: BigNumber | undefined;
+  balanceMantissa: BigNumber | undefined;
   delegateCount: number | undefined;
-  votesWei: BigNumber | undefined;
+  votesMantissa: BigNumber | undefined;
   delegating: boolean;
   address: string;
-  voterTransactions: VoteDetailTransaction[] | undefined;
+  latestVotes: VoteDetail[] | undefined;
   voterHistory: VoterHistory[] | undefined;
   setCurrentPage: (page: number) => void;
   total: number;
@@ -27,12 +27,12 @@ interface VoterUiProps {
 }
 
 export const VoterUi: React.FC<VoterUiProps> = ({
-  balanceWei,
+  balanceMantissa,
   delegateCount,
-  votesWei,
+  votesMantissa,
   delegating,
   address,
-  voterTransactions,
+  latestVotes,
   voterHistory,
   setCurrentPage,
   total,
@@ -46,17 +46,13 @@ export const VoterUi: React.FC<VoterUiProps> = ({
       <div css={styles.top}>
         <Holding
           css={styles.topRowLeft}
-          balanceWei={balanceWei}
+          balanceMantissa={balanceMantissa}
           delegateCount={delegateCount}
-          votesWei={votesWei}
+          votesMantissa={votesMantissa}
           delegating={delegating}
         />
 
-        <Transactions
-          css={styles.topRowRight}
-          address={address}
-          voterTransactions={voterTransactions}
-        />
+        <Transactions css={styles.topRowRight} address={address} voterTransactions={latestVotes} />
       </div>
 
       <History
@@ -75,6 +71,7 @@ const Voter: React.FC = () => {
 
   const { address = '' } = useParams<{ address: string }>();
   const { data: voterDetails } = useGetVoterDetails({ address });
+  const { data: latestVotes } = useGetVoters({ address, limit: 3 });
   const {
     data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
     isFetching: isGetVoterHistoryFetching,
@@ -86,13 +83,13 @@ const Voter: React.FC = () => {
 
   return (
     <VoterUi
-      balanceWei={voterDetails?.balanceWei}
+      balanceMantissa={voterDetails?.balanceMantissa}
       delegateCount={voterDetails?.delegateCount}
       voterHistory={voterHistory}
-      votesWei={voterDetails?.votesWei}
+      votesMantissa={voterDetails?.votesMantissa}
       delegating={!!voterDetails?.delegating}
       address={address}
-      voterTransactions={voterDetails?.voterTransactions}
+      latestVotes={latestVotes?.result}
       setCurrentPage={setCurrentPage}
       total={total}
       limit={limit}

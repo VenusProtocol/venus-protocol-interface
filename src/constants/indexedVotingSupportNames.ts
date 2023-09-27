@@ -1,5 +1,3 @@
-import { VoteSupport } from 'types';
-
-const indexedVotingSupportNames: VoteSupport[] = ['AGAINST', 'FOR', 'ABSTAIN'];
+const indexedVotingSupportNames = ['AGAINST', 'FOR', 'ABSTAIN'];
 
 export default indexedVotingSupportNames;

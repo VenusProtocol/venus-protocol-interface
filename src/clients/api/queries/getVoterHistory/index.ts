@@ -13,7 +13,6 @@ export interface GetVoterHistoryInput {
 export interface GetVoterHistoryOutput {
   voterHistory: VoterHistory[];
   limit: number;
-  offset: number;
   total: number;
 }
 
@@ -21,17 +20,17 @@ const getVoterHistory = async ({
   page = 0,
   address,
 }: GetVoterHistoryInput): Promise<GetVoterHistoryOutput> => {
-  const response = await restService<GetVoterHistoryResponse, 'v1'>({
+  const response = await restService<GetVoterHistoryResponse, 'v2'>({
     endpoint: `/governance/voters/${address}/history`,
     method: 'GET',
+    next: true,
     params: {
       limit: 6,
-      offset: page * 6,
-      version: 'v2',
+      page,
     },
   });
 
-  const payload = response.data?.data;
+  const payload = response.data;
 
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {

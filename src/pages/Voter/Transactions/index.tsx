@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
 import { AnchorButton, Icon, Spinner, Table, TableColumn } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { VoteDetailTransaction } from 'types';
+import { VoteDetail, VoteSupport } from 'types';
 import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';
 import useGetToken from 'hooks/useGetToken';
 
@@ -15,7 +13,7 @@ import { useStyles } from './styles';
 
 interface TransactionsProps {
   address: string;
-  voterTransactions: VoteDetailTransaction[] | undefined;
+  voterTransactions: VoteDetail[] | undefined;
   className?: string;
 }
 
@@ -31,62 +29,44 @@ export const Transactions: React.FC<TransactionsProps> = ({
     symbol: 'XVS',
   });
 
-  const columns: TableColumn<VoteDetailTransaction>[] = useMemo(
+  const columns: TableColumn<VoteDetail>[] = useMemo(
     () => [
       {
         key: 'action',
         label: t('voterDetail.actions'),
         selectOptionLabel: t('voterDetail.actions'),
         renderCell: transaction => {
-          if (transaction.type === 'transfer') {
-            return transaction.to.toLowerCase() === address.toLowerCase() ? (
-              <Typography css={styles.row} variant="small2" color="textPrimary">
-                <Icon name="arrowShaft" css={styles.received} />
-                {t('voterDetail.receivedXvs')}
-              </Typography>
-            ) : (
-              <Typography css={styles.row} variant="small2" color="textPrimary">
-                <Icon name="arrowShaft" css={styles.sent} />
-                {t('voterDetail.sentXvs')}
-              </Typography>
-            );
+          switch (transaction.support) {
+            case VoteSupport.Against:
+              return (
+                <div css={styles.row}>
+                  <div css={[styles.icon, styles.against]}>
+                    <Icon name="closeRounded" />
+                  </div>
+                  {t('voterDetail.votedAgainst')}
+                </div>
+              );
+            case VoteSupport.For:
+              return (
+                <div css={styles.row}>
+                  <div css={[styles.icon, styles.for]}>
+                    <Icon name="mark" />
+                  </div>
+                  {t('voterDetail.votedFor')}
+                </div>
+              );
+            case VoteSupport.Abstain:
+              return (
+                <div css={styles.row}>
+                  <div css={[styles.icon, styles.abstain]}>
+                    <Icon name="dots" />
+                  </div>
+                  {t('voterDetail.votedAbstain')}
+                </div>
+              );
+            default:
+              return <></>;
           }
-
-          if (transaction.type === 'vote') {
-            switch (transaction.support) {
-              case 'AGAINST':
-                return (
-                  <div css={styles.row}>
-                    <div css={[styles.icon, styles.against]}>
-                      <Icon name="closeRounded" />
-                    </div>
-                    {t('voterDetail.votedAgainst')}
-                  </div>
-                );
-              case 'FOR':
-                return (
-                  <div css={styles.row}>
-                    <div css={[styles.icon, styles.for]}>
-                      <Icon name="mark" />
-                    </div>
-                    {t('voterDetail.votedFor')}
-                  </div>
-                );
-              case 'ABSTAIN':
-                return (
-                  <div css={styles.row}>
-                    <div css={[styles.icon, styles.abstain]}>
-                      <Icon name="dots" />
-                    </div>
-                    {t('voterDetail.votedAbstain')}
-                  </div>
-                );
-              default:
-                return <></>;
-            }
-          }
-
-          return <></>;
         },
       },
       {
@@ -101,24 +81,12 @@ export const Transactions: React.FC<TransactionsProps> = ({
         label: t('voterDetail.amount'),
         selectOptionLabel: t('voterDetail.amount'),
         align: 'right',
-        renderCell: transaction => {
-          let valueWei: BigNumber | undefined;
-
-          if (transaction.type === 'transfer') {
-            valueWei = transaction.amountWei;
-          } else if (transaction.type === 'vote') {
-            valueWei = transaction.votesWei;
-          }
-
-          return valueWei
-            ? convertWeiToTokens({
-                valueWei,
-                token: xvs,
-
-                returnInReadableFormat: true,
-              })
-            : PLACEHOLDER_KEY;
-        },
+        renderCell: transaction =>
+          convertWeiToTokens({
+            valueWei: transaction.votesMantissa,
+            token: xvs,
+            returnInReadableFormat: true,
+          }),
       },
     ],
     [],
@@ -134,7 +102,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <Table
           columns={columns}
           data={voterTransactions}
-          rowKeyExtractor={row => `voter-transaction-table-row-${row.transactionHash}`}
+          rowKeyExtractor={row => `voter-transaction-table-row-${row.blockNumber}`}
           breakpoint="sm"
           css={styles.cardContentGrid}
         />

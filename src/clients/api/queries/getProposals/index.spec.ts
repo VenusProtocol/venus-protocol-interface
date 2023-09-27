@@ -10,22 +10,24 @@ vi.mock('utilities/restService');
 describe('api/queries/getProposals', () => {
   test('returns formatted proposals', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: proposalResponse, limit: 20, offset: 20 },
+      data: proposalResponse,
+      limit: 10,
+      next: true,
     }));
 
     const response = await getProposals({
       limit: 10,
       page: 2,
+      accountAddress: undefined,
     });
 
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals',
       method: 'GET',
+      next: true,
       params: {
         limit: 10,
-        offset: 20,
-        version: 'v2',
+        page: 2,
       },
     });
 
@@ -34,19 +36,20 @@ describe('api/queries/getProposals', () => {
 
   test('Gets called with correct default arguments', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: proposalResponse },
+      data: proposalResponse,
     }));
 
-    const response = await getProposals({});
+    const response = await getProposals({
+      accountAddress: undefined,
+    });
 
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals',
       method: 'GET',
+      next: true,
       params: {
         limit: 5,
-        offset: 0,
-        version: 'v2',
+        page: 0,
       },
     });
 

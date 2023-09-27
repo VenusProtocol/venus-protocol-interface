@@ -1,21 +1,19 @@
-import { ProposalApiResponse } from '../getProposals';
+import { VoteSupport } from 'types';
 
-export interface GetVoterHistoryResponse {
+import type { ProposalApiResponse } from '../getProposals/types';
+
+export type GetVoterHistoryResponse = {
   limit: number;
-  offset: number;
+  page: number;
   total: number;
-  result: {
-    address: string;
-    blockNumber: number;
-    blockTimestamp: number;
-    createdAt: string;
-    hasVoted: boolean;
-    id: string;
-    proposal: Omit<ProposalApiResponse, 'actions' | 'blockNumber'>;
-    proposalId: number;
-    reason: null | string;
-    support: 0 | 1 | 2;
-    updatedAt: string;
-    votes: string;
-  }[];
-}
+  result: Array<
+    ProposalApiResponse & {
+      votes: {
+        address: string;
+        support: VoteSupport;
+        reason: string | null;
+        votesMantissa: string;
+      }[];
+    }
+  >;
+};

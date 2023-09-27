@@ -33,29 +33,27 @@ export const History: React.FC<HistoryProps> = ({
       {isFetching && <Spinner />}
       {voterHistory.map(
         ({
-          proposal: {
-            id,
-            description,
-            state,
-            endDate,
-            forVotesWei,
-            abstainedVotesWei,
-            againstVotesWei,
-            createdDate,
-            queuedDate,
-            cancelDate,
-            executedDate,
-          },
+          proposalId,
+          description,
+          state,
+          endDate,
+          forVotesMantissa,
+          abstainedVotesMantissa,
+          againstVotesMantissa,
+          createdDate,
+          queuedDate,
+          cancelDate,
+          executedDate,
           support,
         }) => (
           <VoterProposal
-            key={id}
-            proposalNumber={id}
+            key={proposalId}
+            proposalNumber={proposalId}
             proposalTitle={description.title}
             proposalState={state}
-            forVotesWei={forVotesWei}
-            againstVotesWei={againstVotesWei}
-            abstainedVotesWei={abstainedVotesWei}
+            forVotesMantissa={forVotesMantissa}
+            againstVotesMantissa={againstVotesMantissa}
+            abstainedVotesMantissa={abstainedVotesMantissa}
             userVoteStatus={support}
             createdDate={createdDate}
             queuedDate={queuedDate}

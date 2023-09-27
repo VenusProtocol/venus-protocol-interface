@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import voterDetails from '__mocks__/models/voterDetails';
 import voterHistory from '__mocks__/models/voterHistory';
+import votes from '__mocks__/models/voters';
 import { NULL_ADDRESS } from 'constants/address';
 import { withRouter } from 'stories/decorators';
 
@@ -18,11 +18,11 @@ export default {
 
 export const Default = () => (
   <VoterUi
-    balanceWei={new BigNumber(912512333)}
+    balanceMantissa={new BigNumber(912512333)}
     delegateCount={12}
-    votesWei={new BigNumber(912512333)}
+    votesMantissa={new BigNumber(912512333)}
     delegating
-    voterTransactions={voterDetails.voterTransactions}
+    latestVotes={votes.result}
     address={NULL_ADDRESS}
     voterHistory={voterHistory.voterHistory}
     setCurrentPage={noop}

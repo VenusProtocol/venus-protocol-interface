@@ -20,16 +20,16 @@ export interface StepperProps {
 
 const getActiveStepIndex = (proposalState: ProposalState) => {
   switch (proposalState) {
-    case 'Pending':
+    case ProposalState.Pending:
       return 0;
-    case 'Active':
+    case ProposalState.Active:
       return 1;
-    case 'Defeated':
-    case 'Succeeded':
-    case 'Canceled':
-    case 'Expired':
+    case ProposalState.Defeated:
+    case ProposalState.Succeeded:
+    case ProposalState.Canceled:
+    case ProposalState.Expired:
       return 2;
-    case 'Queued':
+    case ProposalState.Queued:
       return 3;
     default:
       return 4;
@@ -72,29 +72,33 @@ const Stepper: React.FC<StepperProps> = ({
       {
         getLabel: () => {
           switch (state) {
-            case 'Canceled':
+            case ProposalState.Canceled:
               return t('voteProposalUi.statusCard.canceled');
-            case 'Defeated':
+            case ProposalState.Defeated:
               return t('voteProposalUi.statusCard.defeated');
-            case 'Expired':
+            case ProposalState.Expired:
               return t('voteProposalUi.statusCard.expired');
             default:
               return t('voteProposalUi.statusCard.succeed');
           }
         },
         getTimestamp: () => {
-          if (state === 'Canceled') {
+          if (state === ProposalState.Canceled) {
             return cancelDate;
           }
 
-          if (state === 'Pending' || state === 'Active') {
+          if (state === ProposalState.Pending || state === ProposalState.Active) {
             return undefined;
           }
 
           return endDate;
         },
         completedIcon: () => {
-          if (state === 'Canceled' || state === 'Defeated' || state === 'Expired') {
+          if (
+            state === ProposalState.Canceled ||
+            state === ProposalState.Defeated ||
+            state === ProposalState.Expired
+          ) {
             return (
               <span css={[styles.iconContainer, styles.errorIconContainer]}>
                 <Icon name="closeRounded" css={styles.closeIcon} />
@@ -135,7 +139,7 @@ const Stepper: React.FC<StepperProps> = ({
     <div className={className} css={styles.root}>
       {steps.map((step, idx) => {
         const completed = activeStepIndex >= idx;
-        const active = state === 'Active' && activeStepIndex === idx;
+        const active = state === ProposalState.Active && activeStepIndex === idx;
 
         return (
           <React.Fragment key={step.getLabel()}>

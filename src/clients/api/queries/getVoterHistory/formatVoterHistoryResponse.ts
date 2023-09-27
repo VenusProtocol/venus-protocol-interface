@@ -1,25 +1,25 @@
 import BigNumber from 'bignumber.js';
+import { VoterHistory } from 'types';
 import { formatToProposal } from 'utilities';
-
-import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 
 import { GetVoterHistoryResponse } from './types';
 
-const formatVoterHistoryResponse = (data: GetVoterHistoryResponse) => ({
+const formatVoterHistoryResponse = (
+  data: GetVoterHistoryResponse,
+): {
+  limit: number;
+  page: number;
+  total: number;
+  voterHistory: VoterHistory[];
+} => ({
   limit: data.limit,
-  offset: data.offset,
+  page: data.page,
   total: data.total,
   voterHistory: data.result.map(d => ({
-    address: d.address,
-    blockNumber: d.blockNumber,
-    blockTimestamp: d.blockTimestamp,
-    createdAt: new Date(d.createdAt),
-    id: d.id,
-    proposal: formatToProposal(d.proposal),
-    reason: d.reason ? d.reason : undefined,
-    support: d.hasVoted ? indexedVotingSupportNames[d.support] : 'NOT_VOTED',
-    updatedAt: new Date(d.updatedAt),
-    votesWei: new BigNumber(d.votes),
+    ...formatToProposal({ ...d, accountAddress: d.votes[0].address || '' }),
+    support: d.votes[0].support,
+    votesMantissa: new BigNumber(d.votes[0].votesMantissa),
+    reason: d.votes[0].reason,
   })),
 });
 

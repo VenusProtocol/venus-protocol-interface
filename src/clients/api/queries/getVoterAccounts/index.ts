@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import { VoterAccount } from 'types';
 import { restService } from 'utilities';
@@ -6,6 +7,8 @@ import formatVoterAccountResponse from './formatVoterAccountResponse';
 import { GetVoterAccountsResponse } from './types';
 
 export interface GetVoterAccountsInput {
+  totalStakedXvs: BigNumber;
+  limit?: number;
   page?: number;
 }
 
@@ -17,17 +20,20 @@ export interface GetVoterAccountsOutput {
 }
 
 const getVoterAccounts = async ({
+  totalStakedXvs,
+  limit = 16,
   page = 0,
 }: GetVoterAccountsInput): Promise<GetVoterAccountsOutput> => {
-  const response = await restService<GetVoterAccountsResponse, 'v1'>({
+  const response = await restService<GetVoterAccountsResponse, 'v2'>({
     endpoint: '/governance/voters',
     method: 'GET',
+    next: true,
     params: {
-      limit: 16,
-      offset: page * 16,
+      limit,
+      page,
     },
   });
-  const payload = response.data?.data;
+  const payload = response.data;
 
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
@@ -42,7 +48,7 @@ const getVoterAccounts = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingVoterAccounts' });
   }
 
-  return formatVoterAccountResponse(payload);
+  return formatVoterAccountResponse({ data: payload, totalStakedXvs });
 };
 
 export default getVoterAccounts;

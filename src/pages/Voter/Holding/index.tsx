@@ -13,17 +13,17 @@ import { useStyles } from './styles';
 
 interface HoldingProps {
   className?: string;
-  balanceWei: BigNumber | undefined;
+  balanceMantissa: BigNumber | undefined;
   delegateCount: number | undefined;
-  votesWei: BigNumber | undefined;
+  votesMantissa: BigNumber | undefined;
   delegating: boolean;
 }
 
 export const Holding: React.FC<HoldingProps> = ({
   className,
-  balanceWei,
+  balanceMantissa,
   delegateCount,
-  votesWei,
+  votesMantissa,
   delegating,
 }) => {
   const styles = useStyles();
@@ -33,13 +33,13 @@ export const Holding: React.FC<HoldingProps> = ({
   });
 
   const readableVenusBalance = useConvertWeiToReadableTokenString({
-    valueWei: balanceWei,
+    valueWei: balanceMantissa,
     token: xvs,
     addSymbol: false,
   });
 
   const readableVotes = useConvertWeiToReadableTokenString({
-    valueWei: votesWei,
+    valueWei: votesMantissa,
     token: xvs,
     addSymbol: false,
   });
