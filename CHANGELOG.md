@@ -1,3 +1,10 @@
+## [2.24.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.4...v2.24.0) (2023-09-28)
+
+
+### Features
+
+* add support for SnBNB token ([#1494](https://github.com/VenusProtocol/venus-protocol-interface/issues/1494)) ([544b984](https://github.com/VenusProtocol/venus-protocol-interface/commit/544b984f1a8332e5106ca5365564a3a5a06a8894))
+
 ## [2.23.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.3...v2.23.4) (2023-09-27)
 
 
