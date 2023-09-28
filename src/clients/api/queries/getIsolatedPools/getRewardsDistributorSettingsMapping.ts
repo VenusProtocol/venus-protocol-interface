@@ -1,4 +1,5 @@
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { ContractTypeByName } from 'packages/contracts';
+import { getRewardsDistributorContract } from 'packages/contractsNew';
 
 import { Provider } from 'clients/web3';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -64,8 +65,7 @@ const getRewardsDistributorSettingsMapping = async ({
 
     poolRewardsDistributorAddresses.forEach(rewardsDistributorAddress =>
       poolVTokenAddresses.forEach(vTokenAddress => {
-        const rewardDistributorContract = getGenericContract({
-          name: 'rewardsDistributor',
+        const rewardDistributorContract = getRewardsDistributorContract({
           address: rewardsDistributorAddress,
           signerOrProvider: provider,
         });

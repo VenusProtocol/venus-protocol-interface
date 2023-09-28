@@ -1,6 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { ContractTypeByName } from 'packages/contracts';
+import {
+  getIsolatedPoolComptrollerContract,
+  getRewardsDistributorContract,
+} from 'packages/contractsNew';
 import { Token } from 'types';
 import Vi from 'vitest';
 
@@ -19,7 +23,7 @@ import {
   fakeIsolatedPoolParticipantsCount,
 } from '../__testUtils__/fakeData';
 
-vi.mock('packages/contracts');
+vi.mock('packages/contractsNew');
 vi.mock('clients/subgraph');
 
 const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';
@@ -66,11 +70,12 @@ describe('api/queries/getIsolatedPools', () => {
         })),
     );
 
-    (getGenericContract as Vi.Mock).mockImplementation(
-      ({ name }: { name: 'rewardsDistributor' | 'isolatedPoolComptroller' }) =>
-        name === 'isolatedPoolComptroller'
-          ? fakeIsolatedPoolComptrollerContract
-          : fakeRewardsDistributorContract,
+    (getIsolatedPoolComptrollerContract as Vi.Mock).mockImplementation(
+      () => fakeIsolatedPoolComptrollerContract,
+    );
+
+    (getRewardsDistributorContract as Vi.Mock).mockImplementation(
+      () => fakeRewardsDistributorContract,
     );
   });
 

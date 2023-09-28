@@ -1,4 +1,5 @@
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { ContractTypeByName } from 'packages/contracts';
+import { getIsolatedPoolComptrollerContract } from 'packages/contractsNew';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';
 
@@ -99,8 +100,7 @@ const getIsolatedPools = async ({
   >[] = [];
 
   poolResults.forEach(poolResult => {
-    const comptrollerContract = getGenericContract({
-      name: 'isolatedPoolComptroller',
+    const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
       address: poolResult.comptroller,
     });
