@@ -1,7 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
 import {
+  IsolatedPoolComptroller,
+  PoolLens,
+  ResilientOracle,
+  RewardsDistributor,
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
 } from 'packages/contractsNew';
@@ -41,16 +44,16 @@ const fakePoolLensContract = {
         tokenAllowance: BN.from(MAX_UINT256),
       })),
   },
-} as unknown as ContractTypeByName<'poolLens'>;
+} as unknown as PoolLens;
 
 const fakeResilientOracleContract = {
   getPrice: async () => fakeGetPriceOutput,
-} as unknown as ContractTypeByName<'resilientOracle'>;
+} as unknown as ResilientOracle;
 
 const fakeIsolatedPoolComptrollerContract = {
   getRewardDistributors: async () => fakeGetRewardDistributorsOutput,
   getAssetsIn: async () => fakeGetAssetsInOutput,
-} as unknown as ContractTypeByName<'isolatedPoolComptroller'>;
+} as unknown as IsolatedPoolComptroller;
 
 const fakeRewardsDistributorContract = {
   rewardToken: async () => xvs.address,
@@ -58,7 +61,7 @@ const fakeRewardsDistributorContract = {
   rewardTokenBorrowSpeeds: async () => BN.from('868055555555556'),
   rewardTokenSupplyState: async () => ({ lastRewardingBlock: 0 }),
   rewardTokenBorrowState: async () => ({ lastRewardingBlock: 0 }),
-} as unknown as ContractTypeByName<'rewardsDistributor'>;
+} as unknown as RewardsDistributor;
 
 describe('api/queries/getIsolatedPools', () => {
   beforeEach(() => {

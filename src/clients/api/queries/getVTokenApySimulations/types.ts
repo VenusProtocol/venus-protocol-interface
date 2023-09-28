@@ -1,10 +1,8 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
 import { Asset } from 'types';
 
 export interface GetVTokenInterestRatesInput {
-  interestRateModelContract:
-    | ContractTypeByName<'jumpRateModel'>
-    | ContractTypeByName<'jumpRateModelV2'>;
+  interestRateModelContract: JumpRateModel | JumpRateModelV2;
   isIsolatedPoolMarket: boolean;
   asset: Asset;
 }

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { Bep20 } from 'packages/contractsNew';
 import { getTokenContract } from 'utilities';
 import Vi from 'vitest';
 
@@ -19,7 +19,7 @@ describe('api/queries/getBalanceOf', () => {
 
       const fakeContract = {
         balanceOf: balanceOfMock,
-      } as unknown as ContractTypeByName<'bep20'>;
+      } as unknown as Bep20;
 
       (getTokenContract as Vi.Mock).mockImplementationOnce(() => fakeContract);
 

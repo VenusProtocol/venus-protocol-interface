@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { PoolLens } from 'packages/contractsNew';
 import { Asset, Pool, Token, VToken } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
@@ -24,14 +24,12 @@ import formatDistributions from './formatDistributions';
 export interface FormatToPoolsInput {
   tokens: Token[];
   currentBlockNumber: number;
-  poolResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
+  poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
   poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   userCollateralizedVTokenAddresses: string[];
-  userVTokenBalancesAll?: Awaited<
-    ReturnType<ContractTypeByName<'poolLens'>['callStatic']['vTokenBalancesAll']>
-  >;
+  userVTokenBalancesAll?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalancesAll?: GetTokenBalancesOutput;
 }
 

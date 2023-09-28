@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt, Signer } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { Maximillion, VBnb } from 'packages/contractsNew';
 import { VToken } from 'types';
 import { callOrThrow, getVTokenContract } from 'utilities';
 
@@ -12,7 +12,7 @@ export interface RepayInput {
   vToken: VToken;
   amountWei: BigNumber;
   isRepayingFullLoan: boolean;
-  maximillionContract?: ContractTypeByName<'maximillion'>;
+  maximillionContract?: Maximillion;
 }
 
 export type RepayOutput = ContractReceipt;
@@ -28,7 +28,7 @@ const repayFullBnbLoan = async ({
   vToken: VToken;
   amountWei: BigNumber;
   signer: Signer;
-  maximillionContract: ContractTypeByName<'maximillion'>;
+  maximillionContract: Maximillion;
 }) => {
   const amountWithBufferWei = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
   const accountAddress = await signer.getAddress();
@@ -73,7 +73,7 @@ const repay = async ({
   const vBnbContract = getVTokenContract({
     vToken,
     signerOrProvider: signer,
-  }) as ContractTypeByName<'vBnb'>;
+  }) as VBnb;
 
   const transaction = await vBnbContract.repayBorrow({
     value: amountWei.toFixed(),

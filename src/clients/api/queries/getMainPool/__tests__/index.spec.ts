@@ -1,4 +1,9 @@
-import { ContractTypeByName } from 'packages/contracts';
+import {
+  MainPoolComptroller,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'packages/contractsNew';
 import Vi from 'vitest';
 
 import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
@@ -36,27 +41,27 @@ const fakeMainPoolComptrollerContract = {
     fakeXvsBorrowSpeedOutputs[vTokenAddress],
   venusSupplySpeeds: async (vTokenAddress: keyof typeof fakeXvsSupplySpeedOutputs) =>
     fakeXvsSupplySpeedOutputs[vTokenAddress],
-} as unknown as ContractTypeByName<'mainPoolComptroller'>;
+} as unknown as MainPoolComptroller;
 
 const fakeResilientOracleContract = {
   getPrice: async () => fakeGetXvsPriceOutput,
   getUnderlyingPrice: async (vTokenAddress: keyof typeof fakeGetUnderlyingPriceOutputs) =>
     fakeGetUnderlyingPriceOutputs[vTokenAddress],
-} as unknown as ContractTypeByName<'resilientOracle'>;
+} as unknown as ResilientOracle;
 
 const fakeVaiControllerContract = {
   callStatic: {
     accrueVAIInterest: vi.fn(),
   },
   getVAIRepayAmount: async () => fakeGetVaiRepayAmountOutput,
-} as unknown as ContractTypeByName<'vaiController'>;
+} as unknown as VaiController;
 
 const fakeVenusLensContract = {
   callStatic: {
     vTokenMetadataAll: async () => fakeVenusLensContractResponses.vTokenMetadataAll,
     vTokenBalancesAll: async () => fakeVTokenBalancesAllOutput,
   },
-} as unknown as ContractTypeByName<'venusLens'>;
+} as unknown as VenusLens;
 
 describe('api/queries/getMainPool', () => {
   beforeEach(() => {

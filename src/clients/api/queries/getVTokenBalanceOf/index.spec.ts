@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { VToken as VTokenContract } from 'packages/contractsNew';
 
 import fakeAddress from '__mocks__/models/address';
 
@@ -14,7 +14,7 @@ describe('api/queries/getVTokenBalance', () => {
 
     const fakeContract = {
       balanceOf: getBalanceOfMock,
-    } as unknown as ContractTypeByName<'vToken'>;
+    } as unknown as VTokenContract;
 
     const response = await getVTokenBalance({
       vTokenContract: fakeContract,

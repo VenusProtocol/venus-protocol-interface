@@ -1,5 +1,5 @@
 import { checkForComptrollerTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { vBusd } from '__mocks__/models/vTokens';
@@ -17,7 +17,7 @@ describe('api/mutation/enterMarket', () => {
 
     const fakeContract = {
       enterMarkets: enterMarketsMock,
-    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
+    } as unknown as MainPoolComptroller;
 
     const response = await enterMarket({
       comptrollerContract: fakeContract,

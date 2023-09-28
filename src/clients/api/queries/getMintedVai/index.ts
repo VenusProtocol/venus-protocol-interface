@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 export interface GetMintedVaiInput {
-  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  mainPoolComptrollerContract: MainPoolComptroller;
   accountAddress: string;
 }
 

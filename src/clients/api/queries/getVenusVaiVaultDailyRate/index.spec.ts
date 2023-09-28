@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 
@@ -14,7 +14,7 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
 
     const fakeContract = {
       venusVAIVaultRate: venusVaiVaultRateMock,
-    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
+    } as unknown as MainPoolComptroller;
 
     const response = await getVenusVaiVaultDailyRate({
       mainPoolComptrollerContract: fakeContract,

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiController } from 'packages/contractsNew';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 
@@ -13,7 +13,7 @@ describe('api/queries/getVaiRepayApy', () => {
 
     const fakeContract = {
       getVAIRepayRatePerBlock: getVAIRepayRatePerBlockMock,
-    } as unknown as ContractTypeByName<'vaiController'>;
+    } as unknown as VaiController;
 
     const response = await getVaiRepayApy({
       vaiControllerContract: fakeContract,

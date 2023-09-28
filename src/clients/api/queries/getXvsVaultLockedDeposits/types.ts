@@ -1,8 +1,8 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 import { LockedDeposit } from 'types';
 
 export interface GetXvsVaultLockedDepositsInput {
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
   accountAddress: string;

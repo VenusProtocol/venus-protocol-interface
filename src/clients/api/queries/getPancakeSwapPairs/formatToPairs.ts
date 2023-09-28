@@ -1,5 +1,5 @@
 import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { PancakePairV2 } from 'packages/contractsNew';
 import { areAddressesEqual } from 'utilities';
 
 import { PairAddress } from './types';
@@ -9,9 +9,7 @@ const formatToPairs = ({
   reservesResults,
 }: {
   pairAddresses: PairAddress[];
-  reservesResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'pancakePairV2'>['getReserves']>>
-  >[];
+  reservesResults: PromiseSettledResult<Awaited<ReturnType<PancakePairV2['getReserves']>>>[];
 }): PSPair[] =>
   pairAddresses.reduce((acc, pairAddress, index) => {
     const pairReservesCallResult = reservesResults[index];

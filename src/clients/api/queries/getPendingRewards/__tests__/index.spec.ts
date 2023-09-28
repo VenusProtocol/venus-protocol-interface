@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
@@ -19,25 +19,25 @@ const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC5
 
 const fakeResilientOracleContract = {
   getPrice: async () => fakeGetPriceOutput,
-} as unknown as ContractTypeByName<'resilientOracle'>;
+} as unknown as ResilientOracle;
 
 const fakePoolLensContract = {
   getPendingRewards: async () => fakeGetIsolatedPoolPendingRewardsOutput,
-} as unknown as ContractTypeByName<'poolLens'>;
+} as unknown as PoolLens;
 
 const fakeVenusLensContract = {
   pendingRewards: async () => fakeGetMainPoolPendingRewardsOutput,
-} as unknown as ContractTypeByName<'venusLens'>;
+} as unknown as VenusLens;
 
 const fakeVaiVaultContract = {
   pendingXVS: async () => fakeGetPendingXvsOutput,
-} as unknown as ContractTypeByName<'vaiVault'>;
+} as unknown as VaiVault;
 
 const fakeXvsVaultContract = {
   poolInfos: async () => fakeGetXvsVaultPoolInfosOutput,
   pendingReward: async () => fakeGetXvsVaultPendingRewardOutput,
   pendingWithdrawalsBeforeUpgrade: async () => fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
-} as unknown as ContractTypeByName<'xvsVault'>;
+} as unknown as XvsVault;
 
 describe('api/queries/getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {

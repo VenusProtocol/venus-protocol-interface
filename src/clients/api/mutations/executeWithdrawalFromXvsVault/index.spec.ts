@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 
@@ -16,7 +16,7 @@ describe('api/mutation/executeWithdrawalFromXvsVault', () => {
 
     const fakeContract = {
       executeWithdrawal: executeWithdrawalMock,
-    } as unknown as ContractTypeByName<'xvsVault'>;
+    } as unknown as XvsVault;
 
     const response = await executeWithdrawalFromXvsVault({
       xvsVaultContract: fakeContract,

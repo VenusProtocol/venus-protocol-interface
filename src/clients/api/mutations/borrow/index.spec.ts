@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { VToken as VTokenContract } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 
@@ -18,7 +18,7 @@ describe('api/mutation/borrow', () => {
 
     const fakeContract = {
       borrow: borrowMock,
-    } as unknown as ContractTypeByName<'vToken'>;
+    } as unknown as VTokenContract;
 
     const response = await borrow({
       vTokenContract: fakeContract,

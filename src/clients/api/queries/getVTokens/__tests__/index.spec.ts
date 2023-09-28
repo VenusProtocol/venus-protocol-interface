@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contractsNew';
 
 import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
@@ -10,17 +10,17 @@ import getVTokens from '..';
 
 const fakePoolLensContract = {
   getAllPools: async () => fakePoolLensContractResponses.getAllPools,
-} as unknown as ContractTypeByName<'poolLens'>;
+} as unknown as PoolLens;
 
 const fakeVenusLensContract = {
   callStatic: {
     vTokenMetadataAll: async () => fakeVenusLensContractResponses.vTokenMetadataAll,
   },
-} as unknown as ContractTypeByName<'venusLens'>;
+} as unknown as VenusLens;
 
 const fakeMainPoolComptrollerContract = {
   getAllMarkets: async () => fakeMainPoolComptrollerContractResponses.getAllMarkets,
-} as unknown as ContractTypeByName<'mainPoolComptroller'>;
+} as unknown as MainPoolComptroller;
 
 describe('api/queries/getVTokens', () => {
   it('returns the vTokens on success', async () => {

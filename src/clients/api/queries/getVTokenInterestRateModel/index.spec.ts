@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { VToken as VTokenContract } from 'packages/contractsNew';
 
 import getInterestRateModel from '.';
 
@@ -9,7 +9,7 @@ describe('api/queries/getVTokenInterestRateModel', () => {
 
     const fakeContract = {
       interestRateModel: interestRateModelMock,
-    } as unknown as ContractTypeByName<'vToken'>;
+    } as unknown as VTokenContract;
 
     const response = await getInterestRateModel({
       vTokenContract: fakeContract,

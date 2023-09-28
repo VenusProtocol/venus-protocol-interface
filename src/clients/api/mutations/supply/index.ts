@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ContractReceipt, Signer } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { VBnb } from 'packages/contractsNew';
 import { VToken } from 'types';
 import { getVTokenContract } from 'utilities';
 
@@ -18,7 +18,7 @@ const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<Suppl
     const tokenContract = getVTokenContract({
       vToken,
       signerOrProvider: signer,
-    }) as ContractTypeByName<'vBnb'>;
+    }) as VBnb;
 
     const transaction = await tokenContract.mint({
       value: amountWei.toFixed(),

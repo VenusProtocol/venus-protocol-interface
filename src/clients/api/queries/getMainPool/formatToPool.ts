@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contractsNew';
 import { Asset, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
@@ -28,29 +28,21 @@ export interface FormatToPoolInput {
   tokens: Token[];
   description: string;
   comptrollerContractAddress: string;
-  vTokenMetaDataResults: Awaited<
-    ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenMetadataAll']>
-  >;
+  vTokenMetaDataResults: Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>;
   underlyingTokenPriceResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'resilientOracle'>['getPrice']>>
+    Awaited<ReturnType<ResilientOracle['getPrice']>>
   >[];
-  borrowCapsResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['borrowCaps']>>
-  >[];
-  supplyCapsResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['supplyCaps']>>
-  >[];
+  borrowCapsResults: PromiseSettledResult<Awaited<ReturnType<MainPoolComptroller['borrowCaps']>>>[];
+  supplyCapsResults: PromiseSettledResult<Awaited<ReturnType<MainPoolComptroller['supplyCaps']>>>[];
   xvsBorrowSpeedResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusBorrowSpeeds']>>
+    Awaited<ReturnType<MainPoolComptroller['venusBorrowSpeeds']>>
   >[];
   xvsSupplySpeedResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'mainPoolComptroller'>['venusSupplySpeeds']>>
+    Awaited<ReturnType<MainPoolComptroller['venusSupplySpeeds']>>
   >[];
   xvsPriceMantissa: BigNumber;
   userCollateralizedVTokenAddresses?: string[];
-  userVTokenBalances?: Awaited<
-    ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenBalancesAll']>
-  >;
+  userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceWei?: BigNumber;
   mainMarkets?: Market[];
 }

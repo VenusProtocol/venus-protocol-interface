@@ -1,8 +1,8 @@
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { PoolLens } from 'packages/contractsNew';
 
 const poolLensResponses: {
-  getAllPools: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
+  getAllPools: Awaited<ReturnType<PoolLens['getAllPools']>>;
 } = {
   getAllPools: [
     {
@@ -517,7 +517,7 @@ const poolLensResponses: {
         },
       ],
     },
-  ] as Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>,
+  ] as Awaited<ReturnType<PoolLens['getAllPools']>>,
 };
 
 export default poolLensResponses;

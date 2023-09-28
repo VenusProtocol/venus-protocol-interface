@@ -1,7 +1,7 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 export interface GetMainAssetsInAccountInput {
-  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
+  mainPoolComptrollerContract: MainPoolComptroller;
   accountAddress: string;
 }
 

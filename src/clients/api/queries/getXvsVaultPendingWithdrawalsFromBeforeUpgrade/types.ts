@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 export interface GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput {
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
   accountAddress: string;

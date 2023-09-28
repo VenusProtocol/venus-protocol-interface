@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VenusLens } from 'packages/contractsNew';
 import { Token } from 'types';
 import { convertDollarsToCents, convertWeiToTokens } from 'utilities';
 
@@ -22,7 +22,7 @@ function formatRewardSummaryData({
   tokenPriceMapping,
 }: {
   tokens: Token[];
-  rewardSummary: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
+  rewardSummary: Awaited<ReturnType<VenusLens['pendingRewards']>>;
   tokenPriceMapping: Record<string, BigNumber>;
 }): FormatRewardSummaryDataOutput {
   const rewardToken = findTokenByAddress({

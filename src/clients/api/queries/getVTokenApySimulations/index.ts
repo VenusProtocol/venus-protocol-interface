@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
 import { convertTokensToWei } from 'utilities';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
@@ -37,7 +37,7 @@ const getVTokenApySimulations = async ({
 
     if (isIsolatedPoolMarket) {
       getBorrowRatePromises.push(
-        (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getBorrowRate(
+        (interestRateModelContract as JumpRateModelV2).getBorrowRate(
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
@@ -46,7 +46,7 @@ const getVTokenApySimulations = async ({
       );
 
       getSupplyRatePromises.push(
-        (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).getSupplyRate(
+        (interestRateModelContract as JumpRateModelV2).getSupplyRate(
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
@@ -56,7 +56,7 @@ const getVTokenApySimulations = async ({
       );
     } else {
       getBorrowRatePromises.push(
-        (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getBorrowRate(
+        (interestRateModelContract as JumpRateModel).getBorrowRate(
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
@@ -64,7 +64,7 @@ const getVTokenApySimulations = async ({
       );
 
       getSupplyRatePromises.push(
-        (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).getSupplyRate(
+        (interestRateModelContract as JumpRateModel).getSupplyRate(
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
@@ -90,13 +90,13 @@ const getVTokenApySimulations = async ({
   const groupedGetBorrowRatePromises = Promise.all(getBorrowRatePromises);
   const groupedGetSupplyRatePromises = Promise.all(getSupplyRatePromises);
   const utilizationRatePromise = isIsolatedPoolMarket
-    ? (interestRateModelContract as ContractTypeByName<'jumpRateModelV2'>).utilizationRate(
+    ? (interestRateModelContract as JumpRateModelV2).utilizationRate(
         cashMantissa,
         borrowBalanceMantissa,
         reservesMantissa,
         BAD_DEBT_MANTISSA,
       )
-    : (interestRateModelContract as ContractTypeByName<'jumpRateModel'>).utilizationRate(
+    : (interestRateModelContract as JumpRateModel).utilizationRate(
         cashMantissa,
         borrowBalanceMantissa,
         reservesMantissa,

@@ -1,9 +1,9 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 import { NULL_ADDRESS } from 'constants/address';
 
 export interface GetVoteDelegateAddressInput {
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  xvsVaultContract: XvsVault;
   accountAddress: string;
 }
 

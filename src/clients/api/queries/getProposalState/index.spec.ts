@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 import getProposalState from '.';
 
@@ -8,7 +8,7 @@ describe('api/queries/getProposalState', () => {
 
     const fakeContract = {
       state: async () => fakeState,
-    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
+    } as unknown as GovernorBravoDelegate;
 
     const response = await getProposalState({
       governorBravoDelegateContract: fakeContract,

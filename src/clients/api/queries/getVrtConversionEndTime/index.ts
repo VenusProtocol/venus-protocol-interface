@@ -1,7 +1,7 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { VrtConverter } from 'packages/contractsNew';
 
 export interface GetVrtConversionEndTimeInput {
-  vrtConverterContract: ContractTypeByName<'vrtConverter'>;
+  vrtConverterContract: VrtConverter;
 }
 
 export type GetVrtConversionEndTimeOutput = {

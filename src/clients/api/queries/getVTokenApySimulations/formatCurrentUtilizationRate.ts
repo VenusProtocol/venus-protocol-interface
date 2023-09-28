@@ -1,14 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
 
 export interface FormatCurrentUtilizationRateInput {
   utilizationRatePercentage: Awaited<
-    ReturnType<
-      (
-        | ContractTypeByName<'jumpRateModel'>
-        | ContractTypeByName<'jumpRateModelV2'>
-      )['utilizationRate']
-    >
+    ReturnType<(JumpRateModel | JumpRateModelV2)['utilizationRate']>
   >;
 }
 

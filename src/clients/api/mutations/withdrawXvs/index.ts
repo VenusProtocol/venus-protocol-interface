@@ -1,8 +1,8 @@
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVesting } from 'packages/contractsNew';
 
 export interface WithdrawXvsInput {
-  xvsVestingContract: ContractTypeByName<'xvsVesting'>;
+  xvsVestingContract: XvsVesting;
 }
 
 export type WithdrawXvsOutput = ContractReceipt;

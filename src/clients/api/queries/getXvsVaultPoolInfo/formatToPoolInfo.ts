@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 import { GetXvsVaultPoolInfoOutput } from './types';
 
@@ -9,9 +9,7 @@ const formatToUserInfo = ({
   lastRewardBlock,
   accRewardPerShare,
   lockPeriod,
-}: Awaited<
-  ReturnType<ContractTypeByName<'xvsVault'>['poolInfos']>
->): GetXvsVaultPoolInfoOutput => ({
+}: Awaited<ReturnType<XvsVault['poolInfos']>>): GetXvsVaultPoolInfoOutput => ({
   stakedTokenAddress: token,
   allocationPoint: allocPoint.toNumber(),
   lastRewardBlock: lastRewardBlock.toNumber(),

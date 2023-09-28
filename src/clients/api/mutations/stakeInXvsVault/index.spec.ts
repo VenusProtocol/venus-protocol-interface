@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForXvsVaultProxyTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { busd } from '__mocks__/models/tokens';
@@ -21,7 +21,7 @@ describe('api/mutation/stakeInXvsVault', () => {
 
     const fakeContract = {
       deposit: depositMock,
-    } as unknown as ContractTypeByName<'xvsVault'>;
+    } as unknown as XvsVault;
 
     const response = await stakeInXvsVault({
       xvsVaultContract: fakeContract,
