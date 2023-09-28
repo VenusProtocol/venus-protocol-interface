@@ -1,9 +1,9 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetVaiTreasuryPercentageOutput | undefined,
@@ -14,9 +14,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiTreasuryPercentage = (options?: Options) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
-  });
+  const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(
     FunctionKey.GET_VAI_TREASURY_PERCENTAGE,

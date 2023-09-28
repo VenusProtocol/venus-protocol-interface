@@ -1,3 +1,4 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getMintableVai, {
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
 type Options = QueryObserverOptions<
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetMintableVai = (input: TrimmedGetMintableVaiInput, options?: Options) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
-  });
+  const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(
     [FunctionKey.GET_MINTABLE_VAI, input],

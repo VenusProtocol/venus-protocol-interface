@@ -14,9 +14,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiRepayApy = (options?: Options) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
-  });
+  const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(
     FunctionKey.GET_VAI_REPAY_APY,

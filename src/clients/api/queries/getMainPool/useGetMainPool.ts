@@ -1,3 +1,4 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -51,9 +52,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
     name: 'resilientOracle',
   });
 
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
-  });
+  const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(
     [FunctionKey.GET_MAIN_POOL, input],
