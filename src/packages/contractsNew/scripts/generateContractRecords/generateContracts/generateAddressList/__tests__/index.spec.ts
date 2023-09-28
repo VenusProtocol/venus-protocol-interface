@@ -1,9 +1,9 @@
-import fakeContractConfigs from 'packages/contractsNew/__testUtils__/fakeConfig';
+import { fakeContractConfigs } from 'packages/contractsNew/__testUtils__/fakeConfig';
 import Vi from 'vitest';
 
 import writeFile from 'utilities/writeFile';
 
-import generateAddressList from '..';
+import { generateAddressList } from '..';
 
 vi.mock('utilities/writeFile');
 

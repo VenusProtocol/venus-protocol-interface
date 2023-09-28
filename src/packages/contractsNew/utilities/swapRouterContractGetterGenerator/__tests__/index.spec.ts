@@ -1,5 +1,5 @@
 import { Contract, type ContractInterface, providers } from 'ethers';
-import getSwapRouterContractAddress from 'packages/contractsNew/getSwapRouterContractAddress';
+import { getSwapRouterContractAddress } from 'packages/contractsNew/getSwapRouterContractAddress';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
@@ -7,7 +7,7 @@ import fakeComptrollerContractAddress, {
   altAddress as fakeSwapRouterContractAddress,
 } from '__mocks__/models/address';
 
-import swapRouterContractGetterGenerator from '..';
+import { swapRouterContractGetterGenerator } from '..';
 
 vi.mock('packages/contractsNew/getSwapRouterContractAddress');
 

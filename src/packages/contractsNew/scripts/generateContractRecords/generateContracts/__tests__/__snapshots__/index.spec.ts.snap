@@ -89,7 +89,7 @@ exports[`generateContracts > calls generative functions with the right arguments
         "name": "SwapRouter",
       },
     ],
-    "outputFilePath": "infos/addresses.ts",
+    "outputFilePath": "generated/infos/addresses.ts",
   },
 ]
 `;
@@ -183,7 +183,7 @@ exports[`generateContracts > calls generative functions with the right arguments
         "name": "SwapRouter",
       },
     ],
-    "outputDirectoryPath": "infos/abis",
+    "outputDirectoryPath": "generated/infos/abis",
   },
 ]
 `;
@@ -277,7 +277,7 @@ exports[`generateContracts > calls generative functions with the right arguments
         "name": "SwapRouter",
       },
     ],
-    "outputDirectoryPath": "getters",
+    "outputDirectoryPath": "generated/getters",
   },
 ]
 `;
@@ -285,7 +285,7 @@ exports[`generateContracts > calls generative functions with the right arguments
 exports[`generateContracts > calls generative functions with the right arguments 4`] = `
 [
   {
-    "abiDirectoryPath": "infos/abis",
+    "abiDirectoryPath": "generated/infos/abis",
     "contractConfigs": [
       {
         "abi": [
@@ -372,8 +372,8 @@ exports[`generateContracts > calls generative functions with the right arguments
         "name": "SwapRouter",
       },
     ],
-    "contractTypesOutputDirectoryPath": "infos/contractTypes",
-    "typesOutputDirectoryPath": "infos/types.ts",
+    "contractTypesOutputDirectoryPath": "generated/infos/contractTypes",
+    "typesOutputDirectoryPath": "generated/infos/types.ts",
   },
 ]
 `;

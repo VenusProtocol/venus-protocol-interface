@@ -1,11 +1,11 @@
 import { Contract, type ContractInterface, providers } from 'ethers';
-import getUniqueContractAddress from 'packages/contractsNew/getUniqueContractAddress';
+import { getUniqueContractAddress } from 'packages/contractsNew/getUniqueContractAddress';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeSwapRouterContractAddress from '__mocks__/models/address';
 
-import uniqueContractGetterGenerator from '..';
+import { uniqueContractGetterGenerator } from '..';
 
 vi.mock('packages/contractsNew/getUniqueContractAddress');
 

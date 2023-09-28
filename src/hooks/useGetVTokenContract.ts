@@ -9,6 +9,7 @@ export interface UseGetVTokenContractInput {
   passSigner?: boolean;
 }
 
+// TODO: move to contracts package
 const useGetVTokenContract = ({ vToken, passSigner = false }: UseGetVTokenContractInput) => {
   const { signer, provider } = useAuth();
   const signerOrProvider = passSigner ? signer : provider;

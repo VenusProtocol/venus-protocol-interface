@@ -1,34 +1,34 @@
 #!/usr/bin/env tsx
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import getAbsolutePath from 'packages/contractsNew/utilities/getAbsolutePath';
+import { getAbsolutePath } from 'packages/contractsNew/utilities/getAbsolutePath';
 
-import generateAbis from './generateAbis';
-import generateAddressList from './generateAddressList';
-import generateGetters from './generateGetters';
-import generateTypes from './generateTypes';
+import { generateAbis } from './generateAbis';
+import { generateAddressList } from './generateAddressList';
+import { generateGetters } from './generateGetters';
+import { generateTypes } from './generateTypes';
 
 const GETTERS_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
-  relativePath: 'getters',
+  relativePath: 'generated/getters',
 });
 const ABIS_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
-  relativePath: 'infos/abis',
+  relativePath: 'generated/infos/abis',
 });
 const CONTRACT_TYPES_OUTPUT_DIRECTORY_PATH = getAbsolutePath({
-  relativePath: 'infos/contractTypes',
+  relativePath: 'generated/infos/contractTypes',
 });
 const TYPES_OUTPUT_FILE_PATH = getAbsolutePath({
-  relativePath: 'infos/types.ts',
+  relativePath: 'generated/infos/types.ts',
 });
 const ADDRESSES_OUTPUT_FILE_PATH = getAbsolutePath({
-  relativePath: 'infos/addresses.ts',
+  relativePath: 'generated/infos/addresses.ts',
 });
 
 export interface GenerateContractsInput {
   contractConfigs: ContractConfig[];
 }
 
-const generateContracts = async ({ contractConfigs }: GenerateContractsInput) => {
+export const generateContracts = async ({ contractConfigs }: GenerateContractsInput) => {
   // Generate address list
   console.log('Start generating contract address list...');
   generateAddressList({
@@ -63,5 +63,3 @@ const generateContracts = async ({ contractConfigs }: GenerateContractsInput) =>
   });
   console.log('Finished generating contract getters');
 };
-
-export default generateContracts;

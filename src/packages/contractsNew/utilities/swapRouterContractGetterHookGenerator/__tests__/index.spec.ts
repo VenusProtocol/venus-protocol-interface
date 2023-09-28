@@ -8,7 +8,7 @@ import fakeContractAddress, {
 } from '__mocks__/models/address';
 import { useAuth } from 'context/AuthContext';
 
-import swapRouterContractGetterHookGenerator from '..';
+import { swapRouterContractGetterHookGenerator } from '..';
 import { SwapRouterContractGetter } from '../../swapRouterContractGetterGenerator';
 
 vi.mock('context/AuthContext');

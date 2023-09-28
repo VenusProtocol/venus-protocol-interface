@@ -7,6 +7,7 @@ export interface UseGetUniqueContractAddress<TContractName extends UniqueContrac
   name: TContractName;
 }
 
+// TODO: move to contracts package
 function useGetUniqueContractAddress<TContractName extends UniqueContractName>({
   name,
 }: UseGetUniqueContractAddress<TContractName>) {

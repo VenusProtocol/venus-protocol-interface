@@ -5,7 +5,7 @@ import Vi from 'vitest';
 import fakeContractAddress from '__mocks__/models/address';
 import { useAuth } from 'context/AuthContext';
 
-import genericContractGetterHookGenerator from '..';
+import { genericContractGetterHookGenerator } from '..';
 import { GenericContractGetter } from '../../genericContractGetterGenerator';
 
 vi.mock('context/AuthContext');

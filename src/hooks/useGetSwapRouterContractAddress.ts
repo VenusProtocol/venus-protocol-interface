@@ -7,6 +7,7 @@ export interface UseGetSwapRouterContractAddressInput {
   comptrollerAddress: string;
 }
 
+// TODO: move to contracts package
 function useGetSwapRouterContractAddress({
   comptrollerAddress,
 }: UseGetSwapRouterContractAddressInput) {

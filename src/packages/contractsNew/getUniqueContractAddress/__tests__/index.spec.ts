@@ -1,8 +1,8 @@
-import addresses from 'packages/contractsNew/infos/addresses';
-import { UniqueContractName } from 'packages/contractsNew/infos/types';
 import { ChainId } from 'types';
 
-import getUniqueContractAddress from '..';
+import { getUniqueContractAddress } from '..';
+import addresses from '../../generated/infos/addresses';
+import { UniqueContractName } from '../../generated/infos/types';
 
 const existingContractName = Object.keys(addresses)[0] as UniqueContractName;
 

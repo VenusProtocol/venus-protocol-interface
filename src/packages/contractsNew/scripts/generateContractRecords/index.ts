@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 import { contracts } from 'packages/contractsNew/config';
 
-import generateContracts from './generateContracts';
+import { generateContracts } from './generateContracts';
 
 console.log('Generating contracts...');
 

@@ -270,5 +270,3 @@ export const contracts: ContractConfig[] = [
     },
   },
 ];
-
-export default contracts;

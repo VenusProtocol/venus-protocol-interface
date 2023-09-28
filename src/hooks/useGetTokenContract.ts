@@ -9,6 +9,7 @@ export interface UseGetTokenContractInput {
   passSigner?: boolean;
 }
 
+// TODO: move to contracts package
 const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractInput) => {
   const { signer, provider } = useAuth();
   const signerOrProvider = passSigner ? signer : provider;

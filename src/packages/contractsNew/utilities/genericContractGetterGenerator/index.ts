@@ -22,5 +22,3 @@ export const genericContractGetterGenerator = <TContract extends Contract>({
 
   return getter;
 };
-
-export default genericContractGetterGenerator;

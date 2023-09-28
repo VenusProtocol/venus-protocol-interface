@@ -2,7 +2,7 @@ import Vi from 'vitest';
 
 import cwd from 'utilities/cwd';
 
-import getAbsolutePath from '..';
+import { getAbsolutePath } from '..';
 
 vi.mock('utilities/cwd');
 

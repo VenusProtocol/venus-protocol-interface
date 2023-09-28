@@ -1,6 +1,6 @@
 import { ContractConfig } from '../config';
 
-const fakeContractConfigs: ContractConfig[] = [
+export const fakeContractConfigs: ContractConfig[] = [
   {
     name: 'PoolLens',
     abi: [
@@ -56,5 +56,3 @@ const fakeContractConfigs: ContractConfig[] = [
     },
   },
 ];
-
-export default fakeContractConfigs;
