@@ -1,3 +1,10 @@
+## [2.25.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.24.1...v2.25.0) (2023-09-28)
+
+
+### Features
+
+* add dashboard banner about forced BUSD liquidations ([#1503](https://github.com/VenusProtocol/venus-protocol-interface/issues/1503)) ([16da6f5](https://github.com/VenusProtocol/venus-protocol-interface/commit/16da6f54a03f58906c5b17b536226b2bfe33375e))
+
 ## [2.24.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.24.0...v2.24.1) (2023-09-28)
 
 ## [2.24.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.23.4...v2.24.0) (2023-09-28)
