@@ -1,11 +1,11 @@
 import { Contract, type ContractInterface, providers } from 'ethers';
-import { getSwapRouterContractAddress } from 'packages/contractsNew/getSwapRouterContractAddress';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeComptrollerContractAddress, {
   altAddress as fakeSwapRouterContractAddress,
 } from '__mocks__/models/address';
+import { getSwapRouterContractAddress } from 'packages/contractsNew/utilities/getSwapRouterContractAddress';
 
 import { swapRouterContractGetterGenerator } from '..';
 
