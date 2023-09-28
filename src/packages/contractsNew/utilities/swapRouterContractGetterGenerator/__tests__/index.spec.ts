@@ -9,7 +9,7 @@ import { getSwapRouterContractAddress } from 'packages/contractsNew/utilities/ge
 
 import { swapRouterContractGetterGenerator } from '..';
 
-vi.mock('packages/contractsNew/getSwapRouterContractAddress');
+vi.mock('packages/contractsNew/utilities/getSwapRouterContractAddress');
 
 const fakeProvider = new providers.JsonRpcProvider();
 
