@@ -1,6 +1,6 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
-import { getGenericContract } from 'packages/contracts';
+import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contractsNew';
 import { VToken } from 'types';
 
 const getVTokenContract = ({
@@ -10,17 +10,16 @@ const getVTokenContract = ({
   vToken: VToken;
   signerOrProvider: Signer | Provider;
 }) => {
-  let name: 'vToken' | 'vBnb' = 'vToken';
-
-  if (vToken.symbol === 'vBNB') {
-    name = 'vBnb';
-  }
-
-  return getGenericContract({
-    name,
+  const input = {
     address: vToken.address,
     signerOrProvider,
-  });
+  };
+
+  if (vToken.symbol === 'vBNB') {
+    return getVBnbContract(input);
+  }
+
+  return getVTokenContractFn(input);
 };
 
 export default getVTokenContract;
