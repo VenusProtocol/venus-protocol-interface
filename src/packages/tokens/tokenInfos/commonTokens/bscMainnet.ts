@@ -27,6 +27,7 @@ import maticLogo from 'packages/tokens/img/matic.svg';
 import nftLogo from 'packages/tokens/img/nft.png';
 import racaLogo from 'packages/tokens/img/raca.png';
 import sdLogo from 'packages/tokens/img/sd.svg';
+import snbnbLogo from 'packages/tokens/img/snBNB.svg';
 import stkbnbLogo from 'packages/tokens/img/stkBNB.svg';
 import sxpLogo from 'packages/tokens/img/sxp.svg';
 import theLogo from 'packages/tokens/img/the.svg';
@@ -350,5 +351,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'THE',
     asset: theLogo,
+  },
+  {
+    address: '0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B',
+    decimals: 18,
+    symbol: 'SnBNB',
+    asset: snbnbLogo,
   },
 ];

@@ -23,7 +23,10 @@ const formatDistribution = ({
 
   // Calculate APY
   const apyPercentage = calculateApy({
-    dailyRate: dailyDistributedDollars.div(balanceDollars),
+    dailyRate: dailyDistributedDollars.div(
+      // Set default balance of 1 to prevent division by 0 when balance is 0
+      balanceDollars.isEqualTo(0) ? 1 : balanceDollars,
+    ),
   });
 
   if (type === 'rewardDistributor') {

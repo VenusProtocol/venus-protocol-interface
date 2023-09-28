@@ -60,10 +60,11 @@ const formatDistributions = ({
         return;
       }
 
-      // Filter out passed supply distributions
+      // Filter out passed and nil supply distributions
       if (
-        rewardTokenSupplyState.lastRewardingBlock === 0 ||
-        currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock
+        (rewardTokenSupplyState.lastRewardingBlock === 0 ||
+          currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock) &&
+        new BigNumber(rewardTokenSupplySpeeds.toString()).isGreaterThan(0)
       ) {
         const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
           mantissa: rewardTokenSupplySpeeds.toString(),
@@ -81,10 +82,11 @@ const formatDistributions = ({
         );
       }
 
-      // Filter out passed borrow distributions
+      // Filter out passed and nil borrow distributions
       if (
-        rewardTokenBorrowState.lastRewardingBlock === 0 ||
-        currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock
+        (rewardTokenBorrowState.lastRewardingBlock === 0 ||
+          currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock) &&
+        new BigNumber(rewardTokenBorrowSpeeds.toString()).isGreaterThan(0)
       ) {
         const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
           mantissa: rewardTokenBorrowSpeeds.toString(),
