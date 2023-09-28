@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     outDir: 'build',
     rollupOptions: {
       plugins: [
-        inject({ Buffer: ['buffer', 'Buffer'] }),
+        inject({ Buffer: ['buffer', 'Buffer'], fs: ['fs', '*'] }),
         visualizer({
           filename: 'bundleStats.html',
         }),
