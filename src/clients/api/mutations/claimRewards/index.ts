@@ -1,6 +1,9 @@
 import { ethers } from 'ethers';
-import { contractInfos } from 'packages/contracts';
 import { Multicall3 } from 'packages/contractsNew';
+import mainPoolComptrollerContractAbi from 'packages/contractsNew/generated/infos/abis/MainPoolComptroller.json';
+import rewardsDistributorContractAbi from 'packages/contractsNew/generated/infos/abis/RewardsDistributor.json';
+import vaiVaultContractAbi from 'packages/contractsNew/generated/infos/abis/VaiVault.json';
+import xvsVaultContractAbi from 'packages/contractsNew/generated/infos/abis/XvsVault.json';
 
 import {
   checkForComptrollerTransactionError,
@@ -26,7 +29,7 @@ const claimRewards = async ({
   const calls: Parameters<Multicall3['tryBlockAndAggregate']>[1] = claims.map(claim => {
     if (claim.contract === 'mainPoolComptroller') {
       const executingInterface = new ethers.utils.Interface(
-        JSON.stringify(contractInfos.mainPoolComptroller.abi),
+        JSON.stringify(mainPoolComptrollerContractAbi),
       );
       const callData = executingInterface.encodeFunctionData('claimVenus(address,address[])', [
         accountAddress,
@@ -40,10 +43,7 @@ const claimRewards = async ({
     }
 
     if (claim.contract === 'vaiVault') {
-      const executingInterface = new ethers.utils.Interface(
-        JSON.stringify(contractInfos.vaiVault.abi),
-      );
-
+      const executingInterface = new ethers.utils.Interface(JSON.stringify(vaiVaultContractAbi));
       const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
 
       return {
@@ -53,9 +53,7 @@ const claimRewards = async ({
     }
 
     if (claim.contract === 'xvsVestingVault') {
-      const executingInterface = new ethers.utils.Interface(
-        JSON.stringify(contractInfos.xvsVault.abi),
-      );
+      const executingInterface = new ethers.utils.Interface(JSON.stringify(xvsVaultContractAbi));
 
       const callData = executingInterface.encodeFunctionData('claim(address,address,uint256)', [
         accountAddress,
@@ -71,7 +69,7 @@ const claimRewards = async ({
 
     // rewardsDistributor
     const executingInterface = new ethers.utils.Interface(
-      JSON.stringify(contractInfos.rewardsDistributor.abi),
+      JSON.stringify(rewardsDistributorContractAbi),
     );
 
     const callData = executingInterface.encodeFunctionData('claimRewardToken(address,address[])', [

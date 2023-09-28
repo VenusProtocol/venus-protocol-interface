@@ -1,4 +1,4 @@
-import { swapRouter, uniqueContractInfos } from 'packages/contracts';
+import addresses from 'packages/contractsNew/generated/infos/addresses';
 import { ChainId, Token, VToken } from 'types';
 
 import areAddressesEqual from 'utilities/areAddressesEqual';
@@ -32,29 +32,26 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
     return vToken.symbol;
   }
 
-  // Search within unique contracts
-  const matchingUniqueContractInfo = Object.entries(uniqueContractInfos).find(
-    ([_uniqueContractName, uniqueContractInfo]) => {
-      const contractAddress = uniqueContractInfo.address[chainId];
-      return !!contractAddress && areAddressesEqual(contractAddress, target);
+  // Search within contracts
+  const matchingUniqueContractInfo = Object.entries(addresses).find(
+    ([_uniqueContractName, address]) => {
+      const contractAddress = address[chainId];
+
+      if (typeof contractAddress === 'string') {
+        // Handle unique contracts
+        return areAddressesEqual(contractAddress, target);
+      }
+
+      // Handle SwapRouter contract
+      return Object.values(contractAddress).some(swapRouterAddress =>
+        areAddressesEqual(swapRouterAddress, target),
+      );
     },
   );
 
   if (matchingUniqueContractInfo) {
     const contractName = matchingUniqueContractInfo[0];
     return `${contractName.charAt(0).toUpperCase()}${contractName.slice(1)}`;
-  }
-
-  // Search within swap router contracts
-  const swapRouterAddresses = swapRouter.address[chainId];
-  const matchesSwapRouterAddress =
-    swapRouterAddresses &&
-    Object.values(swapRouterAddresses).some(swapRouterAddress =>
-      areAddressesEqual(swapRouterAddress, target),
-    );
-
-  if (matchesSwapRouterAddress) {
-    return 'SwapRouter';
   }
 
   return target;
