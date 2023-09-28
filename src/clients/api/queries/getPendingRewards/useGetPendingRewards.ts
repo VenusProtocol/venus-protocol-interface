@@ -1,4 +1,4 @@
-import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetPoolLensContract, useGetXvsVaultContract } from 'packages/contractsNew';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -50,9 +50,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
     name: 'venusLens',
   });
 
-  const poolLensContract = useGetUniqueContract({
-    name: 'poolLens',
-  });
+  const poolLensContract = useGetPoolLensContract();
 
   const vaiVaultContract = useGetUniqueContract({
     name: 'vaiVault',

@@ -1,4 +1,4 @@
-import { useGetVenusLensContract } from 'packages/contractsNew';
+import { useGetPoolLensContract, useGetVenusLensContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -35,9 +35,7 @@ const useGetVTokens = (options?: Options) => {
     name: 'mainPoolComptroller',
   });
 
-  const poolLensContract = useGetUniqueContract({
-    name: 'poolLens',
-  });
+  const poolLensContract = useGetPoolLensContract();
 
   const poolRegistryContractAddress = useGetUniqueContractAddress({
     name: 'poolRegistry',

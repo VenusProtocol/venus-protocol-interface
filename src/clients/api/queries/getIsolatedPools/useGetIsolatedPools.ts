@@ -1,3 +1,4 @@
+import { useGetPoolLensContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -34,9 +35,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
   const tokens = useGetTokens();
 
-  const poolLensContract = useGetUniqueContract({
-    name: 'poolLens',
-  });
+  const poolLensContract = useGetPoolLensContract();
 
   const resilientOracleContract = useGetUniqueContract({
     name: 'resilientOracle',
