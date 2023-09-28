@@ -1,3 +1,4 @@
+import { useGetVenusLensContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetVTokenBalancesAllInput = Omit<GetVTokenBalancesAllInput, 'venusLensContract'>;
 type Options = QueryObserverOptions<
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenBalancesAll = (input: TrimmedGetVTokenBalancesAllInput, options?: Options) => {
-  const venusLensContract = useGetUniqueContract({
-    name: 'venusLens',
-  });
+  const venusLensContract = useGetVenusLensContract();
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, input],

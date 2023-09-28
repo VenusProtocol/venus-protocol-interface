@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import { getGenericContract } from 'packages/contracts';
+import { useGetMainPoolComptrollerContract } from 'packages/contractsNew';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual, getVTokenContract } from 'utilities';
@@ -13,7 +14,6 @@ import {
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
@@ -25,8 +25,7 @@ const useCollateral = () => {
   const { mutateAsync: enterMarket } = useEnterMarket();
   const { mutateAsync: exitMarket } = useExitMarket();
 
-  const mainPoolComptrollerContract = useGetUniqueContract({
-    name: 'mainPoolComptroller',
+  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract({
     passSigner: true,
   });
 

@@ -1,6 +1,8 @@
 import {
   useGetMainPoolComptrollerContract,
+  useGetResilientOracleContract,
   useGetVaiControllerContract,
+  useGetVenusLensContract,
 } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
@@ -10,7 +12,6 @@ import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/qu
 import FunctionKey from 'constants/functionKey';
 import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
@@ -44,15 +45,8 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const tokens = useGetTokens();
 
   const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
-
-  const venusLensContract = useGetUniqueContract({
-    name: 'venusLens',
-  });
-
-  const resilientOracleContract = useGetUniqueContract({
-    name: 'resilientOracle',
-  });
-
+  const venusLensContract = useGetVenusLensContract();
+  const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(

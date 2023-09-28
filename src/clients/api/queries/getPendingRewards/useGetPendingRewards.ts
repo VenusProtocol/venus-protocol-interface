@@ -1,12 +1,17 @@
-import { useGetPoolLensContract, useGetXvsVaultContract } from 'packages/contractsNew';
+import {
+  useGetMainPoolComptrollerContractAddress,
+  useGetPoolLensContract,
+  useGetResilientOracleContract,
+  useGetVaiVaultContract,
+  useGetVenusLensContract,
+  useGetXvsVaultContract,
+} from 'packages/contractsNew';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import getPendingRewardGroups from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
@@ -38,24 +43,11 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
-
-  const resilientOracleContract = useGetUniqueContract({
-    name: 'resilientOracle',
-  });
-
-  const venusLensContract = useGetUniqueContract({
-    name: 'venusLens',
-  });
-
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const resilientOracleContract = useGetResilientOracleContract();
+  const venusLensContract = useGetVenusLensContract();
   const poolLensContract = useGetPoolLensContract();
-
-  const vaiVaultContract = useGetUniqueContract({
-    name: 'vaiVault',
-  });
-
+  const vaiVaultContract = useGetVaiVaultContract();
   const xvsVaultContract = useGetXvsVaultContract();
 
   const tokens = useGetTokens();
