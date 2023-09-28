@@ -1,10 +1,10 @@
+import { useGetMulticall3Contract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { ClaimRewardsInput, ClaimRewardsOutput, claimRewards, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 type TrimmedClaimRewardsInput = Omit<
@@ -18,8 +18,7 @@ type TrimmedClaimRewardsInput = Omit<
 type Options = MutationObserverOptions<ClaimRewardsOutput, Error, TrimmedClaimRewardsInput>;
 
 const useClaimRewards = (options?: Options) => {
-  const multicallContract = useGetUniqueContract({
-    name: 'multicall3',
+  const multicallContract = useGetMulticall3Contract({
     passSigner: true,
   });
 
