@@ -12,7 +12,7 @@ export interface GenericContractGetterInput {
 
 export type GenericContractGetter<TContract extends Contract> = (
   input: GenericContractGetterInput,
-) => TContract | undefined;
+) => TContract;
 
 export const genericContractGetterGenerator = <TContract extends Contract>({
   abi,

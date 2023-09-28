@@ -1,3 +1,4 @@
+import { useGetSwapRouterContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
@@ -5,7 +6,6 @@ import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clie
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useAnalytics } from 'context/Analytics';
-import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
 type Options = MutationObserverOptions<SwapTokensOutput, Error, TrimmedSwapTokensInput>;
@@ -15,7 +15,7 @@ const useSwapTokens = (
   options?: Options,
 ) => {
   const swapRouterContract = useGetSwapRouterContract({
-    comptrollerAddress: poolComptrollerAddress,
+    comptrollerContractAddress: poolComptrollerAddress,
     passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();

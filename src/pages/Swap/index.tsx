@@ -13,6 +13,7 @@ import {
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
+import { useGetSwapRouterContractAddress } from 'packages/contractsNew';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
@@ -22,7 +23,6 @@ import { useSwapTokens } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
@@ -378,7 +378,7 @@ const SwapPage: React.FC = () => {
   });
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerAddress: mainPoolComptrollerContractAddress || '',
+    comptrollerContractAddress: mainPoolComptrollerContractAddress || '',
   });
 
   const tokens = useGetTokens();
