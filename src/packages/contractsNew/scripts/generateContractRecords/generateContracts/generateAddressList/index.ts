@@ -1,12 +1,7 @@
 import { ContractConfig } from 'packages/contractsNew/config';
 
-<<<<<<< HEAD
-import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
-import writeFile from 'utilities/writeFile';
-=======
 import { isSwapRouterContractConfig } from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
-import { writeFile } from 'utilities/writeFile';
->>>>>>> b68ae6703 (refactor: remove default exports from package)
+import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {
   outputFilePath: string;
