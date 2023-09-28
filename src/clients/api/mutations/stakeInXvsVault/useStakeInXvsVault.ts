@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -10,7 +11,6 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
 type Options = MutationObserverOptions<StakeInXvsVaultOutput, Error, TrimmedStakeInXvsVaultInput>;
@@ -19,8 +19,7 @@ const useStakeInXvsVault = (
   { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
+  const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();

@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
@@ -10,7 +11,6 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
   RequestWithdrawalFromXvsVaultInput,
@@ -23,8 +23,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
+  const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
 
