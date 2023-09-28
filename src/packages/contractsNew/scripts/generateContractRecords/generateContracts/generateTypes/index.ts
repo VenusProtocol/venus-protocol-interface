@@ -60,7 +60,7 @@ const generateTypes = async ({
 
   const typesOutput = typesTemplate(contractNames);
 
-  writeFile({
+  await writeFile({
     outputPath: typesOutputDirectoryPath,
     content: typesOutput,
   });

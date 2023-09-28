@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { promises } from 'node:fs';
 
 import { AUTOMATICALLY_GENERATED_FILE_WARNING_MESSAGE } from 'constants/automaticallyGeneratedFileWarningMessage';
 
@@ -7,7 +7,7 @@ export interface WriteFileInput {
   content: string;
 }
 
-const writeFile = ({ outputPath, content }: WriteFileInput) => {
+const writeFile = async ({ outputPath, content }: WriteFileInput) => {
   const fileExtensionElements = outputPath.split('.');
   const fileExtension = fileExtensionElements[fileExtensionElements.length - 1];
 
@@ -24,10 +24,10 @@ const writeFile = ({ outputPath, content }: WriteFileInput) => {
   const directoryPathElements = outputPath.split('/');
   directoryPathElements.pop();
   const directoryPath = directoryPathElements.join('/');
-  mkdirSync(directoryPath, { recursive: true });
+  await promises.mkdir(directoryPath, { recursive: true });
 
   // Write file
-  writeFileSync(outputPath, formattedContent, 'utf8');
+  await promises.writeFile(outputPath, formattedContent, 'utf8');
 };
 
 export default writeFile;

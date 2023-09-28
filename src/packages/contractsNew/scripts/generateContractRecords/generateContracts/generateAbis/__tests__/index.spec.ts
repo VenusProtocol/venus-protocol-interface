@@ -8,8 +8,8 @@ import generateAbis from '..';
 vi.mock('utilities/writeFile');
 
 describe('generateAbis', () => {
-  it('calls writeFile with the right arguments', () => {
-    generateAbis({
+  it('calls writeFile with the right arguments', async () => {
+    await generateAbis({
       outputDirectoryPath: 'fake/output/director/path',
       contractConfigs: fakeContractConfigs,
     });

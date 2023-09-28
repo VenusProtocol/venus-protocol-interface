@@ -8,8 +8,8 @@ import generateGetters from '..';
 vi.mock('utilities/writeFile');
 
 describe('generateGetters', () => {
-  it('calls writeFile with the right arguments', () => {
-    generateGetters({
+  it('calls writeFile with the right arguments', async () => {
+    await generateGetters({
       outputDirectoryPath: 'fake/output/director/path',
       contractConfigs: fakeContractConfigs,
     });

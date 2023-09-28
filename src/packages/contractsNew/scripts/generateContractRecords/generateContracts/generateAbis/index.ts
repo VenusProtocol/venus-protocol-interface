@@ -7,13 +7,15 @@ export interface GenerateTypesInput {
   outputDirectoryPath: string;
 }
 
-const generateAbis = ({ contractConfigs, outputDirectoryPath }: GenerateTypesInput) =>
+const generateAbis = async ({ contractConfigs, outputDirectoryPath }: GenerateTypesInput) =>
   // Go through config and extract ABIs into separate files
-  contractConfigs.forEach(contractConfig => {
-    writeFile({
-      outputPath: `${outputDirectoryPath}/${contractConfig.name}.json`,
-      content: JSON.stringify(contractConfig.abi),
-    });
-  });
+  Promise.all(
+    contractConfigs.map(contractConfig =>
+      writeFile({
+        outputPath: `${outputDirectoryPath}/${contractConfig.name}.json`,
+        content: JSON.stringify(contractConfig.abi),
+      }),
+    ),
+  );
 
 export default generateAbis;

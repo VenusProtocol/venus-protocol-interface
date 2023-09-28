@@ -8,8 +8,8 @@ import generateAddressList from '..';
 vi.mock('utilities/writeFile');
 
 describe('generateAddressList', () => {
-  it('calls writeFile with the right arguments', () => {
-    generateAddressList({
+  it('calls writeFile with the right arguments', async () => {
+    await generateAddressList({
       outputFilePath: 'fake/output/director/path',
       contractConfigs: fakeContractConfigs,
     });

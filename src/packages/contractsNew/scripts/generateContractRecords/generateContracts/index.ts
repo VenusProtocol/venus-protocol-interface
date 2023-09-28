@@ -31,7 +31,7 @@ export interface GenerateContractsInput {
 const generateContracts = async ({ contractConfigs }: GenerateContractsInput) => {
   // Generate address list
   console.log('Start generating contract address list...');
-  generateAddressList({
+  await generateAddressList({
     contractConfigs,
     outputFilePath: ADDRESSES_OUTPUT_FILE_PATH,
   });
@@ -39,7 +39,7 @@ const generateContracts = async ({ contractConfigs }: GenerateContractsInput) =>
 
   // Generate ABIs
   console.log('Generating contract ABIs...');
-  generateAbis({
+  await generateAbis({
     contractConfigs,
     outputDirectoryPath: ABIS_OUTPUT_DIRECTORY_PATH,
   });
@@ -57,7 +57,7 @@ const generateContracts = async ({ contractConfigs }: GenerateContractsInput) =>
 
   // Generate getter functions
   console.log('Generating contract getters...');
-  generateGetters({
+  await generateGetters({
     contractConfigs,
     outputDirectoryPath: GETTERS_OUTPUT_DIRECTORY_PATH,
   });

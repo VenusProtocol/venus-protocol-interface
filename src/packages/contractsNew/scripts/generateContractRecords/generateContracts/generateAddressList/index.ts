@@ -8,7 +8,10 @@ export interface GenerateAddressListInput {
   contractConfigs: ContractConfig[];
 }
 
-const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddressListInput) => {
+const generateAddressList = async ({
+  outputFilePath,
+  contractConfigs,
+}: GenerateAddressListInput) => {
   // Open addresses output
   let addressesOutput = 'export default {';
 
@@ -44,7 +47,7 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
   addressesOutput += '};';
 
   // Generate addresses file
-  writeFile({
+  await writeFile({
     outputPath: outputFilePath,
     content: addressesOutput,
   });

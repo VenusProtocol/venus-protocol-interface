@@ -51,27 +51,29 @@ export interface GenerateContractGettersInput {
   contractConfigs: ContractConfig[];
 }
 
-const generateGetters = ({
+const generateGetters = async ({
   outputDirectoryPath,
   contractConfigs,
 }: GenerateContractGettersInput) => {
-  const fileNames = contractConfigs.map(contractConfig => {
+  const writeGetterFile = async (contractConfig: ContractConfig) => {
     const content = getContent({ contractConfig });
     const fileName = `${contractConfig.name[0].toLowerCase()}${contractConfig.name.substring(1)}`;
     const outputPath = `${outputDirectoryPath}/${fileName}.ts`;
 
-    writeFile({
+    await writeFile({
       outputPath,
       content,
     });
 
     return fileName;
-  });
+  };
+
+  const fileNames = await Promise.all(contractConfigs.map(writeGetterFile));
 
   // Write index file exporting all getters
   const indexOutputPath = `${outputDirectoryPath}/index.ts`;
 
-  writeFile({
+  await writeFile({
     outputPath: indexOutputPath,
     content: indexTemplate({ fileNames }),
   });
