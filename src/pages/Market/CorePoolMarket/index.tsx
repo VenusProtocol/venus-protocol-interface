@@ -1,17 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { useGetMainPoolComptrollerContractAddress } from 'packages/contractsNew';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import Market from '..';
 import MarketLoader from '../MarketLoader';
 
 const CorePoolMarket: React.FC = () => {
   const { vTokenAddress } = useParams();
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
 
   return (
     <MarketLoader

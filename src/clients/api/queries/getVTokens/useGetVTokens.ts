@@ -1,6 +1,7 @@
 import {
   useGetMainPoolComptrollerContract,
   useGetPoolLensContract,
+  useGetPoolRegistryContractAddress,
   useGetVenusLensContract,
 } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
@@ -11,7 +12,6 @@ import getVTokens, { GetVTokensOutput } from 'clients/api/queries/getVTokens';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 export type UseGetVTokensQueryKey = [
   FunctionKey.GET_VTOKENS,
@@ -33,14 +33,9 @@ const useGetVTokens = (options?: Options) => {
   const tokens = useGetTokens();
 
   const venusLensContract = useGetVenusLensContract();
-
   const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
-
   const poolLensContract = useGetPoolLensContract();
-
-  const poolRegistryContractAddress = useGetUniqueContractAddress({
-    name: 'poolRegistry',
-  });
+  const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
   return useQuery(
     [

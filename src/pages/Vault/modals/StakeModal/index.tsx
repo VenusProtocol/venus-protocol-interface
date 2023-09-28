@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import {
+  useGetVaiVaultContractAddress,
+  useGetXvsVaultContractAddress,
+} from 'packages/contractsNew';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -25,13 +28,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { t } = useTranslation();
   const { accountAddress } = useAuth();
 
-  const xvsVaultContractAddress = useGetUniqueContractAddress({
-    name: 'xvsVault',
-  });
-
-  const vaiVaultContractAddress = useGetUniqueContractAddress({
-    name: 'vaiVault',
-  });
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const spenderAddress = React.useMemo(
     () => (typeof poolIndex === 'number' ? xvsVaultContractAddress : vaiVaultContractAddress),

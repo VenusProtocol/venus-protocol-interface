@@ -1,16 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { useGetMainPoolComptrollerContractAddress } from 'packages/contractsNew';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { routes } from 'constants/routing';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import Pool from '..';
 
 const CorePool: React.FC = () => {
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
 
   if (!mainPoolComptrollerContractAddress) {
     return <Navigate to={routes.dashboard.path} />;

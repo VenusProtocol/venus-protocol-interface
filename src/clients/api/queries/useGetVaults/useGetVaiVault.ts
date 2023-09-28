@@ -1,3 +1,4 @@
+import { useGetVaiVaultContractAddress } from 'packages/contractsNew';
 import { useMemo } from 'react';
 import { Vault } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
@@ -10,7 +11,6 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -18,9 +18,7 @@ export interface UseGetVaiVaultOutput {
 }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
-  const vaiVaultContractAddress = useGetUniqueContractAddress({
-    name: 'vaiVault',
-  });
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const xvs = useGetToken({
     symbol: 'XVS',
