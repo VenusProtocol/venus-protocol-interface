@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ButtonGroup, Tag, TagGroup, TextField } from 'components';
+import { ButtonGroup, NoticeWarning, Tag, TagGroup, TextField } from 'components';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -28,7 +28,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   searchValue,
   onSearchInputChange,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
@@ -92,6 +92,25 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       <ConnectWalletBanner />
+
+      <NoticeWarning
+        css={styles.banner}
+        description={
+          <Trans
+            i18nKey="dashboard.banner.busdForceLiquidations"
+            components={{
+              Link: (
+                // eslint-disable-next-line jsx-a11y/anchor-has-content
+                <a
+                  href="https://snapshot.org/#/venus-xvs.eth/proposal/0xbac76472c9eed8e874b10244c6b5f8e9444dc31eb81458a672a552c93bcaf6b9"
+                  rel="noreferrer"
+                  target="_blank"
+                />
+              ),
+            }}
+          />
+        }
+      />
 
       <div css={styles.header}>
         <TextField
