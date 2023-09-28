@@ -1,3 +1,10 @@
+## [2.25.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.25.0...v2.25.1) (2023-09-28)
+
+
+### Bug Fixes
+
+* update VenusLens address for mainnet ([e5a1122](https://github.com/VenusProtocol/venus-protocol-interface/commit/e5a112224a2cc43b57247ae0052769b93e6dc716))
+
 ## [2.25.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.24.1...v2.25.0) (2023-09-28)
 
 
