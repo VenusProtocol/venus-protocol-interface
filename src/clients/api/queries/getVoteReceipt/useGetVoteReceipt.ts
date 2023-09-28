@@ -1,8 +1,8 @@
+import { useGetGovernorBravoDelegateContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import getVoteReceipt, { GetVoteReceiptInput, GetVoteReceiptOutput } from '.';
 
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 
 const useGetVoteReceipt = (input: TrimmedGetVoteReceiptInput, options?: Options) => {
   const { accountAddress } = input;
-  const governorBravoDelegateContract = useGetUniqueContract({
-    name: 'governorBravoDelegate',
-  });
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
 
   return useQuery(
     [FunctionKey.GET_VOTE_RECEIPT, input],

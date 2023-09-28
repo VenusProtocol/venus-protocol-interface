@@ -1,3 +1,4 @@
+import { useGetGovernorBravoDelegateContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -7,7 +8,6 @@ import getProposalState, {
 } from 'clients/api/queries/getProposalState';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetProposalStateInput = Omit<GetProposalStateInput, 'governorBravoDelegateContract'>;
 
@@ -20,9 +20,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Options) => {
-  const governorBravoDelegateContract = useGetUniqueContract({
-    name: 'governorBravoDelegate',
-  });
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
 
   return useQuery(
     [FunctionKey.GET_PROPOSAL_STATE, input],

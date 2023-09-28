@@ -1,3 +1,4 @@
+import { useGetGovernorBravoDelegateContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -7,7 +8,6 @@ import getLatestProposalIdByProposer, {
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,
@@ -21,9 +21,7 @@ const useGetLatestProposalIdByProposer = (
   { accountAddress }: Omit<GetLatestProposalIdByProposerInput, 'governorBravoDelegateContract'>,
   options?: Options,
 ) => {
-  const governorBravoDelegateContract = useGetUniqueContract({
-    name: 'governorBravoDelegate',
-  });
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
 
   return useQuery(
     [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],
