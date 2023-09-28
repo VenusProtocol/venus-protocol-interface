@@ -1,3 +1,4 @@
+import { useGetVaiVaultContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
@@ -10,7 +11,6 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedWithdrawFromVaiVaultInput = Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>;
 type Options = MutationObserverOptions<
@@ -20,8 +20,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useWithdrawFromVaiVault = (options?: Options) => {
-  const vaiVaultContract = useGetUniqueContract({
-    name: 'vaiVault',
+  const vaiVaultContract = useGetVaiVaultContract({
     passSigner: true,
   });
 
