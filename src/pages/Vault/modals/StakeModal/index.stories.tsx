@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
-import { uniqueContractInfos } from 'packages/contracts';
+import { getVaiControllerContractAddress } from 'packages/contractsNew';
 import React from 'react';
 import { ChainId } from 'types';
 
@@ -12,7 +12,9 @@ import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/dec
 
 import StakeModal, { StakeModalProps } from '.';
 
-const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
+const VAI_CONTROLLER_CONTRACT_ADDRESS = getVaiControllerContractAddress({
+  chainId: ChainId.BSC_TESTNET,
+})!;
 
 export default {
   title: 'Pages/Vault/modals/StakeModal',
