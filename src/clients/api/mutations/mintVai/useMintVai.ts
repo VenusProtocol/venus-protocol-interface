@@ -1,16 +1,15 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { MintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedClaimRewardsInput = Omit<MintVaiInput, 'vaiControllerContract'>;
 type Options = MutationObserverOptions<MintVaiOutput, Error, TrimmedClaimRewardsInput>;
 
 const useMintVai = (options?: Options) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
+  const vaiControllerContract = useGetVaiControllerContract({
     passSigner: true,
   });
 
