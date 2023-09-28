@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -7,7 +8,6 @@ import {
   getVoteDelegateAddress,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<
@@ -22,9 +22,7 @@ const useGetVoteDelegateAddress = (
   input: TrimmedGetVoteDelegateAddressInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],

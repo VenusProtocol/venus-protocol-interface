@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getXvsVaultPendingWithdrawalsFromBeforeUpgrade, {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from 'clients/api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput = Omit<
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
@@ -27,9 +27,7 @@ const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = (
   input: TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE, input],

@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getXvsVaultUserInfo, {
   GetXvsVaultUserInfoOutput,
 } from 'clients/api/queries/getXvsVaultUserInfo';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultUserInfoInput = Omit<GetXvsVaultUserInfoInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultUserInfo = (input: TrimmedGetXvsVaultUserInfoInput, options?: Options) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_USER_INFO, input],

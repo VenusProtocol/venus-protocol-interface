@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -11,7 +12,6 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -28,9 +28,7 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   const xvs = useGetToken({
     symbol: 'XVS',

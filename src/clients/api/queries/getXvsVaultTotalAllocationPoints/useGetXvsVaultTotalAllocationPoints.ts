@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getXvsVaultTotalAllocationPoints, {
   GetXvsVaultTotalAllocPointsOutput,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultTotalAllocPointsInput = Omit<
   GetXvsVaultTotalAllocPointsInput,
@@ -24,9 +24,7 @@ const useGetXvsVaultTotalAllocationPoints = (
   input: TrimmedGetXvsVaultTotalAllocPointsInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, input],

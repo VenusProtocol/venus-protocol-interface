@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getXvsVaultRewardPerBlock, {
   GetXvsVaultRewardPerBlockOutput,
 } from 'clients/api/queries/getXvsVaultRewardPerBlock';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetXvsVaultRewardPerBlockInput = Omit<
   GetXvsVaultRewardPerBlockInput,
@@ -24,9 +24,7 @@ const useGetXvsVaultRewardPerBlock = (
   input: TrimmedGetXvsVaultRewardPerBlockInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, input],

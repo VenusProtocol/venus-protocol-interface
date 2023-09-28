@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -57,9 +58,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
     name: 'vaiVault',
   });
 
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   const tokens = useGetTokens();
 
