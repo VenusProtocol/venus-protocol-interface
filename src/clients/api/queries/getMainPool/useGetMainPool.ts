@@ -1,4 +1,7 @@
-import { useGetVaiControllerContract } from 'packages/contractsNew';
+import {
+  useGetMainPoolComptrollerContract,
+  useGetVaiControllerContract,
+} from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -40,9 +43,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const vai = useGetToken({ symbol: 'VAI' });
   const tokens = useGetTokens();
 
-  const mainPoolComptrollerContract = useGetUniqueContract({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
 
   const venusLensContract = useGetUniqueContract({
     name: 'venusLens',

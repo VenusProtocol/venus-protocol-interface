@@ -1,3 +1,4 @@
+import { useGetMainPoolComptrollerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getMintedVai, {
   GetMintedVaiOutput,
 } from 'clients/api/queries/getMintedVai';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'mainPoolComptrollerContract'>;
 type Options = QueryObserverOptions<
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetMintedVai = (input: TrimmedGetMintedVaiOutput, options?: Options) => {
-  const mainPoolComptrollerContract = useGetUniqueContract({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
 
   return useQuery(
     [FunctionKey.GET_MINTED_VAI, input],
