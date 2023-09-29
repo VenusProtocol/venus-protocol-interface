@@ -179,7 +179,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             )}
 
             {!isUserXvsStakeHighEnoughForPrime && (
-              <Typography>
+              <Typography css={styles.description}>
                 <Trans
                   i18nKey="primeStatusBanner.description"
                   components={{

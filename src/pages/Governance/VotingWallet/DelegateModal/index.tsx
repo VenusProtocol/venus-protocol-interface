@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import {
   FormikSubmitButton,
   FormikTextField,
+  LinkButton,
   Modal,
   NoticeInfo,
   PrimaryButton,
@@ -12,7 +13,6 @@ import {
 import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
 import { routes } from 'constants/routing';
@@ -109,9 +109,10 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
             </Form>
           )}
         </Formik>
-        <Link css={styles.link} to={routes.governanceLeaderBoard.path}>
+
+        <LinkButton to={routes.governanceLeaderBoard.path} variant="text">
           {t('vote.delegateLeaderboard')}
-        </Link>
+        </LinkButton>
       </>
     </Modal>
   );

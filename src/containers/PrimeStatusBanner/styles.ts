@@ -112,6 +112,9 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(2)};
       `};
     `,
+    description: css`
+      color: ${theme.palette.text.secondary};
+    `,
     greenText: css`
       color: ${theme.palette.interactive.success};
     `,
