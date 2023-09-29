@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -10,7 +11,6 @@ import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { routes } from 'constants/routing';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 

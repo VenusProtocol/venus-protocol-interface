@@ -2,12 +2,12 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 

@@ -1,10 +1,9 @@
-import { getTokens } from 'packages/tokens';
 import { useMemo } from 'react';
 
+import { getTokens } from '../../utilities/getTokens';
 import { useAuth } from 'context/AuthContext';
 
-// TODO: move to tokens package
-function useGetTokens() {
+export const useGetTokens = () => {
   const { chainId } = useAuth();
 
   return useMemo(
@@ -14,6 +13,4 @@ function useGetTokens() {
       }),
     [chainId],
   );
-}
-
-export default useGetTokens;
+};

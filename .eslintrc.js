@@ -105,6 +105,8 @@ module.exports = {
     'react/jsx-wrap-multilines': 0,
     'generator-star-spacing': 0,
     'consistent-return': 0,
+    // Disable import order checks as we automatically sort imports using Prettier
+    'import/order': 0,
   },
   settings: {
     'import/resolver': {

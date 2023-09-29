@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
@@ -17,7 +18,6 @@ import {
 import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from '../styles';
 

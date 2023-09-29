@@ -14,6 +14,7 @@ import {
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -28,7 +29,6 @@ import MAX_UINT256 from 'constants/maxUint256';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 

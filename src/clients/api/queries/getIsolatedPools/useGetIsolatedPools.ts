@@ -3,6 +3,7 @@ import {
   useGetPoolRegistryContractAddress,
   useGetResilientOracleContract,
 } from 'packages/contractsNew';
+import { useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -12,7 +13,6 @@ import getIsolatedPools, {
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
-import useGetTokens from 'hooks/useGetTokens';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,

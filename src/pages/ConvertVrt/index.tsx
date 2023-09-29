@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
 import { Spinner, Tabs } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
@@ -12,7 +13,6 @@ import {
   useWithdrawXvs,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 
 import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';

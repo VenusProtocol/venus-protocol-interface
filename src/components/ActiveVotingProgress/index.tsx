@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
-import useGetToken from 'hooks/useGetToken';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';

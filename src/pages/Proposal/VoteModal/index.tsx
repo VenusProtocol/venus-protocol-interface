@@ -2,10 +2,10 @@
 import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
+import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';

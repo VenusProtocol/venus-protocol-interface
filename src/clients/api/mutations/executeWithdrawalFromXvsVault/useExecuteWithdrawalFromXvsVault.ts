@@ -1,4 +1,5 @@
 import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
@@ -11,7 +12,6 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetToken from 'hooks/useGetToken';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,

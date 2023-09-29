@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { useGetTokens } from 'packages/tokens';
 import React from 'react';
 import { ChainId, ProposalAction, Token, VToken } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetTokens from 'hooks/useGetTokens';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 
 import formatSignature from './formatSignature';

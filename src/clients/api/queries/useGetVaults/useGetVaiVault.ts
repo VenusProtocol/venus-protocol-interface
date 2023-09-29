@@ -1,4 +1,5 @@
 import { useGetVaiVaultContractAddress } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { Vault } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
@@ -10,7 +11,6 @@ import {
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import useGetToken from 'hooks/useGetToken';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
