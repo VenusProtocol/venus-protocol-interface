@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => ({
         'src/stories/',
         'src/config/codegen.ts',
         'src/packages/contracts/types/contracts',
-        'src/packages/contractsNew/generated',
+        'src/packages/contracts/generated',
       ],
     },
   },

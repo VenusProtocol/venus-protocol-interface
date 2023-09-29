@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VenusLens } from 'packages/contractsNew';
+import { VenusLens } from 'packages/contracts';
 import { Token } from 'types';
 
 import { MainPoolPendingRewardGroup } from '../types';

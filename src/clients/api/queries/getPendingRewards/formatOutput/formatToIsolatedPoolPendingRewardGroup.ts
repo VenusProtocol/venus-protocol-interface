@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens } from 'packages/contractsNew';
+import { PoolLens } from 'packages/contracts';
 import { Token } from 'types';
 
 import { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';

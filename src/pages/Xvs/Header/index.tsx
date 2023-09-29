@@ -2,7 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
-import { useGetMainPoolComptrollerContractAddress } from 'packages/contractsNew';
+import { useGetMainPoolComptrollerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';

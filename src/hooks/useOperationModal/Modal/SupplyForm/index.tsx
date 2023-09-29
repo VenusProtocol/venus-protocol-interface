@@ -13,7 +13,7 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import { useGetSwapRouterContractAddress } from 'packages/contractsNew';
+import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { isTokenActionEnabled } from 'packages/tokens';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';

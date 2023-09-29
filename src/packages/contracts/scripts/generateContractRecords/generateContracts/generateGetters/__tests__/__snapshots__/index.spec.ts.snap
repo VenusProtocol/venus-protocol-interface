@@ -1,0 +1,93 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generateGetters > calls writeFile with the right arguments 1`] = `
+[
+  {
+    "content": "import abi from 'packages/contracts/generated/infos/abis/PoolLens.json';
+import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
+
+import { uniqueContractAddressGetterGenerator } from 'packages/contracts/utilities/uniqueContractAddressGetterGenerator';
+import { uniqueContractAddressGetterHookGenerator } from 'packages/contracts/utilities/uniqueContractAddressGetterHookGenerator';
+import { uniqueContractGetterGenerator } from 'packages/contracts/utilities/uniqueContractGetterGenerator';
+import { uniqueContractGetterHookGenerator } from 'packages/contracts/utilities/uniqueContractGetterHookGenerator';
+
+export const getPoolLensContractAddress = uniqueContractAddressGetterGenerator({
+  name: 'PoolLens',
+});
+
+export const useGetPoolLensContractAddress = uniqueContractAddressGetterHookGenerator({
+  getter: getPoolLensContractAddress,
+});
+
+export const getPoolLensContract = uniqueContractGetterGenerator<PoolLens>({
+  name: 'PoolLens',
+  abi,
+});
+
+export const useGetPoolLensContract = uniqueContractGetterHookGenerator({
+  getter: getPoolLensContract,
+});
+",
+    "outputPath": "fake/output/director/path/poolLens.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 2`] = `
+[
+  {
+    "content": "import abi from 'packages/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
+import { IsolatedPoolComptroller } from 'packages/contracts/generated/infos/contractTypes';
+
+import { genericContractGetterGenerator } from 'packages/contracts/utilities/genericContractGetterGenerator';
+import { genericContractGetterHookGenerator } from 'packages/contracts/utilities/genericContractGetterHookGenerator';
+
+export const getIsolatedPoolComptrollerContract = genericContractGetterGenerator<IsolatedPoolComptroller>({
+  abi,
+});
+
+export const useGetIsolatedPoolComptrollerContract = genericContractGetterHookGenerator({
+  getter: getIsolatedPoolComptrollerContract,
+});
+",
+    "outputPath": "fake/output/director/path/isolatedPoolComptroller.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 3`] = `
+[
+  {
+    "content": "import abi from 'packages/contracts/generated/infos/abis/SwapRouter.json';
+import { SwapRouter } from 'packages/contracts/generated/infos/contractTypes';
+
+import { swapRouterContractGetterGenerator } from 'packages/contracts/utilities/swapRouterContractGetterGenerator';
+import { swapRouterContractGetterHookGenerator } from 'packages/contracts/utilities/swapRouterContractGetterHookGenerator';
+
+export * from 'packages/contracts/utilities/useGetSwapRouterContractAddress';
+export * from 'packages/contracts/utilities/getSwapRouterContractAddress';
+
+export const getSwapRouterContract = swapRouterContractGetterGenerator<SwapRouter>({
+  abi,
+});
+
+export const useGetSwapRouterContract = swapRouterContractGetterHookGenerator({
+  getter: getSwapRouterContract,
+});
+",
+    "outputPath": "fake/output/director/path/swapRouter.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 4`] = `
+[
+  {
+    "content": "export * from './poolLens';
+export * from './isolatedPoolComptroller';
+export * from './swapRouter';
+",
+    "outputPath": "fake/output/director/path/index.ts",
+  },
+]
+`;

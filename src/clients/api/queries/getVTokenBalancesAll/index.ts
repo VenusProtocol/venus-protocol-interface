@@ -1,4 +1,4 @@
-import { VenusLens } from 'packages/contractsNew';
+import { VenusLens } from 'packages/contracts';
 
 export interface GetVTokenBalancesAllInput {
   account: string;

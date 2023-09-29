@@ -1,9 +1,4 @@
-import {
-  MainPoolComptroller,
-  ResilientOracle,
-  VaiController,
-  VenusLens,
-} from 'packages/contractsNew';
+import { MainPoolComptroller, ResilientOracle, VaiController, VenusLens } from 'packages/contracts';
 import { Pool, Token } from 'types';
 
 export interface GetMainPoolInput {

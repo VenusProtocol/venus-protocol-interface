@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForXvsVaultProxyTransactionError } from 'errors';
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { busd } from '__mocks__/models/tokens';

@@ -1,4 +1,4 @@
-import { useGetVaiVaultContract } from 'packages/contractsNew';
+import { useGetVaiVaultContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

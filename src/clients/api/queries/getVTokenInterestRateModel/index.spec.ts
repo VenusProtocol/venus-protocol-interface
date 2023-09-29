@@ -1,4 +1,4 @@
-import { VToken as VTokenContract } from 'packages/contractsNew';
+import { VToken as VTokenContract } from 'packages/contracts';
 
 import getInterestRateModel from '.';
 

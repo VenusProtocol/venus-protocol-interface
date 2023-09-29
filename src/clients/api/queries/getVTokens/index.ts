@@ -1,4 +1,4 @@
-import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contractsNew';
+import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 import { Token, VToken } from 'types';
 
 import { logError } from 'context/ErrorLogger';

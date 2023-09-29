@@ -1,4 +1,4 @@
-import { useGetVenusLensContract } from 'packages/contractsNew';
+import { useGetVenusLensContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

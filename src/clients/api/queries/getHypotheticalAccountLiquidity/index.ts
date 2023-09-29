@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contractsNew';
+import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contracts';
 
 export interface GetHypotheticalAccountLiquidityInput {
   comptrollerContract: MainPoolComptroller | IsolatedPoolComptroller;

@@ -1,4 +1,4 @@
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAccountAddress from '__mocks__/models/address';

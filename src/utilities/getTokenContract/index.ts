@@ -5,7 +5,7 @@ import {
   getVaiContract,
   getVrtContract,
   getXvsContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { Token } from 'types';
 
 const getTokenContract = ({

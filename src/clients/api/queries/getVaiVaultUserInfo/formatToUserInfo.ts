@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VaiVault } from 'packages/contractsNew';
+import { VaiVault } from 'packages/contracts';
 
 import { GetVaiVaultUserInfoOutput } from './types';
 

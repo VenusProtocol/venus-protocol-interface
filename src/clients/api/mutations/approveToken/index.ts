@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { Bep20, Vai, Vrt, Xvs } from 'packages/contractsNew';
+import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
 
 import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
 

@@ -1,6 +1,6 @@
 import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;

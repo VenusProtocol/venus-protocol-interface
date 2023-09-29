@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { XvsVesting } from 'packages/contractsNew';
+import { XvsVesting } from 'packages/contracts';
 
 export interface WithdrawXvsInput {
   xvsVestingContract: XvsVesting;

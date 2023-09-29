@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import { Multicall3 } from 'packages/contractsNew';
-import mainPoolComptrollerContractAbi from 'packages/contractsNew/generated/infos/abis/MainPoolComptroller.json';
-import rewardsDistributorContractAbi from 'packages/contractsNew/generated/infos/abis/RewardsDistributor.json';
-import vaiVaultContractAbi from 'packages/contractsNew/generated/infos/abis/VaiVault.json';
-import xvsVaultContractAbi from 'packages/contractsNew/generated/infos/abis/XvsVault.json';
+import { Multicall3 } from 'packages/contracts';
+import mainPoolComptrollerContractAbi from 'packages/contracts/generated/infos/abis/MainPoolComptroller.json';
+import rewardsDistributorContractAbi from 'packages/contracts/generated/infos/abis/RewardsDistributor.json';
+import vaiVaultContractAbi from 'packages/contracts/generated/infos/abis/VaiVault.json';
+import xvsVaultContractAbi from 'packages/contracts/generated/infos/abis/XvsVault.json';
 
 import {
   checkForComptrollerTransactionError,

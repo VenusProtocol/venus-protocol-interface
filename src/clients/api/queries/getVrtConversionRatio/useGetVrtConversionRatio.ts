@@ -1,4 +1,4 @@
-import { useGetVrtConverterContract } from 'packages/contractsNew';
+import { useGetVrtConverterContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

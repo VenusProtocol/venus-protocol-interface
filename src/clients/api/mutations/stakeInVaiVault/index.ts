@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { VaiVault } from 'packages/contractsNew';
+import { VaiVault } from 'packages/contracts';
 
 export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;

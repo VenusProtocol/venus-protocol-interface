@@ -5,7 +5,7 @@ import {
   useGetVaiVaultContract,
   useGetVenusLensContract,
   useGetXvsVaultContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';

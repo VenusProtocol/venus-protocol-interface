@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { GovernorBravoDelegate } from 'packages/contractsNew';
+import { GovernorBravoDelegate } from 'packages/contracts';
 
 import getProposalThreshold from '.';
 

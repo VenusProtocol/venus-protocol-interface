@@ -1,4 +1,4 @@
-import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetXvsVaultContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 

@@ -1,4 +1,4 @@
-import { GovernorBravoDelegate } from 'packages/contractsNew';
+import { GovernorBravoDelegate } from 'packages/contracts';
 
 import governorBravoDelegateResponses from '__mocks__/contracts/governanceBravoDelegate';
 

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
+import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
 export interface GetPendingRewardsInput {

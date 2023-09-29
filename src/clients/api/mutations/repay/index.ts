@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt, Signer } from 'ethers';
-import { Maximillion, VBnb } from 'packages/contractsNew';
+import { Maximillion, VBnb } from 'packages/contracts';
 import { VToken } from 'types';
 import { callOrThrow, getVTokenContract } from 'utilities';
 

@@ -1,4 +1,4 @@
-import { useGetGovernorBravoDelegateContract } from 'packages/contractsNew';
+import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

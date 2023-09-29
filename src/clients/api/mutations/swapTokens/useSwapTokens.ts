@@ -1,4 +1,4 @@
-import { useGetSwapRouterContract } from 'packages/contractsNew';
+import { useGetSwapRouterContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 

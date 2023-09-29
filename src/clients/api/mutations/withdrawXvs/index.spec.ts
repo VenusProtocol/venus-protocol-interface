@@ -1,4 +1,4 @@
-import { XvsVesting } from 'packages/contractsNew';
+import { XvsVesting } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 

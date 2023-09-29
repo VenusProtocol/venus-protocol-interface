@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { getVaiControllerContractAddress } from 'packages/contractsNew';
+import { getVaiControllerContractAddress } from 'packages/contracts';
 import React from 'react';
 import { ChainId } from 'types';
 

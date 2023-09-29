@@ -1,4 +1,4 @@
-import { useGetVaiVaultContract } from 'packages/contractsNew';
+import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';

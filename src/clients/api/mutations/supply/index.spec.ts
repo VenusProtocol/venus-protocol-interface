@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VBnb, VToken as VTokenContract } from 'packages/contractsNew';
+import { VBnb, VToken as VTokenContract } from 'packages/contracts';
 import { getVTokenContract } from 'utilities';
 import Vi from 'vitest';
 

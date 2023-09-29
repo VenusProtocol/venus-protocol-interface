@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VrtConverter } from 'packages/contractsNew';
+import { VrtConverter } from 'packages/contracts';
 
 export interface VrtConversionRatioInput {
   vrtConverterContract: VrtConverter;

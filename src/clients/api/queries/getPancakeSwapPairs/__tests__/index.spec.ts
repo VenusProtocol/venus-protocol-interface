@@ -1,6 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import { BigNumber as BN } from 'ethers';
-import { PancakePairV2, getPancakePairV2Contract } from 'packages/contractsNew';
+import { PancakePairV2, getPancakePairV2Contract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeProvider from '__mocks__/models/provider';
@@ -8,7 +8,7 @@ import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 
 import getPancakeSwapPairs from '..';
 
-vi.mock('packages/contractsNew');
+vi.mock('packages/contracts');
 
 const fakePancakePairV2Contract = {
   getReserves: async () => ({

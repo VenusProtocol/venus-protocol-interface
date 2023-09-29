@@ -3,7 +3,7 @@ import {
   PoolLens,
   RewardsDistributor,
   getRewardsDistributorContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 
 import { Provider } from 'clients/web3';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';

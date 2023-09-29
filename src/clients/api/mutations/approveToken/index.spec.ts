@@ -1,4 +1,4 @@
-import { Bep20 } from 'packages/contractsNew';
+import { Bep20 } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Bep20 } from 'packages/contractsNew';
+import { Bep20 } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 import { getTokenContract } from 'utilities';
 

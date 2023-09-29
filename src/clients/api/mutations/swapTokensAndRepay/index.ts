@@ -1,6 +1,6 @@
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { SwapRouter } from 'packages/contractsNew';
+import { SwapRouter } from 'packages/contracts';
 import { Swap, VToken } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 

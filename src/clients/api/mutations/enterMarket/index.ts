@@ -1,6 +1,6 @@
 import { checkForComptrollerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contractsNew';
+import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contracts';
 import { VToken } from 'types';
 
 export interface EnterMarketInput {

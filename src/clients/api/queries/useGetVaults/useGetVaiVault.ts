@@ -1,4 +1,4 @@
-import { useGetVaiVaultContractAddress } from 'packages/contractsNew';
+import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { Vault } from 'types';

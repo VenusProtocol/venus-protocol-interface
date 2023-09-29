@@ -1,4 +1,4 @@
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import { bnb, xvs } from '__mocks__/models/tokens';

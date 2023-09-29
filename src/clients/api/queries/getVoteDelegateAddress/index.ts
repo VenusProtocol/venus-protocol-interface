@@ -1,4 +1,4 @@
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 
 import { NULL_ADDRESS } from 'constants/address';
 

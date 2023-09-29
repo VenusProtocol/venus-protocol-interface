@@ -1,4 +1,4 @@
-import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contractsNew';
+import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 
 import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';

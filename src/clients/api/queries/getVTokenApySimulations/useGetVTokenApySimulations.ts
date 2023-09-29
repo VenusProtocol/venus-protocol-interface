@@ -1,4 +1,4 @@
-import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contractsNew';
+import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contracts';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Asset, VToken } from 'types';

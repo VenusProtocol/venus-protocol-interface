@@ -7,7 +7,7 @@ import {
   RewardsDistributor,
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { Token } from 'types';
 import Vi from 'vitest';
 
@@ -26,7 +26,7 @@ import {
   fakeIsolatedPoolParticipantsCount,
 } from '../__testUtils__/fakeData';
 
-vi.mock('packages/contractsNew');
+vi.mock('packages/contracts');
 vi.mock('clients/subgraph');
 
 const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';

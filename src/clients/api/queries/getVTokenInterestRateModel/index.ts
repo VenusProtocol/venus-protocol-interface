@@ -1,4 +1,4 @@
-import { VBnb, VToken as VTokenContract } from 'packages/contractsNew';
+import { VBnb, VToken as VTokenContract } from 'packages/contracts';
 
 export interface GetVTokenInterestRateModelInput {
   vTokenContract: VTokenContract | VBnb;

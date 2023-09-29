@@ -1,4 +1,4 @@
-import { GovernorBravoDelegate } from 'packages/contractsNew';
+import { GovernorBravoDelegate } from 'packages/contracts';
 import { VoteSupport } from 'types';
 
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';

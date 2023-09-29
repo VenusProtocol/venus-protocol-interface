@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 

@@ -1,4 +1,4 @@
-import { useGetMaximillionContract } from 'packages/contractsNew';
+import { useGetMaximillionContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';

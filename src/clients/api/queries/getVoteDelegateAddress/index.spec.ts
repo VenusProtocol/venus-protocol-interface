@@ -1,4 +1,4 @@
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import { NULL_ADDRESS } from 'constants/address';
