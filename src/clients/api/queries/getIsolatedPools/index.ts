@@ -1,4 +1,4 @@
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contractsNew';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';
 
@@ -92,15 +92,12 @@ const getIsolatedPools = async ({
 
   // Fetch reward distributors and addresses of user collaterals
   const getRewardDistributorsPromises: ReturnType<
-    ContractTypeByName<'isolatedPoolComptroller'>['getRewardDistributors']
+    IsolatedPoolComptroller['getRewardDistributors']
   >[] = [];
-  const getAssetsInPromises: ReturnType<
-    ContractTypeByName<'isolatedPoolComptroller'>['getAssetsIn']
-  >[] = [];
+  const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
 
   poolResults.forEach(poolResult => {
-    const comptrollerContract = getGenericContract({
-      name: 'isolatedPoolComptroller',
+    const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
       address: poolResult.comptroller,
     });

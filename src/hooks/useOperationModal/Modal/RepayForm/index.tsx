@@ -11,6 +11,7 @@ import {
   TokenTextField,
 } from 'components';
 import { VError } from 'errors';
+import { useGetSwapRouterContractAddress } from 'packages/contractsNew';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
@@ -26,7 +27,6 @@ import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -325,7 +325,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   });
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerAddress: pool.comptrollerAddress,
+    comptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)

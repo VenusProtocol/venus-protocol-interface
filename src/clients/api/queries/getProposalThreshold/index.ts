@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 export interface GetProposalThresholdInput {
-  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: GovernorBravoDelegate;
 }
 
 export type GetProposalThresholdOutput = {

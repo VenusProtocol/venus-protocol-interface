@@ -1,3 +1,8 @@
+import {
+  useGetPoolLensContract,
+  useGetPoolRegistryContractAddress,
+  useGetResilientOracleContract,
+} from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -8,8 +13,6 @@ import getIsolatedPools, {
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,
@@ -34,17 +37,9 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useAuth();
   const tokens = useGetTokens();
 
-  const poolLensContract = useGetUniqueContract({
-    name: 'poolLens',
-  });
-
-  const resilientOracleContract = useGetUniqueContract({
-    name: 'resilientOracle',
-  });
-
-  const poolRegistryContractAddress = useGetUniqueContractAddress({
-    name: 'poolRegistry',
-  });
+  const poolLensContract = useGetPoolLensContract();
+  const resilientOracleContract = useGetResilientOracleContract();
+  const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
   return useQuery(
     [FunctionKey.GET_ISOLATED_POOLS, input],

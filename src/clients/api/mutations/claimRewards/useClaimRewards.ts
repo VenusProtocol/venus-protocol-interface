@@ -1,11 +1,15 @@
+import {
+  useGetMainPoolComptrollerContractAddress,
+  useGetMulticall3Contract,
+  useGetVaiVaultContractAddress,
+  useGetXvsVaultContractAddress,
+} from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { ClaimRewardsInput, ClaimRewardsOutput, claimRewards, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 type TrimmedClaimRewardsInput = Omit<
   ClaimRewardsInput,
@@ -18,22 +22,13 @@ type TrimmedClaimRewardsInput = Omit<
 type Options = MutationObserverOptions<ClaimRewardsOutput, Error, TrimmedClaimRewardsInput>;
 
 const useClaimRewards = (options?: Options) => {
-  const multicallContract = useGetUniqueContract({
-    name: 'multicall3',
+  const multicallContract = useGetMulticall3Contract({
     passSigner: true,
   });
 
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
-
-  const vaiVaultContractAddress = useGetUniqueContractAddress({
-    name: 'vaiVault',
-  });
-
-  const xvsVaultContractAddress = useGetUniqueContractAddress({
-    name: 'xvsVault',
-  });
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   const { captureAnalyticEvent } = useAnalytics();
 

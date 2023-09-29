@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 export interface CreateProposalInput {
   targets: string[];
@@ -19,7 +19,7 @@ const createProposal = async ({
   description,
   proposalType,
 }: CreateProposalInput & {
-  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: GovernorBravoDelegate;
 }): Promise<CreateProposalOutput> => {
   const transaction = await governorBravoDelegateContract.propose(
     targets,

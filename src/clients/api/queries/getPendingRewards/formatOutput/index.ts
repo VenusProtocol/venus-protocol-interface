@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { PoolLens, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
 import { Token } from 'types';
 
 import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';
@@ -21,23 +21,18 @@ const formatOutput = ({
   venusLensPendingRewards,
 }: {
   tokens: Token[];
-  vaiVaultPendingXvs?: Awaited<ReturnType<ContractTypeByName<'vaiVault'>['pendingXVS']>>;
+  vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
   isolatedPoolsPendingRewards: Array<
-    Awaited<ReturnType<ContractTypeByName<'poolLens'>['getPendingRewards']>> | undefined
+    Awaited<ReturnType<PoolLens['getPendingRewards']>> | undefined
   >;
-  xvsVestingVaultPoolInfos: Array<
-    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['poolInfos']>> | undefined
-  >;
-  xvsVestingVaultPendingRewards: Array<
-    Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingReward']>> | undefined
-  >;
+  xvsVestingVaultPoolInfos: Array<Awaited<ReturnType<XvsVault['poolInfos']>> | undefined>;
+  xvsVestingVaultPendingRewards: Array<Awaited<ReturnType<XvsVault['pendingReward']>> | undefined>;
   xvsVestingVaultPendingWithdrawalsBeforeUpgrade: Array<
-    | Awaited<ReturnType<ContractTypeByName<'xvsVault'>['pendingWithdrawalsBeforeUpgrade']>>
-    | undefined
+    Awaited<ReturnType<XvsVault['pendingWithdrawalsBeforeUpgrade']>> | undefined
   >;
   tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
-  venusLensPendingRewards?: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
+  venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];

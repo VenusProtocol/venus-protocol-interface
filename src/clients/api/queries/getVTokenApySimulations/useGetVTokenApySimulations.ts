@@ -1,4 +1,4 @@
-import { getGenericContract } from 'packages/contracts';
+import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contractsNew';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Asset, VToken } from 'types';
@@ -38,11 +38,14 @@ const useGetVTokenApySimulations = (
       return undefined;
     }
 
-    return getGenericContract({
-      name: isIsolatedPoolMarket ? 'jumpRateModelV2' : 'jumpRateModel',
+    const input = {
       address: interestRateModelData.contractAddress,
       signerOrProvider: provider,
-    });
+    };
+
+    return isIsolatedPoolMarket
+      ? getJumpRateModelV2Contract(input)
+      : getJumpRateModelContract(input);
   }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
   return useQuery(

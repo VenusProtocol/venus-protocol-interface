@@ -14,7 +14,7 @@ export interface GenericContractGetterHookInput {
   passSigner?: boolean;
 }
 
-const genericContractGetterHookGenerator =
+export const genericContractGetterHookGenerator =
   <TContract extends Contract>({ getter }: GenericContractGetterHookGeneratorInput<TContract>) =>
   ({ passSigner = false, address }: GenericContractGetterHookInput) => {
     const { signer, provider } = useAuth();
@@ -31,5 +31,3 @@ const genericContractGetterHookGenerator =
       [signerOrProvider, address],
     );
   };
-
-export default genericContractGetterHookGenerator;

@@ -1,6 +1,6 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import { PancakePairV2, getPancakePairV2Contract } from 'packages/contractsNew';
 import Vi from 'vitest';
 
 import fakeProvider from '__mocks__/models/provider';
@@ -8,7 +8,7 @@ import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 
 import getPancakeSwapPairs from '..';
 
-vi.mock('packages/contracts');
+vi.mock('packages/contractsNew');
 
 const fakePancakePairV2Contract = {
   getReserves: async () => ({
@@ -16,11 +16,11 @@ const fakePancakePairV2Contract = {
     reserve1: BN.from('2000000000'),
     blockTimestampLast: 1694182120663,
   }),
-} as unknown as ContractTypeByName<'pancakePairV2'>;
+} as unknown as PancakePairV2;
 
 describe('api/queries/getPancakeSwapPairs', () => {
   beforeEach(() => {
-    (getGenericContract as Vi.Mock).mockImplementation(() => fakePancakePairV2Contract);
+    (getPancakePairV2Contract as Vi.Mock).mockImplementation(() => fakePancakePairV2Contract);
   });
 
   it('returns pairs in the right format on success', async () => {

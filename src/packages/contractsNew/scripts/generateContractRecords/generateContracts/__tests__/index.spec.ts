@@ -1,13 +1,13 @@
-import fakeContractConfigs from 'packages/contractsNew/__testUtils__/fakeConfig';
+import { fakeContractConfigs } from 'packages/contractsNew/__testUtils__/fakeConfig';
 import Vi from 'vitest';
 
 import { GetAbsolutePathInput } from 'packages/contractsNew/utilities/getAbsolutePath';
 
-import generateContracts from '..';
-import generateAbis from '../generateAbis';
-import generateAddressList from '../generateAddressList';
-import generateGetters from '../generateGetters';
-import generateTypes from '../generateTypes';
+import { generateContracts } from '..';
+import { generateAbis } from '../generateAbis';
+import { generateAddressList } from '../generateAddressList';
+import { generateGetters } from '../generateGetters';
+import { generateTypes } from '../generateTypes';
 
 vi.mock('utilities/writeFile');
 vi.mock('../generateAddressList');
@@ -15,7 +15,7 @@ vi.mock('../generateAbis');
 vi.mock('../generateGetters');
 vi.mock('../generateTypes');
 vi.mock('packages/contractsNew/utilities/getAbsolutePath', () => ({
-  default: ({ relativePath }: GetAbsolutePathInput) => relativePath,
+  getAbsolutePath: ({ relativePath }: GetAbsolutePathInput) => relativePath,
 }));
 
 describe('generateContracts', () => {

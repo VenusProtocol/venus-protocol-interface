@@ -1,9 +1,9 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { getVaiCalculateRepayAmount } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
 
@@ -28,9 +28,7 @@ const useGetVaiCalculateRepayAmount = (
   }: Omit<GetVaiCalculateRepayAmountInput, 'vaiControllerContract'>,
   options?: Options,
 ) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
-  });
+  const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(
     [

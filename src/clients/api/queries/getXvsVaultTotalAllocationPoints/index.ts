@@ -1,7 +1,7 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 export interface GetXvsVaultTotalAllocPointsInput {
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  xvsVaultContract: XvsVault;
   tokenAddress: string;
 }
 

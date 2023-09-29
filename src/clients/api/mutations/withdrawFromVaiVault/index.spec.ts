@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiVault } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 
@@ -19,7 +19,7 @@ describe('api/mutation/withdrawFromVaiVault', () => {
 
     const fakeContract = {
       withdraw: withdrawMock,
-    } as unknown as ContractTypeByName<'vaiVault'>;
+    } as unknown as VaiVault;
 
     const response = await withdrawFromVaiVault({
       vaiVaultContract: fakeContract,

@@ -1,3 +1,4 @@
+import { useGetGovernorBravoDelegateContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -5,7 +6,6 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { useAnalytics } from 'context/Analytics';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 import castVoteWithReason, {
   CastVoteWithReasonInput,
@@ -15,8 +15,7 @@ import castVoteWithReason, {
 type Options = MutationObserverOptions<CastVoteWithReasonOutput, Error, CastVoteWithReasonInput>;
 
 const useCastVoteWithReason = (options?: Options) => {
-  const governorBravoDelegateContract = useGetUniqueContract({
-    name: 'governorBravoDelegate',
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();

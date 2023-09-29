@@ -1,4 +1,9 @@
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import {
+  IsolatedPoolComptroller,
+  PoolLens,
+  RewardsDistributor,
+  getRewardsDistributorContract,
+} from 'packages/contractsNew';
 
 import { Provider } from 'clients/web3';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -7,37 +12,29 @@ export interface RewardsDistributorSettingsPromise {
   vTokenAddress: string;
   rewardsDistributorAddress: string;
   promises: [
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardToken']>,
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenSupplySpeeds']>,
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenBorrowSpeeds']>,
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenSupplyState']>,
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenBorrowState']>,
+    ReturnType<RewardsDistributor['rewardToken']>,
+    ReturnType<RewardsDistributor['rewardTokenSupplySpeeds']>,
+    ReturnType<RewardsDistributor['rewardTokenBorrowSpeeds']>,
+    ReturnType<RewardsDistributor['rewardTokenSupplyState']>,
+    ReturnType<RewardsDistributor['rewardTokenBorrowState']>,
   ];
 }
 
 export interface RewardsDistributorSettingsResult {
   rewardsDistributorAddress: string;
   rewardTokenAddress: string;
-  rewardTokenSupplySpeeds: Awaited<
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenSupplySpeeds']>
-  >;
-  rewardTokenBorrowSpeeds: Awaited<
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenBorrowSpeeds']>
-  >;
-  rewardTokenSupplyState: Awaited<
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenSupplyState']>
-  >;
-  rewardTokenBorrowState: Awaited<
-    ReturnType<ContractTypeByName<'rewardsDistributor'>['rewardTokenBorrowState']>
-  >;
+  rewardTokenSupplySpeeds: Awaited<ReturnType<RewardsDistributor['rewardTokenSupplySpeeds']>>;
+  rewardTokenBorrowSpeeds: Awaited<ReturnType<RewardsDistributor['rewardTokenBorrowSpeeds']>>;
+  rewardTokenSupplyState: Awaited<ReturnType<RewardsDistributor['rewardTokenSupplyState']>>;
+  rewardTokenBorrowState: Awaited<ReturnType<RewardsDistributor['rewardTokenBorrowState']>>;
 }
 
 export interface GetRewardsDistributorSettingsMappingInput {
   provider: Provider;
   getRewardDistributorsResults: PromiseSettledResult<
-    Awaited<ReturnType<ContractTypeByName<'isolatedPoolComptroller'>['getRewardDistributors']>>
+    Awaited<ReturnType<IsolatedPoolComptroller['getRewardDistributors']>>
   >[];
-  poolResults: Awaited<ReturnType<ContractTypeByName<'poolLens'>['getAllPools']>>;
+  poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
 }
 
 export interface GetRewardsDistributorSettingsMappingOutput {
@@ -64,8 +61,7 @@ const getRewardsDistributorSettingsMapping = async ({
 
     poolRewardsDistributorAddresses.forEach(rewardsDistributorAddress =>
       poolVTokenAddresses.forEach(vTokenAddress => {
-        const rewardDistributorContract = getGenericContract({
-          name: 'rewardsDistributor',
+        const rewardDistributorContract = getRewardsDistributorContract({
           address: rewardsDistributorAddress,
           signerOrProvider: provider,
         });

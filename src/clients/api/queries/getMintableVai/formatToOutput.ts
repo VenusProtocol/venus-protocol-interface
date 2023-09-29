@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiController } from 'packages/contractsNew';
 
 import { GetMintableVaiOutput } from './types';
 
 const formatToProposal = (
-  response: Awaited<ReturnType<ContractTypeByName<'vaiController'>['getMintableVAI']>>,
+  response: Awaited<ReturnType<VaiController['getMintableVAI']>>,
 ): GetMintableVaiOutput => ({
   mintableVaiWei: new BigNumber(response[1].toString()),
 });

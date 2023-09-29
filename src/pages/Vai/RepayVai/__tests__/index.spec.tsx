@@ -1,7 +1,8 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { uniqueContractInfos } from 'packages/contracts';
+import { getVaiControllerContractAddress } from 'packages/contractsNew';
 import React from 'react';
+import { ChainId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
@@ -23,7 +24,9 @@ import en from 'translation/translations/en.json';
 import RepayVai from '..';
 import TEST_IDS from '../../testIds';
 
-const VAI_CONTROLLER_CONTRACT_ADDRESS = uniqueContractInfos.vaiController.address[97]!;
+const VAI_CONTROLLER_CONTRACT_ADDRESS = getVaiControllerContractAddress({
+  chainId: ChainId.BSC_TESTNET,
+})!;
 
 vi.mock('components/Toast');
 vi.mock('hooks/useSuccessfulTransactionModal');

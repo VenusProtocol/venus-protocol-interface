@@ -13,6 +13,10 @@ import {
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
+import {
+  useGetMainPoolComptrollerContractAddress,
+  useGetSwapRouterContractAddress,
+} from 'packages/contractsNew';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
@@ -22,11 +26,9 @@ import { useSwapTokens } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useGetToken from 'hooks/useGetToken';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -373,12 +375,10 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAuth();
 
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerAddress: mainPoolComptrollerContractAddress || '',
+    comptrollerContractAddress: mainPoolComptrollerContractAddress || '',
   });
 
   const tokens = useGetTokens();

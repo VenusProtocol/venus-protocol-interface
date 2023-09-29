@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { ResilientOracle } from 'packages/contractsNew';
 import { Token } from 'types';
 
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
@@ -13,7 +13,7 @@ export interface GetTokenPriceDollarsMappingInput {
   tokens: Token[];
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
   underlyingTokenAddresses: string[];
-  resilientOracleContract: ContractTypeByName<'resilientOracle'>;
+  resilientOracleContract: ResilientOracle;
 }
 
 export interface GetTokenPriceDollarsMappingOutput {

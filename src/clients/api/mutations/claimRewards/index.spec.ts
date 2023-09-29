@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { Multicall3 } from 'packages/contractsNew';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -51,7 +51,7 @@ describe('api/mutation/claimVaiVaultReward', () => {
       tryBlockAndAggregate: vi.fn(async () => ({
         wait: vi.fn(async () => fakeContractReceipt),
       })),
-    } as unknown as ContractTypeByName<'multicall3'>;
+    } as unknown as Multicall3;
 
     const res = await claimRewards({
       multicallContract: fakeMulticallContract,

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 import compTrollerResponses from '__mocks__/contracts/mainPoolComptroller';
 
@@ -10,7 +10,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
     const fakeContract = {
       getHypotheticalAccountLiquidity: async () =>
         compTrollerResponses.getHypotheticalAccountLiquidity,
-    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
+    } as unknown as MainPoolComptroller;
 
     const response = await getHypotheticalAccountLiquidity({
       comptrollerContract: fakeContract,

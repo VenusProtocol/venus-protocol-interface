@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { VToken as VTokenContract } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 
@@ -19,7 +19,7 @@ describe('api/mutation/redeemUnderlying', () => {
 
     const fakeContract = {
       redeemUnderlying: redeemUnderlyingMock,
-    } as unknown as ContractTypeByName<'vToken'>;
+    } as unknown as VTokenContract;
 
     const response = await redeemUnderlying({
       vTokenContract: fakeContract,

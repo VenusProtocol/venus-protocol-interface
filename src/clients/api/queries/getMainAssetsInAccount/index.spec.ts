@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 import fakeAddress from '__mocks__/models/address';
 import { bnb, xvs } from '__mocks__/models/tokens';
@@ -13,7 +13,7 @@ describe('api/queries/getMainAssetsInAccount', () => {
 
     const fakeContract = {
       getAssetsIn: getAssetsInMock,
-    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
+    } as unknown as MainPoolComptroller;
 
     const response = await getMainAssetsInAccount({
       mainPoolComptrollerContract: fakeContract,

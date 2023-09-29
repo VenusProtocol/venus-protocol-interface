@@ -1,10 +1,10 @@
 import { checkForComptrollerTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contractsNew';
 import { VToken } from 'types';
 
 export interface EnterMarketInput {
-  comptrollerContract: ContractTypeByName<'mainPoolComptroller' | 'isolatedPoolComptroller'>;
+  comptrollerContract: MainPoolComptroller | IsolatedPoolComptroller;
   vToken: VToken;
 }
 

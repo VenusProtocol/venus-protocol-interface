@@ -1,6 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName, getGenericContract } from 'packages/contracts';
+import {
+  IsolatedPoolComptroller,
+  PoolLens,
+  ResilientOracle,
+  RewardsDistributor,
+  getIsolatedPoolComptrollerContract,
+  getRewardsDistributorContract,
+} from 'packages/contractsNew';
 import { Token } from 'types';
 import Vi from 'vitest';
 
@@ -19,7 +26,7 @@ import {
   fakeIsolatedPoolParticipantsCount,
 } from '../__testUtils__/fakeData';
 
-vi.mock('packages/contracts');
+vi.mock('packages/contractsNew');
 vi.mock('clients/subgraph');
 
 const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';
@@ -37,16 +44,16 @@ const fakePoolLensContract = {
         tokenAllowance: BN.from(MAX_UINT256),
       })),
   },
-} as unknown as ContractTypeByName<'poolLens'>;
+} as unknown as PoolLens;
 
 const fakeResilientOracleContract = {
   getPrice: async () => fakeGetPriceOutput,
-} as unknown as ContractTypeByName<'resilientOracle'>;
+} as unknown as ResilientOracle;
 
 const fakeIsolatedPoolComptrollerContract = {
   getRewardDistributors: async () => fakeGetRewardDistributorsOutput,
   getAssetsIn: async () => fakeGetAssetsInOutput,
-} as unknown as ContractTypeByName<'isolatedPoolComptroller'>;
+} as unknown as IsolatedPoolComptroller;
 
 const fakeRewardsDistributorContract = {
   rewardToken: async () => xvs.address,
@@ -54,7 +61,7 @@ const fakeRewardsDistributorContract = {
   rewardTokenBorrowSpeeds: async () => BN.from('868055555555556'),
   rewardTokenSupplyState: async () => ({ lastRewardingBlock: 0 }),
   rewardTokenBorrowState: async () => ({ lastRewardingBlock: 0 }),
-} as unknown as ContractTypeByName<'rewardsDistributor'>;
+} as unknown as RewardsDistributor;
 
 describe('api/queries/getIsolatedPools', () => {
   beforeEach(() => {
@@ -66,11 +73,12 @@ describe('api/queries/getIsolatedPools', () => {
         })),
     );
 
-    (getGenericContract as Vi.Mock).mockImplementation(
-      ({ name }: { name: 'rewardsDistributor' | 'isolatedPoolComptroller' }) =>
-        name === 'isolatedPoolComptroller'
-          ? fakeIsolatedPoolComptrollerContract
-          : fakeRewardsDistributorContract,
+    (getIsolatedPoolComptrollerContract as Vi.Mock).mockImplementation(
+      () => fakeIsolatedPoolComptrollerContract,
+    );
+
+    (getRewardsDistributorContract as Vi.Mock).mockImplementation(
+      () => fakeRewardsDistributorContract,
     );
   });
 

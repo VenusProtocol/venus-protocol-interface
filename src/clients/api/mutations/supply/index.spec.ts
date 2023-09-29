@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VBnb, VToken as VTokenContract } from 'packages/contractsNew';
 import { getVTokenContract } from 'utilities';
 import Vi from 'vitest';
 
@@ -23,7 +23,7 @@ describe('api/mutation/supply', () => {
 
       const fakeVTokenContract = {
         mint: mintMock,
-      } as unknown as ContractTypeByName<'vToken'>;
+      } as unknown as VTokenContract;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 
@@ -53,7 +53,7 @@ describe('api/mutation/supply', () => {
 
       const fakeVTokenContract = {
         mint: mintMock,
-      } as unknown as ContractTypeByName<'vBnb'>;
+      } as unknown as VBnb;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
 

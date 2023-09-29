@@ -13,6 +13,7 @@ import {
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
+import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -28,7 +29,6 @@ import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -251,9 +251,7 @@ const RepayVai: React.FC = () => {
     symbol: 'VAI',
   });
 
-  const vaiControllerContractAddress = useGetUniqueContractAddress({
-    name: 'vaiController',
-  });
+  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
 
   const { data: repayAmountWithInterests, isLoading: isGetVaiRepayAmountWithInterests } =
     useGetVaiRepayAmountWithInterests(

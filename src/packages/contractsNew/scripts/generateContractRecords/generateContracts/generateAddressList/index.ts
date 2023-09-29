@@ -1,6 +1,6 @@
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
+import { isSwapRouterContractConfig } from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {
@@ -8,7 +8,10 @@ export interface GenerateAddressListInput {
   contractConfigs: ContractConfig[];
 }
 
-const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddressListInput) => {
+export const generateAddressList = async ({
+  outputFilePath,
+  contractConfigs,
+}: GenerateAddressListInput) => {
   // Open addresses output
   let addressesOutput = 'export default {';
 
@@ -49,5 +52,3 @@ const generateAddressList = ({ outputFilePath, contractConfigs }: GenerateAddres
     content: addressesOutput,
   });
 };
-
-export default generateAddressList;

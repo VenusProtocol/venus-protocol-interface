@@ -1,10 +1,8 @@
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { VenusLens } from 'packages/contractsNew';
 
 const venusLensResponses: {
-  vTokenMetadataAll: Awaited<
-    ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenMetadataAll']>
-  >;
+  vTokenMetadataAll: Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>;
 } = {
   vTokenMetadataAll: [
     {
@@ -447,7 +445,7 @@ const venusLensResponses: {
       dailyBorrowXvs: BN.from('0x56bc75e2d6310c80'),
       dailySupplyXvs: BN.from('0x56bc75e2d6310c80'),
     },
-  ] as Awaited<ReturnType<ContractTypeByName<'venusLens'>['callStatic']['vTokenMetadataAll']>>,
+  ] as Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>,
 };
 
 export default venusLensResponses;

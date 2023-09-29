@@ -1,7 +1,8 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, ContractInterface, Signer } from 'ethers';
-import getSwapRouterContractAddress from 'packages/contractsNew/getSwapRouterContractAddress';
 import { ChainId } from 'types';
+
+import { getSwapRouterContractAddress } from 'packages/contractsNew/utilities/getSwapRouterContractAddress';
 
 export interface SwapRouterContractGetterGeneratorInput {
   abi: ContractInterface;
@@ -31,5 +32,3 @@ export const swapRouterContractGetterGenerator = <TContract extends Contract>({
 
   return getter;
 };
-
-export default swapRouterContractGetterGenerator;

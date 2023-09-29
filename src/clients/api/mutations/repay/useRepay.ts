@@ -1,3 +1,4 @@
+import { useGetMaximillionContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -6,7 +7,6 @@ import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
 import { useAuth } from 'context/AuthContext';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;
 type Options = MutationObserverOptions<RepayOutput, Error, TrimmedRepayInput>;
@@ -17,8 +17,7 @@ const useRepay = (
 ) => {
   const { signer, accountAddress } = useAuth();
   const { captureAnalyticEvent } = useAnalytics();
-  const maximillionContract = useGetUniqueContract({
-    name: 'maximillion',
+  const maximillionContract = useGetMaximillionContract({
     passSigner: true,
   });
 

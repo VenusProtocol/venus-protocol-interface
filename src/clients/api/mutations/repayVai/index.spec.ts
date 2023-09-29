@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiControllerTransactionError } from 'errors';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiController } from 'packages/contractsNew';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 
@@ -19,7 +19,7 @@ describe('api/mutation/repayVai', () => {
 
     const fakeContract = {
       repayVAI: repayVAIMock,
-    } as unknown as ContractTypeByName<'vaiController'>;
+    } as unknown as VaiController;
 
     const response = await repayVai({
       vaiControllerContract: fakeContract,

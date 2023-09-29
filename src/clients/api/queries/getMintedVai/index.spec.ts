@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller } from 'packages/contractsNew';
 
 import address from '__mocks__/models/address';
 
@@ -12,7 +12,7 @@ describe('api/queries/getMintedVai', () => {
 
     const fakeContract = {
       mintedVAIs: mintedVAIsMock,
-    } as unknown as ContractTypeByName<'mainPoolComptroller'>;
+    } as unknown as MainPoolComptroller;
 
     const response = await getMintedVai({
       mainPoolComptrollerContract: fakeContract,

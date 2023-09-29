@@ -1,6 +1,6 @@
 import { Contract, type ContractInterface, providers } from 'ethers';
 
-import genericContractGetterGenerator from '..';
+import { genericContractGetterGenerator } from '..';
 
 const fakeProvider = new providers.JsonRpcProvider();
 

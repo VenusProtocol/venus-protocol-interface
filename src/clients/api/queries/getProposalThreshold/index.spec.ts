@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 import getProposalThreshold from '.';
 
@@ -12,7 +12,7 @@ describe('api/queries/getProposalThreshold', () => {
 
     const fakeContract = {
       proposalThreshold: proposalThresholdMock,
-    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
+    } as unknown as GovernorBravoDelegate;
 
     const response = await getProposalThreshold({
       governorBravoDelegateContract: fakeContract,

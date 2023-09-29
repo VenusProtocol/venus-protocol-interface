@@ -7,7 +7,7 @@ export interface GenerateTypesInput {
   outputDirectoryPath: string;
 }
 
-const generateAbis = ({ contractConfigs, outputDirectoryPath }: GenerateTypesInput) =>
+export const generateAbis = ({ contractConfigs, outputDirectoryPath }: GenerateTypesInput) =>
   // Go through config and extract ABIs into separate files
   contractConfigs.forEach(contractConfig => {
     writeFile({
@@ -15,5 +15,3 @@ const generateAbis = ({ contractConfigs, outputDirectoryPath }: GenerateTypesInp
       content: JSON.stringify(contractConfig.abi),
     });
   });
-
-export default generateAbis;

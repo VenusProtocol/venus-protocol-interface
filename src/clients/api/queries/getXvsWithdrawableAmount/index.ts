@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVesting } from 'packages/contractsNew';
 
 export interface GetXvsWithdrawableAmountInput {
   accountAddress: string;
-  xvsVestingContract: ContractTypeByName<'xvsVesting'>;
+  xvsVestingContract: XvsVesting;
 }
 
 export interface GetXvsWithdrawableAmountOutput {

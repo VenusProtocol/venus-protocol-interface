@@ -2,6 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
+import { useGetMainPoolComptrollerContractAddress } from 'packages/contractsNew';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
@@ -16,7 +17,6 @@ import {
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { MINTED_XVS_WEI } from '../constants';
 import { useStyles } from '../styles';
@@ -155,9 +155,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const { data: mainPoolTotalXvsDistributedData } = useGetMainPoolTotalXvsDistributed();
 
-  const mainPoolComptrollerContractAddress = useGetUniqueContractAddress({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
 
   const { data: xvsRemainingDistributionData } = useGetBalanceOf(
     {

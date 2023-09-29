@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getCurrentVotes, {
   GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetCurrentVotesInput = Omit<GetCurrentVotesInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<
@@ -18,9 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Options) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
-  });
+  const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
     [FunctionKey.GET_CURRENT_VOTES, input],

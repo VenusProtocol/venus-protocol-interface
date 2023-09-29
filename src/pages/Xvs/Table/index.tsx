@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
+import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
@@ -17,7 +18,6 @@ import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'c
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useAuth } from 'context/AuthContext';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 
 import { useStyles } from '../styles';
 
@@ -126,9 +126,7 @@ const XvsTable: React.FC = () => {
 
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
-  const vaiVaultContractAddress = useGetUniqueContractAddress({
-    name: 'vaiVault',
-  });
+  const vaiVaultContractAddress = useGetVaiControllerContractAddress();
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {

@@ -1,10 +1,10 @@
+import { useGetXvsVaultContractAddress } from 'packages/contractsNew';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import useGetTokens from 'hooks/useGetTokens';
-import useGetUniqueContractAddress from 'hooks/useGetUniqueContractAddress';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {
@@ -19,9 +19,7 @@ const useGetXvsVaultPoolBalances = ({
   const { provider } = useAuth();
   const tokens = useGetTokens();
 
-  const xvsVaultContractAddress = useGetUniqueContractAddress({
-    name: 'xvsVault',
-  });
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   // Fetch total amount of tokens staked in each pool
   const queries: UseQueryOptions<GetBalanceOfOutput>[] = stakedTokenAddresses.map(

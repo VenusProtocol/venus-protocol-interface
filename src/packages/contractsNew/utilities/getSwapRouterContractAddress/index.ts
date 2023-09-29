@@ -1,4 +1,4 @@
-import addresses from 'packages/contractsNew/infos/addresses';
+import addresses from 'packages/contractsNew/generated/infos/addresses';
 import { ChainId } from 'types';
 
 export type GetSwapRouterContractAddressInput = {
@@ -6,7 +6,7 @@ export type GetSwapRouterContractAddressInput = {
   chainId: ChainId;
 };
 
-const getSwapRouterContractAddress = ({
+export const getSwapRouterContractAddress = ({
   comptrollerContractAddress,
   chainId,
 }: GetSwapRouterContractAddressInput) => {
@@ -16,5 +16,3 @@ const getSwapRouterContractAddress = ({
 
   return swapRouterContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
 };
-
-export default getSwapRouterContractAddress;

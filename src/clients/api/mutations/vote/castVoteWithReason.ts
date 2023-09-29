@@ -1,8 +1,8 @@
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 export interface HookParams {
-  governorBravoDelegateContract: ContractTypeByName<'governorBravoDelegate'>;
+  governorBravoDelegateContract: GovernorBravoDelegate;
 }
 
 export interface CastVoteWithReasonInput {

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 import { xvs } from '__mocks__/models/tokens';
 
@@ -16,7 +16,7 @@ describe('api/queries/getXvsVaultRewardPerBlock', () => {
 
     const fakeContract = {
       rewardTokenAmountsPerBlock: rewardTokenAmountsPerBlockMock,
-    } as unknown as ContractTypeByName<'xvsVault'>;
+    } as unknown as XvsVault;
 
     const response = await getXvsVaultRewardPerBlock({
       xvsVaultContract: fakeContract,

@@ -1,7 +1,7 @@
 import { providers } from '@0xsequence/multicall';
 import { PublicClient } from '@wagmi/core';
 import { providers as ethersProviders } from 'ethers';
-import { getUniqueContractAddress } from 'packages/contracts';
+import addresses from 'packages/contractsNew/generated/infos/addresses';
 import { type HttpTransport } from 'viem';
 
 import { logError } from 'context/ErrorLogger';
@@ -26,10 +26,10 @@ const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
         )
       : new ethersProviders.JsonRpcProvider(transport.url, network);
 
-  const xsequenceMulticallAddress = getUniqueContractAddress({
-    name: 'xsequenceMulticall',
-    chainId: chain.id,
-  });
+  // We can't use the getter function for the 0xsequence multicall contract here because that
+  // creates a dependency cycle
+  const xsequenceMulticallAddress =
+    addresses.XsequenceMulticall[chain.id as keyof typeof addresses.XsequenceMulticall];
 
   if (!xsequenceMulticallAddress) {
     logError(`0xsequence multicall contract address missing on chain with ID ${chain.id}`);

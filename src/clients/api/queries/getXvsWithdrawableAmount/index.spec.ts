@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVesting } from 'packages/contractsNew';
 
 import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
 
@@ -12,7 +12,7 @@ describe('api/queries/getXvsWithdrawableAmount', () => {
 
     const fakeContract = {
       getWithdrawableAmount: xvsWithdrawableAmountMock,
-    } as unknown as ContractTypeByName<'xvsVesting'>;
+    } as unknown as XvsVesting;
 
     const response = await getXvsWithdrawableAmount({
       xvsVestingContract: fakeContract,

@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
 
 import { assetData } from '__mocks__/models/asset';
 
@@ -9,10 +9,9 @@ const fakeInterestRateModelContract = {
   getBorrowRate: async () => BN.from(1),
   getSupplyRate: async () => BN.from(2),
   utilizationRate: async () => BN.from('100000000000000000'),
-} as unknown as ContractTypeByName<'jumpRateModel'>;
+} as unknown as JumpRateModel;
 
-const fakeInterestRateModelV2Contract =
-  fakeInterestRateModelContract as unknown as ContractTypeByName<'jumpRateModelV2'>;
+const fakeInterestRateModelV2Contract = fakeInterestRateModelContract as unknown as JumpRateModelV2;
 
 describe('api/queries/getVTokenApySimulations', () => {
   test('returns the APY simulations in the correct format on success', async () => {

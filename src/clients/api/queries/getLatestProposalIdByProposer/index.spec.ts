@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'packages/contractsNew';
 
 import fakeAddress from '__mocks__/models/address';
 
@@ -9,7 +9,7 @@ describe('api/queries/getLatestProposalIdByProposer', () => {
   test('with account return latest proposalId', async () => {
     const fakeContract = {
       latestProposalIds: async () => BN.from('1'),
-    } as unknown as ContractTypeByName<'governorBravoDelegate'>;
+    } as unknown as GovernorBravoDelegate;
 
     const response = await getLatestProposalIdByProposer({
       governorBravoDelegateContract: fakeContract,

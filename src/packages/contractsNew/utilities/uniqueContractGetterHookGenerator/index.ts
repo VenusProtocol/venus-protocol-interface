@@ -13,7 +13,7 @@ export interface UniqueContractGetterHookInput {
   passSigner: boolean;
 }
 
-const uniqueUniqueContractGetterHookGenerator =
+export const uniqueContractGetterHookGenerator =
   <TContract extends Contract>({ getter }: UniqueContractGetterHookGeneratorInput<TContract>) =>
   (input?: UniqueContractGetterHookInput) => {
     const { signer, provider, chainId } = useAuth();
@@ -30,5 +30,3 @@ const uniqueUniqueContractGetterHookGenerator =
       [signerOrProvider, chainId],
     );
   };
-
-export default uniqueUniqueContractGetterHookGenerator;

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
 import { Token } from 'types';
 
 export interface GetPendingRewardsInput {
@@ -7,11 +7,11 @@ export interface GetPendingRewardsInput {
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
   accountAddress: string;
-  resilientOracleContract: ContractTypeByName<'resilientOracle'>;
-  poolLensContract: ContractTypeByName<'poolLens'>;
-  vaiVaultContract: ContractTypeByName<'vaiVault'>;
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
-  venusLensContract?: ContractTypeByName<'venusLens'>;
+  resilientOracleContract: ResilientOracle;
+  poolLensContract: PoolLens;
+  vaiVaultContract: VaiVault;
+  xvsVaultContract: XvsVault;
+  venusLensContract?: VenusLens;
   mainPoolComptrollerContractAddress?: string;
 }
 

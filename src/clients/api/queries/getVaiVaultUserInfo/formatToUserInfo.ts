@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiVault } from 'packages/contractsNew';
 
 import { GetVaiVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({
   amount,
-}: Awaited<ReturnType<ContractTypeByName<'vaiVault'>['userInfo']>>): GetVaiVaultUserInfoOutput => ({
+}: Awaited<ReturnType<VaiVault['userInfo']>>): GetVaiVaultUserInfoOutput => ({
   stakedVaiWei: new BigNumber(amount.toString()),
 });
 

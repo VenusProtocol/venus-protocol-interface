@@ -1,7 +1,7 @@
-import addresses from 'packages/contractsNew/infos/addresses';
+import addresses from 'packages/contractsNew/generated/infos/addresses';
 import { ChainId } from 'types';
 
-import getSwapRouterContractAddress from '..';
+import { getSwapRouterContractAddress } from '..';
 
 const existingSwapRouterChainId = +Object.keys(addresses.SwapRouter)[0] as ChainId;
 const existingSwapRouterComptrollerAddress = Object.keys(

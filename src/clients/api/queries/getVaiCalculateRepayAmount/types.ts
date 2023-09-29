@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiController } from 'packages/contractsNew';
 
 export interface GetVaiCalculateRepayAmountInput {
   accountAddress: string;
   repayAmountWei: BigNumber;
-  vaiControllerContract: ContractTypeByName<'vaiController'>;
+  vaiControllerContract: VaiController;
 }
 
 export type GetVaiCalculateRepayAmountOutput = {

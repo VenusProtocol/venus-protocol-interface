@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
@@ -8,16 +8,8 @@ import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { VTokenApySnapshot } from './types';
 
 export interface FormatToApySnapshotsInput {
-  supplyRates: Awaited<
-    ReturnType<
-      (ContractTypeByName<'jumpRateModel'> | ContractTypeByName<'jumpRateModelV2'>)['getSupplyRate']
-    >
-  >[];
-  borrowRates: Awaited<
-    ReturnType<
-      (ContractTypeByName<'jumpRateModel'> | ContractTypeByName<'jumpRateModelV2'>)['getBorrowRate']
-    >
-  >[];
+  supplyRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getSupplyRate']>>[];
+  borrowRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getBorrowRate']>>[];
 }
 
 const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshotsInput) => {

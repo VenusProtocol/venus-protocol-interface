@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { VBnb, VToken as VTokenContract } from 'packages/contractsNew';
 
 export interface RedeemUnderlyingInput {
-  vTokenContract: ContractTypeByName<'vToken' | 'vBnb'>;
+  vTokenContract: VTokenContract | VBnb;
   amountWei: BigNumber;
 }
 

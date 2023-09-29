@@ -14,7 +14,7 @@ export interface SwapRouterContractGetterHookInput {
   passSigner?: boolean;
 }
 
-const swapRouterContractGetterHookGenerator =
+export const swapRouterContractGetterHookGenerator =
   <TContract extends Contract>({ getter }: SwapRouterContractGetterHookGeneratorInput<TContract>) =>
   ({ passSigner = false, comptrollerContractAddress }: SwapRouterContractGetterHookInput) => {
     const { signer, provider, chainId } = useAuth();
@@ -32,5 +32,3 @@ const swapRouterContractGetterHookGenerator =
       [signerOrProvider, chainId, comptrollerContractAddress],
     );
   };
-
-export default swapRouterContractGetterHookGenerator;

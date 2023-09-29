@@ -1,17 +1,16 @@
+import { useGetVaiControllerContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import useGetToken from 'hooks/useGetToken';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedRepayVai = Omit<RepayVaiInput, 'vaiControllerContract'>;
 type Options = MutationObserverOptions<IRepayVaiOutput, Error, TrimmedRepayVai>;
 
 const useRepayVai = (options?: Options) => {
-  const vaiControllerContract = useGetUniqueContract({
-    name: 'vaiController',
+  const vaiControllerContract = useGetVaiControllerContract({
     passSigner: true,
   });
 

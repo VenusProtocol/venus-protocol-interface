@@ -1,4 +1,9 @@
-import { ContractTypeByName } from 'packages/contracts';
+import {
+  MainPoolComptroller,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'packages/contractsNew';
 import { Pool, Token } from 'types';
 
 export interface GetMainPoolInput {
@@ -7,10 +12,10 @@ export interface GetMainPoolInput {
   xvs: Token;
   vai: Token;
   tokens: Token[];
-  mainPoolComptrollerContract: ContractTypeByName<'mainPoolComptroller'>;
-  venusLensContract: ContractTypeByName<'venusLens'>;
-  resilientOracleContract: ContractTypeByName<'resilientOracle'>;
-  vaiControllerContract: ContractTypeByName<'vaiController'>;
+  mainPoolComptrollerContract: MainPoolComptroller;
+  venusLensContract: VenusLens;
+  resilientOracleContract: ResilientOracle;
+  vaiControllerContract: VaiController;
   accountAddress?: string;
 }
 

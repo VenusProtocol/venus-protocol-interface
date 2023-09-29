@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { Multicall3 } from 'packages/contractsNew';
 import { Token } from 'types';
 
 export interface VaiVaultClaim {
@@ -31,7 +31,7 @@ export type Claim =
   | RewardsDistributorClaim;
 
 export interface ClaimRewardsInput {
-  multicallContract: ContractTypeByName<'multicall3'>;
+  multicallContract: Multicall3;
   mainPoolComptrollerContractAddress: string;
   vaiVaultContractAddress: string;
   xvsVaultContractAddress: string;

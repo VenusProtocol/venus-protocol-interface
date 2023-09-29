@@ -1,5 +1,5 @@
 import { Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
-import { getGenericContract } from 'packages/contracts';
+import { getPancakePairV2Contract } from 'packages/contractsNew';
 
 import formatToPairs from './formatToPairs';
 import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
@@ -31,8 +31,7 @@ const getPancakeSwapPairs = async ({
   // Fetch each token combination reserves
   const reservesResults = await Promise.allSettled(
     pairAddresses.map(pairAddress => {
-      const pancakePairContract = getGenericContract({
-        name: 'pancakePairV2',
+      const pancakePairContract = getPancakePairV2Contract({
         address: pairAddress.address,
         signerOrProvider: provider,
       });

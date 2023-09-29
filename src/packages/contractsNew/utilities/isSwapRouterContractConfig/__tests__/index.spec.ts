@@ -1,6 +1,6 @@
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import isSwapRouterContractConfig from '..';
+import { isSwapRouterContractConfig } from '..';
 
 describe('isSwapRouterContractConfig', () => {
   it('returns true when contract config is of type SwapRouterContractConfig', () => {

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VenusLens } from 'packages/contractsNew';
 import { Token } from 'types';
 
 import { MainPoolPendingRewardGroup } from '../types';
@@ -14,7 +14,7 @@ function formatToMainPoolPendingRewardGroup({
   comptrollerContractAddress: string;
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
-  venusLensPendingRewards: Awaited<ReturnType<ContractTypeByName<'venusLens'>['pendingRewards']>>;
+  venusLensPendingRewards: Awaited<ReturnType<VenusLens['pendingRewards']>>;
 }) {
   const rewardSummaryData = formatRewardSummaryData({
     rewardSummary: venusLensPendingRewards,

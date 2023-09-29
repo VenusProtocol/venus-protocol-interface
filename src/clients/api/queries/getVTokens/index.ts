@@ -1,4 +1,4 @@
-import { ContractTypeByName } from 'packages/contracts';
+import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contractsNew';
 import { Token, VToken } from 'types';
 
 import { logError } from 'context/ErrorLogger';
@@ -6,11 +6,11 @@ import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
   tokens: Token[];
-  poolLensContract: ContractTypeByName<'poolLens'>;
+  poolLensContract: PoolLens;
   poolRegistryContractAddress: string;
   // The VenusLens and main pool Comptroller contract only exists on the BSC network
-  venusLensContract?: ContractTypeByName<'venusLens'>;
-  mainPoolComptrollerContract?: ContractTypeByName<'mainPoolComptroller'>;
+  venusLensContract?: VenusLens;
+  mainPoolComptrollerContract?: MainPoolComptroller;
 }
 
 export type GetVTokensOutput = {

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiController } from 'packages/contractsNew';
 
 import fakeAddress from '__mocks__/models/address';
 
@@ -17,7 +17,7 @@ describe('api/queries/getVaiCalculateRepayAmount', () => {
         BN.from('1000'),
         BN.from('100'),
       ]),
-    } as unknown as ContractTypeByName<'vaiController'>;
+    } as unknown as VaiController;
 
     const response = await getVaiCalculateRepayAmount({
       accountAddress: fakeAddress,

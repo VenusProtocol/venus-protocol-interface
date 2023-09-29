@@ -1,13 +1,13 @@
 import { Contract, type ContractInterface, providers } from 'ethers';
-import getUniqueContractAddress from 'packages/contractsNew/getUniqueContractAddress';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeSwapRouterContractAddress from '__mocks__/models/address';
+import { getUniqueContractAddress } from 'packages/contractsNew/utilities/getUniqueContractAddress';
 
-import uniqueContractGetterGenerator from '..';
+import { uniqueContractGetterGenerator } from '..';
 
-vi.mock('packages/contractsNew/getUniqueContractAddress');
+vi.mock('packages/contractsNew/utilities/getUniqueContractAddress');
 
 const fakeProvider = new providers.JsonRpcProvider();
 

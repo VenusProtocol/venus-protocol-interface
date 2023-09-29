@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
 import { ContractConfig } from 'packages/contractsNew/config';
 
-import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
+import { isSwapRouterContractConfig } from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
@@ -51,7 +51,7 @@ export interface GenerateContractGettersInput {
   contractConfigs: ContractConfig[];
 }
 
-const generateGetters = ({
+export const generateGetters = async ({
   outputDirectoryPath,
   contractConfigs,
 }: GenerateContractGettersInput) => {
@@ -76,5 +76,3 @@ const generateGetters = ({
     content: indexTemplate({ fileNames }),
   });
 };
-
-export default generateGetters;

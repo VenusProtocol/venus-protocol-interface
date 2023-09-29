@@ -13,6 +13,7 @@ import {
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { useGetSwapRouterContractAddress } from 'packages/contractsNew';
 import { isTokenActionEnabled } from 'packages/tokens';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -29,7 +30,6 @@ import { useAuth } from 'context/AuthContext';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapRouterContractAddress from 'hooks/useGetSwapRouterContractAddress';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -339,7 +339,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   });
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerAddress: pool.comptrollerAddress,
+    comptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)

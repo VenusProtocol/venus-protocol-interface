@@ -1,3 +1,4 @@
+import { useGetXvsVaultContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -8,14 +9,12 @@ import {
   setVoteDelegate,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedSetVoteDelegateInput = Omit<SetVoteDelegateInput, 'xvsVaultContract'>;
 type Options = MutationObserverOptions<SetVoteDelegateOutput, Error, TrimmedSetVoteDelegateInput>;
 
 const useSetVoteDelegate = (options?: Options) => {
-  const xvsVaultContract = useGetUniqueContract({
-    name: 'xvsVault',
+  const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
 

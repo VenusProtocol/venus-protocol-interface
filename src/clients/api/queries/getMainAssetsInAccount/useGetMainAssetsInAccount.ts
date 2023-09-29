@@ -1,3 +1,4 @@
+import { useGetMainPoolComptrollerContract } from 'packages/contractsNew';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getMainAssetsInAccount, {
   GetMainAssetsInAccountOutput,
 } from 'clients/api/queries/getMainAssetsInAccount';
 import FunctionKey from 'constants/functionKey';
-import useGetUniqueContract from 'hooks/useGetUniqueContract';
 
 type TrimmedGetMainAssetsInAccountOutput = Omit<
   GetMainAssetsInAccountInput,
@@ -25,9 +25,7 @@ const useGetMainAssetsInAccount = (
   input: TrimmedGetMainAssetsInAccountOutput,
   options?: Options,
 ) => {
-  const mainPoolComptrollerContract = useGetUniqueContract({
-    name: 'mainPoolComptroller',
-  });
+  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
 
   return useQuery(
     [FunctionKey.GET_MAIN_ASSETS_IN_ACCOUNT, input],

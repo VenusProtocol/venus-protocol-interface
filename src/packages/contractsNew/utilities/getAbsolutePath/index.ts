@@ -8,7 +8,5 @@ export interface GetAbsolutePathInput {
   relativePath: string;
 }
 
-const getAbsolutePath = ({ relativePath }: GetAbsolutePathInput) =>
+export const getAbsolutePath = ({ relativePath }: GetAbsolutePathInput) =>
   path.join(cwd(), `${CONTRACTS_PACKAGE_PATH}/${relativePath}`);
-
-export default getAbsolutePath;

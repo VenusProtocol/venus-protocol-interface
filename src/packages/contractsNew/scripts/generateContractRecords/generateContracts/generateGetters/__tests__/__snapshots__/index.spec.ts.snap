@@ -3,11 +3,21 @@
 exports[`generateGetters > calls writeFile with the right arguments 1`] = `
 [
   {
-    "content": "import abi from 'packages/contractsNew/infos/abis/PoolLens.json';
-import { PoolLens } from 'packages/contractsNew/infos/contractTypes';
+    "content": "import abi from 'packages/contractsNew/generated/infos/abis/PoolLens.json';
+import { PoolLens } from 'packages/contractsNew/generated/infos/contractTypes';
 
-import uniqueContractGetterGenerator from 'packages/contractsNew/utilities/uniqueContractGetterGenerator';
-import uniqueContractGetterHookGenerator from 'packages/contractsNew/utilities/uniqueContractGetterHookGenerator';
+import { uniqueContractAddressGetterGenerator } from 'packages/contractsNew/utilities/uniqueContractAddressGetterGenerator';
+import { uniqueContractAddressGetterHookGenerator } from 'packages/contractsNew/utilities/uniqueContractAddressGetterHookGenerator';
+import { uniqueContractGetterGenerator } from 'packages/contractsNew/utilities/uniqueContractGetterGenerator';
+import { uniqueContractGetterHookGenerator } from 'packages/contractsNew/utilities/uniqueContractGetterHookGenerator';
+
+export const getPoolLensContractAddress = uniqueContractAddressGetterGenerator({
+  name: 'PoolLens',
+});
+
+export const useGetPoolLensContractAddress = uniqueContractAddressGetterHookGenerator({
+  getter: getPoolLensContractAddress,
+});
 
 export const getPoolLensContract = uniqueContractGetterGenerator<PoolLens>({
   name: 'PoolLens',
@@ -26,11 +36,11 @@ export const useGetPoolLensContract = uniqueContractGetterHookGenerator({
 exports[`generateGetters > calls writeFile with the right arguments 2`] = `
 [
   {
-    "content": "import abi from 'packages/contractsNew/infos/abis/IsolatedPoolComptroller.json';
-import { IsolatedPoolComptroller } from 'packages/contractsNew/infos/contractTypes';
+    "content": "import abi from 'packages/contractsNew/generated/infos/abis/IsolatedPoolComptroller.json';
+import { IsolatedPoolComptroller } from 'packages/contractsNew/generated/infos/contractTypes';
 
-import genericContractGetterGenerator from 'packages/contractsNew/utilities/genericContractGetterGenerator';
-import genericContractGetterHookGenerator from 'packages/contractsNew/utilities/genericContractGetterHookGenerator';
+import { genericContractGetterGenerator } from 'packages/contractsNew/utilities/genericContractGetterGenerator';
+import { genericContractGetterHookGenerator } from 'packages/contractsNew/utilities/genericContractGetterHookGenerator';
 
 export const getIsolatedPoolComptrollerContract = genericContractGetterGenerator<IsolatedPoolComptroller>({
   abi,
@@ -48,17 +58,20 @@ export const useGetIsolatedPoolComptrollerContract = genericContractGetterHookGe
 exports[`generateGetters > calls writeFile with the right arguments 3`] = `
 [
   {
-    "content": "import abi from 'packages/contractsNew/infos/abis/SwapRouter.json';
-import { SwapRouter } from 'packages/contractsNew/infos/contractTypes';
+    "content": "import abi from 'packages/contractsNew/generated/infos/abis/SwapRouter.json';
+import { SwapRouter } from 'packages/contractsNew/generated/infos/contractTypes';
 
-import swapRouterContractGetterGenerator from 'packages/contractsNew/utilities/swapRouterContractGetterGenerator';
-import swapRouterContractHookGenerator from 'packages/contractsNew/utilities/swapRouterContractGetterHookGenerator';
+import { swapRouterContractGetterGenerator } from 'packages/contractsNew/utilities/swapRouterContractGetterGenerator';
+import { swapRouterContractGetterHookGenerator } from 'packages/contractsNew/utilities/swapRouterContractGetterHookGenerator';
+
+export * from 'packages/contractsNew/utilities/useGetSwapRouterContractAddress';
+export * from 'packages/contractsNew/utilities/getSwapRouterContractAddress';
 
 export const getSwapRouterContract = swapRouterContractGetterGenerator<SwapRouter>({
   abi,
 });
 
-export const useGetSwapRouterContract = swapRouterContractHookGenerator({
+export const useGetSwapRouterContract = swapRouterContractGetterHookGenerator({
   getter: getSwapRouterContract,
 });
 ",

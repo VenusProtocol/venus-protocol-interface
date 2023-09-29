@@ -1,9 +1,9 @@
 import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import { ContractTypeByName } from 'packages/contracts';
+import { XvsVault } from 'packages/contractsNew';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
-  xvsVaultContract: ContractTypeByName<'xvsVault'>;
+  xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
 }

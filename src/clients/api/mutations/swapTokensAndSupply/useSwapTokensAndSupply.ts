@@ -1,3 +1,4 @@
+import { useGetSwapRouterContract } from 'packages/contractsNew';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -11,7 +12,6 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useAnalytics } from 'context/Analytics';
-import useGetSwapRouterContract from 'hooks/useGetSwapRouterContract';
 
 type TrimmedSwapTokensAndSupplyInput = Omit<
   SwapTokensAndSupplyInput,
@@ -32,7 +32,7 @@ const useSwapTokensAndSupply = (
   options?: Options,
 ) => {
   const swapRouterContract = useGetSwapRouterContract({
-    comptrollerAddress: poolComptrollerAddress,
+    comptrollerContractAddress: poolComptrollerAddress,
     passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();

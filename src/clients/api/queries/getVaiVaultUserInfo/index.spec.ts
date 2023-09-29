@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ContractTypeByName } from 'packages/contracts';
+import { VaiVault } from 'packages/contractsNew';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAddress from '__mocks__/models/address';
@@ -12,7 +12,7 @@ describe('api/queries/getVaiVaultUserInfo', () => {
 
     const fakeContract = {
       userInfo: userInfoMock,
-    } as unknown as ContractTypeByName<'vaiVault'>;
+    } as unknown as VaiVault;
 
     const response = await getVaiVaultUserInfo({
       vaiVaultContract: fakeContract,

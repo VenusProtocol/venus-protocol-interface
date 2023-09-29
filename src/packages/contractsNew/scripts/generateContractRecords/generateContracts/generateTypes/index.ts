@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { ContractConfig } from 'packages/contractsNew/config';
 import { glob, runTypeChain } from 'typechain';
 
-import isSwapRouterContractConfig from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
+import { isSwapRouterContractConfig } from 'packages/contractsNew/utilities/isSwapRouterContractConfig';
 import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 
@@ -19,7 +19,7 @@ export interface GenerateTypesInput {
   contractTypesOutputDirectoryPath: string;
 }
 
-const generateTypes = async ({
+export const generateTypes = async ({
   contractConfigs,
   abiDirectoryPath,
   contractTypesOutputDirectoryPath,
@@ -65,5 +65,3 @@ const generateTypes = async ({
     content: typesOutput,
   });
 };
-
-export default generateTypes;
