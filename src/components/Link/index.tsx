@@ -15,7 +15,7 @@ export const Link: React.FC<LinkProps> = ({ className, children, ...otherProps }
       {children}
     </RRLink>
   ) : (
-    <a className={classes} target="_blank" {...otherProps}>
+    <a className={classes} target="_blank" rel="noreferrer" {...otherProps}>
       {children}
     </a>
   );

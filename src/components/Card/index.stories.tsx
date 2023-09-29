@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
 
-import Card from '.';
+import { Card } from '.';
 
 export default {
   title: 'Components/Card',

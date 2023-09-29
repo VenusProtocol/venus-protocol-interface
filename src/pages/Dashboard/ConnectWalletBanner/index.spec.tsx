@@ -5,7 +5,7 @@ import fakeAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import ConnectWalletBanner, { ConnectWalletBannerUi } from '.';
+import { ConnectWalletBanner, ConnectWalletBannerUi } from '.';
 
 describe('pages/Dashboard/ConnectWalletBanner', () => {
   it('renders without crashing', () => {

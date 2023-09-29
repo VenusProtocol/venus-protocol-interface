@@ -4,6 +4,7 @@ import { useTranslation } from 'translation';
 import { ChainId, Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 
+import { Link } from '../Link';
 import { NoticeInfo, NoticeWarning } from '../Notice';
 
 export interface TokenAnnouncementProps {
@@ -32,12 +33,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
             i18nKey="announcements.tusdMigration.description"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-trueusd-tusd-contract-swap-52b29fadf71542afabf23acf3454f9c7"
-                  rel="noreferrer"
-                  target="_blank"
-                />
+                <Link href="https://www.binance.com/en/support/announcement/binance-will-support-the-trueusd-tusd-contract-swap-52b29fadf71542afabf23acf3454f9c7" />
               ),
             }}
           />
@@ -59,11 +55,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
             i18nKey="announcements.trxMigration.description"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a"
-                  rel="noreferrer"
-                />
+                <Link href="https://www.binance.com/en/support/announcement/binance-will-support-the-tron-trx-contract-swap-494f53e94eb64adc8335b88f7e14006a" />
               ),
             }}
           />
@@ -95,12 +87,7 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
             i18nKey="announcements.bethUpdate.description"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://www.binance.com/en/support/announcement/binance-supports-beth-to-wbeth-conversion-on-bnb-smart-chain-a7d439452e034c3c85fcc7128d0973b0"
-                  rel="noreferrer"
-                  target="_blank"
-                />
+                <Link href="https://www.binance.com/en/support/announcement/binance-supports-beth-to-wbeth-conversion-on-bnb-smart-chain-a7d439452e034c3c85fcc7128d0973b0" />
               ),
             }}
           />
