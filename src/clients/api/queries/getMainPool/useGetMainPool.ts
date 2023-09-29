@@ -48,6 +48,10 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
 
+  return {
+    data: undefined,
+  };
+
   return useQuery(
     [FunctionKey.GET_MAIN_POOL, input],
     () =>

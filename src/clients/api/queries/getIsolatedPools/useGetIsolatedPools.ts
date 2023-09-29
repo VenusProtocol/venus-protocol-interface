@@ -41,6 +41,10 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const resilientOracleContract = useGetResilientOracleContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
+  return {
+    data: undefined,
+  };
+
   return useQuery(
     [FunctionKey.GET_ISOLATED_POOLS, input],
     () =>
