@@ -1,8 +1,7 @@
+import disabledTokenActions from 'packages/tokens/tokenInfos/disabledTokenActions';
 import { ChainId, TokenAction } from 'types';
 
 import areAddressesEqual from 'utilities/areAddressesEqual';
-
-import disabledTokenActions from '../tokenInfos/disabledTokenActions';
 
 export interface IsTokenActionEnabledInput {
   tokenAddress: string;
