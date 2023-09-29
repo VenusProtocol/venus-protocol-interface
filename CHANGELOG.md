@@ -1,3 +1,10 @@
+## [2.26.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.25.2...v2.26.0) (2023-09-29)
+
+
+### Features
+
+* add support for agEUR and ANGLE tokens ([#1511](https://github.com/VenusProtocol/venus-protocol-interface/issues/1511)) ([7de4bdc](https://github.com/VenusProtocol/venus-protocol-interface/commit/7de4bdc8ea1bc81cead3a4c6163ae0c07fcad21a))
+
 ## [2.25.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.25.1...v2.25.2) (2023-09-29)
 
 ## [2.25.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.25.0...v2.25.1) (2023-09-28)
