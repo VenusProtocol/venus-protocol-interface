@@ -1,6 +1,8 @@
 import aaveLogo from 'packages/tokens/img/aave.svg';
 import adaLogo from 'packages/tokens/img/ada.svg';
+import ageurLogo from 'packages/tokens/img/agEUR.svg';
 import alpacaLogo from 'packages/tokens/img/alpaca.png';
+import angleLogo from 'packages/tokens/img/angle.svg';
 import ankrLogo from 'packages/tokens/img/ankr.svg';
 import ankrbnbLogo from 'packages/tokens/img/ankrBNB.svg';
 import bchLogo from 'packages/tokens/img/bch.svg';
@@ -110,7 +112,6 @@ export const tokens: Token[] = [
     symbol: 'BUSD',
     asset: busdLogo,
   },
-
   {
     address: '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
     decimals: 18,
@@ -357,5 +358,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'SnBNB',
     asset: snbnbLogo,
+  },
+  {
+    address: '0x12f31b73d812c6bb0d735a218c086d44d5fe5f89',
+    decimals: 18,
+    symbol: 'agEUR',
+    asset: ageurLogo,
+  },
+  {
+    address: '0x97B6897AAd7aBa3861c04C0e6388Fc02AF1F227f',
+    decimals: 18,
+    symbol: 'ANGLE',
+    asset: angleLogo,
   },
 ];
