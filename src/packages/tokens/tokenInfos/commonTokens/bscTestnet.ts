@@ -1,6 +1,8 @@
 import aaveLogo from 'packages/tokens/img/aave.svg';
 import adaLogo from 'packages/tokens/img/ada.svg';
+import ageurLogo from 'packages/tokens/img/agEUR.svg';
 import alpacaLogo from 'packages/tokens/img/alpaca.png';
+import angleLogo from 'packages/tokens/img/angle.svg';
 import ankrLogo from 'packages/tokens/img/ankr.svg';
 import ankrBNBLogo from 'packages/tokens/img/ankrBNB.svg';
 import bifiLogo from 'packages/tokens/img/bifi.png';
@@ -309,5 +311,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'SnBNB',
     asset: snbnbLogo,
+  },
+  {
+    address: '0x63061de4A25f24279AAab80400040684F92Ee319',
+    decimals: 18,
+    symbol: 'agEUR',
+    asset: ageurLogo,
+  },
+  {
+    address: '0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a',
+    decimals: 18,
+    symbol: 'ANGLE',
+    asset: angleLogo,
   },
 ];
