@@ -10,6 +10,7 @@ export const theme = {
     xxl: '1440px',
   },
   colors: {
+    inherit: 'inherit',
     transparent: 'transparent',
     // The next colors are taken from the UI kit in Figma
     background: '#181D27',

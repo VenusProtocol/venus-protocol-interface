@@ -182,14 +182,6 @@ export const useStyles = () => {
       text-overflow: ellipsis;
       padding: ${theme.spacing(0, 4)};
 
-      a {
-        color: inherit;
-      }
-
-      a > * {
-        color: inherit;
-      }
-
       :first-of-type > a {
         padding-left: 0;
       }
