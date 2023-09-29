@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
+import { useGetToken } from 'packages/tokens';
 import { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
-import useGetToken from 'hooks/useGetToken';
 
 export interface UseStakeInVaultInput {
   stakedToken: Token;

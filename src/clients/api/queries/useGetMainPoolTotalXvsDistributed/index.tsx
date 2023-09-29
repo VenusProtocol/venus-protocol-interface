@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
-import useGetToken from 'hooks/useGetToken';
 
 export interface UseGetMainPoolTotalXvsDistributedOutput {
   isLoading: boolean;

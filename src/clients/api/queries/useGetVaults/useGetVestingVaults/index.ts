@@ -1,3 +1,4 @@
+import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 import { Vault } from 'types';
@@ -13,8 +14,6 @@ import {
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import useGetToken from 'hooks/useGetToken';
-import useGetTokens from 'hooks/useGetTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';

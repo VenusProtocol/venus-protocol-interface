@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
@@ -18,7 +19,6 @@ import { Tooltip } from 'components/Tooltip';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
-import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';

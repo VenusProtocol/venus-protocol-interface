@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { useGetTokens } from 'packages/tokens';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';
-
-import useGetTokens from 'hooks/useGetTokens';
 
 import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';

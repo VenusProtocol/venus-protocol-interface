@@ -1,5 +1,6 @@
-import { tokens } from 'packages/tokens/tokenInfos/commonTokens';
 import { ChainId } from 'types';
+
+import { tokens } from '../../tokenInfos/commonTokens';
 
 export interface GetTokensInput {
   chainId: ChainId;

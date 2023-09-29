@@ -17,6 +17,7 @@ import {
   useGetMainPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
 } from 'packages/contractsNew';
+import { useGetToken, useGetTokens } from 'packages/tokens';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
@@ -27,8 +28,6 @@ import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import useGetToken from 'hooks/useGetToken';
-import useGetTokens from 'hooks/useGetTokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 

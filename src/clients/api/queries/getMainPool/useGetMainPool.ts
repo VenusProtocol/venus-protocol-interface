@@ -4,14 +4,13 @@ import {
   useGetVaiControllerContract,
   useGetVenusLensContract,
 } from 'packages/contractsNew';
+import { useGetToken, useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import FunctionKey from 'constants/functionKey';
-import useGetToken from 'hooks/useGetToken';
-import useGetTokens from 'hooks/useGetTokens';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,

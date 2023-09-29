@@ -2,6 +2,7 @@
 import { BigNumber } from 'bignumber.js';
 import { Spinner } from 'components';
 import { ContractReceipt } from 'ethers';
+import { useGetToken, useGetTokens } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -10,8 +11,6 @@ import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
-import useGetTokens from 'hooks/useGetTokens';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';

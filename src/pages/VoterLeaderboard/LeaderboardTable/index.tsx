@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import { EllipseAddress, Table, TableColumn } from 'components';
 import _cloneDeep from 'lodash/cloneDeep';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -9,7 +10,6 @@ import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { routes } from 'constants/routing';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 

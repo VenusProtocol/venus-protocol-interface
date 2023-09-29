@@ -2,6 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -9,7 +10,6 @@ import { Token } from 'types';
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';

@@ -51,6 +51,5 @@ storybook-static
 /src/clients/subgraph/gql/mainnet.ts
 /src/clients/subgraph/gql/testnet.ts
 
-
 # Version in package.json exposed to the dApp
 /src/constants/version.ts

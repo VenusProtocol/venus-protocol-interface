@@ -4,6 +4,7 @@ import {
   useGetPoolRegistryContractAddress,
   useGetVenusLensContract,
 } from 'packages/contractsNew';
+import { useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -11,7 +12,6 @@ import { callOrThrow } from 'utilities';
 import getVTokens, { GetVTokensOutput } from 'clients/api/queries/getVTokens';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
-import useGetTokens from 'hooks/useGetTokens';
 
 export type UseGetVTokensQueryKey = [
   FunctionKey.GET_VTOKENS,

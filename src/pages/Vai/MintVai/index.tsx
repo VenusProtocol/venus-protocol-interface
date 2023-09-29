@@ -10,6 +10,7 @@ import {
 } from 'components';
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
+import { useGetToken } from 'packages/tokens';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -31,7 +32,6 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useGetToken from 'hooks/useGetToken';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';

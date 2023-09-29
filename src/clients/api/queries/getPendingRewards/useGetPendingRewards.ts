@@ -6,12 +6,12 @@ import {
   useGetVenusLensContract,
   useGetXvsVaultContract,
 } from 'packages/contractsNew';
+import { useGetTokens } from 'packages/tokens';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
-import useGetTokens from 'hooks/useGetTokens';
 
 import getPendingRewardGroups from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';

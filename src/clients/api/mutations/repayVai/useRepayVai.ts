@@ -1,10 +1,10 @@
 import { useGetVaiControllerContract } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetToken from 'hooks/useGetToken';
 
 type TrimmedRepayVai = Omit<RepayVaiInput, 'vaiControllerContract'>;
 type Options = MutationObserverOptions<IRepayVaiOutput, Error, TrimmedRepayVai>;

@@ -1,4 +1,5 @@
 import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetToken } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getXvsVaultPoolCount, {
   GetXvsVaultPoolCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolCount';
 import FunctionKey from 'constants/functionKey';
-import useGetToken from 'hooks/useGetToken';
 
 type Options = QueryObserverOptions<
   GetXvsVaultPoolCountOutput,

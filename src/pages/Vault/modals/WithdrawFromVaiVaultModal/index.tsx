@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 

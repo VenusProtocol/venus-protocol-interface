@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
@@ -8,7 +9,6 @@ import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import { useGetVaiCalculateRepayAmount } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useDebounceValue from 'hooks/useDebounceValue';
-import useGetToken from 'hooks/useGetToken';
 
 import { useStyles } from '../styles';
 

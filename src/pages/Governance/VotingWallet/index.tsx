@@ -11,6 +11,7 @@ import {
   TokenIcon,
 } from 'components';
 import { ContractReceipt } from 'ethers';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -26,7 +27,6 @@ import {
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from './DelegateModal';

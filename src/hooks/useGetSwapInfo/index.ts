@@ -6,13 +6,13 @@ import {
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { SwapError } from 'types';
 import { areTokensEqual, convertTokensToWei } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useGetToken from 'hooks/useGetToken';
 
 import formatToSwap from './formatToSwap';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
