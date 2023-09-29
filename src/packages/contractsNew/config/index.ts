@@ -70,7 +70,8 @@ export const contracts: ContractConfig[] = [
     abi: VenusLensAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VenusLens,
-      [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.VenusLens,
+      // TODO: get address from package once it gets updated
+      [ChainId.BSC_MAINNET]: '0x892D8E61B5151a1E200A64bd5F766784771D7355',
     },
   },
   {
