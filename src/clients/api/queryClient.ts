@@ -10,6 +10,7 @@ const queryClient = new QueryClient({
       // more info: https://react-query.tanstack.com/guides/important-defaults)
       staleTime: 10000,
       onError: logError,
+      enabled: false,
     },
     mutations: {
       onError: logError,
