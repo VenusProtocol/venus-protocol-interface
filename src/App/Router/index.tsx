@@ -1,3 +1,4 @@
+import { SuspenseWithSpinner } from 'components';
 import React, { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { isFeatureEnabled } from 'utilities';
@@ -5,8 +6,6 @@ import { isFeatureEnabled } from 'utilities';
 import 'assets/styles/App.scss';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
-
-import PageSuspense from './PageSuspense';
 
 const Dashboard = lazy(() => import('pages/Dashboard'));
 const Account = lazy(() => import('pages/Account'));
@@ -54,9 +53,9 @@ const Router = () => {
       <Route
         path={routes.dashboard.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Dashboard />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
@@ -64,9 +63,9 @@ const Router = () => {
         <Route
           path={routes.account.path}
           element={
-            <PageSuspense>
+            <SuspenseWithSpinner>
               <Account />
-            </PageSuspense>
+            </SuspenseWithSpinner>
           }
         />
       )}
@@ -75,9 +74,9 @@ const Router = () => {
         <Route
           path={routes.isolatedPools.path}
           element={
-            <PageSuspense>
+            <SuspenseWithSpinner>
               <IsolatedPools />
-            </PageSuspense>
+            </SuspenseWithSpinner>
           }
         />
       )}
@@ -86,9 +85,9 @@ const Router = () => {
         <Route
           path={routes.isolatedPool.path}
           element={
-            <PageSuspense>
+            <SuspenseWithSpinner>
               <IsolatedPool />
-            </PageSuspense>
+            </SuspenseWithSpinner>
           }
         />
       )}
@@ -97,9 +96,9 @@ const Router = () => {
         <Route
           path={routes.isolatedPoolMarket.path}
           element={
-            <PageSuspense>
+            <SuspenseWithSpinner>
               <IsolatedPoolMarket />
-            </PageSuspense>
+            </SuspenseWithSpinner>
           }
         />
       )}
@@ -107,35 +106,35 @@ const Router = () => {
       <Route
         path={routes.corePool.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <CorePool />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
       <Route
         path={routes.corePoolMarket.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <CorePoolMarket />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.vaults.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Vaults />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.history.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <History />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
@@ -143,70 +142,70 @@ const Router = () => {
       <Route
         path={`${routes.governance.path}/*`}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Governance />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.governanceLeaderBoard.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <VoterLeaderboard />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
       <Route
         path={routes.governanceVoter.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Voter />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
       <Route
         path={routes.governanceProposal.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Proposal />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.xvs.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Xvs />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.convertVrt.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <ConvertVrt />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.swap.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Swap />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 
       <Route
         path={routes.vai.path}
         element={
-          <PageSuspense>
+          <SuspenseWithSpinner>
             <Vai />
-          </PageSuspense>
+          </SuspenseWithSpinner>
         }
       />
 

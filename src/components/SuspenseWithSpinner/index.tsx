@@ -2,12 +2,10 @@ import React, { Suspense } from 'react';
 
 import { Spinner } from 'components/Spinner';
 
-export interface PageSuspenseProps {
+export interface SuspenseWithSpinnerProps {
   children: React.ReactNode;
 }
 
-const PageSuspense: React.FC<PageSuspenseProps> = ({ children }) => (
+export const SuspenseWithSpinner: React.FC<SuspenseWithSpinnerProps> = ({ children }) => (
   <Suspense fallback={<Spinner />}>{children}</Suspense>
 );
-
-export default PageSuspense;
