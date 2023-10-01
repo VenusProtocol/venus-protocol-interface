@@ -5,19 +5,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { useTranslation } from 'translation';
 
 import { ReactComponent as LogoNoText } from 'assets/img/venusLogoPure.svg';
 import { ReactComponent as LogoDesktop } from 'assets/img/venusLogoWithText.svg';
 
 import { Icon } from '../../Icon';
-import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';
 import Link from './Link';
 import { useStyles } from './styles';
 import useGetMenuItems from './useGetMenuItems';
+
+const ClaimRewardButton = lazy(() => import('../ClaimRewardButton'));
 
 export const SidebarUi: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -149,7 +150,9 @@ export const SidebarUi: React.FC = () => {
             ))}
           </List>
 
-          <ClaimRewardButton css={styles.claimRewardButton} />
+          <Suspense>
+            <ClaimRewardButton css={styles.claimRewardButton} />
+          </Suspense>
         </Menu>
       </div>
     </>

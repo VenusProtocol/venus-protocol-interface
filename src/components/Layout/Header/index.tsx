@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import AppBar from '@mui/material/AppBar';
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 
-import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';
 import Breadcrumbs from './Breadcrumbs';
 import { useStyles } from './styles';
+
+const ClaimRewardButton = lazy(() => import('../ClaimRewardButton'));
 
 const Header: React.FC = () => {
   const styles = useStyles();
@@ -17,7 +18,10 @@ const Header: React.FC = () => {
         <Breadcrumbs />
 
         <div css={styles.ctaContainer}>
-          <ClaimRewardButton css={styles.claimXvsButton} />
+          <Suspense>
+            <ClaimRewardButton css={styles.claimXvsButton} />
+          </Suspense>
+
           <ConnectButton />
         </div>
       </Toolbar>
