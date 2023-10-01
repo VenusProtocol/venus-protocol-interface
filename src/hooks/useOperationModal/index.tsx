@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { Suspense, lazy, useCallback, useState } from 'react';
 
-import Modal, { OperationModalProps } from './Modal';
+import { type OperationModalProps } from './Modal';
+
+const Modal = lazy(() => import('./Modal'));
 
 interface Params {
   vToken: OperationModalProps['vToken'];
@@ -16,7 +18,11 @@ const useOperationModal = () => {
       return <></>;
     }
 
-    return <Modal {...params} onClose={() => setParams(undefined)} />;
+    return (
+      <Suspense>
+        <Modal {...params} onClose={() => setParams(undefined)} />
+      </Suspense>
+    );
   }, [params]);
 
   return {
