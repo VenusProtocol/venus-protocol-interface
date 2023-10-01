@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, NoticeWarning, TokenIcon } from 'components';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { Suspense, lazy, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
@@ -13,9 +13,12 @@ import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
-import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
+
+const StakeModal = lazy(() => import('../modals/StakeModal'));
+const WithdrawFromVaiVaultModal = lazy(() => import('../modals/WithdrawFromVaiVaultModal'));
+const WithdrawFromVestingVaultModal = lazy(() => import('../modals/WithdrawFromVestingVaultModal'));
 
 type ActiveModal = 'stake' | 'withdraw';
 
@@ -175,25 +178,31 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       </Paper>
 
       {activeModal === 'stake' && (
-        <StakeModal
-          stakedToken={stakedToken}
-          rewardToken={rewardToken}
-          handleClose={closeActiveModal}
-          poolIndex={poolIndex}
-        />
+        <Suspense>
+          <StakeModal
+            stakedToken={stakedToken}
+            rewardToken={rewardToken}
+            handleClose={closeActiveModal}
+            poolIndex={poolIndex}
+          />
+        </Suspense>
       )}
 
       {activeModal === 'withdraw' && poolIndex === undefined && stakedToken.symbol === 'VAI' && (
-        <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+        <Suspense>
+          <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+        </Suspense>
       )}
 
       {activeModal === 'withdraw' && poolIndex !== undefined && (
-        <WithdrawFromVestingVaultModal
-          handleClose={closeActiveModal}
-          stakedToken={stakedToken}
-          poolIndex={poolIndex}
-          hasPendingWithdrawalsFromBeforeUpgrade={hasPendingWithdrawalsFromBeforeUpgrade || false}
-        />
+        <Suspense>
+          <WithdrawFromVestingVaultModal
+            handleClose={closeActiveModal}
+            stakedToken={stakedToken}
+            poolIndex={poolIndex}
+            hasPendingWithdrawalsFromBeforeUpgrade={hasPendingWithdrawalsFromBeforeUpgrade || false}
+          />
+        </Suspense>
       )}
     </>
   );

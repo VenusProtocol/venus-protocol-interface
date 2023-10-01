@@ -12,7 +12,7 @@ import {
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo, useState } from 'react';
+import React, { Suspense, lazy, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -29,9 +29,10 @@ import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useAuth } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import DelegateModal from './DelegateModal';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
+
+const DelegateModal = lazy(() => import('./DelegateModal'));
 
 interface VotingWalletUiProps {
   votingWeightWei: BigNumber;
@@ -195,15 +196,17 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         {t('vote.goToXvsSnapshot')}
       </SecondaryAnchorButton>
 
-      <DelegateModal
-        onClose={() => setDelegateModelIsOpen(false)}
-        isOpen={delegateModelIsOpen}
-        currentUserAccountAddress={currentUserAccountAddress}
-        previouslyDelegated={previouslyDelegated}
-        setVoteDelegation={setVoteDelegation}
-        isVoteDelegationLoading={isVoteDelegationLoading}
-        openAuthModal={openAuthModal}
-      />
+      <Suspense>
+        <DelegateModal
+          onClose={() => setDelegateModelIsOpen(false)}
+          isOpen={delegateModelIsOpen}
+          currentUserAccountAddress={currentUserAccountAddress}
+          previouslyDelegated={previouslyDelegated}
+          setVoteDelegation={setVoteDelegation}
+          isVoteDelegationLoading={isVoteDelegationLoading}
+          openAuthModal={openAuthModal}
+        />
+      </Suspense>
     </div>
   );
 };

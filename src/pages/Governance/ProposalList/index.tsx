@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import { ContractReceipt } from 'ethers';
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
@@ -20,9 +20,10 @@ import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
-import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';
+
+const CreateProposalModal = lazy(() => import('./CreateProposalModal'));
 
 interface ProposalListUiProps {
   proposals: Proposal[];
@@ -125,15 +126,17 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
       )}
 
       {showCreateProposalModal && (
-        <CreateProposalModal
-          isOpen={showCreateProposalModal}
-          handleClose={() => {
-            setShowCreateProposalModal(false);
-            navigate(routes.governance.path);
-          }}
-          createProposal={createProposal}
-          isCreateProposalLoading={isCreateProposalLoading}
-        />
+        <Suspense>
+          <CreateProposalModal
+            isOpen={showCreateProposalModal}
+            handleClose={() => {
+              setShowCreateProposalModal(false);
+              navigate(routes.governance.path);
+            }}
+            createProposal={createProposal}
+            isCreateProposalLoading={isCreateProposalLoading}
+          />
+        </Suspense>
       )}
     </div>
   );
