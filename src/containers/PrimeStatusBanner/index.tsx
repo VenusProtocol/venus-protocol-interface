@@ -1,13 +1,12 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
-import { Link } from 'components';
+import clsx from 'clsx';
+import { Card, Link } from 'components';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
@@ -21,8 +20,6 @@ import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-
-import { useStyles } from './styles';
 
 export interface PrimeStatusBannerUiProps {
   xvs: Token;
@@ -53,7 +50,6 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   onClaimPrimeToken,
   onRedirectToXvsVaultPage,
 }) => {
-  const styles = useStyles();
   const { Trans, t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
 
@@ -122,7 +118,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         <Trans
           i18nKey="primeStatusBanner.promotionalTitle"
           components={{
-            GreenText: <span css={styles.greenText} />,
+            GreenText: <span className="text-green" />,
           }}
           values={{
             percentage: readableApyBoostPercentage,
@@ -132,59 +128,54 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     }
   }, [hidePromotionalTitle, readableApyBoostPercentage, isUserXvsStakeHighEnoughForPrime]);
 
-  const ctaButton = useMemo(() => {
-    if (haveAllPrimeTokensBeenClaimed) {
-      return undefined;
-    }
-
-    if (isUserXvsStakeHighEnoughForPrime) {
-      return (
-        <PrimaryButton
-          onClick={handleClaimPrimeToken}
-          css={styles.button}
-          loading={isClaimPrimeTokenLoading}
-        >
-          {t('primeStatusBanner.claimButtonLabel')}
-        </PrimaryButton>
-      );
-    }
-
-    return (
-      <PrimaryButton onClick={onRedirectToXvsVaultPage} css={styles.button}>
-        {t('primeStatusBanner.stakeButtonLabel')}
-      </PrimaryButton>
-    );
-  }, [isUserXvsStakeHighEnoughForPrime, haveAllPrimeTokensBeenClaimed]);
+  const displayProgress = !isUserXvsStakeHighEnoughForPrime;
+  const displayWarning = haveAllPrimeTokensBeenClaimed;
+  const displayStakeButton =
+    !haveAllPrimeTokensBeenClaimed && !hidePromotionalTitle && !isUserXvsStakeHighEnoughForPrime;
+  const displayClaimButton =
+    !haveAllPrimeTokensBeenClaimed &&
+    isUserXvsStakeHighEnoughForPrime &&
+    primeClaimWaitingPeriodSeconds <= 0;
 
   return (
-    <Paper
-      css={styles.getContainer({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}
-      className={className}
+    <Card
+      className={twMerge(
+        clsx(
+          'flex flex-col content-center md:flex-row md:justify-between',
+          isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
+        ),
+        className,
+      )}
     >
-      <div css={styles.getContentColumn({ isWarningDisplayed: haveAllPrimeTokensBeenClaimed })}>
-        <div css={styles.getHeader({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}>
-          <div
-            css={styles.getPrimeLogo({ isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime })}
-          >
+      <div
+        className={clsx(
+          'w-full md:w-auto md:flex-1',
+          !hidePromotionalTitle && displayProgress && !displayWarning && 'mb-6',
+          (displayStakeButton || displayClaimButton) && 'mb-4 md:mb-0 md:pr-6',
+          displayWarning && !displayProgress && 'md:flex md:flex-row md:justify-between',
+          displayWarning && 'order-2 md:order-1 md:flex-1 md:pr-6',
+        )}
+      >
+        <div
+          className={clsx(
+            'flex flex-col sm:flex-row',
+            displayProgress && 'mb-6',
+            (!title || !displayProgress) && 'sm:items-center',
+          )}
+        >
+          <div className="mb-4 inline-flex w-10 sm:mb-0 sm:mr-4">
             <PrimeLogo />
           </div>
 
-          <div>
-            {!!title && (
-              <Typography
-                variant="h3"
-                css={styles.getTitle({ isDescriptionDisplayed: !isUserXvsStakeHighEnoughForPrime })}
-              >
-                {title}
-              </Typography>
-            )}
+          <div className="xl:max-w-[31.25rem] xxl:max-w-[39.75rem]">
+            {!!title && <h3 className={clsx('text-xl', displayProgress && 'mb-2')}>{title}</h3>}
 
-            {!isUserXvsStakeHighEnoughForPrime && (
-              <Typography css={styles.description}>
+            {displayProgress && (
+              <p className="text-grey">
                 <Trans
                   i18nKey="primeStatusBanner.description"
                   components={{
-                    WhiteText: <span css={styles.whiteText} />,
+                    WhiteText: <span className="text-offWhite" />,
                     Link: (
                       <Link
                         // TODO: add correct link
@@ -197,15 +188,15 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                     claimWaitingPeriod: readableClaimWaitingPeriod,
                   }}
                 />
-              </Typography>
+              </p>
             )}
           </div>
         </div>
 
-        {!isUserXvsStakeHighEnoughForPrime && (
-          <div css={styles.getProgress({ addLeftPadding: !!title })}>
+        {displayProgress && (
+          <div className={clsx('xl:max-w-[31.25rem]', !!title && 'sm:pl-14')}>
             <ProgressBar
-              css={styles.progressBar}
+              className="mb-2"
               value={+userStakedXvsTokens.toFixed(0)}
               step={1}
               ariaLabel={t('primeStatusBanner.progressBar.ariaLabel')}
@@ -213,50 +204,71 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               max={+minXvsToStakeForPrimeTokens.toFixed(0)}
             />
 
-            <Typography variant="small2">
+            <p className="text-sm text-grey">
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{
-                  WhiteText: <span css={styles.whiteText} />,
+                  WhiteText: <span className="text-offWhite" />,
                 }}
                 values={{
                   minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,
                   userStakedXvsTokens: readableUserStakedXvsTokens,
                 }}
               />
-            </Typography>
+            </p>
           </div>
         )}
       </div>
 
-      <div
-        css={styles.getCtaColumn({
-          isWarningDisplayed: haveAllPrimeTokensBeenClaimed,
-          isTitleDisplayed: !!title,
-        })}
-      >
-        {haveAllPrimeTokensBeenClaimed ? (
-          <div
-            css={styles.getNoPrimeTokenWarning({
-              isProgressDisplayed: !isUserXvsStakeHighEnoughForPrime,
-            })}
-          >
-            <Typography variant="small2" component="label" css={styles.warningText}>
-              {t('primeStatusBanner.noPrimeTokenWarning.text')}
-            </Typography>
-
-            <Tooltip
-              title={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}
-              css={styles.tooltip}
+      {(displayStakeButton || displayClaimButton || displayWarning) && (
+        <div
+          className={clsx(
+            'md:flex-0 w-full md:w-auto',
+            !haveAllPrimeTokensBeenClaimed && !!title && 'sm:pl-14 md:pl-0',
+            displayWarning && 'order-1 md:order-2',
+          )}
+        >
+          {displayWarning && (
+            <div
+              className={clsx(
+                'mb-4 flex items-center text-right md:mb-0',
+                displayProgress && 'md:mb-4',
+              )}
             >
-              <Icon name="info" css={styles.tooltipIcon} />
-            </Tooltip>
-          </div>
-        ) : (
-          ctaButton
-        )}
-      </div>
-    </Paper>
+              <p className="mr-2 text-sm text-orange">
+                {t('primeStatusBanner.noPrimeTokenWarning.text')}
+              </p>
+
+              <Tooltip
+                title={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}
+                className="inline-flex"
+              >
+                <Icon name="info" className="text-orange" />
+              </Tooltip>
+            </div>
+          )}
+
+          {displayStakeButton && (
+            <PrimaryButton
+              onClick={onRedirectToXvsVaultPage}
+              className="w-full whitespace-nowrap sm:w-auto"
+            >
+              {t('primeStatusBanner.stakeButtonLabel')}
+            </PrimaryButton>
+          )}
+
+          {displayClaimButton && (
+            <PrimaryButton
+              onClick={handleClaimPrimeToken}
+              className="w-full whitespace-nowrap sm:w-auto"
+              loading={isClaimPrimeTokenLoading}
+            >
+              {t('primeStatusBanner.claimButtonLabel')}
+            </PrimaryButton>
+          )}
+        </div>
+      )}
+    </Card>
   );
 };
 
@@ -276,8 +288,8 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   // TODO: wire up
   const isLoading = false;
   const isUserPrime = false;
-  const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 9 days in seconds
-  const userStakedXvsTokens = new BigNumber('100');
+  const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 90 days in seconds
+  const userStakedXvsTokens = new BigNumber('1000');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
   const highestHypotheticalPrimeApyBoostPercentage = new BigNumber('3.14');
   const claimedPrimeTokenCount = 1000;
