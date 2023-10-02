@@ -1,0 +1,12 @@
+import { Token } from 'types';
+
+export const tokens: Token[] = [
+  {{#each .}}
+  {
+    symbol: '{{ symbol }}',
+    decimals: {{ decimals }},
+    address: '{{ address }}',
+    asset: '{{ logoURI }}',
+  },
+  {{/each}}
+];
