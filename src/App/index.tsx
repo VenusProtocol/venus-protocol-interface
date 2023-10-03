@@ -4,7 +4,6 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import 'assets/styles/App.scss';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AnalyticsProvider } from 'context/Analytics';

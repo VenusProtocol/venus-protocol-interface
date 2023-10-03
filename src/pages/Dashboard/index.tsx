@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ButtonGroup, NoticeWarning, Tag, TagGroup, TextField } from 'components';
+import { ButtonGroup, Link, NoticeWarning, Tag, TagGroup, TextField } from 'components';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -10,7 +10,7 @@ import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
-import ConnectWalletBanner from './ConnectWalletBanner';
+import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
@@ -100,12 +100,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
             i18nKey="dashboard.banner.busdForceLiquidations"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://snapshot.org/#/venus-xvs.eth/proposal/0xbac76472c9eed8e874b10244c6b5f8e9444dc31eb81458a672a552c93bcaf6b9"
-                  rel="noreferrer"
-                  target="_blank"
-                />
+                <Link href="https://snapshot.org/#/venus-xvs.eth/proposal/0xbac76472c9eed8e874b10244c6b5f8e9444dc31eb81458a672a552c93bcaf6b9" />
               ),
             }}
           />

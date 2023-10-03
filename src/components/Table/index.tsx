@@ -60,7 +60,11 @@ export function Table<R>({
 
   return (
     <Paper css={styles.getRoot({ breakpoint })} className={className}>
-      {title && <h4 css={styles.getTitle({ breakpoint })}>{title}</h4>}
+      {title && (
+        <h4 css={styles.getTitle({ breakpoint })} className="text-lg">
+          {title}
+        </h4>
+      )}
 
       <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
         <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>

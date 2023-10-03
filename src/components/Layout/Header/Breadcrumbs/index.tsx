@@ -102,7 +102,7 @@ const Breadcrumbs: React.FC = () => {
           dom = (
             <div css={styles.address}>
               <Typography variant="h3" color="textPrimary">
-                <EllipseAddress address={params.address || ''} />
+                <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
               </Typography>
 
               <Icon

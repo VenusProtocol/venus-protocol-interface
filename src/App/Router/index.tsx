@@ -2,7 +2,6 @@ import React, { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { isFeatureEnabled } from 'utilities';
 
-import 'assets/styles/App.scss';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 

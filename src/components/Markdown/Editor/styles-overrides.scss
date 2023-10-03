@@ -1,5 +1,3 @@
-@import '../../../assets/styles/Global.scss';
-
 .wmde-markdown,
 .wmde-markdown-var {
   color-scheme: dark;
@@ -37,13 +35,13 @@
   --color-fg-default: rgba(255, 255, 255, 1);
   --color-fg-muted: rgba(161, 161, 161, 1);
   --color-fg-subtle: rgba(149, 151, 161, 1);
-  --color-canvas-default: var(--color-bg-main);
-  --color-canvas-subtle: var(--color-bg-primary);
+  --color-canvas-default: rgba(255, 255, 255, 1);
+  --color-canvas-subtle: rgba(22, 27, 39, 1);
   --color-border-default: rgba(49, 50, 60, 1);
   --color-border-muted: rgba(49, 50, 60, 1);
-  --color-neutral-muted: var(--color-bg-active); // hover background
-  --color-accent-fg: var(--color-blue); // hover
-  --color-accent-emphasis: var(--color-blue);
+  --color-neutral-muted: rgba(32, 39, 56, 1); // hover background
+  --color-accent-fg: rgba(58, 120, 255, 1); // hover
+  --color-accent-emphasis: rgba(58, 120, 255, 1);
   --color-attention-subtle: rgba(245, 120, 66, 1);
-  --color-danger-fg: var(--color-text-red);
+  --color-danger-fg: rgba(233, 61, 102, 1);
 }

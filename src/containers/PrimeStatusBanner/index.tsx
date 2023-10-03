@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
+import { Link } from 'components';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
@@ -179,18 +180,15 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             )}
 
             {!isUserXvsStakeHighEnoughForPrime && (
-              <Typography>
+              <Typography css={styles.description}>
                 <Trans
                   i18nKey="primeStatusBanner.description"
                   components={{
                     WhiteText: <span css={styles.whiteText} />,
                     Link: (
-                      // eslint-disable-next-line jsx-a11y/anchor-has-content
-                      <a
+                      <Link
                         // TODO: add correct link
                         href="https://google.com"
-                        rel="noreferrer"
-                        target="_blank"
                       />
                     ),
                   }}

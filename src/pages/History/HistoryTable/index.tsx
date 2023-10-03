@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
+import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
@@ -81,8 +81,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         label: t('history.columns.hash'),
         selectOptionLabel: t('history.columns.hash'),
         renderCell: transaction => (
-          <Typography
-            component="a"
+          <Link
             href={
               chainId &&
               generateBscScanUrl({
@@ -91,13 +90,10 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                 chainId,
               })
             }
-            target="_blank"
-            rel="noreferrer"
-            variant="small2"
-            css={styles.txnHashText}
+            className="text-blue"
           >
             <EllipseAddress address={transaction.transactionHash} />
-          </Typography>
+          </Link>
         ),
       },
       {
@@ -115,8 +111,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         label: t('history.columns.from'),
         selectOptionLabel: t('history.columns.from'),
         renderCell: transaction => (
-          <Typography
-            component="a"
+          <Link
             href={
               chainId &&
               generateBscScanUrl({
@@ -125,13 +120,10 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                 chainId,
               })
             }
-            target="_blank"
-            rel="noreferrer"
-            variant="small2"
-            css={styles.txnHashText}
+            className="text-blue"
           >
             <EllipseAddress address={transaction.from} />
-          </Typography>
+          </Link>
         ),
       },
       {
@@ -140,8 +132,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         selectOptionLabel: t('history.columns.to'),
         renderCell: transaction =>
           transaction.to ? (
-            <Typography
-              component="a"
+            <Link
               href={
                 chainId &&
                 generateBscScanUrl({
@@ -150,13 +141,10 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
                   chainId,
                 })
               }
-              target="_blank"
-              rel="noreferrer"
-              variant="small2"
-              css={styles.txnHashText}
+              className="text-blue"
             >
               <EllipseAddress address={transaction.to} />
-            </Typography>
+            </Link>
           ) : (
             PLACEHOLDER_KEY
           ),

@@ -17,12 +17,7 @@ export const useStyles = () => {
     `,
     submitButton: css`
       margin-top: ${theme.spacing(10)};
-      margin-bottom: ${theme.spacing(5)};
-    `,
-    link: css`
-      text-align: center;
-      margin: auto;
-      display: block;
+      margin-bottom: ${theme.spacing(2)};
     `,
   };
 };

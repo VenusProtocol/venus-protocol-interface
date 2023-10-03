@@ -1,14 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { PrimaryButton } from 'components';
+import { Card, PrimaryButton } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import { useAuth } from 'context/AuthContext';
 
 import illustration from './illustration.png';
-import { useStyles } from './styles';
 
 export interface ConnectWalletBannerUiProps {
   isWalletConnected: boolean;
@@ -21,45 +18,41 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
   ...containerProps
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   if (isWalletConnected) {
     return null;
   }
 
   return (
-    <Paper css={styles.container} {...containerProps}>
-      <div css={styles.content}>
-        <Typography variant="h4" css={styles.title}>
-          {t('dashboard.connectWalletBanner.title')}
-        </Typography>
+    <Card
+      className="mb-8 flex flex-col overflow-hidden border border-lightGrey p-0 sm:grid sm:grid-cols-[3fr,2fr] sm:flex-row lg:grid-cols-[3fr,2fr] xl:grid-cols-2"
+      {...containerProps}
+    >
+      <div className="sm:flex-4 px-4 py-6 text-center sm:px-6 sm:text-left">
+        <p className="mb-3 text-lg">{t('dashboard.connectWalletBanner.title')}</p>
 
-        <Typography css={styles.description}>
-          {t('dashboard.connectWalletBanner.description')}
-        </Typography>
+        <p className="text-grey mb-8">{t('dashboard.connectWalletBanner.description')}</p>
 
-        <PrimaryButton css={styles.button} onClick={openAuthModal}>
+        <PrimaryButton className="w-full sm:w-auto" onClick={openAuthModal}>
           {t('dashboard.connectWalletBanner.buttonLabel')}
         </PrimaryButton>
       </div>
 
-      <div css={styles.illustrationContainer}>
+      <div className="h-50 sm:flex-4 lg:flex-5 sm:bg-transparent relative -order-1 overflow-hidden bg-lightGrey sm:order-none sm:h-full sm:overflow-visible">
         <img
           src={illustration}
-          css={styles.illustration}
+          className="w-84 -mr-46 sm:-right-26 xl:w-100 xl:-mr-50 absolute -top-7 right-[50%] max-w-none sm:-top-3 sm:mr-0 md:-right-10 lg:-right-6 xl:-top-10 xl:right-[50%]"
           alt={t('dashboard.connectWalletBanner.illustration.alt')}
         />
       </div>
-    </Paper>
+    </Card>
   );
 };
 
-const ConnectWalletBanner: React.FC = () => {
+export const ConnectWalletBanner: React.FC = () => {
   const { accountAddress, openAuthModal } = useAuth();
 
   return (
     <ConnectWalletBannerUi isWalletConnected={!!accountAddress} openAuthModal={openAuthModal} />
   );
 };
-
-export default ConnectWalletBanner;

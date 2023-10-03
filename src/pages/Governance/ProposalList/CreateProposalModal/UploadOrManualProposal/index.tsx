@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from '@mui/material';
-import { NoticeInfo, SecondaryButton } from 'components';
+import { Link, NoticeInfo, SecondaryButton } from 'components';
 import React, { useRef } from 'react';
 import { useTranslation } from 'translation';
 
@@ -56,12 +56,7 @@ const UploadOrManualProposal: React.FC<UploadOrManualProposalProps> = ({
             i18nKey="vote.createProposalModal.youCanEitherCreateManuallyOrUpload"
             components={{
               Link: (
-                // eslint-disable-next-line jsx-a11y/anchor-has-content
-                <a
-                  href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/src/assets/proposals/vip-123.json"
-                  rel="noreferrer"
-                  target="_blank"
-                />
+                <Link href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/src/assets/proposals/vip-123.json" />
               ),
             }}
           />

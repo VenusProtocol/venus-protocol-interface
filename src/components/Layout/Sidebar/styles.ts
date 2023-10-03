@@ -119,6 +119,8 @@ export const useStyles = () => {
     `,
     listItemText: css`
       display: block;
+      color: ${theme.palette.text.secondary};
+
       ${theme.breakpoints.down('xl')} {
         display: none;
       }

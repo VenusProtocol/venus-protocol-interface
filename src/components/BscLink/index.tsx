@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'translation';
 import { ChainId } from 'types';
 import { UrlType, generateBscScanUrl } from 'utilities';
 
 import { Breakpoint, EllipseAddress } from '../EllipseAddress';
 import { Icon } from '../Icon';
-import { useStyles } from './styles';
+import { Link } from '../Link';
 
 export interface BscLinkProps {
   hash: string;
@@ -27,34 +27,29 @@ export const BscLink: React.FC<BscLinkProps> = ({
   ellipseBreakpoint,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
-  let content;
+  const content = useMemo(() => {
+    if (!text) {
+      return t('bscLink.content');
+    }
 
-  if (text) {
-    content = ellipseBreakpoint ? (
-      <EllipseAddress ellipseBreakpoint={ellipseBreakpoint} address={text} />
-    ) : (
-      text
-    );
-  } else {
-    content = t('bscLink.content');
-  }
+    if (text && ellipseBreakpoint) {
+      return <EllipseAddress ellipseBreakpoint={ellipseBreakpoint} address={text} />;
+    }
+
+    return text;
+  }, [text, ellipseBreakpoint]);
 
   return (
-    <div css={styles.container} className={className}>
-      <Typography
-        component="a"
+    <div className={twMerge('inline-block text-sm font-semibold text-blue', className)}>
+      <Link
         href={chainId && generateBscScanUrl({ hash, urlType, chainId })}
-        target="_blank"
-        rel="noreferrer"
-        variant="small1"
-        css={styles.text}
+        className="flex items-center"
       >
         {content}
 
-        <Icon name="open" css={styles.icon} />
-      </Typography>
+        <Icon name="open" className="ml-2 text-inherit" />
+      </Link>
     </div>
   );
 };
