@@ -14,18 +14,6 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(1)};
       `};
     `,
-    marketLink: css`
-      text-decoration: underline;
-      color: ${theme.palette.text.primary};
-
-      > * {
-        color: inherit;
-      }
-
-      :hover {
-        color: ${theme.palette.interactive.primary};
-      }
-    `,
     cardContentGrid: css`
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr 1fr;

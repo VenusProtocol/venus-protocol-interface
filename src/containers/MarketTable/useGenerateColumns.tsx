@@ -4,13 +4,13 @@ import BigNumber from 'bignumber.js';
 import {
   InfoIcon,
   LayeredValues,
+  Link,
   ProgressBar,
   TableColumn,
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import {
   compareBigNumbers,
@@ -197,8 +197,8 @@ const useGenerateColumns = ({
 
               return (
                 <div>
-                  <Link to={to} css={styles.marketLink}>
-                    <Typography variant="small2">{poolAsset.pool.name}</Typography>
+                  <Link to={to} className="text-sm text-offWhite underline hover:text-blue">
+                    {poolAsset.pool.name}
                   </Link>
                 </div>
               );
