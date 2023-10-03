@@ -1,3 +1,12 @@
+## [2.27.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.26.3...v2.27.0) (2023-10-03)
+
+
+### Features
+
+* add support for tailwind.css ([#1512](https://github.com/VenusProtocol/venus-protocol-interface/issues/1512)) ([f109dca](https://github.com/VenusProtocol/venus-protocol-interface/commit/f109dcac26b7f238283fe9a37746052d9f6402bb))
+* remove old contracts package ([#1514](https://github.com/VenusProtocol/venus-protocol-interface/issues/1514)) ([d5e7e60](https://github.com/VenusProtocol/venus-protocol-interface/commit/d5e7e60d95f387f3f8f100ffe4c97abae2d93d0e))
+* update default error thrown by callOrThrow ([#1522](https://github.com/VenusProtocol/venus-protocol-interface/issues/1522)) ([b01fac2](https://github.com/VenusProtocol/venus-protocol-interface/commit/b01fac2e530052784d3795ff761fed2cb092acdd))
+
 ## [2.26.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.26.2...v2.26.3) (2023-09-30)
 
 ## [2.26.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.26.1...v2.26.2) (2023-09-29)
