@@ -1,3 +1,4 @@
+import { useGetVTokenContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -9,7 +10,6 @@ import redeemUnderlying, {
 } from 'clients/api/mutations/redeemUnderlying';
 import FunctionKey from 'constants/functionKey';
 import { useAnalytics } from 'context/Analytics';
-import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
 type TrimmedRedeemUnderlyingInput = Omit<
   RedeemUnderlyingInput,

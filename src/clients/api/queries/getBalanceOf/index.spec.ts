@@ -9,7 +9,7 @@ import getBalanceOf from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-vi.mock('packages/contracts/utilities/getTokenContract');
+vi.mock('packages/contracts');
 
 describe('api/queries/getBalanceOf', () => {
   describe('non-BNB token', () => {

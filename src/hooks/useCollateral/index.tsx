@@ -2,11 +2,12 @@ import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import {
   getIsolatedPoolComptrollerContract,
+  getVTokenContract,
   useGetMainPoolComptrollerContract,
 } from 'packages/contracts';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
-import { areAddressesEqual, getVTokenContract } from 'utilities';
+import { areAddressesEqual } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,

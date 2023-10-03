@@ -1,3 +1,4 @@
+import { useGetVTokenContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow } from 'utilities';
@@ -7,7 +8,6 @@ import getVTokenBalanceOf, {
   GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
-import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
 interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {
   vToken: VToken;

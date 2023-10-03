@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
 import { ContractReceipt, Signer } from 'ethers';
-import { Maximillion, VBnb } from 'packages/contracts';
+import { Maximillion, VBnb, getVTokenContract } from 'packages/contracts';
 import { VToken } from 'types';
-import { callOrThrow, getVTokenContract } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';
 
