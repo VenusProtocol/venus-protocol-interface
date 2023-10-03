@@ -8,7 +8,7 @@ import { ChainId } from 'types';
 import { useAuth } from 'context/AuthContext';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 
-export interface Get{{contractName}}ContractAddressInput {
+interface Get{{contractName}}ContractAddressInput {
   chainId: ChainId;
 }
 
@@ -29,7 +29,7 @@ export const useGet{{contractName}}ContractAddress = () => {
   );
 };
 
-export interface Get{{contractName}}ContractInput {
+interface Get{{contractName}}ContractInput {
   chainId: ChainId;
   signerOrProvider: Signer | Provider;
 }
@@ -44,7 +44,7 @@ export const get{{contractName}}Contract = ({
     : undefined;
 };
 
-export interface UseGet{{contractName}}ContractInput {
+interface UseGet{{contractName}}ContractInput {
   passSigner: boolean;
 }
 
