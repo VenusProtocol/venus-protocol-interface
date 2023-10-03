@@ -15,7 +15,7 @@ describe('utilities/callOrThrow', () => {
 
       throw new Error('callOrThrow should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: somethingWentWrong]');
+      expect(error).toMatchInlineSnapshot('[Error: couldNotRetrieveSigner]');
     }
   });
 

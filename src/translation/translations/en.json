@@ -210,10 +210,11 @@
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "somethingWentWrong": "Something went wrong",
+    "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
     "somethingWentWrongRetrievingVoterDetails": "Something went wrong retrieving voter details",
-    "somethingWentWrongRetrievingVoterHistory": "Something went wrong retrieving voter history  ",
+    "somethingWentWrongRetrievingVoterHistory": "Something went wrong retrieving voter history",
     "undefinedAccountErrorMessage": "Account undefined",
     "validationError": "Validation failed for imported proposal:",
     "walletNotConnected": "Wallet not connected"
