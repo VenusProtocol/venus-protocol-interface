@@ -13,7 +13,7 @@ import {
   Spinner,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
+import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';

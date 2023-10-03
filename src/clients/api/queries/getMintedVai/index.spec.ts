@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 import address from '__mocks__/models/address';
 

@@ -1,4 +1,4 @@
-import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetXvsVaultContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';

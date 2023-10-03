@@ -1,4 +1,4 @@
-import { useGetVaiControllerContract } from 'packages/contractsNew';
+import { useGetVaiControllerContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 

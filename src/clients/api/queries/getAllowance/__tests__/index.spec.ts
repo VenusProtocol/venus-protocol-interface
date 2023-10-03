@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { Vrt } from 'packages/contractsNew';
+import { Vrt } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeSigner from '__mocks__/models/signer';

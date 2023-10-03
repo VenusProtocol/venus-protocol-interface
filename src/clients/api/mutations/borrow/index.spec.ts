@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { VToken as VTokenContract } from 'packages/contractsNew';
+import { VToken as VTokenContract } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 

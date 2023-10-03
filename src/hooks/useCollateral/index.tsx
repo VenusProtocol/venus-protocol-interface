@@ -3,7 +3,7 @@ import { VError } from 'errors';
 import {
   getIsolatedPoolComptrollerContract,
   useGetMainPoolComptrollerContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual, getVTokenContract } from 'utilities';

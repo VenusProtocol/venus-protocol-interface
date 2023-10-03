@@ -1,4 +1,4 @@
-import { GovernorBravoDelegate } from 'packages/contractsNew';
+import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface GetProposalEtaInput {
   governorBravoDelegateContract: GovernorBravoDelegate;

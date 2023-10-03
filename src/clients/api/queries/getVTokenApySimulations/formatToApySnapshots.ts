@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contractsNew';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
 
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Bep20 } from 'packages/contractsNew';
+import { Bep20 } from 'packages/contracts';
 import { getTokenContract } from 'utilities';
 import Vi from 'vitest';
 

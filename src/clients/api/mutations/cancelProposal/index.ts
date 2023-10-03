@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { GovernorBravoDelegate } from 'packages/contractsNew';
+import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface CancelProposalInput {
   governorBravoDelegateContract: GovernorBravoDelegate;

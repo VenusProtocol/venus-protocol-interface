@@ -1,4 +1,4 @@
-import { SwapRouter } from 'packages/contractsNew';
+import { SwapRouter } from 'packages/contracts';
 import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';

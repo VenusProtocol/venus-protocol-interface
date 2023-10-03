@@ -1,6 +1,6 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { getVaiControllerContractAddress } from 'packages/contractsNew';
+import { getVaiControllerContractAddress } from 'packages/contracts';
 import React from 'react';
 import { ChainId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';

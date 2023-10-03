@@ -1,4 +1,4 @@
-import { PoolLens, ResilientOracle } from 'packages/contractsNew';
+import { PoolLens, ResilientOracle } from 'packages/contracts';
 import { Pool, Token } from 'types';
 
 import { type Provider } from 'clients/web3';

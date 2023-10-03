@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { XvsVault } from 'packages/contractsNew';
+import { XvsVault } from 'packages/contracts';
 import { LockedDeposit } from 'types';
 
 const formatToLockedDeposit = ([amount, lockedUntil]: Awaited<

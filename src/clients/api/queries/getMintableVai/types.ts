@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VaiController } from 'packages/contractsNew';
+import { VaiController } from 'packages/contracts';
 
 export interface GetMintableVaiInput {
   accountAddress: string;

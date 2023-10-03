@@ -1,4 +1,4 @@
-import { Multicall3 } from 'packages/contractsNew';
+import { Multicall3 } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';

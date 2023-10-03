@@ -1,5 +1,5 @@
 import { ContractReceipt } from 'ethers';
-import { Multicall3 } from 'packages/contractsNew';
+import { Multicall3 } from 'packages/contracts';
 import { Token } from 'types';
 
 export interface VaiVaultClaim {

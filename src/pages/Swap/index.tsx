@@ -16,7 +16,7 @@ import { ContractReceipt } from 'ethers';
 import {
   useGetMainPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';

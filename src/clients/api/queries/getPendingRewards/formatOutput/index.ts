@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
+import { PoolLens, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
 import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';

@@ -1,4 +1,4 @@
-import { useGetXvsVestingContract } from 'packages/contractsNew';
+import { useGetXvsVestingContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { VToken as VTokenContract } from 'packages/contractsNew';
+import { VToken as VTokenContract } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ResilientOracle } from 'packages/contractsNew';
+import { ResilientOracle } from 'packages/contracts';
 import { Token } from 'types';
 
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';

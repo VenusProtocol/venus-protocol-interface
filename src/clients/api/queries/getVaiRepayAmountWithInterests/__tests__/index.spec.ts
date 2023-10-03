@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { VaiController } from 'packages/contractsNew';
+import { VaiController } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 

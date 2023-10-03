@@ -1,4 +1,4 @@
-import { XvsVesting } from 'packages/contractsNew';
+import { XvsVesting } from 'packages/contracts';
 
 import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
 

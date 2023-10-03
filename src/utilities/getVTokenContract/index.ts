@@ -1,6 +1,6 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
-import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contractsNew';
+import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contracts';
 import { VToken } from 'types';
 
 const getVTokenContract = ({

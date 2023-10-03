@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { XvsVesting } from 'packages/contractsNew';
+import { XvsVesting } from 'packages/contracts';
 
 export interface GetXvsWithdrawableAmountInput {
   accountAddress: string;

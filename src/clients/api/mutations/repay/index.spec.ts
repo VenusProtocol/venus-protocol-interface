@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { Maximillion, VBnb, VToken as VTokenContract } from 'packages/contractsNew';
+import { Maximillion, VBnb, VToken as VTokenContract } from 'packages/contracts';
 import { getVTokenContract } from 'utilities';
 import Vi from 'vitest';
 

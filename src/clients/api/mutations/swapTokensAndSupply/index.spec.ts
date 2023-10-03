@@ -1,4 +1,4 @@
-import { SwapRouter } from 'packages/contractsNew';
+import { SwapRouter } from 'packages/contracts';
 import { ExactAmountInSwap } from 'types';
 
 import { assetData } from '__mocks__/models/asset';

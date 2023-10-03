@@ -1,4 +1,4 @@
-import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contractsNew';
+import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';
 

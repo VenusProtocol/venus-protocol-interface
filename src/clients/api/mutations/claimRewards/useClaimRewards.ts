@@ -3,7 +3,7 @@ import {
   useGetMulticall3Contract,
   useGetVaiVaultContractAddress,
   useGetXvsVaultContractAddress,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 

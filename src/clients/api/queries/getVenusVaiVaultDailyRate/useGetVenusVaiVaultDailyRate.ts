@@ -1,4 +1,4 @@
-import { useGetMainPoolComptrollerContract } from 'packages/contractsNew';
+import { useGetMainPoolComptrollerContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 

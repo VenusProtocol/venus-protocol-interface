@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { VenusLens } from 'packages/contractsNew';
+import { VenusLens } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 

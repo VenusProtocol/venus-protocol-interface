@@ -2,7 +2,7 @@ import {
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
   useGetResilientOracleContract,
-} from 'packages/contractsNew';
+} from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';

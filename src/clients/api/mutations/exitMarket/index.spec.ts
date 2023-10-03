@@ -1,5 +1,5 @@
 import { checkForComptrollerTransactionError } from 'errors';
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { vBusd } from '__mocks__/models/vTokens';

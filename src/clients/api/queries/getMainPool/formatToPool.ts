@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contractsNew';
+import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
 import { Asset, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,

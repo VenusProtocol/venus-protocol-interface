@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 const comptrollerResponses: {
   venusVAIVaultRate: Awaited<ReturnType<MainPoolComptroller['venusVAIVaultRate']>>;

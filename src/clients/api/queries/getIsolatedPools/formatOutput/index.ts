@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens } from 'packages/contractsNew';
+import { PoolLens } from 'packages/contracts';
 import { Asset, Pool, Token, VToken } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';

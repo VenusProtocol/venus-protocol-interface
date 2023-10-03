@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { checkForVaiVaultTransactionError } from 'errors';
-import { VaiVault } from 'packages/contractsNew';
+import { VaiVault } from 'packages/contracts';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 

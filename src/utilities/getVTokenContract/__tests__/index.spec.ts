@@ -1,11 +1,11 @@
 import { Signer } from 'ethers';
-import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contractsNew';
+import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contracts';
 
 import { vBnb, vBusd } from '__mocks__/models/vTokens';
 
 import getVTokenContract from '..';
 
-vi.mock('packages/contractsNew');
+vi.mock('packages/contracts');
 
 describe('getVTokenContract', () => {
   it('should call getVBnbContract for vBNB token', () => {

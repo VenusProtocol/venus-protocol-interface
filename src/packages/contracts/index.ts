@@ -1,6 +1,5 @@
-export * from './contractInfos';
-export * from './getUniqueContract';
-export * from './getUniqueContractAddress';
-export * from './getSwapRouterContract';
-export * from './getSwapRouterContractAddress';
-export * from './getGenericContract';
+// Export contract getter functions and hooks
+export * from './generated/getters';
+// Export types
+export * from './generated/infos/contractTypes';
+export * from './generated/infos/types';

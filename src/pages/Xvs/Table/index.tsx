@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
-import { useGetVaiControllerContractAddress } from 'packages/contractsNew';
+import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';

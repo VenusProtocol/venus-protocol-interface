@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { VrtConverter } from 'packages/contractsNew';
+import { VrtConverter } from 'packages/contracts';
 
 import getVrtConversionRatio from '.';
 

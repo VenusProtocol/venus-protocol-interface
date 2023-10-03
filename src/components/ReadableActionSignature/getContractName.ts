@@ -1,4 +1,4 @@
-import addresses from 'packages/contractsNew/generated/infos/addresses';
+import addresses from 'packages/contracts/generated/infos/addresses';
 import { ChainId, Token, VToken } from 'types';
 
 import areAddressesEqual from 'utilities/areAddressesEqual';

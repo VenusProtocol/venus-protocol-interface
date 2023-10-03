@@ -1,9 +1,4 @@
-import {
-  MainPoolComptroller,
-  ResilientOracle,
-  VaiController,
-  VenusLens,
-} from 'packages/contractsNew';
+import { MainPoolComptroller, ResilientOracle, VaiController, VenusLens } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';

@@ -1,4 +1,4 @@
-import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contractsNew';
+import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';

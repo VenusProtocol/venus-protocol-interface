@@ -1,4 +1,4 @@
-import { useGetXvsVaultContract } from 'packages/contractsNew';
+import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 import { callOrThrow } from 'utilities';

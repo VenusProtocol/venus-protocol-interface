@@ -1,4 +1,4 @@
-import { MainPoolComptroller } from 'packages/contractsNew';
+import { MainPoolComptroller } from 'packages/contracts';
 
 export interface GetMainAssetsInAccountInput {
   mainPoolComptrollerContract: MainPoolComptroller;

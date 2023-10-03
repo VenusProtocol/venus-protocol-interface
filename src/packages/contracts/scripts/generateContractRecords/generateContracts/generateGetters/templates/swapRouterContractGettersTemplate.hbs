@@ -1,0 +1,16 @@
+import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
+import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
+
+import { swapRouterContractGetterGenerator } from 'packages/contracts/utilities/swapRouterContractGetterGenerator';
+import { swapRouterContractGetterHookGenerator } from 'packages/contracts/utilities/swapRouterContractGetterHookGenerator';
+
+export * from 'packages/contracts/utilities/useGetSwapRouterContractAddress';
+export * from 'packages/contracts/utilities/getSwapRouterContractAddress';
+
+export const get{{contractName}}Contract = swapRouterContractGetterGenerator<{{contractName}}>({
+  abi,
+});
+
+export const useGet{{contractName}}Contract = swapRouterContractGetterHookGenerator({
+  getter: get{{contractName}}Contract,
+});
