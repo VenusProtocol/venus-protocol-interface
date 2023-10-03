@@ -111,7 +111,7 @@ export const TokenList: React.FC<TokenListProps> = ({
           <div
             css={styles.item}
             onClick={() => onTokenClick(tokenBalance.token)}
-            key={`select-token-text-field-item-${tokenBalance.token.symbol}`}
+            key={`select-token-text-field-item-${tokenBalance.token.address}`}
             data-testid={
               !!testId &&
               getTokenListItemTestId({
