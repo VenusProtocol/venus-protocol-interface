@@ -18,7 +18,7 @@ const fakeProvider = new providers.JsonRpcProvider();
 const fakeGetter: SwapRouterContractGetter<Contract> = () =>
   new Contract(fakeContractAddress, [], fakeProvider);
 
-describe('ya', () => {
+describe('swapRouterContractGetterHookGenerator', () => {
   it('returns a function that calls passed getter and passes it the correct arguments when passing passSigner as false', () => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       signer: undefined,
@@ -59,7 +59,7 @@ describe('ya', () => {
     expect(result.current?.provider).toBe(fakeProvider);
   });
 
-  it('returns a function that calls passed getter and passes it the correct arguments when passing passSigner as true and signer exists', () => {
+  it('returns a function that calls passed getter and passes it the correct arguments when passing passSigner as true and signer does not exist', () => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       signer: undefined,
       provider: fakeProvider,

@@ -1,16 +1,15 @@
 import { useMemo } from 'react';
 import { Token } from 'types';
-import { getTokenContract } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
+import { getTokenContract } from 'packages/contracts/utilities/getTokenContract';
 
 export interface UseGetTokenContractInput {
   token: Token;
   passSigner?: boolean;
 }
 
-// TODO: move to contracts package
-const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractInput) => {
+export const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractInput) => {
   const { signer, provider } = useAuth();
   const signerOrProvider = passSigner ? signer : provider;
 
@@ -19,5 +18,3 @@ const useGetTokenContract = ({ token, passSigner = false }: UseGetTokenContractI
     [signerOrProvider, token],
   );
 };
-
-export default useGetTokenContract;

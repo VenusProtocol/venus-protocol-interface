@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { Bep20 } from 'packages/contracts';
+import { Bep20, getTokenContract } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
-import { getTokenContract } from 'utilities';
 
 import { type Provider } from 'clients/web3';
 

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { getTokenContract } from 'packages/contracts';
 import { Token } from 'types';
-import { getTokenContract } from 'utilities';
 
 import { type Provider } from 'clients/web3';
 

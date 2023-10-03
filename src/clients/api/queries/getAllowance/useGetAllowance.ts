@@ -1,3 +1,4 @@
+import { useGetTokenContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
@@ -7,7 +8,6 @@ import getAllowance, {
   GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
-import useGetTokenContract from 'hooks/useGetTokenContract';
 
 export type UseGetAllowanceQueryKey = [
   FunctionKey.GET_TOKEN_ALLOWANCE,

@@ -1,3 +1,4 @@
+import { useGetTokenContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
@@ -9,7 +10,6 @@ import {
   revokeSpendingLimit,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetTokenContract from 'hooks/useGetTokenContract';
 
 type TrimmedRevokeSpendingLimitInput = Omit<RevokeSpendingLimitInput, 'tokenContract'>;
 type Options = MutationObserverOptions<

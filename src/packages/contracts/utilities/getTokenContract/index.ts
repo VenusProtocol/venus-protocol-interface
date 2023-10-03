@@ -5,16 +5,15 @@ import {
   getVaiContract,
   getVrtContract,
   getXvsContract,
-} from 'packages/contracts';
+} from 'packages/contracts/generated/getters';
 import { Token } from 'types';
 
-const getTokenContract = ({
-  token,
-  signerOrProvider,
-}: {
+export interface GetTokenContractInput {
   token: Token;
   signerOrProvider: Signer | Provider;
-}) => {
+}
+
+export const getTokenContract = ({ token, signerOrProvider }: GetTokenContractInput) => {
   const input = {
     address: token.address,
     signerOrProvider,
@@ -34,5 +33,3 @@ const getTokenContract = ({
 
   return getBep20Contract(input);
 };
-
-export default getTokenContract;

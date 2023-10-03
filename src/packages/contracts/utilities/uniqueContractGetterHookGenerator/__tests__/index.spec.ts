@@ -57,7 +57,7 @@ describe('uniqueContractGetterHookGenerator', () => {
     expect(result.current?.provider).toBe(fakeProvider);
   });
 
-  it('returns a function that calls passed getter and passes it the correct arguments when passing passSigner as true and signer exists', () => {
+  it('returns a function that calls passed getter and passes it the correct arguments when passing passSigner as true and signer does not exist', () => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       signer: undefined,
       provider: fakeProvider,

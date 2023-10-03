@@ -4,13 +4,13 @@ import {
   getVaiContract,
   getVrtContract,
   getXvsContract,
-} from 'packages/contracts';
+} from 'packages/contracts/generated/getters';
 
 import { hay, vai, vrt, xvs } from '__mocks__/models/tokens';
 
-import getTokenContract from '..';
+import { getTokenContract } from '..';
 
-vi.mock('packages/contracts');
+vi.mock('packages/contracts/generated/getters');
 
 describe('getTokenContract', () => {
   it.each([
