@@ -31,6 +31,7 @@ export const useModalStyles = ({
       background-color: ${theme.palette.background.paper};
       overflow: auto;
       max-height: calc(100% - ${theme.spacing(8)});
+      outline: none;
     `,
     titleWrapper: css`
       padding-left: ${theme.spacing(6)};
