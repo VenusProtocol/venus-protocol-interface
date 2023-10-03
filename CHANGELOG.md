@@ -1,3 +1,10 @@
+## [2.27.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.1...v2.27.2) (2023-10-03)
+
+
+### Bug Fixes
+
+* design tweaks + auth ([#1530](https://github.com/VenusProtocol/venus-protocol-interface/issues/1530)) ([c310152](https://github.com/VenusProtocol/venus-protocol-interface/commit/c3101521075bafdfb2fafae95cf35a6ad8931570))
+
 ## [2.27.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.0...v2.27.1) (2023-10-03)
 
 ## [2.27.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.26.3...v2.27.0) (2023-10-03)
