@@ -1,24 +1,67 @@
+import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
+import { useMemo } from 'react';
+import { ChainId } from 'types';
 
-import { uniqueContractAddressGetterGenerator } from 'packages/contracts/utilities/uniqueContractAddressGetterGenerator';
-import { uniqueContractAddressGetterHookGenerator } from 'packages/contracts/utilities/uniqueContractAddressGetterHookGenerator';
-import { uniqueContractGetterGenerator } from 'packages/contracts/utilities/uniqueContractGetterGenerator';
-import { uniqueContractGetterHookGenerator } from 'packages/contracts/utilities/uniqueContractGetterHookGenerator';
+import { useAuth } from 'context/AuthContext';
+import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 
-export const get{{contractName}}ContractAddress = uniqueContractAddressGetterGenerator({
-  name: '{{contractName}}',
-});
+export interface Get{{contractName}}ContractAddressInput {
+  chainId: ChainId;
+}
 
-export const useGet{{contractName}}ContractAddress = uniqueContractAddressGetterHookGenerator({
-  getter: get{{contractName}}ContractAddress,
-});
+export const get{{contractName}}ContractAddress = ({
+  chainId,
+}: Get{{contractName}}ContractAddressInput) =>
+  getUniqueContractAddress({ name: '{{contractName}}', chainId });
 
-export const get{{contractName}}Contract = uniqueContractGetterGenerator<{{contractName}}>({
-  name: '{{contractName}}',
-  abi,
-});
+export const useGet{{contractName}}ContractAddress = () => {
+  const { chainId } = useAuth();
 
-export const useGet{{contractName}}Contract = uniqueContractGetterHookGenerator({
-  getter: get{{contractName}}Contract,
-});
+  return useMemo(
+    () =>
+      get{{contractName}}ContractAddress({
+        chainId,
+      }),
+    [chainId],
+  );
+};
+
+export interface Get{{contractName}}ContractInput {
+  chainId: ChainId;
+  signerOrProvider: Signer | Provider;
+}
+
+export const get{{contractName}}Contract = ({
+  chainId,
+  signerOrProvider,
+}: Get{{contractName}}ContractInput) => {
+  const address = get{{contractName}}ContractAddress({ chainId });
+  return address
+    ? (new Contract(address, abi, signerOrProvider) as {{contractName}})
+    : undefined;
+};
+
+export interface UseGet{{contractName}}ContractInput {
+  passSigner: boolean;
+}
+
+export const useGet{{contractName}}Contract = (
+  input?: UseGet{{contractName}}ContractInput,
+) => {
+  const { signer, provider, chainId } = useAuth();
+  const signerOrProvider = input?.passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? get{{contractName}}Contract({
+            chainId,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, chainId],
+  );
+};
