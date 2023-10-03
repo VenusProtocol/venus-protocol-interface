@@ -1,14 +1,14 @@
-import pancakeSwapTokens from 'packages/tokens/tokenInfos/pancakeSwapTokens';
+import { pancakeSwapTokens } from 'packages/tokens/tokenInfos/pancakeSwapTokens';
+import { ChainId } from 'types';
 
 import { getPancakeSwapTokens } from '..';
 
 describe('getPancakeSwapTokens', () => {
   it('returns all the tokens relevant to the passed chain ID', () => {
-    const CHAIN_ID = 56;
     const result = getPancakeSwapTokens({
-      chainId: CHAIN_ID,
+      chainId: ChainId.BSC_TESTNET,
     });
 
-    expect(result).toBe(pancakeSwapTokens[CHAIN_ID]);
+    expect(result).toBe(pancakeSwapTokens[ChainId.BSC_TESTNET]);
   });
 });
