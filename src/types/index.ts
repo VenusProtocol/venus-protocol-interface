@@ -16,7 +16,7 @@ export interface Token {
   symbol: string;
   decimals: number;
   asset: string;
-  address: string | '';
+  address: string;
   isNative?: boolean;
 }
 

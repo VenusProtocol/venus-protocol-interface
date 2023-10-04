@@ -82,19 +82,6 @@ export const tokens: Token[] = [
     asset: sxpLogo,
   },
   {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'BNB',
-    asset: bnbLogo,
-    isNative: true,
-  },
-  {
-    address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
-    decimals: 18,
-    symbol: 'SXP',
-    asset: sxpLogo,
-  },
-  {
     address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
     decimals: 18,
     symbol: 'USDC',
