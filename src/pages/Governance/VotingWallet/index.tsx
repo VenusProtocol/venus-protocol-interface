@@ -2,18 +2,17 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import {
+  ButtonWrapper,
   Delimiter,
   Icon,
   InfoIcon,
-  LinkButton,
+  Link,
   PrimaryButton,
-  SecondaryAnchorButton,
   TokenIcon,
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
@@ -93,7 +92,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
       <Paper css={styles.votingWalletPaper}>
         <div css={styles.votingWeightContainer}>
-          <Typography variant="body2" css={styles.subtitle}>
+          <Typography variant="body2" css={styles.subtitle} className="text-grey">
             {t('vote.votingWeight')}
           </Typography>
 
@@ -106,7 +105,11 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         <div css={styles.totalLockedContainer}>
           <div css={styles.totalLockedTitle}>
-            <Typography variant="body2" css={[styles.subtitle, styles.totalLockedText]}>
+            <Typography
+              variant="body2"
+              className="text-grey"
+              css={[styles.subtitle, styles.totalLockedText]}
+            >
               {t('vote.totalLocked')}
             </Typography>
 
@@ -128,19 +131,25 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         </div>
 
         {!connectedWallet && (
-          <PrimaryButton css={styles.actionButton} onClick={openAuthModal}>
+          <PrimaryButton className="lg:w-fulltext-offWhite w-full" onClick={openAuthModal}>
             {t('connectWallet.connectButton')}
           </PrimaryButton>
         )}
 
         {connectedWallet && !userHasLockedXVS && (
-          <LinkButton css={styles.actionButton} to={routes.vaults.path}>
-            {t('vote.depositXvs')}
-          </LinkButton>
+          <ButtonWrapper
+            className="w-full text-offWhite hover:no-underline sm:w-auto lg:w-full"
+            asChild
+          >
+            <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
+          </ButtonWrapper>
         )}
 
         {connectedWallet && userHasLockedXVS && (
-          <PrimaryButton css={styles.actionButton} onClick={() => setDelegateModelIsOpen(true)}>
+          <PrimaryButton
+            className="w-full text-offWhite sm:w-auto lg:w-full"
+            onClick={() => setDelegateModelIsOpen(true)}
+          >
             {previouslyDelegated ? t('vote.redelegate') : t('vote.delegate')}
           </PrimaryButton>
         )}
@@ -185,15 +194,16 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         </Typography>
       </Paper>
 
-      <SecondaryAnchorButton
-        href={XVS_SNAPSHOT_URL}
-        target="_blank"
-        rel="noreferrer"
-        css={styles.snapshotButton}
+      <ButtonWrapper
+        variant="secondary"
+        className="mt-6 w-full text-offWhite hover:no-underline"
+        asChild
       >
-        <Icon css={styles.snapshotButtonIcon} name="lightening" />
-        {t('vote.goToXvsSnapshot')}
-      </SecondaryAnchorButton>
+        <Link href={XVS_SNAPSHOT_URL}>
+          <Icon className="mr-2 h-6 w-6" name="lightening" />
+          {t('vote.goToXvsSnapshot')}
+        </Link>
+      </ButtonWrapper>
 
       <DelegateModal
         onClose={() => setDelegateModelIsOpen(false)}

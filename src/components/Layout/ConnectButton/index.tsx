@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'translation';
-import { isFeatureEnabled, truncateAddress } from 'utilities';
+import { cn, isFeatureEnabled, truncateAddress } from 'utilities';
 
 import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { useAuth } from 'context/AuthContext';
@@ -26,10 +24,7 @@ export const ConnectButtonUi: React.FC<ConnectButtonProps> = ({
   return (
     <Button
       variant={accountAddress ? 'secondary' : 'primary'}
-      className={twMerge(
-        clsx(isFeatureEnabled('prime') && isPrime && 'border-transparent'),
-        className,
-      )}
+      className={cn(isFeatureEnabled('prime') && isPrime && 'border-transparent', className)}
       {...otherProps}
     >
       {!accountAddress ? (

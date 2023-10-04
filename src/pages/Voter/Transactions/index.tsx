@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { AnchorButton, Icon, Spinner, Table, TableColumn } from 'components';
+import { ButtonWrapper, Icon, Link, Spinner, Table, TableColumn } from 'components';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -141,20 +141,25 @@ export const Transactions: React.FC<TransactionsProps> = ({
       ) : (
         <Spinner css={styles.spinner} />
       )}
-      <AnchorButton
-        css={[styles.horizontalPadding, styles.anchorButton]}
+
+      <ButtonWrapper
         variant="secondary"
-        href={
-          chainId &&
-          generateBscScanUrl({
-            hash: address,
-            urlType: 'address',
-            chainId,
-          })
-        }
+        className="mt-4 text-offWhite hover:no-underline sm:mx-6 sm:mt-0"
+        asChild
       >
-        {t('voterDetail.viewAll')}
-      </AnchorButton>
+        <Link
+          href={
+            chainId &&
+            generateBscScanUrl({
+              hash: address,
+              urlType: 'address',
+              chainId,
+            })
+          }
+        >
+          {t('voterDetail.viewAll')}
+        </Link>
+      </ButtonWrapper>
     </Paper>
   );
 };

@@ -28,7 +28,6 @@ export const useStyles = () => {
       }
     `,
     tag: css`
-      border-radius: ${theme.spacing(6)};
       padding: ${theme.spacing(2, 5)};
       white-space: nowrap;
       margin-top: ${theme.spacing(2)};

@@ -45,6 +45,7 @@ const renderComponent = (
     closeAuthModal: vi.fn(),
     provider: getDefaultProvider(),
     chainId: ChainId.BSC_TESTNET,
+    isPrime: false,
     ...authContextValue,
     ...routerOpts,
   };
