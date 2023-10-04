@@ -23,18 +23,13 @@ export default {
 } as Meta<typeof Button>;
 
 interface PresentationProps {
-  children: (
-    props?: Pick<ButtonProps, 'disabled' | 'active' | 'fullWidth' | 'loading'>,
-  ) => React.ReactNode;
+  children: (props?: Pick<ButtonProps, 'disabled' | 'active' | 'loading'>) => React.ReactNode;
 }
 
 const Presentation: React.FC<PresentationProps> = ({ children }) => (
   <>
     <h2 className="mx-0 mb-3 mt-0 font-semibold">Default</h2>
     {children()}
-
-    <h2 className="mx-0 mb-3 mt-6 font-semibold">Full width</h2>
-    {children({ fullWidth: true })}
 
     <h2 className="mx-0 mb-3 mt-6 font-semibold">Active</h2>
     {children({ active: true })}

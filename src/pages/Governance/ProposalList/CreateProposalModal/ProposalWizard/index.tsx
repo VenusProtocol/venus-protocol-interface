@@ -150,7 +150,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
 
       {currentStep !== 'proposal-create' && currentStep !== 'proposal-preview' && (
         <PrimaryButton
-          fullWidth
+          className="w-full"
           disabled={getErrorsByStep(currentStep)}
           onClick={() => {
             const nextStep = getNextStep(currentStep);
@@ -164,7 +164,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
       {currentStep === 'proposal-preview' && (
         <FormikSubmitButton
           enabledLabel={t('vote.createProposalForm.create')}
-          fullWidth
+          className="w-full"
           loading={isCreateProposalLoading}
         />
       )}

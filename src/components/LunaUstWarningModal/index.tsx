@@ -27,7 +27,7 @@ export const LunaUstWarningModal: React.FC<LunaUstWarningModalProps> = ({ onClos
 
         <Typography css={styles.message}>{t('lunaUstWarningModal.content')}</Typography>
 
-        <Button onClick={onClose} variant="secondary" fullWidth>
+        <Button onClick={onClose} variant="secondary" className="w-full">
           {t('lunaUstWarningModal.closeButtonLabel')}
         </Button>
       </>

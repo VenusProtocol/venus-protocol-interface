@@ -15,9 +15,5 @@ export const useStyles = () => {
     inline: css`
       padding: 0;
     `,
-    submitButton: css`
-      margin-top: ${theme.spacing(10)};
-      margin-bottom: ${theme.spacing(2)};
-    `,
   };
 };

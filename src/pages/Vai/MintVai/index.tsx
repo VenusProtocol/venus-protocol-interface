@@ -187,7 +187,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
               <FormikSubmitButton
                 loading={isSubmitting}
                 disabled={disabled}
-                fullWidth
+                className="w-full"
                 enabledLabel={t('vai.mintVai.submitButtonLabel')}
                 disabledLabel={t('vai.mintVai.submitButtonDisabledLabel')}
               />

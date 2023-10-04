@@ -56,21 +56,18 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
 
 const getClasses = ({
   variant = 'primary',
-  fullWidth,
   active = false,
   className,
-}: Pick<ButtonProps, 'variant' | 'fullWidth' | 'active' | 'className'>) =>
+}: Pick<ButtonProps, 'variant' | 'active' | 'className'>) =>
   cn(
     'inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default disabled:text-grey',
     getVariantClasses({ variant, active }),
-    fullWidth && 'w-full',
     className,
   );
 
 export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   active?: boolean;
-  fullWidth?: boolean; // TODO: remove in favor of passing w-full class
   variant?: Variant;
   children?: React.ReactNode;
 }
@@ -78,13 +75,12 @@ export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButto
 export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   asChild,
   variant,
-  fullWidth,
   active,
   className,
   ...otherProps
 }) => {
   const Comp = asChild ? Slot : 'button';
-  return <Comp className={getClasses({ variant, fullWidth, active, className })} {...otherProps} />;
+  return <Comp className={getClasses({ variant, active, className })} {...otherProps} />;
 };
 
 export interface ButtonProps extends Omit<ButtonWrapperProps, 'asChild'> {

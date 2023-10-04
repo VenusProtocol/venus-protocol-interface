@@ -49,7 +49,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
 
       <BscLink css={styles.bscScanLinkContainer} hash={accountAddress} chainId={chainId} />
 
-      <SecondaryButton onClick={onLogOut} fullWidth>
+      <SecondaryButton onClick={onLogOut} className="w-full">
         {t('authModal.accountDetails.logOutButtonLabel')}
       </SecondaryButton>
     </div>

@@ -97,7 +97,7 @@ const VoteModal: React.FC<VoteModalProps> = ({
             />
             <FormikSubmitButton
               enabledLabel={title}
-              fullWidth
+              className="w-full"
               loading={isVoteLoading}
               data-testid={TEST_IDS.submitButton}
             />

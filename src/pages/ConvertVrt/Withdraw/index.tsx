@@ -79,7 +79,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
             xvsWithdrawableAmount.isZero() ||
             xvsWithdrawableAmount.isNaN()
           }
-          fullWidth
+          className="w-full"
           onClick={onSubmit}
           loading={withdrawXvsLoading}
         >

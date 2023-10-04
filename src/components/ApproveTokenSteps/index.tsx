@@ -76,10 +76,9 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
           </div>
 
           <PrimaryButton
-            fullWidth
             onClick={handleApproveToken}
             loading={isApproveTokenLoading}
-            css={styles.approveTokenButton}
+            className="mb-8 w-full"
           >
             {t('approveTokenSteps.approveTokenButton.text', {
               tokenSymbol: token.symbol,
