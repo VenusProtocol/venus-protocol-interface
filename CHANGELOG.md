@@ -1,3 +1,10 @@
+## [2.27.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.3...v2.27.4) (2023-10-04)
+
+
+### Bug Fixes
+
+* issues with Swap ([#1532](https://github.com/VenusProtocol/venus-protocol-interface/issues/1532)) ([f843b62](https://github.com/VenusProtocol/venus-protocol-interface/commit/f843b62a43e160a7d8e295da7dd6301a68772be7))
+
 ## [2.27.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.2...v2.27.3) (2023-10-04)
 
 ## [2.27.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.1...v2.27.2) (2023-10-03)
