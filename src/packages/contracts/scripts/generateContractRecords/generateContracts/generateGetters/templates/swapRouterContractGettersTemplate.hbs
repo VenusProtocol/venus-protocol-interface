@@ -1,16 +1,85 @@
+/* Automatically generated file, do not update manually */
+import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
+import addresses from 'packages/contracts/generated/infos/addresses';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
+import { useMemo } from 'react';
+import { ChainId } from 'types';
 
-import { swapRouterContractGetterGenerator } from 'packages/contracts/utilities/swapRouterContractGetterGenerator';
-import { swapRouterContractGetterHookGenerator } from 'packages/contracts/utilities/swapRouterContractGetterHookGenerator';
+import { useAuth } from 'context/AuthContext';
 
-export * from 'packages/contracts/utilities/useGetSwapRouterContractAddress';
-export * from 'packages/contracts/utilities/getSwapRouterContractAddress';
+interface Get{{contractName}}ContractAddressInput {
+  comptrollerContractAddress: string;
+  chainId: ChainId;
+}
 
-export const get{{contractName}}Contract = swapRouterContractGetterGenerator<{{contractName}}>({
-  abi,
-});
+export const get{{contractName}}ContractAddress = ({
+  comptrollerContractAddress,
+  chainId,
+}: Get{{contractName}}ContractAddressInput) => {
+  const {{contractName}}ContractAddresses = addresses.{{contractName}}[chainId];
+  const sanitizedComptrollerAddress =
+    comptrollerContractAddress.toLowerCase() as keyof typeof {{contractName}}ContractAddresses;
 
-export const useGet{{contractName}}Contract = swapRouterContractGetterHookGenerator({
-  getter: get{{contractName}}Contract,
-});
+  return {{contractName}}ContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
+};
+
+interface UseGet{{contractName}}ContractAddressInput {
+  comptrollerContractAddress: string;
+}
+
+export const useGet{{contractName}}ContractAddress = ({
+  comptrollerContractAddress,
+}: UseGet{{contractName}}ContractAddressInput) => {
+  const { chainId } = useAuth();
+
+  return useMemo(
+    () =>
+      get{{contractName}}ContractAddress({
+        chainId,
+        comptrollerContractAddress,
+      }),
+    [chainId, comptrollerContractAddress],
+  );
+};
+
+interface Get{{contractName}}ContractInput {
+  chainId: ChainId;
+  signerOrProvider: Signer | Provider;
+  comptrollerContractAddress: string;
+}
+
+export const get{{contractName}}Contract = ({
+  chainId,
+  signerOrProvider,
+  comptrollerContractAddress,
+}: Get{{contractName}}ContractInput) => {
+  const address = get{{contractName}}ContractAddress({ chainId, comptrollerContractAddress });
+  return address ? (new Contract(address, abi, signerOrProvider) as {{contractName}}) : undefined;
+};
+
+interface UseGet{{contractName}}ContractInput {
+  passSigner: boolean;
+  comptrollerContractAddress: string;
+}
+
+export const useGet{{contractName}}Contract = ({
+  passSigner = false,
+  comptrollerContractAddress,
+}: UseGet{{contractName}}ContractInput) => {
+  const { signer, provider, chainId } = useAuth();
+  const signerOrProvider = passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? get{{contractName}}Contract({
+            chainId,
+            comptrollerContractAddress,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, chainId, comptrollerContractAddress],
+  );
+};

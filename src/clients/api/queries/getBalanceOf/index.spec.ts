@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Bep20 } from 'packages/contracts';
-import { getTokenContract } from 'utilities';
+import { Bep20, getTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeProvider, { balance as fakeBalanceWei } from '__mocks__/models/provider';
@@ -10,7 +9,7 @@ import getBalanceOf from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-vi.mock('utilities/getTokenContract');
+vi.mock('packages/contracts');
 
 describe('api/queries/getBalanceOf', () => {
   describe('non-BNB token', () => {

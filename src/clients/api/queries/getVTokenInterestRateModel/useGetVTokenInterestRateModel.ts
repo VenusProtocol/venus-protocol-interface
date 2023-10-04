@@ -1,3 +1,4 @@
+import { useGetVTokenContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow } from 'utilities';
@@ -6,7 +7,6 @@ import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
-import useGetVTokenContract from 'hooks/useGetVTokenContract';
 
 type Options = QueryObserverOptions<
   GetVTokenInterestRateModelOutput,

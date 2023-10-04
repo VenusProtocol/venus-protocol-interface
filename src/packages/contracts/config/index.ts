@@ -4,7 +4,7 @@ import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifac
 import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as PoolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
 import { abi as RewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
-import { abi as VTokenAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
+import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
@@ -205,8 +205,8 @@ export const contracts: ContractConfig[] = [
     abi: RewardsDistributorAbi,
   },
   {
-    name: 'VToken',
-    abi: VTokenAbi,
+    name: 'VBep20',
+    abi: VBep20Abi,
   },
   {
     name: 'VBnb',

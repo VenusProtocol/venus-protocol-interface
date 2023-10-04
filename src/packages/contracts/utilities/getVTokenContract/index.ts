@@ -1,15 +1,14 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
-import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contracts';
+import { getVBep20Contract, getVBnbContract } from 'packages/contracts/generated/getters';
 import { VToken } from 'types';
 
-const getVTokenContract = ({
-  vToken,
-  signerOrProvider,
-}: {
+export interface GetVTokenContractInput {
   vToken: VToken;
   signerOrProvider: Signer | Provider;
-}) => {
+}
+
+export const getVTokenContract = ({ vToken, signerOrProvider }: GetVTokenContractInput) => {
   const input = {
     address: vToken.address,
     signerOrProvider,
@@ -19,7 +18,5 @@ const getVTokenContract = ({
     return getVBnbContract(input);
   }
 
-  return getVTokenContractFn(input);
+  return getVBep20Contract(input);
 };
-
-export default getVTokenContract;

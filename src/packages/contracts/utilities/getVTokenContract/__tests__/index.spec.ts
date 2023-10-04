@@ -1,11 +1,11 @@
 import { Signer } from 'ethers';
-import { getVBnbContract, getVTokenContract as getVTokenContractFn } from 'packages/contracts';
+import { getVBep20Contract, getVBnbContract } from 'packages/contracts/generated/getters';
 
 import { vBnb, vBusd } from '__mocks__/models/vTokens';
 
-import getVTokenContract from '..';
+import { getVTokenContract } from '..';
 
-vi.mock('packages/contracts');
+vi.mock('packages/contracts/generated/getters');
 
 describe('getVTokenContract', () => {
   it('should call getVBnbContract for vBNB token', () => {
@@ -19,12 +19,12 @@ describe('getVTokenContract', () => {
     });
   });
 
-  it('should call getVTokenContract for other vBEP20 tokens', () => {
+  it('should call getVBEP20Contract for other vBEP20 tokens', () => {
     const signerOrProvider: Signer = {} as Signer;
 
     getVTokenContract({ vToken: vBusd, signerOrProvider });
 
-    expect(getVTokenContractFn).toHaveBeenCalledWith({
+    expect(getVBep20Contract).toHaveBeenCalledWith({
       address: vBusd.address,
       signerOrProvider,
     });

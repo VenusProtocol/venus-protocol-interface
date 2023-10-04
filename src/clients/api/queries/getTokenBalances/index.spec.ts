@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import { getTokenContract } from 'utilities';
+import { getTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -8,7 +8,7 @@ import { bnb, busd, hay } from '__mocks__/models/tokens';
 
 import getTokenBalances from '.';
 
-vi.mock('utilities/getTokenContract');
+vi.mock('packages/contracts/utilities/getTokenContract');
 
 const tokens = [busd, hay];
 const tokensWithBnB = [...tokens, bnb];

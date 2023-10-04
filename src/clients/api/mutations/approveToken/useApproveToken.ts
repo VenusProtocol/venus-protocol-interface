@@ -1,10 +1,10 @@
+import { useGetTokenContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import useGetTokenContract from 'hooks/useGetTokenContract';
 
 type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
 type Options = MutationObserverOptions<ApproveTokenOutput, Error, TrimmedApproveTokenInput>;

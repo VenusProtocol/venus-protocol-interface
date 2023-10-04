@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractReceipt, Signer } from 'ethers';
-import { VBnb } from 'packages/contracts';
+import { VBnb, getVTokenContract } from 'packages/contracts';
 import { VToken } from 'types';
-import { getVTokenContract } from 'utilities';
 
 export interface SupplyInput {
   vToken: VToken;
