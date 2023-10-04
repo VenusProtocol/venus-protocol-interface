@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import {
+  ButtonWrapper,
   FormikSubmitButton,
   FormikTextField,
-  LinkButton,
+  Link,
   Modal,
   NoticeInfo,
   PrimaryButton,
@@ -110,9 +111,9 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
           )}
         </Formik>
 
-        <LinkButton to={routes.governanceLeaderBoard.path} variant="text">
-          {t('vote.delegateLeaderboard')}
-        </LinkButton>
+        <ButtonWrapper asChild variant="text" className="w-full hover:no-underline">
+          <Link to={routes.governanceLeaderBoard.path}>{t('vote.delegateLeaderboard')}</Link>
+        </ButtonWrapper>
       </>
     </Modal>
   );

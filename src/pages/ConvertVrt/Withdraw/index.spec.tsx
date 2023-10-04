@@ -40,6 +40,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
           provider: fakeProvider,
+          isPrime: false,
           chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,
         }}
