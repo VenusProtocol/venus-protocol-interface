@@ -12,6 +12,7 @@ import { cn } from 'utilities';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import { routes } from 'constants/routing';
+import { useAuth } from 'context/AuthContext';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -272,6 +273,7 @@ export type PrimeStatusBannerProps = Pick<
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const navigate = useNavigate();
+  const { isPrime } = useAuth();
   const redirectToXvsPage = () => navigate(routes.vaults.path);
 
   const xvs = useGetToken({
@@ -280,7 +282,6 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
 
   // TODO: wire up
   const isLoading = false;
-  const isUserPrime = false;
   const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 90 days in seconds
   const userStakedXvsTokens = new BigNumber('1000');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
@@ -292,7 +293,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const isClaimPrimeTokenLoading = false;
 
   // Hide component while loading or if user is Prime already
-  if (isLoading || isUserPrime) {
+  if (isLoading || isPrime) {
     return null;
   }
 
