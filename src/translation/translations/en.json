@@ -157,6 +157,7 @@
     }
   },
   "connectButton": {
+    "primeLogoAlt": "TRANSLATION NEEDED",
     "title": "Connect wallet"
   },
   "connectWallet": {
@@ -197,6 +198,7 @@
     "supplyTabTitle": "Supply"
   },
   "errors": {
+    "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
@@ -210,7 +212,6 @@
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
     "somethingWentWrong": "Something went wrong",
-    "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
     "somethingWentWrongRetrievingVoterDetails": "Something went wrong retrieving voter details",
