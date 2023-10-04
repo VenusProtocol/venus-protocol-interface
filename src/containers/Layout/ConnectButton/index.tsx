@@ -23,18 +23,22 @@ export const ConnectButtonUi: React.FC<ConnectButtonProps> = ({
   return (
     <Button
       variant={accountAddress ? 'secondary' : 'primary'}
-      className={cn(isFeatureEnabled('prime') && isPrime && 'border-transparent', className)}
+      className={cn(
+        isPrime &&
+          'relative border-transparent bg-background bg-clip-padding before:absolute before:inset-0 before:-z-[1] before:-m-[1px] before:rounded-lg before:bg-gradient-to-r before:from-[#805c4e] before:to-[#e3cdc3] before:content-[""] hover:border-transparent hover:bg-cards active:border-transparent active:bg-cards',
+        className,
+      )}
       {...otherProps}
     >
-      {!accountAddress ? (
-        t('connectButton.title')
-      ) : (
+      {accountAddress ? (
         <>
-          {isFeatureEnabled('prime') && isPrime && (
+          {isPrime && (
             <img className="mr-2 w-5" src={primeLogoSrc} alt={t('connectButton.primeLogoAlt')} />
           )}
           {truncateAddress(accountAddress)}
         </>
+      ) : (
+        t('connectButton.title')
       )}
     </Button>
   );
@@ -46,7 +50,7 @@ export const ConnectButton: React.FC<ButtonProps> = props => {
   return (
     <ConnectButtonUi
       accountAddress={accountAddress}
-      isPrime={isPrime}
+      isPrime={isFeatureEnabled('prime') && isPrime}
       onClick={openAuthModal}
       {...props}
     />

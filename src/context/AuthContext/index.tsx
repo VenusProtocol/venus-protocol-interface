@@ -52,9 +52,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // TODO: get from chain instead of config
   const chainId = config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
 
-  // TODO: fetch
-  const isPrime = true;
-
   const signer = useSigner();
   const provider = useProvider();
 
@@ -65,6 +62,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Set address as authorized by default
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
   const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
+
+  // TODO: fetch
+  const isPrime = !!accountAddress;
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
