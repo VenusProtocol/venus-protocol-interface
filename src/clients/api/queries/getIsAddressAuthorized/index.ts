@@ -13,6 +13,7 @@ const getIsAddressAuthorized = async ({
     const response = await restService({
       endpoint: `/authentication/${accountAddress}`,
       method: 'GET',
+      next: true,
     });
 
     const authorized = response.status !== 403;

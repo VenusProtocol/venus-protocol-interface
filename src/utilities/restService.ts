@@ -6,6 +6,7 @@ interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   token?: string | null;
+  next?: boolean;
   params?: Record<string, unknown>;
 }
 
@@ -24,6 +25,7 @@ export async function restService<D>({
   method,
   params,
   token = null,
+  next = false,
 }: RestServiceInput): Promise<
   | {
       status: number;
@@ -42,6 +44,12 @@ export async function restService<D>({
   _set(headers, 'Accept', 'application/json');
   _set(headers, 'Content-Type', 'application/json');
 
+  if (next) {
+    _set(headers, 'Accept-Version', 'next');
+  } else {
+    _set(headers, 'Accept-Version', 'stable');
+  }
+
   if (token) {
     _set(headers, 'Authorization', `Bearer ${token}`);
   }
@@ -58,7 +66,7 @@ export async function restService<D>({
     const queryParams = createQueryParams(params);
     path = `${path}?${queryParams}`;
   }
-  return fetch(path)
+  return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
 
