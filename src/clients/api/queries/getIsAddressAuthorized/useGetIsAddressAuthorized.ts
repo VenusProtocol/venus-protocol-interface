@@ -10,14 +10,14 @@ type Options = QueryObserverOptions<
   Error,
   GetIsAddressAuthorizedOutput,
   GetIsAddressAuthorizedOutput,
-  FunctionKey.GET_IS_ADDRESS_AUTHORIZED
+  [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress: string }]
 >;
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
 const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
   useQuery(
-    FunctionKey.GET_IS_ADDRESS_AUTHORIZED,
+    [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress }],
     () => getIsAddressAuthorized({ accountAddress }),
     {
       refetchOnMount: false,
