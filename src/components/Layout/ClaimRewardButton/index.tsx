@@ -109,7 +109,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 
           <PrimaryButton
             onClick={handleClaimReward}
-            fullWidth
+            className="w-full"
             disabled={isSubmitDisabled}
             data-testid={TEST_IDS.claimRewardSubmitButton}
             loading={isClaimingRewards}

@@ -34,7 +34,7 @@ export const Prompt: React.FC<PromptProps> = ({
     <div css={styles.container} className={className}>
       <NoticeInfo css={styles.notice} description={message} />
 
-      <SecondaryButton fullWidth onClick={openAuthModal}>
+      <SecondaryButton className="w-full" onClick={openAuthModal}>
         {t('connectWallet.connectButton')}
       </SecondaryButton>
     </div>

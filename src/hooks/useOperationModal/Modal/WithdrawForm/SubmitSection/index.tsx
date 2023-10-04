@@ -37,7 +37,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       type="submit"
       loading={isFormSubmitting}
       disabled={!isFormValid || isFormSubmitting}
-      fullWidth
+      className="w-full"
     >
       {submitButtonLabel}
     </PrimaryButton>

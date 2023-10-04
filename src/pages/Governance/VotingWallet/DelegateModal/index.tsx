@@ -95,15 +95,14 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
               />
               {currentUserAccountAddress ? (
                 <FormikSubmitButton
-                  fullWidth
+                  className="mb-2 mt-10 w-full"
                   enabledLabel={
                     previouslyDelegated ? t('vote.redelegate') : t('vote.delegateVotes')
                   }
-                  css={styles.submitButton}
                   loading={isVoteDelegationLoading}
                 />
               ) : (
-                <PrimaryButton onClick={openAuthModal} css={styles.submitButton} fullWidth>
+                <PrimaryButton onClick={openAuthModal} className="mb-2 mt-10 w-full">
                   {t('connectWallet.connectButton')}
                 </PrimaryButton>
               )}

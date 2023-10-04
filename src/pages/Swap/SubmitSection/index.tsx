@@ -3,6 +3,7 @@ import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'compon
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
+import { cn } from 'utilities';
 
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
@@ -104,8 +105,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       css={styles.container}
     >
       <PrimaryButton
-        fullWidth
-        css={styles.getSubmitButton({ isDangerous: isSwappingWithHighPriceImpact })}
+        className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
         disabled={
           !isFormValid ||
           isSubmitting ||

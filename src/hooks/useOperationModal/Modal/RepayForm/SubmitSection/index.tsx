@@ -3,12 +3,11 @@ import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'compon
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Swap, Token } from 'types';
-import { areTokensEqual } from 'utilities';
+import { areTokensEqual, cn } from 'utilities';
 
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
 import SwapSummary from '../../SwapSummary';
-import { useStyles as useSharedStyles } from '../../styles';
 import { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
@@ -43,7 +42,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isSwapLoading,
 }) => {
   const { t } = useTranslation();
-  const styles = useSharedStyles();
 
   const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
   const isSwappingWithHighPriceImpact = useMemo(
@@ -124,7 +122,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       <PrimaryButton
         type="submit"
         loading={isFormSubmitting}
-        css={styles.getSubmitButton({ isDangerous: isSwappingWithHighPriceImpact })}
+        className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
         disabled={
           !isFormValid ||
           isFormSubmitting ||
@@ -134,7 +132,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           isRevokeFromTokenWalletSpendingLimitLoading ||
           !isFromTokenApproved
         }
-        fullWidth
       >
         {submitButtonLabel}
       </PrimaryButton>

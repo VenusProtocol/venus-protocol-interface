@@ -17,9 +17,6 @@ export const useStyles = () => {
       display: block;
       color: ${theme.palette.text.primary};
     `,
-    approveTokenButton: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
     approveTokenTooltip: css`
       display: flex;
       margin-left: ${theme.spacing(2)};
