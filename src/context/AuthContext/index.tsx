@@ -23,6 +23,7 @@ export interface AuthContextValue {
   closeAuthModal: () => void;
   provider: Provider;
   chainId: ChainId;
+  isPrime: boolean;
   accountAddress?: string;
   signer?: Signer;
 }
@@ -32,6 +33,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  isPrime: false,
   provider: getDefaultProvider(),
   chainId: ChainId.BSC_MAINNET,
 });
@@ -49,6 +51,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // TODO: get from chain instead of config
   const chainId = config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
+
+  // TODO: fetch
+  const isPrime = true;
 
   const signer = useSigner();
   const provider = useProvider();
@@ -122,6 +127,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         provider,
         signer,
         chainId,
+        isPrime,
       }}
     >
       <AuthModal
