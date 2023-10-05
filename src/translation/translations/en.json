@@ -379,7 +379,7 @@
   },
   "marketTable": {
     "apy": {
-      "hypotheticalPrimeBoost": {
+      "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
         "tooltip": "Learn more about Prime <Link>here</Link>"
       },

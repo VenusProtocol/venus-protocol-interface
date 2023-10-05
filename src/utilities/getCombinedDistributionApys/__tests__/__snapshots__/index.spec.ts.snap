@@ -2,10 +2,10 @@
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 1`] = `
 {
-  "borrowApyHypotheticalPrimePercentage": undefined,
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": undefined,
   "borrowApyRewardsPercentage": "4.17469243006608279",
-  "supplyApyHypotheticalPrimePercentage": undefined,
+  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyPrimePercentage": undefined,
   "supplyApyRewardsPercentage": "0.11720675342484096",
   "totalBorrowApyPercentage": "4.17469243006608279",
@@ -15,10 +15,10 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 2`] = `
 {
-  "borrowApyHypotheticalPrimePercentage": undefined,
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": "0.913105649796123742",
   "borrowApyRewardsPercentage": "1.670327607690572731",
-  "supplyApyHypotheticalPrimePercentage": undefined,
+  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyPrimePercentage": "0.753105649796123742",
   "supplyApyRewardsPercentage": "1.353105649796123742",
   "totalBorrowApyPercentage": "0.757221957894448989",
@@ -28,10 +28,10 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 3`] = `
 {
-  "borrowApyHypotheticalPrimePercentage": "1.015310564979612374",
+  "borrowApyPrimeSimulationPercentage": "1.015310564979612374",
   "borrowApyPrimePercentage": undefined,
   "borrowApyRewardsPercentage": "0.522209972682294832",
-  "supplyApyHypotheticalPrimePercentage": "1.753105649796123742",
+  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyPrimePercentage": undefined,
   "supplyApyRewardsPercentage": "0.421719501189155143",
   "totalBorrowApyPercentage": "0.522209972682294832",
@@ -41,10 +41,10 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 4`] = `
 {
-  "borrowApyHypotheticalPrimePercentage": undefined,
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": "0.913105649796123742",
   "borrowApyRewardsPercentage": "0.852697602175970714",
-  "supplyApyHypotheticalPrimePercentage": "1.753105649796123742",
+  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyPrimePercentage": undefined,
   "supplyApyRewardsPercentage": "0.678420831753642169",
   "totalBorrowApyPercentage": "-0.060408047620153028",

@@ -9,7 +9,7 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
   distributions.reduce<{
     apyRewardsPercentage: BigNumber;
     apyPrimePercentage?: BigNumber;
-    apyHypotheticalPrimePercentage?: BigNumber;
+    apyPrimeSimulationPercentage?: BigNumber;
   }>(
     (acc, distribution) => {
       if (distribution.type === 'rewardDistributor') {
@@ -28,12 +28,12 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
         };
       }
 
-      if (distribution.type === 'hypotheticalPrime') {
+      if (distribution.type === 'primeSimulation') {
         return {
           ...acc,
-          apyHypotheticalPrimePercentage: (
-            acc.apyHypotheticalPrimePercentage || new BigNumber(0)
-          ).plus(distribution.apyPercentage),
+          apyPrimeSimulationPercentage: (acc.apyPrimeSimulationPercentage || new BigNumber(0)).plus(
+            distribution.apyPercentage,
+          ),
         };
       }
 
@@ -57,8 +57,8 @@ const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput
     borrowApyRewardsPercentage: borrow.apyRewardsPercentage,
     supplyApyPrimePercentage: supply.apyPrimePercentage,
     borrowApyPrimePercentage: borrow.apyPrimePercentage,
-    supplyApyHypotheticalPrimePercentage: supply.apyHypotheticalPrimePercentage,
-    borrowApyHypotheticalPrimePercentage: borrow.apyHypotheticalPrimePercentage,
+    supplyApyPrimeSimulationPercentage: supply.apyPrimeSimulationPercentage,
+    borrowApyPrimeSimulationPercentage: borrow.apyPrimeSimulationPercentage,
     totalSupplyApyPercentage: supply.apyRewardsPercentage.plus(supply.apyPrimePercentage || 0),
     totalBorrowApyPercentage: borrow.apyRewardsPercentage.minus(borrow.apyPrimePercentage || 0),
   };

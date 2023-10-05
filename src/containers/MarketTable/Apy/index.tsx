@@ -6,8 +6,8 @@ import { getCombinedDistributionApys } from 'utilities';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
 import { ColumnKey } from '../types';
-import { ApyWithHypotheticalPrimeBoost } from './ApyWithHypotheticalPrimeBoost';
 import { ApyWithPrimeBoost } from './ApyWithPrimeBoost';
+import { ApyWithPrimeSimulationBoost } from './ApyWithPrimeSimulationBoost';
 
 export interface ApyProps {
   asset: Asset;
@@ -54,17 +54,17 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
     );
   }
 
-  const apyHypotheticalPrimeBoost =
+  const apyPrimeSimulationBoost =
     type === 'supply'
-      ? combinedDistributionApys.supplyApyHypotheticalPrimePercentage
-      : combinedDistributionApys.borrowApyHypotheticalPrimePercentage;
+      ? combinedDistributionApys.supplyApyPrimeSimulationPercentage
+      : combinedDistributionApys.borrowApyPrimeSimulationPercentage;
 
   // Display hypothetical Prime boost
-  if (apyHypotheticalPrimeBoost) {
+  if (apyPrimeSimulationBoost) {
     return (
-      <ApyWithHypotheticalPrimeBoost
+      <ApyWithPrimeSimulationBoost
         type={type}
-        apyHypotheticalPrimeBoost={apyHypotheticalPrimeBoost}
+        apyPrimeSimulationBoost={apyPrimeSimulationBoost}
         readableApy={readableApy}
         readableLtv={readableLtv}
       />

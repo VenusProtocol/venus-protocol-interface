@@ -138,7 +138,7 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
-        type: 'hypotheticalPrime',
+        type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.753105649796123742'),
       },
@@ -151,7 +151,7 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
-        type: 'hypotheticalPrime',
+        type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.015310564979612374'),
       },
@@ -192,7 +192,7 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
-        type: 'hypotheticalPrime',
+        type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.753105649796123742'),
       },

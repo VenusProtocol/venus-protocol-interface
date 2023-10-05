@@ -4,23 +4,23 @@ import { useTranslation } from 'translation';
 
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
-export interface ApyWithHypotheticalPrimeBoostProps {
+export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';
-  apyHypotheticalPrimeBoost: BigNumber;
+  apyPrimeSimulationBoost: BigNumber;
   readableApy: string;
   readableLtv: string;
 }
 
-export const ApyWithHypotheticalPrimeBoost: React.FC<ApyWithHypotheticalPrimeBoostProps> = ({
+export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostProps> = ({
   type,
-  apyHypotheticalPrimeBoost,
+  apyPrimeSimulationBoost,
   readableApy,
   readableLtv,
 }) => {
   const { t, Trans } = useTranslation();
 
-  const readableApyHypotheticalPrimeBoost = useFormatPercentageToReadableValue({
-    value: apyHypotheticalPrimeBoost,
+  const readableApyPrimeSimulationBoost = useFormatPercentageToReadableValue({
+    value: apyPrimeSimulationBoost,
   });
 
   return (
@@ -32,8 +32,8 @@ export const ApyWithHypotheticalPrimeBoost: React.FC<ApyWithHypotheticalPrimeBoo
 
       <div className="flex items-center justify-end">
         <p className="mr-1 text-xs text-green">
-          {t('marketTable.apy.hypotheticalPrimeBoost.label', {
-            apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readableApyHypotheticalPrimeBoost}`,
+          {t('marketTable.apy.primeSimulationBoost.label', {
+            apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readableApyPrimeSimulationBoost}`,
           })}
         </p>
 
@@ -41,7 +41,7 @@ export const ApyWithHypotheticalPrimeBoost: React.FC<ApyWithHypotheticalPrimeBoo
           className="inline-flex"
           title={
             <Trans
-              i18nKey="marketTable.apy.hypotheticalPrimeBoost.tooltip"
+              i18nKey="marketTable.apy.primeSimulationBoost.tooltip"
               components={{
                 Link: (
                   // TODO: add link to article
