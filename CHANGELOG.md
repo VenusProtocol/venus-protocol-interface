@@ -1,3 +1,10 @@
+## [2.28.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.28.1...v2.28.2) (2023-10-05)
+
+
+### Bug Fixes
+
+* add back list style on Markdown component ([#1546](https://github.com/VenusProtocol/venus-protocol-interface/issues/1546)) ([1ed66fa](https://github.com/VenusProtocol/venus-protocol-interface/commit/1ed66fa203f4619f5b136e98d9c43449c5bc2f5c))
+
 ## [2.28.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.28.0...v2.28.1) (2023-10-05)
 
 ## [2.28.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.27.5...v2.28.0) (2023-10-04)
