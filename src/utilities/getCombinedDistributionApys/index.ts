@@ -8,8 +8,8 @@ interface AggregatePercentagesInput {
 const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
   distributions.reduce<{
     apyRewardsPercentage: BigNumber;
-    apyPrimeBoostPercentage?: BigNumber;
-    apyHypotheticalPrimeBoostPercentage?: BigNumber;
+    apyPrimePercentage?: BigNumber;
+    apyHypotheticalPrimePercentage?: BigNumber;
   }>(
     (acc, distribution) => {
       if (distribution.type === 'rewardDistributor') {
@@ -22,7 +22,7 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
       if (distribution.type === 'prime') {
         return {
           ...acc,
-          apyPrimeBoostPercentage: (acc.apyPrimeBoostPercentage || new BigNumber(0)).plus(
+          apyPrimePercentage: (acc.apyPrimePercentage || new BigNumber(0)).plus(
             distribution.apyPercentage,
           ),
         };
@@ -31,8 +31,8 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
       if (distribution.type === 'hypotheticalPrime') {
         return {
           ...acc,
-          apyHypotheticalPrimeBoostPercentage: (
-            acc.apyHypotheticalPrimeBoostPercentage || new BigNumber(0)
+          apyHypotheticalPrimePercentage: (
+            acc.apyHypotheticalPrimePercentage || new BigNumber(0)
           ).plus(distribution.apyPercentage),
         };
       }
@@ -55,14 +55,12 @@ const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput
   return {
     supplyApyRewardsPercentage: supply.apyRewardsPercentage,
     borrowApyRewardsPercentage: borrow.apyRewardsPercentage,
-    supplyApyPrimeBoostPercentage: supply.apyPrimeBoostPercentage,
-    borrowApyPrimeBoostPercentage: borrow.apyPrimeBoostPercentage,
-    supplyApyHypotheticalPrimeBoostPercentage: supply.apyHypotheticalPrimeBoostPercentage,
-    borrowApyHypotheticalPrimeBoostPercentage: borrow.apyHypotheticalPrimeBoostPercentage,
-    totalSupplyApyPercentage: supply.apyRewardsPercentage.plus(supply.apyPrimeBoostPercentage || 0),
-    totalBorrowApyPercentage: borrow.apyRewardsPercentage.minus(
-      borrow.apyPrimeBoostPercentage || 0,
-    ),
+    supplyApyPrimePercentage: supply.apyPrimePercentage,
+    borrowApyPrimePercentage: borrow.apyPrimePercentage,
+    supplyApyHypotheticalPrimePercentage: supply.apyHypotheticalPrimePercentage,
+    borrowApyHypotheticalPrimePercentage: borrow.apyHypotheticalPrimePercentage,
+    totalSupplyApyPercentage: supply.apyRewardsPercentage.plus(supply.apyPrimePercentage || 0),
+    totalBorrowApyPercentage: borrow.apyRewardsPercentage.minus(borrow.apyPrimePercentage || 0),
   };
 };
 

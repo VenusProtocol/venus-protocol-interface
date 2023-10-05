@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
-import { Asset, Market, Pool, Token, VToken } from 'types';
+import { Asset, AssetDistribution, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -266,6 +266,8 @@ const formatToPool = ({
       balanceDollars: borrowBalanceDollars,
     });
 
+    const borrowDistributions: AssetDistribution[] = [borrowXvsDistribution];
+
     const supplyDailyDistributedXvs = multiplyMantissaDaily({
       mantissa: xvsSupplySpeedMantissa,
       decimals: xvs.decimals,
@@ -278,6 +280,8 @@ const formatToPool = ({
       dailyDistributedRewardTokens: supplyDailyDistributedXvs,
       balanceDollars: supplyBalanceDollars,
     });
+
+    const supplyDistributions: AssetDistribution[] = [supplyXvsDistribution];
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
       vTokenMetaData.vToken,
@@ -330,8 +334,8 @@ const formatToPool = ({
       supplyBalanceCents,
       borrowBalanceTokens,
       borrowBalanceCents,
-      supplyDistributions: [supplyXvsDistribution],
-      borrowDistributions: [borrowXvsDistribution],
+      supplyDistributions,
+      borrowDistributions,
       supplierCount: market?.supplierCount || 0,
       borrowerCount: market?.borrowerCount || 0,
       // User-specific props

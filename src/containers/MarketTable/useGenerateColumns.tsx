@@ -25,6 +25,7 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 
+import { Apy } from './Apy';
 import { useStyles } from './styles';
 import { ColumnKey, PoolAsset } from './types';
 
@@ -124,31 +125,13 @@ const useGenerateColumns = ({
               return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
             }
 
-            if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-              const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
-
-              const borrowApy = poolAsset.borrowApyPercentage.minus(
-                combinedDistributionApys.totalBorrowApyPercentage,
-              );
-
-              return formatPercentageToReadableValue(borrowApy);
-            }
-
-            if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-              const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
-
-              const supplyApy = poolAsset.supplyApyPercentage.plus(
-                combinedDistributionApys.totalSupplyApyPercentage,
-              );
-
-              const ltv = +poolAsset.collateralFactor * 100;
-
-              return (
-                <LayeredValues
-                  topValue={formatPercentageToReadableValue(supplyApy)}
-                  bottomValue={formatPercentageToReadableValue(ltv)}
-                />
-              );
+            if (
+              column === 'supplyApyLtv' ||
+              column === 'borrowApy' ||
+              column === 'labeledSupplyApyLtv' ||
+              column === 'labeledBorrowApy'
+            ) {
+              return <Apy asset={poolAsset} column={column} />;
             }
 
             if (column === 'collateral') {

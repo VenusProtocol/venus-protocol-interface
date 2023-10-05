@@ -1,9 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import React from 'react';
-
-import { useStyles } from './styles';
-
 export interface LayeredValuesProps {
   topValue: string | number;
   bottomValue: string | number;
@@ -14,17 +8,11 @@ export const LayeredValues: React.FC<LayeredValuesProps> = ({
   topValue,
   bottomValue,
   className,
-}) => {
-  const styles = useStyles();
+}) => (
+  <div className={className}>
+    <p className="text-sm">{topValue}</p>
+    <p className="text-xs text-grey">{bottomValue}</p>
+  </div>
+);
 
-  return (
-    <div css={styles.container} className={className}>
-      <Typography variant="small1" css={styles.topValue}>
-        {topValue}
-      </Typography>
-
-      <Typography variant="small2">{bottomValue}</Typography>
-    </div>
-  );
-};
 export default LayeredValues;
