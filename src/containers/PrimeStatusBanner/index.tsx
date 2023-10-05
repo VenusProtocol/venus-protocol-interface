@@ -1,14 +1,13 @@
 import BigNumber from 'bignumber.js';
-import clsx from 'clsx';
 import { Card, Link } from 'components';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
+import { cn } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
@@ -139,16 +138,14 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   return (
     <Card
-      className={twMerge(
-        clsx(
-          'flex flex-col content-center md:flex-row md:justify-between',
-          isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
-        ),
+      className={cn(
+        'flex flex-col content-center md:flex-row md:justify-between',
+        isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
         className,
       )}
     >
       <div
-        className={clsx(
+        className={cn(
           'w-full md:w-auto md:flex-1',
           !hidePromotionalTitle && displayProgress && !displayWarning && 'mb-6',
           (displayStakeButton || displayClaimButton) && 'mb-4 md:mb-0 md:pr-6',
@@ -157,7 +154,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         )}
       >
         <div
-          className={clsx(
+          className={cn(
             'flex flex-col sm:flex-row',
             displayProgress && 'mb-6',
             (!title || !displayProgress) && 'sm:items-center',
@@ -168,7 +165,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
           </div>
 
           <div className="xl:max-w-[31.25rem] xxl:max-w-[39.75rem]">
-            {!!title && <h3 className={clsx('text-xl', displayProgress && 'mb-2')}>{title}</h3>}
+            {!!title && <h3 className={cn('text-xl', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
               <p className="text-grey">
@@ -194,7 +191,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         </div>
 
         {displayProgress && (
-          <div className={clsx('xl:max-w-[31.25rem]', !!title && 'sm:pl-14')}>
+          <div className={cn('xl:max-w-[31.25rem]', !!title && 'sm:pl-14')}>
             <ProgressBar
               className="mb-2"
               value={+userStakedXvsTokens.toFixed(0)}
@@ -222,7 +219,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
       {(displayStakeButton || displayClaimButton || displayWarning) && (
         <div
-          className={clsx(
+          className={cn(
             'md:flex-0 w-full md:w-auto',
             !haveAllPrimeTokensBeenClaimed && !!title && 'sm:pl-14 md:pl-0',
             displayWarning && 'order-1 md:order-2',
@@ -230,7 +227,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         >
           {displayWarning && (
             <div
-              className={clsx(
+              className={cn(
                 'mb-4 flex items-center text-right md:mb-0',
                 displayProgress && 'md:mb-4',
               )}

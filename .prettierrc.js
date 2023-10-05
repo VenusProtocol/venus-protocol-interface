@@ -3,7 +3,7 @@ module.exports = {
   trailingComma: 'all',
   bracketSpacing: true,
   plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
-  tailwindFunctions: ['clsx'],
+  tailwindFunctions: ['clsx', 'cn', 'twMerge'],
   importOrder: [
     '(__mocks__|assets|clients|components|config|constants|containers|context|errors|hooks|pages|stories|testUtils|theme|translation|types|utilities)/(.*)$',
     '^[./]',
