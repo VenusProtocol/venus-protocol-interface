@@ -11,6 +11,7 @@ import { cn } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
+import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
@@ -169,12 +170,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   i18nKey="primeStatusBanner.description"
                   components={{
                     WhiteText: <span className="text-offWhite" />,
-                    Link: (
-                      <Link
-                        // TODO: add correct link
-                        href="https://google.com"
-                      />
-                    ),
+                    Link: <Link href={PRIME_DOC_URL} />,
                   }}
                   values={{
                     stakeDelta: readableStakeDeltaTokens,

@@ -2,11 +2,11 @@
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 1`] = `
 {
-  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": undefined,
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyRewardsPercentage": "4.17469243006608279",
-  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyPrimePercentage": undefined,
+  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyRewardsPercentage": "0.11720675342484096",
   "totalBorrowApyPercentage": "4.17469243006608279",
   "totalSupplyApyPercentage": "0.11720675342484096",
@@ -15,11 +15,11 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 2`] = `
 {
-  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": "0.913105649796123742",
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyRewardsPercentage": "1.670327607690572731",
-  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyPrimePercentage": "0.753105649796123742",
+  "supplyApyPrimeSimulationPercentage": undefined,
   "supplyApyRewardsPercentage": "1.353105649796123742",
   "totalBorrowApyPercentage": "0.757221957894448989",
   "totalSupplyApyPercentage": "2.106211299592247484",
@@ -28,11 +28,11 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 3`] = `
 {
-  "borrowApyPrimeSimulationPercentage": "1.015310564979612374",
   "borrowApyPrimePercentage": undefined,
+  "borrowApyPrimeSimulationPercentage": "1.015310564979612374",
   "borrowApyRewardsPercentage": "0.522209972682294832",
-  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyPrimePercentage": undefined,
+  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyRewardsPercentage": "0.421719501189155143",
   "totalBorrowApyPercentage": "0.522209972682294832",
   "totalSupplyApyPercentage": "0.421719501189155143",
@@ -41,11 +41,11 @@ exports[`utilities/getCombinedDistributionApys > calculates combined distributio
 
 exports[`utilities/getCombinedDistributionApys > calculates combined distribution APYS correctly 4`] = `
 {
-  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyPrimePercentage": "0.913105649796123742",
+  "borrowApyPrimeSimulationPercentage": undefined,
   "borrowApyRewardsPercentage": "0.852697602175970714",
-  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyPrimePercentage": undefined,
+  "supplyApyPrimeSimulationPercentage": "1.753105649796123742",
   "supplyApyRewardsPercentage": "0.678420831753642169",
   "totalBorrowApyPercentage": "-0.060408047620153028",
   "totalSupplyApyPercentage": "0.678420831753642169",

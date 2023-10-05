@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { Icon, Link, Tooltip } from 'components';
 import { useTranslation } from 'translation';
 
+import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
 export interface ApyWithPrimeSimulationBoostProps {
@@ -43,10 +44,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
             <Trans
               i18nKey="marketTable.apy.primeSimulationBoost.tooltip"
               components={{
-                Link: (
-                  // TODO: add link to article
-                  <Link href="https://google.com" onClick={e => e.stopPropagation()} />
-                ),
+                Link: <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
               }}
             />
           }
