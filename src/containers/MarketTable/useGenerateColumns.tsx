@@ -128,7 +128,7 @@ const useGenerateColumns = ({
               const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
               const borrowApy = poolAsset.borrowApyPercentage.minus(
-                combinedDistributionApys.borrowApyPercentage,
+                combinedDistributionApys.totalBorrowApyPercentage,
               );
 
               return formatPercentageToReadableValue(borrowApy);
@@ -138,7 +138,7 @@ const useGenerateColumns = ({
               const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
 
               const supplyApy = poolAsset.supplyApyPercentage.plus(
-                combinedDistributionApys.supplyApyPercentage,
+                combinedDistributionApys.totalSupplyApyPercentage,
               );
 
               const ltv = +poolAsset.collateralFactor * 100;
@@ -299,10 +299,10 @@ const useGenerateColumns = ({
               : (rowA, rowB, direction) => {
                   if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                     const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
                     );
                     const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
                     );
 
                     return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
@@ -310,10 +310,10 @@ const useGenerateColumns = ({
 
                   if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
                     const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowA }).supplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalSupplyApyPercentage,
                     );
                     const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowB }).supplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalSupplyApyPercentage,
                     );
 
                     return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);

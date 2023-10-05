@@ -105,7 +105,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     if (distributionApys) {
       stats.push({
         label: t('market.supplyInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(distributionApys.supplyApyPercentage),
+        value: formatPercentageToReadableValue(distributionApys.supplyApyRewardsPercentage),
       });
     }
 
@@ -140,7 +140,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     if (distributionApys) {
       stats.push({
         label: t('market.supplyInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(distributionApys.borrowApyPercentage),
+        value: formatPercentageToReadableValue(distributionApys.borrowApyRewardsPercentage),
       });
     }
 
@@ -328,6 +328,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     asset.collateralFactor,
     asset.supplyBalanceTokens,
     asset.exchangeRateVTokens,
+    distributionApys,
     dailySupplyInterestsCents,
     dailyBorrowInterestsCents,
   ]);
