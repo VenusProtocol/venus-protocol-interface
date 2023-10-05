@@ -11,6 +11,10 @@ export const useStyles = () => {
       p {
         color: ${theme.palette.text.primary};
       }
+
+      ul {
+        list-style: initial;
+      }
     `,
     content: css`
       max-width: ${theme.spacing(200)};
