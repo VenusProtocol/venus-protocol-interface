@@ -1,4 +1,4 @@
-import { IconName } from '../Icon';
+import { IconName } from 'components';
 
 export interface MenuItem {
   href: string;

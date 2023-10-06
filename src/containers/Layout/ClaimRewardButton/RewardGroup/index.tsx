@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { Checkbox, CheckboxProps, LayeredValues, TokenIcon } from 'components';
 import React from 'react';
 import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
 
-import { Checkbox, CheckboxProps } from '../../../Checkbox';
-import LayeredValues from '../../../LayeredValues';
-import { TokenIcon } from '../../../TokenIcon';
 import { Group } from '../types';
 import { useStyles } from './styles';
 

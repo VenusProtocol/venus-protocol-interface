@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { MarkdownViewer, ReadableActionSignature } from 'components';
+import { MarkdownViewer } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
+
+import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 
 import { useStyles } from './styles';
 

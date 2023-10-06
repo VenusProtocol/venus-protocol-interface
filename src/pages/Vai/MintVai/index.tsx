@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
-  ConnectWallet,
   Delimiter,
   FormikSubmitButton,
   FormikTokenTextField,
@@ -30,6 +29,7 @@ import {
 } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';

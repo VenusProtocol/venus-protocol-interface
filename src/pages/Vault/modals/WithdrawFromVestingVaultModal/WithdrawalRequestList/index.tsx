@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { ConnectWallet, LabeledInlineContent, Spinner } from 'components';
+import { LabeledInlineContent, Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -8,6 +8,7 @@ import { LockedDeposit, Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';

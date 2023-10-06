@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
-import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -12,6 +11,7 @@ import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
 import { useStyles } from './styles';
 
 interface ActiveVotingProgressProps {
+  xvs?: Token;
   votedForWei?: BigNumber;
   votedAgainstWei?: BigNumber;
   abstainedWei?: BigNumber;
@@ -28,6 +28,7 @@ const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs
   });
 
 export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
+  xvs,
   votedForWei,
   votedAgainstWei,
   abstainedWei,
@@ -35,9 +36,6 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
 
   const defaultProgressbarProps = {
     step: 1,

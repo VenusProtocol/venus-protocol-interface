@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Icon, TertiaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
@@ -8,8 +9,6 @@ import addTokenToWallet, { canRegisterToken } from 'clients/web3/addTokenToWalle
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';
 
-import { TertiaryButton } from '../../../../Button';
-import { Icon } from '../../../../Icon';
 import { useStyles } from './styles';
 
 export interface VTokenSymbolUiProps {

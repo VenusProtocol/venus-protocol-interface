@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { ButtonProps, SecondaryButton } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { truncateAddress } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
-
-import { ButtonProps, SecondaryButton } from '../../Button';
 
 export interface ConnectButtonProps extends ButtonProps {
   accountAddress?: string;

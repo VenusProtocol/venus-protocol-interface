@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useGetTokens } from 'packages/tokens';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
@@ -29,10 +28,11 @@ export const TokenList: React.FC<TokenListProps> = ({
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
-  const tokens = useGetTokens();
-  const commonTokens = useMemo(
-    () => tokens.filter(token => commonTokenSymbols.includes(token.symbol)),
-    [tokens],
+
+  const commonTokenBalances = useMemo(
+    () =>
+      tokenBalances.filter(tokenBalance => commonTokenSymbols.includes(tokenBalance.token.symbol)),
+    [tokenBalances],
   );
 
   const [searchValue, setSearchValue] = useState('');
@@ -94,13 +94,13 @@ export const TokenList: React.FC<TokenListProps> = ({
         />
 
         <div css={styles.commonTokenList}>
-          {commonTokens.map(commonToken => (
+          {commonTokenBalances.map(commonTokenBalance => (
             <SenaryButton
-              onClick={() => onTokenClick(commonToken)}
+              onClick={() => onTokenClick(commonTokenBalance.token)}
               css={styles.commonTokenButton}
-              key={`select-token-text-field-common-token-${commonToken.symbol}`}
+              key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
             >
-              <TokenIconWithSymbol css={parentStyles.token} token={commonToken} />
+              <TokenIconWithSymbol css={parentStyles.token} token={commonTokenBalance.token} />
             </SenaryButton>
           ))}
         </div>

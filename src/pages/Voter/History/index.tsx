@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Pagination, Spinner } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { VoterHistory } from 'types';
@@ -27,6 +28,11 @@ export const History: React.FC<HistoryProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   return (
     <div className={className}>
       <Typography variant="h4">{t('voterDetail.votingHistory')}</Typography>
@@ -49,6 +55,7 @@ export const History: React.FC<HistoryProps> = ({
           support,
         }) => (
           <VoterProposal
+            xvs={xvs}
             key={id}
             proposalNumber={id}
             proposalTitle={description.title}

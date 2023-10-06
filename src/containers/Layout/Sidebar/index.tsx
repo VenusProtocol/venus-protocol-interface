@@ -5,13 +5,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
+import { Icon } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 
 import { ReactComponent as LogoNoText } from 'assets/img/venusLogoPure.svg';
 import { ReactComponent as LogoDesktop } from 'assets/img/venusLogoWithText.svg';
 
-import { Icon } from '../../Icon';
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';

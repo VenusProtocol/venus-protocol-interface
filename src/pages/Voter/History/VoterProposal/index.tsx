@@ -11,7 +11,7 @@ import {
 } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { ProposalState, Token, VoteSupport } from 'types';
 
 import { routes } from 'constants/routing';
 
@@ -31,6 +31,7 @@ interface VoterProposalProps {
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
+  xvs?: Token;
 }
 
 const VoterProposal: React.FC<VoterProposalProps> = ({
@@ -47,6 +48,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   queuedDate,
   endDate,
   executedDate,
+  xvs,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -201,6 +203,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
           votedAgainstWei={againstVotesWei}
           abstainedWei={abstainedVotesWei}
           votedTotalWei={votedTotalWei}
+          xvs={xvs}
         />
       }
     />

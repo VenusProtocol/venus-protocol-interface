@@ -2,10 +2,10 @@
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import { SecondaryButton } from '../../components/Button';
+import { NoticeInfo } from '../../components/Notice';
 import { useAuth } from 'context/AuthContext';
 
-import { SecondaryButton } from '../Button';
-import { NoticeInfo } from '../Notice';
 import { useStyles } from './styles';
 
 export interface PromptProps {
