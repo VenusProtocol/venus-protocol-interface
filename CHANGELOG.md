@@ -1,3 +1,10 @@
+## [2.29.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.28.2...v2.29.0) (2023-10-06)
+
+
+### Features
+
+* refactor PrimeStatusBanner to use Tailwind ([#1524](https://github.com/VenusProtocol/venus-protocol-interface/issues/1524)) ([a91845b](https://github.com/VenusProtocol/venus-protocol-interface/commit/a91845bddb6b37dbeaea3d6afc982e1cff331b15))
+
 ## [2.28.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.28.1...v2.28.2) (2023-10-05)
 
 
