@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaRegular.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegular.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaSemibold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemibold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaBold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  font-family: 'ProximaNova', sans-serif;
+  background-color: theme('colors.background');
+  color: theme('colors.offWhite');
+}
+
+input {
+  color: inherit;
+
+  &::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    padding-right: 22px;
+  }
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    padding-right: 22px;
+  }
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    padding-right: 22px;
+  }
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    padding-right: 22px;
+  }
+
+  /* Hide arrows from input number */
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: theme('colors.background');
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: theme('colors.grey');
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: theme('colors.offWhite');
+  }
+}

@@ -5,18 +5,13 @@ import { isFeatureEnabled } from 'utilities';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 
 import AccountBreakdown from './AccountBreakdown';
-import { useStyles } from './styles';
 
-const Account: React.FC = () => {
-  const styles = useStyles();
+const Account: React.FC = () => (
+  <>
+    {isFeatureEnabled('prime') && <PrimeStatusBanner className="mb-10 lg:mb-14" />}
 
-  return (
-    <>
-      {isFeatureEnabled('prime') && <PrimeStatusBanner css={styles.section} />}
-
-      <AccountBreakdown />
-    </>
-  );
-};
+    <AccountBreakdown />
+  </>
+);
 
 export default Account;

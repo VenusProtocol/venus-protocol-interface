@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Card, PrimaryButton } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
