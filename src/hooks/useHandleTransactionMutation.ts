@@ -1,7 +1,7 @@
+import { toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { ContractReceipt } from 'ethers';
 
-import { toast } from 'components/Toast';
 import useSuccessfulTransactionModal, {
   OpenSuccessfulTransactionModalInput,
 } from 'hooks/useSuccessfulTransactionModal';

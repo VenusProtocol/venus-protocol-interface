@@ -2,7 +2,6 @@
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
 import {
-  ConnectWallet,
   Icon,
   LabeledInlineContent,
   SelectTokenTextField,
@@ -24,6 +23,7 @@ import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';

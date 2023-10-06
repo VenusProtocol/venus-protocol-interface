@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { EllipseAddress, Icon } from 'components';
 import React, { useMemo } from 'react';
 import { Link, Params, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -8,8 +9,6 @@ import { Subdirectory, routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-import { EllipseAddress } from '../../../EllipseAddress';
-import { Icon } from '../../../Icon';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
 import { useStyles } from './styles';

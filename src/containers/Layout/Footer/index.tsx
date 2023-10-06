@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import { Icon } from 'components';
 import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
-import { Icon } from 'components/Icon';
 import { EXPLORER_URLS } from 'constants/bsc';
 import { useAuth } from 'context/AuthContext';
 

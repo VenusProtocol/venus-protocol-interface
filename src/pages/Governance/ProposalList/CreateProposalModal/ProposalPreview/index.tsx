@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { MarkdownViewer, ReadableActionSignature } from 'components';
+import { MarkdownViewer } from 'components';
 import { useFormikContext } from 'formik';
 import { useGetTokens } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
+
+import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';

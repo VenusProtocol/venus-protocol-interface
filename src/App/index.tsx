@@ -1,4 +1,3 @@
-import { Layout } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
@@ -6,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
+import { Layout } from 'containers/Layout';
 import { AnalyticsProvider } from 'context/Analytics';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';

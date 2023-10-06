@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, Spinner, TextButton } from 'components';
+import { Spinner, TextButton } from 'components';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -12,6 +12,7 @@ import {
   useGetXvsVaultUserInfo,
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';

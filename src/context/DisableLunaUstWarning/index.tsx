@@ -1,8 +1,8 @@
+import { LunaUstWarningModal } from 'components';
 import noop from 'noop-ts';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetMainPool } from 'clients/api';
-import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
 import { useAuth } from 'context/AuthContext';
 
 export interface DisableLunaUstWarningContextValue {

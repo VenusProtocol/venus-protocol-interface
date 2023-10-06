@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import {
   ApproveTokenSteps,
   ApproveTokenStepsProps,
-  ConnectWallet,
   Delimiter,
   FormikSubmitButton,
   FormikTokenTextField,
@@ -27,6 +26,7 @@ import {
 import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';

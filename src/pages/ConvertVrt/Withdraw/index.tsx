@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { ConnectWallet, PrimaryButton, TokenIcon } from 'components';
+import { PrimaryButton, TokenIcon } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';

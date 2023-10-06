@@ -10,9 +10,10 @@ import {
   ProposalCard,
   ProposalTypeChip,
 } from 'components';
+import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ProposalState, ProposalType, VoteSupport } from 'types';
+import { ProposalState, ProposalType, Token, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { routes } from 'constants/routing';
@@ -119,6 +120,7 @@ interface GovernanceProposalProps {
   abstainedVotesWei?: BigNumber;
   isUserConnected: boolean;
   proposalType: ProposalType;
+  xvs?: Token;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
@@ -136,6 +138,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   abstainedVotesWei,
   isUserConnected,
   proposalType,
+  xvs,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -197,6 +200,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
             votedAgainstWei={againstVotesWei}
             abstainedWei={abstainedVotesWei}
             votedTotalWei={votedTotalWei}
+            xvs={xvs}
           />
         ) : (
           <StatusCard state={proposalState} />
@@ -240,6 +244,10 @@ const GovernanceProposal: React.FC<
 > = ({ proposalId, ...props }) => {
   const { accountAddress } = useAuth();
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
   const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId, accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
@@ -247,6 +255,7 @@ const GovernanceProposal: React.FC<
 
   return (
     <GovernanceProposalUi
+      xvs={xvs}
       userVoteStatus={userVoteReceipt?.voteSupport}
       proposalId={proposalId}
       isUserConnected={!!accountAddress}

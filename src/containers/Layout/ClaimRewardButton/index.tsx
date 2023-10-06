@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { ButtonProps, Modal, PrimaryButton } from 'components';
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import React, { useContext, useMemo, useState } from 'react';
@@ -11,8 +12,6 @@ import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { ButtonProps, PrimaryButton } from '../../Button';
-import { Modal } from '../../Modal';
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
 import { Group } from './types';

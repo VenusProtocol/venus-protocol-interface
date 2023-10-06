@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Card, Link } from 'components';
+import { Card, Icon, Link, PrimaryButton, ProgressBar, Tooltip } from 'components';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
@@ -11,10 +11,6 @@ import { cn } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
-import { PrimaryButton } from 'components/Button';
-import { Icon } from 'components/Icon';
-import { ProgressBar } from 'components/ProgressBar';
-import { Tooltip } from 'components/Tooltip';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
