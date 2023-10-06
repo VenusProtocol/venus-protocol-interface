@@ -16639,9 +16639,9 @@ nofilter@^3.1.0:
   integrity sha512-l2NNj07e9afPnhAhvgVrCD/oy2Ai1yfLpuo3EpiO1jFTsB4sFz6oIfAfSZyQzVpkZQ9xS8ZS5g1jCBgq4Hwo0g==
 
 noop-ts@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/noop-ts/-/noop-ts-1.0.6.tgz#47449be0413658115ce43e013d37c48ec5360ebf"
-  integrity sha512-ArJQsZKragEmngDsEdyOWaFznESgpwGFleM+oHUnbJPQA/rQkEBfeAE3qx+BE/+kA262xPC1ESL//vGVMZknOQ==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/noop-ts/-/noop-ts-1.0.7.tgz#e2fc3a9ef4285de429c36157b33f1248d41257f4"
+  integrity sha512-V+WINJ3emVSmNk8InTpOv7uAmCH5b/0ZGApMLncnh0hdBBFTDC11ZyisOat0FHK89QlFn1Ycb6Uz9sLI/wqf1g==
 
 nopt@^6.0.0:
   version "6.0.0"
