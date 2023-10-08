@@ -183,12 +183,17 @@
     "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
-      "buttonLabel": "Connect wallet",
-      "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
       "illustration": {
         "alt": "Illustration of a wallet"
+      }
+    },
+    "primePromotionalBanner": {
+      "buttonLabel": "Learn more",
+      "description": "Venus Prime and the Venus Prime Token reward dedicated users of Venus with real yield for superior rates with their lending and borrowing activities.",
+      "illustration": {
+        "alt": "Prime promotional banner"
       },
-      "title": "Connect your wallet"
+      "title": "Leverage <Prime>Venus Prime</Prime> to amplify your returns"
     },
     "searchInput": {
       "placeholder": "Search asset",

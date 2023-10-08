@@ -10,7 +10,7 @@ import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
-import { ConnectWalletBanner } from './ConnectWalletBanner';
+import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
@@ -91,7 +91,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
-      <ConnectWalletBanner />
+      {isFeatureEnabled('prime') && <PrimePromotionalBanner />}
 
       <NoticeWarning
         css={styles.banner}
