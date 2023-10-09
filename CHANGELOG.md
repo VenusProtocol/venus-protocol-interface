@@ -1,3 +1,11 @@
+## [2.30.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.29.3...v2.30.0) (2023-10-09)
+
+
+### Features
+
+* add support for displaying Prime boost on MarketTable ([#1545](https://github.com/VenusProtocol/venus-protocol-interface/issues/1545)) ([220b5d1](https://github.com/VenusProtocol/venus-protocol-interface/commit/220b5d18465db1cce5a93e61807c5ba2ec27ccd5))
+* add support for prime to connect button ([#1539](https://github.com/VenusProtocol/venus-protocol-interface/issues/1539)) ([4600310](https://github.com/VenusProtocol/venus-protocol-interface/commit/4600310bf2aab9cde20d55d4c4efdf1d9929e501))
+
 ## [2.29.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.29.2...v2.29.3) (2023-10-08)
 
 ## [2.29.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.29.1...v2.29.2) (2023-10-06)
