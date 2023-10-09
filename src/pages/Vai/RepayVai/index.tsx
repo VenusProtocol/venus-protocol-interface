@@ -234,7 +234,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                   }
                   enabledLabel={t('vai.repayVai.submitButtonLabel')}
                   disabledLabel={t('vai.repayVai.submitButtonDisabledLabel')}
-                  fullWidth
+                  className="w-full"
                 />
               </ApproveTokenSteps>
             </>

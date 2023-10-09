@@ -21,6 +21,7 @@ describe('pages/ConvertVRT/Convert', () => {
           closeAuthModal: vi.fn(),
           provider: fakeProvider,
           chainId: ChainId.BSC_TESTNET,
+          isPrime: false,
           accountAddress: fakeAccountAddress,
         }}
       >

@@ -1,11 +1,12 @@
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import { withCenterStory, withRouter } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 
 import {
   Button,
-  LinkButton,
+  ButtonProps,
+  ButtonWrapper as ButtonWrapperComp,
   PrimaryButton,
   QuaternaryButton,
   QuinaryButton,
@@ -21,45 +22,102 @@ export default {
   decorators: [withCenterStory({ width: 250 })],
 } as Meta<typeof Button>;
 
-export const Primary = () => <PrimaryButton onClick={console.log}>Primary</PrimaryButton>;
-export const Secondary = () => <SecondaryButton onClick={console.log}>Secondary</SecondaryButton>;
-export const Tertiary = () => <TertiaryButton onClick={console.log}>Tertiary</TertiaryButton>;
+interface PresentationProps {
+  children: (props?: Pick<ButtonProps, 'disabled' | 'active' | 'loading'>) => React.ReactNode;
+}
+
+const Presentation: React.FC<PresentationProps> = ({ children }) => (
+  <>
+    <h2 className="mx-0 mb-3 mt-0 font-semibold">Default</h2>
+    {children()}
+
+    <h2 className="mx-0 mb-3 mt-6 font-semibold">Active</h2>
+    {children({ active: true })}
+
+    <h2 className="mx-0 mb-3 mt-6 font-semibold">Disabled</h2>
+    {children({ disabled: true })}
+
+    <h2 className="mx-0 mb-3 mt-6 font-semibold">Loading</h2>
+    {children({ loading: true })}
+  </>
+);
+
+export const Primary = () => (
+  <Presentation>
+    {props => (
+      <PrimaryButton onClick={console.log} {...props}>
+        Primary
+      </PrimaryButton>
+    )}
+  </Presentation>
+);
+
+export const Secondary = () => (
+  <Presentation>
+    {props => (
+      <SecondaryButton onClick={console.log} {...props}>
+        Secondary
+      </SecondaryButton>
+    )}
+  </Presentation>
+);
+
+export const Tertiary = () => (
+  <Presentation>
+    {props => (
+      <TertiaryButton onClick={console.log} {...props}>
+        Tertiary
+      </TertiaryButton>
+    )}
+  </Presentation>
+);
+
 export const Quaternary = () => (
-  <QuaternaryButton onClick={console.log}>Quaternary</QuaternaryButton>
-);
-export const Quinary = () => <QuinaryButton onClick={console.log}>Quinary</QuinaryButton>;
-export const Senary = () => <SenaryButton onClick={console.log}>Senary</SenaryButton>;
-export const Text = () => <TextButton onClick={console.log}>Text</TextButton>;
-
-export const FullWidth = () => (
-  <PrimaryButton onClick={console.log} fullWidth>
-    Full width
-  </PrimaryButton>
+  <Presentation>
+    {props => (
+      <QuaternaryButton onClick={console.log} {...props}>
+        Quaternary
+      </QuaternaryButton>
+    )}
+  </Presentation>
 );
 
-export const Disabled = () => (
-  <PrimaryButton onClick={console.log} disabled>
-    Disabled
-  </PrimaryButton>
+export const Quinary = () => (
+  <Presentation>
+    {props => (
+      <QuinaryButton onClick={console.log} {...props}>
+        Quinary
+      </QuinaryButton>
+    )}
+  </Presentation>
 );
 
-export const Active = () => (
-  <PrimaryButton onClick={console.log} active>
-    Active
-  </PrimaryButton>
+export const Senary = () => (
+  <Presentation>
+    {props => (
+      <SenaryButton onClick={console.log} {...props}>
+        Senary
+      </SenaryButton>
+    )}
+  </Presentation>
 );
 
-export const Link = () => (
-  <LinkButton onClick={console.log} to="/">
-    Link
-  </LinkButton>
+export const Text = () => (
+  <Presentation>
+    {props => (
+      <TextButton onClick={console.log} {...props}>
+        Text
+      </TextButton>
+    )}
+  </Presentation>
 );
-Link.story = {
-  decorators: [withRouter],
-};
 
-export const Loading = () => (
-  <PrimaryButton onClick={console.log} loading>
-    Loading
-  </PrimaryButton>
+export const ButtonWrapper = () => (
+  <Presentation>
+    {props => (
+      <ButtonWrapperComp onClick={console.log} variant="primary" asChild {...props}>
+        <a href="https://google.com">Text</a>
+      </ButtonWrapperComp>
+    )}
+  </Presentation>
 );

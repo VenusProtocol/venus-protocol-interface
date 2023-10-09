@@ -11,15 +11,6 @@ export const useStyles = () => {
         margin-left: 0;
       }
     `,
-    actionButton: css`
-      width: 100%;
-      ${theme.breakpoints.down('lg')} {
-        width: auto;
-      }
-      ${theme.breakpoints.down('sm')} {
-        width: 100%;
-      }
-    `,
     clickableText: css`
       color: ${theme.palette.interactive.primary};
 
@@ -129,16 +120,6 @@ export const useStyles = () => {
       flex-direction: row;
       align-items: flex-end;
       margin-bottom: ${theme.spacing(1)};
-    `,
-    snapshotButton: css`
-      display: flex;
-      margin-top: ${theme.spacing(6)};
-      width: 100%;
-    `,
-    snapshotButtonIcon: css`
-      width: ${theme.shape.iconSize.xLarge}px;
-      height: ${theme.shape.iconSize.xLarge}px;
-      margin-right: ${theme.spacing(2)};
     `,
   };
 };

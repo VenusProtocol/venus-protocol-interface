@@ -336,8 +336,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     <>
       {isSupplyActionEnabled && (
         <Button
-          fullWidth
-          css={styles.statsColumnButton}
+          className="mx-3 w-full first:ml-0 last:mr-0"
           onClick={() =>
             openOperationModal({
               vToken: asset.vToken,
@@ -351,8 +350,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       )}
       {isBorrowActionEnabled && (
         <SecondaryButton
-          fullWidth
-          css={styles.statsColumnButton}
+          className="mx-3 w-full first:ml-0 last:mr-0"
           onClick={() =>
             openOperationModal({
               vToken: asset.vToken,

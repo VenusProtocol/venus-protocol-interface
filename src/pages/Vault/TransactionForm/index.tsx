@@ -192,7 +192,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
                   isWalletSpendingLimitLoading ||
                   isRevokeWalletSpendingLimitLoading
                 }
-                fullWidth
+                className="w-full"
                 enabledLabel={submitButtonLabel}
                 disabledLabel={submitButtonDisabledLabel}
               />
@@ -201,7 +201,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
             <FormikSubmitButton
               loading={isSubmitting}
               disabled={!isValid || !dirty || isSubmitting}
-              fullWidth
+              className="w-full"
               enabledLabel={submitButtonLabel}
               disabledLabel={submitButtonDisabledLabel}
             />

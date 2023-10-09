@@ -1,35 +1,45 @@
-/** @jsxImportSource @emotion/react */
-import { ButtonProps, SecondaryButton } from 'components';
+import { Button, ButtonProps } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { truncateAddress } from 'utilities';
+import { isFeatureEnabled, truncateAddress } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
-export interface ConnectButtonProps extends ButtonProps {
+import { PrimeButton } from './PrimeButton';
+
+export interface ConnectButtonUiProps extends ButtonProps {
+  isPrime: boolean;
   accountAddress?: string;
 }
 
-export const ConnectButtonUi: React.FC<ConnectButtonProps> = ({
+export const ConnectButtonUi: React.FC<ConnectButtonUiProps> = ({
   accountAddress,
+  isPrime,
   ...otherProps
 }) => {
   const { t } = useTranslation();
 
+  if (accountAddress && isPrime) {
+    return <PrimeButton accountAddress={accountAddress} {...otherProps} />;
+  }
+
   return (
-    <SecondaryButton {...otherProps}>
-      {!accountAddress ? t('connectButton.title') : truncateAddress(accountAddress)}
-    </SecondaryButton>
+    <Button variant={accountAddress ? 'secondary' : 'primary'} {...otherProps}>
+      {accountAddress ? <>{truncateAddress(accountAddress)}</> : t('connectButton.title')}
+    </Button>
   );
 };
 
-export const ConnectButton: React.FC<ButtonProps> = props => {
-  const { accountAddress, openAuthModal } = useAuth();
+export const ConnectButton: React.FC<
+  Omit<ConnectButtonUiProps, 'isPrime' | 'accountAddress'>
+> = props => {
+  const { accountAddress, openAuthModal, isPrime } = useAuth();
+
   return (
     <ConnectButtonUi
       accountAddress={accountAddress}
+      isPrime={isFeatureEnabled('prime') && isPrime}
       onClick={openAuthModal}
-      variant={accountAddress ? 'secondary' : 'primary'}
       {...props}
     />
   );

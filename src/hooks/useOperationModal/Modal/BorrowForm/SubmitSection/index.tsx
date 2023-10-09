@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { cn } from 'utilities';
 
-import { useStyles as useSharedStyles } from '../../styles';
 import { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
@@ -23,7 +23,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   formError,
 }) => {
   const { t } = useTranslation();
-  const sharedStyles = useSharedStyles();
 
   const isDangerous = useMemo(
     () => new BigNumber(fromTokenAmountTokens).isGreaterThanOrEqualTo(safeLimitTokens),
@@ -56,11 +55,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 
   return (
     <PrimaryButton
-      css={sharedStyles.getSubmitButton({ isDangerous })}
       type="submit"
       loading={isFormSubmitting}
       disabled={!isFormValid || isFormSubmitting}
-      fullWidth
+      className={cn('w-full', isDangerous && 'border-red bg-red')}
     >
       {submitButtonLabel}
     </PrimaryButton>

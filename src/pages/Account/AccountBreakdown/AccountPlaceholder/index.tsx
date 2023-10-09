@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { LinkButton } from 'components';
+import { ButtonWrapper, Link } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 
@@ -22,10 +22,16 @@ const AccountPlaceholder: React.FC = () => {
           alt={t('dashboard.connectWalletBanner.illustration.alt')}
         />
       </div>
+
       <Typography css={styles.placeholderText} variant="h4">
         {t('accountPlaceholder.assetsWillAppearHere')}
       </Typography>
-      <LinkButton to={routes.dashboard.path}>{t('accountPlaceholder.letsGetStarted')}</LinkButton>
+
+      <ButtonWrapper asChild>
+        <Link to={routes.dashboard.path} className="text-offWhite hover:no-underline">
+          {t('accountPlaceholder.letsGetStarted')}
+        </Link>
+      </ButtonWrapper>
     </div>
   );
 };

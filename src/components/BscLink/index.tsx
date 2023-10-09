@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'translation';
 import { ChainId } from 'types';
-import { UrlType, generateBscScanUrl } from 'utilities';
+import { UrlType, cn, generateBscScanUrl } from 'utilities';
 
 import { Breakpoint, EllipseAddress } from '../EllipseAddress';
 import { Icon } from '../Icon';
@@ -41,7 +40,7 @@ export const BscLink: React.FC<BscLinkProps> = ({
   }, [text, ellipseBreakpoint]);
 
   return (
-    <div className={twMerge('inline-block text-sm font-semibold text-blue', className)}>
+    <div className={cn('inline-block text-sm font-semibold text-blue', className)}>
       <Link
         href={chainId && generateBscScanUrl({ hash, urlType, chainId })}
         className="flex items-center"

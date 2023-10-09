@@ -82,7 +82,7 @@ export const SidebarUi: React.FC = () => {
         <div css={styles.flexRow}>
           <Icon name="logoMobile" css={styles.mobileLogo} />
 
-          <ConnectButton fullWidth css={styles.mobileConnectButton} />
+          <ConnectButton className="mx-8 h-9 w-full border-2 text-sm" />
 
           <button type="button" onClick={openMenu} css={styles.actionButton}>
             <Icon name="burger" css={styles.burger} />
@@ -105,7 +105,7 @@ export const SidebarUi: React.FC = () => {
           <div css={[styles.flexRow, styles.doublePadding]}>
             <Icon name="logoMobile" css={styles.mobileLogo} />
 
-            <ConnectButton fullWidth css={styles.mobileConnectButton} />
+            <ConnectButton className="mx-8 h-9 w-full border-2 text-sm" />
 
             <button type="button" onClick={closeMenu} css={styles.actionButton}>
               <Icon name="closeRounded" css={styles.burger} />

@@ -98,7 +98,7 @@ const ActionAccordion: React.FC = () => {
                 push(initialActionData);
                 setExpanded(actions.length || 0);
               }}
-              fullWidth
+              className="w-full"
               css={styles.addOneMore}
               disabled={!!errors || actions.length >= 30}
             >

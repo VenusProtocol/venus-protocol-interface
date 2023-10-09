@@ -68,7 +68,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
             onClick={handleSubmit}
             loading={isSubmitting}
             disabled={withdrawableWei.isEqualTo(0)}
-            fullWidth
+            className="w-full"
           >
             {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
           </PrimaryButton>

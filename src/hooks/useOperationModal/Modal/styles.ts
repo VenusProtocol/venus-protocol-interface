@@ -24,12 +24,5 @@ export const useStyles = () => {
     isolatedAssetWarning: css`
       margin-bottom: ${theme.spacing(6)};
     `,
-    getSubmitButton: ({ isDangerous }: { isDangerous: boolean }) => css`
-      ${isDangerous &&
-      css`
-        background-color: ${theme.palette.error.main};
-        border-color: ${theme.palette.error.main};
-      `}
-    `,
   };
 };

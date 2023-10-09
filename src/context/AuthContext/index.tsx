@@ -23,6 +23,7 @@ export interface AuthContextValue {
   closeAuthModal: () => void;
   provider: Provider;
   chainId: ChainId;
+  isPrime: boolean;
   accountAddress?: string;
   signer?: Signer;
 }
@@ -32,6 +33,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  isPrime: false,
   provider: getDefaultProvider(),
   chainId: ChainId.BSC_MAINNET,
 });
@@ -60,6 +62,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Set address as authorized by default
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
   const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
+
+  // TODO: fetch
+  const isPrime = !!accountAddress;
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
@@ -122,6 +127,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         provider,
         signer,
         chainId,
+        isPrime,
       }}
     >
       <AuthModal
