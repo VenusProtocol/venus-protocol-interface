@@ -1,7 +1,8 @@
-import { Card, Icon, SecondaryButton } from 'components';
+import { ButtonWrapper, Card, Icon, Link } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import { PRIME_DOC_URL } from 'constants/prime';
 import { useAuth } from 'context/AuthContext';
 
 import boostsIllustration from './boostsIllustration.png';
@@ -69,10 +70,11 @@ export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> =
               {t('dashboard.primePromotionalBanner.description')}
             </p>
 
-            {/* TODO: refactor into a link */}
-            <SecondaryButton className="w-full sm:w-auto">
-              {t('dashboard.primePromotionalBanner.buttonLabel')}
-            </SecondaryButton>
+            <ButtonWrapper variant="secondary" className="w-full sm:w-auto" asChild>
+              <Link href={PRIME_DOC_URL} className="text-offWhite no-underline hover:no-underline">
+                {t('dashboard.primePromotionalBanner.buttonLabel')}
+              </Link>
+            </ButtonWrapper>
           </div>
         </div>
       </div>
