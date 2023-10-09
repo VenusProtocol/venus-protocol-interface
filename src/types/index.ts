@@ -188,6 +188,7 @@ export interface JsonProposal {
   signatures?: string[];
   targets?: (string | number)[];
   params?: (string | (string | number)[])[][];
+  values?: string[];
 }
 
 export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';

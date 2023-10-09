@@ -5,7 +5,14 @@ const importJsonProposal = async (proposalFile: File) => {
   const contents = await proposalFile.text();
   const jsonProposal = JSON.parse(contents);
 
-  const { meta, type: proposalType, signatures, targets, params } = jsonProposal as JsonProposal;
+  const {
+    meta,
+    type: proposalType,
+    signatures,
+    targets,
+    params,
+    values,
+  } = jsonProposal as JsonProposal;
 
   if (!meta) {
     throw new VError({
@@ -111,10 +118,13 @@ const importJsonProposal = async (proposalFile: File) => {
       }
     });
 
+    const value = values ? values[idx] : '0';
+
     return {
-      signature,
+      signature: signature ?? '',
       target,
       callData,
+      value,
     };
   });
 

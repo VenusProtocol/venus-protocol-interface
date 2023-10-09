@@ -8,6 +8,7 @@ describe('api/mutation/createProposal', () => {
   test('returns contract receipt when request succeeds', async () => {
     const fakeTargets = ['0x32asdf'];
     const fakeSignatures = ['signature()'];
+    const fakeValues = ['0'];
     const fakeCallDatas = ['callData'];
     const fakeDescription = 'Description';
     const proposalType = 0;
@@ -25,6 +26,7 @@ describe('api/mutation/createProposal', () => {
       governorBravoDelegateContract: fakeContract,
       targets: fakeTargets,
       signatures: fakeSignatures,
+      values: fakeValues,
       callDatas: fakeCallDatas,
       description: fakeDescription,
       proposalType,
@@ -34,7 +36,7 @@ describe('api/mutation/createProposal', () => {
     expect(createProposalMock).toHaveBeenCalledTimes(1);
     expect(createProposalMock).toHaveBeenCalledWith(
       fakeTargets,
-      Array(fakeSignatures.length).fill(0),
+      fakeValues,
       fakeSignatures,
       fakeCallDatas,
       fakeDescription,
