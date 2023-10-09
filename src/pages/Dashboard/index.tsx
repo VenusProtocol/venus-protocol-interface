@@ -3,10 +3,9 @@ import { ButtonGroup, Link, NoticeWarning, Tag, TagGroup, TextField } from 'comp
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
-import { MarketTable, MarketTableProps } from 'containers/MarketTable';
+import { MarketTable } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
@@ -61,34 +60,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
     [pools],
   );
 
-  const supplyMarketTableProps: MarketTableProps = {
-    pools: formattedPools,
-    isFetching: isFetchingPools,
-    marketType: 'supply',
-    breakpoint: 'lg',
-    columns: isFeatureEnabled('isolatedPools')
-      ? ['asset', 'supplyApyLtv', 'pool', 'collateral']
-      : ['asset', 'supplyApyLtv', 'userWalletBalance', 'collateral'],
-    initialOrder: {
-      orderBy: 'supplyApyLtv',
-      orderDirection: 'desc',
-    },
-  };
-
-  const borrowMarketTableProps: MarketTableProps = {
-    pools: formattedPools,
-    isFetching: isFetchingPools,
-    marketType: 'borrow',
-    breakpoint: 'lg',
-    columns: isFeatureEnabled('isolatedPools')
-      ? ['asset', 'borrowApy', 'pool', 'liquidity']
-      : ['asset', 'borrowApy', 'userWalletBalance', 'liquidity'],
-    initialOrder: {
-      orderBy: 'borrowApy',
-      orderDirection: 'asc',
-    },
-  };
-
   return (
     <>
       <ConnectWalletBanner />
@@ -113,27 +84,21 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           isSmall
           value={searchValue}
           onChange={handleSearchInputChange}
-          placeholder={
-            isFeatureEnabled('isolatedPools')
-              ? t('dashboard.searchInput.placeholderIsolatedPools')
-              : t('dashboard.searchInput.placeholder')
-          }
+          placeholder={t('dashboard.searchInput.placeholder')}
           leftIconSrc="magnifier"
           variant="secondary"
         />
 
-        {!isFeatureEnabled('isolatedPools') && (
-          <ButtonGroup
-            css={[styles.tabletButtonGroup, showXlDownCss]}
-            fullWidth
-            buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-            activeButtonIndex={activeTabIndex}
-            onButtonClick={setActiveTabIndex}
-          />
-        )}
+        <ButtonGroup
+          css={[styles.tabletButtonGroup, showXlDownCss]}
+          fullWidth
+          buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
+          activeButtonIndex={activeTabIndex}
+          onButtonClick={setActiveTabIndex}
+        />
 
         <div css={styles.headerBottomRow}>
-          {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
+          {pools.length > 0 && (
             <TagGroup
               css={styles.tags}
               tags={poolTags}
@@ -148,11 +113,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
               isSmall
               value={searchValue}
               onChange={handleSearchInputChange}
-              placeholder={
-                isFeatureEnabled('isolatedPools')
-                  ? t('dashboard.searchInput.placeholderIsolatedPools')
-                  : t('dashboard.searchInput.placeholder')
-              }
+              placeholder={t('dashboard.searchInput.placeholder')}
               leftIconSrc="magnifier"
               variant="secondary"
             />
@@ -160,52 +121,26 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         </div>
       </div>
 
-      {isFeatureEnabled('isolatedPools') ? (
-        <MarketTable
-          pools={formattedPools}
-          isFetching={isFetchingPools}
-          breakpoint="lg"
-          columns={[
-            'asset',
-            'pool',
-            'userWalletBalance',
-            'labeledSupplyApyLtv',
-            'labeledBorrowApy',
-            'liquidity',
-          ]}
-          marketType="supply"
-          initialOrder={{
-            orderBy: 'userWalletBalance',
-            orderDirection: 'desc',
-          }}
-          testId={TEST_IDS.marketTable}
-          key="dashboard-market-table"
-        />
-      ) : (
-        <>
-          <div css={[styles.desktopMarketTables, hideXlDownCss]}>
-            <MarketTable
-              {...supplyMarketTableProps}
-              title={t('dashboard.supplyMarketTableTitle')}
-              testId={TEST_IDS.supplyMarketTable}
-            />
-
-            <MarketTable
-              {...borrowMarketTableProps}
-              title={t('dashboard.borrowMarketTableTitle')}
-              testId={TEST_IDS.borrowMarketTable}
-            />
-          </div>
-
-          <div css={showXlDownCss}>
-            {activeTabIndex === 0 ? (
-              <MarketTable {...supplyMarketTableProps} key="dashboard-supply-market-table" />
-            ) : (
-              <MarketTable {...borrowMarketTableProps} key="dashboard-borrow-market-table" />
-            )}
-          </div>
-        </>
-      )}
+      <MarketTable
+        pools={formattedPools}
+        isFetching={isFetchingPools}
+        breakpoint="lg"
+        columns={[
+          'asset',
+          'pool',
+          'userWalletBalance',
+          'labeledSupplyApyLtv',
+          'labeledBorrowApy',
+          'liquidity',
+        ]}
+        marketType="supply"
+        initialOrder={{
+          orderBy: 'userWalletBalance',
+          orderDirection: 'desc',
+        }}
+        testId={TEST_IDS.marketTable}
+        key="dashboard-market-table"
+      />
     </>
   );
 };

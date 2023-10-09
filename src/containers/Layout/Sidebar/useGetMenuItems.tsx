@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { isFeatureEnabled } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
@@ -31,32 +30,22 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (isFeatureEnabled('isolatedPools')) {
-      menuItems.push(
-        {
-          href: routes.corePool.path,
-          // Translation key: do not remove this comment
-          // t('layout.menuItems.corePool')
-          i18nKey: 'layout.menuItems.corePool',
-          icon: 'venus',
-        },
-        {
-          href: routes.isolatedPools.path,
-          // Translation key: do not remove this comment
-          // t('layout.menuItems.isolatedPools')
-          i18nKey: 'layout.menuItems.isolatedPools',
-          icon: 'fourDots',
-        },
-      );
-    } else {
-      menuItems.push({
+    menuItems.push(
+      {
         href: routes.corePool.path,
         // Translation key: do not remove this comment
-        // t('layout.menuItems.markets')
-        i18nKey: 'layout.menuItems.markets',
+        // t('layout.menuItems.corePool')
+        i18nKey: 'layout.menuItems.corePool',
         icon: 'venus',
-      });
-    }
+      },
+      {
+        href: routes.isolatedPools.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.isolatedPools')
+        i18nKey: 'layout.menuItems.isolatedPools',
+        icon: 'fourDots',
+      },
+    );
 
     menuItems.push(
       {

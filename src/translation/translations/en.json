@@ -191,8 +191,7 @@
       "title": "Connect your wallet"
     },
     "searchInput": {
-      "placeholder": "Search asset",
-      "placeholderIsolatedPools": "Search asset"
+      "placeholder": "Search asset"
     },
     "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"

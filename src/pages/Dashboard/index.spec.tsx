@@ -24,44 +24,25 @@ describe('pages/Dashboard', () => {
     renderComponent(<Dashboard />);
   });
 
-  it('displays supply table correctly', async () => {
+  it('displays markets table correctly', async () => {
     const { getByTestId } = renderComponent(<Dashboard />);
 
-    await waitFor(() => getByTestId(TEST_IDS.supplyMarketTable));
-    const supplyMarketTable = getByTestId(TEST_IDS.supplyMarketTable);
-    expect(supplyMarketTable.textContent).toMatchSnapshot();
-  });
-
-  it('displays borrow table correctly', async () => {
-    const { getByTestId } = renderComponent(<Dashboard />);
-
-    await waitFor(() => getByTestId(TEST_IDS.borrowMarketTable));
-    const borrowMarketTable = getByTestId(TEST_IDS.borrowMarketTable);
-    expect(borrowMarketTable.textContent).toMatchSnapshot();
-  });
-
-  it('displays supply table correctly', async () => {
-    const { getByTestId } = renderComponent(<Dashboard />);
-
-    await waitFor(() => getByTestId(TEST_IDS.supplyMarketTable));
-
-    const supplyMarketTable = getByTestId(TEST_IDS.supplyMarketTable);
-    expect(supplyMarketTable.textContent).toMatchSnapshot();
+    await waitFor(() => getByTestId(TEST_IDS.marketTable));
+    const marketsTable = getByTestId(TEST_IDS.marketTable);
+    expect(marketsTable.textContent).toMatchSnapshot();
   });
 
   it('filters out assets when entering value in search input', async () => {
     const { getByTestId, queryAllByPlaceholderText } = renderComponent(<Dashboard />);
 
-    await waitFor(() => getByTestId(TEST_IDS.supplyMarketTable));
+    await waitFor(() => getByTestId(TEST_IDS.marketTable));
 
     // Enter value in search input
     fireEvent.change(queryAllByPlaceholderText(en.dashboard.searchInput.placeholder)[0], {
       target: { value: 'usdt' },
     });
 
-    const supplyMarketTable = getByTestId(TEST_IDS.supplyMarketTable);
+    const supplyMarketTable = getByTestId(TEST_IDS.marketTable);
     expect(supplyMarketTable.textContent).toMatchSnapshot();
   });
-
-  // TODO: add tests for isolated pools feature flag
 });

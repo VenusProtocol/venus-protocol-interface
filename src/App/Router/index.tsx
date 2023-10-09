@@ -1,6 +1,5 @@
 import React, { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { isFeatureEnabled } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
@@ -70,38 +69,32 @@ const Router = () => {
         />
       )}
 
-      {isFeatureEnabled('isolatedPools') && (
-        <Route
-          path={routes.isolatedPools.path}
-          element={
-            <PageSuspense>
-              <IsolatedPools />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.isolatedPools.path}
+        element={
+          <PageSuspense>
+            <IsolatedPools />
+          </PageSuspense>
+        }
+      />
 
-      {isFeatureEnabled('isolatedPools') && (
-        <Route
-          path={routes.isolatedPool.path}
-          element={
-            <PageSuspense>
-              <IsolatedPool />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.isolatedPool.path}
+        element={
+          <PageSuspense>
+            <IsolatedPool />
+          </PageSuspense>
+        }
+      />
 
-      {isFeatureEnabled('isolatedPools') && (
-        <Route
-          path={routes.isolatedPoolMarket.path}
-          element={
-            <PageSuspense>
-              <IsolatedPoolMarket />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.isolatedPoolMarket.path}
+        element={
+          <PageSuspense>
+            <IsolatedPoolMarket />
+          </PageSuspense>
+        }
+      />
 
       <Route
         path={routes.corePool.path}

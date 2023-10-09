@@ -3,7 +3,7 @@ import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
-import { calculatePercentage, formatPercentageToReadableValue, isFeatureEnabled } from 'utilities';
+import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';
 
 import Section from '../Section';
 import Summary from '../Summary';
@@ -59,13 +59,8 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
   );
 
   return (
-    <Section
-      className={className}
-      title={
-        isFeatureEnabled('isolatedPools') ? t('account.poolsBreakdown.title') : selectedPool.name
-      }
-    >
-      {isFeatureEnabled('isolatedPools') && pools.length > 0 && (
+    <Section className={className} title={t('account.poolsBreakdown.title')}>
+      {pools.length > 0 && (
         <TagGroup
           css={styles.tags}
           tags={tags}
