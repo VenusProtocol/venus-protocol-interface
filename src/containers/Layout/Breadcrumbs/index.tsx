@@ -18,7 +18,7 @@ export interface PathNode {
   href: string;
 }
 
-const Breadcrumbs: React.FC = () => {
+export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const { accountAddress } = useAuth();
@@ -173,5 +173,3 @@ const Breadcrumbs: React.FC = () => {
     </Typography>
   );
 };
-
-export default Breadcrumbs;
