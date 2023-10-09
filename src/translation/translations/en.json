@@ -379,6 +379,15 @@
     }
   },
   "marketTable": {
+    "apy": {
+      "primeSimulationBoost": {
+        "label": "{{apyPrimeBoost}} Prime boost",
+        "tooltip": "Learn more about Prime <Link>here</Link>"
+      },
+      "primeBoost": {
+        "tooltip": "Total APY after applying Prime boost"
+      }
+    },
     "columnKeys": {
       "asset": "Asset",
       "borrowApy": "APY <InfoIcon />",

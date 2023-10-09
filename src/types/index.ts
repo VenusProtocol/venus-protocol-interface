@@ -45,8 +45,8 @@ export interface PrimeDistribution {
   apyPercentage: BigNumber;
 }
 
-export interface HypotheticalPrimeDistribution {
-  type: 'hypotheticalPrime';
+export interface PrimeSimulationDistribution {
+  type: 'primeSimulation';
   token: Token;
   apyPercentage: BigNumber;
 }
@@ -54,7 +54,7 @@ export interface HypotheticalPrimeDistribution {
 export type AssetDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
-  | HypotheticalPrimeDistribution;
+  | PrimeSimulationDistribution;
 
 export interface Asset {
   vToken: VToken;

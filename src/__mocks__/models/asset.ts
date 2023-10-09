@@ -83,6 +83,11 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('1.353105649796123742'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
+      {
+        type: 'prime',
+        token: xvs,
+        apyPercentage: new BigNumber('0.753105649796123742'),
+      },
     ],
     borrowDistributions: [
       {
@@ -90,6 +95,11 @@ export const assetData: Asset[] = [
         token: xvs,
         apyPercentage: new BigNumber('1.670327607690572731'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
+      },
+      {
+        type: 'prime',
+        token: xvs,
+        apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],
   },
@@ -127,6 +137,11 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('0.421719501189155143'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
+      {
+        type: 'primeSimulation',
+        token: xvs,
+        apyPercentage: new BigNumber('1.753105649796123742'),
+      },
     ],
     borrowDistributions: [
       {
@@ -134,6 +149,11 @@ export const assetData: Asset[] = [
         token: xvs,
         apyPercentage: new BigNumber('0.522209972682294832'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
+      },
+      {
+        type: 'primeSimulation',
+        token: xvs,
+        apyPercentage: new BigNumber('1.015310564979612374'),
       },
     ],
   },
@@ -171,6 +191,11 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('0.678420831753642169'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
+      {
+        type: 'primeSimulation',
+        token: xvs,
+        apyPercentage: new BigNumber('1.753105649796123742'),
+      },
     ],
     borrowDistributions: [
       {
@@ -178,6 +203,11 @@ export const assetData: Asset[] = [
         token: xvs,
         apyPercentage: new BigNumber('0.852697602175970714'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
+      },
+      {
+        type: 'prime',
+        token: xvs,
+        apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],
   },

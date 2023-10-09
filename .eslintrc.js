@@ -107,6 +107,9 @@ module.exports = {
     'consistent-return': 0,
     // Disable import order checks as we automatically sort imports using Prettier
     'import/order': 0,
+    // Disable requirement to import React when rendering JSX (no longer needed since React 17)
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
   },
   settings: {
     'import/resolver': {

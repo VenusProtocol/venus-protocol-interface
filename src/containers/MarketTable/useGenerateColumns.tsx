@@ -25,6 +25,7 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 
+import { Apy } from './Apy';
 import { useStyles } from './styles';
 import { ColumnKey, PoolAsset } from './types';
 
@@ -124,31 +125,13 @@ const useGenerateColumns = ({
               return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
             }
 
-            if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-              const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
-
-              const borrowApy = poolAsset.borrowApyPercentage.minus(
-                combinedDistributionApys.borrowApyPercentage,
-              );
-
-              return formatPercentageToReadableValue(borrowApy);
-            }
-
-            if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-              const combinedDistributionApys = getCombinedDistributionApys({ asset: poolAsset });
-
-              const supplyApy = poolAsset.supplyApyPercentage.plus(
-                combinedDistributionApys.supplyApyPercentage,
-              );
-
-              const ltv = +poolAsset.collateralFactor * 100;
-
-              return (
-                <LayeredValues
-                  topValue={formatPercentageToReadableValue(supplyApy)}
-                  bottomValue={formatPercentageToReadableValue(ltv)}
-                />
-              );
+            if (
+              column === 'supplyApyLtv' ||
+              column === 'borrowApy' ||
+              column === 'labeledSupplyApyLtv' ||
+              column === 'labeledBorrowApy'
+            ) {
+              return <Apy asset={poolAsset} column={column} />;
             }
 
             if (column === 'collateral') {
@@ -299,10 +282,10 @@ const useGenerateColumns = ({
               : (rowA, rowB, direction) => {
                   if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                     const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowA }).borrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
                     );
                     const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowB }).borrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
                     );
 
                     return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
@@ -310,10 +293,10 @@ const useGenerateColumns = ({
 
                   if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
                     const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowA }).supplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalSupplyApyPercentage,
                     );
                     const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowB }).supplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalSupplyApyPercentage,
                     );
 
                     return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);

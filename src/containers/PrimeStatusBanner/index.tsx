@@ -11,6 +11,7 @@ import { cn } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
+import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
@@ -26,7 +27,7 @@ export interface PrimeStatusBannerUiProps {
   onRedirectToXvsVaultPage: () => void;
   userStakedXvsTokens: BigNumber;
   minXvsToStakeForPrimeTokens: BigNumber;
-  highestHypotheticalPrimeApyBoostPercentage: BigNumber;
+  highestPrimeSimulationApyBoostPercentage: BigNumber;
   primeClaimWaitingPeriodSeconds: number;
   hidePromotionalTitle?: boolean;
   className?: string;
@@ -38,7 +39,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   claimedPrimeTokenCount,
   primeTokenLimit,
   isClaimPrimeTokenLoading,
-  highestHypotheticalPrimeApyBoostPercentage,
+  highestPrimeSimulationApyBoostPercentage,
   primeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
@@ -76,7 +77,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   });
 
   const readableApyBoostPercentage = useFormatPercentageToReadableValue({
-    value: highestHypotheticalPrimeApyBoostPercentage,
+    value: highestPrimeSimulationApyBoostPercentage,
   });
 
   const readableClaimWaitingPeriod = useMemo(
@@ -170,12 +171,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   i18nKey="primeStatusBanner.description"
                   components={{
                     WhiteText: <span className="text-offWhite" />,
-                    Link: (
-                      <Link
-                        // TODO: add correct link
-                        href="https://google.com"
-                      />
-                    ),
+                    Link: <Link href={PRIME_DOC_URL} />,
                   }}
                   values={{
                     stakeDelta: readableStakeDeltaTokens,
@@ -285,7 +281,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 90 days in seconds
   const userStakedXvsTokens = new BigNumber('1000');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
-  const highestHypotheticalPrimeApyBoostPercentage = new BigNumber('3.14');
+  const highestPrimeSimulationApyBoostPercentage = new BigNumber('3.14');
   const claimedPrimeTokenCount = 1000;
   const primeTokenLimit = 1000;
 
@@ -307,7 +303,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       onRedirectToXvsVaultPage={redirectToXvsPage}
       onClaimPrimeToken={claimPrimeToken}
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
-      highestHypotheticalPrimeApyBoostPercentage={highestHypotheticalPrimeApyBoostPercentage}
+      highestPrimeSimulationApyBoostPercentage={highestPrimeSimulationApyBoostPercentage}
       isClaimPrimeTokenLoading={isClaimPrimeTokenLoading}
       {...props}
     />
