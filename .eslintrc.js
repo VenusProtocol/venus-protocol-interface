@@ -61,6 +61,7 @@ module.exports = {
           '**/*.spec.tsx',
           '**/*.spec.ts',
           'src/setupTests.tsx',
+          '**/__mocks__/**',
         ],
       },
     ],

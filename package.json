@@ -77,7 +77,8 @@
     "tailwind-merge": "^1.14.0",
     "viem": "^1.10.3",
     "wagmi": "^1.4.1",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "zustand": "^4.4.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.7.0",

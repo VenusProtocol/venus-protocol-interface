@@ -8,25 +8,32 @@ import { useAuth } from 'context/AuthContext';
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';
 import primeTokenIllustration from './primeTokenIllustration.png';
+import { store } from './store';
+import TEST_IDS from './testIds';
 
 export interface PrimePromotionalBannerUiProps {
-  isPrime: boolean;
-  onClose: () => void;
+  shouldShow: boolean;
+  onHide: () => void;
 }
 
 export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> = ({
-  isPrime,
-  onClose,
+  shouldShow,
+  onHide,
 }) => {
   const { t, Trans } = useTranslation();
 
-  if (isPrime) {
+  if (!shouldShow) {
     return null;
   }
 
   return (
     <Card className="relative mb-6 border border-lightGrey py-6 sm:p-0 md:p-0">
-      <button onClick={onClose} className="absolute right-4 top-4 z-10" type="button">
+      <button
+        onClick={onHide}
+        className="absolute right-4 top-4 z-10"
+        type="button"
+        data-testid={TEST_IDS.closeButton}
+      >
         <Icon name="close" className="h-6 w-6 text-offWhite hover:text-grey" />
       </button>
 
@@ -84,9 +91,10 @@ export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> =
 
 export const PrimePromotionalBanner: React.FC = () => {
   const { isPrime } = useAuth();
+  const shouldShowBanner = store.use.shouldShowBanner();
+  const hideBanner = store.use.hideBanner();
 
-  // TODO: add logic for handling closing the modal
-  const onClose = () => {};
+  const shouldShow = !isPrime && shouldShowBanner;
 
-  return <PrimePromotionalBannerUi isPrime={isPrime} onClose={onClose} />;
+  return <PrimePromotionalBannerUi shouldShow={shouldShow} onHide={hideBanner} />;
 };
