@@ -15,9 +15,9 @@ import { ReactComponent as LogoDesktop } from 'assets/img/venusLogoWithText.svg'
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Toolbar } from '../Toolbar';
+import useGetMenuItems from '../useGetMenuItems';
 import Link from './Link';
 import { useStyles } from './styles';
-import useGetMenuItems from './useGetMenuItems';
 
 export const SidebarUi: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);

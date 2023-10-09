@@ -12,7 +12,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => (
   <div className="flex h-screen flex-col">
     <Menu />
 
-    <div className="flex flex-1 flex-col overflow-auto" id={PAGE_CONTAINER_ID}>
+    <div className="flex flex-1 flex-col overflow-y-auto" id={PAGE_CONTAINER_ID}>
       <Header />
 
       <PageContainer>{children}</PageContainer>
