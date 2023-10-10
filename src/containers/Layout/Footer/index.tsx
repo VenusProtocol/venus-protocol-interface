@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import Typography from '@mui/material/Typography';
-import { Icon } from 'components';
+import { Link } from 'components';
 import { useGetToken } from 'packages/tokens';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -10,22 +8,20 @@ import { useGetBlockNumber } from 'clients/api';
 import { EXPLORER_URLS } from 'constants/bsc';
 import { useAuth } from 'context/AuthContext';
 
+import { IconLink } from './IconLink';
 import {
   VENUS_DISCORD_URL,
   VENUS_GITHUB_URL,
   VENUS_MEDIUM_URL,
   VENUS_TWITTER_URL,
 } from './constants';
-import { useStyles } from './styles';
 
-export interface FooterUiProps {
-  currentBlockNumber: number | undefined;
-}
-
-export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
-  const styles = useStyles();
-  const { t } = useTranslation();
+export const Footer: React.FC = () => {
   const { chainId } = useAuth();
+  const { data: getBlockNumberData } = useGetBlockNumber();
+
+  const { t } = useTranslation();
+  const currentBlockNumber = getBlockNumberData?.blockNumber;
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -33,25 +29,21 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const explorerUrl = chainId && EXPLORER_URLS[chainId];
 
   return (
-    <div css={styles.container}>
+    <footer className="flex h-14 flex-none items-center justify-between bg-background px-4">
       {!!currentBlockNumber && (
-        <Typography
-          component="a"
-          variant="small2"
-          css={styles.blockInfo}
+        <Link
+          className="text-sm text-grey hover:no-underline"
           href={explorerUrl}
           target="_blank"
           rel="noreferrer"
         >
           {t('footer.latestNumber')}
-          <br css={styles.blockInfoMobileLineBreak} />
-          <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
-        </Typography>
+          <br className="md:hidden" /> <span className="text-offWhite">{currentBlockNumber}</span>
+        </Link>
       )}
 
-      <div css={styles.links}>
-        <a
-          css={styles.link}
+      <div className="flex">
+        <IconLink
           href={
             chainId &&
             xvs &&
@@ -61,36 +53,13 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
               chainId,
             })
           }
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon name="venus" color={styles.theme.palette.text.primary} size="12px" />
-        </a>
-
-        <a css={styles.link} href={VENUS_MEDIUM_URL} target="_blank" rel="noreferrer">
-          <Icon name="medium" color={styles.theme.palette.text.primary} size="12px" />
-        </a>
-
-        <a css={styles.link} href={VENUS_DISCORD_URL} target="_blank" rel="noreferrer">
-          <Icon name="discord" color={styles.theme.palette.text.primary} size="12px" />
-        </a>
-
-        <a css={styles.link} href={VENUS_TWITTER_URL} target="_blank" rel="noreferrer">
-          <Icon name="twitter" color={styles.theme.palette.text.primary} size="12px" />
-        </a>
-
-        <a css={styles.link} href={VENUS_GITHUB_URL} target="_blank" rel="noreferrer">
-          <Icon name="github" color={styles.theme.palette.text.primary} size="12px" />
-        </a>
+          iconName="venus"
+        />
+        <IconLink href={VENUS_MEDIUM_URL} iconName="discord" />
+        <IconLink iconName="discord" href={VENUS_DISCORD_URL} />
+        <IconLink iconName="twitter" href={VENUS_TWITTER_URL} />
+        <IconLink iconName="github" href={VENUS_GITHUB_URL} />
       </div>
-    </div>
+    </footer>
   );
 };
-
-const Footer: React.FC = () => {
-  const { data: getBlockNumberData } = useGetBlockNumber();
-
-  return <FooterUi currentBlockNumber={getBlockNumberData?.blockNumber} />;
-};
-
-export default Footer;

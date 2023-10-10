@@ -1,21 +1,23 @@
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
+import { Footer } from './Footer';
 import { Header } from './Header';
 import { Menu } from './Menu';
-import { PageContainer } from './PageContainer';
 
 export interface LayoutProps {
   children?: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => (
-  <div className="flex h-screen flex-col">
+  <div className="flex h-screen flex-col md:flex-row">
     <Menu />
 
     <div className="flex flex-1 flex-col overflow-y-auto" id={PAGE_CONTAINER_ID}>
       <Header />
 
-      <PageContainer>{children}</PageContainer>
+      <main className="flex-1 px-4 pb-4">{children}</main>
+
+      <Footer />
     </div>
   </div>
 );

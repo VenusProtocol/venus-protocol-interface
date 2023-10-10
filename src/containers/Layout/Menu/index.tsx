@@ -29,7 +29,7 @@ export const Menu: React.FC = () => {
 
   return (
     <>
-      <header className="flex h-14 items-center px-4">
+      <header className="flex h-14 items-center px-4 md:h-auto">
         <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 w-9" />
 
         <ConnectButton className="h-9 w-full" />
