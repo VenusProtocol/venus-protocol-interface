@@ -24,10 +24,10 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
 
   return (
     <Card
-      className="mb-8 flex flex-col overflow-hidden border border-lightGrey p-0 sm:grid sm:grid-cols-[3fr,2fr] sm:flex-row lg:grid-cols-[3fr,2fr] xl:grid-cols-2"
+      className="mb-8 flex flex-col overflow-hidden border border-lightGrey p-0 sm:grid sm:grid-cols-[3fr,2fr] sm:flex-row md:p-0 lg:grid-cols-[3fr,2fr] xl:grid-cols-2"
       {...containerProps}
     >
-      <div className="sm:flex-4 px-4 py-6 text-center sm:px-6 sm:text-left">
+      <div className="sm:flex-4 px-4 py-6 text-center sm:p-4 sm:text-left md:p-6">
         <p className="mb-3 text-lg">{t('dashboard.connectWalletBanner.title')}</p>
 
         <p className="mb-8 text-grey">{t('dashboard.connectWalletBanner.description')}</p>

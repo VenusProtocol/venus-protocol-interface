@@ -157,7 +157,6 @@
     }
   },
   "connectButton": {
-    "primeLogoAlt": "Venus Prime logo",
     "title": "Connect wallet"
   },
   "connectWallet": {
@@ -189,6 +188,14 @@
         "alt": "Illustration of a wallet"
       },
       "title": "Connect your wallet"
+    },
+    "primePromotionalBanner": {
+      "buttonLabel": "Learn more",
+      "description": "Venus Prime and the Venus Prime Token reward dedicated users of Venus with real yield for superior rates with their lending and borrowing activities.",
+      "illustration": {
+        "alt": "Prime promotional banner"
+      },
+      "title": "Leverage <Prime>Venus Prime</Prime> to amplify your returns"
     },
     "searchInput": {
       "placeholder": "Search asset"
@@ -379,12 +386,12 @@
   },
   "marketTable": {
     "apy": {
+      "primeBoost": {
+        "tooltip": "Total APY after applying Prime boost"
+      },
       "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
         "tooltip": "Learn more about Prime <Link>here</Link>"
-      },
-      "primeBoost": {
-        "tooltip": "Total APY after applying Prime boost"
       }
     },
     "columnKeys": {
@@ -561,6 +568,9 @@
         "totalSupply": "Total supply"
       }
     }
+  },
+  "PrimeButton": {
+    "primeLogoAlt": "Venus Prime logo"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Primer user",
