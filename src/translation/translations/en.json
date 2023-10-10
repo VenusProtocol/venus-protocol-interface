@@ -157,7 +157,6 @@
     }
   },
   "connectButton": {
-    "primeLogoAlt": "Venus Prime logo",
     "title": "Connect wallet"
   },
   "connectWallet": {
@@ -183,9 +182,12 @@
     "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
+      "buttonLabel": "Connect wallet",
+      "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
       "illustration": {
         "alt": "Illustration of a wallet"
-      }
+      },
+      "title": "Connect your wallet"
     },
     "primePromotionalBanner": {
       "buttonLabel": "Learn more",
@@ -385,12 +387,12 @@
   },
   "marketTable": {
     "apy": {
+      "primeBoost": {
+        "tooltip": "Total APY after applying Prime boost"
+      },
       "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
         "tooltip": "Learn more about Prime <Link>here</Link>"
-      },
-      "primeBoost": {
-        "tooltip": "Total APY after applying Prime boost"
       }
     },
     "columnKeys": {
@@ -567,6 +569,9 @@
         "totalSupply": "Total supply"
       }
     }
+  },
+  "PrimeButton": {
+    "primeLogoAlt": "Venus Prime logo"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Primer user",

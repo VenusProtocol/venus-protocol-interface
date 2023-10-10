@@ -27,7 +27,7 @@ export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> =
   }
 
   return (
-    <Card className="relative mb-6 border border-lightGrey py-6 sm:p-0 md:p-0">
+    <Card className="relative mb-8 border border-lightGrey py-6 sm:p-0 md:p-0">
       <button
         onClick={onHide}
         className="absolute right-4 top-4 z-10"
