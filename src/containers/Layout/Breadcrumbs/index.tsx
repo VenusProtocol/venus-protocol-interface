@@ -18,6 +18,8 @@ export interface PathNode {
   href: string;
 }
 
+// TODO: refactor with Tailwind
+
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();

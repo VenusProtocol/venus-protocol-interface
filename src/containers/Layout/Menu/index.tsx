@@ -1,11 +1,13 @@
 // import ClaimRewardButton from '../ClaimRewardButton';
-import { Icon } from 'components';
+import { Icon, Link } from 'components';
 import { useState } from 'react';
 import { useTranslation } from 'translation';
 import { cn } from 'utilities';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
+import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
+import { routes } from 'constants/routing';
 
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
@@ -29,10 +31,12 @@ export const Menu: React.FC = () => {
 
   return (
     <>
-      {/* Mobile menu */}
+      {/* SM menu */}
       <div className="md:hidden">
-        <header className="flex h-14 items-center px-4 md:h-auto">
-          <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 w-9" />
+        <header className="flex h-14 items-center pr-4 md:h-auto">
+          <Link className="flex h-full items-center justify-center pl-4" to={routes.dashboard.path}>
+            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 h-7" />
+          </Link>
 
           <div className="flex flex-1 items-center justify-center">
             <ConnectButton className="h-9 max-w-xs flex-1" />
@@ -69,10 +73,21 @@ export const Menu: React.FC = () => {
       </div>
 
       {/* MD and up menu */}
-      <div className="hidden bg-cards pt-9 md:flex md:flex-col md:items-center">
-        <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mb-6 h-10" />
+      <div className="hidden bg-cards pt-7 md:flex md:flex-col md:items-center xl:w-56">
+        <Link
+          className="mb-4 flex w-full items-center justify-center py-2"
+          to={routes.dashboard.path}
+        >
+          <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-9 xl:hidden" />
 
-        <div className="flex-1 overflow-auto px-3 py-6">
+          <img
+            src={venusLogoWithTextSrc}
+            alt={t('layout.menu.venusLogoAlt')}
+            className="hidden h-9 xl:block"
+          />
+        </Link>
+
+        <div className="flex-1 overflow-auto px-3 py-6 xl:w-full xl:px-0">
           {menuItems.map(menuItem => (
             <NavLink onClick={toggleMobileMenu} {...menuItem} />
           ))}

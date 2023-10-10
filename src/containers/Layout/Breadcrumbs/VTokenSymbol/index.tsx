@@ -16,6 +16,8 @@ export interface VTokenSymbolUiProps {
   isUserConnected: boolean;
 }
 
+// TODO: refactor with Tailwind
+
 export const VTokenSymbolUi: React.FC<VTokenSymbolUiProps> = ({ vToken, isUserConnected }) => {
   const styles = useStyles();
 

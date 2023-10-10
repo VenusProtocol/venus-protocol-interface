@@ -12,6 +12,8 @@ export interface RewardGroupProps {
   onCheckChange: (newIsChecked: boolean) => void;
 }
 
+// TODO: refactor with Tailwind
+
 export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
   const styles = useStyles();
 
