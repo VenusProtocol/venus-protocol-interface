@@ -4565,14 +4565,32 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/chains@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/chains/-/chains-0.1.0.tgz#933877f26a95434e5f7a3fc7a2602f2ff54bc64d"
+  integrity sha512-ORsnMqoJtOnJH966UNv5fH4kXALRrHDTPwLdXM0rg3DqU0CrxAkmM0bBNTg8k/72ebbIaZNy8T5j6xyK4pQ+zw==
+
+"@pancakeswap/sdk@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.7.0.tgz#8b187e06f0551f84c1b09b11a37c2f42d54a1702"
+  integrity sha512-f4RuVz9X8Jz80iKuoD2fJw0jgrJ89gz+d0a3EjsTjDeeHiKEtiU/dDT3R0lwA8o+87B7lU9nMumG1gzWrqewJQ==
+  dependencies:
+    "@pancakeswap/chains" "^0.1.0"
+    "@pancakeswap/swap-sdk-core" "1.0.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "^1.10.9"
+
+"@pancakeswap/swap-sdk-core@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.0.0.tgz#30ab333943ecca5484cd10cbc493841fb553728d"
+  integrity sha512-MZBF8FHpCX/ffY8/gd2zz6TpiftwqRouVPr1kB88wm7desYh+E2y4kWPcZX1roWR38UkjBv4/DoXVSDeSTBgRg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
@@ -14221,10 +14239,10 @@ isomorphic-ws@^4.0.1:
   resolved "https://registry.yarnpkg.com/isomorphic-ws/-/isomorphic-ws-4.0.1.tgz#55fd4cd6c5e6491e76dc125938dd863f5cd4f2dc"
   integrity sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==
 
-isows@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/isows/-/isows-1.0.2.tgz#6bd3fcf1bda471777c46a9ebe9a6683e2c8fccde"
-  integrity sha512-ohHPFvRjcGLLA7uqHjIcGf5M3OrzN/k9QVYMGOvCppV/HY2GZdz7oFsJHT70ZXEL7ImrOGE1F9M0SovDGSfT6Q==
+isows@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/isows/-/isows-1.0.3.tgz#93c1cf0575daf56e7120bab5c8c448b0809d0d74"
+  integrity sha512-2cKei4vlmg2cxEjm3wVSqn8pcoRF/LX/wpifuuNquFO4SQmPwarClT+SUCA2lt+l581tTeZIPIZuIDo2jWN1fg==
 
 issue-parser@^6.0.0:
   version "6.0.0"
@@ -14445,11 +14463,6 @@ js-yaml@^3.13.1:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
-
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
 
 jscodeshift@^0.14.0:
   version "0.14.0"
@@ -21860,10 +21873,10 @@ vfile@^5.0.0:
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
 
-viem@^1.0.0, viem@^1.10.3:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.16.0.tgz#448eee07485ec14ecdd05b06d5f943a5feaf0594"
-  integrity sha512-noRMxaMubiLbVrZ0tXKxUKNwle0QtF0wO6kBOWnm6wg6XIqptSW7xhFzrFdDRp8Jduu5rwwkCB4Tokd5MtFRtw==
+viem@^1.0.0, viem@^1.10.3, viem@^1.10.9:
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.16.2.tgz#7e9719dd19e7464284b94d9c00f94f86f5858ccd"
+  integrity sha512-ZQ8kemNvRVwucwcsj4/SjKohK+wZv9Vxx/gXAlwqGMCW7r+niOeECtFku/1L7UPTmPgdmq4kic9R71t6XQDmGw==
   dependencies:
     "@adraffy/ens-normalize" "1.9.4"
     "@noble/curves" "1.2.0"
@@ -21871,7 +21884,7 @@ viem@^1.0.0, viem@^1.10.3:
     "@scure/bip32" "1.3.2"
     "@scure/bip39" "1.2.1"
     abitype "0.9.8"
-    isows "1.0.2"
+    isows "1.0.3"
     ws "8.13.0"
 
 vinyl-fs@^3.0.2:
