@@ -3,6 +3,7 @@ import { ButtonGroup, Link, NoticeWarning, Tag, TagGroup, TextField } from 'comp
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
+import { isFeatureEnabled } from 'utilities';
 
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
