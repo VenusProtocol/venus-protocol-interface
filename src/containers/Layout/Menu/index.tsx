@@ -29,35 +29,53 @@ export const Menu: React.FC = () => {
 
   return (
     <>
-      <header className="flex h-14 items-center px-4 md:h-auto">
-        <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 w-9" />
+      {/* Mobile menu */}
+      <div className="md:hidden">
+        <header className="flex h-14 items-center px-4 md:h-auto">
+          <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 w-9" />
 
-        <ConnectButton className="h-9 w-full" />
+          <div className="flex flex-1 items-center justify-center">
+            <ConnectButton className="h-9 max-w-xs flex-1" />
+          </div>
 
-        <button
-          onClick={toggleMobileMenu}
-          type="button"
-          className="ml-8 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cards p-0 hover:bg-lightGrey active:bg-lightGrey"
+          <button
+            onClick={toggleMobileMenu}
+            type="button"
+            className="ml-8 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cards p-0 hover:bg-lightGrey active:bg-lightGrey"
+          >
+            <Icon
+              name={isMobileMenuOpened ? 'closeRounded' : 'burger'}
+              className={cn('h-auto text-offWhite', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
+            />
+          </button>
+        </header>
+
+        <div
+          className={cn(
+            'fixed bottom-0 left-0 right-0 top-14 z-50 overflow-y-auto bg-background pb-8 pt-4',
+            isMobileMenuOpened ? 'block' : 'hidden',
+          )}
         >
-          <Icon
-            name={isMobileMenuOpened ? 'closeRounded' : 'burger'}
-            className={cn('h-auto text-offWhite', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
-          />
-        </button>
-      </header>
+          <div className="mb-6">
+            {menuItems.map(menuItem => (
+              <NavLink onClick={toggleMobileMenu} {...menuItem} />
+            ))}
+          </div>
 
-      <div
-        className={cn(
-          'fixed bottom-0 left-0 right-0 top-14 z-50 overflow-y-auto bg-background pb-8 pt-4',
-          isMobileMenuOpened ? 'block' : 'hidden',
-        )}
-      >
-        {menuItems.map(menuItem => (
-          <NavLink onClick={toggleMobileMenu} className="last-of-type:mb-6" {...menuItem} />
-        ))}
+          <div className="px-4">
+            <ClaimRewardButton className="w-full" />
+          </div>
+        </div>
+      </div>
 
-        <div className="px-4">
-          <ClaimRewardButton className="w-full" />
+      {/* MD and up menu */}
+      <div className="hidden bg-cards pt-9 md:flex md:flex-col md:items-center">
+        <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mb-6 h-10" />
+
+        <div className="flex-1 overflow-auto px-3 py-6">
+          {menuItems.map(menuItem => (
+            <NavLink onClick={toggleMobileMenu} {...menuItem} />
+          ))}
         </div>
       </div>
     </>

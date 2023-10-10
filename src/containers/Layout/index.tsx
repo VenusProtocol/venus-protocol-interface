@@ -15,7 +15,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => (
     <div className="flex flex-1 flex-col overflow-y-auto" id={PAGE_CONTAINER_ID}>
       <Header />
 
-      <main className="flex-1 px-4 pb-4">{children}</main>
+      <main className="flex-1 px-4 pb-4 md:px-6">{children}</main>
 
       <Footer />
     </div>

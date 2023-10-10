@@ -19,18 +19,20 @@ export const NavLink: React.FC<NavLinkProps> = ({
     <RRNavLink
       className={({ isActive }) =>
         cn(
-          'flex items-center px-6 py-4 hover:bg-lightGrey active:bg-lightGrey',
-          isActive ? 'text-blue' : 'text-grey',
+          'flex items-center justify-center whitespace-nowrap px-6 py-4 hover:bg-lightGrey active:bg-lightGrey md:h-14 md:w-14 md:rounded-2xl md:p-0',
+          isActive ? 'text-blue md:bg-lightGrey md:text-offWhite' : 'text-grey',
           className,
         )
       }
       {...otherProps}
     >
-      <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit" />
+      <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit md:mr-0" />
 
-      <p className="mr-4 flex-1 overflow-hidden text-ellipsis text-offWhite">{t(i18nKey)}</p>
+      <p className="mr-4 flex-1 overflow-hidden text-ellipsis text-offWhite md:hidden">
+        {t(i18nKey)}
+      </p>
 
-      <Icon name="chevronRight" className="h-6 w-6 text-offWhite" />
+      <Icon name="chevronRight" className="h-6 w-6 text-offWhite md:hidden" />
     </RRNavLink>
   );
 };
