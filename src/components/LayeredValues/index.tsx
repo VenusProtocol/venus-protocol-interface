@@ -10,8 +10,8 @@ export const LayeredValues: React.FC<LayeredValuesProps> = ({
   className,
 }) => (
   <div className={className}>
-    <p className="text-sm">{topValue}</p>
-    <p className="text-xs text-grey">{bottomValue}</p>
+    <p>{topValue}</p>
+    <p className="text-grey">{bottomValue}</p>
   </div>
 );
 

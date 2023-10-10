@@ -1,6 +1,5 @@
 import { Link } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React from 'react';
 import { useTranslation } from 'translation';
 import { generateBscScanUrl } from 'utilities';
 

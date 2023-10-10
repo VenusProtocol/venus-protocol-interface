@@ -8,7 +8,7 @@ import { useGetPool, useGetVTokens } from 'clients/api';
 import { routes } from 'constants/routing';
 import renderComponent from 'testUtils/renderComponent';
 
-import Breadcrumbs from '.';
+import { Breadcrumbs } from '.';
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
