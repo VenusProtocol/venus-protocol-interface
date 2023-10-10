@@ -1,3 +1,10 @@
+## [2.31.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.30.2...v2.31.0) (2023-10-10)
+
+
+### Features
+
+* add Prime promotional banner to dashboard page ([#1562](https://github.com/VenusProtocol/venus-protocol-interface/issues/1562)) ([962b991](https://github.com/VenusProtocol/venus-protocol-interface/commit/962b991337414b940c39f15a0e4247dd8f6b6b28))
+
 ## [2.30.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.30.1...v2.30.2) (2023-10-10)
 
 ## [2.30.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.30.0...v2.30.1) (2023-10-10)
