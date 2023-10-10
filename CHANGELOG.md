@@ -1,3 +1,10 @@
+## [2.31.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.31.0...v2.31.1) (2023-10-10)
+
+
+### Bug Fixes
+
+* issue with isFeatureEnabled utility ([#1571](https://github.com/VenusProtocol/venus-protocol-interface/issues/1571)) ([77f73ba](https://github.com/VenusProtocol/venus-protocol-interface/commit/77f73ba00b18e24a08b6bd1c332e98f9176c5f24))
+
 ## [2.31.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.30.2...v2.31.0) (2023-10-10)
 
 
