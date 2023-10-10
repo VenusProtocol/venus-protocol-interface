@@ -28,16 +28,16 @@ export const Footer: React.FC = () => {
   const explorerUrl = chainId && EXPLORER_URLS[chainId];
 
   return (
-    <footer className="flex h-14 flex-none items-center justify-between bg-background px-4">
+    <footer className="flex h-14 flex-none items-center justify-between bg-background px-4 sm:justify-end md:px-6 xl:px-10">
       {!!currentBlockNumber && (
         <Link
-          className="text-sm text-grey hover:no-underline"
+          className="text-sm text-grey hover:no-underline sm:mr-6"
           href={explorerUrl}
           target="_blank"
           rel="noreferrer"
         >
           {t('footer.latestNumber')}
-          <br className="md:hidden" /> <span className="text-offWhite">{currentBlockNumber}</span>
+          <br className="sm:hidden" /> <span className="text-offWhite">{currentBlockNumber}</span>
         </Link>
       )}
 
