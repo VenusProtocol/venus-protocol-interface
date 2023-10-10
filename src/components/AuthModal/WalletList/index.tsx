@@ -3,9 +3,11 @@ import Typography from '@mui/material/Typography';
 import config from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
+import { Trans } from 'react-i18next';
 import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3/types';
+import { NoticeInfo } from 'components/Notice';
 
 import { toast } from '../../Toast';
 import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
@@ -37,6 +39,10 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
 
   return (
     <div css={styles.container}>
+      <NoticeInfo
+        className="mb-4"
+        description={<Trans i18nKey="authModal.binanceChainWalletMigrationInfo" />}
+      />
       <div css={styles.walletList}>
         {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
           ({ name, connector, Logo }) => (

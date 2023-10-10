@@ -6,7 +6,6 @@ export enum Connector {
   WalletConnect = 'WalletConnect',
   SafePal = 'SafePal',
   CoinbaseWallet = 'CoinbaseWallet',
-  BinanceChainWallet = 'BinanceChainWallet',
   BraveWallet = 'BraveWallet',
   InfinityWallet = 'InfinityWallet',
   OkxWallet = 'OkxWallet',

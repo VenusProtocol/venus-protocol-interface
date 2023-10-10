@@ -107,6 +107,7 @@
     "accountDetails": {
       "logOutButtonLabel": "Log out"
     },
+    "binanceChainWalletMigrationInfo": "The Binance Chain Wallet extension is no longer mantained and is being migrated to Trust Wallet.",
     "title": {
       "connectWallet": "Connect a wallet",
       "yourAccount": "Your account"
@@ -1070,7 +1071,6 @@
     "votes": "Votes"
   },
   "wallets": {
-    "binanceChainWallet": "Binance Chain Wallet",
     "bitKeep": "BitKeep",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
