@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
-import { isFeatureEnabled } from 'utilities';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -9,7 +8,7 @@ export const useStyles = () => {
     header: css`
       margin-bottom: ${theme.spacing(6)};
 
-      ${!isFeatureEnabled('isolatedPools') && theme.breakpoints.down('xl')} {
+      ${theme.breakpoints.down('xl')} {
         margin-bottom: 0;
       }
     `,

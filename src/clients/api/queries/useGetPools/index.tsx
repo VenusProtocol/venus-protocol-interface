@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { Pool } from 'types';
-import { isFeatureEnabled } from 'utilities';
 
 import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
 
@@ -21,14 +20,9 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
   });
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
-    useGetIsolatedPools(
-      {
-        accountAddress,
-      },
-      {
-        enabled: isFeatureEnabled('isolatedPools'),
-      },
-    );
+    useGetIsolatedPools({
+      accountAddress,
+    });
 
   const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
 

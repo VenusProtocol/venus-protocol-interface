@@ -2,7 +2,6 @@
 import { Notice } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { isFeatureEnabled } from 'utilities';
 
 import Header from './Header';
 import Table from './Table';
@@ -14,13 +13,11 @@ const Xvs: React.FC = () => {
 
   return (
     <div>
-      {isFeatureEnabled('isolatedPools') && (
-        <Notice
-          css={styles.isolatedAssetsWarningNotice}
-          variant="warning"
-          description={t('xvsPage.isolatedAssetsWarning')}
-        />
-      )}
+      <Notice
+        css={styles.isolatedAssetsWarningNotice}
+        variant="warning"
+        description={t('xvsPage.isolatedAssetsWarning')}
+      />
 
       <Header css={styles.header} />
       <Table />
