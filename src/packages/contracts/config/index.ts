@@ -10,7 +10,7 @@ import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deplo
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import resilientOracleMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet/ResilientOracle.json';
 import resilientOracleTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet/ResilientOracle.json';
-import { abi as MainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Comptroller.sol/Comptroller.json';
+import { abi as MainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
@@ -71,8 +71,7 @@ export const contracts: ContractConfig[] = [
     abi: VenusLensAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.VenusLens,
-      // TODO: get address from package once it gets updated
-      [ChainId.BSC_MAINNET]: '0x892D8E61B5151a1E200A64bd5F766784771D7355',
+      [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.VenusLens,
     },
   },
   {
