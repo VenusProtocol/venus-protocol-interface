@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
 import { ButtonProps, SecondaryButton } from 'components';
-import React from 'react';
 import { useTranslation } from 'translation';
 import { cn, truncateAddress } from 'utilities';
 

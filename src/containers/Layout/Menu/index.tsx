@@ -1,4 +1,3 @@
-// import ClaimRewardButton from '../ClaimRewardButton';
 import { Icon, Link } from 'components';
 import { useState } from 'react';
 import { useTranslation } from 'translation';

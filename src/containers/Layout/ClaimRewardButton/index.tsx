@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Modal, PrimaryButton } from 'components';
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
-import React, { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities';
 
