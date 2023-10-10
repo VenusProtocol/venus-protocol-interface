@@ -22,6 +22,7 @@ const formatProposalPayload = (data: FormValues) => {
   const payload: Omit<CreateProposalInput, 'accountAddress'> = {
     targets: [],
     signatures: [],
+    values: [],
     callDatas: [],
     description: JSON.stringify({
       version: 'v2',
@@ -37,6 +38,7 @@ const formatProposalPayload = (data: FormValues) => {
   data.actions.forEach(action => {
     payload.targets.push(action.target);
     payload.signatures.push(action.signature);
+    payload.values.push(action.value);
 
     if (action.callData !== undefined) {
       payload.callDatas.push(encodeCallData(action.signature, action.callData));

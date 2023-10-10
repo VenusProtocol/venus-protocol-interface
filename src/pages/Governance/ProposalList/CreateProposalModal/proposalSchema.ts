@@ -24,12 +24,21 @@ const proposalSchema = yup.object({
           ),
         signature: yup
           .string()
-          .test(
-            'isValidSignature',
-            ErrorCode.SIGNATURE_NOT_VALID,
-            value => !!value && !!parseFunctionSignature(value),
-          )
-          .required(),
+          .test({
+            name: 'isValidSignature',
+            message: ErrorCode.SIGNATURE_NOT_VALID,
+            test(signature, context) {
+              if (signature === '') {
+                // if signature is an empty string, we accept it if there is a value and no callData
+                // @ts-expect-error The yup type doesn't show this value exists but it does
+                const { value, callData } = context.options.from[0].value;
+                return value && value !== '0' && callData.length === 0;
+              }
+              return !!parseFunctionSignature(signature);
+            },
+          })
+          .default(''),
+        value: yup.string().required().default('0'),
         callData: yup
           .array()
           .of(
@@ -81,6 +90,7 @@ export type FormValues = yup.InferType<typeof proposalSchema>;
 export const initialActionData: FormValues['actions'][number] = {
   target: '',
   signature: '',
+  value: '0',
   callData: [],
 };
 

@@ -39,6 +39,9 @@ const formatArgToReadableFormat = (argument: Result): string => {
 };
 
 const formatSignature = (action: FormValues['actions'][number] | ProposalAction) => {
+  if (!action.signature) {
+    return `.transferNativeToken(${action.value})`;
+  }
   try {
     const fragment = ethers.utils.FunctionFragment.from(action.signature);
     let args: string[] = [];

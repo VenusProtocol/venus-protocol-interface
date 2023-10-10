@@ -3,6 +3,7 @@ import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface CreateProposalInput {
   targets: string[];
+  values: string[];
   signatures: string[];
   callDatas: (string | number[])[];
   description: string;
@@ -14,6 +15,7 @@ export type CreateProposalOutput = ContractReceipt;
 const createProposal = async ({
   governorBravoDelegateContract,
   targets,
+  values,
   signatures,
   callDatas,
   description,
@@ -23,7 +25,7 @@ const createProposal = async ({
 }): Promise<CreateProposalOutput> => {
   const transaction = await governorBravoDelegateContract.propose(
     targets,
-    Array(signatures.length).fill(0),
+    values,
     signatures,
     callDatas,
     description,
