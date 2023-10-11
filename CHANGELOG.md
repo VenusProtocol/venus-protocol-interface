@@ -1,3 +1,10 @@
+## [2.34.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.33.1...v2.34.0) (2023-10-11)
+
+
+### Features
+
+* remove Binance Chain Wallet ([1507f3b](https://github.com/VenusProtocol/venus-protocol-interface/commit/1507f3b329c442a4ac6504725e568477ae1c8408))
+
 ## [2.33.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.33.0...v2.33.1) (2023-10-11)
 
 ## [2.33.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.32.0...v2.33.0) (2023-10-10)
