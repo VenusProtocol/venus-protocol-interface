@@ -1,9 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import React from 'react';
+import { useMemo } from 'react';
+import { useTranslation } from 'translation';
 import { cn } from 'utilities';
 
 import { MarkdownViewer } from '../MarkdownViewer';
+import { Tabs } from '../Tabs';
 
 export interface MarkdownEditorProps {
   value: string;
@@ -21,27 +21,55 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
   onChange,
   name,
   placeholder,
-  // hasError,
+  hasError,
   className,
   label,
   onBlur,
-}) => (
-  <div className={cn(className)}>
-    {!!label && (
-      <Typography variant="small1" component="label" htmlFor={name}>
-        {label}
-      </Typography>
-    )}
+}) => {
+  const { t } = useTranslation();
 
-    <div className="flex space-x-4">
-      <textarea
-        placeholder={placeholder}
-        onChange={e => onChange(e.currentTarget.value)}
-        onBlur={onBlur}
-        className="flex-1 bg-background"
-      />
+  const tabsContent = useMemo(
+    () => [
+      {
+        title: t('markdownEditor.markdownTabLabel'),
+        content: (
+          <textarea
+            name={name}
+            placeholder={placeholder}
+            onChange={e => onChange(e.currentTarget.value)}
+            onBlur={onBlur}
+            value={value}
+            data-hasError={hasError}
+            className={cn(
+              'hover -mt-6 min-h-[12rem] w-full rounded-xl border border-lightGrey bg-background p-4 font-semibold outline-none transition-colors hover:border-grey focus:border-blue',
+              hasError && 'border-red hover:border-red focus:border-red',
+            )}
+          />
+        ),
+      },
+      {
+        title: t('markdownEditor.previewTabLabel'),
+        content: (
+          <div className="-mt-6 w-full">
+            {value ? (
+              <MarkdownViewer className="break-words" content={value} />
+            ) : (
+              <p className="text-grey">{t('markdownEditor.placeholder')}</p>
+            )}
+          </div>
+        ),
+      },
+    ],
+    [value],
+  );
 
-      <MarkdownViewer className="flex-1" content={value} />
+  return (
+    <div className={cn(className)}>
+      {!!label && (
+        <p className={cn('mb-1 text-sm font-semibold', hasError && 'text-red')}>{label}</p>
+      )}
+
+      <Tabs tabsContent={tabsContent} />
     </div>
-  </div>
-);
+  );
+};

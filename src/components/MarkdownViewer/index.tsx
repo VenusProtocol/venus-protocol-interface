@@ -4,8 +4,8 @@ import { cn } from 'utilities';
 import { Link } from '../Link';
 
 export interface MarkdownViewerProps {
-  className?: string;
   content: string;
+  className?: string;
 }
 
 const TITLE_CLASSES = cn('mb-2 mt-4 font-semibold text-grey first:mt-0');
@@ -13,7 +13,7 @@ const TITLE_CLASSES = cn('mb-2 mt-4 font-semibold text-grey first:mt-0');
 export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, content }) => (
   <Markdown
     className={className}
-    allowedElements={['h1', 'h2', 'h3', 'h4', 'p', 'a', 'ul', 'li', 'strong', 'em']}
+    allowedElements={['h1', 'h2', 'h3', 'h4', 'p', 'a', 'ul', 'li', 'ol', 'strong', 'em']}
     skipHtml
     components={{
       h1: ({ children, ...otherProps }) => (
@@ -38,11 +38,15 @@ export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, conte
       ),
       a: ({ children, ...otherProps }) => <Link {...otherProps}>{children}</Link>,
       ul: ({ children, ...otherProps }) => (
-        <ul {...otherProps} className="mb-4 pl-6">
+        <ul {...otherProps} className="mb-4 list-disc pl-6">
           {children}
         </ul>
       ),
-      li: ({ children, ...otherProps }) => <li {...otherProps}>{children}</li>,
+      ol: ({ children, ...otherProps }) => (
+        <ul {...otherProps} className="mb-4 list-decimal pl-6">
+          {children}
+        </ul>
+      ),
     }}
   >
     {content}
