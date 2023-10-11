@@ -11,6 +11,5 @@ export const connectorIdByName = {
   [Connector.SafePal]: 'injected',
   [Connector.RabbyWallet]: 'injected',
   [Connector.CoinbaseWallet]: 'coinbaseWallet',
-  [Connector.BinanceChainWallet]: 'bsc',
   [Connector.WalletConnect]: 'walletConnect',
 };

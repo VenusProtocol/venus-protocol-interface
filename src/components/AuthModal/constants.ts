@@ -1,6 +1,5 @@
 import { t } from 'translation';
 
-import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/wallets/binanceChainWalletLogo.svg';
 import { ReactComponent as BitKeepLogo } from 'assets/img/wallets/bitKeepLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/wallets/braveWalletLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/wallets/coinbaseWalletLogo.svg';
@@ -49,11 +48,6 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.okxWallet'),
     Logo: OkxWalletLogo,
     connector: Connector.OkxWallet,
-  },
-  {
-    name: t('wallets.binanceChainWallet'),
-    Logo: BinanceChainWalletLogo,
-    connector: Connector.BinanceChainWallet,
   },
   {
     name: t('wallets.braveWallet'),
