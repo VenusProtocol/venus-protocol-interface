@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
-import { MenuItem } from '../types';
+import { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAuth();
@@ -11,92 +11,89 @@ const useGetMenuItems = () => {
   return useMemo(() => {
     const menuItems: MenuItem[] = [
       {
-        href: routes.dashboard.path,
+        to: routes.dashboard.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.dashboard')
         i18nKey: 'layout.menuItems.dashboard',
-        icon: 'dashboard',
+        iconName: 'dashboard',
       },
     ];
 
     // Insert account page if wallet is connected
     if (accountAddress) {
       menuItems.push({
-        href: routes.account.path,
+        to: routes.account.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.account')
         i18nKey: 'layout.menuItems.account',
-        icon: 'person',
+        iconName: 'person',
       });
     }
 
     menuItems.push(
       {
-        href: routes.corePool.path,
+        to: routes.corePool.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.corePool')
         i18nKey: 'layout.menuItems.corePool',
-        icon: 'venus',
+        iconName: 'venus',
       },
       {
-        href: routes.isolatedPools.path,
+        to: routes.isolatedPools.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.isolatedPools')
         i18nKey: 'layout.menuItems.isolatedPools',
-        icon: 'fourDots',
+        iconName: 'fourDots',
       },
-    );
-
-    menuItems.push(
       {
-        href: routes.vaults.path,
+        to: routes.vaults.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.vaults')
         i18nKey: 'layout.menuItems.vaults',
-        icon: 'vault',
+        iconName: 'vault',
       },
       {
-        href: routes.swap.path,
+        to: routes.swap.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.swap')
         i18nKey: 'layout.menuItems.swap',
-        icon: 'convert',
+        iconName: 'convert',
       },
       {
-        href: routes.history.path,
+        to: routes.history.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.history')
         i18nKey: 'layout.menuItems.history',
-        icon: 'history',
+        iconName: 'history',
       },
       {
-        href: routes.governance.path,
+        to: routes.governance.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.governance')
         i18nKey: 'layout.menuItems.governance',
-        icon: 'market',
+        iconName: 'market',
       },
       {
-        href: routes.xvs.path,
+        to: routes.xvs.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.xvs')
         i18nKey: 'layout.menuItems.xvs',
-        icon: 'circledVenus',
+        iconName: 'circledVenus',
       },
       {
-        href: routes.vai.path,
+        to: routes.vai.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.vai')
         i18nKey: 'layout.menuItems.vai',
-        icon: 'vaiOutline',
+        iconName: 'vaiOutline',
       },
       {
-        href: routes.convertVrt.path,
+        to: routes.convertVrt.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.convertVrt')
         // t('layout.menuItems.convertVrtTitle')
         i18nKey: 'layout.menuItems.convertVrt',
-        icon: 'convert',
+        iconName: 'convert',
       },
     );
 

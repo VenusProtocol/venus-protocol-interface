@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Icon } from 'components';
-import React, { useMemo } from 'react';
-import { Link, Params, matchPath, useLocation } from 'react-router-dom';
+import { EllipseAddress, Icon, Link } from 'components';
+import { useMemo } from 'react';
+import { Params, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
 import { Subdirectory, routes } from 'constants/routing';
@@ -11,18 +10,16 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
-import { useStyles } from './styles';
 
 export interface PathNode {
   dom: React.ReactNode;
   href: string;
 }
 
-const Breadcrumbs: React.FC = () => {
+export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const { accountAddress } = useAuth();
-  const styles = useStyles();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   const pathNodes = useMemo(() => {
@@ -99,16 +96,21 @@ const Breadcrumbs: React.FC = () => {
           hrefFragment = Subdirectory.VOTER.replace(':address', params.address || '');
 
           dom = (
-            <div css={styles.address}>
+            <div className="inline-flex items-center">
               <Typography variant="h3" color="textPrimary">
                 <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
               </Typography>
 
-              <Icon
-                name="copy"
-                css={styles.copyIcon}
-                onClick={() => params.address && copyToClipboard(params.address)}
-              />
+              <button
+                type="button"
+                className="ml-3 cursor-pointer text-blue transition-colors hover:text-darkBlue active:text-darkBlue"
+              >
+                <Icon
+                  name="copy"
+                  className="h-6 w-6 text-inherit"
+                  onClick={() => params.address && copyToClipboard(params.address)}
+                />
+              </button>
             </div>
           );
           break;
@@ -151,13 +153,20 @@ const Breadcrumbs: React.FC = () => {
   const pathNodeDom = useMemo(
     () =>
       pathNodes.map((pathNode, index) => (
-        <span key={`layout-header-breadcrumb-${pathNode.href}`} css={styles.pathNode}>
+        <span
+          key={`layout-header-breadcrumb-${pathNode.href}`}
+          className="inline-flex items-center"
+        >
           {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
             <>
-              <Link css={styles.link} to={pathNode.href}>
+              <Link
+                className="text-grey transition-colors hover:text-offWhite hover:no-underline"
+                to={pathNode.href}
+              >
                 {pathNode.dom}
               </Link>
-              <span css={styles.separator}>/</span>
+
+              <span className="mx-3 text-grey">/</span>
             </>
           ) : (
             pathNode.dom
@@ -167,11 +176,5 @@ const Breadcrumbs: React.FC = () => {
     [pathNodes],
   );
 
-  return (
-    <Typography component="h1" variant="h3" css={styles.container}>
-      {pathNodeDom}
-    </Typography>
-  );
+  return <p className="flex flex-wrap items-center text-xl">{pathNodeDom}</p>;
 };
-
-export default Breadcrumbs;

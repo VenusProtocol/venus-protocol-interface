@@ -1,28 +1,25 @@
-/** @jsxImportSource @emotion/react */
-import Box from '@mui/material/Box';
-import React from 'react';
+import { PAGE_CONTAINER_ID } from 'constants/layout';
 
-import Header from './Header';
-import { PageContainer } from './PageContainer';
-import Sidebar from './Sidebar';
-import { useStyles } from './styles';
+import { Footer } from './Footer';
+import { Header } from './Header';
+import { Menu } from './Menu';
 
 export interface LayoutProps {
   children?: React.ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const styles = useStyles();
+export const Layout: React.FC<LayoutProps> = ({ children }) => (
+  <div className="flex h-screen flex-col md:flex-row">
+    <Menu />
 
-  return (
-    <div css={styles.layout}>
-      <Sidebar />
+    <div className="flex flex-1 flex-col overflow-y-auto" id={PAGE_CONTAINER_ID}>
+      <Header />
 
-      <Box display="flex" flexDirection="column" flex="1">
-        <Header />
+      <main className="w-full flex-1 px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
+        {children}
+      </main>
 
-        <PageContainer>{children}</PageContainer>
-      </Box>
+      <Footer />
     </div>
-  );
-};
+  </div>
+);

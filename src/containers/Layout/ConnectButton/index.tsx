@@ -1,5 +1,4 @@
 import { Button, ButtonProps } from 'components';
-import React from 'react';
 import { useTranslation } from 'translation';
 import { isFeatureEnabled, truncateAddress } from 'utilities';
 

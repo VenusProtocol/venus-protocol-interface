@@ -1,11 +1,7 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import { Checkbox, CheckboxProps, LayeredValues, TokenIcon } from 'components';
-import React from 'react';
+import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
 
 import { Group } from '../types';
-import { useStyles } from './styles';
 
 export interface RewardGroupProps {
   group: Group;
@@ -13,35 +9,28 @@ export interface RewardGroupProps {
 }
 
 export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
-  const styles = useStyles();
-
   const handleOnCheckChange: CheckboxProps['onChange'] = event =>
     onCheckChange(event.currentTarget.checked);
 
   return (
-    <div css={styles.container}>
-      <div css={styles.header}>
-        <Typography component="h4" variant="h4">
-          {group.name}
-        </Typography>
+    <div className="mb-4 border-b border-lightGrey pb-4 last:border-none last:pb-0">
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-lg">{group.name}</p>
 
         <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />
       </div>
 
       {group.pendingRewards.map(pendingReward => (
         <div
-          css={styles.groupItem}
+          className="mb-4 flex items-center justify-between last:mb-0"
           key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
         >
-          <div css={styles.rewardToken}>
-            <TokenIcon token={pendingReward.rewardToken} css={styles.rewardTokenIcon} />
-            <Typography css={styles.rewardTokenSymbol}>
-              {pendingReward.rewardToken.symbol}
-            </Typography>
+          <div className="flex">
+            <TokenIconWithSymbol token={pendingReward.rewardToken} />
           </div>
 
           <LayeredValues
-            css={styles.layeredValues}
+            className="text-end"
             topValue={formatCentsToReadableValue({
               value: pendingReward.rewardAmountCents,
             })}

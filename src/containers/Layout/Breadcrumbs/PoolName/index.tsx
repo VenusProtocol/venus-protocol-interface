@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';

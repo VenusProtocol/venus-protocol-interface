@@ -1,28 +1,17 @@
-/** @jsxImportSource @emotion/react */
-import AppBar from '@mui/material/AppBar';
-import React from 'react';
-
+import { Breadcrumbs } from '../Breadcrumbs';
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
-import { Toolbar } from '../Toolbar';
-import Breadcrumbs from './Breadcrumbs';
-import { useStyles } from './styles';
 
-const Header: React.FC = () => {
-  const styles = useStyles();
+export const Header: React.FC = () => (
+  <div className="px-4 pb-4 pt-6 md:flex md:justify-between md:px-6 md:py-8 xl:px-10">
+    <div className="flex flex-1 items-center">
+      <Breadcrumbs />
+    </div>
 
-  return (
-    <AppBar position="relative" css={styles.appBar}>
-      <Toolbar css={styles.toolbar}>
-        <Breadcrumbs />
+    <div className="hidden md:flex md:items-center md:pl-6">
+      <ClaimRewardButton className="flex-none md:mr-4 md:whitespace-nowrap" />
 
-        <div css={styles.ctaContainer}>
-          <ClaimRewardButton css={styles.claimXvsButton} />
-          <ConnectButton />
-        </div>
-      </Toolbar>
-    </AppBar>
-  );
-};
-
-export default Header;
+      <ConnectButton className="flex-none" />
+    </div>
+  </div>
+);

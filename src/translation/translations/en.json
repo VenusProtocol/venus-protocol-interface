@@ -228,7 +228,7 @@
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
-    "latestNumber": "Latest Block:\u00a0"
+    "latestNumber": "Latest Block:"
   },
   "history": {
     "all": "All",
