@@ -4,7 +4,7 @@ import { State } from 'react-powerplug';
 
 import { withCenterStory } from 'stories/decorators';
 
-import MarkdownEditor from '.';
+import { MarkdownEditor } from '.';
 
 export default {
   title: 'Components/Markdown/Editor',
