@@ -180,7 +180,6 @@
     "banner": {
       "busdForceLiquidations": "Forced liquidations will be enabled in the BUSD market, in October. Every BUSD borrow position will be eligible to be liquidated, independently of their health rate. <Link>Snapshot</Link>"
     },
-    "borrowMarketTableTitle": "Borrow market",
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
       "buttonLabel": "Connect wallet",
@@ -201,7 +200,6 @@
     "searchInput": {
       "placeholder": "Search asset"
     },
-    "supplyMarketTableTitle": "Supply market",
     "supplyTabTitle": "Supply"
   },
   "errors": {
@@ -304,7 +302,6 @@
       "governance": "Governance",
       "history": "History",
       "isolatedPools": "Isolated pools",
-      "markets": "Markets",
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
@@ -319,6 +316,11 @@
   "mainPool": {
     "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
     "name": "Venus Core Pool"
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "Write",
+    "placeholder": "Nothing to preview",
+    "previewTabLabel": "Preview"
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
@@ -903,7 +905,7 @@
       "abstainOption": "Abstain option",
       "action": "Action",
       "actions": "Actions",
-      "addDescription": "Add description",
+      "addDescription": "Add description (basic styling with Markdown is supported)",
       "addOneMoreAction": "+ Add one more action",
       "address": "Address",
       "againstOption": "Against option",

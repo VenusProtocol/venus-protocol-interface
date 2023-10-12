@@ -1,9 +1,8 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import MarkdownViewer from '.';
+import { MarkdownViewer } from '.';
 
 export default {
   title: 'Components/Markdown/Viewer',

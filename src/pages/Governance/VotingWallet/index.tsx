@@ -131,23 +131,20 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         </div>
 
         {!connectedWallet && (
-          <PrimaryButton className="lg:w-fulltext-offWhite w-full" onClick={openAuthModal}>
+          <PrimaryButton className="text-offWhite lg:w-full" onClick={openAuthModal}>
             {t('connectWallet.connectButton')}
           </PrimaryButton>
         )}
 
         {connectedWallet && !userHasLockedXVS && (
-          <ButtonWrapper
-            className="w-full text-offWhite hover:no-underline sm:w-auto lg:w-full"
-            asChild
-          >
+          <ButtonWrapper className="text-offWhite hover:no-underline sm:w-auto lg:w-full" asChild>
             <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
           </ButtonWrapper>
         )}
 
         {connectedWallet && userHasLockedXVS && (
           <PrimaryButton
-            className="w-full text-offWhite sm:w-auto lg:w-full"
+            className="text-offWhite sm:w-auto lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
           >
             {previouslyDelegated ? t('vote.redelegate') : t('vote.delegate')}
