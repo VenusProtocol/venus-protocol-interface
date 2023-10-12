@@ -1,3 +1,10 @@
+## [2.35.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.34.2...v2.35.0) (2023-10-12)
+
+
+### Features
+
+* update Markdown components ([#1578](https://github.com/VenusProtocol/venus-protocol-interface/issues/1578)) ([25ec39a](https://github.com/VenusProtocol/venus-protocol-interface/commit/25ec39a68fbd88839ad7d684f94789469f366b87))
+
 ## [2.34.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.34.1...v2.34.2) (2023-10-12)
 
 ## [2.34.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.34.0...v2.34.1) (2023-10-11)
