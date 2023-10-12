@@ -4565,14 +4565,32 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/chains@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/chains/-/chains-0.2.0.tgz#f8850fb9b28811c450ee60fcc41c5b4561fd03a4"
+  integrity sha512-r7N8Kv5DmkX5o1WGdyjqWITzpJILfXWhpUqBI2HXeL0ibH1VmfHM1qmy1/mXCfLjepSdRsDzB+xvH5E9hhFFzQ==
+
+"@pancakeswap/sdk@^5.7.1":
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.7.1.tgz#0d11546ebb643e7a58eb8286d54709984f5aa2a7"
+  integrity sha512-sbrbDY0Zwio1hOMNVFFHpnaB0hl4LeZJnrub79OFxqDDmEgA1C4UFRxpAsqs22s0AmhlhS1AnuNQSdPDjkK3fg==
+  dependencies:
+    "@pancakeswap/chains" "^0.2.0"
+    "@pancakeswap/swap-sdk-core" "1.0.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "^1.15.1"
+
+"@pancakeswap/swap-sdk-core@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.0.0.tgz#30ab333943ecca5484cd10cbc493841fb553728d"
+  integrity sha512-MZBF8FHpCX/ffY8/gd2zz6TpiftwqRouVPr1kB88wm7desYh+E2y4kWPcZX1roWR38UkjBv4/DoXVSDeSTBgRg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
@@ -14208,11 +14226,6 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
-
 jscodeshift@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.14.0.tgz#7542e6715d6d2e8bde0b4e883f0ccea358b46881"
@@ -21217,7 +21230,7 @@ vfile@^6.0.0:
     unist-util-stringify-position "^4.0.0"
     vfile-message "^4.0.0"
 
-viem@^1.0.0, viem@^1.10.3:
+viem@^1.0.0, viem@^1.10.3, viem@^1.15.1:
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.16.4.tgz#4cb90dd27d13356ea00d21f6fd363bdfe0628c4e"
   integrity sha512-T9ziN3EERXz0BtQSS2VJM+P1EJ2W7K7PviobFrmvWCEYmNQ/vJDhfFqGjvq0ZL9LVz9HvevCbenEy8oIdMEZ+w==
