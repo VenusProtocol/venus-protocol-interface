@@ -54,7 +54,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
 
   // Get Comptroller addresses of isolated pools
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress: input.accountAddress,
+    accountAddress: input.accountAddress || undefined,
   });
 
   const isolatedPoolComptrollerAddresses = useMemo(
@@ -68,7 +68,9 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
 
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
-    useGetXvsVaultPoolCount();
+    useGetXvsVaultPoolCount({
+      enabled: options?.enabled,
+    });
   const xvsVestingVaultPoolCount = getXvsVaultPoolCountData?.poolCount || 0;
 
   // Sort addresses to output the same data when providing them in a different
