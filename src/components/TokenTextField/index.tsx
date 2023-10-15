@@ -33,7 +33,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   ...otherProps
 }) => {
   const step = React.useMemo(() => {
-    const tmpOneTokenInWei = new BigNumber(10).pow(token.decimals);
+    const tmpOneTokenInWei = new BigNumber(10 ** token.decimals);
     const tmpOneWeiInTokens = new BigNumber(1).dividedBy(tmpOneTokenInWei);
 
     return tmpOneWeiInTokens.toFixed();

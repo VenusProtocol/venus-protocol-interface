@@ -157,18 +157,20 @@ const getIsolatedPools = async ({
     resilientOracleContract,
   });
 
+  const pools = formatOutput({
+    tokens,
+    currentBlockNumber: currentBlockNumberResult.blockNumber,
+    poolResults,
+    poolParticipantsCountResult,
+    rewardsDistributorSettingsMapping,
+    tokenPriceDollarsMapping,
+    userCollateralizedVTokenAddresses,
+    userVTokenBalancesAll: extractSettledPromiseValue(userVTokenBalancesAllResult),
+    userTokenBalancesAll: extractSettledPromiseValue(userTokenBalancesResult),
+  });
+
   return {
-    pools: formatOutput({
-      tokens,
-      currentBlockNumber: currentBlockNumberResult.blockNumber,
-      poolResults,
-      poolParticipantsCountResult,
-      rewardsDistributorSettingsMapping,
-      tokenPriceDollarsMapping,
-      userCollateralizedVTokenAddresses,
-      userVTokenBalancesAll: extractSettledPromiseValue(userVTokenBalancesAllResult),
-      userTokenBalancesAll: extractSettledPromiseValue(userTokenBalancesResult),
-    }),
+    pools,
   };
 };
 

@@ -122,9 +122,7 @@ const formatToPools = ({
 
       const exchangeRateVTokens = new BigNumber(1).div(
         new BigNumber(vTokenMetaData.exchangeRateCurrent.toString()).div(
-          new BigNumber(10).pow(
-            COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals,
-          ),
+          10 ** (COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals),
         ),
       );
 

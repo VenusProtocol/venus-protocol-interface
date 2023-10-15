@@ -7,13 +7,13 @@ export interface CalculateApyInput {
   dailyRate: BigNumber;
 }
 
-const calculateApy = ({ dailyRate }: CalculateApyInput) =>
-  dailyRate
-    .plus(1)
-    .pow(DAYS_PER_YEAR - 1)
-    .minus(1)
-    // Convert to percentage
-    .multipliedBy(100)
-    .dp(COMPOUND_DECIMALS);
+const calculateApy = ({ dailyRate }: CalculateApyInput) => {
+  let apy = dailyRate.toNumber() + 1;
+  apy **= DAYS_PER_YEAR - 1;
+  apy -= 1;
+  apy *= 100;
+
+  return new BigNumber(apy).dp(COMPOUND_DECIMALS);
+};
 
 export default calculateApy;

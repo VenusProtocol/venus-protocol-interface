@@ -183,7 +183,7 @@ const formatToPool = ({
 
     const supplyCapTokens = unformattedSupplyCapTokens
       .multipliedBy(COMPOUND_MANTISSA)
-      .isEqualTo(MAX_UINT256)
+      .isGreaterThanOrEqualTo(MAX_UINT256)
       ? undefined
       : unformattedSupplyCapTokens;
 
@@ -213,9 +213,7 @@ const formatToPool = ({
       ? new BigNumber(0)
       : new BigNumber(1).div(
           exchangeRateMantissa.div(
-            new BigNumber(10).pow(
-              COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals,
-            ),
+            10 ** (COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals),
           ),
         );
 

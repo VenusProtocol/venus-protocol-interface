@@ -13,7 +13,7 @@ const multiplyMantissaDaily = ({
   decimals = COMPOUND_DECIMALS,
 }: MultiplyMantissaDailyInput) =>
   new BigNumber(mantissa)
-    .div(new BigNumber(10).pow(decimals))
+    .div(10 ** decimals)
     .multipliedBy(BLOCKS_PER_DAY)
     .dp(decimals);
 
