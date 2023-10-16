@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-import { ButtonGroup, Link, NoticeWarning, Tag, TagGroup, TextField } from 'components';
-import React, { InputHTMLAttributes, useMemo, useState } from 'react';
+import { Link, NoticeWarning, Tag, TagGroup, TextField } from 'components';
+import { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { isFeatureEnabled } from 'utilities';
@@ -8,11 +7,9 @@ import { isFeatureEnabled } from 'utilities';
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
-import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
 
@@ -30,12 +27,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   onSearchInputChange,
 }) => {
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
-
-  const showXlDownCss = useShowXlDownCss();
-  const hideXlDownCss = useHideXlDownCss();
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
@@ -67,7 +59,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
       {isFeatureEnabled('prime') ? <PrimePromotionalBanner /> : <ConnectWalletBanner />}
 
       <NoticeWarning
-        css={styles.banner}
+        className="mb-6"
         description={
           <Trans
             i18nKey="dashboard.banner.busdForceLiquidations"
@@ -80,9 +72,9 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         }
       />
 
-      <div css={styles.header}>
+      <div className="mb-6 lg:flex lg:items-center lg:justify-between">
         <TextField
-          css={[styles.tabletSearchTextField, showXlDownCss]}
+          className="mb-6 lg:order-2 lg:mb-0 lg:ml-auto lg:w-[300px]"
           isSmall
           value={searchValue}
           onChange={handleSearchInputChange}
@@ -91,36 +83,14 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           variant="secondary"
         />
 
-        <ButtonGroup
-          css={[styles.tabletButtonGroup, showXlDownCss]}
-          fullWidth
-          buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
-          activeButtonIndex={activeTabIndex}
-          onButtonClick={setActiveTabIndex}
-        />
-
-        <div css={styles.headerBottomRow}>
-          {pools.length > 0 && (
-            <TagGroup
-              css={styles.tags}
-              tags={poolTags}
-              activeTagIndex={selectedPoolTagIndex}
-              onTagClick={setSelectedPoolTagIndex}
-            />
-          )}
-
-          <div css={styles.rightColumn}>
-            <TextField
-              css={[styles.desktopSearchTextField, hideXlDownCss]}
-              isSmall
-              value={searchValue}
-              onChange={handleSearchInputChange}
-              placeholder={t('dashboard.searchInput.placeholder')}
-              leftIconSrc="magnifier"
-              variant="secondary"
-            />
-          </div>
-        </div>
+        {pools.length > 0 && (
+          <TagGroup
+            className="lg:order-1 lg:mr-6"
+            tags={poolTags}
+            activeTagIndex={selectedPoolTagIndex}
+            onTagClick={setSelectedPoolTagIndex}
+          />
+        )}
       </div>
 
       <MarketTable

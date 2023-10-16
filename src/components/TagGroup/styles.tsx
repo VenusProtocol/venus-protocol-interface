@@ -9,12 +9,7 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      margin-right: ${theme.spacing(4)};
       margin-top: ${theme.spacing(-2)};
-
-      ${theme.breakpoints.down('xl')} {
-        margin-right: 0;
-      }
 
       ${theme.breakpoints.down('md')} {
         flex-wrap: nowrap;
