@@ -61,7 +61,7 @@ export const Menu: React.FC = () => {
         >
           <div className="mb-6">
             {menuItems.map(menuItem => (
-              <NavLink onClick={toggleMobileMenu} {...menuItem} />
+              <NavLink onClick={toggleMobileMenu} key={menuItem.i18nKey} {...menuItem} />
             ))}
           </div>
 
@@ -88,7 +88,7 @@ export const Menu: React.FC = () => {
 
         <div className="flex-1 overflow-auto px-3 py-6 xl:w-full xl:px-0">
           {menuItems.map(menuItem => (
-            <NavLink onClick={toggleMobileMenu} {...menuItem} />
+            <NavLink onClick={toggleMobileMenu} key={menuItem.i18nKey} {...menuItem} />
           ))}
         </div>
       </div>
