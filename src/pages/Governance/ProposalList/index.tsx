@@ -145,11 +145,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
   const { accountAddress } = useAuth();
 
   const {
-    data: { proposals, total, limit = 5 } = { proposals: [] },
+    data: { proposals, total, limit = 10 } = { proposals: [] },
     isFetching: isGetProposalsFetching,
     isPreviousData: isGetProposalsPreviousData,
   } = useGetProposals({
     page: currentPage,
+    limit: 10,
   });
 
   const isFetchingProposals =
