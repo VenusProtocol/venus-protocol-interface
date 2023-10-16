@@ -22,7 +22,7 @@ const generatePancakeSwapTokenRecords = async () => {
   // Generate file
   const outputPath = path.join(
     process.cwd(),
-    './src/packages/tokens/tokenInfos/pancakeSwapTokens/bscMainnet.ts',
+    './src/packages/tokens/infos/pancakeSwapTokens/bscMainnet.ts',
   );
 
   writeFile({
