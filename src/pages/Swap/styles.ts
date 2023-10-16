@@ -26,10 +26,6 @@ export const useStyles = () => {
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
     `,
-    switchButton: css`
-      margin: ${theme.spacing(0, 'auto', 4)};
-      padding: ${theme.spacing(1)};
-    `,
     switchButtonIcon: css`
       width: ${theme.spacing(6)};
       height: ${theme.spacing(6)};
