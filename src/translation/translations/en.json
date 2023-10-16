@@ -142,11 +142,12 @@
     }
   },
   "claimReward": {
-    "claimButton": {
-      "disabledLabel": "Select groups to collect reward from",
-      "enabledLabel": "Claim"
-    },
     "modal": {
+      "claimButton": {
+        "disabledLabel": "Select groups to collect reward from",
+        "enabledLabel": "Claim"
+      },
+      "selectAll": "Select all",
       "title": "Claim reward"
     },
     "openModalButton": {
@@ -292,6 +293,9 @@
     "claimRewardModal": {
       "vaultGroup": "{{stakedTokenSymbol}} vault",
       "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
+    },
+    "menu": {
+      "venusLogoAlt": "Venus logo"
     },
     "menuItems": {
       "account": "Account",
@@ -602,9 +606,6 @@
     "searchInput": {
       "placeholder": "Search asset"
     }
-  },
-  "sidebar": {
-    "newBadge": "NEW"
   },
   "spendingLimit": {
     "label": "Spending limit",

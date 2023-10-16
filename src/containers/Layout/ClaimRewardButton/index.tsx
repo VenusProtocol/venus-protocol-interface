@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { ButtonProps, Modal, PrimaryButton } from 'components';
+import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { VError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { useContext, useMemo, useState } from 'react';
@@ -22,6 +22,7 @@ export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   onOpenModal: () => void;
   onCloseModal: () => void;
   onClaimReward: () => Promise<ContractReceipt>;
+  onToggleAllGroups: () => void;
   onToggleGroup: (toggledGroup: Group) => void;
   groups: Group[];
 }
@@ -32,6 +33,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   onOpenModal,
   onCloseModal,
   onClaimReward,
+  onToggleAllGroups,
   onToggleGroup,
   groups,
   ...otherButtonProps
@@ -95,6 +97,16 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
         title={<h4>{t('claimReward.modal.title')}</h4>}
       >
         <>
+          <div className="mb-4 flex items-center justify-between border-b border-lightGrey pb-4">
+            <p className="text-lg">{t('claimReward.modal.selectAll')}</p>
+
+            <Checkbox
+              onChange={onToggleAllGroups}
+              value={groups.every(group => group.isChecked)}
+              data-testid={TEST_IDS.claimRewardSelectAllCheckbox}
+            />
+          </div>
+
           <div data-testid={TEST_IDS.claimRewardBreakdown}>
             {groups.map(group => (
               <RewardGroup
@@ -113,8 +125,8 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
             loading={isClaimingRewards}
           >
             {isSubmitDisabled
-              ? t('claimReward.claimButton.disabledLabel')
-              : t('claimReward.claimButton.enabledLabel')}
+              ? t('claimReward.modal.claimButton.disabledLabel')
+              : t('claimReward.modal.claimButton.enabledLabel')}
           </PrimaryButton>
         </>
       </Modal>
@@ -146,7 +158,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
     // Extract all claims from checked groups
     const claims = groups.reduce<Claim[]>(
-      (allClaims, group) => (group.isChecked ? allClaims.concat(group.claims) : allClaims),
+      (acc, group) => (group.isChecked ? acc.concat(group.claims) : acc),
       [],
     );
 
@@ -180,6 +192,11 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
           ),
     );
 
+  const handleToggleAllGroups = () =>
+    setUncheckedGroupIds(currentUncheckedGroupIds =>
+      currentUncheckedGroupIds.length > 0 ? [] : groups.map(group => group.id),
+    );
+
   return (
     <ClaimRewardButtonUi
       groups={groups}
@@ -189,6 +206,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
       onCloseModal={handleCloseModal}
       onClaimReward={handleClaimReward}
       onToggleGroup={handleToggleGroup}
+      onToggleAllGroups={handleToggleAllGroups}
       {...props}
     />
   );

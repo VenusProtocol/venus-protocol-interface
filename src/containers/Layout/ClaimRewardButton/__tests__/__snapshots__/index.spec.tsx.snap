@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`components/Layout/ClaimRewardButton > it claims only selected rewards on submit button click and displays successful transaction modal on success 1`] = `
+exports[`ClaimRewardButton > it claims only selected rewards on submit button click and displays successful transaction modal on success 1`] = `
 {
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
@@ -22,9 +22,6 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
       ],
     },
     {
-      "contract": "vaiVault",
-    },
-    {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
       "rewardToken": {
@@ -38,7 +35,7 @@ exports[`components/Layout/ClaimRewardButton > it claims only selected rewards o
 }
 `;
 
-exports[`components/Layout/ClaimRewardButton > it claims reward on submit button click and displays successful transaction modal on success 1`] = `
+exports[`ClaimRewardButton > it claims reward on submit button click and displays successful transaction modal on success 1`] = `
 {
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
@@ -71,9 +68,6 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
       "contract": "vaiVault",
     },
     {
-      "contract": "vaiVault",
-    },
-    {
       "contract": "xvsVestingVault",
       "poolIndex": 0,
       "rewardToken": {
@@ -87,4 +81,4 @@ exports[`components/Layout/ClaimRewardButton > it claims reward on submit button
 }
 `;
 
-exports[`components/Layout/ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400.00K1.00B XVSMetaverseVAI$3.002.00B VAIXVS$1.123.00B XVSVRT vaultVRT$0.022.00B VRTVAI vaultXVS$12.003.00B XVSXVS vesting vaultXVS$1.654.00B XVS"`;
+exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400.00K1.00B XVSMetaverseVAI$3.002.00B VAIXVS$1.123.00B XVSVAI vaultXVS$12.003.00B XVSXVS vesting vaultXVS$1.654.00B XVS"`;
