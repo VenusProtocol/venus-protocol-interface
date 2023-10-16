@@ -1,3 +1,13 @@
+## [2.35.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.35.1...v2.35.2) (2023-10-16)
+
+
+### Bug Fixes
+
+* add keys to menu items ([#1597](https://github.com/VenusProtocol/venus-protocol-interface/issues/1597)) ([49ba3db](https://github.com/VenusProtocol/venus-protocol-interface/commit/49ba3dbe8af40bbda726ff04e9c0ab8f4d2c2954))
+* alignment of swap button on Swap page ([#1592](https://github.com/VenusProtocol/venus-protocol-interface/issues/1592)) ([f1ebb41](https://github.com/VenusProtocol/venus-protocol-interface/commit/f1ebb415debcdccc756657106ac32b9c24d1558c))
+* prevent getMainPools from being called twice ([#1590](https://github.com/VenusProtocol/venus-protocol-interface/issues/1590)) ([a1f8d20](https://github.com/VenusProtocol/venus-protocol-interface/commit/a1f8d2006145d0ff107d2393c72071406765becb))
+* remove tab buttons on Dashboard ([#1594](https://github.com/VenusProtocol/venus-protocol-interface/issues/1594)) ([9a9c6dd](https://github.com/VenusProtocol/venus-protocol-interface/commit/9a9c6ddf2debff0d6c2a0b0d6efa7e1492f0139c))
+
 ## [2.35.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.35.0...v2.35.1) (2023-10-15)
 
 ## [2.35.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.34.2...v2.35.0) (2023-10-12)
