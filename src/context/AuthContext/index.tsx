@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
 
   // TODO: fetch
-  const isPrime = !!accountAddress;
+  const isPrime = false;
 
   const login = useCallback(async (connectorId: Connector) => {
     // If user is attempting to connect their Infinity wallet but the dApp
