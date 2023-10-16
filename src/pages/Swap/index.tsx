@@ -7,7 +7,7 @@ import {
   SelectTokenTextField,
   SpendingLimit,
   SwapDetails,
-  TertiaryButton,
+  TextButton,
   toast,
 } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
@@ -294,14 +294,14 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           />
         </div>
 
-        <TertiaryButton
-          css={styles.switchButton}
+        <TextButton
+          className="mx-auto mb-4 flex h-auto p-2"
           onClick={switchTokens}
           disabled={isSubmitting}
           data-testid={TEST_IDS.switchTokensButton}
         >
           <Icon name="convert" css={styles.switchButtonIcon} />
-        </TertiaryButton>
+        </TextButton>
 
         <SelectTokenTextField
           label={t('swapPage.toTokenAmountField.label')}
