@@ -144,12 +144,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
       className={cn(
         'relative flex flex-col content-center md:flex-row md:justify-between',
         isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
-        shouldShowPrimeTokensLeftIndicator && 'mt-[12.5px]',
+        shouldShowPrimeTokensLeftIndicator && 'mt-3',
         className,
       )}
     >
       {shouldShowPrimeTokensLeftIndicator && (
-        <div className="absolute top-0 -mt-3 max-sm:right-4 sm:left-18 md:left-20">
+        <div className="absolute top-0 -mt-3 right-4 sm:right-auto sm:left-18 md:left-20">
           <PrimeTokensLeft tokensLeft={primeTokensLeft} />
         </div>
       )}
