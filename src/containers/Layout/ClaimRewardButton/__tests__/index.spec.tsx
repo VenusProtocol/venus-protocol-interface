@@ -1,5 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
-import React from 'react';
+import { fireEvent, waitFor, within } from '@testing-library/react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -15,7 +14,7 @@ import { fakePendingRewardGroups } from '../__testUtils__/fakeData';
 
 vi.mock('hooks/useSuccessfulTransactionModal');
 
-describe('components/Layout/ClaimRewardButton', () => {
+describe('ClaimRewardButton', () => {
   beforeEach(() => {
     (getPendingRewards as Vi.Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups,
@@ -72,8 +71,65 @@ describe('components/Layout/ClaimRewardButton', () => {
     expect(getByTestId(TEST_IDS.claimRewardBreakdown).textContent).toMatchSnapshot();
   });
 
+  it('unselects all groups when clicking on "Select all" checkbox and all groups are selected', async () => {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    // Uncheck "Select all" checkbox
+    fireEvent.click(
+      within(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox)).getByRole('checkbox'),
+    );
+
+    // Check all groups were unselected
+    within(getByTestId(TEST_IDS.claimRewardBreakdown))
+      .queryAllByRole('checkbox')
+      .forEach(checkbox => {
+        expect((checkbox as HTMLInputElement).checked).toEqual(false);
+      });
+  });
+
+  it('selects all groups when clicking on "Select all" checkbox and some groups are unselected', async () => {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    // Unselect some reward groups
+    const checkboxes = within(getByTestId(TEST_IDS.claimRewardBreakdown)).queryAllByRole(
+      'checkbox',
+    );
+    fireEvent.click(checkboxes[0]);
+    fireEvent.click(checkboxes[2]);
+
+    // Check "Select all" checkbox
+    fireEvent.click(
+      within(getByTestId(TEST_IDS.claimRewardSelectAllCheckbox)).getByRole('checkbox'),
+    );
+
+    // Check all groups were selected
+    within(getByTestId(TEST_IDS.claimRewardBreakdown))
+      .queryAllByRole('checkbox')
+      .forEach(checkbox => {
+        expect((checkbox as HTMLInputElement).checked).toEqual(true);
+      });
+  });
+
   it('it disables submit button if user unchecks all groups', async () => {
-    const { getByTestId, queryAllByRole } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -85,13 +141,15 @@ describe('components/Layout/ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     // Uncheck all groups
-    queryAllByRole('checkbox').map(groupCheckbox => fireEvent.click(groupCheckbox));
+    within(getByTestId(TEST_IDS.claimRewardBreakdown))
+      .queryAllByRole('checkbox')
+      .map(groupCheckbox => fireEvent.click(groupCheckbox));
 
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.claimRewardSubmitButton).closest('button')).toBeDisabled(),
     );
     expect(getByTestId(TEST_IDS.claimRewardSubmitButton).textContent).toBe(
-      en.claimReward.claimButton.disabledLabel,
+      en.claimReward.modal.claimButton.disabledLabel,
     );
   });
 
@@ -130,7 +188,7 @@ describe('components/Layout/ClaimRewardButton', () => {
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-    const { getByTestId, queryAllByRole } = renderComponent(<ClaimRewardButton />, {
+    const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
         accountAddress: fakeAddress,
       },
@@ -142,7 +200,9 @@ describe('components/Layout/ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     // Unselect some reward groups
-    const checkboxes = queryAllByRole('checkbox');
+    const checkboxes = within(getByTestId(TEST_IDS.claimRewardBreakdown)).queryAllByRole(
+      'checkbox',
+    );
     fireEvent.click(checkboxes[0]);
     fireEvent.click(checkboxes[2]);
 

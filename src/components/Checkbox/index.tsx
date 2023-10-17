@@ -11,17 +11,16 @@ export interface CheckboxProps {
   className?: string;
 }
 
-export const Checkbox = ({ value, onChange, className }: CheckboxProps) => {
+export const Checkbox = ({ value, ...otherProps }: CheckboxProps) => {
   const styles = useStyles();
   return (
     <MuiCheckbox
-      className={className}
       css={styles.root}
       checked={value}
-      onChange={onChange}
       icon={<Icon name="checkboxBorder" />}
       checkedIcon={<Icon name="checked" />}
       disableRipple
+      {...otherProps}
     />
   );
 };

@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import { vai, vrt, xvs } from '__mocks__/models/tokens';
+import { vai, xvs } from '__mocks__/models/tokens';
 import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
@@ -39,13 +39,6 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
         vTokenAddressesWithPendingReward: ['0xcfc8a73f9c888eea9af9ccca24646e84a915510b'],
       },
     ],
-  },
-  {
-    type: 'vault',
-    stakedToken: vrt,
-    rewardToken: vrt,
-    rewardAmountWei: new BigNumber('2000000000000000000000000000'),
-    rewardAmountCents: new BigNumber('2'),
   },
   {
     type: 'vault',
