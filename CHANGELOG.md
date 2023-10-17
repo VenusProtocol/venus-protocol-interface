@@ -1,3 +1,10 @@
+## [2.36.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.2...v2.36.3) (2023-10-17)
+
+
+### Bug Fixes
+
+* remove pow function usage ([#1591](https://github.com/VenusProtocol/venus-protocol-interface/issues/1591)) ([41d7852](https://github.com/VenusProtocol/venus-protocol-interface/commit/41d78528cbbb63f96be1e1091731c3cebb2dc23f))
+
 ## [2.36.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.1...v2.36.2) (2023-10-17)
 
 ## [2.36.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.0...v2.36.1) (2023-10-17)
