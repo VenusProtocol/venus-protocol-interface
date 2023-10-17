@@ -1,4 +1,4 @@
-import { tokens } from 'packages/tokens/tokenInfos/commonTokens';
+import { tokens } from 'packages/tokens/infos/commonTokens';
 import { ChainId } from 'types';
 
 import { getTokens } from '..';

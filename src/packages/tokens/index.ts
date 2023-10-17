@@ -1,4 +1,4 @@
-export * from './tokenInfos';
+export * from './infos';
 export * from './utilities/getTokens';
 export * from './utilities/getSwapTokens';
 export * from './utilities/isTokenActionEnabled';

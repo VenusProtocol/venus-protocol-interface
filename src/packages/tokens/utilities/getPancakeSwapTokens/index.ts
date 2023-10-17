@@ -1,4 +1,4 @@
-import { pancakeSwapTokens } from 'packages/tokens/tokenInfos/pancakeSwapTokens';
+import { pancakeSwapTokens } from 'packages/tokens/infos/pancakeSwapTokens';
 import { ChainId } from 'types';
 
 export interface GetPancakeSwapTokensInput {
