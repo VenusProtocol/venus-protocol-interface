@@ -1,3 +1,11 @@
+## [2.36.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.35.2...v2.36.0) (2023-10-17)
+
+
+### Features
+
+* add "Select all" checkbox on Claim Rewards modal ([#1595](https://github.com/VenusProtocol/venus-protocol-interface/issues/1595)) ([d0f661e](https://github.com/VenusProtocol/venus-protocol-interface/commit/d0f661e38cb7f2666a73e2ea1a977790491f6653))
+* update README files ([#1596](https://github.com/VenusProtocol/venus-protocol-interface/issues/1596)) ([d050e8a](https://github.com/VenusProtocol/venus-protocol-interface/commit/d050e8a54026eadfdfd242c123264e376792437b))
+
 ## [2.35.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.35.1...v2.35.2) (2023-10-16)
 
 
