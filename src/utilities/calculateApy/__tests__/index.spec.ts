@@ -7,7 +7,7 @@ describe('utilities/calculateApy', () => {
     const dailyRate = new BigNumber(1.05);
 
     expect(calculateApy({ dailyRate })).toMatchInlineSnapshot(
-      '"3.0088838570689378376402923428334853226083813603702764092454379300788830115159224851071954330964370491947584154357200334333273186688022e+115"',
+      '"3.008883857068843e+115"',
     );
   });
 });

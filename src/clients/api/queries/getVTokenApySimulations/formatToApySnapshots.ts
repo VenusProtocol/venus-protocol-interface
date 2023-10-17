@@ -20,8 +20,7 @@ const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshots
       .div(COMPOUND_MANTISSA)
       .times(BLOCKS_PER_DAY)
       .plus(1);
-    const supplyApyPercentage = supplyBase
-      .pow(DAYS_PER_YEAR - 1)
+    const supplyApyPercentage = new BigNumber(supplyBase.toNumber() ** (DAYS_PER_YEAR - 1))
       .minus(1)
       .times(100)
       .toNumber();
@@ -30,8 +29,7 @@ const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshots
       .div(COMPOUND_MANTISSA)
       .times(BLOCKS_PER_DAY)
       .plus(1);
-    const borrowApyPercentage = borrowBase
-      .pow(DAYS_PER_YEAR - 1)
+    const borrowApyPercentage = new BigNumber(borrowBase.toNumber() ** (DAYS_PER_YEAR - 1))
       .minus(1)
       .times(100)
       .toNumber();

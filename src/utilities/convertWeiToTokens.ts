@@ -19,8 +19,7 @@ export function convertWeiToTokens<T extends boolean | undefined = false>({
   addSymbol = true,
 }: ConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
   const valueTokens =
-    token &&
-    valueWei.dividedBy(new BigNumber(10).pow(token.decimals)).decimalPlaces(token.decimals);
+    token && valueWei.dividedBy(10 ** token.decimals).decimalPlaces(token.decimals);
 
   return (
     returnInReadableFormat

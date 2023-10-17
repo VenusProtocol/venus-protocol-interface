@@ -7,11 +7,11 @@ export interface FormatCurrentUtilizationRateInput {
   >;
 }
 
+const DIVIDER = 10 ** 16;
+
 const formatCurrentUtilizationRate = ({
   utilizationRatePercentage,
 }: FormatCurrentUtilizationRateInput) =>
-  new BigNumber(utilizationRatePercentage.toString())
-    .dividedToIntegerBy(new BigNumber(10).pow(16))
-    .toNumber();
+  new BigNumber(utilizationRatePercentage.toString()).dividedToIntegerBy(DIVIDER).toNumber();
 
 export default formatCurrentUtilizationRate;
