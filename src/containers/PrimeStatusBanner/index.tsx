@@ -18,6 +18,8 @@ import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReada
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
+import PrimeTokensLeft from './PrimeTokensLeft';
+
 export interface PrimeStatusBannerUiProps {
   xvs: Token;
   claimedPrimeTokenCount: number;
@@ -49,6 +51,9 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 }) => {
   const { Trans, t } = useTranslation();
   const handleTransactionMutation = useHandleTransactionMutation();
+  const last5Percent = primeTokenLimit * 0.05;
+  const primeTokensLeft = primeTokenLimit - claimedPrimeTokenCount;
+  const shouldShowPrimeTokensLeftIndicator = primeTokensLeft > 0 && primeTokensLeft <= last5Percent;
 
   const handleClaimPrimeToken = () =>
     handleTransactionMutation({
@@ -137,11 +142,18 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   return (
     <Card
       className={cn(
-        'flex flex-col content-center md:flex-row md:justify-between',
+        'relative flex flex-col content-center md:flex-row md:justify-between',
         isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
+        shouldShowPrimeTokensLeftIndicator && 'mt-3',
         className,
       )}
     >
+      {shouldShowPrimeTokensLeftIndicator && (
+        <div className="absolute top-0 -mt-3 right-4 sm:right-auto sm:left-18 md:left-20">
+          <PrimeTokensLeft tokensLeft={primeTokensLeft} />
+        </div>
+      )}
+
       <div
         className={cn(
           'w-full md:w-auto md:flex-1',
@@ -279,10 +291,10 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   // TODO: wire up
   const isLoading = false;
   const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 90 days in seconds
-  const userStakedXvsTokens = new BigNumber('1000');
+  const userStakedXvsTokens = new BigNumber('100');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
   const highestPrimeSimulationApyBoostPercentage = new BigNumber('3.14');
-  const claimedPrimeTokenCount = 1000;
+  const claimedPrimeTokenCount = 975;
   const primeTokenLimit = 1000;
 
   const claimPrimeToken = async () => fakeContractReceipt;

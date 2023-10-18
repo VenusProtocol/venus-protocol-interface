@@ -597,6 +597,7 @@
       "message": "You are now a Prime user. Visit the dashboard or the account page to see your earning boosts.",
       "title": "Prime token claimed"
     },
+    "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
   "select": {
