@@ -1,9 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
-import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
 import { isFeatureEnabled } from 'utilities';
 import Vi from 'vitest';

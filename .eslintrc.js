@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier', 'unused-imports'],
   extends: [
     'airbnb',
     'airbnb-typescript',
@@ -106,6 +106,7 @@ module.exports = {
     'react/jsx-wrap-multilines': 0,
     'generator-star-spacing': 0,
     'consistent-return': 0,
+    'unused-imports/no-unused-imports-ts': 2,
     // Disable import order checks as we automatically sort imports using Prettier
     'import/order': 0,
     // Disable requirement to import React when rendering JSX (no longer needed since React 17)
