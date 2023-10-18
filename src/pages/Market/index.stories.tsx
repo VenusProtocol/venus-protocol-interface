@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
 import { poolData } from '__mocks__/models/pools';

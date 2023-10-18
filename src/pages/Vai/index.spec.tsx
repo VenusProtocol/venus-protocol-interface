@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';

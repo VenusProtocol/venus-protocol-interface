@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import MUITypography from '@mui/material/Typography';
-import React from 'react';
+import * as React from 'react';
 
 import { withThemeProvider } from 'stories/decorators';
 

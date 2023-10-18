@@ -4,7 +4,8 @@ import BigNumber from 'bignumber.js';
 import { PrimaryButton, TokenIcon } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import { ConnectWallet } from 'containers/ConnectWallet';

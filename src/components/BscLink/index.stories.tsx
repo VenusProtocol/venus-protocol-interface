@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 import { ChainId } from 'types';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';

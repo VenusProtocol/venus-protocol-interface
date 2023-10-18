@@ -1,5 +1,6 @@
 import { Spinner } from 'components';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
+import * as React from 'react';
 
 export interface PageSuspenseProps {
   children: React.ReactNode;

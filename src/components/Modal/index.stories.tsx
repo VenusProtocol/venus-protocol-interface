@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography';
 import { Meta, StoryFn } from '@storybook/react';
-import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 

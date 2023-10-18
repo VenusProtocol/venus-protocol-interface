@@ -1,6 +1,6 @@
 import { SuccessfulTransactionModal, SuccessfulTransactionModalProps } from 'components';
 import noop from 'noop-ts';
-import React from 'react';
+import * as React from 'react';
 
 export type OpenSuccessfulTransactionModalInput = Pick<
   SuccessfulTransactionModalProps,

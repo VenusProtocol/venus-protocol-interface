@@ -3,7 +3,8 @@ import config from 'config';
 import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import React, { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
+import * as React from 'react';
 import { ChainId } from 'types';
 import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
 

@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import { Swap } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';

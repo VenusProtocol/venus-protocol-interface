@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 
 import voterDetails from '__mocks__/models/voterDetails';
 import voterHistory from '__mocks__/models/voterHistory';

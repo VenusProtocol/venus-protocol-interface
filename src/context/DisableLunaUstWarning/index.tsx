@@ -1,6 +1,7 @@
 import { LunaUstWarningModal } from 'components';
 import noop from 'noop-ts';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import * as React from 'react';
 
 import { useGetMainPool } from 'clients/api';
 import { useAuth } from 'context/AuthContext';

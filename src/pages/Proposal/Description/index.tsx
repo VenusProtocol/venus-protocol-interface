@@ -2,7 +2,7 @@
 import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { MarkdownViewer } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
 

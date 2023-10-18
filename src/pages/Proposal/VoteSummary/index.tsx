@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { VotersDetails } from 'types';

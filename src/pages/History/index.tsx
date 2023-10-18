@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import * as React from 'react';
 import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';

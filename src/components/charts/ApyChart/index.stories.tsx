@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 

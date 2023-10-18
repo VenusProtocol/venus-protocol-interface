@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Swap, SwapError } from 'types';
 import { cn } from 'utilities';

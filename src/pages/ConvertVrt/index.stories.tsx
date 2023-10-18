@@ -1,7 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 import { ChainId } from 'types';
 
 import fakeProvider from '__mocks__/models/provider';

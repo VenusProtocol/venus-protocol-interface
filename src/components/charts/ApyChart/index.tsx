@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import * as React from 'react';
 import { useUID } from 'react-uid';
 import {
   Area,

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { QuinaryButton } from '../Button';
 import { useStyles } from './styles';

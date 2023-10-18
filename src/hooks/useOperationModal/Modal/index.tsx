@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { VToken } from 'types';
 

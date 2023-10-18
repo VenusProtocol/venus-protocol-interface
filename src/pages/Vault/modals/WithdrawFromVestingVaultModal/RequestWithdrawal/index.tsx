@@ -2,7 +2,8 @@
 import BigNumber from 'bignumber.js';
 import { Spinner, TextButton } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Cell, CellGroup } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities';
 

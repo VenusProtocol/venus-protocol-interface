@@ -1,7 +1,8 @@
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import config from 'config';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import * as React from 'react';
 
 import { version as APP_VERSION } from 'constants/version';
 

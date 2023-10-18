@@ -1,5 +1,5 @@
 import { useField } from 'formik';
-import React from 'react';
+import * as React from 'react';
 
 import { Select, SelectProps } from '../Select';
 

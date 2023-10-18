@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { MarkdownViewer } from 'components';
 import { useFormikContext } from 'formik';
 import { useGetTokens } from 'packages/tokens';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 

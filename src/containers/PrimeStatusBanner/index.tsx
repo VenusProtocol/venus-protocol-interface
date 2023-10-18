@@ -3,7 +3,8 @@ import { Card, Icon, Link, PrimaryButton, ProgressBar, Tooltip } from 'component
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
 import { Token } from 'types';

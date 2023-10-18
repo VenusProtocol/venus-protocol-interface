@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import * as React from 'react';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 

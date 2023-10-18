@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import React from 'react';
 import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 

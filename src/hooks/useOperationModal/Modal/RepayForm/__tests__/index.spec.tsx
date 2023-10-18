@@ -2,7 +2,6 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';

@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import transactions from '__mocks__/models/transactions';
 

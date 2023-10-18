@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { useGetTokens } from 'packages/tokens';
-import React from 'react';
+import * as React from 'react';
 import { ChainId, ProposalAction, Token, VToken } from 'types';
 import { generateBscScanUrl } from 'utilities';
 

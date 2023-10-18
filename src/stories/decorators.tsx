@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import { StoryFn } from '@storybook/react';
-import React from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { Token } from 'types';

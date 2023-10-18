@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { NoticeError, NoticeWarning } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { formatTokensToReadableValue } from 'utilities';

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import * as React from 'react';
 import { isFeatureEnabled } from 'utilities';
 
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';

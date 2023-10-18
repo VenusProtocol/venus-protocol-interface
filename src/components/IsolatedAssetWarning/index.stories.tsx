@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';

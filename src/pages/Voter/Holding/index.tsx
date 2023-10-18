@@ -3,7 +3,7 @@ import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Spinner } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 

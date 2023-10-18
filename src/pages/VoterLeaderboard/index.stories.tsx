@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import voterAccountsResponse from '__mocks__/api/voterAccounts.json';
 import formatVoterAccountResponse from 'clients/api/queries/getVoterAccounts/formatVoterAccountResponse';

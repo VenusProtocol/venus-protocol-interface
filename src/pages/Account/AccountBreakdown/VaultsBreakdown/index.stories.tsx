@@ -1,5 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import React from 'react';
 
 import { vaults } from '__mocks__/models/vaults';
 import { withCenterStory, withRouter } from 'stories/decorators';

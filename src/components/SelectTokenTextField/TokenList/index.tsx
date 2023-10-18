@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { InputHTMLAttributes, useMemo, useState } from 'react';
+import { InputHTMLAttributes, useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenBalance } from 'types';
 import { convertWeiToTokens } from 'utilities';

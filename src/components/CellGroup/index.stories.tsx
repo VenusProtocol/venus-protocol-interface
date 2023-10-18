@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
 

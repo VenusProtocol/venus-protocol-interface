@@ -1,5 +1,5 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import { PRIME_DOC_URL } from 'constants/prime';

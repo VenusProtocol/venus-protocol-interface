@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import config from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React from 'react';
+import * as React from 'react';
 import { Trans } from 'react-i18next';
 import { useTranslation } from 'translation';
 

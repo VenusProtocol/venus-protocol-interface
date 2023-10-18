@@ -1,7 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
 import renderComponent from 'testUtils/renderComponent';

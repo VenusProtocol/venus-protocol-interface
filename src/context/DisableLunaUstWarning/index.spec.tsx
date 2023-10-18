@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import { Pool } from 'types';
 import Vi from 'vitest';
 

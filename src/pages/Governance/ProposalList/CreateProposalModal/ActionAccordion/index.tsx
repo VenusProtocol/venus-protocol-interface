@@ -2,7 +2,7 @@
 import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
 import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import { ErrorCode, initialActionData } from '../proposalSchema';

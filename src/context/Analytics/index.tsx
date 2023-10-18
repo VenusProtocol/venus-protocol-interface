@@ -1,6 +1,7 @@
 import config from 'config';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import * as React from 'react';
 
 import { version as APP_VERSION } from 'constants/version';
 import { useAuth } from 'context/AuthContext';

@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { routes } from 'constants/routing';

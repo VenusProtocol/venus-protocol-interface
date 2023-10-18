@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { ChainId, Token } from 'types';
 import { areAddressesEqual } from 'utilities';

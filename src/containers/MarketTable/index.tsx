@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Table, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
+import * as React from 'react';
 import { Pool } from 'types';
 
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';

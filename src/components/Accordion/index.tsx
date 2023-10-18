@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import React from 'react';
+import * as React from 'react';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';

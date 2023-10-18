@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik, FormikConfig, FormikHelpers, FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
 

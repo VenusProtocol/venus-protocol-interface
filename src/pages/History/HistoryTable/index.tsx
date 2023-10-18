@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
 import { convertWeiToTokens, generateBscScanUrl } from 'utilities';

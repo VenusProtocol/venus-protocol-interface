@@ -1,7 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { TokenAnnouncement } from 'components';
 import { isTokenActionEnabled } from 'packages/tokens';
-import React from 'react';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 

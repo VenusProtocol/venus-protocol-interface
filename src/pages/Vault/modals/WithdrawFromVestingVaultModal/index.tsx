@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Modal, ModalProps, Tabs, TextButton } from 'components';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 

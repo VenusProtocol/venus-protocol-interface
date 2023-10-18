@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 import { ChainId } from 'types';
 
 import { poolData } from '__mocks__/models/pools';

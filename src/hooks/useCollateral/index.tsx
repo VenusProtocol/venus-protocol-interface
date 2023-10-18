@@ -5,7 +5,8 @@ import {
   getVTokenContract,
   useGetMainPoolComptrollerContract,
 } from 'packages/contracts';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
+import * as React from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 

@@ -2,7 +2,8 @@
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Button, SecondaryButton, Spinner } from 'components';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
 import {

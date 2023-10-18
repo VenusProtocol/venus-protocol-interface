@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 

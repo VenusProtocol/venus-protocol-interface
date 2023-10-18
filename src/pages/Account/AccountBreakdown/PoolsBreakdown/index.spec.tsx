@@ -1,4 +1,3 @@
-import React from 'react';
 import { isFeatureEnabled } from 'utilities';
 import Vi from 'vitest';
 

@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import { LabeledInlineContent, Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { LockedDeposit, Token } from 'types';
 import { convertWeiToTokens } from 'utilities';

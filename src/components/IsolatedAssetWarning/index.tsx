@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Pool, Token } from 'types';
 

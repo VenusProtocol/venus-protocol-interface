@@ -14,7 +14,8 @@ import {
 import { ContractReceipt } from 'ethers';
 import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import {

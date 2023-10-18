@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenAction } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';

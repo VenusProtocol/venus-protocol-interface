@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useGetMainPoolComptrollerContractAddress } from 'packages/contracts';
-import React from 'react';
+import * as React from 'react';
 import { useParams } from 'react-router-dom';
 
 import Market from '..';

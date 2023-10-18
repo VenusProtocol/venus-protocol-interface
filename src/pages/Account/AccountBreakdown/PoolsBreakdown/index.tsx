@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';

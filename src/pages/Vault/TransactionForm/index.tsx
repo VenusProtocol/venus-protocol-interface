@@ -9,7 +9,8 @@ import {
   SpendingLimit,
 } from 'components';
 import { ContractReceipt } from 'ethers';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';

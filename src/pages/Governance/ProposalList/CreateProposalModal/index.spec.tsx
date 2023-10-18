@@ -1,6 +1,5 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import { toast } from 'components';
-import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import TEST_VIP from 'assets/proposals/vip-123.json';

@@ -2,7 +2,8 @@
 import BigNumber from 'bignumber.js';
 import { Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
 

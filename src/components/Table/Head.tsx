@@ -5,7 +5,6 @@ import MuiTableHead from '@mui/material/TableHead';
 import MuiTableRow from '@mui/material/TableRow';
 import MuiTableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
-import React from 'react';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';

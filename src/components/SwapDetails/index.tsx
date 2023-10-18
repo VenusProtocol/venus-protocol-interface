@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import {

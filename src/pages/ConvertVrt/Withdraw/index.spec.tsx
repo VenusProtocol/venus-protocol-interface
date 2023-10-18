@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 

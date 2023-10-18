@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';

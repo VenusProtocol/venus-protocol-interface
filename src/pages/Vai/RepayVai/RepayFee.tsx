@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
 import { useGetToken } from 'packages/tokens';
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 

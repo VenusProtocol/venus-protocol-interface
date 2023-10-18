@@ -1,7 +1,7 @@
 import { format as formatDate, formatDistanceToNowStrict, isDate } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import i18next, { TFunctionKeys } from 'i18next';
-import React from 'react';
+import * as React from 'react';
 import {
   Trans as I18NextTrans,
   TransProps as I18NextTransProps,

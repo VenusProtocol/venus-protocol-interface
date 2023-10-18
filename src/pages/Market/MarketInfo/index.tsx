@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { LabeledInlineContent } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import Card from '../Card';

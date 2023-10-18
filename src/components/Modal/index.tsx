@@ -3,7 +3,8 @@ import { Button, Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/mat
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
 import config from 'config';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
+import * as React from 'react';
 
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';

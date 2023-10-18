@@ -15,7 +15,8 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { isTokenActionEnabled } from 'packages/tokens';
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {

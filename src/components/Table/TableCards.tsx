@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 

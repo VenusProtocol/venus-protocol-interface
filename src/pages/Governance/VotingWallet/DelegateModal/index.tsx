@@ -13,7 +13,7 @@ import {
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import { routes } from 'constants/routing';

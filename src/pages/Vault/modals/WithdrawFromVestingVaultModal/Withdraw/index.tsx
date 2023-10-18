@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js';
 import { LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 

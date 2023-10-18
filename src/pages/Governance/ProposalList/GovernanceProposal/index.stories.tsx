@@ -1,5 +1,4 @@
 import { BigNumber } from 'bignumber.js';
-import React from 'react';
 import { ProposalType } from 'types';
 
 import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';

@@ -1,6 +1,7 @@
 import { useTheme } from '@mui/material';
 import _uniqueId from 'lodash/uniqueId';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import * as React from 'react';
 
 import * as icons from './icons';
 

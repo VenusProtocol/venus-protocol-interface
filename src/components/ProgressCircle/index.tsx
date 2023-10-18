@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+
+import * as React from 'react';
 
 import useProgressColor from 'hooks/useProgressColor';
 

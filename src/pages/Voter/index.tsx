@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { VoteDetailTransaction, VoterHistory } from 'types';
 

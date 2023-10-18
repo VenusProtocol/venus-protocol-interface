@@ -1,5 +1,5 @@
 import { Card, PrimaryButton } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import { useAuth } from 'context/AuthContext';

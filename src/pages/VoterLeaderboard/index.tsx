@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
-import React from 'react';
+import * as React from 'react';
 import { VoterAccount } from 'types';
 
 import { useGetVoterAccounts } from 'clients/api';

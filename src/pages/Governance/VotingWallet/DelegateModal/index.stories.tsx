@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { withRouter } from 'stories/decorators';

@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from '@mui/material';
 import { Link, NoticeInfo, SecondaryButton } from 'components';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 
 import TEST_IDS from '../testIds';

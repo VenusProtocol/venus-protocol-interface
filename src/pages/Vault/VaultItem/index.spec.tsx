@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { vrt } from '__mocks__/models/tokens';

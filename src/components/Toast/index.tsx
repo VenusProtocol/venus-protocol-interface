@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { GlobalStyles } from '@mui/material';
-import React from 'react';
+import * as React from 'react';
 import { ToastOptions, toast as toastify } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 

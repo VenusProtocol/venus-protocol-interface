@@ -12,7 +12,8 @@ import {
 } from 'components';
 import { VError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {

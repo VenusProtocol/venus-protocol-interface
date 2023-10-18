@@ -12,7 +12,8 @@ import {
 } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';

@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import { ChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
