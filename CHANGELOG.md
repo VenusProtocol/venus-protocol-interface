@@ -1,3 +1,15 @@
+## [2.37.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.4...v2.37.0) (2023-10-18)
+
+
+### Features
+
+* update PrimeStatusBanner to show amount of prime tokens left ([4edd9b5](https://github.com/VenusProtocol/venus-protocol-interface/commit/4edd9b546e347771a9bf1d1a45d4026f93f27c61))
+
+
+### Bug Fixes
+
+* card padding breakpoint ([c82c10a](https://github.com/VenusProtocol/venus-protocol-interface/commit/c82c10a0a973c5240df9c0b8da82f8bd6ddfba90))
+
 ## [2.36.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.3...v2.36.4) (2023-10-18)
 
 ## [2.36.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.2...v2.36.3) (2023-10-17)
