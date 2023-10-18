@@ -3,9 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
-import React from 'react';
 import { Asset, Swap, TokenBalance } from 'types';
-import { isFeatureEnabled } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -21,10 +19,10 @@ import {
 } from 'constants/swap';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
-import originalIsFeatureEnabledMock from 'utilities/__mocks__/isFeatureEnabled';
 
 import Repay from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
@@ -65,8 +63,8 @@ vi.mock('hooks/useGetSwapRouterContractAddress');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (isFeatureEnabled as Vi.Mock).mockImplementation(
-      featureFlag => featureFlag === 'integratedSwap',
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
     );
 
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
@@ -78,11 +76,6 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
-  });
-
-  afterEach(() => {
-    (isFeatureEnabled as Vi.Mock).mockRestore();
-    (isFeatureEnabled as Vi.Mock).mockImplementation(originalIsFeatureEnabledMock);
   });
 
   it('renders without crashing', () => {

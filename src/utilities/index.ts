@@ -33,7 +33,6 @@ export { default as areTokensEqual } from './areTokensEqual';
 export { default as getCombinedDistributionApys } from './getCombinedDistributionApys';
 export { default as calculateApy } from './calculateApy';
 export { default as areAddressesEqual } from './areAddressesEqual';
-export { default as isFeatureEnabled } from './isFeatureEnabled';
 export { default as generateTransactionDeadline } from './generateTransactionDeadline';
 export { default as getSmartDecimalPlaces } from './getSmartDecimalPlaces';
 export { default as multiplyMantissaDaily } from './multiplyMantissaDaily';

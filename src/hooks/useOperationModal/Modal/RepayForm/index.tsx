@@ -20,7 +20,6 @@ import {
   convertTokensToWei,
   convertWeiToTokens,
   formatPercentageToReadableValue,
-  isFeatureEnabled,
 } from 'utilities';
 
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
@@ -28,6 +27,7 @@ import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -50,6 +50,7 @@ export interface RepayFormUiProps
   > {
   asset: Asset;
   pool: Pool;
+  isIntegratedSwapEnabled: boolean;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
   onCloseModal: () => void;
@@ -67,6 +68,7 @@ export interface RepayFormUiProps
 export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   asset,
   pool,
+  isIntegratedSwapEnabled,
   onCloseModal,
   onSubmit,
   isSubmitting,
@@ -88,8 +90,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
-
-  const isIntegratedSwapEnabled = isFeatureEnabled('integratedSwap');
 
   const isUsingSwap = useMemo(
     () =>
@@ -317,6 +317,7 @@ export interface RepayFormProps {
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress } = useAuth();
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
@@ -364,7 +365,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       accountAddress,
     },
     {
-      enabled: isFeatureEnabled('integratedSwap'),
+      enabled: isIntegratedSwapEnabled,
     },
   );
 
@@ -426,6 +427,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     <RepayFormUi
       asset={asset}
       pool={pool}
+      isIntegratedSwapEnabled={isIntegratedSwapEnabled}
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}

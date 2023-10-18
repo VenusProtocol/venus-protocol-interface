@@ -21,6 +21,7 @@ export default {
 export const Default = () => (
   <SupplyFormUi
     asset={fakeAsset}
+    isIntegratedSwapEnabled={false}
     chainId={ChainId.BSC_TESTNET}
     pool={fakePool}
     onSubmit={noop}
