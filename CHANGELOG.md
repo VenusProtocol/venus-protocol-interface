@@ -1,3 +1,10 @@
+## [2.37.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.3...v2.37.4) (2023-10-19)
+
+
+### Bug Fixes
+
+* use MAX_UINT256 as default value when approving token spending ([#1624](https://github.com/VenusProtocol/venus-protocol-interface/issues/1624)) ([ed034a0](https://github.com/VenusProtocol/venus-protocol-interface/commit/ed034a0ccde50ec6637280f00223caa0998c7e86))
+
 ## [2.37.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.2...v2.37.3) (2023-10-19)
 
 ## [2.37.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.1...v2.37.2) (2023-10-19)
