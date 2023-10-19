@@ -6,13 +6,13 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "8.60757996597914",
+          "borrowApyPercentage": "8.632219678802588",
           "borrowBalanceCents": "3566973.59894963079808650796384",
           "borrowBalanceTokens": "10108.94696819534195912",
           "borrowCapTokens": "200000",
           "borrowDistributions": [
             {
-              "apyPercentage": "145.73447368481843",
+              "apyPercentage": "146.34218899497378",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -23,7 +23,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "145.73447368481843",
+              "apyPercentage": "146.34218899497378",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -44,13 +44,13 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "reserveFactor": 0.2,
           "reserveTokens": "4.789396150529737779",
           "supplierCount": 10,
-          "supplyApyPercentage": "3.375006086574639",
+          "supplyApyPercentage": "3.384433245213625",
           "supplyBalanceCents": "7099048.11492164626346326453812684",
           "supplyBalanceTokens": "20118.98852841030262829937",
           "supplyCapTokens": "500000",
           "supplyDistributions": [
             {
-              "apyPercentage": "57.14963146259742",
+              "apyPercentage": "57.344906726113635",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -61,7 +61,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "57.14963146259742",
+              "apyPercentage": "57.344906726113635",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -94,7 +94,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "2.014488268285719",
+          "borrowApyPercentage": "2.0200781032592374",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "400000",
@@ -193,7 +193,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "3.0368575766576145",
+          "borrowApyPercentage": "3.045326359470546",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "14880000",
@@ -292,7 +292,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "3.9666570365638254",
+          "borrowApyPercentage": "3.977768368781165",
           "borrowBalanceCents": "0.00000352853132",
           "borrowBalanceTokens": "10000",
           "borrowCapTokens": "14880000",
@@ -330,7 +330,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "reserveFactor": 0.1,
           "reserveTokens": "0",
           "supplierCount": 10,
-          "supplyApyPercentage": "0.3159193258714721",
+          "supplyApyPercentage": "0.31678860938038067",
           "supplyBalanceCents": "0.000039166697652",
           "supplyBalanceTokens": "111000",
           "supplyCapTokens": "18600000",
@@ -391,7 +391,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "9.026301894347055",
+          "borrowApyPercentage": "9.052189419447965",
           "borrowBalanceCents": "17.64265821120151574811094",
           "borrowBalanceTokens": "0.050000004566210045",
           "borrowCapTokens": "56000",
@@ -429,7 +429,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "reserveFactor": 0.25,
           "reserveTokens": "1.141552511e-9",
           "supplierCount": 10,
-          "supplyApyPercentage": "2.1841781586806386",
+          "supplyApyPercentage": "2.1902438868842022",
           "supplyBalanceCents": "52.92797100840113689576795668",
           "supplyBalanceTokens": "0.15000000342465753399",
           "supplyCapTokens": "80000",
@@ -479,7 +479,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           },
         },
         {
-          "borrowApyPercentage": "3.0368575766576145",
+          "borrowApyPercentage": "3.045326359470546",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "14880000",
@@ -578,7 +578,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
     {
       "assets": [
         {
-          "borrowApyPercentage": "3.0368575766576145",
+          "borrowApyPercentage": "3.045326359470546",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
           "borrowCapTokens": "14880000",

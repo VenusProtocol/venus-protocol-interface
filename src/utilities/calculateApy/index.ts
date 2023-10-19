@@ -9,7 +9,7 @@ export interface CalculateApyInput {
 
 const calculateApy = ({ dailyRate }: CalculateApyInput) => {
   let apy = dailyRate.toNumber() + 1;
-  apy **= DAYS_PER_YEAR - 1;
+  apy **= DAYS_PER_YEAR;
   apy -= 1;
   apy *= 100;
 
