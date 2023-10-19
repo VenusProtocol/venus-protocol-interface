@@ -2,12 +2,10 @@ import BigNumber from 'bignumber.js';
 
 import calculateApy from '..';
 
-describe('utilities/calculateApy', () => {
+describe('calculateApy', () => {
   it('should calculate APY for given daily distributed tokens and decimals', () => {
-    const dailyRate = new BigNumber(1.05);
+    const dailyRate = new BigNumber('0.000012');
 
-    expect(calculateApy({ dailyRate })).toMatchInlineSnapshot(
-      '"3.008883857068843e+115"',
-    );
+    expect(calculateApy({ dailyRate })).toMatchInlineSnapshot('"0.4389579824776835"');
   });
 });
