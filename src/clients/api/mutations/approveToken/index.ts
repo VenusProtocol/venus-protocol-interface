@@ -1,7 +1,7 @@
 import { ContractReceipt } from 'ethers';
 import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
 
-import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
+import MAX_UINT256 from 'constants/maxUint256';
 
 export interface ApproveTokenInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;
@@ -14,7 +14,7 @@ export type ApproveTokenOutput = ContractReceipt;
 const approveToken = async ({
   tokenContract,
   spenderAddress,
-  allowance = ALLOWANCE_AMOUNT_WEI,
+  allowance = MAX_UINT256.toFixed(),
 }: ApproveTokenInput): Promise<ApproveTokenOutput> => {
   const transaction = await tokenContract.approve(spenderAddress, allowance);
   return transaction.wait(1);
