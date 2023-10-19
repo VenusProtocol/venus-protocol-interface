@@ -1,3 +1,10 @@
+## [2.37.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.1...v2.37.2) (2023-10-19)
+
+
+### Bug Fixes
+
+* calculateApy logic ([#1620](https://github.com/VenusProtocol/venus-protocol-interface/issues/1620)) ([0409875](https://github.com/VenusProtocol/venus-protocol-interface/commit/04098756171cb0951427d6cd93a59709591d3cb4))
+
 ## [2.37.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.0...v2.37.1) (2023-10-19)
 
 ## [2.37.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.36.4...v2.37.0) (2023-10-18)
