@@ -1,8 +1,9 @@
 import { Button, ButtonProps } from 'components';
 import { useTranslation } from 'translation';
-import { isFeatureEnabled, truncateAddress } from 'utilities';
+import { truncateAddress } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { PrimeButton } from './PrimeButton';
 
@@ -33,11 +34,12 @@ export const ConnectButton: React.FC<
   Omit<ConnectButtonUiProps, 'isPrime' | 'accountAddress'>
 > = props => {
   const { accountAddress, openAuthModal, isPrime } = useAuth();
+  const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
 
   return (
     <ConnectButtonUi
       accountAddress={accountAddress}
-      isPrime={isFeatureEnabled('prime') && isPrime}
+      isPrime={isPrimeEnabled && isPrime}
       onClick={openAuthModal}
       {...props}
     />

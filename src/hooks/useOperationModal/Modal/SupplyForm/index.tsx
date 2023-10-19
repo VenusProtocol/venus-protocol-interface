@@ -18,12 +18,7 @@ import { isTokenActionEnabled } from 'packages/tokens';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
-import {
-  areTokensEqual,
-  convertTokensToWei,
-  convertWeiToTokens,
-  isFeatureEnabled,
-} from 'utilities';
+import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -31,6 +26,7 @@ import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -51,6 +47,7 @@ export interface SupplyFormUiProps
   > {
   asset: Asset;
   pool: Pool;
+  isIntegratedSwapEnabled: boolean;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
   onCloseModal: () => void;
@@ -69,6 +66,7 @@ export interface SupplyFormUiProps
 export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   asset,
   pool,
+  isIntegratedSwapEnabled,
   onCloseModal,
   onSubmit,
   isSubmitting,
@@ -91,9 +89,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const sharedStyles = useSharedStyles();
   const { CollateralModal, toggleCollateral } = useCollateral();
 
-  const isIntegratedSwapEnabled = useMemo(
+  const isIntegratedSwapFeatureEnabled = useMemo(
     () =>
-      isFeatureEnabled('integratedSwap') &&
+      isIntegratedSwapEnabled &&
       // Check swap and supply action is enabled for underlying token
       isTokenActionEnabled({
         tokenAddress: asset.vToken.underlyingToken.address,
@@ -111,9 +109,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
   const isUsingSwap = useMemo(
     () =>
-      isIntegratedSwapEnabled &&
+      isIntegratedSwapFeatureEnabled &&
       !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [isIntegratedSwapEnabled, formValues.fromToken, asset.vToken.underlyingToken],
+    [isIntegratedSwapFeatureEnabled, formValues.fromToken, asset.vToken.underlyingToken],
   );
 
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
@@ -203,7 +201,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         )}
 
         <div css={sharedStyles.getRow({ isLast: true })}>
-          {isIntegratedSwapEnabled ? (
+          {isIntegratedSwapFeatureEnabled ? (
             <SelectTokenTextField
               data-testid={TEST_IDS.selectTokenTextField}
               selectedToken={formValues.fromToken}
@@ -332,6 +330,7 @@ export interface SupplyFormProps {
 
 const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress, chainId } = useAuth();
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
@@ -365,7 +364,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       accountAddress,
     },
     {
-      enabled: isFeatureEnabled('integratedSwap'),
+      enabled: isIntegratedSwapEnabled,
     },
   );
 
@@ -425,6 +424,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     <SupplyFormUi
       asset={asset}
       pool={pool}
+      isIntegratedSwapEnabled={isIntegratedSwapEnabled}
       chainId={chainId}
       formValues={formValues}
       setFormValues={setFormValues}

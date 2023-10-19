@@ -10,7 +10,7 @@ import 'whatwg-fetch';
 import { xvs } from '__mocks__/models/tokens';
 import useTokenApproval from 'hooks/useTokenApproval';
 
-vi.mock('utilities/isFeatureEnabled');
+vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
 vi.mock('clients/web3/Web3Wrapper');

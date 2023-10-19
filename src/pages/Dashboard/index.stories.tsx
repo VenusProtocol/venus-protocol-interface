@@ -14,5 +14,5 @@ export default {
 } as Meta<typeof DashboardUi>;
 
 export const Default = () => (
-  <DashboardUi searchValue="" onSearchInputChange={noop} pools={poolData} />
+  <DashboardUi searchValue="" onSearchInputChange={noop} pools={poolData} isPrimeEnabled={false} />
 );

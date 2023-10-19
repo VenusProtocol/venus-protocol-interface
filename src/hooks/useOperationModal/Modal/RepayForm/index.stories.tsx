@@ -21,6 +21,7 @@ export const Default = () => (
   <RepayFormUi
     asset={fakeAsset}
     pool={fakePool}
+    isIntegratedSwapEnabled={false}
     onSubmit={noop}
     onCloseModal={noop}
     isSwapLoading={false}
