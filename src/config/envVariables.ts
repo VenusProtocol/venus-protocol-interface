@@ -34,16 +34,4 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_POSTHOG_HOST_URL
       : import.meta.env.VITE_POSTHOG_HOST_URL,
-
-  // Feature flags
-  VITE_FF_ISOLATED_POOLS:
-    typeof process !== 'undefined'
-      ? process.env.VITE_FF_ISOLATED_POOLS
-      : import.meta.env.VITE_FF_ISOLATED_POOLS,
-  VITE_FF_INTEGRATED_SWAP:
-    typeof process !== 'undefined'
-      ? process.env.VITE_FF_INTEGRATED_SWAP
-      : import.meta.env.VITE_FF_INTEGRATED_SWAP,
-  VITE_FF_PRIME:
-    typeof process !== 'undefined' ? process.env.VITE_FF_PRIME : import.meta.env.VITE_FF_PRIME,
 };
