@@ -31,7 +31,6 @@ const context: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   provider: fakeProvider,
-  isPrime: false,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: '0x0000000000000000000000000000000000000000',
 };

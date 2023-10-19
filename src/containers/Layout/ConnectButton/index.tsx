@@ -2,24 +2,29 @@ import { Button, ButtonProps } from 'components';
 import { useTranslation } from 'translation';
 import { truncateAddress } from 'utilities';
 
+import { useGetIsAddressPrime } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { PrimeButton } from './PrimeButton';
 
 export interface ConnectButtonUiProps extends ButtonProps {
-  isPrime: boolean;
+  isAccountPrime: boolean;
   accountAddress?: string;
 }
 
 export const ConnectButtonUi: React.FC<ConnectButtonUiProps> = ({
   accountAddress,
-  isPrime,
+  isAccountPrime,
+  loading,
   ...otherProps
 }) => {
   const { t } = useTranslation();
 
-  if (accountAddress && isPrime) {
+  if (loading) {
+    return null;
+  }
+
+  if (accountAddress && isAccountPrime) {
     return <PrimeButton accountAddress={accountAddress} {...otherProps} />;
   }
 
@@ -31,15 +36,21 @@ export const ConnectButtonUi: React.FC<ConnectButtonUiProps> = ({
 };
 
 export const ConnectButton: React.FC<
-  Omit<ConnectButtonUiProps, 'isPrime' | 'accountAddress'>
+  Omit<ConnectButtonUiProps, 'isAccountPrime' | 'accountAddress' | 'loading'>
 > = props => {
-  const { accountAddress, openAuthModal, isPrime } = useAuth();
-  const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
+  const { accountAddress, openAuthModal } = useAuth();
+
+  const { data: getIsAddressPrimeData, isLoading: isGetIsAddressPrimeLoading } =
+    useGetIsAddressPrime({
+      accountAddress,
+    });
+  const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
 
   return (
     <ConnectButtonUi
       accountAddress={accountAddress}
-      isPrime={isPrimeEnabled && isPrime}
+      isAccountPrime={isAccountPrime}
+      loading={isGetIsAddressPrimeLoading}
       onClick={openAuthModal}
       {...props}
     />

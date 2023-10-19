@@ -11,6 +11,7 @@ import { cn } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
+import { useGetIsAddressPrime } from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
@@ -19,6 +20,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableV
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import PrimeTokensLeft from './PrimeTokensLeft';
+import TEST_IDS from './testIds';
 
 export interface PrimeStatusBannerUiProps {
   xvs: Token;
@@ -141,6 +143,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   return (
     <Card
+      data-testid={TEST_IDS.primeStatusBannerContainer}
       className={cn(
         'relative flex flex-col content-center md:flex-row md:justify-between',
         isUserXvsStakeHighEnoughForPrime && 'items-start md:items-center',
@@ -149,7 +152,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
       )}
     >
       {shouldShowPrimeTokensLeftIndicator && (
-        <div className="absolute top-0 -mt-3 right-4 sm:right-auto sm:left-18 md:left-20">
+        <div className="absolute right-4 top-0 -mt-3 sm:left-18 sm:right-auto md:left-20">
           <PrimeTokensLeft tokensLeft={primeTokensLeft} />
         </div>
       )}
@@ -281,15 +284,21 @@ export type PrimeStatusBannerProps = Pick<
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const navigate = useNavigate();
-  const { isPrime } = useAuth();
   const redirectToXvsPage = () => navigate(routes.vaults.path);
+
+  const { accountAddress } = useAuth();
+  const { data: getIsAddressPrimeData, isLoading: isGetIsAddressPrimeLoading } =
+    useGetIsAddressPrime({
+      accountAddress,
+    });
+  const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
 
   const xvs = useGetToken({
     symbol: 'XVS',
   });
 
   // TODO: wire up
-  const isLoading = false;
+  const isLoading = isGetIsAddressPrimeLoading;
   const primeClaimWaitingPeriodSeconds = 90 * 24 * 60 * 60; // 90 days in seconds
   const userStakedXvsTokens = new BigNumber('100');
   const minXvsToStakeForPrimeTokens = new BigNumber('1000');
@@ -301,7 +310,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const isClaimPrimeTokenLoading = false;
 
   // Hide component while loading or if user is Prime already
-  if (isLoading || isPrime) {
+  if (isLoading || isAccountPrime) {
     return null;
   }
 

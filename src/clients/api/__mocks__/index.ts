@@ -253,6 +253,13 @@ export const getVTokens = vi.fn(async () => ({
 }));
 export const useGetVTokens = vi.fn(() => useQuery(FunctionKey.GET_VTOKENS, getVTokens));
 
+export const getIsAddressPrime = vi.fn(async () => ({
+  isAccountPrime: false,
+}));
+export const useGetIsAddressPrime = vi.fn(() =>
+  useQuery(FunctionKey.GET_IS_ACCOUNT_PRIME, getIsAddressPrime),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

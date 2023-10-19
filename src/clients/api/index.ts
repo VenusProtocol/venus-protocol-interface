@@ -329,3 +329,7 @@ export { default as useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './
 export { default as getVTokens } from './queries/getVTokens';
 export * from './queries/getVTokens';
 export { default as useGetVTokens } from './queries/getVTokens/useGetVTokens';
+
+export { default as getIsAddressPrime } from './queries/getIsAddressPrime';
+export * from './queries/getIsAddressPrime';
+export { default as useGetIsAddressPrime } from './queries/getIsAddressPrime/useGetIsAddressPrime';
