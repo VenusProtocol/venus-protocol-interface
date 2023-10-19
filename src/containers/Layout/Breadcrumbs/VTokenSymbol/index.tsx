@@ -37,6 +37,7 @@ const VTokenSymbol: React.FC<VTokenSymbolProps> = ({ vTokenAddress }) => {
   const { data: getVTokensData } = useGetVTokens();
 
   const vTokens = getVTokensData?.vTokens || [];
+
   const vToken = useMemo(
     () =>
       vTokenAddress

@@ -333,3 +333,7 @@ export { default as useGetVTokens } from './queries/getVTokens/useGetVTokens';
 export { default as getIsAddressPrime } from './queries/getIsAddressPrime';
 export * from './queries/getIsAddressPrime';
 export { default as useGetIsAddressPrime } from './queries/getIsAddressPrime/useGetIsAddressPrime';
+
+export { default as getHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys';
+export * from './queries/getHypotheticalPrimeApys';
+export { default as useGetHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';

@@ -260,6 +260,11 @@ export const useGetIsAddressPrime = vi.fn(() =>
   useQuery(FunctionKey.GET_IS_ACCOUNT_PRIME, getIsAddressPrime),
 );
 
+export const getHypotheticalPrimeApys = vi.fn();
+export const useGetHypotheticalPrimeApys = vi.fn(() =>
+  useQuery(FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, getHypotheticalPrimeApys),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
