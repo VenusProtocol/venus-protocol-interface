@@ -191,7 +191,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
       const accCopy = { ...accDistributionMapping };
 
-      if (!Object.hasOwnProperty.call(accCopy, distribution.token.address)) {
+      if (!Object.hasOwn(accCopy, distribution.token.address)) {
         accCopy[distribution.token.address] = {
           rewardToken: distribution.token,
           dailyDistributedTokens: new BigNumber(0),

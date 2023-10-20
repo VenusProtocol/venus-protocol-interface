@@ -2,6 +2,7 @@ import { ButtonWrapper, Card, Icon, Link } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import { useGetIsAddressPrime } from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { useAuth } from 'context/AuthContext';
 
@@ -90,11 +91,14 @@ export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> =
 };
 
 export const PrimePromotionalBanner: React.FC = () => {
-  const { isPrime } = useAuth();
-  const shouldShowBanner = store.use.shouldShowBanner();
+  const { accountAddress } = useAuth();
+  const { data: getIsAddressPrimeData, isLoading: isGetIsAddressPrimeLoading } =
+    useGetIsAddressPrime({
+      accountAddress,
+    });
+  const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
+  const shouldShow = !isGetIsAddressPrimeLoading && !isAccountPrime && store.use.shouldShowBanner();
   const hideBanner = store.use.hideBanner();
-
-  const shouldShow = !isPrime && shouldShowBanner;
 
   return <PrimePromotionalBannerUi shouldShow={shouldShow} onHide={hideBanner} />;
 };

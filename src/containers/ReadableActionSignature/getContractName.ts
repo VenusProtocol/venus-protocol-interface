@@ -35,7 +35,15 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
   // Search within contracts
   const matchingUniqueContractInfo = Object.entries(addresses).find(
     ([_uniqueContractName, address]) => {
-      const contractAddress = address[chainId];
+      let contractAddress;
+
+      if (Object.hasOwn(address, chainId)) {
+        contractAddress = address[chainId as keyof typeof address];
+      }
+
+      if (!contractAddress) {
+        return false;
+      }
 
       if (typeof contractAddress === 'string') {
         // Handle unique contracts

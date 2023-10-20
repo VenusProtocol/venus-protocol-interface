@@ -33,6 +33,8 @@ import { ChainId } from 'types';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+// TODO: get ABI from package once it's been added
+import PrimeAbi from './externalAbis/Prime.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
 
@@ -184,6 +186,14 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: resilientOracleTestnetDeployments.address,
       [ChainId.BSC_MAINNET]: resilientOracleMainnetDeployments.address,
+    },
+  },
+  {
+    name: 'Prime',
+    abi: PrimeAbi,
+    address: {
+      // TODO: get addresses from package once they've been added
+      [ChainId.BSC_TESTNET]: '0xDe0c98BeecA94bf9d5B87D025442F80c076A78D8',
     },
   },
   // Generic Contracts
