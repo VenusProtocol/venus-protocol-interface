@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
@@ -13,7 +12,6 @@ import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue
 import { TextButton } from '../Button';
 import { Icon } from '../Icon';
 import { toast } from '../Toast';
-import { useStyles } from './styles';
 
 export interface SpendingLimitProps {
   token: Token;
@@ -33,7 +31,6 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
   ...otherContainerProps
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const handleRevoke = async () => {
     try {
@@ -75,14 +72,17 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
       {...otherContainerProps}
     >
       {isRevokeLoading ? (
-        <Spinner css={styles.control} />
+        <Spinner className="ml-2" variant="small" />
       ) : (
         <>
           <div>{readableWalletSpendingLimit}</div>
 
-          <TextButton onClick={handleRevoke} css={[styles.control, styles.button]}>
-            <Tooltip title={t('spendingLimit.revokeButtonTooltip')} css={styles.buttonTooltip}>
-              <Icon name="bin" css={styles.buttonIcon} />
+          <TextButton onClick={handleRevoke} className="ml-2 h-auto p-0 text-red">
+            <Tooltip title={t('spendingLimit.revokeButtonTooltip')} className="inline-flex">
+              <Icon
+                name="bin"
+                className="h-5 w-5 text-red transition-opacity hover:opacity-50 active:opacity-50"
+              />
             </Tooltip>
           </TextButton>
         </>
