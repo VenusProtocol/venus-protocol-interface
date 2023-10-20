@@ -1,3 +1,10 @@
+## [2.38.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.6...v2.38.0) (2023-10-20)
+
+
+### Features
+
+* fetch account Prime status ([#1619](https://github.com/VenusProtocol/venus-protocol-interface/issues/1619)) ([2bb1b03](https://github.com/VenusProtocol/venus-protocol-interface/commit/2bb1b03264fda724eaafbecdc7dd82b93a389e5b))
+
 ## [2.37.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.5...v2.37.6) (2023-10-20)
 
 ## [2.37.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.4...v2.37.5) (2023-10-20)
