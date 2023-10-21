@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, switchAriaLabel, toast } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { Table, TableProps, switchAriaLabel } from 'components';
+import { displayMutationError } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { Pool } from 'types';
 
@@ -53,12 +53,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         poolName: poolAssetToUpdate.pool.name,
         comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
       });
-    } catch (e) {
-      if (e instanceof VError) {
-        toast.error({
-          message: formatVErrorToReadableString(e),
-        });
-      }
+    } catch (error) {
+      displayMutationError({ error });
     }
   };
 

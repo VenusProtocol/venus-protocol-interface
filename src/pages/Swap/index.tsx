@@ -8,9 +8,8 @@ import {
   SpendingLimit,
   SwapDetails,
   TextButton,
-  toast,
 } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { displayMutationError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import {
   useGetMainPoolComptrollerContractAddress,
@@ -178,15 +177,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           toTokenAmountTokens: initialFormValues.toTokenAmountTokens,
         }));
       } catch (error) {
-        let { message } = error as Error;
-
-        if (error instanceof VError) {
-          message = formatVErrorToReadableString(error);
-        }
-
-        toast.error({
-          message,
-        });
+        displayMutationError({ error });
       }
     }
   };

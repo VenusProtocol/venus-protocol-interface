@@ -1,9 +1,8 @@
 import * as Sentry from '@sentry/react';
 import { AnalyticProvider } from 'packages/analytics';
-import React from 'react';
+import { Suspense, lazy } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
@@ -15,6 +14,8 @@ import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Router from './Router';
 
+const NotificationCenter = lazy(() => import('containers/NotificationCenter'));
+
 const App = () => (
   <Sentry.ErrorBoundary>
     <Web3Wrapper>
@@ -25,11 +26,13 @@ const App = () => (
               <SuccessfulTransactionModalProvider>
                 <DisableLunaUstWarningProvider>
                   <HashRouter>
-                    <ToastContainer />
-
                     <Layout>
                       <Router />
                     </Layout>
+
+                    <Suspense>
+                      <NotificationCenter />
+                    </Suspense>
                   </HashRouter>
                 </DisableLunaUstWarningProvider>
               </SuccessfulTransactionModalProvider>

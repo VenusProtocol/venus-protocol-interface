@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NotificationCenter > renders notifications correctly 1`] = `"Fake description 0Fake title 1Fake description 1"`;

@@ -9,8 +9,8 @@ import {
   NoticeInfo,
   PrimaryButton,
   TextButton,
-  toast,
 } from 'components';
+import { displayMutationError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -47,10 +47,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
     try {
       await setVoteDelegation(address);
     } catch (error) {
-      const { message } = error as Error;
-      toast.error({
-        message,
-      });
+      displayMutationError({ error });
     }
   };
 

@@ -4,7 +4,6 @@ import { getDefaultProvider } from 'ethers';
 import React, { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import { ChainId } from 'types';
 
 import { Web3Wrapper } from 'clients/web3';
@@ -57,8 +56,6 @@ const renderComponent = (
             <SuccessfulTransactionModalProvider>
               <DisableLunaUstWarningProvider>
                 <MemoryRouter initialEntries={routerOpts.routerInitialEntries}>
-                  <ToastContainer />
-
                   <Routes>
                     <Route path={routerOpts.routePath} element={children} />
                   </Routes>

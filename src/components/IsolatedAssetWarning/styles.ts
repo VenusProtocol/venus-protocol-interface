@@ -9,7 +9,6 @@ export const useStyles = () => {
       position: relative;
     `,
     notice: css`
-      padding: ${theme.spacing(3)};
       border-radius: ${theme.spacing(3)};
       margin-bottom: ${theme.spacing(2)};
     `,
