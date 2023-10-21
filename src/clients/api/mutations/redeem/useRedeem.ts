@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetVTokenContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
@@ -6,7 +7,6 @@ import { callOrThrow, convertWeiToTokens } from 'utilities';
 import { queryClient } from 'clients/api';
 import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedRedeemInput = Omit<RedeemInput, 'tokenContract' | 'accountAddress'>;
 type Options = MutationObserverOptions<RedeemOutput, Error, TrimmedRedeemInput>;

@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -5,7 +6,6 @@ import { callOrThrow, convertWeiToTokens } from 'utilities';
 import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 import { useAuth } from 'context/AuthContext';
 
 type TrimmedSupplyInput = Omit<SupplyInput, 'vToken' | 'signer'>;

@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
@@ -10,7 +11,6 @@ import {
   stakeInXvsVault,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
 type Options = MutationObserverOptions<StakeInXvsVaultOutput, Error, TrimmedStakeInXvsVaultInput>;

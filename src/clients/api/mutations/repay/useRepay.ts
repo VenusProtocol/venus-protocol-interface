@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
@@ -5,7 +6,6 @@ import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 import { useAuth } from 'context/AuthContext';
 
 type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;

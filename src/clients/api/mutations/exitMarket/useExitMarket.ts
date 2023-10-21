@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { useAnalytics } from 'packages/analytics';
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { ExitMarketInput, ExitMarketOutput, exitMarket, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 const useExitMarket = (
   options?: MutationObserverOptions<ExitMarketOutput, Error, ExitMarketInput>,

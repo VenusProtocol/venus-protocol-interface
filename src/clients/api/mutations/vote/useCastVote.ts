@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
@@ -5,7 +6,6 @@ import { callOrThrow } from 'utilities';
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
-import { useAnalytics } from 'context/Analytics';
 
 import castVote, { CastVoteInput, CastVoteOutput } from './castVote';
 

@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetVTokenContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
@@ -5,7 +6,6 @@ import { callOrThrow, convertWeiToTokens } from 'utilities';
 
 import { BorrowInput, BorrowOutput, borrow, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedBorrowInput = Omit<BorrowInput, 'vTokenContract'>;
 type Options = MutationObserverOptions<BorrowOutput, Error, TrimmedBorrowInput>;

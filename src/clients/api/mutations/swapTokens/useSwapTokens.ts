@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetSwapRouterContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
@@ -5,7 +6,6 @@ import { callOrThrow, convertWeiToTokens } from 'utilities';
 import { SwapTokensInput, SwapTokensOutput, queryClient, swapTokens } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
 type Options = MutationObserverOptions<SwapTokensOutput, Error, TrimmedSwapTokensInput>;

@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import {
   useGetMainPoolComptrollerContractAddress,
   useGetMulticall3Contract,
@@ -9,7 +10,6 @@ import { callOrThrow } from 'utilities';
 
 import { ClaimRewardsInput, ClaimRewardsOutput, claimRewards, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedClaimRewardsInput = Omit<
   ClaimRewardsInput,
