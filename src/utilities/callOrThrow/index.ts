@@ -1,7 +1,5 @@
-import { VError, VErrorPhraseMap } from 'errors';
+import { VError, VErrorPhraseMap, logError } from 'errors';
 import { NonNullableFields } from 'types';
-
-import { logError } from 'context/ErrorLogger';
 
 function callOrThrow<TParams extends Record<string, unknown>, TReturn>(
   params: TParams,

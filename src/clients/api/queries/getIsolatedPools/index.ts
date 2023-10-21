@@ -1,9 +1,9 @@
+import { logError } from 'errors';
 import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { logError } from 'context/ErrorLogger';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import removeDuplicates from 'utilities/removeDuplicates';
 

@@ -1,7 +1,7 @@
+import { logError } from 'errors';
 import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 import { Token, VToken } from 'types';
 
-import { logError } from 'context/ErrorLogger';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {

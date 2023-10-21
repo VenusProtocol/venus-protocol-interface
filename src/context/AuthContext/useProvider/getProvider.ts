@@ -1,10 +1,9 @@
 import { providers } from '@0xsequence/multicall';
 import { PublicClient } from '@wagmi/core';
+import { logError } from 'errors';
 import { providers as ethersProviders } from 'ethers';
 import addresses from 'packages/contracts/generated/infos/addresses';
 import { type HttpTransport } from 'viem';
-
-import { logError } from 'context/ErrorLogger';
 
 const MULTICALL_BATCH_SIZE = 100;
 

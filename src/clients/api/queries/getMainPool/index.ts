@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { logError } from 'errors';
 
-import { logError } from 'context/ErrorLogger';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 import getMainMarkets from '../getMainMarkets';

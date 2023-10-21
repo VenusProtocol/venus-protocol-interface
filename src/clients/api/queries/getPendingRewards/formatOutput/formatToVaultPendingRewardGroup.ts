@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { logError } from 'errors';
 import { Token } from 'types';
 
-import { logError } from 'context/ErrorLogger';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertWeiToTokens from 'utilities/convertWeiToTokens';
 

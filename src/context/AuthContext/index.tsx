@@ -1,6 +1,6 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
 import config from 'config';
-import { VError } from 'errors';
+import { VError, logError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useEffect } from 'react';
@@ -10,7 +10,6 @@ import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwo
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { Connector, Provider, chains, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
-import { logError } from 'context/ErrorLogger';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
 import useProvider from './useProvider';
