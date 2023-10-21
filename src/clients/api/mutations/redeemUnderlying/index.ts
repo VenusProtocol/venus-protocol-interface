@@ -16,6 +16,7 @@ const redeemUnderlying = async ({
 }: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> => {
   const transaction = await vTokenContract.redeemUnderlying(amountWei.toFixed());
   const receipt = await transaction.wait(1);
+  // TODO: remove check once this function has been refactored to use useSendTransaction hook
   return checkForTokenTransactionError(receipt);
 };
 

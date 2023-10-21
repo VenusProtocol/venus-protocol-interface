@@ -7,7 +7,6 @@ import { Asset, Swap, TokenBalance } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { swapTokensAndSupply } from 'clients/api';
@@ -20,7 +19,6 @@ import {
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -540,7 +538,6 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     }));
 
     const onCloseMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -577,18 +574,6 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       swap: fakeSwap,
     });
 
-    const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
-
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountRepaidWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 });

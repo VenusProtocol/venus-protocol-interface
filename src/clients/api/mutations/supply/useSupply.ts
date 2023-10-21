@@ -1,15 +1,15 @@
 import { useAnalytics } from 'packages/analytics';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
-import supply, { SupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
+import supply, { SupplyInput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedSupplyInput = Omit<SupplyInput, 'vToken' | 'signer'>;
-type Options = MutationObserverOptions<SupplyOutput, Error, TrimmedSupplyInput>;
+type Options = UseSendTransactionOptions<TrimmedSupplyInput>;
 
 const useSupply = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
@@ -18,9 +18,9 @@ const useSupply = (
   const { signer, accountAddress } = useAuth();
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.SUPPLY,
-    (input: TrimmedSupplyInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.SUPPLY,
+    fn: (input: TrimmedSupplyInput) =>
       callOrThrow({ signer }, params =>
         supply({
           vToken,
@@ -28,46 +28,38 @@ const useSupply = (
           ...input,
         }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { amountWei } = onSuccessParams[1];
+    onConfirmed: ({ input }) => {
+      captureAnalyticEvent('Tokens supplied', {
+        poolName,
+        tokenSymbol: vToken.underlyingToken.symbol,
+        tokenAmountTokens: convertWeiToTokens({
+          token: vToken.underlyingToken,
+          valueWei: input.amountWei,
+        }).toNumber(),
+      });
 
-        captureAnalyticEvent('Tokens supplied', {
-          poolName,
-          tokenSymbol: vToken.underlyingToken.symbol,
-          tokenAmountTokens: convertWeiToTokens({
-            token: vToken.underlyingToken,
-            valueWei: amountWei,
-          }).toNumber(),
-        });
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_ALLOWANCE,
+        {
+          tokenAddress: vToken.underlyingToken.address,
+          accountAddress,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            tokenAddress: vToken.underlyingToken.address,
-            accountAddress,
-          },
-        ]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_V_TOKEN_BALANCE,
+        {
+          accountAddress,
+          vTokenAddress: vToken.address,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_V_TOKEN_BALANCE,
-          {
-            accountAddress,
-            vTokenAddress: vToken.address,
-          },
-        ]);
-
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-        queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
+      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
     },
-  );
+    options,
+  });
 };
 
 export default useSupply;

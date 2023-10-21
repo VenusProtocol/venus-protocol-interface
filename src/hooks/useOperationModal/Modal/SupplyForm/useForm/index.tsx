@@ -1,10 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { ContractReceipt } from 'ethers';
-import { useTranslation } from 'translation';
+import { displayMutationError } from 'errors';
 import { Asset, Swap, SwapError, Token, VToken } from 'types';
-import { convertTokensToWei } from 'utilities';
-
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -18,7 +14,7 @@ export interface UseFormInput {
     fromToken: Token;
     fromTokenAmountTokens: string;
     swap?: Swap;
-  }) => Promise<ContractReceipt>;
+  }) => Promise<unknown>;
   onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
@@ -47,9 +43,6 @@ const useForm = ({
   setFormValues,
   onSubmit,
 }: UseFormInput): UseFormOutput => {
-  const { t } = useTranslation();
-  const handleTransactionMutation = useHandleTransactionMutation();
-
   const { isFormValid, formError } = useFormValidation({
     asset,
     formValues,
@@ -67,48 +60,23 @@ const useForm = ({
       return;
     }
 
-    let amountWei: BigNumber;
+    try {
+      await onSubmit({
+        toVToken: asset.vToken,
+        fromTokenAmountTokens: formValues.amountTokens,
+        fromToken: formValues.fromToken,
+        swap,
+      });
 
-    await handleTransactionMutation({
-      mutate: async () => {
-        const contractReceipt = await onSubmit({
-          toVToken: asset.vToken,
-          fromTokenAmountTokens: formValues.amountTokens,
-          fromToken: formValues.fromToken,
-          swap,
-        });
-
-        if (swap) {
-          amountWei =
-            swap?.direction === 'exactAmountIn'
-              ? swap.expectedToTokenAmountReceivedWei
-              : swap.toTokenAmountReceivedWei;
-        } else {
-          amountWei = convertTokensToWei({
-            value: new BigNumber(formValues.amountTokens.trim()),
-            token: formValues.fromToken,
-          });
-        }
-
-        // Reset form and close modal on success only
-        setFormValues(() => ({
-          fromToken: asset.vToken.underlyingToken,
-          amountTokens: '',
-        }));
-        onCloseModal();
-
-        return contractReceipt;
-      },
-      successTransactionModalProps: contractReceipt => ({
-        title: t('operationModal.supply.successfulTransactionModal.title'),
-        content: t('operationModal.supply.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          token: asset.vToken.underlyingToken,
-        },
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+      // Reset form and close modal after successfully sending transaction
+      setFormValues(() => ({
+        fromToken: asset.vToken.underlyingToken,
+        amountTokens: '',
+      }));
+      onCloseModal();
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   return {

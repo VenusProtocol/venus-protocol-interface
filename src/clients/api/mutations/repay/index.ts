@@ -53,6 +53,7 @@ const repay = async ({
       isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed(),
     );
     const receipt = await transaction.wait(1);
+    // TODO: remove check once this function has been refactored to use useSendTransaction hook
     return checkForTokenTransactionError(receipt);
   }
 

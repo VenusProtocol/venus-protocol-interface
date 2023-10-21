@@ -116,6 +116,7 @@ const claimRewards = async ({
   const receipt = await transaction.wait(1);
 
   // Check for errors that did not revert the transaction
+  // TODO: remove once this function has been refactored to use useSendTransaction hook
   checkForComptrollerTransactionError(receipt);
   checkForTokenTransactionError(receipt);
   checkForVaiControllerTransactionError(receipt);

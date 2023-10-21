@@ -13,6 +13,7 @@ export type RedeemOutput = ContractReceipt;
 const redeem = async ({ tokenContract, amountWei }: RedeemInput): Promise<RedeemOutput> => {
   const transaction = await tokenContract.redeem(amountWei.toFixed());
   const receipt = await transaction.wait(1);
+  // TODO: remove check once this function has been refactored to use useSendTransaction hook
   return checkForTokenTransactionError(receipt);
 };
 

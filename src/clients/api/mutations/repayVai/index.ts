@@ -16,6 +16,7 @@ const repayVai = async ({
 }: RepayVaiInput): Promise<IRepayVaiOutput> => {
   const transaction = await vaiControllerContract.repayVAI(amountWei.toFixed());
   const receipt = await transaction.wait(1);
+  // TODO: remove check once this function has been refactored to use useSendTransaction hook
   return checkForVaiControllerTransactionError(receipt);
 };
 
