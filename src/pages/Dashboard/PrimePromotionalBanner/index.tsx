@@ -97,7 +97,8 @@ export const PrimePromotionalBanner: React.FC = () => {
       accountAddress,
     });
   const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
-  const shouldShow = !isGetIsAddressPrimeLoading && !isAccountPrime && store.use.shouldShowBanner();
+  const storeShouldShowBanner = store.use.shouldShowBanner();
+  const shouldShow = !isGetIsAddressPrimeLoading && !isAccountPrime && storeShouldShowBanner;
   const hideBanner = store.use.hideBanner();
 
   return <PrimePromotionalBannerUi shouldShow={shouldShow} onHide={hideBanner} />;
