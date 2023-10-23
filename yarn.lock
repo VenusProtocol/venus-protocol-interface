@@ -7324,10 +7324,10 @@
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     dotenv "^16.0.1"
 
-"@venusprotocol/venus-protocol@^4.1.0-dev.2":
-  version "4.1.0-dev.2"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-4.1.0-dev.2.tgz#442abbffa9f9621e84061ce0e19fd83262a758cd"
-  integrity sha512-yoJTJYFqU65Q3YbOeIK782gpa6vCYRiTbPUDq+qm7YEKBPxLegvaJ28ZGUFRvc0gRFBTCaV4vkDHbznBLrOI8Q==
+"@venusprotocol/venus-protocol@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-5.0.0.tgz#131e9e062b8a7a098c18385f7cb0a700b8f550be"
+  integrity sha512-WEzAxhDJzVvJxlV3VVpzraowzTwrZiwS9pKluJ0DsvPZVKgB85Wj72vW5XAs0uDyjtqddUN9DvNn/TrUSDhd8w==
   dependencies:
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
