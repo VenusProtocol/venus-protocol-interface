@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { logError } from 'errors';
 import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
 import { Asset, AssetDistribution, Market, Pool, Token, VToken } from 'types';
 import {
@@ -16,7 +17,6 @@ import {
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
-import { logError } from 'context/ErrorLogger';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
