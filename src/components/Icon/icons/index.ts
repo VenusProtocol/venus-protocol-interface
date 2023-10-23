@@ -11,6 +11,7 @@ export { default as vote } from './vote';
 export { default as countdown } from './countdown';
 export { default as loading } from './loading';
 export { default as arrowUp } from './arrowUp';
+export { default as arrowUpFull } from './arrowUpFull';
 export { default as checkboxBorder } from './checkboxBorder';
 export { default as checked } from './checked';
 export { default as chevronRight } from './chevronRight';
