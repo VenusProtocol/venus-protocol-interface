@@ -21,11 +21,11 @@ const UserIdentifier: React.FC = () => {
   return null;
 };
 
-export interface AnalyticsProviderProps {
+export interface AnalyticProviderProps {
   children?: React.ReactNode;
 }
 
-export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => (
+export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) => (
   <PostHogProvider
     apiKey={config.posthog.apiKey}
     options={{

@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetSwapRouterContract } from 'packages/contracts';
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
@@ -11,7 +12,6 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedSwapTokensAndRepayInput = Omit<
   SwapTokensAndRepayInput,

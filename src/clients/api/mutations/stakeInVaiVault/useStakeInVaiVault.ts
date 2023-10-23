@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { MutationObserverOptions, useMutation } from 'react-query';
@@ -10,7 +11,6 @@ import {
   stakeInVaiVault,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStakeInVaiVaultInput>;

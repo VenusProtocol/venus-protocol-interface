@@ -1,3 +1,4 @@
+import { AnalyticProvider } from 'packages/analytics';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { Layout } from 'containers/Layout';
-import { AnalyticsProvider } from 'context/Analytics';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { ErrorLoggerProvider } from 'context/ErrorLogger';
@@ -21,7 +21,7 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <MuiThemeProvider>
           <AuthProvider>
-            <AnalyticsProvider>
+            <AnalyticProvider>
               <SuccessfulTransactionModalProvider>
                 <DisableLunaUstWarningProvider>
                   <HashRouter>
@@ -33,7 +33,7 @@ const App = () => (
                   </HashRouter>
                 </DisableLunaUstWarningProvider>
               </SuccessfulTransactionModalProvider>
-            </AnalyticsProvider>
+            </AnalyticProvider>
           </AuthProvider>
         </MuiThemeProvider>
       </QueryClientProvider>

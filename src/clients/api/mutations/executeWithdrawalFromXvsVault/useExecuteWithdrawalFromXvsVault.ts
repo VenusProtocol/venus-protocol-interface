@@ -1,3 +1,4 @@
+import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { MutationObserverOptions, useMutation } from 'react-query';
@@ -11,7 +12,6 @@ import {
   queryClient,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAnalytics } from 'context/Analytics';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,

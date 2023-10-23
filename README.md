@@ -64,3 +64,4 @@ yarn serve
 | ---------------------------------------------- | --------------------------------------------------------- |
 | [contracts](/src/packages/contracts/README.md) | Generates instances of contracts for each supported chain |
 | [tokens](/src/packages/tokens/README.md)       | Generates lists of tokens for each supported chain        |
+| [analytics](/src/packages/analytics/README.md) | Handles capturing analytic events                         |
