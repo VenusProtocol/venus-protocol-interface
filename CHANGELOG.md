@@ -1,3 +1,15 @@
+## [2.39.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.38.1...v2.39.0) (2023-10-23)
+
+
+### Features
+
+* show scroll to top button on mobile/tablet ([23d8493](https://github.com/VenusProtocol/venus-protocol-interface/commit/23d8493a4192e4b0cf2c500bf4e7b1d4ac257e2e))
+
+
+### Bug Fixes
+
+* issue with hook order in PrimePromotionalBanner ([#1639](https://github.com/VenusProtocol/venus-protocol-interface/issues/1639)) ([a1e1d3c](https://github.com/VenusProtocol/venus-protocol-interface/commit/a1e1d3ce08b4f17f727a4f1e5b06ae9bbbf40f1c))
+
 ## [2.38.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.38.0...v2.38.1) (2023-10-22)
 
 ## [2.38.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.37.6...v2.38.0) (2023-10-20)
