@@ -1,3 +1,15 @@
+## [2.40.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.39.2...v2.40.0) (2023-10-24)
+
+
+### Features
+
+* add getHypotheticalPrimeApys query function ([#1621](https://github.com/VenusProtocol/venus-protocol-interface/issues/1621)) ([2f03472](https://github.com/VenusProtocol/venus-protocol-interface/commit/2f0347259ba8b363d57f77f196cf74d6cc7d8ad5))
+
+
+### Bug Fixes
+
+* account page layout ([#1647](https://github.com/VenusProtocol/venus-protocol-interface/issues/1647)) ([aabb907](https://github.com/VenusProtocol/venus-protocol-interface/commit/aabb907274076f966649406834ef2ee0ca5d49d0))
+
 ## [2.39.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.39.1...v2.39.2) (2023-10-24)
 
 ## [2.39.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.39.0...v2.39.1) (2023-10-23)
