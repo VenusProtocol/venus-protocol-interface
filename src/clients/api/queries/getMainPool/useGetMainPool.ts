@@ -12,6 +12,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import FunctionKey from 'constants/functionKey';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
@@ -43,6 +44,9 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const xvs = useGetToken({ symbol: 'XVS' });
   const vai = useGetToken({ symbol: 'VAI' });
   const tokens = useGetTokens();
+  const isPrimeEnabled = useIsFeatureEnabled({
+    name: 'prime',
+  });
 
   const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
   const venusLensContract = useGetVenusLensContract();
@@ -67,7 +71,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
             name: t('mainPool.name'),
             description: t('mainPool.description'),
             tokens,
-            primeContract,
+            primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,
             ...params,
           }),

@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import { convertAprToApy, extractSettledPromiseValue } from 'utilities';
 
 import getMainMarkets from '../getMainMarkets';
+import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatToPool } from './formatToPool';
-import { resolvePrimeSimulationDistributions } from './resolvePrimeSimulationDistributions';
 import { GetMainPoolInput, GetMainPoolOutput, PrimeApy } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
@@ -164,7 +164,7 @@ const getMainPool = async ({
 
   // Fetch Prime simulations and add them to distributions
   if (primeContract && accountAddress && primeMinimumXvsToStakeMantissa) {
-    await resolvePrimeSimulationDistributions({
+    await appendPrimeSimulationDistributions({
       assets: pool.assets,
       primeContract,
       primeVTokenAddresses,

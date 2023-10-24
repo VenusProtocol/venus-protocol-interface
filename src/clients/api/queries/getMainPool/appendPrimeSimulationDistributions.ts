@@ -17,7 +17,7 @@ export interface ResolvePrimeSimulationDistributionsInput {
   primeMinimumXvsToStakeMantissa: BigNumber;
 }
 
-export const resolvePrimeSimulationDistributions = async ({
+export const appendPrimeSimulationDistributions = async ({
   primeContract,
   primeVTokenAddresses,
   assets,
