@@ -8,13 +8,15 @@ import {
   convertWeiToTokens,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
+
 export interface ResolvePrimeSimulationDistributionsInput {
   primeContract: Prime;
   primeVTokenAddresses: string[];
   assets: Asset[];
   xvs: Token;
-  accountAddress: string;
   primeMinimumXvsToStakeMantissa: BigNumber;
+  accountAddress?: string;
 }
 
 export const appendPrimeSimulationDistributions = async ({
@@ -47,7 +49,7 @@ export const appendPrimeSimulationDistributions = async ({
           token: asset.vToken.underlyingToken,
         });
 
-        const averageSupplyBalanceTokens = asset.borrowBalanceTokens.dividedBy(asset.borrowerCount);
+        const averageSupplyBalanceTokens = asset.supplyBalanceTokens.dividedBy(asset.supplierCount);
         const averageSupplyBalanceMantissa = convertTokensToWei({
           value: averageSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,
@@ -55,7 +57,7 @@ export const appendPrimeSimulationDistributions = async ({
 
         const simulatedPrimeAprs = await primeContract.estimateAPR(
           primeVTokenAddress,
-          accountAddress,
+          accountAddress || NULL_ADDRESS,
           averageBorrowBalanceMantissa.toFixed(),
           averageSupplyBalanceMantissa.toFixed(),
           primeMinimumXvsToStakeMantissa.toFixed(),

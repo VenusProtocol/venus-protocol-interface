@@ -163,7 +163,7 @@ const getMainPool = async ({
   });
 
   // Fetch Prime simulations and add them to distributions
-  if (primeContract && accountAddress && primeMinimumXvsToStakeMantissa) {
+  if (primeContract && primeMinimumXvsToStakeMantissa) {
     await appendPrimeSimulationDistributions({
       assets: pool.assets,
       primeContract,
