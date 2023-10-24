@@ -96,6 +96,7 @@
   "assetInfo": {
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
+    "primeApy": "Prime APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {
       "borrowApyTooltip": "Borrow APY - Distribution APYs",

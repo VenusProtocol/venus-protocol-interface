@@ -1,24 +1,12 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
-
-import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
+import { convertAprToApy, extractSettledPromiseValue } from 'utilities';
 
 import getMainMarkets from '../getMainMarkets';
-import formatToPool from './formatToPool';
-import { GetMainPoolInput, GetMainPoolOutput } from './types';
+import { formatToPool } from './formatToPool';
+import { resolvePrimeSimulationDistributions } from './resolvePrimeSimulationDistributions';
+import { GetMainPoolInput, GetMainPoolOutput, PrimeApy } from './types';
 
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
-
-// Since the borrower and supplier counts aren't essential information, we make the logic so the
-// dApp can still function if the API is down
-const safelyGetMainMarkets = async () => {
-  try {
-    const res = await getMainMarkets();
-    return res;
-  } catch (error) {
-    logError(error);
-  }
-};
 
 const getMainPool = async ({
   name,
@@ -31,11 +19,14 @@ const getMainPool = async ({
   venusLensContract,
   vaiControllerContract,
   resilientOracleContract,
+  primeContract,
 }: GetMainPoolInput): Promise<GetMainPoolOutput> => {
   const [
     marketsResult,
     mainMarkets,
     xvsPriceMantissaResult,
+    primeVTokenAddressesResult,
+    primeMinimumXvsToStakeResult,
     assetsInResult,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     _accrueVaiInterestResult,
@@ -45,9 +36,12 @@ const getMainPool = async ({
     mainPoolComptrollerContract.getAllMarkets(),
     // Fetch main markets to get the supplier and borrower counts
     // TODO: fetch borrower and supplier counts from subgraph once available
-    safelyGetMainMarkets(),
+    getMainMarkets(),
     // Fetch XVS price
     resilientOracleContract.getPrice(xvs.address),
+    // Prime related calls
+    primeContract?.getAllMarkets(),
+    primeContract?.MINIMUM_STAKED_XVS(),
     // Account related calls
     accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
@@ -66,6 +60,8 @@ const getMainPool = async ({
   }
 
   const vTokenAddresses = marketsResult.value;
+  const primeVTokenAddresses = extractSettledPromiseValue(primeVTokenAddressesResult) || [];
+  const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
 
   // Fetch underlying token prices
   const underlyingTokenPricePromises = Promise.allSettled(
@@ -102,16 +98,44 @@ const getMainPool = async ({
       : undefined,
   ]);
 
+  // Fetch Prime distributions
+  const primeAprPromises = primeContract
+    ? Promise.allSettled(
+        accountAddress
+          ? primeVTokenAddresses.map(primeVTokenAddress =>
+              primeContract.calculateAPR(primeVTokenAddress, accountAddress),
+            )
+          : [],
+      )
+    : undefined;
+
   const underlyingTokenPriceResults = await underlyingTokenPricePromises;
   const borrowCapsResults = await borrowCapsPromises;
   const supplyCapsResults = await supplyCapsPromises;
   const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
   const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
   const [vTokenMetaDataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
+  const primeAprResults = (await primeAprPromises) || [];
 
   if (vTokenMetaDataResults.status === 'rejected') {
     throw new Error(vTokenMetaDataResults.reason);
   }
+
+  const primeApyMap = new Map<string, PrimeApy>();
+  primeAprResults.forEach((primeAprResult, index) => {
+    if (primeAprResult.status !== 'fulfilled') {
+      return;
+    }
+
+    const primeApr = primeAprResult.value;
+
+    const apys: PrimeApy = {
+      borrowApy: convertAprToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
+      supplyApy: convertAprToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
+    };
+
+    primeApyMap.set(primeVTokenAddresses[index], apys);
+  });
 
   const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
 
@@ -134,8 +158,21 @@ const getMainPool = async ({
     userVaiBorrowBalanceWei: vaiRepayAmountMantissa
       ? new BigNumber(vaiRepayAmountMantissa.toString())
       : undefined,
+    primeApyMap,
     mainMarkets: extractSettledPromiseValue(mainMarkets)?.markets,
   });
+
+  // Fetch Prime simulations and add them to distributions
+  if (primeContract && accountAddress && primeMinimumXvsToStakeMantissa) {
+    await resolvePrimeSimulationDistributions({
+      assets: pool.assets,
+      primeContract,
+      primeVTokenAddresses,
+      accountAddress,
+      primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
+      xvs,
+    });
+  }
 
   return {
     pool,

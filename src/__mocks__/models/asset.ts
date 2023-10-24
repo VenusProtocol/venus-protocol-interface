@@ -141,6 +141,11 @@ export const assetData: Asset[] = [
         type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.753105649796123742'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
       },
     ],
     borrowDistributions: [
@@ -154,6 +159,11 @@ export const assetData: Asset[] = [
         type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.015310564979612374'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
       },
     ],
   },
@@ -195,6 +205,11 @@ export const assetData: Asset[] = [
         type: 'primeSimulation',
         token: xvs,
         apyPercentage: new BigNumber('1.753105649796123742'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
       },
     ],
     borrowDistributions: [

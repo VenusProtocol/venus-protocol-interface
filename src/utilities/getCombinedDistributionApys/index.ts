@@ -60,7 +60,7 @@ const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput
     supplyApyPrimeSimulationPercentage: supply.apyPrimeSimulationPercentage,
     borrowApyPrimeSimulationPercentage: borrow.apyPrimeSimulationPercentage,
     totalSupplyApyPercentage: supply.apyRewardsPercentage.plus(supply.apyPrimePercentage || 0),
-    totalBorrowApyPercentage: borrow.apyRewardsPercentage.minus(borrow.apyPrimePercentage || 0),
+    totalBorrowApyPercentage: borrow.apyRewardsPercentage.plus(borrow.apyPrimePercentage || 0),
   };
 };
 

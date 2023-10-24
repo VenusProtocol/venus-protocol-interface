@@ -3,7 +3,7 @@ import { logError } from 'errors';
 import { AssetDistribution, Token } from 'types';
 
 import findTokenByAddress from 'utilities/findTokenByAddress';
-import formatDistribution from 'utilities/formatDistribution';
+import formatRewardDistribution from 'utilities/formatRewardDistribution';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
@@ -72,8 +72,7 @@ const formatDistributions = ({
         });
 
         supplyDistributions.push(
-          formatDistribution({
-            type: 'rewardDistributor',
+          formatRewardDistribution({
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens: supplyDailyDistributedRewardTokens,
@@ -94,8 +93,7 @@ const formatDistributions = ({
         });
 
         borrowDistributions.push(
-          formatDistribution({
-            type: 'rewardDistributor',
+          formatRewardDistribution({
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens: borrowDailyDistributedRewardTokens,

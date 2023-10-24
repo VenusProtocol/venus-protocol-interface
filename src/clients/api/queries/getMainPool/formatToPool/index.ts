@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { logError } from 'errors';
 import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
-import { Asset, AssetDistribution, Market, Pool, Token, VToken } from 'types';
+import { Asset, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -10,7 +10,6 @@ import {
   convertFactorFromSmartContract,
   convertPriceMantissaToDollars,
   convertWeiToTokens,
-  formatDistribution,
   multiplyMantissaDaily,
 } from 'utilities';
 
@@ -18,6 +17,9 @@ import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+
+import { PrimeApy } from '../types';
+import { formatDistributions } from './formatDistributions';
 
 const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
 
@@ -41,13 +43,14 @@ export interface FormatToPoolInput {
     Awaited<ReturnType<MainPoolComptroller['venusSupplySpeeds']>>
   >[];
   xvsPriceMantissa: BigNumber;
+  primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceWei?: BigNumber;
   mainMarkets?: Market[];
 }
 
-const formatToPool = ({
+export const formatToPool = ({
   name,
   xvs,
   vai,
@@ -64,6 +67,7 @@ const formatToPool = ({
   userCollateralizedVTokenAddresses,
   userVTokenBalances,
   userVaiBorrowBalanceWei,
+  primeApyMap,
   mainMarkets,
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
@@ -154,11 +158,6 @@ const formatToPool = ({
     }
 
     const userVTokenBalancesResult = userVTokenBalances?.[index];
-
-    const xvsPriceDollars = convertPriceMantissaToDollars({
-      priceMantissa: xvsPriceMantissa,
-      token: xvs,
-    });
 
     const tokenPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: underlyingTokenPriceMantissa,
@@ -251,35 +250,28 @@ const formatToPool = ({
     const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
     const borrowBalanceCents = convertDollarsToCents(borrowBalanceDollars);
 
-    const borrowDailyDistributedXvs = multiplyMantissaDaily({
-      mantissa: xvsBorrowSpeedMantissa,
-      decimals: xvs.decimals,
+    const xvsPriceDollars = convertPriceMantissaToDollars({
+      priceMantissa: xvsPriceMantissa,
+      token: xvs,
     });
 
-    const borrowXvsDistribution = formatDistribution({
-      type: 'rewardDistributor',
-      rewardToken: xvs,
-      rewardTokenPriceDollars: xvsPriceDollars,
-      dailyDistributedRewardTokens: borrowDailyDistributedXvs,
+    const borrowDistributions = formatDistributions({
+      xvsSpeedMantissa: xvsBorrowSpeedMantissa,
       balanceDollars: borrowBalanceDollars,
+      xvsPriceDollars,
+      xvs,
+      vToken,
+      primeApy: primeApyMap.get(vToken.address)?.borrowApy,
     });
 
-    const borrowDistributions: AssetDistribution[] = [borrowXvsDistribution];
-
-    const supplyDailyDistributedXvs = multiplyMantissaDaily({
-      mantissa: xvsSupplySpeedMantissa,
-      decimals: xvs.decimals,
-    });
-
-    const supplyXvsDistribution = formatDistribution({
-      type: 'rewardDistributor',
-      rewardToken: xvs,
-      rewardTokenPriceDollars: xvsPriceDollars,
-      dailyDistributedRewardTokens: supplyDailyDistributedXvs,
+    const supplyDistributions = formatDistributions({
+      xvsSpeedMantissa: xvsSupplySpeedMantissa,
       balanceDollars: supplyBalanceDollars,
+      xvsPriceDollars,
+      xvs,
+      vToken,
+      primeApy: primeApyMap.get(vToken.address)?.supplyApy,
     });
-
-    const supplyDistributions: AssetDistribution[] = [supplyXvsDistribution];
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
       vTokenMetaData.vToken,

@@ -1,5 +1,6 @@
 import {
   useGetMainPoolComptrollerContract,
+  useGetPrimeContract,
   useGetResilientOracleContract,
   useGetVaiControllerContract,
   useGetVenusLensContract,
@@ -47,6 +48,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const venusLensContract = useGetVenusLensContract();
   const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
+  const primeContract = useGetPrimeContract();
 
   return useQuery(
     [FunctionKey.GET_MAIN_POOL, input],
@@ -65,6 +67,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
             name: t('mainPool.name'),
             description: t('mainPool.description'),
             tokens,
+            primeContract,
             ...input,
             ...params,
           }),

@@ -41,6 +41,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
         <Tooltip
           className="inline-flex"
           title={
+            // TODO: update tooltip to indicate data used to calculate simulation
             <Trans
               i18nKey="marketTable.apy.primeSimulationBoost.tooltip"
               components={{
