@@ -31,15 +31,15 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
         <span className="text-sm text-grey">{type === 'supply' && <>/ {readableLtv}</>}</span>
       </p>
 
-      <div className="flex items-center lg:justify-end">
-        <p className="mr-1 whitespace-nowrap text-sm text-green">
+      <div className="whitespace-nowrap">
+        <p className="mr-1 inline-block align-middle text-sm text-green">
           {t('marketTable.apy.primeSimulationBoost.label', {
             apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readableApyPrimeSimulationBoost}`,
           })}
         </p>
 
         <Tooltip
-          className="inline-flex"
+          className="inline-block align-middle"
           title={
             // TODO: update tooltip to indicate data used to calculate simulation
             <Trans

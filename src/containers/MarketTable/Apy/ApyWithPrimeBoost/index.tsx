@@ -33,14 +33,21 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   });
 
   return (
-    <div className="align-start flex flex-col">
-      <div className="flex items-center lg:justify-end">
-        <p className="mr-1 whitespace-nowrap">
-          <span className="text-sm line-through">{readableApyWithoutPrime}</span>{' '}
-          <span className="text-base font-semibold text-green">{readableApy}</span>
+    <div>
+      <div className="whitespace-nowrap">
+        <p className="mr-1 inline-block align-middle">
+          <span className="inline-block align-baseline text-sm line-through">
+            {readableApyWithoutPrime}
+          </span>{' '}
+          <span className="inline-block align-baseline text-base font-semibold text-green">
+            {readableApy}
+          </span>
         </p>
 
-        <Tooltip className="inline-flex" title={t('marketTable.apy.primeBoost.tooltip')}>
+        <Tooltip
+          className="inline-block align-middle"
+          title={t('marketTable.apy.primeBoost.tooltip')}
+        >
           <Icon name="info" />
         </Tooltip>
       </div>
