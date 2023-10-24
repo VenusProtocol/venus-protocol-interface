@@ -35,7 +35,7 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   return (
     <div className="align-start flex flex-col">
       <div className="flex items-center lg:justify-end">
-        <p className="mr-1">
+        <p className="mr-1 whitespace-nowrap">
           <span className="text-sm line-through">{readableApyWithoutPrime}</span>{' '}
           <span className="text-base font-semibold text-green">{readableApy}</span>
         </p>

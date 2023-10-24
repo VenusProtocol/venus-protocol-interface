@@ -28,11 +28,11 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
     <div>
       <p className="text-sm">
         {readableApy}{' '}
-        <span className="text-xs text-grey">{type === 'supply' && <>/ {readableLtv}</>}</span>
+        <span className="text-sm text-grey">{type === 'supply' && <>/ {readableLtv}</>}</span>
       </p>
 
-      <div className="flex items-center justify-end">
-        <p className="mr-1 text-xs text-green">
+      <div className="flex items-center lg:justify-end">
+        <p className="mr-1 whitespace-nowrap text-sm text-green">
           {t('marketTable.apy.primeSimulationBoost.label', {
             apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readableApyPrimeSimulationBoost}`,
           })}
