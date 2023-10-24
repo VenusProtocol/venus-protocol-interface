@@ -8,8 +8,12 @@ import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 
+import { useGetPrimeStatus } from 'clients/api';
+import PrimeStatusBanner from 'containers/PrimeStatusBanner';
+import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
@@ -52,6 +56,18 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const { accountAddress } = useAuth();
+  const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
+  const { data: getPrimeStatusData } = useGetPrimeStatus(
+    {
+      accountAddress: accountAddress || '',
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+  const primePoolIndex = getPrimeStatusData?.xvsVaultPoolId;
 
   const readableUserStakedTokens = useConvertWeiToReadableTokenString({
     token: stakedToken,
@@ -131,6 +147,10 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
           {readableUserStakedTokens}
         </Typography>
+
+        {isPrimeEnabled && poolIndex === primePoolIndex && (
+          <PrimeStatusBanner className="bg-background p-4 sm:mt-2" hidePromotionalTitle />
+        )}
 
         <ul css={styles.dataRow}>
           {dataListItems.map(({ title, value }) => (

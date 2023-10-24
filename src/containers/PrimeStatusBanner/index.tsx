@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Card, Icon, Link, PrimaryButton, ProgressBar, Tooltip } from 'components';
+import { Card, Link, PrimaryButton, ProgressBar } from 'components';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
@@ -23,6 +23,7 @@ import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReada
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
+import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
 import { formatWaitingPeriod } from './formatWaitingPeriod';
 import TEST_IDS from './testIds';
@@ -165,24 +166,39 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         className,
       )}
     >
-      {shouldShowPrimeTokensLeftIndicator && (
-        <div
-          data-testid={TEST_IDS.primeTokensLeftWarning}
-          className="absolute right-4 top-0 -mt-3 sm:left-18 sm:right-auto md:left-20"
-        >
-          <PrimeTokensLeft tokensLeft={primeTokensLeft} />
-        </div>
-      )}
-
       <div
         className={cn(
-          'w-full md:w-auto md:flex-1',
+          'w-full flex-col md:w-auto md:flex-1',
           !hidePromotionalTitle && displayProgress && !displayWarning && 'mb-6',
           (displayStakeButton || displayClaimButton) && 'mb-4 md:mb-0 md:pr-6',
-          displayWarning && !displayProgress && 'md:flex md:flex-row md:justify-between',
+          displayWarning && !displayProgress && 'md:flex md:justify-between',
           displayWarning && 'order-2 md:order-1 md:flex-1 md:pr-6',
         )}
       >
+        {shouldShowPrimeTokensLeftIndicator && (
+          <div
+            data-testid={TEST_IDS.primeTokensLeftWarning}
+            className={cn(
+              !hidePromotionalTitle &&
+                'absolute right-4 top-0 -mt-3 sm:left-18 sm:right-auto md:left-20',
+              hidePromotionalTitle && 'mb-4 inline-block',
+            )}
+          >
+            <PrimeTokensLeft tokensLeft={primeTokensLeft} />
+          </div>
+        )}
+        {displayWarning && (
+          <div
+            className={cn(
+              'mb-4 flex items-center text-right sm:hidden',
+              hidePromotionalTitle && 'sm:flex',
+              displayProgress && 'md:mb-4',
+            )}
+          >
+            <NoPrimeTokensLeftWarning primeTokenLimit={primeTokenLimit} />
+          </div>
+        )}
+
         <div
           className={cn(
             'flex flex-col sm:flex-row',
@@ -250,23 +266,14 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             displayWarning && 'order-1 md:order-2',
           )}
         >
-          {displayWarning && (
+          {displayWarning && !hidePromotionalTitle && (
             <div
               className={cn(
-                'mb-4 flex items-center text-right md:mb-0',
-                displayProgress && 'md:mb-4',
+                'mb-4 hidden items-center text-right sm:flex md:mb-0',
+                displayProgress && 'md:mb-4 md:pt-1',
               )}
             >
-              <p className="mr-2 text-sm text-orange">
-                {t('primeStatusBanner.noPrimeTokenWarning.text')}
-              </p>
-
-              <Tooltip
-                title={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}
-                className="inline-flex"
-              >
-                <Icon name="info" className="text-orange" />
-              </Tooltip>
+              <NoPrimeTokensLeftWarning primeTokenLimit={primeTokenLimit} />
             </div>
           )}
 
