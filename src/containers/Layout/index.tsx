@@ -39,7 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       >
         <Header />
 
-        <main className="w-full flex-1 px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
+        <main className="w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
           {children}
         </main>
 
