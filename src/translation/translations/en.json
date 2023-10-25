@@ -179,7 +179,7 @@
   "dashboard": {
     "allTag": "All",
     "banner": {
-      "busdForceLiquidations": "Forced liquidations will be enabled in the BUSD market, in October. Every BUSD borrow position will be eligible to be liquidated, independently of their health rate. <Link>Snapshot</Link>"
+      "busdForceLiquidations": "Forced liquidations will be enabled in the BUSD market, on October 27th, 2023, after executing <Link>VIP-191</Link>"
     },
     "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
