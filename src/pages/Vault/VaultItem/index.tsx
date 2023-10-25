@@ -153,7 +153,10 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         </ul>
 
         {hasPendingWithdrawalsFromBeforeUpgrade && (
-          <NoticeWarning description={t('vaultItem.blockingPendingWithdrawalsWarning')} />
+          <NoticeWarning
+            description={t('vaultItem.blockingPendingWithdrawalsWarning')}
+            className="mt-6"
+          />
         )}
 
         <div css={styles.buttonsWrapper}>

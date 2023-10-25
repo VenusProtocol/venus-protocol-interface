@@ -103,7 +103,6 @@ export const useStyles = () => {
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
-        margin-top: ${theme.spacing(6)};
       }
     `,
     button: css`
