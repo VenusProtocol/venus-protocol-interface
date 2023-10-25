@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, toast } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { Modal } from 'components';
+import { displayMutationError } from 'errors';
 import { ContractReceipt } from 'ethers';
 import { Form, Formik, useFormikContext } from 'formik';
 import React, { useMemo, useState } from 'react';
@@ -70,13 +70,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         setProposalMode('file');
         navigate(routes.governanceProposalPreview.path);
       } catch (error) {
-        let { message } = error as Error;
-
-        if (error instanceof VError) {
-          message = formatVErrorToReadableString(error);
-        }
-
-        toast.error({ message });
+        displayMutationError({ error });
       }
     }
   };
@@ -120,13 +114,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         transactionHash: contractReceipt.transactionHash,
       });
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({ message });
+      displayMutationError({ error });
     }
   };
 

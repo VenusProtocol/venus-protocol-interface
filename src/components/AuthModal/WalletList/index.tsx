@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import config from 'config';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { displayMutationError } from 'errors';
 import React from 'react';
 import { Trans } from 'react-i18next';
 import { useTranslation } from 'translation';
@@ -9,7 +9,6 @@ import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3/types';
 import { NoticeInfo } from 'components/Notice';
 
-import { toast } from '../../Toast';
 import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';
 
@@ -25,15 +24,7 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
     try {
       await onLogin(connector);
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({
-        message,
-      });
+      displayMutationError({ error });
     }
   };
 

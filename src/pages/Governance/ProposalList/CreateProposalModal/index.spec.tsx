@@ -1,6 +1,7 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
-import { toast } from 'components';
+import { displayMutationError } from 'errors';
 import React from 'react';
+import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import TEST_VIP from 'assets/proposals/vip-123.json';
@@ -17,6 +18,8 @@ const fakeSignature = '_setAbc(string, bool)';
 const fakeForOption = 'fakeForOption';
 const fakeAgainstOption = 'fakeAgainstOption';
 const fakeAbstainOption = 'fakeAbstainOption';
+
+vi.mock('errors/displayMutationError');
 
 const next = async (nextButton: HTMLElement) => {
   await waitFor(() => expect(nextButton).toBeEnabled());
@@ -413,8 +416,6 @@ describe('pages/Proposal/CreateProposalModal', () => {
   });
 
   it('Does not allow creating a VIP from an invalid proposal file', async () => {
-    const spiedErrorToast = vi.spyOn(toast, 'error');
-    const errorMessage = `${en.errors.validationError} - {"actions":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"callData":["CALL_DATA_ARGUMENT_INVALID,"]}]}`;
     const { getByText, getByTestId } = renderComponent(
       <CreateProposalModal
         isOpen
@@ -449,7 +450,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
     fireEvent.change(fileInput, { target: { files: [file] } });
 
-    // validation should not work, and we should display an error toast
-    await waitFor(() => expect(spiedErrorToast).toBeCalledWith({ message: errorMessage }));
+    // validation should not work, and we should display an error
+    await waitFor(() => expect(displayMutationError).toHaveBeenCalledTimes(1));
+    expect((displayMutationError as Vi.Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
+      {
+        "error": [Error: validationError],
+      }
+    `);
   });
 });

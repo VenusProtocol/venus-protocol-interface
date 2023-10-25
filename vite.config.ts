@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.tsx',
+    restoreMocks: true,
     coverage: {
       all: true,
       reporter: ['text', 'html', 'json-summary', 'json'],

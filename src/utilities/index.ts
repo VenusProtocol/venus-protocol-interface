@@ -43,3 +43,4 @@ export { default as formatDistribution } from './formatDistribution';
 export { default as findTokenByAddress } from './findTokenByAddress';
 export * from './cn';
 export * from './createStoreSelectors';
+export * from './notifications';

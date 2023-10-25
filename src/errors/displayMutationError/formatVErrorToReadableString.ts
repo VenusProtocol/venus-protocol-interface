@@ -3,7 +3,7 @@ import { interactionErrorPhrases } from 'errors/interactionErrorPhrases';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import { unexpectedErrorPhrases } from 'errors/unexpectedErrorPhrases';
 
-import { ErrorCodes, VError, VErrorParamMap, VErrorPhraseMap } from './VError';
+import { ErrorCodes, VError, VErrorParamMap, VErrorPhraseMap } from '../VError';
 
 export const formatVErrorToReadableString = (error: VError<ErrorCodes>) => {
   let phrase = unexpectedErrorPhrases.somethingWentWrong;

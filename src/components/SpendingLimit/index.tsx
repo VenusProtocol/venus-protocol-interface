@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { displayMutationError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -11,7 +11,6 @@ import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue
 
 import { TextButton } from '../Button';
 import { Icon } from '../Icon';
-import { toast } from '../Toast';
 
 export interface SpendingLimitProps {
   token: Token;
@@ -36,15 +35,7 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
     try {
       await onRevoke();
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({
-        message,
-      });
+      displayMutationError({ error });
     }
   };
 

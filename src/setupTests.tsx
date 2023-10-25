@@ -43,6 +43,8 @@ vi.mock('@uiw/react-markdown-preview', () => ({
 
 initializeLibraries();
 
+global.fetch = vi.fn();
+
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {
@@ -51,11 +53,6 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
     accountAddress: '',
   },
 );
-
-beforeEach(() => {
-  vi.restoreAllMocks();
-  global.fetch = vi.fn();
-});
 
 afterEach(() => {
   (useTokenApproval as Vi.Mock).mockImplementation(() => useTokenApprovalOriginalOutput);

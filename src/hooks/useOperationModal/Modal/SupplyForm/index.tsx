@@ -10,9 +10,8 @@ import {
   SwapDetails,
   Toggle,
   TokenTextField,
-  toast,
 } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError, displayMutationError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { isTokenActionEnabled } from 'packages/tokens';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -161,12 +160,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         poolName: pool.name,
         comptrollerAddress: pool.comptrollerAddress,
       });
-    } catch (e) {
-      if (e instanceof VError) {
-        toast.error({
-          message: formatVErrorToReadableString(e),
-        });
-      }
+    } catch (error) {
+      displayMutationError({ error });
     }
   };
 

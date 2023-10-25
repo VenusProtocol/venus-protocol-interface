@@ -1,5 +1,4 @@
-import { toast } from 'components';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { displayMutationError } from 'errors';
 import { ContractReceipt } from 'ethers';
 
 import useSuccessfulTransactionModal, {
@@ -27,14 +26,8 @@ const useHandleTransactionMutation = () => {
         openSuccessfulTransactionModal(successfulTransactionModalProps);
       }
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({
-        message,
+      displayMutationError({
+        error,
       });
     }
   };

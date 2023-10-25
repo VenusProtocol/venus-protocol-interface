@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
+import { displayMutationError } from 'errors';
+
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
-import { toast } from '../Toast';
 import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
@@ -44,15 +44,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
     try {
       await approveToken();
     } catch (error) {
-      let { message } = error as Error;
-
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-
-      toast.error({
-        message,
-      });
+      displayMutationError({ error });
     }
   };
 

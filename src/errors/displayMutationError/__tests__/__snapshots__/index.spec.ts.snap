@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`displayMutationError > calls displayNotification with the right argument when passing a VError instance. Error: MARKET_NOT_ENTERED { data: { error: 'NO_ERROR', info: 'NO_ERROR' }, type: 'transaction', code: 'MARKET_NOT_ENTERED' } 1`] = `
+{
+  "description": "Market Not Entered - No Error",
+  "variant": "error",
+}
+`;
+
+exports[`displayMutationError > calls displayNotification with the right argument when passing a VError instance. Error: accountError { data: undefined, type: 'interaction', code: 'accountError' } 1`] = `
+{
+  "description": "Account Required - Please connect your wallet.",
+  "variant": "error",
+}
+`;
+
+exports[`displayMutationError > calls displayNotification with the right argument when passing a VError instance. Error: noMetaKey { data: undefined, type: 'proposal', code: 'noMetaKey' } 1`] = `
+{
+  "description": "No metadata information is present in the file",
+  "variant": "error",
+}
+`;
+
+exports[`displayMutationError > calls displayNotification with the right argument when passing a VError instance. Error: walletNotConnected { data: undefined, type: 'unexpected', code: 'walletNotConnected' } 1`] = `
+{
+  "description": "Wallet not connected",
+  "variant": "error",
+}
+`;
