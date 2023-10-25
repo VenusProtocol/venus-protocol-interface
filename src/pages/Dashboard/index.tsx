@@ -67,7 +67,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
             i18nKey="dashboard.banner.busdForceLiquidations"
             components={{
               Link: (
-                <Link href="https://app.venus.io/#/governance/proposal/1919" />
+                <Link href="https://app.venus.io/#/governance/proposal/191" />
               ),
             }}
           />
