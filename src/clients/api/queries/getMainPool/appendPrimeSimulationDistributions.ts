@@ -73,27 +73,23 @@ export const appendPrimeSimulationDistributions = async ({
           aprBips: simulatedPrimeAprs.borrowAPR.toString(),
         });
 
-        if (borrowSimulatedPrimeApy.isGreaterThan(0)) {
-          asset.borrowDistributions.push({
-            type: 'primeSimulation',
-            token: asset.vToken.underlyingToken,
-            apyPercentage: borrowSimulatedPrimeApy,
-            referenceValues,
-          });
-        }
+        asset.borrowDistributions.push({
+          type: 'primeSimulation',
+          token: asset.vToken.underlyingToken,
+          apyPercentage: borrowSimulatedPrimeApy,
+          referenceValues,
+        });
 
         const supplySimulatedPrimeApy = convertAprToApy({
           aprBips: simulatedPrimeAprs.supplyAPR.toString(),
         });
 
-        if (supplySimulatedPrimeApy.isGreaterThan(0)) {
-          asset.supplyDistributions.push({
-            type: 'primeSimulation',
-            token: asset.vToken.underlyingToken,
-            apyPercentage: supplySimulatedPrimeApy,
-            referenceValues,
-          });
-        }
+        asset.supplyDistributions.push({
+          type: 'primeSimulation',
+          token: asset.vToken.underlyingToken,
+          apyPercentage: supplySimulatedPrimeApy,
+          referenceValues,
+        });
       };
 
       return promise();

@@ -1,15 +1,17 @@
 import { Icon, Link, Tooltip } from 'components';
 import { useTranslation } from 'translation';
-import { PrimeSimulationDistribution } from 'types';
+import { PrimeSimulationDistribution, Token } from 'types';
 
 import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';
   primeSimulationDistribution: PrimeSimulationDistribution;
   readableApy: string;
   readableLtv: string;
+  xvs: Token;
 }
 
 export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostProps> = ({
@@ -17,11 +19,30 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   primeSimulationDistribution,
   readableApy,
   readableLtv,
+  xvs,
 }) => {
   const { t, Trans } = useTranslation();
 
   const readablePrimeApy = useFormatPercentageToReadableValue({
     value: primeSimulationDistribution.apyPercentage,
+  });
+
+  const readableReferenceXvsStaked = useFormatTokensToReadableValue({
+    value: primeSimulationDistribution.referenceValues.userXvsStakedTokens,
+    token: xvs,
+    addSymbol: true,
+  });
+
+  const readableReferenceSupplyBalance = useFormatTokensToReadableValue({
+    value: primeSimulationDistribution.referenceValues.userSupplyBalanceTokens,
+    token: primeSimulationDistribution.token,
+    addSymbol: true,
+  });
+
+  const readableReferenceBorrowBalance = useFormatTokensToReadableValue({
+    value: primeSimulationDistribution.referenceValues.userBorrowBalanceTokens,
+    token: primeSimulationDistribution.token,
+    addSymbol: true,
   });
 
   return (
@@ -41,9 +62,13 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
         <Tooltip
           className="inline-block align-middle"
           title={
-            // TODO: update tooltip to indicate data used to calculate simulation
             <Trans
               i18nKey="marketTable.apy.primeSimulationBoost.tooltip"
+              values={{
+                supplyBalance: readableReferenceSupplyBalance,
+                borrowBalance: readableReferenceBorrowBalance,
+                xvsStaked: readableReferenceXvsStaked,
+              }}
               components={{
                 Link: <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
               }}

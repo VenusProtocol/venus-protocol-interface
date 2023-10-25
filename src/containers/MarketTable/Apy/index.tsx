@@ -1,4 +1,5 @@
 import { LayeredValues } from 'components';
+import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
@@ -17,6 +18,9 @@ export interface ApyProps {
 export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
   const type = column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv' ? 'supply' : 'borrow';
 
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
   const combinedDistributionApys = useMemo(() => getCombinedDistributionApys({ asset }), [asset]);
 
   const { primeDistribution, primeSimulationDistribution } = useMemo(() => {
@@ -52,7 +56,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
   });
 
   // Display Prime boost
-  if (primeDistribution) {
+  if (primeDistribution && primeDistribution.apyPercentage.isGreaterThan(0)) {
     const apyPercentageWithoutPrimeBoost =
       type === 'borrow'
         ? apyPercentage.plus(primeDistribution.apyPercentage)
@@ -69,13 +73,14 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
   }
 
   // Display hypothetical Prime boost
-  if (primeSimulationDistribution) {
+  if (primeSimulationDistribution && primeSimulationDistribution.apyPercentage.isGreaterThan(0)) {
     return (
       <ApyWithPrimeSimulationBoost
         type={type}
         readableApy={readableApy}
         readableLtv={readableLtv}
         primeSimulationDistribution={primeSimulationDistribution}
+        xvs={xvs!}
       />
     );
   }
