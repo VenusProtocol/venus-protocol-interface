@@ -1,6 +1,6 @@
 import { LayeredValues } from 'components';
 import { useMemo } from 'react';
-import { Asset } from 'types';
+import { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
 
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
@@ -19,59 +19,68 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
 
   const combinedDistributionApys = useMemo(() => getCombinedDistributionApys({ asset }), [asset]);
 
+  const { primeDistribution, primeSimulationDistribution } = useMemo(() => {
+    const result: {
+      primeSimulationDistribution?: PrimeSimulationDistribution;
+      primeDistribution?: PrimeDistribution;
+    } = {};
+
+    const distributions = type === 'borrow' ? asset.borrowDistributions : asset.supplyDistributions;
+
+    distributions.forEach(distribution => {
+      if (distribution.type === 'prime') {
+        result.primeDistribution = distribution;
+      } else if (distribution.type === 'primeSimulation') {
+        result.primeSimulationDistribution = distribution;
+      }
+    });
+
+    return result;
+  }, [asset.borrowDistributions, asset.supplyDistributions, type]);
+
+  const apyPercentage =
+    type === 'borrow'
+      ? asset.borrowApyPercentage.minus(combinedDistributionApys.totalBorrowApyPercentage)
+      : asset.supplyApyPercentage.plus(combinedDistributionApys.totalSupplyApyPercentage);
+
   const readableApy = useFormatPercentageToReadableValue({
-    value:
-      type === 'supply'
-        ? asset.supplyApyPercentage.plus(combinedDistributionApys.totalSupplyApyPercentage)
-        : asset.borrowApyPercentage.minus(combinedDistributionApys.totalBorrowApyPercentage),
+    value: apyPercentage,
   });
 
   const readableLtv = useFormatPercentageToReadableValue({
     value: +asset.collateralFactor * 100,
   });
 
-  const apyPrimeBoost =
-    type === 'supply'
-      ? combinedDistributionApys.supplyApyPrimePercentage
-      : combinedDistributionApys.borrowApyPrimePercentage;
-
   // Display Prime boost
-  if (apyPrimeBoost) {
+  if (primeDistribution) {
+    const apyPercentageWithoutPrimeBoost =
+      type === 'borrow'
+        ? apyPercentage.plus(primeDistribution.apyPercentage)
+        : apyPercentage.minus(primeDistribution.apyPercentage);
+
     return (
       <ApyWithPrimeBoost
         type={type}
-        supplyApyPercentage={asset.supplyApyPercentage}
-        borrowApyPercentage={asset.borrowApyPercentage}
-        distributionsSupplyApyRewardsPercentage={
-          combinedDistributionApys.supplyApyRewardsPercentage
-        }
-        distributionsBorrowApyRewardsPercentage={
-          combinedDistributionApys.borrowApyRewardsPercentage
-        }
-        readableApy={readableApy}
+        apyPercentage={apyPercentage}
+        apyPercentageWithoutPrimeBoost={apyPercentageWithoutPrimeBoost}
         readableLtv={readableLtv}
       />
     );
   }
 
-  const apyPrimeSimulationBoost =
-    type === 'supply'
-      ? combinedDistributionApys.supplyApyPrimeSimulationPercentage
-      : combinedDistributionApys.borrowApyPrimeSimulationPercentage;
-
   // Display hypothetical Prime boost
-  if (apyPrimeSimulationBoost) {
+  if (primeSimulationDistribution) {
     return (
       <ApyWithPrimeSimulationBoost
         type={type}
-        apyPrimeSimulationBoost={apyPrimeSimulationBoost}
         readableApy={readableApy}
         readableLtv={readableLtv}
+        primeSimulationDistribution={primeSimulationDistribution}
       />
     );
   }
 
-  // No Prime boost or hypothetical Prime boost to display
+  // No Prime boost or Prime boost simulation to display
 
   // Display supply APY
   if (type === 'supply') {

@@ -1,27 +1,27 @@
-import BigNumber from 'bignumber.js';
 import { Icon, Link, Tooltip } from 'components';
 import { useTranslation } from 'translation';
+import { PrimeSimulationDistribution } from 'types';
 
 import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
 export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';
-  apyPrimeSimulationBoost: BigNumber;
+  primeSimulationDistribution: PrimeSimulationDistribution;
   readableApy: string;
   readableLtv: string;
 }
 
 export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostProps> = ({
   type,
-  apyPrimeSimulationBoost,
+  primeSimulationDistribution,
   readableApy,
   readableLtv,
 }) => {
   const { t, Trans } = useTranslation();
 
-  const readableApyPrimeSimulationBoost = useFormatPercentageToReadableValue({
-    value: apyPrimeSimulationBoost,
+  const readablePrimeApy = useFormatPercentageToReadableValue({
+    value: primeSimulationDistribution.apyPercentage,
   });
 
   return (
@@ -34,7 +34,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
       <div className="whitespace-nowrap">
         <p className="mr-1 inline-block align-middle text-sm text-green">
           {t('marketTable.apy.primeSimulationBoost.label', {
-            apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readableApyPrimeSimulationBoost}`,
+            apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readablePrimeApy}`,
           })}
         </p>
 

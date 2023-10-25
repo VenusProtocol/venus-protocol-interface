@@ -558,7 +558,7 @@ exports[`getMainPool > fetches and formats Prime distributions 1`] = `
         "borrowCapTokens": undefined,
         "borrowDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -585,7 +585,7 @@ exports[`getMainPool > fetches and formats Prime distributions 1`] = `
         "supplyCapTokens": "0",
         "supplyDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -624,7 +624,7 @@ exports[`getMainPool > fetches and formats Prime distributions 1`] = `
         "borrowCapTokens": undefined,
         "borrowDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -651,7 +651,7 @@ exports[`getMainPool > fetches and formats Prime distributions 1`] = `
         "supplyCapTokens": "0",
         "supplyDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1103,7 +1103,7 @@ exports[`getMainPool > returns main pool in the correct format 1`] = `
         "borrowCapTokens": undefined,
         "borrowDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1130,7 +1130,7 @@ exports[`getMainPool > returns main pool in the correct format 1`] = `
         "supplyCapTokens": "0",
         "supplyDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "25.0000000000000128",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1169,7 +1169,7 @@ exports[`getMainPool > returns main pool in the correct format 1`] = `
         "borrowCapTokens": undefined,
         "borrowDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1196,7 +1196,7 @@ exports[`getMainPool > returns main pool in the correct format 1`] = `
         "supplyCapTokens": "0",
         "supplyDistributions": [
           {
-            "apyPercentage": "Infinity",
+            "apyPercentage": "1000000",
             "dailyDistributedTokens": "37.5000000000000192",
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
