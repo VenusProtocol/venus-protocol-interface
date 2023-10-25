@@ -33,7 +33,7 @@ const getMarketHistory = async ({
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
   const endpoint = `/markets/history?asset=${vToken.address}`;
 
-  const response = await restService<GetMarketHistoryResponse, 'v2'>({
+  const response = await restService<GetMarketHistoryResponse>({
     endpoint,
     method: 'GET',
     next: true,

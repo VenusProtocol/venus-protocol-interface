@@ -18,21 +18,12 @@ interface ApiErrorResponse {
   message: string;
 }
 
-type ApiResponseV1<D> =
-  | {
-      status: number;
-      data: { data: D; status: boolean } | undefined;
-    }
-  | ApiErrorResponse;
-
-type ApiResponseV2<D> =
+type ApiResponse<D> =
   | {
       status: number;
       data: D | undefined;
     }
   | ApiErrorResponse;
-
-type ApiResponseSignature = 'v1' | 'v2';
 
 const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {
@@ -44,13 +35,13 @@ const createQueryParams = (params: Record<string, unknown>) => {
   return paramArray.filter(p => p).join('&');
 };
 
-export async function restService<D, N extends ApiResponseSignature>({
+export async function restService<D>({
   endpoint,
   method,
   params,
   token = null,
   next = false,
-}: RestServiceInput): Promise<N extends 'v2' ? ApiResponseV2<D> : ApiResponseV1<D>> {
+}: RestServiceInput): Promise<ApiResponse<D>> {
   const headers = {};
   let path = `${config.apiUrl}${endpoint}`;
 

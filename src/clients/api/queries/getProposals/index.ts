@@ -10,7 +10,7 @@ const getProposals = async ({
   limit = 5,
   accountAddress = '',
 }: GetProposalsInput): Promise<GetProposalsOutput> => {
-  const response = await restService<ProposalsApiResponse, 'v2'>({
+  const response = await restService<ProposalsApiResponse>({
     endpoint: '/governance/proposals',
     method: 'GET',
     next: true,

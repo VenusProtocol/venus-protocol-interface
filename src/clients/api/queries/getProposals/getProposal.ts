@@ -7,7 +7,7 @@ const getProposal = async ({
   proposalId,
   accountAddress = '',
 }: GetProposalInput): Promise<GetProposalOutput> => {
-  const response = await restService<ProposalApiResponse, 'v2'>({
+  const response = await restService<ProposalApiResponse>({
     endpoint: `/governance/proposals/${proposalId}`,
     method: 'GET',
     next: true,

@@ -20,7 +20,7 @@ export interface GetMainMarketsOutput {
 }
 
 const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
-  const response = await restService<GetMainMarketsResponse, 'v2'>({
+  const response = await restService<GetMainMarketsResponse>({
     endpoint: '/markets/core-pool',
     method: 'GET',
     next: true,

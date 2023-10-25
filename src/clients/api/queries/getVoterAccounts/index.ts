@@ -24,7 +24,7 @@ const getVoterAccounts = async ({
   limit = 16,
   page = 0,
 }: GetVoterAccountsInput): Promise<GetVoterAccountsOutput> => {
-  const response = await restService<GetVoterAccountsResponse, 'v2'>({
+  const response = await restService<GetVoterAccountsResponse>({
     endpoint: '/governance/voters',
     method: 'GET',
     next: true,

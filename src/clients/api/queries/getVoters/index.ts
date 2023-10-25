@@ -13,7 +13,7 @@ const getVoters = async ({
   limit = 50,
   offset,
 }: GetVotersInput): Promise<GetVotersOutput> => {
-  const response = await restService<GetVotersApiResponse, 'v2'>({
+  const response = await restService<GetVotersApiResponse>({
     endpoint: '/governance/proposals/votes',
     method: 'GET',
     next: true,

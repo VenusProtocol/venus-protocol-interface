@@ -49,7 +49,7 @@ const getTransactions = async ({
   sort,
 }: GetTransactionsInput): Promise<GetTransactionsOutput> => {
   const orderWithSort = sort && order ? sort + order : order;
-  const response = await restService<GetTransactionsResponse, 'v2'>({
+  const response = await restService<GetTransactionsResponse>({
     endpoint: '/activity/transactions',
     method: 'GET',
     next: true,

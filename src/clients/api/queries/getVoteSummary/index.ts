@@ -9,7 +9,7 @@ export * from './types';
 const getVoteSummary = async ({
   proposalId,
 }: GetVoteSummaryInput): Promise<GetVoteSummaryOutput> => {
-  const response = await restService<GetVoteSummaryApiResponse, 'v2'>({
+  const response = await restService<GetVoteSummaryApiResponse>({
     endpoint: `/governance/proposals/${proposalId}/voteSummary`,
     method: 'GET',
     next: true,
