@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
 import { VBep20 } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import redeemUnderlying from '.';
 
@@ -10,12 +9,9 @@ vi.mock('errors/transactionErrors');
 
 const fakeAmount = new BigNumber('10000000000000000');
 
-describe('api/mutation/redeemUnderlying', () => {
+describe('redeemUnderlying', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const redeemUnderlyingMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const redeemUnderlyingMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       redeemUnderlying: redeemUnderlyingMock,
@@ -26,12 +22,8 @@ describe('api/mutation/redeemUnderlying', () => {
       amountWei: fakeAmount,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
     expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForTokenTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForTokenTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

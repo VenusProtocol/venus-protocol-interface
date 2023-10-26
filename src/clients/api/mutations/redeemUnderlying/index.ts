@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { VBep20, VBnb } from 'packages/contracts';
 
 export interface RedeemUnderlyingInput {
@@ -8,16 +7,12 @@ export interface RedeemUnderlyingInput {
   amountWei: BigNumber;
 }
 
-export type RedeemUnderlyingOutput = ContractReceipt;
+export type RedeemUnderlyingOutput = ContractTransaction;
 
 const redeemUnderlying = async ({
   vTokenContract,
   amountWei,
-}: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> => {
-  const transaction = await vTokenContract.redeemUnderlying(amountWei.toFixed());
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForTokenTransactionError(receipt);
-};
+}: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> =>
+  vTokenContract.redeemUnderlying(amountWei.toFixed());
 
 export default redeemUnderlying;

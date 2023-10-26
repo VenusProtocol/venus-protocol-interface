@@ -20,7 +20,6 @@ import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
 describe('SupplyForm', () => {

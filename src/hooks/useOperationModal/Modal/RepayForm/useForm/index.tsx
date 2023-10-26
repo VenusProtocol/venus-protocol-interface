@@ -1,11 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { ContractReceipt } from 'ethers';
+import { displayMutationError } from 'errors';
 import { useEffect } from 'react';
-import { useTranslation } from 'translation';
 import { Swap, SwapError, Token, VToken } from 'types';
-import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertWeiToTokens } from 'utilities';
 
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useIsMounted from 'hooks/useIsMounted';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
@@ -22,7 +20,7 @@ export interface UseFormInput {
     fromTokenAmountTokens: string;
     swap?: Swap;
     fixedRepayPercentage?: number;
-  }) => Promise<ContractReceipt>;
+  }) => Promise<unknown>;
   onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
@@ -55,9 +53,6 @@ const useForm = ({
 }: UseFormInput): UseFormOutput => {
   const isMounted = useIsMounted();
 
-  const { t } = useTranslation();
-  const handleTransactionMutation = useHandleTransactionMutation();
-
   const { isFormValid, formError } = useFormValidation({
     toToken: toVToken.underlyingToken,
     formValues,
@@ -76,49 +71,24 @@ const useForm = ({
       return;
     }
 
-    let amountWei: BigNumber;
+    try {
+      await onSubmit({
+        toVToken,
+        fromTokenAmountTokens: formValues.amountTokens,
+        fromToken: formValues.fromToken,
+        fixedRepayPercentage: formValues.fixedRepayPercentage,
+        swap,
+      });
 
-    await handleTransactionMutation({
-      mutate: async () => {
-        const contractReceipt = await onSubmit({
-          toVToken,
-          fromTokenAmountTokens: formValues.amountTokens,
-          fromToken: formValues.fromToken,
-          fixedRepayPercentage: formValues.fixedRepayPercentage,
-          swap,
-        });
-
-        if (swap) {
-          amountWei =
-            swap?.direction === 'exactAmountIn'
-              ? swap.expectedToTokenAmountReceivedWei
-              : swap.toTokenAmountReceivedWei;
-        } else {
-          amountWei = convertTokensToWei({
-            value: new BigNumber(formValues.amountTokens.trim()),
-            token: formValues.fromToken,
-          });
-        }
-
-        // Reset form and close modal on success only
-        setFormValues(() => ({
-          fromToken: toVToken.underlyingToken,
-          amountTokens: '',
-        }));
-        onCloseModal();
-
-        return contractReceipt;
-      },
-      successTransactionModalProps: contractReceipt => ({
-        title: t('operationModal.repay.successfulTransactionModal.title'),
-        content: t('operationModal.repay.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          token: toVToken.underlyingToken,
-        },
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+      // Reset form and close modal on success only
+      setFormValues(() => ({
+        fromToken: toVToken.underlyingToken,
+        amountTokens: '',
+      }));
+      onCloseModal();
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   // If user selected a fixed percentage of their loan to repay, we manually
