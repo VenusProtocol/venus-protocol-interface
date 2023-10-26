@@ -1,6 +1,7 @@
 import {
   useGetMainPoolComptrollerContractAddress,
   useGetPoolLensContract,
+  useGetPrimeContract,
   useGetResilientOracleContract,
   useGetVaiVaultContract,
   useGetVenusLensContract,
@@ -12,6 +13,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import getPendingRewardGroups from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
@@ -49,6 +51,11 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
   const poolLensContract = useGetPoolLensContract();
   const vaiVaultContract = useGetVaiVaultContract();
   const xvsVaultContract = useGetXvsVaultContract();
+  const primeContract = useGetPrimeContract();
+
+  const isPrimeEnabled = useIsFeatureEnabled({
+    name: 'prime',
+  });
 
   const tokens = useGetTokens();
 
@@ -94,6 +101,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
             xvsVestingVaultPoolCount,
             tokens,
+            primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,
             ...params,
           }),

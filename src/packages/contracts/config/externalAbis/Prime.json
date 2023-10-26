@@ -32,6 +32,7 @@
     "name": "InvalidFraction",
     "type": "error"
   },
+  { "inputs": [], "name": "InvalidLength", "type": "error" },
   { "inputs": [], "name": "InvalidLimit", "type": "error" },
   { "inputs": [], "name": "InvalidVToken", "type": "error" },
   {
@@ -242,6 +243,15 @@
   },
   {
     "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "StakedAtUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
     "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }],
     "name": "TokenUpgraded",
     "type": "event"
@@ -252,15 +262,6 @@
       { "indexed": false, "internalType": "address", "name": "account", "type": "address" }
     ],
     "name": "Unpaused",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "comptroller", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "asset", "type": "address" }
-    ],
-    "name": "UpdatedAssetsState",
     "type": "event"
   },
   {
@@ -462,15 +463,16 @@
   },
   {
     "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
-    "name": "getPendingInterests",
+    "name": "getPendingRewards",
     "outputs": [
       {
         "components": [
-          { "internalType": "address", "name": "market", "type": "address" },
+          { "internalType": "address", "name": "vToken", "type": "address" },
+          { "internalType": "address", "name": "rewardToken", "type": "address" },
           { "internalType": "uint256", "name": "amount", "type": "uint256" }
         ],
-        "internalType": "struct PrimeStorageV1.PendingInterest[]",
-        "name": "pendingInterests",
+        "internalType": "struct PrimeStorageV1.PendingReward[]",
+        "name": "pendingRewards",
         "type": "tuple[]"
       }
     ],
@@ -479,17 +481,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_xvsVault", "type": "address" },
-      { "internalType": "address", "name": "_xvsVaultRewardToken", "type": "address" },
-      { "internalType": "uint256", "name": "_xvsVaultPoolId", "type": "uint256" },
-      { "internalType": "uint128", "name": "_alphaNumerator", "type": "uint128" },
-      { "internalType": "uint128", "name": "_alphaDenominator", "type": "uint128" },
-      { "internalType": "address", "name": "_accessControlManager", "type": "address" },
-      { "internalType": "address", "name": "_protocolShareReserve", "type": "address" },
-      { "internalType": "address", "name": "_primeLiquidityProvider", "type": "address" },
-      { "internalType": "address", "name": "_comptroller", "type": "address" },
-      { "internalType": "address", "name": "_oracle", "type": "address" },
-      { "internalType": "uint256", "name": "_loopsLimit", "type": "uint256" }
+      { "internalType": "address", "name": "xvsVault_", "type": "address" },
+      { "internalType": "address", "name": "xvsVaultRewardToken_", "type": "address" },
+      { "internalType": "uint256", "name": "xvsVaultPoolId_", "type": "uint256" },
+      { "internalType": "uint128", "name": "alphaNumerator_", "type": "uint128" },
+      { "internalType": "uint128", "name": "alphaDenominator_", "type": "uint128" },
+      { "internalType": "address", "name": "accessControlManager_", "type": "address" },
+      { "internalType": "address", "name": "primeLiquidityProvider_", "type": "address" },
+      { "internalType": "address", "name": "comptroller_", "type": "address" },
+      { "internalType": "address", "name": "oracle_", "type": "address" },
+      { "internalType": "uint256", "name": "loopsLimit_", "type": "uint256" }
     ],
     "name": "initialize",
     "outputs": [],
@@ -610,13 +611,6 @@
   },
   {
     "inputs": [],
-    "name": "protocolShareReserve",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -642,6 +636,23 @@
       { "internalType": "uint256", "name": "_revocableLimit", "type": "uint256" }
     ],
     "name": "setLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "loopsLimit", "type": "uint256" }],
+    "name": "setMaxLoopsLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address[]", "name": "users", "type": "address[]" },
+      { "internalType": "uint256[]", "name": "timestamps", "type": "uint256[]" }
+    ],
+    "name": "setStakedAt",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -706,28 +717,11 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "unreleasedPSRIncome",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "uint128", "name": "_alphaNumerator", "type": "uint128" },
       { "internalType": "uint128", "name": "_alphaDenominator", "type": "uint128" }
     ],
     "name": "updateAlpha",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_comptroller", "type": "address" },
-      { "internalType": "address", "name": "asset", "type": "address" }
-    ],
-    "name": "updateAssetsState",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -762,6 +756,27 @@
     "name": "xvsUpdated",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "xvsVault",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "xvsVaultPoolId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "xvsVaultRewardToken",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

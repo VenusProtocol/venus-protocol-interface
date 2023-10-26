@@ -21,6 +21,7 @@ const getPendingRewards = async ({
   poolLensContract,
   vaiVaultContract,
   xvsVaultContract,
+  primeContract,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
   const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
 
@@ -72,12 +73,35 @@ const getPendingRewards = async ({
     xvsVestingVaultPendingWithdrawalsBeforeUpgradePromises,
   );
 
+  const primePromises = Promise.allSettled([
+    primeContract?.paused(),
+    primeContract?.getAllMarkets(),
+    primeContract?.callStatic.getPendingRewards(accountAddress),
+  ]);
+
   const [vaiVaultPendingXvsResult, venusLensPendingRewardsResult] = await vaiVaultVenusLensPromises;
   const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
   const xvsVestingVaultPoolInfosResults = await xvsVestingVaultPoolInfosSettledPromises;
   const xvsVestingVaultPendingRewardResults = await xvsVestingVaultPendingRewardSettledPromises;
   const xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults =
     await xvsVestingVaultPendingWithdrawalsBeforeUpgradeSettledPromises;
+  const [isPrimeContractPausedResult, primeVTokenAddressesResults, pendingInterests] =
+    await primePromises;
+  const isPrimeContractPaused = extractSettledPromiseValue(isPrimeContractPausedResult) ?? false;
+
+  console.log(isPrimeContractPaused);
+  const res = extractSettledPromiseValue(pendingInterests);
+
+  console.log(res);
+
+  // DEV ONLY
+  // const isPrimeContractPaused = false;
+  // END DEV ONLY
+
+  let primeVTokenAddresses = !isPrimeContractPaused
+    ? extractSettledPromiseValue(primeVTokenAddressesResults)
+    : [];
+  primeVTokenAddresses = primeVTokenAddresses || [];
 
   const isolatedPoolRewardTokenAddresses = isolatedPoolsPendingRewardsResults.reduce<string[]>(
     (acc, isolatedPoolsPendingRewardsResult) => {
@@ -98,11 +122,32 @@ const getPendingRewards = async ({
     xvsTokenAddress,
     ...isolatedPoolRewardTokenAddresses,
   ]);
-  const rewardTokenPricesResults = await Promise.allSettled(
+  const rewardTokenPricesPromises = Promise.allSettled(
     rewardTokenAddresses.map(rewardTokenAddress =>
       resilientOracleContract.getPrice(rewardTokenAddress),
     ),
   );
+
+  const primeVTokenUnderlyingPricesPromises = Promise.allSettled(
+    primeVTokenAddresses.map(primeVTokenAddress =>
+      resilientOracleContract.getUnderlyingPrice(primeVTokenAddress),
+    ),
+  );
+
+  const primePendingRewardAmountsPromises = primeContract
+    ? Promise.allSettled(
+        primeVTokenAddresses.map(primeVTokenAddress =>
+          primeContract.callStatic['claimInterest(address,address)'](
+            primeVTokenAddress,
+            accountAddress,
+          ),
+        ),
+      )
+    : undefined;
+
+  const rewardTokenPricesResults = await rewardTokenPricesPromises;
+  const primePendingRewardAmountsResults = await primePendingRewardAmountsPromises;
+  const primeVTokenUnderlyingPricesResults = await primeVTokenUnderlyingPricesPromises;
 
   const tokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
     [address: string]: BigNumber;
@@ -147,6 +192,9 @@ const getPendingRewards = async ({
     xvsVestingVaultPendingWithdrawalsBeforeUpgrade:
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     tokenPriceMapping,
+    primeVTokenAddresses,
+    primeVTokenUnderlyingPrices: primeVTokenUnderlyingPricesResults.map(extractSettledPromiseValue),
+    primePendingRewardAmounts: primePendingRewardAmountsResults?.map(extractSettledPromiseValue),
   });
 
   return {

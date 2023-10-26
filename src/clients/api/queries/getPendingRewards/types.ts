@@ -1,5 +1,12 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
+import {
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  VaiVault,
+  VenusLens,
+  XvsVault,
+} from 'packages/contracts';
 import { Token } from 'types';
 
 export interface GetPendingRewardsInput {
@@ -12,6 +19,7 @@ export interface GetPendingRewardsInput {
   vaiVaultContract: VaiVault;
   xvsVaultContract: XvsVault;
   venusLensContract?: VenusLens;
+  primeContract?: Prime;
   mainPoolComptrollerContractAddress?: string;
 }
 
@@ -59,8 +67,16 @@ export interface XvsVestingVaultPendingRewardGroup {
   rewardAmountCents: BigNumber | undefined;
 }
 
+export interface PrimePendingRewardGroup {
+  type: 'prime';
+  rewardToken: Token;
+  rewardAmountWei: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
+}
+
 export type PendingRewardGroup =
   | MainPoolPendingRewardGroup
   | IsolatedPoolPendingRewardGroup
   | VaultPendingRewardGroup
-  | XvsVestingVaultPendingRewardGroup;
+  | XvsVestingVaultPendingRewardGroup
+  | PrimePendingRewardGroup;
