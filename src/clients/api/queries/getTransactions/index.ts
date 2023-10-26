@@ -11,8 +11,8 @@ export interface GetTransactionsInput {
   defaultToken: Token;
   page?: number;
   event?: TransactionEvent;
-  address?: string;
-  sort?: 'desc' | 'asc';
+  from?: string;
+  sort?: '+';
   order?:
     | 'id'
     | 'event'
@@ -20,7 +20,7 @@ export interface GetTransactionsInput {
     | 'blockNumber'
     | 'from'
     | 'to'
-    | 'amount'
+    | 'amountMantissa'
     | 'createdAt';
 }
 
@@ -44,23 +44,23 @@ const getTransactions = async ({
   defaultToken,
   page = 0,
   event,
-  address,
-  order = 'blockNumber',
-  sort = 'desc',
+  from,
+  order,
+  sort,
 }: GetTransactionsInput): Promise<GetTransactionsOutput> => {
+  const orderWithSort = sort && order ? sort + order : order;
   const response = await restService<GetTransactionsResponse>({
     endpoint: '/activity/transactions',
     method: 'GET',
+    next: true,
     params: {
       page,
       event,
-      address,
-      order,
-      sort,
-      version: 'v2',
+      from,
+      order: orderWithSort,
     },
   });
-  const payload = response.data?.data;
+  const payload = response.data;
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
     throw new VError({
@@ -74,10 +74,9 @@ const getTransactions = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.reduce((acc, data) => {
-    const transaction = formatTransaction({ data, vTokens, tokens, defaultToken });
-    return [...acc, transaction];
-  }, [] as Transaction[]);
+  const transactions = payload.result.map(data =>
+    formatTransaction({ data, vTokens, defaultToken, tokens }),
+  );
 
   return { limit, page: payloadPage, total, transactions };
 };

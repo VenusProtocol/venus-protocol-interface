@@ -1,5 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import React from 'react';
+import { ProposalState } from 'types';
 
 import proposals from '__mocks__/models/proposals';
 import { withCenterStory } from 'stories/decorators';
@@ -18,7 +19,7 @@ export const Pending = Template.bind({});
 Pending.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Pending',
+  state: ProposalState.Pending,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000000700),
@@ -29,7 +30,7 @@ export const Active = Template.bind({});
 Active.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Active,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -40,7 +41,7 @@ export const Defeated = Template.bind({});
 Defeated.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Active,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -51,7 +52,7 @@ export const Succeeded = Template.bind({});
 Succeeded.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Active,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -62,7 +63,7 @@ export const Canceled = Template.bind({});
 Canceled.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Canceled,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -73,7 +74,7 @@ export const Expired = Template.bind({});
 Expired.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Expired,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -84,7 +85,7 @@ export const Queued = Template.bind({});
 Queued.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Queued,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),
@@ -95,7 +96,7 @@ export const Executed = Template.bind({});
 Executed.args = {
   createdDate: proposals[0].createdDate,
   cancelDate: undefined,
-  state: 'Active',
+  state: ProposalState.Executed,
   startDate: undefined,
   executedDate: undefined,
   endDate: new Date(1654000009000),

@@ -14,15 +14,15 @@ describe('api/queries/getTransactions', () => {
   it('returns transaction models', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
+      data: { result: transactionResponse, limit: 20, page: 1, total: 40 },
     }));
 
     const { transactions } = await getTransactions({
       page: 2,
       event: 'Withdraw',
       order: 'event',
-      address: fakeAddress,
-      sort: 'asc',
+      from: fakeAddress,
+      sort: '+',
       vTokens,
       tokens,
       defaultToken: xvs,
@@ -31,13 +31,12 @@ describe('api/queries/getTransactions', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/activity/transactions',
       method: 'GET',
+      next: true,
       params: {
         page: 2,
         event: 'Withdraw',
-        order: 'event',
-        address: fakeAddress,
-        sort: 'asc',
-        version: 'v2',
+        order: '+event',
+        from: fakeAddress,
       },
     });
 
@@ -47,7 +46,7 @@ describe('api/queries/getTransactions', () => {
   it('gets called with correct default arguments', async () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
+      data: { result: transactionResponse, limit: 20, page: 1, total: 40 },
     }));
 
     const { transactions } = await getTransactions({
@@ -61,13 +60,13 @@ describe('api/queries/getTransactions', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/activity/transactions',
       method: 'GET',
+      next: true,
       params: {
         page: 0,
         event: undefined,
-        order: 'blockNumber',
+        order: undefined,
         address: undefined,
-        sort: 'desc',
-        version: 'v2',
+        sort: undefined,
       },
     });
 

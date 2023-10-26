@@ -18,12 +18,13 @@ const marketSnapshot: MarketSnapshot = {
 };
 
 describe('api/queries/getMarketHistory', () => {
-  test('returns market history on success', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: { data: [marketSnapshot] } },
+  beforeEach(() => {
+    (restService as Vi.Mock).mockImplementation(async () => ({
+      data: { result: { data: [marketSnapshot] } },
     }));
+  });
 
+  test('returns market history on success', async () => {
     const response = await getMarketHistory({
       vToken: vBusd,
     });
@@ -34,19 +35,15 @@ describe('api/queries/getMarketHistory', () => {
   });
 
   test('calls correct endpoint when passing type params', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: { data: [marketSnapshot] } },
-    }));
-
     await getMarketHistory({
       vToken: vBusd,
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/markets/history?asset=${vBusd.address}&version=v2`,
+      endpoint: `/markets/history?asset=${vBusd.address}`,
       method: 'GET',
+      next: true,
     });
   });
 });

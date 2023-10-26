@@ -1,5 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
+import { ProposalState } from 'types';
 
 import { withCenterStory, withRouter, withThemeProvider } from 'stories/decorators';
 
@@ -19,10 +20,10 @@ export const Active = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Active"
-    forVotesWei={new BigNumber('500000000000000000')}
-    againstVotesWei={new BigNumber('2000000000000000000')}
-    abstainedVotesWei={new BigNumber('0')}
+    proposalState={ProposalState.Active}
+    forVotesMantissa={new BigNumber('500000000000000000')}
+    againstVotesMantissa={new BigNumber('2000000000000000000')}
+    abstainedVotesMantissa={new BigNumber('0')}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -34,7 +35,7 @@ export const Queued = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
-    proposalState="Queued"
+    proposalState={ProposalState.Queued}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -46,7 +47,7 @@ export const Pending = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Pending"
+    proposalState={ProposalState.Pending}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -58,7 +59,7 @@ export const Executed = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Executed"
+    proposalState={ProposalState.Executed}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -70,7 +71,7 @@ export const Cancelled = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Canceled"
+    proposalState={ProposalState.Canceled}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -83,7 +84,7 @@ export const Defeated = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Defeated"
+    proposalState={ProposalState.Defeated}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -96,7 +97,7 @@ export const Succeeded = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Succeeded"
+    proposalState={ProposalState.Succeeded}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}
@@ -109,7 +110,7 @@ export const Expired = () => (
   <VoteProposal
     proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
-    proposalState="Expired"
+    proposalState={ProposalState.Expired}
     endDate={new Date(1678859525000)}
     cancelDate={undefined}
     createdDate={new Date(1658899525000)}

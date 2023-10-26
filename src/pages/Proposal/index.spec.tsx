@@ -2,6 +2,7 @@ import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-li
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
+import { VoteSupport } from 'types';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -15,7 +16,6 @@ import {
   getProposalThreshold,
   getVoteReceipt,
   queueProposal,
-  useGetVoters,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import useVote from 'hooks/useVote';
@@ -61,7 +61,7 @@ describe('pages/Proposal', () => {
     );
 
     (getVoteReceipt as Vi.Mock).mockImplementation(() => ({
-      voteSupport: 'NOT_VOTED',
+      voteSupport: undefined,
     }));
     (getProposal as Vi.Mock).mockImplementation(() => activeProposal);
 
@@ -105,7 +105,7 @@ describe('pages/Proposal', () => {
 
   it('vote buttons are disabled when vote is cast', async () => {
     (getVoteReceipt as Vi.Mock).mockImplementation(() => ({
-      voteSupport: 'FOR',
+      voteSupport: VoteSupport.For,
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -231,11 +231,6 @@ describe('pages/Proposal', () => {
   });
 
   it('lists votes cast', async () => {
-    (useGetVoters as Vi.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
-      const votersCopy = _cloneDeep(voters);
-      votersCopy.result = [votersCopy.result[filter]];
-      return { data: votersCopy, isLoading: false };
-    });
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
@@ -317,7 +312,7 @@ describe('pages/Proposal', () => {
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.queueButton),
     );
     fireEvent.click(queueButton);
-    await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 95 }));
+    await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 94 }));
   });
 
   it('user can execute queued proposal', async () => {
@@ -331,6 +326,6 @@ describe('pages/Proposal', () => {
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.executeButton),
     );
     fireEvent.click(executeButton);
-    await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 98 }));
+    await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 93 }));
   });
 });

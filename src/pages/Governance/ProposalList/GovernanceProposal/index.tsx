@@ -39,7 +39,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
   const { t } = useTranslation();
 
   const statusContent: Record<
-    Exclude<ProposalState, 'Active'>,
+    Exclude<ProposalState, ProposalState.Active>,
     {
       iconWrapperCss: SerializedStyles;
       iconName: IconName;
@@ -48,38 +48,38 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
     }
   > = useMemo(
     () => ({
-      Queued: {
+      [ProposalState.Queued]: {
         iconWrapperCss: styles.iconDotsWrapper,
         iconName: 'dots',
         label: t('voteProposalUi.statusCard.queued'),
       },
-      Pending: {
+      [ProposalState.Pending]: {
         iconWrapperCss: styles.iconDotsWrapper,
         iconName: 'dots',
         label: t('voteProposalUi.statusCard.pending'),
       },
-      Executed: {
+      [ProposalState.Executed]: {
         iconWrapperCss: styles.iconMarkWrapper,
         iconName: 'mark',
         iconCss: styles.iconCheck,
         label: t('voteProposalUi.statusCard.executed'),
       },
-      Defeated: {
+      [ProposalState.Defeated]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.defeated'),
       },
-      Succeeded: {
+      [ProposalState.Succeeded]: {
         iconWrapperCss: styles.iconInfoWrapper,
         iconName: 'exclamation',
         label: t('voteProposalUi.statusCard.readyToQueue'),
       },
-      Expired: {
+      [ProposalState.Expired]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.expired'),
       },
-      Canceled: {
+      [ProposalState.Canceled]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
         label: t('voteProposalUi.statusCard.cancelled'),
@@ -87,7 +87,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
     }),
     [],
   );
-  if (state !== 'Active' && state) {
+  if (state !== undefined && state !== ProposalState.Active) {
     return (
       <>
         <div css={[styles.iconWrapper, statusContent[state].iconWrapperCss]}>
@@ -115,9 +115,9 @@ interface GovernanceProposalProps {
   queuedDate?: Date;
   executedDate?: Date;
   userVoteStatus?: VoteSupport;
-  forVotesWei?: BigNumber;
-  againstVotesWei?: BigNumber;
-  abstainedVotesWei?: BigNumber;
+  forVotesMantissa?: BigNumber;
+  againstVotesMantissa?: BigNumber;
+  abstainedVotesMantissa?: BigNumber;
   isUserConnected: boolean;
   proposalType: ProposalType;
   xvs?: Token;
@@ -133,9 +133,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   cancelDate,
   endDate,
   userVoteStatus,
-  forVotesWei,
-  againstVotesWei,
-  abstainedVotesWei,
+  forVotesMantissa,
+  againstVotesMantissa,
+  abstainedVotesMantissa,
   isUserConnected,
   proposalType,
   xvs,
@@ -145,34 +145,34 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
 
   const voteStatusText = useMemo(() => {
     switch (userVoteStatus) {
-      case 'FOR':
+      case VoteSupport.For:
         return t('voteProposalUi.voteStatus.votedFor');
-      case 'AGAINST':
+      case VoteSupport.Against:
         return t('voteProposalUi.voteStatus.votedAgainst');
-      case 'ABSTAIN':
+      case VoteSupport.Abstain:
         return t('voteProposalUi.voteStatus.abstained');
       default:
         return t('voteProposalUi.voteStatus.notVoted');
     }
   }, [userVoteStatus]);
 
-  const votedTotalWei = BigNumber.sum.apply(null, [
-    forVotesWei || 0,
-    againstVotesWei || 0,
-    abstainedVotesWei || 0,
+  const votedTotalMantissa = BigNumber.sum.apply(null, [
+    forVotesMantissa || 0,
+    againstVotesMantissa || 0,
+    abstainedVotesMantissa || 0,
   ]);
 
   const [statusDate, statusKey] = useMemo(() => {
     switch (proposalState) {
-      case 'Active':
+      case ProposalState.Active:
         return [endDate, 'voteProposalUi.activeUntilDate'];
-      case 'Canceled':
+      case ProposalState.Canceled:
         return [cancelDate, 'voteProposalUi.cancelledDate'];
-      case 'Executed':
+      case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
-      case 'Queued':
+      case ProposalState.Queued:
         return [queuedDate, 'voteProposalUi.queuedUntilDate'];
-      case 'Defeated':
+      case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
       default:
         return [undefined, undefined];
@@ -194,12 +194,12 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       }
       title={proposalTitle}
       contentRightItem={
-        proposalState === 'Active' ? (
+        proposalState === ProposalState.Active ? (
           <ActiveVotingProgress
-            votedForWei={forVotesWei}
-            votedAgainstWei={againstVotesWei}
-            abstainedWei={abstainedVotesWei}
-            votedTotalWei={votedTotalWei}
+            votedForMantissa={forVotesMantissa}
+            votedAgainstMantissa={againstVotesMantissa}
+            abstainedMantissa={abstainedVotesMantissa}
+            votedTotalMantissa={votedTotalMantissa}
             xvs={xvs}
           />
         ) : (
@@ -210,7 +210,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         statusDate && statusKey ? (
           <div css={styles.timestamp}>
             <Typography variant="small2">
-              {proposalState === 'Active' && (
+              {proposalState === ProposalState.Active && (
                 <div css={styles.greenPulseContainer}>
                   <img
                     src={greenPulseAnimation}

@@ -17,8 +17,9 @@ const getVoterDetails = async ({
   const response = await restService<GetVoterDetailsResponse>({
     endpoint: `/governance/voters/${address}/summary`,
     method: 'GET',
+    next: true,
   });
-  const payload = response.data?.data;
+  const payload = response.data;
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
     throw new VError({

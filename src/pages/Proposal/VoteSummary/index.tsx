@@ -17,8 +17,8 @@ import { useStyles } from './styles';
 interface VoteSummaryProps {
   label: string;
   progressBarColor: string;
-  votedValueWei?: BigNumber;
-  votedTotalWei?: BigNumber;
+  votedValueMantissa?: BigNumber;
+  votedTotalMantissa?: BigNumber;
   voters?: VotersDetails['result'];
   className?: string;
   votingEnabled: boolean;
@@ -30,8 +30,8 @@ const VoteSummary = ({
   openVoteModal,
   label,
   progressBarColor,
-  votedTotalWei = new BigNumber(0),
-  votedValueWei = new BigNumber(0),
+  votedTotalMantissa = new BigNumber(0),
+  votedValueMantissa = new BigNumber(0),
   voters = [],
   className,
   votingEnabled,
@@ -60,11 +60,11 @@ const VoteSummary = ({
         <div css={styles.labeledProgressBarContainer}>
           <LabeledProgressBar
             greyLeftText={label}
-            whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
-            value={votedValueWei.toNumber()}
+            whiteRightText={getVoteWeight(votedValueMantissa || new BigNumber(0))}
+            value={votedValueMantissa.toNumber()}
             min={0}
             // If there are no votes set a fallback to zero the progressbar
-            max={votedTotalWei.toNumber() || 100}
+            max={votedTotalMantissa.toNumber() || 100}
             step={1}
             ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
             progressBarColor={progressBarColor}
@@ -82,7 +82,7 @@ const VoteSummary = ({
       </div>
 
       <ul css={styles.votesWrapper}>
-        {voters.map(({ address, votesWei, reason }) => (
+        {voters.map(({ address, votesMantissa, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
               <Link
@@ -101,7 +101,7 @@ const VoteSummary = ({
 
             <Typography color="text.primary">
               {convertWeiToTokens({
-                valueWei: votesWei,
+                valueWei: votesMantissa,
                 token: xvs,
                 addSymbol: false,
                 returnInReadableFormat: true,

@@ -12,10 +12,10 @@ import { useStyles } from './styles';
 
 interface ActiveVotingProgressProps {
   xvs?: Token;
-  votedForWei?: BigNumber;
-  votedAgainstWei?: BigNumber;
-  abstainedWei?: BigNumber;
-  votedTotalWei?: BigNumber;
+  votedForMantissa?: BigNumber;
+  votedAgainstMantissa?: BigNumber;
+  abstainedMantissa?: BigNumber;
+  votedTotalMantissa?: BigNumber;
 }
 
 const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs?: Token }) =>
@@ -29,10 +29,10 @@ const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs
 
 export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   xvs,
-  votedForWei,
-  votedAgainstWei,
-  abstainedWei,
-  votedTotalWei,
+  votedForMantissa,
+  votedAgainstMantissa,
+  abstainedMantissa,
+  votedTotalMantissa,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -48,12 +48,12 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'for',
         label: t('vote.for'),
-        value: getValueString({ valueMantissa: votedForWei, xvs }),
+        value: getValueString({ valueMantissa: votedForMantissa, xvs }),
         progressBarProps: {
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
           value:
-            votedForWei
-              ?.dividedBy(votedTotalWei || 0)
+            votedForMantissa
+              ?.dividedBy(votedTotalMantissa || 0)
               .times(100)
               .toNumber() || 0,
         },
@@ -61,13 +61,13 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'against',
         label: t('vote.against'),
-        value: getValueString({ valueMantissa: votedAgainstWei, xvs }),
+        value: getValueString({ valueMantissa: votedAgainstMantissa, xvs }),
         progressBarProps: {
           successColor: PALETTE.interactive.error50,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
           value:
-            votedAgainstWei
-              ?.dividedBy(votedTotalWei || 0)
+            votedAgainstMantissa
+              ?.dividedBy(votedTotalMantissa || 0)
               .times(100)
               .toNumber() || 0,
         },
@@ -75,19 +75,19 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
       {
         id: 'abstain',
         label: t('vote.abstain'),
-        value: getValueString({ valueMantissa: abstainedWei, xvs }),
+        value: getValueString({ valueMantissa: abstainedMantissa, xvs }),
         progressBarProps: {
           successColor: PALETTE.text.secondary,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
           value:
-            abstainedWei
-              ?.dividedBy(votedTotalWei || 0)
+            abstainedMantissa
+              ?.dividedBy(votedTotalMantissa || 0)
               .times(100)
               .toNumber() || 0,
         },
       },
     ],
-    [votedForWei, votedAgainstWei, abstainedWei, xvs],
+    [votedForMantissa, votedAgainstMantissa, abstainedMantissa, xvs],
   );
 
   return (

@@ -1,14 +1,29 @@
 import config from 'config';
+import { logError } from 'errors';
 import _isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
 
 interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
-  token?: string | null;
   next?: boolean;
+  token?: string | null;
   params?: Record<string, unknown>;
 }
+
+interface ApiErrorResponse {
+  status: boolean;
+  data: undefined;
+  result: 'error';
+  message: string;
+}
+
+type ApiResponse<D> =
+  | {
+      status: number;
+      data: D | undefined;
+    }
+  | ApiErrorResponse;
 
 const createQueryParams = (params: Record<string, unknown>) => {
   const paramArray = Object.entries(params).map(([key, value]) => {
@@ -26,23 +41,17 @@ export async function restService<D>({
   params,
   token = null,
   next = false,
-}: RestServiceInput): Promise<
-  | {
-      status: number;
-      data: { data: D; status: boolean } | undefined;
-    }
-  | {
-      status: boolean;
-      data: undefined;
-      result: 'error';
-      message: string;
-    }
-> {
+}: RestServiceInput): Promise<ApiResponse<D>> {
   const headers = {};
   let path = `${config.apiUrl}${endpoint}`;
 
   _set(headers, 'Accept', 'application/json');
-  _set(headers, 'Content-Type', 'application/json');
+
+  if (next) {
+    _set(headers, 'Accept-Version', 'next');
+  } else {
+    _set(headers, 'Accept-Version', 'stable');
+  }
 
   if (next) {
     _set(headers, 'Accept-Version', 'next');
@@ -74,6 +83,10 @@ export async function restService<D>({
 
       try {
         data = await response.json();
+        const warning = response.headers.get('Warning');
+        if (warning) {
+          logError(warning);
+        }
       } catch (error) {
         // Do nothing
       }

@@ -23,9 +23,9 @@ interface VoterProposalProps {
   proposalTitle: string;
   proposalState: ProposalState;
   userVoteStatus?: VoteSupport;
-  forVotesWei?: BigNumber;
-  againstVotesWei?: BigNumber;
-  abstainedVotesWei?: BigNumber;
+  forVotesMantissa?: BigNumber;
+  againstVotesMantissa?: BigNumber;
+  abstainedVotesMantissa?: BigNumber;
   endDate: Date | undefined;
   createdDate: Date | undefined;
   cancelDate: Date | undefined;
@@ -40,9 +40,9 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   proposalTitle,
   proposalState,
   userVoteStatus,
-  forVotesWei,
-  againstVotesWei,
-  abstainedVotesWei,
+  forVotesMantissa,
+  againstVotesMantissa,
+  abstainedVotesMantissa,
   createdDate,
   cancelDate,
   queuedDate,
@@ -54,26 +54,26 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
   const { t, Trans } = useTranslation();
   const voteChipText = useMemo(() => {
     switch (userVoteStatus) {
-      case 'FOR':
+      case VoteSupport.For:
         return <ActiveChip text={t('voteProposalUi.voteStatus.votedFor')} />;
-      case 'AGAINST':
+      case VoteSupport.Against:
         return <ErrorChip text={t('voteProposalUi.voteStatus.votedAgainst')} />;
-      case 'ABSTAIN':
+      case VoteSupport.Abstain:
         return <InactiveChip text={t('voteProposalUi.voteStatus.abstained')} />;
       default:
         return <Typography variant="small2">{t('voteProposalUi.voteStatus.notVoted')}</Typography>;
     }
   }, [userVoteStatus]);
 
-  const votedTotalWei = BigNumber.sum.apply(null, [
-    forVotesWei || 0,
-    againstVotesWei || 0,
-    abstainedVotesWei || 0,
+  const votedTotalMantissa = BigNumber.sum.apply(null, [
+    forVotesMantissa || 0,
+    againstVotesMantissa || 0,
+    abstainedVotesMantissa || 0,
   ]);
 
   const [stateChip, stateTimestamp] = useMemo(() => {
     switch (proposalState) {
-      case 'Active':
+      case ProposalState.Active:
         return [
           <ActiveChip text={t('voteProposalUi.proposalState.active')} />,
           createdDate && (
@@ -88,7 +88,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Canceled':
+      case ProposalState.Canceled:
         return [
           <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />,
           cancelDate && (
@@ -103,7 +103,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Succeeded':
+      case ProposalState.Succeeded:
         return [
           <ActiveChip text={t('voteProposalUi.proposalState.passed')} />,
           endDate && (
@@ -118,7 +118,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Queued':
+      case ProposalState.Queued:
         return [
           <InactiveChip text={t('voteProposalUi.proposalState.queued')} />,
           queuedDate && (
@@ -133,7 +133,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Defeated':
+      case ProposalState.Defeated:
         return [
           <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />,
           endDate && (
@@ -148,7 +148,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Expired':
+      case ProposalState.Expired:
         return [
           <ErrorChip text={t('voteProposalUi.proposalState.expired')} />,
           endDate && (
@@ -163,7 +163,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
             />
           ),
         ];
-      case 'Executed':
+      case ProposalState.Executed:
         return [
           <BlueChip text={t('voteProposalUi.proposalState.executed')} />,
           executedDate && (
@@ -199,11 +199,11 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
       }
       contentRightItem={
         <ActiveVotingProgress
-          votedForWei={forVotesWei}
-          votedAgainstWei={againstVotesWei}
-          abstainedWei={abstainedVotesWei}
-          votedTotalWei={votedTotalWei}
           xvs={xvs}
+          votedForMantissa={forVotesMantissa}
+          votedAgainstMantissa={againstVotesMantissa}
+          abstainedMantissa={abstainedVotesMantissa}
+          votedTotalMantissa={votedTotalMantissa}
         />
       }
     />

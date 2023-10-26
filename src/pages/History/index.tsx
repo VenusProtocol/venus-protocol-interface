@@ -68,7 +68,7 @@ const History: React.FC = () => {
     isPreviousData: isGetTransactionsPreviousData,
   } = useGetTransactions({
     page: currentPage,
-    address: showOnlyMyTxns ? accountAddress : undefined,
+    from: showOnlyMyTxns ? accountAddress : undefined,
     event: eventType !== ALL_VALUE ? eventType : undefined,
   });
 
