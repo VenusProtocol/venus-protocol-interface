@@ -10,7 +10,7 @@ export type GetUniqueContractAddressInput = {
 export const getUniqueContractAddress = ({ name, chainId }: GetUniqueContractAddressInput) => {
   const contractAddresses = addresses[name];
 
-  return Object.hasOwn(contractAddresses, chainId)
+  return Object.prototype.hasOwnProperty.call(contractAddresses, chainId)
     ? contractAddresses[chainId as keyof typeof contractAddresses]
     : undefined;
 };

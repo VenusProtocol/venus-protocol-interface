@@ -37,7 +37,7 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
     ([_uniqueContractName, address]) => {
       let contractAddress;
 
-      if (Object.hasOwn(address, chainId)) {
+      if (Object.prototype.hasOwnProperty.call(address, chainId)) {
         contractAddress = address[chainId as keyof typeof address];
       }
 
