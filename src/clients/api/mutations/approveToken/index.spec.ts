@@ -8,7 +8,7 @@ import approveToken from '.';
 
 describe('approveToken', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const approveTokenMock = vi.fn(() => fakeContractTransaction);
+    const approveTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       approve: approveTokenMock,
