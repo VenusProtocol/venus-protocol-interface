@@ -7,7 +7,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import FunctionKey from 'constants/functionKey';
 
 import { useSendTransaction } from '..';
-import { useTrackTransaction } from '../useTrackTransaction';
+import { CONFIRMATIONS, useTrackTransaction } from '../useTrackTransaction';
 
 vi.mock('react-query');
 vi.mock('../useTrackTransaction');
@@ -101,6 +101,6 @@ describe('useSendTransaction', () => {
     });
 
     expect(fakeContractTransaction.wait).toHaveBeenCalledTimes(1);
-    expect(fakeContractTransaction.wait).toHaveBeenCalledWith(1);
+    expect(fakeContractTransaction.wait).toHaveBeenCalledWith(CONFIRMATIONS);
   });
 });

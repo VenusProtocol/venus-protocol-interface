@@ -2,7 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import React from 'react';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
@@ -15,9 +14,7 @@ import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceWei } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
-
-describe('hooks/useSupplyWithdrawModal/Withdraw', () => {
+describe('WithdrawForm', () => {
   it('submit button is disabled with no amount', async () => {
     renderComponent(<Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />, {
       authContextValue: {

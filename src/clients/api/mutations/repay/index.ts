@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
-import { ContractReceipt, Signer } from 'ethers';
+import { ContractTransaction, Signer } from 'ethers';
 import { Maximillion, VBnb, getVTokenContract } from 'packages/contracts';
 import { VToken } from 'types';
 import { callOrThrow } from 'utilities';
@@ -15,7 +14,7 @@ export interface RepayInput {
   maximillionContract?: Maximillion;
 }
 
-export type RepayOutput = ContractReceipt;
+export type RepayOutput = ContractTransaction;
 
 export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
 
@@ -49,25 +48,20 @@ const repay = async ({
   if (!vToken.underlyingToken.isNative) {
     const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
 
-    const transaction = await vTokenContract.repayBorrow(
+    return vTokenContract.repayBorrow(
       isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed(),
     );
-    const receipt = await transaction.wait(1);
-    // TODO: remove check once this function has been refactored to use useSendTransaction hook
-    return checkForTokenTransactionError(receipt);
   }
 
   // Handle repaying full BNB loan
   if (isRepayingFullLoan) {
-    const transaction = await callOrThrow({ maximillionContract, signer }, params =>
+    return callOrThrow({ maximillionContract, signer }, params =>
       repayFullBnbLoan({
         amountWei,
         vToken,
         ...params,
       }),
     );
-
-    return transaction.wait(1);
   }
 
   // Handle repaying partial BNB loan
@@ -76,10 +70,9 @@ const repay = async ({
     signerOrProvider: signer,
   }) as VBnb;
 
-  const transaction = await vBnbContract.repayBorrow({
+  return vBnbContract.repayBorrow({
     value: amountWei.toFixed(),
   });
-  return transaction.wait(1);
 };
 
 export default repay;

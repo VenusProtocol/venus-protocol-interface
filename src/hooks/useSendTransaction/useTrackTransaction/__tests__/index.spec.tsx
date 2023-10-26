@@ -18,7 +18,7 @@ import fakeProvider from '__mocks__/models/provider';
 import { useAuth } from 'context/AuthContext';
 import en from 'translation/translations/en.json';
 
-import { TIMEOUT_MS, useTrackTransaction } from '..';
+import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
 vi.mock('context/AuthContext');
@@ -69,7 +69,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
-      1,
+      CONFIRMATIONS,
       TIMEOUT_MS,
     );
 
@@ -128,7 +128,7 @@ describe('useTrackTransaction', () => {
       expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
       expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
         fakeContractTransaction.hash,
-        1,
+        CONFIRMATIONS,
         TIMEOUT_MS,
       );
 
@@ -177,7 +177,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
-      1,
+      CONFIRMATIONS,
       TIMEOUT_MS,
     );
 
@@ -220,7 +220,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
-      1,
+      CONFIRMATIONS,
       TIMEOUT_MS,
     );
 
