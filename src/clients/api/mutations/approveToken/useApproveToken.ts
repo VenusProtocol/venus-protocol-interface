@@ -13,7 +13,7 @@ const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
   const tokenContract = useGetTokenContract({ token, passSigner: true });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.APPROVE_TOKEN, { token }],
+    fnKey: [FunctionKey.APPROVE_TOKEN, { tokenAddress: token.address }],
     fn: (input: TrimmedApproveTokenInput) =>
       callOrThrow({ tokenContract }, params =>
         approveToken({

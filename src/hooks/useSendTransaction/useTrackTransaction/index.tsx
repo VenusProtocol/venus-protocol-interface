@@ -14,6 +14,7 @@ import { displayNotification, updateNotification } from 'utilities';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import { useAuth } from 'context/AuthContext';
 
+export const CONFIRMATIONS = 2;
 export const TIMEOUT_MS = BLOCK_TIME_MS * 10;
 
 interface TrackTransactionInput {
@@ -47,7 +48,7 @@ export const useTrackTransaction = () => {
     try {
       transactionReceipt = await provider.waitForTransaction(
         transaction.hash,
-        1, // Wait for 1 confirmation to declare transaction as confirmed
+        CONFIRMATIONS,
         TIMEOUT_MS,
       );
     } catch (error) {

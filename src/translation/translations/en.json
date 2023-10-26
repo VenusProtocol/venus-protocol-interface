@@ -4,7 +4,7 @@
       "tables": {
         "borrowTableTitle": "Borrowed assets",
         "supplyTableTitle": "Supplied assets",
-        "tabletBorrowTabTitle": "Borrow",
+        "tabletBorrowTabTitle": "Borrowed",
         "tabletSupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
       }

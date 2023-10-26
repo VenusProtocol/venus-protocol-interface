@@ -3,7 +3,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 
-import { useTrackTransaction } from './useTrackTransaction';
+import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
 export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown>>
   extends MutationObserverOptions<unknown, Error, TMutateInput> {
@@ -49,7 +49,7 @@ export const useSendTransaction = <TMutateInput extends Record<string, unknown>>
 
       if (options?.waitForConfirmation) {
         // Only return when transaction has been confirmed
-        await transaction.wait(1);
+        await transaction.wait(CONFIRMATIONS);
       }
     },
     options,

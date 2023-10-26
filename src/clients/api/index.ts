@@ -133,10 +133,6 @@ export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPer
 export * from './queries/getVaiTreasuryPercentage';
 export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 
-export { default as getMainAssetsInAccount } from './queries/getMainAssetsInAccount';
-export * from './queries/getMainAssetsInAccount';
-export { default as useGetMainAssetsInAccount } from './queries/getMainAssetsInAccount/useGetMainAssetsInAccount';
-
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
 

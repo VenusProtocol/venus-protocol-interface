@@ -29,7 +29,7 @@ const useExitMarket = (
         userSupplyBalanceTokens: userSupplyBalanceTokens.toNumber(),
       });
 
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_ASSETS_IN_ACCOUNT);
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_POOL);
       queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 
       if (options?.onSuccess) {
