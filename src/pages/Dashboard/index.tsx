@@ -1,4 +1,4 @@
-import { Link, NoticeWarning, Tag, TagGroup, TextField } from 'components';
+import { Tag, TagGroup, TextField } from 'components';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Pool } from 'types';
@@ -28,7 +28,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   searchValue,
   onSearchInputChange,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
@@ -59,20 +59,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
   return (
     <>
       {isPrimeEnabled ? <PrimePromotionalBanner /> : <ConnectWalletBanner />}
-
-      <NoticeWarning
-        className="mb-6"
-        description={
-          <Trans
-            i18nKey="dashboard.banner.busdForceLiquidations"
-            components={{
-              Link: (
-                <Link href="https://app.venus.io/#/governance/proposal/191" />
-              ),
-            }}
-          />
-        }
-      />
 
       <div className="mb-6 lg:flex lg:items-center lg:justify-between">
         <TextField
