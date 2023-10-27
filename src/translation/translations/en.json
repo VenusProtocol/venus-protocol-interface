@@ -178,10 +178,6 @@
   },
   "dashboard": {
     "allTag": "All",
-    "banner": {
-      "busdForceLiquidations": "Forced liquidations will be enabled in the BUSD market, on October 27th, 2023, after executing <Link>VIP-191</Link>"
-    },
-    "borrowTabTitle": "Borrow",
     "connectWalletBanner": {
       "buttonLabel": "Connect wallet",
       "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
@@ -200,8 +196,7 @@
     },
     "searchInput": {
       "placeholder": "Search asset"
-    },
-    "supplyTabTitle": "Supply"
+    }
   },
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked",
@@ -1055,9 +1050,7 @@
     "delegatingTo": "Delegating to",
     "holding": "Holding",
     "readableSent": "{{date, distanceToNow}} ago",
-    "receivedXvs": "Received XVS",
     "sent": "Sent",
-    "sentXvs": "Sent XVS",
     "transactions": "Transactions",
     "undelegated": "Undelegated",
     "venusBalance": "Venus balance",
