@@ -5,6 +5,7 @@ import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
 import PageSuspense from './PageSuspense';
+import { PAGE_CONTAINER_ID } from 'constants/layout';
 
 const Dashboard = lazy(() => import('pages/Dashboard'));
 const Account = lazy(() => import('pages/Account'));
@@ -31,7 +32,7 @@ const Router = () => {
 
   // Scroll to the top of the page on route change
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.getElementById(PAGE_CONTAINER_ID)?.scrollTo(0, 0);
   }, [location]);
 
   // Redirect to account page if user has already connected their wallet and is
