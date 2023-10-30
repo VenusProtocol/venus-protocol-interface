@@ -193,7 +193,7 @@ export const contracts: ContractConfig[] = [
     abi: PrimeAbi,
     address: {
       // TODO: get addresses from package once they've been added
-      [ChainId.BSC_TESTNET]: '0xDe0c98BeecA94bf9d5B87D025442F80c076A78D8',
+      [ChainId.BSC_TESTNET]: '0x6b808c703FEf99BdA96cd447Cde068E196E7aa08',
     },
   },
   // Generic Contracts

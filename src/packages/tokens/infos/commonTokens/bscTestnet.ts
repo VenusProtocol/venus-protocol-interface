@@ -30,6 +30,7 @@ import theLogo from 'packages/tokens/img/the.svg';
 import trxLogo from 'packages/tokens/img/trx.svg';
 import tusdLogo from 'packages/tokens/img/tusd.svg';
 import twtLogo from 'packages/tokens/img/twt.svg';
+import uniLogo from 'packages/tokens/img/uni.svg';
 import usdcLogo from 'packages/tokens/img/usdc.svg';
 import usddLogo from 'packages/tokens/img/usdd.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
@@ -323,5 +324,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'ANGLE',
     asset: angleLogo,
+  },
+  {
+    address: '0x8D2f061C75780d8D91c10A7230B907411aCBC8fC',
+    decimals: 18,
+    symbol: 'UNI',
+    asset: uniLogo,
   },
 ];
