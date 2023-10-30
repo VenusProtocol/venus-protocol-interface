@@ -24,6 +24,8 @@ export interface AccountDataProps {
   swap?: Swap;
 }
 
+// TODO: move to containers
+
 export const AccountData: React.FC<AccountDataProps> = ({
   asset,
   pool,
@@ -44,6 +46,8 @@ export const AccountData: React.FC<AccountDataProps> = ({
     hypotheticalPoolUserBorrowLimitCents,
     hypotheticalPoolUserBorrowLimitUsedPercentage,
     hypotheticalPoolUserDailyEarningsCents,
+    // hypotheticalUserBorrowPrimeApyPercentage,
+    // hypotheticalUserSupplyPrimeApyPercentage,
   } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
 
   const assetInfo = useAssetInfo({
