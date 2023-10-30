@@ -13,7 +13,7 @@ const NotificationCenter: React.FC = () => {
 
   return createPortal(
     <ul
-      className="fixed right-4 top-4 z-[9999] ml-4 max-h-full w-full max-w-[500px] md:right-6 md:top-6"
+      className="fixed right-0 top-0 z-[9999] max-h-full w-full max-w-[500px] p-4 md:p-6"
       data-testid={TEST_IDS.container}
     >
       <AnimatePresence mode="popLayout" initial={false}>
