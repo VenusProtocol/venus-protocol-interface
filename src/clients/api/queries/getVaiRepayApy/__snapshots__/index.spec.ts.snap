@@ -2,6 +2,6 @@
 
 exports[`api/queries/getVaiRepayApy > returns the VAI repay APY in the correct format on success 1`] = `
 {
-  "repayApyPercentage": "Infinity",
+  "repayApyPercentage": "1000000",
 }
 `;

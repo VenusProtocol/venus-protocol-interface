@@ -31,11 +31,16 @@ const useAssetInfo = ({ asset, type }: UseAssetInfoInput) => {
 
     const distributionRows = (
       type === 'borrow' ? asset.borrowDistributions : asset.supplyDistributions
-    ).map(distribution => ({
-      label: t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
-      iconSrc: distribution.token,
-      children: formatPercentageToReadableValue(distribution.apyPercentage),
-    }));
+    )
+      .filter(distribution => distribution.type !== 'primeSimulation')
+      .map(distribution => ({
+        label:
+          distribution.type === 'prime'
+            ? t('assetInfo.primeApy', { tokenSymbol: distribution.token.symbol })
+            : t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
+        iconSrc: distribution.token,
+        children: formatPercentageToReadableValue(distribution.apyPercentage),
+      }));
 
     const combinedDistributionApys = getCombinedDistributionApys({
       asset,

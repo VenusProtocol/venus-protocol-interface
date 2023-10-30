@@ -96,6 +96,7 @@
   "assetInfo": {
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
+    "primeApy": "Prime APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {
       "borrowApyTooltip": "Borrow APY - Distribution APYs",
@@ -393,7 +394,7 @@
       },
       "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
-        "tooltip": "Learn more about Prime <Link>here</Link>"
+        "tooltip": "Prime boost based on an average user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more about Prime</Link>"
       }
     },
     "columnKeys": {

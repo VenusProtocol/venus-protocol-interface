@@ -100,7 +100,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "400000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -111,7 +111,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -138,7 +138,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "1000000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -149,7 +149,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -199,7 +199,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "14880000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -210,7 +210,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -237,7 +237,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "18600000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -248,7 +248,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -298,7 +298,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "14880000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -309,7 +309,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -336,7 +336,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "18600000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -347,7 +347,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -397,7 +397,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "56000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -408,7 +408,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -435,7 +435,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "80000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -446,7 +446,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -485,7 +485,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "14880000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -496,7 +496,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -523,7 +523,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "18600000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -534,7 +534,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -584,7 +584,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "borrowCapTokens": "14880000",
           "borrowDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -595,7 +595,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -622,7 +622,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "supplyCapTokens": "18600000",
           "supplyDistributions": [
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -633,7 +633,7 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
               "type": "rewardDistributor",
             },
             {
-              "apyPercentage": "Infinity",
+              "apyPercentage": "1000000",
               "dailyDistributedTokens": "25.0000000000000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

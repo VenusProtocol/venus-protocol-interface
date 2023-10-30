@@ -171,6 +171,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.015310564979612374",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",
@@ -207,6 +212,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.753105649796123742",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",
@@ -291,6 +301,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.753105649796123742",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",
@@ -498,6 +513,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.015310564979612374",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",
@@ -534,6 +554,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.753105649796123742",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",
@@ -618,6 +643,11 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             },
             {
               "apyPercentage": "1.753105649796123742",
+              "referenceValues": {
+                "userBorrowBalanceTokens": "1000",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
+              },
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/packages/tokens/img/xvs.svg",

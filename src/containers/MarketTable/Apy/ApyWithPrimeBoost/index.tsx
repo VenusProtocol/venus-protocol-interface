@@ -6,41 +6,43 @@ import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReada
 
 export interface ApyWithPrimeBoostProps {
   type: 'supply' | 'borrow';
-  supplyApyPercentage: BigNumber;
-  borrowApyPercentage: BigNumber;
-  distributionsSupplyApyRewardsPercentage: BigNumber;
-  distributionsBorrowApyRewardsPercentage: BigNumber;
-  readableApy: string;
+  apyPercentage: BigNumber;
+  apyPercentageWithoutPrimeBoost: BigNumber;
   readableLtv: string;
 }
 
 export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   type,
-  supplyApyPercentage,
-  borrowApyPercentage,
-  distributionsSupplyApyRewardsPercentage,
-  distributionsBorrowApyRewardsPercentage,
-  readableApy,
+  apyPercentage,
+  apyPercentageWithoutPrimeBoost,
   readableLtv,
 }) => {
   const { t } = useTranslation();
 
+  const readableApy = useFormatPercentageToReadableValue({
+    value: apyPercentage,
+  });
+
   const readableApyWithoutPrime = useFormatPercentageToReadableValue({
-    value:
-      type === 'supply'
-        ? supplyApyPercentage.plus(distributionsSupplyApyRewardsPercentage)
-        : borrowApyPercentage.minus(distributionsBorrowApyRewardsPercentage),
+    value: apyPercentageWithoutPrimeBoost,
   });
 
   return (
-    <div className="align-start flex flex-col">
-      <div className="flex items-center lg:justify-end">
-        <p className="mr-1">
-          <span className="text-sm line-through">{readableApyWithoutPrime}</span>{' '}
-          <span className="text-base font-semibold text-green">{readableApy}</span>
+    <div>
+      <div className="whitespace-nowrap">
+        <p className="mr-1 inline-block align-middle">
+          <span className="inline-block align-baseline text-sm line-through">
+            {readableApyWithoutPrime}
+          </span>{' '}
+          <span className="inline-block align-baseline text-base font-semibold text-green">
+            {readableApy}
+          </span>
         </p>
 
-        <Tooltip className="inline-flex" title={t('marketTable.apy.primeBoost.tooltip')}>
+        <Tooltip
+          className="inline-block align-middle"
+          title={t('marketTable.apy.primeBoost.tooltip')}
+        >
           <Icon name="info" />
         </Tooltip>
       </div>

@@ -1,8 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Prime } from 'packages/contracts';
-import { calculateApy } from 'utilities';
-
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { convertAprToApy } from 'utilities';
 
 export interface GetHypotheticalPrimeApysInput {
   primeContract: Prime;
@@ -17,13 +15,6 @@ export interface GetHypotheticalPrimeApysOutput {
   supplyApyPercentage: BigNumber;
   borrowApyPercentage: BigNumber;
 }
-
-const convertAprToApy = ({ aprBips }: { aprBips: string }) => {
-  // Convert bips to daily rate
-  const dailyRate = new BigNumber(aprBips).div(1000).div(DAYS_PER_YEAR);
-  // Convert daily rate to APY
-  return calculateApy({ dailyRate });
-};
 
 const getHypotheticalPrimeApys = async ({
   primeContract,

@@ -1,5 +1,6 @@
 import {
   useGetMainPoolComptrollerContract,
+  useGetPrimeContract,
   useGetResilientOracleContract,
   useGetVaiControllerContract,
   useGetVenusLensContract,
@@ -11,6 +12,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import FunctionKey from 'constants/functionKey';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
@@ -42,11 +44,15 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const xvs = useGetToken({ symbol: 'XVS' });
   const vai = useGetToken({ symbol: 'VAI' });
   const tokens = useGetTokens();
+  const isPrimeEnabled = useIsFeatureEnabled({
+    name: 'prime',
+  });
 
   const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
   const venusLensContract = useGetVenusLensContract();
   const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
+  const primeContract = useGetPrimeContract();
 
   return useQuery(
     [FunctionKey.GET_MAIN_POOL, input],
@@ -65,6 +71,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
             name: t('mainPool.name'),
             description: t('mainPool.description'),
             tokens,
+            primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,
             ...params,
           }),

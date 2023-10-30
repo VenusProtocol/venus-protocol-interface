@@ -49,6 +49,11 @@ export interface PrimeSimulationDistribution {
   type: 'primeSimulation';
   token: Token;
   apyPercentage: BigNumber;
+  referenceValues: {
+    userSupplyBalanceTokens: BigNumber;
+    userBorrowBalanceTokens: BigNumber;
+    userXvsStakedTokens: BigNumber;
+  };
 }
 
 export type AssetDistribution =

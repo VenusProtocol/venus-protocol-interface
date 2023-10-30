@@ -1,4 +1,11 @@
-import { MainPoolComptroller, ResilientOracle, VaiController, VenusLens } from 'packages/contracts';
+import BigNumber from 'bignumber.js';
+import {
+  MainPoolComptroller,
+  Prime,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'packages/contracts';
 import { Pool, Token } from 'types';
 
 export interface GetMainPoolInput {
@@ -11,9 +18,15 @@ export interface GetMainPoolInput {
   venusLensContract: VenusLens;
   resilientOracleContract: ResilientOracle;
   vaiControllerContract: VaiController;
+  primeContract?: Prime;
   accountAddress?: string;
 }
 
 export interface GetMainPoolOutput {
   pool: Pool;
+}
+
+export interface PrimeApy {
+  borrowApy: BigNumber;
+  supplyApy: BigNumber;
 }

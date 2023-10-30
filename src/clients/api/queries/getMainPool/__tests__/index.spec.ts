@@ -1,7 +1,14 @@
-import { MainPoolComptroller, ResilientOracle, VaiController, VenusLens } from 'packages/contracts';
+import {
+  MainPoolComptroller,
+  Prime,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
+import fakePrimeContractResponses from '__mocks__/contracts/prime';
 import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
@@ -58,7 +65,7 @@ const fakeVenusLensContract = {
   },
 } as unknown as VenusLens;
 
-describe('api/queries/getMainPool', () => {
+describe('getMainPool', () => {
   beforeEach(() => {
     (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
   });
@@ -75,6 +82,33 @@ describe('api/queries/getMainPool', () => {
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
+    });
+
+    // Check VAI interests were accrued before being fetched
+    expect(fakeVaiControllerContract.callStatic.accrueVAIInterest).toHaveBeenCalledTimes(1);
+    expect(response).toMatchSnapshot();
+  });
+
+  it('fetches and formats Prime distributions', async () => {
+    const fakePrimeContract = {
+      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+      estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
+      calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+    } as unknown as Prime;
+
+    const response = await getMainPool({
+      name: 'Fake pool name',
+      description: 'Fake pool description',
+      xvs,
+      vai,
+      tokens,
+      accountAddress: fakeAccountAddress,
+      mainPoolComptrollerContract: fakeMainPoolComptrollerContract,
+      venusLensContract: fakeVenusLensContract,
+      vaiControllerContract: fakeVaiControllerContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      primeContract: fakePrimeContract,
     });
 
     // Check VAI interests were accrued before being fetched

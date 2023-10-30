@@ -3,15 +3,13 @@ import { AssetDistribution, Token } from 'types';
 import { calculateApy } from 'utilities';
 
 export interface FormatDistributionInput {
-  type: AssetDistribution['type'];
   rewardToken: Token;
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
 }
 
-const formatDistribution = ({
-  type,
+const formatRewardDistribution = ({
   rewardToken,
   rewardTokenPriceDollars,
   dailyDistributedRewardTokens,
@@ -29,20 +27,12 @@ const formatDistribution = ({
     ),
   });
 
-  if (type === 'rewardDistributor') {
-    return {
-      type,
-      token: rewardToken,
-      apyPercentage,
-      dailyDistributedTokens: dailyDistributedRewardTokens,
-    };
-  }
-
   return {
-    type,
+    type: 'rewardDistributor',
     token: rewardToken,
     apyPercentage,
+    dailyDistributedTokens: dailyDistributedRewardTokens,
   };
 };
 
-export default formatDistribution;
+export default formatRewardDistribution;
