@@ -43,9 +43,16 @@ const fakeClaims: Claim[] = [
       '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
     ],
   },
+  {
+    contract: 'prime',
+    vTokenAddressesWithPendingReward: [
+      '0x37a0ac901578a7f05379fc43330b3d1e39d0c40c',
+      '0x75a10f0c415dccca275e8cdd8447d291a6b86f06',
+    ],
+  },
 ];
 
-describe('api/mutation/claimVaiVaultReward', () => {
+describe('claimRewards', () => {
   test('calls multicall correctly', async () => {
     const fakeMulticallContract = {
       tryBlockAndAggregate: vi.fn(async () => ({
@@ -58,6 +65,7 @@ describe('api/mutation/claimVaiVaultReward', () => {
       mainPoolComptrollerContractAddress: 'fake-main-pool-comptroller-address',
       vaiVaultContractAddress: 'fake-vai-vault-address',
       xvsVaultContractAddress: 'fake-xvs-vault-address',
+      primeContractAddress: 'fake-prime-contract-address',
       accountAddress: fakeAddress,
       claims: fakeClaims,
     });

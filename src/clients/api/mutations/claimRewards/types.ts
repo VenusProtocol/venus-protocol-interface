@@ -24,11 +24,17 @@ export interface RewardsDistributorClaim {
   vTokenAddressesWithPendingReward: string[];
 }
 
+export interface PrimeClaim {
+  contract: 'prime';
+  vTokenAddressesWithPendingReward: string[];
+}
+
 export type Claim =
   | VaiVaultClaim
   | XvsVestingVaultClaim
   | MainPoolComptrollerClaim
-  | RewardsDistributorClaim;
+  | RewardsDistributorClaim
+  | PrimeClaim;
 
 export interface ClaimRewardsInput {
   multicallContract: Multicall3;
@@ -37,6 +43,7 @@ export interface ClaimRewardsInput {
   xvsVaultContractAddress: string;
   accountAddress: string;
   claims: Claim[];
+  primeContractAddress?: string;
 }
 
 export type ClaimRewardsOutput = ContractReceipt;

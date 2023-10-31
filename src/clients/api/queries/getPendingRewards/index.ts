@@ -101,7 +101,6 @@ const getPendingRewards = async ({
   );
 
   const primePendingRewards = extractSettledPromiseValue(primePendingRewardsResults) || [];
-  console.log(primePendingRewards);
   const primeRewardTokenAddresses = primePendingRewards.map(
     primePendingReward => primePendingReward.rewardToken,
   );

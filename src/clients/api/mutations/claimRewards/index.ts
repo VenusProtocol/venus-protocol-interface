@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { Multicall3 } from 'packages/contracts';
 import mainPoolComptrollerContractAbi from 'packages/contracts/generated/infos/abis/MainPoolComptroller.json';
+import primeContractAbi from 'packages/contracts/generated/infos/abis/Prime.json';
 import rewardsDistributorContractAbi from 'packages/contracts/generated/infos/abis/RewardsDistributor.json';
 import vaiVaultContractAbi from 'packages/contracts/generated/infos/abis/VaiVault.json';
 import xvsVaultContractAbi from 'packages/contracts/generated/infos/abis/XvsVault.json';
@@ -24,64 +25,92 @@ const claimRewards = async ({
   mainPoolComptrollerContractAddress,
   vaiVaultContractAddress,
   xvsVaultContractAddress,
+  primeContractAddress,
 }: ClaimRewardsInput): Promise<ClaimRewardsOutput> => {
   // Format claims into calls
-  const calls: Parameters<Multicall3['tryBlockAndAggregate']>[1] = claims.map(claim => {
+  const calls = claims.reduce<Parameters<Multicall3['tryBlockAndAggregate']>[1]>((acc, claim) => {
+    // Skip claim if no Prime contract address was passed
+    if (claim.contract === 'prime' && !primeContractAddress) {
+      return acc;
+    }
+
     if (claim.contract === 'mainPoolComptroller') {
       const executingInterface = new ethers.utils.Interface(
         JSON.stringify(mainPoolComptrollerContractAbi),
       );
-      const callData = executingInterface.encodeFunctionData('claimVenus(address,address[])', [
-        accountAddress,
-        claim.vTokenAddressesWithPendingReward,
-      ]);
 
-      return {
-        target: mainPoolComptrollerContractAddress,
-        callData,
-      };
+      return [
+        ...acc,
+        {
+          callData: executingInterface.encodeFunctionData('claimVenus(address,address[])', [
+            accountAddress,
+            claim.vTokenAddressesWithPendingReward,
+          ]),
+          target: mainPoolComptrollerContractAddress,
+        },
+      ];
     }
 
     if (claim.contract === 'vaiVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vaiVaultContractAbi));
-      const callData = executingInterface.encodeFunctionData('claim(address)', [accountAddress]);
 
-      return {
-        target: vaiVaultContractAddress,
-        callData,
-      };
+      return [
+        ...acc,
+        {
+          callData: executingInterface.encodeFunctionData('claim(address)', [accountAddress]),
+          target: vaiVaultContractAddress,
+        },
+      ];
     }
 
     if (claim.contract === 'xvsVestingVault') {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(xvsVaultContractAbi));
 
-      const callData = executingInterface.encodeFunctionData('claim(address,address,uint256)', [
-        accountAddress,
-        claim.rewardToken.address,
-        claim.poolIndex,
-      ]);
-
-      return {
-        target: xvsVaultContractAddress,
-        callData,
-      };
+      return [
+        ...acc,
+        {
+          callData: executingInterface.encodeFunctionData('claim(address,address,uint256)', [
+            accountAddress,
+            claim.rewardToken.address,
+            claim.poolIndex,
+          ]),
+          target: xvsVaultContractAddress,
+        },
+      ];
     }
 
-    // rewardsDistributor
-    const executingInterface = new ethers.utils.Interface(
-      JSON.stringify(rewardsDistributorContractAbi),
-    );
+    if (claim.contract === 'rewardsDistributor') {
+      const executingInterface = new ethers.utils.Interface(
+        JSON.stringify(rewardsDistributorContractAbi),
+      );
 
-    const callData = executingInterface.encodeFunctionData('claimRewardToken(address,address[])', [
-      accountAddress,
-      claim.vTokenAddressesWithPendingReward,
-    ]);
+      return [
+        ...acc,
+        {
+          callData: executingInterface.encodeFunctionData('claimRewardToken(address,address[])', [
+            accountAddress,
+            claim.vTokenAddressesWithPendingReward,
+          ]),
+          target: claim.contractAddress,
+        },
+      ];
+    }
 
-    return {
-      target: claim.contractAddress,
-      callData,
-    };
-  });
+    if (claim.contract === 'prime' && !!primeContractAddress) {
+      const executingInterface = new ethers.utils.Interface(JSON.stringify(primeContractAbi));
+      const primeCalls = claim.vTokenAddressesWithPendingReward.map(vTokenAddress => ({
+        callData: executingInterface.encodeFunctionData('claimInterest(address,address)', [
+          accountAddress,
+          vTokenAddress,
+        ]),
+        target: primeContractAddress,
+      }));
+
+      return acc.concat(primeCalls);
+    }
+
+    return acc;
+  }, []);
 
   const transaction = await multicallContract.tryBlockAndAggregate(true, calls);
   const receipt = await transaction.wait(1);
