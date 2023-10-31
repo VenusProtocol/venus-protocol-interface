@@ -31,6 +31,7 @@ describe('PrimeStatusBanner', () => {
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
         stakedAmountWei: new BigNumber('0'),
+        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
       },
     }));
     (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
@@ -88,6 +89,7 @@ describe('PrimeStatusBanner', () => {
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
         stakedAmountWei: new BigNumber('1000000'),
+        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
       },
     }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
@@ -109,6 +111,7 @@ describe('PrimeStatusBanner', () => {
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
         stakedAmountWei: new BigNumber('1000000'),
+        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
       },
     }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({

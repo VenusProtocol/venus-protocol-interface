@@ -329,6 +329,10 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       },
     );
 
+  const userNonPendingStakedXvsMantissa = userStakedXvsTokensData?.stakedAmountWei.minus(
+    userStakedXvsTokensData.pendingWithdrawalsTotalAmountWei,
+  );
+
   const isLoading = isGetIsAddressPrimeLoading || isLoadingPrimeStatus || isLoadingXvsVaultUserInfo;
 
   // Hide component while loading or if user is Prime already
@@ -345,7 +349,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   } = primeStatusData;
 
   const userStakedXvsTokens = convertWeiToTokens({
-    valueWei: userStakedXvsTokensData?.stakedAmountWei || new BigNumber('0'),
+    valueWei: userNonPendingStakedXvsMantissa || new BigNumber('0'),
     token: xvs,
   });
 
