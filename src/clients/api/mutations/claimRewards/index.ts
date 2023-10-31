@@ -100,8 +100,8 @@ const claimRewards = async ({
       const executingInterface = new ethers.utils.Interface(JSON.stringify(primeContractAbi));
       const primeCalls = claim.vTokenAddressesWithPendingReward.map(vTokenAddress => ({
         callData: executingInterface.encodeFunctionData('claimInterest(address,address)', [
-          accountAddress,
           vTokenAddress,
+          accountAddress,
         ]),
         target: primeContractAddress,
       }));
