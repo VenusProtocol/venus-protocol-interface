@@ -1,12 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  AccountData,
-  Delimiter,
-  IsolatedAssetWarning,
-  LabeledInlineContent,
-  TokenTextField,
-} from 'components';
+import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
@@ -14,6 +8,7 @@ import { convertTokensToWei } from 'utilities';
 
 import { useBorrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { useStyles as useSharedStyles } from '../styles';

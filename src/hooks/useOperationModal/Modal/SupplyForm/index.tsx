@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
-  AccountData,
   Delimiter,
   IsolatedAssetWarning,
   LabeledInlineContent,
@@ -20,6 +19,7 @@ import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
+import { AccountData } from 'containers/AccountData';
 import { useAuth } from 'context/AuthContext';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';

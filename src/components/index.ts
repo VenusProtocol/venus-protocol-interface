@@ -41,7 +41,6 @@ export * from './InfoIcon';
 export * from './CellGroup';
 export * from './TokenGroup';
 export * from './IsolatedAssetWarning';
-export * from './AccountData';
 export * from './SwapDetails';
 export * from './TagGroup';
 export * from './SpendingLimit';

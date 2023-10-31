@@ -1,15 +1,14 @@
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
+import { Delimiter } from '../../components/Delimiter';
+import { LabeledInlineContent } from '../../components/LabeledInlineContent';
+import { BorrowBalanceAccountHealth } from '../../components/ProgressBar/AccountHealth';
+import { ValueUpdate } from '../../components/ValueUpdate';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
-import { Delimiter } from '../Delimiter';
-import { LabeledInlineContent } from '../LabeledInlineContent';
-import { BorrowBalanceAccountHealth } from '../ProgressBar/AccountHealth';
-import { ValueUpdate } from '../ValueUpdate';
 import useAssetInfo from './useAssetInfo';
 import useGetValues from './useGetValues';
 
