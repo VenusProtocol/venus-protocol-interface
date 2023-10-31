@@ -74,6 +74,7 @@ const getPendingRewards = async ({
   );
 
   const primePromises = Promise.allSettled([
+    primeContract?.paused(),
     primeContract?.callStatic.getPendingRewards(accountAddress),
   ]);
 
@@ -83,7 +84,7 @@ const getPendingRewards = async ({
   const xvsVestingVaultPendingRewardResults = await xvsVestingVaultPendingRewardSettledPromises;
   const xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults =
     await xvsVestingVaultPendingWithdrawalsBeforeUpgradeSettledPromises;
-  const [primePendingRewardsResults] = await primePromises;
+  const [isPrimeContractPausedResult, primePendingRewardsResults] = await primePromises;
 
   const isolatedPoolRewardTokenAddresses = isolatedPoolsPendingRewardsResults.reduce<string[]>(
     (acc, isolatedPoolsPendingRewardsResult) => {
@@ -162,6 +163,7 @@ const getPendingRewards = async ({
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     tokenPriceMapping,
     primePendingRewards,
+    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) || false,
   });
 
   return {

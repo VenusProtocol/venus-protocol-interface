@@ -8,18 +8,20 @@ export interface RewardGroupProps {
   onCheckChange: (newIsChecked: boolean) => void;
 }
 
-// TODO: add disabled state to handle Prime contract paused state
-
 export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
   const handleOnCheckChange: CheckboxProps['onChange'] = event =>
     onCheckChange(event.currentTarget.checked);
 
   return (
     <div className="mb-4 border-b border-lightGrey pb-4 last:border-none last:pb-0">
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-lg">{group.name}</p>
+      <div className="mb-4">
+        <div className="flex items-center justify-between">
+          <p className="text-lg">{group.name}</p>
 
-        <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />
+          {!group.isDisabled && <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />}
+        </div>
+
+        {group.warningMessage && <p className="mt-2 text-orange">{group.warningMessage}</p>}
       </div>
 
       {group.pendingRewards.map(pendingReward => (

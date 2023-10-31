@@ -21,6 +21,7 @@ const formatOutput = ({
   tokenPriceMapping,
   venusLensPendingRewards,
   primePendingRewards,
+  isPrimeContractPaused,
 }: {
   tokens: Token[];
   vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
@@ -34,9 +35,10 @@ const formatOutput = ({
   >;
   tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
+  isPrimeContractPaused: boolean;
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
-  primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
+  primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
@@ -131,6 +133,7 @@ const formatOutput = ({
   // Extract pending rewards from Prime
   if (primePendingRewards) {
     const primePendingRewardGroup = formatToPrimePendingRewardGroup({
+      isPrimeContractPaused,
       primePendingRewards,
       tokenPriceMapping,
       tokens,

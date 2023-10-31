@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`getPendingRewardGroups > returns pool rewards of the user in the correct format on success 1`] = `
+exports[`getPendingRewards > returns pool rewards of the user in the correct format on success 1`] = `
 {
   "pendingRewardGroups": [
     {
@@ -76,6 +76,7 @@ exports[`getPendingRewardGroups > returns pool rewards of the user in the correc
       "type": "xvsVestingVault",
     },
     {
+      "isDisabled": false,
       "pendingRewards": [],
       "type": "prime",
       "vTokenAddressesWithPendingReward": [],
@@ -84,7 +85,7 @@ exports[`getPendingRewardGroups > returns pool rewards of the user in the correc
 }
 `;
 
-exports[`getPendingRewardGroups > returns pool rewards of the user, including Prime rewards, in the correct format on success 1`] = `
+exports[`getPendingRewards > returns pool rewards of the user, including Prime rewards, in the correct format on success 1`] = `
 {
   "pendingRewardGroups": [
     {
@@ -160,6 +161,7 @@ exports[`getPendingRewardGroups > returns pool rewards of the user, including Pr
       "type": "xvsVestingVault",
     },
     {
+      "isDisabled": false,
       "pendingRewards": [
         {
           "rewardAmountCents": "0.000004750684148379056424",

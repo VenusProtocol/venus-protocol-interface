@@ -75,6 +75,7 @@ export interface PrimePendingReward {
 
 export interface PrimePendingRewardGroup {
   type: 'prime';
+  isDisabled: boolean;
   vTokenAddressesWithPendingReward: string[];
   pendingRewards: PrimePendingReward[];
 }

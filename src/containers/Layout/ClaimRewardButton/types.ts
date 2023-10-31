@@ -15,4 +15,6 @@ export interface Group {
   isChecked: boolean;
   pendingRewards: PendingReward[];
   claims: Claim[];
+  isDisabled?: boolean;
+  warningMessage?: string;
 }

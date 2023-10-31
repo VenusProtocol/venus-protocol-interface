@@ -102,7 +102,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 
             <Checkbox
               onChange={onToggleAllGroups}
-              value={groups.every(group => group.isChecked)}
+              value={groups.every(group => group.isChecked || group.isDisabled)}
               data-testid={TEST_IDS.claimRewardSelectAllCheckbox}
             />
           </div>

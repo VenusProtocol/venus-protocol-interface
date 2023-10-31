@@ -10,7 +10,7 @@ import {
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
 
-import getPendingRewardGroups from '..';
+import getPendingRewards from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
   fakeGetMainPoolPendingRewardsOutput,
@@ -48,14 +48,15 @@ const fakeXvsVaultContract = {
 } as unknown as XvsVault;
 
 const fakePrimeContract = {
+  paused: async () => false,
   callStatic: {
     getPendingRewards: async () => fakeGetPrimePendingRewardsOutput,
   },
 } as unknown as Prime;
 
-describe('getPendingRewardGroups', () => {
+describe('getPendingRewards', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
-    const res = await getPendingRewardGroups({
+    const res = await getPendingRewards({
       mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
@@ -72,7 +73,7 @@ describe('getPendingRewardGroups', () => {
   });
 
   test('returns pool rewards of the user, including Prime rewards, in the correct format on success', async () => {
-    const res = await getPendingRewardGroups({
+    const res = await getPendingRewards({
       mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,

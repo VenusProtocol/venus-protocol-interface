@@ -7,10 +7,12 @@ import { convertDollarsToCents, convertWeiToTokens, findTokenByAddress } from 'u
 import { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
 const formatToPrimePendingRewardGroup = ({
+  isPrimeContractPaused,
   primePendingRewards,
   tokenPriceMapping,
   tokens,
 }: {
+  isPrimeContractPaused: boolean;
   primePendingRewards: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
@@ -63,6 +65,7 @@ const formatToPrimePendingRewardGroup = ({
 
   const primePendingRewardGroup: PrimePendingRewardGroup = {
     type: 'prime',
+    isDisabled: isPrimeContractPaused,
     vTokenAddressesWithPendingReward,
     pendingRewards,
   };

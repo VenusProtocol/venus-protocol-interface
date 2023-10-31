@@ -15,7 +15,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
-import getPendingRewardGroups from '.';
+import getPendingRewards from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import useGetPools from '../useGetPools';
 import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
@@ -95,7 +95,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
           xvsVaultContract,
         },
         params =>
-          getPendingRewardGroups({
+          getPendingRewards({
             mainPoolComptrollerContractAddress,
             venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,

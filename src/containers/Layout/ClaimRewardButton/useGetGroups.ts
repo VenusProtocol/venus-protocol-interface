@@ -86,9 +86,13 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
             const group: Group = {
               id,
-              name: t('layout.claimRewardModal.primeGroup'),
-              isChecked: !uncheckedGroupIds.includes(id),
+              name: t('layout.claimRewardModal.primeGroup.name'),
+              isChecked: !uncheckedGroupIds.includes(id) && !pendingRewardGroup.isDisabled,
               pendingRewards: pendingRewardGroup.pendingRewards,
+              isDisabled: pendingRewardGroup.isDisabled,
+              warningMessage: pendingRewardGroup.isDisabled
+                ? t('layout.claimRewardModal.primeGroup.disabledContractWarningMessage')
+                : undefined,
               claims: [
                 {
                   contract: 'prime',
