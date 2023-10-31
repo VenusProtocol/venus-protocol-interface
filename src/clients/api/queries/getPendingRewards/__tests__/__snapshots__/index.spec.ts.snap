@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user in the correct format on success 1`] = `
+exports[`getPendingRewardGroups > returns pool rewards of the user in the correct format on success 1`] = `
 {
   "pendingRewardGroups": [
     {
@@ -74,6 +74,119 @@ exports[`api/queries/getPendingRewardGroups > returns pool rewards of the user i
         "symbol": "VAI",
       },
       "type": "xvsVestingVault",
+    },
+    {
+      "pendingRewards": [],
+      "type": "prime",
+      "vTokenAddressesWithPendingReward": [],
+    },
+  ],
+}
+`;
+
+exports[`getPendingRewardGroups > returns pool rewards of the user, including Prime rewards, in the correct format on success 1`] = `
+{
+  "pendingRewardGroups": [
+    {
+      "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+      "rewardAmountCents": "6892647.61413516495268939951386",
+      "rewardAmountWei": "1.9534041188941933361355e+22",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/packages/tokens/img/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
+      "type": "mainPool",
+      "vTokenAddressesWithPendingReward": [
+        "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+        "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      ],
+    },
+    {
+      "comptrollerAddress": "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
+      "pendingRewards": [
+        {
+          "rewardAmountCents": "3.881384452e-11",
+          "rewardAmountWei": "110000",
+          "rewardToken": {
+            "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "asset": "/src/packages/tokens/img/hay.png",
+            "decimals": 18,
+            "symbol": "HAY",
+          },
+          "rewardsDistributorAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
+          "vTokenAddressesWithPendingReward": [
+            "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "0x3338988d0beb4419Acb8fE624218754053362D06",
+          ],
+        },
+      ],
+      "type": "isolatedPool",
+    },
+    {
+      "rewardAmountCents": "352.853132",
+      "rewardAmountWei": "1000000000000000000",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/packages/tokens/img/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
+      "stakedToken": {
+        "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "asset": "/src/packages/tokens/img/vai.svg",
+        "decimals": 18,
+        "symbol": "VAI",
+      },
+      "type": "vault",
+    },
+    {
+      "poolIndex": 0,
+      "rewardAmountCents": "227.6612616584371779",
+      "rewardAmountWei": "645201192825000000",
+      "rewardToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "asset": "/src/packages/tokens/img/xvs.svg",
+        "decimals": 18,
+        "symbol": "XVS",
+      },
+      "stakedToken": {
+        "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+        "asset": "/src/packages/tokens/img/vai.svg",
+        "decimals": 18,
+        "symbol": "VAI",
+      },
+      "type": "xvsVestingVault",
+    },
+    {
+      "pendingRewards": [
+        {
+          "rewardAmountCents": "0.000004750684148379056424",
+          "rewardAmountWei": "13463630382",
+          "rewardToken": {
+            "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+            "asset": "/src/packages/tokens/img/hay.png",
+            "decimals": 18,
+            "symbol": "HAY",
+          },
+        },
+        {
+          "rewardAmountCents": "6089626.453737442916626256079416",
+          "rewardAmountWei": "1.7258246849676377299738e+22",
+          "rewardToken": {
+            "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "asset": "/src/packages/tokens/img/xvs.svg",
+            "decimals": 18,
+            "symbol": "XVS",
+          },
+        },
+      ],
+      "type": "prime",
+      "vTokenAddressesWithPendingReward": [
+        "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+        "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+      ],
     },
   ],
 }

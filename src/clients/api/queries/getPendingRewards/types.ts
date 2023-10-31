@@ -67,11 +67,16 @@ export interface XvsVestingVaultPendingRewardGroup {
   rewardAmountCents: BigNumber | undefined;
 }
 
-export interface PrimePendingRewardGroup {
-  type: 'prime';
+export interface PrimePendingReward {
   rewardToken: Token;
   rewardAmountWei: BigNumber;
   rewardAmountCents: BigNumber | undefined;
+}
+
+export interface PrimePendingRewardGroup {
+  type: 'prime';
+  vTokenAddressesWithPendingReward: string[];
+  pendingRewards: PrimePendingReward[];
 }
 
 export type PendingRewardGroup =

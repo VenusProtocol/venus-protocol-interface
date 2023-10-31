@@ -129,8 +129,6 @@ const getMainPool = async ({
 
     const primeApr = primeAprResult.value;
 
-    console.log(primeApr);
-
     const apys: PrimeApy = {
       borrowApy: convertAprToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
       supplyApy: convertAprToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),

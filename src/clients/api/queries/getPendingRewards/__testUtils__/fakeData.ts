@@ -60,3 +60,16 @@ export const fakeGetXvsVaultPoolInfosOutput = {
 export const fakeGetXvsVaultPendingRewardOutput = BN.from('0x08f4371102fe1040');
 
 export const fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput = BN.from('0');
+
+export const fakeGetPrimePendingRewardsOutput = [
+  {
+    amount: BN.from('0x03227eb22e'),
+    rewardToken: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
+    vToken: '0x162D005F0Fff510E54958Cfc5CF32A3180A84aab',
+  },
+  {
+    amount: BN.from('0x03a79249a7ab84cb9b1a'),
+    rewardToken: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+    vToken: '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+  },
+];

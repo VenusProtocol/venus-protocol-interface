@@ -1,4 +1,11 @@
-import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
+import {
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  VaiVault,
+  VenusLens,
+  XvsVault,
+} from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
@@ -9,6 +16,7 @@ import {
   fakeGetMainPoolPendingRewardsOutput,
   fakeGetPendingXvsOutput,
   fakeGetPriceOutput,
+  fakeGetPrimePendingRewardsOutput,
   fakeGetXvsVaultPendingRewardOutput,
   fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
   fakeGetXvsVaultPoolInfosOutput,
@@ -39,7 +47,13 @@ const fakeXvsVaultContract = {
   pendingWithdrawalsBeforeUpgrade: async () => fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
 } as unknown as XvsVault;
 
-describe('api/queries/getPendingRewardGroups', () => {
+const fakePrimeContract = {
+  callStatic: {
+    getPendingRewards: async () => fakeGetPrimePendingRewardsOutput,
+  },
+} as unknown as Prime;
+
+describe('getPendingRewardGroups', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
     const res = await getPendingRewardGroups({
       mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
@@ -52,6 +66,24 @@ describe('api/queries/getPendingRewardGroups', () => {
       resilientOracleContract: fakeResilientOracleContract,
       vaiVaultContract: fakeVaiVaultContract,
       xvsVaultContract: fakeXvsVaultContract,
+    });
+
+    expect(res).toMatchSnapshot();
+  });
+
+  test('returns pool rewards of the user, including Prime rewards, in the correct format on success', async () => {
+    const res = await getPendingRewardGroups({
+      mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
+      isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
+      tokens,
+      xvsVestingVaultPoolCount: 1,
+      accountAddress: fakeAddress,
+      poolLensContract: fakePoolLensContract,
+      venusLensContract: fakeVenusLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      vaiVaultContract: fakeVaiVaultContract,
+      xvsVaultContract: fakeXvsVaultContract,
+      primeContract: fakePrimeContract,
     });
 
     expect(res).toMatchSnapshot();

@@ -1,12 +1,5 @@
 import BigNumber from 'bignumber.js';
-import {
-  PoolLens,
-  Prime,
-  ResilientOracle,
-  VaiVault,
-  VenusLens,
-  XvsVault,
-} from 'packages/contracts';
+import { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
 import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';
@@ -27,9 +20,7 @@ const formatOutput = ({
   xvsVestingVaultPendingWithdrawalsBeforeUpgrade,
   tokenPriceMapping,
   venusLensPendingRewards,
-  primeVTokenAddresses,
-  primeVTokenUnderlyingPrices,
-  primePendingRewardAmounts,
+  primePendingRewards,
 }: {
   tokens: Token[];
   vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
@@ -44,13 +35,7 @@ const formatOutput = ({
   tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
-  primeVTokenAddresses: string[];
-  primeVTokenUnderlyingPrices: Awaited<
-    ReturnType<ResilientOracle['getUnderlyingPrice']> | undefined
-  >[];
-  primePendingRewardAmounts?: Awaited<
-    ReturnType<Prime['callStatic']['claimInterest(address,address)']> | undefined
-  >[];
+  primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
@@ -144,13 +129,13 @@ const formatOutput = ({
   pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
 
   // Extract pending rewards from Prime
-  const primePendingRewardGroup = formatToPrimePendingRewardGroup({
-    primeVTokenAddresses,
-    primeVTokenUnderlyingPrices,
-    primePendingRewardAmounts,
-  });
+  if (primePendingRewards) {
+    const primePendingRewardGroup = formatToPrimePendingRewardGroup({
+      primePendingRewards,
+      tokenPriceMapping,
+      tokens,
+    });
 
-  if (primePendingRewardGroup) {
     pendingRewardGroups.push(primePendingRewardGroup);
   }
 
