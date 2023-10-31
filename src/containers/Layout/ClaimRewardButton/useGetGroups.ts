@@ -80,12 +80,25 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             return [...acc, group];
           }
 
-          // Pools
-          if (
-            pendingRewardGroup.type !== 'mainPool' &&
-            pendingRewardGroup.type !== 'isolatedPool'
-          ) {
-            return acc;
+          // Prime
+          if (pendingRewardGroup.type === 'prime') {
+            const id = 'prime';
+
+            const group: Group = {
+              id,
+              name: t('layout.claimRewardModal.primeGroup'),
+              isChecked: !uncheckedGroupIds.includes(id),
+              pendingRewards: pendingRewardGroup.pendingRewards,
+              claims: [
+                {
+                  contract: 'prime',
+                  vTokenAddressesWithPendingReward:
+                    pendingRewardGroup.vTokenAddressesWithPendingReward,
+                },
+              ],
+            };
+
+            return [...acc, group];
           }
 
           const pool = (getPoolsData?.pools || []).find(
