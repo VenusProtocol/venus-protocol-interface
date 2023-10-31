@@ -288,6 +288,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         amountTokens={new BigNumber(formValues.amountTokens || 0)}
         action="repay"
         isUsingSwap={isUsingSwap}
+        className="mb-6"
       />
 
       <SubmitSection

@@ -43,11 +43,15 @@ export const AccountData: React.FC<AccountDataProps> = ({
     hypotheticalPoolUserBorrowLimitCents,
     hypotheticalPoolUserBorrowLimitUsedPercentage,
     hypotheticalPoolUserDailyEarningsCents,
+    hypotheticalAssetBorrowPrimeApyPercentage,
+    hypotheticalAssetSupplyPrimeApyPercentage,
   } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
 
   const assetInfo = useAssetInfo({
     asset,
     type: action === 'borrow' || action === 'repay' ? 'borrow' : 'supply',
+    hypotheticalAssetBorrowPrimeApyPercentage,
+    hypotheticalAssetSupplyPrimeApyPercentage,
   });
 
   return (

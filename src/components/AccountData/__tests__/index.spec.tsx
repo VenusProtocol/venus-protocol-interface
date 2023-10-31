@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
 
-import { AccountData, AccountDataProps } from '.';
+import { AccountData, AccountDataProps } from '..';
 
-describe('components/AccountData', () => {
+describe('AccountData', () => {
   it('renders without crashing', async () => {
     renderComponent(
       <AccountData

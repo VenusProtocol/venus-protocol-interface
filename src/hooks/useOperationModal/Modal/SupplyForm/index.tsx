@@ -293,6 +293,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           amountTokens={new BigNumber(formValues.amountTokens || 0)}
           action="supply"
           isUsingSwap={isUsingSwap}
+          className="mb-6"
         />
 
         <SubmitSection

@@ -157,6 +157,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         asset={asset}
         pool={pool}
         action="withdraw"
+        className="mb-6"
       />
 
       <SubmitSection

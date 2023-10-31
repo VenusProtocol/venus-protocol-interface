@@ -31,8 +31,8 @@ export interface UseGetValuesOutput {
   hypotheticalPoolUserBorrowLimitCents: BigNumber | undefined;
   hypotheticalPoolUserBorrowLimitUsedPercentage: number | undefined;
   hypotheticalPoolUserDailyEarningsCents: BigNumber | undefined;
-  hypotheticalUserSupplyPrimeApyPercentage: BigNumber | undefined;
-  hypotheticalUserBorrowPrimeApyPercentage: BigNumber | undefined;
+  hypotheticalAssetSupplyPrimeApyPercentage: BigNumber | undefined;
+  hypotheticalAssetBorrowPrimeApyPercentage: BigNumber | undefined;
 }
 
 const useGetValues = ({
@@ -92,8 +92,8 @@ const useGetValues = ({
       hypotheticalPoolUserBorrowLimitCents: undefined,
       hypotheticalPoolUserBorrowLimitUsedPercentage: undefined,
       hypotheticalPoolUserDailyEarningsCents: undefined,
-      hypotheticalUserSupplyPrimeApyPercentage: hypotheticalUserPrimeApys?.supplyApy,
-      hypotheticalUserBorrowPrimeApyPercentage: hypotheticalUserPrimeApys?.borrowApy,
+      hypotheticalAssetSupplyPrimeApyPercentage: hypotheticalUserPrimeApys?.supplyApy,
+      hypotheticalAssetBorrowPrimeApyPercentage: hypotheticalUserPrimeApys?.borrowApy,
     };
 
     const isImpossibleWithdrawAction =

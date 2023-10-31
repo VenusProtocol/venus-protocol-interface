@@ -175,6 +175,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         pool={pool}
         amountTokens={new BigNumber(formValues.amountTokens || 0)}
         action="borrow"
+        className="mb-6"
       />
 
       <SubmitSection
