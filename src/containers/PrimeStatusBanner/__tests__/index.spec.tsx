@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
-import { useGetIsAddressPrime, useGetPrimeStatus } from 'clients/api';
+import { useGetIsAddressPrime, useGetPrimeStatus, useGetXvsVaultUserInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import PrimeStatusBanner from '..';
@@ -12,7 +12,8 @@ vi.useFakeTimers();
 
 describe('PrimeStatusBanner', () => {
   const MOCK_DEFAULT_PRIME_STATUS = {
-    claimWaitingPeriod: 0,
+    claimWaitingPeriodSeconds: 600,
+    userClaimTimeRemainingSeconds: 600,
     claimedPrimeTokenCount: 0,
     primeTokenLimit: 1000,
     primeMinimumStakedXvsMantissa: new BigNumber('1000000'),
@@ -22,6 +23,16 @@ describe('PrimeStatusBanner', () => {
   };
 
   beforeEach(() => {
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: {
+        ...MOCK_DEFAULT_PRIME_STATUS,
+      },
+    }));
+    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+      data: {
+        stakedAmountWei: new BigNumber('0'),
+      },
+    }));
     (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
       data: {
         isPrime: false,
@@ -49,13 +60,13 @@ describe('PrimeStatusBanner', () => {
     expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeNull();
   });
 
-  it('informs the user the requirements to be a Prime user', () => {
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
-      data: MOCK_DEFAULT_PRIME_STATUS,
-    }));
+  it('informs the user the requirements to be a Prime user', async () => {
     const { queryByTestId } = renderComponent(<PrimeStatusBanner />);
+    await waitFor(() => queryByTestId(TEST_IDS.stakeXvsButton));
 
-    expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeNull();
+    expect(queryByTestId(TEST_IDS.stakeXvsButton)).toBeVisible();
+    expect(queryByTestId(TEST_IDS.stakeXvsButton)).toBeEnabled();
+    expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeVisible();
   });
 
   it('displays a warning when there are less than 5% of Prime tokens left', async () => {
@@ -74,10 +85,16 @@ describe('PrimeStatusBanner', () => {
 
   it('displays the time remaining to be a Prime user, when a user has staked enough XVS', async () => {
     const text = '10 minutes until you can become a Prime user';
+    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+      data: {
+        stakedAmountWei: new BigNumber('1000000'),
+      },
+    }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
-        claimWaitingPeriod: 600,
+        claimWaitingPeriodSeconds: 600,
+        userClaimTimeRemainingSeconds: 600,
       },
     }));
 
@@ -89,10 +106,15 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('allows the user to claim a Prime token if all the criteria match', async () => {
+    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+      data: {
+        stakedAmountWei: new BigNumber('1000000'),
+      },
+    }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
-        claimWaitingPeriod: 0,
+        userClaimTimeRemainingSeconds: 0,
       },
     }));
 

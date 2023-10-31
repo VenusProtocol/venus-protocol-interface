@@ -33,6 +33,7 @@ export interface PrimeStatusBannerUiProps {
   minXvsToStakeForPrimeTokens: BigNumber;
   highestPrimeSimulationApyBoostPercentage: BigNumber;
   primeClaimWaitingPeriodSeconds: number;
+  userPrimeClaimWaitingPeriodSeconds: number;
   hidePromotionalTitle?: boolean;
   className?: string;
 }
@@ -45,6 +46,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   isClaimPrimeTokenLoading,
   highestPrimeSimulationApyBoostPercentage,
   primeClaimWaitingPeriodSeconds,
+  userPrimeClaimWaitingPeriodSeconds,
   minXvsToStakeForPrimeTokens,
   userStakedXvsTokens,
   hidePromotionalTitle = false,
@@ -87,13 +89,18 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     value: highestPrimeSimulationApyBoostPercentage,
   });
 
-  const readableClaimWaitingPeriod = useMemo(
-    () =>
+  const [readableClaimWaitingPeriod, readableUserClaimWaitingPeriod] = useMemo(
+    () => [
       formatDistanceStrict(
         new Date(),
         new Date().getTime() + primeClaimWaitingPeriodSeconds * 1000,
       ),
-    [primeClaimWaitingPeriodSeconds],
+      formatDistanceStrict(
+        new Date(),
+        new Date().getTime() + userPrimeClaimWaitingPeriodSeconds * 1000,
+      ),
+    ],
+    [primeClaimWaitingPeriodSeconds, userPrimeClaimWaitingPeriodSeconds],
   );
 
   const readableMinXvsToStakeForPrimeTokens = useConvertWeiToReadableTokenString({
@@ -107,13 +114,13 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   });
 
   const title = useMemo(() => {
-    if (isUserXvsStakeHighEnoughForPrime && primeClaimWaitingPeriodSeconds > 0) {
+    if (isUserXvsStakeHighEnoughForPrime && userPrimeClaimWaitingPeriodSeconds > 0) {
       return t('primeStatusBanner.waitForPrimeTitle', {
-        claimWaitingPeriod: readableClaimWaitingPeriod,
+        claimWaitingPeriod: readableUserClaimWaitingPeriod,
       });
     }
 
-    if (isUserXvsStakeHighEnoughForPrime && primeClaimWaitingPeriodSeconds === 0) {
+    if (isUserXvsStakeHighEnoughForPrime && userPrimeClaimWaitingPeriodSeconds === 0) {
       return t('primeStatusBanner.becomePrimeTitle');
     }
 
@@ -139,7 +146,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   const displayClaimButton =
     !haveAllPrimeTokensBeenClaimed &&
     isUserXvsStakeHighEnoughForPrime &&
-    primeClaimWaitingPeriodSeconds <= 0;
+    userPrimeClaimWaitingPeriodSeconds <= 0;
 
   return (
     <Card
@@ -258,6 +265,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
           {displayStakeButton && (
             <PrimaryButton
+              data-testid={TEST_IDS.stakeXvsButton}
               onClick={onRedirectToXvsVaultPage}
               className="w-full whitespace-nowrap sm:w-auto"
             >
@@ -301,9 +309,14 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     symbol: 'XVS',
   });
 
-  const { data: primeStatusData, isLoading: isLoadingPrimeStatus } = useGetPrimeStatus({
-    enabled: !isAccountPrime,
-  });
+  const { data: primeStatusData, isLoading: isLoadingPrimeStatus } = useGetPrimeStatus(
+    {
+      accountAddress: accountAddress || '',
+    },
+    {
+      enabled: !isAccountPrime && !!accountAddress,
+    },
+  );
   const { data: userStakedXvsTokensData, isLoading: isLoadingXvsVaultUserInfo } =
     useGetXvsVaultUserInfo(
       {
@@ -312,11 +325,12 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
         rewardTokenAddress: primeStatusData?.rewardTokenAddress || '',
       },
       {
-        enabled: !!accountAddress && !!xvs && !!primeStatusData,
+        enabled: !!accountAddress && !!primeStatusData,
       },
     );
 
   const isLoading = isGetIsAddressPrimeLoading || isLoadingPrimeStatus || isLoadingXvsVaultUserInfo;
+
   // Hide component while loading or if user is Prime already
   if (isAccountPrime || isLoading || !primeStatusData) {
     return null;
@@ -325,8 +339,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const {
     primeTokenLimit,
     primeMinimumStakedXvsMantissa,
-    claimWaitingPeriod,
+    claimWaitingPeriodSeconds,
     claimedPrimeTokenCount,
+    userClaimTimeRemainingSeconds,
   } = primeStatusData;
 
   const userStakedXvsTokens = convertWeiToTokens({
@@ -349,7 +364,8 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       xvs={xvs!}
       claimedPrimeTokenCount={claimedPrimeTokenCount}
       primeTokenLimit={primeTokenLimit}
-      primeClaimWaitingPeriodSeconds={claimWaitingPeriod}
+      primeClaimWaitingPeriodSeconds={claimWaitingPeriodSeconds}
+      userPrimeClaimWaitingPeriodSeconds={userClaimTimeRemainingSeconds}
       userStakedXvsTokens={userStakedXvsTokens}
       onRedirectToXvsVaultPage={redirectToXvsPage}
       onClaimPrimeToken={claimPrimeToken}

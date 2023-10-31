@@ -1,31 +1,35 @@
 import BigNumber from 'bignumber.js';
 import { Prime } from 'packages/contracts';
 
-export interface GetPrimeClaimWaitingPeriodInput {
+export interface GetPrimeStatusInput {
+  accountAddress: string;
   primeContract: Prime;
 }
 
-export interface GetPrimeClaimWaitingPeriodOutput {
-  claimWaitingPeriod: number;
+export interface GetPrimeStatusOutput {
+  claimWaitingPeriodSeconds: number;
   claimedPrimeTokenCount: number;
   primeTokenLimit: number;
   primeMinimumStakedXvsMantissa: BigNumber;
   xvsVault: string;
   xvsVaultPoolId: number;
   rewardTokenAddress: string;
+  userClaimTimeRemainingSeconds: number;
 }
 
 const getPrimeStatus = async ({
+  accountAddress,
   primeContract,
-}: GetPrimeClaimWaitingPeriodInput): Promise<GetPrimeClaimWaitingPeriodOutput> => {
+}: GetPrimeStatusInput): Promise<GetPrimeStatusOutput> => {
   const [
-    claimWaitingPeriod,
+    claimWaitingPeriodSeconds,
     primeMinimumStakedXvsMantissa,
     claimedPrimeTokens,
     revocableLimit,
     xvsVault,
     xvsVaultPoolId,
     rewardTokenAddress,
+    userClaimTimeRemainingSeconds,
   ] = await Promise.all([
     primeContract.STAKING_PERIOD(),
     primeContract.MINIMUM_STAKED_XVS(),
@@ -34,16 +38,18 @@ const getPrimeStatus = async ({
     primeContract.xvsVault(),
     primeContract.xvsVaultPoolId(),
     primeContract.xvsVaultRewardToken(),
+    primeContract.claimTimeRemaining(accountAddress),
   ]);
 
   return {
-    claimWaitingPeriod: claimWaitingPeriod.toNumber(),
+    claimWaitingPeriodSeconds: claimWaitingPeriodSeconds.toNumber(),
     primeMinimumStakedXvsMantissa: new BigNumber(primeMinimumStakedXvsMantissa.toString()),
     claimedPrimeTokenCount: claimedPrimeTokens.toNumber(),
     primeTokenLimit: revocableLimit.toNumber(),
     xvsVault,
     xvsVaultPoolId: xvsVaultPoolId.toNumber(),
     rewardTokenAddress,
+    userClaimTimeRemainingSeconds: userClaimTimeRemainingSeconds.toNumber(),
   };
 };
 

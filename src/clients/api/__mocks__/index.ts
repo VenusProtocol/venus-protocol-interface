@@ -189,8 +189,9 @@ export const getXvsVaultUserInfo = vi.fn(() => ({
   stakedAmountWei: new BigNumber('1000000'),
 }));
 
-export const useGetXvsVaultUserInfo = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
+export const useGetXvsVaultUserInfo = vi.fn(() =>
+  useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo),
+);
 
 export const getCurrentVotes = vi.fn(async () => new BigNumber(100000000000000000));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);

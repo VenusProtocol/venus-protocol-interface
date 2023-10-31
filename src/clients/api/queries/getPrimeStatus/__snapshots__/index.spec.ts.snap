@@ -7,6 +7,7 @@ exports[`getPrimeStatus > returns the the data describing the status of the Prim
   "primeMinimumStakedXvsMantissa": "1000",
   "primeTokenLimit": 300,
   "rewardTokenAddress": "",
+  "userClaimTimeRemainingSeconds": 600,
   "xvsVault": "",
   "xvsVaultPoolId": 1,
 }

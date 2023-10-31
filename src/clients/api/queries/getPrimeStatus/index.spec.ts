@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { Prime } from 'packages/contracts';
 
+import fakeAccountAddress from '__mocks__/models/address';
+
 import getPrimeClaimWaitingPeriod from '.';
 
 vi.mock('packages/contracts');
@@ -20,9 +22,11 @@ describe('getPrimeStatus', () => {
       xvsVault: vi.fn(() => ''),
       xvsVaultPoolId: vi.fn(() => new BigNumber(1)),
       xvsVaultRewardToken: vi.fn(() => ''),
+      claimTimeRemaining: vi.fn(() => new BigNumber(mockPeriodInSeconds)),
     } as unknown as Prime;
 
     const response = await getPrimeClaimWaitingPeriod({
+      accountAddress: fakeAccountAddress,
       primeContract: fakePrimeContract,
     });
 
@@ -33,7 +37,8 @@ describe('getPrimeStatus', () => {
     expect(fakePrimeContract.xvsVault).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.xvsVaultPoolId).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.xvsVaultRewardToken).toHaveBeenCalledTimes(1);
-
+    expect(fakePrimeContract.claimTimeRemaining).toHaveBeenCalledTimes(1);
+    expect(fakePrimeContract.claimTimeRemaining).toBeCalledWith(fakeAccountAddress);
     expect(response).toMatchSnapshot();
   });
 });
