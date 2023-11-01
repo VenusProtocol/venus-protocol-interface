@@ -287,6 +287,10 @@
   },
   "layout": {
     "claimRewardModal": {
+      "primeGroup": {
+        "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",
+        "name": "Prime"
+      },
       "vaultGroup": "{{stakedTokenSymbol}} vault",
       "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
     },

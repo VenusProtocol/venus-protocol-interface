@@ -1,14 +1,22 @@
-import { PoolLens, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
+import {
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  VaiVault,
+  VenusLens,
+  XvsVault,
+} from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
 
-import getPendingRewardGroups from '..';
+import getPendingRewards from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
   fakeGetMainPoolPendingRewardsOutput,
   fakeGetPendingXvsOutput,
   fakeGetPriceOutput,
+  fakeGetPrimePendingRewardsOutput,
   fakeGetXvsVaultPendingRewardOutput,
   fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
   fakeGetXvsVaultPoolInfosOutput,
@@ -39,9 +47,16 @@ const fakeXvsVaultContract = {
   pendingWithdrawalsBeforeUpgrade: async () => fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
 } as unknown as XvsVault;
 
-describe('api/queries/getPendingRewardGroups', () => {
+const fakePrimeContract = {
+  paused: async () => false,
+  callStatic: {
+    getPendingRewards: async () => fakeGetPrimePendingRewardsOutput,
+  },
+} as unknown as Prime;
+
+describe('getPendingRewards', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
-    const res = await getPendingRewardGroups({
+    const res = await getPendingRewards({
       mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
@@ -52,6 +67,24 @@ describe('api/queries/getPendingRewardGroups', () => {
       resilientOracleContract: fakeResilientOracleContract,
       vaiVaultContract: fakeVaiVaultContract,
       xvsVaultContract: fakeXvsVaultContract,
+    });
+
+    expect(res).toMatchSnapshot();
+  });
+
+  test('returns pool rewards of the user, including Prime rewards, in the correct format on success', async () => {
+    const res = await getPendingRewards({
+      mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
+      isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
+      tokens,
+      xvsVestingVaultPoolCount: 1,
+      accountAddress: fakeAddress,
+      poolLensContract: fakePoolLensContract,
+      venusLensContract: fakeVenusLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      vaiVaultContract: fakeVaiVaultContract,
+      xvsVaultContract: fakeXvsVaultContract,
+      primeContract: fakePrimeContract,
     });
 
     expect(res).toMatchSnapshot();

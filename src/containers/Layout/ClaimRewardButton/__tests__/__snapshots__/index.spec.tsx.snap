@@ -31,6 +31,13 @@ exports[`ClaimRewardButton > it claims only selected rewards on submit button cl
         "symbol": "XVS",
       },
     },
+    {
+      "contract": "prime",
+      "vTokenAddressesWithPendingReward": [
+        "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
+        "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",
+      ],
+    },
   ],
 }
 `;
@@ -77,8 +84,15 @@ exports[`ClaimRewardButton > it claims reward on submit button click and display
         "symbol": "XVS",
       },
     },
+    {
+      "contract": "prime",
+      "vTokenAddressesWithPendingReward": [
+        "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
+        "0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61",
+      ],
+    },
   ],
 }
 `;
 
-exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400.00K1.00B XVSMetaverseVAI$3.002.00B VAIXVS$1.123.00B XVSVAI vaultXVS$12.003.00B XVSXVS vesting vaultXVS$1.654.00B XVS"`;
+exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400.00K1.00B XVSMetaverseVAI$3.002.00B VAIXVS$1.123.00B XVSVAI vaultXVS$12.003.00B XVSXVS vesting vaultXVS$1.654.00B XVSPrimeVAI$3.002.00B VAIXVS$1.123.00B XVS"`;

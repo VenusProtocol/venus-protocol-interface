@@ -2,6 +2,7 @@ import { useAnalytics } from 'packages/analytics';
 import {
   useGetMainPoolComptrollerContractAddress,
   useGetMulticall3Contract,
+  useGetPrimeContractAddress,
   useGetVaiVaultContractAddress,
   useGetXvsVaultContractAddress,
 } from 'packages/contracts';
@@ -29,6 +30,7 @@ const useClaimRewards = (options?: Options) => {
   const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const primeContractAddress = useGetPrimeContractAddress();
 
   const { captureAnalyticEvent } = useAnalytics();
 
@@ -44,6 +46,7 @@ const useClaimRewards = (options?: Options) => {
         },
         params =>
           claimRewards({
+            primeContractAddress,
             ...params,
             ...input,
           }),

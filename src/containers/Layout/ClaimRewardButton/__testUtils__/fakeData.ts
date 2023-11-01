@@ -55,4 +55,24 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     rewardAmountCents: new BigNumber('165'),
     poolIndex: 0,
   },
+  {
+    type: 'prime',
+    isDisabled: false,
+    vTokenAddressesWithPendingReward: [
+      '0xcfc8a73f9c888eea9af9ccca24646e84a915510b',
+      '0x12d3a3aa7f4917ea3b8ee34f99a9a7eec521fa61',
+    ],
+    pendingRewards: [
+      {
+        rewardToken: vai,
+        rewardAmountWei: new BigNumber('2000000000000000000000000000'),
+        rewardAmountCents: new BigNumber('300'),
+      },
+      {
+        rewardToken: xvs,
+        rewardAmountWei: new BigNumber('3000000000000000000000000000'),
+        rewardAmountCents: new BigNumber('112'),
+      },
+    ],
+  },
 ];

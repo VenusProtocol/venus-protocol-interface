@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
+import { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
 import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
 import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
+import formatToPrimePendingRewardGroup from './formatToPrimePendingRewardGroup';
 import formatToVaultPendingRewardGroup from './formatToVaultPendingRewardGroup';
 import formatToVestingVaultPendingRewardGroup from './formatToVestingVaultPendingRewardGroup';
 
@@ -19,6 +20,8 @@ const formatOutput = ({
   xvsVestingVaultPendingWithdrawalsBeforeUpgrade,
   tokenPriceMapping,
   venusLensPendingRewards,
+  primePendingRewards,
+  isPrimeContractPaused,
 }: {
   tokens: Token[];
   vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
@@ -32,8 +35,10 @@ const formatOutput = ({
   >;
   tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
+  isPrimeContractPaused: boolean;
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
   mainPoolComptrollerContractAddress?: string;
+  primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
@@ -124,6 +129,18 @@ const formatOutput = ({
     .filter((group): group is XvsVestingVaultPendingRewardGroup => !!group);
 
   pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
+
+  // Extract pending rewards from Prime
+  if (primePendingRewards) {
+    const primePendingRewardGroup = formatToPrimePendingRewardGroup({
+      isPrimeContractPaused,
+      primePendingRewards,
+      tokenPriceMapping,
+      tokens,
+    });
+
+    pendingRewardGroups.push(primePendingRewardGroup);
+  }
 
   return pendingRewardGroups;
 };

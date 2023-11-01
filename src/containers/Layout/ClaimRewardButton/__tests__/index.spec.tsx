@@ -71,6 +71,36 @@ describe('ClaimRewardButton', () => {
     expect(getByTestId(TEST_IDS.claimRewardBreakdown).textContent).toMatchSnapshot();
   });
 
+  it('displays warning message and removes checkbox of Prime group when Prime group is disabled', async () => {
+    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
+        if (fakePendingRewardGroup.type !== 'prime') {
+          return fakePendingRewardGroup;
+        }
+
+        return {
+          ...fakePendingRewardGroup,
+          isDisabled: true,
+        };
+      }),
+    }));
+
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() =>
+      expect(getByText(en.layout.claimRewardModal.primeGroup.disabledContractWarningMessage)),
+    );
+  });
+
   it('unselects all groups when clicking on "Select all" checkbox and all groups are selected', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
