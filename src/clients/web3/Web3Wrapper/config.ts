@@ -7,7 +7,6 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { publicProvider } from 'wagmi/providers/public';
 
 import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 
@@ -21,7 +20,6 @@ const { publicClient, webSocketPublicClient } = configureChains(
     jsonRpcProvider({
       rpc: chain => localConfig.rpcUrls[chain.id as ChainId],
     }),
-    publicProvider(),
   ],
   {
     stallTimeout: 3000, // Time after which a request is dimmed stalled and another provider is used
