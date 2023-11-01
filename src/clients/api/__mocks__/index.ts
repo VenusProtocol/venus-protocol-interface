@@ -185,9 +185,13 @@ export const getXvsVaultLockedDeposits = vi.fn();
 export const useGetXvsVaultLockedDeposits = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
 
-export const getXvsVaultUserInfo = vi.fn();
-export const useGetXvsVaultUserInfo = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
+export const getXvsVaultUserInfo = vi.fn(() => ({
+  stakedAmountWei: new BigNumber('1000000'),
+}));
+
+export const useGetXvsVaultUserInfo = vi.fn(() =>
+  useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo),
+);
 
 export const getCurrentVotes = vi.fn(async () => new BigNumber(100000000000000000));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
@@ -258,6 +262,11 @@ export const getIsAddressPrime = vi.fn(async () => ({
 }));
 export const useGetIsAddressPrime = vi.fn(() =>
   useQuery(FunctionKey.GET_IS_ACCOUNT_PRIME, getIsAddressPrime),
+);
+
+export const getPrimeStatus = vi.fn(async () => ({}));
+export const useGetPrimeStatus = vi.fn(() =>
+  useQuery(FunctionKey.GET_PRIME_STATUS, getPrimeStatus),
 );
 
 export const getHypotheticalPrimeApys = vi.fn();

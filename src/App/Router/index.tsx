@@ -1,11 +1,11 @@
 import React, { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
+import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 
 import PageSuspense from './PageSuspense';
-import { PAGE_CONTAINER_ID } from 'constants/layout';
 
 const Dashboard = lazy(() => import('pages/Dashboard'));
 const Account = lazy(() => import('pages/Account'));

@@ -341,3 +341,7 @@ export { default as useGetIsAddressPrime } from './queries/getIsAddressPrime/use
 export { default as getHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys';
 export * from './queries/getHypotheticalPrimeApys';
 export { default as useGetHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
+
+export { default as getPrimeStatus } from './queries/getPrimeStatus';
+export * from './queries/getPrimeStatus';
+export { default as useGetPrimeStatus } from './queries/getPrimeStatus/useGetPrimeStatus';
