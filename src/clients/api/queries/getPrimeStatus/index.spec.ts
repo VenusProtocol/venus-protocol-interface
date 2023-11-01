@@ -19,6 +19,7 @@ describe('getPrimeStatus', () => {
       MINIMUM_STAKED_XVS: vi.fn(() => new BigNumber(mockMinimumStakedXvs)),
       totalRevocable: vi.fn(() => new BigNumber(tokenLimit)),
       revocableLimit: vi.fn(() => new BigNumber(claimedTokens)),
+      getAllMarkets: vi.fn(() => []),
       xvsVault: vi.fn(() => ''),
       xvsVaultPoolId: vi.fn(() => new BigNumber(1)),
       xvsVaultRewardToken: vi.fn(() => ''),
@@ -34,6 +35,7 @@ describe('getPrimeStatus', () => {
     expect(fakePrimeContract.MINIMUM_STAKED_XVS).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.totalRevocable).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.revocableLimit).toHaveBeenCalledTimes(1);
+    expect(fakePrimeContract.getAllMarkets).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.xvsVault).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.xvsVaultPoolId).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.xvsVaultRewardToken).toHaveBeenCalledTimes(1);

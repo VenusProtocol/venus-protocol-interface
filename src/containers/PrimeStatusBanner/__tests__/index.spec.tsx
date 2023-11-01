@@ -15,6 +15,7 @@ describe('PrimeStatusBanner', () => {
     claimWaitingPeriodSeconds: 600,
     userClaimTimeRemainingSeconds: 600,
     claimedPrimeTokenCount: 0,
+    primeMarkets: [],
     primeTokenLimit: 1000,
     primeMinimumStakedXvsMantissa: new BigNumber('1000000'),
     xvsVault: '',

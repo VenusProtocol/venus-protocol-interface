@@ -6,12 +6,17 @@ import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { AssetDistribution, Token } from 'types';
 import { cn, convertWeiToTokens } from 'utilities';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
-import { useGetIsAddressPrime, useGetPrimeStatus, useGetXvsVaultUserInfo } from 'clients/api';
+import {
+  useGetIsAddressPrime,
+  useGetMainPool,
+  useGetPrimeStatus,
+  useGetXvsVaultUserInfo,
+} from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
@@ -317,6 +322,27 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       enabled: !isAccountPrime && !!accountAddress,
     },
   );
+
+  const { data: getMainPoolData, isLoading: isGetMainPoolDataLoading } = useGetMainPool({
+    accountAddress,
+  });
+
+  const primeAssets = getMainPoolData?.pool.assets.filter(
+    a => primeStatusData?.primeMarkets.includes(a.vToken.address),
+  );
+  const primeApySimulations = primeAssets?.reduce<AssetDistribution[]>(
+    (acc, a) =>
+      acc.concat(
+        a.supplyDistributions
+          .concat(a.borrowDistributions)
+          .filter(d => d.type === 'primeSimulation'),
+      ),
+    [],
+  );
+  const primeOrderedApys = primeApySimulations
+    ?.reduce<BigNumber[]>((acc, s) => acc.concat(s.apyPercentage), [])
+    .sort((a, b) => b.minus(a).toNumber());
+
   const { data: userStakedXvsTokensData, isLoading: isLoadingXvsVaultUserInfo } =
     useGetXvsVaultUserInfo(
       {
@@ -333,10 +359,14 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     userStakedXvsTokensData.pendingWithdrawalsTotalAmountWei,
   );
 
-  const isLoading = isGetIsAddressPrimeLoading || isLoadingPrimeStatus || isLoadingXvsVaultUserInfo;
+  const isLoading =
+    isGetIsAddressPrimeLoading ||
+    isLoadingPrimeStatus ||
+    isLoadingXvsVaultUserInfo ||
+    isGetMainPoolDataLoading;
 
   // Hide component while loading or if user is Prime already
-  if (isAccountPrime || isLoading || !primeStatusData) {
+  if (isAccountPrime || isLoading || !primeStatusData || !primeOrderedApys) {
     return null;
   }
 
@@ -358,7 +388,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     token: xvs,
   });
 
-  const highestPrimeSimulationApyBoostPercentage = new BigNumber('3.14');
+  const highestPrimeSimulationApyBoostPercentage = primeOrderedApys[0];
 
   const claimPrimeToken = async () => fakeContractReceipt;
   const isClaimPrimeTokenLoading = false;

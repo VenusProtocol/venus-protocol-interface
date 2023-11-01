@@ -4,6 +4,7 @@ exports[`getPrimeStatus > returns the the data describing the status of the Prim
 {
   "claimWaitingPeriodSeconds": 600,
   "claimedPrimeTokenCount": 1000,
+  "primeMarkets": [],
   "primeMinimumStakedXvsMantissa": "1000",
   "primeTokenLimit": 300,
   "rewardTokenAddress": "",
