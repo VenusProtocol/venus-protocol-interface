@@ -4,7 +4,11 @@ import { useMemo } from 'react';
 import { Asset, TokenAction } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import { useGetHypotheticalPrimeApys, useGetXvsVaultUserInfo } from 'clients/api';
+import {
+  useGetHypotheticalPrimeApys,
+  useGetPrimeStatus,
+  useGetXvsVaultUserInfo,
+} from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 
 export interface UseGetHypotheticalUserPrimeApysInput {
@@ -23,14 +27,24 @@ export const useGetHypotheticalUserPrimeApys = ({
     symbol: 'XVS',
   });
 
+  const { data: getPrimeStatusData } = useGetPrimeStatus(
+    {
+      accountAddress: accountAddress || '',
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+  const xvsVaultPoolIndex = getPrimeStatusData?.xvsVaultPoolId;
+
   const { data: getXvsVaultUserInfoData } = useGetXvsVaultUserInfo(
     {
-      poolIndex: 1, // TODO: fetch from Prime contract
+      poolIndex: xvsVaultPoolIndex || 0,
       rewardTokenAddress: xvs?.address || '',
       accountAddress: accountAddress || '',
     },
     {
-      enabled: !!accountAddress && !!xvs,
+      enabled: !!accountAddress && !!xvs && typeof xvsVaultPoolIndex === 'number',
     },
   );
   const userXvsStakedMantissa = getXvsVaultUserInfoData?.stakedAmountWei;

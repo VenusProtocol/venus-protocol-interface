@@ -229,7 +229,7 @@ const useGetValues = ({
       calculateDailyEarningsCents(hypotheticalUserYearlyEarningsCents);
 
     return returnValues;
-  }, [asset, pool, action, toTokenAmountTokens]);
+  }, [asset, pool, action, toTokenAmountTokens, hypotheticalUserPrimeApys]);
 };
 
 export default useGetValues;

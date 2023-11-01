@@ -2,13 +2,23 @@ import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
-import { useGetHypotheticalPrimeApys, useGetXvsVaultUserInfo } from 'clients/api';
+import {
+  useGetHypotheticalPrimeApys,
+  useGetPrimeStatus,
+  useGetXvsVaultUserInfo,
+} from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import { AccountData, AccountDataProps } from '..';
 
 describe('AccountData - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: {
+        xvsVaultPoolId: 1,
+      },
+    }));
+
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
         stakedAmountWei: new BigNumber('1000000000000000'),
