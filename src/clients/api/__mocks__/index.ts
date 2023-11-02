@@ -257,12 +257,10 @@ export const getVTokens = vi.fn(async () => ({
 }));
 export const useGetVTokens = vi.fn(() => useQuery(FunctionKey.GET_VTOKENS, getVTokens));
 
-export const getIsAddressPrime = vi.fn(async () => ({
+export const getPrimeToken = vi.fn(async () => ({
   isAccountPrime: false,
 }));
-export const useGetIsAddressPrime = vi.fn(() =>
-  useQuery(FunctionKey.GET_IS_ACCOUNT_PRIME, getIsAddressPrime),
-);
+export const useGetPrimeToken = vi.fn(() => useQuery(FunctionKey.GET_PRIME_TOKEN, getPrimeToken));
 
 export const getPrimeStatus = vi.fn(async () => ({}));
 export const useGetPrimeStatus = vi.fn(() =>

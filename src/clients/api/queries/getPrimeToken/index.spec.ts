@@ -2,19 +2,20 @@ import { Prime } from 'packages/contracts';
 
 import fakeAccountAddress from '__mocks__/models/address';
 
-import getIsAddressPrime from '.';
+import getPrimeToken from '.';
 
 vi.mock('packages/contracts');
 
-describe('getIsAddressPrime', () => {
+describe('getPrimeToken', () => {
   it('returns Prime status of passed account', async () => {
     const fakePrimeContract = {
       tokens: vi.fn(() => ({
         exists: true,
+        isIrrevocable: true,
       })),
     } as unknown as Prime;
 
-    const response = await getIsAddressPrime({
+    const response = await getPrimeToken({
       accountAddress: fakeAccountAddress,
       primeContract: fakePrimeContract,
     });
@@ -22,7 +23,8 @@ describe('getIsAddressPrime', () => {
     expect(fakePrimeContract.tokens).toHaveBeenCalledTimes(1);
     expect(fakePrimeContract.tokens).toHaveBeenCalledWith(fakeAccountAddress);
     expect(response).toEqual({
-      isPrime: true,
+      exists: true,
+      isIrrevocable: true,
     });
   });
 });

@@ -2,31 +2,31 @@ import { useGetPrimeContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { GetIsAddressPrimeOutput, getIsAddressPrime } from 'clients/api';
+import { GetPrimeTokenOutput, getPrimeToken } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
-type UseGetIsAddressPrimeInput = {
+type UseGetPrimeTokenInput = {
   accountAddress?: string;
 };
 
 type Options = QueryObserverOptions<
-  GetIsAddressPrimeOutput,
+  GetPrimeTokenOutput,
   Error,
-  GetIsAddressPrimeOutput,
-  GetIsAddressPrimeOutput,
-  [FunctionKey.GET_IS_ACCOUNT_PRIME, UseGetIsAddressPrimeInput]
+  GetPrimeTokenOutput,
+  GetPrimeTokenOutput,
+  [FunctionKey.GET_PRIME_TOKEN, UseGetPrimeTokenInput]
 >;
 
-const useGetIsAddressPrime = (input: UseGetIsAddressPrimeInput, options?: Options) => {
+const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Options) => {
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContract = useGetPrimeContract();
 
   return useQuery(
-    [FunctionKey.GET_IS_ACCOUNT_PRIME, input],
+    [FunctionKey.GET_PRIME_TOKEN, input],
     () =>
       callOrThrow({ primeContract, accountAddress: input.accountAddress }, params =>
-        getIsAddressPrime(params),
+        getPrimeToken(params),
       ),
     {
       ...options,
@@ -38,4 +38,4 @@ const useGetIsAddressPrime = (input: UseGetIsAddressPrimeInput, options?: Option
   );
 };
 
-export default useGetIsAddressPrime;
+export default useGetPrimeToken;
