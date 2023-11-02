@@ -6,19 +6,19 @@ import { GetPrimeStatusOutput, getPrimeStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
+interface UseGetPrimeStatusInput {
+  accountAddress?: string;
+}
+
 type Options = QueryObserverOptions<
   GetPrimeStatusOutput,
   Error,
   GetPrimeStatusOutput,
   GetPrimeStatusOutput,
-  [FunctionKey.GET_PRIME_STATUS, GetPrimeStatusInput]
+  [FunctionKey.GET_PRIME_STATUS, UseGetPrimeStatusInput]
 >;
 
-export interface GetPrimeStatusInput {
-  accountAddress: string;
-}
-
-const useGetPrimeStatus = ({ accountAddress }: GetPrimeStatusInput, options?: Options) => {
+const useGetPrimeStatus = ({ accountAddress }: UseGetPrimeStatusInput, options?: Options) => {
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContract = useGetPrimeContract();
 
@@ -27,7 +27,8 @@ const useGetPrimeStatus = ({ accountAddress }: GetPrimeStatusInput, options?: Op
     () => callOrThrow({ accountAddress, primeContract }, params => getPrimeStatus(params)),
     {
       ...options,
-      enabled: (options?.enabled === undefined || options?.enabled) && isPrimeEnabled,
+      enabled:
+        (options?.enabled === undefined || options?.enabled) && !!accountAddress && isPrimeEnabled,
     },
   );
 };

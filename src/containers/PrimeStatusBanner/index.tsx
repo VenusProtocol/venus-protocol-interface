@@ -315,10 +315,10 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
 
   const { data: primeStatusData, isLoading: isLoadingPrimeStatus } = useGetPrimeStatus(
     {
-      accountAddress: accountAddress || '',
+      accountAddress,
     },
     {
-      enabled: !isAccountPrime && !!accountAddress,
+      enabled: !isGetPrimeTokenLoading && !isAccountPrime,
     },
   );
 
