@@ -9,9 +9,9 @@ import { useTranslation } from 'translation';
 import { AssetDistribution, Token } from 'types';
 import { cn, convertWeiToTokens } from 'utilities';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
+  useClaimPrimeToken,
   useGetMainPool,
   useGetPrimeStatus,
   useGetPrimeToken,
@@ -358,6 +358,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     userStakedXvsTokensData.pendingWithdrawalsTotalAmountWei,
   );
 
+  const { mutateAsync: claimPrimeToken, isLoading: isClaimPrimeTokenLoading } =
+    useClaimPrimeToken();
+
   const isLoading =
     isGetPrimeTokenLoading ||
     isLoadingPrimeStatus ||
@@ -388,9 +391,6 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   });
 
   const highestPrimeSimulationApyBoostPercentage = primeOrderedApys[0];
-
-  const claimPrimeToken = async () => fakeContractReceipt;
-  const isClaimPrimeTokenLoading = false;
 
   return (
     <PrimeStatusBannerUi
