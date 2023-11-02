@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
-import { xvs } from '__mocks__/models/tokens';
+import { busd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 import { vBusd, vUsdc, vUsdt, vXvs } from '__mocks__/models/vTokens';
 
 export const assetData: Asset[] = [
@@ -84,8 +84,18 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
+        type: 'primeSimulation',
+        token: usdc,
+        apyPercentage: new BigNumber('0.953105649796123742'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
+      },
+      {
         type: 'prime',
-        token: xvs,
+        token: usdc,
         apyPercentage: new BigNumber('0.753105649796123742'),
       },
     ],
@@ -97,8 +107,18 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
+        type: 'primeSimulation',
+        token: usdc,
+        apyPercentage: new BigNumber('1.233105649796123742'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
+      },
+      {
         type: 'prime',
-        token: xvs,
+        token: usdc,
         apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],
@@ -139,7 +159,7 @@ export const assetData: Asset[] = [
       },
       {
         type: 'primeSimulation',
-        token: xvs,
+        token: usdt,
         apyPercentage: new BigNumber('1.753105649796123742'),
         referenceValues: {
           userBorrowBalanceTokens: new BigNumber('1000'),
@@ -157,7 +177,7 @@ export const assetData: Asset[] = [
       },
       {
         type: 'primeSimulation',
-        token: xvs,
+        token: usdt,
         apyPercentage: new BigNumber('1.015310564979612374'),
         referenceValues: {
           userBorrowBalanceTokens: new BigNumber('1000'),
@@ -203,13 +223,18 @@ export const assetData: Asset[] = [
       },
       {
         type: 'primeSimulation',
-        token: xvs,
+        token: busd,
         apyPercentage: new BigNumber('1.753105649796123742'),
         referenceValues: {
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
         },
+      },
+      {
+        type: 'prime',
+        token: xvs,
+        apyPercentage: new BigNumber(0),
       },
     ],
     borrowDistributions: [
@@ -220,8 +245,18 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
       {
+        type: 'primeSimulation',
+        token: busd,
+        apyPercentage: new BigNumber('1.753105649796123742'),
+        referenceValues: {
+          userBorrowBalanceTokens: new BigNumber('1000'),
+          userSupplyBalanceTokens: new BigNumber('1000'),
+          userXvsStakedTokens: new BigNumber('1000'),
+        },
+      },
+      {
         type: 'prime',
-        token: xvs,
+        token: busd,
         apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],

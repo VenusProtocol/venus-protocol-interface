@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
-  AccountData,
   Delimiter,
   LabeledInlineContent,
   QuaternaryButton,
@@ -23,6 +22,7 @@ import {
 } from 'utilities';
 
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
+import { AccountData } from 'containers/AccountData';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -288,6 +288,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         amountTokens={new BigNumber(formValues.amountTokens || 0)}
         action="repay"
         isUsingSwap={isUsingSwap}
+        className="mb-6"
       />
 
       <SubmitSection

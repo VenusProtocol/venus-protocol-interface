@@ -11,6 +11,8 @@ import {
   convertWeiToTokens,
 } from 'utilities';
 
+import { useGetHypotheticalUserPrimeApys } from './useGetHypotheticalUserPrimeApys';
+
 export interface UseGetValuesInput {
   asset: Asset;
   pool: Pool;
@@ -29,6 +31,8 @@ export interface UseGetValuesOutput {
   hypotheticalPoolUserBorrowLimitCents: BigNumber | undefined;
   hypotheticalPoolUserBorrowLimitUsedPercentage: number | undefined;
   hypotheticalPoolUserDailyEarningsCents: BigNumber | undefined;
+  hypotheticalAssetSupplyPrimeApyPercentage: BigNumber | undefined;
+  hypotheticalAssetBorrowPrimeApyPercentage: BigNumber | undefined;
 }
 
 const useGetValues = ({
@@ -54,6 +58,12 @@ const useGetValues = ({
 
     return amountTokens;
   }, [swap, amountTokens, isUsingSwap]);
+
+  const hypotheticalUserPrimeApys = useGetHypotheticalUserPrimeApys({
+    asset,
+    action,
+    toTokenAmountTokens,
+  });
 
   return useMemo(() => {
     const poolUserYearlyEarningsCents = calculateYearlyEarningsForAssets({
@@ -82,6 +92,8 @@ const useGetValues = ({
       hypotheticalPoolUserBorrowLimitCents: undefined,
       hypotheticalPoolUserBorrowLimitUsedPercentage: undefined,
       hypotheticalPoolUserDailyEarningsCents: undefined,
+      hypotheticalAssetSupplyPrimeApyPercentage: hypotheticalUserPrimeApys?.supplyApy,
+      hypotheticalAssetBorrowPrimeApyPercentage: hypotheticalUserPrimeApys?.borrowApy,
     };
 
     const isImpossibleWithdrawAction =
@@ -144,25 +156,58 @@ const useGetValues = ({
     }
 
     const hypotheticalAssets = pool.assets.map(a => {
-      if (areTokensEqual(a.vToken, asset.vToken)) {
-        const userSupplyBalanceTokens =
-          returnValues.hypotheticalUserSupplyBalanceTokens || asset.userSupplyBalanceTokens;
-        const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
-
-        const userBorrowBalanceTokens =
-          returnValues.hypotheticalUserBorrowBalanceTokens || asset.userBorrowBalanceTokens;
-        const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(asset.tokenPriceCents);
-
-        return {
-          ...a,
-          userSupplyBalanceTokens,
-          userSupplyBalanceCents,
-          userBorrowBalanceTokens,
-          userBorrowBalanceCents,
-        };
+      if (!areTokensEqual(a.vToken, asset.vToken)) {
+        return a;
       }
 
-      return a;
+      const userSupplyBalanceTokens =
+        returnValues.hypotheticalUserSupplyBalanceTokens || asset.userSupplyBalanceTokens;
+      const userSupplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
+
+      const userBorrowBalanceTokens =
+        returnValues.hypotheticalUserBorrowBalanceTokens || asset.userBorrowBalanceTokens;
+      const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(asset.tokenPriceCents);
+
+      // Include hypothetical Prime distributions
+      const borrowDistributions = a.borrowDistributions.map(borrowDistribution => {
+        if (
+          borrowDistribution.type !== 'prime' ||
+          !hypotheticalUserPrimeApys?.borrowApy ||
+          (action !== 'borrow' && action !== 'repay')
+        ) {
+          return borrowDistribution;
+        }
+
+        return {
+          ...borrowDistribution,
+          apyPercentage: hypotheticalUserPrimeApys.borrowApy,
+        };
+      });
+
+      const supplyDistributions = a.supplyDistributions.map(borrowDistribution => {
+        if (
+          borrowDistribution.type !== 'prime' ||
+          !hypotheticalUserPrimeApys?.supplyApy ||
+          (action !== 'borrow' && action !== 'repay')
+        ) {
+          return borrowDistribution;
+        }
+
+        return {
+          ...borrowDistribution,
+          apyPercentage: hypotheticalUserPrimeApys.supplyApy,
+        };
+      });
+
+      return {
+        ...a,
+        borrowDistributions,
+        supplyDistributions,
+        userSupplyBalanceTokens,
+        userSupplyBalanceCents,
+        userBorrowBalanceTokens,
+        userBorrowBalanceCents,
+      };
     });
 
     // Calculate hypothetical earnings
@@ -184,7 +229,7 @@ const useGetValues = ({
       calculateDailyEarningsCents(hypotheticalUserYearlyEarningsCents);
 
     return returnValues;
-  }, [asset, pool, action, toTokenAmountTokens]);
+  }, [asset, pool, action, toTokenAmountTokens, hypotheticalUserPrimeApys]);
 };
 
 export default useGetValues;
