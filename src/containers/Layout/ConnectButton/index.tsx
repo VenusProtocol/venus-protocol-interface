@@ -2,7 +2,7 @@ import { Button, ButtonProps } from 'components';
 import { useTranslation } from 'translation';
 import { truncateAddress } from 'utilities';
 
-import { useGetIsAddressPrime } from 'clients/api';
+import { useGetPrimeToken } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 
 import { PrimeButton } from './PrimeButton';
@@ -40,17 +40,16 @@ export const ConnectButton: React.FC<
 > = props => {
   const { accountAddress, openAuthModal } = useAuth();
 
-  const { data: getIsAddressPrimeData, isLoading: isGetIsAddressPrimeLoading } =
-    useGetIsAddressPrime({
-      accountAddress,
-    });
-  const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
+  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
+    accountAddress,
+  });
+  const isAccountPrime = !!getPrimeTokenData?.exists;
 
   return (
     <ConnectButtonUi
       accountAddress={accountAddress}
       isAccountPrime={isAccountPrime}
-      loading={isGetIsAddressPrimeLoading}
+      loading={isGetPrimeTokenLoading}
       onClick={openAuthModal}
       {...props}
     />

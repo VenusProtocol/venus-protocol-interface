@@ -334,9 +334,9 @@ export { default as getVTokens } from './queries/getVTokens';
 export * from './queries/getVTokens';
 export { default as useGetVTokens } from './queries/getVTokens/useGetVTokens';
 
-export { default as getIsAddressPrime } from './queries/getIsAddressPrime';
-export * from './queries/getIsAddressPrime';
-export { default as useGetIsAddressPrime } from './queries/getIsAddressPrime/useGetIsAddressPrime';
+export { default as getPrimeToken } from './queries/getPrimeToken';
+export * from './queries/getPrimeToken';
+export { default as useGetPrimeToken } from './queries/getPrimeToken/useGetPrimeToken';
 
 export { default as getHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys';
 export * from './queries/getHypotheticalPrimeApys';

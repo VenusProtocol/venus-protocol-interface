@@ -16,6 +16,7 @@ import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
+import PrimeLossWarningNotice from '../PrimeLossWarningNotice';
 import { useStyles as useSharedStyles } from '../styles';
 
 export interface RequestWithdrawalUiProps {
@@ -26,6 +27,7 @@ export interface RequestWithdrawalUiProps {
   onSubmit: TransactionFormProps['onSubmit'];
   isSubmitting: boolean;
   displayWithdrawalRequestList: () => void;
+  poolIndex: number;
   lockingPeriodMs: number | undefined;
 }
 
@@ -37,6 +39,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   onSubmitSuccess,
   onSubmit,
   isSubmitting,
+  poolIndex,
   displayWithdrawalRequestList,
 }) => {
   const { t } = useTranslation();
@@ -54,6 +57,8 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
         <Spinner />
       ) : (
         <>
+          <PrimeLossWarningNotice poolIndex={poolIndex} />
+
           <TransactionForm
             token={stakedToken}
             availableTokensLabel={t(
@@ -201,6 +206,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         onSubmitSuccess={handleClose}
         onSubmit={handleSubmit}
         isSubmitting={isRequestingWithdrawalFromXvsVault}
+        poolIndex={poolIndex}
         displayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
       />
     </ConnectWallet>

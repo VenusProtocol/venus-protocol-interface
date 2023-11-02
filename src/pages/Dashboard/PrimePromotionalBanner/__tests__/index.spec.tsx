@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 import Vi from 'vitest';
 
-import { useGetIsAddressPrime } from 'clients/api';
+import { useGetPrimeToken } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -10,9 +10,9 @@ import TEST_IDS from '../testIds';
 
 describe('PrimePromotionalBanner', () => {
   it('renders when user is not prime', async () => {
-    (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
-        isPrime: false,
+        exists: false,
       },
     }));
 
@@ -22,9 +22,9 @@ describe('PrimePromotionalBanner', () => {
   });
 
   it('renders nothing when user is prime', () => {
-    (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
-        isPrime: true,
+        exists: true,
       },
     }));
 
@@ -36,9 +36,9 @@ describe('PrimePromotionalBanner', () => {
   });
 
   it('closes banner when clicking on close icon', async () => {
-    (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
-        isPrime: false,
+        exists: false,
       },
     }));
 

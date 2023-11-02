@@ -10,7 +10,7 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
-interface UseGetIsAddressPrimeInput
+interface UseGetPrimeTokenInput
   extends Omit<GetHypotheticalPrimeApysInput, 'primeContract' | 'accountAddress'> {
   accountAddress?: string;
 }
@@ -20,10 +20,10 @@ type Options = QueryObserverOptions<
   Error,
   GetHypotheticalPrimeApysOutput,
   GetHypotheticalPrimeApysOutput,
-  [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, UseGetIsAddressPrimeInput]
+  [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, UseGetPrimeTokenInput]
 >;
 
-const useGetHypotheticalPrimeApys = (input: UseGetIsAddressPrimeInput, options?: Options) => {
+const useGetHypotheticalPrimeApys = (input: UseGetPrimeTokenInput, options?: Options) => {
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContract = useGetPrimeContract();
 

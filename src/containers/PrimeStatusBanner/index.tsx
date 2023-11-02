@@ -12,9 +12,9 @@ import { cn, convertWeiToTokens } from 'utilities';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
-  useGetIsAddressPrime,
   useGetMainPool,
   useGetPrimeStatus,
+  useGetPrimeToken,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
@@ -304,11 +304,10 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const redirectToXvsPage = () => navigate(routes.vaults.path);
 
   const { accountAddress } = useAuth();
-  const { data: getIsAddressPrimeData, isLoading: isGetIsAddressPrimeLoading } =
-    useGetIsAddressPrime({
-      accountAddress,
-    });
-  const isAccountPrime = !!getIsAddressPrimeData?.isPrime;
+  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
+    accountAddress,
+  });
+  const isAccountPrime = !!getPrimeTokenData?.exists;
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -316,10 +315,10 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
 
   const { data: primeStatusData, isLoading: isLoadingPrimeStatus } = useGetPrimeStatus(
     {
-      accountAddress: accountAddress || '',
+      accountAddress,
     },
     {
-      enabled: !isAccountPrime && !!accountAddress,
+      enabled: !isGetPrimeTokenLoading && !isAccountPrime,
     },
   );
 
@@ -360,7 +359,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   );
 
   const isLoading =
-    isGetIsAddressPrimeLoading ||
+    isGetPrimeTokenLoading ||
     isLoadingPrimeStatus ||
     isLoadingXvsVaultUserInfo ||
     isGetMainPoolDataLoading;

@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
-import { useGetIsAddressPrime, useGetPrimeStatus, useGetXvsVaultUserInfo } from 'clients/api';
+import { useGetPrimeStatus, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import PrimeStatusBanner from '..';
@@ -35,9 +35,9 @@ describe('PrimeStatusBanner', () => {
         pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
       },
     }));
-    (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
-        isPrime: false,
+        exists: false,
       },
     }));
   });
@@ -51,9 +51,9 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('renders nothing if user is Prime', () => {
-    (useGetIsAddressPrime as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
-        isPrime: true,
+        exists: true,
       },
     }));
 
