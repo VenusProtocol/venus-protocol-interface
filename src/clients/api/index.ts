@@ -116,6 +116,10 @@ export { default as useClaimRewards } from './mutations/claimRewards/useClaimRew
 
 export { default as useStakeInVault } from './mutations/useStakeInVault';
 
+export { default as claimPrimeToken } from './mutations/claimPrimeToken';
+export * from './mutations/claimPrimeToken';
+export { default as useClaimPrimeToken } from './mutations/claimPrimeToken/useClaimPrimeToken';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';

@@ -405,3 +405,7 @@ export const useStakeInVault = () => ({
   stake,
   isLoading: false,
 });
+
+export const claimPrimeToken = vi.fn();
+export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_PRIME_TOKEN, claimPrimeToken, options);
