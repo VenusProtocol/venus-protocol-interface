@@ -40,10 +40,16 @@ const formatToPrimePendingRewardGroup = ({
         return acc;
       }
 
+      const rewardAmountWei = new BigNumber(primePendingReward.amount.toString());
+
+      // Skip if pending reward amount is 0
+      if (rewardAmountWei.isLessThanOrEqualTo(0)) {
+        return acc;
+      }
+
       // Add vToken address to list of vTokens to collect rewards from
       vTokenAddressesWithPendingReward.push(primePendingReward.vToken);
 
-      const rewardAmountWei = new BigNumber(primePendingReward.amount.toString());
       const rewardAmountTokens = convertWeiToTokens({
         valueWei: new BigNumber(primePendingReward.amount.toString()),
         token: rewardToken,
