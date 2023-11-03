@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { Card, Icon, Link, PrimaryButton, ProgressBar, Tooltip } from 'components';
-import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
@@ -25,6 +24,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableV
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import PrimeTokensLeft from './PrimeTokensLeft';
+import { formatWaitingPeriod } from './formatWaitingPeriod';
 import TEST_IDS from './testIds';
 
 export interface PrimeStatusBannerUiProps {
@@ -98,14 +98,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const [readableClaimWaitingPeriod, readableUserClaimWaitingPeriod] = useMemo(
     () => [
-      formatDistanceStrict(
-        new Date(),
-        new Date().getTime() + primeClaimWaitingPeriodSeconds * 1000,
-      ),
-      formatDistanceStrict(
-        new Date(),
-        new Date().getTime() + userPrimeClaimWaitingPeriodSeconds * 1000,
-      ),
+      formatWaitingPeriod({ waitingPeriodSeconds: primeClaimWaitingPeriodSeconds }),
+      formatWaitingPeriod({ waitingPeriodSeconds: userPrimeClaimWaitingPeriodSeconds }),
     ],
     [primeClaimWaitingPeriodSeconds, userPrimeClaimWaitingPeriodSeconds],
   );
