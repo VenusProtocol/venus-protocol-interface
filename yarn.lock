@@ -7169,9 +7169,9 @@
   integrity sha512-AdAtAgPC9UjJJlY8/ydGnDHkE+99MCCIIb5cg9lFrmv9gL0icHWjKVNxdfskZxj9CJ1BknOgTULsbUmLj0+VzA==
 
 "@venusprotocol/isolated-pools@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.1.0.tgz#b16fde3d1da4b8b6112f6feca8f484a3ed3d6c7a"
-  integrity sha512-u0mcDBmoszlAvOHonplriCed3ohoKp2XqOjFEt6ShCUTEHpVB+93q3VSGvVyqcx6zDdQYyog7dS6CqVvzPGQfQ==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.2.0.tgz#d84654e4a23d0a53ca5751e2d19e07fd2923214b"
+  integrity sha512-4BIfXtRjo0z80KiLDXU+r3GKS4U5/czheMCCzvljTUzm9Hpxs78lmqPO42jud4pW0/BkQiOMDYq4sgiX2X14YA==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
