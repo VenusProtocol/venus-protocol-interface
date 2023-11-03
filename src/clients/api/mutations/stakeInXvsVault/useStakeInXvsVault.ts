@@ -93,6 +93,21 @@ const useStakeInXvsVault = (
           { rewardTokenAddress: rewardToken.address, poolIndex },
         ]);
 
+        // Invalidate cached Prime data
+        queryClient.invalidateQueries([
+          FunctionKey.GET_PRIME_STATUS,
+          {
+            accountAddress,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_PRIME_TOKEN,
+          {
+            accountAddress,
+          },
+        ]);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

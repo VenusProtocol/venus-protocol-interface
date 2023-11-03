@@ -1,13 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { Card, Icon, Link, PrimaryButton, ProgressBar, Tooltip } from 'components';
-import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
 import { AssetDistribution, Token } from 'types';
-import { cn, convertWeiToTokens } from 'utilities';
+import { cn, convertWeiToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
@@ -25,6 +24,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableV
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import PrimeTokensLeft from './PrimeTokensLeft';
+import { formatWaitingPeriod } from './formatWaitingPeriod';
 import TEST_IDS from './testIds';
 
 export interface PrimeStatusBannerUiProps {
@@ -42,6 +42,8 @@ export interface PrimeStatusBannerUiProps {
   hidePromotionalTitle?: boolean;
   className?: string;
 }
+
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   className,
@@ -96,14 +98,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const [readableClaimWaitingPeriod, readableUserClaimWaitingPeriod] = useMemo(
     () => [
-      formatDistanceStrict(
-        new Date(),
-        new Date().getTime() + primeClaimWaitingPeriodSeconds * 1000,
-      ),
-      formatDistanceStrict(
-        new Date(),
-        new Date().getTime() + userPrimeClaimWaitingPeriodSeconds * 1000,
-      ),
+      formatWaitingPeriod({ waitingPeriodSeconds: primeClaimWaitingPeriodSeconds }),
+      formatWaitingPeriod({ waitingPeriodSeconds: userPrimeClaimWaitingPeriodSeconds }),
     ],
     [primeClaimWaitingPeriodSeconds, userPrimeClaimWaitingPeriodSeconds],
   );
@@ -142,7 +138,13 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         />
       );
     }
-  }, [hidePromotionalTitle, readableApyBoostPercentage, isUserXvsStakeHighEnoughForPrime]);
+  }, [
+    hidePromotionalTitle,
+    readableApyBoostPercentage,
+    userPrimeClaimWaitingPeriodSeconds,
+    readableUserClaimWaitingPeriod,
+    isUserXvsStakeHighEnoughForPrime,
+  ]);
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
   const displayWarning = haveAllPrimeTokensBeenClaimed;
@@ -319,6 +321,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     },
     {
       enabled: !isGetPrimeTokenLoading && !isAccountPrime,
+      refetchInterval,
     },
   );
 
