@@ -15,8 +15,25 @@ const useWithdrawXvs = (options?: MutationObserverOptions<WithdrawXvsOutput, Err
     () => callOrThrow({ xvsVestingContract }, withdrawXvs),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
+      onSuccess: async (...onSuccessParams) => {
+        const accountAddress = await xvsVestingContract?.signer.getAddress();
+
         queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
+
+        // Invalidate cached Prime data
+        queryClient.invalidateQueries([
+          FunctionKey.GET_PRIME_STATUS,
+          {
+            accountAddress,
+          },
+        ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_PRIME_TOKEN,
+          {
+            accountAddress,
+          },
+        ]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
