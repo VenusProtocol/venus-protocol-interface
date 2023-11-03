@@ -27,6 +27,7 @@ import ltcLogo from 'packages/tokens/img/ltc.svg';
 import lunaLogo from 'packages/tokens/img/luna.svg';
 import maticLogo from 'packages/tokens/img/matic.svg';
 import nftLogo from 'packages/tokens/img/nft.png';
+import planetLogo from 'packages/tokens/img/planet.svg';
 import racaLogo from 'packages/tokens/img/raca.png';
 import sdLogo from 'packages/tokens/img/sd.svg';
 import snbnbLogo from 'packages/tokens/img/snBNB.svg';
@@ -364,5 +365,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'UNI',
     asset: uniLogo,
+  },
+  {
+    address: '0xca6d678e74f553f0e59cccc03ae644a3c2c5ee7d',
+    decimals: 18,
+    symbol: 'PLANET',
+    asset: planetLogo,
   },
 ];
