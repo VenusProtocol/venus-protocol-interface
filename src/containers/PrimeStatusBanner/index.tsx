@@ -7,7 +7,7 @@ import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'translation';
 import { AssetDistribution, Token } from 'types';
-import { cn, convertWeiToTokens } from 'utilities';
+import { cn, convertWeiToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
@@ -42,6 +42,8 @@ export interface PrimeStatusBannerUiProps {
   hidePromotionalTitle?: boolean;
   className?: string;
 }
+
+const refetchInterval = generatePseudoRandomRefetchInterval();
 
 export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   className,
@@ -142,7 +144,13 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         />
       );
     }
-  }, [hidePromotionalTitle, readableApyBoostPercentage, isUserXvsStakeHighEnoughForPrime]);
+  }, [
+    hidePromotionalTitle,
+    readableApyBoostPercentage,
+    userPrimeClaimWaitingPeriodSeconds,
+    readableUserClaimWaitingPeriod,
+    isUserXvsStakeHighEnoughForPrime,
+  ]);
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
   const displayWarning = haveAllPrimeTokensBeenClaimed;
@@ -319,6 +327,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     },
     {
       enabled: !isGetPrimeTokenLoading && !isAccountPrime,
+      refetchInterval,
     },
   );
 
