@@ -164,7 +164,7 @@
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.68.0",
-    "semantic-release": "^21.1.1",
+    "semantic-release": "^22.0.6",
     "storybook": "7.2.1",
     "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.4",
