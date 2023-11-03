@@ -7303,9 +7303,9 @@
     dotenv "^16.0.1"
 
 "@venusprotocol/venus-protocol@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-5.0.0.tgz#131e9e062b8a7a098c18385f7cb0a700b8f550be"
-  integrity sha512-WEzAxhDJzVvJxlV3VVpzraowzTwrZiwS9pKluJ0DsvPZVKgB85Wj72vW5XAs0uDyjtqddUN9DvNn/TrUSDhd8w==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-5.1.0.tgz#10e09f38e9871d0098478da25652875ae5c7e4fb"
+  integrity sha512-giJU1fJHZsBcJDzYvn6aOjM9JBheJVZDWxbpQArTzkS5OZQBVekWEKCXLX7TDTxDw2Kjqoenl9QXL8Dhodp+6g==
   dependencies:
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
