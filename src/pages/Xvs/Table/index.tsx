@@ -2,13 +2,14 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
-import { useGetVaiControllerContractAddress } from 'packages/contracts';
+import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
+  calculateApy,
   compareBigNumbers,
   convertWeiToTokens,
   formatPercentageToReadableValue,
@@ -16,7 +17,6 @@ import {
 } from 'utilities';
 
 import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
@@ -126,7 +126,7 @@ const XvsTable: React.FC = () => {
 
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
-  const vaiVaultContractAddress = useGetVaiControllerContractAddress();
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
@@ -161,25 +161,25 @@ const XvsTable: React.FC = () => {
     );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
-      const venusVaiVaultDailyRateTokens = convertWeiToTokens({
+      const vaiVaultDailyXvsRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
         token: xvs,
       });
 
-      const vaultVaiStakedTokens = convertWeiToTokens({
+      const vaiVaultStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedData.balanceWei,
         token: vai,
       });
 
-      const vaiApy = venusVaiVaultDailyRateTokens
+      const dailyRate = vaiVaultDailyXvsRateTokens
         .times(xvsAsset.tokenPriceCents.div(100))
-        .times(DAYS_PER_YEAR)
-        .times(100)
-        .div(vaultVaiStakedTokens);
+        .div(vaiVaultStakedTokens);
+
+      const vaiApy = calculateApy({ dailyRate });
 
       allAssets.unshift({
         token: vai!,
-        xvsPerDay: venusVaiVaultDailyRateTokens,
+        xvsPerDay: vaiVaultDailyXvsRateTokens,
         xvsSupplyApy: vaiApy,
         xvsBorrowApy: undefined,
       });
