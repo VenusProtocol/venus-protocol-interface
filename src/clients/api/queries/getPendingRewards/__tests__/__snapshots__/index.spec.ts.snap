@@ -75,12 +75,6 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       },
       "type": "xvsVestingVault",
     },
-    {
-      "isDisabled": false,
-      "pendingRewards": [],
-      "type": "prime",
-      "vTokenAddressesWithPendingReward": [],
-    },
   ],
 }
 `;

@@ -69,6 +69,10 @@ const formatToPrimePendingRewardGroup = ({
     [],
   );
 
+  if (pendingRewards.length === 0) {
+    return undefined;
+  }
+
   const primePendingRewardGroup: PrimePendingRewardGroup = {
     type: 'prime',
     isDisabled: isPrimeContractPaused,

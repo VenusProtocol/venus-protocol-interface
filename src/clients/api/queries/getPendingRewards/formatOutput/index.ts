@@ -2,7 +2,11 @@ import BigNumber from 'bignumber.js';
 import { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
-import { PendingRewardGroup, XvsVestingVaultPendingRewardGroup } from '../types';
+import {
+  PendingRewardGroup,
+  PrimePendingRewardGroup,
+  XvsVestingVaultPendingRewardGroup,
+} from '../types';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
 import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
 import formatToPrimePendingRewardGroup from './formatToPrimePendingRewardGroup';
@@ -131,14 +135,18 @@ const formatOutput = ({
   pendingRewardGroups.push(...xvsVestingVaultPendingRewardGroups);
 
   // Extract pending rewards from Prime
+  let primePendingRewardGroup: PrimePendingRewardGroup | undefined;
+
   if (primePendingRewards) {
-    const primePendingRewardGroup = formatToPrimePendingRewardGroup({
+    primePendingRewardGroup = formatToPrimePendingRewardGroup({
       isPrimeContractPaused,
       primePendingRewards,
       tokenPriceMapping,
       tokens,
     });
+  }
 
+  if (primePendingRewardGroup) {
     pendingRewardGroups.push(primePendingRewardGroup);
   }
 
