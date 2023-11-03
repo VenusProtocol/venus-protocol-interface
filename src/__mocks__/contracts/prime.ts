@@ -6,6 +6,7 @@ const primeResponses: {
   getAllMarkets: Awaited<ReturnType<Prime['getAllMarkets']>>;
   calculateAPR: Awaited<ReturnType<Prime['calculateAPR']>>;
   estimateAPR: Awaited<ReturnType<Prime['estimateAPR']>>;
+  tokens: Awaited<ReturnType<Prime['tokens']>>;
 } = {
   MINIMUM_STAKED_XVS: BN.from('1000000000000000000000'),
   getAllMarkets: [
@@ -22,6 +23,10 @@ const primeResponses: {
     borrowAPR: BN.from('20'),
     supplyAPR: BN.from('23'),
   } as Awaited<ReturnType<Prime['estimateAPR']>>,
+  tokens: {
+    exists: true,
+    isIrrevocable: false,
+  } as Awaited<ReturnType<Prime['tokens']>>,
 };
 
 export default primeResponses;

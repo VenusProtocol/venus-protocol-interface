@@ -27,6 +27,7 @@ const getMainPool = async ({
     xvsPriceMantissaResult,
     primeVTokenAddressesResult,
     primeMinimumXvsToStakeResult,
+    userPrimeTokenResult,
     assetsInResult,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     _accrueVaiInterestResult,
@@ -43,6 +44,7 @@ const getMainPool = async ({
     primeContract?.getAllMarkets(),
     primeContract?.MINIMUM_STAKED_XVS(),
     // Account related calls
+    accountAddress ? primeContract?.tokens(accountAddress) : undefined,
     accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
     // interests. Since multicall will batch these requests, the call to accrueVAIInterest and
@@ -62,6 +64,7 @@ const getMainPool = async ({
   const vTokenAddresses = marketsResult.value;
   const primeVTokenAddresses = extractSettledPromiseValue(primeVTokenAddressesResult) || [];
   const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
+  const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
 
   // Fetch underlying token prices
   const underlyingTokenPricePromises = Promise.allSettled(
@@ -99,15 +102,16 @@ const getMainPool = async ({
   ]);
 
   // Fetch Prime distributions
-  const primeAprPromises = primeContract
-    ? Promise.allSettled(
-        accountAddress
-          ? primeVTokenAddresses.map(primeVTokenAddress =>
-              primeContract.calculateAPR(primeVTokenAddress, accountAddress),
-            )
-          : [],
-      )
-    : undefined;
+  const primeAprPromises =
+    primeContract && isUserPrime
+      ? Promise.allSettled(
+          accountAddress
+            ? primeVTokenAddresses.map(primeVTokenAddress =>
+                primeContract.calculateAPR(primeVTokenAddress, accountAddress),
+              )
+            : [],
+        )
+      : undefined;
 
   const underlyingTokenPriceResults = await underlyingTokenPricePromises;
   const borrowCapsResults = await borrowCapsPromises;
