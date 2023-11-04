@@ -113,6 +113,7 @@ interface GovernanceProposalProps {
   endDate?: Date;
   cancelDate?: Date;
   queuedDate?: Date;
+  etaDate?: Date;
   executedDate?: Date;
   userVoteStatus?: VoteSupport;
   forVotesMantissa?: BigNumber;
@@ -129,7 +130,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   proposalTitle,
   proposalState,
   executedDate,
-  queuedDate,
+  etaDate,
   cancelDate,
   endDate,
   userVoteStatus,
@@ -171,7 +172,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
       case ProposalState.Queued:
-        return [queuedDate, 'voteProposalUi.queuedUntilDate'];
+        return [etaDate, 'voteProposalUi.queuedUntilDate'];
       case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
       default:
