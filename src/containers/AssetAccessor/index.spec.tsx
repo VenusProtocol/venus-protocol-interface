@@ -1,18 +1,17 @@
 import { waitFor } from '@testing-library/react';
-import { TokenAnnouncement } from 'components';
 import { isTokenActionEnabled } from 'packages/tokens';
-import React from 'react';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
+import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 
-vi.mock('components/TokenAnnouncement');
+vi.mock('containers/TokenAnnouncement');
 
 const fakePool = poolData[0];
 const fakeAsset = fakePool.assets[0];

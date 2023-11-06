@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import { NoticeWarning, TokenAnnouncement } from 'components';
+import { NoticeWarning } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token, TokenAction } from 'types';
 
-import { useAuth } from 'context/AuthContext';
+import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 
 export interface DisabledActionNoticeProps {
   token: Token;
@@ -13,7 +12,6 @@ export interface DisabledActionNoticeProps {
 
 const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, action }) => {
   const { t } = useTranslation();
-  const { chainId } = useAuth();
 
   const description: string | undefined = useMemo(() => {
     if (action === 'supply') {
@@ -35,7 +33,6 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
 
   const tokenAnnouncementDom = TokenAnnouncement({
     token,
-    chainId,
   });
 
   return tokenAnnouncementDom || (!!description && <NoticeWarning description={description} />);
