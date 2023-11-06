@@ -42,6 +42,14 @@ const rpcUrls = isLocalServer
         http: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_TESTNET,
         webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
       },
+      [ChainId.ETHEREUM]: {
+        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_ETHEREUM,
+        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
+      },
+      [ChainId.SEPOLIA]: {
+        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_SEPOLIA,
+        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_SEPOLIA,
+      },
     }
   : RPC_URLS;
 

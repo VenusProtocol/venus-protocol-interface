@@ -116,14 +116,11 @@ export const Transactions: React.FC<TransactionsProps> = ({
         asChild
       >
         <Link
-          href={
-            chainId &&
-            generateBscScanUrl({
-              hash: address,
-              urlType: 'address',
-              chainId,
-            })
-          }
+          href={generateBscScanUrl({
+            hash: address,
+            urlType: 'address',
+            chainId,
+          })}
         >
           {t('voterDetail.viewAll')}
         </Link>

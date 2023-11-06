@@ -22,4 +22,12 @@ export const RPC_URLS: {
     http: 'https://bsc-testnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     webSocket: 'wss://bsc-testnet.nodereal.io/ws/v1/7fab7575d1c34150a9ee582167ffac6f',
   },
+  [ChainId.ETHEREUM]: {
+    http: 'https://eth-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
+    webSocket: 'wss://eth-mainnet.nodereal.io/ws/v1/7fab7575d1c34150a9ee582167ffac6f',
+  },
+  [ChainId.SEPOLIA]: {
+    http: 'https://ethereum-sepolia.publicnode.com',
+    webSocket: 'wss://ethereum-sepolia.publicnode.com',
+  },
 };

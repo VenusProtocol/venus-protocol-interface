@@ -14,10 +14,10 @@ export interface UseGetTokenCombinationsInput {
 }
 
 // List tokens to check trades against
-const baseTradeTokenSymbols = {
-  [ChainId.BSC_MAINNET]: ['BUSD', 'ETH', 'XVS', 'WBNB'],
-  [ChainId.BSC_TESTNET]: ['WBNB', 'CAKE', 'BUSD', 'USDT', 'BTCB', 'ETH', 'USDC'],
-};
+const baseTradeTokenSymbols = new Map([
+  [ChainId.BSC_MAINNET, ['BUSD', 'ETH', 'XVS', 'WBNB']],
+  [ChainId.BSC_TESTNET, ['WBNB', 'CAKE', 'BUSD', 'USDT', 'BTCB', 'ETH', 'USDC']],
+]);
 
 const useGetTokenCombinations = ({
   fromToken,
@@ -30,7 +30,12 @@ const useGetTokenCombinations = ({
   });
 
   const baseTradeTokens = useMemo(
-    () => swapTokens.filter(token => baseTradeTokenSymbols[chainId].includes(token.symbol)),
+    () =>
+      baseTradeTokenSymbols.has(chainId)
+        ? swapTokens.filter(token =>
+            (baseTradeTokenSymbols.get(chainId) || []).includes(token.symbol),
+          )
+        : [],
     [swapTokens, chainId],
   );
 
