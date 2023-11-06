@@ -1,33 +1,40 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
 import { useTranslation } from 'translation';
-import { ChainId, Token } from 'types';
+import { Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-import { Link } from '../Link';
-import { NoticeInfo, NoticeWarning } from '../Notice';
+import { Link } from '../../components/Link';
+import { NoticeInfo, NoticeWarning } from '../../components/Notice';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export interface TokenAnnouncementProps {
   token: Token;
-  chainId: ChainId;
   className?: string;
 }
 
-export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
-  token,
-  chainId,
-  className,
-}) => {
+export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({ token, className }) => {
   const { Trans, t } = useTranslation();
+
+  const shouldDisplayTusdMigrationWarning = useIsFeatureEnabled({
+    name: 'tusdMigrationWarning',
+  });
+  const shouldDisplayTrxMigrationWarning = useIsFeatureEnabled({
+    name: 'trxMigrationWarning',
+  });
+  const shouldDisplaySxpDisablingWarning = useIsFeatureEnabled({
+    name: 'sxpDisablingWarning',
+  });
+  const shouldDisplayBethUpdateWarning = useIsFeatureEnabled({
+    name: 'bethUpdateWarning',
+  });
 
   // TUSD migration
   if (
-    chainId === ChainId.BSC_MAINNET &&
+    shouldDisplayTusdMigrationWarning &&
     areAddressesEqual(token.address, '0x14016e85a25aeb13065688cafb43044c2ef86784')
   ) {
     return (
       <NoticeInfo
-        css={className}
+        className={className}
         description={
           <Trans
             i18nKey="announcements.tusdMigration.description"
@@ -44,12 +51,12 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
 
   // TRX migration
   if (
-    chainId === ChainId.BSC_MAINNET &&
+    shouldDisplayTrxMigrationWarning &&
     areAddressesEqual(token.address, '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B')
   ) {
     return (
       <NoticeWarning
-        css={className}
+        className={className}
         description={
           <Trans
             i18nKey="announcements.trxMigration.description"
@@ -66,22 +73,25 @@ export const TokenAnnouncement: React.FC<TokenAnnouncementProps> = ({
 
   // SXP disabling
   if (
-    chainId === ChainId.BSC_MAINNET &&
+    shouldDisplaySxpDisablingWarning &&
     areAddressesEqual(token.address, '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A')
   ) {
     return (
-      <NoticeWarning css={className} description={t('announcements.sxpDisabling.description')} />
+      <NoticeWarning
+        className={className}
+        description={t('announcements.sxpDisabling.description')}
+      />
     );
   }
 
   // BETH update
   if (
-    chainId === ChainId.BSC_MAINNET &&
+    shouldDisplayBethUpdateWarning &&
     areAddressesEqual(token.address, '0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B')
   ) {
     return (
       <NoticeWarning
-        css={className}
+        className={className}
         description={
           <Trans
             i18nKey="announcements.bethUpdate.description"

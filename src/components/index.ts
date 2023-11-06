@@ -46,6 +46,5 @@ export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './Link';
 export * from './AuthModal';
-export * from './TokenAnnouncement';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';
