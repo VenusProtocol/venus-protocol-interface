@@ -20,6 +20,7 @@ exports[`api/queries/getProposal > returns proposal 1`] = `
   },
   "endBlock": 33499859,
   "endDate": 2023-09-20T07:54:35.000Z,
+  "etaDate": undefined,
   "executedDate": undefined,
   "executedTxHash": undefined,
   "forVotes": [

@@ -37,6 +37,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33336002,
       "endDate": 2023-09-14T15:21:17.000Z,
+      "etaDate": 2023-09-14T15:32:50.000Z,
       "executedDate": 2023-09-14T15:39:44.000Z,
       "executedTxHash": "0xac2d0b0876517e098d16aa4546b66a0f92391fb025a76fb25e8f3989e8be1dd1",
       "forVotes": [
@@ -87,6 +88,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33279845,
       "endDate": 2023-09-12T16:33:23.000Z,
+      "etaDate": 2023-09-12T16:46:41.000Z,
       "executedDate": 2023-09-12T16:47:38.000Z,
       "executedTxHash": "0x5b4f35529ccabfedeac5db1eea9385ab63a804c14f68c5e99a47ba96b6281f76",
       "forVotes": [
@@ -137,6 +139,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33279456,
       "endDate": 2023-09-12T16:13:56.000Z,
+      "etaDate": 2023-09-12T16:25:26.000Z,
       "executedDate": 2023-09-12T16:28:35.000Z,
       "executedTxHash": "0xc15918d42abe6dba39b1872784671e72769135bc32811012f4712e45ceacc0bf",
       "forVotes": [
@@ -187,6 +190,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33243153,
       "endDate": 2023-09-11T09:58:47.000Z,
+      "etaDate": 2023-09-11T10:28:11.000Z,
       "executedDate": 2023-09-11T10:34:59.000Z,
       "executedTxHash": "0x95014a018718ec888a696259d470715799249071c39e8b1d8c76da407e2de72a",
       "forVotes": [
@@ -239,6 +243,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 32926185,
       "endDate": 2023-08-31T09:50:13.000Z,
+      "etaDate": 2023-08-31T10:52:34.000Z,
       "executedDate": 2023-08-31T10:55:01.000Z,
       "executedTxHash": "0x684ed7132eae0ef40ac3fa13f5e66e05ce4b80cb2bc42806f423b35a4357bbfa",
       "forVotes": [
@@ -289,6 +294,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 32870813,
       "endDate": 2023-08-29T11:41:37.000Z,
+      "etaDate": 2023-08-29T11:52:16.000Z,
       "executedDate": 2023-08-29T11:54:52.000Z,
       "executedTxHash": "0xb06be6ed9813e4e4c675702bd74bb0f75c897c25365d9eea3387520c9ff39257",
       "forVotes": [
@@ -361,6 +367,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33336002,
       "endDate": 2023-09-14T15:21:17.000Z,
+      "etaDate": 2023-09-14T15:32:50.000Z,
       "executedDate": 2023-09-14T15:39:44.000Z,
       "executedTxHash": "0xac2d0b0876517e098d16aa4546b66a0f92391fb025a76fb25e8f3989e8be1dd1",
       "forVotes": [
@@ -411,6 +418,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33279845,
       "endDate": 2023-09-12T16:33:23.000Z,
+      "etaDate": 2023-09-12T16:46:41.000Z,
       "executedDate": 2023-09-12T16:47:38.000Z,
       "executedTxHash": "0x5b4f35529ccabfedeac5db1eea9385ab63a804c14f68c5e99a47ba96b6281f76",
       "forVotes": [
@@ -461,6 +469,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33279456,
       "endDate": 2023-09-12T16:13:56.000Z,
+      "etaDate": 2023-09-12T16:25:26.000Z,
       "executedDate": 2023-09-12T16:28:35.000Z,
       "executedTxHash": "0xc15918d42abe6dba39b1872784671e72769135bc32811012f4712e45ceacc0bf",
       "forVotes": [
@@ -511,6 +520,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 33243153,
       "endDate": 2023-09-11T09:58:47.000Z,
+      "etaDate": 2023-09-11T10:28:11.000Z,
       "executedDate": 2023-09-11T10:34:59.000Z,
       "executedTxHash": "0x95014a018718ec888a696259d470715799249071c39e8b1d8c76da407e2de72a",
       "forVotes": [
@@ -563,6 +573,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 32926185,
       "endDate": 2023-08-31T09:50:13.000Z,
+      "etaDate": 2023-08-31T10:52:34.000Z,
       "executedDate": 2023-08-31T10:55:01.000Z,
       "executedTxHash": "0x684ed7132eae0ef40ac3fa13f5e66e05ce4b80cb2bc42806f423b35a4357bbfa",
       "forVotes": [
@@ -613,6 +624,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
       },
       "endBlock": 32870813,
       "endDate": 2023-08-29T11:41:37.000Z,
+      "etaDate": 2023-08-29T11:52:16.000Z,
       "executedDate": 2023-08-29T11:54:52.000Z,
       "executedTxHash": "0xb06be6ed9813e4e4c675702bd74bb0f75c897c25365d9eea3387520c9ff39257",
       "forVotes": [

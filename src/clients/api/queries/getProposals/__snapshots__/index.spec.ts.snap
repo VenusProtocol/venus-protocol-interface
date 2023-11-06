@@ -24,6 +24,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33499859,
       "endDate": 2023-09-20T07:54:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -88,6 +89,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33499859,
       "endDate": 2023-09-20T07:54:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -132,6 +134,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33446667,
       "endDate": 2023-09-18T11:34:41.000Z,
+      "etaDate": 2023-09-19T07:59:29.000Z,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -176,6 +179,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33358842,
       "endDate": 2023-09-15T10:23:20.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -220,6 +224,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33340981,
       "endDate": 2023-09-14T19:30:15.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -264,6 +269,7 @@ exports[`api/queries/getProposals > Gets called with correct default arguments 1
       },
       "endBlock": 33337008,
       "endDate": 2023-09-14T16:11:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -318,6 +324,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33499859,
       "endDate": 2023-09-20T07:54:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -382,6 +389,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33499859,
       "endDate": 2023-09-20T07:54:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -426,6 +434,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33446667,
       "endDate": 2023-09-18T11:34:41.000Z,
+      "etaDate": 2023-09-19T07:59:29.000Z,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -470,6 +479,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33358842,
       "endDate": 2023-09-15T10:23:20.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -514,6 +524,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33340981,
       "endDate": 2023-09-14T19:30:15.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [
@@ -558,6 +569,7 @@ exports[`api/queries/getProposals > returns formatted proposals 1`] = `
       },
       "endBlock": 33337008,
       "endDate": 2023-09-14T16:11:35.000Z,
+      "etaDate": undefined,
       "executedDate": undefined,
       "executedTxHash": undefined,
       "forVotes": [

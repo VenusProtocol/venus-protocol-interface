@@ -196,6 +196,7 @@ export interface Proposal {
   proposalId: number;
   proposer: string;
   queuedDate: Date | undefined;
+  etaDate: Date | undefined;
   startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;

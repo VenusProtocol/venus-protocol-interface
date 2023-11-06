@@ -87,6 +87,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
             endDate,
             cancelDate,
             queuedDate,
+            etaDate,
             forVotesMantissa,
             abstainedVotesMantissa,
             againstVotesMantissa,
@@ -103,6 +104,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
               executedDate={executedDate}
               cancelDate={cancelDate}
               queuedDate={queuedDate}
+              etaDate={etaDate}
               forVotesMantissa={forVotesMantissa}
               againstVotesMantissa={againstVotesMantissa}
               abstainedVotesMantissa={abstainedVotesMantissa}
