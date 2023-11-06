@@ -83,14 +83,11 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         <TokenIcon token={xvs} />
 
         <Typography
-          href={
-            chainId &&
-            generateBscScanUrl({
-              hash: xvs.address,
-              urlType: 'token',
-              chainId,
-            })
-          }
+          href={generateBscScanUrl({
+            hash: xvs.address,
+            urlType: 'token',
+            chainId,
+          })}
           target="_blank"
           rel="noreferrer"
           variant="small2"

@@ -11,12 +11,12 @@ import { useAuth } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
-const TREASURY_ADDRESSES = {
-  56: '0xF322942f644A996A617BD29c16bd7d231d9F35E9',
+const TREASURY_ADDRESSES = new Map([
+  [56, '0xF322942f644A996A617BD29c16bd7d231d9F35E9'],
   // When querying comptroller.treasuryAddress() we get an empty address back,
   // so for now I've let it as it is
-  97: '0x0000000000000000000000000000000000000000',
-};
+  [97, '0x0000000000000000000000000000000000000000'],
+]);
 
 export interface Data {
   treasurySupplyBalanceCents: BigNumber;
@@ -32,7 +32,7 @@ export interface UseGetTreasuryTotalsOutput {
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { accountAddress, chainId } = useAuth();
-  const treasuryAddress = chainId && TREASURY_ADDRESSES[chainId];
+  const treasuryAddress = TREASURY_ADDRESSES.get(chainId);
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetIsolatedPools({
     accountAddress,

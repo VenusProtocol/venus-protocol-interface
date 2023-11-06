@@ -1,7 +1,7 @@
 import localConfig from 'config';
 import { ChainId } from 'types';
 import { Chain, configureChains, createConfig } from 'wagmi';
-import { bsc, bscTestnet } from 'wagmi/chains';
+import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -12,7 +12,8 @@ import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 
 import { BinanceWalletConnector } from './binanceWalletConnector';
 
-export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet] : [bsc];
+// Note: the first chain listed will be used as the default chain
+export const chains: Chain[] = localConfig.isOnTestnet ? [bscTestnet, sepolia] : [bsc, mainnet];
 
 const { publicClient, webSocketPublicClient } = configureChains(
   chains,

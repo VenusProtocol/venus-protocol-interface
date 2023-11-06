@@ -41,14 +41,11 @@ export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps>
     <Typography css={styles.signature} className={className}>
       <Typography
         component="a"
-        href={
-          chainId &&
-          generateBscScanUrl({
-            hash: action.target,
-            urlType: 'address',
-            chainId,
-          })
-        }
+        href={generateBscScanUrl({
+          hash: action.target,
+          urlType: 'address',
+          chainId,
+        })}
         target="_blank"
         rel="noreferrer"
       >

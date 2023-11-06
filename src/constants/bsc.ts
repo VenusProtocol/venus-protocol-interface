@@ -7,4 +7,6 @@ export const BLOCKS_PER_DAY = (60 / (BLOCK_TIME_MS / 1000)) * 60 * 24;
 export const EXPLORER_URLS = {
   [ChainId.BSC_MAINNET]: 'https://bscscan.com',
   [ChainId.BSC_TESTNET]: 'https://testnet.bscscan.com',
+  [ChainId.ETHEREUM]: 'https://etherscan.io/',
+  [ChainId.SEPOLIA]: 'https://sepolia.etherscan.io/',
 };

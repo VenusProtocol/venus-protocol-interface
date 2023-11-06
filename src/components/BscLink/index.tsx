@@ -41,10 +41,7 @@ export const BscLink: React.FC<BscLinkProps> = ({
 
   return (
     <div className={cn('inline-block text-sm font-semibold text-blue', className)}>
-      <Link
-        href={chainId && generateBscScanUrl({ hash, urlType, chainId })}
-        className="flex items-center"
-      >
+      <Link href={generateBscScanUrl({ hash, urlType, chainId })} className="flex items-center">
         {content}
 
         <Icon name="open" className="ml-2 text-inherit" />

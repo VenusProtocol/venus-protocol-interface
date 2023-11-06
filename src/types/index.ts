@@ -10,6 +10,8 @@ export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet'
 export enum ChainId {
   'BSC_MAINNET' = 56,
   'BSC_TESTNET' = 97,
+  'ETHEREUM' = 1,
+  'SEPOLIA' = 11155111,
 }
 
 export interface Token {

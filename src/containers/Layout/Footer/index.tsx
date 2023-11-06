@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
     symbol: 'XVS',
   });
 
-  const explorerUrl = chainId && EXPLORER_URLS[chainId];
+  const explorerUrl = EXPLORER_URLS[chainId];
 
   return (
     <footer className="flex h-14 flex-none items-center justify-between bg-background px-4 sm:justify-end md:px-6 xl:px-10">
@@ -44,7 +44,6 @@ export const Footer: React.FC = () => {
       <div className="flex">
         <IconLink
           href={
-            chainId &&
             xvs &&
             generateBscScanUrl({
               hash: xvs.address,

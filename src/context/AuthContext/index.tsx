@@ -1,5 +1,4 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
-import config from 'config';
 import { VError, logError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
@@ -46,8 +45,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
 
-  // TODO: get from chain instead of config
-  const chainId = config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET;
+  const defaultChainId = chains[0].id;
+  const chainId = chain?.id || defaultChainId;
 
   const signer = useSigner();
   const provider = useProvider();
