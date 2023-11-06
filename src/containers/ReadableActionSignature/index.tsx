@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useGetTokens } from 'packages/tokens';
 import React from 'react';
 import { ChainId, ProposalAction, Token, VToken } from 'types';
-import { generateBscScanUrl } from 'utilities';
+import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -41,7 +41,7 @@ export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps>
     <Typography css={styles.signature} className={className}>
       <Typography
         component="a"
-        href={generateBscScanUrl({
+        href={generateChainExplorerUrl({
           hash: action.target,
           urlType: 'address',
           chainId,

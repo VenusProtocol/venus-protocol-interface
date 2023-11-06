@@ -7,7 +7,11 @@ import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
-import { convertWeiToTokens, formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
+import {
+  convertWeiToTokens,
+  formatTokensToReadableValue,
+  generateChainExplorerUrl,
+} from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -83,7 +87,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         <TokenIcon token={xvs} />
 
         <Typography
-          href={generateBscScanUrl({
+          href={generateChainExplorerUrl({
             hash: xvs.address,
             urlType: 'token',
             chainId,

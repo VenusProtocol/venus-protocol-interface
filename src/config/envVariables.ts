@@ -7,7 +7,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_ENVIRONMENT
       : import.meta.env.VITE_ENVIRONMENT,
 
-  // BSC testnet RPC
+  // BSC testnet RPC provider
   VITE_RPC_HTTP_URL_BSC_MAINNET:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_MAINNET
@@ -17,7 +17,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
 
-  // BSC mainnet RPC
+  // BSC mainnet RPC provider
   VITE_RPC_HTTP_URL_BSC_TESTNET:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_TESTNET
@@ -27,7 +27,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
 
-  // Ethereum RPC
+  // Ethereum RPC provider
   VITE_RPC_HTTP_URL_ETHEREUM:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ETHEREUM
@@ -36,7 +36,7 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
-  // Sepolia (Ethereum testnet) RPC
+  // Sepolia (Ethereum testnet) RPC provider
   VITE_RPC_HTTP_URL_SEPOLIA:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_SEPOLIA
