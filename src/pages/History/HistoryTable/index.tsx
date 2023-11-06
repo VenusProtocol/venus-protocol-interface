@@ -4,7 +4,7 @@ import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components'
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
+import { convertWeiToTokens, generateChainExplorerUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';
@@ -82,7 +82,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         selectOptionLabel: t('history.columns.hash'),
         renderCell: transaction => (
           <Link
-            href={generateBscScanUrl({
+            href={generateChainExplorerUrl({
               hash: transaction.transactionHash,
               urlType: 'tx',
               chainId,
@@ -109,7 +109,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         selectOptionLabel: t('history.columns.from'),
         renderCell: transaction => (
           <Link
-            href={generateBscScanUrl({
+            href={generateChainExplorerUrl({
               hash: transaction.from,
               urlType: 'address',
               chainId,
@@ -127,7 +127,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         renderCell: transaction =>
           transaction.to ? (
             <Link
-              href={generateBscScanUrl({
+              href={generateChainExplorerUrl({
                 hash: transaction.to,
                 urlType: 'address',
                 chainId,

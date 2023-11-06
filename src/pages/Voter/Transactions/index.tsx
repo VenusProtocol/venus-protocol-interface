@@ -5,7 +5,7 @@ import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { VoteDetail, VoteSupport } from 'types';
-import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
+import { convertWeiToTokens, generateChainExplorerUrl } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
@@ -116,7 +116,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         asChild
       >
         <Link
-          href={generateBscScanUrl({
+          href={generateChainExplorerUrl({
             hash: address,
             urlType: 'address',
             chainId,

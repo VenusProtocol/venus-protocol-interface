@@ -1,7 +1,7 @@
 import { Link } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'translation';
-import { generateBscScanUrl } from 'utilities';
+import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
 import { EXPLORER_URLS } from 'constants/bsc';
@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
         <IconLink
           href={
             xvs &&
-            generateBscScanUrl({
+            generateChainExplorerUrl({
               hash: xvs.address,
               urlType: 'token',
               chainId,

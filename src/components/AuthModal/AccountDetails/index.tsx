@@ -6,8 +6,8 @@ import { ChainId } from 'types';
 
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-import { BscLink } from '../../BscLink';
 import { SecondaryButton } from '../../Button';
+import { ChainExplorerLink } from '../../ChainExplorerLink';
 import { EllipseAddress } from '../../EllipseAddress';
 import { Icon } from '../../Icon';
 import { useStyles } from './styles';
@@ -47,7 +47,11 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
         </div>
       </div>
 
-      <BscLink css={styles.bscScanLinkContainer} hash={accountAddress} chainId={chainId} />
+      <ChainExplorerLink
+        css={styles.bscScanLinkContainer}
+        hash={accountAddress}
+        chainId={chainId}
+      />
 
       <SecondaryButton onClick={onLogOut} className="w-full">
         {t('authModal.accountDetails.logOutButtonLabel')}

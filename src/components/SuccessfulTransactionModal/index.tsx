@@ -7,7 +7,7 @@ import { convertWeiToTokens } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
-import { BscLink } from '../BscLink';
+import { ChainExplorerLink } from '../ChainExplorerLink';
 import { Icon } from '../Icon';
 import { Modal, ModalProps } from '../Modal';
 import { TokenIcon } from '../TokenIcon';
@@ -64,7 +64,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
           )}
         </div>
 
-        <BscLink hash={transactionHash} urlType="tx" chainId={chainId} />
+        <ChainExplorerLink hash={transactionHash} urlType="tx" chainId={chainId} />
       </div>
     </Modal>
   );

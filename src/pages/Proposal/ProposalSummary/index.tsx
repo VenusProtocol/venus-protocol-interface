@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import {
-  BscLink,
+  ChainExplorerLink,
   Chip,
   Countdown,
   PrimaryButton,
@@ -229,7 +229,7 @@ export const ProposalSummaryUi: React.FC<
             </Typography>
 
             {transactionHash && (
-              <BscLink
+              <ChainExplorerLink
                 text={transactionHash}
                 urlType="tx"
                 hash={transactionHash}

@@ -1,14 +1,13 @@
-/** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ChainId } from 'types';
-import { UrlType, cn, generateBscScanUrl } from 'utilities';
+import { UrlType, cn, generateChainExplorerUrl } from 'utilities';
 
 import { Breakpoint, EllipseAddress } from '../EllipseAddress';
 import { Icon } from '../Icon';
 import { Link } from '../Link';
 
-export interface BscLinkProps {
+export interface ChainExplorerLinkProps {
   hash: string;
   chainId: ChainId;
   ellipseBreakpoint?: Breakpoint;
@@ -17,7 +16,7 @@ export interface BscLinkProps {
   text?: string;
 }
 
-export const BscLink: React.FC<BscLinkProps> = ({
+export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
   hash,
   chainId,
   className,
@@ -41,7 +40,10 @@ export const BscLink: React.FC<BscLinkProps> = ({
 
   return (
     <div className={cn('inline-block text-sm font-semibold text-blue', className)}>
-      <Link href={generateBscScanUrl({ hash, urlType, chainId })} className="flex items-center">
+      <Link
+        href={generateChainExplorerUrl({ hash, urlType, chainId })}
+        className="flex items-center"
+      >
         {content}
 
         <Icon name="open" className="ml-2 text-inherit" />

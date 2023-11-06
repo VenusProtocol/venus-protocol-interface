@@ -2,7 +2,7 @@ export * from './Accordion';
 export * from './ActiveVotingProgress';
 export * from './ButtonGroup';
 export * from './Button';
-export * from './BscLink';
+export * from './ChainExplorerLink';
 export * from './Checkbox';
 export * from './Chip';
 export * from './Countdown';
