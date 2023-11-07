@@ -70,6 +70,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
                 <TextButton
                   onClick={handleDisplayWithdrawalRequestList}
                   css={styles.displayWithdrawalRequestListButton}
+                  className="w-full"
                 >
                   {t('withdrawFromVestingVaultModalModal.displayWithdrawalRequestListButton')}
                 </TextButton>
