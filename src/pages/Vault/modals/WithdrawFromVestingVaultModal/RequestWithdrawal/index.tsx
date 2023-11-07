@@ -86,6 +86,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
           <TextButton
             onClick={displayWithdrawalRequestList}
             css={sharedStyles.displayWithdrawalRequestListButton}
+            className="w-full"
           >
             {t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.displayWithdrawalRequestListButton',
