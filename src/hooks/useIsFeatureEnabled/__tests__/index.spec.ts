@@ -4,12 +4,20 @@ import Vi from 'vitest';
 
 import { useAuth } from 'context/AuthContext';
 
-import { useIsFeatureEnabled } from '..';
+import { FeatureFlag, useIsFeatureEnabled } from '..';
 
 vi.mock('context/AuthContext');
 vi.unmock('hooks/useIsFeatureEnabled');
 
 describe('useIsFeatureEnabled', () => {
+  const routeFeatureFlags: FeatureFlag[] = [
+    'corePoolRoute',
+    'corePoolMarketRoute',
+    'historyRoute',
+    'convertVrtRoute',
+    'vaiRoute',
+  ];
+
   it('should return true for integratedSwap on BSC_TESTNET', () => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
@@ -64,5 +72,69 @@ describe('useIsFeatureEnabled', () => {
     );
 
     expect(result.current).toBe(false);
+  });
+
+  it('should return all routes enabled on BSC_TESTNET', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_TESTNET,
+    }));
+
+    routeFeatureFlags.forEach(name => {
+      const { result } = renderHook(() =>
+        useIsFeatureEnabled({
+          name,
+        }),
+      );
+
+      expect(result.current).toBe(true);
+    });
+  });
+
+  it('should return all routes enabled on BSC_MAINNET', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_MAINNET,
+    }));
+
+    routeFeatureFlags.forEach(name => {
+      const { result } = renderHook(() =>
+        useIsFeatureEnabled({
+          name,
+        }),
+      );
+
+      expect(result.current).toBe(true);
+    });
+  });
+
+  it('should disable feature flagged routes on ETHEREUM', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.ETHEREUM,
+    }));
+
+    routeFeatureFlags.forEach(name => {
+      const { result } = renderHook(() =>
+        useIsFeatureEnabled({
+          name,
+        }),
+      );
+
+      expect(result.current).toBe(false);
+    });
+  });
+
+  it('should disable feature flagged routes on SEPOLIA', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.SEPOLIA,
+    }));
+
+    routeFeatureFlags.forEach(name => {
+      const { result } = renderHook(() =>
+        useIsFeatureEnabled({
+          name,
+        }),
+      );
+
+      expect(result.current).toBe(false);
+    });
   });
 });

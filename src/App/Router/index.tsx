@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import PageSuspense from './PageSuspense';
 
@@ -27,6 +28,11 @@ const Xvs = lazy(() => import('pages/Xvs'));
 
 const Router = () => {
   const { accountAddress } = useAuth();
+  const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
+  const corePoolMarketRouteEnabled = useIsFeatureEnabled({ name: 'corePoolMarketRoute' });
+  const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
+  const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
+  const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -97,22 +103,27 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.corePool.path}
-        element={
-          <PageSuspense>
-            <CorePool />
-          </PageSuspense>
-        }
-      />
-      <Route
-        path={routes.corePoolMarket.path}
-        element={
-          <PageSuspense>
-            <CorePoolMarket />
-          </PageSuspense>
-        }
-      />
+      {corePoolRouteEnabled && (
+        <Route
+          path={routes.corePool.path}
+          element={
+            <PageSuspense>
+              <CorePool />
+            </PageSuspense>
+          }
+        />
+      )}
+
+      {corePoolMarketRouteEnabled && (
+        <Route
+          path={routes.corePoolMarket.path}
+          element={
+            <PageSuspense>
+              <CorePoolMarket />
+            </PageSuspense>
+          }
+        />
+      )}
 
       <Route
         path={routes.vaults.path}
@@ -123,14 +134,16 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.history.path}
-        element={
-          <PageSuspense>
-            <History />
-          </PageSuspense>
-        }
-      />
+      {historyRouteEnabled && (
+        <Route
+          path={routes.history.path}
+          element={
+            <PageSuspense>
+              <History />
+            </PageSuspense>
+          }
+        />
+      )}
 
       {/* suffix with a /* to make it accept nested routes */}
       <Route
@@ -176,14 +189,16 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.convertVrt.path}
-        element={
-          <PageSuspense>
-            <ConvertVrt />
-          </PageSuspense>
-        }
-      />
+      {convertVrtRouteEnabled && (
+        <Route
+          path={routes.convertVrt.path}
+          element={
+            <PageSuspense>
+              <ConvertVrt />
+            </PageSuspense>
+          }
+        />
+      )}
 
       <Route
         path={routes.swap.path}
@@ -194,14 +209,16 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.vai.path}
-        element={
-          <PageSuspense>
-            <Vai />
-          </PageSuspense>
-        }
-      />
+      {vaiRouteEnabled && (
+        <Route
+          path={routes.vai.path}
+          element={
+            <PageSuspense>
+              <Vai />
+            </PageSuspense>
+          }
+        />
+      )}
 
       {/* redirect to the dashboard if no route matches */}
       <Route path="*" element={<Navigate to={routes.dashboard.path} />} />

@@ -52,7 +52,7 @@ const routeSubdirectories = {
   vai: [Subdirectory.VAI],
 };
 
-type RouteName = keyof typeof routeSubdirectories;
+export type RouteName = keyof typeof routeSubdirectories;
 
 type Routes = {
   [key in RouteName]: {
