@@ -8,6 +8,7 @@ export interface SelectProps {
   value: SelectOption['value'];
   onChange: (newValue: SelectOption['value']) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  name?: string;
   placeLabelToLeft?: boolean;
   label?: string;
   className?: string;

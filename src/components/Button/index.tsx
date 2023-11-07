@@ -86,6 +86,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
 
 export interface ButtonProps extends Omit<ButtonWrapperProps, 'asChild'> {
   loading?: boolean;
+  contentClassName?: string;
 }
 
 export const Button = ({
@@ -93,6 +94,7 @@ export const Button = ({
   disabled = false,
   variant = 'primary',
   children,
+  contentClassName,
   ...otherProps
 }: ButtonProps) => (
   <ButtonWrapper disabled={loading || disabled} type="button" variant={variant} {...otherProps}>
@@ -106,6 +108,7 @@ export const Button = ({
       className={cn(
         'inline-flex items-center text-inherit',
         variant !== 'primary' && variant !== 'secondary' && 'text-sm',
+        contentClassName,
       )}
     >
       {children}

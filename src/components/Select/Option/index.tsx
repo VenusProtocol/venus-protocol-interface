@@ -11,10 +11,10 @@ export const Option: React.FC<OptionProps> = ({ children, onClick, isSelected })
   <button
     onClick={onClick}
     type="button"
-    className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold hover:bg-lightGrey active:bg-lightGrey"
+    className="flex w-full items-center justify-between whitespace-nowrap px-4 py-3 text-left text-sm font-semibold hover:bg-lightGrey active:bg-lightGrey"
   >
-    {children}
+    <span className="w-full overflow-hidden text-ellipsis">{children}</span>
 
-    {isSelected && <Icon name="mark" className="w-3 text-green" />}
+    {isSelected && <Icon name="mark" className="ml-4 w-3 shrink-0 text-green" />}
   </button>
 );

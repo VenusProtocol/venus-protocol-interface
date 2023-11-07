@@ -18,5 +18,5 @@ export const FormikSelectField = ({ name, onBlur, ...rest }: FormikSelectFieldPr
     formikOnBlur(e);
   };
 
-  return <Select value={value} onChange={setValue} onBlur={handleBlur} {...rest} />;
+  return <Select value={value} name={name} onChange={setValue} onBlur={handleBlur} {...rest} />;
 };

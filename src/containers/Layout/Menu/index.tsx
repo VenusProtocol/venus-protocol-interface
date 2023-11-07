@@ -30,7 +30,7 @@ export const Menu: React.FC = () => {
 
   return (
     <>
-      {/* SM menu */}
+      {/* XS to MD menu */}
       <div className="md:hidden">
         <header className="flex h-14 items-center pr-4 md:h-auto">
           <Link className="flex h-full items-center justify-center pl-4" to={routes.dashboard.path}>

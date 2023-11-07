@@ -2,7 +2,9 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { cn } from 'utilities';
 
-import { ButtonWrapper } from '../Button';
+import { useBreakpointUp } from 'hooks/responsive';
+
+import { TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
 import { Modal } from '../Modal';
 import { Option } from './Option';
@@ -17,12 +19,15 @@ export const Select: React.FC<SelectProps> = ({
   onChange,
   onBlur,
   label,
+  name,
   placeLabelToLeft = false,
 }) => {
   const { t } = useTranslation();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const handleToggleMenu = () => setIsMenuOpened(!isMenuOpened);
+
+  const isMdOrUp = useBreakpointUp('md');
 
   const selectedOption = useMemo(
     () => options.find(option => option.value === value),
@@ -34,8 +39,29 @@ export const Select: React.FC<SelectProps> = ({
     setIsMenuOpened(false);
   };
 
+  const optionsDom = (
+    <>
+      {options.map(option => (
+        <Option
+          key={option.value}
+          isSelected={value === option.value}
+          onClick={() => handleChange(option.value)}
+        >
+          {option.label}
+        </Option>
+      ))}
+    </>
+  );
+
   return (
     <>
+      <input
+        name={name}
+        value={value}
+        className="h-0 w-0"
+        onChange={e => onChange(e.currentTarget.value)}
+      />
+
       <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
         {!!label && (
           <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
@@ -50,41 +76,51 @@ export const Select: React.FC<SelectProps> = ({
           </div>
         )}
 
-        <ButtonWrapper
-          onClick={handleToggleMenu}
-          className="w-full grow justify-between text-sm"
-          variant="tertiary"
-        >
-          <span>{selectedOption?.label}</span>
+        <div className="relative w-full grow">
+          {/* XS to MD backdrop */}
+          {isMenuOpened && (
+            <div
+              className="fixed bottom-0 left-0 right-0 top-0 hidden md:block"
+              onClick={() => setIsMenuOpened(false)}
+            />
+          )}
 
-          <Icon
-            name="arrowUp"
-            className={cn(
-              'ml-3 w-2 shrink-0 text-offWhite',
-              isMenuOpened ? 'text-blue' : 'rotate-180',
-            )}
-          />
-        </ButtonWrapper>
+          <TertiaryButton
+            onClick={handleToggleMenu}
+            className="relative w-full px-4"
+            contentClassName="w-full justify-between text-sm"
+          >
+            <span>{selectedOption?.label}</span>
+
+            <Icon
+              name="arrowUp"
+              className={cn(
+                'ml-3 w-2 shrink-0 text-offWhite',
+                isMenuOpened ? 'text-blue' : 'rotate-180',
+              )}
+            />
+          </TertiaryButton>
+
+          {/* XS to MD menu */}
+          {isMenuOpened && (
+            <div className="relative hidden min-w-full md:block">
+              <div className="absolute top-2 min-w-full overflow-hidden rounded-lg border border-lightGrey bg-cards shadow">
+                {optionsDom}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
+      {/* MD and up menu */}
       <Modal
-        isOpen={isMenuOpened}
+        isOpen={isMenuOpened && !isMdOrUp}
         handleClose={handleToggleMenu}
         noHorizontalPadding
         onBlur={onBlur}
         title={label || t('select.defaultLabel')}
       >
-        <>
-          {options.map(option => (
-            <Option
-              key={option.value}
-              isSelected={value === option.value}
-              onClick={() => handleChange(option.value)}
-            >
-              {option.label}
-            </Option>
-          ))}
-        </>
+        {optionsDom}
       </Modal>
     </>
   );

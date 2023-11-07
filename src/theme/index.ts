@@ -60,6 +60,9 @@ export const theme = {
       },
     ],
   },
+  boxShadow: {
+    DEFAULT: '0px 4px 15px 0px #0D1017',
+  },
   // We keep Tailwind's original sizing scale but make it more granular (with 0.25rem steps) and
   // extend it to bigger values
   spacing: new Array(200).fill(undefined).map((_, index) => `${index * 0.25}rem`),
