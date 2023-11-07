@@ -1,17 +1,14 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { Prime } from 'packages/contracts';
 
 export interface ClaimPrimeTokenInput {
   primeContract: Prime;
 }
 
-export type ClaimPrimeTokenOutput = ContractReceipt;
+export type ClaimPrimeTokenOutput = ContractTransaction;
 
 const claimPrimeToken = async ({
   primeContract,
-}: ClaimPrimeTokenInput): Promise<ClaimPrimeTokenOutput> => {
-  const transaction = await primeContract.claim();
-  return transaction.wait(1);
-};
+}: ClaimPrimeTokenInput): Promise<ClaimPrimeTokenOutput> => primeContract.claim();
 
 export default claimPrimeToken;
