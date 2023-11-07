@@ -1,4 +1,4 @@
-import { BscLink } from 'components';
+import { ChainExplorerLink } from 'components';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -40,7 +40,7 @@ export const useTrackTransaction = () => {
       id: transaction.hash,
       variant: 'loading',
       title: t('transactionNotification.pending.title'),
-      description: <BscLink chainId={chainId} hash={transaction.hash} urlType="tx" />,
+      description: <ChainExplorerLink chainId={chainId} hash={transaction.hash} urlType="tx" />,
     });
 
     let transactionReceipt: ContractReceipt | undefined;

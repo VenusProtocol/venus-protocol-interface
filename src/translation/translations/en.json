@@ -133,7 +133,7 @@
     "vaults": "Vaults",
     "xvs": "XVS"
   },
-  "bscLink": {
+  "chainExplorerLink": {
     "content": "View on bscscan.com"
   },
   "chip": {
