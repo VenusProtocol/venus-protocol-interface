@@ -1,5 +1,4 @@
-import { checkForXvsVaultProxyTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { XvsVault } from 'packages/contracts';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
@@ -8,17 +7,13 @@ export interface ExecuteWithdrawalFromXvsVaultInput {
   poolIndex: number;
 }
 
-export type ExecuteWithdrawalFromXvsVaultOutput = ContractReceipt;
+export type ExecuteWithdrawalFromXvsVaultOutput = ContractTransaction;
 
 const executeWithdrawalFromXvsVault = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
-}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> => {
-  const transaction = await xvsVaultContract.executeWithdrawal(rewardTokenAddress, poolIndex);
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForXvsVaultProxyTransactionError(receipt);
-};
+}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> =>
+  xvsVaultContract.executeWithdrawal(rewardTokenAddress, poolIndex);
 
 export default executeWithdrawalFromXvsVault;
