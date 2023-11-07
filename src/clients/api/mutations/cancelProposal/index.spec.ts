@@ -1,15 +1,12 @@
 import { GovernorBravoDelegate } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import cancelProposal from '.';
 
-describe('api/mutation/cancelProposal', () => {
+describe('cancelProposal', () => {
   test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const cancelProposalMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const cancelProposalMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       cancel: cancelProposalMock,
@@ -22,10 +19,8 @@ describe('api/mutation/cancelProposal', () => {
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(cancelProposalMock).toHaveBeenCalledTimes(1);
     expect(cancelProposalMock).toHaveBeenCalledWith(fakeProposalId);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });
