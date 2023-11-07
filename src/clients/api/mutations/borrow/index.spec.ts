@@ -1,20 +1,14 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
 import { VBep20 } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import borrow from '.';
 
-vi.mock('errors/transactionErrors');
-
-describe('api/mutation/borrow', () => {
+describe('borrow', () => {
   test('returns contract receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const borrowMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const borrowMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       borrow: borrowMock,
@@ -25,12 +19,8 @@ describe('api/mutation/borrow', () => {
       amountWei: fakeAmountWei,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(borrowMock).toHaveBeenCalledTimes(1);
     expect(borrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForTokenTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForTokenTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

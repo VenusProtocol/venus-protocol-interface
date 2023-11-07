@@ -11,7 +11,6 @@ import { xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -21,10 +20,9 @@ import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
-describe('hooks/useSupplyWithdrawModal/Supply', () => {
+describe('SupplyForm', () => {
   it('displays correct token wallet balance', async () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
@@ -357,7 +355,6 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
     };
 
     const onCloseModalMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
@@ -391,22 +388,10 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
     await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
     expect(onCloseModalMock).toHaveBeenCalledTimes(1);
-    await waitFor(() =>
-      expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: fakeContractReceipt.transactionHash,
-        amount: {
-          token: customFakeAsset.vToken.underlyingToken,
-          valueWei: expectedAmountWei,
-        },
-        content: en.operationModal.supply.successfulTransactionModal.message,
-        title: en.operationModal.supply.successfulTransactionModal.title,
-      }),
-    );
   });
 
   it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseModalMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
@@ -440,16 +425,5 @@ describe('hooks/useSupplyWithdrawModal/Supply', () => {
 
     await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
     expect(onCloseModalMock).toHaveBeenCalledTimes(1);
-    await waitFor(() =>
-      expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        transactionHash: fakeContractReceipt.transactionHash,
-        amount: {
-          token: fakeAsset.vToken.underlyingToken,
-          valueWei: expectedAmountWei,
-        },
-        content: en.operationModal.supply.successfulTransactionModal.message,
-        title: en.operationModal.supply.successfulTransactionModal.title,
-      }),
-    );
   });
 });

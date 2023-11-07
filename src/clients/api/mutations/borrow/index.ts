@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForTokenTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { VBep20, VBnb } from 'packages/contracts';
 
 export interface BorrowInput {
@@ -8,12 +7,9 @@ export interface BorrowInput {
   amountWei: BigNumber;
 }
 
-export type BorrowOutput = ContractReceipt;
+export type BorrowOutput = ContractTransaction;
 
-const borrow = async ({ vTokenContract, amountWei }: BorrowInput): Promise<BorrowOutput> => {
-  const transaction = await vTokenContract.borrow(amountWei.toFixed());
-  const receipt = await transaction.wait(1);
-  return checkForTokenTransactionError(receipt);
-};
+const borrow = async ({ vTokenContract, amountWei }: BorrowInput): Promise<BorrowOutput> =>
+  vTokenContract.borrow(amountWei.toFixed());
 
 export default borrow;

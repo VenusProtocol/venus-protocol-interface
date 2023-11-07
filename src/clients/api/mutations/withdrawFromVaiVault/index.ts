@@ -16,6 +16,7 @@ const withdrawFromVaiVault = async ({
 }: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => {
   const transaction = await vaiVaultContract.withdraw(amountWei.toFixed());
   const receipt = await transaction.wait(1);
+  // TODO: remove check once this function has been refactored to use useSendTransaction hook
   return checkForVaiVaultTransactionError(receipt);
 };
 

@@ -15,7 +15,7 @@ export interface UseTokenApprovalInput {
 
 export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined;
-  approveToken: () => Promise<ContractReceipt | undefined>;
+  approveToken: () => Promise<void>;
   revokeWalletSpendingLimit: () => Promise<ContractReceipt | undefined>;
   isApproveTokenLoading: boolean;
   isRevokeWalletSpendingLimitLoading: boolean;
@@ -71,9 +71,14 @@ const useTokenApproval = ({
     return walletSpendingLimitTokens.isGreaterThan(0);
   }, [token.isNative, walletSpendingLimitTokens]);
 
-  const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken({
-    token,
-  });
+  const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken(
+    {
+      token,
+    },
+    {
+      waitForConfirmation: true,
+    },
+  );
 
   const approveToken = async () => {
     if (!spenderAddress) {

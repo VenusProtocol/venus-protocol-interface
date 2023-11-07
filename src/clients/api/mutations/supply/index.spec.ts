@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { VBep20, VBnb, getVTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner from '__mocks__/models/signer';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 
@@ -12,13 +12,10 @@ const fakeAmountWei = new BigNumber('10000000000000000');
 
 vi.mock('packages/contracts');
 
-describe('api/mutation/supply', () => {
+describe('supply', () => {
   describe('supply BNB', () => {
-    test('returns contract receipt when request succeeds', async () => {
-      const waitMock = vi.fn(async () => fakeContractReceipt);
-      const mintMock = vi.fn(() => ({
-        wait: waitMock,
-      }));
+    test('returns transaction when request succeeds', async () => {
+      const mintMock = vi.fn(() => fakeContractTransaction);
 
       const fakeVTokenContract = {
         mint: mintMock,
@@ -32,23 +29,18 @@ describe('api/mutation/supply', () => {
         amountWei: fakeAmountWei,
       });
 
-      expect(response).toBe(fakeContractReceipt);
+      expect(response).toBe(fakeContractTransaction);
 
       expect(mintMock).toHaveBeenCalledTimes(1);
       expect(mintMock).toHaveBeenCalledWith({
         value: fakeAmountWei.toFixed(),
       });
-      expect(waitMock).toBeCalledTimes(1);
-      expect(waitMock).toHaveBeenCalledWith(1);
     });
   });
 
   describe('supply non-BNB token', () => {
-    test('returns contract receipt when request succeeds', async () => {
-      const waitMock = vi.fn(async () => fakeContractReceipt);
-      const mintMock = vi.fn(() => ({
-        wait: waitMock,
-      }));
+    test('returns transaction when request succeeds', async () => {
+      const mintMock = vi.fn(() => fakeContractTransaction);
 
       const fakeVTokenContract = {
         mint: mintMock,
@@ -62,12 +54,10 @@ describe('api/mutation/supply', () => {
         amountWei: fakeAmountWei,
       });
 
-      expect(response).toBe(fakeContractReceipt);
+      expect(response).toBe(fakeContractTransaction);
 
       expect(mintMock).toHaveBeenCalledTimes(1);
       expect(mintMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
-      expect(waitMock).toBeCalledTimes(1);
-      expect(waitMock).toHaveBeenCalledWith(1);
     });
   });
 });

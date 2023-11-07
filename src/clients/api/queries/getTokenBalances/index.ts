@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Bep20, getTokenContract } from 'packages/contracts';
+import { getTokenContract } from 'packages/contracts';
 import { Token, TokenBalance } from 'types';
 
 import { type Provider } from 'clients/web3';
@@ -13,8 +13,6 @@ export interface GetTokenBalancesInput {
 export type GetTokenBalancesOutput = {
   tokenBalances: TokenBalance[];
 };
-
-Array<Awaited<ReturnType<Bep20['balanceOf']>> | Awaited<ReturnType<Provider['getBalance']>>>;
 
 const getTokenBalances = async ({
   provider,

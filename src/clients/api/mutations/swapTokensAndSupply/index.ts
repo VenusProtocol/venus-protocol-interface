@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { SwapRouter } from 'packages/contracts';
 import { Swap, VToken } from 'types';
 import { generateTransactionDeadline } from 'utilities';
@@ -10,7 +10,7 @@ export interface SwapTokensAndSupplyInput {
   vToken: VToken;
 }
 
-export type SwapTokensAndSupplyOutput = ContractReceipt;
+export type SwapTokensAndSupplyOutput = ContractTransaction;
 
 const swapTokensAndSupply = async ({
   swapRouterContract,
@@ -20,26 +20,24 @@ const swapTokensAndSupply = async ({
   const transactionDeadline = generateTransactionDeadline();
   // Sell fromTokens to supply as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapExactTokensForTokensAndSupply(
+    return swapRouterContract.swapExactTokensForTokensAndSupply(
       vToken.address,
       swap.fromTokenAmountSoldWei.toFixed(),
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       transactionDeadline,
     );
-    return transaction.wait(1);
   }
 
   // Sell BNBs to supply as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapExactBNBForTokensAndSupply(
+    return swapRouterContract.swapExactBNBForTokensAndSupply(
       vToken.address,
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       transactionDeadline,
       { value: swap.fromTokenAmountSoldWei.toFixed() },
     );
-    return transaction.wait(1);
   }
 
   throw new VError({

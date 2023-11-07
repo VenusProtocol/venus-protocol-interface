@@ -2,33 +2,31 @@ import { SwapRouter } from 'packages/contracts';
 import { ExactAmountInSwap } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner from '__mocks__/models/signer';
 import { exactAmountInSwap as fakeExactAmountInSwap } from '__mocks__/models/swaps';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-import swapTokens from '.';
+import swapTokensAndSupply from '.';
 
 const fakeVToken = assetData[0].vToken;
 
-describe('api/mutation/swapTokensAndSupply', () => {
+describe('swapTokensAndSupplyAndSupply', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens to supply as many non-native tokens as possible', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactTokensForTokensAndSupplyMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapExactTokensForTokensAndSupplyMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapExactTokensForTokensAndSupply: swapExactTokensForTokensAndSupplyMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokensAndSupply({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountInSwap,
       vToken: fakeVToken,
     });
 
+    expect(result).toBe(fakeContractTransaction);
     expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
     expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledWith(
       fakeVToken.address,
@@ -37,8 +35,6 @@ describe('api/mutation/swapTokensAndSupply', () => {
       fakeExactAmountInSwap.routePath,
       expect.any(Number),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when selling an exact amount of native tokens to supply as many non-native tokens as possible', async () => {
@@ -48,22 +44,20 @@ describe('api/mutation/swapTokensAndSupply', () => {
       routePath: [bnb.address, busd.address],
     };
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactBNBForTokensAndSupplyMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapExactBNBForTokensAndSupplyMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapExactBNBForTokensAndSupply: swapExactBNBForTokensAndSupplyMock,
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokensAndSupply({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
       vToken: fakeVToken,
     });
 
+    expect(result).toBe(fakeContractTransaction);
     expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
     expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledWith(
       fakeVToken.address,
@@ -74,7 +68,5 @@ describe('api/mutation/swapTokensAndSupply', () => {
         value: customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       },
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

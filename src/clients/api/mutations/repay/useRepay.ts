@@ -1,15 +1,15 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { VToken } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
-import { RepayInput, RepayOutput, queryClient, repay } from 'clients/api';
+import { RepayInput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;
-type Options = MutationObserverOptions<RepayOutput, Error, TrimmedRepayInput>;
+type Options = UseSendTransactionOptions<TrimmedRepayInput>;
 
 const useRepay = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
@@ -21,9 +21,9 @@ const useRepay = (
     passSigner: true,
   });
 
-  return useMutation(
-    FunctionKey.REPAY,
-    (input: TrimmedRepayInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.REPAY,
+    fn: (input: TrimmedRepayInput) =>
       callOrThrow({ signer }, params =>
         repay({
           ...params,
@@ -32,35 +32,32 @@ const useRepay = (
           maximillionContract,
         }),
       ),
-    {
-      ...options,
-      onSuccess: async (...onSuccessParams) => {
-        const { amountWei, isRepayingFullLoan } = onSuccessParams[1];
+    onConfirmed: async ({ input }) => {
+      captureAnalyticEvent('Tokens repaid', {
+        poolName,
+        tokenSymbol: vToken.underlyingToken.symbol,
+        tokenAmountTokens: convertWeiToTokens({
+          token: vToken.underlyingToken,
+          valueWei: input.amountWei,
+        }).toNumber(),
+        repaidFullLoan: input.isRepayingFullLoan,
+      });
 
-        captureAnalyticEvent('Tokens repaid', {
-          poolName,
-          tokenSymbol: vToken.underlyingToken.symbol,
-          tokenAmountTokens: convertWeiToTokens({
-            token: vToken.underlyingToken,
-            valueWei: amountWei,
-          }).toNumber(),
-          repaidFullLoan: isRepayingFullLoan,
-        });
+      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_POOL);
+      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
 
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-        queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            tokenAddress: vToken.underlyingToken.address,
-            accountAddress,
-          },
-        ]);
-      },
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_ALLOWANCE,
+        {
+          tokenAddress: vToken.underlyingToken.address,
+          accountAddress,
+        },
+      ]);
     },
-  );
+    options,
+  });
 };
 
 export default useRepay;

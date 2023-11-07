@@ -33,10 +33,6 @@ export const getVaiTreasuryPercentage = vi.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);
 
-export const getMainAssetsInAccount = vi.fn();
-export const useGetMainAssetsInAccount = () =>
-  useQuery(FunctionKey.GET_MAIN_ASSETS_IN_ACCOUNT, getMainAssetsInAccount);
-
 export const getHypotheticalAccountLiquidity = vi.fn();
 
 export const getMainMarkets = vi.fn();

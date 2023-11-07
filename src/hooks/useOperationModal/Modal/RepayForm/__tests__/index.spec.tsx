@@ -10,7 +10,6 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { repay } from 'clients/api';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -19,10 +18,9 @@ import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
-describe('hooks/useBorrowRepayModal/Repay', () => {
+describe('RepayForm', () => {
   it('renders without crashing', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
@@ -308,7 +306,6 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('lets user repay borrowed tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
@@ -348,16 +345,6 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 
   it('lets user repay full loan', async () => {

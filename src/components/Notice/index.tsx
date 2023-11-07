@@ -35,7 +35,7 @@ export const Notice = ({
   >
     <div className="flex grow overflow-hidden p-2">
       {variant === 'loading' ? (
-        <Spinner variant="small" className="mr-3 shrink-0" />
+        <Spinner variant="small" className="mr-3 shrink-0 items-start" />
       ) : (
         <Icon
           className={cn(

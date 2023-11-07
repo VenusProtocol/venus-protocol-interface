@@ -4,7 +4,7 @@
       "tables": {
         "borrowTableTitle": "Borrowed assets",
         "supplyTableTitle": "Supplied assets",
-        "tabletBorrowTabTitle": "Borrow",
+        "tabletBorrowTabTitle": "Borrowed",
         "tabletSupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
       }
@@ -523,10 +523,6 @@
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "successfulTransactionModal": {
-        "message": "You successfully supplied",
-        "title": "Your supply was successful"
-      },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance"
@@ -846,6 +842,20 @@
     "vaiLiquidateSeizeTooMuch": "VAI Liquidate Seize Too Much",
     "vaiMintExchangeCalculationFailed": "VAI Mint Exchange Calculation Failed",
     "vaiMintRejection": "VAI Mint Rejected"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "Could not fetch transaction status"
+    },
+    "failed": {
+      "title": "Transaction failed"
+    },
+    "pending": {
+      "title": "Confirming transaction"
+    },
+    "success": {
+      "title": "Transaction confirmed"
+    }
   },
   "vai": {
     "mintVai": {

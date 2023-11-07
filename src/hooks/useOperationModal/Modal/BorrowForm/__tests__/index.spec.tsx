@@ -9,7 +9,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -17,9 +16,7 @@ import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
-
-describe('hooks/useBorrowRepayModal/BorrowForm', () => {
+describe('BorrowForm', () => {
   it('renders without crashing', () => {
     renderComponent(<BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
@@ -357,7 +354,6 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
@@ -395,15 +391,5 @@ describe('hooks/useBorrowRepayModal/BorrowForm', () => {
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 });

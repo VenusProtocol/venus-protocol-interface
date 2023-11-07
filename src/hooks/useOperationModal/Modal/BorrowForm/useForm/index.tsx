@@ -1,10 +1,5 @@
-import BigNumber from 'bignumber.js';
-import { ContractReceipt } from 'ethers';
-import { useTranslation } from 'translation';
+import { displayMutationError } from 'errors';
 import { Asset, Token } from 'types';
-import { convertTokensToWei } from 'utilities';
-
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -14,10 +9,7 @@ export * from './types';
 export interface UseFormInput {
   asset: Asset;
   limitTokens: string;
-  onSubmit: (input: {
-    fromToken: Token;
-    fromTokenAmountTokens: string;
-  }) => Promise<ContractReceipt>;
+  onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
@@ -39,9 +31,6 @@ const useForm = ({
   setFormValues,
   onSubmit,
 }: UseFormInput): UseFormOutput => {
-  const { t } = useTranslation();
-  const handleTransactionMutation = useHandleTransactionMutation();
-
   const { isFormValid, formError } = useFormValidation({
     asset,
     userBorrowLimitCents,
@@ -52,43 +41,21 @@ const useForm = ({
   const handleSubmit = async (e?: React.SyntheticEvent) => {
     e?.preventDefault();
 
-    if (!isFormValid) {
-      return;
+    try {
+      await onSubmit({
+        fromTokenAmountTokens: formValues.amountTokens,
+        fromToken: formValues.fromToken,
+      });
+
+      // Reset form and close modal on success only
+      setFormValues(() => ({
+        fromToken: asset.vToken.underlyingToken,
+        amountTokens: '',
+      }));
+      onCloseModal();
+    } catch (error) {
+      displayMutationError({ error });
     }
-
-    await handleTransactionMutation({
-      mutate: async () => {
-        const contractReceipt = await onSubmit({
-          fromTokenAmountTokens: formValues.amountTokens,
-          fromToken: formValues.fromToken,
-        });
-
-        // Reset form and close modal on success only
-        setFormValues(() => ({
-          fromToken: asset.vToken.underlyingToken,
-          amountTokens: '',
-        }));
-        onCloseModal();
-
-        return contractReceipt;
-      },
-      successTransactionModalProps: contractReceipt => {
-        const amountWei = convertTokensToWei({
-          value: new BigNumber(formValues.amountTokens),
-          token: asset.vToken.underlyingToken,
-        });
-
-        return {
-          title: t('operationModal.borrow.successfulTransactionModal.title'),
-          content: t('operationModal.borrow.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            token: asset.vToken.underlyingToken,
-          },
-          transactionHash: contractReceipt.transactionHash,
-        };
-      },
-    });
   };
 
   return {

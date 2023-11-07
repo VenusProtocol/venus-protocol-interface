@@ -7,7 +7,6 @@ import { Asset, Swap, TokenBalance } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { swapTokensAndRepay } from 'clients/api';
@@ -20,7 +19,6 @@ import {
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -67,11 +65,10 @@ const fakeFullRepaymentSwap: Swap = {
 };
 
 vi.mock('hooks/useGetSwapTokenUserBalances');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 
-describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap', () => {
+describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
@@ -657,7 +654,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     }));
 
     const onCloseMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -698,19 +694,7 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       isRepayingFullLoan: false,
     });
 
-    const expectedAmountRepaidWei = fakeSwap.expectedToTokenAmountReceivedWei;
-
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountRepaidWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 
   it('lets user swap and repay full loan', async () => {
@@ -720,7 +704,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
     }));
 
     const onCloseMock = vi.fn();
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     const { container, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -758,18 +741,6 @@ describe('hooks/useBorrowRepayModal/Repay - Feature flag enabled: integratedSwap
       isRepayingFullLoan: true,
     });
 
-    const expectedAmountRepaidWei = fakeFullRepaymentSwap.toTokenAmountReceivedWei;
-
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
-
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: fakeAsset.vToken.underlyingToken,
-        valueWei: expectedAmountRepaidWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 });
