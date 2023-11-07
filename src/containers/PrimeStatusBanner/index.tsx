@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Card, Link, PrimaryButton, ProgressBar } from 'components';
-import { ContractReceipt } from 'ethers';
+import { displayMutationError } from 'errors';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
@@ -21,7 +21,6 @@ import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
@@ -33,7 +32,7 @@ export interface PrimeStatusBannerUiProps {
   claimedPrimeTokenCount: number;
   primeTokenLimit: number;
   isClaimPrimeTokenLoading: boolean;
-  onClaimPrimeToken: () => Promise<ContractReceipt>;
+  onClaimPrimeToken: () => Promise<unknown>;
   onRedirectToXvsVaultPage: () => void;
   userStakedXvsTokens: BigNumber;
   minXvsToStakeForPrimeTokens: BigNumber;
@@ -62,20 +61,17 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   onRedirectToXvsVaultPage,
 }) => {
   const { Trans, t } = useTranslation();
-  const handleTransactionMutation = useHandleTransactionMutation();
   const last5Percent = primeTokenLimit * 0.05;
   const primeTokensLeft = primeTokenLimit - claimedPrimeTokenCount;
   const shouldShowPrimeTokensLeftIndicator = primeTokensLeft > 0 && primeTokensLeft <= last5Percent;
 
-  const handleClaimPrimeToken = () =>
-    handleTransactionMutation({
-      mutate: onClaimPrimeToken,
-      successTransactionModalProps: contractReceipt => ({
-        title: t('primeStatusBanner.successfulTransactionModal.title'),
-        content: t('primeStatusBanner.successfulTransactionModal.message'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+  const handleClaimPrimeToken = async () => {
+    try {
+      await onClaimPrimeToken();
+    } catch (error) {
+      displayMutationError({ error });
+    }
+  };
 
   const stakeDeltaTokens = useMemo(
     () => minXvsToStakeForPrimeTokens.minus(userStakedXvsTokens),

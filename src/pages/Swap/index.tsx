@@ -27,7 +27,6 @@ import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import Notice from './Notice';
@@ -79,8 +78,6 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const { fromTokenUserBalanceWei, toTokenUserBalanceWei } = useMemo(
     () =>
@@ -162,13 +159,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const handleSubmit = async () => {
     if (swap) {
       try {
-        const contractReceipt = await onSubmit(swap);
-
-        openSuccessfulTransactionModal({
-          title: t('swapPage.successfulSwapTransactionModal.title'),
-          content: t('swapPage.successfulSwapTransactionModal.message'),
-          transactionHash: contractReceipt.transactionHash,
-        });
+        await onSubmit(swap);
 
         // Reset form on success
         setFormValues(currentFormValues => ({

@@ -72,12 +72,6 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
             submitButtonDisabledLabel={t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonDisabledLabel',
             )}
-            successfulTransactionTitle={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionTitle',
-            )}
-            successfulTransactionDescription={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionDescription',
-            )}
             lockingPeriodMs={lockingPeriodMs}
             onSubmit={handleSubmit}
             isSubmitting={isSubmitting}

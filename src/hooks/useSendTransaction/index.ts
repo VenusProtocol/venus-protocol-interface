@@ -5,12 +5,12 @@ import FunctionKey from 'constants/functionKey';
 
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
-export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown>>
+export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown> | void>
   extends MutationObserverOptions<unknown, Error, TMutateInput> {
   waitForConfirmation?: boolean;
 }
 
-export interface UseSendTransactionInput<TMutateInput extends Record<string, unknown>> {
+export interface UseSendTransactionInput<TMutateInput extends Record<string, unknown> | void> {
   fn: (input: TMutateInput) => Promise<ContractTransaction>;
   fnKey: FunctionKey | [FunctionKey, ...unknown[]];
   onConfirmed?: (input: {
@@ -25,7 +25,7 @@ export interface UseSendTransactionInput<TMutateInput extends Record<string, unk
   options?: UseSendTransactionOptions<TMutateInput>;
 }
 
-export const useSendTransaction = <TMutateInput extends Record<string, unknown>>({
+export const useSendTransaction = <TMutateInput extends Record<string, unknown> | void>({
   fn,
   fnKey,
   onConfirmed,

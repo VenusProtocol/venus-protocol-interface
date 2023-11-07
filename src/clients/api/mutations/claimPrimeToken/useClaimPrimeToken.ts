@@ -5,7 +5,7 @@ import { claimPrimeToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
-type Options = UseSendTransactionOptions<never>;
+type Options = UseSendTransactionOptions<void>;
 
 const useClaimPrimeToken = (options?: Options) => {
   const primeContract = useGetPrimeContract({ passSigner: true });

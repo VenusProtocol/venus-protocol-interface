@@ -1,20 +1,17 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import { vai, xvs } from '__mocks__/models/tokens';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 
 import TransactionForm, { TransactionFormProps } from '.';
 import TEST_IDS from './testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
 const baseProps: TransactionFormProps = {
@@ -25,12 +22,10 @@ const baseProps: TransactionFormProps = {
   isSubmitting: false,
   availableTokensWei: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
-  successfulTransactionTitle: 'Fake successful transaction modal title',
-  successfulTransactionDescription: 'Fake successful transaction modal description',
   lockingPeriodMs: 1000 * 60 * 60 * 24 * 3, // 3 days
 };
 
-describe('pages/Vault/TransactionForm', () => {
+describe('TransactionForm', () => {
   it('renders without crashing', async () => {
     renderComponent(<TransactionForm {...baseProps} />);
   });
@@ -131,7 +126,6 @@ describe('pages/Vault/TransactionForm', () => {
   });
 
   it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const onSubmitMock = vi.fn(async () => fakeContractReceipt);
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
@@ -160,17 +154,5 @@ describe('pages/Vault/TransactionForm', () => {
 
     await waitFor(() => expect(onSubmitMock).toHaveBeenCalledTimes(1));
     expect(onSubmitMock).toHaveBeenCalledWith(fakeWeiSubmitted);
-
-    // Check successful transaction modal is displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: baseProps.token,
-        valueWei: fakeWeiSubmitted,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 });

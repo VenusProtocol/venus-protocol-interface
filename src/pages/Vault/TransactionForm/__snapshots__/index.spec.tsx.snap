@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Vault/TransactionForm > displays available tokens and locking period correctly 1`] = `"Available XVS100.00K XVS"`;
+exports[`TransactionForm > displays available tokens and locking period correctly 1`] = `"Available XVS100.00K XVS"`;
 
-exports[`pages/Vault/TransactionForm > displays available tokens and locking period correctly 2`] = `"Locking period3 days"`;
+exports[`TransactionForm > displays available tokens and locking period correctly 2`] = `"Locking period3 days"`;
 
-exports[`pages/Vault/TransactionForm > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 XVS"`;
+exports[`TransactionForm > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 XVS"`;

@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
-import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { VError, displayMutationError } from 'errors';
 import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities';
@@ -9,7 +8,6 @@ import { formatCentsToReadableValue } from 'utilities';
 import { Claim, useClaimRewards } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
@@ -21,7 +19,7 @@ export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   isClaimingRewards: boolean;
   onOpenModal: () => void;
   onCloseModal: () => void;
-  onClaimReward: () => Promise<ContractReceipt>;
+  onClaimReward: () => Promise<unknown>;
   onToggleAllGroups: () => void;
   onToggleGroup: (toggledGroup: Group) => void;
   groups: Group[];
@@ -39,7 +37,6 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
-  const handleTransactionMutation = useHandleTransactionMutation();
 
   const totalRewardsCents = useMemo(
     () =>
@@ -57,19 +54,13 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
     [groups],
   );
 
-  const handleClaimReward = () =>
-    handleTransactionMutation({
-      mutate: async () => {
-        const contractReceipt = await onClaimReward();
-        onCloseModal();
-        return contractReceipt;
-      },
-      successTransactionModalProps: contractReceipt => ({
-        title: t('claimReward.successfulTransactionModal.title'),
-        content: t('claimReward.successfulTransactionModal.message'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+  const handleClaimReward = async () => {
+    try {
+      await onClaimReward();
+    } catch (error) {
+      displayMutationError({ error });
+    }
+  };
 
   const isSubmitDisabled = !groups.some(group => group.isChecked);
 

@@ -16,7 +16,6 @@ import {
   repayVai,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -29,7 +28,6 @@ const VAI_CONTROLLER_CONTRACT_ADDRESS = getVaiControllerContractAddress({
 })!;
 
 vi.mock('components/Toast');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
 vi.useFakeTimers();
@@ -178,8 +176,6 @@ describe('pages/Vai/RepayVai', () => {
   });
 
   it('lets user repay some of their VAI loan', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
@@ -211,23 +207,9 @@ describe('pages/Vai/RepayVai', () => {
     expect(repayVai).toHaveBeenCalledWith({
       amountWei: repayInputAmountWei,
     });
-
-    // Check successful transaction modal is displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: vai,
-        valueWei: repayInputAmountWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 
   it('lets user repay their entire VAI loan', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
 
     const { getByText, getByTestId } = renderComponent(<RepayVai />, {
@@ -259,18 +241,6 @@ describe('pages/Vai/RepayVai', () => {
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
       amountWei: MAX_UINT256,
-    });
-
-    // Check successful transaction modal is displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: vai,
-        valueWei: fullRepayBalanceWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
     });
   });
 

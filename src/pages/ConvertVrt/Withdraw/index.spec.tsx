@@ -58,7 +58,5 @@ describe('pages/ConvertVRT/Withdraw', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(withdrawXvs).toHaveBeenCalledTimes(1));
-    // Show modal
-    getByText(en.convertVrt.successfulConvertTransactionModal.title);
   });
 });

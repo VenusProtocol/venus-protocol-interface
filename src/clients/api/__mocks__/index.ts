@@ -3,7 +3,7 @@ import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import proposals from '__mocks__/models/proposals';
 import vTokens from '__mocks__/models/vTokens';
@@ -329,15 +329,15 @@ export const createProposal = vi.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
 
-export const cancelProposal = vi.fn(async () => fakeContractReceipt);
+export const cancelProposal = vi.fn(async () => fakeContractTransaction);
 export const useCancelProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
 
-export const executeProposal = vi.fn(async () => fakeContractReceipt);
+export const executeProposal = vi.fn(async () => fakeContractTransaction);
 export const useExecuteProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
 
-export const queueProposal = vi.fn(async () => fakeContractReceipt);
+export const queueProposal = vi.fn(async () => fakeContractTransaction);
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
 
@@ -380,15 +380,15 @@ export const useExecuteWithdrawalFromXvsVault = (
     options,
   );
 
-export const swapTokens = vi.fn(async () => fakeContractReceipt);
+export const swapTokens = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
 
-export const swapTokensAndRepay = vi.fn(async () => fakeContractReceipt);
+export const swapTokensAndRepay = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS_AND_REPAY, swapTokensAndRepay, options);
 
-export const swapTokensAndSupply = vi.fn(async () => fakeContractReceipt);
+export const swapTokensAndSupply = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokensAndSupply = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SWAP_TOKENS_AND_SUPPLY, swapTokensAndSupply, options);
 

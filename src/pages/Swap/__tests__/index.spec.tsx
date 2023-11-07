@@ -26,7 +26,6 @@ import {
 } from 'constants/swap';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -35,7 +34,6 @@ import SwapPage from '..';
 import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useTokenApproval');
@@ -677,8 +675,6 @@ describe('pages/Swap', () => {
   });
 
   it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
@@ -714,14 +710,6 @@ describe('pages/Swap', () => {
     await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
     expect(swapTokens).toHaveBeenCalledWith({
       swap: fakeExactAmountInSwap,
-    });
-
-    // Check success modal transaction was displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      title: en.swapPage.successfulSwapTransactionModal.title,
-      content: en.swapPage.successfulSwapTransactionModal.message,
-      transactionHash: fakeContractReceipt.transactionHash,
     });
 
     // Check form was reset

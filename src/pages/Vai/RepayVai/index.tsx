@@ -11,7 +11,7 @@ import {
   SpendingLimit,
   Spinner,
 } from 'components';
-import { ContractReceipt } from 'ethers';
+import { displayMutationError } from 'errors';
 import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import React, { useCallback, useMemo } from 'react';
@@ -29,7 +29,6 @@ import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from '../styles';
@@ -46,7 +45,7 @@ export interface IRepayVaiUiProps {
   }: {
     amountWei: BigNumber;
     isRepayingFullLoan: boolean;
-  }) => Promise<ContractReceipt | undefined>;
+  }) => Promise<unknown>;
   isVaiApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveVai: ApproveTokenStepsProps['approveToken'];
   isApproveVaiLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
@@ -79,8 +78,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-
-  const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = React.useMemo(() => {
     const limitWei =
@@ -136,22 +133,14 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       token: vai,
     });
 
-    return handleTransactionMutation({
-      mutate: () =>
-        repayVai({
-          amountWei,
-          isRepayingFullLoan: isRepayingFullLoan({ amountTokens }),
-        }),
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vai.repayVai.successfulTransactionModal.title'),
-        content: t('vai.repayVai.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          token: vai,
-        },
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await repayVai({
+        amountWei,
+        isRepayingFullLoan: isRepayingFullLoan({ amountTokens }),
+      });
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   return (

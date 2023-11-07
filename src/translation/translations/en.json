@@ -153,10 +153,6 @@
     },
     "openModalButton": {
       "label": "Claim {{rewardAmount}}"
-    },
-    "successfulTransactionModal": {
-      "message": "You successfully claimed your reward",
-      "title": "Your claim was successful"
     }
   },
   "connectButton": {
@@ -170,9 +166,6 @@
     "convert": "Convert",
     "infoConversionCompleted": "Completed @ 16:00 on 3.31.23",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
-    "successfulConvertTransactionModal": {
-      "title": "Convert submitted successfully"
-    },
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount",
     "withdrawXvs": "Withdraw XVS"
@@ -461,10 +454,6 @@
         "borrowCapReached": "Borrow cap reached",
         "borrowHighRiskAmount": "Borrow at high risk",
         "enterValidAmount": "Enter a valid amount to borrow"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully borrowed",
-        "title": "Your borrow was successful"
       }
     },
     "borrowTabTitle": "Borrow",
@@ -493,10 +482,6 @@
         "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
       },
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance"
@@ -539,10 +524,6 @@
         "enterValidAmount": "Enter a valid amount to withdraw",
         "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
         "withdraw": "Withdraw"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully withdrew",
-        "title": "Your withdrawal was successful"
       },
       "withdrawableAmount": "Withdrawable amount"
     },
@@ -589,10 +570,6 @@
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
-    "successfulTransactionModal": {
-      "message": "You are now a Prime user. Visit the dashboard or the account page to see your earning boosts.",
-      "title": "Prime token claimed"
-    },
     "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
@@ -864,10 +841,6 @@
       "rightMaxButtonLabel": "SAFE MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to mint",
       "submitButtonLabel": "Mint",
-      "successfulTransactionModal": {
-        "message": "You successfully minted",
-        "title": "Your mint was successful"
-      },
       "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
@@ -880,10 +853,6 @@
       "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to repay",
       "submitButtonLabel": "Repay",
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
-      },
       "walletBalance": "Wallet balance"
     },
     "tabMint": "Mint",
@@ -957,7 +926,6 @@
       "votingOptions": "2 of 3 Voting options"
     },
     "pasteYourAddress": "Paste your address",
-    "pleaseAllowTimeForConfirmation": "Please allow a few minutes for your transaction to be confirmed",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
     "proposalType": {
@@ -973,9 +941,6 @@
       "title": "Your delegation was successful"
     },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
-    "theProposalWasCancelled": "The proposal was cancelled",
-    "theProposalWasExecuted": "The proposal was executed",
-    "theProposalWasQueued": "The proposal was queued",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
@@ -985,11 +950,7 @@
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
-    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
-    "yourProposalwasCreatedSuccessfully": "Your proposal was created successfully",
-    "youSuccessfullyVotedAbstained": "You successfully abstained from voting on the proposal",
-    "youSuccessfullyVotedAgainstTheProposal": "You successfully voted against the proposal",
-    "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
@@ -1130,9 +1091,7 @@
       "availableTokensLabel": "Requestable {{tokenSymbol}}",
       "displayWithdrawalRequestListButton": "Withdrawal request list",
       "submitButtonDisabledLabel": "Enter a valid amount to request",
-      "submitButtonLabel": "Request withdrawal",
-      "successfulTransactionDescription": "You successfully requested a withdrawal of",
-      "successfulTransactionTitle": "Your withdrawal request was successful"
+      "submitButtonLabel": "Request withdrawal"
     },
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
