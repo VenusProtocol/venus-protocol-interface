@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForVaiControllerTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { VaiController } from 'packages/contracts';
 
 export interface MintVaiInput {
@@ -8,16 +7,11 @@ export interface MintVaiInput {
   amountWei: BigNumber;
 }
 
-export type MintVaiOutput = ContractReceipt;
+export type MintVaiOutput = ContractTransaction;
 
 const mintVai = async ({
   vaiControllerContract,
   amountWei,
-}: MintVaiInput): Promise<MintVaiOutput> => {
-  const transaction = await vaiControllerContract.mintVAI(amountWei.toFixed());
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForVaiControllerTransactionError(receipt);
-};
+}: MintVaiInput): Promise<MintVaiOutput> => vaiControllerContract.mintVAI(amountWei.toFixed());
 
 export default mintVai;

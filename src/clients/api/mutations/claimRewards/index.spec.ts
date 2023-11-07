@@ -8,8 +8,6 @@ import { xvs } from '__mocks__/models/tokens';
 import claimRewards from '.';
 import { Claim } from './types';
 
-vi.mock('errors/transactionErrors');
-
 const fakeClaims: Claim[] = [
   {
     contract: 'vaiVault',

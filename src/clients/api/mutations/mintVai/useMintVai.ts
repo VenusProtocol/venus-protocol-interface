@@ -1,21 +1,21 @@
 import { useGetVaiControllerContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { MintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
+import { MintVaiInput, mintVai, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedClaimRewardsInput = Omit<MintVaiInput, 'vaiControllerContract'>;
-type Options = MutationObserverOptions<MintVaiOutput, Error, TrimmedClaimRewardsInput>;
+type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
 
 const useMintVai = (options?: Options) => {
   const vaiControllerContract = useGetVaiControllerContract({
     passSigner: true,
   });
 
-  return useMutation(
-    FunctionKey.MINT_VAI,
-    (input: TrimmedClaimRewardsInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.MINT_VAI,
+    fn: (input: TrimmedClaimRewardsInput) =>
       callOrThrow(
         {
           vaiControllerContract,
@@ -26,19 +26,13 @@ const useMintVai = (options?: Options) => {
             ...input,
           }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        // Invalidate queries related to fetching the user minted VAI amount
-        queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+    onConfirmed: () => {
+      // Invalidate queries related to fetching the user minted VAI amount
+      queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
     },
-  );
+    options,
+  });
 };
 
 export default useMintVai;

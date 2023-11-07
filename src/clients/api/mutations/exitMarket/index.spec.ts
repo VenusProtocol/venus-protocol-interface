@@ -5,8 +5,6 @@ import { vBusd } from '__mocks__/models/vTokens';
 
 import exitMarket from '.';
 
-vi.mock('errors/transactionErrors');
-
 describe('exitMarket', () => {
   test('returns contract transaction when request succeeds', async () => {
     const exitMarketMock = vi.fn(async () => fakeContractTransaction);
