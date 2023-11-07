@@ -1,34 +1,14 @@
-/** @jsxImportSource @emotion/react */
-import { Select as MuiSelect } from '@mui/material';
-import { MenuProps } from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { SelectChangeEvent } from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
+import { cn } from 'utilities';
 
-import { useIsSmDown } from 'hooks/responsive';
-
-import { TextButton } from '../Button';
+import { ButtonWrapper } from '../Button';
 import { Icon } from '../Icon';
-import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
+import { Modal } from '../Modal';
+import { Option } from './Option';
+import { SelectOption, SelectProps } from './types';
 
-export interface SelectOption {
-  value: string | number;
-  label: string;
-}
-
-export interface SelectProps {
-  options: SelectOption[];
-  value: string | number | undefined;
-  onChange: (e: SelectChangeEvent<string | number | undefined>) => void;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  ariaLabel: string;
-  className?: string;
-  label?: string;
-  placeLabelToLeft?: boolean;
-  name?: string;
-}
+export * from './types';
 
 export const Select: React.FC<SelectProps> = ({
   className,
@@ -36,91 +16,76 @@ export const Select: React.FC<SelectProps> = ({
   value,
   onChange,
   onBlur,
-  ariaLabel,
   label,
   placeLabelToLeft = false,
-  name,
 }) => {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const styles = useStyles();
-  const isSmDown = useIsSmDown();
 
-  const handleClose = () => {
-    setIsOpen(false);
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const handleToggleMenu = () => setIsMenuOpened(!isMenuOpened);
+
+  const selectedOption = useMemo(
+    () => options.find(option => option.value === value),
+    [value, options],
+  );
+
+  const handleChange = (newValue: SelectOption['value']) => {
+    onChange(newValue);
+    setIsMenuOpened(false);
   };
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-
-  const menuProps = useMemo(() => {
-    const mobileStyles: Partial<MenuProps> = {
-      transformOrigin: {
-        vertical: 'top',
-        horizontal: 'center',
-      },
-      anchorReference: 'none',
-      anchorOrigin: {
-        vertical: 'top',
-        horizontal: 'center',
-      },
-    };
-    return {
-      PaperProps: {
-        sx: styles.menuWrapper,
-      },
-      ...(isSmDown ? mobileStyles : {}),
-    };
-  }, [isSmDown]);
 
   return (
-    <div className={className} css={styles.getContainer({ placeLabelToLeft })}>
-      {!!label && (
-        <div css={styles.getLabel({ placeLabelToLeft })}>
-          <Typography variant="small1" component="label" htmlFor="proposalType">
-            {label || t('select.defaultLabel')}
-          </Typography>
-        </div>
-      )}
-
-      <MuiSelect<string | number | undefined>
-        name={name}
-        open={isOpen}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        css={styles.select({ isOpen })}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        displayEmpty
-        inputProps={{ 'aria-label': ariaLabel }}
-        IconComponent={() => (
-          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowUp" />
+    <>
+      <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
+        {!!label && (
+          <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
+            <p
+              className={cn(
+                'text-sm font-semibold text-grey',
+                !placeLabelToLeft && 'text-offWhite',
+              )}
+            >
+              {label}
+            </p>
+          </div>
         )}
-        MenuProps={menuProps}
-        autoWidth={isSmDown}
+
+        <ButtonWrapper
+          onClick={handleToggleMenu}
+          className="w-full grow justify-between text-sm"
+          variant="tertiary"
+        >
+          <span>{selectedOption?.label}</span>
+
+          <Icon
+            name="arrowUp"
+            className={cn(
+              'ml-3 w-2 shrink-0 text-offWhite',
+              isMenuOpened ? 'text-blue' : 'rotate-180',
+            )}
+          />
+        </ButtonWrapper>
+      </div>
+
+      <Modal
+        isOpen={isMenuOpened}
+        handleClose={handleToggleMenu}
+        noHorizontalPadding
+        onBlur={onBlur}
+        title={label || t('select.defaultLabel')}
       >
-        <div css={styles.mobileHeader}>
-          <Typography variant="h4">{label || t('select.defaultLabel')}</Typography>
-
-          <TextButton css={styles.closeMenuButton} onClick={handleClose}>
-            <Icon name="closeRounded" />
-          </TextButton>
-        </div>
-
-        {options.map(({ value: v, label: optionLabel }) => (
-          <MenuItem
-            disableRipple
-            css={styles.menuItem}
-            key={v}
-            classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
-            value={v}
-          >
-            {optionLabel}
-          </MenuItem>
-        ))}
-      </MuiSelect>
-    </div>
+        <>
+          {options.map(option => (
+            <Option
+              key={option.value}
+              isSelected={value === option.value}
+              onClick={() => handleChange(option.value)}
+            >
+              {option.label}
+            </Option>
+          ))}
+        </>
+      </Modal>
+    </>
   );
 };

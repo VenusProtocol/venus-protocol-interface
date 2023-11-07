@@ -597,7 +597,7 @@
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
   },
   "select": {
-    "defaultLabel": "Select"
+    "defaultLabel": "Select option"
   },
   "selectTokenTextField": {
     "searchInput": {
@@ -682,7 +682,6 @@
   },
   "table": {
     "cardsSelect": {
-      "accessibilityLabel": "Choose an option to sort table rows by",
       "label": "Sort by"
     }
   },

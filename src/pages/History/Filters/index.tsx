@@ -65,11 +65,10 @@ export const Filters: React.FC<FilterProps> = ({
 
       <Select
         options={selectOptions}
-        ariaLabel={t('history.selectLabel')}
         label={t('history.selectLabel')}
         placeLabelToLeft
         value={eventType}
-        onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
+        onChange={value => setEventType(value as TransactionEvent | typeof ALL_VALUE)}
         css={styles.select}
       />
     </Paper>

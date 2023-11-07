@@ -64,10 +64,8 @@ export function TableCards<R>({
     [order, selectOptions],
   );
 
-  const handleOrderChange: SelectProps['onChange'] = selectChangeEvent => {
-    const newSelectedOption = selectOptions.find(
-      option => option.value === selectChangeEvent.target.value,
-    );
+  const handleOrderChange: SelectProps['onChange'] = value => {
+    const newSelectedOption = selectOptions.find(option => option.value === value);
     const orderBy =
       newSelectedOption && columns.find(column => column.key === newSelectedOption.value);
 
@@ -85,9 +83,8 @@ export function TableCards<R>({
         <Select
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
-          ariaLabel={t('table.cardsSelect.accessibilityLabel')}
           options={selectOptions}
-          value={selectedOption?.value}
+          value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
           css={styles.cardsSelect}
         />
