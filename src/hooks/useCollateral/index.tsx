@@ -25,8 +25,12 @@ const useCollateral = () => {
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const { hasLunaOrUstCollateralEnabled } = useContext(DisableLunaUstWarningContext);
 
-  const { mutateAsync: enterMarket } = useEnterMarket();
-  const { mutateAsync: exitMarket } = useExitMarket();
+  const { mutateAsync: enterMarket } = useEnterMarket({
+    waitForConfirmation: true,
+  });
+  const { mutateAsync: exitMarket } = useExitMarket({
+    waitForConfirmation: true,
+  });
 
   const mainPoolComptrollerContract = useGetMainPoolComptrollerContract({
     passSigner: true,

@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import claimPrimeToken from '.';
 
 describe('claimPrimeToken', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const claimPrimeTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {

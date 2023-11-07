@@ -6,7 +6,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import borrow from '.';
 
 describe('borrow', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
     const borrowMock = vi.fn(async () => fakeContractTransaction);
 

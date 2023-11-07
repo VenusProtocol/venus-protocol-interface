@@ -8,7 +8,7 @@ const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
 const fakePoolIndex = 4;
 
 describe('api/mutation/executeWithdrawalFromXvsVault', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const executeWithdrawalMock = vi.fn(() => ({
       wait: waitMock,

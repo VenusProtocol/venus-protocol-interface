@@ -9,7 +9,7 @@ import repayVai from '.';
 vi.mock('errors/transactionErrors');
 
 describe('api/mutation/repayVai', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
 
     const waitMock = vi.fn(async () => fakeContractReceipt);

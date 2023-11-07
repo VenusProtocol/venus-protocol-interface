@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import createProposal from '.';
 
 describe('createProposal', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const fakeTargets = ['0x32asdf'];
     const fakeSignatures = ['signature()'];
     const fakeValues = ['0'];

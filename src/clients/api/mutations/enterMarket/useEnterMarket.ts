@@ -1,27 +1,29 @@
 import BigNumber from 'bignumber.js';
 import { useAnalytics } from 'packages/analytics';
-import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { EnterMarketInput, EnterMarketOutput, enterMarket, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
-const useEnterMarket = (
-  options?: MutationObserverOptions<EnterMarketOutput, Error, EnterMarketInput>,
-) => {
+type EnrichedEnterMarketInput = EnterMarketInput & {
+  // These properties will be used for analytic purposes only
+  poolName: string;
+  userSupplyBalanceTokens: BigNumber;
+};
+
+type Options = UseSendTransactionOptions<EnrichedEnterMarketInput>;
+
+const useEnterMarket = (options?: Options) => {
   const { captureAnalyticEvent } = useAnalytics();
 
-  const wrappedEnterMarket: (
-    input: EnterMarketInput & {
-      // These properties will be used for analytic purposes only
-      poolName: string;
-      userSupplyBalanceTokens: BigNumber;
-    },
-  ) => Promise<EnterMarketOutput> = enterMarket;
+  const wrappedEnterMarket: (input: EnrichedEnterMarketInput) => Promise<EnterMarketOutput> =
+    enterMarket;
 
-  return useMutation(FunctionKey.ENTER_MARKET, wrappedEnterMarket, {
-    ...options,
-    onSuccess: (...onSuccessParams) => {
-      const { poolName, vToken, userSupplyBalanceTokens } = onSuccessParams[1];
+  return useSendTransaction({
+    fnKey: FunctionKey.ENTER_MARKET,
+    fn: wrappedEnterMarket,
+    onConfirmed: ({ input }) => {
+      const { poolName, vToken, userSupplyBalanceTokens } = input;
 
       captureAnalyticEvent('Tokens collateralized', {
         poolName,
@@ -31,11 +33,8 @@ const useEnterMarket = (
 
       queryClient.invalidateQueries(FunctionKey.GET_MAIN_POOL);
       queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
-
-      if (options?.onSuccess) {
-        options.onSuccess(...onSuccessParams);
-      }
     },
+    options,
   });
 };
 

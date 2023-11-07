@@ -6,7 +6,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import approveToken from '.';
 
 describe('api/mutations/revokeSpendingLimit', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const approveTokenMock = vi.fn(() => ({
       wait: waitMock,

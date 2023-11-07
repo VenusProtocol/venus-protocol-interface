@@ -13,7 +13,7 @@ const fakeAmountWei = new BigNumber('1000000000000');
 const fakePoolIndex = 4;
 
 describe('api/mutation/stakeInXvsVault', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const depositMock = vi.fn(() => ({
       wait: waitMock,

@@ -5,7 +5,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import withdrawXvs from '.';
 
 describe('api/mutation/withdrawXvs', () => {
-  test('send vrt conversion with correct arguments and returns contract receipt when request succeeds', async () => {
+  test('send vrt conversion with correct arguments and returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const withdrawVrtMock = vi.fn(() => ({
       wait: waitMock,

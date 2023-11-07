@@ -11,7 +11,7 @@ vi.mock('errors/transactionErrors');
 const fakeAmountWei = new BigNumber('1000000000000');
 
 describe('api/mutation/withdrawFromVaiVault', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const withdrawMock = vi.fn(() => ({
       wait: waitMock,

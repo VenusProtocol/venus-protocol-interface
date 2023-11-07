@@ -1,23 +1,18 @@
-import { checkForComptrollerTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contracts';
 import { VToken } from 'types';
 
-export interface EnterMarketInput {
+export type EnterMarketInput = {
   comptrollerContract: MainPoolComptroller | IsolatedPoolComptroller;
   vToken: VToken;
-}
+};
 
-export type EnterMarketOutput = ContractReceipt;
+export type EnterMarketOutput = ContractTransaction;
 
 const enterMarket = async ({
   comptrollerContract,
   vToken,
-}: EnterMarketInput): Promise<EnterMarketOutput> => {
-  const transaction = await comptrollerContract.enterMarkets([vToken.address]);
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForComptrollerTransactionError(receipt);
-};
+}: EnterMarketInput): Promise<EnterMarketOutput> =>
+  comptrollerContract.enterMarkets([vToken.address]);
 
 export default enterMarket;

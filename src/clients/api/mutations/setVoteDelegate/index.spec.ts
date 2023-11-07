@@ -9,7 +9,7 @@ import setVoteDelegate from '.';
 vi.mock('errors/transactionErrors');
 
 describe('api/mutation/setVoteDelegate', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const delegateMock = vi.fn(() => ({
       wait: waitMock,

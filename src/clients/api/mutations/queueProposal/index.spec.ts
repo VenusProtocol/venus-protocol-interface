@@ -5,7 +5,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import queueProposal from '.';
 
 describe('api/mutation/queueProposal', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const queueProposalMock = vi.fn(() => ({
       wait: waitMock,

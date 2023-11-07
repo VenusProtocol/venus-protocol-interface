@@ -5,7 +5,7 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import castVote from './castVote';
 
 describe('api/mutation/castVote', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const waitMock = vi.fn(async () => fakeContractReceipt);
     const castVoteMock = vi.fn(() => ({
       wait: waitMock,

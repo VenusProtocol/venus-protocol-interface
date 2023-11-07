@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import cancelProposal from '.';
 
 describe('cancelProposal', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const cancelProposalMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
