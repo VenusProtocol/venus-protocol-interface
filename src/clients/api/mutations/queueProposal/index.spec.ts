@@ -1,15 +1,12 @@
 import { GovernorBravoDelegate } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import queueProposal from '.';
 
-describe('api/mutation/queueProposal', () => {
+describe('queueProposal', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const queueProposalMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const queueProposalMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       queue: queueProposalMock,
@@ -22,10 +19,8 @@ describe('api/mutation/queueProposal', () => {
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(queueProposalMock).toHaveBeenCalledTimes(1);
     expect(queueProposalMock).toHaveBeenCalledWith(fakeProposalId);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });
