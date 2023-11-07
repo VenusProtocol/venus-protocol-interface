@@ -6,14 +6,6 @@ import rewardsDistributorContractAbi from 'packages/contracts/generated/infos/ab
 import vaiVaultContractAbi from 'packages/contracts/generated/infos/abis/VaiVault.json';
 import xvsVaultContractAbi from 'packages/contracts/generated/infos/abis/XvsVault.json';
 
-import {
-  checkForComptrollerTransactionError,
-  checkForTokenTransactionError,
-  checkForVaiControllerTransactionError,
-  checkForVaiVaultTransactionError,
-  checkForXvsVaultProxyTransactionError,
-} from 'errors/transactionErrors';
-
 import { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 
 export * from './types';
@@ -112,18 +104,7 @@ const claimRewards = async ({
     return acc;
   }, []);
 
-  const transaction = await multicallContract.tryBlockAndAggregate(true, calls);
-  const receipt = await transaction.wait(1);
-
-  // Check for errors that did not revert the transaction
-  // TODO: remove once this function has been refactored to use useSendTransaction hook
-  checkForComptrollerTransactionError(receipt);
-  checkForTokenTransactionError(receipt);
-  checkForVaiControllerTransactionError(receipt);
-  checkForVaiVaultTransactionError(receipt);
-  checkForXvsVaultProxyTransactionError(receipt);
-
-  return receipt;
+  return multicallContract.tryBlockAndAggregate(true, calls);
 };
 
 export default claimRewards;

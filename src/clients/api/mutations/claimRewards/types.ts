@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { Multicall3 } from 'packages/contracts';
 import { Token } from 'types';
 
@@ -46,4 +46,4 @@ export interface ClaimRewardsInput {
   primeContractAddress?: string;
 }
 
-export type ClaimRewardsOutput = ContractReceipt;
+export type ClaimRewardsOutput = ContractTransaction;

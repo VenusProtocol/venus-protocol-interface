@@ -2,15 +2,8 @@ import { Multicall3 } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
-import {
-  checkForComptrollerTransactionError,
-  checkForTokenTransactionError,
-  checkForVaiControllerTransactionError,
-  checkForVaiVaultTransactionError,
-  checkForXvsVaultProxyTransactionError,
-} from 'errors/transactionErrors';
 
 import claimRewards from '.';
 import { Claim } from './types';
@@ -55,9 +48,7 @@ const fakeClaims: Claim[] = [
 describe('claimRewards', () => {
   test('calls multicall correctly', async () => {
     const fakeMulticallContract = {
-      tryBlockAndAggregate: vi.fn(async () => ({
-        wait: vi.fn(async () => fakeContractReceipt),
-      })),
+      tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
     } as unknown as Multicall3;
 
     const res = await claimRewards({
@@ -76,13 +67,6 @@ describe('claimRewards', () => {
       (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
     ).toMatchSnapshot();
 
-    // Check it looked for errors present in contract receipt
-    expect(checkForComptrollerTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForTokenTransactionError).toHaveBeenCalledWith(res);
-    expect(checkForVaiControllerTransactionError).toHaveBeenCalledWith(res);
-    expect(checkForVaiVaultTransactionError).toHaveBeenCalledWith(res);
-    expect(checkForXvsVaultProxyTransactionError).toHaveBeenCalledWith(res);
-
-    expect(res).toBe(fakeContractReceipt);
+    expect(res).toBe(fakeContractTransaction);
   });
 });
