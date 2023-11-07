@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { BscLink } from 'components';
+import { ChainExplorerLink } from 'components';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -61,7 +61,11 @@ describe('useTrackTransaction', () => {
       variant: 'loading',
       title: en.transactionNotification.pending.title,
       description: (
-        <BscLink chainId={ChainId.BSC_TESTNET} hash={fakeContractTransaction.hash} urlType="tx" />
+        <ChainExplorerLink
+          chainId={ChainId.BSC_TESTNET}
+          hash={fakeContractTransaction.hash}
+          urlType="tx"
+        />
       ),
     });
 
@@ -120,7 +124,11 @@ describe('useTrackTransaction', () => {
         variant: 'loading',
         title: en.transactionNotification.pending.title,
         description: (
-          <BscLink chainId={ChainId.BSC_TESTNET} hash={fakeContractTransaction.hash} urlType="tx" />
+          <ChainExplorerLink
+            chainId={ChainId.BSC_TESTNET}
+            hash={fakeContractTransaction.hash}
+            urlType="tx"
+          />
         ),
       });
 
@@ -169,7 +177,11 @@ describe('useTrackTransaction', () => {
       variant: 'loading',
       title: en.transactionNotification.pending.title,
       description: (
-        <BscLink chainId={ChainId.BSC_TESTNET} hash={fakeContractTransaction.hash} urlType="tx" />
+        <ChainExplorerLink
+          chainId={ChainId.BSC_TESTNET}
+          hash={fakeContractTransaction.hash}
+          urlType="tx"
+        />
       ),
     });
 
@@ -212,7 +224,11 @@ describe('useTrackTransaction', () => {
       variant: 'loading',
       title: en.transactionNotification.pending.title,
       description: (
-        <BscLink chainId={ChainId.BSC_TESTNET} hash={fakeContractTransaction.hash} urlType="tx" />
+        <ChainExplorerLink
+          chainId={ChainId.BSC_TESTNET}
+          hash={fakeContractTransaction.hash}
+          urlType="tx"
+        />
       ),
     });
 

@@ -28,7 +28,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
 
   const content = useMemo(() => {
     if (!text) {
-      return t('bscLink.content');
+      return t('chainExplorerLink.content');
     }
 
     if (text && ellipseBreakpoint) {
