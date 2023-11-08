@@ -1,19 +1,14 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { Token } from 'types';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
-import {
-  StakeInXvsVaultInput,
-  StakeInXvsVaultOutput,
-  queryClient,
-  stakeInXvsVault,
-} from 'clients/api';
+import { StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
-type Options = MutationObserverOptions<StakeInXvsVaultOutput, Error, TrimmedStakeInXvsVaultInput>;
+type Options = UseSendTransactionOptions<TrimmedStakeInXvsVaultInput>;
 
 const useStakeInXvsVault = (
   { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
@@ -24,96 +19,90 @@ const useStakeInXvsVault = (
   });
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.STAKE_IN_XVS_VAULT,
-    (input: TrimmedStakeInXvsVaultInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.STAKE_IN_XVS_VAULT,
+    fn: (input: TrimmedStakeInXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         stakeInXvsVault({
           ...params,
           ...input,
         }),
       ),
-    {
-      ...options,
-      onSuccess: async (...onSuccessParams) => {
-        const { poolIndex, amountWei } = onSuccessParams[1];
+    onConfirmed: async ({ input }) => {
+      const { poolIndex, amountWei } = input;
 
-        captureAnalyticEvent('Tokens staked in XVS vault', {
-          poolIndex,
-          rewardTokenSymbol: rewardToken.symbol,
-          tokenAmountTokens: convertWeiToTokens({
-            token: stakedToken,
-            valueWei: amountWei,
-          }).toNumber(),
-        });
+      captureAnalyticEvent('Tokens staked in XVS vault', {
+        poolIndex,
+        rewardTokenSymbol: rewardToken.symbol,
+        tokenAmountTokens: convertWeiToTokens({
+          token: stakedToken,
+          valueWei: amountWei,
+        }).toNumber(),
+      });
 
-        const accountAddress = await xvsVaultContract?.signer.getAddress();
+      const accountAddress = await xvsVaultContract?.signer.getAddress();
 
-        // Invalidate cached user info
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: rewardToken.address, poolIndex },
-        ]);
+      // Invalidate cached user info
+      queryClient.invalidateQueries([
+        FunctionKey.GET_XVS_VAULT_USER_INFO,
+        { accountAddress, rewardTokenAddress: rewardToken.address, poolIndex },
+      ]);
 
-        // Invalidate cached user balance
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            accountAddress,
-            tokenAddress: stakedToken.address,
-          },
-        ]);
+      // Invalidate cached user balance
+      queryClient.invalidateQueries([
+        FunctionKey.GET_BALANCE_OF,
+        {
+          accountAddress,
+          tokenAddress: stakedToken.address,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            tokenAddress: stakedToken.address,
-            accountAddress,
-          },
-        ]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_ALLOWANCE,
+        {
+          tokenAddress: stakedToken.address,
+          accountAddress,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_BALANCES,
-          {
-            accountAddress,
-          },
-        ]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_BALANCES,
+        {
+          accountAddress,
+        },
+      ]);
 
-        // Invalidate cached vault data
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            accountAddress: xvsVaultContract?.address,
-            tokenAddress: stakedToken.address,
-          },
-        ]);
+      // Invalidate cached vault data
+      queryClient.invalidateQueries([
+        FunctionKey.GET_BALANCE_OF,
+        {
+          accountAddress: xvsVaultContract?.address,
+          tokenAddress: stakedToken.address,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          { rewardTokenAddress: rewardToken.address, poolIndex },
-        ]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+        { rewardTokenAddress: rewardToken.address, poolIndex },
+      ]);
 
-        // Invalidate cached Prime data
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PRIME_STATUS,
-          {
-            accountAddress,
-          },
-        ]);
+      // Invalidate cached Prime data
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PRIME_STATUS,
+        {
+          accountAddress,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PRIME_TOKEN,
-          {
-            accountAddress,
-          },
-        ]);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PRIME_TOKEN,
+        {
+          accountAddress,
+        },
+      ]);
     },
-  );
+    options,
+  });
 };
 
 export default useStakeInXvsVault;
