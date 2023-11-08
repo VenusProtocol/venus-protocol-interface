@@ -1,7 +1,7 @@
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { callOrThrow } from 'utilities';
 
-import { ExecuteProposalInput, executeProposal } from 'clients/api';
+import { ExecuteProposalInput, executeProposal, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
@@ -22,6 +22,15 @@ const useExecuteProposal = (options?: Options) => {
           ...params,
         }),
       ),
+    onConfirmed: async ({ input }) => {
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PROPOSAL,
+        {
+          id: input.proposalId,
+        },
+      ]);
+    },
     options,
   });
 };

@@ -23,7 +23,7 @@ const useQueueProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: ({ input }) => {
-      // Invalidate queries related to fetching the user minted VAI amount
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
       queryClient.invalidateQueries([
         FunctionKey.GET_PROPOSAL,
         {
