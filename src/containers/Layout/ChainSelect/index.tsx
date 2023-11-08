@@ -1,7 +1,9 @@
 import { Select, SelectOption } from 'components';
 import bnbLogo from 'packages/tokens/img/bnb.svg';
 import ethLogo from 'packages/tokens/img/eth.svg';
+import { useTranslation } from 'translation';
 import { ChainId } from 'types';
+import { cn } from 'utilities';
 
 import { chains } from 'clients/web3';
 import { useAuth } from 'context/AuthContext';
@@ -20,16 +22,21 @@ const nativeTokenLogoMapping: {
   [ChainId.SEPOLIA]: ethLogo,
 };
 
-const options: SelectOption[] = chains.map(chain => ({
-  label: (
-    <div className="@container md:@container-normal flex w-full min-w-[20px] items-center">
+const options: SelectOption<ChainId>[] = chains.map(chain => ({
+  label: ({ isRenderedInButton }) => (
+    <div className="flex items-center">
       <img
         src={nativeTokenLogoMapping[chain.id as ChainId]}
         alt={chain.name}
-        className="w-5 flex-none"
+        className="w-5 max-w-none flex-none"
       />
 
-      <span className="@[21px]:block ml-2 hidden overflow-hidden text-ellipsis md:block">
+      <span
+        className={cn(
+          'ml-2 grow overflow-hidden text-ellipsis',
+          isRenderedInButton && 'hidden lg:block',
+        )}
+      >
         {chain.name}
       </span>
     </div>
@@ -37,16 +44,19 @@ const options: SelectOption[] = chains.map(chain => ({
   value: chain.id,
 }));
 
-export const ChainSelect: React.FC<ChainSelectProps> = ({ ...otherProps }) => {
-  const { chainId } = useAuth();
+export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClassName }) => {
+  const { t } = useTranslation();
+  const { chainId, switchChain } = useAuth();
 
   return (
     <Select
       value={chainId}
-      // TODO: wire up
-      onChange={newChainId => console.log('Change chain to', newChainId)}
+      onChange={newChainId => switchChain({ chainId: newChainId })}
       options={options}
-      {...otherProps}
+      menuPosition="right"
+      menuTitle={t('layout.chainSelect.label')}
+      buttonClassName={buttonClassName}
+      className={cn('lg:min-w-[200px]', className)}
     />
   );
 };

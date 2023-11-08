@@ -4,7 +4,7 @@ import { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
 import { Delimiter } from '../../components/Delimiter';
-import { LabeledInlineContent } from '../../components/LayeredValues/LabeledInlineContent';
+import { LabeledInlineContent } from '../../components/LabeledInlineContent';
 import { BorrowBalanceAccountHealth } from '../../components/ProgressBar/AccountHealth';
 import { ValueUpdate } from '../../components/ValueUpdate';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';

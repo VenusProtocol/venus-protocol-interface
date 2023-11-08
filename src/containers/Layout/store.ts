@@ -8,7 +8,7 @@ interface State {
 
 const useStore = create<State>()(set => ({
   isScrollToTopVisible: false,
-  setScrollToTopVisible: (v: boolean) => set(() => ({ isScrollToTopVisible: v })),
+  setScrollToTopVisible: (v: boolean) => set({ isScrollToTopVisible: v }),
 }));
 
 export const store = createStoreSelectors(useStore);

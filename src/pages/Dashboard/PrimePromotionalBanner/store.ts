@@ -11,7 +11,7 @@ const useStore = create<State>()(
   persist(
     set => ({
       shouldShowBanner: true,
-      hideBanner: () => set(() => ({ shouldShowBanner: false })),
+      hideBanner: () => set({ shouldShowBanner: false }),
     }),
     {
       name: 'venus-prime-promotional-banner',

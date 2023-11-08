@@ -3,9 +3,6 @@ import { WagmiConfig } from 'wagmi';
 
 import config from './config';
 
-export * from './config';
-export { default as config } from './config';
-
 export interface Web3WrapperProps {
   children?: React.ReactNode;
 }

@@ -5,5 +5,4 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   mode: 'jit',
   theme,
-  plugins: [require('@tailwindcss/container-queries')],
 };

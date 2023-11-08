@@ -34,6 +34,7 @@ const context: AuthContextValue = {
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  switchChain: noop,
   provider: fakeProvider,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,

@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 
-import { LabeledInlineContent } from 'components/LayeredValues/LabeledInlineContent';
+import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';
 import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';

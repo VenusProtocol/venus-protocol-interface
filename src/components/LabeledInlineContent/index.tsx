@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Token } from 'types';
 
-import { Icon, IconName } from '../../Icon';
-import { TokenIcon } from '../../TokenIcon';
-import { Tooltip } from '../../Tooltip';
+import { Icon, IconName } from '../Icon';
+import { TokenIcon } from '../TokenIcon';
+import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {

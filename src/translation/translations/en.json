@@ -286,6 +286,9 @@
     "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
+    "chainSelect": {
+      "label": "Select network"
+    },
     "claimRewardModal": {
       "primeGroup": {
         "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",
@@ -461,10 +464,6 @@
         "borrowCapReached": "Borrow cap reached",
         "borrowHighRiskAmount": "Borrow at high risk",
         "enterValidAmount": "Enter a valid amount to borrow"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully borrowed",
-        "title": "Your borrow was successful"
       }
     },
     "borrowTabTitle": "Borrow",
@@ -493,10 +492,6 @@
         "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
       },
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance"
@@ -539,10 +534,6 @@
         "enterValidAmount": "Enter a valid amount to withdraw",
         "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
         "withdraw": "Withdraw"
-      },
-      "successfulTransactionModal": {
-        "message": "You successfully withdrew",
-        "title": "Your withdrawal was successful"
       },
       "withdrawableAmount": "Withdrawable amount"
     },

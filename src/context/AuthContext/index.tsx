@@ -4,13 +4,21 @@ import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
-import { ConnectorNotFoundError, useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi';
+import {
+  ConnectorNotFoundError,
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork,
+} from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { Connector, Provider, chains, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
+import { store } from './store';
 import useProvider from './useProvider';
 import useSigner from './useSigner';
 
@@ -19,6 +27,7 @@ export interface AuthContextValue {
   logOut: () => void;
   openAuthModal: () => void;
   closeAuthModal: () => void;
+  switchChain: (input: { chainId: ChainId }) => void;
   provider: Provider;
   chainId: ChainId;
   accountAddress?: string;
@@ -30,6 +39,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,
+  switchChain: noop,
   provider: getDefaultProvider(),
   chainId: ChainId.BSC_MAINNET,
 });
@@ -43,10 +53,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { address, isConnected } = useAccount();
-  const { chain } = useNetwork();
+  const { chain: walletChain } = useNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
 
-  const defaultChainId = chains[0].id;
-  const chainId = chain?.id || defaultChainId;
+  const setStoreChainId = store.use.setChainId();
+  const chainId = store.use.chainId();
 
   const signer = useSigner();
   const provider = useProvider();
@@ -86,21 +97,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await disconnectAsync();
   }, []);
 
-  // Disconnect wallet if it's connected to an unsupported network
-  useEffect(() => {
-    const fn = async () => {
-      if (
-        !!accountAddress &&
-        chain &&
-        chains.every(supportedChain => supportedChain.id !== chain.id)
-      ) {
-        await logOut();
-      }
-    };
-
-    fn();
-  }, [chain?.id, accountAddress]);
-
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
 
@@ -108,6 +104,41 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await login(connector);
     closeAuthModal();
   };
+
+  const switchChain = async (input: { chainId: ChainId }) => {
+    try {
+      if (switchNetworkAsync) {
+        // Change wallet network if it is connected
+        await switchNetworkAsync(input.chainId);
+      }
+
+      // Update store
+      setStoreChainId(input);
+    } catch (error) {
+      // Do nothing
+    }
+  };
+
+  useEffect(() => {
+    const fn = async () => {
+      if (!walletChain) {
+        return;
+      }
+
+      // Disconnect wallet if it connected to an unsupported chain
+      if (chains.every(chain => chain.id !== chainId)) {
+        await logOut();
+        return;
+      }
+
+      // Update store when wallet connects to a different chain
+      if (walletChain.id !== chainId) {
+        setStoreChainId({ chainId: walletChain.id });
+      }
+    };
+
+    fn();
+  }, [walletChain, chainId]);
 
   return (
     <AuthContext.Provider
@@ -117,6 +148,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         logOut,
         openAuthModal,
         closeAuthModal,
+        switchChain,
         provider,
         signer,
         chainId,

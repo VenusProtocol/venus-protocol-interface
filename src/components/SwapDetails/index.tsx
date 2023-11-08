@@ -14,7 +14,7 @@ import {
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 
-import { LabeledInlineContent } from '../LayeredValues/LabeledInlineContent';
+import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(

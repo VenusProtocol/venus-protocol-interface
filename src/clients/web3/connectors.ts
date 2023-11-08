@@ -1,6 +1,8 @@
 import { Connector } from './types';
 
-export const connectorIdByName = {
+export const connectorIdByName: {
+  [connector in Connector]: 'metaMask' | 'injected' | 'coinbaseWallet' | 'walletConnect';
+} = {
   [Connector.MetaMask]: 'metaMask',
   [Connector.BraveWallet]: 'injected',
   [Connector.TrustWallet]: 'injected',

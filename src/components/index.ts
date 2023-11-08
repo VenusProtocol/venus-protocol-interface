@@ -11,7 +11,7 @@ export * from './EllipseAddress';
 export * from './ApproveTokenSteps';
 export * from './Form';
 export * from './Icon';
-export * from './LayeredValues/LabeledInlineContent';
+export * from './LabeledInlineContent';
 export * from './LayeredValues';
 export * from './LunaUstWarningModal';
 export * from './Modal';

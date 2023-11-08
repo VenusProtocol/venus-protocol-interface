@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Asset } from 'types';
 import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
-import { LabeledInlineContentProps } from 'components/LayeredValues/LabeledInlineContent';
+import { LabeledInlineContentProps } from 'components/LabeledInlineContent';
 import { ValueUpdate } from 'components/ValueUpdate';
 
 export interface UseAssetInfoInput {
