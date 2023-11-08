@@ -21,7 +21,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userStakedWei": "30000000000000000000",
+    "userStakedWei": "29000000000000000000",
   },
   {
     "dailyEmissionWei": "28800000000",
@@ -42,7 +42,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userStakedWei": "30000000000000000000",
+    "userStakedWei": "29000000000000000000",
   },
   {
     "dailyEmissionWei": "28800000000",
@@ -63,7 +63,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userStakedWei": "30000000000000000000",
+    "userStakedWei": "29000000000000000000",
   },
   {
     "dailyEmissionWei": "28800000000",
@@ -84,7 +84,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userStakedWei": "30000000000000000000",
+    "userStakedWei": "29000000000000000000",
   },
   {
     "dailyEmissionWei": "28800000000",
@@ -105,7 +105,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
     },
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
-    "userStakedWei": "30000000000000000000",
+    "userStakedWei": "29000000000000000000",
   },
   {
     "dailyEmissionWei": "5000000000",
