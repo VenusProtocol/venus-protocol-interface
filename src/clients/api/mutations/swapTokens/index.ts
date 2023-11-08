@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { SwapRouter } from 'packages/contracts';
 import { Swap } from 'types';
 import { generateTransactionDeadline } from 'utilities';
@@ -9,7 +9,7 @@ export interface SwapTokensInput {
   swap: Swap;
 }
 
-export type SwapTokensOutput = ContractReceipt;
+export type SwapTokensOutput = ContractTransaction;
 
 const swapTokens = async ({
   swapRouterContract,
@@ -20,74 +20,68 @@ const swapTokens = async ({
 
   // Sell fromTokens for as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapExactTokensForTokens(
+    return swapRouterContract.swapExactTokensForTokens(
       swap.fromTokenAmountSoldWei.toFixed(),
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
     );
-    return transaction.wait(1);
   }
 
   // Sell BNBs for as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapExactBNBForTokens(
+    return swapRouterContract.swapExactBNBForTokens(
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
       { value: swap.fromTokenAmountSoldWei.toFixed() },
     );
-    return transaction.wait(1);
   }
 
   // Sell fromTokens for as many BNBs as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapExactTokensForBNB(
+    return swapRouterContract.swapExactTokensForBNB(
       swap.fromTokenAmountSoldWei.toFixed(),
       swap.minimumToTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
     );
-    return transaction.wait(1);
   }
 
   // Buy toTokens by selling as few fromTokens as possible
   if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapTokensForExactTokens(
+    return swapRouterContract.swapTokensForExactTokens(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.maximumFromTokenAmountSoldWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
     );
-    return transaction.wait(1);
   }
 
   // Buy toTokens by selling as few BNBs as possible
   if (swap.direction === 'exactAmountOut' && swap.fromToken.isNative && !swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapBNBForExactTokens(
+    return swapRouterContract.swapBNBForExactTokens(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
       { value: swap.maximumFromTokenAmountSoldWei.toFixed() },
     );
-    return transaction.wait(1);
   }
 
   // Buy BNBs by selling as few fromTokens as possible
   if (swap.direction === 'exactAmountOut' && !swap.fromToken.isNative && swap.toToken.isNative) {
-    const transaction = await swapRouterContract.swapTokensForExactBNB(
+    return swapRouterContract.swapTokensForExactBNB(
       swap.toTokenAmountReceivedWei.toFixed(),
       swap.maximumFromTokenAmountSoldWei.toFixed(),
       swap.routePath,
       fromAccountAddress,
       transactionDeadline,
     );
-    return transaction.wait(1);
   }
 
   throw new VError({

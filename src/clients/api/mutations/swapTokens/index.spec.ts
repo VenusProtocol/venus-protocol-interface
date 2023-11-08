@@ -2,7 +2,7 @@ import { SwapRouter } from 'packages/contracts';
 import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
 import {
   exactAmountInSwap as fakeExactAmountInSwap,
@@ -12,12 +12,9 @@ import { bnb, busd } from '__mocks__/models/tokens';
 
 import swapTokens from '.';
 
-describe('api/mutation/swapTokens', () => {
+describe('swapTokens', () => {
   it('calls the right contract method when selling an exact amount of non-native tokens for as many non-native tokens as possible', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactTokensForTokensMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapExactTokensForTokensMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapExactTokensForTokens: swapExactTokensForTokensMock,
@@ -37,8 +34,6 @@ describe('api/mutation/swapTokens', () => {
       fakeSignerAddress,
       expect.any(Number),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when selling an exact amount of native tokens for as many non-native tokens as possible', async () => {
@@ -48,10 +43,7 @@ describe('api/mutation/swapTokens', () => {
       routePath: [bnb.address, busd.address],
     };
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactBNBForTokensMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapExactBNBForTokensMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapExactBNBForTokens: swapExactBNBForTokensMock,
@@ -73,8 +65,6 @@ describe('api/mutation/swapTokens', () => {
         value: customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
       },
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when selling an exact amount of non-native tokens for as many native tokens as possible', async () => {
@@ -84,10 +74,7 @@ describe('api/mutation/swapTokens', () => {
       routePath: [busd.address, bnb.address],
     };
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapExactTokensForBNBMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapExactTokensForBNBMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapExactTokensForBNB: swapExactTokensForBNBMock,
@@ -107,15 +94,10 @@ describe('api/mutation/swapTokens', () => {
       fakeAccountAddress,
       expect.any(Number),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when buying an exact amount of non-native tokens for as few non-native tokens as possible', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapTokensForExactTokensMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapTokensForExactTokensMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapTokensForExactTokens: swapTokensForExactTokensMock,
@@ -135,8 +117,6 @@ describe('api/mutation/swapTokens', () => {
       fakeAccountAddress,
       expect.any(Number),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when buying an exact amount of non-native tokens for as few native tokens as possible', async () => {
@@ -146,10 +126,7 @@ describe('api/mutation/swapTokens', () => {
       routePath: [bnb.address, busd.address],
     };
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapBNBForExactTokensMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapBNBForExactTokensMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapBNBForExactTokens: swapBNBForExactTokensMock,
@@ -171,8 +148,6 @@ describe('api/mutation/swapTokens', () => {
         value: customFakeExactAmountOutSwap.maximumFromTokenAmountSoldWei.toFixed(),
       },
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 
   it('calls the right contract method when buying an exact amount of native tokens for as few non-native tokens as possible', async () => {
@@ -182,10 +157,7 @@ describe('api/mutation/swapTokens', () => {
       routePath: [busd.address, bnb.address],
     };
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const swapTokensForExactBNBMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const swapTokensForExactBNBMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       swapTokensForExactBNB: swapTokensForExactBNBMock,
@@ -205,7 +177,5 @@ describe('api/mutation/swapTokens', () => {
       fakeAccountAddress,
       expect.any(Number),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });
