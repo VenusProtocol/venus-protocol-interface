@@ -31,7 +31,7 @@
     "regression": "reg-suit run"
   },
   "dependencies": {
-    "@0xsequence/multicall": "^0.43.34",
+    "@0xsequence/multicall": "^1.2.9",
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.11.1",
     "@ethersproject/abstract-signer": "^5.7.0",
