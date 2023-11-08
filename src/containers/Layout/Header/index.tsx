@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { Breadcrumbs } from '../Breadcrumbs';
 import { ChainSelect } from '../ChainSelect';
 import ClaimRewardButton from '../ClaimRewardButton';
@@ -12,7 +14,7 @@ export const Header: React.FC = () => (
     <div className="hidden md:flex md:h-12 md:items-center md:pl-6">
       <ClaimRewardButton className="flex-none md:mr-4 md:whitespace-nowrap" />
 
-      <ChainSelect className="md:mr-4" />
+      {config.environment !== 'mainnet' && <ChainSelect className="md:mr-4" />}
 
       <ConnectButton className="flex-none" />
     </div>
