@@ -10,7 +10,6 @@ import {
   TextButton,
 } from 'components';
 import { displayMutationError } from 'errors';
-import { ContractReceipt } from 'ethers';
 import {
   useGetMainPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
@@ -46,7 +45,7 @@ export interface SwapPageUiProps
   > {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  onSubmit: (swap: Swap) => Promise<ContractReceipt>;
+  onSubmit: (swap: Swap) => Promise<unknown>;
   isSubmitting: boolean;
   tokenBalances: TokenBalance[];
   isSwapLoading: boolean;

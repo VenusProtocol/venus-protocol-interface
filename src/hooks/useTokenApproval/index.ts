@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
 import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
@@ -16,7 +15,7 @@ export interface UseTokenApprovalInput {
 export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined;
   approveToken: () => Promise<void>;
-  revokeWalletSpendingLimit: () => Promise<ContractReceipt | undefined>;
+  revokeWalletSpendingLimit: () => Promise<unknown>;
   isApproveTokenLoading: boolean;
   isRevokeWalletSpendingLimitLoading: boolean;
   isWalletSpendingLimitLoading: boolean;
@@ -42,9 +41,14 @@ const useTokenApproval = ({
   );
 
   const { mutateAsync: revokeAsync, isLoading: isRevokeWalletSpendingLimitLoading } =
-    useRevokeSpendingLimit({
-      token,
-    });
+    useRevokeSpendingLimit(
+      {
+        token,
+      },
+      {
+        waitForConfirmation: true,
+      },
+    );
 
   const revokeWalletSpendingLimit = async () => {
     if (spenderAddress) {

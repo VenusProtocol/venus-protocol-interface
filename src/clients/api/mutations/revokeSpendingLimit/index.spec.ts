@@ -1,16 +1,13 @@
 import { Bep20 } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import approveToken from '.';
 
-describe('api/mutations/revokeSpendingLimit', () => {
+describe('revokeSpendingLimit', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const approveTokenMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const approveTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       approve: approveTokenMock,
@@ -21,10 +18,8 @@ describe('api/mutations/revokeSpendingLimit', () => {
       spenderAddress: fakeAddress,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(approveTokenMock).toHaveBeenCalledTimes(1);
     expect(approveTokenMock).toHaveBeenCalledWith(fakeAddress, 0);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });
