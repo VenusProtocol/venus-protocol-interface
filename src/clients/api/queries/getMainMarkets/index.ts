@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { Market } from 'types';
-import { restService } from 'utilities';
+import { Market, Token } from 'types';
+import { convertWeiToTokens, restService } from 'utilities';
 
 export interface ApiMarket {
   address: string;
@@ -15,11 +15,15 @@ export interface GetMainMarketsResponse {
   request: { addresses: string[] };
 }
 
+export interface GetMainMarketsInput {
+  xvs: Token;
+}
+
 export interface GetMainMarketsOutput {
   markets: Market[];
 }
 
-const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
+const getMainMarkets = async ({ xvs }: GetMainMarketsInput): Promise<GetMainMarketsOutput> => {
   const response = await restService<GetMainMarketsResponse>({
     endpoint: '/markets/core-pool',
     method: 'GET',
@@ -34,10 +38,13 @@ const getMainMarkets = async (): Promise<GetMainMarketsOutput> => {
   }
 
   const markets: Market[] = (response?.data?.result || []).map(apiMarket => {
-    const decimalPlaces = new BigNumber(10).pow(apiMarket.underlyingDecimal);
-    const totalXvsDistributedTokens = new BigNumber(apiMarket.totalDistributedMantissa).dividedBy(
-      decimalPlaces,
-    );
+    const totalXvsDistributedTokens = apiMarket.totalDistributedMantissa
+      ? convertWeiToTokens({
+          valueWei: new BigNumber(apiMarket.totalDistributedMantissa),
+          token: xvs,
+        })
+      : new BigNumber(0);
+
     return {
       address: apiMarket.address,
       borrowerCount: apiMarket.borrowerCount,

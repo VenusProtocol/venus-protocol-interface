@@ -37,7 +37,7 @@ const getMainPool = async ({
     mainPoolComptrollerContract.getAllMarkets(),
     // Fetch main markets to get the supplier and borrower counts
     // TODO: fetch borrower and supplier counts from subgraph once available
-    getMainMarkets(),
+    getMainMarkets({ xvs }),
     // Fetch XVS price
     resilientOracleContract.getPrice(xvs.address),
     // Prime related calls
