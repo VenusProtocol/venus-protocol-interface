@@ -1,15 +1,12 @@
 import { GovernorBravoDelegate } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import castVote from './castVote';
+import castVote from '../castVote';
 
-describe('api/mutation/castVote', () => {
+describe('castVote', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const castVoteMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const castVoteMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       castVote: castVoteMock,
@@ -21,10 +18,8 @@ describe('api/mutation/castVote', () => {
       voteType: 1,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(castVoteMock).toHaveBeenCalledTimes(1);
     expect(castVoteMock).toHaveBeenCalledWith(1, 1);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

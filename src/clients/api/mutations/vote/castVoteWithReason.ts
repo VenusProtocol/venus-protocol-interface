@@ -1,31 +1,22 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
 import { VoteSupport } from 'types';
 
-export interface HookParams {
-  governorBravoDelegateContract: GovernorBravoDelegate;
-}
-
 export interface CastVoteWithReasonInput {
+  governorBravoDelegateContract: GovernorBravoDelegate;
   proposalId: number;
   voteType: VoteSupport;
   voteReason: string;
 }
 
-export type CastVoteWithReasonOutput = ContractReceipt;
+export type CastVoteWithReasonOutput = ContractTransaction;
 
 const castVoteWithReason = async ({
   governorBravoDelegateContract,
   proposalId,
   voteType,
   voteReason,
-}: CastVoteWithReasonInput & HookParams): Promise<CastVoteWithReasonOutput> => {
-  const transaction = await governorBravoDelegateContract.castVoteWithReason(
-    proposalId,
-    voteType,
-    voteReason,
-  );
-  return transaction.wait(1);
-};
+}: CastVoteWithReasonInput): Promise<CastVoteWithReasonOutput> =>
+  governorBravoDelegateContract.castVoteWithReason(proposalId, voteType, voteReason);
 
 export default castVoteWithReason;
