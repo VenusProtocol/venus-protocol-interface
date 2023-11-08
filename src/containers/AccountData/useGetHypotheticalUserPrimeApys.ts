@@ -54,15 +54,20 @@ export const useGetHypotheticalUserPrimeApys = ({
     .some(distribution => distribution.type === 'prime');
 
   const { userBorrowBalanceMantissa, userSupplyBalanceMantissa } = useMemo(() => {
-    const hypotheticalUserBorrowBalanceTokens =
-      action === 'borrow' || action === 'repay'
-        ? asset.userBorrowBalanceTokens.plus(toTokenAmountTokens)
-        : asset.userBorrowBalanceTokens;
+    let hypotheticalUserBorrowBalanceTokens = asset.userBorrowBalanceTokens;
+    let hypotheticalUserSupplyBalanceTokens = asset.userSupplyBalanceTokens;
 
-    const hypotheticalUserSupplyBalanceTokens =
-      action === 'supply' || action === 'withdraw'
-        ? asset.userSupplyBalanceTokens.plus(toTokenAmountTokens)
-        : asset.userSupplyBalanceTokens;
+    if (action === 'borrow') {
+      hypotheticalUserBorrowBalanceTokens = asset.userBorrowBalanceTokens.plus(toTokenAmountTokens);
+    } else if (action === 'repay') {
+      hypotheticalUserBorrowBalanceTokens =
+        asset.userBorrowBalanceTokens.minus(toTokenAmountTokens);
+    } else if (action === 'supply') {
+      hypotheticalUserSupplyBalanceTokens = asset.userSupplyBalanceTokens.plus(toTokenAmountTokens);
+    } else if (action === 'withdraw') {
+      hypotheticalUserSupplyBalanceTokens =
+        asset.userSupplyBalanceTokens.minus(toTokenAmountTokens);
+    }
 
     return {
       userBorrowBalanceMantissa: convertTokensToWei({
