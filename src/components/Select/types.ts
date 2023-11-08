@@ -12,4 +12,5 @@ export interface SelectProps {
   placeLabelToLeft?: boolean;
   label?: string;
   className?: string;
+  variant?: 'primary' | 'secondary';
 }
