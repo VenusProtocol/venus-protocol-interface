@@ -29,7 +29,20 @@ export const Default = () => (
   </State>
 );
 
-export const WithLabel = () => (
+export const SecondaryVariant = () => (
+  <State initial={initialState}>
+    {({ state, setState }) => (
+      <Select
+        value={state.value}
+        onChange={value => setState({ value })}
+        options={options}
+        variant="secondary"
+      />
+    )}
+  </State>
+);
+
+export const Label = () => (
   <State initial={initialState}>
     {({ state, setState }) => (
       <Select
@@ -42,7 +55,7 @@ export const WithLabel = () => (
   </State>
 );
 
-export const WithLeftLabel = () => (
+export const LeftLabel = () => (
   <State initial={initialState}>
     {({ state, setState }) => (
       <Select

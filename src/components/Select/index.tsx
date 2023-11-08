@@ -4,13 +4,35 @@ import { cn } from 'utilities';
 
 import { useBreakpointUp } from 'hooks/responsive';
 
-import { TertiaryButton } from '../Button';
+import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Modal } from '../Modal';
 import { Option } from './Option';
 import { SelectOption, SelectProps } from './types';
 
 export * from './types';
+
+const getVariantClasses = ({
+  variant,
+  isMenuOpened,
+}: {
+  variant: SelectProps['variant'];
+  isMenuOpened: boolean;
+}) => {
+  switch (variant) {
+    case 'secondary':
+      return cn(
+        'h-10 border-cards bg-cards px-3 hover:border-grey hover:bg-cards active:border-grey active:bg-cards',
+        isMenuOpened && 'border-blue hover:border-blue',
+      );
+    // primary
+    default:
+      return cn(
+        'border-lightGrey bg-cards px-4 hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey',
+        isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
+      );
+  }
+};
 
 export const Select: React.FC<SelectProps> = ({
   className,
@@ -21,6 +43,7 @@ export const Select: React.FC<SelectProps> = ({
   label,
   name,
   placeLabelToLeft = false,
+  variant = 'primary',
 }) => {
   const { t } = useTranslation();
 
@@ -46,6 +69,7 @@ export const Select: React.FC<SelectProps> = ({
           key={option.value}
           isSelected={value === option.value}
           onClick={() => handleChange(option.value)}
+          variant={variant}
         >
           {option.label}
         </Option>
@@ -85,21 +109,24 @@ export const Select: React.FC<SelectProps> = ({
             />
           )}
 
-          <TertiaryButton
+          <Button
             onClick={handleToggleMenu}
-            className="relative w-full px-4"
-            contentClassName="w-full justify-between text-sm"
+            className={cn('relative w-full', getVariantClasses({ variant, isMenuOpened }))}
+            contentClassName={cn(
+              'w-full justify-between text-sm',
+              variant === 'secondary' && 'font-normal',
+            )}
           >
             <span>{selectedOption?.label}</span>
 
             <Icon
               name="arrowUp"
               className={cn(
-                'ml-3 w-2 shrink-0 text-offWhite',
+                'ml-3 w-[10px] shrink-0 text-offWhite',
                 isMenuOpened ? 'text-blue' : 'rotate-180',
               )}
             />
-          </TertiaryButton>
+          </Button>
 
           {/* XS to MD menu */}
           {isMenuOpened && (

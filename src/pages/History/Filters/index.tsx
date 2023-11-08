@@ -70,6 +70,7 @@ export const Filters: React.FC<FilterProps> = ({
         value={eventType}
         onChange={value => setEventType(value as TransactionEvent | typeof ALL_VALUE)}
         css={styles.select}
+        variant="secondary"
       />
     </Paper>
   );
