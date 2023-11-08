@@ -11,11 +11,6 @@ interface FormikSelectFieldProps extends Omit<SelectProps, 'name' | 'onChange' |
 export const FormikSelectField = ({ name, onBlur, ...rest }: FormikSelectFieldProps) => {
   const [{ value, onBlur: formikOnBlur }, _formState, { setValue }] = useField(name); // eslint-disable-line @typescript-eslint/naming-convention
 
-  const onChange: SelectProps['onChange'] = e => {
-    const val = e.target.value;
-    setValue(val);
-  };
-
   const handleBlur: React.FocusEventHandler<HTMLInputElement> = e => {
     if (onBlur) {
       onBlur(value);
@@ -23,13 +18,5 @@ export const FormikSelectField = ({ name, onBlur, ...rest }: FormikSelectFieldPr
     formikOnBlur(e);
   };
 
-  return (
-    <Select
-      name={name}
-      value={value === undefined ? '' : value}
-      onChange={onChange}
-      onBlur={handleBlur}
-      {...rest}
-    />
-  );
+  return <Select value={value} name={name} onChange={setValue} onBlur={handleBlur} {...rest} />;
 };

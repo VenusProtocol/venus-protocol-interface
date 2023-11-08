@@ -56,7 +56,7 @@ const Stepper: React.FC<StepperProps> = ({
         getTimestamp: () => createdDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} />
+            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
           </span>
         ),
       },
@@ -65,7 +65,7 @@ const Stepper: React.FC<StepperProps> = ({
         getTimestamp: () => startDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} />
+            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
           </span>
         ),
       },
@@ -107,7 +107,7 @@ const Stepper: React.FC<StepperProps> = ({
           }
           return (
             <span css={[styles.iconContainer, styles.markIconContainer]}>
-              <Icon name="mark" css={styles.markIcon} />
+              <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
             </span>
           );
         },
@@ -117,7 +117,7 @@ const Stepper: React.FC<StepperProps> = ({
         getTimestamp: () => queuedDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} />
+            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
           </span>
         ),
       },
@@ -126,7 +126,7 @@ const Stepper: React.FC<StepperProps> = ({
         getTimestamp: () => executedDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} />
+            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
           </span>
         ),
       },

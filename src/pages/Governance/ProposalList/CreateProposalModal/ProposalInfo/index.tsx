@@ -15,8 +15,8 @@ const ProposalInfo: React.FC = () => {
       <FormikSelectField
         name="proposalType"
         label={t('vote.createProposalForm.proposalType')}
-        ariaLabel={t('vote.createProposalForm.proposalType')}
         css={styles.formBottomMargin}
+        className="w-full"
         options={[
           { value: ProposalType.NORMAL, label: t('vote.proposalType.normal') },
           { value: ProposalType.FAST_TRACK, label: t('vote.proposalType.fastTrack') },

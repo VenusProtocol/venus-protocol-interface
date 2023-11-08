@@ -8,6 +8,12 @@ export const useBreakpointDown = (breakpoint: Breakpoint) => {
   return useMediaQuery(theme.breakpoints.down(breakpoint));
 };
 
+export const useBreakpointUp = (breakpoint: Breakpoint) => {
+  const theme = useTheme();
+
+  return useMediaQuery(theme.breakpoints.up(breakpoint));
+};
+
 export const useIsXsDown = () => useBreakpointDown('xs');
 export const useIsSmDown = () => useBreakpointDown('sm');
 export const useIsMdDown = () => useBreakpointDown('md');

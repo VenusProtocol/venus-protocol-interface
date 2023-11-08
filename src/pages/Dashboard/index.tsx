@@ -73,7 +73,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
         {pools.length > 0 && (
           <TagGroup
-            className="lg:order-1 lg:mr-6"
+            className="mx-[-16px] px-4 md:mx-0 md:px-0 lg:order-1 lg:mr-6"
             tags={poolTags}
             activeTagIndex={selectedPoolTagIndex}
             onTagClick={setSelectedPoolTagIndex}

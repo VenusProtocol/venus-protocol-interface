@@ -54,17 +54,6 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
   }
 };
 
-const getClasses = ({
-  variant = 'primary',
-  active = false,
-  className,
-}: Pick<ButtonProps, 'variant' | 'active' | 'className'>) =>
-  cn(
-    'inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default disabled:text-grey',
-    getVariantClasses({ variant, active }),
-    className,
-  );
-
 export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   active?: boolean;
@@ -74,17 +63,30 @@ export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButto
 
 export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   asChild,
-  variant,
-  active,
+  variant = 'primary',
+  active = false,
   className,
+  type = 'button',
   ...otherProps
 }) => {
   const Comp = asChild ? Slot : 'button';
-  return <Comp className={getClasses({ variant, active, className })} {...otherProps} />;
+
+  return (
+    <Comp
+      className={cn(
+        'inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default disabled:text-grey',
+        getVariantClasses({ variant, active }),
+        className,
+      )}
+      type={type}
+      {...otherProps}
+    />
+  );
 };
 
 export interface ButtonProps extends Omit<ButtonWrapperProps, 'asChild'> {
   loading?: boolean;
+  contentClassName?: string;
 }
 
 export const Button = ({
@@ -92,6 +94,7 @@ export const Button = ({
   disabled = false,
   variant = 'primary',
   children,
+  contentClassName,
   ...otherProps
 }: ButtonProps) => (
   <ButtonWrapper disabled={loading || disabled} type="button" variant={variant} {...otherProps}>
@@ -105,6 +108,7 @@ export const Button = ({
       className={cn(
         'inline-flex items-center text-inherit',
         variant !== 'primary' && variant !== 'secondary' && 'text-sm',
+        contentClassName,
       )}
     >
       {children}

@@ -24,12 +24,7 @@ const initialState: { value: string | number } = {
 export const Default = () => (
   <State initial={initialState}>
     {({ state, setState }) => (
-      <Select
-        value={state.value}
-        ariaLabel="select"
-        onChange={e => setState({ value: e.target.value })}
-        options={options}
-      />
+      <Select value={state.value} onChange={value => setState({ value })} options={options} />
     )}
   </State>
 );
@@ -39,8 +34,7 @@ export const WithLabel = () => (
     {({ state, setState }) => (
       <Select
         value={state.value}
-        ariaLabel="select"
-        onChange={e => setState({ value: e.target.value })}
+        onChange={value => setState({ value })}
         options={options}
         label="Filter by:"
       />
@@ -53,8 +47,7 @@ export const WithLeftLabel = () => (
     {({ state, setState }) => (
       <Select
         value={state.value}
-        ariaLabel="select"
-        onChange={e => setState({ value: e.target.value })}
+        onChange={value => setState({ value })}
         options={options}
         label="Filter by:"
         placeLabelToLeft
