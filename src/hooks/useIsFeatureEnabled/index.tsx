@@ -14,6 +14,7 @@ const featureFlags = {
   convertVrtRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   historyRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

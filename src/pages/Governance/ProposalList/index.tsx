@@ -18,8 +18,10 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
+import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';
@@ -47,6 +49,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
   isCreateProposalLoading,
   canCreateProposal,
 }) => {
+  const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
   const navigate = useNavigate();
   const { newProposalStep } = useParams<{
     newProposalStep: 'create' | 'file' | 'manual' | undefined;
@@ -60,20 +63,22 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
       <div css={[styles.header, styles.bottomSpace]}>
         <Typography variant="h4">{t('vote.proposals')}</Typography>
 
-        <div css={styles.createProposal}>
-          <TextButton
-            onClick={() => {
-              setShowCreateProposalModal(true);
-              navigate(routes.governanceProposalCreate.path);
-            }}
-            css={styles.marginLess}
-            disabled={!canCreateProposal}
-          >
-            {t('vote.createProposalPlus')}
-          </TextButton>
+        {createProposalEnabled && (
+          <div css={styles.createProposal} data-testid={TEST_IDS.createProposal}>
+            <TextButton
+              onClick={() => {
+                setShowCreateProposalModal(true);
+                navigate(routes.governanceProposalCreate.path);
+              }}
+              css={styles.marginLess}
+              disabled={!canCreateProposal}
+            >
+              {t('vote.createProposalPlus')}
+            </TextButton>
 
-          <InfoIcon tooltip={t('vote.requiredVotingPower')} css={styles.infoIconWrapper} />
-        </div>
+            <InfoIcon tooltip={t('vote.requiredVotingPower')} css={styles.infoIconWrapper} />
+          </div>
+        )}
       </div>
 
       {isLoading && <Spinner css={styles.loader} />}
@@ -126,7 +131,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
         />
       )}
 
-      {showCreateProposalModal && (
+      {createProposalEnabled && showCreateProposalModal && (
         <CreateProposalModal
           isOpen={showCreateProposalModal}
           handleClose={() => {
