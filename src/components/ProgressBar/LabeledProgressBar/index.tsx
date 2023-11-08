@@ -5,7 +5,7 @@ import React from 'react';
 import { ProgressBar, ProgressBarProps } from '..';
 import { useStyles } from './styles';
 
-interface LabeledProgressBarProps extends ProgressBarProps {
+export interface LabeledProgressBarProps extends ProgressBarProps {
   greyLeftText?: string;
   whiteLeftText?: string | React.ReactElement;
   greyRightText?: string | React.ReactElement;
