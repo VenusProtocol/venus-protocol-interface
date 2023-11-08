@@ -21,6 +21,7 @@ import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
+import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 import { useStyles } from './styles';
@@ -63,7 +64,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
         <Typography variant="h4">{t('vote.proposals')}</Typography>
 
         {createProposalEnabled && (
-          <div css={styles.createProposal}>
+          <div css={styles.createProposal} data-testid={TEST_IDS.createProposal}>
             <TextButton
               onClick={() => {
                 setShowCreateProposalModal(true);

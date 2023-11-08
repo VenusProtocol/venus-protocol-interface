@@ -137,4 +137,60 @@ describe('useIsFeatureEnabled', () => {
       expect(result.current).toBe(false);
     });
   });
+
+  it('should return true for creating proposals on BSC_TESTNET', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_TESTNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'createProposal',
+      }),
+    );
+
+    expect(result.current).toBe(true);
+  });
+
+  it('should return true for creating proposals on BSC_MAINNET', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_MAINNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'createProposal',
+      }),
+    );
+
+    expect(result.current).toBe(true);
+  });
+
+  it('should return false for creating proposals on ETHEREUM', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.ETHEREUM,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'createProposal',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
+
+  it('should return true for creating proposals on SEPOLIA', () => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.SEPOLIA,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'createProposal',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
 });
