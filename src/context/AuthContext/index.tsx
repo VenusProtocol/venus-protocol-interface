@@ -1,4 +1,5 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
+import * as Sentry from '@sentry/react';
 import { VError, displayMutationError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
@@ -95,6 +96,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     },
     [chainId, connectAsync, connectors],
   );
+
+  useEffect(() => {
+    Sentry.setTag('chainId', chainId);
+  }, [chainId]);
 
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);

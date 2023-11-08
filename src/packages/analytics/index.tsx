@@ -9,7 +9,7 @@ const UserIdentifier: React.FC = () => {
   const { accountAddress, chainId } = useAuth();
   const posthog = usePostHog();
 
-  // Identify user by their account address
+  // Identify user by their account address along with the network chain they are on
   useEffect(() => {
     if (accountAddress) {
       posthog?.identify(accountAddress, { chainId });
