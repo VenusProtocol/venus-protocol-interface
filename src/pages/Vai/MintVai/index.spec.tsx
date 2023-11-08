@@ -5,7 +5,7 @@ import Vi from 'vitest';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
@@ -14,13 +14,11 @@ import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
 
-vi.mock('components/Toast');
-
 const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiControllerResponses.getMintableVAI);
 
 const fakeVaiTreasuryPercentage = 7.19;
 
-describe('pages/Vai/MintVai', () => {
+describe('MintVai', () => {
   beforeEach(() => {
     (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
   });
@@ -51,7 +49,7 @@ describe('pages/Vai/MintVai', () => {
   });
 
   it('lets user mint VAI', async () => {
-    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
       authContextValue: {

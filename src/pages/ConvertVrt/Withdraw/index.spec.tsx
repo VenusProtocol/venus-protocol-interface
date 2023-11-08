@@ -5,7 +5,7 @@ import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import fakeProvider from '__mocks__/models/provider';
 import { useGetMainPool } from 'clients/api';
@@ -15,7 +15,7 @@ import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 
-describe('pages/ConvertVRT/Withdraw', () => {
+describe('Withdraw', () => {
   beforeEach(() => {
     (useGetMainPool as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -31,7 +31,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
   });
 
   it('submit button is enabled with input, good vesting period and not loading', async () => {
-    const withdrawXvs = vi.fn().mockReturnValue(fakeContractReceipt.transactionHash);
+    const withdrawXvs = vi.fn().mockReturnValue(fakeContractTransaction);
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{

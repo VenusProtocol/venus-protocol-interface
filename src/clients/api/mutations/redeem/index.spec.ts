@@ -7,8 +7,6 @@ import redeem from '.';
 
 const fakeAmount = new BigNumber('10000000000000000');
 
-vi.mock('errors/transactionErrors');
-
 describe('redeem', () => {
   test('returns contract transaction when request succeeds', async () => {
     const redeemMock = vi.fn(async () => fakeContractTransaction);

@@ -6,7 +6,7 @@ import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
@@ -41,7 +41,7 @@ vi.mock('hooks/useTokenApproval');
 export const getLastUseGetSwapInfoCallArgs = () =>
   (useGetSwapInfo as Vi.Mock).mock.calls[(useGetSwapInfo as Vi.Mock).mock.calls.length - 1];
 
-describe('pages/Swap', () => {
+describe('Swap', () => {
   beforeEach(() => {
     (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
@@ -681,7 +681,7 @@ describe('pages/Swap', () => {
       isLoading: false,
     }));
 
-    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {

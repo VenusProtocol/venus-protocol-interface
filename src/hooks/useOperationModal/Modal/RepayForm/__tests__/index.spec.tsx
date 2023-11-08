@@ -6,7 +6,7 @@ import React from 'react';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { repay } from 'clients/api';
@@ -307,7 +307,7 @@ describe('RepayForm', () => {
   it('lets user repay borrowed tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
-    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -348,7 +348,7 @@ describe('RepayForm', () => {
   });
 
   it('lets user repay full loan', async () => {
-    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,

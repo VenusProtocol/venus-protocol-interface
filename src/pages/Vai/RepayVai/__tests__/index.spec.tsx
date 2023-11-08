@@ -7,7 +7,7 @@ import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
 import {
   getBalanceOf,
@@ -27,7 +27,6 @@ const VAI_CONTROLLER_CONTRACT_ADDRESS = getVaiControllerContractAddress({
   chainId: ChainId.BSC_TESTNET,
 })!;
 
-vi.mock('components/Toast');
 vi.mock('hooks/useTokenApproval');
 
 vi.useFakeTimers();
@@ -46,7 +45,7 @@ const fullRepayBalanceTokens = convertWeiToTokens({
   token: vai,
 }).toString();
 
-describe('pages/Vai/RepayVai', () => {
+describe('RepayVai', () => {
   beforeEach(() => {
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,
@@ -176,7 +175,7 @@ describe('pages/Vai/RepayVai', () => {
   });
 
   it('lets user repay some of their VAI loan', async () => {
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
       authContextValue: {
@@ -210,7 +209,7 @@ describe('pages/Vai/RepayVai', () => {
   });
 
   it('lets user repay their entire VAI loan', async () => {
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<RepayVai />, {
       authContextValue: {

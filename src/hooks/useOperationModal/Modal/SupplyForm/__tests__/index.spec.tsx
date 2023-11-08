@@ -6,7 +6,7 @@ import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { supply } from 'clients/api';
@@ -356,7 +356,7 @@ describe('SupplyForm', () => {
 
     const onCloseModalMock = vi.fn();
 
-    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
@@ -393,7 +393,7 @@ describe('SupplyForm', () => {
   it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseModalMock = vi.fn();
 
-    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,

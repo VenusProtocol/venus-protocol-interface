@@ -5,8 +5,6 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import redeemUnderlying from '.';
 
-vi.mock('errors/transactionErrors');
-
 const fakeAmount = new BigNumber('10000000000000000');
 
 describe('redeemUnderlying', () => {

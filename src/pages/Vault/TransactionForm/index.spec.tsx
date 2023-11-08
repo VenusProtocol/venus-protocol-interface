@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai, xvs } from '__mocks__/models/tokens';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
@@ -126,7 +126,7 @@ describe('TransactionForm', () => {
   });
 
   it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
-    const onSubmitMock = vi.fn(async () => fakeContractReceipt);
+    const onSubmitMock = vi.fn(async () => fakeContractTransaction);
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />, {

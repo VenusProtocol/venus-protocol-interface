@@ -8,12 +8,10 @@ import en from 'translation/translations/en.json';
 
 import { ApproveTokenSteps } from '.';
 
-vi.mock('components/Toast');
-
 const fakeAsset = assetData[0];
 const fakeContent = 'Fake content';
 
-describe('components/ApproveTokenSteps', () => {
+describe('ApproveTokenSteps', () => {
   it('asks user to enable token and lets them do so if they have not already', async () => {
     const approveTokenMock = vi.fn();
 

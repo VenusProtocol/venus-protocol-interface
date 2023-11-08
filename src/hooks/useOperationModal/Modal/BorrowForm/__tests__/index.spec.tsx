@@ -6,7 +6,7 @@ import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import renderComponent from 'testUtils/renderComponent';
@@ -355,7 +355,7 @@ describe('BorrowForm', () => {
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
-    (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,

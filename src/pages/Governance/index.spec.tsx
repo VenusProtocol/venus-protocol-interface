@@ -6,7 +6,7 @@ import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import proposals from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
 import {
@@ -33,7 +33,7 @@ vi.unmock('hooks/useIsFeatureEnabled');
 
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_WEI;
 
-describe('pages/Governance', () => {
+describe('Governance', () => {
   beforeEach(() => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       accountAddress: fakeAccountAddress,
@@ -49,7 +49,7 @@ describe('pages/Governance', () => {
       total: 100,
       offset: 10,
     }));
-    (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractReceipt);
+    (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractTransaction);
     (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
 
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({

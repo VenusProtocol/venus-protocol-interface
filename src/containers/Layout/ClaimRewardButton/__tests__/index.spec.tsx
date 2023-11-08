@@ -2,7 +2,7 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { claimRewards, getPendingRewards } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -181,7 +181,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('it claims reward on submit button click and displays successful transaction modal on success', async () => {
-    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractReceipt);
+    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
@@ -202,7 +202,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('it claims only selected rewards on submit button click and displays successful transaction modal on success', async () => {
-    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractReceipt);
+    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       authContextValue: {
