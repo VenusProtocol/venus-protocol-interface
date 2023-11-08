@@ -1,19 +1,14 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
-import {
-  StakeInVaiVaultInput,
-  StakeInVaiVaultOutput,
-  queryClient,
-  stakeInVaiVault,
-} from 'clients/api';
+import { StakeInVaiVaultInput, queryClient, stakeInVaiVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
-type Options = MutationObserverOptions<StakeInVaiVaultOutput, Error, TrimmedStakeInVaiVaultInput>;
+type Options = UseSendTransactionOptions<TrimmedStakeInVaiVaultInput>;
 
 const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetVaiVaultContract({
@@ -26,9 +21,9 @@ const useStakeInVaiVault = (options?: Options) => {
 
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.STAKE_IN_VAI_VAULT,
-    (input: TrimmedStakeInVaiVaultInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.SET_VOTE_DELEGATE,
+    fn: (input: TrimmedStakeInVaiVaultInput) =>
       callOrThrow(
         {
           vaiVaultContract,
@@ -39,65 +34,58 @@ const useStakeInVaiVault = (options?: Options) => {
             ...input,
           }),
       ),
-    {
-      ...options,
-      onSuccess: async (...onSuccessParams) => {
-        const { amountWei } = onSuccessParams[1];
-        const accountAddress = await vaiVaultContract?.signer.getAddress();
+    onConfirmed: async ({ input }) => {
+      const accountAddress = await vaiVaultContract?.signer.getAddress();
 
-        if (vai) {
-          captureAnalyticEvent('Tokens staked in VAI vault', {
-            tokenAmountTokens: convertWeiToTokens({
-              token: vai,
-              valueWei: amountWei,
-            }).toNumber(),
-          });
+      if (vai) {
+        captureAnalyticEvent('Tokens staked in VAI vault', {
+          tokenAmountTokens: convertWeiToTokens({
+            token: vai,
+            valueWei: input.amountWei,
+          }).toNumber(),
+        });
 
-          // Invalidate cached user balance
-          queryClient.invalidateQueries([
-            FunctionKey.GET_BALANCE_OF,
-            {
-              accountAddress,
-              tokenAddress: vai.address,
-            },
-          ]);
-
-          queryClient.invalidateQueries([
-            FunctionKey.GET_TOKEN_ALLOWANCE,
-            {
-              tokenAddress: vai.address,
-              accountAddress,
-            },
-          ]);
-
-          // Invalidate cached vault data
-          queryClient.invalidateQueries([
-            FunctionKey.GET_BALANCE_OF,
-            {
-              accountAddress: vaiVaultContract?.address,
-              tokenAddress: vai.address,
-            },
-          ]);
-        }
-
-        // Invalidate cached user info, including pending reward
-        queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+        // Invalidate cached user balance
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress,
+            tokenAddress: vai.address,
+          },
+        ]);
 
         queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_BALANCES,
+          FunctionKey.GET_TOKEN_ALLOWANCE,
           {
+            tokenAddress: vai.address,
             accountAddress,
           },
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
+        // Invalidate cached vault data
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress: vaiVaultContract?.address,
+            tokenAddress: vai.address,
+          },
+        ]);
+      }
 
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      // Invalidate cached user info, including pending reward
+      queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_BALANCES,
+        {
+          accountAddress,
+        },
+      ]);
+
+      queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
     },
-  );
+    options,
+  });
 };
 
 export default useStakeInVaiVault;
