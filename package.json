@@ -102,6 +102,7 @@
     "@storybook/react-vite": "7.3.2",
     "@storybook/testing-library": "^0.2.0",
     "@stylelint/postcss-css-in-js": "0.38.0",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^12.1.4",

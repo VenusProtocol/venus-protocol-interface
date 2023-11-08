@@ -16,7 +16,7 @@ export const Option: React.FC<OptionProps> = ({ children, onClick, isSelected, v
     type="button"
     className={cn(
       'flex w-full items-center justify-between whitespace-nowrap py-3 text-left text-sm font-semibold hover:bg-lightGrey active:bg-lightGrey',
-      variant === 'primary' ? 'px-4' : 'px-3',
+      variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
     )}
   >
     <span

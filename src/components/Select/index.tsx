@@ -28,7 +28,7 @@ const getVariantClasses = ({
     // primary
     default:
       return cn(
-        'border-lightGrey bg-cards px-4 hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey',
+        'border-lightGrey bg-cards px-3 hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey sm:px-4',
         isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
       );
   }
@@ -36,6 +36,7 @@ const getVariantClasses = ({
 
 export const Select: React.FC<SelectProps> = ({
   className,
+  buttonClassName,
   options,
   value,
   onChange,
@@ -111,18 +112,22 @@ export const Select: React.FC<SelectProps> = ({
 
           <Button
             onClick={handleToggleMenu}
-            className={cn('relative w-full', getVariantClasses({ variant, isMenuOpened }))}
+            className={cn(
+              'relative w-full',
+              getVariantClasses({ variant, isMenuOpened }),
+              buttonClassName,
+            )}
             contentClassName={cn(
               'w-full justify-between text-sm',
               variant === 'secondary' && 'font-normal',
             )}
           >
-            <span>{selectedOption?.label}</span>
+            <span className="shrink-0 grow text-left">{selectedOption?.label}</span>
 
             <Icon
               name="arrowUp"
               className={cn(
-                'ml-3 w-[10px] shrink-0 text-offWhite',
+                'ml-3 w-[10px] flex-none text-offWhite',
                 isMenuOpened ? 'text-blue' : 'rotate-180',
               )}
             />

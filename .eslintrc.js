@@ -53,6 +53,7 @@ module.exports = {
     'react/require-default-props': 0,
     'import/no-extraneous-dependencies': [
       'error',
+      'tailwind.config.js',
       {
         devDependencies: [
           '**/*.stories.tsx',
