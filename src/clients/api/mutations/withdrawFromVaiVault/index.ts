@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForVaiVaultTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { VaiVault } from 'packages/contracts';
 
 export interface WithdrawFromVaiVaultInput {
@@ -8,16 +7,12 @@ export interface WithdrawFromVaiVaultInput {
   amountWei: BigNumber;
 }
 
-export type WithdrawFromVaiVaultOutput = ContractReceipt;
+export type WithdrawFromVaiVaultOutput = ContractTransaction;
 
 const withdrawFromVaiVault = async ({
   vaiVaultContract,
   amountWei,
-}: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => {
-  const transaction = await vaiVaultContract.withdraw(amountWei.toFixed());
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForVaiVaultTransactionError(receipt);
-};
+}: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> =>
+  vaiVaultContract.withdraw(amountWei.toFixed());
 
 export default withdrawFromVaiVault;

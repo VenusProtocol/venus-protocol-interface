@@ -1,23 +1,14 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow, convertWeiToTokens } from 'utilities';
 
-import {
-  WithdrawFromVaiVaultInput,
-  WithdrawFromVaiVaultOutput,
-  queryClient,
-  withdrawFromVaiVault,
-} from 'clients/api';
+import { WithdrawFromVaiVaultInput, queryClient, withdrawFromVaiVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedWithdrawFromVaiVaultInput = Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>;
-type Options = MutationObserverOptions<
-  WithdrawFromVaiVaultOutput,
-  Error,
-  TrimmedWithdrawFromVaiVaultInput
->;
+type Options = UseSendTransactionOptions<TrimmedWithdrawFromVaiVaultInput>;
 
 const useWithdrawFromVaiVault = (options?: Options) => {
   const vaiVaultContract = useGetVaiVaultContract({
@@ -30,64 +21,58 @@ const useWithdrawFromVaiVault = (options?: Options) => {
 
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.WITHDRAW_FROM_VAI_VAULT,
-    (input: TrimmedWithdrawFromVaiVaultInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.WITHDRAW_FROM_VAI_VAULT,
+    fn: (input: TrimmedWithdrawFromVaiVaultInput) =>
       callOrThrow({ vaiVaultContract }, params =>
         withdrawFromVaiVault({
           ...params,
           ...input,
         }),
       ),
-    {
-      ...options,
-      onSuccess: async (...onSuccessParams) => {
-        const { amountWei } = onSuccessParams[1];
-        const accountAddress = await vaiVaultContract?.signer.getAddress();
+    onConfirmed: async ({ input }) => {
+      const { amountWei } = input;
+      const accountAddress = await vaiVaultContract?.signer.getAddress();
 
-        if (vai) {
-          captureAnalyticEvent('Tokens withdrawn from VAI vault', {
-            tokenAmountTokens: convertWeiToTokens({
-              token: vai,
-              valueWei: amountWei,
-            }).toNumber(),
-          });
-
-          queryClient.invalidateQueries([
-            FunctionKey.GET_BALANCE_OF,
-            {
-              accountAddress,
-              tokenAddress: vai.address,
-            },
-          ]);
-
-          // Invalidate cached vault data
-          queryClient.invalidateQueries([
-            FunctionKey.GET_BALANCE_OF,
-            {
-              accountAddress: vaiVaultContract?.address,
-              tokenAddress: vai.address,
-            },
-          ]);
-        }
-
-        queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+      if (vai) {
+        captureAnalyticEvent('Tokens withdrawn from VAI vault', {
+          tokenAmountTokens: convertWeiToTokens({
+            token: vai,
+            valueWei: amountWei,
+          }).toNumber(),
+        });
 
         queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_BALANCES,
+          FunctionKey.GET_BALANCE_OF,
           {
             accountAddress,
+            tokenAddress: vai.address,
           },
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
+        // Invalidate cached vault data
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress: vaiVaultContract?.address,
+            tokenAddress: vai.address,
+          },
+        ]);
+      }
 
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+
+      queryClient.invalidateQueries([
+        FunctionKey.GET_TOKEN_BALANCES,
+        {
+          accountAddress,
+        },
+      ]);
+
+      queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
     },
-  );
+    options,
+  });
 };
 
 export default useWithdrawFromVaiVault;
