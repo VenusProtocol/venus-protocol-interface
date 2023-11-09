@@ -126,6 +126,7 @@ const useGetMenuItems = () => {
     accountAddress,
     convertVrtRouteEnabled,
     corePoolRouteEnabled,
+    swapRouteEnabled,
     historyRouteEnabled,
     vaiRouteEnabled,
   ]);
