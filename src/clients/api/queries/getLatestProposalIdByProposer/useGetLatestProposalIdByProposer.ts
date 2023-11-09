@@ -6,6 +6,7 @@ import getLatestProposalIdByProposer, {
   GetLatestProposalIdByProposerInput,
   GetLatestProposalIdByProposerOutput,
 } from 'clients/api/queries/getLatestProposalIdByProposer';
+import { governanceChain } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
@@ -21,7 +22,9 @@ const useGetLatestProposalIdByProposer = (
   { accountAddress }: Omit<GetLatestProposalIdByProposerInput, 'governorBravoDelegateContract'>,
   options?: Options,
 ) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],

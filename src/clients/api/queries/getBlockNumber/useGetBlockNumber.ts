@@ -6,7 +6,7 @@ import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
-export type UseGetBlockNumber = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
+export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
 
 interface GetBlockNumberOutput {
   blockNumber: number;
@@ -17,7 +17,7 @@ type Options = QueryObserverOptions<
   Error,
   GetBlockNumberOutput,
   GetBlockNumberOutput,
-  UseGetBlockNumber
+  UseGetBlockNumberQueryKey
 >;
 
 const useGetBlockNumber = (options?: Options) => {

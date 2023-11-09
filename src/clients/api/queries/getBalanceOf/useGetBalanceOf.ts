@@ -5,12 +5,13 @@ import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
+type TrimmedGetBalanceOfInput = Omit<GetBalanceOfInput, 'signer' | 'provider'>;
+
 export type UseGetBalanceOfQueryKey = [
   FunctionKey.GET_BALANCE_OF,
-  {
-    chainId: ChainId;
-    accountAddress: string;
+  Omit<TrimmedGetBalanceOfInput, 'token'> & {
     tokenAddress: string;
+    chainId: ChainId;
   },
 ];
 
@@ -23,7 +24,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, token }: Omit<GetBalanceOfInput, 'signer' | 'provider'>,
+  { accountAddress, token }: TrimmedGetBalanceOfInput,
   options?: Options,
 ) => {
   const { provider, chainId } = useAuth();

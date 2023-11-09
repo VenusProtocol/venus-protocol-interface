@@ -3,7 +3,8 @@
 exports[`generateGetters > calls writeFile with the right arguments 1`] = `
 [
   {
-    "content": "import type { Provider } from '@ethersproject/abstract-provider';
+    "content": "/* Automatically generated file, do not update manually */
+import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/PoolLens.json';
 import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
@@ -11,15 +12,15 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
+import useProvider from 'context/AuthContext/useProvider';
+import useSigner from 'context/AuthContext/useSigner';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
 }
 
-export const getPoolLensContractAddress = ({
-  chainId,
-}: GetPoolLensContractAddressInput) =>
+export const getPoolLensContractAddress = ({ chainId }: GetPoolLensContractAddressInput) =>
   getUniqueContractAddress({ name: 'PoolLens', chainId });
 
 export const useGetPoolLensContractAddress = () => {
@@ -39,24 +40,22 @@ interface GetPoolLensContractInput {
   signerOrProvider: Signer | Provider;
 }
 
-export const getPoolLensContract = ({
-  chainId,
-  signerOrProvider,
-}: GetPoolLensContractInput) => {
+export const getPoolLensContract = ({ chainId, signerOrProvider }: GetPoolLensContractInput) => {
   const address = getPoolLensContractAddress({ chainId });
-  return address
-    ? (new Contract(address, abi, signerOrProvider) as PoolLens)
-    : undefined;
+  return address ? (new Contract(address, abi, signerOrProvider) as PoolLens) : undefined;
 };
 
 interface UseGetPoolLensContractInput {
-  passSigner: boolean;
+  passSigner?: boolean;
+  chainId?: ChainId;
 }
 
-export const useGetPoolLensContract = (
-  input?: UseGetPoolLensContractInput,
-) => {
-  const { signer, provider, chainId } = useAuth();
+export const useGetPoolLensContract = (input?: UseGetPoolLensContractInput) => {
+  const { chainId: currentChainId } = useAuth();
+  const chainId = input?.chainId || currentChainId;
+
+  const provider = useProvider({ chainId: input?.chainId });
+  const signer = useSigner({ chainId: input?.chainId });
   const signerOrProvider = input?.passSigner ? signer : provider;
 
   return useMemo(
@@ -79,30 +78,40 @@ export const useGetPoolLensContract = (
 exports[`generateGetters > calls writeFile with the right arguments 2`] = `
 [
   {
-    "content": "/* Automatically generated file, do not update manually */
-import type { Provider } from '@ethersproject/abstract-provider';
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
 import { IsolatedPoolComptroller } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
+import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
+import useProvider from 'context/AuthContext/useProvider';
+import useSigner from 'context/AuthContext/useSigner';
 
 interface GetIsolatedPoolComptrollerContractInput {
   address: string;
   signerOrProvider: Signer | Provider;
 }
 
-export const getIsolatedPoolComptrollerContract = ({ signerOrProvider, address }: GetIsolatedPoolComptrollerContractInput) =>
+export const getIsolatedPoolComptrollerContract = ({
+  signerOrProvider,
+  address,
+}: GetIsolatedPoolComptrollerContractInput) =>
   new Contract(address, abi, signerOrProvider) as IsolatedPoolComptroller;
 
 interface UseGetIsolatedPoolComptrollerContractInput {
   passSigner: boolean;
   address: string;
+  chainId?: ChainId;
 }
 
-export const useGetIsolatedPoolComptrollerContract = ({ passSigner = false, address }: UseGetIsolatedPoolComptrollerContractInput) => {
-  const { signer, provider } = useAuth();
+export const useGetIsolatedPoolComptrollerContract = ({
+  passSigner = false,
+  address,
+  chainId,
+}: UseGetIsolatedPoolComptrollerContractInput) => {
+  const provider = useProvider({ chainId });
+  const signer = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
@@ -125,8 +134,7 @@ export const useGetIsolatedPoolComptrollerContract = ({ passSigner = false, addr
 exports[`generateGetters > calls writeFile with the right arguments 3`] = `
 [
   {
-    "content": "/* Automatically generated file, do not update manually */
-import type { Provider } from '@ethersproject/abstract-provider';
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/SwapRouter.json';
 import addresses from 'packages/contracts/generated/infos/addresses';
@@ -135,6 +143,8 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
+import useProvider from 'context/AuthContext/useProvider';
+import useSigner from 'context/AuthContext/useSigner';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;
@@ -154,12 +164,15 @@ export const getSwapRouterContractAddress = ({
 
 interface UseGetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;
+  chainId?: ChainId;
 }
 
 export const useGetSwapRouterContractAddress = ({
   comptrollerContractAddress,
+  chainId: passedChainId,
 }: UseGetSwapRouterContractAddressInput) => {
-  const { chainId } = useAuth();
+  const { chainId: currentChainId } = useAuth();
+  const chainId = passedChainId || currentChainId;
 
   return useMemo(
     () =>
@@ -189,13 +202,19 @@ export const getSwapRouterContract = ({
 interface UseGetSwapRouterContractInput {
   passSigner: boolean;
   comptrollerContractAddress: string;
+  chainId?: ChainId;
 }
 
 export const useGetSwapRouterContract = ({
   passSigner = false,
   comptrollerContractAddress,
+  chainId: passedChainId,
 }: UseGetSwapRouterContractInput) => {
-  const { signer, provider, chainId } = useAuth();
+  const { chainId: currentChainId } = useAuth();
+  const chainId = passedChainId || currentChainId;
+
+  const provider = useProvider({ chainId });
+  const signer = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

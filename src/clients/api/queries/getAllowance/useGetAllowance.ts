@@ -10,13 +10,13 @@ import getAllowance, {
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
+type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
+
 export type UseGetAllowanceQueryKey = [
   FunctionKey.GET_TOKEN_ALLOWANCE,
-  {
+  Omit<TrimmedGetAllowanceInput, 'token'> & {
     chainId: ChainId;
-    accountAddress: string;
     tokenAddress: string;
-    spenderAddress: string;
   },
 ];
 
@@ -27,8 +27,6 @@ type Options = QueryObserverOptions<
   GetAllowanceOutput,
   UseGetAllowanceQueryKey
 >;
-
-type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
 
 const useGetAllowance = (
   { token, spenderAddress, accountAddress }: TrimmedGetAllowanceInput,

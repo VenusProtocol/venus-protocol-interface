@@ -1,4 +1,5 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { ChainId } from 'types';
 
 import getPancakeSwapPairs, {
   GetPancakeSwapPairsInput,
@@ -10,25 +11,31 @@ import { useAuth } from 'context/AuthContext';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';
 
+export type UseGetPancakeSwapPairsQueryKey = [
+  FunctionKey.GET_PANCAKE_SWAP_PAIRS,
+  { chainId: ChainId },
+  ...string[],
+];
+
 type Options = QueryObserverOptions<
   GetPancakeSwapPairsOutput,
   Error,
   GetPancakeSwapPairsOutput,
   GetPancakeSwapPairsOutput,
-  [FunctionKey.GET_PANCAKE_SWAP_PAIRS, ...string[]]
+  UseGetPancakeSwapPairsQueryKey
 >;
 
 const useGetPancakeSwapPairs = (
   input: Omit<GetPancakeSwapPairsInput, 'provider' | 'chainId'>,
   options?: Options,
 ) => {
-  const { provider } = useAuth();
+  const { provider, chainId } = useAuth();
 
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
 
   return useQuery(
-    [FunctionKey.GET_PANCAKE_SWAP_PAIRS, ...tokenCombinationIds],
+    [FunctionKey.GET_PANCAKE_SWAP_PAIRS, { chainId }, ...tokenCombinationIds],
     () => getPancakeSwapPairs({ ...input, provider }),
     {
       // Refresh request on every new block

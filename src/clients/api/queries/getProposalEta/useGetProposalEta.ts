@@ -6,6 +6,7 @@ import getProposalEta, {
   GetProposalEtaInput,
   GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
+import { governanceChain } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'governorBravoDelegateContract'>;
@@ -19,7 +20,9 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Options) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_PROPOSAL_ETA, input],

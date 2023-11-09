@@ -12,6 +12,7 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -28,6 +29,8 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
+  const { chainId } = useAuth();
+
   const xvsVaultContract = useGetXvsVaultContract();
 
   const xvs = useGetToken({
@@ -54,7 +57,7 @@ const useGetXvsVaultPools = ({
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-        { rewardTokenAddress: xvs?.address, poolIndex },
+        { chainId, rewardTokenAddress: xvs?.address, poolIndex },
       ],
     });
 
@@ -70,7 +73,7 @@ const useGetXvsVaultPools = ({
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_USER_INFO,
-        { accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
+        { chainId, accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
       ],
       enabled: !!accountAddress,
     });
@@ -87,7 +90,7 @@ const useGetXvsVaultPools = ({
         ),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
-        { accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
+        { chainId, accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
       ],
       enabled: !!accountAddress,
     });

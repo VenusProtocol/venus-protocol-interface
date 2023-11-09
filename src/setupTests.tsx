@@ -15,6 +15,8 @@ vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
 vi.mock('clients/web3/Web3Wrapper');
 vi.mock('packages/tokens');
+vi.mock('context/AuthContext/useSigner');
+vi.mock('context/AuthContext/useProvider');
 
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');

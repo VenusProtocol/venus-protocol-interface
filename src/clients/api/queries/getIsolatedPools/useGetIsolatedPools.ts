@@ -5,6 +5,7 @@ import {
 } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getIsolatedPools, {
@@ -23,18 +24,25 @@ type TrimmedInput = Omit<
   | 'tokens'
 >;
 
+export type UseGetIsolatedPoolsQueryKey = [
+  FunctionKey.GET_ISOLATED_POOLS,
+  TrimmedInput & {
+    chainId: ChainId;
+  },
+];
+
 type Options = QueryObserverOptions<
   GetIsolatedPoolsOutput,
   Error,
   GetIsolatedPoolsOutput,
   GetIsolatedPoolsOutput,
-  [FunctionKey.GET_ISOLATED_POOLS, TrimmedInput]
+  UseGetIsolatedPoolsQueryKey
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
-  const { provider } = useAuth();
+  const { provider, chainId } = useAuth();
   const tokens = useGetTokens();
 
   const poolLensContract = useGetPoolLensContract();
@@ -42,7 +50,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
   return useQuery(
-    [FunctionKey.GET_ISOLATED_POOLS, input],
+    [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
     () =>
       callOrThrow(
         { poolLensContract, poolRegistryContractAddress, resilientOracleContract },
