@@ -1,7 +1,8 @@
 import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
+import { useMemo } from 'react';
 import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
 
-import { Group } from '../types';
+import { Group, PendingReward } from '../types';
 
 export interface RewardGroupProps {
   group: Group;
@@ -11,6 +12,26 @@ export interface RewardGroupProps {
 export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
   const handleOnCheckChange: CheckboxProps['onChange'] = event =>
     onCheckChange(event.currentTarget.checked);
+
+  // Group pending rewards by reward token
+  const pendingRewards = useMemo(() => {
+    const pendingRewardMapping = new Map<string, PendingReward>([]);
+
+    group.pendingRewards.forEach(pendingReward => {
+      const groupedPendingReward = pendingRewardMapping.get(pendingReward.rewardToken.address);
+      pendingRewardMapping.set(pendingReward.rewardToken.address, {
+        rewardToken: pendingReward.rewardToken,
+        rewardAmountWei: pendingReward.rewardAmountWei.plus(
+          groupedPendingReward?.rewardAmountWei || 0,
+        ),
+        rewardAmountCents: pendingReward.rewardAmountCents?.plus(
+          groupedPendingReward?.rewardAmountCents || 0,
+        ),
+      });
+    });
+
+    return Array.from(pendingRewardMapping.values());
+  }, [group.pendingRewards]);
 
   return (
     <div className="mb-4 border-b border-lightGrey pb-4 last:border-none last:pb-0">
@@ -24,7 +45,7 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
         {group.warningMessage && <p className="mt-2 text-orange">{group.warningMessage}</p>}
       </div>
 
-      {group.pendingRewards.map(pendingReward => (
+      {pendingRewards.map(pendingReward => (
         <div
           className="mb-4 flex items-center justify-between last:mb-0"
           key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
