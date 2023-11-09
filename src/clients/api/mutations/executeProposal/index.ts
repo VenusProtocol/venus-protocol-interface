@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface ExecuteProposalInput {
@@ -6,14 +6,12 @@ export interface ExecuteProposalInput {
   proposalId: number;
 }
 
-export type ExecuteProposalOutput = ContractReceipt;
+export type ExecuteProposalOutput = ContractTransaction;
 
 const executeProposal = async ({
   governorBravoDelegateContract,
   proposalId,
-}: ExecuteProposalInput): Promise<ExecuteProposalOutput> => {
-  const transaction = await governorBravoDelegateContract.execute(proposalId);
-  return transaction.wait(1);
-};
+}: ExecuteProposalInput): Promise<ExecuteProposalOutput> =>
+  governorBravoDelegateContract.execute(proposalId);
 
 export default executeProposal;

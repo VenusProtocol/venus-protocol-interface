@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import { Spinner } from 'components';
-import { ContractReceipt } from 'ethers';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,7 +22,7 @@ import TEST_IDS from './testIds';
 interface ProposalUiProps {
   tokens: Token[];
   proposal: ProposalType | undefined;
-  vote: (params: UseVoteParams) => Promise<ContractReceipt>;
+  vote: (params: UseVoteParams) => Promise<unknown>;
   votingEnabled: boolean;
   readableVoteWeight: string;
   isVoteLoading: boolean;

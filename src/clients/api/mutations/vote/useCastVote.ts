@@ -1,16 +1,16 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
-import castVote, { CastVoteInput, CastVoteOutput } from './castVote';
+import castVote, { CastVoteInput } from './castVote';
 
 type TrimmedCastVoteInput = Omit<CastVoteInput, 'governorBravoDelegateContract'>;
-type Options = MutationObserverOptions<CastVoteOutput, Error, TrimmedCastVoteInput>;
+type Options = UseSendTransactionOptions<TrimmedCastVoteInput>;
 
 const useCastVote = (options?: Options) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
@@ -18,43 +18,37 @@ const useCastVote = (options?: Options) => {
   });
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.CAST_VOTE,
-    (input: TrimmedCastVoteInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.CAST_VOTE,
+    fn: (input: TrimmedCastVoteInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         castVote({
           ...input,
           ...params,
         }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { proposalId, voteType } = onSuccessParams[1];
+    onConfirmed: async ({ input }) => {
+      const { proposalId, voteType } = input;
 
-        captureAnalyticEvent('Vote cast', {
-          proposalId,
-          voteType: indexedVotingSupportNames[voteType],
-        });
+      captureAnalyticEvent('Vote cast', {
+        proposalId,
+        voteType: indexedVotingSupportNames[voteType],
+      });
 
-        // Invalidate query to fetch voters
-        queryClient.invalidateQueries([
-          FunctionKey.GET_VOTERS,
-          {
-            id: proposalId,
-            filter: voteType,
-          },
-        ]);
+      // Invalidate query to fetch voters
+      queryClient.invalidateQueries([
+        FunctionKey.GET_VOTERS,
+        {
+          id: proposalId,
+          filter: voteType,
+        },
+      ]);
 
-        // Invalidate query to fetch proposal list
-        queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      // Invalidate query to fetch proposal list
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
     },
-  );
+    options,
+  });
 };
 
 export default useCastVote;

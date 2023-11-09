@@ -9,7 +9,7 @@ import {
   SecondaryButton,
 } from 'components';
 import isAfter from 'date-fns/isAfter';
-import { ContractReceipt } from 'ethers';
+import { displayMutationError } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal, ProposalState, ProposalType } from 'types';
@@ -24,7 +24,6 @@ import {
   useQueueProposal,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import Stepper from './Stepper';
 import { useStyles } from './styles';
@@ -36,9 +35,9 @@ interface ProposalSummaryUiProps {
 }
 
 interface ProposalSummaryContainerProps {
-  cancelProposal: () => Promise<ContractReceipt>;
-  executeProposal: () => Promise<ContractReceipt>;
-  queueProposal: () => Promise<ContractReceipt>;
+  cancelProposal: () => Promise<unknown>;
+  executeProposal: () => Promise<unknown>;
+  queueProposal: () => Promise<unknown>;
   isCancelProposalLoading: boolean;
   isExecuteProposalLoading: boolean;
   isQueueProposalLoading: boolean;
@@ -63,7 +62,6 @@ export const ProposalSummaryUi: React.FC<
   const styles = useStyles();
   const { t, Trans } = useTranslation();
   const { chainId } = useAuth();
-  const handleTransactionMutation = useHandleTransactionMutation();
 
   const {
     state,
@@ -83,36 +81,27 @@ export const ProposalSummaryUi: React.FC<
   } = proposal;
 
   const handleCancelProposal = async () => {
-    await handleTransactionMutation({
-      mutate: cancelProposal,
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vote.theProposalWasCancelled'),
-        content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await cancelProposal();
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   const handleQueueProposal = async () => {
-    await handleTransactionMutation({
-      mutate: queueProposal,
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vote.theProposalWasQueued'),
-        content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await queueProposal();
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   const handleExecuteProposal = async () => {
-    await handleTransactionMutation({
-      mutate: executeProposal,
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vote.theProposalWasExecuted'),
-        content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await executeProposal();
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   let updateProposalButton;

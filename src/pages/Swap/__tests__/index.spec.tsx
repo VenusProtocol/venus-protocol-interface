@@ -6,7 +6,7 @@ import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
@@ -26,7 +26,6 @@ import {
 } from 'constants/swap';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -35,7 +34,6 @@ import SwapPage from '..';
 import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useTokenApproval');
@@ -43,7 +41,7 @@ vi.mock('hooks/useTokenApproval');
 export const getLastUseGetSwapInfoCallArgs = () =>
   (useGetSwapInfo as Vi.Mock).mock.calls[(useGetSwapInfo as Vi.Mock).mock.calls.length - 1];
 
-describe('pages/Swap', () => {
+describe('Swap', () => {
   beforeEach(() => {
     (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
@@ -677,15 +675,13 @@ describe('pages/Swap', () => {
   });
 
   it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
     }));
 
-    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       authContextValue: {
@@ -714,14 +710,6 @@ describe('pages/Swap', () => {
     await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
     expect(swapTokens).toHaveBeenCalledWith({
       swap: fakeExactAmountInSwap,
-    });
-
-    // Check success modal transaction was displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      title: en.swapPage.successfulSwapTransactionModal.title,
-      content: en.swapPage.successfulSwapTransactionModal.message,
-      transactionHash: fakeContractReceipt.transactionHash,
     });
 
     // Check form was reset

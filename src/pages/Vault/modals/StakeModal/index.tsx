@@ -80,8 +80,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
       })}
       submitButtonLabel={t('stakeModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('stakeModal.submitButtonDisabledLabel')}
-      successfulTransactionTitle={t('stakeModal.successfulTransactionModal.title')}
-      successfulTransactionDescription={t('stakeModal.successfulTransactionModal.description')}
     />
   );
 };

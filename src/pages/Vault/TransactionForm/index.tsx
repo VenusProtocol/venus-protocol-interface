@@ -8,7 +8,7 @@ import {
   LabeledInlineContent,
   SpendingLimit,
 } from 'components';
-import { ContractReceipt } from 'ethers';
+import { displayMutationError } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -17,7 +17,6 @@ import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import { AmountForm } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from './styles';
@@ -28,9 +27,7 @@ export interface TransactionFormUiProps {
   tokenNeedsToBeApproved?: boolean;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
-  successfulTransactionTitle: string;
-  successfulTransactionDescription: string;
-  onSubmit: (amountWei: BigNumber) => Promise<ContractReceipt>;
+  onSubmit: (amountWei: BigNumber) => Promise<unknown>;
   isSubmitting: boolean;
   availableTokensWei: BigNumber;
   availableTokensLabel: string;
@@ -51,8 +48,6 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   availableTokensLabel,
   submitButtonLabel,
   submitButtonDisabledLabel,
-  successfulTransactionTitle,
-  successfulTransactionDescription,
   onSubmit,
   isSubmitting,
   isTokenApproved,
@@ -66,8 +61,6 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
-  const handleTransactionMutation = useHandleTransactionMutation();
 
   const availableTokens = React.useMemo(
     () =>
@@ -108,18 +101,11 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
       token,
     });
 
-    return handleTransactionMutation({
-      mutate: () => onSubmit(amountWei),
-      successTransactionModalProps: contractReceipt => ({
-        title: successfulTransactionTitle,
-        content: successfulTransactionDescription,
-        amount: {
-          valueWei: amountWei,
-          token,
-        },
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await onSubmit(amountWei);
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   return (

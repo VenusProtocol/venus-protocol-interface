@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForXvsVaultProxyTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
@@ -11,22 +10,14 @@ export interface StakeInXvsVaultInput {
   poolIndex: number;
 }
 
-export type StakeInXvsVaultOutput = ContractReceipt;
+export type StakeInXvsVaultOutput = ContractTransaction;
 
 const stakeInXvsVault = async ({
   xvsVaultContract,
   rewardToken,
   amountWei,
   poolIndex,
-}: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> => {
-  const transaction = await xvsVaultContract.deposit(
-    rewardToken.address,
-    poolIndex,
-    amountWei.toFixed(),
-  );
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForXvsVaultProxyTransactionError(receipt);
-};
+}: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> =>
+  xvsVaultContract.deposit(rewardToken.address, poolIndex, amountWei.toFixed());
 
 export default stakeInXvsVault;

@@ -1,15 +1,12 @@
 import { XvsVesting } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import withdrawXvs from '.';
 
-describe('api/mutation/withdrawXvs', () => {
-  test('send vrt conversion with correct arguments and returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const withdrawVrtMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('withdrawXvs', () => {
+  test('send vrt conversion with correct arguments and returns contract transaction when request succeeds', async () => {
+    const withdrawVrtMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       withdraw: withdrawVrtMock,
@@ -19,10 +16,8 @@ describe('api/mutation/withdrawXvs', () => {
       xvsVestingContract: fakeContract,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(withdrawVrtMock).toHaveBeenCalledTimes(1);
     expect(withdrawVrtMock).toHaveBeenCalledWith();
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
   });
 });

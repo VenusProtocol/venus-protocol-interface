@@ -1,7 +1,7 @@
 import { CastVoteWithReasonInput, useCastVote, useCastVoteWithReason } from 'clients/api';
 
 export type UseVoteParams = Partial<CastVoteWithReasonInput> &
-  Omit<CastVoteWithReasonInput, 'voteReason'>;
+  Omit<CastVoteWithReasonInput, 'voteReason' | 'governorBravoDelegateContract'>;
 
 const useVote = () => {
   const { mutateAsync: castVote, isLoading: isCastVoteLoading } = useCastVote();

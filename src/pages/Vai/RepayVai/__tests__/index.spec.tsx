@@ -7,7 +7,7 @@ import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
 import {
   getBalanceOf,
@@ -16,7 +16,6 @@ import {
   repayVai,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -28,8 +27,6 @@ const VAI_CONTROLLER_CONTRACT_ADDRESS = getVaiControllerContractAddress({
   chainId: ChainId.BSC_TESTNET,
 })!;
 
-vi.mock('components/Toast');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useTokenApproval');
 
 vi.useFakeTimers();
@@ -48,7 +45,7 @@ const fullRepayBalanceTokens = convertWeiToTokens({
   token: vai,
 }).toString();
 
-describe('pages/Vai/RepayVai', () => {
+describe('RepayVai', () => {
   beforeEach(() => {
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
       vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,
@@ -178,9 +175,7 @@ describe('pages/Vai/RepayVai', () => {
   });
 
   it('lets user repay some of their VAI loan', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
       authContextValue: {
@@ -211,24 +206,10 @@ describe('pages/Vai/RepayVai', () => {
     expect(repayVai).toHaveBeenCalledWith({
       amountWei: repayInputAmountWei,
     });
-
-    // Check successful transaction modal is displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: vai,
-        valueWei: repayInputAmountWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
-    });
   });
 
   it('lets user repay their entire VAI loan', async () => {
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractReceipt);
+    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<RepayVai />, {
       authContextValue: {
@@ -259,18 +240,6 @@ describe('pages/Vai/RepayVai', () => {
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
       amountWei: MAX_UINT256,
-    });
-
-    // Check successful transaction modal is displayed
-    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
-    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-      transactionHash: fakeContractReceipt.transactionHash,
-      amount: {
-        token: vai,
-        valueWei: fullRepayBalanceWei,
-      },
-      content: expect.any(String),
-      title: expect.any(String),
     });
   });
 

@@ -55,7 +55,6 @@ const fakeSwap: Swap = {
 
 vi.mock('packages/tokens');
 vi.mock('hooks/useGetSwapTokenUserBalances');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 

@@ -1,23 +1,17 @@
 import BigNumber from 'bignumber.js';
-import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { XvsVault } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import requestWithdrawalFromXvsVault from '.';
-
-vi.mock('errors/transactionErrors');
 
 const fakeAmountWei = new BigNumber('1000000000000');
 const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
 const fakePoolIndex = 4;
 
-describe('api/mutation/requestWithdrawalFromXvsVault', () => {
-  test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const requestWithdrawalMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('requestWithdrawalFromXvsVault', () => {
+  test('returns contract transaction when request succeeds', async () => {
+    const requestWithdrawalMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       requestWithdrawal: requestWithdrawalMock,
@@ -30,16 +24,12 @@ describe('api/mutation/requestWithdrawalFromXvsVault', () => {
       poolIndex: fakePoolIndex,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(requestWithdrawalMock).toHaveBeenCalledTimes(1);
     expect(requestWithdrawalMock).toHaveBeenCalledWith(
       fakeRewardTokenAddress,
       fakePoolIndex,
       fakeAmountWei.toFixed(),
     );
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForXvsVaultProxyTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForXvsVaultProxyTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

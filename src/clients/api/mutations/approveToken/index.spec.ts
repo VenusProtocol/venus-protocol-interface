@@ -7,7 +7,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 import approveToken from '.';
 
 describe('approveToken', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const approveTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {

@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
-import { ContractReceipt } from 'ethers';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -32,9 +31,7 @@ interface ProposalListUiProps {
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
-  createProposal: (
-    payload: Omit<CreateProposalInput, 'accountAddress'>,
-  ) => Promise<ContractReceipt>;
+  createProposal: (payload: Omit<CreateProposalInput, 'accountAddress'>) => Promise<unknown>;
   isCreateProposalLoading: boolean;
   canCreateProposal: boolean;
 }

@@ -10,7 +10,6 @@ import {
   PrimaryButton,
   TokenIcon,
 } from 'components';
-import { ContractReceipt } from 'ethers';
 import { useGetToken } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
@@ -26,7 +25,6 @@ import {
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useAuth } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from './DelegateModal';
 import { useStyles } from './styles';
@@ -39,7 +37,7 @@ interface VotingWalletUiProps {
   connectedWallet: boolean;
   currentUserAccountAddress: string | undefined;
   delegate: string | undefined;
-  setVoteDelegation: (address: string) => Promise<ContractReceipt>;
+  setVoteDelegation: (address: string) => Promise<unknown>;
   isVoteDelegationLoading: boolean;
   delegateModelIsOpen: boolean;
   setDelegateModelIsOpen: (open: boolean) => void;
@@ -217,7 +215,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
 const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
-  const { t } = useTranslation();
   const { accountAddress, openAuthModal } = useAuth();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -237,24 +234,9 @@ const VotingWallet: React.FC = () => {
   const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const { mutateAsync: setVoteDelegation, isLoading: isVoteDelegationLoading } = useSetVoteDelegate(
     {
-      onSuccess: data => {
-        setDelegateModelIsOpen(false);
-
-        if (xvs) {
-          openSuccessfulTransactionModal({
-            title: t('vote.successfulDelegationModal.title'),
-            content: t('vote.successfulDelegationModal.message'),
-            amount: {
-              valueWei: userStakedWei,
-              token: xvs,
-            },
-            transactionHash: data.transactionHash,
-          });
-        }
-      },
+      onSuccess: () => setDelegateModelIsOpen(false),
     },
   );
 

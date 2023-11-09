@@ -1,21 +1,15 @@
 import BigNumber from 'bignumber.js';
-import { checkForVaiVaultTransactionError } from 'errors';
 import { VaiVault } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import withdrawFromVaiVault from '.';
 
-vi.mock('errors/transactionErrors');
-
 const fakeAmountWei = new BigNumber('1000000000000');
 
-describe('api/mutation/withdrawFromVaiVault', () => {
-  test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const withdrawMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('withdrawFromVaiVault', () => {
+  test('returns contract transaction when request succeeds', async () => {
+    const withdrawMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       withdraw: withdrawMock,
@@ -26,12 +20,8 @@ describe('api/mutation/withdrawFromVaiVault', () => {
       amountWei: fakeAmountWei,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(withdrawMock).toHaveBeenCalledTimes(1);
     expect(withdrawMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForVaiVaultTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForVaiVaultTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

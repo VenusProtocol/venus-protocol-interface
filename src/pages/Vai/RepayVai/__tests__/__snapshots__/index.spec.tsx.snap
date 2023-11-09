@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`pages/Vai/RepayVai > displays the correct repay VAI balance and APY 1`] = `"MAXWallet balance5.66M VAIRepay VAI balance5.66M VAIRepay fee0.00031 VAI (0.000317%)Enter a valid amount to repay"`;
+exports[`RepayVai > displays the correct repay VAI balance and APY 1`] = `"MAXWallet balance5.66M VAIRepay VAI balance5.66M VAIRepay fee0.00031 VAI (0.000317%)Enter a valid amount to repay"`;
 
-exports[`pages/Vai/RepayVai > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 VAI"`;
+exports[`RepayVai > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10.00 VAI"`;

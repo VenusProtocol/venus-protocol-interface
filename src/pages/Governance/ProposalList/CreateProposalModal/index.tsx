@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Modal } from 'components';
 import { displayMutationError } from 'errors';
-import { ContractReceipt } from 'ethers';
 import { Form, Formik, useFormikContext } from 'formik';
 import React, { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,7 +9,6 @@ import { ProposalType } from 'types';
 
 import { CreateProposalInput } from 'clients/api';
 import { routes } from 'constants/routing';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
 
 import ProposalWizard, {
@@ -26,7 +24,7 @@ import { useStyles } from './styles';
 interface CreateProposalProps {
   isOpen: boolean;
   handleClose: () => void;
-  createProposal: (data: Omit<CreateProposalInput, 'accountAddress'>) => Promise<ContractReceipt>;
+  createProposal: (data: Omit<CreateProposalInput, 'accountAddress'>) => Promise<unknown>;
   isCreateProposalLoading: boolean;
 }
 
@@ -54,7 +52,6 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
   const navigate = useNavigate();
   const styles = useStyles();
   const { t } = useTranslation();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const [proposalMode, setProposalMode] = useState<'file' | 'manual'>('manual');
 
   const handleImportProposal = async (file: File | null, formikContext: ProposalFormContext) => {
@@ -104,15 +101,9 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
   const handleCreateProposal = async (formValues: FormValues) => {
     try {
       const payload = formatProposalPayload(formValues);
-      const contractReceipt = await createProposal(payload);
+      await createProposal(payload);
 
       handleClose();
-
-      openSuccessfulTransactionModal({
-        title: t('vote.yourProposalwasCreatedSuccessfully'),
-        content: t('vote.pleaseAllowTimeForConfirmation'),
-        transactionHash: contractReceipt.transactionHash,
-      });
     } catch (error) {
       displayMutationError({ error });
     }

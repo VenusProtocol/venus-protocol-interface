@@ -1,16 +1,16 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
 
-export interface CreateProposalInput {
+export type CreateProposalInput = {
   targets: string[];
   values: string[];
   signatures: string[];
   callDatas: (string | number[])[];
   description: string;
   proposalType: 0 | 1 | 2;
-}
+};
 
-export type CreateProposalOutput = ContractReceipt;
+export type CreateProposalOutput = ContractTransaction;
 
 const createProposal = async ({
   governorBravoDelegateContract,
@@ -22,8 +22,8 @@ const createProposal = async ({
   proposalType,
 }: CreateProposalInput & {
   governorBravoDelegateContract: GovernorBravoDelegate;
-}): Promise<CreateProposalOutput> => {
-  const transaction = await governorBravoDelegateContract.propose(
+}): Promise<CreateProposalOutput> =>
+  governorBravoDelegateContract.propose(
     targets,
     values,
     signatures,
@@ -31,7 +31,5 @@ const createProposal = async ({
     description,
     proposalType,
   );
-  return transaction.wait(1);
-};
 
 export default createProposal;

@@ -1,21 +1,15 @@
 import BigNumber from 'bignumber.js';
-import { checkForVaiControllerTransactionError } from 'errors';
 import { VaiController } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import mintVai from '.';
 
-vi.mock('errors/transactionErrors');
-
-describe('api/mutation/mintVai', () => {
-  test('returns contract receipt when request succeeds', async () => {
+describe('mintVai', () => {
+  test('returns contract transaction when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
 
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const mintVaiMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+    const mintVaiMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       mintVAI: mintVaiMock,
@@ -26,12 +20,8 @@ describe('api/mutation/mintVai', () => {
       amountWei: fakeAmountWei,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(mintVaiMock).toHaveBeenCalledTimes(1);
     expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForVaiControllerTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForVaiControllerTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface CancelProposalInput {
@@ -6,14 +6,12 @@ export interface CancelProposalInput {
   proposalId: number;
 }
 
-export type CancelProposalOutput = ContractReceipt;
+export type CancelProposalOutput = ContractTransaction;
 
 const cancelProposal = async ({
   governorBravoDelegateContract,
   proposalId,
-}: CancelProposalInput): Promise<CancelProposalOutput> => {
-  const transaction = await governorBravoDelegateContract.cancel(proposalId);
-  return transaction.wait(1);
-};
+}: CancelProposalInput): Promise<CancelProposalOutput> =>
+  governorBravoDelegateContract.cancel(proposalId);
 
 export default cancelProposal;

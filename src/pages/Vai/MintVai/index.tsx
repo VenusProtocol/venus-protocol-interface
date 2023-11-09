@@ -7,8 +7,7 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
-import { VError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { VError, displayMutationError } from 'errors';
 import { useGetToken } from 'packages/tokens';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -28,11 +27,10 @@ import {
   useMintVai,
 } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { AmountForm, AmountFormProps } from 'containers/AmountForm';
+import { AmountForm } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -41,7 +39,7 @@ export interface MintVaiUiProps {
   disabled: boolean;
   isInitialLoading: boolean;
   isSubmitting: boolean;
-  mintVai: (value: BigNumber) => Promise<ContractReceipt | undefined>;
+  mintVai: (value: BigNumber) => Promise<unknown>;
   userBalanceWei?: BigNumber;
   apyPercentage?: BigNumber;
   limitWei?: BigNumber;
@@ -64,8 +62,6 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = useMemo(
     () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, token: vai }).toFixed() : '0'),
@@ -101,7 +97,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: AmountFormProps['onSubmit'] = amountTokens => {
+  const onSubmit = async (amountTokens: string) => {
     if (!vai) {
       throw new VError({
         type: 'unexpected',
@@ -114,18 +110,11 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       token: vai,
     });
 
-    return handleTransactionMutation({
-      mutate: () => mintVai(amountWei),
-      successTransactionModalProps: contractReceipt => ({
-        title: t('vai.mintVai.successfulTransactionModal.title'),
-        content: t('vai.mintVai.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          token: vai,
-        },
-        transactionHash: contractReceipt.transactionHash,
-      }),
-    });
+    try {
+      await mintVai(amountWei);
+    } catch (error) {
+      displayMutationError({ error });
+    }
   };
 
   return (

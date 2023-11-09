@@ -5,12 +5,10 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import redeemUnderlying from '.';
 
-vi.mock('errors/transactionErrors');
-
 const fakeAmount = new BigNumber('10000000000000000');
 
 describe('redeemUnderlying', () => {
-  test('returns contract receipt when request succeeds', async () => {
+  test('returns contract transaction when request succeeds', async () => {
     const redeemUnderlyingMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {

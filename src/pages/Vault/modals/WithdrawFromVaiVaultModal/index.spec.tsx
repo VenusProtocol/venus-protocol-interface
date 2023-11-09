@@ -6,7 +6,7 @@ import Vi from 'vitest';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import renderComponent from 'testUtils/renderComponent';
@@ -21,7 +21,7 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
   handleClose: noop,
 };
 
-describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
+describe('WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
     (getVaiVaultUserInfo as Vi.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
   });
@@ -43,7 +43,7 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    (withdrawFromVaiVault as Vi.Mock).mockImplementation(() => fakeContractReceipt);
+    (withdrawFromVaiVault as Vi.Mock).mockImplementation(() => fakeContractTransaction);
 
     const customProps: WithdrawFromVaiVaultModalProps = {
       ...baseProps,

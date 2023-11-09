@@ -1,46 +1,42 @@
 import { useGetXvsVestingContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { WithdrawXvsOutput, queryClient, withdrawXvs } from 'clients/api';
+import { queryClient, withdrawXvs } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
-const useWithdrawXvs = (options?: MutationObserverOptions<WithdrawXvsOutput, Error>) => {
+type Options = UseSendTransactionOptions<void>;
+
+const useWithdrawXvs = (options?: Options) => {
   const xvsVestingContract = useGetXvsVestingContract({
     passSigner: true,
   });
 
-  return useMutation(
-    FunctionKey.WITHDRAW_XVS,
-    () => callOrThrow({ xvsVestingContract }, withdrawXvs),
-    {
-      ...options,
-      onSuccess: async (...onSuccessParams) => {
-        const accountAddress = await xvsVestingContract?.signer.getAddress();
+  return useSendTransaction({
+    fnKey: FunctionKey.WITHDRAW_XVS,
+    fn: () => callOrThrow({ xvsVestingContract }, withdrawXvs),
+    onConfirmed: async () => {
+      const accountAddress = await xvsVestingContract?.signer.getAddress();
 
-        queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
+      queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
 
-        // Invalidate cached Prime data
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PRIME_STATUS,
-          {
-            accountAddress,
-          },
-        ]);
+      // Invalidate cached Prime data
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PRIME_STATUS,
+        {
+          accountAddress,
+        },
+      ]);
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PRIME_TOKEN,
-          {
-            accountAddress,
-          },
-        ]);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PRIME_TOKEN,
+        {
+          accountAddress,
+        },
+      ]);
     },
-  );
+    options,
+  });
 };
 
 export default useWithdrawXvs;

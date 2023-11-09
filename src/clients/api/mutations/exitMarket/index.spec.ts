@@ -1,19 +1,13 @@
-import { checkForComptrollerTransactionError } from 'errors';
 import { MainPoolComptroller } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vBusd } from '__mocks__/models/vTokens';
 
 import exitMarket from '.';
 
-vi.mock('errors/transactionErrors');
-
-describe('api/mutation/exitMarket', () => {
-  test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const exitMarketMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('exitMarket', () => {
+  test('returns contract transaction when request succeeds', async () => {
+    const exitMarketMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       exitMarket: exitMarketMock,
@@ -24,12 +18,8 @@ describe('api/mutation/exitMarket', () => {
       vToken: vBusd,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(exitMarketMock).toHaveBeenCalledTimes(1);
     expect(exitMarketMock).toHaveBeenCalledWith(vBusd.address);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForComptrollerTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForComptrollerTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

@@ -1,46 +1,38 @@
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import { QueueProposalInput, QueueProposalOutput, queryClient, queueProposal } from 'clients/api';
+import { QueueProposalInput, queryClient, queueProposal } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedQueueProposalInput = Omit<QueueProposalInput, 'governorBravoDelegateContract'>;
-type Options = MutationObserverOptions<QueueProposalOutput, Error, TrimmedQueueProposalInput>;
+type Options = UseSendTransactionOptions<TrimmedQueueProposalInput>;
 
 const useQueueProposal = (options?: Options) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
 
-  return useMutation(
-    FunctionKey.QUEUE_PROPOSAL,
-    (input: TrimmedQueueProposalInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.QUEUE_PROPOSAL,
+    fn: (input: TrimmedQueueProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         queueProposal({
           ...input,
           ...params,
         }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { proposalId } = onSuccessParams[1];
-
-        // Invalidate queries related to fetching the user minted VAI amount
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PROPOSAL,
-          {
-            id: proposalId,
-          },
-        ]);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+    onConfirmed: ({ input }) => {
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PROPOSAL,
+        {
+          id: input.proposalId,
+        },
+      ]);
     },
-  );
+    options,
+  });
 };
 
 export default useQueueProposal;

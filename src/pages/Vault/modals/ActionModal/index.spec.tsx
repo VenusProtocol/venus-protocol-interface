@@ -26,8 +26,6 @@ const baseProps: ActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeApproved: true,
   spenderAddress: fakeXvsVaultAddress,
-  successfulTransactionTitle: 'Fake successful transaction modal title',
-  successfulTransactionDescription: 'Fake successful transaction modal description',
 };
 
 describe('pages/Vault/modals/ActionModal', () => {

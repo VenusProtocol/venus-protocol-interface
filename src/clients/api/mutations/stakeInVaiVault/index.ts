@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { checkForVaiVaultTransactionError } from 'errors';
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { VaiVault } from 'packages/contracts';
 
 export interface StakeInVaiVaultInput {
@@ -8,16 +7,12 @@ export interface StakeInVaiVaultInput {
   amountWei: BigNumber;
 }
 
-export type StakeInVaiVaultOutput = ContractReceipt;
+export type StakeInVaiVaultOutput = ContractTransaction;
 
 const stakeInVaiVault = async ({
   vaiVaultContract,
   amountWei,
-}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => {
-  const transaction = await vaiVaultContract.deposit(amountWei.toFixed());
-  const receipt = await transaction.wait(1);
-  // TODO: remove check once this function has been refactored to use useSendTransaction hook
-  return checkForVaiVaultTransactionError(receipt);
-};
+}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> =>
+  vaiVaultContract.deposit(amountWei.toFixed());
 
 export default stakeInVaiVault;

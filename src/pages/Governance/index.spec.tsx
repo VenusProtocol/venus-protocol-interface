@@ -6,9 +6,8 @@ import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import proposals from '__mocks__/models/proposals';
-import { xvs } from '__mocks__/models/tokens';
 import { vaults } from '__mocks__/models/vaults';
 import {
   getCurrentVotes,
@@ -21,7 +20,6 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
@@ -31,12 +29,11 @@ import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 import TEST_IDS from './testIds';
 
 vi.mock('context/AuthContext');
-vi.mock('hooks/useSuccessfulTransactionModal');
 vi.unmock('hooks/useIsFeatureEnabled');
 
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_WEI;
 
-describe('pages/Governance', () => {
+describe('Governance', () => {
   beforeEach(() => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       accountAddress: fakeAccountAddress,
@@ -52,7 +49,7 @@ describe('pages/Governance', () => {
       total: 100,
       offset: 10,
     }));
-    (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractReceipt);
+    (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractTransaction);
     (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
 
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
@@ -181,7 +178,6 @@ describe('pages/Governance', () => {
       isLoading: false,
     }));
 
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const { getByText, getByTestId, getByPlaceholderText } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
@@ -216,18 +212,6 @@ describe('pages/Governance', () => {
         delegateAddress: altAddress,
       }),
     );
-
-    await waitFor(() =>
-      expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        title: en.vote.successfulDelegationModal.title,
-        content: en.vote.successfulDelegationModal.message,
-        amount: {
-          valueWei: vaults[1].userStakedWei,
-          token: xvs,
-        },
-        transactionHash: fakeContractReceipt.transactionHash,
-      }),
-    );
   });
 
   it('successfully delegates to me', async () => {
@@ -236,7 +220,6 @@ describe('pages/Governance', () => {
       isLoading: false,
     }));
 
-    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const { getByText, getByTestId } = renderComponent(<Governance />, {
       authContextValue: {
         accountAddress: fakeAccountAddress,
@@ -257,18 +240,6 @@ describe('pages/Governance', () => {
     await waitFor(() =>
       expect(setVoteDelegate).toBeCalledWith({
         delegateAddress: fakeAccountAddress,
-      }),
-    );
-
-    await waitFor(() =>
-      expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
-        title: en.vote.successfulDelegationModal.title,
-        content: en.vote.successfulDelegationModal.message,
-        amount: {
-          valueWei: vaults[1].userStakedWei,
-          token: xvs,
-        },
-        transactionHash: fakeContractReceipt.transactionHash,
       }),
     );
   });

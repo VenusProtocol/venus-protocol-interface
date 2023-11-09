@@ -1,19 +1,13 @@
-import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { XvsVault } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import setVoteDelegate from '.';
 
-vi.mock('errors/transactionErrors');
-
-describe('api/mutation/setVoteDelegate', () => {
-  test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const delegateMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('setVoteDelegate', () => {
+  test('returns contract transaction when request succeeds', async () => {
+    const delegateMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       delegate: delegateMock,
@@ -24,12 +18,8 @@ describe('api/mutation/setVoteDelegate', () => {
       delegateAddress: fakeAddress,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(delegateMock).toHaveBeenCalledTimes(1);
     expect(delegateMock).toHaveBeenCalledWith(fakeAddress);
-    expect(waitMock).toBeCalledTimes(1);
-    expect(waitMock).toHaveBeenCalledWith(1);
-    expect(checkForXvsVaultProxyTransactionError).toHaveBeenCalledTimes(1);
-    expect(checkForXvsVaultProxyTransactionError).toHaveBeenCalledWith(fakeContractReceipt);
   });
 });

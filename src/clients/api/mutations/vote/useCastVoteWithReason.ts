@@ -1,18 +1,19 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
-import castVoteWithReason, {
+import castVoteWithReason, { CastVoteWithReasonInput } from './castVoteWithReason';
+
+type TrimmedCastVoteWithReasonInput = Omit<
   CastVoteWithReasonInput,
-  CastVoteWithReasonOutput,
-} from './castVoteWithReason';
-
-type Options = MutationObserverOptions<CastVoteWithReasonOutput, Error, CastVoteWithReasonInput>;
+  'governorBravoDelegateContract'
+>;
+type Options = UseSendTransactionOptions<TrimmedCastVoteWithReasonInput>;
 
 const useCastVoteWithReason = (options?: Options) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
@@ -20,43 +21,37 @@ const useCastVoteWithReason = (options?: Options) => {
   });
   const { captureAnalyticEvent } = useAnalytics();
 
-  return useMutation(
-    FunctionKey.CAST_VOTE,
-    (input: CastVoteWithReasonInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.CAST_VOTE,
+    fn: (input: TrimmedCastVoteWithReasonInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         castVoteWithReason({
           ...input,
           ...params,
         }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { proposalId, voteType } = onSuccessParams[1];
+    onConfirmed: async ({ input }) => {
+      const { proposalId, voteType } = input;
 
-        captureAnalyticEvent('Vote cast', {
-          proposalId,
-          voteType: indexedVotingSupportNames[voteType],
-        });
+      captureAnalyticEvent('Vote cast', {
+        proposalId,
+        voteType: indexedVotingSupportNames[voteType],
+      });
 
-        // Invalidate query to fetch voters
-        queryClient.invalidateQueries([
-          FunctionKey.GET_VOTERS,
-          {
-            id: proposalId,
-            filter: voteType,
-          },
-        ]);
+      // Invalidate query to fetch voters
+      queryClient.invalidateQueries([
+        FunctionKey.GET_VOTERS,
+        {
+          id: proposalId,
+          filter: voteType,
+        },
+      ]);
 
-        // Invalidate query to fetch proposal list
-        queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      // Invalidate query to fetch proposal list
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
     },
-  );
+    options,
+  });
 };
 
 export default useCastVoteWithReason;

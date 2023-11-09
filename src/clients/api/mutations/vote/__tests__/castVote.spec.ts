@@ -2,25 +2,24 @@ import { GovernorBravoDelegate } from 'packages/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import queueProposal from '.';
+import castVote from '../castVote';
 
-describe('queueProposal', () => {
+describe('castVote', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const queueProposalMock = vi.fn(async () => fakeContractTransaction);
+    const castVoteMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      queue: queueProposalMock,
+      castVote: castVoteMock,
     } as unknown as GovernorBravoDelegate;
 
-    const fakeProposalId = 3816;
-
-    const response = await queueProposal({
+    const response = await castVote({
       governorBravoDelegateContract: fakeContract,
-      proposalId: fakeProposalId,
+      proposalId: 1,
+      voteType: 1,
     });
 
     expect(response).toBe(fakeContractTransaction);
-    expect(queueProposalMock).toHaveBeenCalledTimes(1);
-    expect(queueProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(castVoteMock).toHaveBeenCalledTimes(1);
+    expect(castVoteMock).toHaveBeenCalledWith(1, 1);
   });
 });

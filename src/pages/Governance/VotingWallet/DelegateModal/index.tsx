@@ -11,7 +11,6 @@ import {
   TextButton,
 } from 'components';
 import { displayMutationError } from 'errors';
-import { ContractReceipt } from 'ethers';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -25,7 +24,7 @@ interface DelegateModalProps {
   onClose: () => void;
   isOpen: boolean;
   currentUserAccountAddress: string | undefined;
-  setVoteDelegation: (address: string) => Promise<ContractReceipt>;
+  setVoteDelegation: (address: string) => Promise<unknown>;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
   openAuthModal: () => void;

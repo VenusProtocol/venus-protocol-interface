@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { GovernorBravoDelegate } from 'packages/contracts';
 
 export interface CastVoteInput {
@@ -7,15 +7,13 @@ export interface CastVoteInput {
   voteType: 0 | 1 | 2;
 }
 
-export type CastVoteOutput = ContractReceipt;
+export type CastVoteOutput = ContractTransaction;
 
 const castVote = async ({
   governorBravoDelegateContract,
   proposalId,
   voteType,
-}: CastVoteInput): Promise<CastVoteOutput> => {
-  const transaction = await governorBravoDelegateContract.castVote(proposalId, voteType);
-  return transaction.wait(1);
-};
+}: CastVoteInput): Promise<CastVoteOutput> =>
+  governorBravoDelegateContract.castVote(proposalId, voteType);
 
 export default castVote;

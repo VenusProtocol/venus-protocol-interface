@@ -1,46 +1,38 @@
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { MutationObserverOptions, useMutation } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import {
-  CancelProposalInput,
-  CancelProposalOutput,
-  cancelProposal,
-  queryClient,
-} from 'clients/api';
+import { CancelProposalInput, cancelProposal, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedCancelProposalInput = Omit<CancelProposalInput, 'governorBravoDelegateContract'>;
-type Options = MutationObserverOptions<CancelProposalOutput, Error, TrimmedCancelProposalInput>;
+type Options = UseSendTransactionOptions<TrimmedCancelProposalInput>;
 
 const useCancelProposal = (options?: Options) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
 
-  return useMutation(
-    FunctionKey.CANCEL_PROPOSAL,
-    (input: TrimmedCancelProposalInput) =>
+  return useSendTransaction({
+    fnKey: FunctionKey.CANCEL_PROPOSAL,
+    fn: (input: TrimmedCancelProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         cancelProposal({
           ...input,
           ...params,
         }),
       ),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        const { proposalId } = onSuccessParams[1];
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_PROPOSAL,
-          {
-            id: proposalId,
-          },
-        ]);
-      },
+    onConfirmed: ({ input }) => {
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PROPOSAL,
+        {
+          id: input.proposalId,
+        },
+      ]);
     },
-  );
+    options,
+  });
 };
 
 export default useCancelProposal;

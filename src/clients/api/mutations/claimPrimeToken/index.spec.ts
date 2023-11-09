@@ -1,15 +1,12 @@
 import { Prime } from 'packages/contracts';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import claimPrimeToken from '.';
 
-describe('api/mutations/claimPrimeToken', () => {
-  test('returns contract receipt when request succeeds', async () => {
-    const waitMock = vi.fn(async () => fakeContractReceipt);
-    const claimPrimeTokenMock = vi.fn(() => ({
-      wait: waitMock,
-    }));
+describe('claimPrimeToken', () => {
+  test('returns contract transaction when request succeeds', async () => {
+    const claimPrimeTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
       claim: claimPrimeTokenMock,
@@ -19,7 +16,7 @@ describe('api/mutations/claimPrimeToken', () => {
       primeContract: fakeContract,
     });
 
-    expect(response).toBe(fakeContractReceipt);
+    expect(response).toBe(fakeContractTransaction);
     expect(claimPrimeTokenMock).toHaveBeenCalledTimes(1);
   });
 });

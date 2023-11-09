@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import { ContractTransaction } from 'ethers';
 import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
 
 export interface RevokeSpendingLimitInput {
@@ -6,14 +6,12 @@ export interface RevokeSpendingLimitInput {
   spenderAddress: string;
 }
 
-export type RevokeSpendingLimitOutput = ContractReceipt;
+export type RevokeSpendingLimitOutput = ContractTransaction;
 
 const revokeSpendingLimit = async ({
   tokenContract,
   spenderAddress,
-}: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> => {
-  const transaction = await tokenContract.approve(spenderAddress, 0);
-  return transaction.wait(1);
-};
+}: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> =>
+  tokenContract.approve(spenderAddress, 0);
 
 export default revokeSpendingLimit;
