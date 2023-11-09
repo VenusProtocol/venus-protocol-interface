@@ -279,6 +279,9 @@
     "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
+    "chainSelect": {
+      "label": "Select network"
+    },
     "claimRewardModal": {
       "primeGroup": {
         "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",

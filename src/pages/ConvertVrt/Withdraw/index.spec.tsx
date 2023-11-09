@@ -39,6 +39,7 @@ describe('Withdraw', () => {
           logOut: vi.fn(),
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
+          switchChain: vi.fn(),
           provider: fakeProvider,
           chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,

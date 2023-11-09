@@ -4,16 +4,39 @@ import { cn } from 'utilities';
 
 import { useBreakpointUp } from 'hooks/responsive';
 
-import { TertiaryButton } from '../Button';
+import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Modal } from '../Modal';
-import { Option } from './Option';
+import { renderLabel } from './renderLabel';
 import { SelectOption, SelectProps } from './types';
 
 export * from './types';
 
-export const Select: React.FC<SelectProps> = ({
+const getVariantClasses = ({
+  variant,
+  isMenuOpened,
+}: {
+  variant: SelectProps['variant'];
+  isMenuOpened: boolean;
+}) => {
+  switch (variant) {
+    case 'secondary':
+      return cn(
+        'h-10 border-cards bg-cards px-3 hover:border-grey hover:bg-cards active:border-grey active:bg-cards',
+        isMenuOpened && 'border-blue hover:border-blue',
+      );
+    // primary
+    default:
+      return cn(
+        'border-lightGrey bg-cards px-3 hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey sm:px-4',
+        isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
+      );
+  }
+};
+
+export const Select = <TValue extends string | number = string | number>({
   className,
+  buttonClassName,
   options,
   value,
   onChange,
@@ -21,7 +44,11 @@ export const Select: React.FC<SelectProps> = ({
   label,
   name,
   placeLabelToLeft = false,
-}) => {
+  variant = 'primary',
+  menuTitle,
+  menuPosition = 'left',
+  testId,
+}: SelectProps<TValue>) => {
   const { t } = useTranslation();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -34,7 +61,7 @@ export const Select: React.FC<SelectProps> = ({
     [value, options],
   );
 
-  const handleChange = (newValue: SelectOption['value']) => {
+  const handleChange = (newValue: SelectOption<TValue>['value']) => {
     onChange(newValue);
     setIsMenuOpened(false);
   };
@@ -42,13 +69,27 @@ export const Select: React.FC<SelectProps> = ({
   const optionsDom = (
     <>
       {options.map(option => (
-        <Option
+        <button
           key={option.value}
-          isSelected={value === option.value}
           onClick={() => handleChange(option.value)}
+          type="button"
+          className={cn(
+            'flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold hover:bg-lightGrey active:bg-lightGrey',
+            variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
+          )}
         >
-          {option.label}
-        </Option>
+          <span className={cn('grow whitespace-nowrap', variant === 'secondary' && 'font-normal')}>
+            {renderLabel({ label: option.label })}
+          </span>
+
+          <Icon
+            name="mark"
+            className={cn(
+              'ml-4 w-3 shrink-0 text-green opacity-0',
+              value === option.value && 'opacity-1',
+            )}
+          />
+        </button>
       ))}
     </>
   );
@@ -59,7 +100,14 @@ export const Select: React.FC<SelectProps> = ({
         name={name}
         value={value}
         className="h-0 w-0"
-        onChange={e => onChange(e.currentTarget.value)}
+        onChange={e => {
+          const formattedValue = (
+            typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
+          ) as TValue;
+
+          onChange(formattedValue);
+        }}
+        data-testid={testId}
       />
 
       <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
@@ -76,7 +124,7 @@ export const Select: React.FC<SelectProps> = ({
           </div>
         )}
 
-        <div className="relative w-full grow">
+        <div className="relative w-full">
           {/* XS to MD backdrop */}
           {isMenuOpened && (
             <div
@@ -85,26 +133,52 @@ export const Select: React.FC<SelectProps> = ({
             />
           )}
 
-          <TertiaryButton
+          <Button
             onClick={handleToggleMenu}
-            className="relative w-full px-4"
-            contentClassName="w-full justify-between text-sm"
+            className={cn(
+              'relative w-full',
+              getVariantClasses({ variant, isMenuOpened }),
+              buttonClassName,
+            )}
+            contentClassName={cn(
+              'w-full justify-between text-sm',
+              variant === 'secondary' && 'font-normal',
+            )}
           >
-            <span>{selectedOption?.label}</span>
+            <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
+              {selectedOption &&
+                renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
+            </span>
 
             <Icon
               name="arrowUp"
               className={cn(
-                'ml-3 w-2 shrink-0 text-offWhite',
+                'ml-3 w-[10px] flex-none text-offWhite',
                 isMenuOpened ? 'text-blue' : 'rotate-180',
               )}
             />
-          </TertiaryButton>
+          </Button>
 
           {/* XS to MD menu */}
           {isMenuOpened && (
-            <div className="relative hidden min-w-full md:block">
-              <div className="absolute top-2 min-w-full overflow-hidden rounded-lg border border-lightGrey bg-cards shadow">
+            <div className="relative z-10 hidden min-w-full md:block">
+              <div
+                className={cn(
+                  'absolute top-2 min-w-full overflow-hidden rounded-lg border border-lightGrey bg-cards shadow',
+                  menuPosition === 'right' && 'right-0',
+                )}
+              >
+                {!!menuTitle && (
+                  <div
+                    className={cn(
+                      'w-full py-3 text-xs text-grey',
+                      variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
+                    )}
+                  >
+                    {menuTitle}
+                  </div>
+                )}
+
                 {optionsDom}
               </div>
             </div>
@@ -118,7 +192,7 @@ export const Select: React.FC<SelectProps> = ({
         handleClose={handleToggleMenu}
         noHorizontalPadding
         onBlur={onBlur}
-        title={label || t('select.defaultLabel')}
+        title={menuTitle || t('select.defaultLabel')}
       >
         {optionsDom}
       </Modal>

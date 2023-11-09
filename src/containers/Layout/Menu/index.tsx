@@ -1,4 +1,5 @@
 import { Icon, Link } from 'components';
+import config from 'config';
 import { useState } from 'react';
 import { useTranslation } from 'translation';
 import { cn } from 'utilities';
@@ -8,6 +9,7 @@ import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 
+import { ChainSelect } from '../ChainSelect';
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import useGetMenuItems from '../useGetMenuItems';
@@ -33,18 +35,25 @@ export const Menu: React.FC = () => {
       {/* XS to MD menu */}
       <div className="md:hidden">
         <header className="flex h-14 items-center pr-4 md:h-auto">
-          <Link className="flex h-full items-center justify-center pl-4" to={routes.dashboard.path}>
-            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="mr-8 h-7" />
+          <Link
+            className="mr-5 flex h-full flex-none items-center justify-center pl-4"
+            to={routes.dashboard.path}
+          >
+            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-7" />
           </Link>
 
           <div className="flex flex-1 items-center justify-center">
-            <ConnectButton className="h-9 max-w-xs flex-1" />
+            {config.environment !== 'mainnet' && (
+              <ChainSelect className="mr-4" buttonClassName="h-9" />
+            )}
+
+            <ConnectButton className="h-9 max-w-xs flex-1 px-1" />
           </div>
 
           <button
             onClick={toggleMobileMenu}
             type="button"
-            className="ml-8 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cards p-0 hover:bg-lightGrey active:bg-lightGrey"
+            className="ml-5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cards p-0 hover:bg-lightGrey active:bg-lightGrey"
           >
             <Icon
               name={isMobileMenuOpened ? 'closeRounded' : 'burger'}

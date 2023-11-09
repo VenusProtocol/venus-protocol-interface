@@ -42,6 +42,7 @@ const renderComponent = (
     logOut: vi.fn(),
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
+    switchChain: vi.fn(),
     provider: getDefaultProvider(),
     chainId: ChainId.BSC_TESTNET,
     ...authContextValue,

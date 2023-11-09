@@ -87,6 +87,7 @@ export function TableCards<R>({
           value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
           css={styles.cardsSelect}
+          variant="secondary"
         />
       )}
 
