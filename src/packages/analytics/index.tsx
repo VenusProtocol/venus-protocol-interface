@@ -6,17 +6,17 @@ import { version as APP_VERSION } from 'constants/version';
 import { useAuth } from 'context/AuthContext';
 
 const UserIdentifier: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress, chainId } = useAuth();
   const posthog = usePostHog();
 
   // Identify user by their account address
   useEffect(() => {
     if (accountAddress) {
-      posthog?.identify(accountAddress);
+      posthog?.identify(accountAddress, { chainId });
     } else {
       posthog?.reset();
     }
-  }, [accountAddress, posthog]);
+  }, [accountAddress, chainId, posthog]);
 
   return null;
 };
