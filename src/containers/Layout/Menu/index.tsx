@@ -1,5 +1,4 @@
 import { Icon, Link } from 'components';
-import config from 'config';
 import { useState } from 'react';
 import { useTranslation } from 'translation';
 import { cn } from 'utilities';
@@ -9,7 +8,6 @@ import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 
-import { ChainSelect } from '../ChainSelect';
 import ClaimRewardButton from '../ClaimRewardButton';
 import ConnectButton from '../ConnectButton';
 import useGetMenuItems from '../useGetMenuItems';
@@ -43,10 +41,6 @@ export const Menu: React.FC = () => {
           </Link>
 
           <div className="flex flex-1 items-center justify-center">
-            {config.environment !== 'mainnet' && (
-              <ChainSelect className="mr-4" buttonClassName="h-9" />
-            )}
-
             <ConnectButton className="h-9 max-w-xs flex-1 px-1" />
           </div>
 
