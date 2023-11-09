@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import React, { useMemo } from 'react';
+import { theme } from 'theme';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
-
-import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
 import { useStyles } from './styles';
@@ -63,7 +62,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         label: t('vote.against'),
         value: getValueString({ valueMantissa: votedAgainstMantissa, xvs }),
         progressBarProps: {
-          progressBarColor: PALETTE.interactive.error50,
+          progressBarColor: theme.colors.red,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
           value:
             votedAgainstMantissa
@@ -77,7 +76,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         label: t('vote.abstain'),
         value: getValueString({ valueMantissa: abstainedMantissa, xvs }),
         progressBarProps: {
-          progressBarColor: PALETTE.text.secondary,
+          progressBarColor: theme.colors.grey,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
           value:
             abstainedMantissa
