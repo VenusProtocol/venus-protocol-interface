@@ -42,8 +42,8 @@ describe('getHypotheticalPrimeApys', () => {
 
     expect(response).toMatchInlineSnapshot(`
       {
-        "borrowApyPercentage": "3.4582968502661515",
-        "supplyApyPercentage": "2.633999809916232",
+        "borrowApyPercentage": "0.3405770666813801",
+        "supplyApyPercentage": "0.2603373646915319",
       }
     `);
   });
