@@ -103,7 +103,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         action: 'swapAndSupply',
         chainId,
       }),
-    [asset.vToken.underlyingToken],
+    [asset.vToken.underlyingToken, asset.vToken.address, chainId, isIntegratedSwapEnabled],
   );
 
   const isUsingSwap = useMemo(
@@ -171,7 +171,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
       ...currentFormValues,
       amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
     }));
-  }, [fromTokenUserWalletBalanceTokens]);
+  }, [fromTokenUserWalletBalanceTokens, setFormValues]);
 
   return (
     <>

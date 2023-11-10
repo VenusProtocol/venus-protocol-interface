@@ -6,9 +6,6 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 export type UseFormatTokensToReadableValueInput = FormatTokensToReadableValueInput;
 
 const useFormatTokensToReadableValue = (params: UseFormatTokensToReadableValueInput) =>
-  useMemo(
-    () => (params.value ? formatTokensToReadableValue(params) : PLACEHOLDER_KEY),
-    Object.values(params),
-  );
+  useMemo(() => (params.value ? formatTokensToReadableValue(params) : PLACEHOLDER_KEY), [params]);
 
 export default useFormatTokensToReadableValue;

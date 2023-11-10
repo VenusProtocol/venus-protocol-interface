@@ -72,12 +72,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       // prettier-ignore
       dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
     }),
-    [
-      asset.supplyPercentageRatePerBlock,
-      asset.supplyBalanceCents,
-      asset.borrowPercentageRatePerBlock,
-      asset.borrowPercentageRatePerBlock,
-    ],
+    [asset],
   );
 
   const isSupplyOrBorrowEnabled = isSupplyActionEnabled || isBorrowActionEnabled;
@@ -110,7 +105,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     }
 
     return stats;
-  }, [asset.supplyApyPercentage, asset.supplyApyPercentage, distributionApys]);
+  }, [asset, distributionApys, t]);
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
@@ -145,7 +140,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     }
 
     return stats;
-  }, [asset.borrowBalanceCents, asset.borrowApyPercentage, distributionApys]);
+  }, [asset, t, distributionApys]);
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
@@ -314,24 +309,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           : PLACEHOLDER_KEY,
       },
     ];
-  }, [
-    asset.tokenPriceCents,
-    asset.liquidityCents,
-    asset.supplierCount,
-    asset.borrowerCount,
-    asset.borrowCapTokens,
-    asset.vToken,
-    asset.supplyDistributions,
-    asset.borrowDistributions,
-    asset.reserveTokens,
-    asset.reserveFactor,
-    asset.collateralFactor,
-    asset.supplyBalanceTokens,
-    asset.exchangeRateVTokens,
-    distributionApys,
-    dailySupplyInterestsCents,
-    dailyBorrowInterestsCents,
-  ]);
+  }, [asset, t, dailySupplyInterestsCents, dailyBorrowInterestsCents]);
 
   const buttonsDom = (
     <>

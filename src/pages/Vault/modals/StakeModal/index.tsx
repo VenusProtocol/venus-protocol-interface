@@ -30,7 +30,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const spenderAddress = React.useMemo(
     () => (typeof poolIndex === 'number' ? xvsVaultContractAddress : vaiVaultContractAddress),
-    [stakedToken, poolIndex, xvsVaultContractAddress, vaiVaultContractAddress],
+    [poolIndex, xvsVaultContractAddress, vaiVaultContractAddress],
   );
 
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(

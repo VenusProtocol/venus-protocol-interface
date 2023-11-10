@@ -29,7 +29,7 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
     if (action === 'repay') {
       return t('operationModal.disabledActionNotice.repay');
     }
-  }, [action]);
+  }, [action, t]);
 
   const tokenAnnouncementDom = TokenAnnouncement({
     token,

@@ -38,7 +38,7 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
     return {
       pools,
     };
-  }, [getMainPoolData?.pool, getIsolatedPoolsData?.pools]);
+  }, [getMainPoolData?.pool, getIsolatedPoolsData?.pools, isLoading]);
 
   return { isLoading, data };
 };

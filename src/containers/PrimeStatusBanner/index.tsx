@@ -142,6 +142,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     userPrimeClaimWaitingPeriodSeconds,
     readableUserClaimWaitingPeriod,
     isUserXvsStakeHighEnoughForPrime,
+    Trans,
+    t,
   ]);
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;

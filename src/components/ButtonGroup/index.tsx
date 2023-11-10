@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { TertiaryButton } from '../Button';
-import useStyles from './styles';
+import { useStyles } from './styles';
 
 export interface ButtonGroupProps {
   buttonLabels: string[];

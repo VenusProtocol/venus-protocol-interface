@@ -85,8 +85,9 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
         label: t('voteProposalUi.statusCard.cancelled'),
       },
     }),
-    [],
+    [t],
   );
+
   if (state !== undefined && state !== ProposalState.Active) {
     return (
       <>
@@ -102,6 +103,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       </>
     );
   }
+
   return null;
 };
 
@@ -155,7 +157,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       default:
         return t('voteProposalUi.voteStatus.notVoted');
     }
-  }, [userVoteStatus]);
+  }, [userVoteStatus, t]);
 
   const votedTotalMantissa = BigNumber.sum.apply(null, [
     forVotesMantissa || 0,
@@ -178,7 +180,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       default:
         return [undefined, undefined];
     }
-  }, [proposalState]);
+  }, [proposalState, cancelDate, executedDate, endDate, etaDate]);
 
   return (
     <ProposalCard

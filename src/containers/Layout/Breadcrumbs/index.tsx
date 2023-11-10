@@ -5,7 +5,6 @@ import { Params, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
 import { Subdirectory, routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import PoolName from './PoolName';
@@ -19,7 +18,6 @@ export interface PathNode {
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { accountAddress } = useAuth();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   const pathNodes = useMemo(() => {
@@ -148,7 +146,7 @@ export const Breadcrumbs: React.FC = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t, !!accountAddress]);
+  }, [pathname, t, copyToClipboard]);
 
   const pathNodeDom = useMemo(
     () =>

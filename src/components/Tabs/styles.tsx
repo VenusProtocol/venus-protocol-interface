@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const styles = () => {
+export const useStyles = () => {
   const theme = useTheme();
 
   return {
@@ -22,5 +22,3 @@ export const styles = () => {
     `,
   };
 };
-
-export default styles;

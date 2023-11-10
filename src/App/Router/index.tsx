@@ -52,7 +52,7 @@ const Router = () => {
     ) {
       navigate(routes.account.path);
     }
-  }, [location, accountAddress]);
+  }, [location, accountAddress, navigate]);
 
   return (
     <Routes>

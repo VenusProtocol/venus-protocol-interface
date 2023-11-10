@@ -89,7 +89,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           }),
       },
     ],
-    [],
+    [t, xvs],
   );
 
   return (

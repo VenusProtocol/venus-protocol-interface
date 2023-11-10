@@ -28,7 +28,7 @@ const useUrlPagination = (): UseUrlPaginationOutput => {
 
     // Scroll to the top of the page on search change
     window.scrollTo(0, 0);
-  }, [search]);
+  }, [search, location.pathname, navigate]);
 
   const currentPage = useMemo(() => {
     const searchParams = new URLSearchParams(search);

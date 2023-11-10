@@ -42,7 +42,7 @@ export const DisableLunaUstWarningProvider: React.FC<DisableLunaUstWarningProvid
             asset.vToken.underlyingToken.symbol === 'UST') &&
           asset.isCollateralOfUser,
       ),
-    [getMainPoolData?.pool.assets],
+    [getMainPoolData],
   );
 
   useEffect(() => {

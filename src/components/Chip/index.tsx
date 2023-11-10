@@ -48,7 +48,7 @@ export const ProposalTypeChip: React.FC<ProposalTypeChipProps> = ({ proposalType
             text: t('chip.proposalType.critical'),
             iconName: 'fire',
           },
-    [],
+    [proposalType, t],
   );
 
   return <Chip {...chipProps} {...props} />;

@@ -36,17 +36,15 @@ const VTokenSymbol: React.FC<VTokenSymbolProps> = ({ vTokenAddress }) => {
   const { accountAddress } = useAuth();
   const { data: getVTokensData } = useGetVTokens();
 
-  const vTokens = getVTokensData?.vTokens || [];
-
   const vToken = useMemo(
     () =>
       vTokenAddress
         ? findTokenByAddress({
-            tokens: vTokens,
+            tokens: getVTokensData?.vTokens || [],
             address: vTokenAddress,
           })
         : undefined,
-    [vTokenAddress, vTokens],
+    [vTokenAddress, getVTokensData],
   );
 
   return <VTokenSymbolUi vToken={vToken} isUserConnected={!!accountAddress} />;

@@ -60,7 +60,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
       .toNumber()}%`;
 
     return `${fee} (${formattedFeePercentage})`;
-  }, [vaiRepayAmountData?.feePercentage]);
+  }, [vaiRepayAmountData, vai]);
 
   return (
     <LabeledInlineContent

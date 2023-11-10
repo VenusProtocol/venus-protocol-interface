@@ -159,10 +159,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       new BigNumber(0),
     );
     return xvsVaultUserInfo.stakedAmountWei.minus(pendingLockedDepositsSum);
-  }, [
-    JSON.stringify(xvsVaultUserLockedDepositsData.lockedDeposits),
-    JSON.stringify(xvsVaultUserInfo),
-  ]);
+  }, [xvsVaultUserLockedDepositsData, xvsVaultUserInfo]);
 
   const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
     useGetXvsVaultPoolInfo(

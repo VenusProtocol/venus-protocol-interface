@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import { useMemo } from 'react';
 import { VToken } from 'types';
 
 import { useGetMarketHistory } from 'clients/api';
@@ -15,7 +15,7 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
     vToken,
   });
 
-  return React.useMemo(() => {
+  const data = useMemo(() => {
     const supplyChartData: ApyChartProps['data'] = [];
     const borrowChartData: ApyChartProps['data'] = [];
 
@@ -37,11 +37,13 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
         });
       });
 
-    return {
-      isLoading,
-      data: { supplyChartData, borrowChartData },
-    };
-  }, [JSON.stringify(marketSnapshotsData?.marketSnapshots)]);
+    return { supplyChartData, borrowChartData };
+  }, [marketSnapshotsData]);
+
+  return {
+    isLoading,
+    data,
+  };
 };
 
 export default useGetChartData;

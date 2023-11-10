@@ -80,9 +80,9 @@ export const useGetHypotheticalUserPrimeApys = ({
       }),
     };
   }, [
-    asset.borrowBalanceTokens,
-    asset.supplyBalanceTokens,
     asset.vToken.underlyingToken,
+    asset.userBorrowBalanceTokens,
+    asset.userSupplyBalanceTokens,
     action,
     toTokenAmountTokens,
   ]);

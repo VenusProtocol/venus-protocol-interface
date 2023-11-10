@@ -10,6 +10,7 @@ module.exports = {
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:storybook/recommended',
+    'plugin:react-hooks/recommended',
   ],
   parserOptions: {
     project: './tsconfig.eslint.json',
@@ -111,6 +112,8 @@ module.exports = {
     // Disable requirement to import React when rendering JSX (no longer needed since React 17)
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
   settings: {
     'import/resolver': {

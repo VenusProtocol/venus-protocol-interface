@@ -371,7 +371,7 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [poolAssets, columnKeys],
+    [poolAssets, columnKeys, Trans, t],
   );
 
   return columns;

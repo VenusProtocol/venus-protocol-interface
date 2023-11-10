@@ -115,7 +115,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         },
       },
     ],
-    [],
+    [t],
   );
 
   return (

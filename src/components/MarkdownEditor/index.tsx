@@ -60,7 +60,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
         ),
       },
     ],
-    [value],
+    [value, hasError, placeholder, t, name],
   );
 
   return (

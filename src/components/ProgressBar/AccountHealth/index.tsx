@@ -103,7 +103,7 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
           }}
         />
       ) : undefined,
-    [readableBorrowBalance, readableBorrowLimitUsedPercentage],
+    [readableBorrowBalance, readableBorrowLimitUsedPercentage, Trans],
   );
 
   const markTooltip = useMemo(
@@ -122,7 +122,7 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
           }}
         />
       ) : undefined,
-    [readableSafeBorrowLimit, borrowBalanceCents, borrowBalanceCents, safeBorrowLimitPercentage],
+    [readableSafeBorrowLimit, borrowBalanceCents, safeBorrowLimitPercentage, Trans],
   );
 
   const progressBarColor = useProgressColor(sanitizedBorrowLimitUsedPercentage);

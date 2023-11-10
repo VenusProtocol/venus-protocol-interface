@@ -2,7 +2,7 @@
 import React, { ReactElement, useState } from 'react';
 
 import { ButtonGroup } from '../ButtonGroup';
-import useStyles from './styles';
+import { useStyles } from './styles';
 
 export type TabContent = {
   title: string;

@@ -166,7 +166,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
         },
         [],
       ),
-    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds, getPoolsData?.pools, xvs],
+    [getPendingRewardsData?.pendingRewardGroups, uncheckedGroupIds, getPoolsData?.pools, xvs, t],
   );
 };
 

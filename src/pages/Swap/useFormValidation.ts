@@ -69,7 +69,7 @@ const useFormValidation = ({
 
     return errorsTmp;
   }, [
-    fromTokenUserBalanceWei?.toFixed(),
+    fromTokenUserBalanceWei,
     formValues.fromTokenAmountTokens,
     formValues.fromToken,
     isFromTokenApproved,

@@ -107,6 +107,7 @@ const useAssetInfo = ({
   }, [
     asset,
     t,
+    type,
     hypotheticalAssetBorrowPrimeApyPercentage,
     hypotheticalAssetSupplyPrimeApyPercentage,
   ]);

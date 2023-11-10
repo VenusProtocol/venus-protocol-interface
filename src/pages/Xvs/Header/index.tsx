@@ -64,7 +64,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
       value: dailyDistribution,
       token: xvs,
     });
-  }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei]);
+  }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei, xvs]);
 
   const readableRemainingDistribution = useMemo(
     () =>
@@ -73,7 +73,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
         token: xvs,
         returnInReadableFormat: true,
       }),
-    [remainingDistributionWei],
+    [remainingDistributionWei, xvs],
   );
 
   const percentOfXvsDistributed = useMemo(

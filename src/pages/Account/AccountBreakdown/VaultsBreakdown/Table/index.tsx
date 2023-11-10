@@ -55,7 +55,7 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
           compareBigNumbers(rowA.userStakedWei, rowB.userStakedWei, direction),
       },
     ],
-    [vaults],
+    [t],
   );
 
   return (

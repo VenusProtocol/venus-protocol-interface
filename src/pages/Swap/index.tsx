@@ -121,7 +121,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         }).toFixed(),
       }));
     }
-  }, [swap]);
+  }, [swap, setFormValues]);
 
   const switchTokens = () =>
     setFormValues(currentFormValues => ({
@@ -147,12 +147,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         valueWei: fromTokenUserBalanceWei,
         token: formValues.fromToken,
       }),
-    [fromTokenUserBalanceWei],
+    [fromTokenUserBalanceWei, formValues.fromToken],
   );
 
   const maxFromInput = useMemo(
     () => new BigNumber(fromTokenUserBalanceTokens || 0).toFixed(),
-    [formValues.fromToken, fromTokenUserBalanceWei],
+    [fromTokenUserBalanceTokens],
   );
 
   const handleSubmit = async () => {

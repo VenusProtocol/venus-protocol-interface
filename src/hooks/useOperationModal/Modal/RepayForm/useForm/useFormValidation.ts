@@ -115,6 +115,7 @@ const useFormValidation = ({
     formValues.fromToken,
     swap,
     swapError,
+    toToken,
   ]);
 
   return {
