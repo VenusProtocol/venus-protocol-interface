@@ -12,7 +12,6 @@ import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
-import PrimeLossWarningNotice from '../PrimeLossWarningNotice';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
@@ -22,7 +21,6 @@ export interface WithdrawUiProps {
   onSubmitSuccess: () => void;
   onSubmit: () => Promise<unknown>;
   isSubmitting: boolean;
-  poolIndex: number;
   withdrawableWei?: BigNumber;
 }
 
@@ -33,7 +31,6 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
   onSubmitSuccess,
   isSubmitting,
   withdrawableWei,
-  poolIndex,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -55,8 +52,6 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
         <Spinner />
       ) : (
         <>
-          <PrimeLossWarningNotice poolIndex={poolIndex} />
-
           <LabeledInlineContent
             css={styles.content}
             iconSrc={stakedToken}
@@ -154,7 +149,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
         withdrawableWei={withdrawableWei}
         onSubmit={handleSubmit}
         onSubmitSuccess={handleClose}
-        poolIndex={poolIndex}
       />
     </ConnectWallet>
   );

@@ -352,7 +352,7 @@ describe('BorrowForm', () => {
     ).toBeEnabled();
   });
 
-  it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user borrow tokens then calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
     (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);

@@ -597,10 +597,6 @@
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
-    "successfulTransactionModal": {
-      "description": "You successful staked",
-      "title": "Your stake was successful"
-    },
     "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
@@ -650,10 +646,6 @@
         "swap": "Swap",
         "swapWithHighPriceImpact": "Swap with high price impact"
       }
-    },
-    "successfulSwapTransactionModal": {
-      "message": "You successfully swapped your tokens",
-      "title": "Your swap was successful"
     },
     "toTokenAmountField": {
       "label": "To"
@@ -923,8 +915,8 @@
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "multichain": {
-      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain",
-      "switchToBsc": "Switch to BSC chain"
+      "switchToBsc": "Switch to BSC chain",
+      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain"
     },
     "pages": {
       "actions": "3 of 3 Actions",
@@ -943,10 +935,6 @@
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",
-    "successfulDelegationModal": {
-      "message": "You successfully delegated",
-      "title": "Your delegation was successful"
-    },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
@@ -1082,21 +1070,20 @@
     "connectWalletMessage": "Please connect your wallet to withdraw {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
     "submitButtonLabel": "Withdraw",
-    "successfulTransactionModal": {
-      "description": "You successful withdrew",
-      "title": "Your withdrawal was successful"
-    },
     "title": "Withdraw {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
     "displayWithdrawalRequestListButton": "Withdrawal request list",
-    "primeWarning": "You will lose your Prime token if your stake in the XVS vault goes below {{minimumXvsStake}}",
     "requestWithdrawalTab": {
       "approveToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "availableTokensLabel": "Requestable {{tokenSymbol}}",
       "displayWithdrawalRequestListButton": "Withdrawal request list",
+      "primeLossWarning": {
+        "message": "You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of {{minimumXvsStake}} to be eligible for Prime.",
+        "submitButtonLabel": "Lose Prime token and request withdrawal"
+      },
       "submitButtonDisabledLabel": "Enter a valid amount to request",
       "submitButtonLabel": "Request withdrawal"
     },

@@ -304,7 +304,7 @@ describe('RepayForm', () => {
     }
   });
 
-  it('lets user repay borrowed tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user repay borrowed tokens then calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
     (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
