@@ -9,6 +9,7 @@ import { MenuItem } from './types';
 const useGetMenuItems = () => {
   const { accountAddress } = useAuth();
   const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
+  const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -60,14 +61,17 @@ const useGetMenuItems = () => {
         i18nKey: 'layout.menuItems.vaults',
         iconName: 'vault',
       },
-      {
+    );
+
+    if (swapRouteEnabled) {
+      menuItems.push({
         to: routes.swap.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.swap')
         i18nKey: 'layout.menuItems.swap',
         iconName: 'convert',
-      },
-    );
+      });
+    }
 
     if (historyRouteEnabled) {
       menuItems.push({
