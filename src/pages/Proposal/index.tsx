@@ -9,7 +9,7 @@ import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { chains } from 'clients/web3';
+import { governanceChain } from 'clients/web3';
 import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
@@ -58,16 +58,16 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
       <ProposalSummary css={styles.summary} proposal={proposal} />
 
       {!voteProposalFeatureEnabled && (
-        <div className="mb-8 w-full">
-          <NoticeInfo
-            title={t('vote.multichain.votingOnlyEnabledOnBsc')}
-            description={
-              <Button variant="text" onClick={() => switchChain({ chainId: chains[0].id })}>
-                {t('vote.multichain.switchToBsc')}
-              </Button>
-            }
-          />
-        </div>
+        <NoticeInfo
+          className="mb-8 w-full"
+          data-testid={TEST_IDS.votingDisabledWarning}
+          title={t('vote.multichain.votingOnlyEnabledOnBsc')}
+          description={
+            <Button variant="text" onClick={() => switchChain({ chainId: governanceChain.id })}>
+              {t('vote.multichain.switchToBsc')}
+            </Button>
+          }
+        />
       )}
 
       <div css={styles.votes}>
