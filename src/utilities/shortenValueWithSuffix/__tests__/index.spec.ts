@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import shortenValueWithSuffix from '..';
 
-describe('utilities/shortenValueWithSuffix', () => {
+describe('shortenValueWithSuffix', () => {
   it('should return a formatted value in billions with "T" suffix when value is greater or equal to one trillion', () => {
     const value = new BigNumber(1500000000000);
     const result = shortenValueWithSuffix({
@@ -67,5 +67,14 @@ describe('utilities/shortenValueWithSuffix', () => {
       maxDecimalPlaces: 3,
     });
     expect(result).toEqual('100.001');
+  });
+
+  it('should return a formatted value rounded using the passed rounding mode', () => {
+    const value = new BigNumber('100.0013921');
+    const result = shortenValueWithSuffix({
+      value,
+      roundingMode: BigNumber.ROUND_DOWN,
+    });
+    expect(result).toEqual('100.0013');
   });
 });

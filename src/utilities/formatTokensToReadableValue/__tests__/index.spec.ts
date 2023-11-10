@@ -5,7 +5,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
 
-describe('utilities/formatTokensToReadableValue', () => {
+describe('formatTokensToReadableValue', () => {
   test('should return placeholder when value is undefined', () => {
     const result = formatTokensToReadableValue({
       value: undefined,
@@ -78,5 +78,22 @@ describe('utilities/formatTokensToReadableValue', () => {
       value: new BigNumber(-1234.5678),
     });
     expect(negativeResult).toEqual('-1.23K BUSD');
+  });
+
+  test('should return a formatted value rounded using the passed rounding mode', () => {
+    const input: FormatTokensToReadableValueInput = {
+      value: new BigNumber(12.5678),
+      token: busd,
+      roundingMode: BigNumber.ROUND_DOWN,
+    };
+
+    const result = formatTokensToReadableValue(input);
+    expect(result).toEqual('12.56 BUSD');
+
+    const negativeResult = formatTokensToReadableValue({
+      ...input,
+      value: new BigNumber(-12.5678),
+    });
+    expect(negativeResult).toEqual('-12.56 BUSD');
   });
 });

@@ -87,6 +87,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
     value: stakeDeltaTokens,
     token: xvs,
+    roundingMode: BigNumber.ROUND_UP,
   });
 
   const readableApyBoostPercentage = useFormatPercentageToReadableValue({

@@ -14,12 +14,14 @@ export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
   token: Token | VToken | undefined;
   addSymbol?: boolean;
+  roundingMode?: BigNumber.RoundingMode;
 }
 
 export const formatTokensToReadableValue = ({
   value,
   token,
   addSymbol = true,
+  roundingMode,
 }: FormatTokensToReadableValueInput) => {
   if (!token || !value) {
     return PLACEHOLDER_KEY;
@@ -35,6 +37,7 @@ export const formatTokensToReadableValue = ({
     const formattedReadableValue = shortenValueWithSuffix({
       minDecimalPlaces: MIN_DECIMALS,
       value: new BigNumber(MAX_VALUE),
+      roundingMode,
     });
     readableValue = `${isNegative ? '< -' : '> '}${formattedReadableValue}`;
   } else if (absoluteValue.isLessThan(MIN_VALUE)) {
@@ -44,6 +47,7 @@ export const formatTokensToReadableValue = ({
       value: absoluteValue,
       minDecimalPlaces: MIN_DECIMALS,
       maxDecimalPlaces: token.decimals,
+      roundingMode,
     });
 
     readableValue = `${isNegative ? '-' : ''}${formattedReadableValue}`;
