@@ -22,7 +22,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "66012867068.78838627155172413793",
               "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
@@ -64,7 +64,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "66012867068.78838627155172413793",
               "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
@@ -118,7 +118,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "110643.61749019365079365079",
               "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
@@ -160,7 +160,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "110643.61749019365079365079",
               "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
@@ -214,7 +214,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "453577420.21510010545510979029",
               "userSupplyBalanceTokens": "447427293535420150.537063455989777353",
@@ -256,7 +256,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "453577420.21510010545510979029",
               "userSupplyBalanceTokens": "447427293535420150.537063455989777353",
@@ -657,7 +657,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "3.2516057037486057",
+            "apyPercentage": "0.32051113933926345",
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
               "asset": "/src/packages/tokens/img/usdc.svg",
@@ -667,7 +667,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "66012867068.78838627155172413793",
               "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
@@ -709,7 +709,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.942340858505288",
+            "apyPercentage": "0.2904197513866391",
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
               "asset": "/src/packages/tokens/img/usdc.svg",
@@ -719,7 +719,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "66012867068.78838627155172413793",
               "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
@@ -773,7 +773,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "3.2516057037486057",
+            "apyPercentage": "0.32051113933926345",
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "asset": "/src/packages/tokens/img/usdt.svg",
@@ -783,7 +783,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "110643.61749019365079365079",
               "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
@@ -825,7 +825,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.942340858505288",
+            "apyPercentage": "0.2904197513866391",
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "asset": "/src/packages/tokens/img/usdt.svg",
@@ -835,7 +835,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "110643.61749019365079365079",
               "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
@@ -889,7 +889,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "3.2516057037486057",
+            "apyPercentage": "0.32051113933926345",
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
               "asset": "/src/packages/tokens/img/busd.svg",
@@ -899,7 +899,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.0200781032923",
+            "apyPercentage": "0.20019958435848473",
             "referenceValues": {
               "userBorrowBalanceTokens": "453577420.21510010545510979029",
               "userSupplyBalanceTokens": "447427293535420150.537063455989777353",
@@ -941,7 +941,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "rewardDistributor",
           },
           {
-            "apyPercentage": "2.942340858505288",
+            "apyPercentage": "0.2904197513866391",
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
               "asset": "/src/packages/tokens/img/busd.svg",
@@ -951,7 +951,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
             "type": "prime",
           },
           {
-            "apyPercentage": "2.3265798060834175",
+            "apyPercentage": "0.23026397657694986",
             "referenceValues": {
               "userBorrowBalanceTokens": "453577420.21510010545510979029",
               "userSupplyBalanceTokens": "447427293535420150.537063455989777353",

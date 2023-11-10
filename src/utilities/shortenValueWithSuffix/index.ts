@@ -7,12 +7,14 @@ export interface ShortenValueWithSuffix {
   value: BigNumber;
   minDecimalPlaces?: number;
   maxDecimalPlaces?: number;
+  roundingMode?: BigNumber.RoundingMode;
 }
 
 const shortenValueWithSuffix = ({
   value,
   minDecimalPlaces,
   maxDecimalPlaces,
+  roundingMode,
 }: ShortenValueWithSuffix) => {
   if (value.isEqualTo(0)) {
     return '0';
@@ -44,7 +46,7 @@ const shortenValueWithSuffix = ({
     maxDecimalPlaces,
   });
 
-  return `${new BigNumber(formattedValue).toFormat(decimalPlaces)}${suffix}`;
+  return `${new BigNumber(formattedValue).toFormat(decimalPlaces, roundingMode)}${suffix}`;
 };
 
 export default shortenValueWithSuffix;
