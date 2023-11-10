@@ -574,7 +574,7 @@
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
     "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
-    "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can become a Prime user"
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
   "select": {
     "defaultLabel": "Select option"

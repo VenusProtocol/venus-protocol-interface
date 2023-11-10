@@ -86,7 +86,7 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('displays the time remaining to be a Prime user, when a user has staked enough XVS', async () => {
-    const text = '10 minutes until you can become a Prime user';
+    const text = '10 minutes until you can claim Prime rewards';
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
         stakedAmountWei: new BigNumber('1000000'),
