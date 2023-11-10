@@ -5,12 +5,17 @@ import getIsAddressAuthorized, {
 } from 'clients/api/queries/getIsAddressAuthorized';
 import FunctionKey from 'constants/functionKey';
 
+export type UseGetIsAddressAuthorizedQueryKey = [
+  FunctionKey.GET_IS_ADDRESS_AUTHORIZED,
+  { accountAddress: string },
+];
+
 type Options = QueryObserverOptions<
   GetIsAddressAuthorizedOutput,
   Error,
   GetIsAddressAuthorizedOutput,
   GetIsAddressAuthorizedOutput,
-  [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress: string }]
+  UseGetIsAddressAuthorizedQueryKey
 >;
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
@@ -23,7 +28,9 @@ const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
       refetchOnMount: false,
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
-      staleTime: ONE_HOUR_MS,
+      refetchInterval: ONE_HOUR_MS,
+      staleTime: Infinity,
+      cacheTime: Infinity,
       ...options,
     },
   );

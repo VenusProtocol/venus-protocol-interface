@@ -16,7 +16,7 @@ export type UseGetXvsVaultPoolBalancesOutput = UseQueryResult<GetBalanceOfOutput
 const useGetXvsVaultPoolBalances = ({
   stakedTokenAddresses,
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
-  const { provider } = useAuth();
+  const { provider, chainId } = useAuth();
   const tokens = useGetTokens();
 
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
@@ -39,6 +39,7 @@ const useGetXvsVaultPoolBalances = ({
         queryKey: [
           FunctionKey.GET_BALANCE_OF,
           {
+            chainId,
             accountAddress: xvsVaultContractAddress,
             tokenAddress: stakedToken?.address,
           },

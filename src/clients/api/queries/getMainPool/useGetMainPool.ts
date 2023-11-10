@@ -8,10 +8,12 @@ import {
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { useTranslation } from 'translation';
+import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
@@ -28,17 +30,23 @@ type TrimmedInput = Omit<
   | 'tokens'
 >;
 
+export type UseGetMainPoolQueryKey = [
+  FunctionKey.GET_MAIN_POOL,
+  TrimmedInput & { chainId: ChainId },
+];
+
 type Options = QueryObserverOptions<
   GetMainPoolOutput,
   Error,
   GetMainPoolOutput,
   GetMainPoolOutput,
-  [FunctionKey.GET_MAIN_POOL, TrimmedInput]
+  UseGetMainPoolQueryKey
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
+  const { chainId } = useAuth();
   const { t } = useTranslation();
 
   const xvs = useGetToken({ symbol: 'XVS' });
@@ -55,7 +63,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const primeContract = useGetPrimeContract();
 
   return useQuery(
-    [FunctionKey.GET_MAIN_POOL, input],
+    [FunctionKey.GET_MAIN_POOL, { ...input, chainId }],
     () =>
       callOrThrow(
         {

@@ -10,9 +10,11 @@ import {
 import { useGetTokens } from 'packages/tokens';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import getPendingRewards from '.';
@@ -34,17 +36,25 @@ type TrimmedGetPendingRewardsInput = Omit<
   | 'tokens'
 >;
 
+export type UseGetPendingRewardsQueryKey = [
+  FunctionKey.GET_PENDING_REWARDS,
+  TrimmedGetPendingRewardsInput & {
+    chainId: ChainId;
+  },
+];
+
 type Options = QueryObserverOptions<
   GetPendingRewardsOutput,
   Error,
   GetPendingRewardsOutput,
   GetPendingRewardsOutput,
-  [FunctionKey.GET_PENDING_REWARDS, TrimmedGetPendingRewardsInput]
+  UseGetPendingRewardsQueryKey
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
+  const { chainId } = useAuth();
   const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
   const resilientOracleContract = useGetResilientOracleContract();
   const venusLensContract = useGetVenusLensContract();
@@ -85,7 +95,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
   const sortedIsolatedPoolComptrollerAddresses = [...isolatedPoolComptrollerAddresses].sort();
 
   return useQuery(
-    [FunctionKey.GET_PENDING_REWARDS, input],
+    [FunctionKey.GET_PENDING_REWARDS, { ...input, chainId }],
     () =>
       callOrThrow(
         {

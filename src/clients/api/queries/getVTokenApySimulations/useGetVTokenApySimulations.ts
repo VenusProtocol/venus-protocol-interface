@@ -1,7 +1,7 @@
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contracts';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { Asset, VToken } from 'types';
+import { Asset, ChainId, VToken } from 'types';
 
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
@@ -10,12 +10,17 @@ import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterest
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
+export type UseGetVTokenApySimulationsQueryKey = [
+  FunctionKey.GET_V_TOKEN_APY_SIMULATIONS,
+  { vTokenAddress: string; chainId: ChainId },
+];
+
 type Options = QueryObserverOptions<
   GetVTokenApySimulationsOutput,
   Error,
   GetVTokenApySimulationsOutput,
   GetVTokenApySimulationsOutput,
-  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: string }]
+  UseGetVTokenApySimulationsQueryKey
 >;
 
 const useGetVTokenApySimulations = (
@@ -30,7 +35,7 @@ const useGetVTokenApySimulations = (
   },
   options?: Options,
 ) => {
-  const { provider } = useAuth();
+  const { provider, chainId } = useAuth();
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
 
   const interestRateModelContract = useMemo(() => {
@@ -49,7 +54,7 @@ const useGetVTokenApySimulations = (
   }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address }],
+    [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address, chainId }],
     () =>
       getVTokenApySimulations({
         interestRateModelContract: interestRateModelContract!, // Checked through enabled option

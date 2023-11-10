@@ -2,6 +2,7 @@ import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
+import { governanceChain } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 import getVoteReceipt, { GetVoteReceiptInput, GetVoteReceiptOutput } from '.';
@@ -18,7 +19,9 @@ type Options = QueryObserverOptions<
 
 const useGetVoteReceipt = (input: TrimmedGetVoteReceiptInput, options?: Options) => {
   const { accountAddress } = input;
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_VOTE_RECEIPT, input],

@@ -6,19 +6,28 @@ import getCurrentVotes, {
   GetCurrentVotesInput,
   GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
+import { governanceChain } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type TrimmedGetCurrentVotesInput = Omit<GetCurrentVotesInput, 'xvsVaultContract'>;
+
+export type UseGetCurrentVotesQueryKey = [
+  FunctionKey.GET_CURRENT_VOTES,
+  TrimmedGetCurrentVotesInput,
+];
+
 type Options = QueryObserverOptions<
   GetCurrentVotesOutput,
   Error,
   GetCurrentVotesOutput,
   GetCurrentVotesOutput,
-  [FunctionKey.GET_CURRENT_VOTES, TrimmedGetCurrentVotesInput]
+  UseGetCurrentVotesQueryKey
 >;
 
 const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Options) => {
-  const xvsVaultContract = useGetXvsVaultContract();
+  const xvsVaultContract = useGetXvsVaultContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_CURRENT_VOTES, input],

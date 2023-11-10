@@ -1,4 +1,3 @@
-/* Automatically generated file, do not update manually */
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
@@ -8,6 +7,8 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
+import useProvider from 'context/AuthContext/useProvider';
+import useSigner from 'context/AuthContext/useSigner';
 
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;
@@ -27,12 +28,15 @@ export const get{{contractName}}ContractAddress = ({
 
 interface UseGet{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;
+  chainId?: ChainId;
 }
 
 export const useGet{{contractName}}ContractAddress = ({
   comptrollerContractAddress,
+  chainId: passedChainId,
 }: UseGet{{contractName}}ContractAddressInput) => {
-  const { chainId } = useAuth();
+  const { chainId: currentChainId } = useAuth();
+  const chainId = passedChainId || currentChainId;
 
   return useMemo(
     () =>
@@ -62,13 +66,19 @@ export const get{{contractName}}Contract = ({
 interface UseGet{{contractName}}ContractInput {
   passSigner: boolean;
   comptrollerContractAddress: string;
+  chainId?: ChainId;
 }
 
 export const useGet{{contractName}}Contract = ({
   passSigner = false,
   comptrollerContractAddress,
+  chainId: passedChainId,
 }: UseGet{{contractName}}ContractInput) => {
-  const { signer, provider, chainId } = useAuth();
+  const { chainId: currentChainId } = useAuth();
+  const chainId = passedChainId || currentChainId;
+
+  const provider = useProvider({ chainId });
+  const signer = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

@@ -13,5 +13,7 @@ const getSupportedChains = (): Chain[] => {
   return [bsc];
 };
 
+export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bsc;
+
 // Note: the first chain listed will be used as the default chain
 export const chains = getSupportedChains();

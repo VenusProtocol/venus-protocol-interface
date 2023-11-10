@@ -1,26 +1,33 @@
 import { useGetVTokenContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VToken } from 'types';
+import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
+
+export type UseGetVTokenInterestRateModelQueryKey = [
+  FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL,
+  { vTokenAddress: string; chainId: ChainId },
+];
 
 type Options = QueryObserverOptions<
   GetVTokenInterestRateModelOutput,
   Error,
   GetVTokenInterestRateModelOutput,
   GetVTokenInterestRateModelOutput,
-  [FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, { vTokenAddress: string }]
+  UseGetVTokenInterestRateModelQueryKey
 >;
 
 const useGetVTokenInterestRateModel = ({ vToken }: { vToken: VToken }, options?: Options) => {
+  const { chainId } = useAuth();
   const vTokenContract = useGetVTokenContract({ vToken });
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, { vTokenAddress: vToken.address }],
+    [FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, { vTokenAddress: vToken.address, chainId }],
     () => callOrThrow({ vTokenContract }, getVTokenInterestRateModel),
     options,
   );

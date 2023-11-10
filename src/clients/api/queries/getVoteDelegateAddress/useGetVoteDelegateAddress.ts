@@ -7,6 +7,7 @@ import {
   GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
 } from 'clients/api';
+import { governanceChain } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
@@ -22,7 +23,9 @@ const useGetVoteDelegateAddress = (
   input: TrimmedGetVoteDelegateAddressInput,
   options?: Options,
 ) => {
-  const xvsVaultContract = useGetXvsVaultContract();
+  const xvsVaultContract = useGetXvsVaultContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],

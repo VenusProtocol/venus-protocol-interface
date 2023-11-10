@@ -3,7 +3,7 @@ import { StoryFn } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
-import { Token } from 'types';
+import { ChainId, Token } from 'types';
 
 import { GetAllowanceOutput } from 'clients/api';
 import { UseGetAllowanceQueryKey } from 'clients/api/queries/getAllowance/useGetAllowance';
@@ -72,6 +72,7 @@ export const withApprovedToken =
     const queryKey: UseGetAllowanceQueryKey = [
       FunctionKey.GET_TOKEN_ALLOWANCE,
       {
+        chainId: ChainId.BSC_TESTNET,
         tokenAddress: token.address,
         spenderAddress,
         accountAddress,

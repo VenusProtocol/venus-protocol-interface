@@ -6,6 +6,7 @@ import getProposalState, {
   GetProposalStateInput,
   GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
+import { governanceChain } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
@@ -20,7 +21,9 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Options) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract();
+  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+    chainId: governanceChain.id,
+  });
 
   return useQuery(
     [FunctionKey.GET_PROPOSAL_STATE, input],

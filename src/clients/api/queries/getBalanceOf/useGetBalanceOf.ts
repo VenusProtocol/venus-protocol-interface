@@ -1,33 +1,39 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { ChainId } from 'types';
 
 import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+
+type TrimmedGetBalanceOfInput = Omit<GetBalanceOfInput, 'signer' | 'provider'>;
+
+export type UseGetBalanceOfQueryKey = [
+  FunctionKey.GET_BALANCE_OF,
+  Omit<TrimmedGetBalanceOfInput, 'token'> & {
+    tokenAddress: string;
+    chainId: ChainId;
+  },
+];
 
 type Options = QueryObserverOptions<
   GetBalanceOfOutput,
   Error,
   GetBalanceOfOutput,
   GetBalanceOfOutput,
-  [
-    FunctionKey.GET_BALANCE_OF,
-    {
-      accountAddress: string;
-      tokenAddress: string;
-    },
-  ]
+  UseGetBalanceOfQueryKey
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, token }: Omit<GetBalanceOfInput, 'signer' | 'provider'>,
+  { accountAddress, token }: TrimmedGetBalanceOfInput,
   options?: Options,
 ) => {
-  const { provider } = useAuth();
+  const { provider, chainId } = useAuth();
 
   return useQuery(
     [
       FunctionKey.GET_BALANCE_OF,
       {
+        chainId,
         accountAddress,
         tokenAddress: token.address,
       },

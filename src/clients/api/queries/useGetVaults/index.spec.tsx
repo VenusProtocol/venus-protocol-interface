@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import compTrollerResponses from '__mocks__/contracts/mainPoolComptroller';
@@ -23,12 +24,19 @@ import {
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
+import { useAuth } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
 
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
+vi.mock('context/AuthContext');
+
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
+    (useAuth as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_TESTNET,
+    }));
+
     (getXvsVaultPoolCount as Vi.Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));

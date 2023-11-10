@@ -1,27 +1,37 @@
-/* Automatically generated file, do not update manually */
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
+import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
+import useProvider from 'context/AuthContext/useProvider';
+import useSigner from 'context/AuthContext/useSigner';
 
 interface Get{{contractName}}ContractInput {
   address: string;
   signerOrProvider: Signer | Provider;
 }
 
-export const get{{contractName}}Contract = ({ signerOrProvider, address }: Get{{contractName}}ContractInput) =>
+export const get{{contractName}}Contract = ({
+  signerOrProvider,
+  address,
+}: Get{{contractName}}ContractInput) =>
   new Contract(address, abi, signerOrProvider) as {{contractName}};
 
 interface UseGet{{contractName}}ContractInput {
   passSigner: boolean;
   address: string;
+  chainId?: ChainId;
 }
 
-export const useGet{{contractName}}Contract = ({ passSigner = false, address }: UseGet{{contractName}}ContractInput) => {
-  const { signer, provider } = useAuth();
+export const useGet{{contractName}}Contract = ({
+  passSigner = false,
+  address,
+  chainId,
+}: UseGet{{contractName}}ContractInput) => {
+  const provider = useProvider({ chainId });
+  const signer = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

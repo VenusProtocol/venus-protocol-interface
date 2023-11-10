@@ -1,5 +1,6 @@
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
+import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getXvsVaultLockedDeposits, {
@@ -7,27 +8,37 @@ import getXvsVaultLockedDeposits, {
   GetXvsVaultLockedDepositsOutput,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetXvsVaultLockedDepositsInput = Omit<
   GetXvsVaultLockedDepositsInput,
   'xvsVaultContract'
 >;
+
+export type UseGetXvsVaultLockedDepositsQueryKey = [
+  FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+  TrimmedGetXvsVaultLockedDepositsInput & {
+    chainId: ChainId;
+  },
+];
+
 type Options = QueryObserverOptions<
   GetXvsVaultLockedDepositsOutput,
   Error,
   GetXvsVaultLockedDepositsOutput,
   GetXvsVaultLockedDepositsOutput,
-  [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, TrimmedGetXvsVaultLockedDepositsInput]
+  UseGetXvsVaultLockedDepositsQueryKey
 >;
 
 const useGetXvsVaultLockedDeposits = (
   input: TrimmedGetXvsVaultLockedDepositsInput,
   options?: Options,
 ) => {
+  const { chainId } = useAuth();
   const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(
-    [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, input],
+    [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],
     () =>
       callOrThrow({ xvsVaultContract }, params =>
         getXvsVaultLockedDeposits({ ...params, ...input }),
