@@ -15,6 +15,7 @@ describe('useIsFeatureEnabled', () => {
     'corePoolMarketRoute',
     'historyRoute',
     'convertVrtRoute',
+    'swapRoute',
     'vaiRoute',
   ];
 
