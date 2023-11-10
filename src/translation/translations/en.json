@@ -922,6 +922,10 @@
     "enterContactAddress": "Enter contact address",
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
+    "multichain": {
+      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain",
+      "switchToBsc": "Switch to BSC chain"
+    },
     "pages": {
       "actions": "3 of 3 Actions",
       "confirmation": "Confirmation",

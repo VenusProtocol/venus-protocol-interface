@@ -16,6 +16,7 @@ const featureFlags = {
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   swapRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

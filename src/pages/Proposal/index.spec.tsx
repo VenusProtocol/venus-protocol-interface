@@ -2,7 +2,7 @@ import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-li
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
-import { VoteSupport } from 'types';
+import { ChainId, VoteSupport } from 'types';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -28,6 +28,7 @@ import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
 import TEST_IDS from './testIds';
 
 vi.mock('hooks/useVote');
+vi.unmock('hooks/useIsFeatureEnabled');
 
 const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
@@ -133,6 +134,7 @@ describe('pages/Proposal', () => {
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
+        chainId: ChainId.BSC_TESTNET,
       },
     });
 
@@ -148,6 +150,7 @@ describe('pages/Proposal', () => {
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
+        chainId: ChainId.BSC_TESTNET,
       },
     });
 
@@ -178,6 +181,7 @@ describe('pages/Proposal', () => {
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
+        chainId: ChainId.BSC_TESTNET,
       },
     });
 
@@ -211,6 +215,7 @@ describe('pages/Proposal', () => {
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,
+        chainId: ChainId.BSC_TESTNET,
       },
     });
 
