@@ -7,10 +7,10 @@ import { useGetPools } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import Dashboard from '.';
-import TEST_IDS from './testIds';
+import Dashboard from '..';
+import TEST_IDS from '../testIds';
 
-describe('pages/Dashboard', () => {
+describe('Dashboard', () => {
   beforeEach(() => {
     (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {

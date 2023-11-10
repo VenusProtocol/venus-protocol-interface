@@ -1,32 +1,17 @@
 import { Card, PrimaryButton } from 'components';
-import React from 'react';
 import { useTranslation } from 'translation';
-
-import { useAuth } from 'context/AuthContext';
 
 import illustration from './illustration.png';
 
-export interface ConnectWalletBannerUiProps {
-  isWalletConnected: boolean;
+export interface ConnectWalletBannerProps {
   openAuthModal: () => void;
 }
 
-export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
-  isWalletConnected,
-  openAuthModal,
-  ...containerProps
-}) => {
+export const ConnectWalletBanner: React.FC<ConnectWalletBannerProps> = ({ openAuthModal }) => {
   const { t } = useTranslation();
 
-  if (isWalletConnected) {
-    return null;
-  }
-
   return (
-    <Card
-      className="mb-8 flex flex-col overflow-hidden border border-lightGrey p-0 sm:grid sm:grid-cols-[3fr,2fr] sm:flex-row md:p-0 lg:grid-cols-[3fr,2fr] xl:grid-cols-2"
-      {...containerProps}
-    >
+    <Card className="mb-8 flex flex-col overflow-hidden border border-lightGrey p-0 sm:grid sm:grid-cols-[3fr,2fr] sm:flex-row md:p-0 lg:grid-cols-[3fr,2fr] xl:grid-cols-2">
       <div className="sm:flex-4 px-4 py-6 text-center sm:p-4 sm:text-left md:p-6">
         <p className="mb-3 text-lg">{t('dashboard.connectWalletBanner.title')}</p>
 
@@ -45,13 +30,5 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
         />
       </div>
     </Card>
-  );
-};
-
-export const ConnectWalletBanner: React.FC = () => {
-  const { accountAddress, openAuthModal } = useAuth();
-
-  return (
-    <ConnectWalletBannerUi isWalletConnected={!!accountAddress} openAuthModal={openAuthModal} />
   );
 };
