@@ -92,14 +92,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
     };
-  }, [
-    totalVaiStakedData?.balanceWei.toFixed(),
-    vaiVaultDailyRateData?.dailyRateWei.toFixed(),
-    xvsPriceDollars?.toFixed(),
-    JSON.stringify(vaiVaultUserInfo),
-    xvs,
-    vai,
-  ]);
+  }, [xvsPriceDollars, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
 
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||

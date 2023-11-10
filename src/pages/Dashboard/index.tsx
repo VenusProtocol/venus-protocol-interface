@@ -53,7 +53,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
           content: pool.name,
         })),
       ),
-    [pools],
+    [pools, t],
   );
 
   return (

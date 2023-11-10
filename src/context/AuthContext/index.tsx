@@ -51,7 +51,7 @@ export interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
-  const { disconnectAsync } = useDisconnect();
+  const { disconnectAsync: logOut } = useDisconnect();
   const { address, isConnected } = useAccount();
   const { chain: walletChain } = useNetwork();
   const { switchNetworkAsync } = useSwitchNetwork();
@@ -70,32 +70,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
   const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
 
-  const login = useCallback(async (connectorId: Connector) => {
-    // If user is attempting to connect their Infinity wallet but the dApp
-    // isn't currently running in the Infinity Wallet app, open it
-    if (connectorId === Connector.InfinityWallet && !isRunningInInfinityWalletApp()) {
-      openInfinityWallet(window.location.href, chainId);
-      return;
-    }
-
-    const connector =
-      connectors.find(item => item.id === connectorIdByName[connectorId]) || connectors[0];
-
-    try {
-      // Log user in
-      await connectAsync({ connector, chainId });
-    } catch (error) {
-      if (error instanceof ConnectorNotFoundError) {
-        throw new VError({ type: 'interaction', code: 'noProvider' });
-      } else {
-        logError(error);
+  const login = useCallback(
+    async (connectorId: Connector) => {
+      // If user is attempting to connect their Infinity wallet but the dApp
+      // isn't currently running in the Infinity Wallet app, open it
+      if (connectorId === Connector.InfinityWallet && !isRunningInInfinityWalletApp()) {
+        openInfinityWallet(window.location.href, chainId);
+        return;
       }
-    }
-  }, []);
 
-  const logOut = useCallback(async () => {
-    await disconnectAsync();
-  }, []);
+      const connector =
+        connectors.find(item => item.id === connectorIdByName[connectorId]) || connectors[0];
+
+      try {
+        // Log user in
+        await connectAsync({ connector, chainId });
+      } catch (error) {
+        if (error instanceof ConnectorNotFoundError) {
+          throw new VError({ type: 'interaction', code: 'noProvider' });
+        } else {
+          logError(error);
+        }
+      }
+    },
+    [chainId, connectAsync, connectors],
+  );
 
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
@@ -138,7 +137,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     fn();
-  }, [walletChain, chainId]);
+  }, [walletChain, chainId, setStoreChainId, logOut]);
 
   return (
     <AuthContext.Provider

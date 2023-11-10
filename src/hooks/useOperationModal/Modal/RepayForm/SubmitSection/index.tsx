@@ -107,6 +107,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     isFormSubmitting,
     isUsingSwap,
     isSwappingWithHighPriceImpact,
+    fromToken.symbol,
+    t,
   ]);
 
   return (

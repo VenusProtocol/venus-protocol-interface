@@ -89,7 +89,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) 
           compareBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
-    [],
+    [t, xvs],
   );
 
   return (
@@ -186,13 +186,7 @@ const XvsTable: React.FC = () => {
     }
 
     return allAssets;
-  }, [
-    getMainPoolData?.pool.assets,
-    venusVaiVaultDailyRateData?.dailyRateWei,
-    vaultVaiStakedData?.balanceWei,
-    vai,
-    xvs,
-  ]);
+  }, [getMainPoolData?.pool.assets, venusVaiVaultDailyRateData, vaultVaiStakedData, vai, xvs]);
 
   return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainPoolLoading} xvs={xvs!} />;
 };

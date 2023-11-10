@@ -63,7 +63,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
       default:
         return <Typography variant="small2">{t('voteProposalUi.voteStatus.notVoted')}</Typography>;
     }
-  }, [userVoteStatus]);
+  }, [userVoteStatus, t]);
 
   const votedTotalMantissa = BigNumber.sum.apply(null, [
     forVotesMantissa || 0,
@@ -181,7 +181,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
       default:
         return [];
     }
-  }, [proposalState]);
+  }, [proposalState, Trans, cancelDate, createdDate, executedDate, endDate, queuedDate, t]);
 
   return (
     <ProposalCard

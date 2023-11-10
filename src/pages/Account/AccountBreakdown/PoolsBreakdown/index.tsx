@@ -55,7 +55,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
           ),
         };
       }),
-    [pools],
+    [pools, t],
   );
 
   return (

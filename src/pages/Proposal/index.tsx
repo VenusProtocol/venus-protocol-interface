@@ -138,7 +138,7 @@ const Proposal = () => {
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightData?.votesWei.toFixed(), xvs],
+    [votingWeightData?.votesWei, xvs],
   );
 
   const { vote, isLoading } = useVote();

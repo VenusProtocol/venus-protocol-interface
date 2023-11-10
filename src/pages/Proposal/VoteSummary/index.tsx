@@ -51,7 +51,7 @@ const VoteSummary = ({
         addSymbol: false,
         returnInReadableFormat: true,
       }),
-    [],
+    [xvs],
   );
 
   return (

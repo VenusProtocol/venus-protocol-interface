@@ -79,7 +79,7 @@ const ConvertVrt = () => {
     }
 
     return undefined;
-  }, [vrtConversionRatioData?.conversionRatio]);
+  }, [vrtConversionRatioData?.conversionRatio, xvs]);
 
   if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
     return (

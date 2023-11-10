@@ -126,7 +126,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
           : acc,
       new BigNumber(0),
     );
-  }, [JSON.stringify(xvsVaultUserLockedDepositsData.lockedDeposits)]);
+  }, [xvsVaultUserLockedDepositsData]);
 
   const {
     mutateAsync: executeWithdrawalFromXvsVault,

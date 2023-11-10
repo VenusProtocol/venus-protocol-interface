@@ -65,7 +65,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
   const limitTokens = useMemo(
     () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, token: vai }).toFixed() : '0'),
-    [limitWei?.toFixed()],
+    [limitWei, vai],
   );
 
   // Convert limit into VAI
@@ -94,7 +94,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
-    [mintFeePercentage],
+    [mintFeePercentage, vai],
   );
 
   const onSubmit = async (amountTokens: string) => {

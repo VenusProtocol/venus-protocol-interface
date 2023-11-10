@@ -53,12 +53,11 @@ const useFormValidation = ({
       return 'HIGHER_THAN_BORROWABLE_AMOUNT';
     }
   }, [
-    asset.vToken.underlyingToken,
     asset.borrowCapTokens,
-    asset.userBorrowBalanceTokens,
     asset.borrowBalanceTokens,
     limitTokens,
     formValues.amountTokens,
+    userBorrowLimitCents,
   ]);
 
   return {

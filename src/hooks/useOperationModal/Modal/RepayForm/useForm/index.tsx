@@ -116,6 +116,7 @@ const useForm = ({
     toVToken.underlyingToken,
     fromTokenUserBorrowBalanceTokens,
     setFormValues,
+    isMounted,
   ]);
 
   useEffect(() => {
@@ -138,7 +139,7 @@ const useForm = ({
         amountTokens: expectedFromTokenAmountSoldTokens,
       }));
     }
-  }, [formValues.fixedRepayPercentage, swap, setFormValues]);
+  }, [formValues.fixedRepayPercentage, swap, setFormValues, isMounted]);
 
   return {
     handleSubmit,

@@ -91,10 +91,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     return maxTokensBeforeLiquidation;
   }, [asset, pool]);
 
-  if (!asset) {
-    return <></>;
-  }
-
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     limitTokens,
@@ -110,12 +106,16 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       ...currentFormValues,
       amountTokens: limitTokens.toString(),
     }));
-  }, [limitTokens]);
+  }, [limitTokens, setFormValues]);
 
   const readableWithdrawableAmountTokens = useFormatTokensToReadableValue({
     value: limitTokens,
     token: formValues.fromToken,
   });
+
+  if (!asset) {
+    return <></>;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -165,7 +165,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         isFormSubmitting={isSubmitting}
         isFormValid={isFormValid}
         formError={formError}
-        fromTokenAmountTokens={formValues.amountTokens}
       />
     </form>
   );

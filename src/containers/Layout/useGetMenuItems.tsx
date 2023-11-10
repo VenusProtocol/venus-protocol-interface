@@ -118,7 +118,13 @@ const useGetMenuItems = () => {
     }
 
     return menuItems;
-  }, [accountAddress]);
+  }, [
+    accountAddress,
+    convertVrtRouteEnabled,
+    corePoolRouteEnabled,
+    historyRouteEnabled,
+    vaiRouteEnabled,
+  ]);
 };
 
 export default useGetMenuItems;

@@ -17,7 +17,7 @@ const useConvertWeiToReadableTokenString = (params: UseConvertWeiToReadableToken
             returnInReadableFormat: true,
           })
         : PLACEHOLDER_KEY,
-    [params.valueWei?.toFixed(), params.token, params.addSymbol],
+    [params],
   );
 
 export default useConvertWeiToReadableTokenString;

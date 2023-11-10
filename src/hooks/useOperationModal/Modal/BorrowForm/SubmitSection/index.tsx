@@ -51,7 +51,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('operationModal.borrow.submitButtonLabel.borrow');
-  }, [fromTokenAmountTokens, isFormValid, formError, isDangerous, isFormSubmitting]);
+  }, [isFormValid, formError, isDangerous, isFormSubmitting, t]);
 
   return (
     <PrimaryButton

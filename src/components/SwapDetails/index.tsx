@@ -67,7 +67,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
         token: swap.toToken,
         addSymbol: false,
       }),
-    [swap?.exchangeRate, swap?.toToken],
+    [swap],
   );
 
   const getLastLineLabel = () => {
@@ -121,7 +121,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
 
   const readablePriceImpact = useMemo(
     () => swap && formatPercentageToReadableValue(swap.priceImpactPercentage),
-    [swap?.priceImpactPercentage],
+    [swap],
   );
 
   return (

@@ -164,7 +164,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
       fixedRepayPercentage: undefined,
     }));
-  }, [asset.userBorrowBalanceTokens, fromTokenUserWalletBalanceTokens]);
+  }, [asset.userBorrowBalanceTokens, fromTokenUserWalletBalanceTokens, setFormValues]);
 
   return (
     <form onSubmit={handleSubmit}>

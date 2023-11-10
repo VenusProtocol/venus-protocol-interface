@@ -170,7 +170,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         ),
       },
     ],
-    [],
+    [chainId, eventTranslationKeys, hideXlDownCss, showXlDownCss, t],
   );
 
   const cardColumns = useMemo(() => {

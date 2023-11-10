@@ -91,7 +91,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
       'proposal-actions': t('vote.pages.actions'),
       'proposal-preview': t('vote.pages.confirmation'),
     };
-  }, [proposalMode]);
+  }, [proposalMode, t]);
 
   const handleBackAction = () => {
     const previousStep = getPreviousStep(currentStep, proposalMode);

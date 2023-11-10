@@ -82,7 +82,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       value.dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxTokens), formatValue(safeMaxTokens)];
-  }, [asset.vToken.underlyingToken.decimals, asset, pool]);
+  }, [asset, pool]);
 
   const readableLimit = useFormatTokensToReadableValue({
     value: new BigNumber(limitTokens),
@@ -105,7 +105,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       ...currentFormValues,
       amountTokens: safeLimitTokens,
     }));
-  }, [safeLimitTokens]);
+  }, [safeLimitTokens, setFormValues]);
 
   return (
     <form onSubmit={handleSubmit}>

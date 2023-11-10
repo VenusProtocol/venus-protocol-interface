@@ -91,7 +91,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('swapPage.submitButton.disabledLabels.processing');
-  }, [swap, swapError, formErrors[0], isSwappingWithHighPriceImpact]);
+  }, [swap, swapError, isSwappingWithHighPriceImpact, formErrors, fromToken.symbol, t]);
 
   return (
     <ApproveTokenSteps

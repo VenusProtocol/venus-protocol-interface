@@ -36,7 +36,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
     }
 
     return text;
-  }, [text, ellipseBreakpoint]);
+  }, [text, ellipseBreakpoint, t]);
 
   return (
     <div className={cn('inline-block text-sm font-semibold text-blue', className)}>

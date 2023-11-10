@@ -8,5 +8,5 @@ export interface UseGetTokenInput {
 
 export const useGetToken = ({ symbol }: UseGetTokenInput) => {
   const tokens = useGetTokens();
-  return useMemo(() => tokens.find(token => token.symbol === symbol), [tokens]);
+  return useMemo(() => tokens.find(token => token.symbol === symbol), [tokens, symbol]);
 };

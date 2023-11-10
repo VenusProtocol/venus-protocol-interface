@@ -59,7 +59,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
         value: pool?.assets.length || PLACEHOLDER_KEY,
       },
     ];
-  }, [pool]);
+  }, [pool, t]);
 
   return pool ? (
     <>

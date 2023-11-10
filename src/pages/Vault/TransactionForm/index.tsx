@@ -68,7 +68,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
         valueWei: availableTokensWei,
         token,
       }),
-    [availableTokensWei],
+    [availableTokensWei, token],
   );
 
   const limitTokens = useMemo(() => {
@@ -93,7 +93,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
     const unlockingDate = new Date(now.getTime() + lockingPeriodMs);
 
     return t('vault.transactionForm.lockingPeriod.duration', { date: unlockingDate });
-  }, [lockingPeriodMs?.toFixed()]);
+  }, [lockingPeriodMs, t]);
 
   const handleSubmit = async (amountTokens: string) => {
     const amountWei = convertTokensToWei({

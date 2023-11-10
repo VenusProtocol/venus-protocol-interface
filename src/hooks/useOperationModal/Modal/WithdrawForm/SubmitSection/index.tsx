@@ -8,14 +8,12 @@ import { FormError } from '../useForm/types';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  fromTokenAmountTokens: string;
   formError?: FormError;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  fromTokenAmountTokens,
   formError,
 }) => {
   const { t } = useTranslation();
@@ -30,7 +28,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     }
 
     return t('operationModal.withdraw.submitButtonLabel.withdraw');
-  }, [fromTokenAmountTokens, isFormValid, formError, isFormSubmitting]);
+  }, [isFormValid, formError, isFormSubmitting, t]);
 
   return (
     <PrimaryButton

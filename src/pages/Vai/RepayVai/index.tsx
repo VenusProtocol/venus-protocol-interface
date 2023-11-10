@@ -92,7 +92,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
     }
 
     return tmpLimitTokens.toFixed();
-  }, [userBalanceWei, repayBalanceWei, vaiWalletSpendingLimitTokens, isVaiApproved]);
+  }, [userBalanceWei, repayBalanceWei, vaiWalletSpendingLimitTokens, isVaiApproved, vai]);
 
   const isRepayingFullLoan = useCallback(
     ({ amountTokens }: { amountTokens: string }) => {
@@ -106,7 +106,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
       return false;
     },
-    [repayBalanceWei],
+    [repayBalanceWei, vai],
   );
 
   // Convert repay balance (minted + interests) into VAI
@@ -122,7 +122,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   const walletBalanceTokens = useMemo(
     () => userBalanceWei && convertTokensToWei({ value: userBalanceWei, token: vai }),
-    [userBalanceWei],
+    [userBalanceWei, vai],
   );
 
   const hasRepayableVai = repayBalanceWei?.isGreaterThan(0) || false;

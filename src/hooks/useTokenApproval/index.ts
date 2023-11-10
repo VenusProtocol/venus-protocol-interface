@@ -60,7 +60,7 @@ const useTokenApproval = ({
     () =>
       getTokenAllowanceData?.allowanceWei &&
       convertWeiToTokens({ valueWei: getTokenAllowanceData.allowanceWei, token }),
-    [getTokenAllowanceData?.allowanceWei],
+    [getTokenAllowanceData?.allowanceWei, token],
   );
 
   const isTokenApproved = useMemo(() => {

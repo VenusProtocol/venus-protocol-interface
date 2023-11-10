@@ -116,7 +116,7 @@ const useGetVestingVaults = ({
     }
 
     return [data, tokenAddresses];
-  }, [JSON.stringify(poolQueryResults), xvsVaultPoolCountData.poolCount]);
+  }, [poolQueryResults, xvsVaultPoolCountData.poolCount]);
 
   // Fetch pool balances
   const poolBalanceQueryResults = useGetXvsVaultPoolBalances({
@@ -133,7 +133,7 @@ const useGetVestingVaults = ({
         (_item, index) => `${index}`,
         poolBalanceQueryResults.map(poolBalanceQueryResult => poolBalanceQueryResult.data),
       ),
-    [JSON.stringify(poolBalanceQueryResults)],
+    [poolBalanceQueryResults],
   );
 
   const isLoading =
@@ -212,9 +212,9 @@ const useGetVestingVaults = ({
       ),
     [
       xvsVaultPoolCountData.poolCount,
-      JSON.stringify(poolData),
-      JSON.stringify(poolBalances),
-      xvsVaultRewardWeiPerBlock?.rewardPerBlockWei.toFixed(),
+      poolData,
+      poolBalances,
+      xvsVaultRewardWeiPerBlock?.rewardPerBlockWei,
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       xvs,
       tokens,

@@ -113,7 +113,14 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
           return true;
       }
     },
-    [currentStep, JSON.stringify(errors)],
+    [
+      errors.forDescription,
+      errors.abstainDescription,
+      errors.againstDescription,
+      errors.title,
+      errors.description,
+      errors.actions,
+    ],
   );
 
   const buttonText =

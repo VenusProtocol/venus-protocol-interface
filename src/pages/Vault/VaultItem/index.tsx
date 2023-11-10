@@ -112,13 +112,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         ),
       },
     ],
-    [
-      stakedToken,
-      rewardToken,
-      stakingAprPercentage,
-      dailyEmissionWei.toFixed(),
-      totalStakedWei.toFixed(),
-    ],
+    [stakedToken, rewardToken, stakingAprPercentage, dailyEmissionWei, totalStakedWei, t],
   );
 
   return (

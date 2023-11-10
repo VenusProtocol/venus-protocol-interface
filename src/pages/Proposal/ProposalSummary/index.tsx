@@ -178,7 +178,7 @@ export const ProposalSummaryUi: React.FC<
         i18nKey: 'voteProposalUi.timeUntilExecutable',
       };
     }
-  }, [state, endDate?.getTime(), proposalEta?.getTime()]);
+  }, [state, endDate, proposalEta, isExecuteEtaInFuture]);
 
   return (
     <Paper css={styles.root} className={className}>

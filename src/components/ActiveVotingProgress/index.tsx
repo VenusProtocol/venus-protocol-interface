@@ -86,7 +86,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
         },
       },
     ],
-    [votedForMantissa, votedAgainstMantissa, abstainedMantissa, xvs],
+    [votedForMantissa, votedAgainstMantissa, abstainedMantissa, xvs, votedTotalMantissa, t],
   );
 
   return (
