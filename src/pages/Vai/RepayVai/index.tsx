@@ -14,8 +14,8 @@ import {
 import { displayMutationError } from 'errors';
 import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 import {
   convertTokensToWei,

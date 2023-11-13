@@ -1,4 +1,4 @@
-import { t } from 'translation';
+import { t } from 'packages/translations';
 
 import { ReactComponent as BitKeepLogo } from 'assets/img/wallets/bitKeepLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/wallets/braveWalletLogo.svg';

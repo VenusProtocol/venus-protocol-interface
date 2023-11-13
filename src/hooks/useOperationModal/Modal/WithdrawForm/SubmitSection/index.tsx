@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { PrimaryButton } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 
 import { FormError } from '../useForm/types';
 

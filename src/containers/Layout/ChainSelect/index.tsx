@@ -1,5 +1,5 @@
 import { Select, SelectOption } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { ChainId } from 'types';
 import { cn } from 'utilities';
 

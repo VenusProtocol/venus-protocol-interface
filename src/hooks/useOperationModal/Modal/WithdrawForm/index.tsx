@@ -2,8 +2,8 @@
 import BigNumber from 'bignumber.js';
 import { Delimiter, LabeledInlineContent, TokenTextField } from 'components';
 import { VError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
 import { convertTokensToWei } from 'utilities';
 

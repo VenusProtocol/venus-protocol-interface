@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
+import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -17,7 +18,6 @@ import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import RequestWithdrawal from '.';
 import TEST_IDS from '../../../TransactionForm/testIds';

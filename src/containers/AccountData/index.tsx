@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 

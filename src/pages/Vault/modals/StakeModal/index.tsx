@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'packages/contracts';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';

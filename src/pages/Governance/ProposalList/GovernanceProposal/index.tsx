@@ -11,8 +11,8 @@ import {
   ProposalTypeChip,
 } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { ProposalState, ProposalType, Token, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';

@@ -1,4 +1,4 @@
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 

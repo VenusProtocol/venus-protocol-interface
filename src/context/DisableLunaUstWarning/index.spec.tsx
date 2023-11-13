@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 import { Pool } from 'types';
 import Vi from 'vitest';
@@ -7,7 +8,6 @@ import { poolData } from '__mocks__/models/pools';
 import { vLuna, vUst } from '__mocks__/models/vTokens';
 import { useGetMainPool } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 describe('context/DisableLunaUstWarning', () => {
   it.each([vUst, vLuna])('displays warning modal if %s is enabled as collateral', async vToken => {

@@ -1,6 +1,6 @@
 import { Tag, TagGroup, TextField } from 'components';
+import { useTranslation } from 'packages/translations';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';

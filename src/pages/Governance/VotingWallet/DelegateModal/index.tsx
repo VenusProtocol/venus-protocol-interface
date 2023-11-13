@@ -12,8 +12,8 @@ import {
 } from 'components';
 import { displayMutationError } from 'errors';
 import { Form, Formik } from 'formik';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 
 import { routes } from 'constants/routing';
 

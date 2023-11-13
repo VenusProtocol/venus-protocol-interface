@@ -1,5 +1,5 @@
+import { useTranslation } from 'packages/translations';
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { cn } from 'utilities';
 
 import { useBreakpointUp } from 'hooks/responsive';

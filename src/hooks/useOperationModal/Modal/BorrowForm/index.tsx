@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
 import { convertTokensToWei } from 'utilities';
 

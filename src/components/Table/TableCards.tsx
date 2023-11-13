@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'translation';
 
 import { Spinner } from 'components/Spinner';
 

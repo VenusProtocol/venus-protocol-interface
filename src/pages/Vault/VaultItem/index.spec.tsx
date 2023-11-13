@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
+import { en } from 'packages/translations';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { vrt } from '__mocks__/models/tokens';
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import VaultItem, { VaultItemProps } from '.';
 import TEST_IDS from './testIds';

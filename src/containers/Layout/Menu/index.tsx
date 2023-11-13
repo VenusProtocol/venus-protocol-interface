@@ -1,7 +1,7 @@
 import { Icon, Link } from 'components';
 import config from 'config';
+import { useTranslation } from 'packages/translations';
 import { useState } from 'react';
-import { useTranslation } from 'translation';
 import { cn } from 'utilities';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';

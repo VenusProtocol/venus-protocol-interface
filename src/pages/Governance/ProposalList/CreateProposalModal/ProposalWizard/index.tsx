@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { FormikSubmitButton, PrimaryButton } from 'components';
 import { useFormikContext } from 'formik';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'translation';
 
 import { Subdirectory, routes } from 'constants/routing';
 

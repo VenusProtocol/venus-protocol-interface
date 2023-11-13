@@ -3,8 +3,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, NoticeWarning, TokenIcon } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useContext, useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
 

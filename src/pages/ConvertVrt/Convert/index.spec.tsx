@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 
@@ -6,7 +7,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Convert from '.';
 

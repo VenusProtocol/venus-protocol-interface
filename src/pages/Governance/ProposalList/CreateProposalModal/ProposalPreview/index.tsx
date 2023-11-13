@@ -3,8 +3,8 @@ import { Typography } from '@mui/material';
 import { MarkdownViewer } from 'components';
 import { useFormikContext } from 'formik';
 import { useGetTokens } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';

@@ -8,7 +8,7 @@ import {
   logError,
 } from 'errors';
 import { ContractReceipt, ContractTransaction } from 'ethers';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { displayNotification, updateNotification } from 'utilities';
 
 import { BLOCK_TIME_MS } from 'constants/bsc';

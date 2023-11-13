@@ -1,11 +1,11 @@
 import { fireEvent } from '@testing-library/react';
+import { en } from 'packages/translations';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetPrimeToken } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import { Banner } from '..';
 

@@ -1,5 +1,5 @@
+import { useTranslation } from 'packages/translations';
 import { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { ChainId } from 'types';
 import { UrlType, cn, generateChainExplorerUrl } from 'utilities';
 

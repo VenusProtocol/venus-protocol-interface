@@ -1,5 +1,6 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import { displayMutationError } from 'errors';
+import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -7,7 +8,6 @@ import fakeAddress from '__mocks__/models/address';
 import TEST_VIP from 'assets/proposals/vip-123.json';
 import { routes } from 'constants/routing';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import CreateProposalModal from '.';
 import TEST_IDS from './testIds';

@@ -1,6 +1,7 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { getVaiControllerContractAddress } from 'packages/contracts';
+import { en } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
@@ -18,7 +19,6 @@ import {
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import RepayVai from '..';
 import TEST_IDS from '../../testIds';

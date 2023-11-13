@@ -2,9 +2,9 @@
 import { BigNumber } from 'bignumber.js';
 import { Button, NoticeInfo, Spinner } from 'components';
 import { useGetToken, useGetTokens } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'translation';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 

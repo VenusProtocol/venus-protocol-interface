@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { NoticeError, NoticeWarning } from 'components';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { Asset, Swap } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 

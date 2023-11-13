@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Icon, Tooltip } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 

@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
+import { en } from 'packages/translations';
 import { Asset, Swap, TokenBalance } from 'types';
 import Vi from 'vitest';
 
@@ -20,7 +21,6 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Repay from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';

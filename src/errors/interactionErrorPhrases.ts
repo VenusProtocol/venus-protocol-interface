@@ -1,4 +1,4 @@
-import { t } from 'translation';
+import { t } from 'packages/translations';
 
 export const interactionErrorPhrases = {
   collateralRequired: t('markets.errors.collateralRequired'),

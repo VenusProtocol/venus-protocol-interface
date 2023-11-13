@@ -1,4 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 import { convertWeiToTokens } from 'utilities';
 import Vi from 'vitest';
@@ -10,7 +11,6 @@ import { vai } from '__mocks__/models/tokens';
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import RepayVai from '.';
 

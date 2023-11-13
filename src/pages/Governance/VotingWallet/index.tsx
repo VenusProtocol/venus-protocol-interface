@@ -11,8 +11,8 @@ import {
   TokenIcon,
 } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 

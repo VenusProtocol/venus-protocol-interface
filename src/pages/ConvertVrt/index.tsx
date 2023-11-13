@@ -2,8 +2,8 @@
 import Paper from '@mui/material/Paper';
 import { Spinner, Tabs } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 
 import {

@@ -10,8 +10,8 @@ import {
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import {
   compareBigNumbers,
   compareBooleans,

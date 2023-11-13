@@ -1,5 +1,5 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 
 import { PRIME_DOC_URL } from 'constants/prime';
 

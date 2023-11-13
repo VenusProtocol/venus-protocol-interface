@@ -1,6 +1,7 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
+import { en } from 'packages/translations';
 import React from 'react';
 import { VoteSupport } from 'types';
 import Vi from 'vitest';
@@ -21,7 +22,6 @@ import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei'
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Proposal from '.';
 import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';

@@ -4,8 +4,8 @@ import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import { displayMutationError } from 'errors';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useContext } from 'react';
-import { useTranslation } from 'translation';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';

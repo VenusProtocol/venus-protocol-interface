@@ -13,8 +13,8 @@ import {
 import { VError, displayMutationError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { isTokenActionEnabled } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
 

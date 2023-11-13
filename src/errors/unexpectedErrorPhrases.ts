@@ -1,4 +1,4 @@
-import { t } from 'translation';
+import { t } from 'packages/translations';
 
 export const unexpectedErrorPhrases = {
   somethingWentWrong: t('errors.somethingWentWrong'),

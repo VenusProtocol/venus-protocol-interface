@@ -1,5 +1,5 @@
 import { Icon, Link, Tooltip } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { PrimeSimulationDistribution, Token } from 'types';
 
 import { PRIME_DOC_URL } from 'constants/prime';

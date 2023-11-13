@@ -2,9 +2,9 @@
 import Typography from '@mui/material/Typography';
 import config from 'config';
 import { displayMutationError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { Trans } from 'react-i18next';
-import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3/types';
 import { NoticeInfo } from 'components/Notice';

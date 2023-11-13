@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'translation';
 import { Proposal } from 'types';
 
 import {

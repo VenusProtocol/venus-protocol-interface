@@ -6,8 +6,8 @@ import {
   useGetVenusLensContract,
 } from 'packages/contracts';
 import { useGetToken, useGetTokens } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { useTranslation } from 'translation';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

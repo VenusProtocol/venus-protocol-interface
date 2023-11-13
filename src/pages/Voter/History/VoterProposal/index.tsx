@@ -9,8 +9,8 @@ import {
   InactiveChip,
   ProposalCard,
 } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { ProposalState, Token, VoteSupport } from 'types';
 
 import { routes } from 'constants/routing';
