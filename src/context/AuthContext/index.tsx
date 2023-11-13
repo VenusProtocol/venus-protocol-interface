@@ -41,7 +41,7 @@ export const AuthContext = React.createContext<AuthContextValue>({
   closeAuthModal: noop,
   switchChain: noop,
   provider: getDefaultProvider(),
-  chainId: ChainId.BSC_MAINNET,
+  chainId: store.getState().chainId,
 });
 
 export interface AuthProviderProps {
