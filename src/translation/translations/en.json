@@ -149,7 +149,7 @@
         "enabledLabel": "Claim"
       },
       "selectAll": "Select all",
-      "title": "Claim reward"
+      "title": "Claim reward ({{chainName}})"
     },
     "openModalButton": {
       "label": "Claim {{rewardAmount}}"

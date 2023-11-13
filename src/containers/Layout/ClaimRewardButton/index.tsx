@@ -3,9 +3,11 @@ import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { VError, displayMutationError } from 'errors';
 import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
+import { ChainId } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Claim, useClaimRewards } from 'clients/api';
+import { chainsMetadata } from 'constants/chainsMetadata';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
@@ -22,6 +24,7 @@ export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   onClaimReward: () => Promise<unknown>;
   onToggleAllGroups: () => void;
   onToggleGroup: (toggledGroup: Group) => void;
+  chainId: ChainId;
   groups: Group[];
 }
 
@@ -34,9 +37,11 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   onToggleAllGroups,
   onToggleGroup,
   groups,
+  chainId,
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
+  const chainMetadata = chainsMetadata[chainId];
 
   const totalRewardsCents = useMemo(
     () =>
@@ -85,7 +90,15 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
       <Modal
         isOpen={isModalOpen}
         handleClose={onCloseModal}
-        title={<h4>{t('claimReward.modal.title')}</h4>}
+        title={
+          <div className="flex items-center">
+            <img src={chainMetadata.logoSrc} alt={chainMetadata.name} className="mr-3 w-6" />
+
+            {t('claimReward.modal.title', {
+              chainName: chainMetadata.name,
+            })}
+          </div>
+        }
       >
         <>
           <div className="mb-4 flex items-center justify-between border-b border-lightGrey pb-4">
@@ -128,7 +141,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 export type ClaimRewardButtonProps = Omit<ButtonProps, 'onClick'>;
 
 export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
-  const { accountAddress } = useAuth();
+  const { accountAddress, chainId } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
@@ -198,6 +211,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
       onClaimReward={handleClaimReward}
       onToggleGroup={handleToggleGroup}
       onToggleAllGroups={handleToggleAllGroups}
+      chainId={chainId}
       {...props}
     />
   );
