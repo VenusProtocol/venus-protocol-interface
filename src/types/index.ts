@@ -14,6 +14,11 @@ export enum ChainId {
   'SEPOLIA' = 11155111,
 }
 
+export interface ChainMetadata {
+  name: string;
+  logoSrc: string;
+}
+
 export interface Token {
   symbol: string;
   decimals: number;
