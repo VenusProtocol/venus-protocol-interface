@@ -63,7 +63,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           data-testid={TEST_IDS.votingDisabledWarning}
           title={t('vote.multichain.votingOnlyEnabledOnBsc')}
           description={
-            <Button variant="text" onClick={() => switchChain({ chainId: governanceChain.id })}>
+            <Button
+              className="h-auto"
+              variant="text"
+              onClick={() => switchChain({ chainId: governanceChain.id })}
+            >
               {t('vote.multichain.switchToBsc')}
             </Button>
           }
