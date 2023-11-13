@@ -367,8 +367,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     userStakedXvsTokensData.pendingWithdrawalsTotalAmountWei,
   );
 
-  const { mutateAsync: claimPrimeToken, isLoading: isClaimPrimeTokenLoading } =
-    useClaimPrimeToken();
+  const { mutateAsync: claimPrimeToken, isLoading: isClaimPrimeTokenLoading } = useClaimPrimeToken({
+    waitForConfirmation: true,
+  });
 
   const isLoading =
     isGetPrimeTokenLoading ||

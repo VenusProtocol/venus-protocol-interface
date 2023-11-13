@@ -1,41 +1,30 @@
 import { Tag, TagGroup, TextField } from 'components';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Pool } from 'types';
 
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
 import { useAuth } from 'context/AuthContext';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
-import { ConnectWalletBanner } from './ConnectWalletBanner';
-import { PrimePromotionalBanner } from './PrimePromotionalBanner';
+import { Banner } from './Banner';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
 
-interface DashboardUiProps {
-  searchValue: string;
-  isPrimeEnabled: boolean;
-  onSearchInputChange: (newValue: string) => void;
-  pools: Pool[];
-  isFetchingPools?: boolean;
-}
-
-export const DashboardUi: React.FC<DashboardUiProps> = ({
-  pools,
-  isPrimeEnabled,
-  isFetchingPools,
-  searchValue,
-  onSearchInputChange,
-}) => {
+const Dashboard: React.FC = () => {
   const { t } = useTranslation();
+  const { accountAddress } = useAuth();
+
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
+  const [searchValue, setSearchValue] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    onSearchInputChange(changeEvent.currentTarget.value);
+    setSearchValue(changeEvent.currentTarget.value);
 
-  const formattedPools = useFormatPools({
-    pools,
+  const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
+    accountAddress,
+  });
+  const pools = useFormatPools({
+    pools: getPoolData?.pools || [],
     searchValue,
     selectedPoolIndex: selectedPoolTagIndex - 1,
   });
@@ -58,7 +47,7 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
-      {isPrimeEnabled ? <PrimePromotionalBanner /> : <ConnectWalletBanner />}
+      <Banner />
 
       <div className="mb-6 lg:flex lg:items-center lg:justify-between">
         <TextField
@@ -82,8 +71,8 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
       </div>
 
       <MarketTable
-        pools={formattedPools}
-        isFetching={isFetchingPools}
+        pools={pools}
+        isFetching={isGetPoolsLoading}
         breakpoint="lg"
         columns={[
           'asset',
@@ -102,26 +91,6 @@ export const DashboardUi: React.FC<DashboardUiProps> = ({
         key="dashboard-market-table"
       />
     </>
-  );
-};
-
-const Dashboard: React.FC = () => {
-  const { accountAddress } = useAuth();
-  const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const [searchValue, setSearchValue] = useState('');
-
-  const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress,
-  });
-
-  return (
-    <DashboardUi
-      pools={getPoolData?.pools || []}
-      isPrimeEnabled={isPrimeEnabled}
-      isFetchingPools={isGetPoolsLoading}
-      searchValue={searchValue}
-      onSearchInputChange={setSearchValue}
-    />
   );
 };
 

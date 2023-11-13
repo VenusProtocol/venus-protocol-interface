@@ -1,31 +1,19 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import React from 'react';
 import { useTranslation } from 'translation';
 
-import { useGetPrimeToken } from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
-import { useAuth } from 'context/AuthContext';
 
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';
 import primeTokenIllustration from './primeTokenIllustration.png';
-import { store } from './store';
 import TEST_IDS from './testIds';
 
-export interface PrimePromotionalBannerUiProps {
-  shouldShow: boolean;
+export interface PrimePromotionalBannerProps {
   onHide: () => void;
 }
 
-export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> = ({
-  shouldShow,
-  onHide,
-}) => {
+export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ onHide }) => {
   const { t, Trans } = useTranslation();
-
-  if (!shouldShow) {
-    return null;
-  }
 
   return (
     <Card className="relative mb-8 border border-lightGrey py-6 sm:p-0 md:p-0">
@@ -88,17 +76,4 @@ export const PrimePromotionalBannerUi: React.FC<PrimePromotionalBannerUiProps> =
       </div>
     </Card>
   );
-};
-
-export const PrimePromotionalBanner: React.FC = () => {
-  const { accountAddress } = useAuth();
-  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
-    accountAddress,
-  });
-  const isAccountPrime = !!getPrimeTokenData?.exists;
-  const storeShouldShowBanner = store.use.shouldShowBanner();
-  const shouldShow = !isGetPrimeTokenLoading && !isAccountPrime && storeShouldShowBanner;
-  const hideBanner = store.use.hideBanner();
-
-  return <PrimePromotionalBannerUi shouldShow={shouldShow} onHide={hideBanner} />;
 };

@@ -14,7 +14,7 @@ const useStore = create<State>()(
       hideBanner: () => set({ shouldShowBanner: false }),
     }),
     {
-      name: 'venus-prime-promotional-banner',
+      name: 'venus-dashboard-banner',
     },
   ),
 );
