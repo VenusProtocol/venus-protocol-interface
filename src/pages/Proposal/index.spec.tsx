@@ -18,6 +18,7 @@ import {
   queueProposal,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
+import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -28,6 +29,7 @@ import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
 import TEST_IDS from './testIds';
 
 vi.mock('hooks/useVote');
+vi.mock('hooks/useIsFeatureEnabled');
 
 const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
@@ -73,6 +75,12 @@ describe('pages/Proposal', () => {
       vote: vi.fn(),
       isLoading: false,
     }));
+
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      () =>
+        ({ name }: UseIsFeatureEnabled) =>
+          name === 'voteProposal',
+    );
 
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
       votesWei: new BigNumber('100000000000000000'),
@@ -137,6 +145,39 @@ describe('pages/Proposal', () => {
     });
 
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeEnabled());
+  });
+
+  it('vote buttons are not enabled when feature flag is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+  });
+
+  it('does not render the voting disabled warning when feature flag is enabled', async () => {
+    const { queryByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.votingDisabledWarning)).toBeNull());
+  });
+
+  it('renders warning about voting being disabled when the feature flag is off', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        accountAddress: fakeAddress,
+      },
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
   });
 
   it('allows user to vote for', async () => {

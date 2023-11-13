@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
-import { Spinner } from 'components';
+import { Button, NoticeInfo, Spinner } from 'components';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,9 @@ import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
+import { governanceChain } from 'clients/web3';
 import { useAuth } from 'context/AuthContext';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -36,6 +38,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   readableVoteWeight,
   isVoteLoading,
 }) => {
+  const { switchChain } = useAuth();
+  const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -53,6 +57,23 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
 
+      {!voteProposalFeatureEnabled && (
+        <NoticeInfo
+          className="mb-8 w-full"
+          data-testid={TEST_IDS.votingDisabledWarning}
+          title={t('vote.multichain.votingOnlyEnabledOnBsc')}
+          description={
+            <Button
+              className="h-auto"
+              variant="text"
+              onClick={() => switchChain({ chainId: governanceChain.id })}
+            >
+              {t('vote.multichain.switchToBsc')}
+            </Button>
+          }
+        />
+      )}
+
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
@@ -62,7 +83,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.forVotes}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
-          votingEnabled={votingEnabled}
+          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.for}
         />
 
@@ -74,7 +95,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.againstVotes}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
-          votingEnabled={votingEnabled}
+          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.against}
         />
 
@@ -86,7 +107,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.abstainVotes}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
-          votingEnabled={votingEnabled}
+          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.abstain}
         />
       </div>
@@ -97,7 +118,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         tokens={tokens}
       />
 
-      {voteModalType !== undefined && (
+      {voteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal
           voteModalType={voteModalType}
           handleClose={() => setVoteModalType(undefined)}
