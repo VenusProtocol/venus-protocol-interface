@@ -7,6 +7,7 @@ export const unexpectedErrorPhrases = {
   somethingWentWrongRetrievingVoterDetails: t('errors.somethingWentWrongRetrievingVoterDetails'),
   somethingWentWrongRetrievingVoterHistory: t('errors.somethingWentWrongRetrievingVoterHistory'),
   couldNotRetrieveSigner: t('errors.couldNotRetrieveSigner'),
+  couldNotSwitchChain: t('errors.couldNotSwitchChain'),
   walletNotConnected: t('errors.walletNotConnected'),
   undefinedAccountErrorMessage: t('errors.undefinedAccountErrorMessage'),
   internalErrorXvsToVrtConversionRatioUndefined: t(

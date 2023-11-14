@@ -193,7 +193,8 @@
     }
   },
   "errors": {
-    "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked",
+    "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
+    "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
@@ -597,10 +598,6 @@
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to stake",
     "submitButtonLabel": "Stake",
-    "successfulTransactionModal": {
-      "description": "You successful staked",
-      "title": "Your stake was successful"
-    },
     "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
@@ -650,10 +647,6 @@
         "swap": "Swap",
         "swapWithHighPriceImpact": "Swap with high price impact"
       }
-    },
-    "successfulSwapTransactionModal": {
-      "message": "You successfully swapped your tokens",
-      "title": "Your swap was successful"
     },
     "toTokenAmountField": {
       "label": "To"
@@ -923,8 +916,8 @@
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "multichain": {
-      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain",
-      "switchToBsc": "Switch to BSC chain"
+      "switchToBsc": "Switch to BSC chain",
+      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain"
     },
     "pages": {
       "actions": "3 of 3 Actions",
@@ -943,10 +936,6 @@
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",
-    "successfulDelegationModal": {
-      "message": "You successfully delegated",
-      "title": "Your delegation was successful"
-    },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
@@ -1082,10 +1071,6 @@
     "connectWalletMessage": "Please connect your wallet to withdraw {{tokenSymbol}}",
     "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
     "submitButtonLabel": "Withdraw",
-    "successfulTransactionModal": {
-      "description": "You successful withdrew",
-      "title": "Your withdrawal was successful"
-    },
     "title": "Withdraw {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
