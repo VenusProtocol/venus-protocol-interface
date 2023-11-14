@@ -17,6 +17,7 @@ const getVTokenApySimulations = async ({
   interestRateModelContract,
   isIsolatedPoolMarket,
   asset,
+  blocksPerDay,
 }: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
   const reserveFactorMantissa = new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA);
 
@@ -109,6 +110,7 @@ const getVTokenApySimulations = async ({
   const apySimulations = formatToApySnapshots({
     borrowRates,
     supplyRates,
+    blocksPerDay,
   });
   const currentUtilizationRatePercentage = formatCurrentUtilizationRate({
     utilizationRatePercentage,

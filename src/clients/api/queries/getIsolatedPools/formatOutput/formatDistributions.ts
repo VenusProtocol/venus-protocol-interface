@@ -10,6 +10,7 @@ import { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettin
 import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 
 export interface FormatDistributionsInput {
+  blocksPerDay: number;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
@@ -20,6 +21,7 @@ export interface FormatDistributionsInput {
 }
 
 const formatDistributions = ({
+  blocksPerDay,
   underlyingTokenPriceDollars,
   tokens,
   tokenPriceDollarsMapping,
@@ -69,6 +71,7 @@ const formatDistributions = ({
         const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
           mantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
+          blocksPerDay,
         });
 
         supplyDistributions.push(
@@ -90,6 +93,7 @@ const formatDistributions = ({
         const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
           mantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,
+          blocksPerDay,
         });
 
         borrowDistributions.push(

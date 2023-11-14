@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Button, SecondaryButton, Spinner } from 'components';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { Asset, Token } from 'types';
+import { Asset, ChainId, Token } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
@@ -15,8 +15,9 @@ import {
 import { useGetVTokenApySimulations } from 'clients/api';
 import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
-import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
@@ -36,12 +37,14 @@ export interface MarketUiProps {
   poolComptrollerAddress: string;
   currentUtilizationRatePercentage: number;
   asset: Asset;
+  chainId: ChainId;
   isBorrowActionEnabled: boolean;
   isSupplyActionEnabled: boolean;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
   asset,
+  chainId,
   isChartDataLoading,
   poolComptrollerAddress,
   supplyChartData,
@@ -60,20 +63,21 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const { openOperationModal, OperationModal } = useOperationModal();
 
-  const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
-    () => ({
+  const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(() => {
+    const { blocksPerDay } = CHAIN_METADATA[chainId];
+
+    return {
       // Calculate daily interests for suppliers and borrowers. Note that we don't
       // use BigNumber to calculate these values, as this would slow down
       // calculation a lot while the end result doesn't need to be extremely
       // precise
 
       // prettier-ignore
-      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
+      dailySupplyInterestsCents: asset && +asset.supplyBalanceCents * (((1 + asset.supplyPercentageRatePerBlock.toNumber()) ** blocksPerDay) - 1),
       // prettier-ignore
-      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** BLOCKS_PER_DAY) - 1),
-    }),
-    [asset],
-  );
+      dailyBorrowInterestsCents: asset && +asset.borrowBalanceCents * (((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** blocksPerDay) - 1),
+    };
+  }, [asset, chainId]);
 
   const isSupplyOrBorrowEnabled = isSupplyActionEnabled || isBorrowActionEnabled;
 
@@ -425,6 +429,8 @@ const Market: React.FC<MarketProps> = ({
   asset,
   isIsolatedPoolMarket = false,
 }) => {
+  const { chainId } = useAuth();
+
   const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken: asset.vToken,
   });
@@ -454,6 +460,7 @@ const Market: React.FC<MarketProps> = ({
   return (
     <MarketUi
       asset={asset}
+      chainId={chainId}
       poolComptrollerAddress={poolComptrollerAddress}
       isChartDataLoading={isChartDataLoading}
       {...chartData}

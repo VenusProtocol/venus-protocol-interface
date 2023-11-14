@@ -4,6 +4,7 @@ import { Pool, Token } from 'types';
 import { type Provider } from 'clients/web3';
 
 export interface GetIsolatedPoolsInput {
+  blocksPerDay: number;
   tokens: Token[];
   provider: Provider;
   poolRegistryContractAddress: string;

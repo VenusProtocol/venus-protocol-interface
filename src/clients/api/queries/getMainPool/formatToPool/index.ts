@@ -13,7 +13,6 @@ import {
   multiplyMantissaDaily,
 } from 'utilities';
 
-import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -24,6 +23,7 @@ import { formatDistributions } from './formatDistributions';
 const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
 
 export interface FormatToPoolInput {
+  blocksPerDay: number;
   name: string;
   xvs: Token;
   vai: Token;
@@ -51,6 +51,7 @@ export interface FormatToPoolInput {
 }
 
 export const formatToPool = ({
+  blocksPerDay,
   name,
   xvs,
   vai,
@@ -218,6 +219,7 @@ export const formatToPool = ({
 
     const supplyDailyPercentageRate = multiplyMantissaDaily({
       mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+      blocksPerDay,
     });
 
     const supplyApyPercentage = calculateApy({
@@ -226,14 +228,15 @@ export const formatToPool = ({
 
     const borrowDailyPercentageRate = multiplyMantissaDaily({
       mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+      blocksPerDay,
     });
 
     const borrowApyPercentage = calculateApy({
       dailyRate: borrowDailyPercentageRate,
     });
 
-    const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
-    const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+    const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
+    const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
     const supplyBalanceVTokens = convertWeiToTokens({
       valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -262,6 +265,7 @@ export const formatToPool = ({
       xvs,
       vToken,
       primeApy: primeApyMap.get(vToken.address)?.borrowApy,
+      blocksPerDay,
     });
 
     const supplyDistributions = formatDistributions({
@@ -271,6 +275,7 @@ export const formatToPool = ({
       xvs,
       vToken,
       primeApy: primeApyMap.get(vToken.address)?.supplyApy,
+      blocksPerDay,
     });
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(

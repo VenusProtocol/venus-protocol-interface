@@ -7,6 +7,7 @@ import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
@@ -36,6 +37,8 @@ const useGetVTokenApySimulations = (
   options?: Options,
 ) => {
   const { provider, chainId } = useAuth();
+  const { blocksPerDay } = CHAIN_METADATA[chainId];
+
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
 
   const interestRateModelContract = useMemo(() => {
@@ -60,6 +63,7 @@ const useGetVTokenApySimulations = (
         interestRateModelContract: interestRateModelContract!, // Checked through enabled option
         asset: asset!, // Checked through enabled option
         isIsolatedPoolMarket,
+        blocksPerDay,
       }),
     {
       ...options,

@@ -4,15 +4,18 @@ import { Proposal, ProposalState } from 'types';
 import { queryClient } from 'clients/api';
 import getProposal from 'clients/api/queries/getProposals/getProposal';
 import { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposals/types';
-import { BLOCK_TIME_MS } from 'constants/bsc';
+import { governanceChain } from 'clients/web3';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
+
+export type UseGetProposalQueryKey = [FunctionKey.GET_PROPOSAL, GetProposalInput];
 
 type Options = QueryObserverOptions<
   GetProposalOutput,
   Error,
   GetProposalOutput,
   GetProposalOutput,
-  [FunctionKey.GET_PROPOSAL, GetProposalInput]
+  UseGetProposalQueryKey
 >;
 
 const refetchStates = [
@@ -23,12 +26,14 @@ const refetchStates = [
 ];
 
 // refetchInterval is set automatically with onSuccess so it is excluded from being set manually
-const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refetchInterval'>) =>
-  useQuery([FunctionKey.GET_PROPOSAL, params], () => getProposal(params), {
+const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refetchInterval'>) => {
+  const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
+
+  return useQuery([FunctionKey.GET_PROPOSAL, params], () => getProposal(params), {
     onSuccess: (data: Proposal) => {
       if (refetchStates.includes(data.state)) {
         queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
-          refetchInterval: BLOCK_TIME_MS,
+          refetchInterval: blockTimeMs,
         });
       }
 
@@ -38,5 +43,6 @@ const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refet
     },
     ...options,
   });
+};
 
 export default useGetProposal;

@@ -16,9 +16,10 @@ import Vi from 'vitest';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
 
-import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
+import { CONFIRMATIONS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
 vi.mock('context/AuthContext');
@@ -74,7 +75,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      TIMEOUT_MS,
+      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
     );
 
     // Check error was logged
@@ -137,7 +138,7 @@ describe('useTrackTransaction', () => {
       expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
         fakeContractTransaction.hash,
         CONFIRMATIONS,
-        TIMEOUT_MS,
+        CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
       );
 
       // Test check functions were called
@@ -190,7 +191,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      TIMEOUT_MS,
+      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
     );
 
     // Check notification was updated
@@ -237,7 +238,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      TIMEOUT_MS,
+      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
     );
 
     // Check notification was updated

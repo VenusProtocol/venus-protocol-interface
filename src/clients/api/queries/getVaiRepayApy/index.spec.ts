@@ -17,6 +17,7 @@ describe('api/queries/getVaiRepayApy', () => {
 
     const response = await getVaiRepayApy({
       vaiControllerContract: fakeContract,
+      blocksPerDay: 28800,
     });
 
     expect(getVAIRepayRatePerBlockMock).toHaveBeenCalledTimes(1);

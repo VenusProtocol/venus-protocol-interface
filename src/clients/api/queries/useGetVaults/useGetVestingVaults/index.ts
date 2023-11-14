@@ -12,8 +12,9 @@ import {
   useGetXvsVaultRewardPerBlock,
   useGetXvsVaultTotalAllocationPoints,
 } from 'clients/api';
-import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { useAuth } from 'context/AuthContext';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
@@ -29,6 +30,8 @@ const useGetVestingVaults = ({
 }: {
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
+  const { chainId } = useAuth();
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -171,8 +174,9 @@ const useGetVestingVaults = ({
               .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
               .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
 
+          const { blocksPerDay } = CHAIN_METADATA[chainId];
           const dailyEmissionWei =
-            poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
+            poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(blocksPerDay);
 
           const stakingAprPercentage =
             dailyEmissionWei &&
@@ -218,6 +222,7 @@ const useGetVestingVaults = ({
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       xvs,
       tokens,
+      chainId,
     ],
   );
 

@@ -72,6 +72,7 @@ describe('getMainPool', () => {
 
   it('returns main pool in the correct format', async () => {
     const response = await getMainPool({
+      blocksPerDay: 28800,
       name: 'Fake pool name',
       description: 'Fake pool description',
       xvs,
@@ -99,6 +100,7 @@ describe('getMainPool', () => {
     } as unknown as Prime;
 
     const response = await getMainPool({
+      blocksPerDay: 28800,
       name: 'Fake pool name',
       description: 'Fake pool description',
       xvs,
@@ -130,6 +132,7 @@ describe('getMainPool', () => {
     } as unknown as Prime;
 
     const response = await getMainPool({
+      blocksPerDay: 28800,
       name: 'Fake pool name',
       description: 'Fake pool description',
       xvs,

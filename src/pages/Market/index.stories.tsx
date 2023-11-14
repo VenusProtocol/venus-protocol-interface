@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { ChainId } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
 import { poolData } from '__mocks__/models/pools';
@@ -56,6 +57,7 @@ export default {
 
 export const Default = () => (
   <MarketUi
+    chainId={ChainId.BSC_TESTNET}
     asset={assetData[0]}
     supplyChartData={fakeApyChartData}
     borrowChartData={fakeApyChartData}

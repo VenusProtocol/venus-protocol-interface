@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 import { MainPoolComptroller } from 'packages/contracts';
+import { ChainId } from 'types';
 
-import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 
 import getVenusVaiVaultDailyRate from '.';
 
@@ -18,11 +19,14 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
 
     const response = await getVenusVaiVaultDailyRate({
       mainPoolComptrollerContract: fakeContract,
+      blocksPerDay: 28800,
     });
 
     expect(venusVaiVaultRateMock).toHaveBeenCalledTimes(1);
     expect(response).toEqual({
-      dailyRateWei: new BigNumber(fakeOutput.toString()).times(BLOCKS_PER_DAY),
+      dailyRateWei: new BigNumber(fakeOutput.toString()).times(
+        CHAIN_METADATA[ChainId.BSC_TESTNET].blocksPerDay,
+      ),
     });
   });
 });

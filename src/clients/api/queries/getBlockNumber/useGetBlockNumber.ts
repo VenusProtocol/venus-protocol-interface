@@ -2,7 +2,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 
 import { getBlockNumber } from 'clients/api/';
-import { BLOCK_TIME_MS } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
@@ -24,7 +24,7 @@ const useGetBlockNumber = (options?: Options) => {
   const { provider, chainId } = useAuth();
 
   return useQuery([FunctionKey.GET_BLOCK_NUMBER, { chainId }], () => getBlockNumber({ provider }), {
-    refetchInterval: BLOCK_TIME_MS,
+    refetchInterval: CHAIN_METADATA[chainId].blockTimeMs,
     ...options,
   });
 };

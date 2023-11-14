@@ -17,6 +17,9 @@ export enum ChainId {
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
+  blockTimeMs: number;
+  blocksPerDay: number;
+  explorerUrl: string;
 }
 
 export interface Token {

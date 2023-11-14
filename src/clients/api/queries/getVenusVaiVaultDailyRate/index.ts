@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { MainPoolComptroller } from 'packages/contracts';
 
-import { BLOCKS_PER_DAY } from 'constants/bsc';
-
 export interface GetVenusVaiVaultDailyRateInput {
+  blocksPerDay: number;
   mainPoolComptrollerContract: MainPoolComptroller;
 }
 
@@ -12,12 +11,13 @@ export type GetVenusVaiVaultDailyRateOutput = {
 };
 
 const getVenusVaiVaultDailyRate = async ({
+  blocksPerDay,
   mainPoolComptrollerContract,
 }: GetVenusVaiVaultDailyRateInput): Promise<GetVenusVaiVaultDailyRateOutput> => {
   const resp = await mainPoolComptrollerContract.venusVAIVaultRate();
 
   return {
-    dailyRateWei: new BigNumber(resp.toString()).times(BLOCKS_PER_DAY),
+    dailyRateWei: new BigNumber(resp.toString()).times(blocksPerDay),
   };
 };
 

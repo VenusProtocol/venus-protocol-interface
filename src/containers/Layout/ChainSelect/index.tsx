@@ -4,7 +4,7 @@ import { ChainId } from 'types';
 import { cn } from 'utilities';
 
 import { chains } from 'clients/web3';
-import { chainsMetadata } from 'constants/chainsMetadata';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
 
 export interface ChainSelectProps {
@@ -13,7 +13,7 @@ export interface ChainSelectProps {
 }
 
 const options: SelectOption<ChainId>[] = chains.map(chain => {
-  const metadata = chainsMetadata[chain.id as ChainId];
+  const metadata = CHAIN_METADATA[chain.id as ChainId];
 
   return {
     label: ({ isRenderedInButton }) => (
