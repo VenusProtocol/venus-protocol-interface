@@ -2,17 +2,19 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import {
+  Button,
   ButtonWrapper,
   Delimiter,
   Icon,
   InfoIcon,
   Link,
+  NoticeInfo,
   PrimaryButton,
   TokenIcon,
 } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useAuthModal } from 'packages/wallet';
+import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
@@ -25,6 +27,7 @@ import {
 } from 'clients/api';
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import DelegateModal from './DelegateModal';
 import { useStyles } from './styles';
@@ -57,6 +60,8 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   delegateModelIsOpen,
   setDelegateModelIsOpen,
 }) => {
+  const { switchChain } = useSwitchChain();
+  const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const { t, Trans } = useTranslation();
   const styles = useStyles();
 
@@ -87,6 +92,23 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   return (
     <div css={styles.root}>
       <Typography variant="h4">{t('vote.votingWallet')}</Typography>
+
+      {!voteProposalFeatureEnabled && (
+        <NoticeInfo
+          className="mt-4 w-full md:mt-6"
+          data-testid={TEST_IDS.votingDisabledWarning}
+          title={t('vote.multichain.votingOnlyEnabledOnBsc')}
+          description={
+            <Button
+              className="h-auto"
+              variant="text"
+              onClick={() => switchChain({ chainId: governanceChain.id })}
+            >
+              {t('vote.multichain.switchToBsc')}
+            </Button>
+          }
+        />
+      )}
 
       <Paper css={styles.votingWalletPaper}>
         <div css={styles.votingWeightContainer}>
@@ -150,65 +172,69 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         )}
       </Paper>
 
-      <Paper css={[styles.votingWalletPaper, styles.voteSection]}>
-        <Typography variant="body2" color="textPrimary" css={styles.toVote}>
-          {t('vote.toVoteYouShould')}
-        </Typography>
+      {voteProposalFeatureEnabled && (
+        <>
+          <Paper css={[styles.votingWalletPaper, styles.voteSection]}>
+            <Typography variant="body2" color="textPrimary" css={styles.toVote}>
+              {t('vote.toVoteYouShould')}
+            </Typography>
 
-        <Typography variant="small2" color="textPrimary" css={styles.depositTokens}>
-          <Trans
-            i18nKey="vote.depositYourTokens"
-            components={{
-              Link: (
-                <Link
-                  to={routes.vaults.path}
-                  css={styles.clickableText}
-                  data-testid={TEST_IDS.depositYourTokens}
-                />
-              ),
-            }}
+            <Typography variant="small2" color="textPrimary" css={styles.depositTokens}>
+              <Trans
+                i18nKey="vote.depositYourTokens"
+                components={{
+                  Link: (
+                    <Link
+                      to={routes.vaults.path}
+                      css={styles.clickableText}
+                      data-testid={TEST_IDS.depositYourTokens}
+                    />
+                  ),
+                }}
+              />
+            </Typography>
+
+            <Typography variant="small2" color="textPrimary">
+              <Trans
+                i18nKey="vote.delegateYourVoting"
+                components={{
+                  Anchor: (
+                    <span
+                      css={styles.clickableText}
+                      role="button"
+                      aria-pressed="false"
+                      tabIndex={0}
+                      onClick={() => setDelegateModelIsOpen(true)}
+                      data-testid={TEST_IDS.delegateYourVoting}
+                    />
+                  ),
+                }}
+              />
+            </Typography>
+          </Paper>
+
+          <ButtonWrapper
+            variant="secondary"
+            className="mt-6 w-full text-offWhite hover:no-underline"
+            asChild
+          >
+            <Link href={XVS_SNAPSHOT_URL}>
+              <Icon className="mr-2 h-6 w-6" name="lightening" />
+              {t('vote.goToXvsSnapshot')}
+            </Link>
+          </ButtonWrapper>
+
+          <DelegateModal
+            onClose={() => setDelegateModelIsOpen(false)}
+            isOpen={delegateModelIsOpen}
+            currentUserAccountAddress={currentUserAccountAddress}
+            previouslyDelegated={previouslyDelegated}
+            setVoteDelegation={setVoteDelegation}
+            isVoteDelegationLoading={isVoteDelegationLoading}
+            openAuthModal={openAuthModal}
           />
-        </Typography>
-
-        <Typography variant="small2" color="textPrimary">
-          <Trans
-            i18nKey="vote.delegateYourVoting"
-            components={{
-              Anchor: (
-                <span
-                  css={styles.clickableText}
-                  role="button"
-                  aria-pressed="false"
-                  tabIndex={0}
-                  onClick={() => setDelegateModelIsOpen(true)}
-                  data-testid={TEST_IDS.delegateYourVoting}
-                />
-              ),
-            }}
-          />
-        </Typography>
-      </Paper>
-
-      <ButtonWrapper
-        variant="secondary"
-        className="mt-6 w-full text-offWhite hover:no-underline"
-        asChild
-      >
-        <Link href={XVS_SNAPSHOT_URL}>
-          <Icon className="mr-2 h-6 w-6" name="lightening" />
-          {t('vote.goToXvsSnapshot')}
-        </Link>
-      </ButtonWrapper>
-
-      <DelegateModal
-        onClose={() => setDelegateModelIsOpen(false)}
-        isOpen={delegateModelIsOpen}
-        currentUserAccountAddress={currentUserAccountAddress}
-        previouslyDelegated={previouslyDelegated}
-        setVoteDelegation={setVoteDelegation}
-        isVoteDelegationLoading={isVoteDelegationLoading}
-        openAuthModal={openAuthModal}
-      />
+        </>
+      )}
     </div>
   );
 };
