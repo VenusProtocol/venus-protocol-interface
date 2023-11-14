@@ -1,6 +1,6 @@
 import { ChainId, Environment } from 'types';
 
-import { API_ENDPOINT_URLS, RPC_URLS } from 'constants/endpoints';
+import { API_ENDPOINT_URLS } from 'constants/endpoints';
 
 import { MAINNET_SUBGRAPH_URL, TESTNET_SUBGRAPH_URL } from './codegen';
 import { ENV_VARIABLES } from './envVariables';
@@ -32,26 +32,24 @@ const isOnTestnet =
 
 const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment !== 'storybook';
 
-const rpcUrls = isLocalServer
-  ? {
-      [ChainId.BSC_MAINNET]: {
-        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_MAINNET,
-        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
-      },
-      [ChainId.BSC_TESTNET]: {
-        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_TESTNET,
-        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
-      },
-      [ChainId.ETHEREUM]: {
-        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_ETHEREUM,
-        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
-      },
-      [ChainId.SEPOLIA]: {
-        http: ENV_VARIABLES.VITE_RPC_HTTP_URL_SEPOLIA,
-        webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_SEPOLIA,
-      },
-    }
-  : RPC_URLS;
+const rpcUrls = {
+  [ChainId.BSC_MAINNET]: {
+    http: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_MAINNET,
+    webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
+  },
+  [ChainId.BSC_TESTNET]: {
+    http: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_TESTNET,
+    webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
+  },
+  [ChainId.ETHEREUM]: {
+    http: ENV_VARIABLES.VITE_RPC_HTTP_URL_ETHEREUM,
+    webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
+  },
+  [ChainId.SEPOLIA]: {
+    http: ENV_VARIABLES.VITE_RPC_HTTP_URL_SEPOLIA,
+    webSocket: ENV_VARIABLES.VITE_RPC_WEBSOCKET_URL_SEPOLIA,
+  },
+};
 
 const apiUrl = API_ENDPOINT_URLS[environment];
 const subgraphUrl = isOnTestnet ? TESTNET_SUBGRAPH_URL : MAINNET_SUBGRAPH_URL;
