@@ -7,8 +7,9 @@ import getLatestProposalIdByProposer, {
   GetLatestProposalIdByProposerOutput,
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import { governanceChain } from 'clients/web3';
-import { BLOCK_TIME_MS } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
+import { useAuth } from 'context/AuthContext';
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,
@@ -22,6 +23,9 @@ const useGetLatestProposalIdByProposer = (
   { accountAddress }: Omit<GetLatestProposalIdByProposerInput, 'governorBravoDelegateContract'>,
   options?: Options,
 ) => {
+  const { chainId } = useAuth();
+  const { blockTimeMs } = CHAIN_METADATA[chainId];
+
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
@@ -36,7 +40,7 @@ const useGetLatestProposalIdByProposer = (
         }),
       ),
     {
-      staleTime: BLOCK_TIME_MS,
+      staleTime: blockTimeMs,
       ...options,
     },
   );

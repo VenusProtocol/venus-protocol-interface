@@ -9,6 +9,7 @@ import { GetMainPoolInput, GetMainPoolOutput, PrimeApy } from './types';
 export type { GetMainPoolInput, GetMainPoolOutput } from './types';
 
 const getMainPool = async ({
+  blocksPerDay,
   name,
   description,
   xvs,
@@ -144,6 +145,7 @@ const getMainPool = async ({
   const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
 
   const pool = formatToPool({
+    blocksPerDay,
     name,
     xvs,
     vai,

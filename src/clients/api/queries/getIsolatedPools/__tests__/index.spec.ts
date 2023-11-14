@@ -88,6 +88,7 @@ describe('api/queries/getIsolatedPools', () => {
     );
 
     const response = await getIsolatedPools({
+      blocksPerDay: 28800,
       tokens,
       provider: fakeProvider,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,

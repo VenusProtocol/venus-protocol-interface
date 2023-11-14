@@ -4,7 +4,6 @@ import { PoolLens } from 'packages/contracts';
 import { Asset, Pool, Token, VToken } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
@@ -23,6 +22,7 @@ import formatDistributions from './formatDistributions';
 
 export interface FormatToPoolsInput {
   tokens: Token[];
+  blocksPerDay: number;
   currentBlockNumber: number;
   poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
@@ -35,6 +35,7 @@ export interface FormatToPoolsInput {
 
 const formatToPools = ({
   tokens,
+  blocksPerDay,
   currentBlockNumber,
   poolResults,
   rewardsDistributorSettingsMapping,
@@ -128,6 +129,7 @@ const formatToPools = ({
 
       const supplyDailyPercentageRate = multiplyMantissaDaily({
         mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+        blocksPerDay,
       });
 
       const supplyApyPercentage = calculateApy({
@@ -136,14 +138,15 @@ const formatToPools = ({
 
       const borrowDailyPercentageRate = multiplyMantissaDaily({
         mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+        blocksPerDay,
       });
 
       const borrowApyPercentage = calculateApy({
         dailyRate: borrowDailyPercentageRate,
       });
 
-      const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
-      const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(BLOCKS_PER_DAY);
+      const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
+      const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
       const supplyBalanceVTokens = convertWeiToTokens({
         valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -194,6 +197,7 @@ const formatToPools = ({
       );
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
+        blocksPerDay,
         underlyingTokenPriceDollars: tokenPriceDollars,
         tokens,
         tokenPriceDollarsMapping,

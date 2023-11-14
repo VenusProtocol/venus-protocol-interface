@@ -1,24 +1,28 @@
 import BigNumber from 'bignumber.js';
 import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
 
-import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 
 import { VTokenApySnapshot } from './types';
 
 export interface FormatToApySnapshotsInput {
+  blocksPerDay: number;
   supplyRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getSupplyRate']>>[];
   borrowRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getBorrowRate']>>[];
 }
 
-const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshotsInput) => {
+const formatToApySnapshots = ({
+  blocksPerDay,
+  supplyRates,
+  borrowRates,
+}: FormatToApySnapshotsInput) => {
   let utilizationRatePercentage = 0;
 
   const apySimulations: VTokenApySnapshot[] = supplyRates.map((supplyRate, index) => {
     const supplyBase = new BigNumber(supplyRate.toString())
       .div(COMPOUND_MANTISSA)
-      .times(BLOCKS_PER_DAY)
+      .times(blocksPerDay)
       .plus(1);
     const supplyApyPercentage = new BigNumber(supplyBase.toNumber() ** (DAYS_PER_YEAR - 1))
       .minus(1)
@@ -27,7 +31,7 @@ const formatToApySnapshots = ({ supplyRates, borrowRates }: FormatToApySnapshots
 
     const borrowBase = new BigNumber(borrowRates[index].toString())
       .div(COMPOUND_MANTISSA)
-      .times(BLOCKS_PER_DAY)
+      .times(blocksPerDay)
       .plus(1);
     const borrowApyPercentage = new BigNumber(borrowBase.toNumber() ** (DAYS_PER_YEAR - 1))
       .minus(1)

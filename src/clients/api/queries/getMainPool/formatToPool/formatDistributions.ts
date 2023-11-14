@@ -3,6 +3,7 @@ import { AssetDistribution, Token, VToken } from 'types';
 import { formatRewardDistribution, multiplyMantissaDaily } from 'utilities';
 
 export interface FormatDistributionsInput {
+  blocksPerDay: number;
   xvsSpeedMantissa: BigNumber;
   balanceDollars: BigNumber;
   xvsPriceDollars: BigNumber;
@@ -12,6 +13,7 @@ export interface FormatDistributionsInput {
 }
 
 export const formatDistributions = ({
+  blocksPerDay,
   xvsSpeedMantissa,
   balanceDollars,
   xvsPriceDollars,
@@ -22,6 +24,7 @@ export const formatDistributions = ({
   const dailyDistributedXvs = multiplyMantissaDaily({
     mantissa: xvsSpeedMantissa,
     decimals: xvs.decimals,
+    blocksPerDay,
   });
 
   const xvsDistribution = formatRewardDistribution({

@@ -19,6 +19,7 @@ describe('api/queries/getVTokenApySimulations', () => {
       interestRateModelContract: fakeInterestRateModelContract,
       isIsolatedPoolMarket: false,
       asset: assetData[0],
+      blocksPerDay: 28800,
     });
 
     expect(response).toMatchSnapshot();
@@ -29,6 +30,7 @@ describe('api/queries/getVTokenApySimulations', () => {
       interestRateModelContract: fakeInterestRateModelV2Contract,
       isIsolatedPoolMarket: false,
       asset: assetData[0],
+      blocksPerDay: 28800,
     });
 
     expect(response).toMatchSnapshot();

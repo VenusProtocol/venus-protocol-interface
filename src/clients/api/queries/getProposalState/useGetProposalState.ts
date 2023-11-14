@@ -7,7 +7,7 @@ import getProposalState, {
   GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
 import { governanceChain } from 'clients/web3';
-import { BLOCK_TIME_MS } from 'constants/bsc';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 
 type TrimmedGetProposalStateInput = Omit<GetProposalStateInput, 'governorBravoDelegateContract'>;
@@ -21,6 +21,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Options) => {
+  const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
@@ -35,7 +36,7 @@ const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Opti
         }),
       ),
     {
-      staleTime: BLOCK_TIME_MS,
+      refetchInterval: blockTimeMs,
       ...options,
     },
   );

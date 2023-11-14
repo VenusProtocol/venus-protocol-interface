@@ -28,6 +28,7 @@ const safelyGetIsolatedPoolParticipantsCount = async () => {
 };
 
 const getIsolatedPools = async ({
+  blocksPerDay,
   accountAddress,
   poolLensContract,
   poolRegistryContractAddress,
@@ -158,6 +159,7 @@ const getIsolatedPools = async ({
   });
 
   const pools = formatOutput({
+    blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.blockNumber,
     poolResults,

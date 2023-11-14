@@ -7,7 +7,7 @@ import { ChainId } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Claim, useClaimRewards } from 'clients/api';
-import { chainsMetadata } from 'constants/chainsMetadata';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
@@ -41,7 +41,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
-  const chainMetadata = chainsMetadata[chainId];
+  const chainMetadata = CHAIN_METADATA[chainId];
 
   const totalRewardsCents = useMemo(
     () =>

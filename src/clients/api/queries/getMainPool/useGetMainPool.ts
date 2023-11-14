@@ -12,12 +12,14 @@ import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
   GetMainPoolInput,
+  | 'blocksPerDay'
   | 'provider'
   | 'name'
   | 'description'
@@ -47,6 +49,8 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   const { chainId } = useAuth();
+  const { blocksPerDay } = CHAIN_METADATA[chainId];
+
   const { t } = useTranslation();
 
   const xvs = useGetToken({ symbol: 'XVS' });
@@ -76,6 +80,7 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
         },
         params =>
           getMainPool({
+            blocksPerDay,
             name: t('mainPool.name'),
             description: t('mainPool.description'),
             tokens,

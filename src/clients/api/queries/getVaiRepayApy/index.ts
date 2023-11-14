@@ -4,6 +4,7 @@ import { calculateApy, multiplyMantissaDaily } from 'utilities';
 
 export interface GetVaiRepayApyInput {
   vaiControllerContract: VaiController;
+  blocksPerDay: number;
 }
 
 export interface GetVaiRepayApyOutput {
@@ -12,11 +13,13 @@ export interface GetVaiRepayApyOutput {
 
 const getVaiRepayApy = async ({
   vaiControllerContract,
+  blocksPerDay,
 }: GetVaiRepayApyInput): Promise<GetVaiRepayApyOutput> => {
   const vaiRepayRatePerBlockMantissa = await vaiControllerContract.getVAIRepayRatePerBlock();
 
   const vaiDailyPercentageRate = multiplyMantissaDaily({
     mantissa: vaiRepayRatePerBlockMantissa.toString(),
+    blocksPerDay,
   });
 
   const apyPercentage = calculateApy({

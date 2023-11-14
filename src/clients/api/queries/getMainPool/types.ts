@@ -9,6 +9,7 @@ import {
 import { Pool, Token } from 'types';
 
 export interface GetMainPoolInput {
+  blocksPerDay: number;
   name: string;
   description: string;
   xvs: Token;
