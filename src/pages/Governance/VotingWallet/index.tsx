@@ -162,7 +162,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </ButtonWrapper>
         )}
 
-        {connectedWallet && userHasLockedXVS && (
+        {connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled && (
           <PrimaryButton
             className="text-offWhite sm:w-auto lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
