@@ -1,5 +1,5 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
-import { VError, logError } from 'errors';
+import { VError, displayMutationError, logError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useEffect } from 'react';
@@ -109,12 +109,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (switchNetworkAsync) {
         // Change wallet network if it is connected
         await switchNetworkAsync(input.chainId);
+      } else if (accountAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'couldNotSwitchChain',
+        });
       }
 
       // Update store
       setStoreChainId(input);
     } catch (error) {
-      // Do nothing
+      if (error instanceof VError && error.code === 'couldNotSwitchChain') {
+        displayMutationError({ error });
+      }
     }
   };
 
