@@ -85,7 +85,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, repayBalanceWei)
         : new BigNumber(0);
 
-    let tmpLimitTokens = convertWeiToTokens({ valueWei: limitWei, token: vai });
+    let tmpLimitTokens = convertWeiToTokens({ value: limitWei, token: vai });
 
     if (isVaiApproved && vaiWalletSpendingLimitTokens) {
       tmpLimitTokens = BigNumber.minimum(tmpLimitTokens, vaiWalletSpendingLimitTokens);
@@ -111,12 +111,12 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   // Convert repay balance (minted + interests) into VAI
   const readableRepayableVai = useConvertWeiToReadableTokenString({
-    valueWei: repayBalanceWei,
+    value: repayBalanceWei,
     token: vai,
   });
 
   const readableWalletBalance = useConvertWeiToReadableTokenString({
-    valueWei: userBalanceWei,
+    value: userBalanceWei,
     token: vai,
   });
 

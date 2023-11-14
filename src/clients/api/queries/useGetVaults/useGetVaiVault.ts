@@ -70,14 +70,14 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     }
 
     const stakingAprPercentage = convertWeiToTokens({
-      valueWei: vaiVaultDailyRateData.dailyRateWei,
+      value: vaiVaultDailyRateData.dailyRateWei,
       token: xvs,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
         convertWeiToTokens({
-          valueWei: totalVaiStakedData.balanceWei,
+          value: totalVaiStakedData.balanceWei,
           token: vai,
         }),
       )

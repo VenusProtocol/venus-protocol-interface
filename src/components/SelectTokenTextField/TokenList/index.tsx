@@ -124,7 +124,7 @@ export const TokenList: React.FC<TokenListProps> = ({
 
             <Typography variant="small2">
               {convertWeiToTokens({
-                valueWei: tokenBalance.balanceWei,
+                value: tokenBalance.balanceWei,
                 token: tokenBalance.token,
                 returnInReadableFormat: true,
 

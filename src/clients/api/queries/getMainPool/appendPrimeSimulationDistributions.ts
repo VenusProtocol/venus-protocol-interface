@@ -28,7 +28,7 @@ export const appendPrimeSimulationDistributions = async ({
   primeMinimumXvsToStakeMantissa,
 }: ResolvePrimeSimulationDistributionsInput) => {
   const primeMinimumXvsToStakeTokens = convertWeiToTokens({
-    valueWei: primeMinimumXvsToStakeMantissa,
+    value: primeMinimumXvsToStakeMantissa,
     token: xvs,
   });
 

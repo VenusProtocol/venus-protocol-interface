@@ -13,7 +13,7 @@ const calculateCollateralValue = ({
   collateralFactor: Asset['collateralFactor'];
   amountWei: BigNumber;
 }) => {
-  const collateralValue = convertWeiToTokens({ valueWei: amountWei, token })
+  const collateralValue = convertWeiToTokens({ value: amountWei, token })
     .times(tokenPriceCents)
     .times(collateralFactor);
   return collateralValue;

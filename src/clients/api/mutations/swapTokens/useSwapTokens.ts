@@ -40,7 +40,7 @@ const useSwapTokens = (
         fromTokenSymbol: swap.fromToken.symbol,
         fromTokenAmountTokens: convertWeiToTokens({
           token: swap.fromToken,
-          valueWei:
+          value:
             swap.direction === 'exactAmountIn'
               ? swap.fromTokenAmountSoldWei
               : swap.expectedFromTokenAmountSoldWei,
@@ -48,7 +48,7 @@ const useSwapTokens = (
         toTokenSymbol: swap.toToken.symbol,
         toTokenAmountTokens: convertWeiToTokens({
           token: swap.toToken,
-          valueWei:
+          value:
             swap.direction === 'exactAmountIn'
               ? swap.expectedToTokenAmountReceivedWei
               : swap.toTokenAmountReceivedWei,

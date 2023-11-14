@@ -22,7 +22,7 @@ export const InModal = () => (
     content="You successfully borrowed"
     transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
     amount={{
-      valueWei: new BigNumber('100000000000000000000'),
+      value: new BigNumber('100000000000000000000'),
       token: xvs,
     }}
   />

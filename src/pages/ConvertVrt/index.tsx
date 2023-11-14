@@ -73,7 +73,7 @@ const ConvertVrt = () => {
   const conversionRatio = useMemo(() => {
     if (xvs && vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
-        valueWei: vrtConversionRatioData.conversionRatio,
+        value: vrtConversionRatioData.conversionRatio,
         token: xvs,
       });
     }

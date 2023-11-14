@@ -48,7 +48,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
     );
 
     const fee = convertWeiToTokens({
-      valueWei: repayFeeWei,
+      value: repayFeeWei,
       token: vai!,
 
       returnInReadableFormat: true,

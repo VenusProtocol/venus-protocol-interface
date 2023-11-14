@@ -61,7 +61,7 @@ const formatToVestingVaultPendingRewardGroup = ({
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
   const pendingRewardAmountTokens = convertWeiToTokens({
-    valueWei: userPendingRewardsAmountMantissa,
+    value: userPendingRewardsAmountMantissa,
     token: rewardToken,
   });
 

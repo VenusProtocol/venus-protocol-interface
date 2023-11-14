@@ -91,12 +91,12 @@ const formatToPools = ({
       const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
 
       const borrowCapTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.borrowCaps.toString()),
+        value: new BigNumber(vTokenMetaData.borrowCaps.toString()),
         token: vToken.underlyingToken,
       });
 
       const supplyCapTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.supplyCaps.toString()),
+        value: new BigNumber(vTokenMetaData.supplyCaps.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -109,7 +109,7 @@ const formatToPools = ({
       });
 
       const cashTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.totalCash.toString()),
+        value: new BigNumber(vTokenMetaData.totalCash.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -117,7 +117,7 @@ const formatToPools = ({
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.totalReserves.toString()),
+        value: new BigNumber(vTokenMetaData.totalReserves.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -149,14 +149,14 @@ const formatToPools = ({
       const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
       const supplyBalanceVTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.totalSupply.toString()),
+        value: new BigNumber(vTokenMetaData.totalSupply.toString()),
         token: vToken,
       });
       const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertWeiToTokens({
-        valueWei: new BigNumber(vTokenMetaData.totalBorrows.toString()),
+        value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -165,14 +165,14 @@ const formatToPools = ({
       // User-specific props
       const userBorrowBalanceTokens = userVTokenBalances
         ? convertWeiToTokens({
-            valueWei: new BigNumber(userVTokenBalances.borrowBalanceCurrent.toString()),
+            value: new BigNumber(userVTokenBalances.borrowBalanceCurrent.toString()),
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
 
       const userSupplyBalanceTokens = userVTokenBalances
         ? convertWeiToTokens({
-            valueWei: new BigNumber(userVTokenBalances.balanceOfUnderlying.toString()),
+            value: new BigNumber(userVTokenBalances.balanceOfUnderlying.toString()),
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
@@ -183,7 +183,7 @@ const formatToPools = ({
 
       const userWalletBalanceTokens = tokenBalanceRes
         ? convertWeiToTokens({
-            valueWei: tokenBalanceRes.balanceWei,
+            value: tokenBalanceRes.balanceWei,
             token: tokenBalanceRes.token,
           })
         : new BigNumber(0);

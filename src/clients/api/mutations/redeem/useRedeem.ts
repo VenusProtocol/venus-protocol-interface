@@ -37,7 +37,7 @@ const useRedeem = (
         tokenSymbol: vToken.underlyingToken.symbol,
         tokenAmountTokens: convertWeiToTokens({
           token: vToken.underlyingToken,
-          valueWei: input.amountWei,
+          value: input.amountWei,
         }).toNumber(),
         withdrewFullSupply: false,
       });

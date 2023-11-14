@@ -69,7 +69,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   const availableTokens = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: availableTokensWei,
+        value: availableTokensWei,
         token,
       }),
     [availableTokensWei, token],
@@ -84,7 +84,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   }, [availableTokens, isTokenApproved, walletSpendingLimitTokens]);
 
   const readableAvailableTokens = useConvertWeiToReadableTokenString({
-    valueWei: availableTokensWei,
+    value: availableTokensWei,
     token,
   });
 

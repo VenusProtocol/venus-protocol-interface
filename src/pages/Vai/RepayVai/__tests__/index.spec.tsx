@@ -41,7 +41,7 @@ const repayInputAmountWei = convertTokensToWei({
 const fullRepayBalanceWei = new BigNumber('5669568627692799723381666');
 
 const fullRepayBalanceTokens = convertWeiToTokens({
-  valueWei: fullRepayBalanceWei,
+  value: fullRepayBalanceWei,
   token: vai,
 }).toString();
 

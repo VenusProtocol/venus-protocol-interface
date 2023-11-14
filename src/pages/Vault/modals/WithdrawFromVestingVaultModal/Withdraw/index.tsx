@@ -42,7 +42,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
   };
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
-    valueWei: withdrawableWei,
+    value: withdrawableWei,
     token: stakedToken,
   });
 

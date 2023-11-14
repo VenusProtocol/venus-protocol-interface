@@ -125,7 +125,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
       return (
         tokenBalance &&
         convertWeiToTokens({
-          valueWei: tokenBalance.balanceWei,
+          value: tokenBalance.balanceWei,
           token: tokenBalance.token,
         })
       );

@@ -47,7 +47,7 @@ const useGetValues = ({
     if (isUsingSwap) {
       return swap
         ? convertWeiToTokens({
-            valueWei:
+            value:
               swap.direction === 'exactAmountIn'
                 ? swap.expectedToTokenAmountReceivedWei
                 : swap.toTokenAmountReceivedWei,

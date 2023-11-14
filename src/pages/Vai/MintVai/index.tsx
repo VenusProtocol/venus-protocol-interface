@@ -64,31 +64,31 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   const { t } = useTranslation();
 
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, token: vai }).toFixed() : '0'),
+    () => (limitWei ? convertWeiToTokens({ value: limitWei, token: vai }).toFixed() : '0'),
     [limitWei, vai],
   );
 
   // Convert limit into VAI
   const readableVaiLimit = useConvertWeiToReadableTokenString({
-    valueWei: limitWei,
+    value: limitWei,
     token: vai,
   });
 
   const readableWalletBalance = useConvertWeiToReadableTokenString({
-    valueWei: userBalanceWei,
+    value: userBalanceWei,
     token: vai,
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
 
   const getReadableMintFee = useCallback(
-    (valueWei: string) => {
+    (value: string) => {
       if (!mintFeePercentage) {
         return PLACEHOLDER_KEY;
       }
 
       const readableFeeVai = getReadableFeeVai({
-        valueWei: new BigNumber(valueWei || 0),
+        value: new BigNumber(value || 0),
         mintFeePercentage,
         vai,
       });

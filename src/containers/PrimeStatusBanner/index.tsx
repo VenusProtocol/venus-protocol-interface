@@ -391,12 +391,12 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   } = primeStatusData;
 
   const userStakedXvsTokens = convertWeiToTokens({
-    valueWei: userNonPendingStakedXvsMantissa || new BigNumber('0'),
+    value: userNonPendingStakedXvsMantissa || new BigNumber('0'),
     token: xvs,
   });
 
   const minXvsToStakeForPrimeTokens = convertWeiToTokens({
-    valueWei: primeMinimumStakedXvsMantissa || new BigNumber('0'),
+    value: primeMinimumStakedXvsMantissa || new BigNumber('0'),
     token: xvs,
   });
 

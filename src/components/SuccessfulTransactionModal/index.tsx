@@ -19,7 +19,7 @@ export interface SuccessfulTransactionModalProps extends Omit<ModalProps, 'child
   transactionHash: string;
   amount?: {
     token: Token;
-    valueWei: BigNumber;
+    value: BigNumber;
   };
   className?: string;
 }
@@ -55,7 +55,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
 
               <Typography variant="small1" component="span">
                 {convertWeiToTokens({
-                  valueWei: amount.valueWei,
+                  value: amount.value,
                   token: amount.token,
                   returnInReadableFormat: true,
                 })}

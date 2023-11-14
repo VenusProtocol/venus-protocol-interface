@@ -70,7 +70,7 @@ function formatRewardSummaryData({
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
   const rewardAmountTokens = convertWeiToTokens({
-    valueWei: rewardAmountWei,
+    value: rewardAmountWei,
     token: rewardToken,
   });
 

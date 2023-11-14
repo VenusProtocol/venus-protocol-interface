@@ -46,7 +46,7 @@ const VoteSummary = ({
   const getVoteWeight = useCallback(
     (voteWeightWei: BigNumber) =>
       convertWeiToTokens({
-        valueWei: voteWeightWei,
+        value: voteWeightWei,
         token: xvs,
         addSymbol: false,
         returnInReadableFormat: true,
@@ -101,7 +101,7 @@ const VoteSummary = ({
 
             <Typography color="text.primary">
               {convertWeiToTokens({
-                valueWei: votesMantissa,
+                value: votesMantissa,
                 token: xvs,
                 addSymbol: false,
                 returnInReadableFormat: true,

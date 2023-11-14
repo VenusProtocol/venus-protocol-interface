@@ -83,7 +83,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         align: 'right',
         renderCell: transaction =>
           convertWeiToTokens({
-            valueWei: transaction.votesMantissa,
+            value: transaction.votesMantissa,
             token: xvs,
             returnInReadableFormat: true,
           }),

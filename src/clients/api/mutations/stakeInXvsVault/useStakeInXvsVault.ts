@@ -36,7 +36,7 @@ const useStakeInXvsVault = (
         rewardTokenSymbol: rewardToken.symbol,
         tokenAmountTokens: convertWeiToTokens({
           token: stakedToken,
-          valueWei: amountWei,
+          value: amountWei,
         }).toNumber(),
       });
 

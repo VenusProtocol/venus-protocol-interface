@@ -162,12 +162,12 @@ const XvsTable: React.FC = () => {
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const vaiVaultDailyXvsRateTokens = convertWeiToTokens({
-        valueWei: venusVaiVaultDailyRateData.dailyRateWei,
+        value: venusVaiVaultDailyRateData.dailyRateWei,
         token: xvs,
       });
 
       const vaiVaultStakedTokens = convertWeiToTokens({
-        valueWei: vaultVaiStakedData.balanceWei,
+        value: vaultVaiStakedData.balanceWei,
         token: vai,
       });
 

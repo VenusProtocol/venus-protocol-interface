@@ -154,7 +154,7 @@ const Proposal = () => {
   const readableVoteWeight = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: votingWeightData.votesWei,
+        value: votingWeightData.votesWei,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,

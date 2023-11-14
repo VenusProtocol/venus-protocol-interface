@@ -38,7 +38,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
         captureAnalyticEvent('Tokens withdrawn from VAI vault', {
           tokenAmountTokens: convertWeiToTokens({
             token: vai,
-            valueWei: amountWei,
+            value: amountWei,
           }).toNumber(),
         });
 

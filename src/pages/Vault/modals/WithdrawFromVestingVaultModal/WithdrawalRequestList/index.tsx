@@ -50,7 +50,7 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
                   key={`withdrawal-request-list-item-${userLockedDeposit.unlockedAt.getTime()}`}
                   invertTextColors
                   label={convertWeiToTokens({
-                    valueWei: userLockedDeposit.amountWei,
+                    value: userLockedDeposit.amountWei,
                     token: xvs,
                     returnInReadableFormat: true,
                   })}

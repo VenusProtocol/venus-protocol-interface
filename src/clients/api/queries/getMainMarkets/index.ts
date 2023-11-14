@@ -40,7 +40,7 @@ const getMainMarkets = async ({ xvs }: GetMainMarketsInput): Promise<GetMainMark
   const markets: Market[] = (response?.data?.result || []).map(apiMarket => {
     const totalXvsDistributedTokens = apiMarket.totalDistributedMantissa
       ? convertWeiToTokens({
-          valueWei: new BigNumber(apiMarket.totalDistributedMantissa),
+          value: new BigNumber(apiMarket.totalDistributedMantissa),
           token: xvs,
         })
       : new BigNumber(0);

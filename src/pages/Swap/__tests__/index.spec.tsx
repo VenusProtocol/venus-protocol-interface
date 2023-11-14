@@ -472,7 +472,7 @@ describe('Swap', () => {
     ) as HTMLInputElement;
 
     const expectedToTokenAmountReceivedTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
+      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
       token: fakeExactAmountInSwap.fromToken,
     });
 
@@ -516,7 +516,7 @@ describe('Swap', () => {
     ) as HTMLInputElement;
 
     const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountOutSwap.expectedFromTokenAmountSoldWei,
+      value: fakeExactAmountOutSwap.expectedFromTokenAmountSoldWei,
       token: fakeExactAmountOutSwap.fromToken,
     });
 
@@ -763,7 +763,7 @@ describe('Swap', () => {
 
     // Check if toInput input value was updated correctly
     const expectedToTokenAmountSoldTokens = convertWeiToTokens({
-      valueWei: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
+      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
       token: fakeExactAmountInSwap.toToken,
     });
 

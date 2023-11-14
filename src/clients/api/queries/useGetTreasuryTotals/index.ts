@@ -84,7 +84,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
               treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance,
             );
             const assetTreasuryBalanceTokens = convertWeiToTokens({
-              valueWei: assetTreasuryBalanceWei,
+              value: assetTreasuryBalanceWei,
               token: asset.vToken.underlyingToken,
             });
 

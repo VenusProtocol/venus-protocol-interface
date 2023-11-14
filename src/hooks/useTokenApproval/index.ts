@@ -59,7 +59,7 @@ const useTokenApproval = ({
   const walletSpendingLimitTokens = useMemo(
     () =>
       getTokenAllowanceData?.allowanceWei &&
-      convertWeiToTokens({ valueWei: getTokenAllowanceData.allowanceWei, token }),
+      convertWeiToTokens({ value: getTokenAllowanceData.allowanceWei, token }),
     [getTokenAllowanceData?.allowanceWei, token],
   );
 

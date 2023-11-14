@@ -33,13 +33,13 @@ export const Holding: React.FC<HoldingProps> = ({
   });
 
   const readableVenusBalance = useConvertWeiToReadableTokenString({
-    valueWei: balanceMantissa,
+    value: balanceMantissa,
     token: xvs,
     addSymbol: false,
   });
 
   const readableVotes = useConvertWeiToReadableTokenString({
-    valueWei: votesMantissa,
+    value: votesMantissa,
     token: xvs,
     addSymbol: false,
   });

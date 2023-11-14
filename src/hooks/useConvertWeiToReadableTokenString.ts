@@ -4,14 +4,14 @@ import { ConvertWeiToTokensInput, convertWeiToTokens } from 'utilities';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 export interface UseConvertWeiToReadableTokenStringInput
-  extends Omit<ConvertWeiToTokensInput, 'valueWei' | 'returnInReadableFormat'> {
-  valueWei: ConvertWeiToTokensInput['valueWei'] | undefined;
+  extends Omit<ConvertWeiToTokensInput, 'value' | 'returnInReadableFormat'> {
+  value: ConvertWeiToTokensInput['value'] | undefined;
 }
 
 const useConvertWeiToReadableTokenString = (params: UseConvertWeiToReadableTokenStringInput) =>
   useMemo(
     () =>
-      params.valueWei
+      params.value
         ? convertWeiToTokens({
             ...(params as ConvertWeiToTokensInput),
             returnInReadableFormat: true,

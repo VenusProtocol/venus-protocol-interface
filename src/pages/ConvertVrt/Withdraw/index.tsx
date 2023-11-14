@@ -35,7 +35,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
   );
 
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
-    valueWei: xvsWithdrawableAmount,
+    value: xvsWithdrawableAmount,
     token: xvs,
   });
 

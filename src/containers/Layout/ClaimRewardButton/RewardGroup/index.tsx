@@ -60,7 +60,7 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
               value: pendingReward.rewardAmountCents,
             })}
             bottomValue={convertWeiToTokens({
-              valueWei: pendingReward.rewardAmountWei,
+              value: pendingReward.rewardAmountWei,
               token: pendingReward.rewardToken,
               returnInReadableFormat: true,
             })}

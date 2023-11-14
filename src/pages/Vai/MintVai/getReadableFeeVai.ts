@@ -3,17 +3,17 @@ import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 const getReadableFeeVai = ({
-  valueWei,
+  value,
   mintFeePercentage,
   vai,
 }: {
-  valueWei: BigNumber;
+  value: BigNumber;
   mintFeePercentage: number;
   vai: Token;
 }) => {
-  const feeWei = valueWei.multipliedBy(mintFeePercentage).dividedBy(100);
+  const feeWei = value.multipliedBy(mintFeePercentage).dividedBy(100);
   return convertWeiToTokens({
-    valueWei: feeWei,
+    value: feeWei,
     token: vai,
     returnInReadableFormat: true,
   });

@@ -32,7 +32,7 @@ const useBorrow = (
         tokenSymbol: vToken.underlyingToken.symbol,
         tokenAmountTokens: convertWeiToTokens({
           token: vToken.underlyingToken,
-          valueWei: input.amountWei,
+          value: input.amountWei,
         }).toNumber(),
       });
 

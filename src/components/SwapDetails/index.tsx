@@ -35,7 +35,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     () =>
       swap &&
       convertWeiToTokens({
-        valueWei:
+        value:
           swap.direction === 'exactAmountIn'
             ? swap.fromTokenAmountSoldWei
             : swap.maximumFromTokenAmountSoldWei,
@@ -49,7 +49,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
     () =>
       swap &&
       convertWeiToTokens({
-        valueWei:
+        value:
           swap.direction === 'exactAmountIn'
             ? swap.expectedToTokenAmountReceivedWei
             : swap.toTokenAmountReceivedWei,

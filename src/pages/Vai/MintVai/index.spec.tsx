@@ -66,7 +66,7 @@ describe('MintVai', () => {
 
     // Check input value updated to max amount of mintable VAI
     const fakeMintableVai = convertWeiToTokens({
-      valueWei: fakeGetMintableVaiOutput.mintableVaiWei,
+      value: fakeGetMintableVaiOutput.mintableVaiWei,
       token: vai,
     });
 

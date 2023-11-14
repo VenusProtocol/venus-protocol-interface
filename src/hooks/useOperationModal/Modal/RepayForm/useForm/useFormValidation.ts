@@ -33,7 +33,7 @@ const getSwapToTokenAmountReceivedTokens = (swap?: Swap) => {
         : swap.expectedToTokenAmountReceivedWei;
 
     swapToTokenAmountReceivedTokens = convertWeiToTokens({
-      valueWei: swapToTokenAmountReceivedWei,
+      value: swapToTokenAmountReceivedWei,
       token: swap.toToken,
     });
   }

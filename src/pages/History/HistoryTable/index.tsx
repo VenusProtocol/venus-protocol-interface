@@ -148,7 +148,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
           transaction.token && (
             <Typography variant="small2" css={styles.whiteText}>
               {convertWeiToTokens({
-                valueWei: transaction.amountMantissa,
+                value: transaction.amountMantissa,
                 token: transaction.token,
                 returnInReadableFormat: true,
 

@@ -32,13 +32,13 @@ export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
         : swap.toTokenAmountReceivedWei;
 
     const readableFromTokenAmount = convertWeiToTokens({
-      valueWei: fromTokenAmountWei,
+      value: fromTokenAmountWei,
       token: swap.fromToken,
       returnInReadableFormat: true,
     });
 
     const readableToTokenAmount = convertWeiToTokens({
-      valueWei: toTokenAmountWei,
+      value: toTokenAmountWei,
       token: swap.toToken,
       returnInReadableFormat: true,
     });

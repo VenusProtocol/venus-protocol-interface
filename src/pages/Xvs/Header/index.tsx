@@ -54,7 +54,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 
   const readableDailyDistribution = useMemo(() => {
     const venusVaiVaultDailyRateTokens = convertWeiToTokens({
-      valueWei: venusVaiVaultDailyRateWei,
+      value: venusVaiVaultDailyRateWei,
       token: xvs,
     });
 
@@ -69,7 +69,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const readableRemainingDistribution = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: remainingDistributionWei,
+        value: remainingDistributionWei,
         token: xvs,
         returnInReadableFormat: true,
       }),

@@ -56,7 +56,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
             {convertWeiToTokens({
-              valueWei: voter.votesMantissa,
+              value: voter.votesMantissa,
               token: xvs,
               returnInReadableFormat: true,
               addSymbol: false,

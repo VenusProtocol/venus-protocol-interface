@@ -44,7 +44,7 @@ const useSwapTokensAndSupply = (
         fromTokenSymbol: input.swap.fromToken.symbol,
         fromTokenAmountTokens: convertWeiToTokens({
           token: input.swap.fromToken,
-          valueWei:
+          value:
             input.swap.direction === 'exactAmountIn'
               ? input.swap.fromTokenAmountSoldWei
               : input.swap.expectedFromTokenAmountSoldWei,
@@ -52,7 +52,7 @@ const useSwapTokensAndSupply = (
         toTokenSymbol: input.swap.toToken.symbol,
         toTokenAmountTokens: convertWeiToTokens({
           token: input.swap.toToken,
-          valueWei:
+          value:
             input.swap.direction === 'exactAmountIn'
               ? input.swap.expectedToTokenAmountReceivedWei
               : input.swap.toTokenAmountReceivedWei,

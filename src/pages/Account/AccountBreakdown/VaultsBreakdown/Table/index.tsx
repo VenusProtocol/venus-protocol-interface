@@ -45,7 +45,7 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
         selectOptionLabel: t('account.vaultsBreakdown.table.column.stake'),
         renderCell: vault =>
           convertWeiToTokens({
-            valueWei: new BigNumber(vault.userStakedWei || 0),
+            value: new BigNumber(vault.userStakedWei || 0),
             token: vault.stakedToken,
 
             returnInReadableFormat: true,

@@ -130,7 +130,7 @@ const useForm = ({
       swap.direction === 'exactAmountOut'
     ) {
       const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-        valueWei: swap.expectedFromTokenAmountSoldWei,
+        value: swap.expectedFromTokenAmountSoldWei,
         token: swap.fromToken,
       }).toFixed();
 

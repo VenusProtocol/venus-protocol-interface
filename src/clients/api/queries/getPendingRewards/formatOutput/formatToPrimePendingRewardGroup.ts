@@ -51,7 +51,7 @@ const formatToPrimePendingRewardGroup = ({
       vTokenAddressesWithPendingReward.push(primePendingReward.vToken);
 
       const rewardAmountTokens = convertWeiToTokens({
-        valueWei: new BigNumber(primePendingReward.amount.toString()),
+        value: new BigNumber(primePendingReward.amount.toString()),
         token: rewardToken,
       });
 

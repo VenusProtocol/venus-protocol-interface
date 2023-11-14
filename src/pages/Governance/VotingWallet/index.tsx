@@ -63,7 +63,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const readableXvsLocked = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: userStakedWei,
+        value: userStakedWei,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
@@ -74,7 +74,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const readableVoteWeight = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: votingWeightWei,
+        value: votingWeightWei,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,

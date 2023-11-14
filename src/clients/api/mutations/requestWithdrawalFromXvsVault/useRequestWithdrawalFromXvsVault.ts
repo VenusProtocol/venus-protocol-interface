@@ -46,7 +46,7 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
           rewardTokenSymbol: xvs.symbol,
           tokenAmountTokens: convertWeiToTokens({
             token: xvs,
-            valueWei: amountWei,
+            value: amountWei,
           }).toNumber(),
         });
 

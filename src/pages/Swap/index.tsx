@@ -106,7 +106,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
       setFormValues(currentFormValues => ({
         ...currentFormValues,
         toTokenAmountTokens: convertWeiToTokens({
-          valueWei: swap.expectedToTokenAmountReceivedWei,
+          value: swap.expectedToTokenAmountReceivedWei,
           token: swap.toToken,
         }).toFixed(),
       }));
@@ -116,7 +116,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
       setFormValues(currentFormValues => ({
         ...currentFormValues,
         fromTokenAmountTokens: convertWeiToTokens({
-          valueWei: swap.expectedFromTokenAmountSoldWei,
+          value: swap.expectedFromTokenAmountSoldWei,
           token: swap.fromToken,
         }).toFixed(),
       }));
@@ -144,7 +144,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     () =>
       fromTokenUserBalanceWei &&
       convertWeiToTokens({
-        valueWei: fromTokenUserBalanceWei,
+        value: fromTokenUserBalanceWei,
         token: formValues.fromToken,
       }),
     [fromTokenUserBalanceWei, formValues.fromToken],
@@ -190,12 +190,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   }, [tokenBalances, formValues.fromToken.address, formValues.toToken.address]);
 
   const readableFromTokenUserBalance = useConvertWeiToReadableTokenString({
-    valueWei: fromTokenUserBalanceWei,
+    value: fromTokenUserBalanceWei,
     token: formValues.fromToken,
   });
 
   const readableToTokenUserBalance = useConvertWeiToReadableTokenString({
-    valueWei: toTokenUserBalanceWei,
+    value: toTokenUserBalanceWei,
     token: formValues.toToken,
   });
 

@@ -41,7 +41,7 @@ const useStakeInVaiVault = (options?: Options) => {
         captureAnalyticEvent('Tokens staked in VAI vault', {
           tokenAmountTokens: convertWeiToTokens({
             token: vai,
-            valueWei: input.amountWei,
+            value: input.amountWei,
           }).toNumber(),
         });
 

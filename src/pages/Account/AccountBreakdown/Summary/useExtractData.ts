@@ -39,7 +39,7 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
     const { totalVaultStakeCents, yearlyVaultEarningsCents } = vaults.reduce(
       (accTotalVaultStakeCents, vault) => {
         const vaultStakeCents = convertWeiToTokens({
-          valueWei: new BigNumber(vault.userStakedWei || 0),
+          value: new BigNumber(vault.userStakedWei || 0),
           token: vault.stakedToken,
         }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
 

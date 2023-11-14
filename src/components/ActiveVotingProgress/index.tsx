@@ -21,7 +21,7 @@ const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs
   valueMantissa &&
   xvs &&
   convertWeiToTokens({
-    valueWei: valueMantissa,
+    value: valueMantissa,
     token: xvs,
     returnInReadableFormat: true,
   });
