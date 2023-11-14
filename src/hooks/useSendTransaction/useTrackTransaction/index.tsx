@@ -5,7 +5,6 @@ import {
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-  logError,
 } from 'errors';
 import { ContractReceipt, ContractTransaction } from 'ethers';
 import { useTranslation } from 'packages/translations';
@@ -51,7 +50,7 @@ export const useTrackTransaction = () => {
           timeoutMs,
         );
       } catch (error) {
-        logError(error);
+        // Do nothing
       }
 
       if (typeof transactionReceipt?.status !== 'number') {

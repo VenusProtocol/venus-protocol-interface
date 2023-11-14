@@ -1,5 +1,5 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
-import { VError, displayMutationError, logError } from 'errors';
+import { VError, displayMutationError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useEffect } from 'react';
@@ -14,7 +14,7 @@ import {
 } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
-import { Connector, Provider, chains, connectorIdByName } from 'clients/web3';
+import { Connector, Provider, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
@@ -89,7 +89,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (error instanceof ConnectorNotFoundError) {
           throw new VError({ type: 'interaction', code: 'noProvider' });
         } else {
-          logError(error);
+          // Do nothing
         }
       }
     },
@@ -132,7 +132,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       // Disconnect wallet if it connected to an unsupported chain
-      if (chains.every(chain => chain.id !== chainId)) {
+      if (walletChain.unsupported) {
         await logOut();
         return;
       }
