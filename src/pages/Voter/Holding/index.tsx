@@ -7,7 +7,7 @@ import { useTranslation } from 'packages/translations';
 import React from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from './styles';
 
@@ -32,13 +32,13 @@ export const Holding: React.FC<HoldingProps> = ({
     symbol: 'XVS',
   });
 
-  const readableVenusBalance = useConvertWeiToReadableTokenString({
+  const readableVenusBalance = useConvertMantissaToReadableTokenString({
     value: balanceMantissa,
     token: xvs,
     addSymbol: false,
   });
 
-  const readableVotes = useConvertWeiToReadableTokenString({
+  const readableVotes = useConvertMantissaToReadableTokenString({
     value: votesMantissa,
     token: xvs,
     addSymbol: false,

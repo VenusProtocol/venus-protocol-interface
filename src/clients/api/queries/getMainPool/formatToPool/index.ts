@@ -8,8 +8,8 @@ import {
   calculateApy,
   convertDollarsToCents,
   convertFactorFromSmartContract,
+  convertMantissaToTokens,
   convertPriceMantissaToDollars,
-  convertWeiToTokens,
   multiplyMantissaDaily,
 } from 'utilities';
 
@@ -46,7 +46,7 @@ export interface FormatToPoolInput {
   primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
-  userVaiBorrowBalanceWei?: BigNumber;
+  userVaiBorrowBalanceMantissa?: BigNumber;
   mainMarkets?: Market[];
 }
 
@@ -67,7 +67,7 @@ export const formatToPool = ({
   xvsPriceMantissa,
   userCollateralizedVTokenAddresses,
   userVTokenBalances,
-  userVaiBorrowBalanceWei,
+  userVaiBorrowBalanceMantissa,
   primeApyMap,
   mainMarkets,
 }: FormatToPoolInput) => {
@@ -167,7 +167,7 @@ export const formatToPool = ({
 
     const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
 
-    const unformattedBorrowCapTokens = convertWeiToTokens({
+    const unformattedBorrowCapTokens = convertMantissaToTokens({
       value: borrowCapsMantissa,
       token: vToken.underlyingToken,
     });
@@ -176,7 +176,7 @@ export const formatToPool = ({
       ? undefined
       : unformattedBorrowCapTokens;
 
-    const unformattedSupplyCapTokens = convertWeiToTokens({
+    const unformattedSupplyCapTokens = convertMantissaToTokens({
       value: supplyCapsMantissa,
       token: vToken.underlyingToken,
     });
@@ -195,14 +195,14 @@ export const formatToPool = ({
       factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
     });
 
-    const cashTokens = convertWeiToTokens({
+    const cashTokens = convertMantissaToTokens({
       value: new BigNumber(vTokenMetaData.totalCash.toString()),
       token: vToken.underlyingToken,
     });
 
     const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
-    const reserveTokens = convertWeiToTokens({
+    const reserveTokens = convertMantissaToTokens({
       value: new BigNumber(vTokenMetaData.totalReserves.toString()),
       token: vToken.underlyingToken,
     });
@@ -238,7 +238,7 @@ export const formatToPool = ({
     const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
     const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
-    const supplyBalanceVTokens = convertWeiToTokens({
+    const supplyBalanceVTokens = convertMantissaToTokens({
       value: new BigNumber(vTokenMetaData.totalSupply.toString()),
       token: vToken,
     });
@@ -246,7 +246,7 @@ export const formatToPool = ({
     const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(tokenPriceDollars);
     const supplyBalanceCents = convertDollarsToCents(supplyBalanceDollars);
 
-    const borrowBalanceTokens = convertWeiToTokens({
+    const borrowBalanceTokens = convertMantissaToTokens({
       value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
       token: vToken.underlyingToken,
     });
@@ -282,14 +282,14 @@ export const formatToPool = ({
       vTokenMetaData.vToken,
     );
     const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
-      ? convertWeiToTokens({
+      ? convertMantissaToTokens({
           value: new BigNumber(userVTokenBalancesResult.balanceOfUnderlying.toString()),
           token: vToken.underlyingToken,
         })
       : new BigNumber(0);
 
     const userBorrowBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
-      ? convertWeiToTokens({
+      ? convertMantissaToTokens({
           value: new BigNumber(userVTokenBalancesResult.borrowBalanceCurrent.toString()),
           token: vToken.underlyingToken,
         })
@@ -299,7 +299,7 @@ export const formatToPool = ({
     const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
 
     const userWalletBalanceTokens = userVTokenBalancesResult?.tokenBalance
-      ? convertWeiToTokens({
+      ? convertMantissaToTokens({
           value: new BigNumber(userVTokenBalancesResult.tokenBalance.toString()),
           token: vToken.underlyingToken,
         })
@@ -357,9 +357,9 @@ export const formatToPool = ({
   });
 
   // Add user VAI loan to user borrow balance
-  if (pool.userBorrowBalanceCents && userVaiBorrowBalanceWei) {
-    const userVaiBorrowBalanceCents = convertWeiToTokens({
-      value: userVaiBorrowBalanceWei,
+  if (pool.userBorrowBalanceCents && userVaiBorrowBalanceMantissa) {
+    const userVaiBorrowBalanceCents = convertMantissaToTokens({
+      value: userVaiBorrowBalanceMantissa,
       token: vai,
     }) // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
       .times(100);

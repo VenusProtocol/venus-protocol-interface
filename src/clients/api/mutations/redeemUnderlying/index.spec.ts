@@ -17,7 +17,7 @@ describe('redeemUnderlying', () => {
 
     const response = await redeemUnderlying({
       vTokenContract: fakeContract,
-      amountWei: fakeAmount,
+      amountMantissa: fakeAmount,
     });
 
     expect(response).toBe(fakeContractTransaction);

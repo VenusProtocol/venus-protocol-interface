@@ -11,9 +11,9 @@ const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
 
 describe('api/queries/getAllowance', () => {
   test('returns the allowance on success', async () => {
-    const fakeAllowanceWei = BN.from(10000);
+    const fakeAllowanceMantissa = BN.from(10000);
 
-    const vrtAllowanceMock = vi.fn(async () => fakeAllowanceWei);
+    const vrtAllowanceMock = vi.fn(async () => fakeAllowanceMantissa);
 
     const fakeContract = {
       allowance: vrtAllowanceMock,
@@ -28,9 +28,9 @@ describe('api/queries/getAllowance', () => {
 
     expect(vrtAllowanceMock).toHaveBeenCalledTimes(1);
     expect(vrtAllowanceMock).toHaveBeenCalledWith(fakeAddress, fakeSpenderAddress);
-    expect(response.allowanceWei instanceof BigNumber).toBe(true);
+    expect(response.allowanceMantissa instanceof BigNumber).toBe(true);
     expect(response).toEqual({
-      allowanceWei: new BigNumber(fakeAllowanceWei.toString()),
+      allowanceMantissa: new BigNumber(fakeAllowanceMantissa.toString()),
     });
   });
 });

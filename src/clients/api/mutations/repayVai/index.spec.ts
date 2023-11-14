@@ -7,7 +7,7 @@ import repayVai from '.';
 
 describe('repayVai', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const fakeAmountWei = new BigNumber('10000000000000000');
+    const fakeAmountMantissa = new BigNumber('10000000000000000');
 
     const repayVAIMock = vi.fn(async () => fakeContractTransaction);
 
@@ -17,11 +17,11 @@ describe('repayVai', () => {
 
     const response = await repayVai({
       vaiControllerContract: fakeContract,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
     });
 
     expect(response).toBe(fakeContractTransaction);
     expect(repayVAIMock).toHaveBeenCalledTimes(1);
-    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
   });
 });

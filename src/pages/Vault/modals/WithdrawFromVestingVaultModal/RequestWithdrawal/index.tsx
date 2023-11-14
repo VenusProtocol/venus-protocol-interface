@@ -5,7 +5,7 @@ import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import {
   useGetPrimeStatus,
@@ -17,7 +17,7 @@ import {
 } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles as useSharedStyles } from '../styles';
@@ -25,7 +25,7 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface RequestWithdrawalUiProps {
   stakedToken: Token;
   isInitialLoading: boolean;
-  requestableWei: BigNumber;
+  requestableMantissa: BigNumber;
   onSubmitSuccess: () => void;
   onSubmit: TransactionFormProps['onSubmit'];
   warning: TransactionFormProps['warning'];
@@ -37,7 +37,7 @@ export interface RequestWithdrawalUiProps {
 export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   stakedToken,
   isInitialLoading,
-  requestableWei,
+  requestableMantissa,
   lockingPeriodMs,
   onSubmitSuccess,
   onSubmit,
@@ -48,8 +48,8 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
 
-  const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei => {
-    const res = await onSubmit(amountWei);
+  const handleSubmit: TransactionFormProps['onSubmit'] = async amountMantissa => {
+    const res = await onSubmit(amountMantissa);
     onSubmitSuccess();
     return res;
   };
@@ -67,7 +67,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
               { tokenSymbol: stakedToken.symbol },
             )}
-            availableTokensWei={requestableWei}
+            availableTokensMantissa={requestableMantissa}
             submitButtonLabel={t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonLabel',
             )}
@@ -149,18 +149,18 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       },
     );
 
-  const requestableWei = useMemo(() => {
-    if (!xvsVaultUserInfo?.stakedAmountWei) {
+  const requestableMantissa = useMemo(() => {
+    if (!xvsVaultUserInfo?.stakedAmountMantissa) {
       return new BigNumber(0);
     }
 
     // Subtract sum of all active withdrawal requests amounts to amount of
     // tokens staked by user
     const pendingLockedDepositsSum = xvsVaultUserLockedDepositsData.lockedDeposits.reduce(
-      (acc, xvsVaultUserLockedDeposit) => acc.plus(xvsVaultUserLockedDeposit.amountWei),
+      (acc, xvsVaultUserLockedDeposit) => acc.plus(xvsVaultUserLockedDeposit.amountMantissa),
       new BigNumber(0),
     );
-    return xvsVaultUserInfo.stakedAmountWei.minus(pendingLockedDepositsSum);
+    return xvsVaultUserInfo.stakedAmountMantissa.minus(pendingLockedDepositsSum);
   }, [xvsVaultUserLockedDepositsData, xvsVaultUserInfo]);
 
   const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
@@ -181,8 +181,8 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     accountAddress,
   });
 
-  const readablePrimeMinimumXvsStake = useConvertWeiToReadableTokenString({
-    valueWei: getPrimeStatusData?.primeMinimumStakedXvsMantissa,
+  const readablePrimeMinimumXvsStake = useConvertMantissaToReadableTokenString({
+    value: getPrimeStatusData?.primeMinimumStakedXvsMantissa,
     token: xvs,
   });
 
@@ -196,11 +196,11 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       return undefined;
     }
 
-    const primeLossDeltaWei = xvsVaultUserInfo.stakedAmountWei.minus(
+    const primeLossDeltaWei = xvsVaultUserInfo.stakedAmountMantissa.minus(
       getPrimeStatusData.primeMinimumStakedXvsMantissa,
     );
-    const primeLossDeltaTokens = convertWeiToTokens({
-      valueWei: primeLossDeltaWei,
+    const primeLossDeltaTokens = convertMantissaToTokens({
+      value: primeLossDeltaWei,
       token: xvs,
     });
 
@@ -225,11 +225,11 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     isGetPrimeTokenLoading ||
     isGetPrimeStatusLoading;
 
-  const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
+  const handleSubmit: TransactionFormProps['onSubmit'] = async amountMantissa =>
     requestWithdrawalFromXvsVault({
       poolIndex,
       rewardTokenAddress: xvs!.address,
-      amountWei,
+      amountMantissa,
     });
 
   return (
@@ -241,7 +241,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       <RequestWithdrawalUi
         stakedToken={stakedToken}
         isInitialLoading={isInitialLoading}
-        requestableWei={requestableWei}
+        requestableMantissa={requestableMantissa}
         lockingPeriodMs={xvsVaultPoolInfo?.lockingPeriodMs}
         onSubmitSuccess={handleClose}
         onSubmit={handleSubmit}

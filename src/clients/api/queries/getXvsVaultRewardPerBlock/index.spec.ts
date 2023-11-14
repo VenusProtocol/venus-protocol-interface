@@ -9,7 +9,7 @@ import getXvsVaultRewardPerBlock from '.';
 const xvsTokenAddress = xvs.address;
 
 describe('api/queries/getXvsVaultRewardPerBlock', () => {
-  test('returns the reward per block in wei on success', async () => {
+  test('returns the reward per block in mantissa on success', async () => {
     const fakeOutput = BN.from('2000000000000000000');
 
     const rewardTokenAmountsPerBlockMock = vi.fn(async () => fakeOutput);
@@ -26,7 +26,7 @@ describe('api/queries/getXvsVaultRewardPerBlock', () => {
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledTimes(1);
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledWith(xvsTokenAddress);
     expect(response).toEqual({
-      rewardPerBlockWei: new BigNumber(fakeOutput.toString()),
+      rewardPerBlockMantissa: new BigNumber(fakeOutput.toString()),
     });
   });
 });

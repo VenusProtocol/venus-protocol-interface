@@ -334,13 +334,13 @@ describe('RepayForm', () => {
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.repay));
     fireEvent.click(getByText(en.operationModal.repay.submitButtonLabel.repay));
 
-    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
-      amountWei: expectedAmountWei,
+      amountMantissa: expectedAmountMantissa,
       isRepayingFullLoan: false,
     });
 
@@ -378,7 +378,7 @@ describe('RepayForm', () => {
 
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
-      amountWei: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to wei
+      amountMantissa: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to mantissa
       isRepayingFullLoan: true,
     });
   });

@@ -6,13 +6,13 @@ import { Button, NoticeWarning, TokenIcon } from 'components';
 import { useTranslation } from 'packages/translations';
 import React, { useContext, useMemo, useState } from 'react';
 import { Token } from 'types';
-import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
+import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { useGetPrimeStatus } from 'clients/api';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import { useAuth } from 'context/AuthContext';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
@@ -25,15 +25,15 @@ export interface VaultItemUiProps {
   stakedToken: Token;
   rewardToken: Token;
   stakingAprPercentage: number;
-  dailyEmissionWei: BigNumber;
-  totalStakedWei: BigNumber;
+  dailyEmissionMantissa: BigNumber;
+  totalStakedMantissa: BigNumber;
   onStake: () => void;
   onWithdraw: () => void;
   closeActiveModal: () => void;
   canWithdraw?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
-  userStakedWei?: BigNumber;
+  userStakedMantissa?: BigNumber;
   hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
   className?: string;
 }
@@ -41,10 +41,10 @@ export interface VaultItemUiProps {
 export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   stakedToken,
   rewardToken,
-  userStakedWei,
+  userStakedMantissa,
   stakingAprPercentage,
-  dailyEmissionWei,
-  totalStakedWei,
+  dailyEmissionMantissa,
+  totalStakedMantissa,
   onStake,
   onWithdraw,
   canWithdraw = true,
@@ -69,9 +69,9 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   );
   const primePoolIndex = getPrimeStatusData?.xvsVaultPoolId;
 
-  const readableUserStakedTokens = useConvertWeiToReadableTokenString({
+  const readableUserStakedTokens = useConvertMantissaToReadableTokenString({
     token: stakedToken,
-    value: userStakedWei || new BigNumber(0),
+    value: userStakedMantissa || new BigNumber(0),
     addSymbol: false,
   });
 
@@ -86,8 +86,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         value: (
           <>
             <TokenIcon css={styles.tokenIcon} token={rewardToken} />
-            {convertWeiToTokens({
-              value: dailyEmissionWei,
+            {convertMantissaToTokens({
+              value: dailyEmissionMantissa,
               token: rewardToken,
               returnInReadableFormat: true,
 
@@ -101,8 +101,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         value: (
           <>
             <TokenIcon css={styles.tokenIcon} token={stakedToken} />
-            {convertWeiToTokens({
-              value: totalStakedWei,
+            {convertMantissaToTokens({
+              value: totalStakedMantissa,
               token: stakedToken,
               returnInReadableFormat: true,
 
@@ -112,7 +112,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         ),
       },
     ],
-    [stakedToken, rewardToken, stakingAprPercentage, dailyEmissionWei, totalStakedWei, t],
+    [stakedToken, rewardToken, stakingAprPercentage, dailyEmissionMantissa, totalStakedMantissa, t],
   );
 
   return (
@@ -266,8 +266,8 @@ const VaultItem: React.FC<VaultItemProps> = ({
       canWithdraw={
         stakedToken.symbol !== 'VRT' ||
         typeof poolIndex === 'number' ||
-        !vaultItemUiProps.userStakedWei ||
-        vaultItemUiProps.userStakedWei.isGreaterThan(0)
+        !vaultItemUiProps.userStakedMantissa ||
+        vaultItemUiProps.userStakedMantissa.isGreaterThan(0)
       }
       {...vaultItemUiProps}
     />

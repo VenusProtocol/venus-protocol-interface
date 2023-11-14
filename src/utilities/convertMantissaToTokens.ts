@@ -3,21 +3,21 @@ import { Token, VToken } from 'types';
 
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
-export interface ConvertWeiToTokensInput<T extends boolean | undefined = false> {
+export interface ConvertMantissaToTokensInput<T extends boolean | undefined = false> {
   value: BigNumber;
   token?: Token | VToken;
   returnInReadableFormat?: T;
   addSymbol?: boolean;
 }
 
-export type ConvertWeiToTokensOutput<T> = T extends true ? string : BigNumber;
+export type ConvertMantissaToTokensOutput<T> = T extends true ? string : BigNumber;
 
-export function convertWeiToTokens<T extends boolean | undefined = false>({
+export function convertMantissaToTokens<T extends boolean | undefined = false>({
   value,
   token,
   returnInReadableFormat = false,
   addSymbol = true,
-}: ConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
+}: ConvertMantissaToTokensInput<T>): ConvertMantissaToTokensOutput<T> {
   const valueTokens = token && value.dividedBy(10 ** token.decimals).decimalPlaces(token.decimals);
 
   return (
@@ -28,7 +28,7 @@ export function convertWeiToTokens<T extends boolean | undefined = false>({
           addSymbol,
         })
       : valueTokens
-  ) as ConvertWeiToTokensOutput<T>;
+  ) as ConvertMantissaToTokensOutput<T>;
 }
 
-export default convertWeiToTokens;
+export default convertMantissaToTokens;

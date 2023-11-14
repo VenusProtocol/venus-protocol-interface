@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { WithdrawFromVaiVaultInput, queryClient, withdrawFromVaiVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -31,14 +31,14 @@ const useWithdrawFromVaiVault = (options?: Options) => {
         }),
       ),
     onConfirmed: async ({ input }) => {
-      const { amountWei } = input;
+      const { amountMantissa } = input;
       const accountAddress = await vaiVaultContract?.signer.getAddress();
 
       if (vai) {
         captureAnalyticEvent('Tokens withdrawn from VAI vault', {
-          tokenAmountTokens: convertWeiToTokens({
+          tokenAmountTokens: convertMantissaToTokens({
             token: vai,
-            value: amountWei,
+            value: amountMantissa,
           }).toNumber(),
         });
 

@@ -9,5 +9,5 @@ export interface GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput {
 }
 
 export interface GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput {
-  pendingWithdrawalsFromBeforeUpgradeWei: BigNumber;
+  pendingWithdrawalsFromBeforeUpgradeMantissa: BigNumber;
 }

@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import withdrawFromVaiVault from '.';
 
-const fakeAmountWei = new BigNumber('1000000000000');
+const fakeAmountMantissa = new BigNumber('1000000000000');
 
 describe('withdrawFromVaiVault', () => {
   test('returns contract transaction when request succeeds', async () => {
@@ -17,11 +17,11 @@ describe('withdrawFromVaiVault', () => {
 
     const response = await withdrawFromVaiVault({
       vaiVaultContract: fakeContract,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
     });
 
     expect(response).toBe(fakeContractTransaction);
     expect(withdrawMock).toHaveBeenCalledTimes(1);
-    expect(withdrawMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(withdrawMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
   });
 });

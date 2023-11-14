@@ -14,7 +14,7 @@ const fakeVault = fakeVaults[0];
 
 const baseProps: VaultItemProps = {
   ...fakeVault,
-  userStakedWei: new BigNumber('200000000000000000000'),
+  userStakedMantissa: new BigNumber('200000000000000000000'),
 };
 
 describe('pages/Vault/VaultItem', () => {
@@ -37,11 +37,11 @@ describe('pages/Vault/VaultItem', () => {
     );
   });
 
-  it('hides withdraw button userStakedWei is equal to 0', async () => {
+  it('hides withdraw button userStakedMantissa is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
       stakedToken: vrt,
-      userStakedWei: new BigNumber(0),
+      userStakedMantissa: new BigNumber(0),
     };
 
     const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {

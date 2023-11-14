@@ -4,7 +4,7 @@ import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField }
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useState } from 'react';
 import { Asset, Pool } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { useBorrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -204,12 +204,12 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   const isSubmitting = isBorrowLoading;
 
   const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
-    const amountWei = convertTokensToWei({
+    const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(fromTokenAmountTokens.trim()),
       token: fromToken,
     });
 
-    return borrow({ amountWei });
+    return borrow({ amountMantissa });
   };
 
   return (

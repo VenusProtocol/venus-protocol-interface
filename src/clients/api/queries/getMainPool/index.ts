@@ -161,7 +161,7 @@ const getMainPool = async ({
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
     userVTokenBalances: extractSettledPromiseValue(userVTokenBalancesResults),
-    userVaiBorrowBalanceWei: vaiRepayAmountMantissa
+    userVaiBorrowBalanceMantissa: vaiRepayAmountMantissa
       ? new BigNumber(vaiRepayAmountMantissa.toString())
       : undefined,
     primeApyMap,

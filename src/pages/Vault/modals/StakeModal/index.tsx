@@ -33,15 +33,16 @@ const StakeModal: React.FC<StakeModalProps> = ({
     [poolIndex, xvsVaultContractAddress, vaiVaultContractAddress],
   );
 
-  const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
-    {
-      accountAddress: accountAddress || '',
-      token: stakedToken,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
+  const { data: availableTokensData, isLoading: isGetWalletBalanceMantissaLoading } =
+    useGetBalanceOf(
+      {
+        accountAddress: accountAddress || '',
+        token: stakedToken,
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
 
   const { stake, isLoading: isStakeLoading } = useStakeInVault({
     stakedToken,
@@ -49,10 +50,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
     poolIndex,
   });
 
-  const handleStake = async (amountWei: BigNumber) => {
+  const handleStake = async (amountMantissa: BigNumber) => {
     // Send request to stake
     const res = await stake({
-      amountWei,
+      amountMantissa,
     });
 
     // Close modal
@@ -66,8 +67,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
       title={t('stakeModal.title', { tokenSymbol: stakedToken.symbol })}
       token={stakedToken}
       handleClose={handleClose}
-      availableTokensWei={availableTokensData?.balanceWei || new BigNumber(0)}
-      isInitialLoading={isGetWalletBalanceWeiLoading}
+      availableTokensMantissa={availableTokensData?.balanceMantissa || new BigNumber(0)}
+      isInitialLoading={isGetWalletBalanceMantissaLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}
       connectWalletMessage={t('stakeModal.connectWalletMessage', {

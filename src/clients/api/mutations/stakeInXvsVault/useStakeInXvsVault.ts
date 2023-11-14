@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { Token } from 'types';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -29,14 +29,14 @@ const useStakeInXvsVault = (
         }),
       ),
     onConfirmed: async ({ input }) => {
-      const { poolIndex, amountWei } = input;
+      const { poolIndex, amountMantissa } = input;
 
       captureAnalyticEvent('Tokens staked in XVS vault', {
         poolIndex,
         rewardTokenSymbol: rewardToken.symbol,
-        tokenAmountTokens: convertWeiToTokens({
+        tokenAmountTokens: convertMantissaToTokens({
           token: stakedToken,
-          value: amountWei,
+          value: amountMantissa,
         }).toNumber(),
       });
 

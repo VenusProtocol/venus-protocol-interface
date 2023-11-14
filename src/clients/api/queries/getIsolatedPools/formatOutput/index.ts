@@ -11,7 +11,7 @@ import areTokensEqual from 'utilities/areTokensEqual';
 import calculateApy from 'utilities/calculateApy';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertFactorFromSmartContract from 'utilities/convertFactorFromSmartContract';
-import convertWeiToTokens from 'utilities/convertWeiToTokens';
+import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
@@ -90,12 +90,12 @@ const formatToPools = ({
       const supplierCount = +(subgraphPoolMarket?.supplierCount || 0);
       const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
 
-      const borrowCapTokens = convertWeiToTokens({
+      const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.borrowCaps.toString()),
         token: vToken.underlyingToken,
       });
 
-      const supplyCapTokens = convertWeiToTokens({
+      const supplyCapTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.supplyCaps.toString()),
         token: vToken.underlyingToken,
       });
@@ -108,7 +108,7 @@ const formatToPools = ({
         factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
       });
 
-      const cashTokens = convertWeiToTokens({
+      const cashTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.totalCash.toString()),
         token: vToken.underlyingToken,
       });
@@ -116,7 +116,7 @@ const formatToPools = ({
       const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
-      const reserveTokens = convertWeiToTokens({
+      const reserveTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.totalReserves.toString()),
         token: vToken.underlyingToken,
       });
@@ -148,14 +148,14 @@ const formatToPools = ({
       const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
       const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
-      const supplyBalanceVTokens = convertWeiToTokens({
+      const supplyBalanceVTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.totalSupply.toString()),
         token: vToken,
       });
       const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const borrowBalanceTokens = convertWeiToTokens({
+      const borrowBalanceTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
@@ -164,14 +164,14 @@ const formatToPools = ({
 
       // User-specific props
       const userBorrowBalanceTokens = userVTokenBalances
-        ? convertWeiToTokens({
+        ? convertMantissaToTokens({
             value: new BigNumber(userVTokenBalances.borrowBalanceCurrent.toString()),
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
 
       const userSupplyBalanceTokens = userVTokenBalances
-        ? convertWeiToTokens({
+        ? convertMantissaToTokens({
             value: new BigNumber(userVTokenBalances.balanceOfUnderlying.toString()),
             token: vToken.underlyingToken,
           })
@@ -182,8 +182,8 @@ const formatToPools = ({
       );
 
       const userWalletBalanceTokens = tokenBalanceRes
-        ? convertWeiToTokens({
-            value: tokenBalanceRes.balanceWei,
+        ? convertMantissaToTokens({
+            value: tokenBalanceRes.balanceMantissa,
             token: tokenBalanceRes.token,
           })
         : new BigNumber(0);

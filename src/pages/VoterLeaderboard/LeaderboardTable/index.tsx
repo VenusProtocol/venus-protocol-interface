@@ -7,7 +7,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { VoterAccount } from 'types';
-import { convertWeiToTokens, formatPercentageToReadableValue } from 'utilities';
+import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { routes } from 'constants/routing';
 
@@ -55,7 +55,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         align: 'right',
         renderCell: voter => (
           <Typography color="textPrimary" variant="small2">
-            {convertWeiToTokens({
+            {convertMantissaToTokens({
               value: voter.votesMantissa,
               token: xvs,
               returnInReadableFormat: true,

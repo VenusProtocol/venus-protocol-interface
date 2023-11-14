@@ -4,7 +4,7 @@ import { LabeledInlineContent } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useContext, useMemo } from 'react';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useGetVaiCalculateRepayAmount } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
@@ -31,7 +31,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   const { data: vaiRepayAmountData } = useGetVaiCalculateRepayAmount(
     {
       accountAddress: accountAddress || '',
-      repayAmountWei: convertTokensToWei({
+      repayAmountMantissa: convertTokensToMantissa({
         value: new BigNumber(debouncedAmountTokens || 0),
         token: vai!,
       }),
@@ -43,12 +43,12 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   );
 
   const readableRepayFee = useMemo(() => {
-    const repayFeeWei = new BigNumber(vaiRepayAmountData?.vaiCurrentInterestWei || 0).plus(
-      vaiRepayAmountData?.vaiPastInterestWei || 0,
-    );
+    const repayFeeMantissa = new BigNumber(
+      vaiRepayAmountData?.vaiCurrentInterestMantissa || 0,
+    ).plus(vaiRepayAmountData?.vaiPastInterestMantissa || 0);
 
-    const fee = convertWeiToTokens({
-      value: repayFeeWei,
+    const fee = convertMantissaToTokens({
+      value: repayFeeMantissa,
       token: vai!,
 
       returnInReadableFormat: true,

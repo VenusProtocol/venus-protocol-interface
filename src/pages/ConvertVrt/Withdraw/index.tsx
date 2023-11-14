@@ -9,7 +9,7 @@ import React, { useContext } from 'react';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from '../styles';
 
@@ -34,7 +34,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
     DisableLunaUstWarningContext,
   );
 
-  const readableXvsAvailable = useConvertWeiToReadableTokenString({
+  const readableXvsAvailable = useConvertMantissaToReadableTokenString({
     value: xvsWithdrawableAmount,
     token: xvs,
   });

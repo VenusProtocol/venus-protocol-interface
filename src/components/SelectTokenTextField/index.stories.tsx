@@ -19,15 +19,15 @@ export default {
 const tokenBalances: TokenBalance[] = [
   {
     token: busd,
-    balanceWei: new BigNumber('1000000000000'),
+    balanceMantissa: new BigNumber('1000000000000'),
   },
   {
     token: xvs,
-    balanceWei: new BigNumber('2000000000000'),
+    balanceMantissa: new BigNumber('2000000000000'),
   },
   {
     token: wbnb,
-    balanceWei: new BigNumber('3000000000000'),
+    balanceMantissa: new BigNumber('3000000000000'),
   },
 ];
 

@@ -4,12 +4,12 @@ import { VBep20, VBnb } from 'packages/contracts';
 
 export interface RedeemInput {
   tokenContract: VBep20 | VBnb;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type RedeemOutput = ContractTransaction;
 
-const redeem = async ({ tokenContract, amountWei }: RedeemInput): Promise<RedeemOutput> =>
-  tokenContract.redeem(amountWei.toFixed());
+const redeem = async ({ tokenContract, amountMantissa }: RedeemInput): Promise<RedeemOutput> =>
+  tokenContract.redeem(amountMantissa.toFixed());
 
 export default redeem;

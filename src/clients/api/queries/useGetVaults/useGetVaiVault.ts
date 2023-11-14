@@ -2,7 +2,7 @@ import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { Vault } from 'types';
-import { areTokensEqual, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import {
   useGetBalanceOf,
@@ -28,15 +28,16 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     symbol: 'VAI',
   });
 
-  const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
-    {
-      accountAddress: vaiVaultContractAddress || '',
-      token: vai!, // We ensure vai exists through the enabled option
-    },
-    {
-      enabled: !!vaiVaultContractAddress && !!vai,
-    },
-  );
+  const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedMantissaLoading } =
+    useGetBalanceOf(
+      {
+        accountAddress: vaiVaultContractAddress || '',
+        token: vai!, // We ensure vai exists through the enabled option
+      },
+      {
+        enabled: !!vaiVaultContractAddress && !!vai,
+      },
+    );
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
@@ -48,7 +49,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateWeiLoading } =
+  const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateMantissaLoading } =
     useGetVenusVaiVaultDailyRate();
 
   const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
@@ -69,15 +70,15 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       return undefined;
     }
 
-    const stakingAprPercentage = convertWeiToTokens({
-      value: vaiVaultDailyRateData.dailyRateWei,
+    const stakingAprPercentage = convertMantissaToTokens({
+      value: vaiVaultDailyRateData.dailyRateMantissa,
       token: xvs,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
-        convertWeiToTokens({
-          value: totalVaiStakedData.balanceWei,
+        convertMantissaToTokens({
+          value: totalVaiStakedData.balanceMantissa,
           token: vai,
         }),
       )
@@ -87,16 +88,16 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     return {
       rewardToken: xvs,
       stakedToken: vai,
-      dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
-      totalStakedWei: totalVaiStakedData.balanceWei,
+      dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
+      totalStakedMantissa: totalVaiStakedData.balanceMantissa,
       stakingAprPercentage,
-      userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
+      userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
     };
   }, [xvsPriceDollars, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
 
   const isLoading =
-    isGetTotalVaiStakedWeiLoading ||
-    isGetVaiVaultDailyRateWeiLoading ||
+    isGetTotalVaiStakedMantissaLoading ||
+    isGetVaiVaultDailyRateMantissaLoading ||
     isGetMainPoolLoading ||
     isGetVaiVaultUserInfoLoading;
 

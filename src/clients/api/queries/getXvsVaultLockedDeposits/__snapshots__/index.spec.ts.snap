@@ -4,15 +4,15 @@ exports[`api/queries/getXvsVaultLockedDeposits > returns withdrawal requests on 
 {
   "lockedDeposits": [
     {
-      "amountWei": "1000000000000000000",
+      "amountMantissa": "1000000000000000000",
       "unlockedAt": 2022-06-29T10:43:24.000Z,
     },
     {
-      "amountWei": "2000000000000000000",
+      "amountMantissa": "2000000000000000000",
       "unlockedAt": 2022-06-30T14:30:04.000Z,
     },
     {
-      "amountWei": "3000000000000000000",
+      "amountMantissa": "3000000000000000000",
       "unlockedAt": 2022-07-01T18:16:44.000Z,
     },
   ],

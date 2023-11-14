@@ -13,7 +13,7 @@ export type UseGetVaiCalculateRepayAmountQueryKey = [
   FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT,
   {
     accountAddress: string;
-    repayAmountWei: string;
+    repayAmountMantissa: string;
     chainId: ChainId;
   },
 ];
@@ -29,7 +29,7 @@ type Options = QueryObserverOptions<
 const useGetVaiCalculateRepayAmount = (
   {
     accountAddress,
-    repayAmountWei,
+    repayAmountMantissa,
   }: Omit<GetVaiCalculateRepayAmountInput, 'vaiControllerContract'>,
   options?: Options,
 ) => {
@@ -42,14 +42,14 @@ const useGetVaiCalculateRepayAmount = (
       {
         accountAddress,
         chainId,
-        repayAmountWei: repayAmountWei.toFixed(),
+        repayAmountMantissa: repayAmountMantissa.toFixed(),
       },
     ],
     () =>
       callOrThrow({ vaiControllerContract }, params =>
         getVaiCalculateRepayAmount({
           accountAddress,
-          repayAmountWei,
+          repayAmountMantissa,
           ...params,
         }),
       ),

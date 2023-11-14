@@ -8,7 +8,7 @@ import { vBnb, vXvs } from '__mocks__/models/vTokens';
 
 import supply from '.';
 
-const fakeAmountWei = new BigNumber('10000000000000000');
+const fakeAmountMantissa = new BigNumber('10000000000000000');
 
 vi.mock('packages/contracts');
 
@@ -26,14 +26,14 @@ describe('supply', () => {
       const response = await supply({
         signer: fakeSigner,
         vToken: vBnb,
-        amountWei: fakeAmountWei,
+        amountMantissa: fakeAmountMantissa,
       });
 
       expect(response).toBe(fakeContractTransaction);
 
       expect(mintMock).toHaveBeenCalledTimes(1);
       expect(mintMock).toHaveBeenCalledWith({
-        value: fakeAmountWei.toFixed(),
+        value: fakeAmountMantissa.toFixed(),
       });
     });
   });
@@ -51,13 +51,13 @@ describe('supply', () => {
       const response = await supply({
         signer: fakeSigner,
         vToken: vXvs,
-        amountWei: fakeAmountWei,
+        amountMantissa: fakeAmountMantissa,
       });
 
       expect(response).toBe(fakeContractTransaction);
 
       expect(mintMock).toHaveBeenCalledTimes(1);
-      expect(mintMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+      expect(mintMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
     });
   });
 });

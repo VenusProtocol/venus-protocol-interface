@@ -43,7 +43,7 @@ const useGetVestingVaults = ({
   } = useGetXvsVaultPoolCount();
 
   // Fetch data generic to all XVS pools
-  const { data: xvsVaultRewardWeiPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
+  const { data: xvsVaultRewardMantissaPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
     useGetXvsVaultRewardPerBlock(
       {
         tokenAddress: xvs!.address, // We ensure vai exists through the enabled option
@@ -111,7 +111,7 @@ const useGetVestingVaults = ({
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
           hasPendingWithdrawalsFromBeforeUpgrade:
-            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.pendingWithdrawalsFromBeforeUpgradeWei.isGreaterThan(
+            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.pendingWithdrawalsFromBeforeUpgradeMantissa.isGreaterThan(
               0,
             ) || false,
         };
@@ -151,10 +151,10 @@ const useGetVestingVaults = ({
     () =>
       Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<Vault[]>(
         (acc, _item, poolIndex) => {
-          const totalStakedWeiData = poolBalances[poolIndex];
+          const totalStakedMantissaData = poolBalances[poolIndex];
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
-          const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei.minus(
-            poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountWei || 0,
+          const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
+            poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountMantissa || 0,
           );
           const hasPendingWithdrawalsFromBeforeUpgrade =
             poolData[poolIndex]?.hasPendingWithdrawalsFromBeforeUpgrade;
@@ -166,32 +166,32 @@ const useGetVestingVaults = ({
               address: poolData[poolIndex]?.poolInfos.stakedTokenAddress,
             });
 
-          const poolRewardWeiPerBlock =
-            xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
+          const poolRewardMantissaPerBlock =
+            xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa &&
             xvsVaultTotalAllocationPointsData?.totalAllocationPoints &&
             poolData[poolIndex]?.poolInfos.allocationPoint &&
-            xvsVaultRewardWeiPerBlock.rewardPerBlockWei
+            xvsVaultRewardMantissaPerBlock.rewardPerBlockMantissa
               .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
               .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
 
           const { blocksPerDay } = CHAIN_METADATA[chainId];
-          const dailyEmissionWei =
-            poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(blocksPerDay);
+          const dailyEmissionMantissa =
+            poolRewardMantissaPerBlock && poolRewardMantissaPerBlock.multipliedBy(blocksPerDay);
 
           const stakingAprPercentage =
-            dailyEmissionWei &&
-            totalStakedWeiData &&
-            dailyEmissionWei
+            dailyEmissionMantissa &&
+            totalStakedMantissaData &&
+            dailyEmissionMantissa
               .multipliedBy(DAYS_PER_YEAR)
-              .div(totalStakedWeiData.balanceWei)
+              .div(totalStakedMantissaData.balanceMantissa)
               .multipliedBy(100)
               .toNumber();
 
           if (
             stakedToken &&
             lockingPeriodMs &&
-            dailyEmissionWei &&
-            totalStakedWeiData &&
+            dailyEmissionMantissa &&
+            totalStakedMantissaData &&
             stakingAprPercentage &&
             xvs
           ) {
@@ -199,10 +199,10 @@ const useGetVestingVaults = ({
               rewardToken: xvs,
               stakedToken,
               lockingPeriodMs,
-              dailyEmissionWei,
-              totalStakedWei: totalStakedWeiData.balanceWei,
+              dailyEmissionMantissa,
+              totalStakedMantissa: totalStakedMantissaData.balanceMantissa,
               stakingAprPercentage,
-              userStakedWei,
+              userStakedMantissa,
               poolIndex,
               hasPendingWithdrawalsFromBeforeUpgrade,
             };
@@ -218,7 +218,7 @@ const useGetVestingVaults = ({
       xvsVaultPoolCountData.poolCount,
       poolData,
       poolBalances,
-      xvsVaultRewardWeiPerBlock?.rewardPerBlockWei,
+      xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa,
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       xvs,
       tokens,

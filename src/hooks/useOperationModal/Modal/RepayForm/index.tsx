@@ -16,8 +16,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
-  convertTokensToWei,
-  convertWeiToTokens,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
   formatPercentageToReadableValue,
 } from 'utilities';
 
@@ -109,8 +109,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       return (
         tokenBalance &&
-        convertWeiToTokens({
-          value: tokenBalance.balanceWei,
+        convertMantissaToTokens({
+          value: tokenBalance.balanceMantissa,
           token: tokenBalance.token,
         })
       );
@@ -382,14 +382,14 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
     // Handle repay flow
     if (!isSwapping) {
-      const amountWei = convertTokensToWei({
+      const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
       return onRepay({
         isRepayingFullLoan,
-        amountWei,
+        amountMantissa,
       });
     }
 

@@ -8,9 +8,9 @@ import getVTokenBalance from '.';
 
 describe('api/queries/getVTokenBalance', () => {
   test('returns the balance on success', async () => {
-    const fakeBalanceWei = BN.from('1000');
+    const fakeBalanceMantissa = BN.from('1000');
 
-    const getBalanceOfMock = vi.fn(async () => fakeBalanceWei);
+    const getBalanceOfMock = vi.fn(async () => fakeBalanceMantissa);
 
     const fakeContract = {
       balanceOf: getBalanceOfMock,
@@ -24,7 +24,7 @@ describe('api/queries/getVTokenBalance', () => {
     expect(getBalanceOfMock).toHaveBeenCalledTimes(1);
     expect(getBalanceOfMock).toHaveBeenCalledWith(fakeAddress);
     expect(response).toEqual({
-      balanceWei: new BigNumber(fakeBalanceWei.toString()),
+      balanceMantissa: new BigNumber(fakeBalanceMantissa.toString()),
     });
   });
 });

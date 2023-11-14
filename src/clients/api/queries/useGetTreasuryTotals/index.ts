@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { convertWeiToTokens, indexBy } from 'utilities';
+import { convertMantissaToTokens, indexBy } from 'utilities';
 
 import {
   GetVTokenBalancesAllOutput,
@@ -80,11 +80,11 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
       (acc, pool) => {
         pool.assets.forEach(asset => {
           if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
-            const assetTreasuryBalanceWei = new BigNumber(
+            const assetTreasuryBalanceMantissa = new BigNumber(
               treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance,
             );
-            const assetTreasuryBalanceTokens = convertWeiToTokens({
-              value: assetTreasuryBalanceWei,
+            const assetTreasuryBalanceTokens = convertMantissaToTokens({
+              value: assetTreasuryBalanceMantissa,
               token: asset.vToken.underlyingToken,
             });
 

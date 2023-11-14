@@ -6,7 +6,7 @@ export interface RequestWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type RequestWithdrawalFromXvsVaultOutput = ContractTransaction;
@@ -15,8 +15,8 @@ const requestWithdrawalFromXvsVault = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
-  amountWei,
+  amountMantissa,
 }: RequestWithdrawalFromXvsVaultInput): Promise<RequestWithdrawalFromXvsVaultOutput> =>
-  xvsVaultContract.requestWithdrawal(rewardTokenAddress, poolIndex, amountWei.toFixed());
+  xvsVaultContract.requestWithdrawal(rewardTokenAddress, poolIndex, amountMantissa.toFixed());
 
 export default requestWithdrawalFromXvsVault;

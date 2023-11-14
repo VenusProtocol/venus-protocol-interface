@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Asset, Swap, SwapError } from 'types';
-import { areTokensEqual, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
@@ -26,13 +26,13 @@ const getSwapToTokenAmountReceivedTokens = (swap?: Swap) => {
   let swapToTokenAmountReceivedTokens;
 
   if (swap) {
-    const swapToTokenAmountReceivedWei =
+    const swapToTokenAmountReceivedMantissa =
       swap.direction === 'exactAmountOut'
-        ? swap.toTokenAmountReceivedWei
-        : swap.expectedToTokenAmountReceivedWei;
+        ? swap.toTokenAmountReceivedMantissa
+        : swap.expectedToTokenAmountReceivedMantissa;
 
-    swapToTokenAmountReceivedTokens = convertWeiToTokens({
-      value: swapToTokenAmountReceivedWei,
+    swapToTokenAmountReceivedTokens = convertMantissaToTokens({
+      value: swapToTokenAmountReceivedMantissa,
       token: swap.toToken,
     });
   }

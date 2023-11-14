@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { Bep20, getTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
-import fakeProvider, { balance as fakeBalanceWei } from '__mocks__/models/provider';
+import fakeProvider, { balance as fakeBalanceMantissa } from '__mocks__/models/provider';
 import { bnb, xvs } from '__mocks__/models/tokens';
 
 import getBalanceOf from '.';
@@ -14,7 +14,7 @@ vi.mock('packages/contracts');
 describe('api/queries/getBalanceOf', () => {
   describe('non-BNB token', () => {
     test('returns the balance on success', async () => {
-      const balanceOfMock = vi.fn(async () => fakeBalanceWei);
+      const balanceOfMock = vi.fn(async () => fakeBalanceMantissa);
 
       const fakeContract = {
         balanceOf: balanceOfMock,
@@ -31,7 +31,7 @@ describe('api/queries/getBalanceOf', () => {
       expect(balanceOfMock).toHaveBeenCalledTimes(1);
       expect(balanceOfMock).toHaveBeenCalledWith(fakeAccountAddress);
       expect(response).toEqual({
-        balanceWei: new BigNumber(fakeBalanceWei.toString()),
+        balanceMantissa: new BigNumber(fakeBalanceMantissa.toString()),
       });
     });
   });
@@ -47,7 +47,7 @@ describe('api/queries/getBalanceOf', () => {
       expect(fakeProvider.getBalance).toHaveBeenCalledTimes(1);
       expect(fakeProvider.getBalance).toHaveBeenCalledWith(fakeAccountAddress);
       expect(response).toEqual({
-        balanceWei: new BigNumber(fakeBalanceWei.toString()),
+        balanceMantissa: new BigNumber(fakeBalanceMantissa.toString()),
       });
     });
   });

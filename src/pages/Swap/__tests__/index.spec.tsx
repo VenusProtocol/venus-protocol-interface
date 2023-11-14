@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { en } from 'packages/translations';
 import React from 'react';
 import { Swap } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -471,8 +471,8 @@ describe('Swap', () => {
       }),
     ) as HTMLInputElement;
 
-    const expectedToTokenAmountReceivedTokens = convertWeiToTokens({
-      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
+    const expectedToTokenAmountReceivedTokens = convertMantissaToTokens({
+      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedMantissa,
       token: fakeExactAmountInSwap.fromToken,
     });
 
@@ -515,8 +515,8 @@ describe('Swap', () => {
       }),
     ) as HTMLInputElement;
 
-    const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-      value: fakeExactAmountOutSwap.expectedFromTokenAmountSoldWei,
+    const expectedFromTokenAmountSoldTokens = convertMantissaToTokens({
+      value: fakeExactAmountOutSwap.expectedFromTokenAmountSoldMantissa,
       token: fakeExactAmountOutSwap.fromToken,
     });
 
@@ -762,8 +762,8 @@ describe('Swap', () => {
     ) as HTMLInputElement;
 
     // Check if toInput input value was updated correctly
-    const expectedToTokenAmountSoldTokens = convertWeiToTokens({
-      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedWei,
+    const expectedToTokenAmountSoldTokens = convertMantissaToTokens({
+      value: fakeExactAmountInSwap.expectedToTokenAmountReceivedMantissa,
       token: fakeExactAmountInSwap.toToken,
     });
 

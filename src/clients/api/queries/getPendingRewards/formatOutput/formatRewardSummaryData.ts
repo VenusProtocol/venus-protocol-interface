@@ -2,14 +2,14 @@ import BigNumber from 'bignumber.js';
 import { logError } from 'errors';
 import { VenusLens } from 'packages/contracts';
 import { Token } from 'types';
-import { convertDollarsToCents, convertWeiToTokens } from 'utilities';
+import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 type FormatRewardSummaryDataOutput =
   | {
       rewardToken: Token;
-      rewardAmountWei: BigNumber;
+      rewardAmountMantissa: BigNumber;
       rewardAmountCents: BigNumber | undefined;
       vTokenAddressesWithPendingReward: string[];
       rewardsDistributorAddress: string;
@@ -37,10 +37,10 @@ function formatRewardSummaryData({
   }
 
   const vTokenAddressesWithPendingReward: string[] = [];
-  const distributedRewardsWei = new BigNumber(rewardSummary.totalRewards.toString());
+  const distributedRewardsMantissa = new BigNumber(rewardSummary.totalRewards.toString());
 
   // Go through markets to aggregate rewards
-  const rewardAmountWei = rewardSummary.pendingRewards.reduce((acc, market) => {
+  const rewardAmountMantissa = rewardSummary.pendingRewards.reduce((acc, market) => {
     const vTokenPendingReward = new BigNumber(market.amount.toString());
     // Filter out vToken if it doesn't have any pending reward to collect
     if (vTokenPendingReward.isEqualTo(0)) {
@@ -52,10 +52,10 @@ function formatRewardSummaryData({
     vTokenAddressesWithPendingReward.push(market.vTokenAddress);
 
     return acc.plus(vTokenPendingReward);
-  }, distributedRewardsWei);
+  }, distributedRewardsMantissa);
 
   // Return undefined if there's no pending reward
-  if (rewardAmountWei.isEqualTo(0)) {
+  if (rewardAmountMantissa.isEqualTo(0)) {
     return;
   }
 
@@ -69,8 +69,8 @@ function formatRewardSummaryData({
 
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
-  const rewardAmountTokens = convertWeiToTokens({
-    value: rewardAmountWei,
+  const rewardAmountTokens = convertMantissaToTokens({
+    value: rewardAmountMantissa,
     token: rewardToken,
   });
 
@@ -78,7 +78,7 @@ function formatRewardSummaryData({
 
   return {
     rewardToken,
-    rewardAmountWei,
+    rewardAmountMantissa,
     rewardAmountCents,
     vTokenAddressesWithPendingReward,
     rewardsDistributorAddress: rewardSummary.distributorAddress,

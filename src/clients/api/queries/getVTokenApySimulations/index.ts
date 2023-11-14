@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 
@@ -75,15 +75,15 @@ const getVTokenApySimulations = async ({
     }
   }
 
-  const cashMantissa = convertTokensToWei({
+  const cashMantissa = convertTokensToMantissa({
     value: asset.cashTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const borrowBalanceMantissa = convertTokensToWei({
+  const borrowBalanceMantissa = convertTokensToMantissa({
     value: asset.borrowBalanceTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const reservesMantissa = convertTokensToWei({
+  const reservesMantissa = convertTokensToMantissa({
     value: asset.reserveTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();

@@ -1,6 +1,6 @@
 import { useAnalytics } from 'packages/analytics';
 import { VToken } from 'types';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import supply, { SupplyInput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
@@ -32,9 +32,9 @@ const useSupply = (
       captureAnalyticEvent('Tokens supplied', {
         poolName,
         tokenSymbol: vToken.underlyingToken.symbol,
-        tokenAmountTokens: convertWeiToTokens({
+        tokenAmountTokens: convertMantissaToTokens({
           token: vToken.underlyingToken,
-          value: input.amountWei,
+          value: input.amountMantissa,
         }).toNumber(),
       });
 

@@ -24,7 +24,7 @@ describe('pages/Xvs', () => {
 
     (useGetMainPoolTotalXvsDistributed as Vi.Mock).mockImplementation(() => ({
       data: {
-        totalXvsDistributedWei: new BigNumber('91823912i376'),
+        totalXvsDistributedMantissa: new BigNumber('91823912i376'),
       },
       isLoading: false,
     }));

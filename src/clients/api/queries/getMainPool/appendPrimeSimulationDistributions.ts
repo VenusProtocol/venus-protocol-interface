@@ -4,8 +4,8 @@ import { Asset, Token } from 'types';
 import {
   areAddressesEqual,
   convertAprToApy,
-  convertTokensToWei,
-  convertWeiToTokens,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -27,7 +27,7 @@ export const appendPrimeSimulationDistributions = async ({
   accountAddress,
   primeMinimumXvsToStakeMantissa,
 }: ResolvePrimeSimulationDistributionsInput) => {
-  const primeMinimumXvsToStakeTokens = convertWeiToTokens({
+  const primeMinimumXvsToStakeTokens = convertMantissaToTokens({
     value: primeMinimumXvsToStakeMantissa,
     token: xvs,
   });
@@ -44,13 +44,13 @@ export const appendPrimeSimulationDistributions = async ({
 
       const promise = async () => {
         const averageBorrowBalanceTokens = asset.borrowBalanceTokens.dividedBy(asset.borrowerCount);
-        const averageBorrowBalanceMantissa = convertTokensToWei({
+        const averageBorrowBalanceMantissa = convertTokensToMantissa({
           value: averageBorrowBalanceTokens,
           token: asset.vToken.underlyingToken,
         });
 
         const averageSupplyBalanceTokens = asset.supplyBalanceTokens.dividedBy(asset.supplierCount);
-        const averageSupplyBalanceMantissa = convertTokensToWei({
+        const averageSupplyBalanceMantissa = convertTokensToMantissa({
           value: averageSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,
         });

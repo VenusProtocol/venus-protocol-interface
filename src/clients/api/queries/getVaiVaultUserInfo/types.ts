@@ -7,5 +7,5 @@ export interface GetVaiVaultUserInfoInput {
 }
 
 export interface GetVaiVaultUserInfoOutput {
-  stakedVaiWei: BigNumber;
+  stakedVaiMantissa: BigNumber;
 }

@@ -3,7 +3,7 @@ import { ContractTransaction } from 'ethers';
 import { VaiController } from 'packages/contracts';
 
 export interface RepayVaiInput {
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   vaiControllerContract: VaiController;
 }
 
@@ -11,7 +11,8 @@ export type IRepayVaiOutput = ContractTransaction;
 
 const repayVai = async ({
   vaiControllerContract,
-  amountWei,
-}: RepayVaiInput): Promise<IRepayVaiOutput> => vaiControllerContract.repayVAI(amountWei.toFixed());
+  amountMantissa,
+}: RepayVaiInput): Promise<IRepayVaiOutput> =>
+  vaiControllerContract.repayVAI(amountMantissa.toFixed());
 
 export default repayVai;

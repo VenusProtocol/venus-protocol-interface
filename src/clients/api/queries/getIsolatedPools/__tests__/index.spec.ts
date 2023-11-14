@@ -69,7 +69,7 @@ describe('api/queries/getIsolatedPools', () => {
       ({ tokens: requestedTokens }: { tokens: Token[] }) =>
         requestedTokens.map(token => ({
           token,
-          balanceWei: new BigNumber('10000000000000000000'),
+          balanceMantissa: new BigNumber('10000000000000000000'),
         })),
     );
 

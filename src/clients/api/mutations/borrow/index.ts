@@ -4,12 +4,12 @@ import { VBep20, VBnb } from 'packages/contracts';
 
 export interface BorrowInput {
   vTokenContract: VBep20 | VBnb;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type BorrowOutput = ContractTransaction;
 
-const borrow = async ({ vTokenContract, amountWei }: BorrowInput): Promise<BorrowOutput> =>
-  vTokenContract.borrow(amountWei.toFixed());
+const borrow = async ({ vTokenContract, amountMantissa }: BorrowInput): Promise<BorrowOutput> =>
+  vTokenContract.borrow(amountMantissa.toFixed());
 
 export default borrow;

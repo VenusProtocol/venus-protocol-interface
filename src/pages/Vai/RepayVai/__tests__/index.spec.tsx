@@ -4,7 +4,7 @@ import { getVaiControllerContractAddress } from 'packages/contracts';
 import { en } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -33,33 +33,33 @@ vi.useFakeTimers();
 
 const repayInputAmountTokens = '100';
 
-const repayInputAmountWei = convertTokensToWei({
+const repayInputAmountMantissa = convertTokensToMantissa({
   value: new BigNumber(repayInputAmountTokens),
   token: vai,
 });
 
-const fullRepayBalanceWei = new BigNumber('5669568627692799723381666');
+const fullRepayBalanceMantissa = new BigNumber('5669568627692799723381666');
 
-const fullRepayBalanceTokens = convertWeiToTokens({
-  value: fullRepayBalanceWei,
+const fullRepayBalanceTokens = convertMantissaToTokens({
+  value: fullRepayBalanceMantissa,
   token: vai,
 }).toString();
 
 describe('RepayVai', () => {
   beforeEach(() => {
     (getVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
-      vaiRepayAmountWithInterestsWei: fullRepayBalanceWei,
+      vaiRepayAmountWithInterestsMantissa: fullRepayBalanceMantissa,
     }));
 
     (getBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: fullRepayBalanceWei,
+      balanceMantissa: fullRepayBalanceMantissa,
     }));
 
     (getVaiCalculateRepayAmount as Vi.Mock).mockImplementation(() => ({
-      vaiRepayAmountAfterFeeWei: new BigNumber('99999682649407787691'),
-      vaiCurrentInterestWei: new BigNumber('317350590885224'),
-      vaiPastInterestWei: new BigNumber('0'),
-      vaiTotalInterestWei: new BigNumber('317350590885224'),
+      vaiRepayAmountAfterFeeMantissa: new BigNumber('99999682649407787691'),
+      vaiCurrentInterestMantissa: new BigNumber('317350590885224'),
+      vaiPastInterestMantissa: new BigNumber('0'),
+      vaiTotalInterestMantissa: new BigNumber('317350590885224'),
       feePercentage: 0.000317350590885224,
     }));
   });
@@ -204,7 +204,7 @@ describe('RepayVai', () => {
     // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
-      amountWei: repayInputAmountWei,
+      amountMantissa: repayInputAmountMantissa,
     });
   });
 
@@ -239,7 +239,7 @@ describe('RepayVai', () => {
     // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     expect(repayVai).toHaveBeenCalledWith({
-      amountWei: MAX_UINT256,
+      amountMantissa: MAX_UINT256,
     });
   });
 

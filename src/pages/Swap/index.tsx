@@ -18,12 +18,12 @@ import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Swap, SwapError, TokenBalance } from 'types';
-import { areTokensEqual, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -78,24 +78,24 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { fromTokenUserBalanceWei, toTokenUserBalanceWei } = useMemo(
+  const { fromTokenUserBalanceMantissa, toTokenUserBalanceMantissa } = useMemo(
     () =>
       tokenBalances.reduce(
         (acc, tokenBalance) => {
           if (areTokensEqual(tokenBalance.token, formValues.fromToken)) {
-            acc.fromTokenUserBalanceWei = tokenBalance.balanceWei;
+            acc.fromTokenUserBalanceMantissa = tokenBalance.balanceMantissa;
           } else if (areTokensEqual(tokenBalance.token, formValues.toToken)) {
-            acc.toTokenUserBalanceWei = tokenBalance.balanceWei;
+            acc.toTokenUserBalanceMantissa = tokenBalance.balanceMantissa;
           }
 
           return acc;
         },
         {
-          fromTokenUserBalanceWei: undefined,
-          toTokenUserBalanceWei: undefined,
+          fromTokenUserBalanceMantissa: undefined,
+          toTokenUserBalanceMantissa: undefined,
         } as {
-          fromTokenUserBalanceWei?: BigNumber;
-          toTokenUserBalanceWei?: BigNumber;
+          fromTokenUserBalanceMantissa?: BigNumber;
+          toTokenUserBalanceMantissa?: BigNumber;
         },
       ),
     [tokenBalances, formValues.fromToken, formValues.toToken],
@@ -105,8 +105,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     if (swap?.direction === 'exactAmountIn') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
-        toTokenAmountTokens: convertWeiToTokens({
-          value: swap.expectedToTokenAmountReceivedWei,
+        toTokenAmountTokens: convertMantissaToTokens({
+          value: swap.expectedToTokenAmountReceivedMantissa,
           token: swap.toToken,
         }).toFixed(),
       }));
@@ -115,8 +115,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     if (swap?.direction === 'exactAmountOut') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
-        fromTokenAmountTokens: convertWeiToTokens({
-          value: swap.expectedFromTokenAmountSoldWei,
+        fromTokenAmountTokens: convertMantissaToTokens({
+          value: swap.expectedFromTokenAmountSoldMantissa,
           token: swap.fromToken,
         }).toFixed(),
       }));
@@ -142,12 +142,12 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
   const fromTokenUserBalanceTokens = useMemo(
     () =>
-      fromTokenUserBalanceWei &&
-      convertWeiToTokens({
-        value: fromTokenUserBalanceWei,
+      fromTokenUserBalanceMantissa &&
+      convertMantissaToTokens({
+        value: fromTokenUserBalanceMantissa,
         token: formValues.fromToken,
       }),
-    [fromTokenUserBalanceWei, formValues.fromToken],
+    [fromTokenUserBalanceMantissa, formValues.fromToken],
   );
 
   const maxFromInput = useMemo(
@@ -189,13 +189,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     };
   }, [tokenBalances, formValues.fromToken.address, formValues.toToken.address]);
 
-  const readableFromTokenUserBalance = useConvertWeiToReadableTokenString({
-    value: fromTokenUserBalanceWei,
+  const readableFromTokenUserBalance = useConvertMantissaToReadableTokenString({
+    value: fromTokenUserBalanceMantissa,
     token: formValues.fromToken,
   });
 
-  const readableToTokenUserBalance = useConvertWeiToReadableTokenString({
-    value: toTokenUserBalanceWei,
+  const readableToTokenUserBalance = useConvertMantissaToReadableTokenString({
+    value: toTokenUserBalanceMantissa,
     token: formValues.toToken,
   });
 
@@ -203,7 +203,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const { isFormValid, errors: formErrors } = useFormValidation({
     swap,
     formValues,
-    fromTokenUserBalanceWei,
+    fromTokenUserBalanceMantissa,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
   });

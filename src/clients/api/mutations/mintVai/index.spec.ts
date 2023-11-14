@@ -7,7 +7,7 @@ import mintVai from '.';
 
 describe('mintVai', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const fakeAmountWei = new BigNumber('10000000000000000');
+    const fakeAmountMantissa = new BigNumber('10000000000000000');
 
     const mintVaiMock = vi.fn(async () => fakeContractTransaction);
 
@@ -17,11 +17,11 @@ describe('mintVai', () => {
 
     const response = await mintVai({
       vaiControllerContract: fakeContract,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
     });
 
     expect(response).toBe(fakeContractTransaction);
     expect(mintVaiMock).toHaveBeenCalledTimes(1);
-    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
   });
 });

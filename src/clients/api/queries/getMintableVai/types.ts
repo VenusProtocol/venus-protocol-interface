@@ -7,5 +7,5 @@ export interface GetMintableVaiInput {
 }
 
 export interface GetMintableVaiOutput {
-  mintableVaiWei: BigNumber;
+  mintableVaiMantissa: BigNumber;
 }

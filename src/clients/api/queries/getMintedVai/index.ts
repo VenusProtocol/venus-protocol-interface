@@ -7,7 +7,7 @@ export interface GetMintedVaiInput {
 }
 
 export type GetMintedVaiOutput = {
-  mintedVaiWei: BigNumber;
+  mintedVaiMantissa: BigNumber;
 };
 
 const getMintedVai = async ({
@@ -17,7 +17,7 @@ const getMintedVai = async ({
   const res = await mainPoolComptrollerContract.mintedVAIs(accountAddress);
 
   return {
-    mintedVaiWei: new BigNumber(res.toString()),
+    mintedVaiMantissa: new BigNumber(res.toString()),
   };
 };
 

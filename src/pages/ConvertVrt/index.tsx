@@ -4,7 +4,7 @@ import { Spinner, Tabs } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import {
   useGetVrtConversionEndTime,
@@ -72,7 +72,7 @@ const ConvertVrt = () => {
 
   const conversionRatio = useMemo(() => {
     if (xvs && vrtConversionRatioData?.conversionRatio) {
-      return convertWeiToTokens({
+      return convertMantissaToTokens({
         value: vrtConversionRatioData.conversionRatio,
         token: xvs,
       });

@@ -18,7 +18,7 @@ import {
   setVoteDelegate,
   useGetVestingVaults,
 } from 'clients/api';
-import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
+import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -31,7 +31,7 @@ import TEST_IDS from './testIds';
 vi.mock('context/AuthContext');
 vi.unmock('hooks/useIsFeatureEnabled');
 
-const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_WEI;
+const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
 describe('Governance', () => {
   beforeEach(() => {
@@ -53,7 +53,7 @@ describe('Governance', () => {
     (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
 
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
-      votesWei: fakeUserVotingWeight,
+      votesMantissa: fakeUserVotingWeight,
     }));
   });
 
@@ -143,7 +143,9 @@ describe('Governance', () => {
       accountAddress: undefined,
       chainId: ChainId.BSC_TESTNET,
     }));
-    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({
+      votesMantissa: new BigNumber(0),
+    }));
 
     const { getByText } = renderComponent(<Governance />);
     getByText(en.connectWallet.connectButton);
@@ -151,8 +153,10 @@ describe('Governance', () => {
 
   it('prompts user to deposit XVS', async () => {
     const vaultsCopy = _cloneDeep(vaults);
-    vaultsCopy[1].userStakedWei = new BigNumber(0);
-    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
+    vaultsCopy[1].userStakedMantissa = new BigNumber(0);
+    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({
+      votesMantissa: new BigNumber(0),
+    }));
     (useGetVestingVaults as Vi.Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,

@@ -2,6 +2,6 @@
 
 exports[`api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade > returns total amount of pending withdrawals before the contract upgrade on success 1`] = `
 {
-  "pendingWithdrawalsFromBeforeUpgradeWei": "1000",
+  "pendingWithdrawalsFromBeforeUpgradeMantissa": "1000",
 }
 `;

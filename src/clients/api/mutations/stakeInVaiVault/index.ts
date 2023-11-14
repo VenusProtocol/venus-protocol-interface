@@ -4,15 +4,15 @@ import { VaiVault } from 'packages/contracts';
 
 export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type StakeInVaiVaultOutput = ContractTransaction;
 
 const stakeInVaiVault = async ({
   vaiVaultContract,
-  amountWei,
+  amountMantissa,
 }: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> =>
-  vaiVaultContract.deposit(amountWei.toFixed());
+  vaiVaultContract.deposit(amountMantissa.toFixed());
 
 export default stakeInVaiVault;

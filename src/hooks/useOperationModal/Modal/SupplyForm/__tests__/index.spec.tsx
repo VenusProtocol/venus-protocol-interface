@@ -382,11 +382,13 @@ describe('SupplyForm', () => {
     );
     fireEvent.click(submitButton);
 
-    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(customFakeAsset.vToken.underlyingToken.decimals),
     );
 
-    await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
+    await waitFor(() =>
+      expect(supply).toHaveBeenCalledWith({ amountMantissa: expectedAmountMantissa }),
+    );
     expect(onCloseModalMock).toHaveBeenCalledTimes(1);
   });
 
@@ -419,11 +421,13 @@ describe('SupplyForm', () => {
     );
     fireEvent.click(submitButton);
 
-    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
-    await waitFor(() => expect(supply).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
+    await waitFor(() =>
+      expect(supply).toHaveBeenCalledWith({ amountMantissa: expectedAmountMantissa }),
+    );
     expect(onCloseModalMock).toHaveBeenCalledTimes(1);
   });
 });

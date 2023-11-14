@@ -70,7 +70,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
               pendingRewards: [
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
-                  rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                  rewardAmountMantissa: pendingRewardGroup.rewardAmountMantissa,
                   rewardAmountCents: pendingRewardGroup.rewardAmountCents,
                 },
               ],
@@ -126,7 +126,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
               pendingRewards: [
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
-                  rewardAmountWei: pendingRewardGroup.rewardAmountWei,
+                  rewardAmountMantissa: pendingRewardGroup.rewardAmountMantissa,
                   rewardAmountCents: pendingRewardGroup.rewardAmountCents,
                 },
               ],
@@ -151,7 +151,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             isChecked: !uncheckedGroupIds.includes(id),
             pendingRewards: pendingRewardGroup.pendingRewards.map(pendingReward => ({
               rewardToken: pendingReward.rewardToken,
-              rewardAmountWei: pendingReward.rewardAmountWei,
+              rewardAmountMantissa: pendingReward.rewardAmountMantissa,
               rewardAmountCents: pendingReward.rewardAmountCents,
             })),
             claims: pendingRewardGroup.pendingRewards.map(pendingReward => ({

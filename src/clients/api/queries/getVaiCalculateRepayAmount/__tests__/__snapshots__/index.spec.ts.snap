@@ -3,9 +3,9 @@
 exports[`api/queries/getVaiCalculateRepayAmount > returns the VAI fee 1`] = `
 {
   "feePercentage": 11,
-  "vaiCurrentInterestWei": "1000",
-  "vaiPastInterestWei": "100",
-  "vaiRepayAmountAfterFeeWei": "1000000",
-  "vaiTotalInterestWei": "1100",
+  "vaiCurrentInterestMantissa": "1000",
+  "vaiPastInterestMantissa": "100",
+  "vaiRepayAmountAfterFeeMantissa": "1000000",
+  "vaiTotalInterestMantissa": "1100",
 }
 `;

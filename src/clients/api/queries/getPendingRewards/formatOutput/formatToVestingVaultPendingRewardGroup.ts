@@ -3,7 +3,7 @@ import { logError } from 'errors';
 import { Token } from 'types';
 
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
-import convertWeiToTokens from 'utilities/convertWeiToTokens';
+import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import { XvsVestingVaultPendingRewardGroup } from '../types';
@@ -60,7 +60,7 @@ const formatToVestingVaultPendingRewardGroup = ({
 
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
-  const pendingRewardAmountTokens = convertWeiToTokens({
+  const pendingRewardAmountTokens = convertMantissaToTokens({
     value: userPendingRewardsAmountMantissa,
     token: rewardToken,
   });
@@ -76,7 +76,7 @@ const formatToVestingVaultPendingRewardGroup = ({
     poolIndex,
     stakedToken,
     rewardToken,
-    rewardAmountWei: userPendingRewardsAmountMantissa,
+    rewardAmountMantissa: userPendingRewardsAmountMantissa,
     rewardAmountCents: pendingRewardAmountCents,
   };
 

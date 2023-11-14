@@ -4,15 +4,15 @@ import { VaiVault } from 'packages/contracts';
 
 export interface WithdrawFromVaiVaultInput {
   vaiVaultContract: VaiVault;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type WithdrawFromVaiVaultOutput = ContractTransaction;
 
 const withdrawFromVaiVault = async ({
   vaiVaultContract,
-  amountWei,
+  amountMantissa,
 }: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> =>
-  vaiVaultContract.withdraw(amountWei.toFixed());
+  vaiVaultContract.withdraw(amountMantissa.toFixed());
 
 export default withdrawFromVaiVault;

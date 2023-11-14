@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { SwapError } from 'types';
-import { areTokensEqual, convertTokensToWei } from 'utilities';
+import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -78,7 +78,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
       input.fromTokenAmountTokens &&
       Number(input.fromTokenAmountTokens) > 0
     ) {
-      const fromTokenAmountWei = convertTokensToWei({
+      const fromTokenAmountMantissa = convertTokensToMantissa({
         value: new BigNumber(input.fromTokenAmountTokens),
         token: wrappedFromToken,
       });
@@ -90,7 +90,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           wrappedFromToken.decimals,
           wrappedFromToken.symbol,
         ),
-        fromTokenAmountWei.toFixed(),
+        fromTokenAmountMantissa.toFixed(),
       );
 
       const currencyOut = new PSToken(
@@ -129,7 +129,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
         wrappedFromToken.symbol,
       );
 
-      const toTokenAmountWei = convertTokensToWei({
+      const toTokenAmountMantissa = convertTokensToMantissa({
         value: new BigNumber(input.toTokenAmountTokens),
         token: wrappedToToken,
       });
@@ -141,7 +141,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
           wrappedToToken.decimals,
           wrappedToToken.symbol,
         ),
-        toTokenAmountWei.toFixed(),
+        toTokenAmountMantissa.toFixed(),
       );
 
       // Find best trade

@@ -20,7 +20,7 @@ describe('api/queries/getProposalThreshold', () => {
 
     expect(proposalThresholdMock).toHaveBeenCalledTimes(1);
     expect(response).toEqual({
-      thresholdWei: new BigNumber(fakeOutput.toString()),
+      thresholdMantissa: new BigNumber(fakeOutput.toString()),
     });
   });
 });

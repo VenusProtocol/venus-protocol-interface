@@ -8,7 +8,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { VotersDetails } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { routes } from 'constants/routing';
 
@@ -45,7 +45,7 @@ const VoteSummary = ({
 
   const getVoteWeight = useCallback(
     (voteWeightWei: BigNumber) =>
-      convertWeiToTokens({
+      convertMantissaToTokens({
         value: voteWeightWei,
         token: xvs,
         addSymbol: false,
@@ -100,7 +100,7 @@ const VoteSummary = ({
             </div>
 
             <Typography color="text.primary">
-              {convertWeiToTokens({
+              {convertMantissaToTokens({
                 value: votesMantissa,
                 token: xvs,
                 addSymbol: false,

@@ -28,8 +28,8 @@ describe('api/queries/getXvsVaultUserInfo', () => {
     expect(getUserInfoMock).toHaveBeenCalledTimes(1);
     expect(getUserInfoMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
     expect(response).toMatchSnapshot();
-    expect(response.pendingWithdrawalsTotalAmountWei instanceof BigNumber).toBeTruthy();
-    expect(response.rewardDebtAmountWei instanceof BigNumber).toBeTruthy();
-    expect(response.stakedAmountWei instanceof BigNumber).toBeTruthy();
+    expect(response.pendingWithdrawalsTotalAmountMantissa instanceof BigNumber).toBeTruthy();
+    expect(response.rewardDebtAmountMantissa instanceof BigNumber).toBeTruthy();
+    expect(response.stakedAmountMantissa instanceof BigNumber).toBeTruthy();
   });
 });

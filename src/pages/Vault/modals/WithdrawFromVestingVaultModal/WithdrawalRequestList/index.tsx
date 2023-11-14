@@ -5,7 +5,7 @@ import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { LockedDeposit, Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
@@ -49,8 +49,8 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
                   data-testid={TEST_IDS.withdrawalRequestListItem}
                   key={`withdrawal-request-list-item-${userLockedDeposit.unlockedAt.getTime()}`}
                   invertTextColors
-                  label={convertWeiToTokens({
-                    value: userLockedDeposit.amountWei,
+                  label={convertMantissaToTokens({
+                    value: userLockedDeposit.amountMantissa,
                     token: xvs,
                     returnInReadableFormat: true,
                   })}

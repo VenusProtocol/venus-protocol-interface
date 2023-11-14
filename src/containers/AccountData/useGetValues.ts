@@ -7,8 +7,8 @@ import {
   calculateDailyEarningsCents,
   calculatePercentage,
   calculateYearlyEarningsForAssets,
-  convertTokensToWei,
-  convertWeiToTokens,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
 } from 'utilities';
 
 import { useGetHypotheticalUserPrimeApys } from './useGetHypotheticalUserPrimeApys';
@@ -46,11 +46,11 @@ const useGetValues = ({
   const toTokenAmountTokens = useMemo(() => {
     if (isUsingSwap) {
       return swap
-        ? convertWeiToTokens({
+        ? convertMantissaToTokens({
             value:
               swap.direction === 'exactAmountIn'
-                ? swap.expectedToTokenAmountReceivedWei
-                : swap.toTokenAmountReceivedWei,
+                ? swap.expectedToTokenAmountReceivedMantissa
+                : swap.toTokenAmountReceivedMantissa,
             token: swap.toToken,
           })
         : new BigNumber(0);
@@ -115,7 +115,7 @@ const useGetValues = ({
 
     const amountCollateralValueCents = asset.isCollateralOfUser
       ? calculateCollateralValue({
-          amountWei: convertTokensToWei({
+          amountMantissa: convertTokensToMantissa({
             value: toTokenAmountTokens,
             token: asset.vToken.underlyingToken,
           }),

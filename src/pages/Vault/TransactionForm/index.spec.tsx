@@ -20,7 +20,7 @@ const baseProps: TransactionFormProps = {
   submitButtonDisabledLabel: 'Fake submit button disabled label',
   onSubmit: noop,
   isSubmitting: false,
-  availableTokensWei: new BigNumber('100000000000000000000000'),
+  availableTokensMantissa: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
   lockingPeriodMs: 1000 * 60 * 60 * 24 * 3, // 3 days
 };
@@ -173,9 +173,11 @@ describe('TransactionForm', () => {
     submitButton = getByText(baseProps.submitButtonLabel).closest('button') as HTMLButtonElement;
     fireEvent.click(submitButton);
 
-    const fakeWeiSubmitted = new BigNumber(fakeValueTokens).multipliedBy(new BigNumber(10).pow(18));
+    const fakeMantissaSubmitted = new BigNumber(fakeValueTokens).multipliedBy(
+      new BigNumber(10).pow(18),
+    );
 
     await waitFor(() => expect(onSubmitMock).toHaveBeenCalledTimes(1));
-    expect(onSubmitMock).toHaveBeenCalledWith(fakeWeiSubmitted);
+    expect(onSubmitMock).toHaveBeenCalledWith(fakeMantissaSubmitted);
   });
 });

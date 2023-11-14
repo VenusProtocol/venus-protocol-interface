@@ -381,13 +381,13 @@ describe('BorrowForm', () => {
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.borrow));
     fireEvent.click(getByText(en.operationModal.borrow.submitButtonLabel.borrow));
 
-    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
     expect(borrow).toHaveBeenCalledWith({
-      amountWei: expectedAmountWei,
+      amountMantissa: expectedAmountMantissa,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

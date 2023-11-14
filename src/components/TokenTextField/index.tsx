@@ -10,9 +10,9 @@ export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children'
   label: string;
 }
 
-// Note: although we display all the values in tokens (equivalent of ether for
-// the given token) to the user, the underlying values (maxWei, value) are
-// expressed in wei to make them easier to use with contracts
+// Note: although we display all the values in tokens (equivalent of ether for the given token) to
+// the user, the underlying values (maxMantissa, value) are expressed in mantissa to make them
+// easier to use with contracts
 export interface TokenTextFieldProps
   extends Omit<TextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
   token: Token;
@@ -33,10 +33,10 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   ...otherProps
 }) => {
   const step = React.useMemo(() => {
-    const tmpOneTokenInWei = new BigNumber(10 ** token.decimals);
-    const tmpOneWeiInTokens = new BigNumber(1).dividedBy(tmpOneTokenInWei);
+    const tmpOneTokenInMantissa = new BigNumber(10 ** token.decimals);
+    const tmpOneMantissaInTokens = new BigNumber(1).dividedBy(tmpOneTokenInMantissa);
 
-    return tmpOneWeiInTokens.toFixed();
+    return tmpOneMantissaInTokens.toFixed();
   }, [token.decimals]);
 
   const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {

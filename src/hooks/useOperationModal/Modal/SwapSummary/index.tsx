@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Swap } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -22,23 +22,23 @@ export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
       return undefined;
     }
 
-    const fromTokenAmountWei =
+    const fromTokenAmountMantissa =
       swap.direction === 'exactAmountIn'
-        ? swap.fromTokenAmountSoldWei
-        : swap.expectedFromTokenAmountSoldWei;
-    const toTokenAmountWei =
+        ? swap.fromTokenAmountSoldMantissa
+        : swap.expectedFromTokenAmountSoldMantissa;
+    const toTokenAmountMantissa =
       swap.direction === 'exactAmountIn'
-        ? swap.expectedToTokenAmountReceivedWei
-        : swap.toTokenAmountReceivedWei;
+        ? swap.expectedToTokenAmountReceivedMantissa
+        : swap.toTokenAmountReceivedMantissa;
 
-    const readableFromTokenAmount = convertWeiToTokens({
-      value: fromTokenAmountWei,
+    const readableFromTokenAmount = convertMantissaToTokens({
+      value: fromTokenAmountMantissa,
       token: swap.fromToken,
       returnInReadableFormat: true,
     });
 
-    const readableToTokenAmount = convertWeiToTokens({
-      value: toTokenAmountWei,
+    const readableToTokenAmount = convertMantissaToTokens({
+      value: toTokenAmountMantissa,
       token: swap.toToken,
       returnInReadableFormat: true,
     });

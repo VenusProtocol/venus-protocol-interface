@@ -5,7 +5,7 @@ import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { VoteDetail, VoteSupport } from 'types';
-import { convertWeiToTokens, generateChainExplorerUrl } from 'utilities';
+import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
@@ -82,7 +82,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         selectOptionLabel: t('voterDetail.amount'),
         align: 'right',
         renderCell: transaction =>
-          convertWeiToTokens({
+          convertMantissaToTokens({
             value: transaction.votesMantissa,
             token: xvs,
             returnInReadableFormat: true,

@@ -14,7 +14,7 @@ import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
-import { areTokensEqual, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import {
   useGetCurrentVotes,
@@ -31,9 +31,9 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface VotingWalletUiProps {
-  votingWeightWei: BigNumber;
+  votingWeightMantissa: BigNumber;
   openAuthModal: () => void;
-  userStakedWei: BigNumber;
+  userStakedMantissa: BigNumber;
   connectedWallet: boolean;
   currentUserAccountAddress: string | undefined;
   delegate: string | undefined;
@@ -46,8 +46,8 @@ interface VotingWalletUiProps {
 
 export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   xvs,
-  votingWeightWei,
-  userStakedWei,
+  votingWeightMantissa,
+  userStakedMantissa,
   connectedWallet,
   openAuthModal,
   currentUserAccountAddress,
@@ -62,28 +62,28 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
   const readableXvsLocked = useMemo(
     () =>
-      convertWeiToTokens({
-        value: userStakedWei,
+      convertMantissaToTokens({
+        value: userStakedMantissa,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [userStakedWei, xvs],
+    [userStakedMantissa, xvs],
   );
 
   const readableVoteWeight = useMemo(
     () =>
-      convertWeiToTokens({
-        value: votingWeightWei,
+      convertMantissaToTokens({
+        value: votingWeightMantissa,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightWei, xvs],
+    [votingWeightMantissa, xvs],
   );
 
   const previouslyDelegated = !!delegate;
-  const userHasLockedXVS = userStakedWei.isGreaterThan(0);
+  const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
   return (
     <div css={styles.root}>
       <Typography variant="h4">{t('vote.votingWallet')}</Typography>
@@ -232,7 +232,7 @@ const VotingWallet: React.FC = () => {
   const { data: vaults } = useGetVestingVaults({ accountAddress });
 
   const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
-  const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
+  const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
 
   const { mutateAsync: setVoteDelegation, isLoading: isVoteDelegationLoading } = useSetVoteDelegate(
     {
@@ -245,8 +245,8 @@ const VotingWallet: React.FC = () => {
       connectedWallet={!!accountAddress}
       openAuthModal={openAuthModal}
       currentUserAccountAddress={accountAddress}
-      votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
-      userStakedWei={userStakedWei}
+      votingWeightMantissa={currentVotesData?.votesMantissa || new BigNumber(0)}
+      userStakedMantissa={userStakedMantissa}
       delegate={delegateData?.delegateAddress}
       setVoteDelegation={(delegateAddress: string) => setVoteDelegation({ delegateAddress })}
       isVoteDelegationLoading={isVoteDelegationLoading}

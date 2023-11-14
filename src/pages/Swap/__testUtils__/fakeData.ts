@@ -1,26 +1,26 @@
 import BigNumber from 'bignumber.js';
 import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { FAKE_BNB_BALANCE_TOKENS, FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-export const FAKE_BNB_BALANCE_WEI = convertTokensToWei({
+export const FAKE_BNB_BALANCE_MANTISSA = convertTokensToMantissa({
   value: new BigNumber(FAKE_BNB_BALANCE_TOKENS),
   token: bnb,
 });
 
-export const FAKE_BUSD_BALANCE_WEI = convertTokensToWei({
+export const FAKE_BUSD_BALANCE_MANTISSA = convertTokensToMantissa({
   value: new BigNumber(FAKE_BUSD_BALANCE_TOKENS),
   token: busd,
 });
 
 export const fakeExactAmountInSwap: ExactAmountInSwap = {
   fromToken: bnb,
-  fromTokenAmountSoldWei: FAKE_BNB_BALANCE_WEI,
+  fromTokenAmountSoldMantissa: FAKE_BNB_BALANCE_MANTISSA,
   toToken: busd,
-  minimumToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(1.5),
-  expectedToTokenAmountReceivedWei: FAKE_BNB_BALANCE_WEI.multipliedBy(2),
+  minimumToTokenAmountReceivedMantissa: FAKE_BNB_BALANCE_MANTISSA.multipliedBy(1.5),
+  expectedToTokenAmountReceivedMantissa: FAKE_BNB_BALANCE_MANTISSA.multipliedBy(2),
   direction: 'exactAmountIn',
   priceImpactPercentage: 0.001,
   routePath: [bnb.address, busd.address],
@@ -29,10 +29,10 @@ export const fakeExactAmountInSwap: ExactAmountInSwap = {
 
 export const fakeExactAmountOutSwap: ExactAmountOutSwap = {
   fromToken: bnb,
-  expectedFromTokenAmountSoldWei: FAKE_BUSD_BALANCE_WEI.multipliedBy(1.5),
-  maximumFromTokenAmountSoldWei: FAKE_BUSD_BALANCE_WEI.multipliedBy(2),
+  expectedFromTokenAmountSoldMantissa: FAKE_BUSD_BALANCE_MANTISSA.multipliedBy(1.5),
+  maximumFromTokenAmountSoldMantissa: FAKE_BUSD_BALANCE_MANTISSA.multipliedBy(2),
   toToken: busd,
-  toTokenAmountReceivedWei: FAKE_BUSD_BALANCE_WEI,
+  toTokenAmountReceivedMantissa: FAKE_BUSD_BALANCE_MANTISSA,
   direction: 'exactAmountOut',
   priceImpactPercentage: 0.001,
   routePath: [bnb.address, busd.address],

@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { useAuth } from 'context/AuthContext';
 
@@ -54,7 +54,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
               <TokenIcon token={amount.token} css={styles.amountTokenIcon} />
 
               <Typography variant="small1" component="span">
-                {convertWeiToTokens({
+                {convertMantissaToTokens({
                   value: amount.value,
                   token: amount.token,
                   returnInReadableFormat: true,

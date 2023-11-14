@@ -76,7 +76,7 @@ const useCollateral = () => {
           comptrollerContract,
           accountAddress,
           vTokenAddress: asset.vToken.address,
-          vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
+          vTokenBalanceOfMantissa: new BigNumber(vTokenBalanceOf.balanceMantissa),
         });
 
         if (+assetHypotheticalLiquidity['1'] === 0 && +assetHypotheticalLiquidity['2'] > 0) {

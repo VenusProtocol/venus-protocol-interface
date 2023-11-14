@@ -24,7 +24,7 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
 
     expect(venusVaiVaultRateMock).toHaveBeenCalledTimes(1);
     expect(response).toEqual({
-      dailyRateWei: new BigNumber(fakeOutput.toString()).times(
+      dailyRateMantissa: new BigNumber(fakeOutput.toString()).times(
         CHAIN_METADATA[ChainId.BSC_TESTNET].blocksPerDay,
       ),
     });

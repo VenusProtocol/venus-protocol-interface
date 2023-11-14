@@ -10,7 +10,7 @@ import { Token } from 'types';
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -21,7 +21,7 @@ export interface WithdrawUiProps {
   onSubmitSuccess: () => void;
   onSubmit: () => Promise<unknown>;
   isSubmitting: boolean;
-  withdrawableWei?: BigNumber;
+  withdrawableMantissa?: BigNumber;
 }
 
 const WithdrawUi: React.FC<WithdrawUiProps> = ({
@@ -30,7 +30,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
   onSubmit,
   onSubmitSuccess,
   isSubmitting,
-  withdrawableWei,
+  withdrawableMantissa,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -41,14 +41,14 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
     onSubmitSuccess();
   };
 
-  const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
-    value: withdrawableWei,
+  const readableWithdrawableTokens = useConvertMantissaToReadableTokenString({
+    value: withdrawableMantissa,
     token: stakedToken,
   });
 
   return (
     <>
-      {isInitialLoading || !withdrawableWei ? (
+      {isInitialLoading || !withdrawableMantissa ? (
         <Spinner />
       ) : (
         <>
@@ -67,7 +67,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
             type="submit"
             onClick={handleSubmit}
             loading={isSubmitting}
-            disabled={withdrawableWei.isEqualTo(0)}
+            disabled={withdrawableMantissa.isEqualTo(0)}
             className="w-full"
           >
             {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
@@ -111,13 +111,13 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
     },
   );
 
-  const withdrawableWei = useMemo(() => {
+  const withdrawableMantissa = useMemo(() => {
     const now = new Date();
 
     return xvsVaultUserLockedDepositsData.lockedDeposits.reduce(
       (acc, xvsVaultUserLockedDeposit) =>
         isBefore(xvsVaultUserLockedDeposit.unlockedAt, now)
-          ? acc.plus(xvsVaultUserLockedDeposit.amountWei)
+          ? acc.plus(xvsVaultUserLockedDeposit.amountMantissa)
           : acc,
       new BigNumber(0),
     );
@@ -146,7 +146,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
         stakedToken={stakedToken}
         isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
         isSubmitting={isExecutingWithdrawalFromXvsVault}
-        withdrawableWei={withdrawableWei}
+        withdrawableMantissa={withdrawableMantissa}
         onSubmit={handleSubmit}
         onSubmitSuccess={handleClose}
       />

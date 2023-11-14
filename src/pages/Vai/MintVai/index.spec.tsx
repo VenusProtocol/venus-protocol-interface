@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { en } from 'packages/translations';
 import React from 'react';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
@@ -65,8 +65,8 @@ describe('MintVai', () => {
     fireEvent.click(safeMaxButton);
 
     // Check input value updated to max amount of mintable VAI
-    const fakeMintableVai = convertWeiToTokens({
-      value: fakeGetMintableVaiOutput.mintableVaiWei,
+    const fakeMintableVai = convertMantissaToTokens({
+      value: fakeGetMintableVaiOutput.mintableVaiMantissa,
       token: vai,
     });
 
@@ -84,7 +84,7 @@ describe('MintVai', () => {
     // Check mintVai was called correctly
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
     expect(mintVai).toHaveBeenCalledWith({
-      amountWei: fakeGetMintableVaiOutput.mintableVaiWei,
+      amountMantissa: fakeGetMintableVaiOutput.mintableVaiMantissa,
     });
   });
 

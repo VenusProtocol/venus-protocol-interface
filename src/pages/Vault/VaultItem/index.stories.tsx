@@ -23,10 +23,10 @@ export const Default = () => (
   <VaultItemUi
     stakedToken={vai}
     rewardToken={xvs}
-    userStakedWei={new BigNumber('100000000000000000000')}
+    userStakedMantissa={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}
-    dailyEmissionWei={new BigNumber('2120000000000000000')}
-    totalStakedWei={new BigNumber('1233000000000000000000')}
+    dailyEmissionMantissa={new BigNumber('2120000000000000000')}
+    totalStakedMantissa={new BigNumber('1233000000000000000000')}
     onStake={noop}
     onWithdraw={noop}
     closeActiveModal={noop}
