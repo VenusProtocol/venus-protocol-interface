@@ -9,7 +9,6 @@ import { ChainId } from 'types';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
-import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const renderComponent = (
@@ -54,15 +53,13 @@ const renderComponent = (
       <QueryClientProvider client={queryClient}>
         <MuiThemeProvider>
           <AuthContext.Provider value={defaultAuthContextValues}>
-            <SuccessfulTransactionModalProvider>
-              <DisableLunaUstWarningProvider>
-                <MemoryRouter initialEntries={routerOpts.routerInitialEntries}>
-                  <Routes>
-                    <Route path={routerOpts.routePath} element={children} />
-                  </Routes>
-                </MemoryRouter>
-              </DisableLunaUstWarningProvider>
-            </SuccessfulTransactionModalProvider>
+            <DisableLunaUstWarningProvider>
+              <MemoryRouter initialEntries={routerOpts.routerInitialEntries}>
+                <Routes>
+                  <Route path={routerOpts.routePath} element={children} />
+                </Routes>
+              </MemoryRouter>
+            </DisableLunaUstWarningProvider>
           </AuthContext.Provider>
         </MuiThemeProvider>
       </QueryClientProvider>

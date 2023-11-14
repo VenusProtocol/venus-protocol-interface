@@ -9,7 +9,6 @@ import { Web3Wrapper } from 'clients/web3';
 import { Layout } from 'containers/Layout';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
-import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Router from './Router';
@@ -23,19 +22,17 @@ const App = () => (
         <MuiThemeProvider>
           <AuthProvider>
             <AnalyticProvider>
-              <SuccessfulTransactionModalProvider>
-                <DisableLunaUstWarningProvider>
-                  <HashRouter>
-                    <Layout>
-                      <Router />
-                    </Layout>
+              <DisableLunaUstWarningProvider>
+                <HashRouter>
+                  <Layout>
+                    <Router />
+                  </Layout>
 
-                    <Suspense>
-                      <NotificationCenter />
-                    </Suspense>
-                  </HashRouter>
-                </DisableLunaUstWarningProvider>
-              </SuccessfulTransactionModalProvider>
+                  <Suspense>
+                    <NotificationCenter />
+                  </Suspense>
+                </HashRouter>
+              </DisableLunaUstWarningProvider>
             </AnalyticProvider>
           </AuthProvider>
         </MuiThemeProvider>
