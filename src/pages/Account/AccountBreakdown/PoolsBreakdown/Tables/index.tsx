@@ -2,8 +2,8 @@
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { ButtonGroup } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Pool } from 'types';
 
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';

@@ -1,6 +1,6 @@
 import { NoticeWarning } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Token, TokenAction } from 'types';
 
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';

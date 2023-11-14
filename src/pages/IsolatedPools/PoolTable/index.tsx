@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenGroup } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 

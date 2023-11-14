@@ -1,11 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Dashboard from '..';
 import TEST_IDS from '../testIds';

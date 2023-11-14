@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -7,7 +8,6 @@ import fakeAddress from '__mocks__/models/address';
 import { getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';

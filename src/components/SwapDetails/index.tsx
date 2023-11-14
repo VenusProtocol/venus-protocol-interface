@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Swap } from 'types';
 import {
   convertWeiToTokens,

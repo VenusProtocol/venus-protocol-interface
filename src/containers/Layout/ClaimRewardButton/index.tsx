@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { VError, displayMutationError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import { useContext, useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { ChainId } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 

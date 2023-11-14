@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { useAuth } from 'context/AuthContext';

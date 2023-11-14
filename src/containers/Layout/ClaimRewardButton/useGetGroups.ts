@@ -1,6 +1,6 @@
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import { useMemo } from 'react';
-import { useTranslation } from 'translation';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useAuth } from 'context/AuthContext';

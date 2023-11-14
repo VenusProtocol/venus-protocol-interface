@@ -9,8 +9,8 @@ import {
   SpendingLimit,
 } from 'components';
 import { displayMutationError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 

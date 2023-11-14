@@ -1,6 +1,6 @@
 import { Link } from 'components';
 import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';

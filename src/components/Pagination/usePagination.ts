@@ -1,5 +1,5 @@
+import { useTranslation } from 'packages/translations';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'translation';
 
 type PaginationProps = {
   itemsCount: number;

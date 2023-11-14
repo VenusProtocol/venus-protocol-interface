@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useTranslation } from 'translation';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 

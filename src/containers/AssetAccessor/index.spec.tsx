@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { isTokenActionEnabled } from 'packages/tokens';
+import { en } from 'packages/translations';
 import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
@@ -7,7 +8,6 @@ import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 

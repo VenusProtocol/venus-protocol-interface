@@ -3,8 +3,8 @@ import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'component
 import { displayMutationError } from 'errors';
 import { Form, Formik } from 'formik';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';

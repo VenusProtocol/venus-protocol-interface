@@ -2,8 +2,8 @@
 import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { MarkdownViewer } from 'components';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
 
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';

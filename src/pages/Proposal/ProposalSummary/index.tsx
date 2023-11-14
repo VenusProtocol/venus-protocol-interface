@@ -10,8 +10,8 @@ import {
 } from 'components';
 import isAfter from 'date-fns/isAfter';
 import { displayMutationError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 

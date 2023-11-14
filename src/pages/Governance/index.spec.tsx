@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
+import { en } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 import Vi from 'vitest';
@@ -21,7 +22,6 @@ import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei'
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';

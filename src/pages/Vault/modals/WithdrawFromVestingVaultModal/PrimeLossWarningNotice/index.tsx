@@ -1,7 +1,7 @@
 import { NoticeWarning } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 
 import { useGetPrimeStatus, useGetPrimeToken } from 'clients/api';
 import { useAuth } from 'context/AuthContext';

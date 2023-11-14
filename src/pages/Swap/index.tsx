@@ -15,8 +15,8 @@ import {
   useGetSwapRouterContractAddress,
 } from 'packages/contracts';
 import { useGetToken, useGetTokens } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'translation';
 import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertWeiToTokens } from 'utilities';
 

@@ -9,8 +9,8 @@ import {
 } from 'components';
 import { VError, displayMutationError } from 'errors';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 import {
   convertTokensToWei,

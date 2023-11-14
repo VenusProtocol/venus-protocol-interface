@@ -8,6 +8,7 @@ import {
   checkForXvsVaultProxyTransactionError,
   logError,
 } from 'errors';
+import { en } from 'packages/translations';
 import { ChainId } from 'types';
 import { displayNotification, updateNotification } from 'utilities';
 import Vi from 'vitest';
@@ -16,7 +17,6 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { useAuth } from 'context/AuthContext';
-import en from 'translation/translations/en.json';
 
 import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
 

@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { en } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 import Vi from 'vitest';
@@ -11,7 +12,6 @@ import fakeProvider from '__mocks__/models/provider';
 import { useGetMainPool } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
 

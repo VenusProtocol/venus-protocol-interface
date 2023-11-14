@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 import { Card, Link, PrimaryButton, ProgressBar } from 'components';
 import { displayMutationError } from 'errors';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { useTranslation } from 'translation';
 import { AssetDistribution, Token } from 'types';
 import { cn, convertWeiToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 

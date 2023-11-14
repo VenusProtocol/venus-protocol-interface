@@ -2,8 +2,8 @@
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { useGetVaiCalculateRepayAmount } from 'clients/api';

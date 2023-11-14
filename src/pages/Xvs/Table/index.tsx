@@ -4,8 +4,8 @@ import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,

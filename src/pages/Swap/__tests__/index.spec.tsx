@@ -1,5 +1,6 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { en } from 'packages/translations';
 import React from 'react';
 import { Swap } from 'types';
 import { convertWeiToTokens } from 'utilities';
@@ -28,7 +29,6 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import SwapPage from '..';
 import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';

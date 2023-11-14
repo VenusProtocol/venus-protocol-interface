@@ -1,9 +1,9 @@
 import { fireEvent } from '@testing-library/react';
+import { en } from 'packages/translations';
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
-import en from 'translation/translations/en.json';
 
 import IsolatedAssetWarning from '.';
 import TEST_IDS from './AssetTable/testIds';

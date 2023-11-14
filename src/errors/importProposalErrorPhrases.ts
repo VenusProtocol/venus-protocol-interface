@@ -1,4 +1,4 @@
-import { t } from 'translation';
+import { t } from 'packages/translations';
 
 export const importProposalErrorPhrases = {
   noMetaKey: t('errors.noMetaKey'),

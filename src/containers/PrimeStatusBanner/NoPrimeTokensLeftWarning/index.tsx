@@ -1,5 +1,5 @@
 import { Icon, Tooltip } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 
 interface PrimeTokensLeftProps {
   primeTokenLimit: number;

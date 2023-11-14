@@ -1,4 +1,4 @@
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 
 interface PrimeTokensLeftProps {
   tokensLeft: number;

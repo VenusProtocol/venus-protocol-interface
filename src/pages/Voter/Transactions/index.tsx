@@ -2,8 +2,8 @@
 import { Paper, Typography } from '@mui/material';
 import { ButtonWrapper, Icon, Link, Spinner, Table, TableColumn } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { VoteDetail, VoteSupport } from 'types';
 import { convertWeiToTokens, generateChainExplorerUrl } from 'utilities';
 

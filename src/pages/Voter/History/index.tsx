@@ -2,8 +2,8 @@
 import { Typography } from '@mui/material';
 import { Pagination, Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { VoterHistory } from 'types';
 
 import VoterProposal from './VoterProposal';

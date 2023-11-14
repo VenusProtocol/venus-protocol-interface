@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { displayMutationError } from 'errors';
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { Token } from 'types';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';

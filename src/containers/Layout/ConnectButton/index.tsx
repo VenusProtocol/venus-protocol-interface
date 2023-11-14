@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from 'components';
-import { useTranslation } from 'translation';
+import { useTranslation } from 'packages/translations';
 import { truncateAddress } from 'utilities';
 
 import { useGetPrimeToken } from 'clients/api';

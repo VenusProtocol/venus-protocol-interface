@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from 'packages/translations';
 import React from 'react';
 import {
   CartesianGrid,
@@ -10,7 +11,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { useTranslation } from 'translation';
 import { formatPercentageToReadableValue } from 'utilities';
 
 import TooltipContent from '../TooltipContent';

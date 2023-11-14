@@ -2,8 +2,8 @@
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Button, SecondaryButton, Spinner } from 'components';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'translation';
 import { Asset, Token } from 'types';
 import {
   formatCentsToReadableValue,

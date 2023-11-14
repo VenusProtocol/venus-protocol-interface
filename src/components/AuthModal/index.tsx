@@ -1,5 +1,5 @@
+import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { useTranslation } from 'translation';
 import { ChainId } from 'types';
 
 import { Modal, ModalProps } from '../Modal';

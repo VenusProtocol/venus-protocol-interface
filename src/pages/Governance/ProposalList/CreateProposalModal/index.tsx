@@ -2,9 +2,9 @@
 import { Modal } from 'components';
 import { displayMutationError } from 'errors';
 import { Form, Formik, useFormikContext } from 'formik';
+import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'translation';
 import { ProposalType } from 'types';
 
 import { CreateProposalInput } from 'clients/api';
