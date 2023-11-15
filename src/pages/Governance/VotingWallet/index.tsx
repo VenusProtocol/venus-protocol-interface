@@ -166,6 +166,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           <PrimaryButton
             className="text-offWhite sm:w-auto lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
+            data-testid={TEST_IDS.delegateButton}
           >
             {previouslyDelegated ? t('vote.redelegate') : t('vote.delegate')}
           </PrimaryButton>

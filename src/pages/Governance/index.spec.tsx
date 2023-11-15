@@ -292,4 +292,31 @@ describe('Governance', () => {
     });
     expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting)).toHaveLength(0);
   });
+
+  it('renders the delegate/redelegate button when voting is enabled', async () => {
+    const vaultsCopy = _cloneDeep(vaults);
+    vaultsCopy[1].userStakedMantissa = new BigNumber(1000);
+    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
+      data: vaultsCopy,
+      isLoading: false,
+    }));
+    const { getByTestId } = renderComponent(<Governance />, {
+      routerOpts: {
+        routerInitialEntries: ['/governance/proposal-create', '/governance'],
+        routePath: '/governance/*',
+      },
+    });
+    expect(getByTestId(VOTING_WALLET_TEST_IDS.delegateButton)).toBeVisible();
+  });
+
+  it('does not render the delegate/redelegate button when voting is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { queryAllByTestId } = renderComponent(<Governance />, {
+      routerOpts: {
+        routerInitialEntries: ['/governance/proposal-create', '/governance'],
+        routePath: '/governance/*',
+      },
+    });
+    expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateButton)).toHaveLength(0);
+  });
 });
