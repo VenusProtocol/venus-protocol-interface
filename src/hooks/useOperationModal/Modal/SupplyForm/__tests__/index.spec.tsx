@@ -348,7 +348,7 @@ describe('SupplyForm', () => {
     });
   });
 
-  it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user supply BNB then calls onClose callback on success', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       vToken: vBnb,
@@ -390,7 +390,7 @@ describe('SupplyForm', () => {
     expect(onCloseModalMock).toHaveBeenCalledTimes(1);
   });
 
-  it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user supply non-BNB tokens then calls onClose callback on success', async () => {
     const onCloseModalMock = vi.fn();
 
     (supply as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);

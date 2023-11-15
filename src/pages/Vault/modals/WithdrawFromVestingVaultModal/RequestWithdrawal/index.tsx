@@ -5,8 +5,11 @@ import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Token } from 'types';
+import { convertWeiToTokens } from 'utilities';
 
 import {
+  useGetPrimeStatus,
+  useGetPrimeToken,
   useGetXvsVaultLockedDeposits,
   useGetXvsVaultPoolInfo,
   useGetXvsVaultUserInfo,
@@ -14,9 +17,9 @@ import {
 } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
-import PrimeLossWarningNotice from '../PrimeLossWarningNotice';
 import { useStyles as useSharedStyles } from '../styles';
 
 export interface RequestWithdrawalUiProps {
@@ -25,9 +28,9 @@ export interface RequestWithdrawalUiProps {
   requestableWei: BigNumber;
   onSubmitSuccess: () => void;
   onSubmit: TransactionFormProps['onSubmit'];
+  warning: TransactionFormProps['warning'];
   isSubmitting: boolean;
   displayWithdrawalRequestList: () => void;
-  poolIndex: number;
   lockingPeriodMs: number | undefined;
 }
 
@@ -39,8 +42,8 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   onSubmitSuccess,
   onSubmit,
   isSubmitting,
-  poolIndex,
   displayWithdrawalRequestList,
+  warning,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -57,10 +60,9 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
         <Spinner />
       ) : (
         <>
-          <PrimeLossWarningNotice poolIndex={poolIndex} />
-
           <TransactionForm
             token={stakedToken}
+            warning={warning}
             availableTokensLabel={t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
               { tokenSymbol: stakedToken.symbol },
@@ -172,10 +174,56 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       },
     );
 
+  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
+    accountAddress,
+  });
+  const { data: getPrimeStatusData, isLoading: isGetPrimeStatusLoading } = useGetPrimeStatus({
+    accountAddress,
+  });
+
+  const readablePrimeMinimumXvsStake = useConvertWeiToReadableTokenString({
+    valueWei: getPrimeStatusData?.primeMinimumStakedXvsMantissa,
+    token: xvs,
+  });
+
+  const warning: TransactionFormProps['warning'] = useMemo(() => {
+    const shouldDisplayPrimeWarning =
+      getPrimeTokenData?.exists &&
+      !getPrimeTokenData?.isIrrevocable &&
+      getPrimeStatusData?.xvsVaultPoolId === poolIndex;
+
+    if (!shouldDisplayPrimeWarning || !xvsVaultUserInfo) {
+      return undefined;
+    }
+
+    const primeLossDeltaWei = xvsVaultUserInfo.stakedAmountWei.minus(
+      getPrimeStatusData.primeMinimumStakedXvsMantissa,
+    );
+    const primeLossDeltaTokens = convertWeiToTokens({
+      valueWei: primeLossDeltaWei,
+      token: xvs,
+    });
+
+    return {
+      amountTokens: primeLossDeltaTokens,
+      message: t(
+        'withdrawFromVestingVaultModalModal.requestWithdrawalTab.primeLossWarning.message',
+        {
+          minimumXvsStake: readablePrimeMinimumXvsStake,
+        },
+      ),
+      submitButtonLabel: t(
+        'withdrawFromVestingVaultModalModal.requestWithdrawalTab.primeLossWarning.submitButtonLabel',
+      ),
+    };
+  }, [getPrimeTokenData, getPrimeStatusData, xvsVaultUserInfo, xvs]);
+
   const isInitialLoading =
     isGetXvsVaultPoolInfoLoading ||
     isGetXvsVaultUserInfoLoading ||
-    isGetXvsVaultUserLockedDepositsLoading;
+    isGetXvsVaultUserLockedDepositsLoading ||
+    isGetPrimeTokenLoading ||
+    isGetPrimeStatusLoading;
 
   const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
     requestWithdrawalFromXvsVault({
@@ -198,8 +246,8 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         onSubmitSuccess={handleClose}
         onSubmit={handleSubmit}
         isSubmitting={isRequestingWithdrawalFromXvsVault}
-        poolIndex={poolIndex}
         displayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
+        warning={warning}
       />
     </ConnectWallet>
   );

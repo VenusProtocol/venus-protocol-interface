@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
   ApproveTokenSteps,
@@ -6,20 +5,20 @@ import {
   FormikSubmitButton,
   FormikTokenTextField,
   LabeledInlineContent,
+  NoticeWarning,
   SpendingLimit,
 } from 'components';
 import { displayMutationError } from 'errors';
 import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Token } from 'types';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { cn, convertTokensToWei, convertWeiToTokens } from 'utilities';
 
 import { AmountForm } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
 
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface TransactionFormUiProps {
@@ -37,6 +36,11 @@ export interface TransactionFormUiProps {
   isWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   revokeWalletSpendingLimit: () => Promise<unknown>;
   isRevokeWalletSpendingLimitLoading: boolean;
+  warning?: {
+    amountTokens: BigNumber;
+    message: string;
+    submitButtonLabel: string;
+  };
   walletSpendingLimitTokens?: BigNumber;
   lockingPeriodMs?: number;
 }
@@ -58,11 +62,11 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   revokeWalletSpendingLimit,
   isRevokeWalletSpendingLimitLoading,
   lockingPeriodMs,
+  warning,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
-  const availableTokens = React.useMemo(
+  const availableTokens = useMemo(
     () =>
       convertWeiToTokens({
         valueWei: availableTokensWei,
@@ -84,7 +88,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
     token,
   });
 
-  const readableLockingPeriod = React.useMemo(() => {
+  const readableLockingPeriod = useMemo(() => {
     if (!lockingPeriodMs) {
       return undefined;
     }
@@ -94,6 +98,12 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 
     return t('vault.transactionForm.lockingPeriod.duration', { date: unlockingDate });
   }, [lockingPeriodMs, t]);
+
+  const shouldDisplayWarning = useCallback(
+    (amountTokens: string) =>
+      !!amountTokens && warning?.amountTokens.isLessThanOrEqualTo(amountTokens),
+    [warning],
+  );
 
   const handleSubmit = async (amountTokens: string) => {
     const amountWei = convertTokensToWei({
@@ -110,27 +120,35 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 
   return (
     <AmountForm onSubmit={handleSubmit} maxAmount={limitTokens.toFixed()}>
-      {({ dirty, isValid, setFieldValue }) => (
-        <>
-          <FormikTokenTextField
-            name="amount"
-            token={token}
-            disabled={isSubmitting}
-            rightMaxButton={{
-              label: t('vault.transactionForm.rightMaxButtonLabel'),
-              onClick: () => setFieldValue('amount', limitTokens.toFixed()),
-            }}
-            max={limitTokens.toFixed()}
-            data-testid={TEST_IDS.tokenTextField}
-            css={styles.tokenTextField}
-          />
+      {({ dirty, isValid, setFieldValue, values }) => (
+        <div className="space-y-6">
+          <div>
+            <FormikTokenTextField
+              name="amount"
+              token={token}
+              disabled={isSubmitting}
+              rightMaxButton={{
+                label: t('vault.transactionForm.rightMaxButtonLabel'),
+                onClick: () => setFieldValue('amount', limitTokens.toFixed()),
+              }}
+              max={limitTokens.toFixed()}
+              data-testid={TEST_IDS.tokenTextField}
+            />
 
-          <div css={styles.getRow({ isLast: true })}>
+            {warning && shouldDisplayWarning(values.amount) && (
+              <NoticeWarning
+                description={warning.message}
+                data-testid={TEST_IDS.noticeWarning}
+                className="mt-3"
+              />
+            )}
+          </div>
+
+          <div className="space-y-3">
             <LabeledInlineContent
               data-testid={TEST_IDS.availableTokens}
               iconSrc={token}
               label={availableTokensLabel}
-              css={styles.getRow({ isLast: false })}
             >
               {readableAvailableTokens}
             </LabeledInlineContent>
@@ -142,7 +160,6 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
                 walletSpendingLimitTokens={walletSpendingLimitTokens}
                 onRevoke={revokeWalletSpendingLimit}
                 isRevokeLoading={isRevokeWalletSpendingLimitLoading}
-                css={styles.getRow({ isLast: false })}
                 data-testid={TEST_IDS.spendingLimit}
               />
             )}
@@ -151,7 +168,6 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
               <LabeledInlineContent
                 data-testid={TEST_IDS.lockingPeriod}
                 label={t('vault.transactionForm.lockingPeriod.label')}
-                css={styles.getRow({ isLast: false })}
               >
                 {readableLockingPeriod}
               </LabeledInlineContent>
@@ -187,12 +203,16 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
             <FormikSubmitButton
               loading={isSubmitting}
               disabled={!isValid || !dirty || isSubmitting}
-              className="w-full"
-              enabledLabel={submitButtonLabel}
+              enabledLabel={
+                warning && shouldDisplayWarning(values.amount)
+                  ? warning.submitButtonLabel
+                  : submitButtonLabel
+              }
+              className={cn('w-full', shouldDisplayWarning(values.amount) && 'border-red bg-red')}
               disabledLabel={submitButtonDisabledLabel}
             />
           )}
-        </>
+        </div>
       )}
     </AmountForm>
   );
@@ -209,6 +229,7 @@ export interface TransactionFormProps
     | 'revokeWalletSpendingLimit'
     | 'isRevokeWalletSpendingLimitLoading'
   > {
+  poolIndex?: number;
   spenderAddress?: string;
 }
 

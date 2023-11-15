@@ -2,7 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { en } from 'packages/translations';
-import React from 'react';
 import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
@@ -19,13 +18,13 @@ import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPo
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import renderComponent from 'testUtils/renderComponent';
 
-import RequestWithdrawal from '.';
-import TEST_IDS from '../../../TransactionForm/testIds';
+import RequestWithdrawal from '..';
+import TEST_IDS from '../../../../TransactionForm/testIds';
 
 const fakeStakedToken = vai;
 const fakePoolIndex = 6;
 
-describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {
+describe('RequestWithdrawal', () => {
   beforeEach(() => {
     (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),

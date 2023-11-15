@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ClaimRewardButton > it claims only selected rewards on submit button click and displays successful transaction modal on success 1`] = `
+exports[`ClaimRewardButton > it claims only selected rewards on submit button click on success 1`] = `
 {
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
@@ -42,7 +42,7 @@ exports[`ClaimRewardButton > it claims only selected rewards on submit button cl
 }
 `;
 
-exports[`ClaimRewardButton > it claims reward on submit button click and displays successful transaction modal on success 1`] = `
+exports[`ClaimRewardButton > it claims reward on submit button click on success 1`] = `
 {
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [

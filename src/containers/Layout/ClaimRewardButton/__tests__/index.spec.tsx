@@ -180,7 +180,7 @@ describe('ClaimRewardButton', () => {
     );
   });
 
-  it('it claims reward on submit button click and displays successful transaction modal on success', async () => {
+  it('it claims reward on submit button click on success', async () => {
     (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
@@ -201,7 +201,7 @@ describe('ClaimRewardButton', () => {
     expect((claimRewards as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
   });
 
-  it('it claims only selected rewards on submit button click and displays successful transaction modal on success', async () => {
+  it('it claims only selected rewards on submit button click on success', async () => {
     (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {

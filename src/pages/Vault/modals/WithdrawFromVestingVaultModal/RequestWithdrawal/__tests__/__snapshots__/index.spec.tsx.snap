@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 1`] = `"Requestable VAI24.00 VAI"`;
+
+exports[`RequestWithdrawal > fetches staked tokens and locking period and displays them correctly 2`] = `"Locking period3 minutes"`;

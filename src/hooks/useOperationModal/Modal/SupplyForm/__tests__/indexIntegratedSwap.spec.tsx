@@ -530,7 +530,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     expect(submitButton).toBeDisabled();
   });
 
-  it('lets user swap and supply, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user swap and supplythen calls onClose callback on success', async () => {
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,

@@ -674,7 +674,7 @@ describe('Swap', () => {
     expect(submitButton).toBeDisabled();
   });
 
-  it('lets user swap an already approved token for another token and displays a successful transaction modal on success', async () => {
+  it('lets user swap an already approved token for another token', async () => {
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,

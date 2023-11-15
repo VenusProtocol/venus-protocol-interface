@@ -646,7 +646,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }
   });
 
-  it('lets user swap and repay partial loan, then displays successful transaction modal and calls onClose callback on success', async () => {
+  it('lets user swap and repay partial loan then calls onClose callback on success', async () => {
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,

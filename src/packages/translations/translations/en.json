@@ -1075,13 +1075,16 @@
   },
   "withdrawFromVestingVaultModalModal": {
     "displayWithdrawalRequestListButton": "Withdrawal request list",
-    "primeWarning": "You will lose your Prime token if your stake in the XVS vault goes below {{minimumXvsStake}}",
     "requestWithdrawalTab": {
       "approveToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
       "availableTokensLabel": "Requestable {{tokenSymbol}}",
       "displayWithdrawalRequestListButton": "Withdrawal request list",
+      "primeLossWarning": {
+        "message": "You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of {{minimumXvsStake}} to be eligible for Prime.",
+        "submitButtonLabel": "Lose Prime token and request withdrawal"
+      },
       "submitButtonDisabledLabel": "Enter a valid amount to request",
       "submitButtonLabel": "Request withdrawal"
     },

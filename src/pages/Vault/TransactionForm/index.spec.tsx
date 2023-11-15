@@ -62,7 +62,7 @@ describe('TransactionForm', () => {
       },
     );
 
-    // Check spending limit is correctly displayedy
+    // Check spending limit is correctly displayed
     await waitFor(() => getByTestId(TEST_IDS.spendingLimit));
     expect(getByTestId(TEST_IDS.spendingLimit).textContent).toMatchSnapshot();
 
@@ -74,6 +74,29 @@ describe('TransactionForm', () => {
     fireEvent.click(revokeSpendingLimitButton);
 
     await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
+  });
+
+  it('displays warning if amount entered is equal or higher than amount passed in warning prop', async () => {
+    const fakeWarning: TransactionFormProps['warning'] = {
+      amountTokens: new BigNumber(10),
+      message: 'Fake warning message',
+      submitButtonLabel: 'Fake warning submit button label',
+    };
+    const customProps: TransactionFormProps = { ...baseProps, warning: fakeWarning };
+
+    const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
+    });
+
+    // Enter amount in input
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: fakeWarning.amountTokens.toFixed() },
+    });
+
+    await waitFor(() => expect(getByText(fakeWarning.message)));
+    expect(getByText(fakeWarning.submitButtonLabel));
   });
 
   it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
@@ -125,7 +148,7 @@ describe('TransactionForm', () => {
     expect(submitButton).toBeDisabled();
   });
 
-  it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
+  it('calls onSubmit callback on submit', async () => {
     const onSubmitMock = vi.fn(async () => fakeContractTransaction);
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
