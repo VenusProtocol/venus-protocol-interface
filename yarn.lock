@@ -4348,7 +4348,7 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-3.4.2.tgz#d81f786fda2871d1eb8a8c5a73e455753ba53527"
   integrity sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA==
 
-"@openzeppelin/contracts@^4.3.3", "@openzeppelin/contracts@^4.6.0", "@openzeppelin/contracts@^4.8.3":
+"@openzeppelin/contracts@4.9.3", "@openzeppelin/contracts@^4.3.3", "@openzeppelin/contracts@^4.6.0", "@openzeppelin/contracts@^4.8.3":
   version "4.9.3"
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.9.3.tgz#00d7a8cf35a475b160b3f0293a6403c511099364"
   integrity sha512-He3LieZ1pP2TNt5JbkPA4PNT9WC3gOTOlDcFGJW4Le4QKqwmiNJCRt44APfxMxvq7OugU/cqYuPcSBzOw38DAg==
@@ -7081,6 +7081,11 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@venusprotocol/governance-contracts@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-0.0.2.tgz#0e85616a95b482e7c2060d4d9a2876b3cea38891"
+  integrity sha512-vXZDXxGGQdw9rWWGGAeCHH8iiHa4s5JP6MQomvt8XaPvOFGBFD4paz473/VI0wGeh+wg0LWYAgQsZjGyn51Bkw==
+
 "@venusprotocol/governance-contracts@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.3.0.tgz#b5852e453b95429acbfba1135d5bbe92b93edf63"
@@ -7126,13 +7131,15 @@
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     dotenv "^16.0.1"
 
-"@venusprotocol/venus-protocol@^5.0.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-5.1.0.tgz#10e09f38e9871d0098478da25652875ae5c7e4fb"
-  integrity sha512-giJU1fJHZsBcJDzYvn6aOjM9JBheJVZDWxbpQArTzkS5OZQBVekWEKCXLX7TDTxDw2Kjqoenl9QXL8Dhodp+6g==
+"@venusprotocol/venus-protocol@^5.2.0-dev.2":
+  version "5.2.0-dev.2"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-5.2.0-dev.2.tgz#287631798f4e84ecd6d1f0fb4efcdee620a8b3eb"
+  integrity sha512-fJvVTeDXf31CIJIUoJAHQkk9o4xsns2FpnjXlYz2P2yfuKltnJ7zjXZBCZQZKp8etj5LarfJjnmbiDeyRYk7Qw==
   dependencies:
-    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
+    "@venusprotocol/governance-contracts" "^0.0.2"
+    bignumber.js "^9.1.2"
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
@@ -8541,7 +8548,7 @@ bigint-crypto-utils@^3.0.23:
   resolved "https://registry.yarnpkg.com/bigint-crypto-utils/-/bigint-crypto-utils-3.3.0.tgz#72ad00ae91062cf07f2b1def9594006c279c1d77"
   integrity sha512-jOTSb+drvEDxEq6OuUybOAv/xxoh3cuYRUIPyu8sSHQNKM303UQ2R1DAo45o1AkcIXw6fzbaFI1+xGGdaXs2lg==
 
-bignumber.js@^9.1.1:
+bignumber.js@^9.1.1, bignumber.js@^9.1.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.2.tgz#b7c4242259c008903b13707983b5f4bbd31eda0c"
   integrity sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==
