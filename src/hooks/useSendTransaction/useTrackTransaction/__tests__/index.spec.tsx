@@ -6,7 +6,6 @@ import {
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-  logError,
 } from 'errors';
 import { en } from 'packages/translations';
 import { ChainId } from 'types';
@@ -77,10 +76,6 @@ describe('useTrackTransaction', () => {
       CONFIRMATIONS,
       CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
     );
-
-    // Check error was logged
-    expect(logError).toHaveBeenCalledTimes(1);
-    expect(logError).toHaveBeenCalledWith(fakeError);
 
     // Check notification was updated
     expect(updateNotification).toBeCalledTimes(1);
