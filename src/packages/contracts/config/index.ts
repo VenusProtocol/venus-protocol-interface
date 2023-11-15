@@ -194,9 +194,8 @@ export const contracts: ContractConfig[] = [
     name: 'Prime',
     abi: PrimeAbi,
     address: {
-      // TODO: get addresses from package once they've been added
-      [ChainId.BSC_TESTNET]: '0xe840F8EC2Dc50E7D22e5e2991975b9F6e34b62Ad',
-      [ChainId.BSC_MAINNET]: '0xBbCD063efE506c3D42a0Fa2dB5C08430288C71FC',
+      [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Prime,
+      [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.Prime,
     },
   },
   // Generic Contracts
