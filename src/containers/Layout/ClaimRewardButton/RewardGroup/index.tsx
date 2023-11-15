@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { useMemo } from 'react';
-import { convertWeiToTokens, formatCentsToReadableValue } from 'utilities';
+import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
 
 import { Group, PendingReward } from '../types';
 
@@ -21,8 +21,8 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
       const groupedPendingReward = pendingRewardMapping.get(pendingReward.rewardToken.address);
       pendingRewardMapping.set(pendingReward.rewardToken.address, {
         rewardToken: pendingReward.rewardToken,
-        rewardAmountWei: pendingReward.rewardAmountWei.plus(
-          groupedPendingReward?.rewardAmountWei || 0,
+        rewardAmountMantissa: pendingReward.rewardAmountMantissa.plus(
+          groupedPendingReward?.rewardAmountMantissa || 0,
         ),
         rewardAmountCents: pendingReward.rewardAmountCents?.plus(
           groupedPendingReward?.rewardAmountCents || 0,
@@ -59,8 +59,8 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
             topValue={formatCentsToReadableValue({
               value: pendingReward.rewardAmountCents,
             })}
-            bottomValue={convertWeiToTokens({
-              valueWei: pendingReward.rewardAmountWei,
+            bottomValue={convertMantissaToTokens({
+              value: pendingReward.rewardAmountMantissa,
               token: pendingReward.rewardToken,
               returnInReadableFormat: true,
             })}

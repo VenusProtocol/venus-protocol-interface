@@ -16,7 +16,7 @@ import { isTokenActionEnabled } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
-import { areTokensEqual, convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
@@ -124,8 +124,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
       return (
         tokenBalance &&
-        convertWeiToTokens({
-          valueWei: tokenBalance.balanceWei,
+        convertMantissaToTokens({
+          value: tokenBalance.balanceMantissa,
           token: tokenBalance.token,
         })
       );
@@ -388,12 +388,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
 
     // Handle supply flow
     if (!isSwapping) {
-      const amountWei = convertTokensToWei({
+      const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
-      return supply({ amountWei });
+      return supply({ amountMantissa });
     }
 
     // Throw an error if we're meant to execute a swap but no swap was

@@ -6,7 +6,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { AssetDistribution, Token } from 'types';
-import { cn, convertWeiToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
+import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
@@ -20,7 +20,7 @@ import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
-import useConvertWeiToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
+import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
@@ -84,7 +84,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     [primeTokenLimit, claimedPrimeTokenCount],
   );
 
-  const readableStakeDeltaTokens = useConvertWeiToReadableTokenString({
+  const readableStakeDeltaTokens = useConvertMantissaToReadableTokenString({
     value: stakeDeltaTokens,
     token: xvs,
     roundingMode: BigNumber.ROUND_UP,
@@ -102,12 +102,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     [primeClaimWaitingPeriodSeconds, userPrimeClaimWaitingPeriodSeconds],
   );
 
-  const readableMinXvsToStakeForPrimeTokens = useConvertWeiToReadableTokenString({
+  const readableMinXvsToStakeForPrimeTokens = useConvertMantissaToReadableTokenString({
     value: minXvsToStakeForPrimeTokens,
     token: xvs,
   });
 
-  const readableUserStakedXvsTokens = useConvertWeiToReadableTokenString({
+  const readableUserStakedXvsTokens = useConvertMantissaToReadableTokenString({
     value: userStakedXvsTokens,
     token: xvs,
   });
@@ -363,8 +363,8 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       },
     );
 
-  const userNonPendingStakedXvsMantissa = userStakedXvsTokensData?.stakedAmountWei.minus(
-    userStakedXvsTokensData.pendingWithdrawalsTotalAmountWei,
+  const userNonPendingStakedXvsMantissa = userStakedXvsTokensData?.stakedAmountMantissa.minus(
+    userStakedXvsTokensData.pendingWithdrawalsTotalAmountMantissa,
   );
 
   const { mutateAsync: claimPrimeToken, isLoading: isClaimPrimeTokenLoading } = useClaimPrimeToken({
@@ -390,13 +390,13 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     userClaimTimeRemainingSeconds,
   } = primeStatusData;
 
-  const userStakedXvsTokens = convertWeiToTokens({
-    valueWei: userNonPendingStakedXvsMantissa || new BigNumber('0'),
+  const userStakedXvsTokens = convertMantissaToTokens({
+    value: userNonPendingStakedXvsMantissa || new BigNumber('0'),
     token: xvs,
   });
 
-  const minXvsToStakeForPrimeTokens = convertWeiToTokens({
-    valueWei: primeMinimumStakedXvsMantissa || new BigNumber('0'),
+  const minXvsToStakeForPrimeTokens = convertMantissaToTokens({
+    value: primeMinimumStakedXvsMantissa || new BigNumber('0'),
     token: xvs,
   });
 

@@ -30,10 +30,10 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
 
   const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdrawFromVaiVault();
 
-  const handleWithdraw = async (amountWei: BigNumber) => {
+  const handleWithdraw = async (amountMantissa: BigNumber) => {
     // Send request to withdraw
     const res = await withdraw({
-      amountWei,
+      amountMantissa,
     });
 
     // Close modal
@@ -47,7 +47,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
       title={t('withdrawFromVaiVaultModal.title', { tokenSymbol: vai?.symbol })}
       token={vai!}
       handleClose={handleClose}
-      availableTokensWei={vaiVaultUserInfo?.stakedVaiWei || new BigNumber(0)}
+      availableTokensMantissa={vaiVaultUserInfo?.stakedVaiMantissa || new BigNumber(0)}
       isInitialLoading={isGetVaiVaultUserInfoLoading}
       onSubmit={handleWithdraw}
       isSubmitting={isWithdrawLoading}

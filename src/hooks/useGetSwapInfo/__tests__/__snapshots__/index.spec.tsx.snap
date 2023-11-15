@@ -7,7 +7,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
   "swap": {
     "direction": "exactAmountIn",
     "exchangeRate": "0.499374217772215269",
-    "expectedToTokenAmountReceivedWei": "499374217772215269",
+    "expectedToTokenAmountReceivedMantissa": "499374217772215269",
     "fromToken": {
       "address": "0x0000000000000000000000000000000000000000",
       "asset": "/src/packages/tokens/img/bnb.svg",
@@ -15,8 +15,8 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountIn > returns swap in correct for
       "isNative": true,
       "symbol": "BNB",
     },
-    "fromTokenAmountSoldWei": "1000000000000000000",
-    "minimumToTokenAmountReceivedWei": "496889768927577382",
+    "fromTokenAmountSoldMantissa": "1000000000000000000",
+    "minimumToTokenAmountReceivedMantissa": "496889768927577382",
     "priceImpactPercentage": 50.06,
     "routePath": [
       "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
@@ -39,7 +39,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
   "swap": {
     "direction": "exactAmountOut",
     "exchangeRate": "0.49875",
-    "expectedFromTokenAmountSoldWei": "1002506265664160402",
+    "expectedFromTokenAmountSoldMantissa": "1002506265664160402",
     "fromToken": {
       "address": "0x0000000000000000000000000000000000000000",
       "asset": "/src/packages/tokens/img/bnb.svg",
@@ -47,7 +47,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
       "isNative": true,
       "symbol": "BNB",
     },
-    "maximumFromTokenAmountSoldWei": "1007518796992481204",
+    "maximumFromTokenAmountSoldMantissa": "1007518796992481204",
     "priceImpactPercentage": 50.13,
     "routePath": [
       "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
@@ -59,7 +59,7 @@ exports[`pages/Swap/useGetSwapInfo > exactAmountOut > returns swap in correct fo
       "decimals": 18,
       "symbol": "XVS",
     },
-    "toTokenAmountReceivedWei": "500000000000000000",
+    "toTokenAmountReceivedMantissa": "500000000000000000",
   },
 }
 `;

@@ -27,27 +27,27 @@ import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
+const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
 );
 
-const fakeBusdAmountBellowWalletBalanceWei = fakeBusdWalletBalanceWei.minus(100);
+const fakeBusdAmountBellowWalletBalanceMantissa = fakeBusdWalletBalanceMantissa.minus(100);
 
 const fakeMarginWithSupplyCapTokens = fakeAsset.supplyCapTokens.minus(
   fakeAsset.supplyBalanceTokens,
 );
 
-const fakeMarginWithSupplyCapWei = fakeMarginWithSupplyCapTokens.multipliedBy(
+const fakeMarginWithSupplyCapMantissa = fakeMarginWithSupplyCapTokens.multipliedBy(
   new BigNumber(10).pow(xvs.decimals),
 );
 
 const fakeSwap: Swap = {
   fromToken: busd,
-  fromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
+  fromTokenAmountSoldMantissa: fakeBusdAmountBellowWalletBalanceMantissa,
   toToken: xvs,
-  expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
-  minimumToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei,
-  exchangeRate: fakeMarginWithSupplyCapWei.div(fakeBusdAmountBellowWalletBalanceWei),
+  expectedToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa,
+  minimumToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa,
+  exchangeRate: fakeMarginWithSupplyCapMantissa.div(fakeBusdAmountBellowWalletBalanceMantissa),
   routePath: [busd.address, xvs.address],
   priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
@@ -269,7 +269,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   it('disables submit button if amount entered in input would have a higher value than supply cap after swapping', async () => {
     const customFakeSwap: Swap = {
       ...fakeSwap,
-      expectedToTokenAmountReceivedWei: fakeMarginWithSupplyCapWei.plus(1),
+      expectedToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa.plus(1),
     };
 
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
@@ -348,10 +348,10 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
-      balanceWei:
+      balanceMantissa:
         tokenBalance.token.address.toLowerCase() === busd.address.toLowerCase()
           ? new BigNumber(0)
-          : tokenBalance.balanceWei,
+          : tokenBalance.balanceMantissa,
     }));
 
     (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({

@@ -8,7 +8,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
-  convertWeiToTokens,
+  convertMantissaToTokens,
   formatTokensToReadableValue,
   generateChainExplorerUrl,
 } from 'utilities';
@@ -22,7 +22,7 @@ import {
 import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-import { MINTED_XVS_WEI } from '../constants';
+import { MINTED_XVS_MANTISSA } from '../constants';
 import { useStyles } from '../styles';
 
 interface HeaderProps {
@@ -30,19 +30,19 @@ interface HeaderProps {
 }
 
 interface HeaderContainerProps {
-  remainingDistributionWei: BigNumber;
+  remainingDistributionMantissa: BigNumber;
   dailyXvsDistributedTokens: BigNumber;
-  venusVaiVaultDailyRateWei: BigNumber;
-  totalXvsDistributedWei: BigNumber;
+  venusVaiVaultDailyRateMantissa: BigNumber;
+  totalXvsDistributedMantissa: BigNumber;
   xvs: Token;
 }
 
 export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   className,
-  remainingDistributionWei,
+  remainingDistributionMantissa,
   dailyXvsDistributedTokens,
-  venusVaiVaultDailyRateWei,
-  totalXvsDistributedWei,
+  venusVaiVaultDailyRateMantissa,
+  totalXvsDistributedMantissa,
   xvs,
 }) => {
   const styles = useStyles();
@@ -53,8 +53,8 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const copyAddress = () => copy(xvs.address);
 
   const readableDailyDistribution = useMemo(() => {
-    const venusVaiVaultDailyRateTokens = convertWeiToTokens({
-      valueWei: venusVaiVaultDailyRateWei,
+    const venusVaiVaultDailyRateTokens = convertMantissaToTokens({
+      value: venusVaiVaultDailyRateMantissa,
       token: xvs,
     });
 
@@ -64,21 +64,21 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
       value: dailyDistribution,
       token: xvs,
     });
-  }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateWei, xvs]);
+  }, [dailyXvsDistributedTokens, venusVaiVaultDailyRateMantissa, xvs]);
 
   const readableRemainingDistribution = useMemo(
     () =>
-      convertWeiToTokens({
-        valueWei: remainingDistributionWei,
+      convertMantissaToTokens({
+        value: remainingDistributionMantissa,
         token: xvs,
         returnInReadableFormat: true,
       }),
-    [remainingDistributionWei, xvs],
+    [remainingDistributionMantissa, xvs],
   );
 
   const percentOfXvsDistributed = useMemo(
-    () => totalXvsDistributedWei.dividedBy(MINTED_XVS_WEI).multipliedBy(100).toNumber(),
-    [totalXvsDistributedWei],
+    () => totalXvsDistributedMantissa.dividedBy(MINTED_XVS_MANTISSA).multipliedBy(100).toNumber(),
+    [totalXvsDistributedMantissa],
   );
 
   return (
@@ -170,12 +170,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
     <HeaderUi
-      remainingDistributionWei={xvsRemainingDistributionData?.balanceWei || new BigNumber(0)}
-      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateData?.dailyRateWei || new BigNumber(0)}
+      remainingDistributionMantissa={
+        xvsRemainingDistributionData?.balanceMantissa || new BigNumber(0)
+      }
+      venusVaiVaultDailyRateMantissa={
+        venusVaiVaultDailyRateData?.dailyRateMantissa || new BigNumber(0)
+      }
       className={className}
       dailyXvsDistributedTokens={dailyXvsDistributedTokens}
-      totalXvsDistributedWei={
-        mainPoolTotalXvsDistributedData?.totalXvsDistributedWei || new BigNumber(0)
+      totalXvsDistributedMantissa={
+        mainPoolTotalXvsDistributedData?.totalXvsDistributedMantissa || new BigNumber(0)
       }
       xvs={xvs!}
     />

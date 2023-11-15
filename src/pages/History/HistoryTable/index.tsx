@@ -4,7 +4,7 @@ import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components'
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Transaction } from 'types';
-import { convertWeiToTokens, generateChainExplorerUrl } from 'utilities';
+import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';
@@ -147,8 +147,8 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         renderCell: transaction =>
           transaction.token && (
             <Typography variant="small2" css={styles.whiteText}>
-              {convertWeiToTokens({
-                valueWei: transaction.amountMantissa,
+              {convertMantissaToTokens({
+                value: transaction.amountMantissa,
                 token: transaction.token,
                 returnInReadableFormat: true,
 

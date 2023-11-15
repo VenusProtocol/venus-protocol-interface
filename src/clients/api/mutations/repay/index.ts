@@ -9,7 +9,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 export interface RepayInput {
   signer: Signer;
   vToken: VToken;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   isRepayingFullLoan: boolean;
   maximillionContract?: Maximillion;
 }
@@ -20,27 +20,27 @@ export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
 
 const repayFullBnbLoan = async ({
   vToken,
-  amountWei,
+  amountMantissa,
   signer,
   maximillionContract,
 }: {
   vToken: VToken;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   signer: Signer;
   maximillionContract: Maximillion;
 }) => {
-  const amountWithBufferWei = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
+  const amountWithBufferMantissa = amountMantissa.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
   const accountAddress = await signer.getAddress();
 
   return maximillionContract.repayBehalfExplicit(accountAddress, vToken.address, {
-    value: amountWithBufferWei.toFixed(0),
+    value: amountWithBufferMantissa.toFixed(0),
   });
 };
 
 const repay = async ({
   signer,
   vToken,
-  amountWei,
+  amountMantissa,
   maximillionContract,
   isRepayingFullLoan = false,
 }: RepayInput): Promise<RepayOutput> => {
@@ -49,7 +49,7 @@ const repay = async ({
     const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
 
     return vTokenContract.repayBorrow(
-      isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed(),
+      isRepayingFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed(),
     );
   }
 
@@ -57,7 +57,7 @@ const repay = async ({
   if (isRepayingFullLoan) {
     return callOrThrow({ maximillionContract, signer }, params =>
       repayFullBnbLoan({
-        amountWei,
+        amountMantissa,
         vToken,
         ...params,
       }),
@@ -71,7 +71,7 @@ const repay = async ({
   }) as VBnb;
 
   return vBnbContract.repayBorrow({
-    value: amountWei.toFixed(),
+    value: amountMantissa.toFixed(),
   });
 };
 

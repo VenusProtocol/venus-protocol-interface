@@ -10,7 +10,7 @@ const formatToLockedDeposit = ([amount, lockedUntil]: Awaited<
   const unlockedAt = new Date(lockedUntilMs);
 
   return {
-    amountWei: new BigNumber(amount.toString()),
+    amountMantissa: new BigNumber(amount.toString()),
     unlockedAt,
   };
 };

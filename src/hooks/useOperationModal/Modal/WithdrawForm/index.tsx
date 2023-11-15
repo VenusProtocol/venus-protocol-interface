@@ -5,7 +5,7 @@ import { VError } from 'errors';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useState } from 'react';
 import { Asset, Pool } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
@@ -193,7 +193,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       enabled: !!accountAddress,
     },
   );
-  const vTokenBalanceWei = getVTokenBalanceData?.balanceWei;
+  const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
 
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     poolName: pool.name,
@@ -223,19 +223,19 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
 
     // Withdraw partial supply
     if (!amountEqualsSupplyBalance) {
-      const withdrawAmountWei = convertTokensToWei({
+      const withdrawAmountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens),
         token: fromToken,
       });
 
       return redeemUnderlying({
-        amountWei: withdrawAmountWei,
+        amountMantissa: withdrawAmountMantissa,
       });
     }
 
     // Withdraw entire supply
-    if (vTokenBalanceWei) {
-      return redeem({ amountWei: vTokenBalanceWei });
+    if (vTokenBalanceMantissa) {
+      return redeem({ amountMantissa: vTokenBalanceMantissa });
     }
 
     // This cose should never be reached, but just in case we throw a generic

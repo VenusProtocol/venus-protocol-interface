@@ -1,7 +1,7 @@
 import { Percent as PSPercent } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { Swap } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
@@ -20,15 +20,15 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
       direction: 'exactAmountIn',
       routePath,
       priceImpactPercentage: +trade.priceImpact.toFixed(),
-      fromTokenAmountSoldWei: convertTokensToWei({
+      fromTokenAmountSoldMantissa: convertTokensToMantissa({
         value: new BigNumber(trade.inputAmount.toFixed()),
         token: input.fromToken,
       }),
-      expectedToTokenAmountReceivedWei: convertTokensToWei({
+      expectedToTokenAmountReceivedMantissa: convertTokensToMantissa({
         value: new BigNumber(trade.outputAmount.toFixed()),
         token: input.toToken,
       }),
-      minimumToTokenAmountReceivedWei: convertTokensToWei({
+      minimumToTokenAmountReceivedMantissa: convertTokensToMantissa({
         value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
         token: input.toToken,
       }),
@@ -47,15 +47,15 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
     direction: 'exactAmountOut',
     routePath,
     priceImpactPercentage: +trade.priceImpact.toFixed(),
-    expectedFromTokenAmountSoldWei: convertTokensToWei({
+    expectedFromTokenAmountSoldMantissa: convertTokensToMantissa({
       value: new BigNumber(trade.inputAmount.toFixed()),
       token: input.fromToken,
     }),
-    maximumFromTokenAmountSoldWei: convertTokensToWei({
+    maximumFromTokenAmountSoldMantissa: convertTokensToMantissa({
       value: new BigNumber(trade.maximumAmountIn(slippagePercent).toFixed()),
       token: input.fromToken,
     }),
-    toTokenAmountReceivedWei: convertTokensToWei({
+    toTokenAmountReceivedMantissa: convertTokensToMantissa({
       value: new BigNumber(trade.outputAmount.toFixed()),
       token: input.toToken,
     }),

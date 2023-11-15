@@ -8,7 +8,7 @@ export interface GetAllowanceInput {
 }
 
 export type GetAllowanceOutput = {
-  allowanceWei: BigNumber;
+  allowanceMantissa: BigNumber;
 };
 
 const getAllowance = async ({
@@ -19,7 +19,7 @@ const getAllowance = async ({
   const res = await tokenContract.allowance(accountAddress, spenderAddress);
 
   return {
-    allowanceWei: new BigNumber(res.toString()),
+    allowanceMantissa: new BigNumber(res.toString()),
   };
 };
 

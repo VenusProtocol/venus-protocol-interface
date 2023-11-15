@@ -7,7 +7,7 @@ import { Vault } from 'types';
 import {
   compareBigNumbers,
   compareNumbers,
-  convertWeiToTokens,
+  convertMantissaToTokens,
   formatPercentageToReadableValue,
 } from 'utilities';
 
@@ -44,15 +44,15 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
         label: t('account.vaultsBreakdown.table.column.stake'),
         selectOptionLabel: t('account.vaultsBreakdown.table.column.stake'),
         renderCell: vault =>
-          convertWeiToTokens({
-            valueWei: new BigNumber(vault.userStakedWei || 0),
+          convertMantissaToTokens({
+            value: new BigNumber(vault.userStakedMantissa || 0),
             token: vault.stakedToken,
 
             returnInReadableFormat: true,
             addSymbol: true,
           }),
         sortRows: (rowA, rowB, direction) =>
-          compareBigNumbers(rowA.userStakedWei, rowB.userStakedWei, direction),
+          compareBigNumbers(rowA.userStakedMantissa, rowB.userStakedMantissa, direction),
       },
     ],
     [t],

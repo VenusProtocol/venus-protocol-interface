@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { useGetMainMarkets } from 'clients/api';
 
 export interface UseGetMainPoolTotalXvsDistributedOutput {
   isLoading: boolean;
   data?: {
-    totalXvsDistributedWei: BigNumber;
+    totalXvsDistributedMantissa: BigNumber;
   };
 }
 
@@ -21,7 +21,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
     symbol: 'XVS',
   });
 
-  const totalXvsDistributedWei = useMemo(() => {
+  const totalXvsDistributedMantissa = useMemo(() => {
     const totalXvsDistributedTokens =
       getMainMarketsData?.markets &&
       getMainMarketsData.markets.reduce(
@@ -32,7 +32,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
     return (
       totalXvsDistributedTokens &&
       xvs &&
-      convertTokensToWei({
+      convertTokensToMantissa({
         value: totalXvsDistributedTokens,
         token: xvs,
       })
@@ -41,7 +41,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
 
   return {
     isLoading: isGetMainAssetsLoading,
-    data: totalXvsDistributedWei && { totalXvsDistributedWei },
+    data: totalXvsDistributedMantissa && { totalXvsDistributedMantissa },
   };
 };
 

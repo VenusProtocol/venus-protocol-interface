@@ -22,8 +22,8 @@ const swapTokensAndSupply = async ({
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {
     return swapRouterContract.swapExactTokensForTokensAndSupply(
       vToken.address,
-      swap.fromTokenAmountSoldWei.toFixed(),
-      swap.minimumToTokenAmountReceivedWei.toFixed(),
+      swap.fromTokenAmountSoldMantissa.toFixed(),
+      swap.minimumToTokenAmountReceivedMantissa.toFixed(),
       swap.routePath,
       transactionDeadline,
     );
@@ -33,10 +33,10 @@ const swapTokensAndSupply = async ({
   if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
     return swapRouterContract.swapExactBNBForTokensAndSupply(
       vToken.address,
-      swap.minimumToTokenAmountReceivedWei.toFixed(),
+      swap.minimumToTokenAmountReceivedMantissa.toFixed(),
       swap.routePath,
       transactionDeadline,
-      { value: swap.fromTokenAmountSoldWei.toFixed() },
+      { value: swap.fromTokenAmountSoldMantissa.toFixed() },
     );
   }
 

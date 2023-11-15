@@ -4,7 +4,7 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
 {
   "tokenBalances": [
     {
-      "balanceWei": "10000",
+      "balanceMantissa": "10000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "asset": "/src/packages/tokens/img/busd.svg",
@@ -13,7 +13,7 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       },
     },
     {
-      "balanceWei": "10000",
+      "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
         "asset": "/src/packages/tokens/img/hay.png",
@@ -29,7 +29,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
 {
   "tokenBalances": [
     {
-      "balanceWei": "10000",
+      "balanceMantissa": "10000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "asset": "/src/packages/tokens/img/busd.svg",
@@ -38,7 +38,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       },
     },
     {
-      "balanceWei": "10000",
+      "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
         "asset": "/src/packages/tokens/img/hay.png",
@@ -47,7 +47,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       },
     },
     {
-      "balanceWei": "1000000000000000000",
+      "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0x0000000000000000000000000000000000000000",
         "asset": "/src/packages/tokens/img/bnb.svg",

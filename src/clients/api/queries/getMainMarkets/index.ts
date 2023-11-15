@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Market, Token } from 'types';
-import { convertWeiToTokens, restService } from 'utilities';
+import { convertMantissaToTokens, restService } from 'utilities';
 
 export interface ApiMarket {
   address: string;
@@ -39,8 +39,8 @@ const getMainMarkets = async ({ xvs }: GetMainMarketsInput): Promise<GetMainMark
 
   const markets: Market[] = (response?.data?.result || []).map(apiMarket => {
     const totalXvsDistributedTokens = apiMarket.totalDistributedMantissa
-      ? convertWeiToTokens({
-          valueWei: new BigNumber(apiMarket.totalDistributedMantissa),
+      ? convertMantissaToTokens({
+          value: new BigNumber(apiMarket.totalDistributedMantissa),
           token: xvs,
         })
       : new BigNumber(0);

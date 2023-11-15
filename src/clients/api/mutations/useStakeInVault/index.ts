@@ -13,7 +13,7 @@ export interface UseStakeInVaultInput {
 }
 
 interface StakeInput {
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
@@ -31,18 +31,18 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
 
   const isLoading = isStakeInXvsVaultLoading || isStakeInVaiVaultLoading;
 
-  const stake = async ({ amountWei }: StakeInput) => {
+  const stake = async ({ amountMantissa }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       return stakeInXvsVault({
         poolIndex,
         rewardToken,
-        amountWei,
+        amountMantissa,
       });
     }
 
     if (vai && areTokensEqual(stakedToken, vai)) {
       return stakeInVaiVault({
-        amountWei,
+        amountMantissa,
       });
     }
 

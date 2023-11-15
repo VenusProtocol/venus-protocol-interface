@@ -18,7 +18,7 @@ const Template: StoryFn<TransactionFormProps> = args => <TransactionForm {...arg
 export const Default = Template.bind({});
 Default.args = {
   token: vai,
-  availableTokensWei: new BigNumber('193871256231321312312'),
+  availableTokensMantissa: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available VAI',
   submitButtonLabel: 'Stake',
   submitButtonDisabledLabel: 'Enter a valid amount to stake',
@@ -27,7 +27,7 @@ Default.args = {
 export const WithLockingPeriod = Template.bind({});
 WithLockingPeriod.args = {
   token: xvs,
-  availableTokensWei: new BigNumber('193871256231321312312'),
+  availableTokensMantissa: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available reward',
   submitButtonLabel: 'Make a request',
   submitButtonDisabledLabel: 'Enter a valid amount to make a request',

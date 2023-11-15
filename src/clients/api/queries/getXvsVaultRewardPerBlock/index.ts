@@ -7,7 +7,7 @@ export interface GetXvsVaultRewardPerBlockInput {
 }
 
 export type GetXvsVaultRewardPerBlockOutput = {
-  rewardPerBlockWei: BigNumber;
+  rewardPerBlockMantissa: BigNumber;
 };
 
 const getXvsVaultRewardPerBlock = async ({
@@ -17,7 +17,7 @@ const getXvsVaultRewardPerBlock = async ({
   const res = await xvsVaultContract.rewardTokenAmountsPerBlock(tokenAddress);
 
   return {
-    rewardPerBlockWei: new BigNumber(res.toString()),
+    rewardPerBlockMantissa: new BigNumber(res.toString()),
   };
 };
 

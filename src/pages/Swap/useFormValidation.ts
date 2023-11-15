@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Swap } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
@@ -10,7 +10,7 @@ import { FormError, FormValues } from './types';
 interface UseFormValidationInput {
   formValues: FormValues;
   isFromTokenApproved?: boolean;
-  fromTokenUserBalanceWei?: BigNumber;
+  fromTokenUserBalanceMantissa?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
 }
@@ -24,21 +24,22 @@ const useFormValidation = ({
   swap,
   isFromTokenApproved,
   formValues,
-  fromTokenUserBalanceWei,
+  fromTokenUserBalanceMantissa,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const fromTokenAmountErrors = useMemo(() => {
-    const fromTokenAmountWei =
+    const fromTokenAmountMantissa =
       formValues.fromTokenAmountTokens &&
-      convertTokensToWei({
+      convertTokensToMantissa({
         value: new BigNumber(formValues.fromTokenAmountTokens),
         token: formValues.fromToken,
       });
 
-    const isInvalid = !fromTokenAmountWei || fromTokenAmountWei.isLessThanOrEqualTo(0);
+    const isInvalid = !fromTokenAmountMantissa || fromTokenAmountMantissa.isLessThanOrEqualTo(0);
 
     const isHigherThanMax =
-      fromTokenUserBalanceWei && fromTokenUserBalanceWei.isLessThan(fromTokenAmountWei);
+      fromTokenUserBalanceMantissa &&
+      fromTokenUserBalanceMantissa.isLessThan(fromTokenAmountMantissa);
 
     const errorsTmp: FormError[] = [];
 
@@ -69,7 +70,7 @@ const useFormValidation = ({
 
     return errorsTmp;
   }, [
-    fromTokenUserBalanceWei,
+    fromTokenUserBalanceMantissa,
     formValues.fromTokenAmountTokens,
     formValues.fromToken,
     isFromTokenApproved,

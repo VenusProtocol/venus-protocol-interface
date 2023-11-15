@@ -24,16 +24,16 @@ describe('components/TokenTextField', () => {
 
     const input = getByTestId(testId) as HTMLInputElement;
 
-    const oneWeiInXvs = new BigNumber(ONE_XVS)
+    const oneMantissaInXvs = new BigNumber(ONE_XVS)
       .dividedBy(new BigNumber(10).pow(xvs.decimals))
       .toFixed();
 
     // Update input value
-    fireEvent.change(input, { target: { value: oneWeiInXvs } });
+    fireEvent.change(input, { target: { value: oneMantissaInXvs } });
 
     // Check value passed to onChange callback was correct
     expect(onChangeMock).toHaveBeenCalledTimes(1);
-    expect(onChangeMock).toHaveBeenCalledWith(oneWeiInXvs);
+    expect(onChangeMock).toHaveBeenCalledWith(oneMantissaInXvs);
 
     // Update input value
     const invalidValue = new BigNumber(ONE_XVS)
@@ -46,7 +46,7 @@ describe('components/TokenTextField', () => {
   });
 
   it('passes the correct max and step values down to the TextField component', async () => {
-    const oneWeiInXvs = new BigNumber(ONE_XVS).dividedBy(new BigNumber(10).pow(18));
+    const oneMantissaInXvs = new BigNumber(ONE_XVS).dividedBy(new BigNumber(10).pow(18));
 
     const onChangeMock = vi.fn();
     const { getByTestId } = renderComponent(
@@ -62,7 +62,7 @@ describe('components/TokenTextField', () => {
     const input = getByTestId(testId) as HTMLInputElement;
 
     expect(input.max).toBe(ONE_XVS);
-    expect(input.step).toBe(oneWeiInXvs.toFixed());
+    expect(input.step).toBe(oneMantissaInXvs.toFixed());
   });
 
   it('renders max button and updates value to provided value when pressing on it', async () => {

@@ -141,11 +141,13 @@ describe('RequestWithdrawal', () => {
 
     fireEvent.click(submitButton);
 
-    const fakeWeiSubmitted = new BigNumber(fakeValueTokens).multipliedBy(new BigNumber(10).pow(18));
+    const fakeMantissaSubmitted = new BigNumber(fakeValueTokens).multipliedBy(
+      new BigNumber(10).pow(18),
+    );
 
     await waitFor(() => expect(requestWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
     expect(requestWithdrawalFromXvsVault).toHaveBeenCalledWith({
-      amountWei: fakeWeiSubmitted,
+      amountMantissa: fakeMantissaSubmitted,
       poolIndex: fakePoolIndex,
       rewardTokenAddress: xvs.address,
     });

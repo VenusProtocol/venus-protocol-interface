@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
 import { VToken } from 'types';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { RepayInput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -36,9 +36,9 @@ const useRepay = (
       captureAnalyticEvent('Tokens repaid', {
         poolName,
         tokenSymbol: vToken.underlyingToken.symbol,
-        tokenAmountTokens: convertWeiToTokens({
+        tokenAmountTokens: convertMantissaToTokens({
           token: vToken.underlyingToken,
-          valueWei: input.amountWei,
+          value: input.amountMantissa,
         }).toNumber(),
         repaidFullLoan: input.isRepayingFullLoan,
       });

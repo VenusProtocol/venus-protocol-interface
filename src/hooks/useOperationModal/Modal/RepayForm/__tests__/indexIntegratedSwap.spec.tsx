@@ -27,25 +27,27 @@ import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-const fakeBusdWalletBalanceWei = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
+const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
 );
 
-const fakeBusdAmountBellowWalletBalanceWei = fakeBusdWalletBalanceWei.minus(100);
+const fakeBusdAmountBellowWalletBalanceMantissa = fakeBusdWalletBalanceMantissa.minus(100);
 
-const fakeXvsUserBorrowBalanceInWei = new BigNumber(fakeAsset.userBorrowBalanceTokens).multipliedBy(
-  new BigNumber(10).pow(xvs.decimals),
-);
+const fakeXvsUserBorrowBalanceInMantissa = new BigNumber(
+  fakeAsset.userBorrowBalanceTokens,
+).multipliedBy(new BigNumber(10).pow(xvs.decimals));
 
-const fakeXvsAmountBelowUserBorrowBalanceWei = fakeXvsUserBorrowBalanceInWei.minus(100);
+const fakeXvsAmountBelowUserBorrowBalanceMantissa = fakeXvsUserBorrowBalanceInMantissa.minus(100);
 
 const fakeSwap: Swap = {
   fromToken: busd,
-  fromTokenAmountSoldWei: fakeBusdAmountBellowWalletBalanceWei,
+  fromTokenAmountSoldMantissa: fakeBusdAmountBellowWalletBalanceMantissa,
   toToken: xvs,
-  expectedToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
-  minimumToTokenAmountReceivedWei: fakeXvsAmountBelowUserBorrowBalanceWei,
-  exchangeRate: fakeXvsAmountBelowUserBorrowBalanceWei.div(fakeBusdAmountBellowWalletBalanceWei),
+  expectedToTokenAmountReceivedMantissa: fakeXvsAmountBelowUserBorrowBalanceMantissa,
+  minimumToTokenAmountReceivedMantissa: fakeXvsAmountBelowUserBorrowBalanceMantissa,
+  exchangeRate: fakeXvsAmountBelowUserBorrowBalanceMantissa.div(
+    fakeBusdAmountBellowWalletBalanceMantissa,
+  ),
   routePath: [busd.address, xvs.address],
   priceImpactPercentage: 0.001,
   direction: 'exactAmountIn',
@@ -54,11 +56,11 @@ const fakeSwap: Swap = {
 // Fake full repayment swap in which the wallet balance covers exactly the entire user loan
 const fakeFullRepaymentSwap: Swap = {
   fromToken: busd,
-  expectedFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
-  maximumFromTokenAmountSoldWei: fakeBusdWalletBalanceWei,
+  expectedFromTokenAmountSoldMantissa: fakeBusdWalletBalanceMantissa,
+  maximumFromTokenAmountSoldMantissa: fakeBusdWalletBalanceMantissa,
   toToken: xvs,
-  toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei,
-  exchangeRate: fakeXvsUserBorrowBalanceInWei.div(fakeBusdWalletBalanceWei),
+  toTokenAmountReceivedMantissa: fakeXvsUserBorrowBalanceInMantissa,
+  exchangeRate: fakeXvsUserBorrowBalanceInMantissa.div(fakeBusdWalletBalanceMantissa),
   routePath: [busd.address, xvs.address],
   priceImpactPercentage: 0.001,
   direction: 'exactAmountOut',
@@ -288,7 +290,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   it('disables submit button if amount entered in input would have a higher value than borrow balance after swapping', async () => {
     const customFakeFullRepaymentSwap: Swap = {
       ...fakeFullRepaymentSwap,
-      toTokenAmountReceivedWei: fakeXvsUserBorrowBalanceInWei.plus(1),
+      toTokenAmountReceivedMantissa: fakeXvsUserBorrowBalanceInMantissa.plus(1),
     };
 
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
@@ -464,10 +466,10 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
-      balanceWei:
+      balanceMantissa:
         tokenBalance.token.address.toLowerCase() === busd.address.toLowerCase()
           ? new BigNumber(0)
-          : tokenBalance.balanceWei,
+          : tokenBalance.balanceMantissa,
     }));
 
     (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
@@ -574,18 +576,18 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
       const fakeConvertedFromTokenAmountTokens =
         getConvertedFromTokenAmountTokens(toTokenAmountTokens);
-      const fakeConvertedFromTokenAmountWei = fakeConvertedFromTokenAmountTokens.multipliedBy(
+      const fakeConvertedFromTokenAmountMantissa = fakeConvertedFromTokenAmountTokens.multipliedBy(
         new BigNumber(10).pow(fromToken.decimals),
       );
-      const fakeToTokenAmountReceivedWei = new BigNumber(toTokenAmountTokens).multipliedBy(
+      const fakeToTokenAmountReceivedMantissa = new BigNumber(toTokenAmountTokens).multipliedBy(
         new BigNumber(10).pow(toToken.decimals),
       );
 
       const customFakeSwap: Swap = {
         ...fakeFullRepaymentSwap,
-        expectedFromTokenAmountSoldWei: fakeConvertedFromTokenAmountWei,
-        maximumFromTokenAmountSoldWei: fakeConvertedFromTokenAmountWei,
-        toTokenAmountReceivedWei: fakeToTokenAmountReceivedWei,
+        expectedFromTokenAmountSoldMantissa: fakeConvertedFromTokenAmountMantissa,
+        maximumFromTokenAmountSoldMantissa: fakeConvertedFromTokenAmountMantissa,
+        toTokenAmountReceivedMantissa: fakeToTokenAmountReceivedMantissa,
       };
 
       memoizedFakeSwaps[toTokenAmountTokens] = customFakeSwap;

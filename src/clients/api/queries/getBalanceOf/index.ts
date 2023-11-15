@@ -11,7 +11,7 @@ export interface GetBalanceOfInput {
 }
 
 export type GetBalanceOfOutput = {
-  balanceWei: BigNumber;
+  balanceMantissa: BigNumber;
 };
 
 const getBalanceOf = async ({
@@ -19,19 +19,19 @@ const getBalanceOf = async ({
   accountAddress,
   token,
 }: GetBalanceOfInput): Promise<GetBalanceOfOutput> => {
-  let balanceWei: BigNumber;
+  let balanceMantissa: BigNumber;
 
   if (token.isNative) {
     const resp = await provider.getBalance(accountAddress);
-    balanceWei = new BigNumber(resp.toString());
+    balanceMantissa = new BigNumber(resp.toString());
   } else {
     const tokenContract = getTokenContract({ token, signerOrProvider: provider });
     const resp = await tokenContract.balanceOf(accountAddress);
-    balanceWei = new BigNumber(resp.toString());
+    balanceMantissa = new BigNumber(resp.toString());
   }
 
   return {
-    balanceWei,
+    balanceMantissa,
   };
 };
 

@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetVTokenContract } from 'packages/contracts';
 import { VToken } from 'types';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { queryClient } from 'clients/api';
 import redeemUnderlying, { RedeemUnderlyingInput } from 'clients/api/mutations/redeemUnderlying';
@@ -35,9 +35,9 @@ const useRedeemUnderlying = (
       captureAnalyticEvent('Tokens withdrawn', {
         poolName,
         tokenSymbol: vToken.underlyingToken.symbol,
-        tokenAmountTokens: convertWeiToTokens({
+        tokenAmountTokens: convertMantissaToTokens({
           token: vToken.underlyingToken,
-          valueWei: input.amountWei,
+          value: input.amountMantissa,
         }).toNumber(),
         withdrewFullSupply: true,
       });

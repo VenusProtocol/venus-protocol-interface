@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import {
   RequestWithdrawalFromXvsVaultInput,
@@ -38,15 +38,15 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
         }),
       ),
     onConfirmed: async ({ input }) => {
-      const { poolIndex, amountWei } = input;
+      const { poolIndex, amountMantissa } = input;
 
       if (xvs) {
         captureAnalyticEvent('Token withdrawal requested from XVS vault', {
           poolIndex,
           rewardTokenSymbol: xvs.symbol,
-          tokenAmountTokens: convertWeiToTokens({
+          tokenAmountTokens: convertMantissaToTokens({
             token: xvs,
-            valueWei: amountWei,
+            value: amountMantissa,
           }).toNumber(),
         });
 

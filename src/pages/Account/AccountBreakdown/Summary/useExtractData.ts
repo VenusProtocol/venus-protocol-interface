@@ -5,7 +5,7 @@ import {
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
-  convertWeiToTokens,
+  convertMantissaToTokens,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
@@ -38,8 +38,8 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
 
     const { totalVaultStakeCents, yearlyVaultEarningsCents } = vaults.reduce(
       (accTotalVaultStakeCents, vault) => {
-        const vaultStakeCents = convertWeiToTokens({
-          valueWei: new BigNumber(vault.userStakedWei || 0),
+        const vaultStakeCents = convertMantissaToTokens({
+          value: new BigNumber(vault.userStakedMantissa || 0),
           token: vault.stakedToken,
         }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
 

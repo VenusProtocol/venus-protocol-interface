@@ -7,7 +7,7 @@ export interface GetCurrentVotesInput {
 }
 
 export type GetCurrentVotesOutput = {
-  votesWei: BigNumber;
+  votesMantissa: BigNumber;
 };
 
 const getCurrentVotes = async ({
@@ -17,7 +17,7 @@ const getCurrentVotes = async ({
   const resp = await xvsVaultContract.getCurrentVotes(accountAddress);
 
   return {
-    votesWei: new BigNumber(resp.toString()),
+    votesMantissa: new BigNumber(resp.toString()),
   };
 };
 

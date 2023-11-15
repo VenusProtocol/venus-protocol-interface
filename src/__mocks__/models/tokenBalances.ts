@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { TokenBalance } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import tokens, { busd } from './tokens';
 
@@ -19,7 +19,7 @@ const tokenBalances: TokenBalance[] = tokens.map(token => {
 
   return {
     token,
-    balanceWei: convertTokensToWei({
+    balanceMantissa: convertTokensToMantissa({
       value: new BigNumber(fakeBalanceTokens),
       token,
     }),

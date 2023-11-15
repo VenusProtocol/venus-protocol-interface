@@ -80,7 +80,7 @@ export const withApprovedToken =
     ];
 
     queryClient.setQueryData<GetAllowanceOutput>(queryKey, {
-      allowanceWei: MAX_UINT256,
+      allowanceMantissa: MAX_UINT256,
     });
 
     return (

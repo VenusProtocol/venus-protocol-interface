@@ -276,8 +276,8 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
 
   const canCancelProposal =
     areAddressesEqual(proposal.proposer, accountAddress || '') ||
-    (proposalThresholdData?.thresholdWei &&
-      proposerVotesData?.votesWei.isLessThan(proposalThresholdData.thresholdWei));
+    (proposalThresholdData?.thresholdMantissa &&
+      proposerVotesData?.votesMantissa.isLessThan(proposalThresholdData.thresholdMantissa));
 
   return (
     <ProposalSummaryUi

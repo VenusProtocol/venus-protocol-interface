@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import requestWithdrawalFromXvsVault from '.';
 
-const fakeAmountWei = new BigNumber('1000000000000');
+const fakeAmountMantissa = new BigNumber('1000000000000');
 const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
 const fakePoolIndex = 4;
 
@@ -20,7 +20,7 @@ describe('requestWithdrawalFromXvsVault', () => {
     const response = await requestWithdrawalFromXvsVault({
       xvsVaultContract: fakeContract,
       rewardTokenAddress: fakeRewardTokenAddress,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
     });
 
@@ -29,7 +29,7 @@ describe('requestWithdrawalFromXvsVault', () => {
     expect(requestWithdrawalMock).toHaveBeenCalledWith(
       fakeRewardTokenAddress,
       fakePoolIndex,
-      fakeAmountWei.toFixed(),
+      fakeAmountMantissa.toFixed(),
     );
   });
 });

@@ -22,7 +22,7 @@ const baseProps: ActionModalProps = {
   handleClose: noop,
   onSubmit: noop,
   isSubmitting: false,
-  availableTokensWei: new BigNumber('100000000000000000000000'),
+  availableTokensMantissa: new BigNumber('100000000000000000000000'),
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeApproved: true,
   spenderAddress: fakeXvsVaultAddress,

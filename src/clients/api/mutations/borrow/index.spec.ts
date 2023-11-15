@@ -7,7 +7,7 @@ import borrow from '.';
 
 describe('borrow', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const fakeAmountWei = new BigNumber('10000000000000000');
+    const fakeAmountMantissa = new BigNumber('10000000000000000');
     const borrowMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
@@ -16,11 +16,11 @@ describe('borrow', () => {
 
     const response = await borrow({
       vTokenContract: fakeContract,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
     });
 
     expect(response).toBe(fakeContractTransaction);
     expect(borrowMock).toHaveBeenCalledTimes(1);
-    expect(borrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(borrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
   });
 });

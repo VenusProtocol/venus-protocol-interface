@@ -10,13 +10,13 @@ export * from './generateChainExplorerUrl';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 
 export * from './formatTokensToReadableValue';
-export * from './convertWeiToTokens';
+export * from './convertMantissaToTokens';
 export * from './generatePseudoRandomRefetchInterval';
 export { default as encodeParameters } from './encodeParameters';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';
-export { default as convertTokensToWei } from './convertTokensToWei';
+export { default as convertTokensToMantissa } from './convertTokensToMantissa';
 export { default as indexBy } from './indexBy';
 export { default as notUndefined } from './notUndefined';
 export { default as calculatePercentage } from './calculatePercentage';

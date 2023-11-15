@@ -18,7 +18,7 @@ import {
   getVoteReceipt,
   queueProposal,
 } from 'clients/api';
-import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
+import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import renderComponent from 'testUtils/renderComponent';
@@ -68,7 +68,7 @@ describe('pages/Proposal', () => {
     (getProposal as Vi.Mock).mockImplementation(() => activeProposal);
 
     (getProposalThreshold as Vi.Mock).mockImplementation(() => ({
-      thresholdWei: CREATE_PROPOSAL_THRESHOLD_WEI,
+      thresholdMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
     }));
 
     (useVote as Vi.Mock).mockImplementation(() => ({
@@ -83,7 +83,7 @@ describe('pages/Proposal', () => {
     );
 
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
-      votesWei: new BigNumber('100000000000000000'),
+      votesMantissa: new BigNumber('100000000000000000'),
     }));
   });
 
@@ -126,7 +126,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when voting weight is 0', async () => {
-    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -292,7 +292,7 @@ describe('pages/Proposal', () => {
   });
 
   it('proposer can always cancel their own proposal', async () => {
-    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
     const proposerAddress = activeProposal.proposer;
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -310,7 +310,7 @@ describe('pages/Proposal', () => {
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
-      votesWei: new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
+      votesMantissa: new BigNumber(CREATE_PROPOSAL_THRESHOLD_MANTISSA),
     }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -326,7 +326,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user can cancel if voting power of the proposer dropped below threshold', async () => {
-    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
+    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         accountAddress: fakeAddress,

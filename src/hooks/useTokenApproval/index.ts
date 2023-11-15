@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
 import { useMemo } from 'react';
 import { Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
 
@@ -58,9 +58,9 @@ const useTokenApproval = ({
 
   const walletSpendingLimitTokens = useMemo(
     () =>
-      getTokenAllowanceData?.allowanceWei &&
-      convertWeiToTokens({ valueWei: getTokenAllowanceData.allowanceWei, token }),
-    [getTokenAllowanceData?.allowanceWei, token],
+      getTokenAllowanceData?.allowanceMantissa &&
+      convertMantissaToTokens({ value: getTokenAllowanceData.allowanceMantissa, token }),
+    [getTokenAllowanceData?.allowanceMantissa, token],
   );
 
   const isTokenApproved = useMemo(() => {

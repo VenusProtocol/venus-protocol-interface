@@ -39,7 +39,7 @@ export type TokenAction = 'swapAndSupply' | 'supply' | 'withdraw' | 'borrow' | '
 
 export interface TokenBalance {
   token: Token;
-  balanceWei: BigNumber;
+  balanceMantissa: BigNumber;
 }
 
 export interface RewardDistributorDistribution {
@@ -309,10 +309,10 @@ export interface Vault {
   stakedToken: Token;
   rewardToken: Token;
   stakingAprPercentage: number;
-  totalStakedWei: BigNumber;
-  dailyEmissionWei: BigNumber;
+  totalStakedMantissa: BigNumber;
+  dailyEmissionMantissa: BigNumber;
   lockingPeriodMs?: number;
-  userStakedWei?: BigNumber;
+  userStakedMantissa?: BigNumber;
   poolIndex?: number;
   hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
 }
@@ -327,7 +327,7 @@ export interface VoterAccount {
 }
 
 export interface LockedDeposit {
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   unlockedAt: Date;
 }
 
@@ -377,16 +377,16 @@ interface SwapBase {
 }
 
 export interface ExactAmountInSwap extends SwapBase {
-  fromTokenAmountSoldWei: BigNumber;
-  expectedToTokenAmountReceivedWei: BigNumber;
-  minimumToTokenAmountReceivedWei: BigNumber;
+  fromTokenAmountSoldMantissa: BigNumber;
+  expectedToTokenAmountReceivedMantissa: BigNumber;
+  minimumToTokenAmountReceivedMantissa: BigNumber;
   direction: 'exactAmountIn';
 }
 
 export interface ExactAmountOutSwap extends SwapBase {
-  expectedFromTokenAmountSoldWei: BigNumber;
-  maximumFromTokenAmountSoldWei: BigNumber;
-  toTokenAmountReceivedWei: BigNumber;
+  expectedFromTokenAmountSoldMantissa: BigNumber;
+  maximumFromTokenAmountSoldMantissa: BigNumber;
+  toTokenAmountReceivedMantissa: BigNumber;
   direction: 'exactAmountOut';
 }
 

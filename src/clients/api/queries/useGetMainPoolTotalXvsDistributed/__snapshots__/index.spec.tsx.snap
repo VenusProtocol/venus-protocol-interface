@@ -2,6 +2,6 @@
 
 exports[`api/queries/useGetMainPoolTotalXvsDistributed > returns data in the correct format 1`] = `
 {
-  "totalXvsDistributedWei": "3.110919e+24",
+  "totalXvsDistributedMantissa": "3.110919e+24",
 }
 `;

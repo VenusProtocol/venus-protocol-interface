@@ -6,7 +6,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
       "rewardAmountCents": "6892647.61413516495268939951386",
-      "rewardAmountWei": "1.9534041188941933361355e+22",
+      "rewardAmountMantissa": "1.9534041188941933361355e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -24,7 +24,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "pendingRewards": [
         {
           "rewardAmountCents": "3.881384452e-11",
-          "rewardAmountWei": "110000",
+          "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
             "asset": "/src/packages/tokens/img/hay.png",
@@ -42,7 +42,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
     },
     {
       "rewardAmountCents": "352.853132",
-      "rewardAmountWei": "1000000000000000000",
+      "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -60,7 +60,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
     {
       "poolIndex": 0,
       "rewardAmountCents": "227.6612616584371779",
-      "rewardAmountWei": "645201192825000000",
+      "rewardAmountMantissa": "645201192825000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -85,7 +85,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
       "rewardAmountCents": "6892647.61413516495268939951386",
-      "rewardAmountWei": "1.9534041188941933361355e+22",
+      "rewardAmountMantissa": "1.9534041188941933361355e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -103,7 +103,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "pendingRewards": [
         {
           "rewardAmountCents": "3.881384452e-11",
-          "rewardAmountWei": "110000",
+          "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
             "asset": "/src/packages/tokens/img/hay.png",
@@ -121,7 +121,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
     },
     {
       "rewardAmountCents": "352.853132",
-      "rewardAmountWei": "1000000000000000000",
+      "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -139,7 +139,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
     {
       "poolIndex": 0,
       "rewardAmountCents": "227.6612616584371779",
-      "rewardAmountWei": "645201192825000000",
+      "rewardAmountMantissa": "645201192825000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
         "asset": "/src/packages/tokens/img/xvs.svg",
@@ -159,7 +159,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "pendingRewards": [
         {
           "rewardAmountCents": "0.000004750684148379056424",
-          "rewardAmountWei": "13463630382",
+          "rewardAmountMantissa": "13463630382",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
             "asset": "/src/packages/tokens/img/hay.png",
@@ -169,7 +169,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
         },
         {
           "rewardAmountCents": "6089626.453737442916626256079416",
-          "rewardAmountWei": "1.7258246849676377299738e+22",
+          "rewardAmountMantissa": "1.7258246849676377299738e+22",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
             "asset": "/src/packages/tokens/img/xvs.svg",

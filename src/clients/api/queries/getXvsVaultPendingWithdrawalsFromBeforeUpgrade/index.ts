@@ -13,7 +13,7 @@ const getXvsVaultPendingWithdrawalsFromBeforeUpgrade = async ({
   poolIndex,
   accountAddress,
 }: GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput): Promise<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput> => {
-  const pendingWithdrawalsFromBeforeUpgradeWei =
+  const pendingWithdrawalsFromBeforeUpgradeMantissa =
     await xvsVaultContract.pendingWithdrawalsBeforeUpgrade(
       rewardTokenAddress,
       poolIndex,
@@ -21,8 +21,8 @@ const getXvsVaultPendingWithdrawalsFromBeforeUpgrade = async ({
     );
 
   return {
-    pendingWithdrawalsFromBeforeUpgradeWei: new BigNumber(
-      pendingWithdrawalsFromBeforeUpgradeWei.toString(),
+    pendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber(
+      pendingWithdrawalsFromBeforeUpgradeMantissa.toString(),
     ),
   };
 };

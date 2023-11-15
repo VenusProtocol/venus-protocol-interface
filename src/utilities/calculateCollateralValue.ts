@@ -1,19 +1,19 @@
 import BigNumber from 'bignumber.js';
 import { Asset, Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 const calculateCollateralValue = ({
   token,
   tokenPriceCents,
   collateralFactor,
-  amountWei,
+  amountMantissa,
 }: {
   token: Token;
   tokenPriceCents: Asset['tokenPriceCents'];
   collateralFactor: Asset['collateralFactor'];
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }) => {
-  const collateralValue = convertWeiToTokens({ valueWei: amountWei, token })
+  const collateralValue = convertMantissaToTokens({ value: amountMantissa, token })
     .times(tokenPriceCents)
     .times(collateralFactor);
   return collateralValue;

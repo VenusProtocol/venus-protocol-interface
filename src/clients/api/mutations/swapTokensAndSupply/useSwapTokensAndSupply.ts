@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetSwapRouterContract } from 'packages/contracts';
 import { VToken } from 'types';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { SwapTokensAndSupplyInput, queryClient, swapTokensAndSupply } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -42,20 +42,20 @@ const useSwapTokensAndSupply = (
       captureAnalyticEvent('Tokens swapped and supplied', {
         poolName,
         fromTokenSymbol: input.swap.fromToken.symbol,
-        fromTokenAmountTokens: convertWeiToTokens({
+        fromTokenAmountTokens: convertMantissaToTokens({
           token: input.swap.fromToken,
-          valueWei:
+          value:
             input.swap.direction === 'exactAmountIn'
-              ? input.swap.fromTokenAmountSoldWei
-              : input.swap.expectedFromTokenAmountSoldWei,
+              ? input.swap.fromTokenAmountSoldMantissa
+              : input.swap.expectedFromTokenAmountSoldMantissa,
         }).toNumber(),
         toTokenSymbol: input.swap.toToken.symbol,
-        toTokenAmountTokens: convertWeiToTokens({
+        toTokenAmountTokens: convertMantissaToTokens({
           token: input.swap.toToken,
-          valueWei:
+          value:
             input.swap.direction === 'exactAmountIn'
-              ? input.swap.expectedToTokenAmountReceivedWei
-              : input.swap.toTokenAmountReceivedWei,
+              ? input.swap.expectedToTokenAmountReceivedMantissa
+              : input.swap.toTokenAmountReceivedMantissa,
         }).toNumber(),
         priceImpactPercentage: input.swap.priceImpactPercentage,
         slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,

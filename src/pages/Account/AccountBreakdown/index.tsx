@@ -32,7 +32,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 
   // Filter out vaults user has not staked in
   const filteredVaults = useMemo(
-    () => vaults.filter(vault => vault.userStakedWei?.isGreaterThan(0)),
+    () => vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0)),
     [vaults],
   );
 

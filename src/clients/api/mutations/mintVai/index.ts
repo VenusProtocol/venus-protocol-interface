@@ -4,14 +4,14 @@ import { VaiController } from 'packages/contracts';
 
 export interface MintVaiInput {
   vaiControllerContract: VaiController;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type MintVaiOutput = ContractTransaction;
 
 const mintVai = async ({
   vaiControllerContract,
-  amountWei,
-}: MintVaiInput): Promise<MintVaiOutput> => vaiControllerContract.mintVAI(amountWei.toFixed());
+  amountMantissa,
+}: MintVaiInput): Promise<MintVaiOutput> => vaiControllerContract.mintVAI(amountMantissa.toFixed());
 
 export default mintVai;

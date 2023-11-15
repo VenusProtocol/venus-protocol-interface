@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { displayMutationError } from 'errors';
 import { useEffect } from 'react';
 import { Swap, SwapError, Token, VToken } from 'types';
-import { areTokensEqual, convertWeiToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import useIsMounted from 'hooks/useIsMounted';
 
@@ -129,8 +129,8 @@ const useForm = ({
       isSwapping &&
       swap.direction === 'exactAmountOut'
     ) {
-      const expectedFromTokenAmountSoldTokens = convertWeiToTokens({
-        valueWei: swap.expectedFromTokenAmountSoldWei,
+      const expectedFromTokenAmountSoldTokens = convertMantissaToTokens({
+        value: swap.expectedFromTokenAmountSoldMantissa,
         token: swap.fromToken,
       }).toFixed();
 

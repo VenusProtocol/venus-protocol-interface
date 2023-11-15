@@ -3,7 +3,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Swap } from 'types';
 import {
-  convertWeiToTokens,
+  convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -34,11 +34,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
   const readableFromTokenAmountSold = useMemo(
     () =>
       swap &&
-      convertWeiToTokens({
-        valueWei:
+      convertMantissaToTokens({
+        value:
           swap.direction === 'exactAmountIn'
-            ? swap.fromTokenAmountSoldWei
-            : swap.maximumFromTokenAmountSoldWei,
+            ? swap.fromTokenAmountSoldMantissa
+            : swap.maximumFromTokenAmountSoldMantissa,
         token: swap.fromToken,
         returnInReadableFormat: true,
       }),
@@ -48,11 +48,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
   const readableToTokenAmountReceived = useMemo(
     () =>
       swap &&
-      convertWeiToTokens({
-        valueWei:
+      convertMantissaToTokens({
+        value:
           swap.direction === 'exactAmountIn'
-            ? swap.expectedToTokenAmountReceivedWei
-            : swap.toTokenAmountReceivedWei,
+            ? swap.expectedToTokenAmountReceivedMantissa
+            : swap.toTokenAmountReceivedMantissa,
         token: swap.toToken,
         returnInReadableFormat: true,
       }),

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { logError } from 'errors';
 import { Prime } from 'packages/contracts';
 import { Token } from 'types';
-import { convertDollarsToCents, convertWeiToTokens, findTokenByAddress } from 'utilities';
+import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
 import { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
@@ -40,18 +40,18 @@ const formatToPrimePendingRewardGroup = ({
         return acc;
       }
 
-      const rewardAmountWei = new BigNumber(primePendingReward.amount.toString());
+      const rewardAmountMantissa = new BigNumber(primePendingReward.amount.toString());
 
       // Skip if pending reward amount is 0
-      if (rewardAmountWei.isLessThanOrEqualTo(0)) {
+      if (rewardAmountMantissa.isLessThanOrEqualTo(0)) {
         return acc;
       }
 
       // Add vToken address to list of vTokens to collect rewards from
       vTokenAddressesWithPendingReward.push(primePendingReward.vToken);
 
-      const rewardAmountTokens = convertWeiToTokens({
-        valueWei: new BigNumber(primePendingReward.amount.toString()),
+      const rewardAmountTokens = convertMantissaToTokens({
+        value: new BigNumber(primePendingReward.amount.toString()),
         token: rewardToken,
       });
 
@@ -60,7 +60,7 @@ const formatToPrimePendingRewardGroup = ({
 
       const pendingReward: PrimePendingReward = {
         rewardToken,
-        rewardAmountWei,
+        rewardAmountMantissa,
         rewardAmountCents,
       };
 

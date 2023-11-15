@@ -182,7 +182,7 @@ export const useGetXvsVaultLockedDeposits = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
 
 export const getXvsVaultUserInfo = vi.fn(() => ({
-  stakedAmountWei: new BigNumber('1000000'),
+  stakedAmountMantissa: new BigNumber('1000000'),
 }));
 
 export const useGetXvsVaultUserInfo = vi.fn(() =>

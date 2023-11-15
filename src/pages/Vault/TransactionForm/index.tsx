@@ -12,11 +12,11 @@ import { displayMutationError } from 'errors';
 import { useTranslation } from 'packages/translations';
 import { useCallback, useMemo } from 'react';
 import { Token } from 'types';
-import { cn, convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { AmountForm } from 'containers/AmountForm';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import TEST_IDS from './testIds';
@@ -26,9 +26,9 @@ export interface TransactionFormUiProps {
   tokenNeedsToBeApproved?: boolean;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
-  onSubmit: (amountWei: BigNumber) => Promise<unknown>;
+  onSubmit: (amountMantissa: BigNumber) => Promise<unknown>;
   isSubmitting: boolean;
-  availableTokensWei: BigNumber;
+  availableTokensMantissa: BigNumber;
   availableTokensLabel: string;
   isTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveToken: ApproveTokenStepsProps['approveToken'];
@@ -48,7 +48,7 @@ export interface TransactionFormUiProps {
 export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   token,
   tokenNeedsToBeApproved = false,
-  availableTokensWei,
+  availableTokensMantissa,
   availableTokensLabel,
   submitButtonLabel,
   submitButtonDisabledLabel,
@@ -68,11 +68,11 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 
   const availableTokens = useMemo(
     () =>
-      convertWeiToTokens({
-        valueWei: availableTokensWei,
+      convertMantissaToTokens({
+        value: availableTokensMantissa,
         token,
       }),
-    [availableTokensWei, token],
+    [availableTokensMantissa, token],
   );
 
   const limitTokens = useMemo(() => {
@@ -83,8 +83,8 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
     return availableTokens;
   }, [availableTokens, isTokenApproved, walletSpendingLimitTokens]);
 
-  const readableAvailableTokens = useConvertWeiToReadableTokenString({
-    valueWei: availableTokensWei,
+  const readableAvailableTokens = useConvertMantissaToReadableTokenString({
+    value: availableTokensMantissa,
     token,
   });
 
@@ -106,13 +106,13 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
   );
 
   const handleSubmit = async (amountTokens: string) => {
-    const amountWei = convertTokensToWei({
+    const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(amountTokens),
       token,
     });
 
     try {
-      await onSubmit(amountWei);
+      await onSubmit(amountMantissa);
     } catch (error) {
       displayMutationError({ error });
     }

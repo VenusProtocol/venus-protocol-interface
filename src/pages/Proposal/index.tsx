@@ -6,7 +6,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { governanceChain } from 'clients/web3';
@@ -147,19 +147,19 @@ const Proposal = () => {
 
   const {
     data: votingWeightData = {
-      votesWei: new BigNumber(0),
+      votesMantissa: new BigNumber(0),
     },
   } = useGetCurrentVotes({ accountAddress: accountAddress || '' }, { enabled: !!accountAddress });
 
   const readableVoteWeight = useMemo(
     () =>
-      convertWeiToTokens({
-        valueWei: votingWeightData.votesWei,
+      convertMantissaToTokens({
+        value: votingWeightData.votesMantissa,
         token: xvs,
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightData?.votesWei, xvs],
+    [votingWeightData?.votesMantissa, xvs],
   );
 
   const { vote, isLoading } = useVote();
@@ -177,7 +177,7 @@ const Proposal = () => {
     // user has not voted yet
     userVoteReceipt?.voteSupport === undefined &&
     // user has some voting weight
-    votingWeightData.votesWei.isGreaterThan(0);
+    votingWeightData.votesMantissa.isGreaterThan(0);
 
   return (
     <ProposalUi

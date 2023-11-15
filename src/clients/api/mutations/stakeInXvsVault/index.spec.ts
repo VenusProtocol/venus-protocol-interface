@@ -6,7 +6,7 @@ import { busd } from '__mocks__/models/tokens';
 
 import stakeInXvsVault from '.';
 
-const fakeAmountWei = new BigNumber('1000000000000');
+const fakeAmountMantissa = new BigNumber('1000000000000');
 const fakePoolIndex = 4;
 
 describe('stakeInXvsVault', () => {
@@ -20,12 +20,16 @@ describe('stakeInXvsVault', () => {
     const response = await stakeInXvsVault({
       xvsVaultContract: fakeContract,
       rewardToken: busd,
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
     });
 
     expect(response).toBe(fakeContractTransaction);
     expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(busd.address, fakePoolIndex, fakeAmountWei.toFixed());
+    expect(depositMock).toHaveBeenCalledWith(
+      busd.address,
+      fakePoolIndex,
+      fakeAmountMantissa.toFixed(),
+    );
   });
 });

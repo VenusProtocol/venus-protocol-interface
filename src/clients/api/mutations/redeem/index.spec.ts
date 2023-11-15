@@ -17,7 +17,7 @@ describe('redeem', () => {
 
     const response = await redeem({
       tokenContract: fakeContract,
-      amountWei: fakeAmount,
+      amountMantissa: fakeAmount,
     });
 
     expect(response).toBe(fakeContractTransaction);

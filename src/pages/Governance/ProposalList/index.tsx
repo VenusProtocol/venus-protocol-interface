@@ -14,7 +14,7 @@ import {
   useGetProposalState,
   useGetProposals,
 } from 'clients/api';
-import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
+import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -178,9 +178,9 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
     { enabled: !!latestProposalData?.proposalId },
   );
 
-  // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
+  // User has enough voting weight to create proposal and doesn't currently have an active or pending proposal
   const canCreateProposal =
-    currentVotesData?.votesWei.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
+    currentVotesData?.votesMantissa.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_MANTISSA) &&
     latestProposalStateData?.state !== 0 &&
     latestProposalStateData?.state !== 1;
 

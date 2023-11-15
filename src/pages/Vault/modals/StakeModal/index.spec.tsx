@@ -13,7 +13,7 @@ import renderComponent from 'testUtils/renderComponent';
 import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
-const fakeBalanceWei = new BigNumber('100000000000000000000000');
+const fakeBalanceMantissa = new BigNumber('100000000000000000000000');
 
 const baseProps: StakeModalProps = {
   stakedToken: vai,
@@ -24,7 +24,7 @@ const baseProps: StakeModalProps = {
 
 describe('pages/Vault/modals/StakeModal', () => {
   beforeEach(() => {
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({ balanceWei: fakeBalanceWei }));
+    (getBalanceOf as Vi.Mock).mockImplementation(() => ({ balanceMantissa: fakeBalanceMantissa }));
   });
 
   it('renders without crashing', async () => {
@@ -78,11 +78,13 @@ describe('pages/Vault/modals/StakeModal', () => {
     ) as HTMLButtonElement;
     fireEvent.click(submitButton);
 
-    const fakeStakedWei = new BigNumber(fakeValueTokens).multipliedBy(new BigNumber(10).pow(18));
+    const fakeStakedMantissa = new BigNumber(fakeValueTokens).multipliedBy(
+      new BigNumber(10).pow(18),
+    );
 
     await waitFor(() => expect(stake).toHaveBeenCalledTimes(1));
     expect(stake).toHaveBeenCalledWith({
-      amountWei: fakeStakedWei,
+      amountMantissa: fakeStakedMantissa,
     });
 
     await waitFor(() => expect(customProps.handleClose).toHaveBeenCalledTimes(1));

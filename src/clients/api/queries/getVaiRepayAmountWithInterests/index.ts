@@ -15,7 +15,7 @@ const getVaiRepayAmountWithInterests = async ({
   ]);
 
   return {
-    vaiRepayAmountWithInterestsWei: new BigNumber(getVaiRepayAmountResult.toString()),
+    vaiRepayAmountWithInterestsMantissa: new BigNumber(getVaiRepayAmountResult.toString()),
   };
 };
 

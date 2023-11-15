@@ -13,8 +13,8 @@ import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import {
-  convertTokensToWei,
-  convertWeiToTokens,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
   formatPercentageToReadableValue,
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
@@ -30,7 +30,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -40,9 +40,9 @@ export interface MintVaiUiProps {
   isInitialLoading: boolean;
   isSubmitting: boolean;
   mintVai: (value: BigNumber) => Promise<unknown>;
-  userBalanceWei?: BigNumber;
+  userBalanceMantissa?: BigNumber;
   apyPercentage?: BigNumber;
-  limitWei?: BigNumber;
+  limitMantissa?: BigNumber;
   mintFeePercentage?: number;
   vai: Token;
 }
@@ -51,10 +51,10 @@ const userVaiRefetchInterval = generatePseudoRandomRefetchInterval();
 
 export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   disabled,
-  limitWei,
+  limitMantissa,
   mintFeePercentage,
   isInitialLoading,
-  userBalanceWei,
+  userBalanceMantissa,
   apyPercentage,
   isSubmitting,
   vai,
@@ -64,31 +64,32 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   const { t } = useTranslation();
 
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, token: vai }).toFixed() : '0'),
-    [limitWei, vai],
+    () =>
+      limitMantissa ? convertMantissaToTokens({ value: limitMantissa, token: vai }).toFixed() : '0',
+    [limitMantissa, vai],
   );
 
   // Convert limit into VAI
-  const readableVaiLimit = useConvertWeiToReadableTokenString({
-    valueWei: limitWei,
+  const readableVaiLimit = useConvertMantissaToReadableTokenString({
+    value: limitMantissa,
     token: vai,
   });
 
-  const readableWalletBalance = useConvertWeiToReadableTokenString({
-    valueWei: userBalanceWei,
+  const readableWalletBalance = useConvertMantissaToReadableTokenString({
+    value: userBalanceMantissa,
     token: vai,
   });
 
-  const hasMintableVai = limitWei?.isGreaterThan(0) || false;
+  const hasMintableVai = limitMantissa?.isGreaterThan(0) || false;
 
   const getReadableMintFee = useCallback(
-    (valueWei: string) => {
+    (value: string) => {
       if (!mintFeePercentage) {
         return PLACEHOLDER_KEY;
       }
 
       const readableFeeVai = getReadableFeeVai({
-        valueWei: new BigNumber(valueWei || 0),
+        value: new BigNumber(value || 0),
         mintFeePercentage,
         vai,
       });
@@ -105,13 +106,13 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
       });
     }
 
-    const amountWei = convertTokensToWei({
+    const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(amountTokens),
       token: vai,
     });
 
     try {
-      await mintVai(amountWei);
+      await mintVai(amountMantissa);
     } catch (error) {
       displayMutationError({ error });
     }
@@ -221,16 +222,16 @@ const MintVai: React.FC = () => {
 
   const { mutateAsync: contractMintVai, isLoading: isSubmitting } = useMintVai();
 
-  const mintVai: MintVaiUiProps['mintVai'] = async amountWei =>
+  const mintVai: MintVaiUiProps['mintVai'] = async amountMantissa =>
     contractMintVai({
-      amountWei,
+      amountMantissa,
     });
 
   return (
     <MintVaiUi
       disabled={!accountAddress || isGetVaiTreasuryPercentageLoading || isGetUserVaiBalance}
-      limitWei={mintableVaiData?.mintableVaiWei}
-      userBalanceWei={userVaiBalanceData?.balanceWei}
+      limitMantissa={mintableVaiData?.mintableVaiMantissa}
+      userBalanceMantissa={userVaiBalanceData?.balanceMantissa}
       mintFeePercentage={vaiTreasuryData?.percentage}
       isInitialLoading={isGetMintableVaiLoading}
       isSubmitting={isSubmitting}

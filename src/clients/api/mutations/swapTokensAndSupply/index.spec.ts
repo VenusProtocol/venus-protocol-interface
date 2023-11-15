@@ -30,8 +30,8 @@ describe('swapTokensAndSupplyAndSupply', () => {
     expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
     expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledWith(
       fakeVToken.address,
-      fakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
-      fakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
+      fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+      fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
       fakeExactAmountInSwap.routePath,
       expect.any(Number),
     );
@@ -61,11 +61,11 @@ describe('swapTokensAndSupplyAndSupply', () => {
     expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
     expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledWith(
       fakeVToken.address,
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedWei.toFixed(),
+      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
       customFakeExactAmountInSwap.routePath,
       expect.any(Number),
       {
-        value: customFakeExactAmountInSwap.fromTokenAmountSoldWei.toFixed(),
+        value: customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
       },
     );
   });

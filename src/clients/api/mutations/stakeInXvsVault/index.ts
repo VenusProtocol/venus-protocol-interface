@@ -6,7 +6,7 @@ import { Token } from 'types';
 export interface StakeInXvsVaultInput {
   xvsVaultContract: XvsVault;
   rewardToken: Token;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   poolIndex: number;
 }
 
@@ -15,9 +15,9 @@ export type StakeInXvsVaultOutput = ContractTransaction;
 const stakeInXvsVault = async ({
   xvsVaultContract,
   rewardToken,
-  amountWei,
+  amountMantissa,
   poolIndex,
 }: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> =>
-  xvsVaultContract.deposit(rewardToken.address, poolIndex, amountWei.toFixed());
+  xvsVaultContract.deposit(rewardToken.address, poolIndex, amountMantissa.toFixed());
 
 export default stakeInXvsVault;

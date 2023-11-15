@@ -9,7 +9,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     type: 'mainPool',
     comptrollerAddress: poolData[0].comptrollerAddress,
     rewardToken: xvs,
-    rewardAmountWei: new BigNumber('1000000000000000000000000000'),
+    rewardAmountMantissa: new BigNumber('1000000000000000000000000000'),
     rewardAmountCents: new BigNumber('40000000'),
     vTokenAddressesWithPendingReward: [
       '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
@@ -23,7 +23,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     pendingRewards: [
       {
         rewardToken: vai,
-        rewardAmountWei: new BigNumber('2000000000000000000000000000'),
+        rewardAmountMantissa: new BigNumber('2000000000000000000000000000'),
         rewardAmountCents: new BigNumber('300'),
         rewardsDistributorAddress: '0xa14c236372228b6e8182748f3ebbfb4bfeea3574',
         vTokenAddressesWithPendingReward: [
@@ -33,7 +33,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
       },
       {
         rewardToken: xvs,
-        rewardAmountWei: new BigNumber('3000000000000000000000000000'),
+        rewardAmountMantissa: new BigNumber('3000000000000000000000000000'),
         rewardAmountCents: new BigNumber('112'),
         rewardsDistributorAddress: '0xadbed07126b7b70cbc5e07bf73599d55be571b9c',
         vTokenAddressesWithPendingReward: ['0xcfc8a73f9c888eea9af9ccca24646e84a915510b'],
@@ -44,14 +44,14 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     type: 'vault',
     stakedToken: vai,
     rewardToken: xvs,
-    rewardAmountWei: new BigNumber('3000000000000000000000000000'),
+    rewardAmountMantissa: new BigNumber('3000000000000000000000000000'),
     rewardAmountCents: new BigNumber('1200'),
   },
   {
     type: 'xvsVestingVault',
     stakedToken: xvs,
     rewardToken: xvs,
-    rewardAmountWei: new BigNumber('4000000000000000000000000000'),
+    rewardAmountMantissa: new BigNumber('4000000000000000000000000000'),
     rewardAmountCents: new BigNumber('165'),
     poolIndex: 0,
   },
@@ -65,12 +65,12 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
     pendingRewards: [
       {
         rewardToken: vai,
-        rewardAmountWei: new BigNumber('2000000000000000000000000000'),
+        rewardAmountMantissa: new BigNumber('2000000000000000000000000000'),
         rewardAmountCents: new BigNumber('300'),
       },
       {
         rewardToken: xvs,
-        rewardAmountWei: new BigNumber('3000000000000000000000000000'),
+        rewardAmountMantissa: new BigNumber('3000000000000000000000000000'),
         rewardAmountCents: new BigNumber('112'),
       },
     ],

@@ -1,19 +1,19 @@
 import BigNumber from 'bignumber.js';
 import { Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 const getReadableFeeVai = ({
-  valueWei,
+  value,
   mintFeePercentage,
   vai,
 }: {
-  valueWei: BigNumber;
+  value: BigNumber;
   mintFeePercentage: number;
   vai: Token;
 }) => {
-  const feeWei = valueWei.multipliedBy(mintFeePercentage).dividedBy(100);
-  return convertWeiToTokens({
-    valueWei: feeWei,
+  const feeMantissa = value.multipliedBy(mintFeePercentage).dividedBy(100);
+  return convertMantissaToTokens({
+    value: feeMantissa,
     token: vai,
     returnInReadableFormat: true,
   });

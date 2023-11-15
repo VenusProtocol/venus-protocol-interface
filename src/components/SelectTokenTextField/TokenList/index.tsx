@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useTranslation } from 'packages/translations';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { Token, TokenBalance } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';
@@ -45,8 +45,8 @@ export const TokenList: React.FC<TokenListProps> = ({
   const sortedTokenBalances = useMemo(
     () =>
       [...tokenBalances].sort((a, b) => {
-        const aIsNonNegative = a.balanceWei.isGreaterThan(0);
-        const bIsNonNegative = b.balanceWei.isGreaterThan(0);
+        const aIsNonNegative = a.balanceMantissa.isGreaterThan(0);
+        const bIsNonNegative = b.balanceMantissa.isGreaterThan(0);
 
         // Both are non-negative or both are negative
         if (aIsNonNegative === bIsNonNegative) {
@@ -123,8 +123,8 @@ export const TokenList: React.FC<TokenListProps> = ({
             <TokenIconWithSymbol css={parentStyles.token} token={tokenBalance.token} />
 
             <Typography variant="small2">
-              {convertWeiToTokens({
-                valueWei: tokenBalance.balanceWei,
+              {convertMantissaToTokens({
+                value: tokenBalance.balanceMantissa,
                 token: tokenBalance.token,
                 returnInReadableFormat: true,
 

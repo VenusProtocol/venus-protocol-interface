@@ -5,13 +5,13 @@ import { VToken } from 'types';
 
 export interface SupplyInput {
   vToken: VToken;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
   signer: Signer;
 }
 
 export type SupplyOutput = ContractTransaction;
 
-const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<SupplyOutput> => {
+const supply = async ({ signer, vToken, amountMantissa }: SupplyInput): Promise<SupplyOutput> => {
   // Handle supplying BNB
   if (vToken.underlyingToken.isNative) {
     const tokenContract = getVTokenContract({
@@ -20,13 +20,13 @@ const supply = async ({ signer, vToken, amountWei }: SupplyInput): Promise<Suppl
     }) as VBnb;
 
     return tokenContract.mint({
-      value: amountWei.toFixed(),
+      value: amountMantissa.toFixed(),
     });
   }
 
   // Handle supplying tokens other that BNB
   const tokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
-  return tokenContract.mint(amountWei.toFixed());
+  return tokenContract.mint(amountMantissa.toFixed());
 };
 
 export default supply;

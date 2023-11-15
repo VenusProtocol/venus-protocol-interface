@@ -26,7 +26,7 @@ function formatToMainPoolPendingRewardGroup({
     return;
   }
 
-  const { rewardToken, rewardAmountWei, rewardAmountCents, vTokenAddressesWithPendingReward } =
+  const { rewardToken, rewardAmountMantissa, rewardAmountCents, vTokenAddressesWithPendingReward } =
     rewardSummaryData;
 
   const pendingRewardGroup: MainPoolPendingRewardGroup = {
@@ -34,7 +34,7 @@ function formatToMainPoolPendingRewardGroup({
     comptrollerAddress: comptrollerContractAddress,
     rewardToken,
     rewardAmountCents,
-    rewardAmountWei,
+    rewardAmountMantissa,
     vTokenAddressesWithPendingReward,
   };
 

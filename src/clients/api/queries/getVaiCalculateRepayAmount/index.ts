@@ -5,31 +5,35 @@ import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } fro
 const getVaiCalculateRepayAmount = async ({
   vaiControllerContract,
   accountAddress,
-  repayAmountWei,
+  repayAmountMantissa,
 }: GetVaiCalculateRepayAmountInput): Promise<GetVaiCalculateRepayAmountOutput> => {
   const [
     // eslint-disable-next-line @typescript-eslint/naming-convention
     _accrueVaiInterestResult,
-    [vaiRepayAmountAfterFeeWeiResult, vaiCurrentInterestWeiResult, vaiPastInterestWeiResult],
+    [
+      vaiRepayAmountAfterFeeMantissaResult,
+      vaiCurrentInterestMantissaResult,
+      vaiPastInterestMantissaResult,
+    ],
   ] = await Promise.all([
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
     // interests
     vaiControllerContract.callStatic.accrueVAIInterest(),
-    vaiControllerContract.getVAICalculateRepayAmount(accountAddress, repayAmountWei.toFixed()),
+    vaiControllerContract.getVAICalculateRepayAmount(accountAddress, repayAmountMantissa.toFixed()),
   ]);
 
-  const vaiTotalInterestWei = new BigNumber(vaiCurrentInterestWeiResult.toString()).plus(
-    vaiPastInterestWeiResult.toString(),
+  const vaiTotalInterestMantissa = new BigNumber(vaiCurrentInterestMantissaResult.toString()).plus(
+    vaiPastInterestMantissaResult.toString(),
   );
-  const feePercentage = repayAmountWei.isGreaterThan(0)
-    ? new BigNumber(vaiTotalInterestWei).times(100).dividedBy(repayAmountWei).toNumber()
+  const feePercentage = repayAmountMantissa.isGreaterThan(0)
+    ? new BigNumber(vaiTotalInterestMantissa).times(100).dividedBy(repayAmountMantissa).toNumber()
     : 0;
 
   return {
-    vaiRepayAmountAfterFeeWei: new BigNumber(vaiRepayAmountAfterFeeWeiResult.toString()),
-    vaiCurrentInterestWei: new BigNumber(vaiCurrentInterestWeiResult.toString()),
-    vaiPastInterestWei: new BigNumber(vaiPastInterestWeiResult.toString()),
-    vaiTotalInterestWei,
+    vaiRepayAmountAfterFeeMantissa: new BigNumber(vaiRepayAmountAfterFeeMantissaResult.toString()),
+    vaiCurrentInterestMantissa: new BigNumber(vaiCurrentInterestMantissaResult.toString()),
+    vaiPastInterestMantissa: new BigNumber(vaiPastInterestMantissaResult.toString()),
+    vaiTotalInterestMantissa,
     feePercentage,
   };
 };

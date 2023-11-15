@@ -14,4 +14,4 @@ fakeAsset.userSupplyBalanceTokens = new BigNumber(1000);
 fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
 fakeAsset.tokenPriceCents = new BigNumber(100);
 
-export const fakeVTokenBalanceWei = new BigNumber(10000000);
+export const fakeVTokenBalanceMantissa = new BigNumber(10000000);

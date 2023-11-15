@@ -9,7 +9,7 @@ export interface GetXvsVaultUserInfoInput {
 }
 
 export interface GetXvsVaultUserInfoOutput {
-  stakedAmountWei: BigNumber;
-  pendingWithdrawalsTotalAmountWei: BigNumber;
-  rewardDebtAmountWei: BigNumber;
+  stakedAmountMantissa: BigNumber;
+  pendingWithdrawalsTotalAmountMantissa: BigNumber;
+  rewardDebtAmountMantissa: BigNumber;
 }

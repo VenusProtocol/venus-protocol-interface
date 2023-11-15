@@ -1,6 +1,6 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetSwapRouterContract } from 'packages/contracts';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { SwapTokensInput, queryClient, swapTokens } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -38,20 +38,20 @@ const useSwapTokens = (
 
       captureAnalyticEvent('Tokens swapped', {
         fromTokenSymbol: swap.fromToken.symbol,
-        fromTokenAmountTokens: convertWeiToTokens({
+        fromTokenAmountTokens: convertMantissaToTokens({
           token: swap.fromToken,
-          valueWei:
+          value:
             swap.direction === 'exactAmountIn'
-              ? swap.fromTokenAmountSoldWei
-              : swap.expectedFromTokenAmountSoldWei,
+              ? swap.fromTokenAmountSoldMantissa
+              : swap.expectedFromTokenAmountSoldMantissa,
         }).toNumber(),
         toTokenSymbol: swap.toToken.symbol,
-        toTokenAmountTokens: convertWeiToTokens({
+        toTokenAmountTokens: convertMantissaToTokens({
           token: swap.toToken,
-          valueWei:
+          value:
             swap.direction === 'exactAmountIn'
-              ? swap.expectedToTokenAmountReceivedWei
-              : swap.toTokenAmountReceivedWei,
+              ? swap.expectedToTokenAmountReceivedMantissa
+              : swap.toTokenAmountReceivedMantissa,
         }).toNumber(),
         priceImpactPercentage: swap.priceImpactPercentage,
         slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,

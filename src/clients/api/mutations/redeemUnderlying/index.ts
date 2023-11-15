@@ -4,15 +4,15 @@ import { VBep20, VBnb } from 'packages/contracts';
 
 export interface RedeemUnderlyingInput {
   vTokenContract: VBep20 | VBnb;
-  amountWei: BigNumber;
+  amountMantissa: BigNumber;
 }
 
 export type RedeemUnderlyingOutput = ContractTransaction;
 
 const redeemUnderlying = async ({
   vTokenContract,
-  amountWei,
+  amountMantissa,
 }: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> =>
-  vTokenContract.redeemUnderlying(amountWei.toFixed());
+  vTokenContract.redeemUnderlying(amountMantissa.toFixed());
 
 export default redeemUnderlying;

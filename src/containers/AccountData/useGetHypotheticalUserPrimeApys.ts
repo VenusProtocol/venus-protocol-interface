@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { Asset, TokenAction } from 'types';
-import { convertTokensToWei } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import {
   useGetHypotheticalPrimeApys,
@@ -47,7 +47,7 @@ export const useGetHypotheticalUserPrimeApys = ({
       enabled: !!accountAddress && !!xvs && typeof xvsVaultPoolIndex === 'number',
     },
   );
-  const userXvsStakedMantissa = getXvsVaultUserInfoData?.stakedAmountWei;
+  const userXvsStakedMantissa = getXvsVaultUserInfoData?.stakedAmountMantissa;
 
   const shouldFetchHypotheticalUserPrimeApy = asset.borrowDistributions
     .concat(asset.supplyDistributions)
@@ -70,11 +70,11 @@ export const useGetHypotheticalUserPrimeApys = ({
     }
 
     return {
-      userBorrowBalanceMantissa: convertTokensToWei({
+      userBorrowBalanceMantissa: convertTokensToMantissa({
         value: hypotheticalUserBorrowBalanceTokens,
         token: asset.vToken.underlyingToken,
       }),
-      userSupplyBalanceMantissa: convertTokensToWei({
+      userSupplyBalanceMantissa: convertTokensToMantissa({
         value: hypotheticalUserSupplyBalanceTokens,
         token: asset.vToken.underlyingToken,
       }),

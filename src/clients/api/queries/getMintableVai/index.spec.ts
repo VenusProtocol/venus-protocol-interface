@@ -21,6 +21,6 @@ describe('api/queries/getMintableVai', () => {
 
     expect(getMintableVAIMock).toHaveBeenCalledTimes(1);
     expect(response).toMatchSnapshot();
-    expect(response.mintableVaiWei instanceof BigNumber).toBeTruthy();
+    expect(response.mintableVaiMantissa instanceof BigNumber).toBeTruthy();
   });
 });

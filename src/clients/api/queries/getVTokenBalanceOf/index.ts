@@ -7,7 +7,7 @@ export interface GetVTokenBalanceOfInput {
 }
 
 export type GetVTokenBalanceOfOutput = {
-  balanceWei: BigNumber;
+  balanceMantissa: BigNumber;
 };
 
 const getVTokenBalanceOf = async ({
@@ -17,7 +17,7 @@ const getVTokenBalanceOf = async ({
   const res = await vTokenContract.balanceOf(accountAddress);
 
   return {
-    balanceWei: new BigNumber(res.toString()),
+    balanceMantissa: new BigNumber(res.toString()),
   };
 };
 

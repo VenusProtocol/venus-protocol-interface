@@ -8,7 +8,7 @@ import renderComponent from 'testUtils/renderComponent';
 
 import useStakeInVault from '.';
 
-const fakeAmountWei = new BigNumber('10000000000000000');
+const fakeAmountMantissa = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
 
 describe('api/mutation/useStakeInVault', () => {
@@ -27,7 +27,7 @@ describe('api/mutation/useStakeInVault', () => {
           <button
             onClick={() =>
               stake({
-                amountWei: fakeAmountWei,
+                amountMantissa: fakeAmountMantissa,
               })
             }
             type="button"
@@ -45,7 +45,7 @@ describe('api/mutation/useStakeInVault', () => {
 
     await waitFor(() => expect(stakeInXvsVault).toHaveBeenCalledTimes(1));
     expect(stakeInXvsVault).toHaveBeenCalledWith({
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
       rewardToken: xvs,
     });
@@ -63,7 +63,7 @@ describe('api/mutation/useStakeInVault', () => {
           <button
             onClick={() =>
               stake({
-                amountWei: fakeAmountWei,
+                amountMantissa: fakeAmountMantissa,
               })
             }
             type="button"
@@ -81,7 +81,7 @@ describe('api/mutation/useStakeInVault', () => {
 
     await waitFor(() => expect(stakeInVaiVault).toHaveBeenCalledTimes(1));
     expect(stakeInVaiVault).toHaveBeenCalledWith({
-      amountWei: fakeAmountWei,
+      amountMantissa: fakeAmountMantissa,
     });
   });
 });

@@ -21,7 +21,7 @@ const useGetSwapTokenUserBalances = (
     () =>
       swapTokens.map(token => ({
         token,
-        balanceWei: new BigNumber(0),
+        balanceMantissa: new BigNumber(0),
       })),
     [swapTokens],
   );

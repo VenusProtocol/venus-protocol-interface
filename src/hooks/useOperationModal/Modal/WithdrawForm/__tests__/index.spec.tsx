@@ -11,7 +11,7 @@ import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
 import Withdraw from '..';
-import { fakeAsset, fakePool, fakeVTokenBalanceWei } from '../__testUtils__/fakeData';
+import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 describe('WithdrawForm', () => {
@@ -95,7 +95,7 @@ describe('WithdrawForm', () => {
     customFakeAsset.isCollateralOfUser = false;
 
     (getVTokenBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: fakeVTokenBalanceWei,
+      balanceMantissa: fakeVTokenBalanceMantissa,
     }));
 
     const { getByText } = renderComponent(
@@ -121,7 +121,9 @@ describe('WithdrawForm', () => {
     );
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: fakeVTokenBalanceWei }));
+    await waitFor(() =>
+      expect(redeem).toHaveBeenCalledWith({ amountMantissa: fakeVTokenBalanceMantissa }),
+    );
   });
 
   it('redeemUnderlying is called when partial amount is withdrawn', async () => {
@@ -144,12 +146,12 @@ describe('WithdrawForm', () => {
     expect(submitButton).toHaveTextContent(en.operationModal.withdraw.submitButtonLabel.withdraw);
     fireEvent.click(submitButton);
 
-    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
     await waitFor(() =>
-      expect(redeemUnderlying).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
+      expect(redeemUnderlying).toHaveBeenCalledWith({ amountMantissa: expectedAmountMantissa }),
     );
   });
 });

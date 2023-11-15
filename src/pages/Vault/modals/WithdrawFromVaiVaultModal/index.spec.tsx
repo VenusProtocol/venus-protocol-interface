@@ -76,11 +76,13 @@ describe('WithdrawFromVaiVaultModal', () => {
     ) as HTMLButtonElement;
     fireEvent.click(submitButton);
 
-    const fakeStakedWei = new BigNumber(fakeValueTokens).multipliedBy(new BigNumber(10).pow(18));
+    const fakeStakedMantissa = new BigNumber(fakeValueTokens).multipliedBy(
+      new BigNumber(10).pow(18),
+    );
 
     await waitFor(() => expect(withdrawFromVaiVault).toHaveBeenCalledTimes(1));
     expect(withdrawFromVaiVault).toHaveBeenCalledWith({
-      amountWei: fakeStakedWei,
+      amountMantissa: fakeStakedMantissa,
     });
 
     await waitFor(() => expect(customProps.handleClose).toHaveBeenCalledTimes(1));

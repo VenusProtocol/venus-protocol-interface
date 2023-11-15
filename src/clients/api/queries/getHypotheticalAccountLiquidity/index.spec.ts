@@ -16,8 +16,8 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
       comptrollerContract: fakeContract,
       accountAddress: '0x34111',
       vTokenAddress: '0xq3k9',
-      vTokenBalanceOfWei: new BigNumber(0),
-      vTokenBorrowAmountWei: new BigNumber(0),
+      vTokenBalanceOfMantissa: new BigNumber(0),
+      vTokenBorrowAmountMantissa: new BigNumber(0),
     });
     expect(response).toMatchSnapshot();
   });

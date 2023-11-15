@@ -8,7 +8,7 @@ import { vBnb, vXvs } from '__mocks__/models/vTokens';
 
 import repay, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
 
-const fakeAmountWei = new BigNumber(10000000000000000);
+const fakeAmountMantissa = new BigNumber(10000000000000000);
 
 vi.mock('packages/contracts');
 
@@ -26,13 +26,13 @@ describe('repay', () => {
       const response = await repay({
         signer: fakeSigner,
         vToken: vXvs,
-        amountWei: fakeAmountWei,
+        amountMantissa: fakeAmountMantissa,
         isRepayingFullLoan: false,
       });
 
       expect(response).toBe(fakeContractTransaction);
       expect(repayBorrowMock).toHaveBeenCalledTimes(1);
-      expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+      expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
     });
   });
 
@@ -47,17 +47,19 @@ describe('repay', () => {
       const response = await repay({
         signer: fakeSigner,
         vToken: vBnb,
-        amountWei: fakeAmountWei,
+        amountMantissa: fakeAmountMantissa,
         maximillionContract: fakeMaximillionContract,
         isRepayingFullLoan: true,
       });
 
       expect(response).toBe(fakeContractTransaction);
 
-      const amountWithBufferWei = fakeAmountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
+      const amountWithBufferMantissa = fakeAmountMantissa.multipliedBy(
+        1 + REPAYMENT_BNB_BUFFER_PERCENTAGE,
+      );
 
       expect(repayBehalfExplicitMock).toHaveBeenCalledWith(fakeSignerAddress, vBnb.address, {
-        value: amountWithBufferWei.toFixed(),
+        value: amountWithBufferMantissa.toFixed(),
       });
     });
 
@@ -73,14 +75,14 @@ describe('repay', () => {
       const response = await repay({
         signer: fakeSigner,
         vToken: vBnb,
-        amountWei: fakeAmountWei,
+        amountMantissa: fakeAmountMantissa,
         isRepayingFullLoan: false,
       });
 
       expect(response).toBe(fakeContractTransaction);
       expect(repayBorrowMock).toHaveBeenCalledTimes(1);
       expect(repayBorrowMock).toHaveBeenCalledWith({
-        value: fakeAmountWei.toFixed(),
+        value: fakeAmountMantissa.toFixed(),
       });
     });
   });

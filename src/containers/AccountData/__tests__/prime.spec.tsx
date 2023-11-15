@@ -21,7 +21,7 @@ describe('AccountData - Feature flag enabled: integratedSwap', () => {
 
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
-        stakedAmountWei: new BigNumber('1000000000000000'),
+        stakedAmountMantissa: new BigNumber('1000000000000000'),
       },
     }));
 

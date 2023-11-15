@@ -6,7 +6,7 @@ export interface GetProposalThresholdInput {
 }
 
 export type GetProposalThresholdOutput = {
-  thresholdWei: BigNumber;
+  thresholdMantissa: BigNumber;
 };
 
 const getProposalThreshold = async ({
@@ -15,7 +15,7 @@ const getProposalThreshold = async ({
   const resp = await governorBravoDelegateContract.proposalThreshold();
 
   return {
-    thresholdWei: new BigNumber(resp.toString()),
+    thresholdMantissa: new BigNumber(resp.toString()),
   };
 };
 

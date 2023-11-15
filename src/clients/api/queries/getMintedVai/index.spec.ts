@@ -21,7 +21,7 @@ describe('api/queries/getMintedVai', () => {
 
     expect(mintedVAIsMock).toHaveBeenCalledTimes(1);
     expect(response).toEqual({
-      mintedVaiWei: new BigNumber(fakeMintedVai),
+      mintedVaiMantissa: new BigNumber(fakeMintedVai),
     });
   });
 });

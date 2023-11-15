@@ -31,6 +31,6 @@ describe('api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade', () => {
       fakeAddress,
     );
     expect(response).toMatchSnapshot();
-    expect(response.pendingWithdrawalsFromBeforeUpgradeWei instanceof BigNumber).toBeTruthy();
+    expect(response.pendingWithdrawalsFromBeforeUpgradeMantissa instanceof BigNumber).toBeTruthy();
   });
 });

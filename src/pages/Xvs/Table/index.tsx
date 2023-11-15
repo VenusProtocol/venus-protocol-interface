@@ -11,7 +11,7 @@ import {
   areTokensEqual,
   calculateApy,
   compareBigNumbers,
-  convertWeiToTokens,
+  convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
@@ -161,13 +161,13 @@ const XvsTable: React.FC = () => {
     );
 
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
-      const vaiVaultDailyXvsRateTokens = convertWeiToTokens({
-        valueWei: venusVaiVaultDailyRateData.dailyRateWei,
+      const vaiVaultDailyXvsRateTokens = convertMantissaToTokens({
+        value: venusVaiVaultDailyRateData.dailyRateMantissa,
         token: xvs,
       });
 
-      const vaiVaultStakedTokens = convertWeiToTokens({
-        valueWei: vaultVaiStakedData.balanceWei,
+      const vaiVaultStakedTokens = convertMantissaToTokens({
+        value: vaultVaiStakedData.balanceMantissa,
         token: vai,
       });
 

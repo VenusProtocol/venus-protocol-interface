@@ -44,16 +44,18 @@ describe('api/queries/useGetVaults', () => {
       totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
     }));
     (getXvsVaultRewardPerBlock as Vi.Mock).mockImplementation(() => ({
-      rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock.toString()),
+      rewardPerBlockMantissa: new BigNumber(
+        xvsVaultResponses.rewardTokenAmountsPerBlock.toString(),
+      ),
     }));
     (getVenusVaiVaultDailyRate as Vi.Mock).mockImplementation(() => ({
-      dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
+      dailyRateMantissa: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
     }));
     (getBalanceOf as Vi.Mock).mockImplementation(() => ({
-      balanceWei: new BigNumber('4000000000'),
+      balanceMantissa: new BigNumber('4000000000'),
     }));
     (getXvsVaultPendingWithdrawalsFromBeforeUpgrade as Vi.Mock).mockImplementation(() => ({
-      pendingWithdrawalsFromBeforeUpgradeWei: new BigNumber('100000'),
+      pendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
     }));
 
     (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));

@@ -21,6 +21,6 @@ describe('api/queries/getVaiVaultUserInfo', () => {
 
     expect(userInfoMock).toHaveBeenCalledTimes(1);
     expect(response).toMatchSnapshot();
-    expect(response.stakedVaiWei instanceof BigNumber).toBeTruthy();
+    expect(response.stakedVaiMantissa instanceof BigNumber).toBeTruthy();
   });
 });

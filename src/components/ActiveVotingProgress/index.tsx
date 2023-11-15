@@ -4,7 +4,7 @@ import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { theme } from 'theme';
 import { Token } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
 import { useStyles } from './styles';
@@ -20,8 +20,8 @@ interface ActiveVotingProgressProps {
 const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs?: Token }) =>
   valueMantissa &&
   xvs &&
-  convertWeiToTokens({
-    valueWei: valueMantissa,
+  convertMantissaToTokens({
+    value: valueMantissa,
     token: xvs,
     returnInReadableFormat: true,
   });

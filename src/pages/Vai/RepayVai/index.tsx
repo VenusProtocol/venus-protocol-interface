@@ -18,8 +18,8 @@ import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import {
-  convertTokensToWei,
-  convertWeiToTokens,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
 
@@ -28,7 +28,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from '../styles';
@@ -40,10 +40,10 @@ export interface IRepayVaiUiProps {
   isInitialLoading: boolean;
   isSubmitting: boolean;
   repayVai: ({
-    amountWei,
+    amountMantissa,
     isRepayingFullLoan,
   }: {
-    amountWei: BigNumber;
+    amountMantissa: BigNumber;
     isRepayingFullLoan: boolean;
   }) => Promise<unknown>;
   isVaiApproved: ApproveTokenStepsProps['isTokenApproved'];
@@ -54,16 +54,16 @@ export interface IRepayVaiUiProps {
   revokeVaiWalletSpendingLimit: () => Promise<unknown>;
   vai: Token;
   vaiWalletSpendingLimitTokens?: BigNumber;
-  userBalanceWei?: BigNumber;
-  repayBalanceWei?: BigNumber;
+  userBalanceMantissa?: BigNumber;
+  repayBalanceMantissa?: BigNumber;
 }
 
 const userVaiRefetchInterval = generatePseudoRandomRefetchInterval();
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
-  userBalanceWei,
-  repayBalanceWei,
+  userBalanceMantissa,
+  repayBalanceMantissa,
   isVaiApproved,
   approveVai,
   isApproveVaiLoading,
@@ -80,62 +80,63 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const { t, Trans } = useTranslation();
 
   const limitTokens = React.useMemo(() => {
-    const limitWei =
-      userBalanceWei && repayBalanceWei
-        ? BigNumber.minimum(userBalanceWei, repayBalanceWei)
+    const limitMantissa =
+      userBalanceMantissa && repayBalanceMantissa
+        ? BigNumber.minimum(userBalanceMantissa, repayBalanceMantissa)
         : new BigNumber(0);
 
-    let tmpLimitTokens = convertWeiToTokens({ valueWei: limitWei, token: vai });
+    let tmpLimitTokens = convertMantissaToTokens({ value: limitMantissa, token: vai });
 
     if (isVaiApproved && vaiWalletSpendingLimitTokens) {
       tmpLimitTokens = BigNumber.minimum(tmpLimitTokens, vaiWalletSpendingLimitTokens);
     }
 
     return tmpLimitTokens.toFixed();
-  }, [userBalanceWei, repayBalanceWei, vaiWalletSpendingLimitTokens, isVaiApproved, vai]);
+  }, [userBalanceMantissa, repayBalanceMantissa, vaiWalletSpendingLimitTokens, isVaiApproved, vai]);
 
   const isRepayingFullLoan = useCallback(
     ({ amountTokens }: { amountTokens: string }) => {
-      if (amountTokens && repayBalanceWei) {
-        const amountWei = convertTokensToWei({
+      if (amountTokens && repayBalanceMantissa) {
+        const amountMantissa = convertTokensToMantissa({
           value: new BigNumber(amountTokens),
           token: vai,
         });
-        return amountWei.isEqualTo(repayBalanceWei);
+        return amountMantissa.isEqualTo(repayBalanceMantissa);
       }
 
       return false;
     },
-    [repayBalanceWei, vai],
+    [repayBalanceMantissa, vai],
   );
 
   // Convert repay balance (minted + interests) into VAI
-  const readableRepayableVai = useConvertWeiToReadableTokenString({
-    valueWei: repayBalanceWei,
+  const readableRepayableVai = useConvertMantissaToReadableTokenString({
+    value: repayBalanceMantissa,
     token: vai,
   });
 
-  const readableWalletBalance = useConvertWeiToReadableTokenString({
-    valueWei: userBalanceWei,
+  const readableWalletBalance = useConvertMantissaToReadableTokenString({
+    value: userBalanceMantissa,
     token: vai,
   });
 
   const walletBalanceTokens = useMemo(
-    () => userBalanceWei && convertTokensToWei({ value: userBalanceWei, token: vai }),
-    [userBalanceWei, vai],
+    () =>
+      userBalanceMantissa && convertTokensToMantissa({ value: userBalanceMantissa, token: vai }),
+    [userBalanceMantissa, vai],
   );
 
-  const hasRepayableVai = repayBalanceWei?.isGreaterThan(0) || false;
+  const hasRepayableVai = repayBalanceMantissa?.isGreaterThan(0) || false;
 
   const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
-    const amountWei = convertTokensToWei({
+    const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(amountTokens),
       token: vai,
     });
 
     try {
       await repayVai({
-        amountWei,
+        amountMantissa,
         isRepayingFullLoan: isRepayingFullLoan({ amountTokens }),
       });
     } catch (error) {
@@ -280,21 +281,21 @@ const RepayVai: React.FC = () => {
   const { mutateAsync: contractRepayVai, isLoading: isSubmitting } = useRepayVai();
 
   const repayVai = async ({
-    amountWei,
+    amountMantissa,
     isRepayingFullLoan,
   }: {
-    amountWei: BigNumber;
+    amountMantissa: BigNumber;
     isRepayingFullLoan: boolean;
   }) =>
     contractRepayVai({
-      amountWei: isRepayingFullLoan ? MAX_UINT256 : amountWei,
+      amountMantissa: isRepayingFullLoan ? MAX_UINT256 : amountMantissa,
     });
 
   return (
     <RepayVaiUi
       disabled={!accountAddress}
-      userBalanceWei={userVaiBalanceData?.balanceWei}
-      repayBalanceWei={repayAmountWithInterests?.vaiRepayAmountWithInterestsWei}
+      userBalanceMantissa={userVaiBalanceData?.balanceMantissa}
+      repayBalanceMantissa={repayAmountWithInterests?.vaiRepayAmountWithInterestsMantissa}
       isInitialLoading={isGetUserVaiBalance || isGetVaiRepayAmountWithInterests}
       isSubmitting={isSubmitting}
       repayVai={repayVai}

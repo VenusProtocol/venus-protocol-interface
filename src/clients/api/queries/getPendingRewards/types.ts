@@ -29,7 +29,7 @@ export interface GetPendingRewardsOutput {
 
 export interface IsolatedPoolPendingReward {
   rewardToken: Token;
-  rewardAmountWei: BigNumber;
+  rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
   rewardsDistributorAddress: string;
@@ -45,7 +45,7 @@ export interface MainPoolPendingRewardGroup {
   type: 'mainPool';
   comptrollerAddress: string;
   rewardToken: Token;
-  rewardAmountWei: BigNumber;
+  rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
 }
@@ -54,7 +54,7 @@ export interface VaultPendingRewardGroup {
   type: 'vault';
   stakedToken: Token;
   rewardToken: Token;
-  rewardAmountWei: BigNumber;
+  rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
 }
 
@@ -63,13 +63,13 @@ export interface XvsVestingVaultPendingRewardGroup {
   poolIndex: number;
   stakedToken: Token;
   rewardToken: Token;
-  rewardAmountWei: BigNumber;
+  rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
 }
 
 export interface PrimePendingReward {
   rewardToken: Token;
-  rewardAmountWei: BigNumber;
+  rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
 }
 

@@ -8,9 +8,9 @@ const formatToUserInfo = ({
   pendingWithdrawals,
   rewardDebt,
 }: Awaited<ReturnType<XvsVault['getUserInfo']>>): GetXvsVaultUserInfoOutput => ({
-  stakedAmountWei: new BigNumber(amount.toString()),
-  pendingWithdrawalsTotalAmountWei: new BigNumber(pendingWithdrawals.toString()),
-  rewardDebtAmountWei: new BigNumber(rewardDebt.toString()),
+  stakedAmountMantissa: new BigNumber(amount.toString()),
+  pendingWithdrawalsTotalAmountMantissa: new BigNumber(pendingWithdrawals.toString()),
+  rewardDebtAmountMantissa: new BigNumber(rewardDebt.toString()),
 });
 
 export default formatToUserInfo;

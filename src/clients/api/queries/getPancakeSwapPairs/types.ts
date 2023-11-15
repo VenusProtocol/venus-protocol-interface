@@ -16,7 +16,7 @@ export interface PairAddress {
 
 export interface TokenReserve {
   token: PSToken;
-  reserveWei: BigNumber;
+  reserveMantissa: BigNumber;
 }
 
 export type GetPancakeSwapPairsOutput = {

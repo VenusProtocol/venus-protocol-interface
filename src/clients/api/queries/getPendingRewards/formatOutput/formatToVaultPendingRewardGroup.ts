@@ -3,7 +3,7 @@ import { logError } from 'errors';
 import { Token } from 'types';
 
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
-import convertWeiToTokens from 'utilities/convertWeiToTokens';
+import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 
 import { VaultPendingRewardGroup } from '../types';
 
@@ -37,8 +37,8 @@ const formatToVaultPendingRewardGroup = ({
   const rewardTokenPriceDollars = tokenPriceMapping[rewardToken.address.toLowerCase()];
   const rewardTokenPriceCents = convertDollarsToCents(rewardTokenPriceDollars);
 
-  const pendingRewardAmountTokens = convertWeiToTokens({
-    valueWei: pendingRewardAmountMantissa,
+  const pendingRewardAmountTokens = convertMantissaToTokens({
+    value: pendingRewardAmountMantissa,
     token: stakedToken,
   });
 
@@ -52,7 +52,7 @@ const formatToVaultPendingRewardGroup = ({
     type: 'vault',
     stakedToken,
     rewardToken,
-    rewardAmountWei: pendingRewardAmountMantissa,
+    rewardAmountMantissa: pendingRewardAmountMantissa,
     rewardAmountCents: pendingRewardAmountCents,
   };
 

@@ -31,8 +31,8 @@ describe('PrimeStatusBanner', () => {
     }));
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
-        stakedAmountWei: new BigNumber('0'),
-        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
+        stakedAmountMantissa: new BigNumber('0'),
+        pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
     (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
@@ -89,8 +89,8 @@ describe('PrimeStatusBanner', () => {
     const text = '10 minutes until you can claim Prime rewards';
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
-        stakedAmountWei: new BigNumber('1000000'),
-        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
+        stakedAmountMantissa: new BigNumber('1000000'),
+        pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
@@ -111,8 +111,8 @@ describe('PrimeStatusBanner', () => {
   it('allows the user to claim a Prime token if all the criteria match', async () => {
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {
-        stakedAmountWei: new BigNumber('1000000'),
-        pendingWithdrawalsTotalAmountWei: new BigNumber('0'),
+        stakedAmountMantissa: new BigNumber('1000000'),
+        pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({

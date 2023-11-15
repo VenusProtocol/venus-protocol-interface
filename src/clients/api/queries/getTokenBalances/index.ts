@@ -36,18 +36,18 @@ const getTokenBalances = async ({
 
   const tokenBalances = tokenBalanceResults.reduce<TokenBalance[]>(
     (acc, tokenBalanceResult, index) => {
-      const balanceWei =
+      const balanceMantissa =
         tokenBalanceResult.status === 'fulfilled'
           ? new BigNumber(tokenBalanceResult.value.toString())
           : undefined;
 
-      if (!balanceWei) {
+      if (!balanceMantissa) {
         return acc;
       }
 
       const tokenBalance: TokenBalance = {
         token: tokens[index],
-        balanceWei,
+        balanceMantissa,
       };
 
       return [...acc, tokenBalance];

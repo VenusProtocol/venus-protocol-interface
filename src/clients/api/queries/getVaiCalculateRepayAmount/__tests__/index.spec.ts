@@ -21,7 +21,7 @@ describe('api/queries/getVaiCalculateRepayAmount', () => {
 
     const response = await getVaiCalculateRepayAmount({
       accountAddress: fakeAddress,
-      repayAmountWei: new BigNumber('10000'),
+      repayAmountMantissa: new BigNumber('10000'),
       vaiControllerContract,
     });
 

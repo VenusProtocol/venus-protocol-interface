@@ -1,7 +1,7 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
-import { callOrThrow, convertWeiToTokens } from 'utilities';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { StakeInVaiVaultInput, queryClient, stakeInVaiVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -39,9 +39,9 @@ const useStakeInVaiVault = (options?: Options) => {
 
       if (vai) {
         captureAnalyticEvent('Tokens staked in VAI vault', {
-          tokenAmountTokens: convertWeiToTokens({
+          tokenAmountTokens: convertMantissaToTokens({
             token: vai,
-            valueWei: input.amountWei,
+            value: input.amountMantissa,
           }).toNumber(),
         });
 

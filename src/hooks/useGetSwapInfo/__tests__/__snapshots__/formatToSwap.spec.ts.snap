@@ -4,15 +4,15 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
 {
   "direction": "exactAmountIn",
   "exchangeRate": "1",
-  "expectedToTokenAmountReceivedWei": "10000000000000000000",
+  "expectedToTokenAmountReceivedMantissa": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "asset": "/src/packages/tokens/img/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
-  "fromTokenAmountSoldWei": "10000000000000000000",
-  "minimumToTokenAmountReceivedWei": "9000000000000000000",
+  "fromTokenAmountSoldMantissa": "10000000000000000000",
+  "minimumToTokenAmountReceivedMantissa": "9000000000000000000",
   "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -31,14 +31,14 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
 {
   "direction": "exactAmountOut",
   "exchangeRate": "1",
-  "expectedFromTokenAmountSoldWei": "10000000000000000000",
+  "expectedFromTokenAmountSoldMantissa": "10000000000000000000",
   "fromToken": {
     "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
     "asset": "/src/packages/tokens/img/busd.svg",
     "decimals": 18,
     "symbol": "BUSD",
   },
-  "maximumFromTokenAmountSoldWei": "11000000000000000000",
+  "maximumFromTokenAmountSoldMantissa": "11000000000000000000",
   "priceImpactPercentage": 0.001,
   "routePath": [
     "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -50,6 +50,6 @@ exports[`pages/Swap/useGetSwapInfo/formatToSwap > formats trade to swap correctl
     "decimals": 18,
     "symbol": "XVS",
   },
-  "toTokenAmountReceivedWei": "10000000000000000000",
+  "toTokenAmountReceivedMantissa": "10000000000000000000",
 }
 `;

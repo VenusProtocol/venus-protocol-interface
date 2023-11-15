@@ -7,7 +7,7 @@ export interface GetVenusVaiVaultDailyRateInput {
 }
 
 export type GetVenusVaiVaultDailyRateOutput = {
-  dailyRateWei: BigNumber;
+  dailyRateMantissa: BigNumber;
 };
 
 const getVenusVaiVaultDailyRate = async ({
@@ -17,7 +17,7 @@ const getVenusVaiVaultDailyRate = async ({
   const resp = await mainPoolComptrollerContract.venusVAIVaultRate();
 
   return {
-    dailyRateWei: new BigNumber(resp.toString()).times(blocksPerDay),
+    dailyRateMantissa: new BigNumber(resp.toString()).times(blocksPerDay),
   };
 };
 

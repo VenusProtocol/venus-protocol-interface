@@ -24,7 +24,7 @@ describe('api/queries/getCurrentVotes', () => {
     expect(getCurrentVotesMock).toHaveBeenCalledTimes(1);
     expect(getCurrentVotesMock).toHaveBeenCalledWith(fakeAccountAddress);
     expect(response).toEqual({
-      votesWei: new BigNumber(fakeOutput.toString()),
+      votesMantissa: new BigNumber(fakeOutput.toString()),
     });
   });
 });
