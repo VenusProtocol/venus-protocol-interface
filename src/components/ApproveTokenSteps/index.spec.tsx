@@ -4,7 +4,7 @@ import { en } from 'packages/translations';
 import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { ApproveTokenSteps } from '.';
 

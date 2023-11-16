@@ -5,7 +5,8 @@ import {
   getVTokenContract,
   useGetMainPoolComptrollerContract,
 } from 'packages/contracts';
-import React, { useCallback, useContext, useState } from 'react';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
+import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
@@ -16,14 +17,13 @@ import {
   useExitMarket,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
 const useCollateral = () => {
   const { accountAddress, signer } = useAuth();
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
-  const { hasLunaOrUstCollateralEnabled } = useContext(DisableLunaUstWarningContext);
+  const { userHasLunaOrUstCollateralEnabled } = useLunaUstWarning();
 
   const { mutateAsync: enterMarket } = useEnterMarket({
     waitForConfirmation: true,
@@ -144,7 +144,7 @@ const useCollateral = () => {
     // Prevent action if user has UST or LUNA enabled as collateral while trying
     // to enable/disable a different token
     if (
-      hasLunaOrUstCollateralEnabled &&
+      userHasLunaOrUstCollateralEnabled &&
       asset.vToken.underlyingToken.symbol !== 'UST' &&
       asset.vToken.underlyingToken.symbol !== 'LUNA'
     ) {

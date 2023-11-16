@@ -21,7 +21,7 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { useAuth } from 'context/AuthContext';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';

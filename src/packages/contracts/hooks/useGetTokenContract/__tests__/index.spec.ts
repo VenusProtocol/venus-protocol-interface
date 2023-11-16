@@ -1,4 +1,3 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { Contract, providers } from 'ethers';
 import { ChainId } from 'types';
 import Vi from 'vitest';
@@ -10,6 +9,7 @@ import {
   GetTokenContractInput,
   getTokenContract,
 } from 'packages/contracts/utilities/getTokenContract';
+import { renderHook } from 'testUtils/render';
 
 import { useGetTokenContract } from '..';
 

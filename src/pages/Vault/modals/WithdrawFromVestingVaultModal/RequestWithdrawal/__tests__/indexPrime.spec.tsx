@@ -18,7 +18,7 @@ import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import RequestWithdrawal from '..';
 import TEST_IDS from '../../../../TransactionForm/testIds';

@@ -5,7 +5,7 @@ import Vi from 'vitest';
 
 import { markets } from '__mocks__/models/markets';
 import { getMainMarkets } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import useGetMainPoolTotalXvsDistributed, { UseGetMainPoolTotalXvsDistributedOutput } from '.';
 

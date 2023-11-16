@@ -5,7 +5,7 @@ import Vi from 'vitest';
 import fakeAddress from '__mocks__/models/address';
 import transactions from '__mocks__/models/transactions';
 import { useGetTransactions } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import History from '.';
 

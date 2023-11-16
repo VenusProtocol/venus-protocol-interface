@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { vaults } from '__mocks__/models/vaults';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import VaultsBreakdown from '.';
 

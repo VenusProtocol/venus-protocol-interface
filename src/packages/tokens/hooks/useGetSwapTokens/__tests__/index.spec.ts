@@ -1,10 +1,10 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
 import { useAuth } from 'context/AuthContext';
 import { getSwapTokens } from 'packages/tokens/utilities/getSwapTokens';
+import { renderHook } from 'testUtils/render';
 
 import { useGetSwapTokens } from '..';
 

@@ -1,15 +1,15 @@
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { VError, displayMutationError } from 'errors';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ChainId } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Claim, useClaimRewards } from 'clients/api';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
-import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
@@ -144,9 +144,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const { accountAddress, chainId } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
-    DisableLunaUstWarningContext,
-  );
+  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
   const [uncheckedGroupIds, setUncheckedGroupIds] = useState<string[]>([]);
   const groups = useGetGroups({
@@ -174,7 +172,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   const handleOpenModal = () => {
     // Block action if user has LUNA or UST enabled as collateral
-    if (hasLunaOrUstCollateralEnabled) {
+    if (userHasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
     }

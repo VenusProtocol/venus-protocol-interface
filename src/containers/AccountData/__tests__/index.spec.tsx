@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { AccountData, AccountDataProps } from '..';
 

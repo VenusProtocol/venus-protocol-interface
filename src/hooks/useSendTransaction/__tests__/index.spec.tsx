@@ -1,27 +1,19 @@
-import { renderHook } from '@testing-library/react-hooks';
 import noop from 'noop-ts';
-import { UseMutateFunction, useMutation } from 'react-query';
 import Vi from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import FunctionKey from 'constants/functionKey';
+import { renderHook } from 'testUtils/render';
 
 import { useSendTransaction } from '..';
 import { CONFIRMATIONS, useTrackTransaction } from '../useTrackTransaction';
 
-vi.mock('react-query');
 vi.mock('../useTrackTransaction');
 
 const fakeFnKey = FunctionKey.SUPPLY;
 const fakeInput = {};
 
 describe('useSendTransaction', () => {
-  beforeEach(() => {
-    (useMutation as Vi.Mock).mockImplementation((_fnKey: unknown, fn: UseMutateFunction) => ({
-      mutateAsync: fn,
-    }));
-  });
-
   it('sends transaction and tracks it', async () => {
     const trackTransactionMock = vi.fn();
     (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
@@ -40,9 +32,6 @@ describe('useSendTransaction', () => {
         options: fakeOptions,
       }),
     );
-
-    expect(useMutation).toHaveBeenCalledTimes(1);
-    expect(useMutation).toHaveBeenCalledWith(fakeFnKey, expect.any(Function), fakeOptions);
 
     const { mutateAsync } = result.current;
 
@@ -81,9 +70,6 @@ describe('useSendTransaction', () => {
         options: fakeOptions,
       }),
     );
-
-    expect(useMutation).toHaveBeenCalledTimes(1);
-    expect(useMutation).toHaveBeenCalledWith(fakeFnKey, expect.any(Function), fakeOptions);
 
     const { mutateAsync } = result.current;
 

@@ -12,7 +12,7 @@ import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { repay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

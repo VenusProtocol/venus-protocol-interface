@@ -13,7 +13,6 @@ export * from './Form';
 export * from './Icon';
 export * from './LabeledInlineContent';
 export * from './LayeredValues';
-export * from './LunaUstWarningModal';
 export * from './Modal';
 export * from './Notice';
 export * from './Pagination';

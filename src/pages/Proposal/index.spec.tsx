@@ -21,7 +21,7 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Proposal from '.';
 import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';

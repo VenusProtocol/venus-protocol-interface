@@ -10,7 +10,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

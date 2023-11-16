@@ -1,7 +1,7 @@
 import { store } from 'packages/notifications/store';
 
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import NotificationCenter from '..';
 import TEST_IDS from '../testIds';

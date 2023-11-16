@@ -3,15 +3,15 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import { Button, NoticeWarning, TokenIcon } from 'components';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { useGetPrimeStatus } from 'clients/api';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import { useAuth } from 'context/AuthContext';
-import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
@@ -225,14 +225,12 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
-  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
-    DisableLunaUstWarningContext,
-  );
+  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
   const onStake = () => {
     // Block action is user has LUNA or UST enabled as collateral
-    if (hasLunaOrUstCollateralEnabled) {
+    if (userHasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
     }
@@ -242,7 +240,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
 
   const onWithdraw = async () => {
     // Block action is user has LUNA or UST enabled as collateral
-    if (hasLunaOrUstCollateralEnabled) {
+    if (userHasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
     }

@@ -4,7 +4,7 @@ import React from 'react';
 import { Pool } from 'types';
 
 import { poolData } from '__mocks__/models/pools';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import BorrowRepay from '.';
 

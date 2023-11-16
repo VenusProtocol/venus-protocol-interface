@@ -3,7 +3,7 @@ import React from 'react';
 import Vi from 'vitest';
 
 import { useGetTreasuryTotals } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Pools from '.';
 

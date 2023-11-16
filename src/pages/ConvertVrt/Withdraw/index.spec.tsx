@@ -11,7 +11,7 @@ import { poolData } from '__mocks__/models/pools';
 import fakeProvider from '__mocks__/models/provider';
 import { useGetMainPool } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Withdraw from '.';
 

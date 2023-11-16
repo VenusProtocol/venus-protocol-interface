@@ -3,7 +3,7 @@ import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import { useAuth } from 'context/AuthContext';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { ChainSelect } from '..';
 

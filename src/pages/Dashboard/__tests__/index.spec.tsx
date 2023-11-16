@@ -5,7 +5,7 @@ import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Dashboard from '..';
 import TEST_IDS from '../testIds';

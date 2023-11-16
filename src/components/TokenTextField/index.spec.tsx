@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { TokenTextField } from '.';
 

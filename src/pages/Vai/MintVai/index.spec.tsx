@@ -10,7 +10,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import RepayVai from '.';
 

@@ -1,4 +1,3 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { ChainExplorerLink } from 'components';
 import {
   checkForComptrollerTransactionError,
@@ -17,6 +16,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
+import { renderHook } from 'testUtils/render';
 
 import { CONFIRMATIONS, useTrackTransaction } from '..';
 

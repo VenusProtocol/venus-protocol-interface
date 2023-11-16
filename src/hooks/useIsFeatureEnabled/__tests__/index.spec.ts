@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import { useAuth } from 'context/AuthContext';
+import { renderHook } from 'testUtils/render';
 
 import { FeatureFlag, useIsFeatureEnabled } from '..';
 

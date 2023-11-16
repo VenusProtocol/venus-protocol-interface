@@ -56,13 +56,14 @@ module.exports = {
       'error',
       {
         devDependencies: [
-          '**/*.stories.tsx',
-          '**/*.stories.ts',
-          'src/stories/**',
+          '**/__mocks__/**',
           '**/*.spec.tsx',
           '**/*.spec.ts',
+          '**/*.stories.tsx',
+          '**/*.stories.ts',
           'src/setupTests.tsx',
-          '**/__mocks__/**',
+          'src/stories/**',
+          'src/testUtils/**',
         ],
       },
     ],
