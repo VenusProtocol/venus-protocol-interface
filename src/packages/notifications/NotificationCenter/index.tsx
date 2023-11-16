@@ -1,15 +1,16 @@
-import { Notice } from 'components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
-import { notificationStore } from 'stores/notifications';
 
+import { Notice } from 'components/Notice';
+
+import { store } from '../store';
 import TEST_IDS from './testIds';
 
 const ANIMATION_BASE_DURATION_S = 0.75;
 const EASE = [0.23, 1, 0.32, 1];
 
 const NotificationCenter: React.FC = () => {
-  const notifications = notificationStore.use.notifications();
+  const notifications = store.use.notifications();
 
   return createPortal(
     <ul

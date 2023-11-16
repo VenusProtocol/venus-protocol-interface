@@ -1,12 +1,12 @@
-import { notifications as fakeNotifications } from '__mocks__/models/notifications';
+import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 
-import { notificationStore } from '..';
+import { store } from '..';
 import { AddNotificationInput } from '../types';
 
-describe('notifications', () => {
+describe('store', () => {
   beforeEach(() => {
     // Add fake notifications to the store
-    notificationStore.setState({
+    store.setState({
       notifications: fakeNotifications,
     });
   });
@@ -19,10 +19,10 @@ describe('notifications', () => {
       };
 
       // Add notification
-      const newNotificationId = notificationStore.getState().addNotification(fakeNotificationInput);
+      const newNotificationId = store.getState().addNotification(fakeNotificationInput);
 
       expect(newNotificationId).toBe(fakeNotificationInput.id);
-      expect(notificationStore.getState().notifications).toMatchInlineSnapshot(`
+      expect(store.getState().notifications).toMatchInlineSnapshot(`
         [
           {
             "description": "Fake description",
@@ -43,9 +43,9 @@ describe('notifications', () => {
       `);
 
       // Test onClose function of newly added notification
-      notificationStore.getState().notifications[0].onClose!();
+      store.getState().notifications[0].onClose!();
 
-      expect(notificationStore.getState().notifications).toMatchInlineSnapshot(`
+      expect(store.getState().notifications).toMatchInlineSnapshot(`
         [
           {
             "description": "Fake description 0",
@@ -63,7 +63,7 @@ describe('notifications', () => {
 
     it('automatically assigns an ID if none was passed', () => {
       // Add notification
-      const newNotificationId = notificationStore
+      const newNotificationId = store
         .getState()
         .addNotification({ description: 'Fake description' });
 
@@ -74,14 +74,14 @@ describe('notifications', () => {
   describe('updateNotification', () => {
     it('updates the right notification with the right arguments', () => {
       // Update notification
-      notificationStore.getState().updateNotification({
+      store.getState().updateNotification({
         id: fakeNotifications[1].id,
         title: 'New fake title',
         description: 'New fake description',
         variant: 'error',
       });
 
-      expect(notificationStore.getState().notifications).toMatchInlineSnapshot(`
+      expect(store.getState().notifications).toMatchInlineSnapshot(`
         [
           {
             "description": "Fake description 0",
@@ -102,11 +102,11 @@ describe('notifications', () => {
   describe('removeNotification', () => {
     it('removes the right notification', () => {
       // Remove notification
-      notificationStore.getState().removeNotification({
+      store.getState().removeNotification({
         id: fakeNotifications[1].id,
       });
 
-      expect(notificationStore.getState().notifications).toMatchInlineSnapshot(`
+      expect(store.getState().notifications).toMatchInlineSnapshot(`
         [
           {
             "description": "Fake description 0",

@@ -1,6 +1,6 @@
-import { notificationStore } from 'stores/notifications';
+import { store } from 'packages/notifications/store';
 
-import { notifications as fakeNotifications } from '__mocks__/models/notifications';
+import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 import renderComponent from 'testUtils/renderComponent';
 
 import NotificationCenter from '..';
@@ -13,7 +13,7 @@ describe('NotificationCenter', () => {
 
   it('renders notifications correctly', () => {
     // Add fake notifications to the store
-    notificationStore.setState({
+    store.setState({
       notifications: fakeNotifications,
     });
 

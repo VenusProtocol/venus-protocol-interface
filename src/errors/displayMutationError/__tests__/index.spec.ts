@@ -1,10 +1,10 @@
-import { displayNotification } from 'utilities';
+import { displayNotification } from 'packages/notifications';
 import Vi from 'vitest';
 
 import { displayMutationError } from '..';
 import { VError } from '../../VError';
 
-vi.mock('utilities/notifications');
+vi.mock('packages/notifications');
 
 describe('displayMutationError', () => {
   it('calls displayNotification with the right argument when passing an Error instance', () => {

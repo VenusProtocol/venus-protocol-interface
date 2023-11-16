@@ -1,4 +1,4 @@
-import { displayNotification } from 'utilities';
+import { displayNotification } from 'packages/notifications';
 
 import { VError } from '../VError';
 import { formatVErrorToReadableString } from './formatVErrorToReadableString';

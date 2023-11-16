@@ -43,6 +43,5 @@ export { default as formatRewardDistribution } from './formatRewardDistribution'
 export { default as findTokenByAddress } from './findTokenByAddress';
 export * from './cn';
 export * from './createStoreSelectors';
-export * from './notifications';
 export * from './convertAprToApy';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';

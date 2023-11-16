@@ -16,7 +16,7 @@ export interface RemoveNotificationInput {
   id: Notification['id'];
 }
 
-export interface NotificationStoreState {
+export interface StoreState {
   notifications: Notification[];
   addNotification: (input: AddNotificationInput) => Notification['id'];
   updateNotification: (input: UpdateNotificationInput) => void;

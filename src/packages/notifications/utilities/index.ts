@@ -1,10 +1,10 @@
-import { notificationStore } from 'stores/notifications';
+import { store } from '../store';
 import {
   AddNotificationInput,
   Notification,
   RemoveNotificationInput,
   UpdateNotificationInput,
-} from 'stores/notifications/types';
+} from '../store/types';
 
 export const MAX_NOTIFICATIONS = 5;
 const DISPLAY_TIME_MS = 9000;
@@ -20,7 +20,7 @@ const setHideTimeout = ({
   id: Notification['id'];
   variant: Notification['variant'];
 }) => {
-  const { removeNotification } = notificationStore.getState();
+  const { removeNotification } = store.getState();
 
   // Automatically hide notification after a certain time if it's not of the variant "loading"
   if (variant !== 'loading') {
@@ -32,12 +32,12 @@ export const hideNotification = ({ id }: RemoveNotificationInput) => {
   // Clear hide timeout if one was set
   clearTimeout(timeoutsMapping[id]);
 
-  const { removeNotification } = notificationStore.getState();
+  const { removeNotification } = store.getState();
   removeNotification({ id });
 };
 
 export const displayNotification = (input: AddNotificationInput) => {
-  const { addNotification, notifications } = notificationStore.getState();
+  const { addNotification, notifications } = store.getState();
 
   // Remove last notification if we've reached the maximum allowed
   if (notifications.length >= MAX_NOTIFICATIONS) {
@@ -56,7 +56,7 @@ export const updateNotification = (input: UpdateNotificationInput) => {
   // Clear hide timeout if one was set
   clearTimeout(timeoutsMapping[input.id]);
 
-  const { updateNotification: updateStoreNotification } = notificationStore.getState();
+  const { updateNotification: updateStoreNotification } = store.getState();
 
   // Update notification
   updateStoreNotification(input);
