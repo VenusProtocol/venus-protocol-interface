@@ -7,9 +7,9 @@ import {
   checkForXvsVaultProxyTransactionError,
 } from 'errors';
 import { ContractReceipt, ContractTransaction } from 'ethers';
+import { displayNotification, updateNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
 import { useCallback } from 'react';
-import { displayNotification, updateNotification } from 'utilities';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';

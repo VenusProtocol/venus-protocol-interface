@@ -24,7 +24,7 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'relative flex overflow-hidden rounded-xl border p-2 transition-colors before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:bg-background before:transition-colors',
+      'relative flex overflow-hidden rounded-xl border p-2 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:bg-background before:transition-colors',
       (variant === 'info' || variant === 'loading') && 'border-lightGrey',
       variant === 'error' && 'border-red bg-red/5',
       variant === 'success' && 'border-green bg-green/5',

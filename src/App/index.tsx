@@ -13,7 +13,7 @@ import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Router from './Router';
 
-const NotificationCenter = lazy(() => import('containers/NotificationCenter'));
+const NotificationCenter = lazy(() => import('packages/notifications/NotificationCenter'));
 
 const App = () => (
   <Sentry.ErrorBoundary>
