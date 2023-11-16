@@ -61,7 +61,7 @@ describe('useIsFeatureEnabled', () => {
     expect(result.current).toBe(true);
   });
 
-  it('should return false for prime on BSC_MAINNET', () => {
+  it('should return true for prime on BSC_MAINNET', () => {
     (useAuth as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
@@ -72,7 +72,7 @@ describe('useIsFeatureEnabled', () => {
       }),
     );
 
-    expect(result.current).toBe(false);
+    expect(result.current).toBe(true);
   });
 
   it('should return all routes enabled on BSC_TESTNET', () => {
