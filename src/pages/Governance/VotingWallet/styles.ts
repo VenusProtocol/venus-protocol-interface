@@ -4,13 +4,6 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    root: css`
-      flex: 1;
-      margin-left: ${theme.spacing(4)};
-      ${theme.breakpoints.down('lg')} {
-        margin-left: 0;
-      }
-    `,
     clickableText: css`
       color: ${theme.palette.interactive.primary};
 
@@ -31,28 +24,10 @@ export const useStyles = () => {
         padding-bottom: ${theme.spacing(4)};
       }
     `,
-    totalLockedContainer: css`
-      margin: ${theme.spacing(4)} 0 ${theme.spacing(5)} 0;
-      ${theme.breakpoints.down('lg')} {
-        margin-bottom: 0;
-      }
-      ${theme.breakpoints.down('sm')} {
-        margin-bottom: ${theme.spacing(5)};
-      }
-    `,
     tokenIcon: css`
       height: ${theme.spacing(6.5)};
       width: ${theme.spacing(6.5)};
       margin-right: ${theme.spacing(3)};
-    `,
-    totalLockedValue: css`
-      display: flex;
-      flex-direction: row;
-      padding-bottom: ${theme.spacing(2)};
-      align-items: center;
-    `,
-    totalLockedText: css`
-      margin-right: ${theme.spacing(2)};
     `,
     voteSection: css`
       display: flex;
@@ -63,23 +38,6 @@ export const useStyles = () => {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-      }
-    `,
-    subtitle: css`
-      ${theme.breakpoints.down('md')} {
-        font-size: ${theme.typography.small1.fontSize};
-      }
-
-      ${theme.breakpoints.down('sm')} {
-        font-size: ${theme.typography.body1.fontSize};
-      }
-    `,
-    value: css`
-      ${theme.breakpoints.down('md')} {
-        font-size: ${theme.typography.h4.fontSize};
-      }
-      ${theme.breakpoints.down('sm')} {
-        font-size: ${theme.typography.h3.fontSize};
       }
     `,
     votingWalletPaper: css`
@@ -97,29 +55,8 @@ export const useStyles = () => {
         align-items: flex-start;
       }
     `,
-    toVote: css`
-      margin-bottom: ${theme.spacing(4)};
-    `,
-    depositTokens: css`
-      margin-bottom: ${theme.spacing(3)};
-    `,
-    delimiter: css`
-      ${theme.breakpoints.down('lg')} {
-        display: none;
-      }
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-        width: 100%;
-      }
-    `,
     infoIcon: css`
       align-self: center;
-    `,
-    totalLockedTitle: css`
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      margin-bottom: ${theme.spacing(1)};
     `,
   };
 };

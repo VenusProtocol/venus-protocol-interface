@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import {
   Button,
   ButtonWrapper,
+  Card,
   Delimiter,
   Icon,
   InfoIcon,
@@ -17,7 +17,7 @@ import { useTranslation } from 'packages/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
 
 import {
   useGetCurrentVotes,
@@ -90,8 +90,8 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
   return (
-    <div css={styles.root}>
-      <Typography variant="h4">{t('vote.votingWallet')}</Typography>
+    <div className="flex flex-1 flex-col lg:ml-4">
+      <h4 className="m-0 text-lg font-semibold leading-normal">{t('vote.votingWallet')}</h4>
 
       {!voteProposalFeatureEnabled && (
         <NoticeInfo
@@ -110,43 +110,42 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         />
       )}
 
-      <Paper css={styles.votingWalletPaper}>
+      <Card className="mt-6 flex flex-col items-start justify-start p-6 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
         <div css={styles.votingWeightContainer}>
-          <Typography variant="body2" css={styles.subtitle} className="text-grey">
+          <p className="m-0 text-base font-semibold leading-normal tracking-[0.3px] text-grey sm:text-sm md:text-base">
             {t('vote.votingWeight')}
-          </Typography>
+          </p>
 
-          <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.votingWeightValue}>
+          <h3
+            className="m-0 text-xl sm:text-lg md:text-xl"
+            data-testid={TEST_IDS.votingWeightValue}
+          >
             {readableVoteWeight}
-          </Typography>
+          </h3>
         </div>
 
-        <Delimiter css={styles.delimiter} />
+        <Delimiter className="block w-full sm:hidden lg:block" />
 
-        <div css={styles.totalLockedContainer}>
-          <div css={styles.totalLockedTitle}>
-            <Typography
-              variant="body2"
-              className="text-grey"
-              css={[styles.subtitle, styles.totalLockedText]}
-            >
+        <div className={cn('mt-4', voteProposalFeatureEnabled && 'mb-5 sm:mb-0 lg:mb-5')}>
+          <div className="mb-1 flex flex-row items-end">
+            <p className="m-0 mr-2 text-base font-semibold leading-normal tracking-[0.3px] text-grey sm:text-sm md:text-base">
               {t('vote.totalLocked')}
-            </Typography>
+            </p>
 
             {previouslyDelegated && (
-              <InfoIcon
-                tooltip={t('vote.youDelegatedTo', { delegate })}
-                css={[styles.infoIcon, styles.subtitle]}
-              />
+              <InfoIcon tooltip={t('vote.youDelegatedTo', { delegate })} css={[styles.infoIcon]} />
             )}
           </div>
 
-          <div css={styles.totalLockedValue}>
+          <div className={cn('flex flex-row items-center', voteProposalFeatureEnabled && 'pb-2')}>
             {xvs && <TokenIcon token={xvs} css={styles.tokenIcon} />}
 
-            <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.totalLockedValue}>
+            <h3
+              className="m-0 text-xl sm:text-lg md:text-xl"
+              data-testid={TEST_IDS.totalLockedValue}
+            >
               {readableXvsLocked}
-            </Typography>
+            </h3>
           </div>
         </div>
 
@@ -171,16 +170,16 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             {previouslyDelegated ? t('vote.redelegate') : t('vote.delegate')}
           </PrimaryButton>
         )}
-      </Paper>
+      </Card>
 
       {voteProposalFeatureEnabled && (
         <>
-          <Paper css={[styles.votingWalletPaper, styles.voteSection]}>
-            <Typography variant="body2" color="textPrimary" css={styles.toVote}>
+          <Card className="mt-6 flex flex-col items-start justify-start p-6 lg:justify-between">
+            <p className="mb-4 font-semibold leading-normal tracking-[0.3px]" color="textPrimary">
               {t('vote.toVoteYouShould')}
-            </Typography>
+            </p>
 
-            <Typography variant="small2" color="textPrimary" css={styles.depositTokens}>
+            <span className="mb-3 text-sm" color="textPrimary">
               <Trans
                 i18nKey="vote.depositYourTokens"
                 components={{
@@ -193,9 +192,9 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
                   ),
                 }}
               />
-            </Typography>
+            </span>
 
-            <Typography variant="small2" color="textPrimary">
+            <span className="text-sm" color="textPrimary">
               <Trans
                 i18nKey="vote.delegateYourVoting"
                 components={{
@@ -211,8 +210,8 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
                   ),
                 }}
               />
-            </Typography>
-          </Paper>
+            </span>
+          </Card>
 
           <ButtonWrapper
             variant="secondary"
