@@ -561,7 +561,7 @@
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeStatusBanner": {
-    "becomePrimeTitle": "You can now become a Primer user",
+    "becomePrimeTitle": "You can now become a Prime user",
     "claimButtonLabel": "Claim Prime token",
     "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>",
     "noPrimeTokenWarning": {
