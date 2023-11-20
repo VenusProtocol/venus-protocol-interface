@@ -1,7 +1,9 @@
 import { logError } from 'errors';
 import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 import { Token, VToken } from 'types';
+import { areAddressesEqual } from 'utilities';
 
+import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
@@ -47,6 +49,12 @@ const getVTokens = async ({
 
   // Shape meta data into vToken
   const vTokens = vTokenMetaData.reduce<VToken[]>((acc, metaData) => {
+    // Temporary workaround to filter out CAN
+    if (areAddressesEqual(metaData.underlyingAssetAddress, BSC_MAINNET_CAN_ADDRESS)) {
+      // TODO: remove once a more generic solution has been integrated on the contract side
+      return acc;
+    }
+
     const underlyingToken = findTokenByAddress({
       tokens,
       address: metaData.underlyingAssetAddress,
