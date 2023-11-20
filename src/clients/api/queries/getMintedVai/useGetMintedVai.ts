@@ -1,4 +1,4 @@
-import { useGetMainPoolComptrollerContract } from 'packages/contracts';
+import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -10,7 +10,7 @@ import getMintedVai, {
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
 
-type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'mainPoolComptrollerContract'>;
+type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'legacyPoolComptrollerContract'>;
 
 export type UseGetMintedVaiQueryKey = [
   FunctionKey.GET_MINTED_VAI,
@@ -29,12 +29,12 @@ type Options = QueryObserverOptions<
 
 const useGetMintedVai = (input: TrimmedGetMintedVaiOutput, options?: Options) => {
   const { chainId } = useAuth();
-  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
+  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
 
   return useQuery(
     [FunctionKey.GET_MINTED_VAI, { ...input, chainId }],
     () =>
-      callOrThrow({ mainPoolComptrollerContract }, params =>
+      callOrThrow({ legacyPoolComptrollerContract }, params =>
         getMintedVai({
           ...params,
           ...input,

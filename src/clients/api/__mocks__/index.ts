@@ -35,8 +35,9 @@ export const useGetVaiTreasuryPercentage = () =>
 
 export const getHypotheticalAccountLiquidity = vi.fn();
 
-export const getMainMarkets = vi.fn();
-export const useGetMainMarkets = () => useQuery(FunctionKey.GET_MAIN_MARKETS, getMainMarkets);
+export const getLegacyPoolMarkets = vi.fn();
+export const useGetLegacyPoolMarkets = () =>
+  useQuery(FunctionKey.GET_MAIN_MARKETS, getLegacyPoolMarkets);
 
 export const getMarketHistory = vi.fn();
 export const useGetMarketHistory = () => useQuery(FunctionKey.GET_MARKET_HISTORY, getMarketHistory);
@@ -125,7 +126,7 @@ export const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = () =>
 
 export const useGetTreasuryTotals = vi.fn();
 
-export const useGetMainPoolTotalXvsDistributed = vi.fn();
+export const useGetLegacyPoolTotalXvsDistributed = vi.fn();
 
 export const useGetIsolatedPools = vi.fn(() => ({
   isLoading: false,
@@ -134,10 +135,10 @@ export const useGetIsolatedPools = vi.fn(() => ({
   },
 }));
 
-export const getMainPool = vi.fn(async () => ({
+export const getLegacyPool = vi.fn(async () => ({
   pool: poolData[0],
 }));
-export const useGetMainPool = vi.fn(() => useQuery(FunctionKey.GET_MAIN_POOL, getMainPool));
+export const useGetLegacyPool = vi.fn(() => useQuery(FunctionKey.GET_LEGACY_POOL, getLegacyPool));
 
 export const useGetPool = vi.fn(() => ({
   isLoading: false,

@@ -1,5 +1,5 @@
 import {
-  useGetMainPoolComptrollerContract,
+  useGetLegacyPoolComptrollerContract,
   useGetPrimeContract,
   useGetResilientOracleContract,
   useGetVaiControllerContract,
@@ -11,20 +11,23 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-import getMainPool, { GetMainPoolInput, GetMainPoolOutput } from 'clients/api/queries/getMainPool';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import getLegacyPool, {
+  GetLegacyPoolInput,
+  GetLegacyPoolOutput,
+} from 'clients/api/queries/getLegacyPool';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
-  GetMainPoolInput,
+  GetLegacyPoolInput,
   | 'blocksPerDay'
   | 'provider'
   | 'name'
   | 'description'
   | 'venusLensContract'
-  | 'mainPoolComptrollerContract'
+  | 'legacyPoolComptrollerContract'
   | 'resilientOracleContract'
   | 'vaiControllerContract'
   | 'vai'
@@ -32,24 +35,24 @@ type TrimmedInput = Omit<
   | 'tokens'
 >;
 
-export type UseGetMainPoolQueryKey = [
-  FunctionKey.GET_MAIN_POOL,
+export type UseGetLegacyPoolQueryKey = [
+  FunctionKey.GET_LEGACY_POOL,
   TrimmedInput & { chainId: ChainId },
 ];
 
 type Options = QueryObserverOptions<
-  GetMainPoolOutput,
+  GetLegacyPoolOutput,
   Error,
-  GetMainPoolOutput,
-  GetMainPoolOutput,
-  UseGetMainPoolQueryKey
+  GetLegacyPoolOutput,
+  GetLegacyPoolOutput,
+  UseGetLegacyPoolQueryKey
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetMainPool = (input: TrimmedInput, options?: Options) => {
+const useGetLegacyPool = (input: TrimmedInput, options?: Options) => {
   const { chainId } = useAuth();
-  const { blocksPerDay } = CHAIN_METADATA[chainId];
+  const { blocksPerDay } = useGetChainMetadata();
 
   const { t } = useTranslation();
 
@@ -60,29 +63,29 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
     name: 'prime',
   });
 
-  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
+  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
   const venusLensContract = useGetVenusLensContract();
   const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
   const primeContract = useGetPrimeContract();
 
   return useQuery(
-    [FunctionKey.GET_MAIN_POOL, { ...input, chainId }],
+    [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     () =>
       callOrThrow(
         {
           xvs,
           vai,
-          mainPoolComptrollerContract,
+          legacyPoolComptrollerContract,
           venusLensContract,
           resilientOracleContract,
           vaiControllerContract,
         },
         params =>
-          getMainPool({
+          getLegacyPool({
             blocksPerDay,
-            name: t('mainPool.name'),
-            description: t('mainPool.description'),
+            name: t('legacyPool.name'),
+            description: t('legacyPool.description'),
             tokens,
             primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,
@@ -96,4 +99,4 @@ const useGetMainPool = (input: TrimmedInput, options?: Options) => {
   );
 };
 
-export default useGetMainPool;
+export default useGetLegacyPool;

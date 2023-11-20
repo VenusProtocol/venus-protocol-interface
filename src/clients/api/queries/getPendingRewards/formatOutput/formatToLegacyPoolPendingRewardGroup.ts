@@ -2,10 +2,10 @@ import BigNumber from 'bignumber.js';
 import { VenusLens } from 'packages/contracts';
 import { Token } from 'types';
 
-import { MainPoolPendingRewardGroup } from '../types';
+import { LegacyPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
-function formatToMainPoolPendingRewardGroup({
+function formatToLegacyPoolPendingRewardGroup({
   comptrollerContractAddress,
   venusLensPendingRewards,
   tokenPriceMapping,
@@ -29,8 +29,8 @@ function formatToMainPoolPendingRewardGroup({
   const { rewardToken, rewardAmountMantissa, rewardAmountCents, vTokenAddressesWithPendingReward } =
     rewardSummaryData;
 
-  const pendingRewardGroup: MainPoolPendingRewardGroup = {
-    type: 'mainPool',
+  const pendingRewardGroup: LegacyPoolPendingRewardGroup = {
+    type: 'legacyPool',
     comptrollerAddress: comptrollerContractAddress,
     rewardToken,
     rewardAmountCents,
@@ -41,4 +41,4 @@ function formatToMainPoolPendingRewardGroup({
   return pendingRewardGroup;
 }
 
-export default formatToMainPoolPendingRewardGroup;
+export default formatToLegacyPoolPendingRewardGroup;

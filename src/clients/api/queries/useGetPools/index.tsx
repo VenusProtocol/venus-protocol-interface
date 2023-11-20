@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Pool } from 'types';
 
-import { useGetIsolatedPools, useGetMainPool } from 'clients/api';
+import { useGetIsolatedPools, useGetLegacyPool } from 'clients/api';
 
 export interface UseGetPoolsInput {
   accountAddress?: string;
@@ -15,7 +15,7 @@ export interface UseGetPoolsOutput {
 }
 
 const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput => {
-  const { data: getMainPoolData, isLoading: isGetMainPoolDataLoading } = useGetMainPool({
+  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool({
     accountAddress,
   });
 
@@ -24,21 +24,21 @@ const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput =>
       accountAddress,
     });
 
-  const isLoading = isGetMainPoolDataLoading || isGetIsolatedPoolsDataLoading;
+  const isLoading = isGetLegacyPoolDataLoading || isGetIsolatedPoolsDataLoading;
 
   const data = useMemo(() => {
     if (isLoading) {
       return undefined;
     }
 
-    const pools = (getMainPoolData?.pool ? [getMainPoolData?.pool] : []).concat(
+    const pools = (getLegacyPoolData?.pool ? [getLegacyPoolData?.pool] : []).concat(
       getIsolatedPoolsData?.pools || [],
     );
 
     return {
       pools,
     };
-  }, [getMainPoolData?.pool, getIsolatedPoolsData?.pools, isLoading]);
+  }, [getLegacyPoolData?.pool, getIsolatedPoolsData?.pools, isLoading]);
 
   return { isLoading, data };
 };

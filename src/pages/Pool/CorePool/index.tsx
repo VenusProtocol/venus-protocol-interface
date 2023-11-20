@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { useGetMainPoolComptrollerContractAddress } from 'packages/contracts';
-import React from 'react';
+import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
 import { Navigate } from 'react-router-dom';
 
 import { routes } from 'constants/routing';
@@ -8,13 +6,13 @@ import { routes } from 'constants/routing';
 import Pool from '..';
 
 const CorePool: React.FC = () => {
-  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 
-  if (!mainPoolComptrollerContractAddress) {
+  if (!legacyPoolComptrollerContractAddress) {
     return <Navigate to={routes.dashboard.path} />;
   }
 
-  return <Pool poolComptrollerAddress={mainPoolComptrollerContractAddress} />;
+  return <Pool poolComptrollerAddress={legacyPoolComptrollerContractAddress} />;
 };
 
 export default CorePool;

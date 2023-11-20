@@ -4,23 +4,23 @@ import React from 'react';
 import Vi from 'vitest';
 
 import { markets } from '__mocks__/models/markets';
-import { getMainMarkets } from 'clients/api';
+import { getLegacyPoolMarkets } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
 
-import useGetMainPoolTotalXvsDistributed, { UseGetMainPoolTotalXvsDistributedOutput } from '.';
+import useGetLegacyPoolTotalXvsDistributed, { UseGetLegacyPoolTotalXvsDistributedOutput } from '.';
 
-describe('api/queries/useGetMainPoolTotalXvsDistributed', () => {
+describe('api/queries/useGetLegacyPoolTotalXvsDistributed', () => {
   beforeEach(() => {
-    (getMainMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
+    (getLegacyPoolMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
   });
 
   it('returns data in the correct format', async () => {
-    let data: UseGetMainPoolTotalXvsDistributedOutput['data'] = {
+    let data: UseGetLegacyPoolTotalXvsDistributedOutput['data'] = {
       totalXvsDistributedMantissa: new BigNumber(0),
     };
 
     const CallMarketContext = () => {
-      ({ data } = useGetMainPoolTotalXvsDistributed());
+      ({ data } = useGetLegacyPoolTotalXvsDistributed());
       return <div />;
     };
 

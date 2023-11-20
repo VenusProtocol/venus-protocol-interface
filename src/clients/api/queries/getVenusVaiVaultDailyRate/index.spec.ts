@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { MainPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'packages/contracts';
 import { ChainId } from 'types';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
@@ -15,10 +15,10 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
 
     const fakeContract = {
       venusVAIVaultRate: venusVaiVaultRateMock,
-    } as unknown as MainPoolComptroller;
+    } as unknown as LegacyPoolComptroller;
 
     const response = await getVenusVaiVaultDailyRate({
-      mainPoolComptrollerContract: fakeContract,
+      legacyPoolComptrollerContract: fakeContract,
       blocksPerDay: 28800,
     });
 

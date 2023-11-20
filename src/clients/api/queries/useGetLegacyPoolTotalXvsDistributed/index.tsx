@@ -3,9 +3,9 @@ import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
 import { convertTokensToMantissa } from 'utilities';
 
-import { useGetMainMarkets } from 'clients/api';
+import { useGetLegacyPoolMarkets } from 'clients/api';
 
-export interface UseGetMainPoolTotalXvsDistributedOutput {
+export interface UseGetLegacyPoolTotalXvsDistributedOutput {
   isLoading: boolean;
   data?: {
     totalXvsDistributedMantissa: BigNumber;
@@ -14,8 +14,9 @@ export interface UseGetMainPoolTotalXvsDistributedOutput {
 
 // TODO: get from subgraph
 
-const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedOutput => {
-  const { data: getMainMarketsData, isLoading: isGetMainAssetsLoading } = useGetMainMarkets();
+const useGetLegacyPoolTotalXvsDistributed = (): UseGetLegacyPoolTotalXvsDistributedOutput => {
+  const { data: getLegacyPoolMarketsData, isLoading: isGetMainAssetsLoading } =
+    useGetLegacyPoolMarkets();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -23,8 +24,8 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
 
   const totalXvsDistributedMantissa = useMemo(() => {
     const totalXvsDistributedTokens =
-      getMainMarketsData?.markets &&
-      getMainMarketsData.markets.reduce(
+      getLegacyPoolMarketsData?.markets &&
+      getLegacyPoolMarketsData.markets.reduce(
         (acc, market) => acc.plus(market.totalXvsDistributedTokens),
         new BigNumber(0),
       );
@@ -37,7 +38,7 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
         token: xvs,
       })
     );
-  }, [getMainMarketsData?.markets, xvs]);
+  }, [getLegacyPoolMarketsData?.markets, xvs]);
 
   return {
     isLoading: isGetMainAssetsLoading,
@@ -45,4 +46,4 @@ const useGetMainPoolTotalXvsDistributed = (): UseGetMainPoolTotalXvsDistributedO
   };
 };
 
-export default useGetMainPoolTotalXvsDistributed;
+export default useGetLegacyPoolTotalXvsDistributed;

@@ -7,11 +7,11 @@ to fetch data and send transactions.
 import { useGetGovernorBravoDelegateContract, useGetVTokenContract } from 'packages/contracts';
 
 // Initialize contract instance without a signer
-const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
+const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
 
 // Fetch data
-if (mainPoolComptrollerContract) {
-  const vTokenAddresses = await mainPoolComptrollerContract.getAllMarkets();
+if (legacyPoolComptrollerContract) {
+  const vTokenAddresses = await legacyPoolComptrollerContract.getAllMarkets();
 }
 
 // Initialize contract instance with a signer

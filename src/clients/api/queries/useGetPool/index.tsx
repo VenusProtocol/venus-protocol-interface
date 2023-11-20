@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Pool } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 import { useGetPools } from 'clients/api';
 
@@ -11,7 +12,7 @@ export interface UseGetPoolInput {
 export interface UseGetPoolOutput {
   isLoading: boolean;
   data?: {
-    pool?: Pool;
+    pool: Pool;
   };
 }
 
@@ -26,16 +27,15 @@ const useGetPool = ({
   const pool = useMemo(
     () =>
       getPoolsData?.pools &&
-      getPoolsData.pools.find(
-        currPool =>
-          currPool.comptrollerAddress.toLowerCase() === poolComptrollerAddress.toLowerCase(),
+      getPoolsData.pools.find(currPool =>
+        areAddressesEqual(currPool.comptrollerAddress, poolComptrollerAddress),
       ),
     [poolComptrollerAddress, getPoolsData?.pools],
   );
 
   return {
     isLoading,
-    data: getPoolsData?.pools && {
+    data: pool && {
       pool,
     },
   };

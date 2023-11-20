@@ -3,7 +3,7 @@ import { VError } from 'errors';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
-  useGetMainPoolComptrollerContract,
+  useGetLegacyPoolComptrollerContract,
 } from 'packages/contracts';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import React, { useCallback, useState } from 'react';
@@ -32,7 +32,7 @@ const useCollateral = () => {
     waitForConfirmation: true,
   });
 
-  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract({
+  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract({
     passSigner: true,
   });
 
@@ -51,9 +51,9 @@ const useCollateral = () => {
 
     const comptrollerContract = areAddressesEqual(
       comptrollerAddress,
-      mainPoolComptrollerContract?.address || '',
+      legacyPoolComptrollerContract?.address || '',
     )
-      ? mainPoolComptrollerContract
+      ? legacyPoolComptrollerContract
       : getIsolatedPoolComptrollerContract({
           address: comptrollerAddress,
           signerOrProvider: signer,

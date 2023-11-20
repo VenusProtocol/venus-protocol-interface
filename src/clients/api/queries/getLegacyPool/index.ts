@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { convertAprToApy, extractSettledPromiseValue } from 'utilities';
 
-import getMainMarkets from '../getMainMarkets';
+import getLegacyPoolMarkets from '../getLegacyPoolMarkets';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatToPool } from './formatToPool';
-import { GetMainPoolInput, GetMainPoolOutput, PrimeApy } from './types';
+import { GetLegacyPoolInput, GetLegacyPoolOutput, PrimeApy } from './types';
 
-export type { GetMainPoolInput, GetMainPoolOutput } from './types';
+export type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
-const getMainPool = async ({
+const getLegacyPool = async ({
   blocksPerDay,
   name,
   description,
@@ -16,12 +16,12 @@ const getMainPool = async ({
   vai,
   tokens,
   accountAddress,
-  mainPoolComptrollerContract,
+  legacyPoolComptrollerContract,
   venusLensContract,
   vaiControllerContract,
   resilientOracleContract,
   primeContract,
-}: GetMainPoolInput): Promise<GetMainPoolOutput> => {
+}: GetLegacyPoolInput): Promise<GetLegacyPoolOutput> => {
   const [
     marketsResult,
     mainMarkets,
@@ -35,10 +35,10 @@ const getMainPool = async ({
     vaiRepayAmountResult,
   ] = await Promise.allSettled([
     // Fetch all markets
-    mainPoolComptrollerContract.getAllMarkets(),
+    legacyPoolComptrollerContract.getAllMarkets(),
     // Fetch main markets to get the supplier and borrower counts
     // TODO: fetch borrower and supplier counts from subgraph once available
-    getMainMarkets({ xvs }),
+    getLegacyPoolMarkets({ xvs }),
     // Fetch XVS price
     resilientOracleContract.getPrice(xvs.address),
     // Prime related calls
@@ -46,7 +46,7 @@ const getMainPool = async ({
     primeContract?.MINIMUM_STAKED_XVS(),
     // Account related calls
     accountAddress ? primeContract?.tokens(accountAddress) : undefined,
-    accountAddress ? mainPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
+    accountAddress ? legacyPoolComptrollerContract.getAssetsIn(accountAddress) : undefined,
     // Call (statically) accrueVAIInterest to calculate past accrued interests before fetching all
     // interests. Since multicall will batch these requests, the call to accrueVAIInterest and
     // getVAIRepayAmount will happen in the same request (thus making the accrual possible)
@@ -74,21 +74,21 @@ const getMainPool = async ({
 
   // Fetch vToken borrow and supply caps
   const borrowCapsPromises = Promise.allSettled(
-    vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.borrowCaps(vTokenAddress)),
+    vTokenAddresses.map(vTokenAddress => legacyPoolComptrollerContract.borrowCaps(vTokenAddress)),
   );
   const supplyCapsPromises = Promise.allSettled(
-    vTokenAddresses.map(vTokenAddress => mainPoolComptrollerContract.supplyCaps(vTokenAddress)),
+    vTokenAddresses.map(vTokenAddress => legacyPoolComptrollerContract.supplyCaps(vTokenAddress)),
   );
 
   // Fetch vToken borrow and supply speeds
   const xvsBorrowSpeedPromises = Promise.allSettled(
     vTokenAddresses.map(vTokenAddress =>
-      mainPoolComptrollerContract.venusBorrowSpeeds(vTokenAddress),
+      legacyPoolComptrollerContract.venusBorrowSpeeds(vTokenAddress),
     ),
   );
   const xvsSupplySpeedPromises = Promise.allSettled(
     vTokenAddresses.map(vTokenAddress =>
-      mainPoolComptrollerContract.venusSupplySpeeds(vTokenAddress),
+      legacyPoolComptrollerContract.venusSupplySpeeds(vTokenAddress),
     ),
   );
 
@@ -151,7 +151,7 @@ const getMainPool = async ({
     vai,
     tokens,
     description,
-    comptrollerContractAddress: mainPoolComptrollerContract.address,
+    comptrollerContractAddress: legacyPoolComptrollerContract.address,
     vTokenMetaDataResults: vTokenMetaDataResults.value,
     underlyingTokenPriceResults,
     borrowCapsResults,
@@ -185,4 +185,4 @@ const getMainPool = async ({
   };
 };
 
-export default getMainPool;
+export default getLegacyPool;

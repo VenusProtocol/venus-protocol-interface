@@ -1,12 +1,12 @@
-import { useGetMainPoolComptrollerContract } from 'packages/contracts';
+import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from 'clients/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetVenusVaiVaultDailyRateQueryKey = [
   FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE,
@@ -23,13 +23,13 @@ type Options = QueryObserverOptions<
 
 const useGetVenusVaiVaultDailyRate = (options?: Options) => {
   const { chainId } = useAuth();
-  const { blocksPerDay } = CHAIN_METADATA[chainId];
-  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
+  const { blocksPerDay } = useGetChainMetadata();
+  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
 
   return useQuery(
     [FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE, { chainId }],
     () =>
-      callOrThrow({ mainPoolComptrollerContract }, params =>
+      callOrThrow({ legacyPoolComptrollerContract }, params =>
         getVenusVaiVaultDailyRate({
           ...params,
           blocksPerDay,

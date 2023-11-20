@@ -136,9 +136,9 @@ export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasury
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
 
-export { default as getMainMarkets } from './queries/getMainMarkets';
-export * from './queries/getMainMarkets';
-export { default as useGetMainMarkets } from './queries/getMainMarkets/useGetMainMarkets';
+export { default as getLegacyPoolMarkets } from './queries/getLegacyPoolMarkets';
+export * from './queries/getLegacyPoolMarkets';
+export { default as useGetLegacyPoolMarkets } from './queries/getLegacyPoolMarkets/useGetLegacyPoolMarkets';
 
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
@@ -191,10 +191,10 @@ export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdraw
 
 export { default as useGetAsset } from './queries/useGetAsset';
 
-export { default as useGetMainPoolTotalXvsDistributed } from './queries/useGetMainPoolTotalXvsDistributed';
+export { default as useGetLegacyPoolTotalXvsDistributed } from './queries/useGetLegacyPoolTotalXvsDistributed';
 
-export * from './queries/getMainPool';
-export { default as useGetMainPool } from './queries/getMainPool/useGetMainPool';
+export * from './queries/getLegacyPool';
+export { default as useGetLegacyPool } from './queries/getLegacyPool/useGetLegacyPool';
 
 export { default as useGetPools } from './queries/useGetPools';
 

@@ -11,6 +11,7 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://bscscan.com',
     blockTimeMs: 3000,
     blocksPerDay: 28800,
+    corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
   },
   [ChainId.BSC_TESTNET]: {
     name: 'BSC Testnet',
@@ -18,6 +19,7 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://testnet.bscscan.com',
     blockTimeMs: 3000,
     blocksPerDay: 28800,
+    corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
   },
   [ChainId.ETHEREUM]: {
     name: 'Ethereum',
@@ -25,6 +27,7 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://etherscan.io/',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
+    corePoolComptrollerContractAddress: '', // TODO: add record (see VEN-2120)
   },
   [ChainId.SEPOLIA]: {
     name: 'Sepolia',
@@ -32,5 +35,6 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://sepolia.etherscan.io/',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
+    corePoolComptrollerContractAddress: '', // TODO: add record (see VEN-2120)
   },
 };

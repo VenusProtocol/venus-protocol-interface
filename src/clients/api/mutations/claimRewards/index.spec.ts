@@ -18,7 +18,7 @@ const fakeClaims: Claim[] = [
     poolIndex: 0,
   },
   {
-    contract: 'mainPoolComptroller',
+    contract: 'legacyPoolComptroller',
     vTokenAddressesWithPendingReward: [
       '0x08e0a5575de71037ae36abfafb516595fe68e5e4',
       '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
@@ -51,7 +51,7 @@ describe('claimRewards', () => {
 
     const res = await claimRewards({
       multicallContract: fakeMulticallContract,
-      mainPoolComptrollerContractAddress: 'fake-main-pool-comptroller-address',
+      legacyPoolComptrollerContractAddress: 'fake-main-pool-comptroller-address',
       vaiVaultContractAddress: 'fake-vai-vault-address',
       xvsVaultContractAddress: 'fake-xvs-vault-address',
       primeContractAddress: 'fake-prime-contract-address',

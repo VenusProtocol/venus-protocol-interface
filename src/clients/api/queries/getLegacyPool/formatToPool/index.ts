@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { logError } from 'errors';
-import { MainPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
+import { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
 import { Asset, Market, Pool, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
@@ -33,13 +33,17 @@ export interface FormatToPoolInput {
   underlyingTokenPriceResults: PromiseSettledResult<
     Awaited<ReturnType<ResilientOracle['getPrice']>>
   >[];
-  borrowCapsResults: PromiseSettledResult<Awaited<ReturnType<MainPoolComptroller['borrowCaps']>>>[];
-  supplyCapsResults: PromiseSettledResult<Awaited<ReturnType<MainPoolComptroller['supplyCaps']>>>[];
+  borrowCapsResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['borrowCaps']>>
+  >[];
+  supplyCapsResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['supplyCaps']>>
+  >[];
   xvsBorrowSpeedResults: PromiseSettledResult<
-    Awaited<ReturnType<MainPoolComptroller['venusBorrowSpeeds']>>
+    Awaited<ReturnType<LegacyPoolComptroller['venusBorrowSpeeds']>>
   >[];
   xvsSupplySpeedResults: PromiseSettledResult<
-    Awaited<ReturnType<MainPoolComptroller['venusSupplySpeeds']>>
+    Awaited<ReturnType<LegacyPoolComptroller['venusSupplySpeeds']>>
   >[];
   xvsPriceMantissa: BigNumber;
   primeApyMap: Map<string, PrimeApy>;

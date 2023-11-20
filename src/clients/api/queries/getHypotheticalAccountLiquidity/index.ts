@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contracts';
+import { IsolatedPoolComptroller, LegacyPoolComptroller } from 'packages/contracts';
 
 export interface GetHypotheticalAccountLiquidityInput {
-  comptrollerContract: MainPoolComptroller | IsolatedPoolComptroller;
+  comptrollerContract: LegacyPoolComptroller | IsolatedPoolComptroller;
   accountAddress: string;
   vTokenAddress: string;
   vTokenBalanceOfMantissa: BigNumber;

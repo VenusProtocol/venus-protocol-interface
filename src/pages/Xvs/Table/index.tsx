@@ -16,7 +16,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { useGetBalanceOf, useGetMainPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
@@ -120,7 +120,7 @@ const XvsTable: React.FC = () => {
     symbol: 'XVS',
   });
 
-  const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
+  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool({
     accountAddress,
   });
 
@@ -139,8 +139,8 @@ const XvsTable: React.FC = () => {
   );
 
   const assetsWithVai = useMemo(() => {
-    const allAssets: TableAsset[] = (getMainPoolData?.pool.assets || []).map(asset => {
-      // Note: assets from the main pool only yield XVS, hence why we only take
+    const allAssets: TableAsset[] = (getLegacyPoolData?.pool.assets || []).map(asset => {
+      // Note: assets from the core pool only yield XVS, hence why we only take
       // the first distribution token in consideration (which will always be XVS
       // here)
       const supplyXvsDistribution = asset.supplyDistributions[0] as RewardDistributorDistribution;
@@ -156,7 +156,7 @@ const XvsTable: React.FC = () => {
       };
     });
 
-    const xvsAsset = (getMainPoolData?.pool.assets || []).find(asset =>
+    const xvsAsset = (getLegacyPoolData?.pool.assets || []).find(asset =>
       areTokensEqual(asset.vToken.underlyingToken, xvs!),
     );
 
@@ -186,9 +186,9 @@ const XvsTable: React.FC = () => {
     }
 
     return allAssets;
-  }, [getMainPoolData?.pool.assets, venusVaiVaultDailyRateData, vaultVaiStakedData, vai, xvs]);
+  }, [getLegacyPoolData?.pool.assets, venusVaiVaultDailyRateData, vaultVaiStakedData, vai, xvs]);
 
-  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetMainPoolLoading} xvs={xvs!} />;
+  return <XvsTableUi assets={assetsWithVai} isFetchingAssets={isGetLegacyPoolLoading} xvs={xvs!} />;
 };
 
 export default XvsTable;

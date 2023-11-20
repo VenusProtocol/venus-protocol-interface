@@ -1,5 +1,5 @@
 import {
-  useGetMainPoolComptrollerContract,
+  useGetLegacyPoolComptrollerContract,
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
   useGetVenusLensContract,
@@ -33,7 +33,7 @@ const useGetVTokens = (options?: Options) => {
   const tokens = useGetTokens();
 
   const venusLensContract = useGetVenusLensContract();
-  const mainPoolComptrollerContract = useGetMainPoolComptrollerContract();
+  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
   const poolLensContract = useGetPoolLensContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
@@ -47,7 +47,7 @@ const useGetVTokens = (options?: Options) => {
     () =>
       callOrThrow({ poolLensContract, poolRegistryContractAddress }, params =>
         getVTokens({
-          mainPoolComptrollerContract,
+          legacyPoolComptrollerContract,
           venusLensContract,
           tokens,
           ...params,

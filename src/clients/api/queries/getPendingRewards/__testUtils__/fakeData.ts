@@ -33,7 +33,7 @@ export const fakeGetIsolatedPoolPendingRewardsOutput = [
   },
 ];
 
-export const fakeGetMainPoolPendingRewardsOutput = {
+export const fakeGetLegacyPoolPendingRewardsOutput = {
   distributorAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
   rewardTokenAddress: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
   pendingRewards: [

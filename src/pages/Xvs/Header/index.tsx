@@ -2,7 +2,7 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
-import { useGetMainPoolComptrollerContractAddress } from 'packages/contracts';
+import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
@@ -15,8 +15,8 @@ import {
 
 import {
   useGetBalanceOf,
-  useGetMainPool,
-  useGetMainPoolTotalXvsDistributed,
+  useGetLegacyPool,
+  useGetLegacyPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
@@ -132,14 +132,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
-  const { data: getMainPoolData } = useGetMainPool({
+  const { data: getLegacyPoolData } = useGetLegacyPool({
     accountAddress,
   });
 
   const dailyXvsDistributedTokens = useMemo(
     () =>
-      (getMainPoolData?.pool.assets || []).reduce((acc, asset) => {
-        // Note: assets from the main pool only yield XVS, hence why we only
+      (getLegacyPoolData?.pool.assets || []).reduce((acc, asset) => {
+        // Note: assets from the legacy pool only yield XVS, hence why we only
         // take the first distribution token in consideration (which will
         // always be XVS here)
         const supplyXvsDistribution = asset.supplyDistributions[0] as RewardDistributorDistribution;
@@ -151,20 +151,20 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         return acc.plus(dailyXvsDistributed);
       }, new BigNumber(0)),
-    [getMainPoolData?.pool.assets],
+    [getLegacyPoolData?.pool.assets],
   );
 
-  const { data: mainPoolTotalXvsDistributedData } = useGetMainPoolTotalXvsDistributed();
+  const { data: legacyPoolTotalXvsDistributedData } = useGetLegacyPoolTotalXvsDistributed();
 
-  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 
   const { data: xvsRemainingDistributionData } = useGetBalanceOf(
     {
       token: xvs!,
-      accountAddress: mainPoolComptrollerContractAddress || '',
+      accountAddress: legacyPoolComptrollerContractAddress || '',
     },
     {
-      enabled: !!mainPoolComptrollerContractAddress,
+      enabled: !!legacyPoolComptrollerContractAddress,
     },
   );
 
@@ -179,7 +179,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       className={className}
       dailyXvsDistributedTokens={dailyXvsDistributedTokens}
       totalXvsDistributedMantissa={
-        mainPoolTotalXvsDistributedData?.totalXvsDistributedMantissa || new BigNumber(0)
+        legacyPoolTotalXvsDistributedData?.totalXvsDistributedMantissa || new BigNumber(0)
       }
       xvs={xvs!}
     />

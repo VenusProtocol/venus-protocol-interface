@@ -7,9 +7,9 @@ import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetVTokenApySimulationsQueryKey = [
   FunctionKey.GET_V_TOKEN_APY_SIMULATIONS,
@@ -37,7 +37,7 @@ const useGetVTokenApySimulations = (
   options?: Options,
 ) => {
   const { provider, chainId } = useAuth();
-  const { blocksPerDay } = CHAIN_METADATA[chainId];
+  const { blocksPerDay } = useGetChainMetadata();
 
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
 

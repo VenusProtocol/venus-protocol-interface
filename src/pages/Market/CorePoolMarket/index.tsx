@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useGetMainPoolComptrollerContractAddress } from 'packages/contracts';
+import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -8,11 +8,11 @@ import MarketLoader from '../MarketLoader';
 
 const CorePoolMarket: React.FC = () => {
   const { vTokenAddress } = useParams();
-  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 
   return (
     <MarketLoader
-      poolComptrollerAddress={mainPoolComptrollerContractAddress}
+      poolComptrollerAddress={legacyPoolComptrollerContractAddress}
       vTokenAddress={vTokenAddress}
     >
       {marketProps => <Market {...marketProps} />}

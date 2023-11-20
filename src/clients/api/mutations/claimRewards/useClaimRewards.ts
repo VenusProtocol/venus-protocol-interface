@@ -1,6 +1,6 @@
 import { useAnalytics } from 'packages/analytics';
 import {
-  useGetMainPoolComptrollerContractAddress,
+  useGetLegacyPoolComptrollerContractAddress,
   useGetMulticall3Contract,
   useGetPrimeContractAddress,
   useGetVaiVaultContractAddress,
@@ -15,7 +15,7 @@ import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTran
 type TrimmedClaimRewardsInput = Omit<
   ClaimRewardsInput,
   | 'multicallContract'
-  | 'mainPoolComptrollerContractAddress'
+  | 'legacyPoolComptrollerContractAddress'
   | 'vaiVaultContractAddress'
   | 'xvsVaultContractAddress'
 >;
@@ -27,7 +27,7 @@ const useClaimRewards = (options?: Options) => {
     passSigner: true,
   });
 
-  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
   const primeContractAddress = useGetPrimeContractAddress();
@@ -40,7 +40,7 @@ const useClaimRewards = (options?: Options) => {
       callOrThrow(
         {
           multicallContract,
-          mainPoolComptrollerContractAddress,
+          legacyPoolComptrollerContractAddress,
           vaiVaultContractAddress,
           xvsVaultContractAddress,
         },
@@ -53,9 +53,9 @@ const useClaimRewards = (options?: Options) => {
       ),
     onConfirmed: ({ input }) => {
       input.claims.forEach(claim => {
-        if (claim.contract === 'mainPoolComptroller') {
+        if (claim.contract === 'legacyPoolComptroller') {
           captureAnalyticEvent('Pool reward claimed', {
-            comptrollerAddress: mainPoolComptrollerContractAddress!,
+            comptrollerAddress: legacyPoolComptrollerContractAddress!,
             vTokenAddressesWithPendingReward: claim.vTokenAddressesWithPendingReward,
           });
         } else if (claim.contract === 'rewardsDistributor') {

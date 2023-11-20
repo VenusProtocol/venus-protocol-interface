@@ -13,7 +13,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
         "decimals": 18,
         "symbol": "XVS",
       },
-      "type": "mainPool",
+      "type": "legacyPool",
       "vTokenAddressesWithPendingReward": [
         "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
@@ -92,7 +92,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
         "decimals": 18,
         "symbol": "XVS",
       },
-      "type": "mainPool",
+      "type": "legacyPool",
       "vTokenAddressesWithPendingReward": [
         "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",

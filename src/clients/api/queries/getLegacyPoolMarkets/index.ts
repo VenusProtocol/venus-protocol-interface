@@ -10,21 +10,23 @@ export interface ApiMarket {
   supplierCount: number;
 }
 
-export interface GetMainMarketsResponse {
+export interface GetLegacyPoolMarketsResponse {
   result: ApiMarket[];
   request: { addresses: string[] };
 }
 
-export interface GetMainMarketsInput {
+export interface GetLegacyPoolMarketsInput {
   xvs: Token;
 }
 
-export interface GetMainMarketsOutput {
+export interface GetLegacyPoolMarketsOutput {
   markets: Market[];
 }
 
-const getMainMarkets = async ({ xvs }: GetMainMarketsInput): Promise<GetMainMarketsOutput> => {
-  const response = await restService<GetMainMarketsResponse>({
+const getLegacyPoolMarkets = async ({
+  xvs,
+}: GetLegacyPoolMarketsInput): Promise<GetLegacyPoolMarketsOutput> => {
+  const response = await restService<GetLegacyPoolMarketsResponse>({
     endpoint: '/markets/core-pool',
     method: 'GET',
     next: true,
@@ -56,4 +58,4 @@ const getMainMarkets = async ({ xvs }: GetMainMarketsInput): Promise<GetMainMark
   return { markets };
 };
 
-export default getMainMarkets;
+export default getLegacyPoolMarkets;

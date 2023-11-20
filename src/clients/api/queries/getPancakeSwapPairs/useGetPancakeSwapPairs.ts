@@ -5,9 +5,9 @@ import getPancakeSwapPairs, {
   GetPancakeSwapPairsInput,
   GetPancakeSwapPairsOutput,
 } from 'clients/api/queries/getPancakeSwapPairs';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';
 
@@ -30,7 +30,7 @@ const useGetPancakeSwapPairs = (
   options?: Options,
 ) => {
   const { provider, chainId } = useAuth();
-  const { blockTimeMs } = CHAIN_METADATA[chainId];
+  const { blockTimeMs } = useGetChainMetadata();
 
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);

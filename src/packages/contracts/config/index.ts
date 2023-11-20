@@ -11,7 +11,7 @@ import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deplo
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import resilientOracleMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet/ResilientOracle.json';
 import resilientOracleTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet/ResilientOracle.json';
-import { abi as MainPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
+import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { abi as SwapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
@@ -93,8 +93,8 @@ export const contracts: ContractConfig[] = [
     },
   },
   {
-    name: 'MainPoolComptroller',
-    abi: MainPoolComptrollerAbi,
+    name: 'LegacyPoolComptroller',
+    abi: LegacyPoolComptrollerAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolTestnetDeployments.Contracts.Unitroller,
       [ChainId.BSC_MAINNET]: venusProtocolMainnetDeployments.Contracts.Unitroller,
@@ -249,7 +249,7 @@ export const contracts: ContractConfig[] = [
     abi: SwapRouterAbi,
     address: {
       [ChainId.BSC_TESTNET]: {
-        // Main pool
+        // Core pool
         [venusProtocolTestnetDeployments.Unitroller.address.toLowerCase()]:
           venusProtocolTestnetDeployments.Contracts.SwapRouterCorePool,
         // Isolated pools
@@ -265,7 +265,7 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsTestnetDeployments.contracts.SwapRouter_LiquidStakedBNB.address,
       },
       [ChainId.BSC_MAINNET]: {
-        // Main pool
+        // Core pool
         [venusProtocolMainnetDeployments.Unitroller.address.toLowerCase()]:
           venusProtocolMainnetDeployments.Contracts.SwapRouterCorePool,
         // Isolated Pools

@@ -11,8 +11,8 @@ import { displayNotification, updateNotification } from 'packages/notifications'
 import { useTranslation } from 'packages/translations';
 import { useCallback } from 'react';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export const CONFIRMATIONS = 2;
 
@@ -27,6 +27,7 @@ interface TrackTransactionInput {
 
 export const useTrackTransaction = () => {
   const { provider, chainId } = useAuth();
+  const { blockTimeMs } = useGetChainMetadata();
   const { t } = useTranslation();
 
   const trackTransaction = useCallback(
@@ -41,7 +42,7 @@ export const useTrackTransaction = () => {
 
       let transactionReceipt: ContractReceipt | undefined;
 
-      const timeoutMs = CHAIN_METADATA[chainId].blockTimeMs * 10; // 10 blocks
+      const timeoutMs = blockTimeMs * 10; // 10 blocks
 
       try {
         transactionReceipt = await provider.waitForTransaction(
@@ -100,7 +101,7 @@ export const useTrackTransaction = () => {
       // Execute callback
       await onConfirmed?.({ transaction, transactionReceipt });
     },
-    [chainId, provider, t],
+    [chainId, provider, t, blockTimeMs],
   );
 
   return trackTransaction;
