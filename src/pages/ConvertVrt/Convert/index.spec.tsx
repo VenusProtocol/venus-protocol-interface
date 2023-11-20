@@ -6,7 +6,7 @@ import { ChainId } from 'types';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { AuthContext } from 'context/AuthContext';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Convert from '.';
 

@@ -8,7 +8,7 @@ import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';

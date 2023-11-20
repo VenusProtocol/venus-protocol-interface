@@ -10,7 +10,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';

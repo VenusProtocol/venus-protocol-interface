@@ -3,11 +3,11 @@ import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import React, { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useGetVaiCalculateRepayAmount } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 import useDebounceValue from 'hooks/useDebounceValue';
 
 import { useStyles } from '../styles';
@@ -21,7 +21,7 @@ export interface IRepayFeeProps {
 const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { accountAddress } = useContext(AuthContext);
+  const { accountAddress } = useAuth();
   const vai = useGetToken({
     symbol: 'VAI',
   });

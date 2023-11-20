@@ -5,7 +5,7 @@ import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
 import { vai } from '__mocks__/models/tokens';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import WithdrawFromVestingVaultModal from '.';
 

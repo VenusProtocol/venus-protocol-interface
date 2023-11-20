@@ -13,7 +13,7 @@ import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

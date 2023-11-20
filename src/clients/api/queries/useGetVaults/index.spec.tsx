@@ -25,7 +25,7 @@ import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/fo
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { useAuth } from 'context/AuthContext';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import useGetVaults, { UseGetVaultsOutput } from '.';
 

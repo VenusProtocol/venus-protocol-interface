@@ -5,7 +5,7 @@ import Vi from 'vitest';
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { claimRewards, getPendingRewards } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import ClaimRewardButton from '..';
 import TEST_IDS from '../../testIds';

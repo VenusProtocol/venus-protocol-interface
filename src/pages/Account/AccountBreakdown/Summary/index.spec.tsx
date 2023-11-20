@@ -3,7 +3,7 @@ import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
 import { vaults } from '__mocks__/models/vaults';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Summary from '.';
 import TEST_IDS from './testIds';

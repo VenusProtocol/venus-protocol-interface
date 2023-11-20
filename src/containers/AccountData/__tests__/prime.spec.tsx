@@ -7,7 +7,7 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { AccountData, AccountDataProps } from '..';
 

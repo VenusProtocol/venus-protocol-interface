@@ -9,7 +9,7 @@ import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Withdraw from '.';
 import TEST_IDS from './testIds';

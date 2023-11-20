@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Table, TableProps, switchAriaLabel } from 'components';
 import { displayMutationError } from 'errors';
-import React, { useContext, useMemo } from 'react';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
+import React, { useMemo } from 'react';
 import { Pool } from 'types';
 
-import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useCollateral from 'hooks/useCollateral';
 import useOperationModal from 'hooks/useOperationModal';
 
@@ -42,9 +42,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { OperationModal, openOperationModal } = useOperationModal();
   const { CollateralModal, toggleCollateral } = useCollateral();
 
-  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
-    DisableLunaUstWarningContext,
-  );
+  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
@@ -96,7 +94,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the supply modal of other assets
     if (
-      hasLunaOrUstCollateralEnabled &&
+      userHasLunaOrUstCollateralEnabled &&
       row.vToken.underlyingToken.symbol !== 'LUNA' &&
       row.vToken.underlyingToken.symbol !== 'UST'
     ) {

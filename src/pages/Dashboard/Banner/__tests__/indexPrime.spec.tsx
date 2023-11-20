@@ -5,7 +5,7 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetPrimeToken } from 'clients/api';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { Banner } from '..';
 import TEST_IDS from '../PrimePromotionalBanner/testIds';

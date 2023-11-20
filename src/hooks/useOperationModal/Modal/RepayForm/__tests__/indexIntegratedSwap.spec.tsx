@@ -20,7 +20,7 @@ import {
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';

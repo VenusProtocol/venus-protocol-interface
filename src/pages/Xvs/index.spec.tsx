@@ -4,7 +4,7 @@ import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { useGetMainPool, useGetMainPoolTotalXvsDistributed } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Xvs from '.';
 

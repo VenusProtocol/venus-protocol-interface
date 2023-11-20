@@ -7,7 +7,7 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';

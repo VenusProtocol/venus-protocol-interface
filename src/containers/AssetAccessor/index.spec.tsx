@@ -7,7 +7,7 @@ import Vi from 'vitest';
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import AssetAccessor, { AssetAccessorProps } from '.';
 

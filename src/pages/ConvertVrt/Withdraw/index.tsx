@@ -3,12 +3,11 @@ import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import { displayMutationError } from 'errors';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import React, { useContext } from 'react';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from '../styles';
@@ -30,9 +29,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
     symbol: 'XVS',
   });
 
-  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
-    DisableLunaUstWarningContext,
-  );
+  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
   const readableXvsAvailable = useConvertMantissaToReadableTokenString({
     value: xvsWithdrawableAmount,
@@ -41,7 +38,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
 
   const onSubmit = async () => {
     // Block action is user has LUNA or UST enabled as collateral
-    if (hasLunaOrUstCollateralEnabled) {
+    if (userHasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
     }

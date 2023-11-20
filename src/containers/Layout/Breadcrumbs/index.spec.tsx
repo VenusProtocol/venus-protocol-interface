@@ -6,7 +6,7 @@ import { poolData } from '__mocks__/models/pools';
 import vTokens from '__mocks__/models/vTokens';
 import { useGetPool, useGetVTokens } from 'clients/api';
 import { routes } from 'constants/routing';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import { Breadcrumbs } from '.';
 

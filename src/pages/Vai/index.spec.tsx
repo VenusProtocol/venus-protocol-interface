@@ -3,7 +3,7 @@ import { en } from 'packages/translations';
 import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Vai from '.';
 

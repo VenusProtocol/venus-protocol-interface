@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { poolData } from '__mocks__/models/pools';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import PoolsBreakdown, { PoolsBreakdownProps } from '.';
 import TEST_IDS from './testIds';

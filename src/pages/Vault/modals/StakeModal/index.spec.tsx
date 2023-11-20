@@ -8,7 +8,7 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { getBalanceOf, useStakeInVault } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';

@@ -3,7 +3,7 @@ import Vi from 'vitest';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { useGetVaults } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { renderComponent } from 'testUtils/render';
 
 import Vault from '.';
 import TEST_IDS from './VaultItem/testIds';
