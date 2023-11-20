@@ -1,9 +1,9 @@
 import { ContractTransaction } from 'ethers';
-import { IsolatedPoolComptroller, MainPoolComptroller } from 'packages/contracts';
+import { IsolatedPoolComptroller, LegacyPoolComptroller } from 'packages/contracts';
 import { VToken } from 'types';
 
 export type EnterMarketInput = {
-  comptrollerContract: MainPoolComptroller | IsolatedPoolComptroller;
+  comptrollerContract: LegacyPoolComptroller | IsolatedPoolComptroller;
   vToken: VToken;
 };
 

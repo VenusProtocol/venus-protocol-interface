@@ -4,13 +4,9 @@ import { useMemo } from 'react';
 import { Vault } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
-import {
-  useGetBalanceOf,
-  useGetMainPool,
-  useGetVaiVaultUserInfo,
-  useGetVenusVaiVaultDailyRate,
-} from 'clients/api';
+import { useGetBalanceOf, useGetVaiVaultUserInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { useGetCorePool } from 'hooks/useGetCorePool';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -52,18 +48,16 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateMantissaLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  const { data: getMainPoolData, isLoading: isGetMainPoolLoading } = useGetMainPool({
-    accountAddress,
-  });
+  const { data: getCorePoolData, isLoading: isGetCorePoolLoading } = useGetCorePool();
   const xvsPriceDollars = useMemo(() => {
-    if (!xvs || !getMainPoolData?.pool.assets) {
+    if (!xvs || !getCorePoolData?.pool.assets) {
       return undefined;
     }
 
-    return getMainPoolData.pool.assets
+    return getCorePoolData.pool.assets
       .find(asset => areTokensEqual(asset.vToken.underlyingToken, xvs))
       ?.tokenPriceCents.dividedBy(100);
-  }, [getMainPoolData?.pool.assets, xvs]);
+  }, [getCorePoolData?.pool.assets, xvs]);
 
   const data: Vault | undefined = useMemo(() => {
     if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars || !xvs || !vai) {
@@ -98,7 +92,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const isLoading =
     isGetTotalVaiStakedMantissaLoading ||
     isGetVaiVaultDailyRateMantissaLoading ||
-    isGetMainPoolLoading ||
+    isGetCorePoolLoading ||
     isGetVaiVaultUserInfoLoading;
 
   return {

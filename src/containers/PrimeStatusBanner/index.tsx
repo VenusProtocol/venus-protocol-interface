@@ -11,7 +11,7 @@ import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
   useClaimPrimeToken,
-  useGetMainPool,
+  useGetLegacyPool,
   useGetPrimeStatus,
   useGetPrimeToken,
   useGetXvsVaultUserInfo,
@@ -331,11 +331,11 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     },
   );
 
-  const { data: getMainPoolData, isLoading: isGetMainPoolDataLoading } = useGetMainPool({
+  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool({
     accountAddress,
   });
 
-  const primeAssets = getMainPoolData?.pool.assets.filter(
+  const primeAssets = getLegacyPoolData?.pool.assets.filter(
     a => primeStatusData?.primeMarkets.includes(a.vToken.address),
   );
   const primeApySimulations = primeAssets?.reduce<AssetDistribution[]>(
@@ -375,7 +375,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     isGetPrimeTokenLoading ||
     isLoadingPrimeStatus ||
     isLoadingXvsVaultUserInfo ||
-    isGetMainPoolDataLoading;
+    isGetLegacyPoolDataLoading;
 
   // Hide component while loading or if user is Prime already
   if (isAccountPrime || isLoading || !primeStatusData || !primeOrderedApys) {

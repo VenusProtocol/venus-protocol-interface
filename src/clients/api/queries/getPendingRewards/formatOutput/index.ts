@@ -8,14 +8,14 @@ import {
   XvsVestingVaultPendingRewardGroup,
 } from '../types';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
-import formatToMainPoolPendingRewardGroup from './formatToMainPoolPendingRewardGroup';
+import formatToLegacyPoolPendingRewardGroup from './formatToLegacyPoolPendingRewardGroup';
 import formatToPrimePendingRewardGroup from './formatToPrimePendingRewardGroup';
 import formatToVaultPendingRewardGroup from './formatToVaultPendingRewardGroup';
 import formatToVestingVaultPendingRewardGroup from './formatToVestingVaultPendingRewardGroup';
 
 const formatOutput = ({
   tokens,
-  mainPoolComptrollerContractAddress,
+  legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   vaiVaultPendingXvs,
   isolatedPoolsPendingRewards,
@@ -41,24 +41,24 @@ const formatOutput = ({
   isolatedPoolComptrollerAddresses: string[];
   isPrimeContractPaused: boolean;
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
-  mainPoolComptrollerContractAddress?: string;
+  legacyPoolComptrollerContractAddress?: string;
   primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
-  // Extract pending rewards from main pool
-  const mainPoolPendingRewardGroup =
-    venusLensPendingRewards && mainPoolComptrollerContractAddress
-      ? formatToMainPoolPendingRewardGroup({
+  // Extract pending rewards from core pool
+  const legacyPoolPendingRewardGroup =
+    venusLensPendingRewards && legacyPoolComptrollerContractAddress
+      ? formatToLegacyPoolPendingRewardGroup({
           venusLensPendingRewards,
           tokenPriceMapping,
-          comptrollerContractAddress: mainPoolComptrollerContractAddress,
+          comptrollerContractAddress: legacyPoolComptrollerContractAddress,
           tokens,
         })
       : undefined;
 
-  if (mainPoolPendingRewardGroup) {
-    pendingRewardGroups.push(mainPoolPendingRewardGroup);
+  if (legacyPoolPendingRewardGroup) {
+    pendingRewardGroups.push(legacyPoolPendingRewardGroup);
   }
 
   // Extract pending rewards from isolated pools

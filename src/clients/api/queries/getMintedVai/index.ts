@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { MainPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'packages/contracts';
 
 export interface GetMintedVaiInput {
-  mainPoolComptrollerContract: MainPoolComptroller;
+  legacyPoolComptrollerContract: LegacyPoolComptroller;
   accountAddress: string;
 }
 
@@ -11,10 +11,10 @@ export type GetMintedVaiOutput = {
 };
 
 const getMintedVai = async ({
-  mainPoolComptrollerContract,
+  legacyPoolComptrollerContract,
   accountAddress,
 }: GetMintedVaiInput): Promise<GetMintedVaiOutput> => {
-  const res = await mainPoolComptrollerContract.mintedVAIs(accountAddress);
+  const res = await legacyPoolComptrollerContract.mintedVAIs(accountAddress);
 
   return {
     mintedVaiMantissa: new BigNumber(res.toString()),

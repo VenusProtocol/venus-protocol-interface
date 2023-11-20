@@ -16,12 +16,12 @@ describe('PoolsBreakdown', () => {
   });
 
   it('displays content correctly', () => {
-    const mainPool = baseProps.pools[0];
+    const legacyPool = baseProps.pools[0];
     const { getByTestId, getByText } = renderComponent(
-      <PoolsBreakdown {...baseProps} pools={[mainPool]} />,
+      <PoolsBreakdown {...baseProps} pools={[legacyPool]} />,
     );
 
-    expect(getByText(mainPool.name)).toBeTruthy();
+    expect(getByText(legacyPool.name)).toBeTruthy();
     expect(getByTestId(TEST_IDS.tables).textContent).toMatchSnapshot();
   });
 });

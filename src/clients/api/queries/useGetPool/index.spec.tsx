@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -49,7 +48,6 @@ describe('api/queries/useGetPool', () => {
 
     renderComponent(<CallMarketContext />);
 
-    await waitFor(() => expect(!!data).toBe(true));
-    expect(data).toMatchSnapshot();
+    await waitFor(() => expect(data).toBe(undefined));
   });
 });

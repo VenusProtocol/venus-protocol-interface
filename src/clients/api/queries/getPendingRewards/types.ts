@@ -20,7 +20,7 @@ export interface GetPendingRewardsInput {
   xvsVaultContract: XvsVault;
   venusLensContract?: VenusLens;
   primeContract?: Prime;
-  mainPoolComptrollerContractAddress?: string;
+  legacyPoolComptrollerContractAddress?: string;
 }
 
 export interface GetPendingRewardsOutput {
@@ -41,8 +41,8 @@ export interface IsolatedPoolPendingRewardGroup {
   pendingRewards: IsolatedPoolPendingReward[];
 }
 
-export interface MainPoolPendingRewardGroup {
-  type: 'mainPool';
+export interface LegacyPoolPendingRewardGroup {
+  type: 'legacyPool';
   comptrollerAddress: string;
   rewardToken: Token;
   rewardAmountMantissa: BigNumber;
@@ -81,7 +81,7 @@ export interface PrimePendingRewardGroup {
 }
 
 export type PendingRewardGroup =
-  | MainPoolPendingRewardGroup
+  | LegacyPoolPendingRewardGroup
   | IsolatedPoolPendingRewardGroup
   | VaultPendingRewardGroup
   | XvsVestingVaultPendingRewardGroup

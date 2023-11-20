@@ -2,13 +2,20 @@ import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { vLuna, vUst } from '__mocks__/models/vTokens';
-import { useGetMainPool } from 'clients/api';
+import { useGetLegacyPool } from 'clients/api';
+import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderHook } from 'testUtils/render';
 
 import { useLunaUstWarning } from '..';
 import { store } from '../store';
 
 describe('useLunaUstWarning', () => {
+  beforeEach(() => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabled) => name === 'lunaUstWarning',
+    );
+  });
+
   it('gets isLunaUstWarningModalOpen from the store', () => {
     store.setState({
       isModalOpen: true,
@@ -41,8 +48,32 @@ describe('useLunaUstWarning', () => {
     expect(result.current.isLunaUstWarningModalOpen).toBe(false);
   });
 
+  it('returns userHasLunaOrUstCollateralEnabled as false when lunaUst feature is disabled', () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+      data: {
+        pool: {
+          ...poolData[0],
+          assets: [
+            {
+              ...poolData[0].assets[0],
+              vToken: vLuna,
+              isCollateralOfUser: true,
+            },
+          ],
+        },
+      },
+      isLoading: false,
+    }));
+
+    const { result } = renderHook(() => useLunaUstWarning());
+
+    expect(result.current.userHasLunaOrUstCollateralEnabled).toBe(false);
+  });
+
   it('returns userHasLunaOrUstCollateralEnabled as true when LUNA is enabled as collateral', () => {
-    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: {
           ...poolData[0],
@@ -64,7 +95,7 @@ describe('useLunaUstWarning', () => {
   });
 
   it('returns userHasLunaOrUstCollateralEnabled as true when UST is enabled as collateral', () => {
-    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: {
           ...poolData[0],
@@ -86,7 +117,7 @@ describe('useLunaUstWarning', () => {
   });
 
   it('returns userHasLunaOrUstCollateralEnabled as false when neither LUNA nor UST is enabled as collateral', () => {
-    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: {
           ...poolData[0],

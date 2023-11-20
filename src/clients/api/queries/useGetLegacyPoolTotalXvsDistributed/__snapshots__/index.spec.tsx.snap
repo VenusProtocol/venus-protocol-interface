@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetMainPoolTotalXvsDistributed > returns data in the correct format 1`] = `
+exports[`api/queries/useGetLegacyPoolTotalXvsDistributed > returns data in the correct format 1`] = `
 {
   "totalXvsDistributedMantissa": "3.110919e+24",
 }

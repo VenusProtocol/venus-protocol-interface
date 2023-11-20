@@ -1,6 +1,6 @@
-import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
+import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 
-import fakeMainPoolComptrollerContractResponses from '__mocks__/contracts/mainPoolComptroller';
+import fakeLegacyPoolComptrollerContractResponses from '__mocks__/contracts/legacyPoolComptroller';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakePoolRegistryContractAddress from '__mocks__/models/address';
@@ -18,16 +18,16 @@ const fakeVenusLensContract = {
   },
 } as unknown as VenusLens;
 
-const fakeMainPoolComptrollerContract = {
-  getAllMarkets: async () => fakeMainPoolComptrollerContractResponses.getAllMarkets,
-} as unknown as MainPoolComptroller;
+const fakeLegacyPoolComptrollerContract = {
+  getAllMarkets: async () => fakeLegacyPoolComptrollerContractResponses.getAllMarkets,
+} as unknown as LegacyPoolComptroller;
 
 describe('api/queries/getVTokens', () => {
   it('returns the vTokens on success', async () => {
     const response = await getVTokens({
       tokens,
       venusLensContract: fakeVenusLensContract,
-      mainPoolComptrollerContract: fakeMainPoolComptrollerContract,
+      legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
       poolLensContract: fakePoolLensContract,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
     });
@@ -35,7 +35,7 @@ describe('api/queries/getVTokens', () => {
     expect(response).matchSnapshot();
   });
 
-  it('still functions without passing venusLensContract or mainPoolComptrollerContract', async () => {
+  it('still functions without passing venusLensContract or legacyPoolComptrollerContract', async () => {
     const response = await getVTokens({
       tokens,
       poolLensContract: fakePoolLensContract,

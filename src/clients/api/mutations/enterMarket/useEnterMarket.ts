@@ -31,7 +31,7 @@ const useEnterMarket = (options?: Options) => {
         userSupplyBalanceTokens: userSupplyBalanceTokens.toNumber(),
       });
 
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_POOL);
+      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
       queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
     },
     options,

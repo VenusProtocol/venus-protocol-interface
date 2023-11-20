@@ -173,7 +173,7 @@ exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
 }
 `;
 
-exports[`api/queries/getVTokens > still functions without passing venusLensContract or mainPoolComptrollerContract 1`] = `
+exports[`api/queries/getVTokens > still functions without passing venusLensContract or legacyPoolComptrollerContract 1`] = `
 {
   "vTokens": [
     {

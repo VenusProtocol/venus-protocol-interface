@@ -4,14 +4,14 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { useGetMainPool } from 'clients/api';
+import { useGetLegacyPool } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
 
 import useGetPools, { UseGetPoolsOutput } from '.';
 
 describe('api/queries/useGetPools', () => {
   beforeEach(() => {
-    (useGetMainPool as Vi.Mock).mockImplementation(() => ({
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],
       },

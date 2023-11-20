@@ -1,13 +1,18 @@
 import { useMemo } from 'react';
 
-import { useGetMainPool } from 'clients/api';
+import { useGetLegacyPool } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { store } from './store';
 
 export const useLunaUstWarning = () => {
+  const isLunaUstWarningFeatureEnabled = useIsFeatureEnabled({
+    name: 'lunaUstWarning',
+  });
+
   const { accountAddress } = useAuth();
-  const { data: getMainPoolData } = useGetMainPool({
+  const { data: getLegacyPoolData } = useGetLegacyPool({
     accountAddress,
   });
 
@@ -19,14 +24,15 @@ export const useLunaUstWarning = () => {
 
   const userHasLunaOrUstCollateralEnabled = useMemo(
     () =>
-      !!getMainPoolData &&
-      getMainPoolData?.pool.assets.some(
+      isLunaUstWarningFeatureEnabled &&
+      !!getLegacyPoolData &&
+      getLegacyPoolData?.pool.assets.some(
         asset =>
           (asset.vToken.underlyingToken.symbol === 'LUNA' ||
             asset.vToken.underlyingToken.symbol === 'UST') &&
           asset.isCollateralOfUser,
       ),
-    [getMainPoolData],
+    [getLegacyPoolData, isLunaUstWarningFeatureEnabled],
   );
 
   return {

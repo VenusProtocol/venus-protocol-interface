@@ -4,8 +4,8 @@ import { useTranslation } from 'packages/translations';
 import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import { IconLink } from './IconLink';
 import {
@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
     symbol: 'XVS',
   });
 
-  const { explorerUrl } = CHAIN_METADATA[chainId];
+  const { explorerUrl } = useGetChainMetadata();
 
   return (
     <footer className="flex h-14 flex-none items-center justify-between bg-background px-4 sm:justify-end md:px-6 xl:px-10">

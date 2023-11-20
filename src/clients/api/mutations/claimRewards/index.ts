@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { Multicall3 } from 'packages/contracts';
-import mainPoolComptrollerContractAbi from 'packages/contracts/generated/infos/abis/MainPoolComptroller.json';
+import legacyPoolComptrollerContractAbi from 'packages/contracts/generated/infos/abis/LegacyPoolComptroller.json';
 import primeContractAbi from 'packages/contracts/generated/infos/abis/Prime.json';
 import rewardsDistributorContractAbi from 'packages/contracts/generated/infos/abis/RewardsDistributor.json';
 import vaiVaultContractAbi from 'packages/contracts/generated/infos/abis/VaiVault.json';
@@ -14,7 +14,7 @@ const claimRewards = async ({
   multicallContract,
   accountAddress,
   claims,
-  mainPoolComptrollerContractAddress,
+  legacyPoolComptrollerContractAddress,
   vaiVaultContractAddress,
   xvsVaultContractAddress,
   primeContractAddress,
@@ -26,9 +26,9 @@ const claimRewards = async ({
       return acc;
     }
 
-    if (claim.contract === 'mainPoolComptroller') {
+    if (claim.contract === 'legacyPoolComptroller') {
       const executingInterface = new ethers.utils.Interface(
-        JSON.stringify(mainPoolComptrollerContractAbi),
+        JSON.stringify(legacyPoolComptrollerContractAbi),
       );
 
       return [
@@ -38,7 +38,7 @@ const claimRewards = async ({
             accountAddress,
             claim.vTokenAddressesWithPendingReward,
           ]),
-          target: mainPoolComptrollerContractAddress,
+          target: legacyPoolComptrollerContractAddress,
         },
       ];
     }

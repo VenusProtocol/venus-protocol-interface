@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { displayMutationError } from 'errors';
 import {
-  useGetMainPoolComptrollerContractAddress,
+  useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
 } from 'packages/contracts';
 import { useGetToken, useGetTokens } from 'packages/tokens';
@@ -355,10 +355,10 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAuth();
 
-  const mainPoolComptrollerContractAddress = useGetMainPoolComptrollerContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: mainPoolComptrollerContractAddress || '',
+    comptrollerContractAddress: legacyPoolComptrollerContractAddress || '',
   });
 
   const tokens = useGetTokens();
@@ -406,7 +406,7 @@ const SwapPage: React.FC = () => {
   });
 
   const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: mainPoolComptrollerContractAddress || '',
+    poolComptrollerAddress: legacyPoolComptrollerContractAddress || '',
   });
 
   const onSwap = async (swap: Swap) =>

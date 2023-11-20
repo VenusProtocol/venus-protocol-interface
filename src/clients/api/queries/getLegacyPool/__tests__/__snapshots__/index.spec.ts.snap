@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1`] = `
+exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime 1`] = `
 {
   "pool": {
     "assets": [
@@ -635,7 +635,7 @@ exports[`getMainPool > does not fetch Prime distributions if user is not Prime 1
 }
 `;
 
-exports[`getMainPool > fetches and formats Prime distributions and Prime distribution simulations if user is Prime 1`] = `
+exports[`getLegacyPool > fetches and formats Prime distributions and Prime distribution simulations if user is Prime 1`] = `
 {
   "pool": {
     "assets": [
@@ -1330,7 +1330,7 @@ exports[`getMainPool > fetches and formats Prime distributions and Prime distrib
 }
 `;
 
-exports[`getMainPool > returns main pool in the correct format 1`] = `
+exports[`getLegacyPool > returns core pool in the correct format 1`] = `
 {
   "pool": {
     "assets": [

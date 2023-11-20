@@ -47,7 +47,7 @@ exports[`ClaimRewardButton > it claims reward on submit button click on success 
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
     {
-      "contract": "mainPoolComptroller",
+      "contract": "legacyPoolComptroller",
       "vTokenAddressesWithPendingReward": [
         "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
         "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",

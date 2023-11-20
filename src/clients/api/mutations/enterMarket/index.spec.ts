@@ -1,4 +1,4 @@
-import { MainPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'packages/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vBusd } from '__mocks__/models/vTokens';
@@ -11,7 +11,7 @@ describe('enterMarket', () => {
 
     const fakeContract = {
       enterMarkets: enterMarketsMock,
-    } as unknown as MainPoolComptroller;
+    } as unknown as LegacyPoolComptroller;
 
     const response = await enterMarket({
       comptrollerContract: fakeContract,

@@ -2,27 +2,29 @@ import { useGetToken } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
-import getMainMarkets, { GetMainMarketsOutput } from 'clients/api/queries/getMainMarkets';
+import getLegacyPoolMarkets, {
+  GetLegacyPoolMarketsOutput,
+} from 'clients/api/queries/getLegacyPoolMarkets';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetMainMarketsOutput,
+  GetLegacyPoolMarketsOutput,
   Error,
-  GetMainMarketsOutput,
-  GetMainMarketsOutput,
+  GetLegacyPoolMarketsOutput,
+  GetLegacyPoolMarketsOutput,
   FunctionKey.GET_MAIN_MARKETS
 >;
 
-const useGetMainMarkets = (options?: Options) => {
+const useGetLegacyPoolMarkets = (options?: Options) => {
   const xvs = useGetToken({
     symbol: 'XVS',
   });
 
   return useQuery(
     FunctionKey.GET_MAIN_MARKETS,
-    () => callOrThrow({ xvs }, getMainMarkets),
+    () => callOrThrow({ xvs }, getLegacyPoolMarkets),
     options,
   );
 };
 
-export default useGetMainMarkets;
+export default useGetLegacyPoolMarkets;

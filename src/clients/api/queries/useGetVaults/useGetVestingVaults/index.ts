@@ -12,9 +12,8 @@ import {
   useGetXvsVaultRewardPerBlock,
   useGetXvsVaultTotalAllocationPoints,
 } from 'clients/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
@@ -30,7 +29,7 @@ const useGetVestingVaults = ({
 }: {
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
-  const { chainId } = useAuth();
+  const { blocksPerDay } = useGetChainMetadata();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -174,7 +173,6 @@ const useGetVestingVaults = ({
               .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
               .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
 
-          const { blocksPerDay } = CHAIN_METADATA[chainId];
           const dailyEmissionMantissa =
             poolRewardMantissaPerBlock && poolRewardMantissaPerBlock.multipliedBy(blocksPerDay);
 
@@ -222,7 +220,7 @@ const useGetVestingVaults = ({
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       xvs,
       tokens,
-      chainId,
+      blocksPerDay,
     ],
   );
 

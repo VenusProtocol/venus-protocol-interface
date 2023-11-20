@@ -20,6 +20,7 @@ export interface ChainMetadata {
   blockTimeMs: number;
   blocksPerDay: number;
   explorerUrl: string;
+  corePoolComptrollerContractAddress: string;
 }
 
 export interface Token {

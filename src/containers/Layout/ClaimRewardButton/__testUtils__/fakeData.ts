@@ -6,7 +6,7 @@ import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types'
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
-    type: 'mainPool',
+    type: 'legacyPool',
     comptrollerAddress: poolData[0].comptrollerAddress,
     rewardToken: xvs,
     rewardAmountMantissa: new BigNumber('1000000000000000000000000000'),

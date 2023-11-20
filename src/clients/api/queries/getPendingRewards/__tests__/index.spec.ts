@@ -13,7 +13,7 @@ import tokens from '__mocks__/models/tokens';
 import getPendingRewards from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
-  fakeGetMainPoolPendingRewardsOutput,
+  fakeGetLegacyPoolPendingRewardsOutput,
   fakeGetPendingXvsOutput,
   fakeGetPriceOutput,
   fakeGetPrimePendingRewardsOutput,
@@ -22,7 +22,7 @@ import {
   fakeGetXvsVaultPoolInfosOutput,
 } from '../__testUtils__/fakeData';
 
-const fakeMainPoolComptrollerAddress = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
+const fakeLegacyPoolComptrollerAddress = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC546b78k';
 
 const fakeResilientOracleContract = {
@@ -34,7 +34,7 @@ const fakePoolLensContract = {
 } as unknown as PoolLens;
 
 const fakeVenusLensContract = {
-  pendingRewards: async () => fakeGetMainPoolPendingRewardsOutput,
+  pendingRewards: async () => fakeGetLegacyPoolPendingRewardsOutput,
 } as unknown as VenusLens;
 
 const fakeVaiVaultContract = {
@@ -57,7 +57,7 @@ const fakePrimeContract = {
 describe('getPendingRewards', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
     const res = await getPendingRewards({
-      mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
+      legacyPoolComptrollerContractAddress: fakeLegacyPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
       xvsVestingVaultPoolCount: 1,
@@ -74,7 +74,7 @@ describe('getPendingRewards', () => {
 
   test('returns pool rewards of the user, including Prime rewards, in the correct format on success', async () => {
     const res = await getPendingRewards({
-      mainPoolComptrollerContractAddress: fakeMainPoolComptrollerAddress,
+      legacyPoolComptrollerContractAddress: fakeLegacyPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
       xvsVestingVaultPoolCount: 1,

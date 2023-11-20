@@ -401,9 +401,3 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
   },
 }
 `;
-
-exports[`api/queries/useGetPool > returns undefined when no matching pool is found 1`] = `
-{
-  "pool": undefined,
-}
-`;

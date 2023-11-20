@@ -12,8 +12,8 @@ export interface XvsVestingVaultClaim {
   poolIndex: number;
 }
 
-export interface MainPoolComptrollerClaim {
-  contract: 'mainPoolComptroller';
+export interface LegacyPoolComptrollerClaim {
+  contract: 'legacyPoolComptroller';
   vTokenAddressesWithPendingReward: string[];
 }
 
@@ -32,13 +32,13 @@ export interface PrimeClaim {
 export type Claim =
   | VaiVaultClaim
   | XvsVestingVaultClaim
-  | MainPoolComptrollerClaim
+  | LegacyPoolComptrollerClaim
   | RewardsDistributorClaim
   | PrimeClaim;
 
 export interface ClaimRewardsInput {
   multicallContract: Multicall3;
-  mainPoolComptrollerContractAddress: string;
+  legacyPoolComptrollerContractAddress: string;
   vaiVaultContractAddress: string;
   xvsVaultContractAddress: string;
   accountAddress: string;

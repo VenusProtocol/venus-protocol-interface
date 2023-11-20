@@ -12,9 +12,9 @@ import getIsolatedPools, {
   GetIsolatedPoolsInput,
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useAuth } from 'context/AuthContext';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,
@@ -45,7 +45,7 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider, chainId } = useAuth();
-  const { blocksPerDay } = CHAIN_METADATA[chainId];
+  const { blocksPerDay } = useGetChainMetadata();
 
   const tokens = useGetTokens();
 

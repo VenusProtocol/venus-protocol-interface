@@ -12,7 +12,7 @@ import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 const getPendingRewards = async ({
   tokens,
-  mainPoolComptrollerContractAddress,
+  legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
   accountAddress,
@@ -34,8 +34,8 @@ const getPendingRewards = async ({
 
   const vaiVaultVenusLensPromises = Promise.allSettled([
     vaiVaultContract.pendingXVS(accountAddress),
-    venusLensContract && !!mainPoolComptrollerContractAddress
-      ? venusLensContract.pendingRewards(accountAddress, mainPoolComptrollerContractAddress)
+    venusLensContract && !!legacyPoolComptrollerContractAddress
+      ? venusLensContract.pendingRewards(accountAddress, legacyPoolComptrollerContractAddress)
       : undefined,
   ]);
 
@@ -150,7 +150,7 @@ const getPendingRewards = async ({
 
   const pendingRewardGroups = formatOutput({
     tokens,
-    mainPoolComptrollerContractAddress,
+    legacyPoolComptrollerContractAddress,
     isolatedPoolComptrollerAddresses,
     vaiVaultPendingXvs: extractSettledPromiseValue(vaiVaultPendingXvsResult),
     venusLensPendingRewards: extractSettledPromiseValue(venusLensPendingRewardsResult),

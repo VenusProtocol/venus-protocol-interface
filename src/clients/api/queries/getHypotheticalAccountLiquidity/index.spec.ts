@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { MainPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'packages/contracts';
 
-import compTrollerResponses from '__mocks__/contracts/mainPoolComptroller';
+import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
 
 import getHypotheticalAccountLiquidity from '.';
 
@@ -10,7 +10,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
     const fakeContract = {
       getHypotheticalAccountLiquidity: async () =>
         compTrollerResponses.getHypotheticalAccountLiquidity,
-    } as unknown as MainPoolComptroller;
+    } as unknown as LegacyPoolComptroller;
 
     const response = await getHypotheticalAccountLiquidity({
       comptrollerContract: fakeContract,

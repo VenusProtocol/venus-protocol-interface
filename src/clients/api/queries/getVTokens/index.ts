@@ -1,5 +1,5 @@
 import { logError } from 'errors';
-import { MainPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
+import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 import { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 
@@ -10,9 +10,9 @@ export interface GetVTokensInput {
   tokens: Token[];
   poolLensContract: PoolLens;
   poolRegistryContractAddress: string;
-  // The VenusLens and main pool Comptroller contract only exists on the BSC network
+  // The VenusLens and core pool Comptroller contract only exists on the BSC network
   venusLensContract?: VenusLens;
-  mainPoolComptrollerContract?: MainPoolComptroller;
+  legacyPoolComptrollerContract?: LegacyPoolComptroller;
 }
 
 export type GetVTokensOutput = {
@@ -24,12 +24,12 @@ const getVTokens = async ({
   poolLensContract,
   poolRegistryContractAddress,
   venusLensContract,
-  mainPoolComptrollerContract,
+  legacyPoolComptrollerContract,
 }: GetVTokensInput): Promise<GetVTokensOutput> => {
   // Fetch vToken meta data from isolated pools
-  const [isolatedPools, mainPoolVTokenAddresses] = await Promise.all([
+  const [isolatedPools, legacyPoolVTokenAddresses] = await Promise.all([
     poolLensContract.getAllPools(poolRegistryContractAddress),
-    mainPoolComptrollerContract ? mainPoolComptrollerContract.getAllMarkets() : undefined,
+    legacyPoolComptrollerContract ? legacyPoolComptrollerContract.getAllMarkets() : undefined,
   ]);
 
   const vTokenMetaData = isolatedPools.reduce<
@@ -39,12 +39,12 @@ const getVTokens = async ({
     }[]
   >((acc, isolatedPool) => acc.concat(isolatedPool.vTokens), []);
 
-  // Fetch vToken meta data from main pool (this is only relevant to the BSC network)
-  if (mainPoolVTokenAddresses && venusLensContract) {
-    const mainPoolVTokenMetaData =
-      await venusLensContract.callStatic.vTokenMetadataAll(mainPoolVTokenAddresses);
+  // Fetch vToken meta data from core pool (this is only relevant to the BSC network)
+  if (legacyPoolVTokenAddresses && venusLensContract) {
+    const legacyPoolVTokenMetaData =
+      await venusLensContract.callStatic.vTokenMetadataAll(legacyPoolVTokenAddresses);
 
-    vTokenMetaData.push(...mainPoolVTokenMetaData);
+    vTokenMetaData.push(...legacyPoolVTokenMetaData);
   }
 
   // Shape meta data into vToken

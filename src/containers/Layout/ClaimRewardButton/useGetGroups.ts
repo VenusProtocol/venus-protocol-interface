@@ -115,8 +115,8 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             return acc;
           }
 
-          // Main pool
-          if (pendingRewardGroup.type === 'mainPool') {
+          // Core pool
+          if (pendingRewardGroup.type === 'legacyPool') {
             const id = 'main-pool';
 
             const group: Group = {
@@ -132,7 +132,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
               ],
               claims: [
                 {
-                  contract: 'mainPoolComptroller',
+                  contract: 'legacyPoolComptroller',
                   vTokenAddressesWithPendingReward:
                     pendingRewardGroup.vTokenAddressesWithPendingReward,
                 },

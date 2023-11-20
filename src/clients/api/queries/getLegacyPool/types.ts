@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import {
-  MainPoolComptroller,
+  LegacyPoolComptroller,
   Prime,
   ResilientOracle,
   VaiController,
@@ -8,14 +8,14 @@ import {
 } from 'packages/contracts';
 import { Pool, Token } from 'types';
 
-export interface GetMainPoolInput {
+export interface GetLegacyPoolInput {
   blocksPerDay: number;
   name: string;
   description: string;
   xvs: Token;
   vai: Token;
   tokens: Token[];
-  mainPoolComptrollerContract: MainPoolComptroller;
+  legacyPoolComptrollerContract: LegacyPoolComptroller;
   venusLensContract: VenusLens;
   resilientOracleContract: ResilientOracle;
   vaiControllerContract: VaiController;
@@ -23,7 +23,7 @@ export interface GetMainPoolInput {
   accountAddress?: string;
 }
 
-export interface GetMainPoolOutput {
+export interface GetLegacyPoolOutput {
   pool: Pool;
 }
 
