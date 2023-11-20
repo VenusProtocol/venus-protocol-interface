@@ -13,14 +13,13 @@ import {
   multiplyMantissaDaily,
 } from 'utilities';
 
+import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import { PrimeApy } from '../types';
 import { formatDistributions } from './formatDistributions';
-
-const BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
 
 export interface FormatToPoolInput {
   blocksPerDay: number;
@@ -74,8 +73,8 @@ export const formatToPool = ({
   const assets: Asset[] = [];
 
   vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
-    // Temporary workaround to filter out vCAN
-    if (areAddressesEqual(vTokenMetaData.vToken, BSC_MAINNET_VCAN_MAIN_POOL_ADDRESS)) {
+    // Temporary workaround to filter out CAN
+    if (areAddressesEqual(vTokenMetaData.underlyingAssetAddress, BSC_MAINNET_CAN_ADDRESS)) {
       // TODO: remove once a more generic solution has been integrated on the contract side
       return;
     }
