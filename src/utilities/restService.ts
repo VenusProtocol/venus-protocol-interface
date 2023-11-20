@@ -84,7 +84,7 @@ export async function restService<D>({
       try {
         data = await response.json();
         const warning = response.headers.get('Warning');
-        if (warning) {
+        if (warning && config.isLocalServer) {
           logError(warning);
         }
       } catch (error) {
