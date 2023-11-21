@@ -1,7 +1,6 @@
+import { VError } from 'packages/errors';
 import { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
-
-import { VError } from 'packages/errors/VError';
 
 const ENTRIES_PER_HOUR = 2;
 const ENTRIES_PER_DAY = ENTRIES_PER_HOUR * 24;

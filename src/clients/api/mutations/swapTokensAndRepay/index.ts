@@ -1,9 +1,8 @@
 import { ContractTransaction } from 'ethers';
 import { SwapRouter } from 'packages/contracts';
+import { VError } from 'packages/errors';
 import { Swap, VToken } from 'types';
 import { generateTransactionDeadline } from 'utilities';
-
-import { VError } from 'packages/errors/VError';
 
 export interface SwapTokensAndRepayInput {
   swapRouterContract: SwapRouter;

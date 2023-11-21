@@ -7,7 +7,7 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
-import { displayMutationError } from 'packages/errors';
+import { VError, displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';
@@ -31,7 +31,6 @@ import { AmountForm } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { VError } from 'packages/errors/VError';
 
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';

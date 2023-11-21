@@ -4,6 +4,7 @@ import {
   getVTokenContract,
   useGetLegacyPoolComptrollerContract,
 } from 'packages/contracts';
+import { VError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
@@ -16,7 +17,6 @@ import {
   useExitMarket,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
-import { VError } from 'packages/errors/VError';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 

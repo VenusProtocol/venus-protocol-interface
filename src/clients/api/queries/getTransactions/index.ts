@@ -1,7 +1,6 @@
+import { VError } from 'packages/errors';
 import { Token, Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
-
-import { VError } from 'packages/errors/VError';
 
 import formatTransaction from './formatTransaction';
 import { TransactionResponse } from './types';

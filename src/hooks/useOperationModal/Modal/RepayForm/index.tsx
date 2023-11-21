@@ -10,6 +10,7 @@ import {
   TokenTextField,
 } from 'components';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
+import { VError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
@@ -28,7 +29,6 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { VError } from 'packages/errors/VError';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';

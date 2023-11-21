@@ -1,7 +1,6 @@
+import { VError } from 'packages/errors';
 import { Voter } from 'types';
 import { restService } from 'utilities';
-
-import { VError } from 'packages/errors/VError';
 
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
 import { GetVoterDetailsResponse } from './types';

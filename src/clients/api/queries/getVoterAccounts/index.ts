@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'packages/errors';
 import { VoterAccount } from 'types';
 import { restService } from 'utilities';
-
-import { VError } from 'packages/errors/VError';
 
 import formatVoterAccountResponse from './formatVoterAccountResponse';
 import { GetVoterAccountsResponse } from './types';
