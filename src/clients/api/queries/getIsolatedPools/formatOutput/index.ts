@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { PoolLens } from 'packages/contracts';
 import { Asset, Pool, Token, VToken } from 'types';
 

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { Prime } from 'packages/contracts';
 import { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';

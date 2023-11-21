@@ -1,6 +1,6 @@
 import { providers } from '@0xsequence/multicall';
 import { PublicClient } from '@wagmi/core';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { providers as ethersProviders } from 'ethers';
 import addresses from 'packages/contracts/generated/infos/addresses';
 import { type HttpTransport } from 'viem';

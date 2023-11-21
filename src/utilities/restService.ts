@@ -1,5 +1,5 @@
 import config from 'config';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import _isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
 

@@ -1,4 +1,4 @@
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';

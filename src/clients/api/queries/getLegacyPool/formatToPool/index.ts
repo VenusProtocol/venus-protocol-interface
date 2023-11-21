@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
 import { Asset, Market, Pool, Token, VToken } from 'types';
 import {

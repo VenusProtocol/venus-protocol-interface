@@ -1,4 +1,4 @@
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { NonNullableFields } from 'types';
 
 import { VError, VErrorPhraseMap } from 'packages/errors/VError';

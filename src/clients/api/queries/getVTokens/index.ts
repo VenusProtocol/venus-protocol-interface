@@ -1,4 +1,4 @@
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 import { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';

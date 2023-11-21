@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { Token } from 'types';
 
 import convertDollarsToCents from 'utilities/convertDollarsToCents';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 
 import { VError } from 'packages/errors/VError';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
