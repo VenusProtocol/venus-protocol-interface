@@ -1,6 +1,6 @@
-import React from 'react';
 import { WagmiConfig } from 'wagmi';
 
+import { Disconnector } from './Disconnector';
 import config from './config';
 
 export interface Web3WrapperProps {
@@ -8,5 +8,9 @@ export interface Web3WrapperProps {
 }
 
 export const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
-  <WagmiConfig config={config}>{children}</WagmiConfig>
+  <WagmiConfig config={config}>
+    <Disconnector />
+
+    {children}
+  </WagmiConfig>
 );

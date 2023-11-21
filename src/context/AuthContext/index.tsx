@@ -1,27 +1,23 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
 import * as Sentry from '@sentry/react';
-import { VError, displayMutationError } from 'errors';
+import { VError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
 import {
+  AuthModal,
   Connector,
   Provider,
   connectorIdByName,
   useAccountAddress,
+  useChainId,
   useProvider,
   useSigner,
+  useSwitchChain,
 } from 'packages/wallet';
-import { AuthModal } from 'packages/wallet/AuthModal';
 import { store } from 'packages/wallet/store';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
-import {
-  ConnectorNotFoundError,
-  useConnect,
-  useDisconnect,
-  useNetwork,
-  useSwitchNetwork,
-} from 'wagmi';
+import { ConnectorNotFoundError, useConnect, useDisconnect } from 'wagmi';
 
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
@@ -55,12 +51,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync: logOut } = useDisconnect();
-  const { chain: walletChain } = useNetwork();
-  const { switchNetworkAsync } = useSwitchNetwork();
 
-  const setStoreChainId = store.use.setChainId();
-  const chainId = store.use.chainId();
-
+  const switchChain = useSwitchChain();
+  const chainId = useChainId();
   const signer = useSigner();
   const provider = useProvider();
   const accountAddress = useAccountAddress();
@@ -102,48 +95,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await login(connector);
     closeAuthModal();
   };
-
-  const switchChain = async (input: { chainId: ChainId }) => {
-    try {
-      if (switchNetworkAsync) {
-        // Change wallet network if it is connected
-        await switchNetworkAsync(input.chainId);
-      } else if (accountAddress) {
-        throw new VError({
-          type: 'unexpected',
-          code: 'couldNotSwitchChain',
-        });
-      }
-
-      // Update store
-      setStoreChainId(input);
-    } catch (error) {
-      if (error instanceof VError && error.code === 'couldNotSwitchChain') {
-        displayMutationError({ error });
-      }
-    }
-  };
-
-  useEffect(() => {
-    const fn = async () => {
-      if (!walletChain) {
-        return;
-      }
-
-      // Disconnect wallet if it connected to an unsupported chain
-      if (walletChain.unsupported) {
-        await logOut();
-        return;
-      }
-
-      // Update store when wallet connects to a different chain
-      if (walletChain.id !== chainId) {
-        setStoreChainId({ chainId: walletChain.id });
-      }
-    };
-
-    fn();
-  }, [walletChain, chainId, setStoreChainId, logOut]);
 
   return (
     <AuthContext.Provider

@@ -1,7 +1,8 @@
-import { defaultChain } from 'packages/wallet';
 import { ChainId } from 'types';
 import { createStoreSelectors } from 'utilities';
 import { create } from 'zustand';
+
+import { defaultChain } from '../chains';
 
 interface State {
   chainId: ChainId;
