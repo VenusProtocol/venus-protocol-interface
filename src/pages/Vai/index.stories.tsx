@@ -30,7 +30,7 @@ export default {
 const Template: StoryFn<VaiProps> = props => <Vai {...props} />;
 
 const context: AuthContextValue = {
-  login: noop,
+  logIn: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,

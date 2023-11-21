@@ -26,7 +26,7 @@ export default {
 const Template: StoryFn<OperationModalProps> = args => <OperationModal {...args} />;
 
 const context: AuthContextValue = {
-  login: noop,
+  logIn: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,

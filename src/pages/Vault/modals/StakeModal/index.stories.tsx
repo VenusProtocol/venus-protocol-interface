@@ -25,7 +25,7 @@ export default {
 const Template: StoryFn<StakeModalProps> = args => <StakeModal {...args} />;
 
 const authContext: AuthContextValue = {
-  login: noop,
+  logIn: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,

@@ -3,26 +3,26 @@ import Typography from '@mui/material/Typography';
 import config from 'config';
 import { displayMutationError } from 'errors';
 import { useTranslation } from 'packages/translations';
-import { Connector } from 'packages/wallet';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
 import { NoticeInfo } from 'components/Notice';
 
+import { Connector } from '../../../types';
 import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';
 
 export interface WalletListProps {
-  onLogin: (connector: Connector) => Promise<void>;
+  onLogIn: (connector: Connector) => Promise<void>;
 }
 
-export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
+export const WalletList: React.FC<WalletListProps> = ({ onLogIn }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const handleLogin = async (connector: Connector) => {
+  const handleLogIn = async (connector: Connector) => {
     try {
-      await onLogin(connector);
+      await onLogIn(connector);
     } catch (error) {
       displayMutationError({ error });
     }
@@ -41,7 +41,7 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
               css={styles.getListItem({ isActionable: true })}
               key={`wallet-${name}`}
               type="button"
-              onClick={() => handleLogin(connector)}
+              onClick={() => handleLogIn(connector)}
             >
               <Logo css={styles.walletLogo} />
 

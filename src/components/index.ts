@@ -44,6 +44,5 @@ export * from './SwapDetails';
 export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './Link';
-export * from '../packages/wallet/AuthModal';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';

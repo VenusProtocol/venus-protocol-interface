@@ -22,7 +22,7 @@ const Template: StoryFn<WithdrawFromVestingVaultModalProps> = args => (
 );
 
 const authContext: AuthContextValue = {
-  login: noop,
+  logIn: noop,
   logOut: noop,
   openAuthModal: noop,
   closeAuthModal: noop,

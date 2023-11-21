@@ -17,9 +17,9 @@ const NotificationCenter = lazy(() => import('packages/notifications/Notificatio
 
 const App = () => (
   <Sentry.ErrorBoundary>
-    <Web3Wrapper>
+    <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <MuiThemeProvider>
+        <Web3Wrapper>
           <AuthProvider>
             <AnalyticProvider>
               <HashRouter>
@@ -35,9 +35,9 @@ const App = () => (
               </HashRouter>
             </AnalyticProvider>
           </AuthProvider>
-        </MuiThemeProvider>
+        </Web3Wrapper>
       </QueryClientProvider>
-    </Web3Wrapper>
+    </MuiThemeProvider>
   </Sentry.ErrorBoundary>
 );
 

@@ -12,12 +12,27 @@ describe('store', () => {
 
   describe('setChainId', () => {
     it('sets the chainId property correctly', () => {
-      // Add notification
       store.getState().setChainId({
         chainId: ChainId.SEPOLIA,
       });
 
       expect(store.getState().chainId).toBe(ChainId.SEPOLIA);
+    });
+  });
+
+  describe('isAuthModalOpen', () => {
+    it('is false on initialization', () => {
+      expect(store.getState().isAuthModalOpen).toBe(false);
+    });
+  });
+
+  describe('setIsAuthModalOpen', () => {
+    it('sets the isAuthModalOpen property correctly', () => {
+      store.getState().setIsAuthModalOpen({
+        isAuthModalOpen: true,
+      });
+
+      expect(store.getState().isAuthModalOpen).toBe(true);
     });
   });
 });
