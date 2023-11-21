@@ -1,3 +1,3 @@
-import { store } from '../../store';
+import { store } from 'packages/wallet/store';
 
 export const useChainId = () => store.use.chainId();

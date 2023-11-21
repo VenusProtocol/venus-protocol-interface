@@ -1,10 +1,10 @@
 import { logError } from 'errors';
-import { store } from 'packages/wallet/store';
+import { getChainId } from 'packages/wallet';
 import { QueryClient } from 'react-query';
 import { ChainId } from 'types';
 
 const onError = (error: unknown) => {
-  const { chainId } = store.getState();
+  const chainId = getChainId();
 
   // Log errors happening on the Ethereum and Sepolia network only. This is temporary so we can
   // track errors while the multichain feature is being tested by users

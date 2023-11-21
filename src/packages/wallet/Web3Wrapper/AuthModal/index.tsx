@@ -1,13 +1,13 @@
 import { useTranslation } from 'packages/translations';
+import { store } from 'packages/wallet/store';
 import React from 'react';
 
-import { Modal } from '../../../../components/Modal';
-import { useAccountAddress } from '../../hooks/useAccountAddress';
-import { useChainId } from '../../hooks/useChainId';
-import { useLogIn } from '../../hooks/useLogIn';
-import { useLogOut } from '../../hooks/useLogOut';
+import { Modal } from 'components/Modal';
+import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';
+import { useChainId } from 'packages/wallet/hooks/useChainId';
+import { useLogIn } from 'packages/wallet/hooks/useLogIn';
+import { useLogOut } from 'packages/wallet/hooks/useLogOut';
 
-import { store } from '../../store';
 import { AccountDetails } from './AccountDetails';
 import { WalletList, WalletListProps } from './WalletList';
 

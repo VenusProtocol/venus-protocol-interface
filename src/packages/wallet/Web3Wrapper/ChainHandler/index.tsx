@@ -1,11 +1,10 @@
+import { store } from 'packages/wallet/store';
 import { useEffect } from 'react';
 import { useDisconnect, useNetwork } from 'wagmi';
 
-import { useChainId } from '../../hooks/useChainId';
+import { useChainId } from 'packages/wallet/hooks/useChainId';
 
-import { store } from '../../store';
-
-export const Disconnector: React.FC = () => {
+export const ChainHandler: React.FC = () => {
   const { chain: walletChain } = useNetwork();
   const { disconnectAsync } = useDisconnect();
   const chainId = useChainId();

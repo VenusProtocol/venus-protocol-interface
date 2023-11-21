@@ -1,4 +1,5 @@
 import localConfig from 'config';
+import { chains } from 'packages/wallet/chains';
 import { ChainId } from 'types';
 import { configureChains, createConfig } from 'wagmi';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -9,7 +10,6 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 
-import { chains } from '../chains';
 import { BinanceWalletConnector } from './binanceWalletConnector';
 
 const { publicClient, webSocketPublicClient } = configureChains(

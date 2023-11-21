@@ -4,10 +4,10 @@ import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 
-import { SecondaryButton } from '../../../../../components/Button';
-import { ChainExplorerLink } from '../../../../../components/ChainExplorerLink';
-import { EllipseAddress } from '../../../../../components/EllipseAddress';
-import { Icon } from '../../../../../components/Icon';
+import { SecondaryButton } from 'components/Button';
+import { ChainExplorerLink } from 'components/ChainExplorerLink';
+import { EllipseAddress } from 'components/EllipseAddress';
+import { Icon } from 'components/Icon';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import { useStyles } from './styles';

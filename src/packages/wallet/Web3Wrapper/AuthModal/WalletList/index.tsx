@@ -3,12 +3,12 @@ import Typography from '@mui/material/Typography';
 import config from 'config';
 import { displayMutationError } from 'errors';
 import { useTranslation } from 'packages/translations';
+import { Connector } from 'packages/wallet/types';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
 import { NoticeInfo } from 'components/Notice';
 
-import { Connector } from '../../../types';
 import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';
 
