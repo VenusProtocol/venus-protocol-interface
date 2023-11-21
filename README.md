@@ -67,3 +67,4 @@ yarn serve
 | [analytics](/src/packages/analytics)                 | Captures analytic events                                  |
 | [translations](/src/packages/translations/README.md) | Renders texts in every supported language                 |
 | [lunaUstWarning](/src/packages/lunaUstWarning)       | Handles blocking the UI when user has LUNA or UST enabled |
+| [wallet](/src/packages/wallet)                       | Handles connection with web3 provider and wallet          |
