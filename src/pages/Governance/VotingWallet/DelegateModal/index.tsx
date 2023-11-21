@@ -77,7 +77,6 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
                 <Typography color="textPrimary">{t('vote.delegateAddress')}</Typography>
                 <TextButton
                   css={styles.inline}
-                  className="w-full"
                   onClick={() => setFieldValue('address', currentUserAccountAddress)}
                   disabled={!currentUserAccountAddress}
                 >
