@@ -12,6 +12,7 @@ import { AuthProvider } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Router from './Router';
+import { SentryErrorInfo } from './SentryErrorInfo';
 
 const NotificationCenter = lazy(() => import('packages/notifications/NotificationCenter'));
 
@@ -21,6 +22,8 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <Web3Wrapper>
           <AuthProvider>
+            <SentryErrorInfo />
+
             <AnalyticProvider>
               <HashRouter>
                 <Layout>
