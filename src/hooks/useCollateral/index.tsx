@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { VError } from 'errors';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
@@ -17,6 +16,7 @@ import {
   useExitMarket,
 } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
+import { VError } from 'packages/errors/VError';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 

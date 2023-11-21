@@ -5,7 +5,7 @@ import {
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-} from 'errors';
+} from 'packages/errors';
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { en } from 'packages/translations';
 import { ChainId } from 'types';
@@ -23,6 +23,7 @@ import { CONFIRMATIONS, useTrackTransaction } from '..';
 vi.mock('context/ErrorLogger');
 vi.mock('context/AuthContext');
 vi.mock('packages/notifications');
+vi.mock('packages/errors');
 vi.mock('errors');
 
 const fakeError = new Error('Fake error');

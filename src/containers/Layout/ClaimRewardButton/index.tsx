@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
-import { VError, displayMutationError } from 'errors';
+import { displayMutationError } from 'errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
 import { useMemo, useState } from 'react';
@@ -9,6 +9,7 @@ import { formatCentsToReadableValue } from 'utilities';
 import { Claim, useClaimRewards } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { VError } from 'packages/errors/VError';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';

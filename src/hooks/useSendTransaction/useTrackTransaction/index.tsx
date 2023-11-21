@@ -1,12 +1,12 @@
 import { ChainExplorerLink } from 'components';
+import { ContractReceipt, ContractTransaction } from 'ethers';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-} from 'errors';
-import { ContractReceipt, ContractTransaction } from 'ethers';
+} from 'packages/errors';
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
 import { useCallback } from 'react';

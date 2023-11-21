@@ -10,7 +10,7 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
-import { VError, displayMutationError } from 'errors';
+import { displayMutationError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { isTokenActionEnabled } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
@@ -27,6 +27,7 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { VError } from 'packages/errors/VError';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';

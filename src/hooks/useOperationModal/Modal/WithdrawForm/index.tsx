@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { Delimiter, LabeledInlineContent, TokenTextField } from 'components';
-import { VError } from 'errors';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useState } from 'react';
 import { Asset, Pool } from 'types';
@@ -11,6 +10,7 @@ import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/a
 import { AccountData } from 'containers/AccountData';
 import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { VError } from 'packages/errors/VError';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';

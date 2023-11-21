@@ -1,6 +1,7 @@
 import { displayNotification } from 'packages/notifications';
 
-import { VError } from '../VError';
+import { VError } from 'packages/errors/VError';
+
 import { formatVErrorToReadableString } from './formatVErrorToReadableString';
 
 export interface DisplayMutationErrorInput {
