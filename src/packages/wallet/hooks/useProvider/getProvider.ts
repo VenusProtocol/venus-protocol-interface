@@ -8,7 +8,7 @@ import { type HttpTransport } from 'viem';
 const MULTICALL_BATCH_SIZE = 100;
 
 // Convert a viem Public Client to an ethers.js Provider
-const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
+export const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
   const { chain, transport } = publicClient;
   const network = {
     chainId: chain.id,
@@ -41,5 +41,3 @@ const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
     batchSize: MULTICALL_BATCH_SIZE,
   });
 };
-
-export default getProvider;

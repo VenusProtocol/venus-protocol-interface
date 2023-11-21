@@ -7,8 +7,6 @@ export interface Web3WrapperProps {
   children?: React.ReactNode;
 }
 
-const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
+export const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
   <WagmiConfig config={config}>{children}</WagmiConfig>
 );
-
-export default Web3Wrapper;

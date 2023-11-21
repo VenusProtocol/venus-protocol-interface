@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react';
 import { VError, displayMutationError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import { Connector, Provider, connectorIdByName } from 'packages/wallet';
+import { Connector, Provider, connectorIdByName, useProvider, useSigner } from 'packages/wallet';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
 import {
@@ -20,8 +20,6 @@ import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
 import { store } from './store';
-import useProvider from './useProvider';
-import useSigner from './useSigner';
 
 export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;

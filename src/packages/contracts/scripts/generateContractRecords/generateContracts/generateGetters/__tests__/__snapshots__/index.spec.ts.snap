@@ -12,9 +12,8 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
-import useProvider from 'context/AuthContext/useProvider';
-import useSigner from 'context/AuthContext/useSigner';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
+import { useProvider, useSigner } from 'packages/wallet';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
@@ -85,8 +84,7 @@ import { IsolatedPoolComptroller } from 'packages/contracts/generated/infos/cont
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import useProvider from 'context/AuthContext/useProvider';
-import useSigner from 'context/AuthContext/useSigner';
+import { useProvider, useSigner } from 'packages/wallet';
 
 interface GetIsolatedPoolComptrollerContractInput {
   address: string;
@@ -143,8 +141,7 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
-import useProvider from 'context/AuthContext/useProvider';
-import useSigner from 'context/AuthContext/useSigner';
+import { useProvider, useSigner } from 'packages/wallet';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;

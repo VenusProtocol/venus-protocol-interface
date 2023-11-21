@@ -13,10 +13,10 @@ import useTokenApproval from 'hooks/useTokenApproval';
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
-vi.mock('clients/web3/Web3Wrapper');
 vi.mock('packages/tokens');
-vi.mock('context/AuthContext/useSigner');
-vi.mock('context/AuthContext/useProvider');
+vi.mock('packages/wallet/Web3Wrapper');
+vi.mock('packages/wallet/hooks/useProvider');
+vi.mock('packages/wallet/hooks/useSigner');
 
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');

@@ -7,8 +7,7 @@ import { useMemo } from 'react';
 import { ChainId } from 'types';
 
 import { useAuth } from 'context/AuthContext';
-import useProvider from 'context/AuthContext/useProvider';
-import useSigner from 'context/AuthContext/useSigner';
+import { useProvider, useSigner } from 'packages/wallet';
 
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;

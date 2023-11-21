@@ -2,7 +2,7 @@ import { WalletClient } from '@wagmi/core';
 import { providers } from 'ethers';
 
 // Convert a viem Wallet Client to an ethers.js Signer
-const getSigner = ({ walletClient }: { walletClient?: WalletClient } = {}) => {
+export const getSigner = ({ walletClient }: { walletClient?: WalletClient } = {}) => {
   if (!walletClient) {
     return undefined;
   }
@@ -19,5 +19,3 @@ const getSigner = ({ walletClient }: { walletClient?: WalletClient } = {}) => {
   const signer = provider.getSigner(account.address);
   return signer;
 };
-
-export default getSigner;
