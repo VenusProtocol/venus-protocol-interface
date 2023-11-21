@@ -80,7 +80,7 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^18.0.0",
+    "@commitlint/config-conventional": "17.7.0",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@graphql-codegen/add": "^5.0.0",
