@@ -6,6 +6,10 @@
 /tmp
 /out-tsc
 .env
+
+# Sentry Config File
+.env.sentry-build-plugin
+
 # dependencies
 /node_modules
 /build

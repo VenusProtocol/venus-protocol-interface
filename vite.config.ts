@@ -1,20 +1,33 @@
 /// <reference types="vitest" />
 import inject from '@rollup/plugin-inject';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import svgrPlugin from 'vite-plugin-svgr';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 
+import { version as APP_VERSION } from './src/constants/version';
+
 export default defineConfig(({ mode }) => ({
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   build: {
+    sourcemap: true,
     outDir: 'build',
     rollupOptions: {
       plugins: [
         inject({ Buffer: ['buffer', 'Buffer'] }),
         visualizer({
           filename: 'bundleStats.html',
+        }),
+        // Put the Sentry vite plugin after all other plugins
+        sentryVitePlugin({
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+          org: 'venus-protocol-km',
+          project: 'dapp',
+          release: {
+            name: APP_VERSION,
+          },
         }),
       ],
     },
