@@ -1,3 +1,10 @@
+## [2.41.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.41.0...v2.41.1) (2023-11-21)
+
+
+### Bug Fixes
+
+* display of Paste address button in Delegate modal ([#1828](https://github.com/VenusProtocol/venus-protocol-interface/issues/1828)) ([81565c7](https://github.com/VenusProtocol/venus-protocol-interface/commit/81565c77a4cb6be7906affe6ab3d9ba9e7d011ef))
+
 ## [2.41.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.40.0...v2.41.0) (2023-11-21)
 
 
