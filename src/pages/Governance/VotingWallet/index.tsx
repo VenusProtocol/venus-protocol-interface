@@ -88,7 +88,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
-  const showDepositXvs = connectedWallet && !userHasLockedXVS;
+  const showDepositXvs = !isDataLoading && connectedWallet && !userHasLockedXVS;
   const shouldApplyMarginToTotalLocked =
     !isDataLoading && (voteProposalFeatureEnabled || !connectedWallet || showDepositXvs);
 
@@ -245,6 +245,7 @@ const VotingWallet: React.FC = () => {
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
+
   const { data: delegateData, isLoading: isGetVoteDelegateAddressLoading } =
     useGetVoteDelegateAddress(
       { accountAddress: accountAddress || '' },

@@ -147,7 +147,8 @@ describe('Governance', () => {
     const { getByText, getByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
     });
-    const depositXvsButton = getByText(en.vote.depositXvs);
+
+    const depositXvsButton = await waitFor(() => getByText(en.vote.depositXvs));
 
     await waitFor(() =>
       expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0'),
