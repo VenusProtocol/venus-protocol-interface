@@ -23,6 +23,7 @@ const Dashboard: React.FC = () => {
   const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
+
   const pools = useFormatPools({
     pools: getPoolData?.pools || [],
     searchValue,
@@ -37,12 +38,12 @@ const Dashboard: React.FC = () => {
           content: t('dashboard.allTag'),
         },
       ].concat(
-        pools.map(pool => ({
+        (getPoolData?.pools || []).map(pool => ({
           id: pool.comptrollerAddress,
           content: pool.name,
         })),
       ),
-    [pools, t],
+    [getPoolData?.pools, t],
   );
 
   return (
