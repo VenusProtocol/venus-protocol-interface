@@ -89,6 +89,10 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
+  const showDepositXvs = connectedWallet && !userHasLockedXVS;
+  const shouldApplyMarginToTotalLocked =
+    voteProposalFeatureEnabled || !connectedWallet || showDepositXvs;
+
   return (
     <div className="flex flex-1 flex-col lg:ml-4">
       <h4 className="m-0 text-lg font-semibold leading-normal">{t('vote.votingWallet')}</h4>
@@ -126,7 +130,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         <Delimiter className="block w-full sm:hidden lg:block" />
 
-        <div className={cn('mt-4', voteProposalFeatureEnabled && 'mb-5 sm:mb-0 lg:mb-5')}>
+        <div className={cn('mt-4', shouldApplyMarginToTotalLocked && 'mb-5 sm:mb-0 lg:mb-5')}>
           <div className="mb-1 flex flex-row items-end">
             <p className="m-0 mr-2 text-base font-semibold leading-normal tracking-[0.3px] text-grey sm:text-sm md:text-base">
               {t('vote.totalLocked')}
@@ -155,7 +159,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </PrimaryButton>
         )}
 
-        {connectedWallet && !userHasLockedXVS && (
+        {showDepositXvs && (
           <ButtonWrapper className="text-offWhite hover:no-underline sm:w-auto lg:w-full" asChild>
             <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
           </ButtonWrapper>
