@@ -12,6 +12,7 @@ import {
   useSigner,
 } from 'packages/wallet';
 import { AuthModal } from 'packages/wallet/AuthModal';
+import { store } from 'packages/wallet/store';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
 import {
@@ -23,8 +24,6 @@ import {
 } from 'wagmi';
 
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
-
-import { store } from './store';
 
 export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;

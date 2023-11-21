@@ -1,8 +1,7 @@
 import { logError } from 'errors';
+import { store } from 'packages/wallet/store';
 import { QueryClient } from 'react-query';
 import { ChainId } from 'types';
-
-import { store } from 'context/AuthContext/store';
 
 const onError = (error: unknown) => {
   const { chainId } = store.getState();
