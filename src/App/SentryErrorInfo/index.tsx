@@ -15,9 +15,11 @@ export const SentryErrorInfo: React.FC = () => {
     } else {
       setUser(null);
     }
+  }, [accountAddress]);
 
+  useEffect(() => {
     setTag('chainId', chainId);
-  }, [accountAddress, chainId]);
+  }, [chainId]);
 
   return null;
 };
