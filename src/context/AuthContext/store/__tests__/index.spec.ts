@@ -1,6 +1,5 @@
+import { chains } from 'packages/wallet';
 import { ChainId } from 'types';
-
-import { chains } from 'clients/web3';
 
 import { store } from '..';
 

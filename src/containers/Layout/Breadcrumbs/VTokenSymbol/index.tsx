@@ -1,10 +1,10 @@
 import { Icon, TertiaryButton } from 'components';
+import { addTokenToWallet, canAddTokenToWallet } from 'packages/wallet';
 import { useMemo } from 'react';
 import { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
-import addTokenToWallet, { canRegisterToken } from 'clients/web3/addTokenToWallet';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useAuth } from 'context/AuthContext';
 
@@ -17,7 +17,7 @@ export const VTokenSymbolUi: React.FC<VTokenSymbolUiProps> = ({ vToken, isUserCo
   <div className="inline-flex items-center">
     <span>{vToken?.underlyingToken.symbol || PLACEHOLDER_KEY}</span>
 
-    {isUserConnected && vToken && canRegisterToken() && (
+    {isUserConnected && vToken && canAddTokenToWallet() && (
       <TertiaryButton
         className="ml-4 h-auto border-cards bg-cards p-1 text-blue hover:text-offWhite"
         onClick={() => addTokenToWallet(vToken.underlyingToken)}

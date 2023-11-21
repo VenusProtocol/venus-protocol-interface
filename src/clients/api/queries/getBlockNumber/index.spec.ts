@@ -1,4 +1,4 @@
-import { type Provider } from 'clients/web3';
+import { type Provider } from 'packages/wallet';
 
 import getBlockNumber from '.';
 

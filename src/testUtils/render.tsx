@@ -1,12 +1,12 @@
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
 import { getDefaultProvider } from 'ethers';
+import { Web3Wrapper } from 'packages/wallet';
 import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ChainId } from 'types';
 
-import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 

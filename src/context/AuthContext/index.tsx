@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react';
 import { VError, displayMutationError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
+import { Connector, Provider, connectorIdByName } from 'packages/wallet';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
 import {
@@ -15,7 +16,6 @@ import {
 } from 'wagmi';
 
 import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
-import { Connector, Provider, connectorIdByName } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 

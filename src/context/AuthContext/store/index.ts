@@ -1,8 +1,7 @@
+import { defaultChain } from 'packages/wallet';
 import { ChainId } from 'types';
 import { createStoreSelectors } from 'utilities';
 import { create } from 'zustand';
-
-import { defaultChain } from 'clients/web3';
 
 interface State {
   chainId: ChainId;

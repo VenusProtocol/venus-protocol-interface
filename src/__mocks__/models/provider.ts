@@ -1,6 +1,5 @@
 import { BigNumber } from 'ethers';
-
-import { type Provider } from 'clients/web3';
+import { type Provider } from 'packages/wallet';
 
 export const blockNumber = 123;
 export const balance = BigNumber.from('1000000000000000000');

@@ -3,13 +3,13 @@ import { BigNumber } from 'bignumber.js';
 import { Button, NoticeInfo, Spinner } from 'components';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { governanceChain } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { governanceChain } from 'clients/web3';
 import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';

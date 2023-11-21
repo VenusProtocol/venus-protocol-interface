@@ -1,4 +1,4 @@
-import { Connector } from 'clients/web3/types';
+import { Connector } from 'packages/wallet';
 
 export type BaseWallet = {
   name: string;
