@@ -9,11 +9,11 @@ import {
   SwapDetails,
   TextButton,
 } from 'components';
-import { displayMutationError } from 'errors';
 import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
 } from 'packages/contracts';
+import { displayMutationError } from 'packages/errors';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useEffect, useMemo, useState } from 'react';

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import config from 'config';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import { Connector } from 'packages/wallet/types';
 import React from 'react';

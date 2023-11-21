@@ -1,5 +1,5 @@
-import { logError } from 'packages/errors';
 import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
+import { logError } from 'packages/errors';
 import { Token } from 'types';
 import { areTokensEqual, findTokenByAddress } from 'utilities';
 

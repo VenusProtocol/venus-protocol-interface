@@ -1,4 +1,4 @@
-import { VError, displayMutationError } from 'errors';
+import { VError, displayMutationError } from 'packages/errors';
 import { store } from 'packages/wallet/store';
 import { useCallback } from 'react';
 import { ChainId } from 'types';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { Token } from 'types';

@@ -9,7 +9,7 @@ import {
   SecondaryButton,
 } from 'components';
 import isAfter from 'date-fns/isAfter';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Proposal, ProposalState, ProposalType } from 'types';

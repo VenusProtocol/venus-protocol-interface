@@ -8,7 +8,7 @@ import {
   NoticeWarning,
   SpendingLimit,
 } from 'components';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import { useCallback, useMemo } from 'react';
 import { Token } from 'types';

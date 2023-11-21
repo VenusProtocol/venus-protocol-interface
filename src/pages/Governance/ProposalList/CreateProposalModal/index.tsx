@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Modal } from 'components';
-import { displayMutationError } from 'errors';
 import { Form, Formik, useFormikContext } from 'formik';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

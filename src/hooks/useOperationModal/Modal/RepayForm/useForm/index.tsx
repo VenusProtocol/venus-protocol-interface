@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useEffect } from 'react';
 import { Swap, SwapError, Token, VToken } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';

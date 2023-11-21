@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Card, Link, PrimaryButton, ProgressBar } from 'components';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
