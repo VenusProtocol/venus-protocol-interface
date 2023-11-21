@@ -95,7 +95,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
             <img src={chainLogoSrc} alt={chainName} className="mr-3 w-6" />
 
             {t('claimReward.modal.title', {
-              chainName: chainLogoSrc,
+              chainName,
             })}
           </div>
         }
