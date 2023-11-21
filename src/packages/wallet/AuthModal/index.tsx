@@ -2,7 +2,8 @@ import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 
-import { Modal, ModalProps } from '../Modal';
+import { Modal, ModalProps } from '../../../components/Modal';
+
 import { AccountDetails, AccountDetailsProps } from './AccountDetails';
 import { WalletList, WalletListProps } from './WalletList';
 

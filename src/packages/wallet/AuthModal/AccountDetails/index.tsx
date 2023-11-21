@@ -4,12 +4,12 @@ import { useTranslation } from 'packages/translations';
 import React from 'react';
 import { ChainId } from 'types';
 
+import { SecondaryButton } from '../../../../components/Button';
+import { ChainExplorerLink } from '../../../../components/ChainExplorerLink';
+import { EllipseAddress } from '../../../../components/EllipseAddress';
+import { Icon } from '../../../../components/Icon';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-import { SecondaryButton } from '../../Button';
-import { ChainExplorerLink } from '../../ChainExplorerLink';
-import { EllipseAddress } from '../../EllipseAddress';
-import { Icon } from '../../Icon';
 import { useStyles } from './styles';
 
 export interface AccountDetailsProps {

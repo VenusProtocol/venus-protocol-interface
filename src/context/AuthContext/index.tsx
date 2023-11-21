@@ -11,6 +11,7 @@ import {
   useProvider,
   useSigner,
 } from 'packages/wallet';
+import { AuthModal } from 'packages/wallet/AuthModal';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
 import {
@@ -21,7 +22,6 @@ import {
   useSwitchNetwork,
 } from 'wagmi';
 
-import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
 import { store } from './store';

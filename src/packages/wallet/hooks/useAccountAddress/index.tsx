@@ -1,6 +1,6 @@
 import { useAccount } from 'wagmi';
 
-import { useGetIsAddressAuthorized } from 'clients/api';
+import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 
 export const useAccountAddress = () => {
   const { address, isConnected } = useAccount();
