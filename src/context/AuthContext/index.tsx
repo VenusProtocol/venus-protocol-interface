@@ -3,19 +3,24 @@ import * as Sentry from '@sentry/react';
 import { VError, displayMutationError } from 'errors';
 import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import { Connector, Provider, connectorIdByName, useProvider, useSigner } from 'packages/wallet';
+import {
+  Connector,
+  Provider,
+  connectorIdByName,
+  useAccountAddress,
+  useProvider,
+  useSigner,
+} from 'packages/wallet';
 import React, { useCallback, useContext, useEffect } from 'react';
 import { ChainId } from 'types';
 import {
   ConnectorNotFoundError,
-  useAccount,
   useConnect,
   useDisconnect,
   useNetwork,
   useSwitchNetwork,
 } from 'wagmi';
 
-import useGetIsAddressAuthorized from 'clients/api/queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 import { AuthModal } from 'components/AuthModal';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
@@ -51,7 +56,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { connectors, connectAsync } = useConnect();
   const { disconnectAsync: logOut } = useDisconnect();
-  const { address, isConnected } = useAccount();
   const { chain: walletChain } = useNetwork();
   const { switchNetworkAsync } = useSwitchNetwork();
 
@@ -60,14 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signer = useSigner();
   const provider = useProvider();
-
-  const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
-    enabled: address !== undefined,
-  });
-
-  // Set address as authorized by default
-  const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
-  const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
+  const accountAddress = useAccountAddress();
 
   const login = useCallback(
     async (connectorId: Connector) => {
