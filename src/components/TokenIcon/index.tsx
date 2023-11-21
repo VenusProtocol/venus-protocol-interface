@@ -1,16 +1,12 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Token } from 'types';
-
-import { useStyles } from './styles';
+import { cn } from 'utilities';
 
 export interface TokenIconProps {
   token: Token;
   className?: string;
 }
 
-export const TokenIcon: React.FC<TokenIconProps> = ({ className, token }) => {
-  const styles = useStyles();
-
-  return <img src={token.asset} css={styles.icon} alt={token.symbol} className={className} />;
-};
+export const TokenIcon: React.FC<TokenIconProps> = ({ className, token }) => (
+  <img src={token.asset} alt={token.symbol} className={cn('mt-[-2px] h-6 w-6', className)} />
+);

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import {
   Button,
@@ -30,13 +29,13 @@ import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import DelegateModal from './DelegateModal';
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface VotingWalletUiProps {
   votingWeightMantissa: BigNumber;
   openAuthModal: () => void;
   userStakedMantissa: BigNumber;
+  isDataLoading: boolean;
   connectedWallet: boolean;
   currentUserAccountAddress: string | undefined;
   delegate: string | undefined;
@@ -52,6 +51,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   votingWeightMantissa,
   userStakedMantissa,
   connectedWallet,
+  isDataLoading,
   openAuthModal,
   currentUserAccountAddress,
   delegate,
@@ -63,7 +63,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const { switchChain } = useSwitchChain();
   const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
 
   const readableXvsLocked = useMemo(
     () =>
@@ -91,11 +90,11 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
   const showDepositXvs = connectedWallet && !userHasLockedXVS;
   const shouldApplyMarginToTotalLocked =
-    voteProposalFeatureEnabled || !connectedWallet || showDepositXvs;
+    !isDataLoading && (voteProposalFeatureEnabled || !connectedWallet || showDepositXvs);
 
   return (
     <div className="flex flex-1 flex-col lg:ml-4">
-      <h4 className="m-0 text-lg font-semibold leading-normal">{t('vote.votingWallet')}</h4>
+      <h4 className="text-lg font-semibold">{t('vote.votingWallet')}</h4>
 
       {!voteProposalFeatureEnabled && (
         <NoticeInfo
@@ -114,40 +113,39 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         />
       )}
 
-      <Card className="mt-6 flex flex-col items-start justify-start p-6 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
-        <div css={styles.votingWeightContainer}>
-          <p className="m-0 text-base font-semibold leading-normal tracking-[0.3px] text-grey sm:text-sm md:text-base">
+      <Card className="mt-6 flex flex-col p-6 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
+        <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-10 lg:border-r-0 lg:pb-4">
+          <p className="text-base font-semibold text-grey sm:text-sm md:text-base">
             {t('vote.votingWeight')}
           </p>
 
-          <h3
-            className="m-0 text-xl sm:text-lg md:text-xl"
-            data-testid={TEST_IDS.votingWeightValue}
-          >
+          <h3 className="text-xl sm:text-lg md:text-xl" data-testid={TEST_IDS.votingWeightValue}>
             {readableVoteWeight}
           </h3>
         </div>
 
-        <Delimiter className="block w-full sm:hidden lg:block" />
+        <Delimiter className="w-full sm:hidden lg:block" />
 
-        <div className={cn('mt-4', shouldApplyMarginToTotalLocked && 'mb-5 sm:mb-0 lg:mb-5')}>
-          <div className="mb-1 flex flex-row items-end">
-            <p className="m-0 mr-2 text-base font-semibold leading-normal tracking-[0.3px] text-grey sm:text-sm md:text-base">
+        <div
+          className={cn(
+            'mt-4 sm:ml-10 sm:mr-auto sm:mt-0 lg:ml-0 lg:mr-0 lg:mt-4',
+            shouldApplyMarginToTotalLocked && 'mb-5 sm:mb-0 lg:mb-5',
+          )}
+        >
+          <div className="mb-1 flex items-end sm:mb-0 lg:mb-1">
+            <p className="mr-2 text-base font-semibold text-grey sm:text-sm md:text-base">
               {t('vote.totalLocked')}
             </p>
 
             {previouslyDelegated && (
-              <InfoIcon tooltip={t('vote.youDelegatedTo', { delegate })} css={[styles.infoIcon]} />
+              <InfoIcon className="self-center" tooltip={t('vote.youDelegatedTo', { delegate })} />
             )}
           </div>
 
-          <div className={cn('flex flex-row items-center', voteProposalFeatureEnabled && 'pb-2')}>
-            {xvs && <TokenIcon token={xvs} css={styles.tokenIcon} />}
+          <div className="flex flex-row items-center">
+            {xvs && <TokenIcon className="mr-3 h-[26px] w-[26px]" token={xvs} />}
 
-            <h3
-              className="m-0 text-xl sm:text-lg md:text-xl"
-              data-testid={TEST_IDS.totalLockedValue}
-            >
+            <h3 className="text-xl sm:text-lg md:text-xl" data-testid={TEST_IDS.totalLockedValue}>
               {readableXvsLocked}
             </h3>
           </div>
@@ -178,33 +176,25 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
       {voteProposalFeatureEnabled && (
         <>
-          <Card className="mt-6 flex flex-col items-start justify-start p-6 lg:justify-between">
-            <p className="mb-4 font-semibold leading-normal tracking-[0.3px]" color="textPrimary">
-              {t('vote.toVoteYouShould')}
-            </p>
+          <Card className="mt-6 flex flex-col p-6 lg:justify-between">
+            <p className="mb-4 font-semibold">{t('vote.toVoteYouShould')}</p>
 
-            <span className="mb-3 text-sm" color="textPrimary">
+            <span className="mb-3 text-sm">
               <Trans
                 i18nKey="vote.depositYourTokens"
                 components={{
-                  Link: (
-                    <Link
-                      to={routes.vaults.path}
-                      css={styles.clickableText}
-                      data-testid={TEST_IDS.depositYourTokens}
-                    />
-                  ),
+                  Link: <Link to={routes.vaults.path} data-testid={TEST_IDS.depositYourTokens} />,
                 }}
               />
             </span>
 
-            <span className="text-sm" color="textPrimary">
+            <span className="text-sm">
               <Trans
                 i18nKey="vote.delegateYourVoting"
                 components={{
                   Anchor: (
                     <span
-                      css={styles.clickableText}
+                      className="text-blue hover:cursor-pointer hover:underline"
                       role="button"
                       aria-pressed="false"
                       tabIndex={0}
@@ -251,16 +241,19 @@ const VotingWallet: React.FC = () => {
     symbol: 'XVS',
   });
 
-  const { data: currentVotesData } = useGetCurrentVotes(
+  const { data: currentVotesData, isLoading: areCurrentVotesLoading } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
-  const { data: delegateData } = useGetVoteDelegateAddress(
-    { accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
-  );
+  const { data: delegateData, isLoading: isGetVoteDelegateAddressLoading } =
+    useGetVoteDelegateAddress(
+      { accountAddress: accountAddress || '' },
+      { enabled: !!accountAddress },
+    );
 
-  const { data: vaults } = useGetVestingVaults({ accountAddress });
+  const { data: vaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
+    accountAddress,
+  });
 
   const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
   const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
@@ -277,6 +270,12 @@ const VotingWallet: React.FC = () => {
       openAuthModal={openAuthModal}
       currentUserAccountAddress={accountAddress}
       votingWeightMantissa={currentVotesData?.votesMantissa || new BigNumber(0)}
+      isDataLoading={
+        areCurrentVotesLoading ||
+        isGetVoteDelegateAddressLoading ||
+        isGetVestingVaultsLoading ||
+        isVoteDelegationLoading
+      }
       userStakedMantissa={userStakedMantissa}
       delegate={delegateData?.delegateAddress}
       setVoteDelegation={(delegateAddress: string) => setVoteDelegation({ delegateAddress })}
