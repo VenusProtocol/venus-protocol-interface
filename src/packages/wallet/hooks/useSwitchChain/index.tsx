@@ -8,7 +8,7 @@ import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';
 
 export const useSwitchChain = () => {
   const { switchNetworkAsync } = useSwitchNetwork();
-  const accountAddress = useAccountAddress();
+  const { accountAddress } = useAccountAddress();
   const setStoreChainId = store.use.setChainId();
 
   const switchChain = useCallback(

@@ -96,21 +96,21 @@ export const Select = <TValue extends string | number = string | number>({
 
   return (
     <>
-      <input
-        name={name}
-        value={value}
-        className="h-0 w-0"
-        onChange={e => {
-          const formattedValue = (
-            typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
-          ) as TValue;
-
-          onChange(formattedValue);
-        }}
-        data-testid={testId}
-      />
-
       <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
+        <input
+          name={name}
+          value={value}
+          className="hidden"
+          onChange={e => {
+            const formattedValue = (
+              typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
+            ) as TValue;
+
+            onChange(formattedValue);
+          }}
+          data-testid={testId}
+        />
+
         {!!label && (
           <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
             <p

@@ -12,5 +12,5 @@ export const useAccountAddress = () => {
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
   const accountAddress = !!address && isAuthorizedAddress && isConnected ? address : undefined;
 
-  return accountAddress;
+  return { accountAddress };
 };

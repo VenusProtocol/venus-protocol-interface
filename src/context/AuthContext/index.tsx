@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const chainId = useChainId();
   const signer = useSigner();
   const provider = useProvider();
-  const accountAddress = useAccountAddress();
+  const { accountAddress } = useAccountAddress();
 
   const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
   const closeAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: false });

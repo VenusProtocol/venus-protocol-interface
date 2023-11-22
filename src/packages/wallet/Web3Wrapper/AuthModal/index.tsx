@@ -15,7 +15,7 @@ export const AuthModal: React.FC = () => {
   const isAuthModalOpen = store.use.isAuthModalOpen();
   const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
   const closeAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: false });
-  const accountAddress = useAccountAddress();
+  const { accountAddress } = useAccountAddress();
   const chainId = useChainId();
   const logOut = useLogOut();
   const logIn = useLogIn();
