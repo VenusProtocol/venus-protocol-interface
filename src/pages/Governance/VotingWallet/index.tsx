@@ -89,6 +89,8 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
   const showDepositXvs = !isDataLoading && connectedWallet && !userHasLockedXVS;
+  const showDelegateButton =
+    !isDataLoading && connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled;
   const shouldApplyMarginToTotalLocked =
     !isDataLoading && (voteProposalFeatureEnabled || !connectedWallet || showDepositXvs);
 
@@ -163,7 +165,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </ButtonWrapper>
         )}
 
-        {connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled && (
+        {showDelegateButton && (
           <PrimaryButton
             className="text-offWhite sm:w-auto lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
