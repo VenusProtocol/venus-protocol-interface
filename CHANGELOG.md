@@ -1,3 +1,10 @@
+## [2.43.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.43.0...v2.43.1) (2023-11-22)
+
+
+### Bug Fixes
+
+* Claim reward modal title + footer icon ([#1822](https://github.com/VenusProtocol/venus-protocol-interface/issues/1822)) ([8e4d238](https://github.com/VenusProtocol/venus-protocol-interface/commit/8e4d238b13453b2afc964a47d69d81da52778ec8))
+
 ## [2.43.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.42.2...v2.43.0) (2023-11-22)
 
 
