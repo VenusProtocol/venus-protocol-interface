@@ -12,6 +12,7 @@ import {
   VENUS_DISCORD_URL,
   VENUS_GITHUB_URL,
   VENUS_MEDIUM_URL,
+  VENUS_TELEGRAM_URL,
   VENUS_TWITTER_URL,
 } from './constants';
 
@@ -53,9 +54,10 @@ export const Footer: React.FC = () => {
           }
           iconName="venus"
         />
-        <IconLink href={VENUS_MEDIUM_URL} iconName="discord" />
         <IconLink iconName="discord" href={VENUS_DISCORD_URL} />
+        <IconLink iconName="telegram" href={VENUS_TELEGRAM_URL} />
         <IconLink iconName="twitter" href={VENUS_TWITTER_URL} />
+        <IconLink iconName="medium" href={VENUS_MEDIUM_URL} />
         <IconLink iconName="github" href={VENUS_GITHUB_URL} />
       </div>
     </footer>
