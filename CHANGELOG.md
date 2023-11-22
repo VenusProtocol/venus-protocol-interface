@@ -1,3 +1,10 @@
+## [2.43.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.42.2...v2.43.0) (2023-11-22)
+
+
+### Features
+
+* update Sentry to upload source maps ([#1825](https://github.com/VenusProtocol/venus-protocol-interface/issues/1825)) ([e672f9d](https://github.com/VenusProtocol/venus-protocol-interface/commit/e672f9dd1d045675a509bba7b4c667da7d27995c))
+
 ## [2.42.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.42.1...v2.42.2) (2023-11-22)
 
 ## [2.42.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.42.0...v2.42.1) (2023-11-22)
