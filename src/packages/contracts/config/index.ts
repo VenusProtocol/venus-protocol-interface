@@ -16,6 +16,7 @@ import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { abi as SwapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
 import { abi as Bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
+import { abi as PrimeAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/Prime/Prime.sol/Prime.json';
 import { abi as VaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
 import { abi as VaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
 import { abi as VrtAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRT.sol/VRT.json';
@@ -33,8 +34,6 @@ import { ChainId } from 'types';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
-// TODO: get ABI from package once it's been added
-import PrimeAbi from './externalAbis/Prime.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
 
