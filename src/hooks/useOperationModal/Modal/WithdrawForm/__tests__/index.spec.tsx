@@ -17,9 +17,7 @@ import TEST_IDS from '../testIds';
 describe('WithdrawForm', () => {
   it('submit button is disabled with no amount', async () => {
     renderComponent(<Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
@@ -48,9 +46,7 @@ describe('WithdrawForm', () => {
     const { getByTestId } = renderComponent(
       <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -80,9 +76,7 @@ describe('WithdrawForm', () => {
     const { getByText } = renderComponent(
       <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -101,9 +95,7 @@ describe('WithdrawForm', () => {
     const { getByText } = renderComponent(
       <Withdraw onCloseModal={noop} asset={customFakeAsset} pool={customFakePool} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -130,9 +122,7 @@ describe('WithdrawForm', () => {
     const { getByTestId } = renderComponent(
       <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 

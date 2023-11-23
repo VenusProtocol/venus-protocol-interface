@@ -103,9 +103,7 @@ describe('pages/Proposal', () => {
   it('vote buttons are disabled when proposal is not active', async () => {
     (getProposal as Vi.Mock).mockImplementationOnce(() => cancelledProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
   });
@@ -116,9 +114,7 @@ describe('pages/Proposal', () => {
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
@@ -128,9 +124,7 @@ describe('pages/Proposal', () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
@@ -138,9 +132,7 @@ describe('pages/Proposal', () => {
 
   it('vote buttons are enabled when requirements are met', async () => {
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeEnabled());
@@ -149,9 +141,7 @@ describe('pages/Proposal', () => {
   it('vote buttons are not enabled when feature flag is disabled', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
@@ -159,9 +149,7 @@ describe('pages/Proposal', () => {
 
   it('does not render the voting disabled warning when feature flag is enabled', async () => {
     const { queryByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(queryByTestId(TEST_IDS.votingDisabledWarning)).toBeNull());
@@ -171,9 +159,7 @@ describe('pages/Proposal', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
@@ -186,9 +172,7 @@ describe('pages/Proposal', () => {
       isLoading: false,
     }));
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     const voteButton = await waitFor(async () =>
@@ -216,9 +200,7 @@ describe('pages/Proposal', () => {
 
     const comment = 'Not a good idea';
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     const voteButton = await waitFor(async () =>
@@ -249,9 +231,7 @@ describe('pages/Proposal', () => {
     }));
 
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     const voteButton = await waitFor(async () =>
@@ -272,9 +252,7 @@ describe('pages/Proposal', () => {
 
   it('lists votes cast', async () => {
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
     const againstVoteSummary = await waitFor(async () =>
       within(getByTestId(TEST_IDS.voteSummary.against)),
@@ -294,9 +272,7 @@ describe('pages/Proposal', () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
     const proposerAddress = activeProposal.proposer;
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: proposerAddress,
-      },
+      accountAddress: proposerAddress,
     });
     const cancelButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
@@ -312,9 +288,7 @@ describe('pages/Proposal', () => {
       votesMantissa: new BigNumber(CREATE_PROPOSAL_THRESHOLD_MANTISSA),
     }));
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     const cancelButton = await waitFor(async () =>
@@ -327,9 +301,7 @@ describe('pages/Proposal', () => {
   it('user can cancel if voting power of the proposer dropped below threshold', async () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
     const cancelButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
@@ -344,9 +316,7 @@ describe('pages/Proposal', () => {
   it('user can queue succeeded proposal', async () => {
     (getProposal as Vi.Mock).mockImplementationOnce(() => succeededProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
     const queueButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.queueButton),
@@ -358,9 +328,7 @@ describe('pages/Proposal', () => {
   it('user can execute queued proposal', async () => {
     (getProposal as Vi.Mock).mockImplementationOnce(() => queuedProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
     const executeButton = await waitFor(async () =>
       getByTestId(PROPOSAL_SUMMARY_TEST_IDS.executeButton),

@@ -94,9 +94,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { getByText, container } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -113,9 +111,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -143,9 +139,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { getByText, container, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -188,9 +182,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { getByText, container, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -225,9 +217,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -254,9 +244,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -301,9 +289,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -345,9 +331,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -395,9 +379,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -436,9 +418,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -478,9 +458,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -516,9 +494,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -602,9 +578,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -659,9 +633,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -709,9 +681,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const { container, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 

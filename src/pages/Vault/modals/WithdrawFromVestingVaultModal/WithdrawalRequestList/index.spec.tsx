@@ -25,7 +25,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
 
   it('renders without crashing', async () => {
     renderComponent(<WithdrawalRequestList poolIndex={fakePoolIndex} />, {
-      authContextValue: { accountAddress: fakeAddress },
+      accountAddress: fakeAddress,
     });
   });
 
@@ -35,7 +35,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
     }));
 
     const { getByText } = renderComponent(<WithdrawalRequestList poolIndex={fakePoolIndex} />, {
-      authContextValue: { accountAddress: fakeAddress },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() =>
@@ -47,7 +47,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
     const { queryAllByTestId } = renderComponent(
       <WithdrawalRequestList poolIndex={fakePoolIndex} />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 

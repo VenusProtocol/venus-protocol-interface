@@ -22,7 +22,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal', () => {
         hasPendingWithdrawalsFromBeforeUpgrade={false}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 

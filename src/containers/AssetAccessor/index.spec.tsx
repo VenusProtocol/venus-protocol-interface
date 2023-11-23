@@ -87,7 +87,7 @@ describe('containers/AssetAccessor', () => {
         }}
       </AssetAccessor>,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 
@@ -99,7 +99,7 @@ describe('containers/AssetAccessor', () => {
     const { getByText } = renderComponent(
       <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 

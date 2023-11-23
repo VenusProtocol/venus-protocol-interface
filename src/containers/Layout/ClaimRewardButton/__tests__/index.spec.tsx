@@ -34,9 +34,7 @@ describe('ClaimRewardButton', () => {
     }));
 
     const { queryByText } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     expect(queryByText(en.claimReward.openModalButton.label)).toBeNull();
@@ -44,9 +42,7 @@ describe('ClaimRewardButton', () => {
 
   it('renders claim button if user has pending rewards to claim', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -54,9 +50,7 @@ describe('ClaimRewardButton', () => {
 
   it('renders correct reward breakdown in modal', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -83,9 +77,7 @@ describe('ClaimRewardButton', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -100,9 +92,7 @@ describe('ClaimRewardButton', () => {
 
   it('unselects all groups when clicking on "Select all" checkbox and all groups are selected', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -125,9 +115,7 @@ describe('ClaimRewardButton', () => {
 
   it('selects all groups when clicking on "Select all" checkbox and some groups are unselected', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -157,9 +145,7 @@ describe('ClaimRewardButton', () => {
 
   it('it disables submit button if user unchecks all groups', async () => {
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -183,10 +169,8 @@ describe('ClaimRewardButton', () => {
   it('it claims reward on submit button click and closes modal on success', async () => {
     (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
-    const { getByTestId, queryByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+    const { queryByTestId, getByTestId } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
@@ -207,9 +191,7 @@ describe('ClaimRewardButton', () => {
     (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
-      authContextValue: {
-        accountAddress: fakeAddress,
-      },
+      accountAddress: fakeAddress,
     });
 
     await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));

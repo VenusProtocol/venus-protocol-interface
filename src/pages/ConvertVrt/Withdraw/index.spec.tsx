@@ -35,9 +35,7 @@ describe('Withdraw', () => {
         withdrawXvsLoading={false}
       />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 

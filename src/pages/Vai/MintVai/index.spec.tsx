@@ -25,9 +25,7 @@ describe('MintVai', () => {
 
   it('renders without crashing', () => {
     renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
   });
 
@@ -37,9 +35,7 @@ describe('MintVai', () => {
     }));
 
     const { getByText } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check available VAI limit displays correctly
@@ -52,9 +48,7 @@ describe('MintVai', () => {
     (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.mintVai.submitButtonDisabledLabel));
 

@@ -21,14 +21,10 @@ const createQueryClient = () =>
   });
 
 interface Options {
-  authContextValue?: {
-    accountAddress?: string;
-    chainId?: ChainId;
-  };
-  routerOpts?: {
-    routerInitialEntries?: string[];
-    routePath?: string;
-  };
+  accountAddress?: string;
+  chainId?: ChainId;
+  routerInitialEntries?: string[];
+  routePath?: string;
 }
 
 interface WrapperProps {
@@ -38,8 +34,8 @@ interface WrapperProps {
 }
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
-  if (options?.authContextValue?.accountAddress) {
-    const accountAddress = options?.authContextValue?.accountAddress;
+  if (options?.accountAddress) {
+    const accountAddress = options?.accountAddress;
 
     (useAccountAddress as Vi.Mock).mockImplementation(() => ({
       accountAddress,
@@ -53,9 +49,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
     }));
   }
 
-  if (options?.authContextValue?.chainId) {
+  if (options?.chainId) {
     (useChainId as Vi.Mock).mockImplementation(() => ({
-      chainId: options?.authContextValue?.chainId,
+      chainId: options?.chainId,
     }));
   }
 
@@ -63,9 +59,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
     <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Web3Wrapper>
-          <MemoryRouter initialEntries={options?.routerOpts?.routerInitialEntries || ['/']}>
+          <MemoryRouter initialEntries={options?.routerInitialEntries || ['/']}>
             <Routes>
-              <Route path={options?.routerOpts?.routePath || '/'} element={children} />
+              <Route path={options?.routePath || '/'} element={children} />
             </Routes>
           </MemoryRouter>
         </Web3Wrapper>

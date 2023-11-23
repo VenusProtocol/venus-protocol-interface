@@ -60,9 +60,7 @@ describe('Swap', () => {
 
   it('displays user fromToken and toToken balances correctly', async () => {
     const { getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => expect(getByText('200.00K BNB')));
@@ -71,9 +69,7 @@ describe('Swap', () => {
 
   it('updates toToken when changing fromToken for toToken', () => {
     const { container, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Since the initial toToken is XVS, we change fromToken for XVS
@@ -127,9 +123,7 @@ describe('Swap', () => {
 
   it('switches form values when pressing on switch tokens button', () => {
     const { getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const fromTokenInput = getByTestId(
@@ -212,9 +206,7 @@ describe('Swap', () => {
 
   it('disables submit button on mount', () => {
     const { getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const submitButtonText = getByText(
@@ -233,9 +225,7 @@ describe('Swap', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const fromTokenInput = getByTestId(
@@ -281,9 +271,7 @@ describe('Swap', () => {
     }));
 
     const { getByText, getByTestId, container } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check submit button is disabled
@@ -340,9 +328,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId, container } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Change fromToken to XVS
@@ -374,9 +360,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const fromTokenInput = getByTestId(
@@ -397,9 +381,7 @@ describe('Swap', () => {
 
   it('disables submit button when swap is a wrap', async () => {
     const { container, getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Change toToken to wBNB
@@ -416,9 +398,7 @@ describe('Swap', () => {
 
   it('disables submit button when swap is an unwrap', async () => {
     const { container, getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Change fromToken to wBNB
@@ -450,9 +430,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const fromTokenInput = getByTestId(
@@ -494,9 +472,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     const toTokenInput = getByTestId(
@@ -538,9 +514,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Update fromToken input value
@@ -574,9 +548,7 @@ describe('Swap', () => {
     [fakeExactAmountOutSwap.direction, fakeExactAmountOutSwap],
   ])('displays %s swap details correctly ', async (_swapDirection, swap) => {
     const { getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check only slippage tolerance is displayed on mount
@@ -613,9 +585,7 @@ describe('Swap', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Update fromToken input value to trigger rerender
@@ -650,9 +620,7 @@ describe('Swap', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Update fromToken input value to trigger rerender
@@ -684,9 +652,7 @@ describe('Swap', () => {
     (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Enter valid amount in fromToken input
@@ -732,9 +698,7 @@ describe('Swap', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(<SwapPage />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // wait for the balance to be updated

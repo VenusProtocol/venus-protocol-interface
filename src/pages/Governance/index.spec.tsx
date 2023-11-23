@@ -59,13 +59,9 @@ describe('Governance', () => {
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
     (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: 2 }));
     const { getByText } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-      routerOpts: {
-        routerInitialEntries: ['/governance/proposal-create', '/governance'],
-        routePath: '/governance/*',
-      },
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
     });
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
     await waitFor(() => expect(createProposalButton).toBeEnabled());
@@ -110,9 +106,7 @@ describe('Governance', () => {
 
   it('opens delegate modal when clicking text with delegate button when authenticated', async () => {
     const { getByText, getByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     const delegateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
@@ -150,9 +144,7 @@ describe('Governance', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     const depositXvsButton = getByText(en.vote.depositXvs);
 
@@ -170,9 +162,7 @@ describe('Governance', () => {
     }));
 
     const { getByText, getByTestId, getByPlaceholderText } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() =>
@@ -212,9 +202,7 @@ describe('Governance', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     const delegateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
@@ -250,26 +238,18 @@ describe('Governance', () => {
 
   it('shows the create proposal option on BSC_TESTNET', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-      routerOpts: {
-        routerInitialEntries: ['/governance/proposal-create', '/governance'],
-        routePath: '/governance/*',
-      },
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
     });
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(1);
   });
 
   it('shows the create proposal button when createProposal feature is enabled', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-      routerOpts: {
-        routerInitialEntries: ['/governance/proposal-create', '/governance'],
-        routePath: '/governance/*',
-      },
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
     });
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(1);
   });
@@ -278,13 +258,9 @@ describe('Governance', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
     const { queryAllByTestId } = renderComponent(<Governance />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
-      routerOpts: {
-        routerInitialEntries: ['/governance/proposal-create', '/governance'],
-        routePath: '/governance/*',
-      },
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
     });
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(0);
   });

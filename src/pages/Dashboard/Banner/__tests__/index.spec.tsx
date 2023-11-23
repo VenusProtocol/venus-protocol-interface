@@ -31,9 +31,7 @@ describe('Banner', () => {
 
   it('displays nothing when user is connected', () => {
     const { baseElement } = renderComponent(<Banner />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     expect(baseElement.textContent).toEqual('');

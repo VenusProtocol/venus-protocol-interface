@@ -11,9 +11,8 @@ import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useChainId } from 'packages/wallet';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
@@ -140,8 +139,7 @@ import { SwapRouter } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useChainId } from 'packages/wallet';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;

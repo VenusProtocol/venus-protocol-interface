@@ -16,9 +16,7 @@ describe('useGetTokens', () => {
 
   it('returns tokens', () => {
     const { result } = renderHook(() => useGetTokens(), {
-      authContextValue: {
-        chainId: ChainId.BSC_TESTNET,
-      },
+      chainId: ChainId.BSC_TESTNET,
     });
 
     expect(result.current).toBe(tokens);

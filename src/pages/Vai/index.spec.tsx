@@ -10,9 +10,7 @@ import Vai from '.';
 describe('pages/Dashboard/Vai', () => {
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(<Vai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => getByText(en.vai.tabMint));
@@ -20,9 +18,7 @@ describe('pages/Dashboard/Vai', () => {
 
   it('renders mint tab by default and lets user switch to repay tab', async () => {
     const { getByText } = renderComponent(<Vai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check mint tab is displayed by default

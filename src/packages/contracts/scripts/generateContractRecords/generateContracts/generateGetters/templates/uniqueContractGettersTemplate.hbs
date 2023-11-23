@@ -6,9 +6,8 @@ import { {{contractName}} } from 'packages/contracts/generated/infos/contractTyp
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useChainId } from 'packages/wallet';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface Get{{contractName}}ContractAddressInput {
   chainId: ChainId;

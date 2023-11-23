@@ -56,9 +56,7 @@ describe('TransactionForm', () => {
     const { getByTestId } = renderComponent(
       <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -85,9 +83,7 @@ describe('TransactionForm', () => {
     const customProps: TransactionFormProps = { ...baseProps, warning: fakeWarning };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Enter amount in input
@@ -118,9 +114,7 @@ describe('TransactionForm', () => {
     const { getByTestId, getByText } = renderComponent(
       <TransactionForm tokenNeedsToBeApproved {...baseProps} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(baseProps.submitButtonDisabledLabel));
@@ -153,9 +147,7 @@ describe('TransactionForm', () => {
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check submit button is disabled

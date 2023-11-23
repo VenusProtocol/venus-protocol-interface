@@ -51,9 +51,7 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('displays transaction form if user have connected their wallet and approved token', async () => {
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => getByText(baseProps.submitButtonDisabledLabel));

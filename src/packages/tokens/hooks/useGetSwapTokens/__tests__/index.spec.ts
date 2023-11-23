@@ -16,9 +16,7 @@ describe('useGetSwapTokens', () => {
 
   it('returns swap tokens', () => {
     const { result } = renderHook(() => useGetSwapTokens(), {
-      authContextValue: {
-        chainId: ChainId.BSC_TESTNET,
-      },
+      chainId: ChainId.BSC_TESTNET,
     });
 
     expect(result.current).toBe(tokens);

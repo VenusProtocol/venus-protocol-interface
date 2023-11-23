@@ -32,19 +32,15 @@ describe('pages/Market/CorePoolMarket', () => {
 
   it('renders without crashing', () => {
     renderComponent(<CorePoolMarket />, {
-      routerOpts: {
-        routerInitialEntries: [`/${vXvs.address}`],
-        routePath: '/:vTokenAddress',
-      },
+      routerInitialEntries: [`/${vXvs.address}`],
+      routePath: '/:vTokenAddress',
     });
   });
 
   it('fetches market details and displays them correctly', async () => {
     const { getByTestId } = renderComponent(<CorePoolMarket />, {
-      routerOpts: {
-        routerInitialEntries: [`/${vXvs.address}`],
-        routePath: '/:vTokenAddress',
-      },
+      routerInitialEntries: [`/${vXvs.address}`],
+      routePath: '/:vTokenAddress',
     });
 
     // Check supply info displays correctly

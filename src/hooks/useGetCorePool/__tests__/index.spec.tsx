@@ -26,9 +26,7 @@ describe('useGetCorePool', () => {
     (useGetPool as Vi.Mock).mockImplementation(() => fakeOutput);
 
     const { result } = renderHook(() => useGetCorePool(), {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     expect(result.current).toBe(fakeOutput);

@@ -94,10 +94,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -124,10 +122,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -155,10 +151,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -212,10 +206,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -274,10 +266,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -333,10 +323,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: `${routes.governance.path}/*`,
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: `${routes.governance.path}/*`,
       },
     );
 
@@ -389,10 +377,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: '/governance/*',
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: '/governance/*',
       },
     );
 
@@ -424,10 +410,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
         isCreateProposalLoading={false}
       />,
       {
-        routerOpts: {
-          routerInitialEntries: ['/governance/proposal-create'],
-          routePath: '/governance/*',
-        },
+        routerInitialEntries: ['/governance/proposal-create'],
+        routePath: '/governance/*',
       },
     );
 

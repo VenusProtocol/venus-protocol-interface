@@ -32,9 +32,7 @@ describe('WithdrawFromVaiVaultModal', () => {
 
   it('fetches and displays the user balance correctly', async () => {
     const { getByTestId } = renderComponent(<WithdrawFromVaiVaultModal {...baseProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() =>
@@ -53,9 +51,7 @@ describe('WithdrawFromVaiVaultModal', () => {
     const { getByTestId, getByText } = renderComponent(
       <WithdrawFromVaiVaultModal {...customProps} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
