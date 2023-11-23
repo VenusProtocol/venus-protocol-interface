@@ -6,6 +6,7 @@
 /tmp
 /out-tsc
 .env
+/public/version.json
 
 # Sentry Config File
 .env.sentry-build-plugin
