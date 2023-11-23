@@ -1,3 +1,10 @@
+## [2.44.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.43.2...v2.44.0) (2023-11-23)
+
+
+### Features
+
+* use Prime ABI from package ([42d5070](https://github.com/VenusProtocol/venus-protocol-interface/commit/42d507029d0611cd49820b9e1382b3a128ce9bfe))
+
 ## [2.43.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.43.1...v2.43.2) (2023-11-22)
 
 ## [2.43.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.43.0...v2.43.1) (2023-11-22)
