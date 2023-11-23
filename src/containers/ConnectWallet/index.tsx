@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useTranslation } from 'packages/translations';
+import { useAuthModal } from 'packages/wallet';
 import React from 'react';
 
 import { SecondaryButton } from '../../components/Button';
@@ -42,6 +43,7 @@ export const Prompt: React.FC<PromptProps> = ({
 };
 
 export const ConnectWallet: React.FC<Omit<PromptProps, 'connected' | 'openAuthModal'>> = props => {
-  const { accountAddress, openAuthModal } = useAuth();
+  const { accountAddress } = useAuth();
+  const { openAuthModal } = useAuthModal();
   return <Prompt {...props} openAuthModal={openAuthModal} connected={!!accountAddress} />;
 };

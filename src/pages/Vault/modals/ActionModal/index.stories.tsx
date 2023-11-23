@@ -25,8 +25,6 @@ export default {
 const Template: StoryFn<ActionModalProps> = args => <ActionModal {...args} />;
 
 const authContext: AuthContextValue = {
-  openAuthModal: noop,
-  closeAuthModal: noop,
   switchChain: noop,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,

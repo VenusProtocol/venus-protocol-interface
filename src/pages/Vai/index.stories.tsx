@@ -29,8 +29,6 @@ export default {
 const Template: StoryFn<VaiProps> = props => <Vai {...props} />;
 
 const context: AuthContextValue = {
-  openAuthModal: noop,
-  closeAuthModal: noop,
   switchChain: noop,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,

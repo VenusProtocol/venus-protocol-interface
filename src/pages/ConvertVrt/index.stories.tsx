@@ -25,8 +25,6 @@ export default {
 const Template: StoryFn<ConvertVrtUiProps> = args => <ConvertVrtUi {...args} />;
 
 const context: AuthContextValue = {
-  openAuthModal: noop,
-  closeAuthModal: noop,
   switchChain: noop,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: '0x0000000000000000000000000000000000000000',

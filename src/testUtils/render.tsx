@@ -1,12 +1,13 @@
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
-import { Web3Wrapper, useAccountAddress, useChainId } from 'packages/wallet';
+import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'packages/wallet';
 import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
+import fakeSigner from '__mocks__/models/signer';
 import { AuthContext } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -39,8 +40,17 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
   if (options?.authContextValue?.accountAddress) {
+    const accountAddress = options?.authContextValue?.accountAddress;
+
     (useAccountAddress as Vi.Mock).mockImplementation(() => ({
-      accountAddress: options?.authContextValue?.accountAddress,
+      accountAddress,
+    }));
+
+    (useSigner as Vi.Mock).mockImplementation(() => ({
+      signer: {
+        ...fakeSigner,
+        getAddress: async () => accountAddress,
+      },
     }));
   }
 

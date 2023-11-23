@@ -34,8 +34,6 @@ describe('Withdraw', () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
-          openAuthModal: vi.fn(),
-          closeAuthModal: vi.fn(),
           switchChain: vi.fn(),
           chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,

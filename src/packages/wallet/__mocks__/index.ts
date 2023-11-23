@@ -12,3 +12,4 @@ export * from 'packages/wallet/hooks/useSwitchChain/__mocks__';
 export * from 'packages/wallet/hooks/useChainId/__mocks__';
 export * from 'packages/wallet/hooks/useLogIn/__mocks__';
 export * from 'packages/wallet/hooks/useLogOut/__mocks__';
+export * from 'packages/wallet/hooks/useAuthModal/__mocks__';

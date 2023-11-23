@@ -1,3 +1,5 @@
+import { useAuthModal } from 'packages/wallet';
+
 import { useGetPrimeToken } from 'clients/api';
 import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -7,7 +9,8 @@ import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { store } from './store';
 
 export const Banner: React.FC = () => {
-  const { accountAddress, openAuthModal } = useAuth();
+  const { accountAddress } = useAuth();
+  const { openAuthModal } = useAuthModal();
 
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,

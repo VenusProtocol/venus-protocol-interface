@@ -26,8 +26,6 @@ const Template: StoryFn<WithdrawFromVaiVaultModalProps> = args => (
 );
 
 const authContext: AuthContextValue = {
-  openAuthModal: noop,
-  closeAuthModal: noop,
   switchChain: noop,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: '0x0000000000000000000000000000000000000000',

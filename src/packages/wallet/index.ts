@@ -12,3 +12,4 @@ export * from './hooks/useSwitchChain';
 export * from './hooks/useChainId';
 export * from './hooks/useLogIn';
 export * from './hooks/useLogOut';
+export * from './hooks/useAuthModal';
