@@ -10,5 +10,10 @@ export interface UseSignerInput {
 
 export const useSigner = (input?: UseSignerInput) => {
   const { data: walletClient } = useWalletClient({ chainId: input?.chainId });
-  return useMemo(() => getSigner({ walletClient: walletClient || undefined }), [walletClient]);
+  const signer = useMemo(
+    () => getSigner({ walletClient: walletClient || undefined }),
+    [walletClient],
+  );
+
+  return { signer };
 };

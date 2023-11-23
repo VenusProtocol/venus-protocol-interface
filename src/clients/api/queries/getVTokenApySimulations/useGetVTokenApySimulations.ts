@@ -1,4 +1,5 @@
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contracts';
+import { useChainId, useProvider } from 'packages/wallet';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { Asset, ChainId, VToken } from 'types';
@@ -8,7 +9,6 @@ import getVTokenApySimulations, {
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetVTokenApySimulationsQueryKey = [
@@ -36,7 +36,8 @@ const useGetVTokenApySimulations = (
   },
   options?: Options,
 ) => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });

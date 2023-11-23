@@ -1,13 +1,13 @@
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
-import { getDefaultProvider } from 'ethers';
-import { Web3Wrapper } from 'packages/wallet';
+import { Web3Wrapper, useAccountAddress, useChainId } from 'packages/wallet';
 import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ChainId } from 'types';
+import Vi from 'vitest';
 
-import { AuthContext, AuthContextValue } from 'context/AuthContext';
+import { AuthContext } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const createQueryClient = () =>
@@ -21,10 +21,13 @@ const createQueryClient = () =>
   });
 
 interface Options {
-  authContextValue?: Partial<AuthContextValue>;
+  authContextValue?: {
+    accountAddress?: string;
+    chainId?: ChainId;
+  };
   routerOpts?: {
-    routerInitialEntries: string[];
-    routePath: string;
+    routerInitialEntries?: string[];
+    routePath?: string;
   };
 }
 
@@ -35,14 +38,25 @@ interface WrapperProps {
 }
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
-  const defaultAuthContextValues: AuthContextValue = {
+  if (options?.authContextValue?.accountAddress) {
+    (useAccountAddress as Vi.Mock).mockImplementation(() => ({
+      accountAddress: options?.authContextValue?.accountAddress,
+    }));
+  }
+
+  if (options?.authContextValue?.chainId) {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: options?.authContextValue?.chainId,
+    }));
+  }
+
+  // TODO: remove
+  const defaultAuthContextValues = {
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
     switchChain: vi.fn(),
-    provider: getDefaultProvider(),
     chainId: ChainId.BSC_TESTNET,
     ...options?.authContextValue,
-    ...options?.routerOpts,
   };
 
   return (

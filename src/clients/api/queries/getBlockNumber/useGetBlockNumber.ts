@@ -1,9 +1,9 @@
+import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 
 import { getBlockNumber } from 'clients/api/';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
@@ -21,7 +21,8 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBlockNumber = (options?: Options) => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const { blockTimeMs } = useGetChainMetadata();
 
   return useQuery([FunctionKey.GET_BLOCK_NUMBER, { chainId }], () => getBlockNumber({ provider }), {

@@ -9,9 +9,9 @@ import {
 } from 'packages/errors';
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
+import { useChainId, useProvider } from 'packages/wallet';
 import { useCallback } from 'react';
 
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export const CONFIRMATIONS = 2;
@@ -26,7 +26,8 @@ interface TrackTransactionInput {
 }
 
 export const useTrackTransaction = () => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const { blockTimeMs } = useGetChainMetadata();
   const { t } = useTranslation();
 

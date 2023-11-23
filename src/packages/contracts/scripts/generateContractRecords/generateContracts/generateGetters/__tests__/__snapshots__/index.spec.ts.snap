@@ -53,8 +53,8 @@ export const useGetPoolLensContract = (input?: UseGetPoolLensContractInput) => {
   const { chainId: currentChainId } = useAuth();
   const chainId = input?.chainId || currentChainId;
 
-  const provider = useProvider({ chainId: input?.chainId });
-  const signer = useSigner({ chainId: input?.chainId });
+  const { provider } = useProvider({ chainId: input?.chainId });
+  const { signer } = useSigner({ chainId: input?.chainId });
   const signerOrProvider = input?.passSigner ? signer : provider;
 
   return useMemo(
@@ -108,8 +108,8 @@ export const useGetIsolatedPoolComptrollerContract = ({
   address,
   chainId,
 }: UseGetIsolatedPoolComptrollerContractInput) => {
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
@@ -210,8 +210,8 @@ export const useGetSwapRouterContract = ({
   const { chainId: currentChainId } = useAuth();
   const chainId = passedChainId || currentChainId;
 
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

@@ -1,3 +1,4 @@
+import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 
@@ -6,7 +7,6 @@ import getPancakeSwapPairs, {
   GetPancakeSwapPairsOutput,
 } from 'clients/api/queries/getPancakeSwapPairs';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';
@@ -29,7 +29,8 @@ const useGetPancakeSwapPairs = (
   input: Omit<GetPancakeSwapPairsInput, 'provider' | 'chainId'>,
   options?: Options,
 ) => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const { blockTimeMs } = useGetChainMetadata();
 
   // Generate query key based on token combinations

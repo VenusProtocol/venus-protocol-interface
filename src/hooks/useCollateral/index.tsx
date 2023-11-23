@@ -6,6 +6,7 @@ import {
 } from 'packages/contracts';
 import { VError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
+import { useAccountAddress, useSigner } from 'packages/wallet';
 import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
@@ -16,12 +17,12 @@ import {
   useEnterMarket,
   useExitMarket,
 } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 
 const useCollateral = () => {
-  const { accountAddress, signer } = useAuth();
+  const { signer } = useSigner();
+  const { accountAddress } = useAccountAddress();
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const { userHasLunaOrUstCollateralEnabled } = useLunaUstWarning();
 

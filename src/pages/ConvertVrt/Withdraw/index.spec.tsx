@@ -8,7 +8,6 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
-import fakeProvider from '__mocks__/models/provider';
 import { useGetLegacyPool } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { renderComponent } from 'testUtils/render';
@@ -38,7 +37,6 @@ describe('Withdraw', () => {
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
           switchChain: vi.fn(),
-          provider: fakeProvider,
           chainId: ChainId.BSC_TESTNET,
           accountAddress: fakeAccountAddress,
         }}

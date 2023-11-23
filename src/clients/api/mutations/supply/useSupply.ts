@@ -1,11 +1,11 @@
 import { useAnalytics } from 'packages/analytics';
+import { useAccountAddress, useSigner } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import supply, { SupplyInput } from 'clients/api/mutations/supply';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedSupplyInput = Omit<SupplyInput, 'vToken' | 'signer'>;
@@ -15,7 +15,8 @@ const useSupply = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
-  const { signer, accountAddress } = useAuth();
+  const { signer } = useSigner();
+  const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({

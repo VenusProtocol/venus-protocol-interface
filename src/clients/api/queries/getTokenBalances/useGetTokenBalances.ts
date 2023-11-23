@@ -1,9 +1,9 @@
+import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 
 import { GetTokenBalancesInput, GetTokenBalancesOutput, getTokenBalances } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_TOKEN_BALANCES,
@@ -26,7 +26,8 @@ const useGetTokenBalances = (
   { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'multicall3' | 'provider'>,
   options?: Options,
 ) => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
 
   // Sort addresses alphabetically to prevent unnecessary re-renders
   const sortedTokenAddresses = [...tokens].map(token => token.address).sort();

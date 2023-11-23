@@ -1,13 +1,5 @@
-import { Signer, getDefaultProvider } from 'ethers';
 import noop from 'noop-ts';
-import {
-  Provider,
-  useAccountAddress,
-  useChainId,
-  useProvider,
-  useSigner,
-  useSwitchChain,
-} from 'packages/wallet';
+import { useAccountAddress, useChainId, useSwitchChain } from 'packages/wallet';
 import { store } from 'packages/wallet/store';
 import React, { useContext } from 'react';
 import { ChainId } from 'types';
@@ -16,17 +8,14 @@ export interface AuthContextValue {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   switchChain: (input: { chainId: ChainId }) => void;
-  provider: Provider;
   chainId: ChainId;
   accountAddress?: string;
-  signer?: Signer;
 }
 
 export const AuthContext = React.createContext<AuthContextValue>({
   openAuthModal: noop,
   closeAuthModal: noop,
   switchChain: noop,
-  provider: getDefaultProvider(),
   chainId: store.getState().chainId,
 });
 
@@ -38,9 +27,7 @@ export interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const switchChain = useSwitchChain();
-  const chainId = useChainId();
-  const signer = useSigner();
-  const provider = useProvider();
+  const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
 
   const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
@@ -54,8 +41,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         openAuthModal,
         closeAuthModal,
         switchChain,
-        provider,
-        signer,
         chainId,
       }}
     >

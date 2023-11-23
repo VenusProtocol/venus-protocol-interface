@@ -10,5 +10,7 @@ export interface UseProviderInput {
 
 export const useProvider = (input?: UseProviderInput) => {
   const publicClient = usePublicClient({ chainId: input?.chainId });
-  return useMemo(() => getProvider({ publicClient }), [publicClient]);
+  const provider = useMemo(() => getProvider({ publicClient }), [publicClient]);
+
+  return { provider };
 };

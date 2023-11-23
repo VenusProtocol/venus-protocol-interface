@@ -8,6 +8,7 @@ import {
 } from 'packages/errors';
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { en } from 'packages/translations';
+import { useProvider } from 'packages/wallet';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
@@ -15,13 +16,11 @@ import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useAuth } from 'context/AuthContext';
 import { renderHook } from 'testUtils/render';
 
 import { CONFIRMATIONS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
-vi.mock('context/AuthContext');
 vi.mock('packages/notifications');
 vi.mock('packages/errors');
 vi.mock('errors');
@@ -30,17 +29,15 @@ const fakeError = new Error('Fake error');
 
 describe('useTrackTransaction', () => {
   beforeEach(() => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      signer: undefined,
-      provider: fakeProvider,
-      chainId: ChainId.BSC_TESTNET,
-    }));
-
     (displayNotification as Vi.Mock).mockImplementation(({ id }: { id: string | number }) => id);
 
     (fakeProvider.waitForTransaction as Vi.Mock).mockImplementation(
       async () => fakeContractReceipt,
     );
+
+    (useProvider as Vi.Mock).mockImplementation(() => ({
+      provider: fakeProvider,
+    }));
   });
 
   it('handles errors from provider', async () => {

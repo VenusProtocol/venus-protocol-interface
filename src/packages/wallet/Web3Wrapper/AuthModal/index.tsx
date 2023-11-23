@@ -16,9 +16,9 @@ export const AuthModal: React.FC = () => {
   const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
   const closeAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: false });
   const { accountAddress } = useAccountAddress();
-  const chainId = useChainId();
-  const logOut = useLogOut();
-  const logIn = useLogIn();
+  const { chainId } = useChainId();
+  const { logOut } = useLogOut();
+  const { logIn } = useLogIn();
   const { t } = useTranslation();
 
   const handleLogIn: WalletListProps['onLogIn'] = connector => {

@@ -4,7 +4,6 @@ import noop from 'noop-ts';
 import React from 'react';
 import { ChainId } from 'types';
 
-import fakeProvider from '__mocks__/models/provider';
 import { AuthContextValue } from 'context/AuthContext';
 import { withAuthContext, withCenterStory, withRouter } from 'stories/decorators';
 
@@ -29,7 +28,6 @@ const context: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   switchChain: noop,
-  provider: fakeProvider,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: '0x0000000000000000000000000000000000000000',
 };

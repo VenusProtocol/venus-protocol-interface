@@ -5,7 +5,6 @@ import React from 'react';
 import { ChainId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeProvider from '__mocks__/models/provider';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { AuthContextValue } from 'context/AuthContext';
 import { withApprovedToken, withAuthContext, withCenterStory } from 'stories/decorators';
@@ -28,7 +27,6 @@ const authContext: AuthContextValue = {
   openAuthModal: noop,
   closeAuthModal: noop,
   switchChain: noop,
-  provider: fakeProvider,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,
 };

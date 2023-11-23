@@ -11,7 +11,7 @@ import { useChainId } from '../useChainId';
 
 export const useLogIn = () => {
   const { connectAsync, connectors } = useConnect();
-  const chainId = useChainId();
+  const { chainId } = useChainId();
 
   const logIn = useCallback(
     async (connectorId: Connector) => {
@@ -39,5 +39,5 @@ export const useLogIn = () => {
     [chainId, connectAsync, connectors],
   );
 
-  return logIn;
+  return { logIn };
 };
