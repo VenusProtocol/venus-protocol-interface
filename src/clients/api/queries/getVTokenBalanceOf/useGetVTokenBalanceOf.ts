@@ -1,4 +1,5 @@
 import { useGetVTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getVTokenBalanceOf, {
   GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {
   vToken: VToken;
@@ -34,7 +34,7 @@ const useGetVTokenBalanceOf = (
   { accountAddress, vToken }: TrimmedGetVTokenBalanceOfInput,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const vTokenContract = useGetVTokenContract({ vToken });
 
   return useQuery(

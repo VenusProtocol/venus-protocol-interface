@@ -1,4 +1,5 @@
 import { useGetVaiVaultContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -9,7 +10,6 @@ import {
   getVaiVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetVaiVaultUserInfoInput = Omit<GetVaiVaultUserInfoInput, 'vaiVaultContract'>;
 
@@ -29,7 +29,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiVaultUserInfo = (input: TrimmedGetVaiVaultUserInfoInput, options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const vaiVaultContract = useGetVaiVaultContract();
 
   return useQuery(

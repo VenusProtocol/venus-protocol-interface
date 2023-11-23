@@ -14,13 +14,13 @@ import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { VError, displayMutationError } from 'packages/errors';
 import { isTokenActionEnabled } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
-import { useAuth } from 'context/AuthContext';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -325,7 +325,8 @@ export interface SupplyFormProps {
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
-  const { accountAddress, chainId } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const [formValues, setFormValues] = useState<FormValues>({

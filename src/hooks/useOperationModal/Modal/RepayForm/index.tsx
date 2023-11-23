@@ -12,6 +12,7 @@ import {
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { VError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
@@ -23,7 +24,6 @@ import {
 
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
-import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -317,7 +317,7 @@ export interface RepayFormProps {
 }
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const [formValues, setFormValues] = useState<FormValues>({

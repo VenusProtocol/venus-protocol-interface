@@ -1,6 +1,5 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import { en } from 'packages/translations';
 import React from 'react';
 import { VoteSupport } from 'types';

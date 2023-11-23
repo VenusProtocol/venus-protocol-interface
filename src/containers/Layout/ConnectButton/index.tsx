@@ -1,10 +1,9 @@
 import { Button, ButtonProps } from 'components';
 import { useTranslation } from 'packages/translations';
-import { useAuthModal } from 'packages/wallet';
+import { useAccountAddress, useAuthModal } from 'packages/wallet';
 import { truncateAddress } from 'utilities';
 
 import { useGetPrimeToken } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import { PrimeButton } from './PrimeButton';
 
@@ -39,7 +38,7 @@ export const ConnectButtonUi: React.FC<ConnectButtonUiProps> = ({
 export const ConnectButton: React.FC<
   Omit<ConnectButtonUiProps, 'isAccountPrime' | 'accountAddress' | 'loading'>
 > = props => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { openAuthModal } = useAuthModal();
 
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({

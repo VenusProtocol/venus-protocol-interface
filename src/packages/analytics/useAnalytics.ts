@@ -1,8 +1,7 @@
 import config from 'config';
 import { logError } from 'packages/errors';
+import { useChainId } from 'packages/wallet';
 import { usePostHog } from 'posthog-js/react';
-
-import { useAuth } from 'context/AuthContext';
 
 export type AnalyticEventName =
   | 'Tokens supplied'
@@ -136,7 +135,7 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
 
 const useAnalytics = () => {
   const posthog = usePostHog();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
     eventName: TEventName,

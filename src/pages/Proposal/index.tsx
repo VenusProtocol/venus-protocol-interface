@@ -3,14 +3,13 @@ import { BigNumber } from 'bignumber.js';
 import { Button, NoticeInfo, Spinner } from 'components';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { governanceChain, useSwitchChain } from 'packages/wallet';
+import { governanceChain, useAccountAddress, useSwitchChain } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
@@ -134,7 +133,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 };
 
 const Proposal = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposal } = useGetProposal(
     { proposalId, accountAddress },

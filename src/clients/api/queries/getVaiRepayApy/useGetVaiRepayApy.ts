@@ -1,11 +1,11 @@
 import { useGetVaiControllerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getVaiRepayApy, { GetVaiRepayApyOutput } from 'clients/api/queries/getVaiRepayApy';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetVaiRepayApyQueryKey = [FunctionKey.GET_VAI_REPAY_APY, { chainId: ChainId }];
@@ -19,7 +19,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiRepayApy = (options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
   const vaiControllerContract = useGetVaiControllerContract();
 

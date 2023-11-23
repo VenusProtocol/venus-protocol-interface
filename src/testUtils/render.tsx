@@ -8,7 +8,6 @@ import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
-import { AuthContext } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const createQueryClient = () =>
@@ -60,26 +59,15 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
     }));
   }
 
-  // TODO: remove
-  const defaultAuthContextValues = {
-    openAuthModal: vi.fn(),
-    closeAuthModal: vi.fn(),
-    switchChain: vi.fn(),
-    chainId: ChainId.BSC_TESTNET,
-    ...options?.authContextValue,
-  };
-
   return (
     <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Web3Wrapper>
-          <AuthContext.Provider value={defaultAuthContextValues}>
-            <MemoryRouter initialEntries={options?.routerOpts?.routerInitialEntries || ['/']}>
-              <Routes>
-                <Route path={options?.routerOpts?.routePath || '/'} element={children} />
-              </Routes>
-            </MemoryRouter>
-          </AuthContext.Provider>
+          <MemoryRouter initialEntries={options?.routerOpts?.routerInitialEntries || ['/']}>
+            <Routes>
+              <Route path={options?.routerOpts?.routePath || '/'} element={children} />
+            </Routes>
+          </MemoryRouter>
         </Web3Wrapper>
       </QueryClientProvider>
     </MuiThemeProvider>

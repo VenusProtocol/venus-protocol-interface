@@ -2,8 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import { en } from 'packages/translations';
-import React from 'react';
-import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
@@ -20,7 +18,7 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
+import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderComponent } from 'testUtils/render';
 
 import Governance from '.';
@@ -28,17 +26,14 @@ import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/test
 import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 import TEST_IDS from './testIds';
 
-vi.mock('context/AuthContext');
-vi.unmock('hooks/useIsFeatureEnabled');
-
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
 describe('Governance', () => {
   beforeEach(() => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-      chainId: ChainId.BSC_TESTNET,
-    }));
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabled) => name === 'createProposal',
+    );
+
     (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
       data: [],
       isLoading: false,
@@ -104,10 +99,6 @@ describe('Governance', () => {
   });
 
   it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: undefined,
-      chainId: ChainId.BSC_TESTNET,
-    }));
     const { getByText, getAllByText, getByTestId } = renderComponent(<Governance />);
     const delegateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
@@ -139,10 +130,6 @@ describe('Governance', () => {
   });
 
   it('prompts user to connect Wallet', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: undefined,
-      chainId: ChainId.BSC_TESTNET,
-    }));
     (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
     }));
@@ -262,11 +249,10 @@ describe('Governance', () => {
   });
 
   it('shows the create proposal option on BSC_TESTNET', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-      chainId: ChainId.BSC_TESTNET,
-    }));
     const { queryAllByTestId } = renderComponent(<Governance />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
       routerOpts: {
         routerInitialEntries: ['/governance/proposal-create', '/governance'],
         routePath: '/governance/*',
@@ -275,12 +261,11 @@ describe('Governance', () => {
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(1);
   });
 
-  it('shows the create proposal option on BSC_MAINNET', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-      chainId: ChainId.BSC_MAINNET,
-    }));
+  it('shows the create proposal button when createProposal feature is enabled', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
       routerOpts: {
         routerInitialEntries: ['/governance/proposal-create', '/governance'],
         routePath: '/governance/*',
@@ -289,26 +274,13 @@ describe('Governance', () => {
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(1);
   });
 
-  it('hides the create proposal option on ETHEREUM', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-      chainId: ChainId.ETHEREUM,
-    }));
-    const { queryAllByTestId } = renderComponent(<Governance />, {
-      routerOpts: {
-        routerInitialEntries: ['/governance/proposal-create', '/governance'],
-        routePath: '/governance/*',
-      },
-    });
-    expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(0);
-  });
+  it('hides the create proposal button when createProposal feature is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
-  it('hides the create proposal option on SEPOLIA', async () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-      chainId: ChainId.SEPOLIA,
-    }));
     const { queryAllByTestId } = renderComponent(<Governance />, {
+      authContextValue: {
+        accountAddress: fakeAccountAddress,
+      },
       routerOpts: {
         routerInitialEntries: ['/governance/proposal-create', '/governance'],
         routePath: '/governance/*',

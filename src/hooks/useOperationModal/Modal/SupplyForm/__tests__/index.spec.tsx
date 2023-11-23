@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { en } from 'packages/translations';
 import { Asset, Pool } from 'types';

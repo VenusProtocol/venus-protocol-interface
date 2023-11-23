@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import { Spinner, Tabs } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -12,7 +13,6 @@ import {
   useGetXvsWithdrawableAmount,
   useWithdrawXvs,
 } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
@@ -55,7 +55,7 @@ export const ConvertVrtUi = ({
 };
 
 const ConvertVrt = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const xvs = useGetToken({

@@ -1,5 +1,6 @@
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getXvsVaultPoolCount, {
   GetXvsVaultPoolCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolCount';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 export type UseGetXvsVaultPoolCountQueryKey = [
   FunctionKey.GET_XVS_VAULT_POOLS_COUNT,
@@ -24,7 +24,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultPoolCount = (options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
   const xvs = useGetToken({

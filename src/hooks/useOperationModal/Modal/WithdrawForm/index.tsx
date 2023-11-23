@@ -3,13 +3,13 @@ import BigNumber from 'bignumber.js';
 import { Delimiter, LabeledInlineContent, TokenTextField } from 'components';
 import { VError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useCallback, useState } from 'react';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
-import { useAuth } from 'context/AuthContext';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -177,7 +177,7 @@ export interface WithdrawFormProps {
 }
 
 const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',

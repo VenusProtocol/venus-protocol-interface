@@ -1,4 +1,5 @@
 import { useGetXvsVestingContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getXvsWithdrawableAmount, {
   GetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetXvsWithdrawableAmountInput = Omit<
   GetXvsWithdrawableAmountInput,
@@ -34,7 +34,7 @@ const useGetXvsWithdrawableAmount = (
   input: TrimmedGetXvsWithdrawableAmountInput,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const xvsVestingContract = useGetXvsVestingContract();
 
   return useQuery(

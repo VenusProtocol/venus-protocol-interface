@@ -2,11 +2,11 @@
 import BigNumber from 'bignumber.js';
 import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'packages/contracts';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React from 'react';
 import { Token } from 'types';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -23,7 +23,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   handleClose,
 }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();

@@ -1,4 +1,5 @@
 import { useGetXvsVaultContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getXvsVaultPendingWithdrawalsFromBeforeUpgrade, {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from 'clients/api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput = Omit<
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
@@ -34,7 +34,7 @@ const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = (
   input: TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(

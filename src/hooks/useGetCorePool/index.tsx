@@ -1,9 +1,10 @@
+import { useAccountAddress } from 'packages/wallet';
+
 import { useGetPool } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export const useGetCorePool = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   return useGetPool({

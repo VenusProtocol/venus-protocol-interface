@@ -1,7 +1,7 @@
+import { useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
 
 import { useGetLegacyPool } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { store } from './store';
@@ -11,7 +11,7 @@ export const useLunaUstWarning = () => {
     name: 'lunaUstWarning',
   });
 
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: getLegacyPoolData } = useGetLegacyPool({
     accountAddress,
   });

@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { Spinner, TextButton } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
@@ -16,7 +17,6 @@ import {
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
@@ -107,7 +107,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   handleDisplayWithdrawalRequestList,
   handleClose,
 }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { t } = useTranslation();
   const xvs = useGetToken({
     symbol: 'XVS',

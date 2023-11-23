@@ -5,6 +5,7 @@ import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
@@ -17,7 +18,6 @@ import {
 } from 'utilities';
 
 import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
 
@@ -111,7 +111,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) 
 };
 
 const XvsTable: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const vai = useGetToken({
     symbol: 'VAI',
   });

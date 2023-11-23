@@ -1,5 +1,6 @@
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -12,7 +13,6 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -29,7 +29,7 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   const xvsVaultContract = useGetXvsVaultContract();
 

@@ -1,4 +1,5 @@
 import { useGetVaiControllerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getMintableVai, {
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
 
@@ -26,7 +26,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetMintableVai = (input: TrimmedGetMintableVaiInput, options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(

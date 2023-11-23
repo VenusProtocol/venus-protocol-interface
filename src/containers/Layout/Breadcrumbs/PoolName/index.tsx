@@ -1,13 +1,14 @@
+import { useAccountAddress } from 'packages/wallet';
+
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useAuth } from 'context/AuthContext';
 
 export interface PoolNameProps {
   poolComptrollerAddress: string;
 }
 
 const PoolName: React.FC<PoolNameProps> = ({ poolComptrollerAddress }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: getPoolData } = useGetPool({
     accountAddress,
     poolComptrollerAddress,

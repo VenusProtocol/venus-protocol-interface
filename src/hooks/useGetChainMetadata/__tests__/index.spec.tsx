@@ -1,17 +1,15 @@
+import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useAuth } from 'context/AuthContext';
 import { renderHook } from 'testUtils/render';
 
 import { useGetChainMetadata } from '..';
 
-vi.mock('context/AuthContext');
-
 describe('useGetChainMetadata', () => {
   it('returns the correct chain metadata', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 

@@ -7,6 +7,7 @@ import {
 } from 'packages/contracts';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -16,7 +17,6 @@ import getLegacyPool, {
   GetLegacyPoolOutput,
 } from 'clients/api/queries/getLegacyPool';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
@@ -51,7 +51,7 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetLegacyPool = (input: TrimmedInput, options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 
   const { t } = useTranslation();

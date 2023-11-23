@@ -3,11 +3,11 @@ import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { VError, displayMutationError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import { useMemo, useState } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Claim, useClaimRewards } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import TEST_IDS from '../testIds';
@@ -142,7 +142,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 export type ClaimRewardButtonProps = Omit<ButtonProps, 'onClick'>;
 
 export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const chainMetadata = useGetChainMetadata();

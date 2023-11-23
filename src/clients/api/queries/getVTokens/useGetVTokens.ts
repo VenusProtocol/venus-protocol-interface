@@ -5,13 +5,13 @@ import {
   useGetVenusLensContract,
 } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import getVTokens, { GetVTokensOutput } from 'clients/api/queries/getVTokens';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 export type UseGetVTokensQueryKey = [
   FunctionKey.GET_VTOKENS,
@@ -29,7 +29,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokens = (options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const tokens = useGetTokens();
 
   const venusLensContract = useGetVenusLensContract();

@@ -1,11 +1,10 @@
 import { Select, SelectOption } from 'components';
 import { useTranslation } from 'packages/translations';
-import { chains, useSwitchChain } from 'packages/wallet';
+import { chains, useChainId, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
 import { cn } from 'utilities';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useAuth } from 'context/AuthContext';
 
 export interface ChainSelectProps {
   className?: string;
@@ -36,7 +35,7 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
 
 export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClassName }) => {
   const { t } = useTranslation();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
 
   return (

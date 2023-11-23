@@ -1,11 +1,11 @@
 import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export type UseGetVenusVaiVaultDailyRateQueryKey = [
@@ -22,7 +22,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVenusVaiVaultDailyRate = (options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
   const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
 

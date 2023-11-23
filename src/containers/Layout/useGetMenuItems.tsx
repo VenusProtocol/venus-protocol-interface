@@ -1,13 +1,13 @@
+import { useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
 
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { MenuItem } from './types';
 
 const useGetMenuItems = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });

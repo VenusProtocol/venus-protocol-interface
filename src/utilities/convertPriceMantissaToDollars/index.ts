@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import { Token } from 'types';
 
 const convertPriceMantissaToDollars = ({

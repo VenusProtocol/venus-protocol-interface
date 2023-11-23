@@ -9,7 +9,6 @@ import { HashRouter } from 'react-router-dom';
 import { queryClient } from 'clients/api';
 import { AppVersionChecker } from 'containers/AppVersionChecker';
 import { Layout } from 'containers/Layout';
-import { AuthProvider } from 'context/AuthContext';
 import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -22,25 +21,23 @@ const App = () => (
     <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Web3Wrapper>
-          <AuthProvider>
-            <SentryErrorInfo />
+          <SentryErrorInfo />
 
-            <AnalyticProvider>
-              <HashRouter>
-                <Layout>
-                  <Router />
-                </Layout>
+          <AnalyticProvider>
+            <HashRouter>
+              <Layout>
+                <Router />
+              </Layout>
 
-                <AppVersionChecker />
+              <AppVersionChecker />
 
-                <LunaUstWarningModal />
+              <LunaUstWarningModal />
 
-                <Suspense>
-                  <NotificationCenter />
-                </Suspense>
-              </HashRouter>
-            </AnalyticProvider>
-          </AuthProvider>
+              <Suspense>
+                <NotificationCenter />
+              </Suspense>
+            </HashRouter>
+          </AnalyticProvider>
         </Web3Wrapper>
       </QueryClientProvider>
     </MuiThemeProvider>

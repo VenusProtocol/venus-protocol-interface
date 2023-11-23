@@ -4,12 +4,12 @@ import { LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Token } from 'types';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from './styles';
@@ -86,7 +86,7 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const xvs = useGetToken({
     symbol: 'XVS',

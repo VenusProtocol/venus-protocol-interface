@@ -1,11 +1,11 @@
 import { useGetVaiControllerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { getVaiCalculateRepayAmount } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 import { GetVaiCalculateRepayAmountInput, GetVaiCalculateRepayAmountOutput } from './types';
 
@@ -33,7 +33,7 @@ const useGetVaiCalculateRepayAmount = (
   }: Omit<GetVaiCalculateRepayAmountInput, 'vaiControllerContract'>,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
 
   return useQuery(

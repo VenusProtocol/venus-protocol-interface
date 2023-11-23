@@ -11,7 +11,7 @@ import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
+import { useChainId } from 'packages/wallet';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 import { useProvider, useSigner } from 'packages/wallet';
 
@@ -23,7 +23,7 @@ export const getPoolLensContractAddress = ({ chainId }: GetPoolLensContractAddre
   getUniqueContractAddress({ name: 'PoolLens', chainId });
 
 export const useGetPoolLensContractAddress = () => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   return useMemo(
     () =>
@@ -50,7 +50,7 @@ interface UseGetPoolLensContractInput {
 }
 
 export const useGetPoolLensContract = (input?: UseGetPoolLensContractInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId || currentChainId;
 
   const { provider } = useProvider({ chainId: input?.chainId });
@@ -140,7 +140,7 @@ import { SwapRouter } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
+import { useChainId } from 'packages/wallet';
 import { useProvider, useSigner } from 'packages/wallet';
 
 interface GetSwapRouterContractAddressInput {
@@ -168,7 +168,7 @@ export const useGetSwapRouterContractAddress = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGetSwapRouterContractAddressInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
   return useMemo(
@@ -207,7 +207,7 @@ export const useGetSwapRouterContract = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGetSwapRouterContractInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
   const { provider } = useProvider({ chainId });

@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Proposal } from 'types';
@@ -16,7 +17,6 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
@@ -146,7 +146,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
 export type ProposalListPageProps = UseUrlPaginationOutput;
 
 const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrentPage }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const {
     data: { proposals, total, limit = 10 } = { proposals: [] },

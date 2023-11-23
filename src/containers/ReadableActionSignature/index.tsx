@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { useGetTokens } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import React from 'react';
 import { ChainId, ProposalAction, Token, VToken } from 'types';
 import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 
 import formatSignature from './formatSignature';
@@ -63,7 +63,7 @@ export type ReadableActionSignatureProps = Omit<
 >;
 
 export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = props => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { data: getVTokensData } = useGetVTokens();
   const tokens = useGetTokens();
   const vTokens = getVTokensData?.vTokens || [];

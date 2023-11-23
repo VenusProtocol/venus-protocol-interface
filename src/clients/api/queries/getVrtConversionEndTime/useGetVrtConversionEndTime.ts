@@ -1,4 +1,5 @@
 import { useGetVrtConverterContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -7,7 +8,6 @@ import getVrtConversionEndTime, {
   GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 export type UseGetVrtConversionEndTimeIndexQueryIndex = [
   FunctionKey.GET_VRT_CONVERSION_END_TIME,
@@ -23,7 +23,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVrtConversionEndTimeIndex = (options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const vrtConverterContract = useGetVrtConverterContract();
 
   return useQuery(

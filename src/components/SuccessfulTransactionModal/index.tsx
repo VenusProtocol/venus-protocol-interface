@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
+import { useChainId } from 'packages/wallet';
 import React from 'react';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-
-import { useAuth } from 'context/AuthContext';
 
 import { ChainExplorerLink } from '../ChainExplorerLink';
 import { Icon } from '../Icon';
@@ -33,7 +32,7 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
   isOpen,
   handleClose,
 }) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const styles = useStyles();
 
   return (
