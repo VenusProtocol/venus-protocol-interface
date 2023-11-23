@@ -62,6 +62,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   const handleClaimReward = async () => {
     try {
       await onClaimReward();
+      onCloseModal();
     } catch (error) {
       displayMutationError({ error });
     }
