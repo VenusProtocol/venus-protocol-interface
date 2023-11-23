@@ -116,7 +116,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
       )}
 
       <Card className="mt-6 flex flex-col p-6 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
-        <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-10 lg:border-r-0 lg:pb-4">
+        <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-[26px] md:pr-10 lg:border-r-0 lg:pb-4">
           <p className="text-base font-semibold text-grey sm:text-sm md:text-base">
             {t('vote.votingWeight')}
           </p>
@@ -130,7 +130,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         <div
           className={cn(
-            'mt-4 sm:ml-10 sm:mr-auto sm:mt-0 lg:ml-0 lg:mr-0 lg:mt-4',
+            'mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4',
             shouldApplyMarginToTotalLocked && 'mb-5 sm:mb-0 lg:mb-5',
           )}
         >
