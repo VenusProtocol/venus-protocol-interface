@@ -24,7 +24,6 @@ export default {
 const Template: StoryFn<StakeModalProps> = args => <StakeModal {...args} />;
 
 const authContext: AuthContextValue = {
-  switchChain: noop,
   chainId: ChainId.BSC_TESTNET,
   accountAddress: fakeAddress,
 };

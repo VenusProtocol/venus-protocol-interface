@@ -3,7 +3,7 @@ import { BigNumber } from 'bignumber.js';
 import { Button, NoticeInfo, Spinner } from 'components';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { governanceChain } from 'packages/wallet';
+import { governanceChain, useSwitchChain } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
@@ -38,7 +38,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   readableVoteWeight,
   isVoteLoading,
 }) => {
-  const { switchChain } = useAuth();
+  const { switchChain } = useSwitchChain();
   const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const styles = useStyles();
   const { t } = useTranslation();

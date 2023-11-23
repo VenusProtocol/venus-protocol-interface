@@ -21,7 +21,6 @@ const Template: StoryFn<WithdrawFromVestingVaultModalProps> = args => (
 );
 
 const authContext: AuthContextValue = {
-  switchChain: noop,
   accountAddress: fakeAddress,
   chainId: ChainId.BSC_TESTNET,
 };

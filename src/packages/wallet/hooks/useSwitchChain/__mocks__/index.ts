@@ -1,1 +1,3 @@
-export const useSwitchChain = vi.fn();
+export const useSwitchChain = vi.fn(() => ({
+  switchChain: vi.fn(),
+}));
