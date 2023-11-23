@@ -15,8 +15,6 @@ describe('pages/ConvertVRT/Convert', () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
-          logIn: vi.fn(),
-          logOut: vi.fn(),
           openAuthModal: vi.fn(),
           closeAuthModal: vi.fn(),
           switchChain: vi.fn(),

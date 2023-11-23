@@ -36,8 +36,6 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
   const defaultAuthContextValues: AuthContextValue = {
-    logIn: vi.fn(),
-    logOut: vi.fn(),
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
     switchChain: vi.fn(),
