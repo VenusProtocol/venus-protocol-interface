@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "export NODE_OPTIONS=\"--max-old-space-size=16384\" && vite build",
     "serve": "vite preview",
     "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "test:ci": "TZ=UTC vitest run",
