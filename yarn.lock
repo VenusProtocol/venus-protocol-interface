@@ -19366,7 +19366,7 @@ sort-keys@^5.0.0:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
-source-map-support@^0.5.13, source-map-support@^0.5.16, source-map-support@^0.5.21:
+source-map-support@^0.5.13, source-map-support@^0.5.16:
   version "0.5.21"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
   integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
@@ -20478,13 +20478,12 @@ tsutils@^3.21.0:
     tslib "^1.8.1"
 
 tsx@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.1.2.tgz#32ffc80efa6f77748928293fa8f77fcf2b90feab"
-  integrity sha512-1spM1bFV6MP2s4tO4tDC7g52fsaFdtEWdO4GfGdqi20qUgPbnAJqixOyIAvCSx1DDj3YIUB4CD06owTWUsOAuQ==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.4.0.tgz#01c4ff94f7f9186e34c0b37ba3b34c7546df1b3c"
+  integrity sha512-4fwcEjRUxW20ciSaMB8zkpGwCPxuRGnadDuj/pBk5S9uT29zvWz15PK36GrKJo45mSJomDxVejZ73c6lr3811Q==
   dependencies:
     esbuild "~0.18.20"
     get-tsconfig "^4.7.2"
-    source-map-support "^0.5.21"
   optionalDependencies:
     fsevents "~2.3.3"
 
