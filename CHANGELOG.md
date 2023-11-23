@@ -1,3 +1,10 @@
+## [2.45.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.44.0...v2.45.0) (2023-11-23)
+
+
+### Features
+
+* create wallet package ([#1829](https://github.com/VenusProtocol/venus-protocol-interface/issues/1829)) ([e3ba67c](https://github.com/VenusProtocol/venus-protocol-interface/commit/e3ba67cac824f4b1cf809e0acd4d0aa62ca5b943))
+
 ## [2.44.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.43.2...v2.44.0) (2023-11-23)
 
 
