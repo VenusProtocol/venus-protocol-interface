@@ -79,6 +79,9 @@
     "step1": "Step 1",
     "step2": "Step 2"
   },
+  "appVersionChecker": {
+    "newVersionMessage": "A new version of Venus is available. Reload the page to use it now."
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -309,14 +312,14 @@
       "xvs": "XVS"
     }
   },
+  "legacyPool": {
+    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
+    "name": "Venus Core Pool"
+  },
   "lunaUstWarningModal": {
     "closeButtonLabel": "Got it",
     "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
     "title": "Please disable LUNA and UST as collateral"
-  },
-  "legacyPool": {
-    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
-    "name": "Venus Core Pool"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",

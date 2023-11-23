@@ -36,6 +36,7 @@ export const useTrackTransaction = () => {
       const notificationId = displayNotification({
         id: transaction.hash,
         variant: 'loading',
+        autoClose: false,
         title: t('transactionNotification.pending.title'),
         description: <ChainExplorerLink chainId={chainId} hash={transaction.hash} urlType="tx" />,
       });

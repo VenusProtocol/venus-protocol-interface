@@ -269,6 +269,10 @@ export const useGetHypotheticalPrimeApys = vi.fn(() =>
   useQuery(FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, getHypotheticalPrimeApys),
 );
 
+export const getLatestAppVersion = vi.fn();
+export const useGetLatestAppVersion = () =>
+  useQuery(FunctionKey.GET_LATEST_APP_VERSION, getLatestAppVersion);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
