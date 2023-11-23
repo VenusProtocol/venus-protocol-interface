@@ -1,10 +1,10 @@
+import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposals, {
   GetProposalsInput,
   GetProposalsOutput,
 } from 'clients/api/queries/getProposals';
-import { governanceChain } from 'clients/web3';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 

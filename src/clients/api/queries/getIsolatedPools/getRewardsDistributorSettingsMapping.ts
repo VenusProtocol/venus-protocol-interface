@@ -4,8 +4,8 @@ import {
   RewardsDistributor,
   getRewardsDistributorContract,
 } from 'packages/contracts';
+import { Provider } from 'packages/wallet';
 
-import { Provider } from 'clients/web3';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 export interface RewardsDistributorSettingsPromise {

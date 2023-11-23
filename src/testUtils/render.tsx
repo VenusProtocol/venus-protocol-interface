@@ -1,12 +1,12 @@
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
 import { getDefaultProvider } from 'ethers';
+import { Web3Wrapper } from 'packages/wallet';
 import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ChainId } from 'types';
 
-import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -36,7 +36,7 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
   const defaultAuthContextValues: AuthContextValue = {
-    login: vi.fn(),
+    logIn: vi.fn(),
     logOut: vi.fn(),
     openAuthModal: vi.fn(),
     closeAuthModal: vi.fn(),
@@ -48,9 +48,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
   };
 
   return (
-    <Web3Wrapper>
+    <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <MuiThemeProvider>
+        <Web3Wrapper>
           <AuthContext.Provider value={defaultAuthContextValues}>
             <MemoryRouter initialEntries={options?.routerOpts?.routerInitialEntries || ['/']}>
               <Routes>
@@ -58,9 +58,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
               </Routes>
             </MemoryRouter>
           </AuthContext.Provider>
-        </MuiThemeProvider>
+        </Web3Wrapper>
       </QueryClientProvider>
-    </Web3Wrapper>
+    </MuiThemeProvider>
   );
 };
 

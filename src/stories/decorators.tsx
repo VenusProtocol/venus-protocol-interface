@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { StoryFn } from '@storybook/react';
+import { Web3Wrapper } from 'packages/wallet';
 import React from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
@@ -7,7 +8,6 @@ import { ChainId, Token } from 'types';
 
 import { GetAllowanceOutput } from 'clients/api';
 import { UseGetAllowanceQueryKey } from 'clients/api/queries/getAllowance/useGetAllowance';
-import { Web3Wrapper } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';

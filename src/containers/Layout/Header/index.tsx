@@ -11,10 +11,10 @@ export const Header: React.FC = () => (
       <Breadcrumbs />
     </div>
 
-    <div className="hidden md:flex md:h-12 md:items-center md:pl-6">
-      <ClaimRewardButton className="flex-none md:mr-4 md:whitespace-nowrap" />
+    <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
+      <ClaimRewardButton className="flex-none md:whitespace-nowrap" />
 
-      {config.environment !== 'mainnet' && <ChainSelect className="md:mr-4" />}
+      {config.environment !== 'mainnet' && <ChainSelect />}
 
       <ConnectButton className="flex-none" />
     </div>

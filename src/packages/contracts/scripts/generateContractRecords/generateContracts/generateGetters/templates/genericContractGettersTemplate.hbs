@@ -5,8 +5,7 @@ import { {{contractName}} } from 'packages/contracts/generated/infos/contractTyp
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import useProvider from 'context/AuthContext/useProvider';
-import useSigner from 'context/AuthContext/useSigner';
+import { useProvider, useSigner } from 'packages/wallet';
 
 interface Get{{contractName}}ContractInput {
   address: string;

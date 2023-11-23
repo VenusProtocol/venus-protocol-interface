@@ -1,4 +1,5 @@
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
+import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getProposalState, {
   GetProposalStateInput,
   GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
-import { governanceChain } from 'clients/web3';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 

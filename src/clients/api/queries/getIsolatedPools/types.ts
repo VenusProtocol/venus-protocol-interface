@@ -1,7 +1,6 @@
 import { PoolLens, ResilientOracle } from 'packages/contracts';
+import { type Provider } from 'packages/wallet';
 import { Pool, Token } from 'types';
-
-import { type Provider } from 'clients/web3';
 
 export interface GetIsolatedPoolsInput {
   blocksPerDay: number;

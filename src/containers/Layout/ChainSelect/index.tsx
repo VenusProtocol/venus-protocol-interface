@@ -1,9 +1,9 @@
 import { Select, SelectOption } from 'components';
 import { useTranslation } from 'packages/translations';
+import { chains } from 'packages/wallet';
 import { ChainId } from 'types';
 import { cn } from 'utilities';
 
-import { chains } from 'clients/web3';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useAuth } from 'context/AuthContext';
 

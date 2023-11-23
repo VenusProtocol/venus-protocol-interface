@@ -1,4 +1,5 @@
 import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
+import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { callOrThrow } from 'utilities';
 
@@ -6,7 +7,6 @@ import getProposalEta, {
   GetProposalEtaInput,
   GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
-import { governanceChain } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 
 type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'governorBravoDelegateContract'>;
