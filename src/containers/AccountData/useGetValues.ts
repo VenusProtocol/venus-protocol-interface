@@ -184,17 +184,17 @@ const useGetValues = ({
         };
       });
 
-      const supplyDistributions = a.supplyDistributions.map(borrowDistribution => {
+      const supplyDistributions = a.supplyDistributions.map(supplyDistribution => {
         if (
-          borrowDistribution.type !== 'prime' ||
+          supplyDistribution.type !== 'prime' ||
           !hypotheticalUserPrimeApys?.supplyApy ||
-          (action !== 'borrow' && action !== 'repay')
+          (action !== 'supply' && action !== 'withdraw')
         ) {
-          return borrowDistribution;
+          return supplyDistribution;
         }
 
         return {
-          ...borrowDistribution,
+          ...supplyDistribution,
           apyPercentage: hypotheticalUserPrimeApys.supplyApy,
         };
       });
