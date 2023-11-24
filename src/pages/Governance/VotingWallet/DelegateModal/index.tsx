@@ -10,8 +10,8 @@ import {
   PrimaryButton,
   TextButton,
 } from 'components';
-import { displayMutationError } from 'errors';
 import { Form, Formik } from 'formik';
+import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React from 'react';
 

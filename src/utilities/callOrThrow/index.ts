@@ -1,4 +1,4 @@
-import { VError, VErrorPhraseMap, logError } from 'errors';
+import { VError, VErrorPhraseMap, logError } from 'packages/errors';
 import { NonNullableFields } from 'types';
 
 function callOrThrow<TParams extends Record<string, unknown>, TReturn>(

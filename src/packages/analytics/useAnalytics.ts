@@ -1,5 +1,5 @@
 import config from 'config';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { usePostHog } from 'posthog-js/react';
 
 import { useAuth } from 'context/AuthContext';

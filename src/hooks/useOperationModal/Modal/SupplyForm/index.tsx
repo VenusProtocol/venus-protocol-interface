@@ -10,8 +10,8 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
-import { VError, displayMutationError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
+import { VError, displayMutationError } from 'packages/errors';
 import { isTokenActionEnabled } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo, useState } from 'react';

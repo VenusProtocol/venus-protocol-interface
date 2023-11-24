@@ -7,7 +7,7 @@ import {
   LabeledInlineContent,
   Spinner,
 } from 'components';
-import { VError, displayMutationError } from 'errors';
+import { VError, displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';

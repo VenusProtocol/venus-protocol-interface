@@ -1,4 +1,4 @@
-import { VError } from 'errors';
+import { VError } from 'packages/errors';
 import { Token, Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
 

@@ -1,5 +1,5 @@
-import * as Sentry from '@sentry/react';
 import { AnalyticProvider } from 'packages/analytics';
+import { ErrorBoundary } from 'packages/errors';
 import { LunaUstWarningModal } from 'packages/lunaUstWarning';
 import { Web3Wrapper } from 'packages/wallet';
 import { Suspense, lazy } from 'react';
@@ -9,6 +9,7 @@ import { HashRouter } from 'react-router-dom';
 import { queryClient } from 'clients/api';
 import { Layout } from 'containers/Layout';
 import { AuthProvider } from 'context/AuthContext';
+import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Router from './Router';
@@ -16,11 +17,13 @@ import Router from './Router';
 const NotificationCenter = lazy(() => import('packages/notifications/NotificationCenter'));
 
 const App = () => (
-  <Sentry.ErrorBoundary>
+  <ErrorBoundary>
     <MuiThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Web3Wrapper>
           <AuthProvider>
+            <SentryErrorInfo />
+
             <AnalyticProvider>
               <HashRouter>
                 <Layout>
@@ -38,7 +41,7 @@ const App = () => (
         </Web3Wrapper>
       </QueryClientProvider>
     </MuiThemeProvider>
-  </Sentry.ErrorBoundary>
+  </ErrorBoundary>
 );
 
 export default App;

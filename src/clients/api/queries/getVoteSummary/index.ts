@@ -1,4 +1,4 @@
-import { VError } from 'errors';
+import { VError } from 'packages/errors';
 import { restService } from 'utilities';
 
 import formatToVoteSummary from './formatToVoteSummary';

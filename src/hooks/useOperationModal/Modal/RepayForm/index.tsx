@@ -9,8 +9,8 @@ import {
   SwapDetails,
   TokenTextField,
 } from 'components';
-import { VError } from 'errors';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
+import { VError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';

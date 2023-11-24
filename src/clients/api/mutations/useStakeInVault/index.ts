@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { VError } from 'errors';
+import { VError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { Token } from 'types';
 import { areTokensEqual } from 'utilities';

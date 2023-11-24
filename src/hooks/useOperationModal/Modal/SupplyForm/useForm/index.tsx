@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { Asset, Swap, SwapError, Token, VToken } from 'types';
 
 import { FormError, FormValues } from './types';

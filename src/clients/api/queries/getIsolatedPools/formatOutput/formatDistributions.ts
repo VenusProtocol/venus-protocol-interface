@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { AssetDistribution, Token } from 'types';
 
 import findTokenByAddress from 'utilities/findTokenByAddress';

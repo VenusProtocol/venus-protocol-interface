@@ -1,8 +1,8 @@
+import { VError } from 'packages/errors';
 import { displayNotification } from 'packages/notifications';
 import Vi from 'vitest';
 
 import { displayMutationError } from '..';
-import { VError } from '../../VError';
 
 vi.mock('packages/notifications');
 

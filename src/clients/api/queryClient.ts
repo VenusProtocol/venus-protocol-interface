@@ -1,4 +1,4 @@
-import { logError } from 'errors';
+import { logError } from 'packages/errors';
 import { getChainId } from 'packages/wallet';
 import { QueryClient } from 'react-query';
 import { ChainId } from 'types';

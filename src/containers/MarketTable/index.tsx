@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Table, TableProps, switchAriaLabel } from 'components';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import React, { useMemo } from 'react';
 import { Pool } from 'types';

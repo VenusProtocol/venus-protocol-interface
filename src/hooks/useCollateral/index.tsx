@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { VError } from 'errors';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
   useGetLegacyPoolComptrollerContract,
 } from 'packages/contracts';
+import { VError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';

@@ -1,5 +1,5 @@
-import { logError } from 'errors';
 import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
+import { logError } from 'packages/errors';
 import { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 

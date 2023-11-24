@@ -1,5 +1,5 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
@@ -19,7 +19,7 @@ const fakeForOption = 'fakeForOption';
 const fakeAgainstOption = 'fakeAgainstOption';
 const fakeAbstainOption = 'fakeAbstainOption';
 
-vi.mock('errors/displayMutationError');
+vi.mock('packages/errors/displayMutationError');
 
 const next = async (nextButton: HTMLElement) => {
   await waitFor(() => expect(nextButton).toBeEnabled());

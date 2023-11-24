@@ -11,8 +11,8 @@ import {
   SpendingLimit,
   Spinner,
 } from 'components';
-import { displayMutationError } from 'errors';
 import { useGetVaiControllerContractAddress } from 'packages/contracts';
+import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import React, { useCallback, useMemo } from 'react';

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
-import { VError, displayMutationError } from 'errors';
+import { VError, displayMutationError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
 import { useMemo, useState } from 'react';

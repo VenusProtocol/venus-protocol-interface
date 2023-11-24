@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { logError } from 'errors';
 import { PoolLens } from 'packages/contracts';
+import { logError } from 'packages/errors';
 import { Asset, Pool, Token, VToken } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';

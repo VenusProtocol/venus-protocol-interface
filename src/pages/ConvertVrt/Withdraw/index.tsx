@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
-import { displayMutationError } from 'errors';
+import { displayMutationError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
