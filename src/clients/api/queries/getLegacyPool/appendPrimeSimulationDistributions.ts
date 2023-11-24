@@ -4,7 +4,6 @@ import { Asset, Token } from 'types';
 import {
   areAddressesEqual,
   convertAprToApy,
-  convertMantissaToTokens,
   convertTokensToMantissa,
 } from 'utilities';
 
@@ -15,7 +14,6 @@ export interface ResolvePrimeSimulationDistributionsInput {
   primeVTokenAddresses: string[];
   assets: Asset[];
   xvs: Token;
-  primeMinimumXvsToStakeMantissa: BigNumber;
   accountAddress?: string;
 }
 
@@ -25,14 +23,7 @@ export const appendPrimeSimulationDistributions = async ({
   assets,
   xvs,
   accountAddress,
-  primeMinimumXvsToStakeMantissa,
-}: ResolvePrimeSimulationDistributionsInput) => {
-  const primeMinimumXvsToStakeTokens = convertMantissaToTokens({
-    value: primeMinimumXvsToStakeMantissa,
-    token: xvs,
-  });
-
-  return Promise.allSettled(
+}: ResolvePrimeSimulationDistributionsInput) => Promise.allSettled(
     primeVTokenAddresses.map(primeVTokenAddress => {
       const asset = assets.find(poolAsset =>
         areAddressesEqual(poolAsset.vToken.address, primeVTokenAddress),
@@ -55,18 +46,25 @@ export const appendPrimeSimulationDistributions = async ({
           token: asset.vToken.underlyingToken,
         });
 
+        // Estimate Prime APR with an amount of 10k XVS staked
+        const stakedXvsForEstimationTokens = new BigNumber(10000);
+        const stakedXvsForEstimationMantissa = convertTokensToMantissa({
+          value: stakedXvsForEstimationTokens,
+          token: xvs,
+        });
+
         const simulatedPrimeAprs = await primeContract.estimateAPR(
           primeVTokenAddress,
           accountAddress || NULL_ADDRESS,
           averageBorrowBalanceMantissa.toFixed(),
           averageSupplyBalanceMantissa.toFixed(),
-          primeMinimumXvsToStakeMantissa.toFixed(),
+          stakedXvsForEstimationMantissa.toFixed(),
         );
 
         const referenceValues = {
           userSupplyBalanceTokens: averageSupplyBalanceTokens,
           userBorrowBalanceTokens: averageBorrowBalanceTokens,
-          userXvsStakedTokens: primeMinimumXvsToStakeTokens,
+          userXvsStakedTokens: stakedXvsForEstimationTokens,
         };
 
         const borrowSimulatedPrimeApy = convertAprToApy({
@@ -95,4 +93,3 @@ export const appendPrimeSimulationDistributions = async ({
       return promise();
     }),
   );
-};
