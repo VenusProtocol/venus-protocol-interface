@@ -1,3 +1,10 @@
+## [2.45.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.45.0...v2.45.1) (2023-11-24)
+
+
+### Bug Fixes
+
+* supply distributions actions ([3025355](https://github.com/VenusProtocol/venus-protocol-interface/commit/30253555c818480c645189a8b373ce7540017fab))
+
 ## [2.45.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.44.0...v2.45.0) (2023-11-23)
 
 
