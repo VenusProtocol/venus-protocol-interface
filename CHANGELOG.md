@@ -1,3 +1,15 @@
+## [2.47.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.46.0...v2.47.0) (2023-11-24)
+
+
+### Features
+
+* close modal after claiming rewards ([#1844](https://github.com/VenusProtocol/venus-protocol-interface/issues/1844)) ([c1a293f](https://github.com/VenusProtocol/venus-protocol-interface/commit/c1a293fa3ac617d8184d32f76f8dfb7a5fd1700d))
+
+
+### Bug Fixes
+
+* hidden overflow of PrimePromotionalBanner ([#1854](https://github.com/VenusProtocol/venus-protocol-interface/issues/1854)) ([3909f07](https://github.com/VenusProtocol/venus-protocol-interface/commit/3909f074dfeed195bdef3f48ad2ad7610d013fe7))
+
 ## [2.46.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.45.3...v2.46.0) (2023-11-24)
 
 
