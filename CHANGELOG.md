@@ -1,3 +1,11 @@
+## [2.46.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.45.3...v2.46.0) (2023-11-24)
+
+
+### Features
+
+* add SentryErrorInfo component ([1ce62e3](https://github.com/VenusProtocol/venus-protocol-interface/commit/1ce62e36c4b9279c3a9024fe808ec99400592cc7))
+* move Sentry init to errors package ([66d1549](https://github.com/VenusProtocol/venus-protocol-interface/commit/66d1549a226130a882fce59c8ffc4e9951c548d6))
+
 ## [2.45.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.45.2...v2.45.3) (2023-11-24)
 
 ## [2.45.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.45.1...v2.45.2) (2023-11-24)
