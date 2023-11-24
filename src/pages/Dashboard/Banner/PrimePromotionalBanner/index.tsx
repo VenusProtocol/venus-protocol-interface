@@ -16,7 +16,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
   const { t, Trans } = useTranslation();
 
   return (
-    <Card className="relative mb-8 border border-lightGrey py-6 sm:p-0 md:p-0">
+    <Card className="relative mb-8 overflow-hidden border border-lightGrey py-6 sm:p-0 md:p-0">
       <button
         onClick={onHide}
         className="absolute right-4 top-4 z-10"
@@ -27,7 +27,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
       </button>
 
       <div className="sm:flex sm:flex-row">
-        <div className="relative mb-6 justify-center overflow-hidden sm:order-2 sm:mb-0 sm:basis-4/12">
+        <div className="relative mb-6 justify-center sm:order-2 sm:mb-0 sm:basis-4/12">
           {/* Mobile illustration */}
           <img
             src={illustrationSm}
