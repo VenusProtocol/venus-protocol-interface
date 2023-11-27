@@ -1,3 +1,10 @@
+## [2.48.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.47.1...v2.48.0) (2023-11-27)
+
+
+### Features
+
+* notify about new version ([#1846](https://github.com/VenusProtocol/venus-protocol-interface/issues/1846)) ([3d39c71](https://github.com/VenusProtocol/venus-protocol-interface/commit/3d39c714d0b54a57c8ca549c48c8d57af2c4d696))
+
 ## [2.47.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.47.0...v2.47.1) (2023-11-27)
 
 ## [2.47.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.46.0...v2.47.0) (2023-11-24)
