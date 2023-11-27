@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Spinner } from 'components';
+import { useAccountAddress } from 'packages/wallet';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { Asset } from 'types';
 
 import { useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 
 export interface MarketLoaderProps {
   children: (props: {
@@ -25,7 +25,7 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   isIsolatedPoolMarket = false,
   children,
 }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const { data: getAssetData, isLoading: isGetAssetLoading } = useGetAsset({
     vTokenAddress,

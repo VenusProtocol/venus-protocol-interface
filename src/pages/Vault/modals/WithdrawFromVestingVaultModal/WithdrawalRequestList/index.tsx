@@ -3,13 +3,13 @@ import Typography from '@mui/material/Typography';
 import { LabeledInlineContent, Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React from 'react';
 import { LockedDeposit, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -73,7 +73,7 @@ export interface WithdrawalRequestListProps {
 }
 
 const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { t } = useTranslation();
 
   const xvs = useGetToken({

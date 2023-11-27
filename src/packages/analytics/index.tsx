@@ -1,12 +1,13 @@
 import config from 'config';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
 import React, { useEffect } from 'react';
 
 import { version as APP_VERSION } from 'constants/version';
-import { useAuth } from 'context/AuthContext';
 
 const UserIdentifier: React.FC = () => {
-  const { accountAddress, chainId } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
   const posthog = usePostHog();
 
   // Identify user by their account address along with the network chain they are on

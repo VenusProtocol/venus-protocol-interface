@@ -1,15 +1,15 @@
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import { Group } from './types';
 
 const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const { data: getPoolsData } = useGetPools({
     accountAddress,

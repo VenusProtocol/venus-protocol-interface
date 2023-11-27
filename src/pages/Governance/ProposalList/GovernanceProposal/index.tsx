@@ -12,12 +12,12 @@ import {
 } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { ProposalState, ProposalType, Token, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
@@ -245,7 +245,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
 const GovernanceProposal: React.FC<
   Omit<GovernanceProposalProps, 'userVoteStatus' | 'isUserConnected'>
 > = ({ proposalId, ...props }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const xvs = useGetToken({
     symbol: 'XVS',

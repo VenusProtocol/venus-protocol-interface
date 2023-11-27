@@ -1,29 +1,24 @@
 import { fireEvent } from '@testing-library/react';
+import { useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
-import { useAuth } from 'context/AuthContext';
 import { renderComponent } from 'testUtils/render';
 
 import { ChainSelect } from '..';
 
-vi.mock('context/AuthContext');
-
-const switchChainMock = vi.fn();
-
 describe('ChainSelect', () => {
-  beforeEach(() => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      chainId: ChainId.BSC_TESTNET,
-      switchChain: switchChainMock,
-    }));
-  });
-
   it('renders without crashing', () => {
     renderComponent(<ChainSelect />);
   });
 
   it('calls the right method on chain change', () => {
+    const switchChainMock = vi.fn();
+
+    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
+      switchChain: switchChainMock,
+    }));
+
     const { container } = renderComponent(<ChainSelect />);
 
     // Change select value

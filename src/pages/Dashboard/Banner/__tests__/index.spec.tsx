@@ -1,23 +1,16 @@
 import { fireEvent } from '@testing-library/react';
 import { en } from 'packages/translations';
+import { useAuthModal } from 'packages/wallet';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetPrimeToken } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { renderComponent } from 'testUtils/render';
 
 import { Banner } from '..';
 
-vi.mock('context/AuthContext');
-
 describe('Banner', () => {
   beforeEach(() => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: undefined,
-      openAuthModal: vi.fn(),
-    }));
-
     (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
       data: {
         exists: false,
@@ -37,11 +30,9 @@ describe('Banner', () => {
   });
 
   it('displays nothing when user is connected', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    const { baseElement } = renderComponent(<Banner />, {
       accountAddress: fakeAccountAddress,
-    }));
-
-    const { baseElement } = renderComponent(<Banner />);
+    });
 
     expect(baseElement.textContent).toEqual('');
   });
@@ -49,8 +40,8 @@ describe('Banner', () => {
   it('opens auth modal when clicking on button', () => {
     const openAuthModalMock = vi.fn();
 
-    (useAuth as Vi.Mock).mockImplementation(() => ({
-      accountAddress: undefined,
+    (useAuthModal as Vi.Mock).mockImplementation(() => ({
+      isAuthModalOpen: false,
       openAuthModal: openAuthModalMock,
     }));
 

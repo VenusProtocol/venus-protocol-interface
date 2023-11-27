@@ -33,9 +33,7 @@ describe('pages/Vault/modals/StakeModal', () => {
 
   it('fetches and displays the user balance correctly', async () => {
     const { getByTestId } = renderComponent(<StakeModal {...baseProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() =>
@@ -56,9 +54,7 @@ describe('pages/Vault/modals/StakeModal', () => {
     });
 
     const { getByTestId, getByText } = renderComponent(<StakeModal {...customProps} />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => getByTestId(TEST_IDS.tokenTextField));

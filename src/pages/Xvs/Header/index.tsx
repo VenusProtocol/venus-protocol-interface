@@ -5,6 +5,7 @@ import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components'
 import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
@@ -19,7 +20,6 @@ import {
   useGetLegacyPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import { MINTED_XVS_MANTISSA } from '../constants';
@@ -47,7 +47,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
   const copyAddress = () => copy(xvs.address);
@@ -125,7 +125,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
 };
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const xvs = useGetToken({
     symbol: 'XVS',
   });

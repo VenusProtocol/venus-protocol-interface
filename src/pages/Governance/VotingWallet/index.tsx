@@ -12,6 +12,7 @@ import {
 } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useAuthModal } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
@@ -24,7 +25,6 @@ import {
 } from 'clients/api';
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
-import { useAuth } from 'context/AuthContext';
 
 import DelegateModal from './DelegateModal';
 import { useStyles } from './styles';
@@ -215,7 +215,8 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
 const VotingWallet: React.FC = () => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
-  const { accountAddress, openAuthModal } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { openAuthModal } = useAuthModal();
   const xvs = useGetToken({
     symbol: 'XVS',
   });

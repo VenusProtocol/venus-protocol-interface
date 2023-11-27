@@ -10,12 +10,12 @@ import {
 } from 'components';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { AmountForm } from 'containers/AmountForm';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -239,7 +239,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   spenderAddress,
   ...otherProps
 }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const tokenApprovalProps = useTokenApproval({
     token,

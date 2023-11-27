@@ -10,6 +10,7 @@ import {
 import { VError, displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import {
@@ -29,7 +30,6 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from '../styles';
@@ -190,7 +190,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const vai = useGetToken({
     symbol: 'VAI',
   });

@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier', 'unused-imports'],
   extends: [
     'airbnb',
     'airbnb-typescript',
@@ -77,6 +77,11 @@ module.exports = {
         varsIgnorePattern: '^_',
         caughtErrorsIgnorePattern: '^_',
       },
+    ],
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
     ],
     '@typescript-eslint/member-delimiter-style': [
       'error',

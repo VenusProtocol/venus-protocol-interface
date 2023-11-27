@@ -1,4 +1,5 @@
 import { useGetXvsVaultContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getXvsVaultLockedDeposits, {
   GetXvsVaultLockedDepositsOutput,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetXvsVaultLockedDepositsInput = Omit<
   GetXvsVaultLockedDepositsInput,
@@ -34,7 +34,7 @@ const useGetXvsVaultLockedDeposits = (
   input: TrimmedGetXvsVaultLockedDepositsInput,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
   return useQuery(

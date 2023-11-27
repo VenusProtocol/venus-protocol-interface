@@ -16,13 +16,13 @@ import {
 import { displayMutationError } from 'packages/errors';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { useSwapTokens } from 'clients/api';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -353,7 +353,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 };
 
 const SwapPage: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 

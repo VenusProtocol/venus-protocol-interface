@@ -52,7 +52,7 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
   });
@@ -82,7 +82,7 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 

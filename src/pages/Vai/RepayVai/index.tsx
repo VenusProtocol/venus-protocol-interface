@@ -15,6 +15,7 @@ import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import {
@@ -27,7 +28,6 @@ import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 
 import MAX_UINT256 from 'constants/maxUint256';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
 
@@ -236,7 +236,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 };
 
 const RepayVai: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const vai = useGetToken({
     symbol: 'VAI',
   });

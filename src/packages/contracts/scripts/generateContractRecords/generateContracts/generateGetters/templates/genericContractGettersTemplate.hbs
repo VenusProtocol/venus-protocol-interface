@@ -29,8 +29,8 @@ export const useGet{{contractName}}Contract = ({
   address,
   chainId,
 }: UseGet{{contractName}}ContractInput) => {
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

@@ -46,7 +46,7 @@ describe('RequestWithdrawal', () => {
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 
@@ -62,7 +62,7 @@ describe('RequestWithdrawal', () => {
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 
@@ -83,7 +83,7 @@ describe('RequestWithdrawal', () => {
         handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestListMock}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 
@@ -115,7 +115,7 @@ describe('RequestWithdrawal', () => {
         handleDisplayWithdrawalRequestList={noop}
       />,
       {
-        authContextValue: { accountAddress: fakeAddress },
+        accountAddress: fakeAddress,
       },
     );
 

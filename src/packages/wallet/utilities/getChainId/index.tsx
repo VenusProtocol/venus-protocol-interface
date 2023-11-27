@@ -1,3 +1,5 @@
 import { store } from '../../store';
 
-export const getChainId = () => store.getState().chainId;
+export const getChainId = () => ({
+  chainId: store.getState().chainId,
+});

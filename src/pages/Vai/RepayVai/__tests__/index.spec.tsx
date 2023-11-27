@@ -66,17 +66,13 @@ describe('RepayVai', () => {
 
   it('renders without crashing', () => {
     renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
   });
 
   it('displays the correct repay VAI balance and APY', async () => {
     const { getByText, container } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
@@ -100,9 +96,7 @@ describe('RepayVai', () => {
     }));
 
     const { getByTestId } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     // Check spending limit is correctly displayed
@@ -121,9 +115,7 @@ describe('RepayVai', () => {
 
   it('displays the VAI repay fee correctly', async () => {
     const { getByText, getByTestId } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => getByText(en.vai.repayVai.repayFeeLabel));
@@ -152,9 +144,7 @@ describe('RepayVai', () => {
     }));
 
     const { getByTestId, getByText } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
@@ -178,9 +168,7 @@ describe('RepayVai', () => {
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 
@@ -212,9 +200,7 @@ describe('RepayVai', () => {
     (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<RepayVai />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.repayVai.submitButtonDisabledLabel));
 

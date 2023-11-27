@@ -4,6 +4,7 @@ import {
   useGetResilientOracleContract,
 } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
+import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -13,7 +14,6 @@ import getIsolatedPools, {
   GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 type TrimmedInput = Omit<
@@ -44,7 +44,8 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 
   const tokens = useGetTokens();

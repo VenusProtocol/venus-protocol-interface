@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 import { convertMantissaToTokens, indexBy } from 'utilities';
 
@@ -7,7 +8,6 @@ import {
   useGetIsolatedPools,
   useGetVTokenBalancesAll,
 } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
@@ -31,7 +31,8 @@ export interface UseGetTreasuryTotalsOutput {
 }
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
-  const { accountAddress, chainId } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
   const treasuryAddress = TREASURY_ADDRESSES.get(chainId);
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetIsolatedPools({

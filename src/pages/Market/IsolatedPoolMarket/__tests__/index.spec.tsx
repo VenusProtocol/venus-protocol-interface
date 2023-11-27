@@ -33,19 +33,15 @@ describe('pages/Market/IsolatedPoolMarket', () => {
 
   it('renders without crashing', () => {
     renderComponent(<IsolatedPoolMarket />, {
-      routerOpts: {
-        routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
-        routePath: '/:vTokenAddress/:poolComptrollerAddress',
-      },
+      routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
+      routePath: '/:vTokenAddress/:poolComptrollerAddress',
     });
   });
 
   it('fetches market details and displays them correctly', async () => {
     const { getByTestId } = renderComponent(<IsolatedPoolMarket />, {
-      routerOpts: {
-        routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
-        routePath: '/:vTokenAddress/:poolComptrollerAddress',
-      },
+      routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
+      routePath: '/:vTokenAddress/:poolComptrollerAddress',
     });
 
     // Check supply info displays correctly

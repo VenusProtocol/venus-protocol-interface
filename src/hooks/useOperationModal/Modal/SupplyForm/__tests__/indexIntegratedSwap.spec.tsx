@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
 import { en } from 'packages/translations';
@@ -88,9 +87,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { queryByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -106,9 +103,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { queryByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -119,9 +114,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { getByText, container } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -138,9 +131,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -168,9 +159,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { getByText, container, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -205,9 +194,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -234,9 +221,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -281,9 +266,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -319,9 +302,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -361,9 +342,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -399,9 +378,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -449,9 +426,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -499,9 +474,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -541,9 +514,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 

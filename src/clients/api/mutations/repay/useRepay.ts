@@ -1,11 +1,11 @@
 import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
+import { useAccountAddress, useSigner } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 import { RepayInput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;
@@ -15,7 +15,8 @@ const useRepay = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
-  const { signer, accountAddress } = useAuth();
+  const { signer } = useSigner();
+  const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
   const maximillionContract = useGetMaximillionContract({
     passSigner: true,

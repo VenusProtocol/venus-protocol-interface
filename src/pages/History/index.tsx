@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useState } from 'react';
 import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import useUrlPagination from 'hooks/useUrlPagination';
 
 import Filters, { ALL_VALUE, FilterProps } from './Filters';
@@ -50,7 +50,7 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
 const History: React.FC = () => {
   const { currentPage, setCurrentPage } = useUrlPagination();
 
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
 

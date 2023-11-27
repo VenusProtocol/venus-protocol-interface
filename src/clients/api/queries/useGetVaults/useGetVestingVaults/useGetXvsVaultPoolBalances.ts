@@ -1,10 +1,10 @@
 import { useGetXvsVaultContractAddress } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
+import { useChainId, useProvider } from 'packages/wallet';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {
@@ -16,7 +16,8 @@ export type UseGetXvsVaultPoolBalancesOutput = UseQueryResult<GetBalanceOfOutput
 const useGetXvsVaultPoolBalances = ({
   stakedTokenAddresses,
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
-  const { provider, chainId } = useAuth();
+  const { provider } = useProvider();
+  const { chainId } = useChainId();
   const tokens = useGetTokens();
 
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();

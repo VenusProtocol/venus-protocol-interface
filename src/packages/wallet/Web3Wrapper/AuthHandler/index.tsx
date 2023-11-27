@@ -8,7 +8,7 @@ export const AuthHandler: React.FC = () => {
   const config = useConfig();
   const { chain: walletChain } = useNetwork();
   const { disconnectAsync } = useDisconnect();
-  const chainId = useChainId();
+  const { chainId } = useChainId();
   const setStoreChainId = store.use.setChainId();
 
   // This is a workaround to prevent an issue where a locked wallet extension returns an account

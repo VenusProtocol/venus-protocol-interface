@@ -1,12 +1,11 @@
 import { Icon, TertiaryButton } from 'components';
-import { addTokenToWallet, canAddTokenToWallet } from 'packages/wallet';
+import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
 import { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useAuth } from 'context/AuthContext';
 
 export interface VTokenSymbolUiProps {
   vToken?: VToken;
@@ -33,7 +32,7 @@ export interface VTokenSymbolProps {
 }
 
 const VTokenSymbol: React.FC<VTokenSymbolProps> = ({ vTokenAddress }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: getVTokensData } = useGetVTokens();
 
   const vToken = useMemo(

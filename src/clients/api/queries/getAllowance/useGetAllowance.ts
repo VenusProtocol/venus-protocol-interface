@@ -1,4 +1,5 @@
 import { useGetTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
@@ -8,7 +9,6 @@ import getAllowance, {
   GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 
 type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
 
@@ -32,7 +32,7 @@ const useGetAllowance = (
   { token, spenderAddress, accountAddress }: TrimmedGetAllowanceInput,
   options?: Options,
 ) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const tokenContract = useGetTokenContract({ token });
 
   const queryKey: UseGetAllowanceQueryKey = [

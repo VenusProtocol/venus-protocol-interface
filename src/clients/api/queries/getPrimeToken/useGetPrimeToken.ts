@@ -1,11 +1,11 @@
 import { useGetPrimeContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 import { GetPrimeTokenOutput, getPrimeToken } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type UseGetPrimeTokenInput = {
@@ -28,7 +28,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContract = useGetPrimeContract();
 

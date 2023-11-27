@@ -7,12 +7,12 @@ import {
 } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 import { SwapError } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import formatToSwap from './formatToSwap';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
@@ -22,7 +22,7 @@ import wrapToken from './wrapToken';
 export * from './types';
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const wbnb = useGetToken({
     symbol: 'WBNB',
   });

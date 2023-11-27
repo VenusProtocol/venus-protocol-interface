@@ -2,12 +2,12 @@
 import { Typography } from '@mui/material';
 import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components';
 import { useTranslation } from 'packages/translations';
+import { useChainId } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Transaction } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useAuth } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
@@ -20,7 +20,7 @@ export interface HistoryTableProps {
 export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();

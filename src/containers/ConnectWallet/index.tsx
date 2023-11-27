@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useAuthModal } from 'packages/wallet';
 import React from 'react';
 
 import { SecondaryButton } from '../../components/Button';
 import { NoticeInfo } from '../../components/Notice';
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -42,6 +42,7 @@ export const Prompt: React.FC<PromptProps> = ({
 };
 
 export const ConnectWallet: React.FC<Omit<PromptProps, 'connected' | 'openAuthModal'>> = props => {
-  const { accountAddress, openAuthModal } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { openAuthModal } = useAuthModal();
   return <Prompt {...props} openAuthModal={openAuthModal} connected={!!accountAddress} />;
 };

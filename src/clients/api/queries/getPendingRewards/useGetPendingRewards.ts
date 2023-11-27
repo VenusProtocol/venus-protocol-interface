@@ -8,13 +8,13 @@ import {
   useGetXvsVaultContract,
 } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import getPendingRewards from '.';
@@ -54,7 +54,7 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
   const resilientOracleContract = useGetResilientOracleContract();
   const venusLensContract = useGetVenusLensContract();

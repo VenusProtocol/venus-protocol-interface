@@ -1,8 +1,7 @@
 import { isTokenActionEnabled } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 import { TokenAction } from 'types';
-
-import { useAuth } from 'context/AuthContext';
 
 export interface UseIsTokenActionEnabledInput {
   tokenAddress: string;
@@ -10,7 +9,7 @@ export interface UseIsTokenActionEnabledInput {
 }
 
 const useIsTokenActionEnabled = ({ tokenAddress, action }: UseIsTokenActionEnabledInput) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   return useMemo(
     () =>

@@ -23,7 +23,8 @@ describe('pages/History', () => {
 
   it('fetches transaction on mount', async () => {
     renderComponent(<History />, {
-      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
+      routerInitialEntries: ['/?page=1'],
+      routePath: '/',
     });
     expect(useGetTransactions).toBeCalledTimes(1);
     expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 0 });
@@ -31,7 +32,8 @@ describe('pages/History', () => {
 
   it('rerequests when toggling event filter', async () => {
     const { container } = renderComponent(<History />, {
-      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
+      routerInitialEntries: ['/?page=1'],
+      routePath: '/',
     });
     // Firing the change event on the input for select
     fireEvent.change(container.querySelector('input') as HTMLInputElement, {
@@ -45,8 +47,9 @@ describe('pages/History', () => {
 
   it('rerequests when toggling addressFilter', async () => {
     const { getByRole } = renderComponent(<History />, {
-      authContextValue: { accountAddress: fakeAddress },
-      routerOpts: { routerInitialEntries: ['/?page=1'], routePath: '/' },
+      accountAddress: fakeAddress,
+      routerInitialEntries: ['/?page=1'],
+      routePath: '/',
     });
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);
@@ -62,10 +65,8 @@ describe('pages/History', () => {
 
   it('rerequests when paginating', async () => {
     const { getByText } = renderComponent(<History />, {
-      routerOpts: {
-        routerInitialEntries: ['/?page=1'],
-        routePath: '/',
-      },
+      routerInitialEntries: ['/?page=1'],
+      routePath: '/',
     });
     const pageTwoButton = getByText('2');
     fireEvent.click(pageTwoButton);

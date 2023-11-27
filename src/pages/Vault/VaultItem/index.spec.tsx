@@ -45,7 +45,7 @@ describe('pages/Vault/VaultItem', () => {
     };
 
     const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {
-      authContextValue: { accountAddress: fakeAddress },
+      accountAddress: fakeAddress,
     });
 
     // Click on withdraw button

@@ -6,8 +6,7 @@ import { {{contractName}} } from 'packages/contracts/generated/infos/contractTyp
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;
@@ -34,7 +33,7 @@ export const useGet{{contractName}}ContractAddress = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGet{{contractName}}ContractAddressInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
   return useMemo(
@@ -73,11 +72,11 @@ export const useGet{{contractName}}Contract = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGet{{contractName}}ContractInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

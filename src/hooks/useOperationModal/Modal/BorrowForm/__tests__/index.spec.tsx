@@ -30,9 +30,7 @@ describe('BorrowForm', () => {
     const { getByText } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -53,9 +51,7 @@ describe('BorrowForm', () => {
     const { getByText } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -78,9 +74,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -113,9 +107,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={customFakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -144,9 +136,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -192,9 +182,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -233,9 +221,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -276,9 +262,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -321,9 +305,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));
@@ -360,9 +342,7 @@ describe('BorrowForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.enterValidAmount));

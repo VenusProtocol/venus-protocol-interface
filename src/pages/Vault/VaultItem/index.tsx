@@ -5,13 +5,13 @@ import BigNumber from 'bignumber.js';
 import { Button, NoticeWarning, TokenIcon } from 'components';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo, useState } from 'react';
 import { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { useGetPrimeStatus } from 'clients/api';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
-import { useAuth } from 'context/AuthContext';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
@@ -57,7 +57,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const { data: getPrimeStatusData } = useGetPrimeStatus(
     {

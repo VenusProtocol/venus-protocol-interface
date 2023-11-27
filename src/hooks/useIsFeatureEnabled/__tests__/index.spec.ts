@@ -1,12 +1,11 @@
+import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import Vi from 'vitest';
 
-import { useAuth } from 'context/AuthContext';
 import { renderHook } from 'testUtils/render';
 
 import { FeatureFlag, useIsFeatureEnabled } from '..';
 
-vi.mock('context/AuthContext');
 vi.unmock('hooks/useIsFeatureEnabled');
 
 describe('useIsFeatureEnabled', () => {
@@ -20,7 +19,7 @@ describe('useIsFeatureEnabled', () => {
   ];
 
   it('should return true for integratedSwap on BSC_TESTNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 
@@ -34,7 +33,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for integratedSwap on BSC_MAINNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
 
@@ -48,7 +47,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for prime on BSC_TESTNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 
@@ -62,7 +61,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for prime on BSC_MAINNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
 
@@ -76,7 +75,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return all routes enabled on BSC_TESTNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 
@@ -92,7 +91,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return all routes enabled on BSC_MAINNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
 
@@ -108,7 +107,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should disable feature flagged routes on ETHEREUM', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.ETHEREUM,
     }));
 
@@ -124,7 +123,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should disable feature flagged routes on SEPOLIA', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.SEPOLIA,
     }));
 
@@ -140,7 +139,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for creating proposals on BSC_TESTNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 
@@ -154,7 +153,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for creating proposals on BSC_MAINNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
 
@@ -168,7 +167,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return false for creating proposals on ETHEREUM', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.ETHEREUM,
     }));
 
@@ -182,7 +181,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return false for creating proposals on SEPOLIA', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.SEPOLIA,
     }));
 
@@ -196,7 +195,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return true for voting proposals on BSC_MAINNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
 
@@ -210,7 +209,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return false for voting proposals on BSC_TESTNET', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_TESTNET,
     }));
 
@@ -224,7 +223,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return false for voting proposals on ETHEREUM', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.SEPOLIA,
     }));
 
@@ -238,7 +237,7 @@ describe('useIsFeatureEnabled', () => {
   });
 
   it('should return false for voting proposals on SEPOLIA', () => {
-    (useAuth as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.SEPOLIA,
     }));
 

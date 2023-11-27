@@ -2,12 +2,12 @@
 import BigNumber from 'bignumber.js';
 import { Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useGetPools, useGetVaults } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from '../styles';
 import AccountPlaceholder from './AccountPlaceholder';
@@ -99,7 +99,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 };
 
 const Account: React.FC = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });

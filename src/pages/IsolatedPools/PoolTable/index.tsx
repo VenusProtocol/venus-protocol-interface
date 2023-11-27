@@ -2,13 +2,13 @@
 import BigNumber from 'bignumber.js';
 import { Table, TableColumn, TokenGroup } from 'components';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetIsolatedPools } from 'clients/api';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -140,7 +140,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 };
 
 const PoolTable = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: poolData, isLoading } = useGetIsolatedPools({ accountAddress });
 
   return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;

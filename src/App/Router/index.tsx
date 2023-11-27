@@ -1,9 +1,9 @@
+import { useAccountAddress } from 'packages/wallet';
 import React, { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import PageSuspense from './PageSuspense';
@@ -27,7 +27,7 @@ const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
 const Xvs = lazy(() => import('pages/Xvs'));
 
 const Router = () => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
   const corePoolMarketRouteEnabled = useIsFeatureEnabled({ name: 'corePoolMarketRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });

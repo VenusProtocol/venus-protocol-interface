@@ -1,4 +1,7 @@
-import { getDefaultProvider } from 'ethers';
+import { providers } from 'ethers';
 
-const defaultProvider = getDefaultProvider();
-export const useProvider = () => defaultProvider;
+const fakeProvider = new providers.JsonRpcProvider();
+
+export const useProvider = vi.fn(() => ({
+  provider: fakeProvider,
+}));

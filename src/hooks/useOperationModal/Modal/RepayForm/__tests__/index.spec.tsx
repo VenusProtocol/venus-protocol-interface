@@ -29,9 +29,7 @@ describe('RepayForm', () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -42,9 +40,7 @@ describe('RepayForm', () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -60,9 +56,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
@@ -98,9 +92,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -145,9 +137,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
@@ -205,9 +195,7 @@ describe('RepayForm', () => {
     const { getByTestId } = renderComponent(
       <Repay onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -234,9 +222,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
@@ -267,9 +253,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
@@ -312,9 +296,7 @@ describe('RepayForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
@@ -353,9 +335,7 @@ describe('RepayForm', () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));

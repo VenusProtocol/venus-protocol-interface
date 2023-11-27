@@ -35,5 +35,5 @@ export const useSwitchChain = () => {
     [accountAddress, setStoreChainId, switchNetworkAsync],
   );
 
-  return switchChain;
+  return { switchChain };
 };

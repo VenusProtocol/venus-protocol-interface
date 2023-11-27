@@ -137,6 +137,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.13",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
     "handlebars": "^4.7.8",

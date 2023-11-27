@@ -1,6 +1,5 @@
+import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
-
-import { useAuth } from 'context/AuthContext';
 
 const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
@@ -27,6 +26,6 @@ export interface UseIsFeatureEnabled {
 }
 
 export const useIsFeatureEnabled = ({ name }: UseIsFeatureEnabled) => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   return featureFlags[name].includes(chainId);
 };

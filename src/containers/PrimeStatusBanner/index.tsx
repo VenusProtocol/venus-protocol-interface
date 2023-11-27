@@ -3,6 +3,7 @@ import { Card, Link, PrimaryButton, ProgressBar } from 'components';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { AssetDistribution, Token } from 'types';
@@ -18,7 +19,6 @@ import {
 } from 'clients/api';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
-import { useAuth } from 'context/AuthContext';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 
@@ -311,7 +311,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const navigate = useNavigate();
   const redirectToXvsPage = () => navigate(routes.vaults.path);
 
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,
   });

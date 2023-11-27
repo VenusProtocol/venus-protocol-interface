@@ -3,11 +3,10 @@ import { Paper, Typography } from '@mui/material';
 import { ButtonWrapper, Icon, Link, Spinner, Table, TableColumn } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useChainId } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { VoteDetail, VoteSupport } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
-
-import { useAuth } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 
@@ -24,7 +23,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const xvs = useGetToken({
     symbol: 'XVS',
   });

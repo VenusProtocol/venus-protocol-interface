@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import { en } from 'packages/translations';
 import { Asset, Pool } from 'types';
@@ -27,9 +26,7 @@ describe('SupplyForm', () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -40,9 +37,7 @@ describe('SupplyForm', () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -58,9 +53,7 @@ describe('SupplyForm', () => {
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={customFakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -74,9 +67,7 @@ describe('SupplyForm', () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -101,9 +92,7 @@ describe('SupplyForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -145,9 +134,7 @@ describe('SupplyForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -176,9 +163,7 @@ describe('SupplyForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
@@ -236,9 +221,7 @@ describe('SupplyForm', () => {
     const { getByText, getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
     await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
@@ -296,9 +279,7 @@ describe('SupplyForm', () => {
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -328,9 +309,7 @@ describe('SupplyForm', () => {
     const { getByRole } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={customFakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -361,9 +340,7 @@ describe('SupplyForm', () => {
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={customFakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 
@@ -400,9 +377,7 @@ describe('SupplyForm', () => {
     const { getByTestId } = renderComponent(
       <SupplyForm onCloseModal={onCloseModalMock} pool={fakePool} asset={fakeAsset} />,
       {
-        authContextValue: {
-          accountAddress: fakeAccountAddress,
-        },
+        accountAddress: fakeAccountAddress,
       },
     );
 

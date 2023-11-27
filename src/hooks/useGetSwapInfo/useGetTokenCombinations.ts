@@ -1,10 +1,9 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import flatMap from 'lodash/flatMap';
 import { useGetSwapTokens, useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 import { ChainId, PSTokenCombination, Token } from 'types';
-
-import { useAuth } from 'context/AuthContext';
 
 import wrapToken from './wrapToken';
 
@@ -23,7 +22,7 @@ const useGetTokenCombinations = ({
   fromToken,
   toToken,
 }: UseGetTokenCombinationsInput): PSTokenCombination[] => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const swapTokens = useGetSwapTokens();
   const wbnb = useGetToken({
     symbol: 'WBNB',

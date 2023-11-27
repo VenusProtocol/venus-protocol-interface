@@ -1,10 +1,10 @@
 import { setTag, setUser } from '@sentry/react';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import React, { useEffect } from 'react';
 
-import { useAuth } from 'context/AuthContext';
-
 export const SentryErrorInfo: React.FC = () => {
-  const { accountAddress, chainId } = useAuth();
+  const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
 
   // Enriches Sentry events with info about the user and chain
   useEffect(() => {

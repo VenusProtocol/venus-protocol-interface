@@ -1,9 +1,9 @@
+import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
 
-import { useAuth } from 'context/AuthContext';
 import { getSwapTokens } from 'packages/tokens/utilities/getSwapTokens';
 
 export const useGetSwapTokens = () => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   return useMemo(() => getSwapTokens({ chainId }), [chainId]);
 };

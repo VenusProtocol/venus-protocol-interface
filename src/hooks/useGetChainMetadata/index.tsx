@@ -1,7 +1,8 @@
+import { useChainId } from 'packages/wallet';
+
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useAuth } from 'context/AuthContext';
 
 export const useGetChainMetadata = () => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   return CHAIN_METADATA[chainId];
 };

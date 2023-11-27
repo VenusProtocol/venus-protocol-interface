@@ -11,6 +11,7 @@ import {
 import isAfter from 'date-fns/isAfter';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
 import React, { useMemo } from 'react';
 import { Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
@@ -23,7 +24,6 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import Stepper from './Stepper';
 import { useStyles } from './styles';
@@ -61,7 +61,7 @@ export const ProposalSummaryUi: React.FC<
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   const {
     state,
@@ -251,7 +251,7 @@ export const ProposalSummaryUi: React.FC<
 };
 
 const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const { proposalId } = proposal;
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();

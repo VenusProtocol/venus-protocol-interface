@@ -2,10 +2,10 @@
 import BigNumber from 'bignumber.js';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import React from 'react';
 
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -13,7 +13,7 @@ export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose
 
 const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ handleClose }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
   const vai = useGetToken({
     symbol: 'VAI',
   });

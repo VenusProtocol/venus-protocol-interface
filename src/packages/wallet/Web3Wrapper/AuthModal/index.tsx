@@ -1,9 +1,9 @@
 import { useTranslation } from 'packages/translations';
-import { store } from 'packages/wallet/store';
 import React from 'react';
 
 import { Modal } from 'components/Modal';
 import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';
+import { useAuthModal } from 'packages/wallet/hooks/useAuthModal';
 import { useChainId } from 'packages/wallet/hooks/useChainId';
 import { useLogIn } from 'packages/wallet/hooks/useLogIn';
 import { useLogOut } from 'packages/wallet/hooks/useLogOut';
@@ -12,13 +12,11 @@ import { AccountDetails } from './AccountDetails';
 import { WalletList, WalletListProps } from './WalletList';
 
 export const AuthModal: React.FC = () => {
-  const isAuthModalOpen = store.use.isAuthModalOpen();
-  const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
-  const closeAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: false });
+  const { isAuthModalOpen, closeAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
-  const chainId = useChainId();
-  const logOut = useLogOut();
-  const logIn = useLogIn();
+  const { chainId } = useChainId();
+  const { logOut } = useLogOut();
+  const { logIn } = useLogIn();
   const { t } = useTranslation();
 
   const handleLogIn: WalletListProps['onLogIn'] = connector => {

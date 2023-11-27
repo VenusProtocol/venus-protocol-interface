@@ -1,10 +1,10 @@
 import { Link } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
+import { useChainId } from 'packages/wallet';
 import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
-import { useAuth } from 'context/AuthContext';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import { IconLink } from './IconLink';
@@ -17,7 +17,7 @@ import {
 } from './constants';
 
 export const Footer: React.FC = () => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
   const { data: getBlockNumberData } = useGetBlockNumber();
 
   const { t } = useTranslation();

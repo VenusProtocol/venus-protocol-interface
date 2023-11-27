@@ -14,9 +14,7 @@ vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
 vi.mock('packages/tokens');
-vi.mock('packages/wallet/Web3Wrapper');
-vi.mock('packages/wallet/hooks/useProvider');
-vi.mock('packages/wallet/hooks/useSigner');
+vi.mock('packages/wallet');
 
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');

@@ -37,9 +37,7 @@ describe('Banner - Feature flag enabled: prime', () => {
 
   it('renders Prime promotional banner when connected user is not Prime and has not closed it before', () => {
     const { getByText } = renderComponent(<Banner />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     expect(getByText(en.dashboard.primePromotionalBanner.description));
@@ -65,9 +63,7 @@ describe('Banner - Feature flag enabled: prime', () => {
     }));
 
     const { baseElement } = renderComponent(<Banner />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     expect(baseElement.textContent).toEqual('');
@@ -75,9 +71,7 @@ describe('Banner - Feature flag enabled: prime', () => {
 
   it('lets user close the Prime promotional banner', () => {
     const { baseElement, getByTestId, getByRole } = renderComponent(<Banner />, {
-      authContextValue: {
-        accountAddress: fakeAccountAddress,
-      },
+      accountAddress: fakeAccountAddress,
     });
 
     expect(getByTestId(TEST_IDS.closeButton));

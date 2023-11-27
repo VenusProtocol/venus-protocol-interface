@@ -61,10 +61,8 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     [routes.swap.path, routes.swap.path],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {
     const { container } = renderComponent(<Breadcrumbs />, {
-      routerOpts: {
-        routerInitialEntries: [pathname],
-        routePath: originalRoute,
-      },
+      routerInitialEntries: [pathname],
+      routePath: originalRoute,
     });
 
     expect(container.textContent).toMatchSnapshot();

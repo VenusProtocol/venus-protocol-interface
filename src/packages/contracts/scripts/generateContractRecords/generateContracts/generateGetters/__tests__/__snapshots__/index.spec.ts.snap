@@ -11,9 +11,8 @@ import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
@@ -23,7 +22,7 @@ export const getPoolLensContractAddress = ({ chainId }: GetPoolLensContractAddre
   getUniqueContractAddress({ name: 'PoolLens', chainId });
 
 export const useGetPoolLensContractAddress = () => {
-  const { chainId } = useAuth();
+  const { chainId } = useChainId();
 
   return useMemo(
     () =>
@@ -50,11 +49,11 @@ interface UseGetPoolLensContractInput {
 }
 
 export const useGetPoolLensContract = (input?: UseGetPoolLensContractInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId || currentChainId;
 
-  const provider = useProvider({ chainId: input?.chainId });
-  const signer = useSigner({ chainId: input?.chainId });
+  const { provider } = useProvider({ chainId: input?.chainId });
+  const { signer } = useSigner({ chainId: input?.chainId });
   const signerOrProvider = input?.passSigner ? signer : provider;
 
   return useMemo(
@@ -108,8 +107,8 @@ export const useGetIsolatedPoolComptrollerContract = ({
   address,
   chainId,
 }: UseGetIsolatedPoolComptrollerContractInput) => {
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
@@ -140,8 +139,7 @@ import { SwapRouter } from 'packages/contracts/generated/infos/contractTypes';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
 
-import { useAuth } from 'context/AuthContext';
-import { useProvider, useSigner } from 'packages/wallet';
+import { useChainId, useProvider, useSigner } from 'packages/wallet';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;
@@ -168,7 +166,7 @@ export const useGetSwapRouterContractAddress = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGetSwapRouterContractAddressInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
   return useMemo(
@@ -207,11 +205,11 @@ export const useGetSwapRouterContract = ({
   comptrollerContractAddress,
   chainId: passedChainId,
 }: UseGetSwapRouterContractInput) => {
-  const { chainId: currentChainId } = useAuth();
+  const { chainId: currentChainId } = useChainId();
   const chainId = passedChainId || currentChainId;
 
-  const provider = useProvider({ chainId });
-  const signer = useSigner({ chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(

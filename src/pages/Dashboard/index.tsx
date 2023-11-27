@@ -1,10 +1,10 @@
 import { Tag, TagGroup, TextField } from 'components';
 import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { useGetPools } from 'clients/api';
 import { MarketTable } from 'containers/MarketTable';
-import { useAuth } from 'context/AuthContext';
 
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';
@@ -12,7 +12,7 @@ import useFormatPools from './useFormatPools';
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
-  const { accountAddress } = useAuth();
+  const { accountAddress } = useAccountAddress();
 
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
   const [searchValue, setSearchValue] = useState('');

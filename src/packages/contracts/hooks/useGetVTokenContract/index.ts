@@ -1,7 +1,7 @@
+import { useProvider, useSigner } from 'packages/wallet';
 import { useMemo } from 'react';
 import { VToken } from 'types';
 
-import { useAuth } from 'context/AuthContext';
 import { getVTokenContract } from 'packages/contracts/utilities/getVTokenContract';
 
 export interface UseGetVTokenContractInput {
@@ -10,7 +10,8 @@ export interface UseGetVTokenContractInput {
 }
 
 export const useGetVTokenContract = ({ vToken, passSigner = false }: UseGetVTokenContractInput) => {
-  const { signer, provider } = useAuth();
+  const { provider } = useProvider();
+  const { signer } = useSigner();
   const signerOrProvider = passSigner ? signer : provider;
 
   return useMemo(
