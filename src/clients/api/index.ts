@@ -345,3 +345,6 @@ export { default as useGetHypotheticalPrimeApys } from './queries/getHypothetica
 export { default as getPrimeStatus } from './queries/getPrimeStatus';
 export * from './queries/getPrimeStatus';
 export { default as useGetPrimeStatus } from './queries/getPrimeStatus/useGetPrimeStatus';
+
+export * from './queries/getLatestAppVersion';
+export { default as useGetLatestAppVersion } from './queries/getLatestAppVersion/useGetLatestAppVersion';

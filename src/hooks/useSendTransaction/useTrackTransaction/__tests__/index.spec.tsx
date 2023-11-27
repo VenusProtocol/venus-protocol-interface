@@ -60,6 +60,7 @@ describe('useTrackTransaction', () => {
     expect(displayNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'loading',
+      autoClose: false,
       title: en.transactionNotification.pending.title,
       description: (
         <ChainExplorerLink
@@ -119,6 +120,7 @@ describe('useTrackTransaction', () => {
       expect(displayNotification).toHaveBeenCalledWith({
         id: fakeContractTransaction.hash,
         variant: 'loading',
+        autoClose: false,
         title: en.transactionNotification.pending.title,
         description: (
           <ChainExplorerLink
@@ -172,6 +174,7 @@ describe('useTrackTransaction', () => {
     expect(displayNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'loading',
+      autoClose: false,
       title: en.transactionNotification.pending.title,
       description: (
         <ChainExplorerLink
@@ -219,6 +222,7 @@ describe('useTrackTransaction', () => {
     expect(displayNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'loading',
+      autoClose: false,
       title: en.transactionNotification.pending.title,
       description: (
         <ChainExplorerLink

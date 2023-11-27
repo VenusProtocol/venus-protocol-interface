@@ -7,6 +7,7 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
+import { AppVersionChecker } from 'containers/AppVersionChecker';
 import { Layout } from 'containers/Layout';
 import { AuthProvider } from 'context/AuthContext';
 import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
@@ -29,6 +30,8 @@ const App = () => (
                 <Layout>
                   <Router />
                 </Layout>
+
+                <AppVersionChecker />
 
                 <LunaUstWarningModal />
 

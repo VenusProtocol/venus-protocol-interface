@@ -13,19 +13,11 @@ const timeoutsMapping: {
   [notificationId: Notification['id']]: NodeJS.Timer;
 } = {};
 
-const setHideTimeout = ({
-  id,
-  variant,
-}: {
-  id: Notification['id'];
-  variant: Notification['variant'];
-}) => {
+const setHideTimeout = ({ id }: { id: Notification['id'] }) => {
   const { removeNotification } = store.getState();
 
-  // Automatically hide notification after a certain time if it's not of the variant "loading"
-  if (variant !== 'loading') {
-    timeoutsMapping[id] = setTimeout(() => removeNotification({ id }), DISPLAY_TIME_MS);
-  }
+  // Automatically hide notification after a certain time
+  timeoutsMapping[id] = setTimeout(() => removeNotification({ id }), DISPLAY_TIME_MS);
 };
 
 export const hideNotification = ({ id }: RemoveNotificationInput) => {
@@ -36,7 +28,14 @@ export const hideNotification = ({ id }: RemoveNotificationInput) => {
   removeNotification({ id });
 };
 
-export const displayNotification = (input: AddNotificationInput) => {
+type DisplayNotificationInput = AddNotificationInput & {
+  autoClose?: boolean;
+};
+
+export const displayNotification = ({
+  autoClose = true,
+  ...addNotificationInput
+}: DisplayNotificationInput) => {
   const { addNotification, notifications } = store.getState();
 
   // Remove last notification if we've reached the maximum allowed
@@ -45,21 +44,32 @@ export const displayNotification = (input: AddNotificationInput) => {
   }
 
   // Add notification to store
-  const newNotificationId = addNotification(input);
+  const newNotificationId = addNotification(addNotificationInput);
 
-  setHideTimeout({ id: newNotificationId, variant: input.variant });
+  if (autoClose) {
+    setHideTimeout({ id: newNotificationId });
+  }
 
   return newNotificationId;
 };
 
-export const updateNotification = (input: UpdateNotificationInput) => {
+type UpdateNotificationUtilInput = UpdateNotificationInput & {
+  autoClose?: boolean;
+};
+
+export const updateNotification = ({
+  autoClose = true,
+  ...updateNotificationInput
+}: UpdateNotificationUtilInput) => {
   // Clear hide timeout if one was set
-  clearTimeout(timeoutsMapping[input.id]);
+  clearTimeout(timeoutsMapping[updateNotificationInput.id]);
 
   const { updateNotification: updateStoreNotification } = store.getState();
 
   // Update notification
-  updateStoreNotification(input);
+  updateStoreNotification(updateNotificationInput);
 
-  setHideTimeout({ id: input.id, variant: input.variant });
+  if (autoClose) {
+    setHideTimeout({ id: updateNotificationInput.id });
+  }
 };
