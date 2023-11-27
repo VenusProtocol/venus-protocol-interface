@@ -1,17 +1,17 @@
 import { useTranslation } from 'packages/translations';
 import { useEffect, useState } from 'react';
+import { Location, useLocation } from 'react-router-dom';
 
 type PaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
-  initialPageIndex?: number;
   itemsPerPageCount?: number;
 };
 
 const PAGES_TO_SHOW_COUNT = 4;
 
-const getInitialPageIndex = () => {
-  const searchParams = new URLSearchParams(window.location.search);
+const getInitialPageIndex = ({ location }: { location: Location }) => {
+  const searchParams = new URLSearchParams(location.search);
   const pageParam = searchParams.get('page');
   const initialPageIndex = pageParam ? +pageParam - 1 : 0;
   return initialPageIndex;
@@ -20,7 +20,8 @@ const getInitialPageIndex = () => {
 export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
   const { t } = useTranslation();
 
-  const [activePageIndex, setActivePageIndex] = useState(getInitialPageIndex());
+  const location = useLocation();
+  const [activePageIndex, setActivePageIndex] = useState(getInitialPageIndex({ location }));
   const [pagesCount, setPagesCount] = useState(0);
 
   /* calculating items per page count */
