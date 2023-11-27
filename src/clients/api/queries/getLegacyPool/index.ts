@@ -175,6 +175,7 @@ const getLegacyPool = async ({
       primeContract,
       primeVTokenAddresses,
       accountAddress,
+      primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
       xvs,
     });
   }
