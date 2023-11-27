@@ -1,3 +1,10 @@
+## [2.49.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.49.1...v2.49.2) (2023-11-27)
+
+
+### Bug Fixes
+
+* initial pagination index ([#1862](https://github.com/VenusProtocol/venus-protocol-interface/issues/1862)) ([1b3c4aa](https://github.com/VenusProtocol/venus-protocol-interface/commit/1b3c4aaf682ccd8e806fe1205e57668e9654fbf2))
+
 ## [2.49.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.49.0...v2.49.1) (2023-11-27)
 
 ## [2.49.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.48.0...v2.49.0) (2023-11-27)
