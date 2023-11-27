@@ -1,3 +1,10 @@
+## [2.50.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.49.2...v2.50.0) (2023-11-27)
+
+
+### Features
+
+* revert d68c2a2e55f6e0264622e3415a3c79946c31c4e2 ([#1863](https://github.com/VenusProtocol/venus-protocol-interface/issues/1863)) ([3cc213a](https://github.com/VenusProtocol/venus-protocol-interface/commit/3cc213ad68264994a43376d0436af048b9b40455))
+
 ## [2.49.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.49.1...v2.49.2) (2023-11-27)
 
 
