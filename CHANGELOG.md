@@ -1,3 +1,10 @@
+## [2.49.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.48.0...v2.49.0) (2023-11-27)
+
+
+### Features
+
+* use 10k XVS to estimate Prime's APY ([1bd1240](https://github.com/VenusProtocol/venus-protocol-interface/commit/1bd1240ec4d91df27f1251f16ff7284d1fd841af))
+
 ## [2.48.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.47.1...v2.48.0) (2023-11-27)
 
 
