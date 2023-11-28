@@ -1,3 +1,19 @@
+## [2.51.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.50.2...v2.51.0) (2023-11-28)
+
+
+### Features
+
+* adjust paddings on md breakpoint ([fe54033](https://github.com/VenusProtocol/venus-protocol-interface/commit/fe54033bd5cb7379c9670e3da1b291b739650de2))
+* conditionally render delegate/redelegate button ([daf31aa](https://github.com/VenusProtocol/venus-protocol-interface/commit/daf31aad44c4b51dcda0063f553d001b77f9327e))
+* hide deposit XVS button if votes are loading ([27c5a8d](https://github.com/VenusProtocol/venus-protocol-interface/commit/27c5a8da517e897a4d3db3f48432210da59ad77d))
+* render buttons in the VotingWallet based on isDataLoading ([a9c8d44](https://github.com/VenusProtocol/venus-protocol-interface/commit/a9c8d44f408983486ce531910e34b10aa3f46a94))
+* use voteProposal to conditionally render delegate section ([b9d74dd](https://github.com/VenusProtocol/venus-protocol-interface/commit/b9d74dd894e1eb54db731af49b4510c518f4be89))
+
+
+### Bug Fixes
+
+* minor spacing fixes ([0b4921f](https://github.com/VenusProtocol/venus-protocol-interface/commit/0b4921f2539f863992c1a4ae09438a64d9b201b7))
+
 ## [2.50.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.50.1...v2.50.2) (2023-11-28)
 
 
