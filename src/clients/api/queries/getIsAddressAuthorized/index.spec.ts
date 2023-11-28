@@ -1,7 +1,8 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { restService } from 'utilities';
 
 import getIsAddressAuthorized from '.';
 

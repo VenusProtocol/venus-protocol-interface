@@ -1,8 +1,7 @@
+import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { ButtonProps, SecondaryButton } from 'components';
 import { useTranslation } from 'packages/translations';
 import { cn, truncateAddress } from 'utilities';
-
-import primeLogoSrc from 'assets/img/primeLogo.svg';
 
 export interface PrimeButtonProps extends ButtonProps {
   accountAddress: string;

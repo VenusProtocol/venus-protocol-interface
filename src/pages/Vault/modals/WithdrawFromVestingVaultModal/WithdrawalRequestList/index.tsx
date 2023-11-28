@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import React from 'react';
+
+import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import { LabeledInlineContent, Spinner } from 'components';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React from 'react';
 import { LockedDeposit, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-
-import { useGetXvsVaultLockedDeposits } from 'clients/api';
-import { ConnectWallet } from 'containers/ConnectWallet';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';

@@ -1,7 +1,8 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import votersResponse from '__mocks__/api/voters.json';
+
+import { restService } from 'utilities';
 
 import getVoters from '.';
 

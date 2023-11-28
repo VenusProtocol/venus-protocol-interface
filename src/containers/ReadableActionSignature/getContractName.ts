@@ -1,6 +1,5 @@
 import addresses from 'packages/contracts/generated/infos/addresses';
 import { ChainId, Token, VToken } from 'types';
-
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 

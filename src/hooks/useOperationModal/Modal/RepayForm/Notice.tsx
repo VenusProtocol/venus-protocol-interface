@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { NoticeError, NoticeWarning } from 'components';
-import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { Swap } from 'types';
 
+import { NoticeError, NoticeWarning } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { useTranslation } from 'packages/translations';
+import { Swap } from 'types';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { FormError } from './useForm';

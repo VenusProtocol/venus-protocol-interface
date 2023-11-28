@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
+
 import { VenusLens } from 'packages/contracts';
 import { logError } from 'packages/errors';
 import { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
-
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 type FormatRewardSummaryDataOutput =

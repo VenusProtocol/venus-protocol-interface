@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Asset, Pool } from 'types';
 
 import { routes } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
+import { Asset, Pool } from 'types';
 
 export interface TableProps {
   pool: Pool;

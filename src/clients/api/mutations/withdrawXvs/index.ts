@@ -1,4 +1,5 @@
 import { ContractTransaction } from 'ethers';
+
 import { XvsVesting } from 'packages/contracts';
 
 export interface WithdrawXvsInput {

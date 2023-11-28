@@ -1,15 +1,13 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { getVaiControllerContractAddress } from 'packages/contracts';
-import { en } from 'packages/translations';
 import React from 'react';
-import { ChainId } from 'types';
-import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
+import { renderComponent } from 'testUtils/render';
+
 import {
   getBalanceOf,
   getVaiCalculateRepayAmount,
@@ -18,7 +16,10 @@ import {
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { renderComponent } from 'testUtils/render';
+import { getVaiControllerContractAddress } from 'packages/contracts';
+import { en } from 'packages/translations';
+import { ChainId } from 'types';
+import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import RepayVai from '..';
 import TEST_IDS from '../../testIds';

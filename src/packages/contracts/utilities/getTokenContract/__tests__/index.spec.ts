@@ -1,12 +1,13 @@
 import { Signer } from 'ethers';
+
+import { hay, vai, vrt, xvs } from '__mocks__/models/tokens';
+
 import {
   getBep20Contract,
   getVaiContract,
   getVrtContract,
   getXvsContract,
 } from 'packages/contracts/generated/getters';
-
-import { hay, vai, vrt, xvs } from '__mocks__/models/tokens';
 
 import { getTokenContract } from '..';
 

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Spinner } from 'components/Spinner';
+import { useTranslation } from 'packages/translations';
 
 import { Delimiter } from '../Delimiter';
 import { Select, SelectOption, SelectProps } from '../Select';

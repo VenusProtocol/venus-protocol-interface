@@ -2,7 +2,6 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import { en } from 'packages/translations';
 import React from 'react';
 import Vi from 'vitest';
 
@@ -10,9 +9,11 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
+import { renderComponent } from 'testUtils/render';
+
 import { repay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { XvsVault } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { XvsVault } from 'packages/contracts';
 
 import getXvsVaultPendingWithdrawalsFromBeforeUpgrade from '.';
 

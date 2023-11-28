@@ -1,6 +1,5 @@
-import { XvsVault } from 'packages/contracts';
-
 import { NULL_ADDRESS } from 'constants/address';
+import { XvsVault } from 'packages/contracts';
 
 export interface GetVoteDelegateAddressInput {
   xvsVaultContract: XvsVault;

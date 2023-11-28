@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
-import { convertTokensToMantissa } from 'utilities';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
+import { convertTokensToMantissa } from 'utilities';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';

@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
+import React, { useMemo } from 'react';
+
+import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
+import { LabeledInlineContent, PrimaryButton, Spinner } from 'components';
+import { ConnectWallet } from 'containers/ConnectWallet';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo } from 'react';
 import { Token } from 'types';
-
-import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
-import { ConnectWallet } from 'containers/ConnectWallet';
-import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';

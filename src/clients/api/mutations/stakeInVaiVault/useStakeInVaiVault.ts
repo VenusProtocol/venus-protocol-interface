@@ -1,11 +1,10 @@
+import { StakeInVaiVaultInput, queryClient, stakeInVaiVault } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
-import { StakeInVaiVaultInput, queryClient, stakeInVaiVault } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = UseSendTransactionOptions<TrimmedStakeInVaiVaultInput>;

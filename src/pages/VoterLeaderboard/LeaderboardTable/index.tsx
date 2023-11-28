@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Table, TableColumn } from 'components';
 import _cloneDeep from 'lodash/cloneDeep';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+
+import { EllipseAddress, Table, TableColumn } from 'components';
+import { routes } from 'constants/routing';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
 import { VoterAccount } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
-
-import { routes } from 'constants/routing';
 
 import { useStyles } from './styles';
 

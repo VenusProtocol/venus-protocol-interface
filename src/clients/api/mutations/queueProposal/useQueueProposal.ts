@@ -1,9 +1,8 @@
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { callOrThrow } from 'utilities';
-
 import { QueueProposalInput, queryClient, queueProposal } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
+import { callOrThrow } from 'utilities';
 
 type TrimmedQueueProposalInput = Omit<QueueProposalInput, 'governorBravoDelegateContract'>;
 type Options = UseSendTransactionOptions<TrimmedQueueProposalInput>;

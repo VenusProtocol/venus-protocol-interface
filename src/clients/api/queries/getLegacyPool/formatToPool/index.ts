@@ -1,4 +1,8 @@
 import BigNumber from 'bignumber.js';
+
+import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
+import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import MAX_UINT256 from 'constants/maxUint256';
 import { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'packages/contracts';
 import { logError } from 'packages/errors';
 import { Asset, Market, Pool, Token, VToken } from 'types';
@@ -12,10 +16,6 @@ import {
   convertPriceMantissaToDollars,
   multiplyMantissaDaily,
 } from 'utilities';
-
-import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
-import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import MAX_UINT256 from 'constants/maxUint256';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import { PrimeApy } from '../types';

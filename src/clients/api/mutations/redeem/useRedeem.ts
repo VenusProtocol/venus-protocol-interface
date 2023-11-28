@@ -1,12 +1,11 @@
-import { useAnalytics } from 'packages/analytics';
-import { useGetVTokenContract } from 'packages/contracts';
-import { VToken } from 'types';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
 import { queryClient } from 'clients/api';
 import redeem, { RedeemInput } from 'clients/api/mutations/redeem';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'packages/analytics';
+import { useGetVTokenContract } from 'packages/contracts';
+import { VToken } from 'types';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedRedeemInput = Omit<RedeemInput, 'tokenContract' | 'accountAddress'>;
 type Options = UseSendTransactionOptions<TrimmedRedeemInput>;

@@ -1,5 +1,6 @@
-import { useTranslation } from 'packages/translations';
 import React from 'react';
+
+import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 
 import spinnerAnimation from './spinnerAnimation.gif';

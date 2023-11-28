@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
-import { Swap } from 'types';
-import {
-  convertMantissaToTokens,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
+import { useTranslation } from 'packages/translations';
+import { Swap } from 'types';
+import {
+  convertMantissaToTokens,
+  formatPercentageToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 import { LabeledInlineContent } from '../LabeledInlineContent';
 import { useStyles } from './styles';

@@ -1,6 +1,7 @@
-import { createStoreSelectors } from 'utilities';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import { createStoreSelectors } from 'utilities';
 
 interface State {
   shouldShowBanner: boolean;

@@ -2,6 +2,7 @@ import { Meta } from '@storybook/react';
 import React from 'react';
 
 import tokens from '__mocks__/models/tokens';
+
 import { withCenterStory } from 'stories/decorators';
 
 import { TokenIcon } from '.';

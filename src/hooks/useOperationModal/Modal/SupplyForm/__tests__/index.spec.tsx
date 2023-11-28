@@ -1,18 +1,19 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { en } from 'packages/translations';
-import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
+import { renderComponent } from 'testUtils/render';
+
 import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
+import { Asset, Pool } from 'types';
 
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

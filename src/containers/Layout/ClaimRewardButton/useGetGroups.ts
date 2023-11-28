@@ -1,9 +1,9 @@
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
 
 import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
 
 import { Group } from './types';
 

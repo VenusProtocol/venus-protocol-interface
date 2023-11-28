@@ -1,9 +1,8 @@
+import { useGetPrimeToken } from 'clients/api';
 import { Button, ButtonProps } from 'components';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress, useAuthModal } from 'packages/wallet';
 import { truncateAddress } from 'utilities';
-
-import { useGetPrimeToken } from 'clients/api';
 
 import { PrimeButton } from './PrimeButton';
 

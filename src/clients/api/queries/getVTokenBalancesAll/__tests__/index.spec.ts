@@ -1,7 +1,8 @@
 import { BigNumber as BN } from 'ethers';
-import { VenusLens } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { VenusLens } from 'packages/contracts';
 
 import getVTokenBalancesAll from '..';
 

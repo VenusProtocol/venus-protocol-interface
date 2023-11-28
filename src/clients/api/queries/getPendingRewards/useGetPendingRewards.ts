@@ -1,3 +1,8 @@
+import { useMemo } from 'react';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
+import FunctionKey from 'constants/functionKey';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetPoolLensContract,
@@ -9,13 +14,8 @@ import {
 } from 'packages/contracts';
 import { useGetTokens } from 'packages/tokens';
 import { useChainId } from 'packages/wallet';
-import { useMemo } from 'react';
-import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
-
-import FunctionKey from 'constants/functionKey';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import getPendingRewards from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';

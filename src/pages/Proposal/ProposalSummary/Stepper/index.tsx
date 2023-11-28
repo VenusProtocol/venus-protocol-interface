@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import React, { useMemo } from 'react';
+
 import { Icon } from 'components';
 import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
 import { ProposalState } from 'types';
 
 import { useStyles } from './styles';

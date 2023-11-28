@@ -1,5 +1,6 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
+
 import {
   getBep20Contract,
   getVaiContract,

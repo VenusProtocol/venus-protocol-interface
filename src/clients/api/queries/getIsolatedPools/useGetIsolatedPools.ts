@@ -1,13 +1,4 @@
-import {
-  useGetPoolLensContract,
-  useGetPoolRegistryContractAddress,
-  useGetResilientOracleContract,
-} from 'packages/contracts';
-import { useGetTokens } from 'packages/tokens';
-import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getIsolatedPools, {
   GetIsolatedPoolsInput,
@@ -15,6 +6,15 @@ import getIsolatedPools, {
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import {
+  useGetPoolLensContract,
+  useGetPoolRegistryContractAddress,
+  useGetResilientOracleContract,
+} from 'packages/contracts';
+import { useGetTokens } from 'packages/tokens';
+import { useChainId, useProvider } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,

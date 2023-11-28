@@ -2,6 +2,7 @@
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import React, { useMemo } from 'react';
+
 import { formatCentsToReadableValue } from 'utilities';
 
 import { Icon } from '../Icon';

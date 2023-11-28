@@ -1,11 +1,10 @@
-import { useAnalytics } from 'packages/analytics';
-import { useGetSwapRouterContract } from 'packages/contracts';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
 import { SwapTokensInput, queryClient, swapTokens } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'packages/analytics';
+import { useGetSwapRouterContract } from 'packages/contracts';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
 type Options = UseSendTransactionOptions<TrimmedSwapTokensInput>;

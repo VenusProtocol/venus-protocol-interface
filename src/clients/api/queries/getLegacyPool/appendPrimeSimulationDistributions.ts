@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+
+import { NULL_ADDRESS } from 'constants/address';
 import { Prime } from 'packages/contracts';
 import { Asset, Token } from 'types';
 import {
@@ -7,8 +9,6 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
 } from 'utilities';
-
-import { NULL_ADDRESS } from 'constants/address';
 
 export interface ResolvePrimeSimulationDistributionsInput {
   primeContract: Prime;

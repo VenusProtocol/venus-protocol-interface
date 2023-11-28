@@ -6,8 +6,9 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai, xvs } from '__mocks__/models/tokens';
-import useTokenApproval from 'hooks/useTokenApproval';
 import { renderComponent } from 'testUtils/render';
+
+import useTokenApproval from 'hooks/useTokenApproval';
 
 import TransactionForm, { TransactionFormProps } from '.';
 import TEST_IDS from './testIds';

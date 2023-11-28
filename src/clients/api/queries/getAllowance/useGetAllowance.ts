@@ -1,14 +1,14 @@
-import { useGetTokenContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId, Token } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getAllowance, {
   GetAllowanceInput,
   GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
+import { useGetTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId, Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
 

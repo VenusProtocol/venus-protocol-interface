@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Prime } from 'packages/contracts';
 
 export interface GetPrimeStatusInput {

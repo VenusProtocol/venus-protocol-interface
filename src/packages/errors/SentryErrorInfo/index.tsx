@@ -1,6 +1,7 @@
 import { setTag, setUser } from '@sentry/react';
-import { useAccountAddress, useChainId } from 'packages/wallet';
 import React, { useEffect } from 'react';
+
+import { useAccountAddress, useChainId } from 'packages/wallet';
 
 export const SentryErrorInfo: React.FC = () => {
   const { accountAddress } = useAccountAddress();

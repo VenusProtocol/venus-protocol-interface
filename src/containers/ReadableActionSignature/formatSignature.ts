@@ -2,9 +2,9 @@ import type { Result } from '@ethersproject/abi';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import { ParamType } from 'ethers/lib/utils';
-import { ProposalAction } from 'types';
 
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
+import { ProposalAction } from 'types';
 
 const formatParamType = (paramType: ParamType): string => {
   if (paramType.type !== 'tuple' && paramType.type !== 'tuple[]') {

@@ -1,7 +1,8 @@
 import { fireEvent } from '@testing-library/react';
-import { en } from 'packages/translations';
 
 import { renderComponent } from 'testUtils/render';
+
+import { en } from 'packages/translations';
 
 import { Modal } from '..';
 

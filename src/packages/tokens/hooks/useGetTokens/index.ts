@@ -1,5 +1,6 @@
-import { useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
+
+import { useChainId } from 'packages/wallet';
 
 import { getTokens } from '../../utilities/getTokens';
 

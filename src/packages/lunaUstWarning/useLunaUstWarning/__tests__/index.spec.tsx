@@ -2,9 +2,10 @@ import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { vLuna, vUst } from '__mocks__/models/vTokens';
+import { renderHook } from 'testUtils/render';
+
 import { useGetLegacyPool } from 'clients/api';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { renderHook } from 'testUtils/render';
 
 import { useLunaUstWarning } from '..';
 import { store } from '../store';

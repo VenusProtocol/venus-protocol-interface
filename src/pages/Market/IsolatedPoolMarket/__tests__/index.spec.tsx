@@ -7,8 +7,9 @@ import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { poolData } from '__mocks__/models/pools';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { vXvs } from '__mocks__/models/vTokens';
-import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 
 import IsolatedPoolMarket from '..';
 import TEST_IDS from '../../testIds';

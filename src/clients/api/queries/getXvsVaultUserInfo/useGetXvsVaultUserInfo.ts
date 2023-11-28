@@ -1,14 +1,14 @@
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getXvsVaultUserInfo, {
   GetXvsVaultUserInfoInput,
   GetXvsVaultUserInfoOutput,
 } from 'clients/api/queries/getXvsVaultUserInfo';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultUserInfoInput = Omit<GetXvsVaultUserInfoInput, 'xvsVaultContract'>;
 

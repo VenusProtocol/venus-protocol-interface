@@ -3,8 +3,9 @@ import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import { vai, xvs } from '__mocks__/models/tokens';
-import { stakeInVaiVault, stakeInXvsVault } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { stakeInVaiVault, stakeInXvsVault } from 'clients/api';
 
 import useStakeInVault from '.';
 

@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import voterAccountsResponse from '__mocks__/api/voterAccounts.json';
+
+import { restService } from 'utilities';
 
 import getVoterAccounts from '.';
 

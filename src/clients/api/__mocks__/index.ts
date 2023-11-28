@@ -9,6 +9,7 @@ import proposals from '__mocks__/models/proposals';
 import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
+
 import FunctionKey from 'constants/functionKey';
 
 import { GetBalanceOfInput } from '../queries/getBalanceOf';

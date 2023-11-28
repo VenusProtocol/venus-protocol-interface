@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Icon, Tooltip } from 'components';
-import { useTranslation } from 'packages/translations';
 
+import { Icon, Tooltip } from 'components';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
+import { useTranslation } from 'packages/translations';
 
 export interface ApyWithPrimeBoostProps {
   type: 'supply' | 'borrow';

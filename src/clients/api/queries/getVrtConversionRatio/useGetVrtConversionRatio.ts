@@ -1,13 +1,13 @@
-import { useGetVrtConverterContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getVrtConversionRatio, {
   GetVrtConversionRatioOutput,
 } from 'clients/api/queries/getVrtConversionRatio';
 import FunctionKey from 'constants/functionKey';
+import { useGetVrtConverterContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 export type UseGetVrtConversionRatioQueryKey = [
   FunctionKey.GET_VRT_CONVERSION_RATIO,

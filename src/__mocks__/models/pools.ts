@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Pool } from 'types';
 
 import { assetData } from '__mocks__/models/asset';
+
+import { Pool } from 'types';
 
 export const poolData: Pool[] = [
   {

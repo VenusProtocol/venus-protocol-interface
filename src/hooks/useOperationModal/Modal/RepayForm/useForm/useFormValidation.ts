@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Swap, SwapError, Token } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { Swap, SwapError, Token } from 'types';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { FormError, FormValues } from './types';
 

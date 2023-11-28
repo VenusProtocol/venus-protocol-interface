@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, Spinner } from 'components';
 import React from 'react';
 
+import { Modal, ModalProps, Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 
 import TransactionForm, { TransactionFormProps } from '../../TransactionForm';

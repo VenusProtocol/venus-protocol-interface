@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { VaiController } from 'packages/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { VaiController } from 'packages/contracts';
 
 import mintVai from '.';
 

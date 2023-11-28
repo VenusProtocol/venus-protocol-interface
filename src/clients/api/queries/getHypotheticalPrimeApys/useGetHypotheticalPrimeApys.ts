@@ -1,8 +1,4 @@
-import { useGetPrimeContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import {
   GetHypotheticalPrimeApysInput,
@@ -11,6 +7,10 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetPrimeContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 interface UseGetPrimeTokenInput
   extends Omit<GetHypotheticalPrimeApysInput, 'primeContract' | 'accountAddress'> {

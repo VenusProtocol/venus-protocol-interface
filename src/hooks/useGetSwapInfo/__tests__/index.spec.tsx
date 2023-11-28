@@ -4,8 +4,9 @@ import Vi from 'vitest';
 
 import fakePancakeSwapPairs from '__mocks__/models/pancakeSwapPairs';
 import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
-import { getPancakeSwapPairs } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { getPancakeSwapPairs } from 'clients/api';
 
 import useGetSwapInfo from '..';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';

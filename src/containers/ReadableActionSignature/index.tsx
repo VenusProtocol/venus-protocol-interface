@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useGetTokens } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
 import React from 'react';
-import { ChainId, ProposalAction, Token, VToken } from 'types';
-import { generateChainExplorerUrl } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
+import { useGetTokens } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
+import { ChainId, ProposalAction, Token, VToken } from 'types';
+import { generateChainExplorerUrl } from 'utilities';
 
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';

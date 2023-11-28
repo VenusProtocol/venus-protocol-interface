@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { Spinner } from 'components';
-import { useAccountAddress } from 'packages/wallet';
 import React from 'react';
-import { Asset, Pool, TokenAction, VToken } from 'types';
-import { areTokensEqual } from 'utilities';
 
 import { useGetPool } from 'clients/api';
+import { Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
+import { useAccountAddress } from 'packages/wallet';
+import { Asset, Pool, TokenAction, VToken } from 'types';
+import { areTokensEqual } from 'utilities';
 
 import DisabledActionNotice from './DisabledActionNotice';
 

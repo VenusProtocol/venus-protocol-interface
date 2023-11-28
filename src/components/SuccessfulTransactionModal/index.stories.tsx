@@ -4,6 +4,7 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
+
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { SuccessfulTransactionModal } from '.';

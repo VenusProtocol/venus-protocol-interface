@@ -1,10 +1,10 @@
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 import { Link } from '../../components/Link';
 import { NoticeInfo, NoticeWarning } from '../../components/Notice';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export interface TokenAnnouncementProps {
   token: Token;

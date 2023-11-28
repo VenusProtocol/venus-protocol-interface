@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
-import { useAccountAddress, useChainId } from 'packages/wallet';
 import { useMemo } from 'react';
-import { convertMantissaToTokens, indexBy } from 'utilities';
 
 import {
   GetVTokenBalancesAllOutput,
   useGetIsolatedPools,
   useGetVTokenBalancesAll,
 } from 'clients/api';
+import { useAccountAddress, useChainId } from 'packages/wallet';
+import { convertMantissaToTokens, indexBy } from 'utilities';
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract

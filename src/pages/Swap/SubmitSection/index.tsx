@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
-import { useTranslation } from 'packages/translations';
 import React, { useMemo } from 'react';
+
+import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { useTranslation } from 'packages/translations';
 import { Swap, SwapError } from 'types';
 import { cn } from 'utilities';
-
-import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
 import { FormError, FormValues } from '../types';
 import { useStyles } from './styles';

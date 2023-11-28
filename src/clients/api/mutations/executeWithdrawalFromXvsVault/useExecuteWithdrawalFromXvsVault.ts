@@ -1,9 +1,3 @@
-import { useAnalytics } from 'packages/analytics';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { Token } from 'types';
-import { callOrThrow } from 'utilities';
-
 import {
   ExecuteWithdrawalFromXvsVaultInput,
   executeWithdrawalFromXvsVault,
@@ -11,6 +5,11 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'packages/analytics';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { useGetToken } from 'packages/tokens';
+import { Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
   ExecuteWithdrawalFromXvsVaultInput,

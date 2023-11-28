@@ -1,3 +1,6 @@
+import { ClaimRewardsInput, claimRewards, queryClient } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import {
   useGetLegacyPoolComptrollerContractAddress,
@@ -7,10 +10,6 @@ import {
   useGetXvsVaultContractAddress,
 } from 'packages/contracts';
 import { callOrThrow } from 'utilities';
-
-import { ClaimRewardsInput, claimRewards, queryClient } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedClaimRewardsInput = Omit<
   ClaimRewardsInput,

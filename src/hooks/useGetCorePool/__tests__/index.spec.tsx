@@ -4,9 +4,10 @@ import fakeAccountAddress, {
   altAddress as fakeCorePoolComptrollerContractAddress,
 } from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
+import { renderHook } from 'testUtils/render';
+
 import { useGetPool } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { renderHook } from 'testUtils/render';
 
 import { useGetCorePool } from '..';
 

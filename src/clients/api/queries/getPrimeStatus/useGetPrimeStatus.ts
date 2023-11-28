@@ -1,12 +1,12 @@
-import { useGetPrimeContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import { GetPrimeStatusOutput, getPrimeStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetPrimeContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 interface UseGetPrimeStatusInput {
   accountAddress?: string;

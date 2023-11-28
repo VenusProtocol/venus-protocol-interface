@@ -2,11 +2,11 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Asset } from 'types';
-import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
 import { LabeledInlineContentProps } from 'components/LabeledInlineContent';
 import { ValueUpdate } from 'components/ValueUpdate';
+import { Asset } from 'types';
+import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
 export interface UseAssetInfoInput {
   type: 'supply' | 'borrow';

@@ -1,11 +1,10 @@
+import { StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { Token } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
-import { StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
 type Options = UseSendTransactionOptions<TrimmedStakeInXvsVaultInput>;

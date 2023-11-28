@@ -1,13 +1,13 @@
-import { useGetVTokenContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId, VToken } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
+import { useGetVTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId, VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 export type UseGetVTokenInterestRateModelQueryKey = [
   FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL,

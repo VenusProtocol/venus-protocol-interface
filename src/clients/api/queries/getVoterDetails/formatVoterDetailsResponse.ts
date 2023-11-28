@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Voter } from 'types';
 
 import { NULL_ADDRESS } from 'constants/address';
+import { Voter } from 'types';
 
 import { GetVoterDetailsResponse } from './types';
 

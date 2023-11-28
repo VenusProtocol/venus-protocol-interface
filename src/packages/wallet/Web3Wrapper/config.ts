@@ -1,6 +1,3 @@
-import localConfig from 'config';
-import { chains } from 'packages/wallet/chains';
-import { ChainId } from 'types';
 import { configureChains, createConfig } from 'wagmi';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -8,7 +5,10 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
+import localConfig from 'config';
 import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
+import { chains } from 'packages/wallet/chains';
+import { ChainId } from 'types';
 
 import { BinanceWalletConnector } from './binanceWalletConnector';
 

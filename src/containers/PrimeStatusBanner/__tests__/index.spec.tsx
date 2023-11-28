@@ -2,8 +2,9 @@ import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
-import { useGetPrimeStatus, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { useGetPrimeStatus, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
 
 import PrimeStatusBanner from '..';
 import TEST_IDS from '../testIds';

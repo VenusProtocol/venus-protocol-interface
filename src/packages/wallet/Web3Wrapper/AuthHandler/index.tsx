@@ -1,8 +1,8 @@
-import { store } from 'packages/wallet/store';
 import { useEffect } from 'react';
 import { useConfig, useDisconnect, useNetwork } from 'wagmi';
 
 import { useChainId } from 'packages/wallet/hooks/useChainId';
+import { store } from 'packages/wallet/store';
 
 export const AuthHandler: React.FC = () => {
   const config = useConfig();

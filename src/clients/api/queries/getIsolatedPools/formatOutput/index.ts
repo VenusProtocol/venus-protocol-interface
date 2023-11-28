@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { PoolLens } from 'packages/contracts';
-import { logError } from 'packages/errors';
-import { Asset, Pool, Token, VToken } from 'types';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
+import { PoolLens } from 'packages/contracts';
+import { logError } from 'packages/errors';
+import { Asset, Pool, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';

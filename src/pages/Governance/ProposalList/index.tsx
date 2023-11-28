@@ -1,11 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Proposal } from 'types';
 
 import {
   CreateProposalInput,
@@ -15,10 +11,14 @@ import {
   useGetProposalState,
   useGetProposals,
 } from 'clients/api';
+import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { Proposal } from 'types';
 
 import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';

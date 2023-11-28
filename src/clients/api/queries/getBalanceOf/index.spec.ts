@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { Bep20, getTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeProvider, { balance as fakeBalanceMantissa } from '__mocks__/models/provider';
 import { bnb, xvs } from '__mocks__/models/tokens';
+
+import { Bep20, getTokenContract } from 'packages/contracts';
 
 import getBalanceOf from '.';
 

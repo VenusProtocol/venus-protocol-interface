@@ -1,10 +1,10 @@
-import { VError, displayMutationError } from 'packages/errors';
-import { store } from 'packages/wallet/store';
 import { useCallback } from 'react';
-import { ChainId } from 'types';
 import { useSwitchNetwork } from 'wagmi';
 
+import { VError, displayMutationError } from 'packages/errors';
 import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';
+import { store } from 'packages/wallet/store';
+import { ChainId } from 'types';
 
 export const useSwitchChain = () => {
   const { switchNetworkAsync } = useSwitchNetwork();

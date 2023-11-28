@@ -1,11 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import { Spinner, Tabs } from 'components';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import React, { useMemo } from 'react';
-import { convertMantissaToTokens } from 'utilities';
 
 import {
   useGetVrtConversionEndTime,
@@ -13,6 +8,11 @@ import {
   useGetXvsWithdrawableAmount,
   useWithdrawXvs,
 } from 'clients/api';
+import { Spinner, Tabs } from 'components';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { convertMantissaToTokens } from 'utilities';
 
 import Convert from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';

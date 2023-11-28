@@ -1,7 +1,4 @@
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { callOrThrow } from 'utilities';
 
 import getProposalState, {
   GetProposalStateInput,
@@ -9,6 +6,9 @@ import getProposalState, {
 } from 'clients/api/queries/getProposalState';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
+import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
+import { governanceChain } from 'packages/wallet';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetProposalStateInput = Omit<GetProposalStateInput, 'governorBravoDelegateContract'>;
 

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { VaiController } from 'packages/contracts';
 import { calculateApy, multiplyMantissaDaily } from 'utilities';
 

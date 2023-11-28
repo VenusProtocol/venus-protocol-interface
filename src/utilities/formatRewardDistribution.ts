@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { AssetDistribution, Token } from 'types';
 import { calculateApy } from 'utilities';
 

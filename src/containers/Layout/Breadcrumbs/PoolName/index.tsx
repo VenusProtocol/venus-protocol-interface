@@ -1,7 +1,6 @@
-import { useAccountAddress } from 'packages/wallet';
-
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useAccountAddress } from 'packages/wallet';
 
 export interface PoolNameProps {
   poolComptrollerAddress: string;

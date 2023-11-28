@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { Asset, Pool } from 'types';
 
 const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: string }) => {

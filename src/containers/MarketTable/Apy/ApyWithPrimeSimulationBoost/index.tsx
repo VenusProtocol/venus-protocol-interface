@@ -1,10 +1,9 @@
 import { Icon, Link, Tooltip } from 'components';
-import { useTranslation } from 'packages/translations';
-import { PrimeSimulationDistribution, Token } from 'types';
-
 import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { useTranslation } from 'packages/translations';
+import { PrimeSimulationDistribution, Token } from 'types';
 
 export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';

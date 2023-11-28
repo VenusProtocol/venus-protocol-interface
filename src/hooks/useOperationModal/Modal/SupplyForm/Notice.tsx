@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { NoticeError, NoticeWarning } from 'components';
-import { useTranslation } from 'packages/translations';
 import React from 'react';
+
+import { NoticeError, NoticeWarning } from 'components';
+import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { useTranslation } from 'packages/translations';
 import { Asset, Swap } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
-
-import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';

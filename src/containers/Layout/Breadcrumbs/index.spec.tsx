@@ -4,9 +4,10 @@ import Vi from 'vitest';
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import vTokens from '__mocks__/models/vTokens';
+import { renderComponent } from 'testUtils/render';
+
 import { useGetPool, useGetVTokens } from 'clients/api';
 import { routes } from 'constants/routing';
-import { renderComponent } from 'testUtils/render';
 
 import { Breadcrumbs } from '.';
 

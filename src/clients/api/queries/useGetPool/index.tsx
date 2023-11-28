@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { Pool } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 import { useGetPools } from 'clients/api';
+import { Pool } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 export interface UseGetPoolInput {
   poolComptrollerAddress: string;

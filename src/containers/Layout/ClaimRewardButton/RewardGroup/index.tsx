@@ -1,5 +1,6 @@
-import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { useMemo } from 'react';
+
+import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
 
 import { Group, PendingReward } from '../types';

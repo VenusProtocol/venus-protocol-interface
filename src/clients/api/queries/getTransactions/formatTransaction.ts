@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Token, TransactionCategory, TransactionEvent, VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 

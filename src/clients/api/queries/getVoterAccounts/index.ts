@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { VError } from 'packages/errors';
 import { VoterAccount } from 'types';
 import { restService } from 'utilities';

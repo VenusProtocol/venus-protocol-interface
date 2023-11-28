@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
+import React, { useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Spinner } from 'components';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import useVote, { UseVoteParams } from 'hooks/useVote';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { governanceChain, useAccountAddress, useSwitchChain } from 'packages/wallet';
-import React, { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-
-import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
 import ProposalSummary from './ProposalSummary';

@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { shortenValueWithSuffix } from 'utilities';
 
 import { ONE_TRILLION } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { shortenValueWithSuffix } from 'utilities';
 
 const THRESHOLDS = {
   DOLLARS: {

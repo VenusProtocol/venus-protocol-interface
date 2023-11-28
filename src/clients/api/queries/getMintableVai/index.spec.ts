@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { VaiController } from 'packages/contracts';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAddress from '__mocks__/models/address';
+
+import { VaiController } from 'packages/contracts';
 
 import getMintableVai from '.';
 

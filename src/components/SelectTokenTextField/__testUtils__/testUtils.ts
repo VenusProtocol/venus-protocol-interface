@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { fireEvent, getByTestId } from '@testing-library/react';
+
 import { Token } from 'types';
 
 import { getTokenListItemTestId, getTokenSelectButtonTestId } from '../testIdGetters';

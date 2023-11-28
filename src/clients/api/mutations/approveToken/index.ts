@@ -1,7 +1,7 @@
 import { ContractTransaction } from 'ethers';
-import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
 
 import MAX_UINT256 from 'constants/maxUint256';
+import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
 
 export interface ApproveTokenInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;

@@ -1,4 +1,12 @@
 import BigNumber from 'bignumber.js';
+import React, { useCallback, useState } from 'react';
+
+import {
+  getHypotheticalAccountLiquidity,
+  getVTokenBalanceOf,
+  useEnterMarket,
+  useExitMarket,
+} from 'clients/api';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
@@ -7,16 +15,8 @@ import {
 import { VError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useAccountAddress, useSigner } from 'packages/wallet';
-import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
-
-import {
-  getHypotheticalAccountLiquidity,
-  getVTokenBalanceOf,
-  useEnterMarket,
-  useExitMarket,
-} from 'clients/api';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 

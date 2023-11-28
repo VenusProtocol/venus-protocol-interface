@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import React from 'react';
+
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress, useAuthModal } from 'packages/wallet';
-import React from 'react';
 
 import { SecondaryButton } from '../../components/Button';
 import { NoticeInfo } from '../../components/Notice';
-
 import { useStyles } from './styles';
 
 export interface PromptProps {

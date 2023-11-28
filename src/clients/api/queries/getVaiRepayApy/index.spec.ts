@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { VaiController } from 'packages/contracts';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
+
+import { VaiController } from 'packages/contracts';
 
 import getVaiRepayApy from '.';
 

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Pagination } from 'components';
-import { useAccountAddress } from 'packages/wallet';
 import React, { useState } from 'react';
-import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
+import { Pagination } from 'components';
 import useUrlPagination from 'hooks/useUrlPagination';
+import { useAccountAddress } from 'packages/wallet';
+import { Transaction, TransactionEvent } from 'types';
 
 import Filters, { ALL_VALUE, FilterProps } from './Filters';
 import HistoryTable from './HistoryTable';

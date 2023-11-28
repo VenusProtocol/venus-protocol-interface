@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { LegacyPoolComptroller } from 'packages/contracts';
-import { ChainId } from 'types';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { LegacyPoolComptroller } from 'packages/contracts';
+import { ChainId } from 'types';
 
 import getVenusVaiVaultDailyRate from '.';
 

@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { VaiController } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { VaiController } from 'packages/contracts';
 
 import getVaiCalculateRepayAmount from '..';
 

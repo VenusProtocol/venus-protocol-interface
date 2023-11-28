@@ -29,6 +29,7 @@ import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/cont
 import venusProtocolMainnetDeployments from '@venusprotocol/venus-protocol/networks/mainnet.json';
 import venusProtocolTestnetDeployments from '@venusprotocol/venus-protocol/networks/testnet.json';
 import { type ContractInterface } from 'ethers';
+
 import { ChainId } from 'types';
 
 import MaximillionAbi from './externalAbis/Maximillion.json';

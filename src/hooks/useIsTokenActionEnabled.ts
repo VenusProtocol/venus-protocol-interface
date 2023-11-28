@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
+
 import { isTokenActionEnabled } from 'packages/tokens';
 import { useChainId } from 'packages/wallet';
-import { useMemo } from 'react';
 import { TokenAction } from 'types';
 
 export interface UseIsTokenActionEnabledInput {

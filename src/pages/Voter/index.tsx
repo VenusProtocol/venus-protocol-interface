@@ -2,10 +2,10 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { VoteDetail, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory, useGetVoters } from 'clients/api';
 import useUrlPagination from 'hooks/useUrlPagination';
+import { VoteDetail, VoterHistory } from 'types';
 
 import History from './History';
 import Holding from './Holding';

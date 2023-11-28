@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { logError } from 'packages/errors';
 import { AssetDistribution, Token } from 'types';
-
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';

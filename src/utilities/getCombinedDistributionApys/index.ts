@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Asset, AssetDistribution } from 'types';
 
 interface AggregatePercentagesInput {

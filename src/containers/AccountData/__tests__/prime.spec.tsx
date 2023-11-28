@@ -2,12 +2,13 @@ import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
+import { renderComponent } from 'testUtils/render';
+
 import {
   useGetHypotheticalPrimeApys,
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
-import { renderComponent } from 'testUtils/render';
 
 import { AccountData, AccountDataProps } from '..';
 

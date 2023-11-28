@@ -1,10 +1,9 @@
-import { useGetTokenContract } from 'packages/contracts';
-import { Token } from 'types';
-import { callOrThrow } from 'utilities';
-
 import { RevokeSpendingLimitInput, queryClient, revokeSpendingLimit } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetTokenContract } from 'packages/contracts';
+import { Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedRevokeSpendingLimitInput = Omit<RevokeSpendingLimitInput, 'tokenContract'>;
 type Options = UseSendTransactionOptions<TrimmedRevokeSpendingLimitInput>;

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { convertAprToApy, extractSettledPromiseValue } from 'utilities';
 
 import getLegacyPoolMarkets from '../getLegacyPoolMarkets';

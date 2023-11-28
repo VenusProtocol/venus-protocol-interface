@@ -2,6 +2,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import React, { InputHTMLAttributes } from 'react';
+
 import { Token } from 'types';
 
 import { Icon, IconName } from '../Icon';

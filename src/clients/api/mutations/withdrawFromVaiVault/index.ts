@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction } from 'ethers';
+
 import { VaiVault } from 'packages/contracts';
 
 export interface WithdrawFromVaiVaultInput {

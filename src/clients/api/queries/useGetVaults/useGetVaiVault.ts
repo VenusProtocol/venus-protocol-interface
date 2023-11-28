@@ -1,12 +1,12 @@
-import { useGetVaiVaultContractAddress } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
-import { Vault } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { useGetBalanceOf, useGetVaiVaultUserInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useGetCorePool } from 'hooks/useGetCorePool';
+import { useGetVaiVaultContractAddress } from 'packages/contracts';
+import { useGetToken } from 'packages/tokens';
+import { Vault } from 'types';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;

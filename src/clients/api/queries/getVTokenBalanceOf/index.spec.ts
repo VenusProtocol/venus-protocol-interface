@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { VBep20 } from 'packages/contracts';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { VBep20 } from 'packages/contracts';
 
 import getVTokenBalance from '.';
 

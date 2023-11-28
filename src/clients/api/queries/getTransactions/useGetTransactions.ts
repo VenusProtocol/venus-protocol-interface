@@ -1,6 +1,4 @@
-import { useGetToken, useGetTokens } from 'packages/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getTransactions, {
   GetTransactionsInput,
@@ -8,6 +6,8 @@ import getTransactions, {
 } from 'clients/api/queries/getTransactions';
 import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import FunctionKey from 'constants/functionKey';
+import { useGetToken, useGetTokens } from 'packages/tokens';
+import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetTransactionsInput = Omit<
   GetTransactionsInput,

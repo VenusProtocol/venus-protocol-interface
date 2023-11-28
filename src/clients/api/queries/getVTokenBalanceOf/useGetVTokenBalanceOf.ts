@@ -1,14 +1,14 @@
-import { useGetVTokenContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId, VToken } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getVTokenBalanceOf, {
   GetVTokenBalanceOfInput,
   GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
+import { useGetVTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId, VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {
   vToken: VToken;

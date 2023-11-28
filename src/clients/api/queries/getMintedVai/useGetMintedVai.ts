@@ -1,14 +1,14 @@
-import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getMintedVai, {
   GetMintedVaiInput,
   GetMintedVaiOutput,
 } from 'clients/api/queries/getMintedVai';
 import FunctionKey from 'constants/functionKey';
+import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetMintedVaiOutput = Omit<GetMintedVaiInput, 'legacyPoolComptrollerContract'>;
 

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { Icon, Modal, ModalProps } from 'components';
-import { useTranslation } from 'packages/translations';
 import React from 'react';
-import { Asset } from 'types';
 
 import { ReactComponent as LogoWithText } from 'assets/img/venusLogoWithText.svg';
+import { Icon, Modal, ModalProps } from 'components';
+import { useTranslation } from 'packages/translations';
+import { Asset } from 'types';
 
 import { useStyles } from './styles';
 

@@ -1,13 +1,13 @@
-import { Icon, Link } from 'components';
-import config from 'config';
-import { useTranslation } from 'packages/translations';
 import { useState } from 'react';
-import { cn } from 'utilities';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
+import { Icon, Link } from 'components';
+import config from 'config';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
+import { useTranslation } from 'packages/translations';
+import { cn } from 'utilities';
 
 import { ChainSelect } from '../ChainSelect';
 import ClaimRewardButton from '../ClaimRewardButton';

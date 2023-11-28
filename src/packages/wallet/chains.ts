@@ -1,5 +1,6 @@
-import localConfig from 'config';
 import { type Chain, bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
+
+import localConfig from 'config';
 
 const getSupportedChains = (): Chain[] => {
   if (localConfig.isOnTestnet) {

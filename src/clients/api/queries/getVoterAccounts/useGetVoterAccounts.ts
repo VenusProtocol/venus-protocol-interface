@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import FunctionKey from 'constants/functionKey';
+import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getVoterAccounts, { GetVoterAccountsInput, GetVoterAccountsOutput } from '.';
 

@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/react';
+
 import config from 'config';
 
 export const logError = (error: string | unknown) => {

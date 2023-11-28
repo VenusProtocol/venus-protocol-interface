@@ -1,6 +1,6 @@
-import { GovernorBravoDelegate } from 'packages/contracts';
-
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { GovernorBravoDelegate } from 'packages/contracts';
 
 import createProposal from '.';
 

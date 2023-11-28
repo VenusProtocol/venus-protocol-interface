@@ -1,11 +1,10 @@
+import { useGetBlockNumber } from 'clients/api';
 import { Link } from 'components';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useChainId } from 'packages/wallet';
 import { generateChainExplorerUrl } from 'utilities';
-
-import { useGetBlockNumber } from 'clients/api';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import { IconLink } from './IconLink';
 import {

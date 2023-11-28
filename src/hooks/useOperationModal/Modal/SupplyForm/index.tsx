@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import React, { useCallback, useMemo, useState } from 'react';
+
+import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
   IsolatedAssetWarning,
@@ -10,16 +13,6 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
-import { useGetSwapRouterContractAddress } from 'packages/contracts';
-import { VError, displayMutationError } from 'packages/errors';
-import { isTokenActionEnabled } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
-import React, { useCallback, useMemo, useState } from 'react';
-import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
-import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-
-import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import { AccountData } from 'containers/AccountData';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -27,6 +20,13 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { useGetSwapRouterContractAddress } from 'packages/contracts';
+import { VError, displayMutationError } from 'packages/errors';
+import { isTokenActionEnabled } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
+import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
+import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';

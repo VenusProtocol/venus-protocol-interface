@@ -1,7 +1,6 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import { useTranslation } from 'packages/translations';
-
 import { PRIME_DOC_URL } from 'constants/prime';
+import { useTranslation } from 'packages/translations';
 
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';

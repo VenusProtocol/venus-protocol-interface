@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { AssetDistribution, Token, VToken } from 'types';
 import { formatRewardDistribution, multiplyMantissaDaily } from 'utilities';
 

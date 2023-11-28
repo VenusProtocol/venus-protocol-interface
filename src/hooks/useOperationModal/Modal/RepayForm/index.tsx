@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import React, { useCallback, useMemo, useState } from 'react';
+
+import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -9,11 +12,16 @@ import {
   SwapDetails,
   TokenTextField,
 } from 'components';
+import { AccountData } from 'containers/AccountData';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetSwapRouterContractAddress } from 'packages/contracts';
 import { VError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useCallback, useMemo, useState } from 'react';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
@@ -21,14 +29,6 @@ import {
   convertTokensToMantissa,
   formatPercentageToReadableValue,
 } from 'utilities';
-
-import { useRepay, useSwapTokensAndRepay } from 'clients/api';
-import { AccountData } from 'containers/AccountData';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';

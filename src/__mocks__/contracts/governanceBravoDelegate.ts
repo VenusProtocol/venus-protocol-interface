@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { GovernorBravoDelegate } from 'packages/contracts';
 
 const governorBravoDelegateResponses: {

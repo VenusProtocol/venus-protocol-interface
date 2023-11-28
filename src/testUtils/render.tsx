@@ -1,14 +1,15 @@
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
-import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'packages/wallet';
 import { ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
+
+import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'packages/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
+import { ChainId } from 'types';
 
 const createQueryClient = () =>
   new QueryClient({

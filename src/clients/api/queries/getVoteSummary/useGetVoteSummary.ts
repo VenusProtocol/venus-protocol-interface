@@ -1,11 +1,11 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getVoteSummary, {
   GetVoteSummaryInput,
   GetVoteSummaryOutput,
 } from 'clients/api/queries/getVoteSummary';
 import FunctionKey from 'constants/functionKey';
+import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 type Options = QueryObserverOptions<
   GetVoteSummaryOutput,

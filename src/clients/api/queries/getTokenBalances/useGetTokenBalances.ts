@@ -1,9 +1,9 @@
-import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
 
 import { GetTokenBalancesInput, GetTokenBalancesOutput, getTokenBalances } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useChainId, useProvider } from 'packages/wallet';
+import { ChainId } from 'types';
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_TOKEN_BALANCES,

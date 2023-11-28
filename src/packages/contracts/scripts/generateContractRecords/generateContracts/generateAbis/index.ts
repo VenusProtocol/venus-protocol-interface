@@ -1,5 +1,4 @@
 import { ContractConfig } from 'packages/contracts/config';
-
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateTypesInput {

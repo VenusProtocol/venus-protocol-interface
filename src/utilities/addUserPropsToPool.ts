@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Pool } from 'types';
 
 export type AddUserPropsToPoolInput = Omit<
