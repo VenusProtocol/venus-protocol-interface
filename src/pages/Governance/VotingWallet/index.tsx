@@ -88,11 +88,13 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
-  const showDepositXvs = !isDataLoading && connectedWallet && !userHasLockedXVS;
+  const showDepositXvs =
+    !isDataLoading && connectedWallet && !userHasLockedXVS && voteProposalFeatureEnabled;
   const showDelegateButton =
     !isDataLoading && connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled;
   const shouldApplyMarginToTotalLocked =
-    !isDataLoading && (voteProposalFeatureEnabled || !connectedWallet || showDepositXvs);
+    voteProposalFeatureEnabled &&
+    (showDepositXvs || showDelegateButton || !isDataLoading || !connectedWallet);
 
   return (
     <div className="flex flex-1 flex-col lg:ml-4">
@@ -115,7 +117,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         />
       )}
 
-      <Card className="mt-6 flex flex-col p-6 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
+      <Card className="mt-6 flex flex-col px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-10 lg:flex-col lg:items-start lg:py-6">
         <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-[26px] md:pr-10 lg:border-r-0 lg:pb-4">
           <p className="text-base font-semibold text-grey sm:text-sm md:text-base">
             {t('vote.votingWeight')}
@@ -131,7 +133,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         <div
           className={cn(
             'mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4',
-            shouldApplyMarginToTotalLocked && 'mb-5 sm:mb-0 lg:mb-5',
+            shouldApplyMarginToTotalLocked && 'mb-6 sm:mb-0 lg:mb-6',
           )}
         >
           <div className="mb-1 flex items-end sm:mb-0 lg:mb-1">
