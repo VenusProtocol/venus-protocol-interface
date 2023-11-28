@@ -2,7 +2,7 @@
 import { Button, Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import config from 'config';
 

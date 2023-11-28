@@ -1,5 +1,5 @@
 import { setTag, setUser } from '@sentry/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useAccountAddress, useChainId } from 'packages/wallet';
 

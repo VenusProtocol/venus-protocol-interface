@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';

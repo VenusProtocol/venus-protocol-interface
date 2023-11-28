@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { useGetTreasuryTotals } from 'clients/api';
 import { Cell, CellGroup } from 'components';

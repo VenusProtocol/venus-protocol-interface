@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 

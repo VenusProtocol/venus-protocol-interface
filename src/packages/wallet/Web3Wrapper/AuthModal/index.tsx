@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Modal } from 'components/Modal';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';

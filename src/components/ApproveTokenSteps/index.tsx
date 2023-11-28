@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
 
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';

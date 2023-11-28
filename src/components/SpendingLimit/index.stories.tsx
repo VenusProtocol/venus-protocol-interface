@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
 

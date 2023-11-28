@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { useGetPool } from 'clients/api';
 import { Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';

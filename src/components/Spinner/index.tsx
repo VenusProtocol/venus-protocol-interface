@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 

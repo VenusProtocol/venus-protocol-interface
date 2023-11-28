@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { truncateAddress } from 'utilities';
 
 import { useStyles } from './styles';

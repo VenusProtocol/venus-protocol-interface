@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import { LabeledInlineContent, Spinner } from 'components';

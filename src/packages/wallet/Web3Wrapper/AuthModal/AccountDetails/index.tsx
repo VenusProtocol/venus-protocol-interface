@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import { SecondaryButton } from 'components/Button';
 import { ChainExplorerLink } from 'components/ChainExplorerLink';

@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
 import { Button, NoticeWarning, TokenIcon } from 'components';

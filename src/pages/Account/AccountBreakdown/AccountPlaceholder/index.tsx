@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
 
 import { ButtonWrapper, Link } from 'components';
 import { routes } from 'constants/routing';

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useGetPool } from 'clients/api';

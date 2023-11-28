@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { TertiaryButton } from '../Button';
 import { useStyles } from './styles';
 

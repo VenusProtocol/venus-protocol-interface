@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { NoticeError, NoticeWarning } from 'components';
 import { useTranslation } from 'packages/translations';

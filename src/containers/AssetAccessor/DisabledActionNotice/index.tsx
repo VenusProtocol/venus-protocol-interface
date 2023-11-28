@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { NoticeWarning } from 'components';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';

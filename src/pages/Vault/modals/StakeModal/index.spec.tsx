@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';

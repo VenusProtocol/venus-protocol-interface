@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import isAfter from 'date-fns/isAfter';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import {
   useCancelProposal,

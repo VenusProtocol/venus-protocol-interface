@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 
 import { renderComponent } from 'testUtils/render';
 

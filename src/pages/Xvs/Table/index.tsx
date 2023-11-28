@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';

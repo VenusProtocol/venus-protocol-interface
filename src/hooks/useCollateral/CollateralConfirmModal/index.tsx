@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import { ReactComponent as LogoWithText } from 'assets/img/venusLogoWithText.svg';
 import { Icon, Modal, ModalProps } from 'components';

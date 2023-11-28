@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from 'components';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from '@mui/material';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { Link, NoticeInfo, SecondaryButton } from 'components';
 import { useTranslation } from 'packages/translations';

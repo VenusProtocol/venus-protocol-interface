@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { bnb, eth, hay, usdc, usdt, xvs } from '__mocks__/models/tokens';
 

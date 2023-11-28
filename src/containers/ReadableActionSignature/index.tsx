@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
 
 import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'packages/tokens';

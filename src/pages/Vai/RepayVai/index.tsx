@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import {
@@ -79,7 +79,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 
-  const limitTokens = React.useMemo(() => {
+  const limitTokens = useMemo(() => {
     const limitMantissa =
       userBalanceMantissa && repayBalanceMantissa
         ? BigNumber.minimum(userBalanceMantissa, repayBalanceMantissa)

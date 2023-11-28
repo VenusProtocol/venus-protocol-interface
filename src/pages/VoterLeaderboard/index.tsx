@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { useGetVestingVaults, useGetVoterAccounts } from 'clients/api';
 import { Pagination } from 'components';

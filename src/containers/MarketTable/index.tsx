@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Table, TableProps, switchAriaLabel } from 'components';
 import useCollateral from 'hooks/useCollateral';

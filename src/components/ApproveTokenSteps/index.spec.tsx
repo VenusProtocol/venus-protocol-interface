@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
 import { renderComponent } from 'testUtils/render';

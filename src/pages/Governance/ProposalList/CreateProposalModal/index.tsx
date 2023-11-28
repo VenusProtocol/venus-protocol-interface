@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik, useFormikContext } from 'formik';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { CreateProposalInput } from 'clients/api';

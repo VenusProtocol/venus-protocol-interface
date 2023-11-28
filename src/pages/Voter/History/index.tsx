@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
 
 import { Pagination, Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';

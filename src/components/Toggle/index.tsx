@@ -2,7 +2,6 @@
 import { Typography } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
-import React from 'react';
 
 import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';

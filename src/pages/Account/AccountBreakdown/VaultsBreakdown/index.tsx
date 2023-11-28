@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { useTranslation } from 'packages/translations';
 import { Vault } from 'types';
 

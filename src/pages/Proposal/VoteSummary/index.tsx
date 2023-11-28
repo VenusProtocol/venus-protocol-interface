@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';

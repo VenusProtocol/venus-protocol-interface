@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
 import { useTranslation } from 'packages/translations';

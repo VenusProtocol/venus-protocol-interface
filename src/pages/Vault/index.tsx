@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useAccountAddress } from 'packages/wallet';

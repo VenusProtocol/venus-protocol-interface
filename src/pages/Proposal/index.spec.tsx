@@ -1,6 +1,5 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';

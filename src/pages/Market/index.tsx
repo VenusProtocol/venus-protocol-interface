@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useGetVTokenApySimulations } from 'clients/api';
 import { Button, SecondaryButton, Spinner } from 'components';
@@ -81,7 +81,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
 
-  const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
+  const supplyInfoStats: CardProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }
@@ -116,7 +116,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const borrowInfoStats: CardProps['stats'] = React.useMemo(() => {
+  const borrowInfoStats: CardProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }
@@ -166,7 +166,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const marketInfoStats: MarketInfoProps['stats'] = React.useMemo(() => {
+  const marketInfoStats: MarketInfoProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }

@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
-import React from 'react';
 
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';

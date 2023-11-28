@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
 import { useTranslation } from 'packages/translations';

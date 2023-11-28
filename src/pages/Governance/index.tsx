@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import useUrlPagination, { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
 import ProposalList from './ProposalList';

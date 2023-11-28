@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';

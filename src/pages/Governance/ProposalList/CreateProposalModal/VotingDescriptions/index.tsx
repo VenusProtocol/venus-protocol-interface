@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { FormikTextField } from 'components';
 import { useTranslation } from 'packages/translations';
 

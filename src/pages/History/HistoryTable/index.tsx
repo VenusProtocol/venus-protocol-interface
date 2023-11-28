@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';

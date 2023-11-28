@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import {
   useGetVrtConversionEndTime,

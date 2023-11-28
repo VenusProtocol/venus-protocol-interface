@@ -1,5 +1,5 @@
 import { compareVersions } from 'compare-versions';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useGetLatestAppVersion } from 'clients/api';
 import { version as APP_VERSION } from 'constants/version';

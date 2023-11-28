@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
-import React from 'react';
+import { useState } from 'react';
 
 import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
 import { useTranslation } from 'packages/translations';
@@ -13,7 +13,7 @@ import { useStyles } from './styles';
 const ActionAccordion: React.FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const [expandedIdx, setExpanded] = React.useState<number | undefined>(0);
+  const [expandedIdx, setExpanded] = useState<number | undefined>(0);
 
   const [{ value: actions }, { error: errors }, { setValue }] =
     useField<{ target: string; signature: string; callData: string[] }[]>('actions');

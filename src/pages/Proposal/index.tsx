@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';

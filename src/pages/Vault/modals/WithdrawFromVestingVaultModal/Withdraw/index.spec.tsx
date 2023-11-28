@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-import React from 'react';
 import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';

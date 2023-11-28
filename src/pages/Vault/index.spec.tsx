@@ -1,4 +1,3 @@
-import React from 'react';
 import Vi from 'vitest';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';

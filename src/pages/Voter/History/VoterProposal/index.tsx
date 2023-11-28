@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import {
   ActiveChip,

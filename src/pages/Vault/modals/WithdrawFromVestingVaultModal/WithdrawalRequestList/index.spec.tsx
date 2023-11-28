@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';

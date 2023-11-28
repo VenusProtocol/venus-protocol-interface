@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useSwapTokens } from 'clients/api';
 import {

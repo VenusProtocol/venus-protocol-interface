@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { exactAmountInSwap } from '__mocks__/models/swaps';
 

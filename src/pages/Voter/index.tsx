@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useGetVoterDetails, useGetVoterHistory, useGetVoters } from 'clients/api';

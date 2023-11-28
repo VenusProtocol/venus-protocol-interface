@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
 import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
@@ -40,7 +40,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const sharedStyles = useSharedStyles();
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
-  const [limitTokens, safeLimitTokens] = React.useMemo(() => {
+  const [limitTokens, safeLimitTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been
     // reached
     if (

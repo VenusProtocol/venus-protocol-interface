@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useGetIsolatedPools } from 'clients/api';
 import { Table, TableColumn, TokenGroup } from 'components';

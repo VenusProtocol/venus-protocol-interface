@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import React from 'react';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';

@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { Modal, ModalProps, Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 

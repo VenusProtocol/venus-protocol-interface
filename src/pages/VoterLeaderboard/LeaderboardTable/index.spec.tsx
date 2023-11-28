@@ -1,5 +1,3 @@
-import React from 'react';
-
 import voterAccounts from '__mocks__/models/voterAccounts';
 import { renderComponent } from 'testUtils/render';
 

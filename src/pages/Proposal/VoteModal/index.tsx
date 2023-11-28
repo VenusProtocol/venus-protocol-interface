@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik } from 'formik';
-import React from 'react';
 
 import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
 import { displayMutationError } from 'packages/errors';

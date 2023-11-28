@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { renderComponent } from 'testUtils/render';
 
 import CorePool from '..';

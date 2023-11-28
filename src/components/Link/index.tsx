@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Link as RRLink, LinkProps as RRLinkProps } from 'react-router-dom';
 
 import { cn } from 'utilities';

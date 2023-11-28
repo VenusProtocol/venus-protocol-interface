@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {

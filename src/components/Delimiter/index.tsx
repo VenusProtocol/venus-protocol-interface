@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { useDelimiterStyles as useStyles } from './styles';
 
 interface DelimiterProps {

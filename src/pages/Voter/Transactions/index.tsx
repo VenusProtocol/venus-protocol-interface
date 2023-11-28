@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { ButtonWrapper, Icon, Link, Spinner, Table, TableColumn } from 'components';
 import { useGetToken } from 'packages/tokens';

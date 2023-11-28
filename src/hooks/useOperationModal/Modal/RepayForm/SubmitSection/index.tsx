@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';

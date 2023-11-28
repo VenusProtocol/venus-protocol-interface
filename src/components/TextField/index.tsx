@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 import { Token } from 'types';
 

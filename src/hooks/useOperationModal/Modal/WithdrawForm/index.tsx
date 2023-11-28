@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { Delimiter, LabeledInlineContent, TokenTextField } from 'components';
@@ -40,7 +40,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
 
-  const limitTokens = React.useMemo(() => {
+  const limitTokens = useMemo(() => {
     const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
       asset.tokenPriceCents,
     );
