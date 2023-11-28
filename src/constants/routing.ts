@@ -63,7 +63,7 @@ type Routes = {
 
 export const routes = Object.keys(routeSubdirectories).reduce<Routes>(
   (obj, key) =>
-    Object.hasOwn(routeSubdirectories, key)
+    Object.prototype.hasOwnProperty.call(routeSubdirectories, key)
       ? {
           ...obj,
           [key]: {
