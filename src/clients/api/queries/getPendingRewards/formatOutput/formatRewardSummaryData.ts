@@ -63,7 +63,6 @@ function formatRewardSummaryData({
 
   // Return if there is no available reward token price
   if (!rewardTokenPriceDollars) {
-    logError(`Could not fetch price for token: ${rewardToken.address}`);
     return;
   }
 

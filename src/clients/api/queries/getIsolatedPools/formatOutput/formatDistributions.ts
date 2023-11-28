@@ -58,7 +58,6 @@ const formatDistributions = ({
       const rewardTokenPriceDollars = tokenPriceDollarsMapping[rewardToken.address.toLowerCase()];
 
       if (!rewardTokenPriceDollars) {
-        logError(`Could not fetch price of reward token: ${rewardTokenAddress}`);
         return;
       }
 
