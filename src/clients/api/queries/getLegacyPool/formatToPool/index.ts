@@ -107,9 +107,6 @@ export const formatToPool = ({
         : undefined;
 
     if (!underlyingTokenPriceMantissa) {
-      logError(
-        `Price could not be fetched for token: ${underlyingToken.symbol} ${underlyingToken.address}`,
-      );
       return;
     }
 
@@ -120,7 +117,6 @@ export const formatToPool = ({
         : undefined;
 
     if (!borrowCapsMantissa) {
-      logError(`Borrow cap could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`);
       return;
     }
 
@@ -131,7 +127,6 @@ export const formatToPool = ({
         : undefined;
 
     if (!supplyCapsMantissa) {
-      logError(`Supply cap could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`);
       return;
     }
 
@@ -142,9 +137,6 @@ export const formatToPool = ({
         : undefined;
 
     if (!xvsBorrowSpeedMantissa) {
-      logError(
-        `XVS Borrow speed could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
-      );
       return;
     }
 
@@ -155,9 +147,6 @@ export const formatToPool = ({
         : undefined;
 
     if (!xvsSupplySpeedMantissa) {
-      logError(
-        `XVS Supply speed could not be fetched for vToken: ${vToken.symbol} ${vToken.address}`,
-      );
       return;
     }
 

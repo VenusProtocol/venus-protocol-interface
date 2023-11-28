@@ -135,7 +135,6 @@ const getIsolatedPools = async ({
       const result = extractSettledPromiseValue(userAssetsInResult);
 
       if (!result) {
-        logError(`Could not fetch addresses of collaterals of user: ${accountAddress}`);
         return acc;
       }
 

@@ -65,7 +65,6 @@ const formatToPools = ({
       const tokenPriceDollars = tokenPriceDollarsMapping[underlyingToken.address.toLowerCase()];
 
       if (!tokenPriceDollars) {
-        logError(`Could not fetch price for token: ${underlyingToken.address}`);
         return acc;
       }
 
