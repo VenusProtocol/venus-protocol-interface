@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
-import venusGovernanceDeployments from '@venusprotocol/governance-contracts/deployments/deployments.json';
+import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet.json';
+import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet.json';
 import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
 import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
@@ -27,7 +28,7 @@ import { abi as XvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/co
 import { abi as VaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
 import { abi as XvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
 import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
-import venusProtocolBscMainnetDeploymentsJson from '@venusprotocol/venus-protocol/deployments/bscmainnet.json';
+import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet.json';
 import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet.json';
 import { type ContractInterface } from 'ethers';
 
@@ -38,10 +39,6 @@ import multicall3Abi from './externalAbis/Multicall3.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
-
-// bscmainnet.json file is too big and TS does not parse its type properly
-const venusProtocolBscMainnetDeployments =
-  venusProtocolBscMainnetDeploymentsJson as typeof venusProtocolBscTestnetDeployments;
 
 export interface UniqueContractConfig {
   name: string;
@@ -142,9 +139,9 @@ export const contracts: ContractConfig[] = [
     abi: GovernorBravoDelegateAbi,
     address: {
       [ChainId.BSC_TESTNET]:
-        venusGovernanceDeployments[ChainId.BSC_TESTNET][0].contracts.GovernorBravoDelegate.address,
+        venusGovernanceBscTestnetDeployments.contracts.GovernorBravoDelegate.address,
       [ChainId.BSC_MAINNET]:
-        venusGovernanceDeployments[ChainId.BSC_MAINNET][0].contracts.GovernorBravoDelegate.address,
+        venusGovernanceBscMainnetDeployments.contracts.GovernorBravoDelegate.address,
     },
   },
   {

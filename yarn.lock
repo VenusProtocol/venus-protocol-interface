@@ -7199,7 +7199,7 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.3.0.tgz#b5852e453b95429acbfba1135d5bbe92b93edf63"
   integrity sha512-AdAtAgPC9UjJJlY8/ydGnDHkE+99MCCIIb5cg9lFrmv9gL0icHWjKVNxdfskZxj9CJ1BknOgTULsbUmLj0+VzA==
 
-"@venusprotocol/governance-contracts@^1.4.0-dev.1":
+"@venusprotocol/governance-contracts@^1.4.0-dev.1", "@venusprotocol/governance-contracts@^1.4.0-dev.2":
   version "1.4.0-dev.2"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.2.tgz#9470310af69df2f981b0e6498393fddfc235039c"
   integrity sha512-ArBw+ahDnVNzv4b+1/cIY4bFBpHG6ucZmaQzy+bqAZRaN8avaI95hm0mPMg99p1yTGJyX6uei0KuQZI4GsSHOw==
