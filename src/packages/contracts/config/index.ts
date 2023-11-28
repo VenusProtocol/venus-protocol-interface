@@ -11,8 +11,9 @@ import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contra
 import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
 import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
-import resilientOracleMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet/ResilientOracle.json';
-import resilientOracleTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet/ResilientOracle.json';
+import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet.json';
+import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet.json';
+import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia.json';
 import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
@@ -190,8 +191,9 @@ export const contracts: ContractConfig[] = [
     name: 'ResilientOracle',
     abi: ResilientOracleAbi,
     address: {
-      [ChainId.BSC_TESTNET]: resilientOracleTestnetDeployments.address,
-      [ChainId.BSC_MAINNET]: resilientOracleMainnetDeployments.address,
+      [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.contracts.ResilientOracle.address,
+      [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.contracts.ResilientOracle.address,
+      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.contracts.ResilientOracle.address,
     },
   },
   {
