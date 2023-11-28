@@ -1,3 +1,10 @@
+## [2.50.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.50.1...v2.50.2) (2023-11-28)
+
+
+### Bug Fixes
+
+* replace hasOwn function call with backward-compatible method ([#1870](https://github.com/VenusProtocol/venus-protocol-interface/issues/1870)) ([316e96b](https://github.com/VenusProtocol/venus-protocol-interface/commit/316e96b5e510874106a1a634f83cb1c31766841f))
+
 ## [2.50.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.50.0...v2.50.1) (2023-11-28)
 
 ## [2.50.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.49.2...v2.50.0) (2023-11-27)
