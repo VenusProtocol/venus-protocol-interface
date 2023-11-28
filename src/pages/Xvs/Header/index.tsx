@@ -1,18 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
-import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
-import React, { useMemo } from 'react';
-import { RewardDistributorDistribution, Token } from 'types';
-import {
-  convertMantissaToTokens,
-  formatTokensToReadableValue,
-  generateChainExplorerUrl,
-} from 'utilities';
+import { useMemo } from 'react';
 
 import {
   useGetBalanceOf,
@@ -20,7 +9,18 @@ import {
   useGetLegacyPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
+import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
+import { RewardDistributorDistribution, Token } from 'types';
+import {
+  convertMantissaToTokens,
+  formatTokensToReadableValue,
+  generateChainExplorerUrl,
+} from 'utilities';
 
 import { MINTED_XVS_MANTISSA } from '../constants';
 import { useStyles } from '../styles';

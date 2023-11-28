@@ -1,14 +1,14 @@
-import { useGetVaiControllerContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
 import getMintableVai, {
   GetMintableVaiInput,
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
+import { useGetVaiControllerContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
 

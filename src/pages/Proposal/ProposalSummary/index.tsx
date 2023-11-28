@@ -1,20 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import {
-  ChainExplorerLink,
-  Chip,
-  Countdown,
-  PrimaryButton,
-  ProposalTypeChip,
-  SecondaryButton,
-} from 'components';
 import isAfter from 'date-fns/isAfter';
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
-import React, { useMemo } from 'react';
-import { Proposal, ProposalState, ProposalType } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { useMemo } from 'react';
 
 import {
   useCancelProposal,
@@ -24,6 +11,19 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
+import {
+  ChainExplorerLink,
+  Chip,
+  Countdown,
+  PrimaryButton,
+  ProposalTypeChip,
+  SecondaryButton,
+} from 'components';
+import { displayMutationError } from 'packages/errors';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress, useChainId } from 'packages/wallet';
+import { Proposal, ProposalState, ProposalType } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 import Stepper from './Stepper';
 import { useStyles } from './styles';

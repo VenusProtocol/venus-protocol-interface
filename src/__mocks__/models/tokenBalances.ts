@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { TokenBalance } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 

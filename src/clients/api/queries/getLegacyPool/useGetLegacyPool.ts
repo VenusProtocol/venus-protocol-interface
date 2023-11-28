@@ -1,3 +1,12 @@
+import { QueryObserverOptions, useQuery } from 'react-query';
+
+import getLegacyPool, {
+  GetLegacyPoolInput,
+  GetLegacyPoolOutput,
+} from 'clients/api/queries/getLegacyPool';
+import FunctionKey from 'constants/functionKey';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetLegacyPoolComptrollerContract,
   useGetPrimeContract,
@@ -8,17 +17,8 @@ import {
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useChainId } from 'packages/wallet';
-import { QueryObserverOptions, useQuery } from 'react-query';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
-
-import getLegacyPool, {
-  GetLegacyPoolInput,
-  GetLegacyPoolOutput,
-} from 'clients/api/queries/getLegacyPool';
-import FunctionKey from 'constants/functionKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type TrimmedInput = Omit<
   GetLegacyPoolInput,

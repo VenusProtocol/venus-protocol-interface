@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import React from 'react';
+
 import { formatPercentageToReadableValue } from 'utilities';
 
 import { ProgressBar, ProgressBarProps } from '..';

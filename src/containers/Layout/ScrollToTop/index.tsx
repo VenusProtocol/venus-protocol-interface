@@ -1,7 +1,6 @@
 import { Button, Icon } from 'components';
-import { cn } from 'utilities';
-
 import { PAGE_CONTAINER_ID } from 'constants/layout';
+import { cn } from 'utilities';
 
 import { store } from '../store';
 

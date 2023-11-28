@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import MaterialSlider from '@mui/material/Slider';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 

@@ -1,9 +1,8 @@
-import { useGetXvsVestingContract } from 'packages/contracts';
-import { callOrThrow } from 'utilities';
-
 import { queryClient, withdrawXvs } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetXvsVestingContract } from 'packages/contracts';
+import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<void>;
 

@@ -1,5 +1,6 @@
-import { createStoreSelectors } from 'utilities';
 import { create } from 'zustand';
+
+import { createStoreSelectors } from 'utilities';
 
 interface State {
   isScrollToTopVisible: boolean;

@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
+import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
 import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo } from 'react';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
@@ -16,8 +18,6 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
-
-import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 
 import { useStyles } from '../styles';
 

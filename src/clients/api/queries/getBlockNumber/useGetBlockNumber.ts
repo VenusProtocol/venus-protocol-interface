@@ -1,10 +1,10 @@
-import { useChainId, useProvider } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { ChainId } from 'types';
 
 import { getBlockNumber } from 'clients/api/';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useChainId, useProvider } from 'packages/wallet';
+import { ChainId } from 'types';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
 

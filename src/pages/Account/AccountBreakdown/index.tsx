@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
+import { useGetPools, useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useGetToken } from 'packages/tokens';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo } from 'react';
 import { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
-
-import { useGetPools, useGetVaults } from 'clients/api';
 
 import { useStyles } from '../styles';
 import AccountPlaceholder from './AccountPlaceholder';

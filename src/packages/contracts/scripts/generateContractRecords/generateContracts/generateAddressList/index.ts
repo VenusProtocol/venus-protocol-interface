@@ -1,5 +1,4 @@
 import { ContractConfig } from 'packages/contracts/config';
-
 import { isSwapRouterContractConfig } from 'packages/contracts/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 

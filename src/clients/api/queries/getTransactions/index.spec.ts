@@ -1,10 +1,11 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens, { xvs } from '__mocks__/models/tokens';
 import { transactionResponse } from '__mocks__/models/transactions';
 import vTokens from '__mocks__/models/vTokens';
+
+import { restService } from 'utilities';
 
 import getTransactions from '.';
 

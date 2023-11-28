@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
-import React from 'react';
-import { formatPercentageToReadableValue } from 'utilities';
 
 import { bnb, hay, usdc, usdt, xvs } from '__mocks__/models/tokens';
+
+import { formatPercentageToReadableValue } from 'utilities';
 
 import { Toggle } from '../Toggle';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';

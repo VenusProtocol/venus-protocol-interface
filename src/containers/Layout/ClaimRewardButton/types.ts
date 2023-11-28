@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Token } from 'types';
 
 import { Claim } from 'clients/api';
+import { Token } from 'types';
 
 export interface PendingReward {
   rewardToken: Token;

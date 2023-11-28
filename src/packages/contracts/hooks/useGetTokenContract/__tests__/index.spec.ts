@@ -1,16 +1,17 @@
 import { Contract } from 'ethers';
-import { useProvider, useSigner } from 'packages/wallet';
 import Vi from 'vitest';
 
 import fakeContractAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import fakeSigner from '__mocks__/models/signer';
 import { xvs } from '__mocks__/models/tokens';
+import { renderHook } from 'testUtils/render';
+
 import {
   GetTokenContractInput,
   getTokenContract,
 } from 'packages/contracts/utilities/getTokenContract';
-import { renderHook } from 'testUtils/render';
+import { useProvider, useSigner } from 'packages/wallet';
 
 import { useGetTokenContract } from '..';
 

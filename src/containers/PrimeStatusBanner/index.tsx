@@ -1,13 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { Card, Link, PrimaryButton, ProgressBar } from 'components';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { AssetDistribution, Token } from 'types';
-import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
@@ -17,10 +10,17 @@ import {
   useGetPrimeToken,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { Card, Link, PrimaryButton, ProgressBar } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
+import { displayMutationError } from 'packages/errors';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { AssetDistribution, Token } from 'types';
+import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';

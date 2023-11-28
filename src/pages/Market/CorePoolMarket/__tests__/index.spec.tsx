@@ -1,13 +1,13 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { vXvs } from '__mocks__/models/vTokens';
-import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
 
 import CorePoolMarket from '..';
 import TEST_IDS from '../../testIds';

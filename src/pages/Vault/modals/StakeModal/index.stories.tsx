@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
-import React from 'react';
 
 import { vai, xvs } from '__mocks__/models/tokens';
+
 import { withCenterStory } from 'stories/decorators';
 
 import StakeModal, { StakeModalProps } from '.';

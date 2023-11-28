@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { useCallback, useMemo } from 'react';
+
 import {
   ApproveTokenSteps,
   ApproveTokenStepsProps,
@@ -8,16 +10,14 @@ import {
   NoticeWarning,
   SpendingLimit,
 } from 'components';
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
-import { useCallback, useMemo } from 'react';
-import { Token } from 'types';
-import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-
 import { AmountForm } from 'containers/AmountForm';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { displayMutationError } from 'packages/errors';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { Token } from 'types';
+import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import TEST_IDS from './testIds';
 

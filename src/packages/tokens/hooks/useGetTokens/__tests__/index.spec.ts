@@ -1,9 +1,10 @@
-import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
-import { getTokens } from 'packages/tokens/utilities/getTokens';
 import { renderHook } from 'testUtils/render';
+
+import { getTokens } from 'packages/tokens/utilities/getTokens';
+import { ChainId } from 'types';
 
 import { useGetTokens } from '..';
 

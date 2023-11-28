@@ -1,7 +1,8 @@
+import { usePostHog } from 'posthog-js/react';
+
 import config from 'config';
 import { logError } from 'packages/errors';
 import { useChainId } from 'packages/wallet';
-import { usePostHog } from 'posthog-js/react';
 
 export type AnalyticEventName =
   | 'Tokens supplied'

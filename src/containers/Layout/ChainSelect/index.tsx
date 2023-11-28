@@ -1,10 +1,9 @@
 import { Select, SelectOption } from 'components';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'packages/translations';
 import { chains, useChainId, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
 import { cn } from 'utilities';
-
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 
 export interface ChainSelectProps {
   className?: string;

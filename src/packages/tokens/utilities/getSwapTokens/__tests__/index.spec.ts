@@ -1,9 +1,10 @@
-import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import { busd, vai, vrt, xvs } from '__mocks__/models/tokens';
+
 import { getPancakeSwapTokens } from 'packages/tokens/utilities/getPancakeSwapTokens';
 import { getTokens } from 'packages/tokens/utilities/getTokens';
+import { ChainId } from 'types';
 
 import { getSwapTokens } from '..';
 

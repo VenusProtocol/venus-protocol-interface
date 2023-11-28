@@ -1,8 +1,3 @@
-import { useAnalytics } from 'packages/analytics';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
 import {
   RequestWithdrawalFromXvsVaultInput,
   queryClient,
@@ -10,6 +5,10 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'packages/analytics';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { useGetToken } from 'packages/tokens';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
   RequestWithdrawalFromXvsVaultInput,

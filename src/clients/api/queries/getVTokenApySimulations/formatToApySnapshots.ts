@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
 
 import { VTokenApySnapshot } from './types';
 

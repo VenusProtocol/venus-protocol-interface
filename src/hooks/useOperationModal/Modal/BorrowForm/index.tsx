@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
-import { useTranslation } from 'packages/translations';
-import React, { useCallback, useState } from 'react';
-import { Asset, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
+import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { useTranslation } from 'packages/translations';
+import { Asset, Pool } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
@@ -40,7 +40,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const sharedStyles = useSharedStyles();
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
-  const [limitTokens, safeLimitTokens] = React.useMemo(() => {
+  const [limitTokens, safeLimitTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been
     // reached
     if (

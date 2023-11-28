@@ -1,16 +1,16 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import { en } from 'packages/translations';
-import React from 'react';
-import { convertMantissaToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
+import { renderComponent } from 'testUtils/render';
+
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
+import { convertMantissaToTokens } from 'utilities';
 
 import RepayVai from '.';
 

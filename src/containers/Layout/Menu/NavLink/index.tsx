@@ -1,6 +1,7 @@
+import { NavLink as RRNavLink, NavLinkProps as RRNavLinkProps } from 'react-router-dom';
+
 import { Icon } from 'components';
 import { useTranslation } from 'packages/translations';
-import { NavLink as RRNavLink, NavLinkProps as RRNavLinkProps } from 'react-router-dom';
 import { cn } from 'utilities';
 
 import { MenuItem } from '../../types';

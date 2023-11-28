@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
+import { useMemo, useState } from 'react';
+
+import { Claim, useClaimRewards } from 'clients/api';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError, displayMutationError } from 'packages/errors';
 import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import { useMemo, useState } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
-
-import { Claim, useClaimRewards } from 'clients/api';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';

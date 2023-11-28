@@ -1,5 +1,8 @@
-import { ChainExplorerLink } from 'components';
 import { ContractReceipt, ContractTransaction } from 'ethers';
+import { useCallback } from 'react';
+
+import { ChainExplorerLink } from 'components';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -10,9 +13,6 @@ import {
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
 import { useChainId, useProvider } from 'packages/wallet';
-import { useCallback } from 'react';
-
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 export const CONFIRMATIONS = 2;
 

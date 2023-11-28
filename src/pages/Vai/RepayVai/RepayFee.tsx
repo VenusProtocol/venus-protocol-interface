@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
+import { useGetVaiCalculateRepayAmount } from 'clients/api';
 import { LabeledInlineContent } from 'components';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import { useMemo } from 'react';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
-
-import { useGetVaiCalculateRepayAmount } from 'clients/api';
-import useDebounceValue from 'hooks/useDebounceValue';
 
 import { useStyles } from '../styles';
 

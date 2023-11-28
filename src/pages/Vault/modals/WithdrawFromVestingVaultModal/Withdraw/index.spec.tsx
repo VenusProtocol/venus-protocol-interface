@@ -1,15 +1,15 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-import { en } from 'packages/translations';
-import React from 'react';
 import Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
+import { renderComponent } from 'testUtils/render';
+
 import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
 
 import Withdraw from '.';
 import TEST_IDS from './testIds';

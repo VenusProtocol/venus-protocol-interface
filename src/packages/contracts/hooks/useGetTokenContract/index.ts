@@ -1,8 +1,8 @@
-import { useProvider, useSigner } from 'packages/wallet';
 import { useMemo } from 'react';
-import { Token } from 'types';
 
 import { getTokenContract } from 'packages/contracts/utilities/getTokenContract';
+import { useProvider, useSigner } from 'packages/wallet';
+import { Token } from 'types';
 
 export interface UseGetTokenContractInput {
   token: Token;

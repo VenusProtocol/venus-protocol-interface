@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { AbstainVoter, AgainstVoter, ForVoter, Proposal, ProposalType, VoteSupport } from 'types';
 
 import type { ProposalApiResponse } from 'clients/api';
+import { AbstainVoter, AgainstVoter, ForVoter, Proposal, ProposalType, VoteSupport } from 'types';
 
 import areAddressesEqual from './areAddressesEqual';
 

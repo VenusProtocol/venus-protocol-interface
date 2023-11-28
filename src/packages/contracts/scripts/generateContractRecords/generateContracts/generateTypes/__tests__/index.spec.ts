@@ -1,7 +1,7 @@
-import { fakeContractConfigs } from 'packages/contracts/__testUtils__/fakeConfig';
 import { glob, runTypeChain } from 'typechain';
 import Vi from 'vitest';
 
+import { fakeContractConfigs } from 'packages/contracts/__testUtils__/fakeConfig';
 import cwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 

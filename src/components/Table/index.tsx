@@ -5,7 +5,7 @@ import MuiTableBody from '@mui/material/TableBody';
 import MuiTableCell from '@mui/material/TableCell';
 import MuiTableContainer from '@mui/material/TableContainer';
 import MuiTableRow from '@mui/material/TableRow';
-import React, { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Spinner } from '../Spinner';
@@ -32,7 +32,7 @@ export function Table<R>({
 }: TableProps<R>) {
   const styles = useStyles();
 
-  const [order, setOrder] = React.useState<Order<R> | undefined>(initialOrder);
+  const [order, setOrder] = useState<Order<R> | undefined>(initialOrder);
 
   const onRequestOrder = (column: TableColumn<R>) => {
     let newOrderDirection: 'asc' | 'desc' = 'desc';

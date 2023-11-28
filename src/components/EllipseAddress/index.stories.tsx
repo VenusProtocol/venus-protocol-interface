@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
+
 import { withCenterStory } from 'stories/decorators';
 
 import { EllipseAddress } from '.';

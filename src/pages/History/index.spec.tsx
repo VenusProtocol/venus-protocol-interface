@@ -1,11 +1,11 @@
 import { fireEvent } from '@testing-library/react';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import transactions from '__mocks__/models/transactions';
-import { useGetTransactions } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { useGetTransactions } from 'clients/api';
 
 import History from '.';
 

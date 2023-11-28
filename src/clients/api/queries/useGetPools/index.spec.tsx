@@ -1,11 +1,11 @@
 import { waitFor } from '@testing-library/react';
-import React from 'react';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { useGetLegacyPool } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { useGetLegacyPool } from 'clients/api';
 
 import useGetPools, { UseGetPoolsOutput } from '.';
 

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Prime } from 'packages/contracts';
 import { logError } from 'packages/errors';
 import { Token } from 'types';

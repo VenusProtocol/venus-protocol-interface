@@ -1,6 +1,7 @@
-import { useTranslation } from 'packages/translations';
 import { useEffect, useState } from 'react';
 import { Location, useLocation } from 'react-router-dom';
+
+import { useTranslation } from 'packages/translations';
 
 type PaginationProps = {
   itemsCount: number;

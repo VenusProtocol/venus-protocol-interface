@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
-import React from 'react';
 import { useParams } from 'react-router-dom';
+
+import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
 
 import Market from '..';
 import MarketLoader from '../MarketLoader';

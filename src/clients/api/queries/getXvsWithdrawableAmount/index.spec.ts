@@ -1,6 +1,6 @@
-import { XvsVesting } from 'packages/contracts';
-
 import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
+
+import { XvsVesting } from 'packages/contracts';
 
 import getXvsWithdrawableAmount from '.';
 

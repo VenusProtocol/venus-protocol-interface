@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Maximillion, VBep20, VBnb, getVTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
+
+import { Maximillion, VBep20, VBnb, getVTokenContract } from 'packages/contracts';
 
 import repay, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
 

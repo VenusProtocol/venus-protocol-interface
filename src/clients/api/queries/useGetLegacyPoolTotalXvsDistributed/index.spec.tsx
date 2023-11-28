@@ -1,11 +1,11 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import React from 'react';
 import Vi from 'vitest';
 
 import { markets } from '__mocks__/models/markets';
-import { getLegacyPoolMarkets } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { getLegacyPoolMarkets } from 'clients/api';
 
 import useGetLegacyPoolTotalXvsDistributed, { UseGetLegacyPoolTotalXvsDistributedOutput } from '.';
 

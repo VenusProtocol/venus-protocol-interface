@@ -1,7 +1,5 @@
-import { useTranslation } from 'packages/translations';
-import React from 'react';
-
 import { Modal } from 'components/Modal';
+import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet/hooks/useAccountAddress';
 import { useAuthModal } from 'packages/wallet/hooks/useAuthModal';
 import { useChainId } from 'packages/wallet/hooks/useChainId';

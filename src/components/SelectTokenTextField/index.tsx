@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import { Token, TokenBalance } from 'types';
 
 import { TertiaryButton } from '../Button';

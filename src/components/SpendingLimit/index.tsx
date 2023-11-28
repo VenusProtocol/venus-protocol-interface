@@ -1,13 +1,12 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
-import React from 'react';
-import { Token } from 'types';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';
 import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { displayMutationError } from 'packages/errors';
+import { useTranslation } from 'packages/translations';
+import { Token } from 'types';
 
 import { TextButton } from '../Button';
 import { Icon } from '../Icon';

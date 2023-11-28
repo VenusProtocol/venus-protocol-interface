@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+
 import { NoticeError } from 'components';
 import { useTranslation } from 'packages/translations';
-import React from 'react';
 import { Asset } from 'types';
 
 import { useStyles as useSharedStyles } from '../styles';

@@ -1,10 +1,10 @@
-import { useAccountAddress } from 'packages/wallet';
-import React, { lazy, useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useAccountAddress } from 'packages/wallet';
 
 import PageSuspense from './PageSuspense';
 

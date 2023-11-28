@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { InputHTMLAttributes, useMemo, useState } from 'react';
+
 import { useTranslation } from 'packages/translations';
-import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { Token, TokenBalance } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

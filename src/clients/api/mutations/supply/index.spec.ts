@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { VBep20, VBnb, getVTokenContract } from 'packages/contracts';
 import Vi from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner from '__mocks__/models/signer';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
+
+import { VBep20, VBnb, getVTokenContract } from 'packages/contracts';
 
 import supply from '.';
 

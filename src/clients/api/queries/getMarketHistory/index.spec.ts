@@ -1,8 +1,9 @@
-import { MarketSnapshot } from 'types';
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import { vBusd } from '__mocks__/models/vTokens';
+
+import { MarketSnapshot } from 'types';
+import { restService } from 'utilities';
 
 import getMarketHistory from '.';
 

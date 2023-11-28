@@ -1,15 +1,15 @@
 import BigNumber from 'bignumber.js';
-import { useGetToken } from 'packages/tokens';
-import { useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
-import { Asset, TokenAction } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import {
   useGetHypotheticalPrimeApys,
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { useGetToken } from 'packages/tokens';
+import { useAccountAddress } from 'packages/wallet';
+import { Asset, TokenAction } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 export interface UseGetHypotheticalUserPrimeApysInput {
   asset: Asset;

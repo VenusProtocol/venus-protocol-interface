@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { ChainId } from 'types';
 import { useWalletClient } from 'wagmi';
+
+import { ChainId } from 'types';
 
 import { getSigner } from './getSigner';
 

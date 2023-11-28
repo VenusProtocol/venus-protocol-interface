@@ -2,13 +2,14 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import { en } from 'packages/translations';
-import { Asset, Pool } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
+import { en } from 'packages/translations';
+import { Asset, Pool } from 'types';
 
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';

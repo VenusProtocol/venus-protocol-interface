@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/react';
-import { Button } from 'components';
-import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
+
+import { Button } from 'components';
 import { withCenterStory } from 'stories/decorators';
 
 import { TextField } from '.';

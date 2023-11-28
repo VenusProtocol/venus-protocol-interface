@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export interface TableColumn<R> {

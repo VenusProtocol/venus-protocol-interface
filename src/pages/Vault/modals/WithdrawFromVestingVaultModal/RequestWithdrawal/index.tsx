@@ -1,12 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { Spinner, TextButton } from 'components';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo } from 'react';
-import { Token } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { useMemo } from 'react';
 
 import {
   useGetPrimeStatus,
@@ -16,8 +10,14 @@ import {
   useGetXvsVaultUserInfo,
   useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
+import { Spinner, TextButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { Token } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 
 import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles as useSharedStyles } from '../styles';

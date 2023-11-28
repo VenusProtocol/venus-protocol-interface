@@ -1,12 +1,11 @@
-import { useAnalytics } from 'packages/analytics';
-import { useGetSwapRouterContract } from 'packages/contracts';
-import { VToken } from 'types';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
 import { SwapTokensAndSupplyInput, queryClient, swapTokensAndSupply } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'packages/analytics';
+import { useGetSwapRouterContract } from 'packages/contracts';
+import { VToken } from 'types';
+import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedSwapTokensAndSupplyInput = Omit<
   SwapTokensAndSupplyInput,

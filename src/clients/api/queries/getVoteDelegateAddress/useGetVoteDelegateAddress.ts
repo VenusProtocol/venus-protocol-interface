@@ -1,7 +1,4 @@
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { callOrThrow } from 'utilities';
 
 import {
   GetVoteDelegateAddressInput,
@@ -9,6 +6,9 @@ import {
   getVoteDelegateAddress,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { governanceChain } from 'packages/wallet';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
 type Options = QueryObserverOptions<

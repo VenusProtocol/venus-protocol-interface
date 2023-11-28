@@ -1,5 +1,6 @@
 import * as yup from 'Yup';
 import BigNumber from 'bignumber.js';
+
 import { Swap, Token } from 'types';
 
 declare module 'yup' {

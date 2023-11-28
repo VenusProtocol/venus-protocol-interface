@@ -1,6 +1,7 @@
-import config from 'config';
 import _isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
+
+import config from 'config';
 import { logError } from 'packages/errors';
 
 interface RestServiceInput {

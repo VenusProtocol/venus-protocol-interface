@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
-import { en } from 'packages/translations';
-import React from 'react';
 
 import { renderComponent } from 'testUtils/render';
+
+import { en } from 'packages/translations';
 
 import Convert from '.';
 

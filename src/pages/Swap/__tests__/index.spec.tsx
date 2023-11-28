@@ -1,9 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { en } from 'packages/translations';
-import React from 'react';
-import { Swap } from 'types';
-import { convertMantissaToTokens } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -14,6 +10,8 @@ import fakeTokenBalances, {
 } from '__mocks__/models/tokenBalances';
 import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
+import { renderComponent } from 'testUtils/render';
+
 import { swapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import {
@@ -28,7 +26,9 @@ import {
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
+import { Swap } from 'types';
+import { convertMantissaToTokens } from 'utilities';
 
 import SwapPage from '..';
 import { fakeExactAmountInSwap, fakeExactAmountOutSwap } from '../__testUtils__/fakeData';

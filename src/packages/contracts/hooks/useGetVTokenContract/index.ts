@@ -1,8 +1,8 @@
-import { useProvider, useSigner } from 'packages/wallet';
 import { useMemo } from 'react';
-import { VToken } from 'types';
 
 import { getVTokenContract } from 'packages/contracts/utilities/getVTokenContract';
+import { useProvider, useSigner } from 'packages/wallet';
+import { VToken } from 'types';
 
 export interface UseGetVTokenContractInput {
   vToken: VToken;

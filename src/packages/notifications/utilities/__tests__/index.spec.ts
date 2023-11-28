@@ -1,8 +1,7 @@
 import Vi from 'vitest';
 
-import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
-
 import { MAX_NOTIFICATIONS, displayNotification, hideNotification, updateNotification } from '..';
+import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 import { store } from '../../store';
 import { AddNotificationInput, UpdateNotificationInput } from '../../store/types';
 

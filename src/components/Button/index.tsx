@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import React from 'react';
+
 import { cn } from 'utilities';
 
 import { Spinner } from '../Spinner';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Footer } from './Footer';

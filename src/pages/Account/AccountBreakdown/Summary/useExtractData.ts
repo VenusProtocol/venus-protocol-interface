@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
@@ -9,8 +11,6 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
-
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
 import calculateNetApy from './calculateNetApy';
 

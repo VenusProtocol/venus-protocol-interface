@@ -1,9 +1,9 @@
-import { store } from 'packages/notifications/store';
-
-import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 import { renderComponent } from 'testUtils/render';
 
+import { store } from 'packages/notifications/store';
+
 import NotificationCenter from '..';
+import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 import TEST_IDS from '../testIds';
 
 describe('NotificationCenter', () => {

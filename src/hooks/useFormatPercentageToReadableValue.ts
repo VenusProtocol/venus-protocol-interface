@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+
 import { formatPercentageToReadableValue } from 'utilities';
 
 export interface UseFormatPercentageToReadableValueInput {

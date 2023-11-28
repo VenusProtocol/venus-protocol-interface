@@ -1,4 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { useMemo, useState } from 'react';
+
+import {
+  useGetCurrentVotes,
+  useGetVestingVaults,
+  useGetVoteDelegateAddress,
+  useSetVoteDelegate,
+} from 'clients/api';
 import {
   Button,
   ButtonWrapper,
@@ -11,22 +19,14 @@ import {
   PrimaryButton,
   TokenIcon,
 } from 'components';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
-import React, { useMemo, useState } from 'react';
-import { Token } from 'types';
-import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
-
-import {
-  useGetCurrentVotes,
-  useGetVestingVaults,
-  useGetVoteDelegateAddress,
-  useSetVoteDelegate,
-} from 'clients/api';
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
+import { Token } from 'types';
+import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
 
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
+import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'packages/contracts';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React from 'react';
 import { Token } from 'types';
-
-import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
@@ -28,7 +28,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
-  const spenderAddress = React.useMemo(
+  const spenderAddress = useMemo(
     () => (typeof poolIndex === 'number' ? xvsVaultContractAddress : vaiVaultContractAddress),
     [poolIndex, xvsVaultContractAddress, vaiVaultContractAddress],
   );

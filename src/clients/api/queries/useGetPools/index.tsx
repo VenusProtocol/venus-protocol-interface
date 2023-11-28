@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { Pool } from 'types';
 
 import { useGetIsolatedPools, useGetLegacyPool } from 'clients/api';
+import { Pool } from 'types';
 
 export interface UseGetPoolsInput {
   accountAddress?: string;

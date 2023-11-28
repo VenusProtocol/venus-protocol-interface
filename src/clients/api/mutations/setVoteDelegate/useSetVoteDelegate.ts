@@ -1,9 +1,8 @@
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { callOrThrow } from 'utilities';
-
 import { SetVoteDelegateInput, queryClient, setVoteDelegate } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { callOrThrow } from 'utilities';
 
 type TrimmedSetVoteDelegateInput = Omit<SetVoteDelegateInput, 'xvsVaultContract'>;
 type Options = UseSendTransactionOptions<TrimmedSetVoteDelegateInput>;

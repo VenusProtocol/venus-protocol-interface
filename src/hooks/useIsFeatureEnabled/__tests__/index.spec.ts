@@ -1,8 +1,9 @@
-import { useChainId } from 'packages/wallet';
-import { ChainId } from 'types';
 import Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
+
+import { useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
 
 import { FeatureFlag, useIsFeatureEnabled } from '..';
 

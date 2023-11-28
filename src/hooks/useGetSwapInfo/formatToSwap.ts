@@ -1,9 +1,9 @@
 import { Percent as PSPercent } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import { Swap } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { Swap } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import { FormatToSwapInput, FormatToSwapOutput } from './types';
 

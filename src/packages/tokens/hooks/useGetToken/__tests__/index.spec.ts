@@ -1,8 +1,9 @@
 import Vi from 'vitest';
 
 import tokens, { xvs } from '__mocks__/models/tokens';
-import { useGetTokens } from 'packages/tokens/hooks/useGetTokens';
 import { renderHook } from 'testUtils/render';
+
+import { useGetTokens } from 'packages/tokens/hooks/useGetTokens';
 
 import { useGetToken } from '..';
 

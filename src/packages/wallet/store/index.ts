@@ -1,6 +1,7 @@
+import { create } from 'zustand';
+
 import { ChainId } from 'types';
 import { createStoreSelectors } from 'utilities';
-import { create } from 'zustand';
 
 import { defaultChain } from '../chains';
 

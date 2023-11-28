@@ -1,13 +1,13 @@
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { governanceChain } from 'packages/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { callOrThrow } from 'utilities';
 
 import getCurrentVotes, {
   GetCurrentVotesInput,
   GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContract } from 'packages/contracts';
+import { governanceChain } from 'packages/wallet';
+import { callOrThrow } from 'utilities';
 
 type TrimmedGetCurrentVotesInput = Omit<GetCurrentVotesInput, 'xvsVaultContract'>;
 

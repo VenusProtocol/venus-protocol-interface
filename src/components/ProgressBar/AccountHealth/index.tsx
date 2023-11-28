@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { useMemo } from 'react';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import useProgressColor from 'hooks/useProgressColor';
 import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
 import {
   calculatePercentage,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
 } from 'utilities';
-
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import useProgressColor from 'hooks/useProgressColor';
 
 import { LabeledProgressBar } from '../LabeledProgressBar';
 

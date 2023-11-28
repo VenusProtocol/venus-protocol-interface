@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'packages/errors';
 import { useEffect } from 'react';
-import { Swap, SwapError, Token, VToken } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import useIsMounted from 'hooks/useIsMounted';
+import { displayMutationError } from 'packages/errors';
+import { Swap, SwapError, Token, VToken } from 'types';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import { FormError, FormValues } from './types';

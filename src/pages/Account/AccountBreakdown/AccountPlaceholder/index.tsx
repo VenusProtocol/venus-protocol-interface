@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { ButtonWrapper, Link } from 'components';
-import { useTranslation } from 'packages/translations';
-import React from 'react';
 
+import { ButtonWrapper, Link } from 'components';
 import { routes } from 'constants/routing';
+import { useTranslation } from 'packages/translations';
 
 import { useStyles } from './styles';
 import wallet from './wallet.png';

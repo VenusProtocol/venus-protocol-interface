@@ -1,24 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import {
-  Delimiter,
-  FormikSubmitButton,
-  FormikTokenTextField,
-  LabeledInlineContent,
-  Spinner,
-} from 'components';
-import { VError, displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
-import React, { useCallback, useMemo } from 'react';
-import { Token } from 'types';
-import {
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-  formatPercentageToReadableValue,
-  generatePseudoRandomRefetchInterval,
-} from 'utilities';
+import { useCallback, useMemo } from 'react';
 
 import {
   useGetBalanceOf,
@@ -27,10 +9,28 @@ import {
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
+import {
+  Delimiter,
+  FormikSubmitButton,
+  FormikTokenTextField,
+  LabeledInlineContent,
+  Spinner,
+} from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import { VError, displayMutationError } from 'packages/errors';
+import { useGetToken } from 'packages/tokens';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { Token } from 'types';
+import {
+  convertMantissaToTokens,
+  convertTokensToMantissa,
+  formatPercentageToReadableValue,
+  generatePseudoRandomRefetchInterval,
+} from 'utilities';
 
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';

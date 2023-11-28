@@ -7,6 +7,8 @@ import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
+import { renderComponent } from 'testUtils/render';
+
 import {
   getBalanceOf,
   getLegacyPoolMarkets,
@@ -22,7 +24,6 @@ import {
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
-import { renderComponent } from 'testUtils/render';
 
 import useGetVaults, { UseGetVaultsOutput } from '.';
 

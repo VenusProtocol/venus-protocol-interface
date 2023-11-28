@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { Fragment, useMemo } from 'react';
+
 import { Icon } from 'components';
 import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
 import { ProposalState } from 'types';
 
 import { useStyles } from './styles';
@@ -142,7 +143,7 @@ const Stepper: React.FC<StepperProps> = ({
         const active = state === ProposalState.Active && activeStepIndex === idx;
 
         return (
-          <React.Fragment key={step.getLabel()}>
+          <Fragment key={step.getLabel()}>
             <div css={styles.step}>
               <div css={styles.labelAndIcon}>
                 {completed ? (
@@ -173,7 +174,7 @@ const Stepper: React.FC<StepperProps> = ({
               )}
             </div>
             {idx + 1 !== steps.length && <div css={styles.connector} />}
-          </React.Fragment>
+          </Fragment>
         );
       })}
     </div>

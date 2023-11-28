@@ -2,15 +2,15 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
+import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
+
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import { routes } from 'constants/routing';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { VotersDetails } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-
-import { routes } from 'constants/routing';
 
 import { useStyles } from './styles';
 

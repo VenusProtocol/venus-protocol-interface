@@ -1,18 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Button, SecondaryButton, Spinner } from 'components';
-import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
-import { Asset, Token } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-  getCombinedDistributionApys,
-} from 'utilities';
+import { useMemo } from 'react';
 
 import { useGetVTokenApySimulations } from 'clients/api';
+import { Button, SecondaryButton, Spinner } from 'components';
 import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -20,6 +12,14 @@ import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
+import { useTranslation } from 'packages/translations';
+import { Asset, Token } from 'types';
+import {
+  formatCentsToReadableValue,
+  formatPercentageToReadableValue,
+  formatTokensToReadableValue,
+  getCombinedDistributionApys,
+} from 'utilities';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -81,7 +81,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
 
-  const supplyInfoStats: CardProps['stats'] = React.useMemo(() => {
+  const supplyInfoStats: CardProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }
@@ -116,7 +116,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const borrowInfoStats: CardProps['stats'] = React.useMemo(() => {
+  const borrowInfoStats: CardProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }
@@ -166,7 +166,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     },
   ];
 
-  const marketInfoStats: MarketInfoProps['stats'] = React.useMemo(() => {
+  const marketInfoStats: MarketInfoProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
     }

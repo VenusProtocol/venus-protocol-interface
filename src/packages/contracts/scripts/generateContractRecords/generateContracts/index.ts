@@ -1,6 +1,5 @@
 #!/usr/bin/env tsx
 import { ContractConfig } from 'packages/contracts/config';
-
 import { getAbsolutePath } from 'packages/contracts/utilities/getAbsolutePath';
 
 import { generateAbis } from './generateAbis';

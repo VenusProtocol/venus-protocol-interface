@@ -1,8 +1,9 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
+
+import { restService } from 'utilities';
 
 import getLegacyPoolMarkets, { ApiMarket } from '..';
 

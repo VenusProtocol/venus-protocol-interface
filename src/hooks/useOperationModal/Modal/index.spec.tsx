@@ -1,10 +1,10 @@
 import { waitFor } from '@testing-library/react';
-import { en } from 'packages/translations';
-import React from 'react';
-import { Pool } from 'types';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
+
+import { en } from 'packages/translations';
+import { Pool } from 'types';
 
 import BorrowRepay from '.';
 

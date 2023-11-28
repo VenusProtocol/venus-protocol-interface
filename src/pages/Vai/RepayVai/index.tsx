@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useCallback, useMemo } from 'react';
+
+import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
 import {
   ApproveTokenSteps,
   ApproveTokenStepsProps,
@@ -11,25 +14,22 @@ import {
   SpendingLimit,
   Spinner,
 } from 'components';
+import MAX_UINT256 from 'constants/maxUint256';
+import { AmountForm, AmountFormProps } from 'containers/AmountForm';
+import { ConnectWallet } from 'containers/ConnectWallet';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetVaiControllerContractAddress } from 'packages/contracts';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useCallback, useMemo } from 'react';
 import { Token } from 'types';
 import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
-
-import { useGetBalanceOf, useGetVaiRepayAmountWithInterests, useRepayVai } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
-import { AmountForm, AmountFormProps } from 'containers/AmountForm';
-import { ConnectWallet } from 'containers/ConnectWallet';
-import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useTokenApproval from 'hooks/useTokenApproval';
 
 import { useStyles } from '../styles';
 import TEST_IDS from '../testIds';
@@ -79,7 +79,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 
-  const limitTokens = React.useMemo(() => {
+  const limitTokens = useMemo(() => {
     const limitMantissa =
       userBalanceMantissa && repayBalanceMantissa
         ? BigNumber.minimum(userBalanceMantissa, repayBalanceMantissa)

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import type { FunctionFragment } from '@ethersproject/abi';
-import { FormikTextField } from 'components';
 import { ethers } from 'ethers';
 import { FieldArray } from 'formik';
-import React from 'react';
+
+import { FormikTextField } from 'components';
 
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';

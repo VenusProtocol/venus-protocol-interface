@@ -1,14 +1,13 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { en } from 'packages/translations';
-import React from 'react';
-import { Asset, Swap, TokenBalance } from 'types';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
+import { renderComponent } from 'testUtils/render';
+
 import { swapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
@@ -19,7 +18,8 @@ import {
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
+import { Asset, Swap, TokenBalance } from 'types';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';

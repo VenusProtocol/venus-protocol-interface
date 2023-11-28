@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Spinner } from 'components';
-import { useAccountAddress } from 'packages/wallet';
-import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { Asset } from 'types';
 
 import { useGetAsset } from 'clients/api';
+import { Spinner } from 'components';
 import { routes } from 'constants/routing';
+import { useAccountAddress } from 'packages/wallet';
+import { Asset } from 'types';
 
 export interface MarketLoaderProps {
   children: (props: {

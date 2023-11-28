@@ -1,4 +1,12 @@
+import Vi from 'vitest';
+
+import fakeContractReceipt from '__mocks__/models/contractReceipt';
+import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeProvider from '__mocks__/models/provider';
+import { renderHook } from 'testUtils/render';
+
 import { ChainExplorerLink } from 'components';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -10,13 +18,6 @@ import { displayNotification, updateNotification } from 'packages/notifications'
 import { en } from 'packages/translations';
 import { useProvider } from 'packages/wallet';
 import { ChainId } from 'types';
-import Vi from 'vitest';
-
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import fakeProvider from '__mocks__/models/provider';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { renderHook } from 'testUtils/render';
 
 import { CONFIRMATIONS, useTrackTransaction } from '..';
 

@@ -1,7 +1,8 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import proposalResponse from '__mocks__/api/proposals.json';
+
+import { restService } from 'utilities';
 
 import getProposal from './getProposal';
 

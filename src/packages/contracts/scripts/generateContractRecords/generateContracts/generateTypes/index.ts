@@ -1,8 +1,8 @@
 import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
-import { ContractConfig } from 'packages/contracts/config';
 import { glob, runTypeChain } from 'typechain';
 
+import { ContractConfig } from 'packages/contracts/config';
 import { isSwapRouterContractConfig } from 'packages/contracts/utilities/isSwapRouterContractConfig';
 import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';

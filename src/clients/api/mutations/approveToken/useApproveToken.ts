@@ -1,10 +1,9 @@
-import { useGetTokenContract } from 'packages/contracts';
-import { Token } from 'types';
-import { callOrThrow } from 'utilities';
-
 import { ApproveTokenInput, approveToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetTokenContract } from 'packages/contracts';
+import { Token } from 'types';
+import { callOrThrow } from 'utilities';
 
 type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
 type Options = UseSendTransactionOptions<TrimmedApproveTokenInput>;

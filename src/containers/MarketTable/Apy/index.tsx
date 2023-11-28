@@ -1,10 +1,10 @@
-import { LayeredValues } from 'components';
-import { useGetToken } from 'packages/tokens';
 import { useMemo } from 'react';
+
+import { LayeredValues } from 'components';
+import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
+import { useGetToken } from 'packages/tokens';
 import { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
-
-import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
 import { ColumnKey } from '../types';
 import { ApyWithPrimeBoost } from './ApyWithPrimeBoost';

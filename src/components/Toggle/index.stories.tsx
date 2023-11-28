@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 import { State } from 'react-powerplug';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';

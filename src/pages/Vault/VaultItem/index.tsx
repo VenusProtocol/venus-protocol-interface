@@ -2,18 +2,18 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { Button, NoticeWarning, TokenIcon } from 'components';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
-import React, { useMemo, useState } from 'react';
-import { Token } from 'types';
-import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
+import { useMemo, useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
+import { Button, NoticeWarning, TokenIcon } from 'components';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useLunaUstWarning } from 'packages/lunaUstWarning';
+import { useTranslation } from 'packages/translations';
+import { useAccountAddress } from 'packages/wallet';
+import { Token } from 'types';
+import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';

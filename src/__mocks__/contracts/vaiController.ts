@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { VaiController } from 'packages/contracts';
 
 const vaiControllerResponses: {

@@ -1,13 +1,14 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
-import { en } from 'packages/translations';
 import Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import proposals from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
+import { renderComponent } from 'testUtils/render';
+
 import {
   getCurrentVotes,
   getLatestProposalIdByProposer,
@@ -19,7 +20,7 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
 
 import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';

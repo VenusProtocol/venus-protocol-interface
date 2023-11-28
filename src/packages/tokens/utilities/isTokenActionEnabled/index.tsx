@@ -1,5 +1,4 @@
 import { ChainId, TokenAction } from 'types';
-
 import areAddressesEqual from 'utilities/areAddressesEqual';
 
 import disabledTokenActions from '../../infos/disabledTokenActions';

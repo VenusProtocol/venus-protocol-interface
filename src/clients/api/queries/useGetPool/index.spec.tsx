@@ -3,8 +3,9 @@ import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import { useGetPools } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
+
+import { useGetPools } from 'clients/api';
 
 import useGetPool, { UseGetPoolOutput } from '.';
 

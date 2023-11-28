@@ -1,13 +1,12 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { en } from 'packages/translations';
-import React from 'react';
-import { VoteSupport } from 'types';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
+import { renderComponent } from 'testUtils/render';
+
 import {
   cancelProposal,
   executeProposal,
@@ -20,7 +19,8 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
-import { renderComponent } from 'testUtils/render';
+import { en } from 'packages/translations';
+import { VoteSupport } from 'types';
 
 import Proposal from '.';
 import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';

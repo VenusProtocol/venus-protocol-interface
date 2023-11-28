@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
-import { useTranslation } from 'packages/translations';
-import React from 'react';
-import { VToken } from 'types';
-
 import AssetAccessor from 'containers/AssetAccessor';
+import { useTranslation } from 'packages/translations';
+import { VToken } from 'types';
 
 import BorrowForm from './BorrowForm';
 import RepayForm from './RepayForm';

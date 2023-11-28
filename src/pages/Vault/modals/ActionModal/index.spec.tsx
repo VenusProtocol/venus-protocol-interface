@@ -1,12 +1,12 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
-import TEST_IDS from 'components/Spinner/testIds';
 import { renderComponent } from 'testUtils/render';
+
+import TEST_IDS from 'components/Spinner/testIds';
 
 import ActionModal, { ActionModalProps } from '.';
 

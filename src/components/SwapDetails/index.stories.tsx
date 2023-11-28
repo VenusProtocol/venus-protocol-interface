@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { exactAmountInSwap } from '__mocks__/models/swaps';
+
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { SwapDetails } from '.';

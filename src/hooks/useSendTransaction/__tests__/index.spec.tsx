@@ -2,8 +2,9 @@ import noop from 'noop-ts';
 import Vi from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import FunctionKey from 'constants/functionKey';
 import { renderHook } from 'testUtils/render';
+
+import FunctionKey from 'constants/functionKey';
 
 import { useSendTransaction } from '..';
 import { CONFIRMATIONS, useTrackTransaction } from '../useTrackTransaction';

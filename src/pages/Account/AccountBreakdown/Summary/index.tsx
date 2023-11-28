@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'packages/translations';
-import React from 'react';
 import { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
-
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 
 import Section from '../Section';
 import { useStyles } from './styles';

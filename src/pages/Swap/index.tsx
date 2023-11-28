@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
+import { useEffect, useMemo, useState } from 'react';
+
+import { useSwapTokens } from 'clients/api';
 import {
   Icon,
   LabeledInlineContent,
@@ -9,6 +12,11 @@ import {
   SwapDetails,
   TextButton,
 } from 'components';
+import { ConnectWallet } from 'containers/ConnectWallet';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
+import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
+import useTokenApproval from 'hooks/useTokenApproval';
 import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
@@ -17,16 +25,8 @@ import { displayMutationError } from 'packages/errors';
 import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
-import React, { useEffect, useMemo, useState } from 'react';
 import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
-
-import { useSwapTokens } from 'clients/api';
-import { ConnectWallet } from 'containers/ConnectWallet';
-import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import useTokenApproval from 'hooks/useTokenApproval';
 
 import Notice from './Notice';
 import SubmitSection, { SubmitSectionProps } from './SubmitSection';

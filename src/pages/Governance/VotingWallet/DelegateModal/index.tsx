@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { Form, Formik } from 'formik';
+
 import {
   ButtonWrapper,
   FormikSubmitButton,
@@ -10,12 +12,9 @@ import {
   PrimaryButton,
   TextButton,
 } from 'components';
-import { Form, Formik } from 'formik';
+import { routes } from 'constants/routing';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
-import React from 'react';
-
-import { routes } from 'constants/routing';
 
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';

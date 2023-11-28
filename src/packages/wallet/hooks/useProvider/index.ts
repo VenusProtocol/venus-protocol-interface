@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { ChainId } from 'types';
 import { usePublicClient } from 'wagmi';
+
+import { ChainId } from 'types';
 
 import { getProvider } from './getProvider';
 

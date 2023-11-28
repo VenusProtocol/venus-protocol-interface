@@ -1,12 +1,11 @@
+import { RepayInput, queryClient, repay } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
 import { useAccountAddress, useSigner } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
-
-import { RepayInput, queryClient, repay } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 
 type TrimmedRepayInput = Omit<RepayInput, 'signer' | 'vToken' | 'maximillionContract'>;
 type Options = UseSendTransactionOptions<TrimmedRepayInput>;

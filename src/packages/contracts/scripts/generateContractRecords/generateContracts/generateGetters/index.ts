@@ -1,7 +1,7 @@
 import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
-import { ContractConfig } from 'packages/contracts/config';
 
+import { ContractConfig } from 'packages/contracts/config';
 import { isSwapRouterContractConfig } from 'packages/contracts/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 

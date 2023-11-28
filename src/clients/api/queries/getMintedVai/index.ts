@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { LegacyPoolComptroller } from 'packages/contracts';
 
 export interface GetMintedVaiInput {

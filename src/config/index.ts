@@ -1,6 +1,5 @@
-import { ChainId, Environment } from 'types';
-
 import { API_ENDPOINT_URLS } from 'constants/endpoints';
+import { ChainId, Environment } from 'types';
 
 import { MAINNET_SUBGRAPH_URL, TESTNET_SUBGRAPH_URL } from './codegen';
 import { ENV_VARIABLES } from './envVariables';

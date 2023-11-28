@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React from 'react';
+import { useMemo } from 'react';
+
 import { Token } from 'types';
 
 import { ButtonProps, TertiaryButton } from '../Button';
@@ -32,7 +33,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   displayTokenIcon = true,
   ...otherProps
 }) => {
-  const step = React.useMemo(() => {
+  const step = useMemo(() => {
     const tmpOneTokenInMantissa = new BigNumber(10 ** token.decimals);
     const tmpOneMantissaInTokens = new BigNumber(1).dividedBy(tmpOneTokenInMantissa);
 

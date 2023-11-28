@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Pool } from 'types';
 
 import { poolData } from '__mocks__/models/pools';
+
+import { Pool } from 'types';
 
 export const fakePool: Pool = {
   ...poolData[0],

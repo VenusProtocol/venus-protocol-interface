@@ -1,3 +1,6 @@
+import fakeAddress from '__mocks__/models/address';
+import tokens from '__mocks__/models/tokens';
+
 import {
   PoolLens,
   Prime,
@@ -6,9 +9,6 @@ import {
   VenusLens,
   XvsVault,
 } from 'packages/contracts';
-
-import fakeAddress from '__mocks__/models/address';
-import tokens from '__mocks__/models/tokens';
 
 import getPendingRewards from '..';
 import {

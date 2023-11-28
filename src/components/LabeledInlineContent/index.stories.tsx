@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { xvs } from '__mocks__/models/tokens';
+
 import { withCenterStory } from 'stories/decorators';
 
 import { LabeledInlineContent } from '.';

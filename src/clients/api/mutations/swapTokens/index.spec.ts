@@ -1,6 +1,3 @@
-import { SwapRouter } from 'packages/contracts';
-import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
-
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner, { signerAddress as fakeSignerAddress } from '__mocks__/models/signer';
@@ -9,6 +6,9 @@ import {
   exactAmountOutSwap as fakeExactAmountOutSwap,
 } from '__mocks__/models/swaps';
 import { bnb, busd } from '__mocks__/models/tokens';
+
+import { SwapRouter } from 'packages/contracts';
+import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import swapTokens from '.';
 

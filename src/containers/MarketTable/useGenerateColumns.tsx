@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
 import {
   InfoIcon,
   LayeredValues,
@@ -10,8 +12,9 @@ import {
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { routes } from 'constants/routing';
 import { useTranslation } from 'packages/translations';
-import React, { useMemo } from 'react';
 import {
   compareBigNumbers,
   compareBooleans,
@@ -21,9 +24,6 @@ import {
   formatTokensToReadableValue,
   getCombinedDistributionApys,
 } from 'utilities';
-
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { routes } from 'constants/routing';
 
 import { Apy } from './Apy';
 import { useStyles } from './styles';

@@ -1,9 +1,8 @@
-import { useGetPrimeContract } from 'packages/contracts';
-import { callOrThrow } from 'utilities';
-
 import { claimPrimeToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetPrimeContract } from 'packages/contracts';
+import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<void>;
 

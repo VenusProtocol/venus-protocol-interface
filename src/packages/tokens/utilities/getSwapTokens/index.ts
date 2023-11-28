@@ -1,8 +1,7 @@
-import { ChainId } from 'types';
-import { areAddressesEqual } from 'utilities';
-
 import { getPancakeSwapTokens } from 'packages/tokens/utilities/getPancakeSwapTokens';
 import { getTokens } from 'packages/tokens/utilities/getTokens';
+import { ChainId } from 'types';
+import { areAddressesEqual } from 'utilities';
 
 export interface GetSwapTokensInput {
   chainId: ChainId;

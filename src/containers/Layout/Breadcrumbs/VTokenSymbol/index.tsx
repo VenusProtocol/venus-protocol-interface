@@ -1,11 +1,11 @@
-import { Icon, TertiaryButton } from 'components';
-import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'packages/wallet';
 import { useMemo } from 'react';
-import { VToken } from 'types';
-import { findTokenByAddress } from 'utilities';
 
 import { useGetVTokens } from 'clients/api';
+import { Icon, TertiaryButton } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'packages/wallet';
+import { VToken } from 'types';
+import { findTokenByAddress } from 'utilities';
 
 export interface VTokenSymbolUiProps {
   vToken?: VToken;

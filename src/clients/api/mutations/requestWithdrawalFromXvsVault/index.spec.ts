@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { XvsVault } from 'packages/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { XvsVault } from 'packages/contracts';
 
 import requestWithdrawalFromXvsVault from '.';
 

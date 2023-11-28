@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { VoterHistory } from 'types';
 import { formatToProposal } from 'utilities';
 

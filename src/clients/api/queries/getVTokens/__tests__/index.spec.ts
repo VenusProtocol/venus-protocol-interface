@@ -1,10 +1,10 @@
-import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
-
 import fakeLegacyPoolComptrollerContractResponses from '__mocks__/contracts/legacyPoolComptroller';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakePoolRegistryContractAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
+
+import { LegacyPoolComptroller, PoolLens, VenusLens } from 'packages/contracts';
 
 import getVTokens from '..';
 

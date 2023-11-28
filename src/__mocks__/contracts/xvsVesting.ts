@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { XvsVesting } from 'packages/contracts';
 
 const xvsVestingResponses: {

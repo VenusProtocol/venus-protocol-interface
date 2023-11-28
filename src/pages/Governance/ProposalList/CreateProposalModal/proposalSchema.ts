@@ -1,6 +1,7 @@
 import { utils as etherUtils } from 'ethers';
-import { encodeParameters, parseFunctionSignature } from 'utilities';
 import * as yup from 'yup';
+
+import { encodeParameters, parseFunctionSignature } from 'utilities';
 
 import formatIfArray from './formatIfArray';
 

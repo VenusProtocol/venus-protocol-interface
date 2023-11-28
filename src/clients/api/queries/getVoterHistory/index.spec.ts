@@ -1,8 +1,9 @@
-import { restService } from 'utilities';
 import Vi from 'vitest';
 
 import voterHistoryResponse from '__mocks__/api/voterHistory.json';
 import fakeAddress from '__mocks__/models/address';
+
+import { restService } from 'utilities';
 
 import getVoterHistory from '.';
 

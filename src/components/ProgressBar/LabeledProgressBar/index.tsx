@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import { ProgressBar, ProgressBarProps } from '..';
 import { useStyles } from './styles';
