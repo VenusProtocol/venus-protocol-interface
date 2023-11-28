@@ -26,14 +26,15 @@ import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/test
 import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 import TEST_IDS from './testIds';
 
+vi.mock('hooks/useIsFeatureEnabled');
+
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
 describe('Governance', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'createProposal',
+      ({ name }: UseIsFeatureEnabled) => name === 'voteProposal' || name === 'createProposal',
     );
-
     (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
       data: [],
       isLoading: false,
@@ -146,7 +147,8 @@ describe('Governance', () => {
     const { getByText, getByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
     });
-    const depositXvsButton = getByText(en.vote.depositXvs);
+
+    const depositXvsButton = await waitFor(() => getByText(en.vote.depositXvs));
 
     await waitFor(() =>
       expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0'),
@@ -236,7 +238,7 @@ describe('Governance', () => {
     );
   });
 
-  it('shows the create proposal option on BSC_TESTNET', async () => {
+  it('shows the create proposal option when its feature flag is enabled', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
@@ -254,14 +256,63 @@ describe('Governance', () => {
     expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(1);
   });
 
-  it('hides the create proposal button when createProposal feature is disabled', async () => {
+  it('hides the create proposal option when its feature flag is disabled', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { queryAllByTestId } = renderComponent(<Governance />, {
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
+    });
+    expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(0);
+  });
 
+  it('does not render the voting disabled warning when voting is enabled', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
       routePath: '/governance/*',
     });
-    expect(queryAllByTestId(TEST_IDS.createProposal)).toHaveLength(0);
+    expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.votingDisabledWarning)).toHaveLength(0);
+  });
+
+  it('renders the voting disabled warning when voting is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { getByTestId } = renderComponent(<Governance />, {
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
+    });
+    expect(getByTestId(VOTING_WALLET_TEST_IDS.votingDisabledWarning)).toBeVisible();
+  });
+
+  it('does not render the delegate section when voting is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { queryAllByTestId } = renderComponent(<Governance />, {
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
+    });
+    expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting)).toHaveLength(0);
+  });
+
+  it('renders the delegate/redelegate button when voting is enabled', async () => {
+    const vaultsCopy = _cloneDeep(vaults);
+    vaultsCopy[1].userStakedMantissa = new BigNumber(1000);
+    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
+      data: vaultsCopy,
+      isLoading: false,
+    }));
+    const { getByTestId } = renderComponent(<Governance />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
+    });
+    expect(await waitFor(() => getByTestId(VOTING_WALLET_TEST_IDS.delegateButton))).toBeVisible();
+  });
+
+  it('does not render the delegate/redelegate button when voting is disabled', async () => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { queryAllByTestId } = renderComponent(<Governance />, {
+      routerInitialEntries: ['/governance/proposal-create', '/governance'],
+      routePath: '/governance/*',
+    });
+    expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateButton)).toHaveLength(0);
   });
 });
