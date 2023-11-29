@@ -216,7 +216,15 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         'withdrawFromVestingVaultModalModal.requestWithdrawalTab.primeLossWarning.submitButtonLabel',
       ),
     };
-  }, [getPrimeTokenData, getPrimeStatusData, xvsVaultUserInfo, xvs]);
+  }, [
+    getPrimeTokenData,
+    getPrimeStatusData,
+    xvsVaultUserInfo,
+    xvs,
+    poolIndex,
+    readablePrimeMinimumXvsStake,
+    t,
+  ]);
 
   const isInitialLoading =
     isGetXvsVaultPoolInfoLoading ||
