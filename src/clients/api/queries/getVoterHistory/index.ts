@@ -23,7 +23,6 @@ const getVoterHistory = async ({
   const response = await restService<GetVoterHistoryResponse>({
     endpoint: `/governance/voters/${address}/history`,
     method: 'GET',
-    next: true,
     params: {
       limit: 6,
       page,

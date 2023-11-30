@@ -29,7 +29,6 @@ describe('api/queries/getVoterAccounts', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/voters',
       method: 'GET',
-      next: true,
       params: {
         limit: 16,
         page: 2,
@@ -57,7 +56,6 @@ describe('api/queries/getVoterAccounts', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/voters',
       method: 'GET',
-      next: true,
       params: {
         limit: 16,
         page: 0,

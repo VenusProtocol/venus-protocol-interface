@@ -52,7 +52,6 @@ const getTransactions = async ({
   const response = await restService<GetTransactionsResponse>({
     endpoint: '/activity/transactions',
     method: 'GET',
-    next: true,
     params: {
       page,
       event,

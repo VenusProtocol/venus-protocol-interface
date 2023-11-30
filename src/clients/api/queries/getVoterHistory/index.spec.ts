@@ -24,7 +24,6 @@ describe('api/queries/getVoterHistory', () => {
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/history`,
       method: 'GET',
-      next: true,
       params: {
         limit: 6,
         page: 2,
@@ -47,7 +46,6 @@ describe('api/queries/getVoterHistory', () => {
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/history`,
       method: 'GET',
-      next: true,
       params: {
         limit: 6,
         page: 0,

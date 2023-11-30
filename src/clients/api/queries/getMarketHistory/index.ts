@@ -36,7 +36,6 @@ const getMarketHistory = async ({
   const response = await restService<GetMarketHistoryResponse>({
     endpoint,
     method: 'GET',
-    next: true,
   });
 
   // @todo Add specific api error handling

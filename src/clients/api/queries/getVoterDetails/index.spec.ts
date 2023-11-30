@@ -21,7 +21,6 @@ describe('api/queries/getVoterDetail', () => {
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/summary`,
       method: 'GET',
-      next: true,
     });
 
     expect(response).toMatchSnapshot();

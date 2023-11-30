@@ -12,7 +12,6 @@ const getVoteSummary = async ({
   const response = await restService<GetVoteSummaryApiResponse>({
     endpoint: `/governance/proposals/${proposalId}/voteSummary`,
     method: 'GET',
-    next: true,
   });
 
   const payload = response.data;

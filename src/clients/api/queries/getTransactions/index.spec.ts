@@ -32,7 +32,6 @@ describe('api/queries/getTransactions', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/activity/transactions',
       method: 'GET',
-      next: true,
       params: {
         page: 2,
         event: 'Withdraw',
@@ -61,7 +60,6 @@ describe('api/queries/getTransactions', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/activity/transactions',
       method: 'GET',
-      next: true,
       params: {
         page: 0,
         event: undefined,

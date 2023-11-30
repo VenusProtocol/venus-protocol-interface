@@ -30,7 +30,6 @@ const getLegacyPoolMarkets = async ({
   const response = await restService<GetLegacyPoolMarketsResponse>({
     endpoint: '/markets/core-pool',
     method: 'GET',
-    next: true,
     params: {
       limit: 50,
     },

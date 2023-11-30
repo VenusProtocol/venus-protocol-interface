@@ -22,7 +22,6 @@ describe('api/queries/getVoteSummary', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals/1/voteSummary',
       method: 'GET',
-      next: true,
     });
 
     expect(response).toMatchSnapshot();
