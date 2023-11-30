@@ -1,3 +1,10 @@
+## [2.52.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.51.3...v2.52.0) (2023-11-30)
+
+
+### Features
+
+* display warning on Mint VAI UI if user is not Prime ([#1877](https://github.com/VenusProtocol/venus-protocol-interface/issues/1877)) ([6b6cbbe](https://github.com/VenusProtocol/venus-protocol-interface/commit/6b6cbbebbab0ba060aaf8c9bd73fcd1ab1880cf7))
+
 ## [2.51.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.51.2...v2.51.3) (2023-11-30)
 
 ## [2.51.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.51.1...v2.51.2) (2023-11-29)
