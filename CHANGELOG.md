@@ -1,3 +1,10 @@
+## [2.53.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.52.0...v2.53.0) (2023-11-30)
+
+
+### Features
+
+* remove next header from API requests ([ba0a47d](https://github.com/VenusProtocol/venus-protocol-interface/commit/ba0a47ddd696e617770eca1a0c7a4c7441b955fd))
+
 ## [2.52.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.51.3...v2.52.0) (2023-11-30)
 
 
