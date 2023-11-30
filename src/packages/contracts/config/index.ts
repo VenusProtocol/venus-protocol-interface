@@ -1,19 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
-import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet.json';
-import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet.json';
+import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet_addresses.json';
+import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet_addresses.json';
 import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
 import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as PoolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
 import { abi as RewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
-import isolatedPoolsMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet.json';
-import isolatedPoolsTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet.json';
+import isolatedPoolsBscMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet_addresses.json';
+import isolatedPoolsBscTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet_addresses.json';
+import isolatedPoolsSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/sepolia_addresses.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
-import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet.json';
-import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet.json';
-import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia.json';
+import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet_addresses.json';
+import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet_addresses.json';
+import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia_addresses.json';
 import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
@@ -29,8 +30,9 @@ import { abi as XvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/co
 import { abi as VaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
 import { abi as XvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
 import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
-import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet.json';
-import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet.json';
+import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet_addresses.json';
+import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet_addresses.json';
+import venusProtocolSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/sepolia_addresses.json';
 import { type ContractInterface } from 'ethers';
 
 import { ChainId } from 'types';
@@ -75,90 +77,92 @@ export const contracts: ContractConfig[] = [
     name: 'VenusLens',
     abi: VenusLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.VenusLens.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.VenusLens.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens,
     },
   },
   {
     name: 'PoolLens',
     abi: PoolLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: isolatedPoolsTestnetDeployments.contracts.PoolLens.address,
-      [ChainId.BSC_MAINNET]: isolatedPoolsMainnetDeployments.contracts.PoolLens.address,
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
     },
   },
   {
     name: 'PoolRegistry',
     abi: PoolRegistryAbi,
     address: {
-      [ChainId.BSC_TESTNET]: isolatedPoolsTestnetDeployments.contracts.PoolRegistry_Proxy.address,
-      [ChainId.BSC_MAINNET]: isolatedPoolsMainnetDeployments.contracts.PoolRegistry_Proxy.address,
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolRegistry_Proxy,
     },
   },
   {
     name: 'LegacyPoolComptroller',
     abi: LegacyPoolComptrollerAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.Unitroller.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.Unitroller.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller,
     },
   },
   {
     name: 'VaiController',
     abi: VaiControllerAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.VaiUnitroller.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.VaiUnitroller.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller,
     },
   },
   {
     name: 'VaiVault',
     abi: VaiVaultAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.VAIVaultProxy.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.VAIVaultProxy.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy,
     },
   },
   {
     name: 'XvsVault',
     abi: XvsVaultAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.XVSVaultProxy.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.XVSVaultProxy.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
     },
   },
   {
     name: 'XvsStore',
     abi: XvsStoreAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.XVSStore.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.XVSStore.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSStore,
     },
   },
   {
     name: 'GovernorBravoDelegate',
     abi: GovernorBravoDelegateAbi,
     address: {
-      [ChainId.BSC_TESTNET]:
-        venusGovernanceBscTestnetDeployments.contracts.GovernorBravoDelegate.address,
-      [ChainId.BSC_MAINNET]:
-        venusGovernanceBscMainnetDeployments.contracts.GovernorBravoDelegate.address,
+      [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegate,
+      [ChainId.BSC_MAINNET]: venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegate,
     },
   },
   {
     name: 'XvsVesting',
     abi: XvsVestingAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.XVSVestingProxy.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.XVSVestingProxy.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVestingProxy,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVestingProxy,
     },
   },
   {
     name: 'VrtConverter',
     abi: VrtConverterAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.VRTConverterProxy.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.VRTConverterProxy.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VRTConverterProxy,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VRTConverterProxy,
     },
   },
   {
@@ -191,17 +195,17 @@ export const contracts: ContractConfig[] = [
     name: 'ResilientOracle',
     abi: ResilientOracleAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.contracts.ResilientOracle.address,
-      [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.contracts.ResilientOracle.address,
-      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.contracts.ResilientOracle.address,
+      [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
+      [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
+      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
     },
   },
   {
     name: 'Prime',
     abi: PrimeAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.contracts.Prime.address,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.contracts.Prime.address,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
     },
   },
   // Generic Contracts
@@ -256,35 +260,35 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: {
         // Core pool
-        [venusProtocolBscTestnetDeployments.contracts.Unitroller.address.toLowerCase()]:
-          venusProtocolBscTestnetDeployments.contracts.SwapRouterCorePool.address,
+        [venusProtocolBscTestnetDeployments.addresses.Unitroller.toLowerCase()]:
+          venusProtocolBscTestnetDeployments.addresses.SwapRouterCorePool,
         // Isolated pools
-        [isolatedPoolsTestnetDeployments.contracts.Comptroller_StableCoins.address.toLowerCase()]:
-          isolatedPoolsTestnetDeployments.contracts.SwapRouter_StableCoins.address,
-        [isolatedPoolsTestnetDeployments.contracts.Comptroller_Tron.address.toLowerCase()]:
-          isolatedPoolsTestnetDeployments.contracts.SwapRouter_Tron.address,
-        [isolatedPoolsTestnetDeployments.contracts.Comptroller_GameFi.address.toLowerCase()]:
-          isolatedPoolsTestnetDeployments.contracts.SwapRouter_GameFi.address,
-        [isolatedPoolsTestnetDeployments.contracts.Comptroller_DeFi.address.toLowerCase()]:
-          isolatedPoolsTestnetDeployments.contracts.SwapRouter_DeFi.address,
-        [isolatedPoolsTestnetDeployments.contracts.Comptroller_LiquidStakedBNB.address.toLowerCase()]:
-          isolatedPoolsTestnetDeployments.contracts.SwapRouter_LiquidStakedBNB.address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_StableCoins.toLowerCase()]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_StableCoins,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_Tron.toLowerCase()]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_Tron,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_GameFi.toLowerCase()]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_GameFi,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_DeFi.toLowerCase()]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_DeFi,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
       },
       [ChainId.BSC_MAINNET]: {
         // Core pool
-        [venusProtocolBscMainnetDeployments.contracts.Unitroller.address.toLowerCase()]:
-          venusProtocolBscMainnetDeployments.contracts.SwapRouterCorePool.address,
+        [venusProtocolBscMainnetDeployments.addresses.Unitroller.toLowerCase()]:
+          venusProtocolBscMainnetDeployments.addresses.SwapRouterCorePool,
         // Isolated Pools
-        [isolatedPoolsMainnetDeployments.contracts.Comptroller_Stablecoins.address.toLowerCase()]:
-          isolatedPoolsMainnetDeployments.contracts.SwapRouter_Stablecoins.address,
-        [isolatedPoolsMainnetDeployments.contracts.Comptroller_Tron.address.toLowerCase()]:
-          isolatedPoolsMainnetDeployments.contracts.SwapRouter_Tron.address,
-        [isolatedPoolsMainnetDeployments.contracts.Comptroller_GameFi.address.toLowerCase()]:
-          isolatedPoolsMainnetDeployments.contracts.SwapRouter_GameFi.address,
-        [isolatedPoolsMainnetDeployments.contracts.Comptroller_DeFi.address.toLowerCase()]:
-          isolatedPoolsMainnetDeployments.contracts.SwapRouter_DeFi.address,
-        [isolatedPoolsMainnetDeployments.contracts.Comptroller_LiquidStakedBNB.address.toLowerCase()]:
-          isolatedPoolsMainnetDeployments.contracts.SwapRouter_LiquidStakedBNB.address,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Stablecoins.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Stablecoins,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Tron.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Tron,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_GameFi.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_GameFi,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_DeFi.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_DeFi,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
       },
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {},
