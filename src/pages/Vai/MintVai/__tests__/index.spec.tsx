@@ -12,7 +12,7 @@ import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/format
 import { en } from 'packages/translations';
 import { convertMantissaToTokens } from 'utilities';
 
-import RepayVai from '.';
+import MintVai from '..';
 
 const fakeGetMintableVaiOutput = formatToMintableVaiOutput(vaiControllerResponses.getMintableVAI);
 
@@ -24,7 +24,7 @@ describe('MintVai', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<RepayVai />, {
+    renderComponent(<MintVai />, {
       accountAddress: fakeAccountAddress,
     });
   });
@@ -34,7 +34,7 @@ describe('MintVai', () => {
       percentage: fakeVaiTreasuryPercentage,
     }));
 
-    const { getByText } = renderComponent(<RepayVai />, {
+    const { getByText } = renderComponent(<MintVai />, {
       accountAddress: fakeAccountAddress,
     });
 
@@ -47,7 +47,7 @@ describe('MintVai', () => {
   it('lets user mint VAI', async () => {
     (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
-    const { getByText, getByPlaceholderText } = renderComponent(<RepayVai />, {
+    const { getByText, getByPlaceholderText } = renderComponent(<MintVai />, {
       accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.mintVai.submitButtonDisabledLabel));
@@ -81,6 +81,4 @@ describe('MintVai', () => {
       amountMantissa: fakeGetMintableVaiOutput.mintableVaiMantissa,
     });
   });
-
-  // TODO: add tests to cover failing scenarios (see VEN-631)
 });

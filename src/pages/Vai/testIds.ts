@@ -1,6 +1,7 @@
 const TEST_IDS = {
-  repayTextField: 'repay-text-field',
-  spendingLimit: 'spending-limit',
+  repayTextField: 'vai-repay-text-field',
+  spendingLimit: 'vai-spending-limit',
+  primeOnlyWarning: 'vai-prime-only-warning',
 };
 
 export default TEST_IDS;
