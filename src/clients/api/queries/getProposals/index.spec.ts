@@ -13,7 +13,6 @@ describe('api/queries/getProposals', () => {
     (restService as Vi.Mock).mockImplementationOnce(async () => ({
       data: proposalResponse,
       limit: 10,
-      next: true,
     }));
 
     const response = await getProposals({
@@ -25,7 +24,6 @@ describe('api/queries/getProposals', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals',
       method: 'GET',
-      next: true,
       params: {
         limit: 10,
         page: 2,
@@ -47,7 +45,6 @@ describe('api/queries/getProposals', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals',
       method: 'GET',
-      next: true,
       params: {
         limit: 5,
         page: 0,

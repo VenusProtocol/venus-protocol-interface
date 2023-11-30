@@ -13,7 +13,6 @@ const getProposals = async ({
   const response = await restService<ProposalsApiResponse>({
     endpoint: '/governance/proposals',
     method: 'GET',
-    next: true,
     params: { page, limit },
   });
   const payload = response.data;

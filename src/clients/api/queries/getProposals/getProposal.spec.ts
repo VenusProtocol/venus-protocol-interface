@@ -23,7 +23,6 @@ describe('api/queries/getProposal', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals/1',
       method: 'GET',
-      next: true,
     });
 
     expect(response).toMatchSnapshot();

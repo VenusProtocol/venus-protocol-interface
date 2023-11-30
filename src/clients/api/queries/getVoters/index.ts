@@ -16,7 +16,6 @@ const getVoters = async ({
   const response = await restService<GetVotersApiResponse>({
     endpoint: '/governance/proposals/votes',
     method: 'GET',
-    next: true,
     params: {
       support,
       address,

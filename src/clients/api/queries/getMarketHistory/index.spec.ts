@@ -44,7 +44,6 @@ describe('api/queries/getMarketHistory', () => {
     expect(restService).toHaveBeenCalledWith({
       endpoint: `/markets/history?asset=${vBusd.address}`,
       method: 'GET',
-      next: true,
     });
   });
 });

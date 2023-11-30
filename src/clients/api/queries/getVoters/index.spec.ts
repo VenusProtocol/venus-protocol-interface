@@ -22,7 +22,6 @@ describe('api/queries/getVoters', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/governance/proposals/votes',
       method: 'GET',
-      next: true,
       params: {
         support: undefined,
         limit: 50,

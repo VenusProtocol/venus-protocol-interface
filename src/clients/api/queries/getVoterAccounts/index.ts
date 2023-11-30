@@ -28,7 +28,6 @@ const getVoterAccounts = async ({
   const response = await restService<GetVoterAccountsResponse>({
     endpoint: '/governance/voters',
     method: 'GET',
-    next: true,
     params: {
       limit,
       page,
