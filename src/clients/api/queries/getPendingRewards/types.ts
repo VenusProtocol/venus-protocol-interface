@@ -17,8 +17,8 @@ export interface GetPendingRewardsInput {
   accountAddress: string;
   resilientOracleContract: ResilientOracle;
   poolLensContract: PoolLens;
-  vaiVaultContract: VaiVault;
   xvsVaultContract: XvsVault;
+  vaiVaultContract?: VaiVault;
   venusLensContract?: VenusLens;
   primeContract?: Prime;
   legacyPoolComptrollerContractAddress?: string;

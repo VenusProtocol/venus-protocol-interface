@@ -32,7 +32,7 @@ const getPendingRewards = async ({
   }
 
   const vaiVaultVenusLensPromises = Promise.allSettled([
-    vaiVaultContract.pendingXVS(accountAddress),
+    vaiVaultContract ? vaiVaultContract.pendingXVS(accountAddress) : undefined,
     venusLensContract && !!legacyPoolComptrollerContractAddress
       ? venusLensContract.pendingRewards(accountAddress, legacyPoolComptrollerContractAddress)
       : undefined,

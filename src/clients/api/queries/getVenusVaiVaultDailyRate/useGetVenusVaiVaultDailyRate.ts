@@ -35,7 +35,11 @@ const useGetVenusVaiVaultDailyRate = (options?: Options) => {
           blocksPerDay,
         }),
       ),
-    options,
+    {
+      ...options,
+      enabled:
+        !!legacyPoolComptrollerContract && (options?.enabled === undefined || options?.enabled),
+    },
   );
 };
 

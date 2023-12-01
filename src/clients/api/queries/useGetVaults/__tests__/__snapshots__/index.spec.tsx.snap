@@ -121,7 +121,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
       "decimals": 18,
       "symbol": "VAI",
     },
-    "stakingAprPercentage": 58339.473875,
+    "stakingAprPercentage": 45625,
     "totalStakedMantissa": "4000000000",
     "userStakedMantissa": "1e+23",
   },
