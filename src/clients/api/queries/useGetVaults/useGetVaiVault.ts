@@ -1,7 +1,11 @@
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetBalanceOf, useGetVaiVaultUserInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetTokenUsdPrice,
+  useGetVaiVaultUserInfo,
+  useGetVenusVaiVaultDailyRate,
+} from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
@@ -48,14 +52,21 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateMantissaLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  // TODO: fetch price
-  const isGetXvsPriceLoading = false;
-  const xvsPriceDollars = new BigNumber(1);
+  const { data: xvsPriceData, isLoading: isGetXvsPriceLoading } = useGetTokenUsdPrice(
+    {
+      token: xvs!,
+    },
+    {
+      enabled: !!xvs,
+    },
+  );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars || !xvs || !vai) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceData || !xvs || !vai) {
       return undefined;
     }
+
+    const { tokenPriceUsd: xvsPriceDollars } = xvsPriceData;
 
     const stakingAprPercentage = convertMantissaToTokens({
       value: vaiVaultDailyRateData.dailyRateMantissa,
@@ -80,7 +91,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
     };
-  }, [xvsPriceDollars, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
+  }, [xvsPriceData, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
 
   const isLoading =
     isGetTotalVaiStakedMantissaLoading ||
