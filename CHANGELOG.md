@@ -1,3 +1,17 @@
+## [2.55.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.54.0...v2.55.0) (2023-12-04)
+
+
+### Features
+
+* add getTokenUsdPrice ([ef9473a](https://github.com/VenusProtocol/venus-protocol-interface/commit/ef9473a790b92433b1f85faec00891549f37326a))
+* add sepolia core pool comptroller ([d648578](https://github.com/VenusProtocol/venus-protocol-interface/commit/d648578b5471cc2f7484ba3db4a567506939b32e))
+* make vaiVaultContract contract optional in getPendingRewards and useGetVaiVaultUserInfo ([6f065fd](https://github.com/VenusProtocol/venus-protocol-interface/commit/6f065fdd89f57d74309f4fe4ac547e7a3482acd2))
+
+
+### Bug Fixes
+
+* pass current chain ID in uniqueContractGettersTemplate ([4628a9d](https://github.com/VenusProtocol/venus-protocol-interface/commit/4628a9d7a3396effb11f985a63901b545ad9ef22))
+
 ## [2.54.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.53.2...v2.54.0) (2023-12-04)
 
 
