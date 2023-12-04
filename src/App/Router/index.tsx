@@ -33,6 +33,7 @@ const Router = () => {
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
+  const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -180,14 +181,16 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.xvs.path}
-        element={
-          <PageSuspense>
-            <Xvs />
-          </PageSuspense>
-        }
-      />
+      {xvsRouteEnabled && (
+        <Route
+          path={routes.xvs.path}
+          element={
+            <PageSuspense>
+              <Xvs />
+            </PageSuspense>
+          }
+        />
+      )}
 
       {convertVrtRouteEnabled && (
         <Route

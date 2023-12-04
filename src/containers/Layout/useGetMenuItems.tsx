@@ -13,6 +13,7 @@ const useGetMenuItems = () => {
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
+  const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
 
   return useMemo(() => {
     const menuItems: MenuItem[] = [
@@ -83,22 +84,23 @@ const useGetMenuItems = () => {
       });
     }
 
-    menuItems.push(
-      {
-        to: routes.governance.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.governance')
-        i18nKey: 'layout.menuItems.governance',
-        iconName: 'market',
-      },
-      {
+    menuItems.push({
+      to: routes.governance.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.governance')
+      i18nKey: 'layout.menuItems.governance',
+      iconName: 'market',
+    });
+
+    if (xvsRouteEnabled) {
+      menuItems.push({
         to: routes.xvs.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.xvs')
         i18nKey: 'layout.menuItems.xvs',
         iconName: 'circledVenus',
-      },
-    );
+      });
+    }
 
     if (vaiRouteEnabled) {
       menuItems.push({
@@ -129,6 +131,7 @@ const useGetMenuItems = () => {
     swapRouteEnabled,
     historyRouteEnabled,
     vaiRouteEnabled,
+    xvsRouteEnabled,
   ]);
 };
 

@@ -14,6 +14,7 @@ const featureFlags = {
   historyRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   swapRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   lunaUstWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
