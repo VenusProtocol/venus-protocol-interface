@@ -1,13 +1,11 @@
-/** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import { Card as CardComp } from 'components';
+import { cn } from 'utilities';
 
 import { Stat } from '../types';
-import { useStyles } from './styles';
 
 export interface Legend {
   label: string;
-  color: string;
+  color: 'blue' | 'red' | 'green';
 }
 
 export interface CardProps {
@@ -26,48 +24,47 @@ const Card: React.FC<CardProps> = ({
   stats = [],
   className,
   testId,
-}) => {
-  const styles = useStyles();
+}) => (
+  <CardComp className={cn('space-y-6', className)} data-testid={testId}>
+    <div className="md:flex md:items-center md:justify-between">
+      <h4 className="mb-3 mr-4 text-lg md:mb-0">{title}</h4>
 
-  return (
-    <Paper className={className} data-testid={testId}>
-      <div css={styles.header}>
-        <h4 css={styles.title}>{title}</h4>
+      {legends.length > 0 && (
+        <div className="flex items-center space-x-6">
+          {legends.map(legend => (
+            <div className="flex items-center" key={`card-${title}-legend-${legend.label}`}>
+              <div
+                className={cn('mr-1 h-2 w-2 shrink-0 rounded-full', {
+                  'bg-red': legend.color === 'red',
+                  'bg-blue': legend.color === 'blue',
+                  'bg-green': legend.color === 'green',
+                })}
+              />
 
-        {legends.length > 0 && (
-          <div css={styles.row}>
-            {legends.map(legend => (
-              <div css={styles.legend} key={`card-${title}-legend-${legend.label}`}>
-                <div css={styles.getLegendColorIndicator({ color: legend.color })} />
-
-                <Typography css={styles.legendLabel} variant="small2">
-                  {legend.label}
-                </Typography>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {stats.length > 0 && (
-        <div css={styles.row}>
-          {stats.map(stat => (
-            <div css={styles.stat} key={`card-${title}-legend-${stat.label}`}>
-              <Typography variant="small2" component="div" css={styles.statLabel}>
-                {stat.label}
-              </Typography>
-
-              <Typography variant="h4" css={styles.statValue}>
-                {stat.value}
-              </Typography>
+              <p className="text-sm">{legend.label}</p>
             </div>
           ))}
         </div>
       )}
+    </div>
 
-      {children}
-    </Paper>
-  );
-};
+    {stats.length > 0 && (
+      <div className="flex space-x-6">
+        {stats.map(stat => (
+          <div
+            className="border-r border-lightGrey pr-6 last-of-type:border-0 last-of-type:pr-0"
+            key={`card-${title}-legend-${stat.label}`}
+          >
+            <p className="mb-1 text-sm text-grey">{stat.label}</p>
+
+            <p className="text-sm font-semibold sm:text-lg">{stat.value}</p>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {children}
+  </CardComp>
+);
 
 export default Card;

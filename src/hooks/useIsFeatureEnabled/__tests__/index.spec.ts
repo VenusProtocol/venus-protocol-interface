@@ -11,8 +11,6 @@ vi.unmock('hooks/useIsFeatureEnabled');
 
 describe('useIsFeatureEnabled', () => {
   const routeFeatureFlags: FeatureFlag[] = [
-    'corePoolRoute',
-    'corePoolMarketRoute',
     'historyRoute',
     'convertVrtRoute',
     'swapRoute',

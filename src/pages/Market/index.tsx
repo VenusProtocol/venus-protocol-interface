@@ -112,7 +112,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   const supplyInfoLegends: CardProps['legends'] = [
     {
       label: t('market.legends.supplyApy'),
-      color: styles.legendColors.supplyApy,
+      color: 'green',
     },
   ];
 
@@ -147,22 +147,22 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   const borrowInfoLegends: CardProps['legends'] = [
     {
       label: t('market.legends.borrowApy'),
-      color: styles.legendColors.borrowApy,
+      color: 'red',
     },
   ];
 
   const interestRateModelLegends: CardProps['legends'] = [
     {
       label: t('market.legends.utilizationRate'),
-      color: styles.legendColors.utilizationRate,
+      color: 'blue',
     },
     {
       label: t('market.legends.borrowApy'),
-      color: styles.legendColors.borrowApy,
+      color: 'red',
     },
     {
       label: t('market.legends.supplyApy'),
-      color: styles.legendColors.supplyApy,
+      color: 'green',
     },
   ];
 
