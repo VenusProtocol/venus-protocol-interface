@@ -8,7 +8,6 @@ import { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
@@ -37,15 +36,13 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (corePoolRouteEnabled) {
-      menuItems.push({
-        to: routes.corePool.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.corePool')
-        i18nKey: 'layout.menuItems.corePool',
-        iconName: 'venus',
-      });
-    }
+    menuItems.push({
+      to: routes.corePool.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.corePool')
+      i18nKey: 'layout.menuItems.corePool',
+      iconName: 'venus',
+    });
 
     menuItems.push(
       {
@@ -127,7 +124,6 @@ const useGetMenuItems = () => {
   }, [
     accountAddress,
     convertVrtRouteEnabled,
-    corePoolRouteEnabled,
     swapRouteEnabled,
     historyRouteEnabled,
     vaiRouteEnabled,

@@ -28,8 +28,6 @@ const Xvs = lazy(() => import('pages/Xvs'));
 
 const Router = () => {
   const { accountAddress } = useAccountAddress();
-  const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
-  const corePoolMarketRouteEnabled = useIsFeatureEnabled({ name: 'corePoolMarketRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -104,27 +102,23 @@ const Router = () => {
         }
       />
 
-      {corePoolRouteEnabled && (
-        <Route
-          path={routes.corePool.path}
-          element={
-            <PageSuspense>
-              <CorePool />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.corePool.path}
+        element={
+          <PageSuspense>
+            <CorePool />
+          </PageSuspense>
+        }
+      />
 
-      {corePoolMarketRouteEnabled && (
-        <Route
-          path={routes.corePoolMarket.path}
-          element={
-            <PageSuspense>
-              <CorePoolMarket />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.corePoolMarket.path}
+        element={
+          <PageSuspense>
+            <CorePoolMarket />
+          </PageSuspense>
+        }
+      />
 
       <Route
         path={routes.vaults.path}

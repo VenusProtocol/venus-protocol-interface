@@ -35,6 +35,6 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://sepolia.etherscan.io/',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
-    corePoolComptrollerContractAddress: '', // TODO: add record (see VEN-2120)
+    corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
   },
 };
