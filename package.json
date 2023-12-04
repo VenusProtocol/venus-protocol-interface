@@ -42,7 +42,7 @@
     "@infinitywallet/infinity-connector": "^1.0.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.2",
-    "@pancakeswap/sdk": "^3.1.0",
+    "@pancakeswap/sdk": "^5.7.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@sentry/react": "^7.81.0",
     "@sentry/vite-plugin": "^2.10.1",
