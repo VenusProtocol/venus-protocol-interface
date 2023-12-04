@@ -25,7 +25,7 @@ import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/fo
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
-import useGetVaults, { UseGetVaultsOutput } from '.';
+import useGetVaults, { UseGetVaultsOutput } from '..';
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {

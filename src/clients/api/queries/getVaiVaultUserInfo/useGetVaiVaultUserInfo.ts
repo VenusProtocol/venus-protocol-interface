@@ -35,7 +35,10 @@ const useGetVaiVaultUserInfo = (input: TrimmedGetVaiVaultUserInfoInput, options?
   return useQuery(
     [FunctionKey.GET_VAI_VAULT_USER_INFO, { ...input, chainId }],
     () => callOrThrow({ vaiVaultContract }, params => getVaiVaultUserInfo({ ...params, ...input })),
-    options,
+    {
+      ...options,
+      enabled: !!vaiVaultContract && (options?.enabled === undefined || options?.enabled),
+    },
   );
 };
 

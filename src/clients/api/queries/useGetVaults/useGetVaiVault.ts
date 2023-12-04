@@ -1,12 +1,16 @@
 import { useMemo } from 'react';
 
-import { useGetBalanceOf, useGetVaiVaultUserInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetTokenUsdPrice,
+  useGetVaiVaultUserInfo,
+  useGetVenusVaiVaultDailyRate,
+} from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { useGetCorePool } from 'hooks/useGetCorePool';
 import { useGetVaiVaultContractAddress } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { Vault } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -28,10 +32,10 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     useGetBalanceOf(
       {
         accountAddress: vaiVaultContractAddress || '',
-        token: vai!, // We ensure vai exists through the enabled option
+        token: vai,
       },
       {
-        enabled: !!vaiVaultContractAddress && !!vai,
+        enabled: !!vaiVaultContractAddress,
       },
     );
 
@@ -48,21 +52,21 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateMantissaLoading } =
     useGetVenusVaiVaultDailyRate();
 
-  const { data: getCorePoolData, isLoading: isGetCorePoolLoading } = useGetCorePool();
-  const xvsPriceDollars = useMemo(() => {
-    if (!xvs || !getCorePoolData?.pool.assets) {
-      return undefined;
-    }
-
-    return getCorePoolData.pool.assets
-      .find(asset => areTokensEqual(asset.vToken.underlyingToken, xvs))
-      ?.tokenPriceCents.dividedBy(100);
-  }, [getCorePoolData?.pool.assets, xvs]);
+  const { data: xvsPriceData, isLoading: isGetXvsPriceLoading } = useGetTokenUsdPrice(
+    {
+      token: xvs!,
+    },
+    {
+      enabled: !!xvs,
+    },
+  );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars || !xvs || !vai) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceData || !xvs || !vai) {
       return undefined;
     }
+
+    const { tokenPriceUsd: xvsPriceDollars } = xvsPriceData;
 
     const stakingAprPercentage = convertMantissaToTokens({
       value: vaiVaultDailyRateData.dailyRateMantissa,
@@ -87,12 +91,12 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
     };
-  }, [xvsPriceDollars, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
+  }, [xvsPriceData, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
 
   const isLoading =
     isGetTotalVaiStakedMantissaLoading ||
     isGetVaiVaultDailyRateMantissaLoading ||
-    isGetCorePoolLoading ||
+    isGetXvsPriceLoading ||
     isGetVaiVaultUserInfoLoading;
 
   return {

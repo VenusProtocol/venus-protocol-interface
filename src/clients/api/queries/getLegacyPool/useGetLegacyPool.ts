@@ -69,16 +69,23 @@ const useGetLegacyPool = (input: TrimmedInput, options?: Options) => {
   const vaiControllerContract = useGetVaiControllerContract();
   const primeContract = useGetPrimeContract();
 
+  const isQueryEnabled =
+    !!legacyPoolComptrollerContract &&
+    !!venusLensContract &&
+    !!vai &&
+    !!vaiControllerContract &&
+    (options?.enabled === undefined || options?.enabled);
+
   return useQuery(
     [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     () =>
       callOrThrow(
         {
           xvs,
-          vai,
           legacyPoolComptrollerContract,
           venusLensContract,
           resilientOracleContract,
+          vai,
           vaiControllerContract,
         },
         params =>
@@ -95,6 +102,7 @@ const useGetLegacyPool = (input: TrimmedInput, options?: Options) => {
     {
       refetchInterval,
       ...options,
+      enabled: isQueryEnabled,
     },
   );
 };

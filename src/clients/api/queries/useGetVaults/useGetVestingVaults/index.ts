@@ -166,12 +166,13 @@ const useGetVestingVaults = ({
             });
 
           const poolRewardMantissaPerBlock =
-            xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa &&
-            xvsVaultTotalAllocationPointsData?.totalAllocationPoints &&
-            poolData[poolIndex]?.poolInfos.allocationPoint &&
-            xvsVaultRewardMantissaPerBlock.rewardPerBlockMantissa
-              .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
-              .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
+            xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa !== undefined &&
+            xvsVaultTotalAllocationPointsData?.totalAllocationPoints !== undefined &&
+            poolData[poolIndex]?.poolInfos.allocationPoint
+              ? xvsVaultRewardMantissaPerBlock.rewardPerBlockMantissa
+                  .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
+                  .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints)
+              : undefined;
 
           const dailyEmissionMantissa =
             poolRewardMantissaPerBlock && poolRewardMantissaPerBlock.multipliedBy(blocksPerDay);
@@ -181,17 +182,21 @@ const useGetVestingVaults = ({
             totalStakedMantissaData &&
             dailyEmissionMantissa
               .multipliedBy(DAYS_PER_YEAR)
-              .div(totalStakedMantissaData.balanceMantissa)
+              .div(
+                totalStakedMantissaData.balanceMantissa.isGreaterThan(0)
+                  ? totalStakedMantissaData.balanceMantissa
+                  : 1, // Prevent dividing by 0 if balance is 0
+              )
               .multipliedBy(100)
               .toNumber();
 
           if (
-            stakedToken &&
-            lockingPeriodMs &&
-            dailyEmissionMantissa &&
-            totalStakedMantissaData &&
-            stakingAprPercentage &&
-            xvs
+            !!stakedToken &&
+            lockingPeriodMs !== undefined &&
+            dailyEmissionMantissa !== undefined &&
+            totalStakedMantissaData !== undefined &&
+            stakingAprPercentage !== undefined &&
+            !!xvs
           ) {
             const vault: Vault = {
               rewardToken: xvs,

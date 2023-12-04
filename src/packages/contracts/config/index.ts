@@ -105,6 +105,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core,
     },
   },
   {

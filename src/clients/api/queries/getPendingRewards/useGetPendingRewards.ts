@@ -101,7 +101,6 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
         {
           resilientOracleContract,
           poolLensContract,
-          vaiVaultContract,
           xvsVaultContract,
         },
         params =>
@@ -110,6 +109,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
             venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
             xvsVestingVaultPoolCount,
+            vaiVaultContract,
             tokens,
             primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,

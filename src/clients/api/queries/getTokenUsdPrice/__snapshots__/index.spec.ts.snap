@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getTokenUsdPrice > returns token price in the right format on success 1`] = `
+{
+  "tokenPriceUsd": "7.2358785",
+}
+`;
