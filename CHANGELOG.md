@@ -1,3 +1,10 @@
+## [2.54.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.53.2...v2.54.0) (2023-12-04)
+
+
+### Features
+
+* add token records for the Sepolia network ([#1896](https://github.com/VenusProtocol/venus-protocol-interface/issues/1896)) ([7b3bb81](https://github.com/VenusProtocol/venus-protocol-interface/commit/7b3bb8157243b833d64542e8352ab57b102093ac))
+
 ## [2.53.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.53.1...v2.53.2) (2023-12-04)
 
 ## [2.53.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.53.0...v2.53.1) (2023-12-01)
