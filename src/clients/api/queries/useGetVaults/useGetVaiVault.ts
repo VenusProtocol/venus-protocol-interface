@@ -54,7 +54,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
   const { data: xvsPriceData, isLoading: isGetXvsPriceLoading } = useGetTokenUsdPrice(
     {
-      token: xvs!,
+      token: xvs,
     },
     {
       enabled: !!xvs,
@@ -98,6 +98,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     isGetVaiVaultDailyRateMantissaLoading ||
     isGetXvsPriceLoading ||
     isGetVaiVaultUserInfoLoading;
+
 
   return {
     data,
