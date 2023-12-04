@@ -47,8 +47,8 @@ export const useGet{{contractName}}Contract = (input?: UseGet{{contractName}}Con
   const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId || currentChainId;
 
-  const { provider } = useProvider({ chainId: input?.chainId });
-  const { signer } = useSigner({ chainId: input?.chainId });
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
   const signerOrProvider = input?.passSigner ? signer : provider;
 
   return useMemo(
