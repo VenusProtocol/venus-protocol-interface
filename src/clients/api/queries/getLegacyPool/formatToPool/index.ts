@@ -25,7 +25,7 @@ export interface FormatToPoolInput {
   blocksPerDay: number;
   name: string;
   xvs: Token;
-  vai: Token;
+  vai?: Token;
   tokens: Token[];
   description: string;
   comptrollerContractAddress: string;
