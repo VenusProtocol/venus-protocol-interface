@@ -1,4 +1,5 @@
 import crvLogo from 'packages/tokens/img/crv.svg';
+import crvUsdLogo from 'packages/tokens/img/crvUsd.svg';
 import usdcLogo from 'packages/tokens/img/usdc.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
 import wbtcLogo from 'packages/tokens/img/wbtc.svg';
@@ -41,7 +42,7 @@ export const tokens: Token[] = [
     address: '0x36421d873abCa3E2bE6BB3c819C0CF26374F63b6',
     decimals: 18,
     symbol: 'crvUSD',
-    asset: crvLogo, // TODO: add correct icon
+    asset: crvUsdLogo,
   },
   {
     address: '0xdb633c11d3f9e6b8d17ac2c972c9e3b05da59bf9',
