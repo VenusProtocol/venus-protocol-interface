@@ -1,9 +1,9 @@
-import { VenusLens } from 'packages/contracts';
+import { PoolLens } from 'packages/contracts';
 
 export interface GetVTokenBalancesAllInput {
   account: string;
   vTokenAddresses: string[];
-  venusLensContract: VenusLens;
+  poolLensContract: PoolLens;
 }
 
 interface Balance {
@@ -20,11 +20,11 @@ export type GetVTokenBalancesAllOutput = {
 };
 
 const getVTokenBalancesAll = async ({
-  venusLensContract,
+  poolLensContract,
   vTokenAddresses,
   account,
 }: GetVTokenBalancesAllInput): Promise<GetVTokenBalancesAllOutput> => {
-  const results = await venusLensContract.callStatic.vTokenBalancesAll(
+  const results = await poolLensContract.callStatic.vTokenBalancesAll(
     vTokenAddresses,
     account?.toLowerCase(),
   );

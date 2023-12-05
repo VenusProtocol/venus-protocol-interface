@@ -5,12 +5,12 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import FunctionKey from 'constants/functionKey';
-import { useGetVenusLensContract } from 'packages/contracts';
+import { useGetPoolLensContract } from 'packages/contracts';
 import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetVTokenBalancesAllInput = Omit<GetVTokenBalancesAllInput, 'venusLensContract'>;
+type TrimmedGetVTokenBalancesAllInput = Omit<GetVTokenBalancesAllInput, 'poolLensContract'>;
 
 export type UseGetVTokenBalancesAllQueryKey = [
   FunctionKey.GET_V_TOKEN_BALANCES_ALL,
@@ -29,12 +29,12 @@ type Options = QueryObserverOptions<
 
 const useGetVTokenBalancesAll = (input: TrimmedGetVTokenBalancesAllInput, options?: Options) => {
   const { chainId } = useChainId();
-  const venusLensContract = useGetVenusLensContract();
+  const poolLensContract = useGetPoolLensContract();
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { ...input, chainId }],
     () =>
-      callOrThrow({ venusLensContract }, params => getVTokenBalancesAll({ ...params, ...input })),
+      callOrThrow({ poolLensContract }, params => getVTokenBalancesAll({ ...params, ...input })),
     options,
   );
 };
