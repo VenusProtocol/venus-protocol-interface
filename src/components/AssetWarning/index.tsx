@@ -10,14 +10,14 @@ import AssetTable from './AssetTable';
 import { useStyles } from './styles';
 import { WarningType } from './types';
 
-export interface IsolatedAssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
   type: WarningType;
   token: Token;
   pool?: Pool;
   className?: string;
 }
 
-export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
+export const AssetWarning: React.FC<AssetWarningProps> = ({
   pool,
   token,
   type,
@@ -49,12 +49,12 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
           <>
             <div css={styles.description}>
               {type === 'borrow'
-                ? t('isolatedAssetWarning.borrowDescription', translationArgs)
-                : t('isolatedAssetWarning.supplyDescription', translationArgs)}
+                ? t('assetWarningWarning.borrowDescription', translationArgs)
+                : t('assetWarningWarning.supplyDescription', translationArgs)}
             </div>
 
             <TextButton css={styles.inlineButton} onClick={handleShowAssets}>
-              {t('isolatedAssetWarning.showMarketsButtonLabel', {
+              {t('assetWarningWarning.showMarketsButtonLabel', {
                 poolName: pool.name,
               })}
             </TextButton>
@@ -69,4 +69,4 @@ export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
   );
 };
 
-export default IsolatedAssetWarning;
+export default AssetWarning;

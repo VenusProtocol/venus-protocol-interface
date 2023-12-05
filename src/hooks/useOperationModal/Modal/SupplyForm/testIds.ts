@@ -3,7 +3,7 @@ const TEST_IDS = {
   tokenTextField: 'supply-modal-token-text-field',
   submitButton: 'submit-button',
   noticeError: 'notice-error',
-  noticeIsolatedAsset: 'notice-isolated-asset',
+  noticeAssetWarning: 'notice-isolated-asset',
   swapDetails: 'swap-details',
   spendingLimit: 'spending-limit',
 };

@@ -65,13 +65,11 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
     <>
       <CellGroup cells={cells} css={styles.header} />
 
-      {pool.isIsolated && (
-        <Notice
-          css={styles.isolatedPoolWarning}
-          variant="warning"
-          description={t('pool.isolatedPoolWarning')}
-        />
-      )}
+      <Notice
+        css={styles.poolWarning}
+        variant="warning"
+        description={t('pool.poolWarning', { poolName: pool.name })}
+      />
 
       <Table pool={pool} />
     </>

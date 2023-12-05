@@ -58,9 +58,9 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.noticeIsolatedAsset));
-    expect(getByTestId(TEST_IDS.noticeIsolatedAsset).textContent).toMatchInlineSnapshot(
-      '"This is an isolated token. Supplying XVS to the Venus pool will enable you to borrow tokens from this pool exclusively.Show tokens from the Venus pool"',
+    await waitFor(() => getByTestId(TEST_IDS.noticeAssetWarning));
+    expect(getByTestId(TEST_IDS.noticeAssetWarning).textContent).toMatchInlineSnapshot(
+      '"Supplying XVS to the Venus pool will enable you to borrow tokens from this pool exclusively.Show tokens from the Venus pool"',
     );
   });
 

@@ -23,7 +23,7 @@ export const useStyles = () => {
         display: block;
       }
     `,
-    isolatedPoolWarning: css`
+    poolWarning: css`
       margin-bottom: ${theme.spacing(8)};
 
       ${theme.breakpoints.down('xxl')} {

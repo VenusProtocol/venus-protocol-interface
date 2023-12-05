@@ -5,15 +5,15 @@ import { renderComponent } from 'testUtils/render';
 
 import { en } from 'packages/translations';
 
-import IsolatedAssetWarning from '.';
+import AssetWarning from '.';
 import TEST_IDS from './AssetTable/testIds';
 
 const fakePool = poolData[0];
 
-describe('components/IsolatedAssetWarning', () => {
+describe('components/AssetWarning', () => {
   it('renders without crashing', () => {
     renderComponent(
-      <IsolatedAssetWarning
+      <AssetWarning
         token={fakePool.assets[0].vToken.underlyingToken}
         pool={fakePool}
         type="supply"
@@ -23,7 +23,7 @@ describe('components/IsolatedAssetWarning', () => {
 
   it('displays list of assets correctly', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <IsolatedAssetWarning
+      <AssetWarning
         token={fakePool.assets[0].vToken.underlyingToken}
         pool={fakePool}
         type="borrow"
@@ -31,7 +31,7 @@ describe('components/IsolatedAssetWarning', () => {
     );
 
     const showAssetsButton = getByText(
-      en.isolatedAssetWarning.showMarketsButtonLabel.replace('{{poolName}}', fakePool.name),
+      en.assetWarningWarning.showMarketsButtonLabel.replace('{{poolName}}', fakePool.name),
     );
     fireEvent.click(showAssetsButton);
 
