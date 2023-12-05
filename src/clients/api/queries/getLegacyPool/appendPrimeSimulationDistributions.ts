@@ -19,6 +19,20 @@ export interface ResolvePrimeSimulationDistributionsInput {
   accountAddress?: string;
 }
 
+const supplyAveragesForToken: Record<string, BigNumber> = {
+  BTCB: new BigNumber('0.71'),
+  ETH: new BigNumber('9.86'),
+  USDT: new BigNumber('5003.94'),
+  USDC: new BigNumber('13068.75'),
+} as const;
+
+const borrowAveragesForToken: Record<string, BigNumber> = {
+  BTCB: new BigNumber('0.04'),
+  ETH: new BigNumber('0.49'),
+  USDT: new BigNumber('10009.21'),
+  USDC: new BigNumber('2405.43'),
+} as const;
+
 export const appendPrimeSimulationDistributions = async ({
   primeContract,
   primeVTokenAddresses,
@@ -43,13 +57,18 @@ export const appendPrimeSimulationDistributions = async ({
       }
 
       const promise = async () => {
-        const averageBorrowBalanceTokens = asset.borrowBalanceTokens.dividedBy(asset.borrowerCount);
+        const { symbol } = asset.vToken.underlyingToken;
+        const averageBorrowBalanceTokens =
+          borrowAveragesForToken[symbol] ||
+          asset.borrowBalanceTokens.dividedBy(asset.borrowerCount);
         const averageBorrowBalanceMantissa = convertTokensToMantissa({
           value: averageBorrowBalanceTokens,
           token: asset.vToken.underlyingToken,
         });
 
-        const averageSupplyBalanceTokens = asset.supplyBalanceTokens.dividedBy(asset.supplierCount);
+        const averageSupplyBalanceTokens =
+          supplyAveragesForToken[symbol] ||
+          asset.supplyBalanceTokens.dividedBy(asset.supplierCount);
         const averageSupplyBalanceMantissa = convertTokensToMantissa({
           value: averageSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,
