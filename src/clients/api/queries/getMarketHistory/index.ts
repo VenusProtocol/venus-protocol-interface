@@ -47,7 +47,7 @@ const getMarketHistory = async ({
     });
   }
 
-  let sampleSize = response.data?.result.data.length || 0;
+  let sampleSize = response.data?.result?.data.length || 0;
 
   switch (type) {
     case '1 year':
@@ -64,7 +64,7 @@ const getMarketHistory = async ({
       break;
   }
 
-  const marketSnapshots = response.data?.result.data.slice(-sampleSize) || [];
+  const marketSnapshots = response.data?.result?.data.slice(-sampleSize) || [];
 
   return {
     marketSnapshots,

@@ -27,7 +27,7 @@ const claimRewards = async ({
       return acc;
     }
 
-    if (claim.contract === 'legacyPoolComptroller') {
+    if (claim.contract === 'legacyPoolComptroller' && !!legacyPoolComptrollerContractAddress) {
       const executingInterface = new ethers.utils.Interface(
         JSON.stringify(legacyPoolComptrollerContractAbi),
       );
@@ -44,7 +44,7 @@ const claimRewards = async ({
       ];
     }
 
-    if (claim.contract === 'vaiVault') {
+    if (claim.contract === 'vaiVault' && !!vaiVaultContractAddress) {
       const executingInterface = new ethers.utils.Interface(JSON.stringify(vaiVaultContractAbi));
 
       return [

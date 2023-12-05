@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { useParams } from 'react-router-dom';
 
-import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import Market from '..';
 import MarketLoader from '../MarketLoader';
 
 const CorePoolMarket: React.FC = () => {
   const { vTokenAddress } = useParams();
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   return (
     <MarketLoader
-      poolComptrollerAddress={legacyPoolComptrollerContractAddress}
+      poolComptrollerAddress={corePoolComptrollerContractAddress}
       vTokenAddress={vTokenAddress}
     >
       {marketProps => <Market {...marketProps} />}

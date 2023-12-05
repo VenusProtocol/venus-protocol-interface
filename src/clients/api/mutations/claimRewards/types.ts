@@ -39,11 +39,11 @@ export type Claim =
 
 export interface ClaimRewardsInput {
   multicallContract: Multicall3;
-  legacyPoolComptrollerContractAddress: string;
-  vaiVaultContractAddress: string;
   xvsVaultContractAddress: string;
   accountAddress: string;
   claims: Claim[];
+  vaiVaultContractAddress?: string;
+  legacyPoolComptrollerContractAddress?: string;
   primeContractAddress?: string;
 }
 
