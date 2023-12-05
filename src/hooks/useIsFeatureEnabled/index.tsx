@@ -16,6 +16,8 @@ const featureFlags = {
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   lunaUstWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  marketHistory: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  marketParticipantCount: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

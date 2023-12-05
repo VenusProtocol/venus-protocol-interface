@@ -10,6 +10,7 @@ import { InterestRateChart, InterestRateChartProps } from 'components/charts/Int
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 import { useTranslation } from 'packages/translations';
@@ -56,6 +57,10 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const isParticipantCountFeatureEnabled = useIsFeatureEnabled({
+    name: 'marketParticipantCount',
+  });
 
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
@@ -218,6 +223,19 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       }),
     );
 
+    const participantCountRows = isParticipantCountFeatureEnabled
+      ? [
+          {
+            label: t('market.marketInfo.stats.supplierCountLabel'),
+            value: asset.supplierCount ?? '-',
+          },
+          {
+            label: t('market.marketInfo.stats.borrowerCountLabel'),
+            value: asset.borrowerCount ?? '-',
+          },
+        ]
+      : [];
+
     return [
       {
         label: t('market.marketInfo.stats.priceLabel'),
@@ -234,14 +252,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           value: asset.liquidityCents,
         }),
       },
-      {
-        label: t('market.marketInfo.stats.supplierCountLabel'),
-        value: asset.supplierCount ?? '-',
-      },
-      {
-        label: t('market.marketInfo.stats.borrowerCountLabel'),
-        value: asset.borrowerCount ?? '-',
-      },
+      ...participantCountRows,
       {
         label: t('market.marketInfo.stats.supplyCapLabel'),
         value: !asset.supplyCapTokens
@@ -311,7 +322,13 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           : PLACEHOLDER_KEY,
       },
     ];
-  }, [asset, t, dailySupplyInterestsCents, dailyBorrowInterestsCents]);
+  }, [
+    asset,
+    t,
+    dailySupplyInterestsCents,
+    dailyBorrowInterestsCents,
+    isParticipantCountFeatureEnabled,
+  ]);
 
   const buttonsDom = (
     <>
