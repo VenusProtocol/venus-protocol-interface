@@ -24,14 +24,21 @@ const supplyAveragesForToken: Record<string, BigNumber> = {
   ETH: new BigNumber('9.86'),
   USDT: new BigNumber('5003.94'),
   USDC: new BigNumber('13068.75'),
-} as const;
+};
 
 const borrowAveragesForToken: Record<string, BigNumber> = {
   BTCB: new BigNumber('0.04'),
   ETH: new BigNumber('0.49'),
   USDT: new BigNumber('10009.21'),
   USDC: new BigNumber('2405.43'),
-} as const;
+};
+
+const xvsStakedAveragesForToken: Record<string, BigNumber> = {
+  BTCB: new BigNumber('4124.59'),
+  ETH: new BigNumber('4788.05'),
+  USDT: new BigNumber('3731.33'),
+  USDC: new BigNumber('3265.30'),
+};
 
 export const appendPrimeSimulationDistributions = async ({
   primeContract,
@@ -74,18 +81,25 @@ export const appendPrimeSimulationDistributions = async ({
           token: asset.vToken.underlyingToken,
         });
 
+        const averageXvsStakedTokens =
+          xvsStakedAveragesForToken[symbol] || primeMinimumXvsToStakeTokens;
+        const averageXvsStakedMantissa = convertTokensToMantissa({
+          value: averageXvsStakedTokens,
+          token: xvs,
+        });
+
         const simulatedPrimeAprs = await primeContract.estimateAPR(
           primeVTokenAddress,
           accountAddress || NULL_ADDRESS,
           averageBorrowBalanceMantissa.toFixed(),
           averageSupplyBalanceMantissa.toFixed(),
-          primeMinimumXvsToStakeMantissa.toFixed(),
+          averageXvsStakedMantissa.toFixed(),
         );
 
         const referenceValues = {
           userSupplyBalanceTokens: averageSupplyBalanceTokens,
           userBorrowBalanceTokens: averageBorrowBalanceTokens,
-          userXvsStakedTokens: primeMinimumXvsToStakeTokens,
+          userXvsStakedTokens: averageXvsStakedTokens,
         };
 
         const borrowSimulatedPrimeApy = convertAprToApy({

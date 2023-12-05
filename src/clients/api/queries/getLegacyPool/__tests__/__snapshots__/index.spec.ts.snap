@@ -26,7 +26,7 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
             "referenceValues": {
               "userBorrowBalanceTokens": "2405.43",
               "userSupplyBalanceTokens": "13068.75",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -68,7 +68,7 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
             "referenceValues": {
               "userBorrowBalanceTokens": "2405.43",
               "userSupplyBalanceTokens": "13068.75",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -122,7 +122,7 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
             "referenceValues": {
               "userBorrowBalanceTokens": "10009.21",
               "userSupplyBalanceTokens": "5003.94",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -164,7 +164,7 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
             "referenceValues": {
               "userBorrowBalanceTokens": "10009.21",
               "userSupplyBalanceTokens": "5003.94",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -671,7 +671,7 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
             "referenceValues": {
               "userBorrowBalanceTokens": "2405.43",
               "userSupplyBalanceTokens": "13068.75",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -723,7 +723,7 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
             "referenceValues": {
               "userBorrowBalanceTokens": "2405.43",
               "userSupplyBalanceTokens": "13068.75",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -787,7 +787,7 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
             "referenceValues": {
               "userBorrowBalanceTokens": "10009.21",
               "userSupplyBalanceTokens": "5003.94",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -839,7 +839,7 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
             "referenceValues": {
               "userBorrowBalanceTokens": "10009.21",
               "userSupplyBalanceTokens": "5003.94",
-              "userXvsStakedTokens": "1000",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
