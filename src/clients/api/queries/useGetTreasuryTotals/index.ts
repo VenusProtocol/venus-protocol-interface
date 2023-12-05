@@ -6,17 +6,10 @@ import {
   useGetIsolatedPools,
   useGetVTokenBalancesAll,
 } from 'clients/api';
+import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'packages/contracts';
 import { useAccountAddress, useChainId } from 'packages/wallet';
+import { ChainId } from 'types';
 import { convertMantissaToTokens, indexBy } from 'utilities';
-
-// Note: this is a temporary fix. Once we start refactoring this part we should
-// probably fetch the treasury address using the Comptroller contract
-const TREASURY_ADDRESSES = new Map([
-  [56, '0xF322942f644A996A617BD29c16bd7d231d9F35E9'],
-  // When querying comptroller.treasuryAddress() we get an empty address back,
-  // so for now I've let it as it is
-  [97, '0x0000000000000000000000000000000000000000'],
-]);
 
 export interface Data {
   treasurySupplyBalanceCents: BigNumber;
@@ -33,7 +26,15 @@ export interface UseGetTreasuryTotalsOutput {
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
-  const treasuryAddress = TREASURY_ADDRESSES.get(chainId);
+  const treasuryAddress = useMemo(() => {
+    switch (chainId) {
+      case ChainId.BSC_MAINNET:
+      case ChainId.BSC_TESTNET:
+        return getVTreasuryContractAddress({ chainId });
+      default:
+        return getVTreasuryV8ContractAddress({ chainId });
+    }
+  }, [chainId]);
 
   const { data: getPoolsData, isLoading: isGetPoolsDataLoading } = useGetIsolatedPools({
     accountAddress,

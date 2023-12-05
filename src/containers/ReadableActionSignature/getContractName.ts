@@ -34,7 +34,7 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
   // Search within contracts
   const matchingUniqueContractInfo = Object.entries(addresses).find(
     ([_uniqueContractName, address]) => {
-      let contractAddress;
+      let contractAddress: string | Record<number, string> = '';
 
       if (Object.prototype.hasOwnProperty.call(address, chainId)) {
         contractAddress = address[chainId as keyof typeof address];
