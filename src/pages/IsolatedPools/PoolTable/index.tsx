@@ -5,10 +5,11 @@ import { useMemo } from 'react';
 import { useGetIsolatedPools } from 'clients/api';
 import { Table, TableColumn, TokenGroup } from 'components';
 import { routes } from 'constants/routing';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress } from 'packages/wallet';
 import { Pool } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
+import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 
 import { useStyles } from './styles';
 
@@ -128,9 +129,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       }}
       rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
       getRowHref={row =>
-        row.pool.isIsolated
-          ? routes.isolatedPool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
-          : routes.corePool.path
+        routes.isolatedPool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
       }
       breakpoint="xxl"
       css={styles.cardContentGrid}
@@ -142,8 +141,18 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 const PoolTable = () => {
   const { accountAddress } = useAccountAddress();
   const { data: poolData, isLoading } = useGetIsolatedPools({ accountAddress });
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
-  return <PoolTableUi pools={poolData?.pools || []} isFetchingPools={isLoading} />;
+  // Filter out core pool (on some chains the core pool is one of the isolated pools)
+  const pools = useMemo(
+    () =>
+      (poolData?.pools || []).filter(
+        pool => !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
+      ),
+    [poolData?.pools, corePoolComptrollerContractAddress],
+  );
+
+  return <PoolTableUi pools={pools} isFetchingPools={isLoading} />;
 };
 
 export default PoolTable;
