@@ -34,7 +34,7 @@ describe('PoolTable', () => {
       },
     }));
 
-    const { queryByText, debug } = renderComponent(<PoolTable />);
+    const { queryByText } = renderComponent(<PoolTable />);
 
     expect(queryByText(poolData[0].name)).toBeNull();
   });

@@ -1,14 +1,11 @@
-/** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetVTokenApySimulations } from 'clients/api';
-import { Button, SecondaryButton, Spinner } from 'components';
-import { ApyChart, ApyChartProps } from 'components/charts/ApyChart';
+import { Button, Card, SecondaryButton, Spinner } from 'components';
 import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
@@ -19,19 +16,14 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
-  getCombinedDistributionApys,
 } from 'utilities';
 
-import Card, { CardProps } from './Card';
+import { MarketCard, MarketCardProps } from './MarketCard';
+import { MarketHistory } from './MarketHistory';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
-import useGetChartData from './useGetChartData';
 
 export interface MarketUiProps {
-  isChartDataLoading: boolean;
-  supplyChartData: ApyChartProps['data'];
-  borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
   isInterestRateChartDataLoading: boolean;
   poolComptrollerAddress: string;
@@ -44,10 +36,7 @@ export interface MarketUiProps {
 
 export const MarketUi: React.FC<MarketUiProps> = ({
   asset,
-  isChartDataLoading,
   poolComptrollerAddress,
-  supplyChartData,
-  borrowChartData,
   isInterestRateChartDataLoading,
   interestRateChartData,
   currentUtilizationRatePercentage,
@@ -56,14 +45,13 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   blocksPerDay,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
-  const isParticipantCountFeatureEnabled = useIsFeatureEnabled({
-    name: 'marketParticipantCount',
+  const isMarketParticipantCountFeatureEnabled = useIsFeatureEnabled({
+    name: 'marketParticipantCounts',
   });
-
-  const hideXlDownCss = useHideXlDownCss();
-  const showXlDownCss = useShowXlDownCss();
+  const isMarketHistoryFeatureEnabled = useIsFeatureEnabled({
+    name: 'marketHistory',
+  });
 
   const { openOperationModal, OperationModal } = useOperationModal();
 
@@ -84,79 +72,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
   const isSupplyOrBorrowEnabled = isSupplyActionEnabled || isBorrowActionEnabled;
 
-  const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
-
-  const supplyInfoStats: CardProps['stats'] = useMemo(() => {
-    if (!asset) {
-      return [];
-    }
-
-    const stats: CardProps['stats'] = [
-      {
-        label: t('market.supplyInfo.stats.totalSupply'),
-        value: formatCentsToReadableValue({
-          value: asset.supplyBalanceCents,
-        }),
-      },
-      {
-        label: t('market.supplyInfo.stats.apy'),
-        value: formatPercentageToReadableValue(asset.supplyApyPercentage),
-      },
-    ];
-
-    if (distributionApys) {
-      stats.push({
-        label: t('market.supplyInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(distributionApys.supplyApyRewardsPercentage),
-      });
-    }
-
-    return stats;
-  }, [asset, distributionApys, t]);
-
-  const supplyInfoLegends: CardProps['legends'] = [
-    {
-      label: t('market.legends.supplyApy'),
-      color: 'green',
-    },
-  ];
-
-  const borrowInfoStats: CardProps['stats'] = useMemo(() => {
-    if (!asset) {
-      return [];
-    }
-
-    const stats: CardProps['stats'] = [
-      {
-        label: t('market.borrowInfo.stats.totalBorrow'),
-        value: formatCentsToReadableValue({
-          value: asset.borrowBalanceCents,
-        }),
-      },
-      {
-        label: t('market.borrowInfo.stats.apy'),
-        value: formatPercentageToReadableValue(asset.borrowApyPercentage),
-      },
-    ];
-
-    if (distributionApys) {
-      stats.push({
-        label: t('market.supplyInfo.stats.distributionApy'),
-        value: formatPercentageToReadableValue(distributionApys.borrowApyRewardsPercentage),
-      });
-    }
-
-    return stats;
-  }, [asset, t, distributionApys]);
-
-  const borrowInfoLegends: CardProps['legends'] = [
-    {
-      label: t('market.legends.borrowApy'),
-      color: 'red',
-    },
-  ];
-
-  const interestRateModelLegends: CardProps['legends'] = [
+  const interestRateModelLegends: MarketCardProps['legends'] = [
     {
       label: t('market.legends.utilizationRate'),
       color: 'blue',
@@ -223,7 +139,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       }),
     );
 
-    const participantCountRows = isParticipantCountFeatureEnabled
+    const participantCountRows = isMarketParticipantCountFeatureEnabled
       ? [
           {
             label: t('market.marketInfo.stats.supplierCountLabel'),
@@ -327,14 +243,14 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     t,
     dailySupplyInterestsCents,
     dailyBorrowInterestsCents,
-    isParticipantCountFeatureEnabled,
+    isMarketParticipantCountFeatureEnabled,
   ]);
 
   const buttonsDom = (
-    <>
+    <div className="flex items-center space-x-4">
       {isSupplyActionEnabled && (
         <Button
-          className="mx-3 w-full first:ml-0 last:mr-0"
+          className="w-full"
           onClick={() =>
             openOperationModal({
               vToken: asset.vToken,
@@ -348,7 +264,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
       )}
       {isBorrowActionEnabled && (
         <SecondaryButton
-          className="mx-3 w-full first:ml-0 last:mr-0"
+          className="w-full"
           onClick={() =>
             openOperationModal({
               vToken: asset.vToken,
@@ -360,69 +276,36 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           {t('market.borrowButtonLabel')}
         </SecondaryButton>
       )}
-    </>
+    </div>
   );
 
   return (
     <>
-      <div css={styles.container}>
-        {isSupplyOrBorrowEnabled && (
-          <Paper css={[styles.statsColumnButtonContainer, showXlDownCss]}>{buttonsDom}</Paper>
-        )}
+      <div className="space-y-6 xl:grid xl:grid-cols-3 xl:gap-8 xl:space-y-0">
+        {isSupplyOrBorrowEnabled && <Card className="xl:hidden">{buttonsDom}</Card>}
 
-        <div css={[styles.column, styles.graphsColumn]}>
-          <Card
-            testId={TEST_IDS.supplyInfo}
-            title={t('market.supplyInfo.title')}
-            css={styles.graphCard}
-            stats={supplyInfoStats}
-            legends={supplyInfoLegends}
-          >
-            {isChartDataLoading && supplyChartData.length === 0 && <Spinner />}
-            {supplyChartData.length > 0 && (
-              <div css={styles.apyChart}>
-                <ApyChart data={supplyChartData} type="supply" />
-              </div>
-            )}
-          </Card>
+        <div className="space-y-6 xl:col-span-2 xl:mt-0">
+          {isMarketHistoryFeatureEnabled && <MarketHistory asset={asset} />}
 
-          <Card
-            testId={TEST_IDS.borrowInfo}
-            title={t('market.borrowInfo.title')}
-            css={styles.graphCard}
-            stats={borrowInfoStats}
-            legends={borrowInfoLegends}
-          >
-            {isChartDataLoading && borrowChartData.length === 0 && <Spinner />}
-            {borrowChartData.length > 0 && (
-              <div css={styles.apyChart}>
-                <ApyChart data={borrowChartData} type="borrow" />
-              </div>
-            )}
-          </Card>
-
-          <Card
+          <MarketCard
             testId={TEST_IDS.interestRateModel}
             title={t('market.interestRateModel.title')}
-            css={styles.graphCard}
             legends={interestRateModelLegends}
           >
             {isInterestRateChartDataLoading && interestRateChartData.length === 0 && <Spinner />}
             {interestRateChartData.length > 0 && (
-              <div css={styles.apyChart}>
+              <div className="-mr-[10px]">
                 <InterestRateChart
                   data={interestRateChartData}
                   currentUtilizationRatePercentage={currentUtilizationRatePercentage}
                 />
               </div>
             )}
-          </Card>
+          </MarketCard>
         </div>
 
-        <div css={[styles.column, styles.statsColumn]}>
-          {isSupplyOrBorrowEnabled && (
-            <Paper css={[styles.statsColumnButtonContainer, hideXlDownCss]}>{buttonsDom}</Paper>
-          )}
+        <div className="xl:col-span-1 xl:space-y-6">
+          {isSupplyOrBorrowEnabled && <Paper className="hidden xl:block">{buttonsDom}</Paper>}
 
           <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
         </div>
@@ -445,10 +328,6 @@ const Market: React.FC<MarketProps> = ({
   isIsolatedPoolMarket = false,
 }) => {
   const { blocksPerDay } = useGetChainMetadata();
-
-  const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
-    vToken: asset.vToken,
-  });
 
   const {
     isLoading: isInterestRateChartDataLoading,
@@ -477,8 +356,6 @@ const Market: React.FC<MarketProps> = ({
       asset={asset}
       blocksPerDay={blocksPerDay}
       poolComptrollerAddress={poolComptrollerAddress}
-      isChartDataLoading={isChartDataLoading}
-      {...chartData}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
       currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}

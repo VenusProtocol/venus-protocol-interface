@@ -1,4 +1,4 @@
-import { Card as CardComp } from 'components';
+import { Card } from 'components';
 import { cn } from 'utilities';
 
 import { Stat } from '../types';
@@ -8,7 +8,7 @@ export interface Legend {
   color: 'blue' | 'red' | 'green';
 }
 
-export interface CardProps {
+export interface MarketCardProps {
   title: string;
   legends?: Legend[];
   stats?: Stat[];
@@ -17,7 +17,7 @@ export interface CardProps {
   testId?: string;
 }
 
-const Card: React.FC<CardProps> = ({
+export const MarketCard: React.FC<MarketCardProps> = ({
   children,
   title,
   legends = [],
@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({
   className,
   testId,
 }) => (
-  <CardComp className={cn('space-y-6', className)} data-testid={testId}>
+  <Card className={cn('space-y-6', className)} data-testid={testId}>
     <div className="md:flex md:items-center md:justify-between">
       <h4 className="mb-3 mr-4 text-lg md:mb-0">{title}</h4>
 
@@ -64,7 +64,5 @@ const Card: React.FC<CardProps> = ({
     )}
 
     {children}
-  </CardComp>
+  </Card>
 );
-
-export default Card;
