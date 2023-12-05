@@ -1,3 +1,16 @@
+## [2.56.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.55.1...v2.56.0) (2023-12-05)
+
+
+### Features
+
+* get treasury address based on chainId ([3994917](https://github.com/VenusProtocol/venus-protocol-interface/commit/3994917c22cce4461053a39f79b965af72ba715b))
+* replace venusLens with poolLens ([9911e0f](https://github.com/VenusProtocol/venus-protocol-interface/commit/9911e0f61d8a8862b0093af933ee16cb66bc70c0))
+
+
+### Bug Fixes
+
+* explicit type for contractAddress ([b5b668a](https://github.com/VenusProtocol/venus-protocol-interface/commit/b5b668acb634aef49bbce1e3740c9d597efca65c))
+
 ## [2.55.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.55.0...v2.55.1) (2023-12-05)
 
 ## [2.55.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.54.0...v2.55.0) (2023-12-04)
