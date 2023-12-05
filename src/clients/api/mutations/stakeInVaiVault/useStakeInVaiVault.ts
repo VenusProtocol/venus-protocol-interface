@@ -4,12 +4,14 @@ import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTran
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = UseSendTransactionOptions<TrimmedStakeInVaiVaultInput>;
 
 const useStakeInVaiVault = (options?: Options) => {
+  const { chainId } = useChainId();
   const vaiVaultContract = useGetVaiVaultContract({
     passSigner: true,
   });
@@ -48,6 +50,7 @@ const useStakeInVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
+            chainId,
             accountAddress,
             tokenAddress: vai.address,
           },
@@ -56,6 +59,7 @@ const useStakeInVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
+            chainId,
             tokenAddress: vai.address,
             accountAddress,
           },
@@ -65,6 +69,7 @@ const useStakeInVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
+            chainId,
             accountAddress: vaiVaultContract?.address,
             tokenAddress: vai.address,
           },
@@ -72,11 +77,15 @@ const useStakeInVaiVault = (options?: Options) => {
       }
 
       // Invalidate cached user info, including pending reward
-      queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_VAI_VAULT_USER_INFO,
+        { chainId, accountAddress },
+      ]);
 
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
+          chainId,
           accountAddress,
         },
       ]);

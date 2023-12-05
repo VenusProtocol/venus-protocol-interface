@@ -4,6 +4,7 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetSwapRouterContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -21,6 +22,7 @@ const useSwapTokensAndSupply = (
   }: { vToken: VToken; poolComptrollerAddress: string; poolName: string },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const swapRouterContract = useGetSwapRouterContract({
     comptrollerContractAddress: poolComptrollerAddress,
     passSigner: true,
@@ -67,6 +69,7 @@ const useSwapTokensAndSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress,
           tokenAddress: input.swap.fromToken.address,
         },
@@ -75,6 +78,7 @@ const useSwapTokensAndSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
+          chainId,
           tokenAddress: input.swap.fromToken.address,
           accountAddress,
           spenderAddress: swapRouterContract?.address,
@@ -84,6 +88,7 @@ const useSwapTokensAndSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress,
           tokenAddress: input.swap.toToken.address,
         },
@@ -92,6 +97,7 @@ const useSwapTokensAndSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
+          chainId,
           accountAddress,
         },
       ]);

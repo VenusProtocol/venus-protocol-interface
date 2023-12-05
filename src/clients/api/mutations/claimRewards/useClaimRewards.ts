@@ -9,6 +9,7 @@ import {
   useGetVaiVaultContractAddress,
   useGetXvsVaultContractAddress,
 } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedClaimRewardsInput = Omit<
@@ -22,6 +23,7 @@ type TrimmedClaimRewardsInput = Omit<
 type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
 
 const useClaimRewards = (options?: Options) => {
+  const { chainId } = useChainId();
   const multicallContract = useGetMulticall3Contract({
     passSigner: true,
   });
@@ -72,7 +74,10 @@ const useClaimRewards = (options?: Options) => {
         }
       });
 
-      queryClient.invalidateQueries([FunctionKey.GET_PENDING_REWARDS, input.accountAddress]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PENDING_REWARDS,
+        { accountAddress: input.accountAddress, chainId },
+      ]);
     },
     options,
   });

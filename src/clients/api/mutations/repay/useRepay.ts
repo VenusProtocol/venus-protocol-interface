@@ -3,7 +3,7 @@ import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetMaximillionContract } from 'packages/contracts';
-import { useAccountAddress, useSigner } from 'packages/wallet';
+import { useAccountAddress, useChainId, useSigner } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -14,6 +14,7 @@ const useRepay = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
@@ -51,6 +52,7 @@ const useRepay = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
+          chainId,
           tokenAddress: vToken.underlyingToken.address,
           accountAddress,
         },

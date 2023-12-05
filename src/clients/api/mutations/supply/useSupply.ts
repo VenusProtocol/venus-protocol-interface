@@ -3,7 +3,7 @@ import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
-import { useAccountAddress, useSigner } from 'packages/wallet';
+import { useAccountAddress, useChainId, useSigner } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -14,6 +14,7 @@ const useSupply = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
@@ -41,6 +42,7 @@ const useSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
+          chainId,
           tokenAddress: vToken.underlyingToken.address,
           accountAddress,
         },
@@ -49,6 +51,7 @@ const useSupply = (
       queryClient.invalidateQueries([
         FunctionKey.GET_V_TOKEN_BALANCE,
         {
+          chainId,
           accountAddress,
           vTokenAddress: vToken.address,
         },

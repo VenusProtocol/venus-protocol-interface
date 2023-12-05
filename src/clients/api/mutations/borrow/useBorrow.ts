@@ -3,6 +3,7 @@ import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetVTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -15,6 +16,7 @@ const useBorrow = (
 ) => {
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
   const { captureAnalyticEvent } = useAnalytics();
+  const { chainId } = useChainId();
 
   return useSendTransaction({
     fnKey: [FunctionKey.BORROW, { vToken }],
@@ -41,6 +43,7 @@ const useBorrow = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress,
           vTokenAddress: vToken.address,
         },

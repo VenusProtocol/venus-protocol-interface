@@ -3,12 +3,14 @@ import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetVaiControllerContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedRepayVaiInput = Omit<RepayVaiInput, 'vaiControllerContract'>;
 type Options = UseSendTransactionOptions<TrimmedRepayVaiInput>;
 
 const useRepayVai = (options?: Options) => {
+  const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract({
     passSigner: true,
   });
@@ -42,6 +44,7 @@ const useRepayVai = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
+            chainId,
             tokenAddress: vai,
             accountAddress,
             spenderAddress: vaiControllerContract?.address,

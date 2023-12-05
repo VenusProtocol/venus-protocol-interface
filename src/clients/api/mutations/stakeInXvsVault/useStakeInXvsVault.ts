@@ -3,6 +3,7 @@ import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { Token } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -13,6 +14,7 @@ const useStakeInXvsVault = (
   { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
@@ -44,13 +46,19 @@ const useStakeInXvsVault = (
       // Invalidate cached user info
       queryClient.invalidateQueries([
         FunctionKey.GET_XVS_VAULT_USER_INFO,
-        { accountAddress, rewardTokenAddress: rewardToken.address, poolIndex },
+        {
+          chainId,
+          accountAddress,
+          rewardTokenAddress: rewardToken.address,
+          poolIndex,
+        },
       ]);
 
       // Invalidate cached user balance
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress,
           tokenAddress: stakedToken.address,
         },
@@ -59,6 +67,7 @@ const useStakeInXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
+          chainId,
           tokenAddress: stakedToken.address,
           accountAddress,
         },
@@ -67,6 +76,7 @@ const useStakeInXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
+          chainId,
           accountAddress,
         },
       ]);
@@ -75,6 +85,7 @@ const useStakeInXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress: xvsVaultContract?.address,
           tokenAddress: stakedToken.address,
         },
@@ -82,13 +93,18 @@ const useStakeInXvsVault = (
 
       queryClient.invalidateQueries([
         FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-        { rewardTokenAddress: rewardToken.address, poolIndex },
+        {
+          chainId,
+          rewardTokenAddress: rewardToken.address,
+          poolIndex,
+        },
       ]);
 
       // Invalidate cached Prime data
       queryClient.invalidateQueries([
         FunctionKey.GET_PRIME_STATUS,
         {
+          chainId,
           accountAddress,
         },
       ]);
@@ -96,6 +112,7 @@ const useStakeInXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_PRIME_TOKEN,
         {
+          chainId,
           accountAddress,
         },
       ]);
