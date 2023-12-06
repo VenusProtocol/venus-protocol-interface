@@ -1,8 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: / 1`] = `"Dashboard"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path:  1`] = `"Dashboard"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /account 1`] = `"Account"`;
+
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /account/prime-simulator 1`] = `"Account/Prime simulator"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /convert-vrt 1`] = `"Convert VRT"`;
 
@@ -26,10 +28,14 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Isolated pools/Venus/XVS"`;
 
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /prime-simulator 1`] = `"Dashboard/Prime simulator"`;
+
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /swap 1`] = `"Swap"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /vai 1`] = `"VAI"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /vaults 1`] = `"Vaults"`;
+
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /vaults/prime-simulator 1`] = `"Vaults/Prime simulator"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /xvs 1`] = `"XVS"`;

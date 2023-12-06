@@ -1,5 +1,5 @@
 export enum Subdirectory {
-  DASHBOARD = '/',
+  DASHBOARD = '',
   ACCOUNT = '/account',
   XVS = '/xvs',
   CORE_POOL = '/core-pool',

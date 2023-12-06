@@ -8,7 +8,7 @@ import { renderComponent } from 'testUtils/render';
 import { useGetPool, useGetVTokens } from 'clients/api';
 import { routes } from 'constants/routing';
 
-import { Breadcrumbs } from '.';
+import { Breadcrumbs } from '..';
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
@@ -59,6 +59,9 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     [routes.vaults.path, routes.vaults.path],
     [routes.convertVrt.path, routes.convertVrt.path],
     [routes.swap.path, routes.swap.path],
+    [routes.accountPrimeSimulator.path, routes.accountPrimeSimulator.path],
+    [routes.dashboardPrimeSimulator.path, routes.dashboardPrimeSimulator.path],
+    [routes.vaultsPrimeSimulator.path, routes.vaultsPrimeSimulator.path],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {
     const { container } = renderComponent(<Breadcrumbs />, {
       routerInitialEntries: [pathname],
