@@ -26,7 +26,12 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   testId,
 }) => (
   <Card className={cn('space-y-6', className)} data-testid={testId}>
-    <div className="md:flex md:items-center md:justify-between">
+    <div
+      className={cn(
+        'md:flex md:items-center md:justify-between',
+        legends.length === 1 && 'flex items-center justify-between',
+      )}
+    >
       <h4 className="mb-3 mr-4 text-lg md:mb-0">{title}</h4>
 
       {legends.length > 0 && (
