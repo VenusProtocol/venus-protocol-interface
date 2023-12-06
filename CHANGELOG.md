@@ -1,3 +1,10 @@
+## [2.59.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.58.0...v2.59.0) (2023-12-06)
+
+
+### Features
+
+* add feature flag for VAI mint warning ([75d70ce](https://github.com/VenusProtocol/venus-protocol-interface/commit/75d70ce557b0dd69d624a6ac0d3afa99ac6f07f8))
+
 ## [2.58.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.57.0...v2.58.0) (2023-12-06)
 
 
