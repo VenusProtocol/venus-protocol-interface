@@ -14,7 +14,7 @@ import TEST_IDS from '../../testIds';
 describe('MintVai - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabled) => name === 'prime' || name === 'vaiMintPrimeOnlyWarning',
     );
   });
 

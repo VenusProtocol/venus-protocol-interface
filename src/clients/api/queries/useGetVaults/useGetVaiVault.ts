@@ -99,7 +99,6 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     isGetXvsPriceLoading ||
     isGetVaiVaultUserInfoLoading;
 
-
   return {
     data,
     isLoading,
