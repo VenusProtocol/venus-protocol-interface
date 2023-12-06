@@ -67,7 +67,11 @@ export const Form: React.FC = () => {
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',
   });
-  const shouldShowPrimeOnlyWarning = isPrimeEnabled && !isUserPrime;
+  const isVaiMintPrimeOnlyWarningEnabled = useIsFeatureEnabled({
+    name: 'vaiMintPrimeOnlyWarning',
+  });
+  const shouldShowPrimeOnlyWarning =
+    isVaiMintPrimeOnlyWarningEnabled && isPrimeEnabled && !isUserPrime;
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {

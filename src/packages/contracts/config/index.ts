@@ -147,8 +147,10 @@ export const contracts: ContractConfig[] = [
     name: 'GovernorBravoDelegate',
     abi: GovernorBravoDelegateAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegator_Proxy,
-      [ChainId.BSC_MAINNET]: venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegator_Proxy,
+      [ChainId.BSC_TESTNET]:
+        venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegator_Proxy,
+      [ChainId.BSC_MAINNET]:
+        venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegator_Proxy,
     },
   },
   {

@@ -248,4 +248,46 @@ describe('useIsFeatureEnabled', () => {
 
     expect(result.current).toBe(false);
   });
+
+  it('should return false for the VAI mint warning for Prime users on BSC_MAINNET', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_MAINNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'vaiMintPrimeOnlyWarning',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
+
+  it('should return true for the VAI mint warning for Prime users on BSC_TESTNET', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_TESTNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'vaiMintPrimeOnlyWarning',
+      }),
+    );
+
+    expect(result.current).toBe(true);
+  });
+
+  it('should return false for the VAI mint warning for Prime users on SEPOLIA', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.SEPOLIA,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'vaiMintPrimeOnlyWarning',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
 });
