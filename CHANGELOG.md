@@ -1,3 +1,10 @@
+## [2.58.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.57.0...v2.58.0) (2023-12-06)
+
+
+### Features
+
+* Sepolia network fixes and design tweaks ([#1897](https://github.com/VenusProtocol/venus-protocol-interface/issues/1897)) ([cd81ea1](https://github.com/VenusProtocol/venus-protocol-interface/commit/cd81ea166b38c5864a55690ea9a7960d160c2b76))
+
 ## [2.57.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.56.2...v2.57.0) (2023-12-06)
 
 
