@@ -7296,12 +7296,7 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.3.0.tgz#b5852e453b95429acbfba1135d5bbe92b93edf63"
   integrity sha512-AdAtAgPC9UjJJlY8/ydGnDHkE+99MCCIIb5cg9lFrmv9gL0icHWjKVNxdfskZxj9CJ1BknOgTULsbUmLj0+VzA==
 
-"@venusprotocol/governance-contracts@^1.4.0-dev.2":
-  version "1.4.0-dev.2"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.2.tgz#9470310af69df2f981b0e6498393fddfc235039c"
-  integrity sha512-ArBw+ahDnVNzv4b+1/cIY4bFBpHG6ucZmaQzy+bqAZRaN8avaI95hm0mPMg99p1yTGJyX6uei0KuQZI4GsSHOw==
-
-"@venusprotocol/governance-contracts@^1.4.0-dev.6":
+"@venusprotocol/governance-contracts@^1.4.0-dev.2", "@venusprotocol/governance-contracts@^1.4.0-dev.6":
   version "1.4.0-dev.6"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.6.tgz#465c1f8a991acc3f713a3aa59e60f62d8d54fa65"
   integrity sha512-V6G9E+ltsiYwyOhnIOD2QA5Kggk5drP2M49JN1XVEKCNw3JJBAMLnrwkTKqBRS3lfMO1pqmkMw+ZIBve2RYiog==
@@ -7325,9 +7320,9 @@
     module-alias "^2.2.2"
 
 "@venusprotocol/oracle@^1.8.0-dev.4":
-  version "1.8.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.8.0-dev.4.tgz#7a6307073266024abba69d93d121b217f58cad5b"
-  integrity sha512-nR0L3XeoNkUpfLqB8yUcz+lHgjdmYqUGqzjjmQOHczBEPNBs1Nyi6mqa0s3AyyCSx2EOH7Dg3vNqRG40X8T8Gg==
+  version "1.8.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.8.0-dev.6.tgz#bb73098905282285e0e5d1355fe131e78417f58d"
+  integrity sha512-okgf/0ElknLvX41Lpy7v0G7lLNqYx01w9a39vXY048w7/TLuULAxoTtMXwZbagrU/8F7U+p+7aOcH8DKgHNdsw==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "^2.3.4"
