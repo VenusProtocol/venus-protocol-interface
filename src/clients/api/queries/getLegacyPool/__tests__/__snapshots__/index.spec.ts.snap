@@ -24,9 +24,9 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
           {
             "apyPercentage": "0.20019958435848473",
             "referenceValues": {
-              "userBorrowBalanceTokens": "66012867068.78838627155172413793",
-              "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "2405.43",
+              "userSupplyBalanceTokens": "13068.75",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -66,9 +66,9 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
           {
             "apyPercentage": "0.23026397657694986",
             "referenceValues": {
-              "userBorrowBalanceTokens": "66012867068.78838627155172413793",
-              "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "2405.43",
+              "userSupplyBalanceTokens": "13068.75",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -120,9 +120,9 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
           {
             "apyPercentage": "0.20019958435848473",
             "referenceValues": {
-              "userBorrowBalanceTokens": "110643.61749019365079365079",
-              "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "10009.21",
+              "userSupplyBalanceTokens": "5003.94",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -162,9 +162,9 @@ exports[`getLegacyPool > does not fetch Prime distributions if user is not Prime
           {
             "apyPercentage": "0.23026397657694986",
             "referenceValues": {
-              "userBorrowBalanceTokens": "110643.61749019365079365079",
-              "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "10009.21",
+              "userSupplyBalanceTokens": "5003.94",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -669,9 +669,9 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
           {
             "apyPercentage": "0.20019958435848473",
             "referenceValues": {
-              "userBorrowBalanceTokens": "66012867068.78838627155172413793",
-              "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "2405.43",
+              "userSupplyBalanceTokens": "13068.75",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -721,9 +721,9 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
           {
             "apyPercentage": "0.23026397657694986",
             "referenceValues": {
-              "userBorrowBalanceTokens": "66012867068.78838627155172413793",
-              "userSupplyBalanceTokens": "15951129109546755.24488088106947945753",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "2405.43",
+              "userSupplyBalanceTokens": "13068.75",
+              "userXvsStakedTokens": "3265.3",
             },
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -785,9 +785,9 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
           {
             "apyPercentage": "0.20019958435848473",
             "referenceValues": {
-              "userBorrowBalanceTokens": "110643.61749019365079365079",
-              "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "10009.21",
+              "userSupplyBalanceTokens": "5003.94",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -837,9 +837,9 @@ exports[`getLegacyPool > fetches and formats Prime distributions and Prime distr
           {
             "apyPercentage": "0.23026397657694986",
             "referenceValues": {
-              "userBorrowBalanceTokens": "110643.61749019365079365079",
-              "userSupplyBalanceTokens": "1.358795738297682434014619091383216952499549585717162e+31",
-              "userXvsStakedTokens": "1000",
+              "userBorrowBalanceTokens": "10009.21",
+              "userSupplyBalanceTokens": "5003.94",
+              "userXvsStakedTokens": "3731.33",
             },
             "token": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
